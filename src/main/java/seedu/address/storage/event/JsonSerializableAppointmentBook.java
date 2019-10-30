@@ -45,10 +45,10 @@ class JsonSerializableAppointmentBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AppointmentBook toModelType() throws IllegalValueException {
+    public AppointmentBook toModelType(boolean areStaffMembers) throws IllegalValueException {
         AppointmentBook appointmentBook = new AppointmentBook();
         for (JsonAdaptedEvent jsonAdaptedEvent : events) {
-            Event event = jsonAdaptedEvent.toModelType();
+            Event event = jsonAdaptedEvent.toModelType(areStaffMembers);
             if (appointmentBook.hasEvent(event)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
             }

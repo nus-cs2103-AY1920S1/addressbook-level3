@@ -11,16 +11,15 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.common.Tag;
 import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Timing;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
-import seedu.address.model.person.parameters.PatientReferenceId;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
-import seedu.address.model.person.parameters.StaffReferenceId;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -59,33 +58,23 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String refId} into an {@code StaffReferenceId}.
+     * Parses a {@code String refId} into an {@code ReferenceId}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code StaffReferenceId} is invalid.
+     * @throws ParseException if the given {@code ReferenceId} is invalid.
      */
-    public static StaffReferenceId parseStaffReferenceId(String staffRefId) throws ParseException {
-        requireNonNull(staffRefId);
-        String trimmedRefId = staffRefId.trim().toUpperCase();
-        if (!PersonReferenceId.isValidId(trimmedRefId)) {
-            throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
-        }
-        return new StaffReferenceId(trimmedRefId);
+    public static ReferenceId parseStaffReferenceId(String staffRefId) throws ParseException {
+        return PersonReferenceId.parseStaffReferenceId(staffRefId);
     }
 
     /**
-     * Parses a {@code String refId} into an {@code PatientReferenceId}.
+     * Parses a {@code String refId} into an {@code ReferenceId}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code PatientReferenceId} is invalid.
+     * @throws ParseException if the given {@code ReferenceId} is invalid.
      */
-    public static PatientReferenceId parsePatientReferenceId(String patientRefId) throws ParseException {
-        requireNonNull(patientRefId);
-        String trimmedRefId = patientRefId.trim().toUpperCase();
-        if (!PersonReferenceId.isValidId(trimmedRefId)) {
-            throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
-        }
-        return new PatientReferenceId(trimmedRefId);
+    public static ReferenceId parsePatientReferenceId(String patientRefId) throws ParseException {
+        return PersonReferenceId.parsePatientReferenceId(patientRefId);
     }
 
     /**
