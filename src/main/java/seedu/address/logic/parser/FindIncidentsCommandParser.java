@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_SELF;
 
 import java.util.stream.Stream;
 
@@ -30,6 +31,7 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
         ArgumentMultimap argDescMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_DESCRIPTION);
         ArgumentMultimap argIdMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_ID);
         ArgumentMultimap argOpMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_OPERATOR);
+        ArgumentMultimap argSelfMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_SELF);
 
         if (arePrefixesPresent(argDescMap, SEARCH_PREFIX_DESCRIPTION)) {
             Description descriptionKeywords = ParserUtil.parseDescription(argDescMap
@@ -41,6 +43,8 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
         } else if (arePrefixesPresent(argOpMap, SEARCH_PREFIX_OPERATOR)) {
             Name nameKeywords = ParserUtil.parseName(argOpMap.getValue(SEARCH_PREFIX_OPERATOR).get());
             return new FindIncidentsCommand(new NameKeywordsPredicate(nameKeywords));
+        } else if (arePrefixesPresent(argSelfMap, SEARCH_PREFIX_SELF)) {
+            return new FindIncidentsCommand(SEARCH_PREFIX_SELF);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindIncidentsCommand.MESSAGE_USAGE));
