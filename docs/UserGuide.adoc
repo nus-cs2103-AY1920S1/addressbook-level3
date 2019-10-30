@@ -374,50 +374,81 @@ Examples:
 //
 //* `Import-ics -t individual -n Catherine -p /data/timetable.ics`
 
-=== Get Closest Location: `closestlocation`
+=== Closest Common Location
 
-This command is used to get the closest common location among a list of locations you entered.
+TimeBook will also help you to decide where to meet for your project meetings by suggesting to you where is the closest
+location for everyone to meet in NUS based on their schedule.
 
-Boundaries of this command:
+*Steps*
 
-. We define closest common location as the location that requires the least average time to travel to from the
-locations stated in the list.
-. We only support locations that are from NUSMods. Any other location would be voided and not be taken into
-consideration for the computation of the closest location.
+. Setup your group by:
+.. Adding your group members to your TimeBook with `addperson` command
+.. Adding your group to TimeBook with `addgroup` command
+.. Add your group members to your group with `addtogroup` command
+. Find the free common time when you want to meet with `show` command
+. With the free time slot `id` get the details for the closest common location with `popup` command
 
-Format:
+*Constraints*
 
-* `closestlocation l/LOCATIONA LOCATIONB ...` +
+Due to the lack of internet connectivity, TimeBook will only support locations that are in NUSMods and identifiable by
+Google Maps.
 
-Examples:
+*Definitions*
 
-* `closestlocation l/LT16 LT15 AS5`
+. We define closest common location as the location that requires the least average distance to travel to from different
+sources by car.
+. Locations that are not supported are voided and are not used for the calculations of the closest common location and
+average travelling distance.
+. Refer to the `Developer Guide` on how we compute the closest common location.
 
-=== Show Free Time slot `show-freetime`
 
-*Overview*
-When the command is executed a popup will appear that shows the closest common location for a particular free time slot in a group.
+==== Closest Common Location Popup `popup`
+command: `popup g/ [groupname] i/[id]`
 
-image::FreeTimePopup.png[]
+image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
+[#img-SuccessfulPopup]
+.An example of a popup when `popup` is executed
 
 _Description_
 
-There are three main information that you will see when you execute the command.
+When the command is executed a popup will appear that shows the all the information of the closest common location
+for a particular free time slot in a group.
 
-. The Closest common location will be shown on the top right corner.
-. The picture on google maps of the closest common location will be shown below the header.
-. The full details of will be shown on the left side of the popup.
-.. Second and third closest location will be shown
-.. The average time to reach the location for the various choices
-.. A list of voided location that TimeBook does not support
+_Parameters_
 
+. `[groupname]`
+- Description: This is the name of the Group you want to find the free time for. The `groupname` can be found on the
+`groups` tab in the user interface.(Use `switch-tab` if your tab is on persons)
+- Type: `String`
+. `[id]`
+- Description: This is the `id` of the free time slot of a group. You can get this `id` from the user interface when you
+use `show g/[groupname]` command. You can only enter the `id` that is shown on the screen.
+- Type: `String`
+
+_Success Response_
+
+If you follow the steps above, a popup will appear as seen in the Figure above.
+
+There are two main information that you will see in the popup when you execute the command.
+
+. The full details of the first, second and third closest common location will be shown on the right side of the popup.
+.. First choice represents the first closest and so on and so forth.
+.. The average distance(m) to reach the various location will be displayed below the respective choices.
+.. A list of voided location that TimeBook does not support will be shown at the bottom of the popup.
+. The picture of the closest common location on google maps will be shown on the left of the popup. Where the marker
+represent the exact location of the first closest common location.
+
+_Failure Response_
+
+. `Error` when all the source locations are not recognised by TimeBook, a popup will not appear.
+.. Feedback box will show: `We could not find a common location because all places cannot be found in NUS. The locations are:`
+. `Error` when all the group members are not in school before the free time slot, a popup will not appear.
+.. Feedback box will show: `Everyone has not started their schedule yet. Feel free to meet up any time.`
 Format:
-
-* `show-freetime g/GROUP_NAME id/SLOT_NUMBER` +
 
 Examples:
 
-* `show-freetime g/CS2103T id/2`
+* `popup g/CS2103T i/2`
 
 == FAQ
 
