@@ -1,3 +1,4 @@
+//@@author e0031374
 package tagline.model.group;
 
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;

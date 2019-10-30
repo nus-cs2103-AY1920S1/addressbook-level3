@@ -1,3 +1,4 @@
+//@@author e0031374
 package tagline.model.group;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
