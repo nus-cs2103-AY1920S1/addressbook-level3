@@ -44,6 +44,7 @@ public class SnoozeCommand extends UndoableCommand {
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @param hasIndex boolean that indicates if an index was specified.
      * @param index of the item to edit.
      * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
@@ -56,6 +57,11 @@ public class SnoozeCommand extends UndoableCommand {
      * @param index of the item to edit.
      * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
 >>>>>>> Add snooze command
+=======
+     * @param hasIndex boolean that indicates if an index was specified.
+     * @param index of the item to edit.
+     * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
+>>>>>>> 77beef877620bb25d68066b2550360272c1e9c07
      */
     public SnoozeCommand(boolean hasIndex, Index index, LocalDateTime newReminderOccurrence) {
         requireAllNonNull(hasIndex, newReminderOccurrence);
