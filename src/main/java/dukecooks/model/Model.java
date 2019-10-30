@@ -11,6 +11,8 @@ import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.health.ReadOnlyHealthRecords;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
+import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
@@ -31,6 +33,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<MealPlan> PREDICATE_SHOW_ALL_MEALPLANS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISE = unused -> true;
@@ -103,6 +108,17 @@ public interface Model {
      * Sets the user prefs' Duke Cooks Recipe file path.
      */
     void setRecipesFilePath(Path recipesFilePath);
+
+    //Recipe Book
+    /**
+     * Returns the user prefs' MealPlanBook file path.
+     */
+    Path getMealPlansFilePath();
+
+    /**
+     * Sets the user prefs' Duke Cooks Meal Plan file path.
+     */
+    void setMealPlansFilePath(Path recipesFilePath);
 
 
     /**
@@ -225,6 +241,48 @@ public interface Model {
      * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the Duke Cooks.
      */
     void setRecipe(Recipe target, Recipe editedRecipe);
+
+    /**
+     * Searches the given {@code recipe} within {@code recipeBook} for {@code Recipe} with matching name.
+     * {@code recipe} must exist in Duke Cooks.
+     * Returns {@code Recipe} found within {@code recipeBook}.
+     */
+    Recipe retrieveRecipe(Recipe recipe);
+
+    //=========== Meal Plan Book  ================================================================================
+
+    /**
+     * Replaces Duke Cooks data with the data in {@code mealPlanBook}.
+     */
+    void setMealPlanBook(ReadOnlyMealPlanBook mealPlanBook);
+
+    /** Returns MealPlanBook */
+    ReadOnlyMealPlanBook getMealPlanBook();
+
+    /**
+     * Returns true if a meal plan with the same identity as {@code mealPlan} exists in Duke Cooks.
+     */
+    boolean hasMealPlan(MealPlan mealPlan);
+
+    /**
+     * Deletes the given meal plan.
+     * The meal plan must exist in Duke Cooks.
+     */
+    void deleteMealPlan(MealPlan target);
+
+    /**
+     * Adds the given meal plan.
+     * {@code mealPlan} must not already exist in Duke Cooks.
+     */
+    void addMealPlan(MealPlan mealPlan);
+
+    /**
+     * Replaces the given meal plan {@code target} with {@code editedMealPlan}.
+     * {@code target} must exist in Duke Cooks.
+     * The meal plan identity of {@code editedMealPlan} must not be the same
+     * as another existing recipe in the Duke Cooks.
+     */
+    void setMealPlan(MealPlan target, MealPlan editedMealPlan);
 
     //=========== Workout Planner ================================================================================
 
@@ -375,6 +433,17 @@ public interface Model {
      */
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
 
+    //=========== Filtered Meal Plan List Accessors =============================================================
+
+    /** Returns an unmodifiable view of the filtered meal plan list */
+    ObservableList<MealPlan> getFilteredMealPlanList();
+
+    /**
+     * Updates the filter of the filtered meal plan list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMealPlanList(Predicate<MealPlan> predicate);
+
     //=========== Filtered Exercise List Accessors =============================================================
 
     /** Returns an unmodifiable view of the filtered exercise list */
@@ -407,5 +476,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDashboardList(Predicate<Dashboard> predicate);
-
 }

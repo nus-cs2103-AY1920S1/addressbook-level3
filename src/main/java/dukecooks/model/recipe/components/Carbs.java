@@ -11,7 +11,7 @@ public class Carbs {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Amount of carbohydrates should only contain numbers, express in grams, with units omitted.";
-    public static final String VALIDATION_REGEX = "\\d*";
+    public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
     public final String cardValue;
 

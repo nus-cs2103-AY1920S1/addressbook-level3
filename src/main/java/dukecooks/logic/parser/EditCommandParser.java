@@ -10,6 +10,7 @@ import dukecooks.logic.commands.dashboard.EditTaskCommand;
 import dukecooks.logic.commands.diary.EditDiaryCommand;
 import dukecooks.logic.commands.exercise.EditExerciseCommand;
 import dukecooks.logic.commands.health.EditRecordCommand;
+import dukecooks.logic.commands.mealplan.EditMealPlanCommand;
 import dukecooks.logic.commands.profile.EditProfileCommand;
 import dukecooks.logic.commands.recipe.EditRecipeCommand;
 import dukecooks.logic.parser.dashboard.EditTaskCommandParser;
@@ -17,6 +18,7 @@ import dukecooks.logic.parser.diary.EditDiaryCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.parser.exercise.EditExerciseCommandParser;
 import dukecooks.logic.parser.health.EditRecordCommandParser;
+import dukecooks.logic.parser.mealplan.EditMealPlanCommandParser;
 import dukecooks.logic.parser.profile.EditProfileCommandParser;
 import dukecooks.logic.parser.recipe.EditRecipeCommandParser;
 
@@ -51,6 +53,9 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         case EditRecipeCommand.VARIANT_WORD:
             return new EditRecipeCommandParser().parse(arguments);
+
+        case EditMealPlanCommand.VARIANT_WORD:
+            return new EditMealPlanCommandParser().parse(arguments);
 
         case EditRecordCommand.VARIANT_WORD:
             return new EditRecordCommandParser().parse(arguments);

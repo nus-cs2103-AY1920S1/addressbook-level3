@@ -70,7 +70,6 @@ public class UiManager implements Ui {
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
-        //showAlertDialogAndWait(recipeBookWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     /**

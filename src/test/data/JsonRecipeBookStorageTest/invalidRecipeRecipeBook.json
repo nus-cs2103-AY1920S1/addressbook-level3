@@ -1,5 +1,10 @@
 {
   "recipes": [ {
-    "name": "Recipe with invalid name field: T@mago Mak!"
+    "name": "Recipe with invalid name field: T@mago Mak!",
+    "ingredients" : [ "Valid Ingredient" ],
+    "calories" : "0",
+    "carbs" : "0",
+    "fats" : "0",
+    "protein" : "0"
   } ]
 }
