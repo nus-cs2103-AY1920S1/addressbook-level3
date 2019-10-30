@@ -75,6 +75,14 @@ public class Customer {
 
     public void addOrder(Order order) {
         orders.add(order);
+        // reviewTags();
+    }
+
+    public void reviewTags() {
+        /*
+        to be implemented
+        depending on the list of orders, tags change to the tag that showed up the most in the list of orders
+         */
     }
 
     /**
