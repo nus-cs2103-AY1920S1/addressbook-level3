@@ -18,15 +18,15 @@ public class PersonReferenceId implements ReferenceId {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Reference Id should only contain alphanumeric characters and it should be atleast 3 characters long";
-
-    public static final HashMap<String, ReferenceId> UNIQUE_UNIVERSAL_REFERENCE_ID_MAP = new HashMap<>();
-
     /*
      * The reference ID should only contain alphanumeric characters.
      */
-    public static final String VALIDATION_REGEX = "[a-zA-Z0-9]{3,}";
-    public final String referenceId;
-    public final boolean isStaff;
+    private static final String VALIDATION_REGEX = "[a-zA-Z0-9]{3,}";
+    private static final HashMap<String, ReferenceId> UNIQUE_UNIVERSAL_REFERENCE_ID_MAP = new HashMap<>();
+
+
+    private final String referenceId;
+    private final boolean isStaff;
 
     /**
      * Constructs a {@code PersonReferenceId}.
@@ -50,8 +50,8 @@ public class PersonReferenceId implements ReferenceId {
     private static ReferenceId issueReferenceId(String refId, boolean isStaff) throws ParseException {
         requireNonNull(refId);
         String trimmedRefId = refId.trim().toUpperCase();
-        if (!PersonReferenceId.isValidId(trimmedRefId)) {
-            throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
+        if (!isValidId(trimmedRefId)) {
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         }
         ReferenceId storedRefId = UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.get(trimmedRefId);
 

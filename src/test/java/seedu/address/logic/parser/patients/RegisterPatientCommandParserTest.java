@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
 import seedu.address.logic.commands.patients.UnregisterPatientCommand;
-import seedu.address.model.common.Tag;
+import seedu.address.model.person.parameters.Tag;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
