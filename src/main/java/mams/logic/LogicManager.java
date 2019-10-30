@@ -11,6 +11,9 @@ import mams.commons.core.LogsCenter;
 import mams.commons.exceptions.DataConversionException;
 import mams.logic.commands.Command;
 import mams.logic.commands.CommandResult;
+import mams.logic.commands.RedoCommand;
+import mams.logic.commands.SaveCommand;
+import mams.logic.commands.UndoCommand;
 import mams.logic.commands.exceptions.CommandException;
 import mams.logic.parser.MamsParser;
 import mams.logic.parser.exceptions.ParseException;
@@ -58,9 +61,13 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
+        Command command;
 
         try {
-            Command command = mamsParser.parseCommand(commandText);
+            command = mamsParser.parseCommand(commandText);
+            if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
+                new SaveCommand("undo").privateExecute(model);
+            }
             commandResult = command.execute(model);
             storage.saveMams(model.getMams());
             commandHistory.add(commandText, commandResult.getFeedbackToUser());

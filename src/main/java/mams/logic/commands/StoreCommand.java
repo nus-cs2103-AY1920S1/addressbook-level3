@@ -12,13 +12,15 @@ public abstract class StoreCommand extends Command {
     public static final String COMMAND_UNDO = "undo";
     public static final String COMMAND_REDO = "redo";
     public static final String COMMAND_BACKUP = "backup";
-    public static final String MESSAGE_USAGE_STORE = COMMAND_STORE + ": Stores current state in memory for undo/redo ";
 
     public static final String MESSAGE_USAGE_BACKUP = COMMAND_BACKUP
-            + ": Creates a backup with specified tag "
-            + "use a number for the backup tag"
+            + ": Creates a backup with specified tag \n"
+            + "Use an alphanumeric (excluding \"undo\" and \"redo\") for the backup tag\n"
+            + "The file will be prepended with \"mamshistory_\"\n"
+            + "If no tags are present, a timestamp will be used instead\n"
             + "Example: " + COMMAND_BACKUP
-            + PREFIX_TAG + "TAG NUMBER";
+            + " " + PREFIX_TAG + "TAG NUMBER";
+
     public static final String MESSAGE_USAGE_UNDO = COMMAND_UNDO
             + ": Undo last action";
     public static final String MESSAGE_USAGE_REDO = COMMAND_REDO
