@@ -393,6 +393,13 @@ class AddFoodCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //=========== Motivational Quotes =============================================================
+
+        @Override
+        public List<String> getMotivationalQuotesList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

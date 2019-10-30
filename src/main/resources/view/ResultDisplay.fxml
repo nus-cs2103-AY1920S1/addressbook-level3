@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+
 <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="placeHolder" HBox.hgrow="ALWAYS" maxHeight="Infinity"
       VBox.vgrow="ALWAYS"
       alignment="TOP_LEFT" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8">

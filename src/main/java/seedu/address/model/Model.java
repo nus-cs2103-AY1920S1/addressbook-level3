@@ -341,4 +341,11 @@ public interface Model {
      */
     void setBackground(Background background);
 
+    //=========== Motivational Quotes =============================================================
+
+    /**
+     * Returns an unmodifiable list of motivational quotes stored in this program.
+     */
+    public List<String> getMotivationalQuotesList();
+
 }

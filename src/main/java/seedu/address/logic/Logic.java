@@ -176,4 +176,12 @@ public interface Logic {
      * Returns the background to be set for this app.
      */
     Background getBackground();
+
+    //=========== Motivational Quotes =============================================================
+
+    /**
+     * Returns an unmodifiable list of motivational quotes stored in this program.
+     */
+    public List<String> getMotivationalQuotesList();
+
 }
