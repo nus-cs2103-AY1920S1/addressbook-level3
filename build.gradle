@@ -78,6 +78,7 @@ dependencies {
     compile group: 'org.jfxtras', name: 'jfxtras-icalendaragenda', version: '8.0-r6-SNAPSHOT'
     compile group: 'org.jfxtras', name: 'jfxtras-icalendarfx', version: '8.0-r6-SNAPSHOT'
     compile 'org.apache.commons:commons-text:1.8'
+    compile 'org.apache.poi:poi:3.9'
 }
 
 shadowJar {
