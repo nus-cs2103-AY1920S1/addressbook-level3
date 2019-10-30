@@ -29,6 +29,10 @@
     -fx-background-color: #75a2c7;
 }
 
+.bold {
+    -fx-font-weight: bold;
+}
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;

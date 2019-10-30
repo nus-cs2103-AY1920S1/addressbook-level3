@@ -2,13 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -24,15 +25,32 @@
                     <Region fx:constant="USE_PREF_SIZE" />
                 </minWidth>
             </Label>
+            <Label styleClass="bold">Patient Details: </Label>
             <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             <FlowPane fx:id="tags" />
             <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
             <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+
+            <Label styleClass="bold">Visit Start Date: </Label>
             <Label fx:id="startDateTime" styleClass="cell_small_label" text="\$startDateTime" />
+
+            <Label styleClass="bold">Visit End Date: </Label>
             <Label fx:id="endDateTime" styleClass="cell_small_label" text="\$endDateTime" />
-            <VBox fx:id="visitTasks" />
+
+            <Label styleClass="bold">Visit Remarks: </Label>
             <Label fx:id="remark" styleClass="cell_small_label" text="\$remarks" />
+
+            <Label styleClass="bold">Visit Tasks: </Label>
+            <TableView styleClass="hide_scrollbar" fx:id="visitTasks">
+                <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                <columns>
+                    <TableColumn fx:id="indexColumn" text="Index" sortable="false" minWidth="50" maxWidth="50"/>
+                    <TableColumn fx:id="descriptionColumn" text="Description" sortable="false"/>
+                    <TableColumn fx:id="detailColumn" text="Details" sortable="false"/>
+                    <TableColumn fx:id="finishedColumn" text="Finished" sortable="false" minWidth="75" maxWidth="75"/>
+                </columns>
+            </TableView>
         </VBox>
     </GridPane>
 </HBox>

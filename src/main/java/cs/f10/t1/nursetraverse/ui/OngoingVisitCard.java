@@ -4,12 +4,18 @@ import java.util.Comparator;
 
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.model.visit.Visit;
+import cs.f10.t1.nursetraverse.model.visittask.VisitTask;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * An UI component that displays information of a {@code Visit}.
@@ -47,7 +53,15 @@ public class OngoingVisitCard extends UiPart<Region> {
     @FXML
     private Label remark;
     @FXML
-    private VBox visitTasks;
+    private TableView<VisitTask> visitTasks;
+    @FXML
+    private TableColumn<VisitTask, String> indexColumn;
+    @FXML
+    private TableColumn<VisitTask, String> descriptionColumn;
+    @FXML
+    private TableColumn<VisitTask, String> detailColumn;
+    @FXML
+    private TableColumn<VisitTask, String> finishedColumn;
 
     public OngoingVisitCard(Visit visit) {
         super(FXML);
@@ -69,14 +83,58 @@ public class OngoingVisitCard extends UiPart<Region> {
         if (visit.getEndDateTime().isPresent()) {
             endDateTime.setText(visit.getEndDateTime().get().toString());
         } else {
-            endDateTime.setText("Ongoing Visit");
+            endDateTime.setText("Unfinished (Ongoing Visit)");
         }
-        remark.setText(this.visit.getRemark().remark);
 
-        visit.getVisitTasks()
-                .forEach(visitTask -> visitTasks.getChildren()
-                        .add(new Label(visitTask.toString())));
+        String remarks = this.visit.getRemark().remark;
+        if (remarks.isEmpty()) {
+            remarks = "This visit has no remarks.";
+        }
+        remark.setText(remarks);
 
+        //Setup visit task display columns and rows
+        indexColumn.setCellFactory(col -> new TableCell<>() {
+            @Override
+            public void updateIndex(int index) {
+                super.updateIndex(index);
+                if (isEmpty() || index < 0) {
+                    setText(null);
+                } else {
+                    setText(Integer.toString(index + 1));
+                }
+            }
+        });
+
+        descriptionColumn.setCellFactory(tc -> {
+            TableCell<VisitTask, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(descriptionColumn.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+
+        descriptionColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getVisitTodo().getDescription()));
+
+        detailColumn.setCellFactory(tc -> {
+            TableCell<VisitTask, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(detailColumn.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+
+        detailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDetail().toString()));
+
+        finishedColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getIsDoneAsString()));
+
+        visitTasks.setPlaceholder((new Label("This visit has no assigned tasks.")));
+        visit.getVisitTasks().forEach(visitTask -> visitTasks.getItems().add(visitTask));
     }
 
     @Override

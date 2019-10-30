@@ -83,7 +83,8 @@ public class PatientCard extends UiPart<Region> {
             }
         }
 
-        //Keep visits pane closed by default
+        //Keep panes closed by default
+        visitTodosTitledPane.setExpanded(false);
         visitsTitledPane.setExpanded(false);
         int visitIndex = 1;
         if (!patient.getVisits().isEmpty()) {

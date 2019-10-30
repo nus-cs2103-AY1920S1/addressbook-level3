@@ -40,9 +40,9 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
             + "[" + PREFIX_VISIT_REMARKS + "REMARKS] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_VISIT_TASK_UNFINISH + "1 "
+            + PREFIX_VISIT_TASK_FINISH + "2 "
             + PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "1 "
             + PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "2 140/90mmHg "
-            + PREFIX_VISIT_TASK_FINISH + "2 "
             + PREFIX_VISIT_REMARKS + "Patient may be allergic to bacitracin";
 
     public static final String MESSAGE_UPDATE_ONGOING_VISIT_SUCCESS = "Updated Visit: %1$s";
