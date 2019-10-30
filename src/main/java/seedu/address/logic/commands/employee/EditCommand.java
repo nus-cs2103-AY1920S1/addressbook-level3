@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PENDINGPAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTALSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -33,6 +35,8 @@ import seedu.address.model.employee.EmployeeId;
 import seedu.address.model.employee.EmployeeJoinDate;
 import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePay;
+import seedu.address.model.employee.EmployeePendingPay;
+import seedu.address.model.employee.EmployeeTotalSalary;
 import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.tag.Tag;
 
@@ -51,6 +55,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_PAY + "PAY] "
+            + "[" + PREFIX_PENDINGPAY + "PENDINGPAY] "
+            + "[" + PREFIX_TOTALSALARY + "TOTALSALARY] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -121,13 +127,18 @@ public class EditCommand extends Command {
         EmployeeId updatedEmployeeId = editEmployeeDescriptor.getEmployeeId().orElse(employeeToEdit.getEmployeeId());
         EmployeePay updatedEmployeePay = editEmployeeDescriptor.getEmployeePay()
                 .orElse(employeeToEdit.getEmployeePay());
+        EmployeePendingPay updatedEmployeePendingPay = editEmployeeDescriptor.getEmployeePendingPay()
+                .orElse(employeeToEdit.getEmployeePendingPay());
+        EmployeeTotalSalary updatedEmployeeTotalSalary = editEmployeeDescriptor.getEmployeeTotalSalary()
+                .orElse(employeeToEdit.getEmployeeTotalsalary());
         EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender()
                 .orElse(employeeToEdit.getEmployeeGender());
         EmployeeJoinDate updatedEmployeeJoinDate = editEmployeeDescriptor.getEmployeeJoinDate()
                 .orElse(employeeToEdit.getEmployeeJoinDate());
 
         return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender, updatedEmployeePay,
-                 updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
+                updatedEmployeePendingPay, updatedEmployeeTotalSalary,
+                updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
                 updatedEmployeeJoinDate, updatedTags);
     }
 
@@ -160,9 +171,12 @@ public class EditCommand extends Command {
         private EmployeeAddress employeeAddress;
         private EmployeeJoinDate employeeJoinDate;
         private EmployeePay employeePay;
+        private EmployeePendingPay employeePendingPay;
+        private EmployeeTotalSalary employeeTotalSalary;
         private EmployeeGender employeeGender;
         private EmployeeId employeeId;
         private Set<Tag> tags;
+
 
         public EditEmployeeDescriptor() {}
 
@@ -178,6 +192,8 @@ public class EditCommand extends Command {
             setEmployeeId(toCopy.employeeId);
             setEmployeeGender(toCopy.employeeGender);
             setEmployeePay(toCopy.employeePay);
+            setEmployeePendingPay(toCopy.employeePendingPay);
+            setEmployeeTotalSalary(toCopy.employeeTotalSalary);;
             setEmployeeJoinDate(toCopy.employeeJoinDate);
             setTags(toCopy.tags);
         }
@@ -216,6 +232,22 @@ public class EditCommand extends Command {
 
         public Optional<EmployeePay> getEmployeePay() {
             return Optional.ofNullable(employeePay);
+        }
+
+        public void setEmployeePendingPay(EmployeePendingPay employeePendingPay) {
+            this.employeePendingPay = employeePendingPay;
+        }
+
+        public Optional<EmployeePendingPay> getEmployeePendingPay() {
+            return Optional.ofNullable(employeePendingPay);
+        }
+
+        public void setEmployeeTotalSalary(EmployeeTotalSalary employeeTotalSalary) {
+            this.employeeTotalSalary = employeeTotalSalary;
+        }
+
+        public Optional<EmployeeTotalSalary> getEmployeeTotalSalary() {
+            return Optional.ofNullable(employeeTotalSalary);
         }
 
         public void setEmployeeGender(EmployeeGender employeeGender) {
@@ -292,6 +324,8 @@ public class EditCommand extends Command {
                     && getEmployeeAddress().equals(e.getEmployeeAddress())
                     && getTags().equals(e.getTags())
                     && getEmployeePay().equals(e.getEmployeePay())
+                    && getEmployeePendingPay().equals(e.getEmployeePendingPay())
+                    && getEmployeeTotalSalary().equals(e.getEmployeeTotalSalary())
                     && getEmployeeId().equals(e.getEmployeeId())
                     && getEmployeeGender().equals(e.getEmployeeGender())
                     && getEmployeeJoinDate().equals(e.getEmployeeJoinDate());

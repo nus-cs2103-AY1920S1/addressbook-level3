@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PENDINGPAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTALSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -25,15 +27,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.employee.Employee;
-import seedu.address.model.employee.EmployeeAddress;
-import seedu.address.model.employee.EmployeeEmail;
-import seedu.address.model.employee.EmployeeGender;
-import seedu.address.model.employee.EmployeeId;
-import seedu.address.model.employee.EmployeeJoinDate;
-import seedu.address.model.employee.EmployeeName;
-import seedu.address.model.employee.EmployeePay;
-import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -50,6 +44,8 @@ public class Pay extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_PAY + "PAY] "
+            + "[" + PREFIX_PENDINGPAY + "PENDINGPAY] "
+            + "[" + PREFIX_TOTALSALARY + "TOTALSALARY] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -101,6 +97,11 @@ public class Pay extends Command {
 
         //set amt
         editedEmployee.setEmployeePay(new EmployeePay(output));
+        String tt = editedEmployee.getEmployeeTotalsalary().value;
+        Double ttDouble = Double.parseDouble(tt);
+        double ps = ttDouble - amt;
+        String oput = (int) ps + "";
+        editedEmployee.setEmployeePendingPay((new EmployeePendingPay(oput)));
 
         if (!employeeToEdit.isSameEmployee(editedEmployee) && model.hasEmployee(editedEmployee)) {
             throw new CommandException(output);
@@ -132,12 +133,17 @@ public class Pay extends Command {
         EmployeeId updatedEmployeeId = editEmployeeDescriptor.getEmployeeId().orElse(employeeToEdit.getEmployeeId());
         EmployeePay updatedEmployeePay = editEmployeeDescriptor.getEmployeePay()
                 .orElse(employeeToEdit.getEmployeePay());
+        EmployeePendingPay updatedEmployeePendingPay = editEmployeeDescriptor.getEmployeePendingPay()
+                .orElse(employeeToEdit.getEmployeePendingPay());
+        EmployeeTotalSalary updatedEmployeeTotalSalary = editEmployeeDescriptor.getEmployeeTotalSalary()
+                .orElse(employeeToEdit.getEmployeeTotalsalary());
         EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender()
                 .orElse(employeeToEdit.getEmployeeGender());
         EmployeeJoinDate updatedEmployeeJoinDate = editEmployeeDescriptor.getEmployeeJoinDate()
                 .orElse(employeeToEdit.getEmployeeJoinDate());
 
         return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender, updatedEmployeePay,
+                updatedEmployeePendingPay, updatedEmployeeTotalSalary,
                 updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
                 updatedEmployeeJoinDate, updatedTags);
     }
@@ -171,6 +177,8 @@ public class Pay extends Command {
         private EmployeeAddress employeeAddress;
         private EmployeeJoinDate employeeJoinDate;
         private EmployeePay employeePay;
+        private EmployeePendingPay employeePendingPay;
+        private EmployeeTotalSalary employeeTotalSalary;
         private EmployeeGender employeeGender;
         private EmployeeId employeeId;
         private Set<Tag> tags;
@@ -190,6 +198,8 @@ public class Pay extends Command {
             setEmployeeId(toCopy.employeeId);
             setEmployeeGender(toCopy.employeeGender);
             setEmployeePay(toCopy.employeePay);
+            setEmployeePendingPay(toCopy.employeePendingPay);
+            setEmployeeTotalSalary(toCopy.employeeTotalSalary);;
             setEmployeeJoinDate(toCopy.employeeJoinDate);
             setTags(toCopy.tags);
         }
@@ -199,7 +209,7 @@ public class Pay extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(employeeName, employeePhone, employeeEmail, employeeAddress, tags,
-                    employeeGender, employeeJoinDate, employeePay);
+                    employeeGender, employeeJoinDate, employeePay, employeePendingPay, employeeTotalSalary);
         }
 
         public void setEmployeeName(EmployeeName employeeName) {
@@ -228,6 +238,22 @@ public class Pay extends Command {
 
         public Optional<EmployeePay> getEmployeePay() {
             return Optional.ofNullable(employeePay);
+        }
+
+        public void setEmployeePendingPay(EmployeePendingPay employeePendingPay) {
+            this.employeePendingPay = employeePendingPay;
+        }
+
+        public Optional<EmployeePendingPay> getEmployeePendingPay() {
+            return Optional.ofNullable(employeePendingPay);
+        }
+
+        public void setEmployeeTotalSalary(EmployeeTotalSalary employeeTotalSalary) {
+            this.employeeTotalSalary = employeeTotalSalary;
+        }
+
+        public Optional<EmployeeTotalSalary> getEmployeeTotalSalary() {
+            return Optional.ofNullable(employeeTotalSalary);
         }
 
         public void setEmployeeGender(EmployeeGender employeeGender) {
@@ -304,6 +330,8 @@ public class Pay extends Command {
                     && getEmployeeAddress().equals(e.getEmployeeAddress())
                     && getTags().equals(e.getTags())
                     && getEmployeePay().equals(e.getEmployeePay())
+                    && getEmployeePendingPay().equals(e.getEmployeePendingPay())
+                    && getEmployeeTotalSalary().equals(e.getEmployeeTotalSalary())
                     && getEmployeeId().equals(e.getEmployeeId())
                     && getEmployeeGender().equals(e.getEmployeeGender())
                     && getEmployeeJoinDate().equals(e.getEmployeeJoinDate());

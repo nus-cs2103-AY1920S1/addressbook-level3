@@ -9,15 +9,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.EventBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEventBook;
-import seedu.address.model.employee.Employee;
-import seedu.address.model.employee.EmployeeAddress;
-import seedu.address.model.employee.EmployeeEmail;
-import seedu.address.model.employee.EmployeeGender;
-import seedu.address.model.employee.EmployeeId;
-import seedu.address.model.employee.EmployeeJoinDate;
-import seedu.address.model.employee.EmployeeName;
-import seedu.address.model.employee.EmployeePay;
-import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.*;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventManpowerNeeded;
@@ -34,37 +26,44 @@ public class SampleDataUtil {
     public static Employee[] getSampleEmployees() {
         return new Employee[] {
             new Employee(new EmployeeId(), new EmployeeName("Alex Yeoh"), new EmployeeGender("male"),
-                    new EmployeePay("Manager"), new EmployeePhone("87438807"),
+                    new EmployeePay("Manager"), new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),
+                    new EmployeePhone("87438807"),
                     new EmployeeEmail("alexyeoh@example.com"),
                     new EmployeeAddress("Blk 30 Geylang Street 29, #06-40"),
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
             new Employee(new EmployeeId(), new EmployeeName("Bernice Yu"), new EmployeeGender("female"),
-                    new EmployeePay("Manager"), new EmployeePhone("87438807"),
+                    new EmployeePay("Manager"), new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),
+                    new EmployeePhone("87438807"),
                     new EmployeeEmail("bbb@example.com"),
                     new EmployeeAddress("Blk 30 BBB Street 29, #06-40"),
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
             new Employee(new EmployeeId(), new EmployeeName("Charlotte Oliveiro"), new EmployeeGender("female"),
-                    new EmployeePay("Manager"), new EmployeePhone("89123407"),
+                    new EmployeePay("Manager"), new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),
+                    new EmployeePhone("89123407"),
                     new EmployeeEmail("ccc@example.com"),
                     new EmployeeAddress("Blk 30 CCC Street 29, #06-40"),
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
             new Employee(new EmployeeId(), new EmployeeName("David Li"), new EmployeeGender("male"),
-                    new EmployeePay("Manager"), new EmployeePhone("87499807"),
+                    new EmployeePay("Manager"), new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),
+                    new EmployeePhone("87499807"),
                     new EmployeeEmail("ddd@example.com"),
                     new EmployeeAddress("Blk 30 DDD Street 29, #06-40"),
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
             new Employee(new EmployeeId(), new EmployeeName("Irfan Ibrahim"), new EmployeeGender("male"),
-                    new EmployeePay("Manager"), new EmployeePhone("87438807"),
+                    new EmployeePay("Manager"),
+                    new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),new EmployeePhone("87438807"),
                     new EmployeeEmail("eee@example.com"),
                     new EmployeeAddress("Blk 30 EEE Street 29, #06-40"),
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
             new Employee(new EmployeeId(), new EmployeeName("Roy Balakrishnan"), new EmployeeGender("male"),
-                    new EmployeePay("Manager"), new EmployeePhone("87438807"),
+                    new EmployeePay("Manager"),new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),
+                    new EmployeePhone("87438807"),
                     new EmployeeEmail("fff@example.com"),
                     new EmployeeAddress("Blk 30 FFF Street 29, #06-40"),
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
             new Employee(new EmployeeId(), new EmployeeName("George Michael"), new EmployeeGender("male"),
-                    new EmployeePay("Temp"), new EmployeePhone("87438807"),
+                    new EmployeePay("Temp"), new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),
+                    new EmployeePhone("87438807"),
                     new EmployeeEmail("ggg@example.com"),
                     new EmployeeAddress("Blk 30 GGG Street 99, #06-40"),
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends"))

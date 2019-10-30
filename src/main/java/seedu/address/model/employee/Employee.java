@@ -14,6 +14,8 @@ import seedu.address.model.tag.Tag;
 public class Employee {
 
     private EmployeePay employeePay;
+    private EmployeeTotalSalary employeeTotalSalary;
+    private EmployeePendingPay employeePendingPay;
 
     // Identity fields
     private final EmployeeName employeeName;
@@ -32,7 +34,8 @@ public class Employee {
      * Every field must be present and not null.
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
-                    EmployeePay employeePay, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                    EmployeePay employeePay, EmployeePendingPay employeePendingPay, EmployeeTotalSalary employeeTotalSalary,
+                    EmployeePhone employeePhone, EmployeeEmail employeeEmail,
                     EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
@@ -42,6 +45,8 @@ public class Employee {
         this.employeeGender = employeeGender;
         this.employeeJoinDate = employeeJoinDate;
         this.employeePay = employeePay;
+        this.employeePendingPay = employeePendingPay;
+        this.employeeTotalSalary = employeeTotalSalary;
         this.tags.add(new Tag(employeeGender.gender));
         this.tags.addAll(tags);
     }
@@ -55,6 +60,8 @@ public class Employee {
         this.employeeGender = null;
         this.employeeJoinDate = null;
         this.employeePay = null;
+        this.employeePendingPay = null;
+        this.employeeTotalSalary = null;
         this.tags.addAll(tags);
     }
 
@@ -82,6 +89,23 @@ public class Employee {
         return employeePay;
     }
 
+    public EmployeeTotalSalary getEmployeeTotalsalary() {
+        EmployeeTotalSalary e = new EmployeeTotalSalary("10000");
+        return e;
+    }
+
+    public EmployeePendingPay getEmployeePendingPay() {
+//        String paid = employeePay.value;
+//        Double paidDouble = Double.parseDouble(paid);
+//        String tSalary = employeeTotalSalary.value;
+//        Double tsDouble = Double.parseDouble(tSalary);
+//        double amt = tsDouble - paidDouble;
+//        String output = (int) amt + "";
+//        EmployeePendingPay e = new EmployeePendingPay(employeePay.value);
+//        return e;
+        return employeePendingPay;
+    }
+
     public EmployeeGender getEmployeeGender() {
         return employeeGender;
     }
@@ -92,6 +116,14 @@ public class Employee {
 
     public void setEmployeePay(EmployeePay employeePay) {
         this.employeePay = employeePay;
+    }
+
+    public void setEmployeeTotalSalary(EmployeeTotalSalary employeeTotalSalary) {
+        this.employeeTotalSalary = employeeTotalSalary;
+    }
+
+    public void setEmployeePendingPay(EmployeePendingPay employeePendingPay) {
+        this.employeePendingPay = employeePendingPay;
     }
 
     /**
@@ -134,6 +166,8 @@ public class Employee {
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
                 && otherEmployee.getEmployeePay().equals(getEmployeePay())
+                && otherEmployee.getEmployeePendingPay().equals(getEmployeePendingPay())
+                && otherEmployee.getEmployeeTotalsalary().equals(getEmployeeTotalsalary())
                 && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
                 && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail())
                 && otherEmployee.getEmployeeAddress().equals(getEmployeeAddress())
@@ -157,6 +191,10 @@ public class Employee {
                 .append(getEmployeeGender())
                 .append(" EmployeePay: ")
                 .append(getEmployeePay())
+                .append(" EmployeePendingPay: ")
+                .append(getEmployeePendingPay())
+                .append(" EmployeeTotalSalary: ")
+                .append(getEmployeeTotalsalary())
                 .append(" EmployeePhone: ")
                 .append(getEmployeePhone())
                 .append(" EmployeeEmail: ")

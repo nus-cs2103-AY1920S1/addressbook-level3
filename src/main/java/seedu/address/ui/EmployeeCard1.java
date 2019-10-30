@@ -59,8 +59,8 @@ public class EmployeeCard1 extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName);
         phone.setText("Totally Paid : " + employee.getEmployeePay().value);
-        address.setText(employee.getEmployeeAddress().value);
-        email.setText(employee.getEmployeeEmail().value);
+        address.setText("Total Salary : " + employee.getEmployeeTotalsalary().value);
+        email.setText("Pending to Pay : " + employee.getEmployeePendingPay().value);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -72,8 +72,8 @@ public class EmployeeCard1 extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
         phone.setText("Totally Paid : " + employee.getEmployeePay().value);
-        address.setText(employee.getEmployeeAddress().value);
-        email.setText(employee.getEmployeeEmail().value);
+        address.setText("Total Salary : " + employee.getEmployeeTotalsalary().value);
+        email.setText("Pending to Pay : " + employee.getEmployeePendingPay().value);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
