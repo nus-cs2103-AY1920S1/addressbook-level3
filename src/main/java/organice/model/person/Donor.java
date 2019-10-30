@@ -112,7 +112,7 @@ public class Donor extends Person {
 
     public void setProcessingList(String newProcessingList) {
         if (newProcessingList.isEmpty()) {
-            this.processingTodoList = processingTodoList;
+            this.processingTodoList = null;
         } else {
             TaskList updatedProcessingList = new TaskList("");
             String[] taskString = newProcessingList.split("\n");
