@@ -1,8 +1,10 @@
 package dream.fcard.logic.stats;
 
-import dream.fcard.util.DateTimeUtil;
 import java.time.Duration;
 import java.time.LocalDateTime;
+
+import dream.fcard.util.DateTimeUtil;
+
 
 /**
  * A Session object represents a length of time the user spends doing a task, e.g. using the app

@@ -1,6 +1,5 @@
 package dream.fcard.logic.storage;
 
-import dream.fcard.logic.stats.Stats;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,6 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dream.fcard.logic.stats.Stats;
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;

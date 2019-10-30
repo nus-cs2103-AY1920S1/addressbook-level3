@@ -22,8 +22,7 @@ import javafx.scene.layout.VBox;
 /**
  * The pane to view the questions of a deck and access deck editing functionality.
  */
-public class DeckDisplay extends VBox
-{
+public class DeckDisplay extends VBox {
     @FXML
     private Label deckName;
     @FXML
