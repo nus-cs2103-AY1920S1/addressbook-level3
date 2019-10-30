@@ -39,14 +39,20 @@ IMPORTANT: This symbol indicates important information
 command line and executed by the application.
 
 == Quick Start
+This section guides you on how to install Athletick on your computer.
 
-.  Ensure you have Java `11` or above installed in your Computer.
+These are the steps you should take:
+
+.  Check that you have Java `11` or above installed in your Computer.
+
 .  Download the latest `athletick.jar` link:{repoURL}/releases[here].
+
 .  Copy the downloaded file to the folder you want to use as the home folder for your Athletick.
+
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
-+
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 //To be included at a later milestone
@@ -57,7 +63,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 //* **`delete`**`3` : deletes the 3rd contact shown in the current list
 //* *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+You may refer to <<Features>> for a full list of commands and their details.
 
 [[Features]]
 == Features
@@ -342,29 +348,83 @@ image::viewperformance_wyss.png[width="395"]
 
 === Calendar
 
-==== Viewing calendar displaying training and performance entries : `view calendar`
+This section covers commands related to the calendar feature, which serves 2 primary functions:
 
-This command displays calendar which indicates days with training or performance entries.
+. Provides an overview of training and performance records in a selected month.
+
+. Displays training and performance records entered on a specific date.
+
+==== Viewing the calendar : `view calendar`
+
+This command displays the calendar for the current month.
+
+Let's say that you have been entering training and performance records into **Athletick** over the past few weeks in the current month (e.g October), and you would like to find out which days of the month contain training or performance records.
 
 *What you should do*
 
-Type in the following command and press enter.
+Type `view calender` into the command box, and press kbd:[Enter] to execute it.
 
-Format : `view calendar`
+image::calendar1.png[]
 
 *What you should see*
 
-image::calendar.png[width="790"]
+The result box will display the message "Viewing your calendar".
 
-The result box will inform you that you are currently viewing your calendar.
+image::calendar2.png[]
 
-The feature box will display the calendar feature.
+Additionally, the feature box will display the calendar for the current month (e.g. October).
+
+image::calendar3.png[]
 
 Header 1 displays today’s day and date.
 
 Header 2 displays the month and year you are currently viewing.
 
-You may use the left and right buttons to navigate to a different month. In the calendar, days with training entries are marked with an orange circle, and days with performance entries are marked with a purple circle.
+image::calendar4.png[]
+
+You may use the left and right buttons beside header 2 to navigate to the previous or next month. In the calendar, days with training entries are marked with an orange dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.
+
+==== Navigating the calendar to a specific month: `calendar MMYYYY`
+
+This command allows you to display the calendar for a specific month of your choice.
+
+You will need to specify the month and the year you would like to view.
+
+Let's say that you would like to view the calendar containing training and performance records from 2 years ago (e.g. October 2017). Instead of clicking the left arrow over 20 times, you can immediately jump to your month of interest using this command. 
+
+*What you should do*
+
+Type in the command `calendar` followed by the desired month and year in the format `MMYYYY`.
+
+Format: `calendar MMYYYY`
+
+NOTE: `MM` provided has to be within the range `01` to `12` for the command to execute successfully
+
+Example: `view 102017`
+
+Type `view 102017` into the command box, and press kbd:[enter] to execute it.
+
+image::calendar1.png[]
+
+*What you should see*
+
+The result box will display the message "Viewing your calendar".
+
+image::calendar2.png[]
+
+Additionally, the feature box will display the calendar for the current month (e.g. October).
+
+image::calendar3.png[]
+
+Header 1 displays today’s day and date.
+
+Header 2 displays the month and year you are currently viewing.
+
+image::calendar4.png[]
+
+You may use the left and right buttons beside header 2 to navigate to the previous or next month. In the calendar, days with training entries are marked with an orange dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.
+
+==== Viewing training / performance details for a specific date
 
 === Athlete Management
 

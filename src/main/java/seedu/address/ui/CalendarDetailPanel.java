@@ -33,12 +33,25 @@ public class CalendarDetailPanel extends UiPart<Region> {
         super(FXML);
         this.date = date;
         this.model = model;
+        initialiseAttendanceData();
         initialisePerformanceData();
     }
 
     /**
-     * Retrieves data from model. Creates a header for each event and lists records for the event
-     * taken on the particular date.
+     * Retrieves attendance data from model. Creates a row for each person and displays their
+     * name and attendance in the same row.
+     */
+    private void initialiseAttendanceData() {
+        HashMap<Person, Boolean> attendanceData = model.getTrainingAttendanceOnDate(date);
+        attendanceData.forEach((person, attendance) -> {
+            String name = person.getName().toString();
+            boolean isPresent = attendance.booleanValue();
+        });
+    }
+
+    /**
+     * Retrieves performance data from model. Creates a header for each event and lists records for
+     * the event taken on the particular date.
      */
     private void initialisePerformanceData() {
         HashMap<Event, List<CalendarCompatibleRecord>> performanceData =

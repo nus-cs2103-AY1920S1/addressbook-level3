@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -321,27 +322,40 @@ public class CalendarPanel extends UiPart<Region> {
                 String day = days[counter];
                 Label l = createLabel(day);
                 boolean havePerformanceEntry = false;
+                boolean haveTrainingEntry = false;
+                boolean setColour = false;
                 if (beforeCount > 0) {
                     l.setTextFill(Paint.valueOf("#999999"));
                     havePerformanceEntry = checkPerformanceEntryExists(day, -1);
+                    haveTrainingEntry = checkTrainingEntryExists(day, -1);
                     beforeCount--;
                 } else if (currentCount > 0) {
                     // mark today's date in red and bold, otherwise mark as normal
                     if (isToday(days[counter])) {
-                        l.setTextFill(Paint.valueOf("#f64747"));
+                        l.setTextFill(Paint.valueOf("#ffffff"));
                         l.setStyle("-fx-font-weight:bold");
+                        setColour = true;
                     }
                     havePerformanceEntry = checkPerformanceEntryExists(day, 0);
+                    haveTrainingEntry = checkTrainingEntryExists(day, 0);
                     currentCount--;
                 } else {
                     havePerformanceEntry = checkPerformanceEntryExists(day, 1);
+                    haveTrainingEntry = checkTrainingEntryExists(day, 1);
                     l.setTextFill(Paint.valueOf("#999999"));
                 }
-                if (havePerformanceEntry) {
-                    ImageView performanceIndicator = createPerformanceIndicator();
-                    calendarGridPane.add(gridContent(l, performanceIndicator), col, row);
+
+                ImageView performanceIndicator = createPerformanceIndicator();
+                ImageView trainingIndicator = createTrainingIndicator();
+                if (havePerformanceEntry && haveTrainingEntry) {
+                    calendarGridPane.add(gridContent(setColour, l,
+                            combineIndicators(trainingIndicator, performanceIndicator)), col, row);
+                } else if (havePerformanceEntry) {
+                    calendarGridPane.add(gridContent(setColour, l, performanceIndicator), col, row);
+                } else if (haveTrainingEntry) {
+                    calendarGridPane.add(gridContent(setColour, l, trainingIndicator), col, row);
                 } else {
-                    calendarGridPane.add(gridContent(l), col, row);
+                    calendarGridPane.add(gridContent(setColour, l), col, row);
                 }
                 counter++;
             }
@@ -380,6 +394,37 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
+     * Checks if there is a training entry on a particular AthletickDate constructed using the
+     * visible calendar dates.
+     * @param day Day
+     * @param monthChange Used for days shown from previous and next month that fill up the
+     *                    remaining tail and lead gaps
+     * @return boolean True if there is a training entry on that date, false otherwise.
+     */
+    private boolean checkTrainingEntryExists(String day, int monthChange) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.add(Calendar.MONTH, monthChange);
+        int y = c.get(Calendar.YEAR);
+        int m = c.get(Calendar.MONTH);
+        AthletickDate ad = new AthletickDate(Integer.parseInt(day), m + 1, y, 1,
+                MONTHS[m]);
+        return model.hasTraining(ad);
+    }
+
+    /**
+     * Creates a training dot indicator.
+     * @return ImageView with set image and desired dimensions.
+     */
+    private ImageView createTrainingIndicator() {
+        ImageView i = new ImageView(trainingIcon);
+        i.setFitHeight(6);
+        i.setFitWidth(6);
+        return i;
+    }
+
+    /**
      * Creates a label with the provided {@code labelText}.
      * @param labelText String to be used as text
      * @return Label with text set as {@code labelText}.
@@ -410,15 +455,42 @@ public class CalendarPanel extends UiPart<Region> {
      * @param items Items to be wrapped
      * @return VBox containing item.
      */
-    private VBox gridContent(Node ... items) {
+    private VBox gridContent(boolean setColor, Node ... items) {
         VBox v = new VBox();
-        v.setFillWidth(true);
-        v.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        v.setFillWidth(false);
+        v.setPrefHeight(30);
+        v.setPrefHeight(30);
+        v.setMaxSize(30, 30);
         v.setAlignment(Pos.TOP_CENTER);
         for (Node item : items) {
             v.getChildren().add(item);
         }
+        if (setColor) {
+            v.setStyle("-fx-background-color:  #30336B; -fx-background-radius: 180");
+        }
         return v;
+    }
+
+    /**
+     * Combines training and performance indicators together when a date has both training and
+     *  performance records.
+     * @param items Dot indicators
+     * @return HBox with indicators placed inside with appropriate margins between indicators.
+     */
+    private HBox combineIndicators(Node ... items) {
+        HBox h = new HBox();
+        h.setFillHeight(false);
+        h.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        h.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        h.setAlignment(Pos.TOP_CENTER);
+        for (Node item : items) {
+            VBox v = new VBox();
+            v.getChildren().add(item);
+            v.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+            v.setPadding(new Insets(0, 3, 0, 3));
+            h.getChildren().add(v);
+        }
+        return h;
     }
 
     /**
