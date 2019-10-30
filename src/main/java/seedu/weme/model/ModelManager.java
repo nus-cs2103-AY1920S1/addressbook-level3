@@ -337,6 +337,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void decrementMemeLikeCount(Meme meme) {
+        versionedWeme.decrementMemeLikeCount(meme);
+    }
+
+    @Override
     public int getCountOfTag(Tag tag) {
         return versionedWeme.getCountOfTag(tag);
     }

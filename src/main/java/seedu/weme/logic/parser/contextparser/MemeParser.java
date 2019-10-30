@@ -11,6 +11,7 @@ import seedu.weme.logic.commands.memecommand.MemeArchiveCommand;
 import seedu.weme.logic.commands.memecommand.MemeArchivesCommand;
 import seedu.weme.logic.commands.memecommand.MemeClearCommand;
 import seedu.weme.logic.commands.memecommand.MemeDeleteCommand;
+import seedu.weme.logic.commands.memecommand.MemeDislikeCommand;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.logic.commands.memecommand.MemeFindCommand;
 import seedu.weme.logic.commands.memecommand.MemeLikeCommand;
@@ -20,6 +21,7 @@ import seedu.weme.logic.commands.memecommand.MemeUnarchiveCommand;
 import seedu.weme.logic.parser.commandparser.memecommandparser.MemeAddCommandParser;
 import seedu.weme.logic.parser.commandparser.memecommandparser.MemeArchiveCommandParser;
 import seedu.weme.logic.parser.commandparser.memecommandparser.MemeDeleteCommandParser;
+import seedu.weme.logic.parser.commandparser.memecommandparser.MemeDislikeCommandParser;
 import seedu.weme.logic.parser.commandparser.memecommandparser.MemeEditCommandParser;
 import seedu.weme.logic.parser.commandparser.memecommandparser.MemeFindCommandParser;
 import seedu.weme.logic.parser.commandparser.memecommandparser.MemeLikeCommandParser;
@@ -70,6 +72,9 @@ public class MemeParser extends WemeParser {
 
         case MemeLikeCommand.COMMAND_WORD:
             return new MemeLikeCommandParser().parse(arguments);
+
+        case MemeDislikeCommand.COMMAND_WORD:
+            return new MemeDislikeCommandParser().parse(arguments);
 
         case MemeStageCommand.COMMAND_WORD:
             return new MemeStageCommandParser().parse(arguments);

@@ -26,6 +26,7 @@ public class MemeLikeCommandPrompter implements Prompter {
      */
     @Override
     public CommandPrompt prompt(Model model, String arguments) throws PromptException {
+        String displayText;
         List<String> possibleArguments = model
                 .getFilteredMemeList()
                 .stream()
@@ -33,12 +34,18 @@ public class MemeLikeCommandPrompter implements Prompter {
                 .map(meme -> String.valueOf(model.getFilteredMemeList().indexOf(meme) + 1))
                 .collect(Collectors.toList());
 
-        return new CommandPrompt(
-                possibleArguments
-                        .stream()
-                        .limit(MAX_RESULTS_DISPLAY)
-                        .reduce((x, y) -> x + '\n' + y)
-                        .orElse(NO_LISTED_MEME),
+        String pattern = PREAMBLE + "+\\d+$";
+        if (arguments.matches(pattern)) {
+            displayText = "You can now use UP arrow key to spam likes!";
+        } else {
+            displayText = possibleArguments
+                    .stream()
+                    .limit(MAX_RESULTS_DISPLAY)
+                    .reduce((x, y) -> x + '\n' + y)
+                    .orElse(NO_LISTED_MEME);
+        }
+
+        return new CommandPrompt(displayText,
                 PREAMBLE + possibleArguments
                         .stream()
                         .findFirst()

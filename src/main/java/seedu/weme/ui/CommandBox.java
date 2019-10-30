@@ -1,13 +1,22 @@
 package seedu.weme.ui;
 
+import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
+import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
+
+import java.util.regex.Matcher;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
+import seedu.weme.logic.commands.memecommand.MemeDislikeCommand;
+import seedu.weme.logic.commands.memecommand.MemeLikeCommand;
+import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 
@@ -18,6 +27,7 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
+    private static final int BASE_INDEX = 1;
 
     private final CommandExecutor commandExecutor;
     private final CommandPrompter commandPrompter;
@@ -40,8 +50,81 @@ public class CommandBox extends UiPart<Region> {
                 isShowingCommandSuccess = false;
             }
         });
-        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTabPress);
+        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPress);
     }
+
+    /**
+     * Handles the key press event, {@code keyEvent}.
+     */
+    @FXML
+    private void handleKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        case UP:
+            // As up and down buttons will alter the position of the caret,
+            // consuming it causes the caret's position to remain unchanged
+        case DOWN:
+            handleLikeByKeyPress(keyEvent);
+            break;
+        case LEFT:
+        case RIGHT:
+            handleIndexToggleByKeyPress(keyEvent);
+            break;
+        case TAB:
+            handleTabPress(keyEvent);
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+
+    /**
+     * Changes index in the command box with key press to enable fast liking.
+     */
+    private void handleIndexToggleByKeyPress(KeyEvent event) {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(commandTextField.getText().trim());
+        // Check if the input is a valid command
+        if (!matcher.matches()) {
+            return;
+        }
+
+        if (!matcher.group(COMMAND_WORD).equals(MemeLikeCommand.COMMAND_WORD)) {
+            // Do not handle if the command word is not a like command.
+            return;
+        } else {
+            final String commandWord = matcher.group(WemeParser.COMMAND_WORD);
+            final String argument = matcher.group(WemeParser.ARGUMENTS);
+            int change = event.getCode().equals(KeyCode.LEFT) ? -1 : 1;
+            int currentLikeCount = Integer.parseInt(argument.trim());
+            int newLikeCount = currentLikeCount + change;
+            commandTextField.setText(commandWord + " " + (Math.max(newLikeCount, BASE_INDEX)));
+        }
+        commandTextField.positionCaret(commandTextField.getText().length());
+        event.consume();
+    }
+
+    /**
+     * Handles like command in the form of key press.
+     */
+    private void handleLikeByKeyPress(KeyEvent event) {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(commandTextField.getText().trim());
+        if (matcher.matches()) {
+            try {
+                final String commandWord = matcher.group(WemeParser.COMMAND_WORD);
+                if (commandWord.equals(MemeLikeCommand.COMMAND_WORD)
+                        && event.getCode().equals(KeyCode.UP)
+                        || commandWord.equals(MemeDislikeCommand.COMMAND_WORD)
+                        && event.getCode().equals(KeyCode.DOWN)) {
+                    commandExecutor.execute(commandTextField.getText());
+                }
+            } catch (CommandException | ParseException e) {
+                setStyleToIndicateCommandFailure();
+            } finally {
+                commandTextField.positionCaret(commandTextField.getText().length());
+                event.consume();
+            }
+        }
+    }
+
 
     /**
      * Handles the Enter button pressed event.

@@ -300,6 +300,10 @@ public class Weme implements ReadOnlyWeme {
         stats.incrementMemeLikeCount(meme);
     }
 
+    public void decrementMemeLikeCount(Meme meme) {
+        stats.decrementMemeLikeCount(meme);
+    }
+
     public void clearMemeStats(Meme meme) {
         stats.deleteLikesByMeme(meme);
     }

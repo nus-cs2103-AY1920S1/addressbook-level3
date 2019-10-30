@@ -27,6 +27,8 @@ public interface Stats {
 
     void incrementMemeLikeCount(Meme meme);
 
+    void decrementMemeLikeCount(Meme meme);
+
     void deleteLikesByMeme(Meme meme);
 
     //============= Tag Data ====================================

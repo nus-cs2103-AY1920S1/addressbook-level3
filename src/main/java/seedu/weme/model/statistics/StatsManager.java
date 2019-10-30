@@ -68,6 +68,14 @@ public class StatsManager implements Stats {
     }
 
     /**
+     * Increments like count of a meme.
+     */
+    @Override
+    public void decrementMemeLikeCount(Meme meme) {
+        likeManager.decrementLikesByMeme(meme);
+    }
+
+    /**
      * Deletes like count of a meme from likeData.
      */
     @Override
