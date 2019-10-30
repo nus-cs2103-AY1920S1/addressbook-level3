@@ -13,7 +13,7 @@
   <PieChart fx:id="pieChart" layoutX="10" layoutY="110" />
   <VBox fx:id="barChartPlaceholder">
       <BarChart fx:id="barChart">
-          <xAxis >
+          <xAxis>
               <CategoryAxis side="BOTTOM" fx:id="xLabel" />
           </xAxis>
           <yAxis>

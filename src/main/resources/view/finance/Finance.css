@@ -86,3 +86,7 @@
 #pieChart .label {
     -fx-text-fill: black;
 }
+
+#barChart .label {
+    -fx-text-fill: black;
+}

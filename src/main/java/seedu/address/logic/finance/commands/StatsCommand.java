@@ -119,9 +119,9 @@ public class StatsCommand extends Command {
         case "place":
             dataList.addAll(logEntryList
                     .stream()
-                .filter(log -> log instanceof SpendLogEntry)
-                .map(log -> ((SpendLogEntry) log).getPlace().value)
-                .collect(Collectors.toList()));
+                    .filter(log -> log instanceof SpendLogEntry)
+                    .map(log -> ((SpendLogEntry) log).getPlace().value)
+                    .collect(Collectors.toList()));
             break;
         case "month":
             for (LogEntry log : logEntryList) {
@@ -172,37 +172,131 @@ public class StatsCommand extends Command {
     }
 
     private ArrayList<XYChart.Series> getBarChartData(ObservableList<LogEntry> logEntryList) {
-        ArrayList<XYChart.Series> barSeriesData = new ArrayList<>();
+        ArrayList<XYChart.Series> barSeriesData;
 
         // Groups of bars
         HashSet<String> groupList = new HashSet<String>(getDataList(logEntryList));
-        XYChart.Series<String, Number> currSeries;
-        for (String group : groupList) {
-            String groupByAttr = groupBy.attr;
-            currSeries = new XYChart.Series<String, Number>();
-            currSeries.setName(group);
-            if (groupByAttr.equalsIgnoreCase("month") || groupByAttr.equalsIgnoreCase("place")) {
-                // Each group has 1 bar
-                currSeries.getData().add(new XYChart.Data<String, Number>(group, getTotalAmount(group)));
-            } else {
-                // Each group has 4 bars
-                List<String> logEntryTypes = Arrays.asList("spend", "income", "borrow", "lend");
-                for (String type : logEntryTypes) {
-                    currSeries.getData().add(new XYChart.Data<String, Number>(group, getTotalAmount(group, type)));
-                }
-            }
-            barSeriesData.add(currSeries);
+        String groupByAttr = groupBy.attr;
+        if (groupByAttr.equals("entrytype") || groupByAttr.equals("place")) {
+            // Each group has 1 bar
+            barSeriesData = getOneBarPerGroup(groupList, logEntryList);
+        } else {
+            // Each group has 4 bars
+            barSeriesData = getFourBarsPerGroup(groupList, logEntryList);
         }
-
         return barSeriesData;
     }
 
-    private int getTotalAmount(String group, String logEntryType) {
-        return 5;
+    // For grouping by log entry types and places
+    private ArrayList<XYChart.Series> getOneBarPerGroup(HashSet<String> groupList,
+                                                        ObservableList<LogEntry> logEntryList) {
+        ArrayList<XYChart.Series> barSeriesData = new ArrayList<>();
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+        series.setName(groupBy.attr);
+        for (String group : groupList) {
+            series.getData().add(new XYChart.Data<String, Number>(group, getAmount(groupBy.attr, group, logEntryList)));
+        }
+        barSeriesData.add(series);
+        return barSeriesData;
     }
 
-    private int getTotalAmount(String group) {
-        return 7;
+    private ArrayList<XYChart.Series> getFourBarsPerGroup(HashSet<String> groupList,
+                                                          ObservableList<LogEntry> logEntryList) {
+        ArrayList<XYChart.Series> barSeriesData = new ArrayList<>();
+        XYChart.Series<String, Number> currSeries;
+        List<String> logEntryTypesList = Arrays.asList("spend", "income", "borrow", "lend");
+        for (String type : logEntryTypesList) {
+            currSeries = new XYChart.Series<String, Number>();
+            currSeries.setName(type);
+            for (String group : groupList) {
+                currSeries.getData()
+                        .add(new XYChart.Data<String, Number>(
+                                group, getAmount(groupBy.attr, group, logEntryList, type)));
+            }
+            barSeriesData.add(currSeries);
+        }
+        return barSeriesData;
     }
 
+    /**
+     * Return total amount associated with log entries
+     * of that attribute group.
+     * @param attr  Attribute of log entry
+     * @param group Group of that attribute to filter through
+     */
+    private double getAmount(String attr, String group, List<LogEntry> logEntryList) {
+        double currAmt;
+        //@@author Lokeshkumar R
+        //Modified from https://stackoverflow.com/questions/16242733/
+        // sum-all-the-elements-java-arraylist
+        if (attr.equals("entrytype")) {
+            currAmt = logEntryList
+                    .stream()
+                    .filter(log -> log.getLogEntryType().equals(group))
+                    .map(log -> log.getAmount().amount)
+                    .mapToDouble(log -> log)
+                    .sum();
+        } else if (attr.equals("place")) {
+            currAmt = logEntryList
+                    .stream()
+                    .filter(log -> log.getLogEntryType().equals("spend"))
+                    .filter(log -> ((SpendLogEntry) log).getPlace().value.equals(group))
+                    .map(log -> log.getAmount().amount)
+                    .mapToDouble(log -> log)
+                    .sum();
+        } else if (attr.equals("month")) {
+            currAmt = logEntryList
+                    .stream()
+                    .filter(log -> (log.getTransactionDate().value.split("-", 2)[1]).equals(group))
+                    .map(log -> log.getAmount().amount)
+                    .mapToDouble(log -> log)
+                    .sum();
+        } else if (attr.equals("met")) {
+            currAmt = logEntryList
+                    .stream()
+                    .filter(log -> log.getTransactionMethod().value.equals(group))
+                    .map(log -> log.getAmount().amount)
+                    .mapToDouble(log -> log)
+                    .sum();
+        } else if (attr.equals("cat")) {
+            currAmt = logEntryList
+                    .stream()
+                    .filter(log -> logContainsCat(log, group))
+                    .map(log -> log.getAmount().amount)
+                    .mapToDouble(log -> log)
+                    .sum();
+        } else {
+            currAmt = 0;
+        }
+        return currAmt;
+    }
+
+    /**
+     * Similar to above {@code getAmount} but with an
+     * additional filter of log entry type.
+     */
+    private double getAmount(String attr, String group,
+                             List<LogEntry> logEntryList, String logEntryType) {
+        List<LogEntry> filteredLogEntryList = logEntryList
+                .stream()
+                .filter(log -> log.getLogEntryType().equals(logEntryType))
+                .collect(Collectors.toList());
+        return getAmount(attr, group, filteredLogEntryList);
+    }
+
+    /**
+     * Returns true if log contains a category by that name.
+     */
+    private boolean logContainsCat(LogEntry log, String catName) {
+        Set<Category> catSet = log.getCategories();
+        if (catSet.size() == 0) {
+            return false;
+        }
+        for (Category cat : catSet) {
+            if (cat.catName.equals(catName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -12,6 +12,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import seedu.address.model.finance.GraphicsData;
 
 /**
@@ -51,7 +53,12 @@ public class StatsGraphic extends UiPart<Region> {
 
         // Bar chart
         xLabel.setLabel("Group");
+        xLabel.tickLabelFontProperty().set(Font.font(15));
+        xLabel.setTickLabelFill(Color.WHITE);
         yLabel.setLabel("Total Amount");
+        yLabel.tickLabelFontProperty().set(Font.font(15));
+        yLabel.setTickLabelFill(Color.WHITE);
+
         ArrayList<XYChart.Series> barSeriesList = gData.getBarChartData();
         for (XYChart.Series series : barSeriesList) {
             barChart.getData().addAll(series);
