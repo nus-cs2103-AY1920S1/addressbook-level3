@@ -171,7 +171,8 @@ public class ModelManager implements Model {
             List<ItineraryItem> oldList = contactMap.remove(oldContact);
             List<ItineraryItem> newList = oldList.stream().map(x -> {
                 if (x instanceof Activity) {
-                    Activity newActivity = new Activity(x.getName(), x.getAddress(), newContact, x.getTags());
+                    Activity newActivity = new Activity(x.getName(), x.getAddress(), newContact,
+                            x.getTags(), ((Activity) x).getDuration(), ((Activity) x).getPriority());
                     activities.setActivity((Activity) x, newActivity);
                     itineraryItemMap.remove(x);
                     itineraryItemMap.put(newActivity, newContact);
