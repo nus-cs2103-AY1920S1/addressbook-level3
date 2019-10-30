@@ -104,13 +104,13 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void correctValue_getTotalExpenses_success() {
-        assertEquals(212.0, logicManager.getTotalExpenses());
+    public void correctValue_getTotalInventory_success() {
+        assertEquals(544500.0, logicManager.getTotalInventory());
     }
 
     @Test
-    public void correctValue_getTotalInventory_success() {
-        assertEquals(544500.0, logicManager.getTotalInventory());
+    public void correctValue_getTotalExpenses_success() {
+        assertEquals(212.0, logicManager.getTotalExpenses());
     }
 
     @Test

@@ -2,7 +2,10 @@ package seedu.address.stubs;
 
 import seedu.address.inventory.logic.Logic;
 import seedu.address.inventory.logic.commands.CommandResult;
+import seedu.address.inventory.model.Item;
 import seedu.address.inventory.util.InventoryList;
+
+import java.util.ArrayList;
 
 /**
  * Stub to test Overview statistics functions.
@@ -23,5 +26,15 @@ public class InventoryLogicStubForOverview implements Logic {
     @Override
     public InventoryList getInventoryList() {
         return inventoryList;
+    }
+
+    @Override
+    public ArrayList<Item> getInventoryListInArrayList() throws Exception {
+        throw new AssertionError("This should not be called.");
+    }
+
+    @Override
+    public void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws Exception {
+        throw new AssertionError("This should not be called.");
     }
 }
