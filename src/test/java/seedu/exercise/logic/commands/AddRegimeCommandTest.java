@@ -2,11 +2,14 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.DUPLICATE_REGIME_INDEXES;
+import static seedu.exercise.testutil.typicalutil.TypicalRegime.LARGE_REGIME_INDEX;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.VALID_REGIME_CARDIO;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.VALID_REGIME_INDEXES;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.VALID_REGIME_NAME_CARDIO;
@@ -14,12 +17,14 @@ import static seedu.exercise.testutil.typicalutil.TypicalRegime.getTypicalRegime
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.commands.statistic.Statistic;
@@ -78,6 +83,62 @@ public class AddRegimeCommandTest {
 
         assertThrows(CommandException.class,
                 AddRegimeCommand.MESSAGE_DUPLICATE_EXERCISE_IN_REGIME, () -> addRegimeCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicateIndexes_throwsCommandException() {
+        ModelStub modelStub = new ModelStubWithRegime();
+        AddRegimeCommand addRegimeCommand =
+            new AddRegimeCommand(DUPLICATE_REGIME_INDEXES, new Name(VALID_REGIME_NAME_CARDIO));
+
+        assertThrows(CommandException.class,
+            AddRegimeCommand.MESSAGE_DUPLICATE_INDEX, () -> addRegimeCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_emptyIndexes_throwsCommandException() {
+        ModelStub modelStub = new ModelStubWithRegime();
+        AddRegimeCommand addRegimeCommand =
+            new AddRegimeCommand(new ArrayList<Index>(), new Name(VALID_REGIME_NAME_CARDIO));
+
+        assertThrows(CommandException.class,
+            AddRegimeCommand.MESSAGE_NO_EXERCISES_ADDED, () -> addRegimeCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_invalidIndexes_throwsCommandException() {
+        ModelStub modelStub = new ModelStubWithRegime();
+        AddRegimeCommand addRegimeCommand =
+                new AddRegimeCommand(LARGE_REGIME_INDEX, new Name(VALID_REGIME_NAME_CARDIO));
+
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX, () -> addRegimeCommand.execute(modelStub));
+    }
+
+    @Test
+    public void equals() {
+        Name name = new Name(VALID_REGIME_NAME_CARDIO);
+        List<Index> indexes = VALID_REGIME_INDEXES;
+        AddRegimeCommand addRegimeCommand = new AddRegimeCommand(indexes, name);
+
+        // same object -> returns true
+        assertTrue(addRegimeCommand.equals(addRegimeCommand));
+
+        // same values -> returns true
+        AddRegimeCommand addRegimeCommandCopy = new AddRegimeCommand(indexes, name);
+        assertTrue(addRegimeCommand.equals(addRegimeCommandCopy));
+
+        // different name -> returns true
+        assertTrue(addRegimeCommand.equals(new AddRegimeCommand(indexes, new Name(VALID_REGIME_NAME_CARDIO))));
+
+        // different types -> returns false
+        assertFalse(addRegimeCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addRegimeCommand.equals(null));
+
+        //different indexes -> returns false
+        assertFalse(addRegimeCommand.equals(new AddRegimeCommand(new ArrayList<>(), name)));
     }
 
     /**

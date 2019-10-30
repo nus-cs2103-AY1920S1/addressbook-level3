@@ -6,7 +6,7 @@ import static seedu.exercise.testutil.CommonTestData.DESC_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.DESC_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
-import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_NAME_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
 
@@ -57,7 +57,7 @@ public class EditExerciseDescriptorTest {
 
         // different muscles -> returns false
         editedAerobics = new EditExerciseDescriptorBuilder(DESC_AEROBICS)
-            .withMuscles(VALID_MUSCLE_AEROBICS).build();
+            .withMuscles(VALID_MUSCLE_BASKETBALL).build();
         assertFalse(DESC_AEROBICS.equals(editedAerobics));
     }
 }

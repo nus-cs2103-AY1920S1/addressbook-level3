@@ -1,0 +1,5 @@
+{
+  "prefixNames" : [ "n", "m", "u", "d", "c", "!" ],
+  "fullNames" : [ "Quantity", "Muscle", "Unit", "Date", "Calories", "Name" ],
+  "customProperties" : [ ]
+}

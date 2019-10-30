@@ -163,7 +163,7 @@ public class CommonTestData {
             .withDate(CommonTestData.VALID_DATE_AEROBICS)
             .withCalories(CommonTestData.VALID_CALORIES_AEROBICS)
             .withQuantity(CommonTestData.VALID_QUANTITY_AEROBICS)
-            .withMuscles(CommonTestData.VALID_MUSCLE_BASKETBALL)
+            .withMuscles(CommonTestData.VALID_MUSCLE_AEROBICS)
             .build();
 
     public static final EditCommand.EditExerciseDescriptor DESC_BASKETBALL = new EditExerciseDescriptorBuilder()

@@ -1,5 +1,7 @@
 package seedu.exercise.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
@@ -7,11 +9,16 @@ import static seedu.exercise.testutil.typicalutil.TypicalRegime.DUPLICATE_REGIME
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.LARGE_REGIME_INDEX;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.VALID_REGIME_CARDIO;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.VALID_REGIME_NAME_CARDIO;
+import static seedu.exercise.testutil.typicalutil.TypicalRegime.VALID_REGIME_NAME_CHEST;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.getTypicalRegimeBook;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.core.Messages;
+import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
@@ -66,5 +73,31 @@ public class DeleteRegimeCommandTest {
         DeleteRegimeCommand deleteRegimeCommand = new DeleteRegimeCommand(name, LARGE_REGIME_INDEX);
 
         assertCommandFailure(deleteRegimeCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        Name name = new Name(VALID_REGIME_NAME_CARDIO);
+        List<Index> indexes = new ArrayList<>();
+        DeleteRegimeCommand deleteRegimeCommand = new DeleteRegimeCommand(name, indexes);
+
+        // same object -> returns true
+        assertTrue(deleteRegimeCommand.equals(deleteRegimeCommand));
+
+        // same values -> returns true
+        DeleteRegimeCommand deleteRegimeCommandCopy = new DeleteRegimeCommand(name, indexes);
+        assertTrue(deleteRegimeCommand.equals(deleteRegimeCommandCopy));
+
+        // different types -> returns false
+        assertFalse(deleteRegimeCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(deleteRegimeCommand.equals(null));
+
+        // different name -> returns false
+        assertFalse(deleteRegimeCommand.equals(new DeleteRegimeCommand(new Name(VALID_REGIME_NAME_CHEST), indexes)));
+
+        //different indexes -> returns false
+        assertFalse(deleteRegimeCommand.equals(new DeleteRegimeCommand(name, null)));
     }
 }
