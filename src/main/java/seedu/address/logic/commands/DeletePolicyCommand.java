@@ -58,9 +58,11 @@ public class DeletePolicyCommand extends Command {
         for (BinItem b : model.getAddressBook().getBinItemList()) {
             if (b.getItem() instanceof Person) {
                 Person p = (Person) b.getItem();
-                Person editedPerson = new PersonBuilder(p).removePolicies(policyToDelete).build();
-                BinItem editedBinItem = new BinItemBuilder(b).withItem(editedPerson).build();
-                model.setBinItem(b, editedBinItem);
+                if (p.hasPolicy(policyToDelete)) {
+                    Person editedPerson = new PersonBuilder(p).removePolicies(policyToDelete).build();
+                    BinItem editedBinItem = new BinItemBuilder(b).withItem(editedPerson).build();
+                    model.setBinItem(b, editedBinItem);
+                }
             }
         }
 

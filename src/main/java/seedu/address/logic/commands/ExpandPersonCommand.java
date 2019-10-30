@@ -23,7 +23,7 @@ public class ExpandPersonCommand extends Command {
         + "by the index number used in the displayed person list. \n"
         + "Example: " + COMMAND_WORD + " 1 ";
 
-    private final Index index;
+    public final Index index;
 
     public ExpandPersonCommand(Index index) {
         this.index = index;
@@ -41,5 +41,12 @@ public class ExpandPersonCommand extends Command {
         Person personToExpand = lastShownList.get(index.getZeroBased());
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, personToExpand), personToExpand);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ExpandPersonCommand // instanceof handles nulls
+                && index.equals(((ExpandPersonCommand) other).index)); // state check
     }
 }

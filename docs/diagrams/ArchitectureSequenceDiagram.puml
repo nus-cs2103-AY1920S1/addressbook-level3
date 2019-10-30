@@ -13,8 +13,18 @@ activate ui UI_COLOR
 ui -[UI_COLOR]> logic : execute("delete 1")
 activate logic LOGIC_COLOR
 
+logic -[LOGIC_COLOR]> model : addCommandToHistory("delete", "delete 1")
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
 logic -[LOGIC_COLOR]> model : deletePerson(p)
 activate model MODEL_COLOR
+
+model -[MODEL_COLOR]> model : saveAddressBookState()
+activate model MODEL_COLOR_T1
+deactivate model
 
 model -[MODEL_COLOR]-> logic
 deactivate model

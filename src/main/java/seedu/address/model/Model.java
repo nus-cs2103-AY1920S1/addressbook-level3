@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
 import seedu.address.model.binitem.BinItem;
@@ -248,5 +249,15 @@ public interface Model {
      * Add the previous state of address book to list of states.
      */
     void saveAddressBookState();
+
+    /**
+     * Adds a particular command to the command history.
+     */
+    void addCommandToHistory(String commandWord, String commandText);
+
+    /**
+     * Returns an unmodifiable view of the previously entered commands.
+     */
+    ObservableList<Pair<String, String>> getHistoryList();
 
 }

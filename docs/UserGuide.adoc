@@ -95,9 +95,14 @@ Format: `listpeople`
 Shows a list of all current policies. +
 Format: `listpolicy`
 
+=== Listing all bin items: `listbin`
+
+Shows a list of all items in the bin. +
+Format: `listbin`
+
 === Listing command history : `history`
 
-Shows a list of all previously entered (valid) commands.
+Shows a list of all previously entered (valid) commands. +
 Format: `history`
 
 === Editing a person : `edit`
@@ -339,6 +344,7 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Deleted persons are moved into the bin, where they stay there for 30 days before being removed forever.
 ****
 
 Examples:
@@ -359,6 +365,7 @@ Format: `deletepolicy INDEX`
 * Deletes the policy at the specified `INDEX`.
 * The index refers to the index number shown in the displayed policy list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Deleted policies are moved into the bin, where they stay there for 30 days before being removed forever.
 ****
 
 Examples:
@@ -451,10 +458,11 @@ Examples:
 
 Expected Output:
 ```
-New person added: John Doe Phone:98765432 Email:johnd@example.com Address:John street, block 123, #01-01 Date of birth: 12th September 1980 Policy: SeniorCare Tags: high_priority
-
-Q9999999J is invalid.
-You might want to contact John Doe: 98765432 johnd@example.com`
+This is not a valid Singapore Identification number.
+NRICs should only contain alphanumeric characters. It should start with S, T, F or G followed by 7 numerical numbers and a checksum letter.
+You might want to contact John Doe
+PHONE: 98765432
+EMAIL: johnd@example.com`
 ```
 
 === Incorrect Contact Number Alert
@@ -468,10 +476,9 @@ Examples:
 
 Expected Output:
 ```
-New person added: John Doe NRIC: S9999999J Email:johnd@example.com Address:John street, block 123, #01-01 Date of birth:s12th September 1980 Policy: SeniorCare Tags: high_priority
-
-48765432 is invalid.
-You might want to contact John Doe: johnd@example.com
+Only Singapore phone numbers are allowed. (e.g. 88887541, +65 98753573, +6565241234
+You might want to contact John Doe
+EMAIL: johnd@example.com
 ```
 
 === Incorrect Email Address Alert
@@ -485,9 +492,14 @@ Examples:
 
 Expected Output:
 ```
-New person added: John Doe NRIC: S9999999J Phone: 98765432 Address:John street, block 123, #01-01 Date of birth: 12th September 1980 Policy: SeniorCare Tags: high_priority
-
-@example.com is invalid. You might want to contact John Doe: 98765432
+Emails should be of the format local-part@domain and adhere to the following constraints:
+1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (!#$%&'*+/=?`{|}~^.-) .
+2. This is followed by a '@' and then a domain name. The domain name must:
+    - be at least 2 characters long
+    - start and end with alphanumeric characters
+    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+You might want to contact John Doe
+PHONE: 98765432
 ```
 
 === Incorrect Command Suggestions
@@ -567,11 +579,6 @@ If `no`,
 You may edit John Doe’s profile using the edit command. For more information, type help.
 ```
 
-=== Reminders of expiring policies
-
-Displays a list of people whose policies are expiring in the current month on the start up page. This list will be updated every month.
-
-
 === Expanding a profile
 Expands the profile details on the right panel.
 
@@ -592,53 +599,21 @@ Examples:
 
 `expandpolicy 1`
 
-=== Generate Report: `report`
-Generates report of key performance indicators (KPI). Report is saved in the same directory as the application, or the file path if specified.
-
-Format:
-`report [f/FILEPATH]`
-
-Examples:
-
-`report f/~/reports/` +
-Saves report in `~/reports` directory.
-
-Expected Output:
-
-image::Report.png[width="400", align="left"]
-
-=== Export to Excel: `export`
-Exports contact details to an excel sheet in the same directory as the application, or the file path if specified.
-Depending on what the user specifies as arguments,
-different fields of the contacts can be exported. Arguments can also be chained to export multiple fields together at once.
-
-Format:
-`export [name] [phone] [email] [address] [insurance] [f/FILEPATH]`
-
-****
-* If no arguments are provided, all possible fields are exported.
-****
-
-Examples:
-
-`export` +
-Exports all possible fields in the address book.
-
-`export name phone email f/~/sheets/` +
-Exports name, phone, and email into `~/sheets` directory.
-
 === Display Indicator `display`
 Displays indicator according to specified format.
 
 Format:
-`display i/INDICATOR f/CHARTf`
+`display i/INDICATOR f/FORMAT`
 
 ****
 * Indicators include:
-- Policy Popularity breakdown
-- Age Group breakdown
-- Gender breakdown
-- Contact List growth rate
+- `policy-popularity-breakdown`
+- `age-group-breakdown`
+- `gender-breakdown`
+* Formats include:
+- `piechart`
+- `barchart`
+- `linechart`
 ****
 
 Examples:
@@ -650,48 +625,29 @@ Expected Output: +
 
 image::PolicyPopBreakdown.png[width="400", align="left"]
 
-=== List Recycling Bin: `bin`
-Shows recently deleted contacts that are stored inside `bin`.
-
-Format:
-`bin`
-
-****
-* Items inside the bin can be restored within its expiration time, which is 30 days since it has been deleted,
-after which it is removed forever.
-****
-
-Examples:
-
-`bin`
-
-Expected Output: +
-```
-1. Contact 1 expires in 30 mins
-2. Contact 2 expires in 5 days
-3. Contact 3 expires in 30 days
-```
-
-
-=== Restore Recycling Bin: `restore`
-Restores the contact specified by the user.
+=== Restore Deleted Items: `restore`
+Restores an item (person or policy) in the bin specified by the user.
 
 Format:
 `restore INDEX`
 
 ****
+* Restores the item at the specified INDEX.
+* The index refers to the index number shown in the displayed bin list.
+* The index must be a positive integer 1, 2, 3, …​
 * Mass restoration by field is also possible by specifying `field:value`.
 ****
 
 Examples:
 
 `restore 1` +
-Restores first index of contacts listed in `bin`
+
+Restores first index of the list of bin items.
 
 Expected Output: +
 ```
-The following contact has been restored:
-Contact 1
+Restored item: David Georgia NRIC: S0000010T Phone: 94820001 Email: davegeorge@example.com Address: 10th Fly street
+Date of birth: 5 March 1980 Gender: Male Date deleted: 22 Oct 2019 at 09:57 PM Expiry Date: 21 Nov 2019 at 09:57 PM
 ```
 
 === Undo recently entered commands
@@ -811,6 +767,7 @@ e.g. `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, 
 e.g. `add pol n/SeniorCare d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75]`
 * *List People* : `listpeople`
 * *List Policy* : `listpolicy`
+* *List Bin Items* : `listbin`
 * *List Command History*: `history`
 * *Edit Person* : `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE_OF_BIRTH]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
@@ -834,6 +791,8 @@ e.g. `addpolicytag 2 t/lifeinsurance`
 e.g. `delete 3`
 * *Delete Policy* : `deletepolicy INDEX` +
 e.g. `deletepolicy 3`
+* *Restore Deleted Items* : `restore INDEX` +
+e.g. `restore 3`
 * *Unassign Policy* : `unassignpolicy INDEX pol/POLICY NAME` +
 e.g. `unassignpolicy 2 pol/Health insurance`
 * *Delete Tag From Person* : `deletetag INDEX t/TAG [MORE_TAGS]` +
@@ -844,10 +803,6 @@ e.g. `deletepolicytag 2 t/lifeinsurance`
 e.g. `expandperson 1`
 * *Expanding a policy* : `expandpolicy INDEX` +
 e.g. `expandpolicy 1`
-* *Generate Report*: `report [f/FILEPATH]` +
-e.g. `report f/~/reports/`
-* *Export to Excel*: `export [name] [phone] [email] [address] [insurance] [f/FILEPATH]` +
-e.g. `export name phone email f/~/sheets/`
 * *Display*: `display i/INDICATOR f/FORMAT` +
 e.g. `display i/policy-popularity-breakdown f/piechart`
 * *List of undone commands*: `undo list`

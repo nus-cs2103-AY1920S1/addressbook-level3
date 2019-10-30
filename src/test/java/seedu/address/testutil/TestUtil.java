@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.core.index.Index;
@@ -204,6 +205,16 @@ public class TestUtil {
 
         @Override
         public ObservableList<Policy> getFilteredPolicyList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Pair<String, String>> getHistoryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCommandToHistory(String commandWord, String commandText) {
             throw new AssertionError("This method should not be called.");
         }
 

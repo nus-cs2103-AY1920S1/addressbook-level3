@@ -45,10 +45,22 @@ destroy DeleteCommandParser
 AddressBookParser --> LogicManager : d
 deactivate AddressBookParser
 
+LogicManager -> Model : addCommandToHistory("delete", "delete 1")
+activate Model
+
+Model --> LogicManager
+deactivate Model
+
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
 
 DeleteCommand -> Model : deletePerson(1)
+activate Model
+
+Model --> DeleteCommand
+deactivate Model
+
+DeleteCommand -> Model : saveAddressBookState()
 activate Model
 
 Model --> DeleteCommand

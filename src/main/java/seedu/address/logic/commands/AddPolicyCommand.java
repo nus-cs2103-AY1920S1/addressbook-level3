@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_AGE;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
 import seedu.address.logic.commands.exceptions.DuplicatePolicyWithoutMergeException;
+import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.model.Model;
 import seedu.address.model.policy.Policy;
 
@@ -84,6 +85,7 @@ public class AddPolicyCommand extends Command {
         exceptionMessage.append(original.toString() + NEW_LINE);
         exceptionMessage.append(String.format(MESSAGE_INPUT_INFORMATION_HEADER, toAdd.toString()) + NEW_LINE);
         exceptionMessage.append(DUPLICATE_POLICY_MERGE_PROMPT);
+        exceptionMessage.append(MergePolicyCommand.MERGE_INSTRUCTIONS);
         return exceptionMessage.toString();
     }
 

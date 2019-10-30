@@ -19,11 +19,9 @@ MergePersonCommand : updateOriginalPerson(Person)
 MergePersonCommand : getNextMergePrompt(): String
 MergePersonCommand : getDifferences(): String[]
 MergePersonCommand : removeFirstDifferentField()
-MergePersonCommand : getNextMergeType(): String
-MergePersonCommand : getInputPerson(): Person
-MergePersonCommand : getOriginalPerson(): Person
 MergePersonCommand : onlyOneMergeLeft(): boolean
 MergePersonCommand : equals(Object)
+MergePersonCommand : ...()
 
 abstract class MergeConfirmedCommand
 class MergePersonConfirmedCommand

@@ -263,6 +263,9 @@ public class AddressBookParser {
                 return command;
 
             default:
+                if (commandWord.length() == 0) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                }
                 if (suggestionOn) {
                     String argumentToParse = " " + PREFIX_COMMAND_WORD + commandWord + " " + PREFIX_ARGUMENTS
                         + arguments.trim();

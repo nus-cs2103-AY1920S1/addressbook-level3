@@ -5,17 +5,30 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+AddressBook *-left-> "1" UniquePolicyList
+AddressBook *-down-> "1" UniqueTagList
+UniqueTagList -[hidden]right- UniquePersonList
+UniqueTagList -[hidden]left- UniquePolicyList
 
-UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+UniqueTagList *-down-> "*" Tag
+UniquePersonList o-left-> Person
+UniquePolicyList o-right-> Policy
 
-Person o-up-> "*" Tag
-
+Person o-left-> "*" Tag
+Person o-left-> "*" Policy
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> DateOfBirth
+Person *--> Nric
+Person *--> Gender
+
+Policy o-right-> "*" Tag
+Policy *--> PolicyName
+Policy *--> Coverage
+Policy *--> Description
+Policy *--> EndAge
+Policy *--> StartAge
+Policy *--> Price
 @enduml

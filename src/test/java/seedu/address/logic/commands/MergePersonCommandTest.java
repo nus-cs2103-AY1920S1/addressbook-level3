@@ -36,8 +36,9 @@ public class MergePersonCommandTest {
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
         CommandResult commandResult = new MergePersonCommand(inputPerson).execute(modelStub);
         assertEquals(String.format(MergePersonCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
-            + "\n" + MergePersonCommand.ORIGINAL_HEADER + validPerson.getPhone().value + "\n"
-            + MergePersonCommand.INPUT_HEADER + VALID_PHONE_AMY, commandResult.getFeedbackToUser());
+            + "\n" + MergePersonCommand.MERGE_ORIGINAL_HEADER + validPerson.getPhone().value + "\n"
+            + MergePersonCommand.MERGE_INPUT_HEADER + VALID_PHONE_AMY + MergePersonCommand.MERGE_INSTRUCTIONS,
+            commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -47,8 +48,9 @@ public class MergePersonCommandTest {
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
         CommandResult commandResult = new MergePersonCommand(inputPerson).execute(modelStub);
         assertEquals(String.format(MergePersonCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
-            + "\n" + MergePersonCommand.ORIGINAL_HEADER + validPerson.getPhone().value + "\n"
-            + MergePersonCommand.INPUT_HEADER + VALID_PHONE_BOB, commandResult.getFeedbackToUser());
+            + "\n" + MergePersonCommand.MERGE_ORIGINAL_HEADER + validPerson.getPhone().value + "\n"
+            + MergePersonCommand.MERGE_INPUT_HEADER + VALID_PHONE_BOB + MergePersonCommand.MERGE_INSTRUCTIONS,
+            commandResult.getFeedbackToUser());
     }
 
     @Test

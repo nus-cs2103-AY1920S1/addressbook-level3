@@ -106,8 +106,9 @@ public class MergePersonRejectedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Phone.DATA_TYPE) + "\n")
-                .append(ORIGINAL_HEADER + originalPerson.getPhone().value + "\n")
-                .append(INPUT_HEADER + super.getInputPerson().getPhone().value);
+                .append(MERGE_ORIGINAL_HEADER + originalPerson.getPhone().value + "\n")
+                .append(MERGE_INPUT_HEADER + super.getInputPerson().getPhone().value)
+                .append(MERGE_INSTRUCTIONS);
             return mergePrompt.toString();
         }
 
@@ -155,8 +156,9 @@ public class MergePersonRejectedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Address.DATA_TYPE) + "\n")
-                .append(ORIGINAL_HEADER + originalPerson.getAddress().value + "\n")
-                .append(INPUT_HEADER + super.getInputPerson().getAddress().value);
+                .append(MERGE_ORIGINAL_HEADER + originalPerson.getAddress().value + "\n")
+                .append(MERGE_INPUT_HEADER + super.getInputPerson().getAddress().value)
+                .append(MERGE_INSTRUCTIONS);
             return mergePrompt.toString();
         }
 

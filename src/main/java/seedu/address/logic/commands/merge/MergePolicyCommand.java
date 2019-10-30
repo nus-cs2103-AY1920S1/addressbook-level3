@@ -23,8 +23,9 @@ public class MergePolicyCommand extends MergeCommand {
 
     public static final String MESSAGE_SUCCESS = "Policy was successfully updated:\n%1$s";
     public static final String MERGE_COMMAND_PROMPT = "Do you wish to edit this policy's %1$s?";
-    public static final String ORIGINAL_HEADER = "Original: ";
-    public static final String INPUT_HEADER = "Input: ";
+    public static final String MERGE_ORIGINAL_HEADER = "Original: ";
+    public static final String MERGE_INPUT_HEADER = "Input: ";
+    public static final String MERGE_INSTRUCTIONS = "\nPlease press enter or 'yes' to proceed or 'no' to skip.";
 
     private final Policy inputPolicy;
     private Policy originalPolicy;
@@ -58,8 +59,9 @@ public class MergePolicyCommand extends MergeCommand {
         String input = fieldThatIsDifferent[2];
         StringBuilder mergePrompt = new StringBuilder();
         mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, fieldType) + "\n")
-                .append(ORIGINAL_HEADER + original + "\n")
-                .append(INPUT_HEADER + input);
+                .append(MERGE_ORIGINAL_HEADER + original + "\n")
+                .append(MERGE_INPUT_HEADER + input)
+                .append(MERGE_INSTRUCTIONS);
         return mergePrompt.toString();
     }
 

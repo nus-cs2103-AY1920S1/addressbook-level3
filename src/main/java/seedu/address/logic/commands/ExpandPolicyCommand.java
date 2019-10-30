@@ -23,7 +23,7 @@ public class ExpandPolicyCommand extends Command {
         + "by the index number used in the displayed person list. \n"
         + "Example: " + COMMAND_WORD + " 1 ";
 
-    private final Index index;
+    public final Index index;
 
     public ExpandPolicyCommand(Index index) {
         this.index = index;
@@ -41,5 +41,12 @@ public class ExpandPolicyCommand extends Command {
         Policy policyToExpand = lastShownList.get(index.getZeroBased());
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, policyToExpand), policyToExpand);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ExpandPolicyCommand // instanceof handles nulls
+                && index.equals(((ExpandPolicyCommand) other).index)); // state check
     }
 }
