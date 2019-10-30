@@ -206,26 +206,39 @@ This helps to motivate them to have a healthy BMI.
 
 === DATA ANALYSIS
 
-==== Display the daily/weekly/monthly average in a graph: `average`
+==== Display the daily/weekly/monthly average of records in a line graph: `average`
 
-Format: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
+Format: `average a/AVERAGE_TYPE r/RECORD_TYPE [n/COUNT]`
 
-AVERAGE_TYPE is either day/week/month.
-Displays a graph of the AVERAGE_TYPE average value of a particular RECORD_TYPE. COUNT is an integer value.
-If COUNT is given, show only the latest COUNT number of average values.
-Else, COUNT is set to 5 and show only latest 5 average values by default.
+AVERAGE_TYPE is either "daily", "weekly" or "monthly". +
+RECORD_TYPE is either "bloodsugar" or "bmi". +
+Displays a graph of the "daily"/"weekly"/"monthly" average of a particular RECORD_TYPE.
+COUNT is an integer between 1 to 9 inclusive. +
+If COUNT is given, SugarMummy shows __up to__ COUNT most recent number of average values.
+Else, COUNT is set to 5 by default and show most recent 5 average values.
 
-==== Display interesting statistics: `summary`
+NOTE: If SugarMummy does not show __exactly__ COUNT number of average values,
+that means you do not have enough records in the database.
 
-Examples of statistics: minimum, maximum, average, number of dangerously high blood sugar level, weekly quiz points etc
-in suitable graph
+Example usage 1: `average a/weekly r/bloodsugar`:
+Shows the latest 5 weekly average of blood sugar records.
+
+Example usage 2: `average a/daily r/bmi n/9`:
+Shows the latest 9 weekly average of BMI records.
+
+
+==== Display interesting statistics: `summary` `[coming in v1.4]`
+
+Shows minimum, maximum, average of the records. Categorize records into low, normal, high values
+in pie chart.
 
 Format: `summary r/RECORD_TYPE [d/START_DATE]`
 
 If START_DATE is given, statistics from START_DATE to the current date will be retrieved.
 Else, statistics will be based on all data.
 
-==== Export summary of all medical records into pdf: `export`
+==== Export summary of all medical records into pdf: `export` `[coming in v2.0]`
+
 
 Format: `export [d/START_DATE]`
 
