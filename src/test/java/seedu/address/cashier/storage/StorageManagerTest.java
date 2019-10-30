@@ -118,18 +118,18 @@ public class StorageManagerTest {
 
     @Test
     public void fileReadSaveForTransaction() throws Exception {
-    /*
-     * Note: This is an integration test that verifies the StorageManager is properly writing and reading to the
-     * text file.
-     */
-    //resetTransactionsForReimbursement();
-    TransactionList transactionList = TypicalTransactions.getTypicalTransactionList();
-    transactionStorage.writeFile(transactionList);
-    Transaction original = TypicalTransactions.GEORGE_TRANSACTION_7;
-    storage.appendToTransaction(original);
-    System.out.println(transactionStorage.readTransactionList().size());
-    TransactionList retrieved = transactionStorage.readTransactionList();
-    assertEquals(original, retrieved.get(retrieved.size() - 1));
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly writing and reading to the
+         * text file.
+         */
+        //resetTransactionsForReimbursement();
+        TransactionList transactionList = TypicalTransactions.getTypicalTransactionList();
+        transactionStorage.writeFile(transactionList);
+        Transaction original = TypicalTransactions.GEORGE_TRANSACTION_7;
+        storage.appendToTransaction(original);
+        System.out.println(transactionStorage.readTransactionList().size());
+        TransactionList retrieved = transactionStorage.readTransactionList();
+        assertEquals(original, retrieved.get(retrieved.size() - 1));
     }
 }
 
