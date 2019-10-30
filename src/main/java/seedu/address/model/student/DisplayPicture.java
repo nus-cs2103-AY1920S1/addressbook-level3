@@ -29,6 +29,19 @@ public class DisplayPicture {
         imgFileName = newImg;
     }
 
+    /**
+     * asserts that picture chosen must be png
+     * @param file
+     * @return
+     */
+    public static boolean isValidFormat(String file) {
+        if (file.length() < 5) {
+            return false;
+        }
+        int start = file.length()-3;
+        boolean isFilePng = file.substring(start).equals("png")  || file.substring(start).equals("jpg");
+        return isFilePng;
+    }
 
     @Override
     public boolean equals(Object other) {

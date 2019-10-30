@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -80,7 +82,12 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
     }
-
+    public String openFileChooser() {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(primaryStage);
+        //TODO throw exception if user cancels file choosing
+        return file.toURI().toString();
+    }
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -197,12 +204,30 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * checks if upload command called,
+     * then opens filechooser and
+     * adds name of file to command
+     * filename: f/file:filepath
+     * @param commandText
+     * @return commandText
+     */
+    private String uploadCommandCheck(String commandText) {
+        if (commandText.length() > 7 &&
+                commandText.substring(0,6).equals("upload")) {
+            commandText = commandText + " " + "f/" + openFileChooser();
+        }
+        return commandText;
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            commandText = uploadCommandCheck(commandText);
+            System.out.println(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -214,7 +239,6 @@ public class MainWindow extends UiPart<Stage> {
                 combinedListPanelPlaceholder.getChildren().clear();
                 combinedListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
             }
-
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -228,6 +252,9 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        } catch (NullPointerException e) {
+            resultDisplay.setFeedbackToUser("Please choose a photo.");
             throw e;
         }
     }
