@@ -6,7 +6,7 @@ import seedu.address.logic.commands.*;
 
 public class Keywords {
     public static List<String> commandList = List.of(
-        // TASK 
+        // TASK
         AddTaskCommand.COMMAND_WORD,
         DeleteTaskCommand.COMMAND_WORD,
         FindCommand.COMMAND_WORD,
@@ -51,12 +51,11 @@ public class Keywords {
         HomeCommand.COMMAND_WORD
     );
 
-    public static String getParameters(String commandWord) { 
+    public static String getParameters(String commandWord) {
         switch(commandWord) {
-            // TASK 
+            // TASK
             case AddTaskCommand.COMMAND_WORD:
                 return "add-task tn/ s/ t/";
-        
 
             // case DeleteTaskCommand.COMMAND_WORD: default
 
@@ -68,7 +67,7 @@ public class Keywords {
             case EditCommand.COMMAND_WORD:
                 return "edit-task {INDEX} tn/ t/ s/";
 
-            case DoingTaskCommand.COMMAND_WORD: 
+            case DoingTaskCommand.COMMAND_WORD:
                 return "doing-task {INDEX}";
 
             case SetDeadlineCommand.COMMAND_WORD:
