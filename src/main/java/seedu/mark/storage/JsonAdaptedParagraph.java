@@ -44,9 +44,7 @@ public class JsonAdaptedParagraph {
     public JsonAdaptedParagraph(Paragraph p) {
         this.pid = p.getId().toString();
         this.content = p.getParagraphContent().toString();
-        if (!p.isTrueParagraph()) {
-            // System.out.println(p.getAnnotation());
-        }
+
         this.annotation = new JsonAdaptedAnnotation(p.getAnnotation()); //note: can be totally null or note null
     }
 

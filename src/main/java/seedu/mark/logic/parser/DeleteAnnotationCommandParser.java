@@ -78,7 +78,7 @@ public class DeleteAnnotationCommandParser implements Parser<DeleteAnnotationCom
     }
 
     private boolean isClearAll(String arg) {
-        return arg.trim().toLowerCase().equals("all");
+        return arg.trim().equalsIgnoreCase("all");
     }
 
 }
