@@ -406,6 +406,19 @@ Below are the _PREFIX_ convention that TravEzy's Financial Tracker will be using
 
 . Country. You can select from the dropdown menu to select which countries you're currently in. The default country every time you launch the application is *Singapore*. There is no prefix for country field and you're not allowed to edit it :(
 
+=== HelpCommand
+At anytime, not sure what to do?
+
+*Simply ask for help!:* ``help``
+
+Pops out a help window to guide you how to use the commands in Financial Tracker.
+
+The _Command Word_ is ``help`` without further parameters.
+
+Example:
+
+``help``
+
 === AddCommand
 Adding what you've spent at the nice coffee shop you stopped by?
 
@@ -432,7 +445,7 @@ Deletes an expense from your Financial Tracker with the only parameter being the
 
 The _Command Word_ is ``delete`` with an parameter index.
 
-Format: ``delete index``
+Format: ``delete INDEX``
 
 Example: Delete the first expense you saw on your expense list.
 

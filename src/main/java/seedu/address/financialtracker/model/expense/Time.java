@@ -1,5 +1,7 @@
 package seedu.address.financialtracker.model.expense;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -17,6 +19,7 @@ public class Time {
     public final String storageTime;
 
     public Time(String time) {
+        requireNonNull(time);
         this.valueToCompare = Integer.parseInt(time);
         this.value = formatTime(time);
         this.storageTime = time;
