@@ -66,12 +66,16 @@ public class FoodComparator implements Comparator<Food> {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        if (fieldList.isEmpty()) {
+            return "No fields specified.";
+        } else {
+            StringBuilder sb = new StringBuilder();
 
-        for (String field : fieldList) {
-            sb.append(field + " ");
+            for (String field : fieldList) {
+                sb.append(field + " ");
+            }
+
+            return sb.toString();
         }
-
-        return sb.toString();
     }
 }
