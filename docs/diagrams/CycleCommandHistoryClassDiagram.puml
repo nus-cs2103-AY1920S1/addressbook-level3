@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+class ListPointer COMMON_COLOR
+class CommandBox UI_COLOR
+
+LogicManager -down-> "1" CommandHistory: "stores/updates >"
+CommandHistory *-right-> "1" ObservableList
+ObservableList o-down-> "*" InputOutput : "contains >"
+InputOutput -up[hidden]-> CommandHistory
+ListPointer .left.> ObservableList: "initializes defensive copy using >"
+ListPointer -down-> "1" List : "iterates"
+List o-left-> "*" InputOutput: "contains >"
+
+CommandBox -down-> "1" ListPointer : "gets previous/next input from >"
+CommandBox -down-> "1" ObservableList : "updates \nListPointer \nusing >"
+
+@enduml
