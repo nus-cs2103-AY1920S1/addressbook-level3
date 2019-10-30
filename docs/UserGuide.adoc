@@ -56,7 +56,7 @@ We have used the following symbols to help you better understand our application
 .  Copy the file to the folder you want to use as the home folder for your TimeBook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::startupwindow.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
