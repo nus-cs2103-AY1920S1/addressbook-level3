@@ -13,7 +13,8 @@ public class MakeSortCommand extends Command {
 
     public static final String COMMAND_WORD = "makesort";
     public static final String EXAMPLE_USAGE = "Example Usage: " + COMMAND_WORD + " PRICE ASC NAME DESC";
-    public static final String MESSAGE_SUCCESS = "You have successfully overridden your own custom comparator!";
+    public static final String MESSAGE_SUCCESS = "You have successfully overridden your own custom comparator! \n"
+            + "Current CustomSorter: %s";
 
     private List<String> fields;
 
@@ -29,7 +30,8 @@ public class MakeSortCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setCustomSorter(fields);
-        return new CommandResult(MESSAGE_SUCCESS);
+        String newCustomSorterAsString = model.getCustomSorter().toString();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, newCustomSorterAsString));
     }
 
     public List<String> getFields() {
