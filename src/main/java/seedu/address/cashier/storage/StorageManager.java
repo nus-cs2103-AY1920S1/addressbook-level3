@@ -30,6 +30,7 @@ public class StorageManager implements Storage {
         this.transactionLogic = transactionLogic;
     }
 
+    
     /*public StorageManager(File iFile, File tFile, seedu.address.person.model.Model personModel) {
         this.iFile = iFile;
         this.tFile = tFile;
