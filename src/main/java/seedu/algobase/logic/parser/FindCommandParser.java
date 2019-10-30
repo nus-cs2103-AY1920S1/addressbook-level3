@@ -77,7 +77,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (!findProblemDescriptor.isAnyFieldProvided()) {
-            throw new ParseException(FindCommand.MESSAGE_NO_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_NO_CONSTRAINTS));
         }
 
         return new FindCommand(findProblemDescriptor);

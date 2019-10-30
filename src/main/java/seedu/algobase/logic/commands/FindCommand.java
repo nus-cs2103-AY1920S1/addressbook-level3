@@ -34,9 +34,10 @@ public class FindCommand extends Command {
             + "[" + PREFIX_DIFFICULTY + "LOWER_BOUND-UPPER_BOUND] "
             + "[" + PREFIX_TAG + "TAG]\n"
             + "Example:\n"
-            + COMMAND_WORD
-            + PREFIX_AUTHOR + " Tung Kam Chuen";
-    public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
+            + COMMAND_WORD + " "
+            + PREFIX_AUTHOR + "Tung Kam Chuen";
+    public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.\n"
+            + MESSAGE_USAGE;
 
     private final Predicate<Problem> predicate;
     private final FindProblemDescriptor descriptor;
