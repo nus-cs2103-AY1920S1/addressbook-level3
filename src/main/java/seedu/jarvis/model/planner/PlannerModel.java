@@ -1,5 +1,6 @@
 package seedu.jarvis.model.planner;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -20,7 +21,7 @@ public interface PlannerModel {
      * Retrieves the tasks stored in the planner
      * @return a list of tasks stored in the planner
      */
-    ObservableList<Task> getTasks();
+    TaskList getTasks();
 
     /**
      * Adds a task to the planner
@@ -97,6 +98,8 @@ public interface PlannerModel {
      * of {@code Planner}
      */
     ObservableList<Task> getFilteredTaskList();
+
+    ObservableList<Task> getUnfilteredTaskList();
 
     /**
      * Marks a {@code Task} at the specified {@code Index} as done

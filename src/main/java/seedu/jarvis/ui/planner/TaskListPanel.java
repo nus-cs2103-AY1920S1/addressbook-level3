@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * A panel containing a list of tasks
  */
 public class TaskListPanel extends UiPart<Region> {
-    private static final String FXML = "TaskListPanel.fxml";
+    private static final String FXML = "TaskListView.fxml";
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML

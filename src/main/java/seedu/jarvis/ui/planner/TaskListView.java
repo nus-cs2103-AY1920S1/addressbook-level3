@@ -3,6 +3,7 @@ package seedu.jarvis.ui.planner;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import seedu.jarvis.logic.Logic;
 import seedu.jarvis.model.Model;
@@ -14,10 +15,15 @@ import seedu.jarvis.ui.template.View;
  * A View representing the list of {@code Task}.
  */
 public class TaskListView extends View<AnchorPane> {
-    private static final String FXML = "TaskListPanel.fxml";
+    private static final String FXML = "TaskListView.fxml";
+
+    private TaskListPanel taskListPanel;
 
     @FXML
     private ListView<Task> taskListView;
+
+    @FXML
+    private SplitPane taskSplitPane;
 
     public TaskListView(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
@@ -25,7 +31,7 @@ public class TaskListView extends View<AnchorPane> {
 
     @Override
     public void fillPage() {
-        taskListView.setItems(model.getFilteredTaskList());
+        taskListView.setItems(logic.getFilteredTaskList());
         taskListView.setCellFactory(listView -> new TaskListViewCell());
     }
 
@@ -36,9 +42,8 @@ public class TaskListView extends View<AnchorPane> {
     class TaskListViewCell extends ListCell<Task> {
 
         @Override
-        protected void updateItem(Task task, boolean empty) {
+        public void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
-
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);

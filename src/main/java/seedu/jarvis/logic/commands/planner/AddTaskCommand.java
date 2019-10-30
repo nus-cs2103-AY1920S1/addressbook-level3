@@ -87,8 +87,8 @@ public class AddTaskCommand extends Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} that person was added successfully.
-     * @throws CommandException If there already is a {@code Person} matching the person
-     * to be added in the address book.
+     * @throws CommandException If there already is a {@code Task} matching the task
+     * to be added in the planner.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -99,8 +99,8 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
-        model.setViewStatus(ViewType.LIST_PLANNER);
         model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        model.setViewStatus(ViewType.LIST_PLANNER);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 

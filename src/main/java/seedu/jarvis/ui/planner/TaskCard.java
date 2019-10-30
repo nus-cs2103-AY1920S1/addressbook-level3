@@ -15,7 +15,7 @@ import seedu.jarvis.ui.UiPart;
  */
 public class TaskCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TaskListCard.fxml";
 
     public final Task task;
 
@@ -38,6 +38,7 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
+        System.out.println("task des: " + task.getTaskDes());
         taskDes.setText(task.getTaskDes());
         priority.setText(task.getPriority().toString());
         frequency.setText(task.getFrequency().toString());
