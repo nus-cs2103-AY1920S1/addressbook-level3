@@ -18,7 +18,7 @@ import seedu.address.ui.panel.PanelName;
  */
 public class EventListPanel extends Panel {
     public static final PanelName PANEL_NAME = new PanelName("Event List");
-    private static final String FXML = "ListPanel.fxml";
+    private static final String FXML = "ExpenseListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(seedu.address.ui.event.EventListPanel.class);
 
     @FXML
