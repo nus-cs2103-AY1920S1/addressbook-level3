@@ -11,6 +11,7 @@ import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
+import dream.fcard.util.DeepCopy;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
@@ -293,5 +294,9 @@ public class Deck implements JsonInterface {
      */
     private boolean isIndexProvidedByUserValid(int indexProvided) {
         return indexProvided <= cards.size() && indexProvided > 0;
+    }
+
+    public Deck duplicateMyself() {
+        return new Deck(DeepCopy.duplicateCards(this.cards), this.deckName);
     }
 }

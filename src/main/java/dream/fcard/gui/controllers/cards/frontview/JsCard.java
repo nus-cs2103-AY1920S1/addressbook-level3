@@ -1,9 +1,9 @@
-package dream.fcard.gui.controllers.cards;
+package dream.fcard.gui.controllers.cards.frontview;
 
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.components.JsTestRunnerApplication;
+import dream.fcard.gui.controllers.jsjava.JsTestRunnerApplication;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.util.datastructures.Pair;
@@ -26,7 +26,7 @@ public class JsCard extends AnchorPane {
 
     private JavascriptCard card;
     private Application jsEditor;
-    private Consumer<Pair<Integer, Pair<Integer, Integer>>> getResult = r -> receiveResult(r);
+    private Consumer<Pair<String, Pair<Integer, Integer>>> getResult = this::receiveResult;
 
     public JsCard(JavascriptCard card) {
         try {
@@ -61,14 +61,18 @@ public class JsCard extends AnchorPane {
 
     /**
      * A function that returns whether the user passed all test cases. used to tell the user via the flashcard.
-     * @param result
+     *
+     * @param result user's attempted code, the number of passed and failed attempts.
      * @return
      */
-    boolean receiveResult(Pair<Integer, Pair<Integer, Integer>> result) {
-        if (result.fst().equals(result.snd().fst())) {
-            return true;
+    void receiveResult(Pair<String, Pair<Integer, Integer>> result) {
+        card.setAttempt(result.fst());
+        if (result.snd().snd().equals(0)) {
+            card.editFront(questionTextLabel.getText() + "Passed!");
+            questionTextLabel.setText(questionTextLabel.getText() + "Passed!");
         } else {
-            return false;
+            card.editFront(questionTextLabel.getText() + "Failed.");
+            questionTextLabel.setText(questionTextLabel.getText() + "Failed.");
         }
     }
 }

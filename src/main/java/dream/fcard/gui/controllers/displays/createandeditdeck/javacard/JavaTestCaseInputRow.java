@@ -1,4 +1,4 @@
-package dream.fcard.gui.controllers.displays;
+package dream.fcard.gui.controllers.displays.createandeditdeck.javacard;
 
 import java.io.File;
 import java.io.IOException;
@@ -88,7 +88,7 @@ public class JavaTestCaseInputRow extends GridPane {
      *
      * @return true if there is no input file, false if there is an input file.
      */
-    boolean hasNoInputFile() {
+    public boolean hasNoInputFile() {
         if (input == null || !input.exists()) {
             displayMessage.accept("Empty input file detected in row " + getRow());
             return true;
@@ -100,7 +100,7 @@ public class JavaTestCaseInputRow extends GridPane {
      * Returns whether this input row has empty files or un-uploaded files.
      * @return
      */
-    boolean hasEmptyOrMissingOutputFile() {
+    public boolean hasEmptyOrMissingOutputFile() {
         if (output == null || !output.exists() || output.length() == 0) {
             displayMessage.accept("Empty/missing output file detected in row " + getRow());
             return true;

@@ -3,11 +3,11 @@ package dream.fcard.gui.controllers.windows;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.components.JavaEditorApplication;
-import dream.fcard.gui.components.JsEditorApplication;
-import dream.fcard.gui.controllers.displays.CreateDeckDisplay;
-import dream.fcard.gui.controllers.displays.DeckDisplay;
-import dream.fcard.gui.controllers.displays.NoDecksDisplay;
+import dream.fcard.gui.controllers.displays.createandeditdeck.CreateDeckDisplay;
+import dream.fcard.gui.controllers.displays.displayingdecks.DeckDisplay;
+import dream.fcard.gui.controllers.displays.displayingdecks.NoDecksDisplay;
+import dream.fcard.gui.controllers.jsjava.JavaEditorApplication;
+import dream.fcard.gui.controllers.jsjava.JsEditorApplication;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.logic.storage.StorageManager;

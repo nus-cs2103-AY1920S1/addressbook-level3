@@ -1,4 +1,4 @@
-package dream.fcard.gui.components;
+package dream.fcard.gui.controllers.jsjava;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -18,10 +18,10 @@ import javafx.stage.Stage;
  */
 public class JsTestRunnerApplication extends Application {
 
-    private Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult;
+    private Consumer<Pair<String, Pair<Integer, Integer>>> sendResult;
     private JavascriptCard card;
 
-    public JsTestRunnerApplication(Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult, JavascriptCard c) {
+    public JsTestRunnerApplication(Consumer<Pair<String, Pair<Integer, Integer>>> sendResult, JavascriptCard c) {
         super();
         this.sendResult = sendResult;
         this.card = c;
@@ -55,6 +55,10 @@ public class JsTestRunnerApplication extends Application {
      * @return basic code
      */
     private String boilerPlate() {
-        return "//use print() to print text";
+        if (card.getAttempt() == null) {
+            return "//use print() to print text";
+        } else {
+            return card.getAttempt();
+        }
     }
 }

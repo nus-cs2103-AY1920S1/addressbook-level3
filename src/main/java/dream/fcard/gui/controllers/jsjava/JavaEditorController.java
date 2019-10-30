@@ -1,4 +1,4 @@
-package dream.fcard.gui.components;
+package dream.fcard.gui.controllers.jsjava;
 
 import java.io.IOException;
 

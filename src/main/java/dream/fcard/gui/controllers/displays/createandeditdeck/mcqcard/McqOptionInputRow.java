@@ -1,4 +1,4 @@
-package dream.fcard.gui.controllers.displays;
+package dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -44,27 +44,27 @@ public class McqOptionInputRow extends HBox {
         }
     }
 
-    void setOptionNumber(int i) {
+    public void setOptionNumber(int i) {
         optionValue.setText(i + ".");
     }
 
-    boolean isBlank() {
+    public boolean isBlank() {
         return optionText.getText().isBlank();
     }
 
-    boolean hasRightAnswer() {
+    public boolean hasRightAnswer() {
         return rightAnswerRadio.isSelected();
     }
 
-    String getOption() {
+    public String getOption() {
         return optionText.getText();
     }
 
-    void setOptionText(String text) {
+    public void setOptionText(String text) {
         optionText.setText(text);
     }
 
-    void setRightAnswerRadio() {
+    public void setRightAnswerRadio() {
         rightAnswerRadio.setSelected(true);
     }
 }

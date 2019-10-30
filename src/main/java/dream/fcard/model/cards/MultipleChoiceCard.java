@@ -27,6 +27,9 @@ public class MultipleChoiceCard extends FrontBackCard {
     // Answer index is 1-based
     private int answerIndex;
 
+    // Answer index is 1-based
+    private int userAttempt = -1;
+
     /**
      * Construct a multiple choice card.
      *
@@ -35,19 +38,13 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @param choicesArg  original sorted choices
      */
     //@@author huiminlim
-    public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg)
-            throws DuplicateInChoicesException {
+    public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg) {
         super(frontString, backString);
 
-        // Checks if choices contain duplicate
+        // Checks if choices contain duplicate TODO: handle this problem in the GUI
         boolean hasDuplicateInChoice = hasChoiceContainDuplicate(choicesArg);
 
-        if (hasDuplicateInChoice) {
-            throw new DuplicateInChoicesException("Duplicates found in choices provided.");
-        }
-
         choices = choicesArg;
-
 
         // Answer index is 1-based.
         try {
@@ -357,5 +354,26 @@ public class MultipleChoiceCard extends FrontBackCard {
      */
     public int getCorrectAnswerIndex() {
         return answerIndex;
+    }
+
+    /**
+     * Retrieve the user's attempt within the same test.
+     * @return
+     */
+    public int getUserAttempt() {
+        return userAttempt;
+    }
+
+    /**
+     * Set the user's attempt in the test.
+     * @param userAttempt
+     */
+    public void setUserAttempt(int userAttempt) {
+        this.userAttempt = userAttempt;
+    }
+
+    @Override
+    public FlashCard duplicate() {
+        return new MultipleChoiceCard(front, back, choices);
     }
 }

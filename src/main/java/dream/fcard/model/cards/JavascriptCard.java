@@ -15,6 +15,7 @@ public class JavascriptCard extends FlashCard {
     protected String front; //question
     protected String back;
     protected Statistics stats;
+    protected String attempt;
 
 
     /**
@@ -58,6 +59,11 @@ public class JavascriptCard extends FlashCard {
         return new JsonValue(obj);
     }
 
+    @Override
+    public FlashCard duplicate() {
+        return new JavascriptCard(front, back, 0);
+    }
+
     /**
      *
      * @param in input
@@ -98,5 +104,21 @@ public class JavascriptCard extends FlashCard {
      */
     public String getBack() {
         return back;
+    }
+
+    /**
+     * Return the user's attempted code.
+     * @return code attempt
+     */
+    public String getAttempt() {
+        return attempt;
+    }
+
+    /**
+     * Store the user's attempted code.
+     * @param attempt code attempt
+     */
+    public void setAttempt(String attempt) {
+        this.attempt = attempt;
     }
 }

@@ -13,6 +13,7 @@ public class JavaCard extends FlashCard {
 
     private String question;
     private ArrayList<TestCase> testCases;
+    private String attempt;
 
     public JavaCard(String question, ArrayList<TestCase> testCases) {
         this.question = question;
@@ -44,5 +45,10 @@ public class JavaCard extends FlashCard {
     @Override
     public void editBack(String newText) {
         //irrelevant
+    }
+
+    @Override
+    public FlashCard duplicate() {
+        return new JavaCard(question, testCases);
     }
 }

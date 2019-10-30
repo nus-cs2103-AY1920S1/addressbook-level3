@@ -81,4 +81,6 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
         return priority;
     }
 
+    public abstract FlashCard duplicate();
+
 }
