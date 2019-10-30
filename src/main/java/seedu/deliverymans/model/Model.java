@@ -14,6 +14,7 @@ import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -356,6 +357,12 @@ public interface Model {
     Deliveryman getOneAvailableDeliveryman();
 
     void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException;
+
+    DeliveryRecord getDeliverymanRecord(Deliveryman deliveryman);
+
+    DeliveryRecord getDeliverymanRecordPlaceholder();
+
+    void setToShowDeliverymanRecord(DeliveryRecord record);
 
     //=========== Order Methods =============================================================
 
