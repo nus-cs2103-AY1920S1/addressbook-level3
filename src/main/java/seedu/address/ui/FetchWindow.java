@@ -194,7 +194,19 @@ public class FetchWindow extends UiPart<Stage> {
                         eventOneBasedIndex, fetchWindow, true).getRoot());
             }
         }
+
+        protected void updateItem1(Employee employee, boolean empty) {
+            super.updateItem(employee, empty);
+            if (empty || employee == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new EmployeeCard1(employee, getIndex() + 1, logic, event,
+                        eventOneBasedIndex, fetchWindow, true).getRoot());
+            }
+        }
     }
+
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Employee} using a {@code EmployeeCard}.
@@ -214,6 +226,18 @@ public class FetchWindow extends UiPart<Stage> {
                 setGraphic(new EmployeeCard(employee, getIndex() + 1, logic, event,
                         eventOneBasedIndex, fetchWindow, false).getRoot());
             }
+
+        }
+        protected void updateItem1(Employee employee, boolean empty) {
+            super.updateItem(employee, empty);
+            if (empty || employee == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new EmployeeCard1(employee, getIndex() + 1, logic, event,
+                        eventOneBasedIndex, fetchWindow, false).getRoot());
+            }
+
         }
     }
 
