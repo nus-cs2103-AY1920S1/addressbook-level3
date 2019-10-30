@@ -151,6 +151,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void updateBorrowerPanel() {
+        assert logic.isServeMode() : "Not in serve mode";
         ArrayList<Loan> loanList = new ArrayList<>();
         logic.getServingBorrower()
                 .getCurrentLoanList()
