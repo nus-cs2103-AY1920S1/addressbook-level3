@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 
 import seedu.jarvis.commons.core.GuiSettings;
@@ -754,13 +755,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getDisplayText() {
+    public ObservableStringValue getDisplayText() {
         return coursePlanner.getText();
-    }
-
-    @Override
-    public String getDisplayText(int lineCharacterLimit) {
-        return coursePlanner.getText(lineCharacterLimit);
     }
 
     @Override

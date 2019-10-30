@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.index.Index;
@@ -428,12 +429,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public String getDisplayText() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public String getDisplayText(int lineCharacterLimit) {
+    public ObservableStringValue getDisplayText() {
         throw new AssertionError("This method should not be called.");
     }
 
