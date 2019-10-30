@@ -59,6 +59,9 @@ public class SetAssignmentScoreCommandParser implements Parser<SetAssignmentScor
 
         try {
             score = Integer.parseInt(argMultimap.getValue(PREFIX_SCORE).get());
+            if (score < 0) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException e) {
             throw new ParseException(Assignment.MESSAGE_CONSTRAINTS_SCORE);
         }

@@ -1,6 +1,7 @@
 package seedu.tarence.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ class InputHistoryHandlerTest {
 
     @Test
     void getPastCommand_getInputHistory_noCommandsInHistory() {
-        assertEquals(null, inputHistoryHandler.getPastInput("up"));
+        assertNull(inputHistoryHandler.getPastInput("up"));
     }
 
     //CHECKSTYLE:OFF: VisibilityModifier

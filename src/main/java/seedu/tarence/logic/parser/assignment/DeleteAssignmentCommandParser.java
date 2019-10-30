@@ -63,6 +63,9 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
             assignName = argMultimap.getValue(PREFIX_NAME).get();
             try {
                 maxScore = Integer.parseInt(argMultimap.getValue(PREFIX_SCORE).get());
+                if (maxScore < 0) {
+                    throw new NumberFormatException();
+                }
             } catch (NumberFormatException e) {
                 throw new ParseException(Assignment.MESSAGE_CONSTRAINTS_MAX_SCORE);
             }
