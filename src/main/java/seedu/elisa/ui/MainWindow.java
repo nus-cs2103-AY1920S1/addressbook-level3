@@ -7,6 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
@@ -19,6 +20,7 @@ import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.logic.Logic;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.DownCommandResult;
+import seedu.elisa.logic.commands.ThemeCommandResult;
 import seedu.elisa.logic.commands.UpCommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
@@ -50,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
     private ReminderListPanel reminderListPanel;
     private CalendarPanel calendarPanel;
     private ResultDisplay resultDisplay;
+
+    @FXML
+    private Scene scene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -254,6 +259,24 @@ public class MainWindow extends UiPart<Stage> {
         return reminderListPanel;
     }
 
+    private void changeTheme(String theme) {
+        System.out.print(theme);
+        System.out.print(scene.getStylesheets());
+        scene.getStylesheets().remove(0);
+        scene.getStylesheets().remove(0);
+        switch(theme.trim()) {
+        case "white":
+            scene.getStylesheets().add("view/WhiteTheme.css");
+            scene.getStylesheets().add("view/Extensions.css");
+            break;
+        case "black":
+            scene.getStylesheets().add("view/DarkTheme.css");
+            scene.getStylesheets().add("view/Extensions.css");
+            break;
+        default:
+        }
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -282,6 +305,11 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult instanceof DownCommandResult) {
                 scrollDown(commandResult.getPane());
+                return commandResult;
+            }
+
+            if (commandResult instanceof ThemeCommandResult) {
+                changeTheme(commandResult.getTheme());
                 return commandResult;
             }
 
