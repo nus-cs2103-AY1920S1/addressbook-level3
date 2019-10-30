@@ -33,7 +33,7 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
         ArgumentMultimap argIdMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_ID);
         ArgumentMultimap argOpMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_OPERATOR);
         ArgumentMultimap argSelfMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_SELF);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_DESCRIPTION, SEARCH_PREFIX_ID, SEARCH_PREFIX_OPERATOR);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_DESCRIPTION, SEARCH_PREFIX_ID, SEARCH_PREFIX_OPERATOR, SEARCH_PREFIX_SELF);
 
 //        if ((arePrefixesPresent(argMultimap, SEARCH_PREFIX_OPERATOR))
 //                && (arePrefixesPresent(argMultimap, SEARCH_PREFIX_DESCRIPTION))) {
@@ -59,22 +59,36 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
 //            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
 //                    FindIncidentsCommand.MESSAGE_USAGE));
 //        }
+        if (!(arePrefixesPresent(argMultimap, SEARCH_PREFIX_DESCRIPTION))
+                && !(arePrefixesPresent(argMultimap, SEARCH_PREFIX_OPERATOR))
+                && !(arePrefixesPresent(argMultimap, SEARCH_PREFIX_ID))
+                && !(arePrefixesPresent(argMultimap, SEARCH_PREFIX_SELF))) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindIncidentsCommand.MESSAGE_USAGE));
+        }
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_DESCRIPTION)) {
             Description descriptionKeywords = ParserUtil.parseDescription(argMultimap
                     .getValue(SEARCH_PREFIX_DESCRIPTION).get());
             predicateArr.add(new DescriptionKeywordsPredicate(descriptionKeywords));
         }
+
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_ID)) {
             IncidentId idKeywords = ParserUtil.parseId(argMultimap.getValue(SEARCH_PREFIX_ID).get());
             predicateArr.add(new IdKeywordsPredicate(idKeywords));
 //            return new FindIncidentsCommand(new IdKeywordsPredicate(idKeywords));
         }
+
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_OPERATOR)) {
             Name nameKeywords = ParserUtil.parseName(argMultimap.getValue(SEARCH_PREFIX_OPERATOR).get());
             predicateArr.add(new NameKeywordsPredicate(nameKeywords));
 //            return new FindIncidentsCommand(new NameKeywordsPredicate(nameKeywords));
         }
+
+        if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_SELF)) {
+            return new FindIncidentsCommand(predicateArr, SEARCH_PREFIX_SELF);
+        }
+
         return new FindIncidentsCommand(predicateArr);
     }
 

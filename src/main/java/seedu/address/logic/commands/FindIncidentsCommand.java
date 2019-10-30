@@ -65,18 +65,29 @@ public class FindIncidentsCommand extends Command {
 
     public FindIncidentsCommand(List<Predicate> predicateArr) {
         this.predicateArr = predicateArr;
+        combinePredicates();
+    }
+
+    public FindIncidentsCommand(Prefix prefix) {
+        if (prefix == SEARCH_PREFIX_SELF) {
+            this.isSelfSearch = true;
+        }
+    }
+
+    public FindIncidentsCommand(List<Predicate> predicateArr, Prefix prefix) {
+        this.predicateArr = predicateArr;
+        combinePredicates();
+        if (prefix == SEARCH_PREFIX_SELF) {
+            this.isSelfSearch = true;
+        }
+    }
+    private void combinePredicates() {
         if(predicateArr.size() != 1) {
             for (int i = 0; i < predicateArr.size() - 1; i++) {
                 this.predicate = predicateArr.get(i).and(predicateArr.get(i + 1));
             }
         } else {
             this.predicate = predicateArr.get(0);
-        }
-    }
-
-    public FindIncidentsCommand(Prefix prefix) {
-        if (prefix == SEARCH_PREFIX_SELF) {
-            this.isSelfSearch = true;
         }
     }
 
