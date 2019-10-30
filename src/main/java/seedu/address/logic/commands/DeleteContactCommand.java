@@ -3,11 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.ResultInformation;
+import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -61,9 +64,25 @@ public class DeleteContactCommand extends DeleteCommand {
         } else {
             contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         }
-
+        Index indexOfContact = findIndexOfContact(model, contactToDelete);
         model.deleteContact(contactToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete));
+        return new CommandResult(
+                String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete),
+                new ResultInformation(contactToDelete, indexOfContact),
+                UiFocus.CONTACT, UiFocus.INFO
+        );
+    }
+
+    /**
+     * Returns the index of contact in the model.
+     * Precondition: the {@code contact} must have not been deleted before this.
+     */
+    private Index findIndexOfContact(Model model, Contact contact) {
+        Optional<Index> indexOfContact = model.getContactIndex(contact);
+        if (indexOfContact.isEmpty()) {
+            throw new AssertionError("Contact should not have been deleted before this.");
+        }
+        return indexOfContact.get();
     }
 
     @Override

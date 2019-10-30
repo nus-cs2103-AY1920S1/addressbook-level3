@@ -57,7 +57,7 @@ public class ResultInformation {
     /**
      * Throws an AssertionError if there is no one and only one non-null object.
      */
-    private void onlyOneNonNull(Object ...obj) throws AssertionError {
+    private static void onlyOneNonNull(Object ...obj) throws AssertionError {
         int nonNullCounter = 0;
         for (Object o : obj) {
             if (!(o == null)) {

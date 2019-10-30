@@ -3,11 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.ResultInformation;
+import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.Model;
 import seedu.address.model.itineraryitem.activity.Activity;
 
@@ -60,9 +63,25 @@ public class DeleteActivityCommand extends DeleteCommand {
         } else {
             activityToDelete = lastShownList.get(targetIndex.getZeroBased());
         }
-
+        Index indexOfActivity = findIndexOfActivity(model, activityToDelete);
         model.deleteActivity(activityToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete));
+        return new CommandResult(
+                String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete),
+                new ResultInformation(activityToDelete, indexOfActivity),
+                UiFocus.ACTIVITY, UiFocus.INFO
+        );
+    }
+
+    /**
+     * Returns the index of activity in the model.
+     * Precondition: the {@code activity} must have not been deleted before this.
+     */
+    private Index findIndexOfActivity(Model model, Activity activity) {
+        Optional<Index> indexOfActivity = model.getActivityIndex(activity);
+        if (indexOfActivity.isEmpty()) {
+            throw new AssertionError("Activity should not have been deleted before this.");
+        }
+        return indexOfActivity.get();
     }
 
     @Override
