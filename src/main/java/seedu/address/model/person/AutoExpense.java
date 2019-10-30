@@ -26,7 +26,7 @@ public class AutoExpense extends Entry {
         return this.ENTRY_TYPE;
     }
 
-    private Date getNextTime() {
+    public Date getNextTime() {
         return lastTime.plus(freq);
     }
 
