@@ -332,6 +332,7 @@ There is no need to save manually.
 
 == Command Summary
 
+// tag::tablesummary[]
 === Table Summary
 Rows highlighted in light blue represent commands that can only be used in the main list and not the replenish list.
 [cols=".<2,.^4,.^4", options="header"]
@@ -415,6 +416,7 @@ Rows highlighted in light blue represent commands that can only be used in the m
 |*Exit*|`exit`||{set:cellbgcolor!}
 
 |===
+// end::tablesummary[]
 
 === List Summary
 * *Help* : `help`
