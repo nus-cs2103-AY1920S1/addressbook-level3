@@ -6,7 +6,7 @@ import seedu.address.logic.commands.*;
 
 public class Keywords {
     public static List<String> commandList = List.of(
-        // TASK 
+        // TASK
         AddTaskCommand.COMMAND_WORD,
         DeleteTaskCommand.COMMAND_WORD,
         FindCommand.COMMAND_WORD,
@@ -51,12 +51,11 @@ public class Keywords {
         HomeCommand.COMMAND_WORD
     );
 
-    public static String getParameters(String commandWord) { 
+    public static String getParameters(String commandWord) {
         switch(commandWord) {
-            // TASK 
+            // TASK
             case AddTaskCommand.COMMAND_WORD:
                 return "add-task tn/ s/ t/";
-        
 
             // case DeleteTaskCommand.COMMAND_WORD: default
 
@@ -68,7 +67,7 @@ public class Keywords {
             case EditCommand.COMMAND_WORD:
                 return "edit-task {INDEX} tn/ t/ s/";
 
-            case DoingTaskCommand.COMMAND_WORD: 
+            case DoingTaskCommand.COMMAND_WORD:
                 return "doing-task {INDEX}";
 
             case SetDeadlineCommand.COMMAND_WORD:
@@ -97,44 +96,44 @@ public class Keywords {
 
             case  AddMemberToTaskCommand.COMMAND_WORD:
                 return "assign-member ti/ mi/";
-                
+
             case  RemoveTaskFromMemberCommand.COMMAND_WORD:
                 return "fire-task ti/ mi/";
-            
+
             case  RemoveMemberFromTaskCommand.COMMAND_WORD:
                 return "fire-member ti/ mi/";
-            
+
             // INVENTORY
             // case ListInventoryCommand.COMMAND_WORD: default
-                
+
             case AddInventoryCommand.COMMAND_WORD:
                 return "add-inv i/ p/ ti/ mi/";
-                
+
             case EditInventoryCommand.COMMAND_WORD:
                 return "edit-inv i/ p/ ti/ mi/";
-                
+
             case DeleteInventoryCommand.COMMAND_WORD:
                 return "delete-inv {index}";
-            
+
             // case GeneratePDFCommand.COMMAND_WORD: default
-                
+
             // STATS
             // case  GetStatisticsCommand.COMMAND_WORD_MEMBER: default
             // case GetStatisticsCommand.COMMAND_WORD_TASK:
-        
+
             // SETTINGS
             case ThemeCommand.COMMAND_WORD:
                 return "theme {theme}";
-            
+
             // case ClockCommand.COMMAND_WORD:
-            
+
             // UNIVERSAL
-            
+
             // case ClearCommand.COMMAND_WORD:
             // case ExitCommand.COMMAND_WORD:
-            // case HelpCommand.COMMAND_WORD:            
+            // case HelpCommand.COMMAND_WORD:
             // case HomeCommand.COMMAND_WORD:
-            
+
             default:
                 return commandWord;
         }

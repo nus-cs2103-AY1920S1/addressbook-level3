@@ -18,10 +18,10 @@ By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-+Work is a project management tool that allows you to successfully achieve your objectives for your project. 
-It is aimed at NUS project leaders who are in charge of a small project group of less than 20 people. 
-+Work is a one-stop application to help you manage your members, meeting times, task allocations as well as personal claims for equipment purchased. 
-Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI). 
++Work is a project management tool that allows you to successfully achieve your objectives for your project.
+It is aimed at NUS project leaders who are in charge of a small project group of less than 20 people.
++Work is a one-stop application to help you manage your members, meeting times, task allocations as well as personal claims for equipment purchased.
+Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI).
 Happy working!
 
 == Quick Start
@@ -110,20 +110,20 @@ Example: 'list-members'
 To remove a member from the project, and subsequently remove him from associated tasks, use the 'remove-member' command in the format below. +
 Format: `remove-member [mi/MEMBER_ID]`
 
-Example: 'remove-member mi/GS' 
+Example: 'remove-member mi/GS'
 
 
 ==== Assign a task to a member: `assign` +
 To assign a task to a specific team member, use the 'assign' command in the format below. +
 Format: `assign ti/TASK_ID mi/MEMBER_ID`
 
-Example: 'assign ti/1 mi/GS' 
+Example: 'assign ti/1 mi/GS'
 
 ==== Removing a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
 Format: `fire ti/TASK_ID mi/MEMBER_ID`
 
-Example: 'fire ti/1 mi/GS' 
+Example: 'fire ti/1 mi/GS'
 
 '''
 
@@ -388,8 +388,8 @@ There is no need to save manually.
 
 === Command Line Autocomplete
 
-+Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. + 
-For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down and paste `add-member mn/ mi/ mt/` into your command-line automatically. 
++Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. +
+For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down and paste `add-member mn/ mi/ mt/` into your command-line automatically.
 
 ////
 
