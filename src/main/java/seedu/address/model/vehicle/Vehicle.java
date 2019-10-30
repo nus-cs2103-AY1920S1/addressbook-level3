@@ -1,5 +1,6 @@
 package seedu.address.model.vehicle;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.vehicle.Availability.VEHICLE_AVAILABLE_TAG;
 
 import java.util.Objects;
 
@@ -44,6 +45,13 @@ public class Vehicle {
         return availability;
     }
 
+    public void setAvailability(Availability availability) {
+        this.availability = availability;
+    }
+
+    public boolean isAvailable() {
+        return this.getAvailability().getAvailabilityTag().equals(VEHICLE_AVAILABLE_TAG);
+    }
     /**
      * Returns true if both Vehicles of the same VehicleType have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two Vehicles.

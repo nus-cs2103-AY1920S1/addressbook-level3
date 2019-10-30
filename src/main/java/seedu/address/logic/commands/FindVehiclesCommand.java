@@ -5,18 +5,14 @@ import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_VNUM;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_VTYPE;
 
-import java.util.List;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.incident.Incident;
 import seedu.address.model.vehicle.DistrictKeywordsPredicate;
 import seedu.address.model.vehicle.VNumKeywordsPredicate;
 import seedu.address.model.vehicle.VTypeKeywordsPredicate;
 import seedu.address.model.vehicle.Vehicle;
-import seedu.address.model.vehicle.exceptions.VehicleNotFoundException;
 
 /**
  * Finds and lists all incidents in address book whose name contains any of the argument keywords.
@@ -37,18 +33,6 @@ public class FindVehiclesCommand extends Command {
             + SEARCH_PREFIX_VTYPE + "vehicle type";
 
     private final Predicate<Vehicle> predicate;
-    private Incident draft; // only if this command is used by NewCommand
-    private boolean isAuto;
-
-    /**
-     * Used only to add vehicles to newly created incidents.
-     * @param draft
-     */
-    public FindVehiclesCommand(Incident draft, boolean isAuto) {
-        this.draft = draft;
-        this.predicate = new DistrictKeywordsPredicate(List.of(draft.getDistrict()));
-        this.isAuto = isAuto;
-    }
 
     /**
      * Used only when simply listing nearby vehicles.
@@ -75,27 +59,7 @@ public class FindVehiclesCommand extends Command {
     }
 
     /**
-     * Automatically assigns vehicle to newly created incident reports.
-     * @param model
-     */
-    public void autoAssign(Model model) {
-        assert(this.draft != null && isAuto);
-        ObservableList<Vehicle> nearbyVehicles = model.getFilteredVehicleList()
-                .filtered(vehicle -> vehicle.getDistrict().equals(draft.getDistrict())
-        );
-
-        if (nearbyVehicles.size() > 0) {
-            Vehicle vehicle = nearbyVehicles.get(0);
-            draft.addVehicle(vehicle);
-        } else if (nearbyVehicles.size() == 0) {
-            throw new VehicleNotFoundException();
-        }
-
-        model.updateFilteredVehicleList(predicate);
-    }
-
-    /**
-     * Only called when listing.
+     * Only called for normal listing.
      * @param model {@code Model} which the command should operate on.
      * @return
      */
@@ -104,11 +68,6 @@ public class FindVehiclesCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredVehicleList(predicate);
-
-        if (this.draft != null && isAuto) {
-            // TODO: Messages.PROMPT_FOR_V
-            return new CommandResult("prompt for v");
-        }
 
         if (model.getFilteredVehicleList().size() == 0) {
             return new CommandResult(Messages.MESSAGE_NO_VEHICLES_FOUND);
@@ -124,7 +83,6 @@ public class FindVehiclesCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindVehiclesCommand // instanceof handles nulls
-                && (draft != null && (draft == ((FindVehiclesCommand) other).draft)
-                || predicate == ((FindVehiclesCommand) other).predicate)); // state check
+                && predicate == ((FindVehiclesCommand) other).predicate); // state check
     }
 }

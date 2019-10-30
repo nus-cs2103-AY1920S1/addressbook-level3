@@ -89,7 +89,9 @@ public class TypicalEntities {
                 commonIncidentId,
                 new CallerNumber("84738293"),
                 new Description("Pickpocket reported along the walkway in District 2"),
-                Incident.Status.INCOMPLETE_DRAFT);
+                Incident.Status.INCOMPLETE_DRAFT,
+                new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("ABC1234D"),
+                        new District(9), new Availability("BUSY")));
         im.addIncident(firstIncident);
 
         im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
@@ -99,7 +101,10 @@ public class TypicalEntities {
                 commonIncidentId,
                 new CallerNumber("90878965"),
                 new Description("Pickpocket spotted at the pasar malam in District 3"),
-                Incident.Status.INCOMPLETE_DRAFT);
+                Incident.Status.INCOMPLETE_DRAFT,
+                new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("GBC1434D"),
+                        new District(4), new Availability("BUSY")));
+
         im.addIncident(secondIncident);
 
         return im;

@@ -14,6 +14,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_CALLER_NUMBER = new Prefix("c/");
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
+
+    /* For vehicle use */
+    public static final Prefix PREFIX_VEHICLE = new Prefix("v/");
     public static final Prefix PREFIX_DISTRICT = new Prefix("l/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_VTYPE = new Prefix("vt/");

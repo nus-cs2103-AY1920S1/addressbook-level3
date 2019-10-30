@@ -28,34 +28,42 @@ public class NewCommand extends Command {
 
     private final District district;
     private final boolean isAuto;
+    // 0 for auto, -1 for prompt needed, 1 ... for allocation, need check oob
+    private final int indexOfV;
+
     private Incident draft;
 
     /**
-     * Creates a NewCommand to generate a new {@code Incident}
+     * Creates a NewCommand to generate a new {@code Incident}.
+     * If isAuto is false, it means the user did not key in index for vehicle to dispatch.
      */
-    public NewCommand(District district, boolean isAuto) {
+
+    public NewCommand(District district, boolean isAuto, int indexOfV) {
         requireNonNull(district);
         this.district = district;
         this.isAuto = isAuto;
+        this.indexOfV = indexOfV;
     }
 
     /**
      * Assigns vehicle directly to draft if isAuto is true.
-     * Else, lists nearby vehicles as per normal vehicle search.
+     * Else, lists nearby vehicles as per normal vehicle search,
+     * and expects user to have also keyed in index of vehicle.
      * @param draft
      * @param isAuto
      * @param model
      */
-    public void dispatchVehicle(Incident draft, boolean isAuto, Model model) {
-        FindVehiclesCommand findVehicle = new FindVehiclesCommand(draft, isAuto);
-
-        if (isAuto) {
-            findVehicle.autoAssign(model);
-        } else {
-            findVehicle.execute(model);
-        }
+    public void dispatchVehicle(Incident draft, boolean isAuto, Model model) throws CommandException {
+        VehicleAssignmentCommand vehicleAssignmentCommand = new VehicleAssignmentCommand(draft, isAuto, indexOfV);
+        vehicleAssignmentCommand.execute(model);
     }
 
+    /**
+     * Called regardless.
+     * @param model {@code Model} which the command should operate on.
+     * @return
+     * @throws CommandException
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -69,9 +77,8 @@ public class NewCommand extends Command {
         }
 
         dispatchVehicle(draft, isAuto, model);
-
-        assert(draft != null && model != null);
         model.addIncident(draft);
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

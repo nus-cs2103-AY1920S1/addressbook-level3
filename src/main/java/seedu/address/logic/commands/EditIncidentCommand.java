@@ -22,6 +22,7 @@ import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.Vehicle;
 
 /**
  * Edits the details of an existing incident in the IMS.
@@ -96,9 +97,10 @@ public class EditIncidentCommand extends Command {
         IncidentDateTime updateDateTime = editIncident.getDateTime().orElse(incidentToEdit.getDateTime());
         Description updateDesc = editIncident.getDesc().orElse(incidentToEdit.getDesc());
         Status status = incidentToEdit.getStatus();
+        Vehicle vehicle = incidentToEdit.getVehicle();
 
         return new Incident(operator, updateDistrict, updateDateTime, incidentToEdit.getIncidentId(), updateCaller,
-                updateDesc, status);
+                updateDesc, status, vehicle);
     }
 
     @Override
