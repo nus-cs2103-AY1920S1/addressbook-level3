@@ -19,9 +19,9 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the record identified by the index number used in the displayed record list.\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the record identified by the index number used in the displayed record list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_RECORD_SUCCESS = "Deleted Record: %1$s";
 
@@ -48,8 +48,8 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof DeleteCommand // instanceof handles nulls
-            && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 
     @Override

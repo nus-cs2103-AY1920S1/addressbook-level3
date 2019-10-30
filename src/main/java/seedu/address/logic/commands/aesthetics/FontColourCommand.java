@@ -18,13 +18,13 @@ public class FontColourCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Font colour has been set!";
     public static final String MESSAGE_CURRENT_FONT_COLOUR = "Your current font colour is: ";
     public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Sets the font colour of this application "
-        + "using either CSS colour names or hexadecimal alphanumeric characters representing rgb colours.\n\n"
-        + "Parameter: COLOUR\n\n"
-        + "Example: fontcolour turquoise\n"
-        + "Example: fontcolour #00FF00"
-        + "Example: fontcolour";
+            + "using either CSS colour names or hexadecimal alphanumeric characters representing rgb colours.\n\n"
+            + "Parameter: COLOUR\n\n"
+            + "Example: fontcolour turquoise\n"
+            + "Example: fontcolour #00FF00"
+            + "Example: fontcolour";
     private static final String MESSAGE_NO_CHANGE = "The colour that you've keyed in is no different from "
-        + "what has already been set in your current settings! As such, there's nothing for me to update :)";
+            + "what has already been set in your current settings! As such, there's nothing for me to update :)";
 
     private Colour fontColour;
 

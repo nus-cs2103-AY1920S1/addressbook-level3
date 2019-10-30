@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ProfileDesc {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Profile description can take any values.";
+            "Profile description can take any values.";
     public static final String VALIDATION_REGEX = "^$|[^\\s].*";
 
     public final String profileDesc;
@@ -36,8 +36,8 @@ public class ProfileDesc {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof ProfileDesc // instanceof handles nulls
-            && profileDesc.equals(((ProfileDesc) other).profileDesc)); // state check
+                || (other instanceof ProfileDesc // instanceof handles nulls
+                && profileDesc.equals(((ProfileDesc) other).profileDesc)); // state check
     }
 
     @Override

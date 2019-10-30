@@ -31,8 +31,8 @@ public class Profile extends UiPart<Region> {
         if (description != null) {
             if (description.equals("")) {
                 this.description.setText("No profile description added. But that's okay, "
-                    + "you may use the [" + PREFIX_PROFILE_DESC
-                    + "] prefix to add a profile descripion anytime! :)");
+                        + "you may use the [" + PREFIX_PROFILE_DESC
+                        + "] prefix to add a profile descripion anytime! :)");
                 this.description.setStyle("-fx-font-family: Arial; -fx-font-style: italic");
             } else {
                 this.description.setText(description);

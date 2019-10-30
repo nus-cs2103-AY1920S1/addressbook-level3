@@ -51,13 +51,13 @@ public class JsonUserListStorage implements UserListStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableUserList> jsonUserList = JsonUtil.readJsonFile(
-            filePath, JsonSerializableUserList.class);
+                filePath, JsonSerializableUserList.class);
         if (!jsonUserList.isPresent()) {
             return Optional.empty();
         }
 
         listOfFieldsContainingInvalidReferences = JsonSerializableUserList
-            .getListOfFieldsContainingInvalidReferences();
+                .getListOfFieldsContainingInvalidReferences();
 
         try {
             return Optional.of(jsonUserList.get().toModelType());

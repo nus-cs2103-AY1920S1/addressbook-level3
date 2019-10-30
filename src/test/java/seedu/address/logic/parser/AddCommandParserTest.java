@@ -118,7 +118,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
 
-        //        assertParseFailure(parser, " rt/BLOODSUGAR con/-1.23 dt/hello", BloodSugar.MESSAGE_CONSTRAINTS);
+        //        assertParseFailure(parser, " rt/BLOODSUGAR con/-1.23 dt/hello", Bmi.MESSAGE_CONSTRAINTS);
         //
         //        assertParseFailure(parser, " rt/BMI h/-1 w/-1 dt/hello", Bmi.MESSAGE_CONSTRAINTS);
 

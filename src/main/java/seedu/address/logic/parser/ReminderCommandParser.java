@@ -34,18 +34,18 @@ public class ReminderCommandParser implements Parser<ReminderCommand> {
      */
     public ReminderCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_CALENDAR_DESCRIPTION, PREFIX_DATETIME,
-                PREFIX_CALENDAR_REPETITION);
+                ArgumentTokenizer.tokenize(args, PREFIX_CALENDAR_DESCRIPTION, PREFIX_DATETIME,
+                        PREFIX_CALENDAR_REPETITION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CALENDAR_DESCRIPTION, PREFIX_DATETIME)
-            || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
         }
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_CALENDAR_DESCRIPTION).get());
         DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
         Repetition repetition = ParserUtil
-            .parseRepetition(argMultimap.getValue(PREFIX_CALENDAR_REPETITION).orElse("once"));
+                .parseRepetition(argMultimap.getValue(PREFIX_CALENDAR_REPETITION).orElse("once"));
 
         Reminder reminder = new Reminder(description, dateTime, repetition);
 

@@ -3,10 +3,13 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.MotivationalQuotes.MOTIVATIONAL_QUOTES_LIST;
+import static seedu.address.model.achievements.AchievementsMap.ACHIEVEMENTS_MAP;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,6 +19,9 @@ import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.achievements.Achievement;
+import seedu.address.model.achievements.AchievementState;
+import seedu.address.model.achievements.AchievementStateProcessor;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
@@ -50,7 +56,8 @@ public class ModelManager implements Model {
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
     private final FilteredList<CalendarEntry> pastReminderList;
     private final AverageMap averageMap;
-    private final List<String> quotesList;
+    private final List<String> motivationalQuotesList;
+    private final Map<RecordType, List<Achievement>> achievementsMap;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -62,7 +69,7 @@ public class ModelManager implements Model {
         requireAllNonNull(addressBook, userPrefs, foodList, userList, recordList, calendar);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
-            + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
+                + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -77,12 +84,14 @@ public class ModelManager implements Model {
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
         this.pastReminderList = new FilteredList<>(this.calendar.getPastReminderList());
         this.averageMap = new AverageMap();
-        this.quotesList = MOTIVATIONAL_QUOTES_LIST;
+        this.motivationalQuotesList = MOTIVATIONAL_QUOTES_LIST;
+        this.achievementsMap = ACHIEVEMENTS_MAP;
+        getNewAchievementStates();
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(), new UniqueRecordList(),
-            new Calendar());
+                new Calendar());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -175,7 +184,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean equals(
-        Object obj) {
+            Object obj) {
         // short circuit if same object
         if (obj == this) {
             return true;
@@ -189,8 +198,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-            && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
     //=========== User List =============================================================
@@ -443,7 +452,25 @@ public class ModelManager implements Model {
 
     @Override
     public List<String> getMotivationalQuotesList() {
-        return quotesList;
+        return motivationalQuotesList;
+    }
+
+    //=========== Achievements =============================================================
+
+
+    @Override
+    public Set<AchievementState> getNewAchievementStates() {
+        Set<AchievementState> newStatesSet = (new AchievementStateProcessor(this)).getNewAchievementStates();
+        getAchievementsMap().forEach((recordType, achievementsList) -> {
+            System.out.println(recordType + "\n");
+            achievementsList.forEach(achievement -> System.out.println(achievement + "\n"));
+        });
+        return newStatesSet;
+    }
+
+    @Override
+    public Map<RecordType, List<Achievement>> getAchievementsMap() {
+        return achievementsMap;
     }
 
 

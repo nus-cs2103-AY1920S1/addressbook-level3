@@ -13,13 +13,13 @@ import java.util.List;
 public class Colour {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Colour should be a valid colour or a hexadecimal representation of a colour.";
+            "Colour should be a valid colour or a hexadecimal representation of a colour.";
 
     public static final String HEXADECIMAL_VALIDATION_REGEX = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
 
     private static final List<ColourName> COLOUR_NAMES = Arrays.asList(ColourName.values());
     private static final List<ColourNameAsHexadecimal> COLOUR_NAMES_AS_HEXADECIMAL = Arrays
-        .asList(ColourNameAsHexadecimal.values());
+            .asList(ColourNameAsHexadecimal.values());
 
     public final String colour;
 
@@ -33,10 +33,10 @@ public class Colour {
         checkArgument(isValidColour(colour), MESSAGE_CONSTRAINTS);
         ColourName colourName = getColourNameAsHexadecimal(colour);
         this.colour = (colourName != null)
-            ? colourName.toString().toLowerCase()
-            : isHexaDecimal(colour)
-            ? colour.toUpperCase()
-            : colour.toLowerCase();
+                ? colourName.toString().toLowerCase()
+                : isHexaDecimal(colour)
+                        ? colour.toUpperCase()
+                        : colour.toLowerCase();
     }
 
     /**
@@ -97,8 +97,8 @@ public class Colour {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Colour // instanceof handles nulls
-            && colour.equals(((Colour) other).colour)); // state check
+                || (other instanceof Colour // instanceof handles nulls
+                && colour.equals(((Colour) other).colour)); // state check
     }
 
     @Override
