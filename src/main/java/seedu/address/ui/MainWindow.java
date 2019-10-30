@@ -70,6 +70,7 @@ import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.TabularStatistics;
 import seedu.address.ui.budget.BudgetListPanel;
 import seedu.address.ui.budget.BudgetPanel;
+import seedu.address.ui.event.EventListPanel;
 import seedu.address.ui.expense.AliasPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
 import seedu.address.ui.panel.PanelName;
@@ -207,7 +208,7 @@ public class MainWindow extends UiPart<Stage> {
                 new ExpenseListPanel(logic.getFilteredExpenseList(), true));
         singlePanelView.setPanel(BudgetListPanel.PANEL_NAME,
                 new BudgetListPanel(logic.getFilteredBudgetList()));
-        singlePanelView.setPanel(PanelName.EVENTS_PANEL, new PlaceholderPanel());
+        singlePanelView.setPanel(EventListPanel.PANEL_NAME, new PlaceholderPanel());
         singlePanelView.setPanel(PanelName.STATISTICS_PANEL, new PlaceholderPanel());
 
         // startup panel = expense list panel
@@ -529,7 +530,7 @@ public class MainWindow extends UiPart<Stage> {
             return CommandGroup.EXPENSE;
         } else if (ExpenseListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.EXPENSE;
-        } else if (PanelName.EVENTS_PANEL.equals(singlePanelView.getCurrentPanelName())) {
+        } else if (EventListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.EVENT;
         } else if (AliasPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.ALIAS;
