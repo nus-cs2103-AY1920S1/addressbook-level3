@@ -1,5 +1,7 @@
 package seedu.address.model.incident;
 
+import static seedu.address.model.vehicle.Availability.VEHICLE_BUSY_TAG;
+
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,9 +13,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.Vehicle;
-
 
 /**
  * Represents an incident report in the IMS.
@@ -238,6 +240,7 @@ public class Incident {
      */
     public void addVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+        vehicle.setAvailability(new Availability(VEHICLE_BUSY_TAG));
     }
 
     /**
