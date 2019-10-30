@@ -88,4 +88,20 @@ public class StorageManager implements Storage {
     private static boolean isReimbursed(String num) {
         return num.equals(NUM_FOR_REIMBURSED) ? true : false;
     }
+
+    @Override
+    public void appendToTransaction(Transaction transaction) throws Exception {
+        FileWriter fw = new FileWriter(this.file, true);
+        TransactionList transactionList = readTransactionList();
+        String textFileMsg = "";
+        if (transactionList.size() == 0) {
+            textFileMsg = (transactionList.size() + 1) + ". " + transaction.toWriteIntoFile();
+        } else {
+            textFileMsg = System.lineSeparator() + (transactionList.size() + 1) + ". "
+                    + transaction.toWriteIntoFile();
+        }
+        fw.write(textFileMsg);
+        fw.close();
+    }
+
 }

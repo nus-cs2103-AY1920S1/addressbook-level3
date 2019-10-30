@@ -3,7 +3,7 @@ package seedu.address.cashier.logic.parser;
 import static seedu.address.cashier.logic.parser.AddCommandParser.arePrefixesPresent;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
-import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_CASHIER;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_TO_EDIT_CASHIER;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_INDEX;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
@@ -76,7 +76,7 @@ public class EditCommandParser implements Parser {
             try {
                 index = modelManager.findIndexByDescription(description) + 1;
             } catch (NoSuchItemException e) {
-                throw new NoSuchItemException(NO_SUCH_ITEM_CASHIER);
+                throw new NoSuchItemException(NO_SUCH_ITEM_TO_EDIT_CASHIER);
             }
         }
 

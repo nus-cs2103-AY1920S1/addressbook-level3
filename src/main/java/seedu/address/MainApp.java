@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.person.commons.core.Config;
 import seedu.address.person.commons.core.LogsCenter;
@@ -114,11 +113,22 @@ public class MainApp extends Application {
         inventoryModel =
                 new seedu.address.inventory.model.ModelManager(inventoryStorage);
 
-        //For Cashier Storage and Model
-        cashierStorage = new seedu.address.cashier.storage.StorageManager(new File(FILE_PATH_INVENTORY),
-                new File(FILE_PATH_TRANSACTION), model);
+        transactionLogic = new
+                seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage,
+                getPersonByNameOnlyModel);
+        //storage,
+        //reimbursementModel, reimbursementStorage
+
+        inventoryLogic = new
+                seedu.address.inventory.logic.LogicManager(//cashierModel, cashierStorage,
+                inventoryModel, inventoryStorage);
+
+        //For Cashier Storage and Manager
+        cashierStorage = new seedu.address.cashier.storage.StorageManager(inventoryLogic, transactionLogic);
+
         cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage.getInventoryList(),
                 cashierStorage.getTransactionList());
+        //cashierStorage.getInventoryList(),
 
         //For Overview Storage and Model
         overviewStorage = new seedu.address.overview.storage.StorageManager(
@@ -126,14 +136,9 @@ public class MainApp extends Application {
         overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage.readFromFile());
 
         //All logic
-        transactionLogic = new
-                seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage,
-                getPersonByNameOnlyModel);
+
         reimbursementLogic = new
                 seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage, model);
-
-        inventoryLogic = new
-                seedu.address.inventory.logic.LogicManager(inventoryModel, inventoryStorage);
 
         cashierLogic = new seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model,
                 transactionModel, inventoryModel);
@@ -142,6 +147,7 @@ public class MainApp extends Application {
                 inventoryLogic);
 
         logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic);
+
 
         //no config for ui yet
         /*UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
