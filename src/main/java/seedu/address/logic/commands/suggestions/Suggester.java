@@ -14,6 +14,7 @@ import seedu.address.logic.commands.AddGroupCommand;
 import seedu.address.logic.commands.AddNusModsCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditGroupCommand;
@@ -43,6 +44,7 @@ public abstract class Suggester {
             Map.entry(AddNusModsCommand.COMMAND_WORD, AddNusModsCommandSuggester.class),
             Map.entry(AddPersonCommand.COMMAND_WORD, AddPersonCommandSuggester.class),
             Map.entry(AddToGroupCommand.COMMAND_WORD, AddToGroupCommandSuggester.class),
+            Map.entry(DeleteEventCommand.COMMAND_WORD, DeleteEventCommandSuggester.class),
             Map.entry(DeleteGroupCommand.COMMAND_WORD, DeleteGroupCommandSuggester.class),
             Map.entry(DeletePersonCommand.COMMAND_WORD, DeletePersonCommandSuggester.class),
             Map.entry(EditGroupCommand.COMMAND_WORD, EditGroupCommandSuggester.class),
