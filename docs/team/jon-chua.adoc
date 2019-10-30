@@ -73,7 +73,8 @@ In this way, the user benefits from the recommendation system which provides mor
 
 ** Added user stories as issues on GitHub
 
-** Reviewed pull requests by team members
+** Reviewed pull requests by team members [Examples: https://github.com/AY1920S1-CS2103T-F13-2/main/pull/80[#1],
+https://github.com/AY1920S1-CS2103T-F13-2/main/pull/99[#2]]
 
 ** Opened issues when bugs were found [Issue https://github.com/AY1920S1-CS2103T-F13-2/main/issues/127[#127],
 https://github.com/AY1920S1-CS2103T-F13-2/main/issues/171[#171]]
