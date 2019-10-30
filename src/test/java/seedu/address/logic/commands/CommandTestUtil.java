@@ -153,6 +153,7 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
+//        System.out.println("Person: " + targetIndex.getZeroBased());
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
@@ -186,6 +187,8 @@ public class CommandTestUtil {
         Note note = model.getFilteredNoteList().get(targetIndex.getZeroBased());
         final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
         model.updateFilteredNoteList(new NoteTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+
+        System.out.println("Notes: " + model.getFilteredNoteList().size());
 
         assertEquals(1, model.getFilteredNoteList().size());
     }

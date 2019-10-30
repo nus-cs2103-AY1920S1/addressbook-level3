@@ -21,7 +21,7 @@ import seedu.address.model.flashcard.Flashcard;
 public class FlashcardTabWindowController {
 
     private static final Integer TIMER_DURATION = 5;
-    private static final Integer SHOW_ANSWER_DURATION = 2;
+    private static final Integer SHOW_ANSWER_DURATION = 3;
     private static final Integer ONE_FLASHCARD_DURATION = TIMER_DURATION + SHOW_ANSWER_DURATION;
 
     private static Optional<Flashcard> currFlashcard;
@@ -117,8 +117,7 @@ public class FlashcardTabWindowController {
                     e -> showFlashcardAns()));
             cardCount++;
         }
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION
-                + SHOW_ANSWER_DURATION), e -> resetTexts()));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION), e -> resetTexts()));
         timeline.play();
     }
 
