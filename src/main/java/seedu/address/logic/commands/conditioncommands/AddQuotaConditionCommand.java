@@ -12,7 +12,7 @@ import seedu.address.model.reminders.conditions.QuotaCondition;
 /**
  * Creates a QuotaCondition when executed.
  */
-public class AddQuotaConditionCommand  extends Command {
+public class AddQuotaConditionCommand extends Command {
 
     public static final String COMMAND_WORD = "addQuotaCondition";
 
