@@ -1,6 +1,7 @@
 package seedu.address.model.performance;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -47,14 +48,12 @@ public class Event {
     }
 
     /**
-     * Returns true if both events have the same name.
+     * Returns true if the event has the same name as this event.
      */
     public boolean isSameEvent(Event otherEvent) {
-
         if (otherEvent == this) {
             return true;
         }
-
         return otherEvent != null && otherEvent.getName().equals(name);
     }
 
@@ -82,16 +81,35 @@ public class Event {
             initialisedPerformanceEntries.add(record);
             records.put(athlete, initialisedPerformanceEntries);
         } else {
-            // copying the existing performances
             ArrayList<Record> currentPerformanceEntries = new ArrayList<>();
             currentPerformanceEntries.addAll(records.get(athlete));
-            // adding the new performance
             currentPerformanceEntries.add(record);
-            // remove the existing athelete record for this event
             records.remove(athlete);
-            // adding the athlete again with their updated record for this event
             records.put(athlete, currentPerformanceEntries);
         }
+        sortAthleteRecords(athlete);
+    }
+
+    /**
+     * Sorts records based on AthletickDate
+     */
+    private void sortAthleteRecords(Person athlete) {
+        List<Record> athleteRecords = getAthleteRecords(athlete);
+        athleteRecords.sort(new Comparator<Record>() {
+            @Override
+            public int compare(Record first, Record second) {
+                AthletickDate firstDate = first.getDate();
+                AthletickDate secondDate = second.getDate();
+
+                if (!(firstDate.getYear() == secondDate.getYear())) {
+                    return firstDate.getYear() - secondDate.getYear();
+                } else if (!(firstDate.getMonth() == secondDate.getMonth())) {
+                    return firstDate.getMonth() - secondDate.getMonth();
+                } else {
+                    return firstDate.getDay() - secondDate.getDay();
+                }
+            }
+        });
     }
 
     /**
@@ -133,6 +151,16 @@ public class Event {
         }
         assert(personalBest < Double.MAX_VALUE);
         return personalBest;
+    }
+
+    /**
+     * Retrieves the athlete's latest timing for this event.
+     * @return String array with the first index being the date and second index being the timing.
+     */
+    public String[] getLatestTiming(Person athlete) {
+        List<Record> athleteRecords = getAthleteRecords(athlete);
+        Record latestRecord = athleteRecords.get(athleteRecords.size() - 1);
+        return new String[]{latestRecord.getDate().toString(), latestRecord.getTiming().toString()};
     }
 
     //// Calendar helper functions
