@@ -380,9 +380,11 @@ Format: `*list*`
 
 ==== Edit an entry: `edit`
 
-Edit an entry previously entered by index of entry in listed listed out by `list`. Index provided should be valid, within range of the list and positive. There is not need to re-enter all details of the log entry to edit it - just specify the field to be edited. +
+Edit an entry previously entered by index of entry in listed listed out by `list`. Index provided should be valid, within range of the list and positive. There is not need to re-enter all details of the log entry to edit it - just specify the field to be edited. Any irrelevant fields to the log entry (e.g. 'Borrow' entries do not have a `<place>` field) will be ignored. +
 
-Note that the newly-entered information will overwrite the details at the attribute. For example, if there were categories `food` and `hobby` linked to the entry at index 5 of the list, command `edit 5 <cat>pet` will delete the previous two categories and replace them with a single category `pet.`
+Note that the newly-entered information will overwrite the details at the attribute. For example, if there were categories `food` and `hobby` linked to the entry at index 5 of the list, command `edit 5 <cat>pet` will delete the previous two categories and replace them with a single category `pet.` +
+
+Repaid status and date repaid for 'Borrow' and 'Lend' entries cannot be edited.
 
 Format: `*edit* INDEX [<amt>AMOUNT] [<day>DAY] [<item>DESCRIPTION] [<met>TRANSACTION_METHOD] [<cat>CATEGORY ]` +
 * Additional field available for 'Spend' entries: `[<place>PLACE]` +
