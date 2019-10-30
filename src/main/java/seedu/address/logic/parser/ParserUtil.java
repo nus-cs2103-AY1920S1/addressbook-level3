@@ -12,7 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
 import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;
-import seedu.address.model.export.DocumentPath;
+import seedu.address.model.export.ExportPath;
+import seedu.address.model.export.ExportPathFactory;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Rating;
@@ -141,18 +142,22 @@ public class ParserUtil {
 
     //@@author LeowWB
     /**
-     * Parses a {@code String documentPath} into a {@code DocumentPath}.
+     * Parses a {@code String exportPath} into a {@code ExportPath}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code documentPath} is invalid.
+     * @throws ParseException if the given {@code exportPath} is invalid.
      */
-    public static DocumentPath parseDocumentPath(String documentPath) throws ParseException {
-        requireNonNull(documentPath);
-        String trimmedFilePath = documentPath.trim();
-        if (!DocumentPath.isValidDocumentPath((trimmedFilePath))) {
-            throw new ParseException(DocumentPath.MESSAGE_CONSTRAINTS);
+    public static ExportPath parseExportPath(String exportPath) throws ParseException {
+        requireNonNull(exportPath);
+        String trimmedExportPath = exportPath.trim();
+
+        try {
+            return ExportPathFactory.getExportPath(trimmedExportPath);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(
+                    e.getMessage()
+            );
         }
-        return new DocumentPath(trimmedFilePath);
     }
 
 }

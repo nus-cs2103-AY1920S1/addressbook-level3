@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 /**
  * Represents a directory path.
- * Guarantees: immutable; is valid as declared in {@link #isValidDirectoryPath(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class DirectoryPath {
 
@@ -34,14 +34,14 @@ public class DirectoryPath {
      */
     public DirectoryPath(String directoryPath) {
         requireNonNull(directoryPath);
-        checkArgument(isValidDirectoryPath(directoryPath), MESSAGE_CONSTRAINTS);
+        checkArgument(isValid(directoryPath), MESSAGE_CONSTRAINTS);
         path = Paths.get(directoryPath);
     }
 
     /**
      * Returns true if a given string is a valid DirectoryPath.
      */
-    public static boolean isValidDirectoryPath(String test) {
+    public static boolean isValid(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

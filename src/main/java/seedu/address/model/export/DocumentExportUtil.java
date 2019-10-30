@@ -1,6 +1,6 @@
 //@@author LeowWB
 
-package seedu.address.commons.util;
+package seedu.address.model.export;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,15 +10,14 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
-import seedu.address.model.export.DocumentPath;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
 
 /**
- * Utility class that handles exporting of FlashCards to an external file.
+ * Utility class that handles exporting of FlashCards to an external document file.
  */
-public class ExportUtil {
+public class DocumentExportUtil {
 
     /**
      * Exports a List of FlashCards to a file at the given DocumentPath.
@@ -27,7 +26,7 @@ public class ExportUtil {
      * @param documentPath DocumentPath to export the FlashCards to
      * @throws IOException If an error arises in writing to the File.
      */
-    public static void exportFlashCards(List<FlashCard> cards, DocumentPath documentPath) throws IOException {
+    public static void exportFlashCardsToDocument(List<FlashCard> cards, DocumentPath documentPath) throws IOException {
         XWPFDocument doc = new XWPFDocument();
 
         for (FlashCard card : cards) {
