@@ -8,7 +8,7 @@ import seedu.address.calendar.model.util.Interval;
 
 public class EventQuery extends Interval<Date, EventQuery> {
     protected Date startDate;
-    protected Date endDate; // todo: update
+    protected Date endDate;
 
     public EventQuery(Date startDate, Date endDate) {
         super(startDate, endDate);

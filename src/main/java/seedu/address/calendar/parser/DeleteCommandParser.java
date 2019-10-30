@@ -22,7 +22,7 @@ public class DeleteCommandParser {
     private static final Prefix[] prefixes = { CliSyntax.PREFIX_START_DAY, CliSyntax.PREFIX_START_MONTH,
             CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_END_DAY, CliSyntax.PREFIX_END_MONTH,
             CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_NAME };
-    // todo: if user only provides type and name, we search for such events over the period of time shown on calendar
+
     DeleteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, prefixes);
 
