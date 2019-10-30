@@ -79,6 +79,38 @@ command box of the application.
 
 You can play around with the commands in <<Command Summary>> to get yourself warmed up.
 
+== GUI Components
+
+In this section, you will learn more about the different components of our application. Here is an overview of
+all of the components in our application:
+
+image::guiComponents.png[]
+
+=== MenuBar
+You may use the menu bar to access file or exit the application.
+
+image::menuBar.png[]
+
+=== Schedule Display
+The schedule display is the main component that you will be looking at to look schedules of yours or others!
+
+image::scheduleDisplay.png[]
+
+=== Tabs
+Tabs will contain your contacts and your groups. You can use it to see all your exisiting contacts and groups!
+
+image::tabs.png[]
+
+=== Result Display Box
+This box shows you whether your command executed is successful or unsuccessful. If you encounter an error message here, look at our
+errors meaning section to see what is the cause of error.
+
+image:: resultDisplayBox.png[]
+
+=== Command Box
+Type your commands here to execute them!
+
+image::commandBox.png[]
 
 [[Features]]
 == Commands
@@ -171,7 +203,8 @@ Format: `findperson n/NAME`
 ****
 
 ==== Show person: `show`
-Shows details of a person. +
+Want to arrange a private meeting with someone in TimeBook? You can see the details of this person using
+the `show` command. +
 Format: `show n/NAME`
 
 ****
@@ -188,10 +221,10 @@ Hit the kbd:[Enter] key and you should see details of the person! You should see
 image::showpersonresult.png[]
 
 *****
-tips:
+image::./icons/lightbulb.png[]
 
 * You can use the command `n` to help you scroll the schedule view without touching your mouse!
-* You can use the command `nw` to help you show next week's schedule!
+* You can use the command `nw` see next week's schedule!
 
 *****
 
@@ -314,7 +347,7 @@ Hit the kbd:[Enter] key and you should see the details of this group in a simila
 image::showgroupresult.png[]
 
 *****
-tips:
+image::./icons/lightbulb.png[]
 
 * You can use the command `n` to help you scroll the schedule view without touching your mouse!
 * You can use the command `nw` to help you show next week's schedule!

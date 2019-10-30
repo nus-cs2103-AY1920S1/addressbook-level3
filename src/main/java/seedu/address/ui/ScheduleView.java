@@ -361,6 +361,8 @@ public class ScheduleView extends UiPart<Region> {
             region.setId("freeTimeslotBlock");
             freeTimeslot.setId("freeTimeslot");
             freeTimeslot.getChildren().addAll(label, region);
+            //Need to handle cases when timeslot height is less than 15px otherwise
+            //the result block size will be inaccurate.
             if (heightOfTimeslot < 15) {
                 label.setStyle("-fx-font-size: " + (heightOfTimeslot - 5) + ";");
             }
