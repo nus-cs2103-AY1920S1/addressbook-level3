@@ -20,7 +20,7 @@ import seedu.mark.storage.StorageStub;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) for
- * {@code DeleteCommand}.
+ * {@code DeleteReminderCommand}.
  */
 class DeleteReminderCommandTest {
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());

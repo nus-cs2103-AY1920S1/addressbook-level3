@@ -30,7 +30,7 @@ public class EditReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "reminder-edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the reminder identified."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the reminder identified."
             + "by the index number used in the displayed reminder list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
