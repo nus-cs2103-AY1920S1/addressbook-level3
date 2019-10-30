@@ -32,7 +32,11 @@ This developer guide is targeted towards *potential developers* of the project a
 * The *implementation* and *behaviour* of the main features of the system.
 
 === Legend
-// How to use developer guide
+
+[TIP]
+Denotes useful tips.
+
+NOTE: Denotes additional information.
 
 == Setting up
 
