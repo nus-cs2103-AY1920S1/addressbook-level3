@@ -17,7 +17,7 @@ public class WorkoutHistory {
     public WorkoutHistory(ArrayList<WorkoutRun> previousRuns) {
         noTimesRan = previousRuns.size();
         this.previousRuns = previousRuns;
-        averageRunTime = getAverageRunTime();
+        averageRunTime = calcAverageRunTime();
     }
 
     /**
@@ -30,12 +30,16 @@ public class WorkoutHistory {
         return new WorkoutHistory(newPreviousRuns);
     }
 
-    private Duration getAverageRunTime() {
+    private Duration calcAverageRunTime() {
         Duration totalDuration = Duration.ZERO;
         for (WorkoutRun run : previousRuns){
             totalDuration.plus(run.getTotalTimeTaken());
         }
         return totalDuration.dividedBy((long) previousRuns.size());
+    }
+
+    public Duration getAverageRunTime() {
+        return averageRunTime;
     }
 
     public Integer getNoTimesRan() {

@@ -65,6 +65,7 @@ public class Workout {
         return history;
     }
 
+
     /**
      * Returns true if both exercises of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two exercises.

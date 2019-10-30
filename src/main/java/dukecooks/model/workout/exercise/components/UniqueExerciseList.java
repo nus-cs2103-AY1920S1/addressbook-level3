@@ -53,7 +53,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setPerson(Exercise target, Exercise editedExercise) {
+    public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
 
         int index = internalList.indexOf(target);
@@ -90,7 +90,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
      */
     public void setExercises(List<Exercise> exercises) {
         requireAllNonNull(exercises);
-        if (!personsAreUnique(exercises)) {
+        if (!exercisesAreUnique(exercises)) {
             throw new DuplicateExerciseException();
         }
 
@@ -124,7 +124,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<Exercise> exercises) {
+    private boolean exercisesAreUnique(List<Exercise> exercises) {
         for (int i = 0; i < exercises.size() - 1; i++) {
             for (int j = i + 1; j < exercises.size(); j++) {
                 if (exercises.get(i).isSameExercise(exercises.get(j))) {

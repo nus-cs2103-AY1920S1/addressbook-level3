@@ -1,4 +1,4 @@
-package dukecooks.storage.exercise;
+package dukecooks.storage.workout.exercise;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,9 +14,15 @@ import dukecooks.model.workout.WorkoutPlanner;
 public interface WorkoutPlannerStorage {
 
     /**
-     * Returns the file path of the data file.
+     * Returns the file path of the exercises data file.
      */
-    Path getWorkoutPlannerFilePath();
+    Path getExerciseFilePath();
+
+    /**
+     * Returns the file path of the workouts data file.
+     */
+    Path getWorkoutFilePath();
+
 
     /**
      * Returns DukeCooks data as a {@link ReadOnlyWorkoutPlanner}.
@@ -27,9 +33,11 @@ public interface WorkoutPlannerStorage {
     Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException, IOException;
 
     /**
-     * @see #getWorkoutPlannerFilePath()
+     * @see #getExerciseFilePath()
      */
-    Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path exerciseFilePath,
+                                                        Path workoutFilePath) throws DataConversionException,
+            IOException;
 
     /**
      * Saves the given {@link ReadOnlyWorkoutPlanner} to the storage.

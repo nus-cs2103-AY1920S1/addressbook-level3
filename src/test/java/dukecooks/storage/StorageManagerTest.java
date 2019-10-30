@@ -25,7 +25,7 @@ import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
 import dukecooks.model.workout.WorkoutPlanner;
 import dukecooks.storage.dashboard.JsonDashboardStorage;
 import dukecooks.storage.diary.JsonDiaryStorage;
-import dukecooks.storage.exercise.JsonWorkoutPlannerStorage;
+import dukecooks.storage.workout.exercise.JsonWorkoutPlannerStorage;
 import dukecooks.storage.health.JsonHealthRecordsStorage;
 import dukecooks.storage.mealplan.JsonMealPlanBookStorage;
 import dukecooks.storage.profile.JsonUserProfileStorage;

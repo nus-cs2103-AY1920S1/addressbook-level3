@@ -1,4 +1,4 @@
-package dukecooks.storage.exercise;
+package dukecooks.storage.workout.exercise;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,7 +26,7 @@ import dukecooks.model.workout.exercise.details.Timing;
 /**
  * Jackson-friendly version of {@link Exercise}.
  */
-class JsonAdaptedExercise {
+public class JsonAdaptedExercise {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Exercise's %s field is missing!";
 
@@ -37,7 +37,7 @@ class JsonAdaptedExercise {
     private final List<JsonAdaptedExerciseDetail> details = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedExercise} with the given exercise details.
      */
     @JsonCreator
     public JsonAdaptedExercise(@JsonProperty("name") String name,

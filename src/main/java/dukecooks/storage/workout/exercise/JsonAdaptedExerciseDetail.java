@@ -1,4 +1,4 @@
-package dukecooks.storage.exercise;
+package dukecooks.storage.workout.exercise;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -17,7 +17,7 @@ import dukecooks.model.workout.exercise.details.ExerciseDetail;
         @JsonSubTypes.Type(value = JsonAdaptedTiming.class, name = "REP"),
         @JsonSubTypes.Type(value = JsonAdaptedWeight.class, name = "WGT")}
 )
-abstract class JsonAdaptedExerciseDetail<T> {
+public abstract class JsonAdaptedExerciseDetail<T> {
 
     protected T magnitude;
 
@@ -26,6 +26,6 @@ abstract class JsonAdaptedExerciseDetail<T> {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted exercise detail.
      */
-    abstract ExerciseDetail toModelType() throws IllegalValueException;
+    public abstract ExerciseDetail toModelType() throws IllegalValueException;
 
 }

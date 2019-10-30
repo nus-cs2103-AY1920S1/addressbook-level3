@@ -1,4 +1,4 @@
-package dukecooks.storage.exercise;
+package dukecooks.storage.workout.exercise;
 
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
 import static dukecooks.testutil.exercise.TypicalExercises.HOON;
@@ -78,7 +78,7 @@ public class JsonWorkoutPlannerStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addExercise(HOON);
-        original.removePerson(ABS_ROLLOUT);
+        original.removeExercise(ABS_ROLLOUT);
         jsonDukeCooksStorage.saveWorkoutPlanner(original, filePath);
         readBack = jsonDukeCooksStorage.readWorkoutPlanner(filePath).get();
         assertEquals(original, new WorkoutPlanner(readBack));

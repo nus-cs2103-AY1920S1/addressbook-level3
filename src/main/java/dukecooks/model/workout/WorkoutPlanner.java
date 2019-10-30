@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 public class WorkoutPlanner implements ReadOnlyWorkoutPlanner {
 
     private final UniqueExerciseList exercises;
+    private final UniqueWorkoutList workouts;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +26,7 @@ public class WorkoutPlanner implements ReadOnlyWorkoutPlanner {
      */
     {
         exercises = new UniqueExerciseList();
+        workouts = new UniqueWorkoutList();
     }
 
     public WorkoutPlanner() {}
@@ -40,11 +42,19 @@ public class WorkoutPlanner implements ReadOnlyWorkoutPlanner {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the person list with {@code exercises}.
+     * {@code exercises} must not contain duplicate exercises.
      */
     public void setExercise(List<Exercise> exercises) {
         this.exercises.setExercises(exercises);
+    }
+
+    /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setWorkout(List<Workout> workouts) {
+        this.workouts.setWorkouts(workouts);
     }
 
     /**
@@ -56,19 +66,32 @@ public class WorkoutPlanner implements ReadOnlyWorkoutPlanner {
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireNonNull(editedExercise);
 
-        exercises.setPerson(target, editedExercise);
+        exercises.setExercise(target, editedExercise);
     }
 
     /**
-     * Resets the existing data of this {@code WorkoutPLanner} with {@code newData}.
+     * Replaces the given exercise {@code target} in the list with {@code editedWorkout}.
+     * {@code target} must exist in the WorkoutPlanner.
+     * The exercise identity of {@code editedWorkout}
+     * must not be the same as another existing person in Workout Planner.
+     */
+    public void setWorkout(Workout target, Workout editedWorkout) {
+        requireNonNull(editedWorkout);
+
+        workouts.setWorkout(target, editedWorkout);
+    }
+
+    /**
+     * Resets the existing data of this {@code WorkoutPlanner} with {@code newData}.
      */
     public void resetData(ReadOnlyWorkoutPlanner newData) {
         requireNonNull(newData);
 
         setExercise(newData.getExerciseList());
+        setWorkout(newData.getWorkoutList());
     }
 
-    //// person-level operations
+    //// exercise-level operations
 
     /**
      * Returns true if an Exercise with the same identity as {@code exercise}
@@ -91,8 +114,35 @@ public class WorkoutPlanner implements ReadOnlyWorkoutPlanner {
      * Removes {@code key} from this {@code WorkoutPLanner}.
      * {@code key} must exist in the Workout Planner.
      */
-    public void removePerson(Exercise key) {
+    public void removeExercise(Exercise key) {
         exercises.remove(key);
+    }
+
+    //// workout-level operations
+
+    /**
+     * Returns true if a Workout with the same identity as {@code workout}
+     * exists in the Workout Planner.
+     */
+    public boolean hasWorkout(Workout workout) {
+        requireNonNull(workout);
+        return workouts.contains(workout);
+    }
+
+    /**
+     * Adds a workout to Workout Planner.
+     * The workout must not already exist in the Workout Planner.
+     */
+    public void addWorkout(Workout p) {
+        workouts.add(p);
+    }
+
+    /**
+     * Removes {@code key} from this {@code WorkoutPLanner}.
+     * {@code key} must exist in the Workout Planner.
+     */
+    public void removeWorkout(Workout key) {
+        workouts.remove(key);
     }
 
     //// util methods
@@ -109,10 +159,14 @@ public class WorkoutPlanner implements ReadOnlyWorkoutPlanner {
     }
 
     @Override
+    public ObservableList<Workout> getWorkoutList() { return  workouts.asUnmodifiableObservableList(); }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WorkoutPlanner // instanceof handles nulls
-                && exercises.equals(((WorkoutPlanner) other).exercises));
+                && exercises.equals(((WorkoutPlanner) other).exercises))
+                && workouts.equals(((WorkoutPlanner) other).exercises);
     }
 
     @Override

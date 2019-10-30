@@ -16,7 +16,7 @@ import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
 import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
-import dukecooks.storage.exercise.WorkoutPlannerStorage;
+import dukecooks.storage.workout.exercise.WorkoutPlannerStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
 import dukecooks.storage.mealplan.MealPlanBookStorage;
 import dukecooks.storage.profile.UserProfileStorage;
@@ -91,7 +91,7 @@ public interface Storage extends RecipeBookStorage, MealPlanBookStorage, UserPre
     // ================ Exercise methods ==============================
 
     @Override
-    Path getWorkoutPlannerFilePath();
+    Path getExerciseFilePath();
 
     @Override
     Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException, IOException;

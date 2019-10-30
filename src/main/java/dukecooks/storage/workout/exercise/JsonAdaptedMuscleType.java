@@ -1,4 +1,4 @@
-package dukecooks.storage.exercise;
+package dukecooks.storage.workout.exercise;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

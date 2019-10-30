@@ -1,12 +1,11 @@
 package dukecooks.logic.commands.workout;
 
-import dukecooks.logic.commands.Command;
+import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
 import dukecooks.model.workout.Workout;
 
-import static dukecooks.logic.commands.AddCommand.COMMAND_WORD;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
 import static java.util.Objects.requireNonNull;
 
@@ -14,9 +13,9 @@ import static java.util.Objects.requireNonNull;
  *  Initialises a Workout in Duke Cooks
  */
 
-public class AddWorkoutCommand extends Command {
+public class AddWorkoutCommand extends AddCommand {
 
-    public static final String VARIANT_WORD = "exercise";
+    public static final String VARIANT_WORD = "workout";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + VARIANT_WORD + ": Adds a workout to Duke Cooks. "
             + "Parameters: "
@@ -26,7 +25,7 @@ public class AddWorkoutCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New workout successfully initialised! \n "
             + "Now let's add some exercises!";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This workout already exists in Duke Cooks";
+    public static final String MESSAGE_DUPLICATE_WORKOUT = "This workout already exists in Duke Cooks";
 
     private final Workout toAdd;
 
@@ -42,11 +41,11 @@ public class AddWorkoutCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasExercise(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasWorkout(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_WORKOUT);
         }
 
-        model.addExercise(toAdd);
+        model.addWorkout(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

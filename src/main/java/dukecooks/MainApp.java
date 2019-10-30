@@ -44,8 +44,8 @@ import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.dashboard.JsonDashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
 import dukecooks.storage.diary.JsonDiaryStorage;
-import dukecooks.storage.exercise.JsonWorkoutPlannerStorage;
-import dukecooks.storage.exercise.WorkoutPlannerStorage;
+import dukecooks.storage.workout.exercise.JsonWorkoutPlannerStorage;
+import dukecooks.storage.workout.exercise.WorkoutPlannerStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
 import dukecooks.storage.health.JsonHealthRecordsStorage;
 import dukecooks.storage.mealplan.JsonMealPlanBookStorage;
@@ -88,7 +88,8 @@ public class MainApp extends Application {
         MealPlanBookStorage mealPlanBookStorage = new JsonMealPlanBookStorage(userPrefs.getMealPlansFilePath());
         UserProfileStorage userProfileStorage = new JsonUserProfileStorage(userPrefs.getUserProfileFilePath());
         HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
-        WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(userPrefs.getExercisesFilePath());
+        WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(userPrefs.getExercisesFilePath(),
+                userPrefs.getWorkoutFilePath());
         DiaryStorage diaryStorage = new JsonDiaryStorage(userPrefs.getDiaryFilePath());
         DashboardStorage dashboardStorage = new JsonDashboardStorage(userPrefs.getDashboardFilePath());
         storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage, mealPlanBookStorage,

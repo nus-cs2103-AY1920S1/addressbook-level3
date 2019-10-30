@@ -39,7 +39,7 @@ public class UniqueUserProfile implements Iterable<Person> {
     /**
      * Adds a new user profile if does not already exist.
      * Behavior: If user profile exists, overwrite instead.
-     * Calls (@Method setPerson) to overwrite user profile if already exists.
+     * Calls (@Method setExercise) to overwrite user profile if already exists.
      */
     public void add(Person toAdd) {
         requireNonNull(toAdd);

@@ -18,6 +18,7 @@ import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
 
@@ -290,6 +291,42 @@ public class ModelStub implements Model {
     @Override
     public void setExercise(Exercise target, Exercise editedExercise) {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasWorkout(Workout workout) {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void addWorkout(Workout workout) {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void deleteWorkout(Workout target) {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void setWorkout(Workout workout, Workout editedWorkout) {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Workout> getFilteredWorkoutList() {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
+        throw new AssertionError(
+                "This method should not be called.");
     }
 
     @Override

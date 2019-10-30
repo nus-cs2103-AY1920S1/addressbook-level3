@@ -1,5 +1,6 @@
-package dukecooks.storage.exercise;
+package dukecooks.storage.workout.exercise;
 
+import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
@@ -21,47 +22,55 @@ public class JsonWorkoutPlannerStorage implements WorkoutPlannerStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonWorkoutPlannerStorage.class);
 
-    private Path filePath;
+    private Path exerciseFilePath;
+    private Path workoutFilePath;
 
-    public JsonWorkoutPlannerStorage(Path filePath) {
-        this.filePath = filePath;
+    public JsonWorkoutPlannerStorage(Path exerciseFilePath, Path workoutFilePath) {
+        this.exerciseFilePath = exerciseFilePath;
+        this.workoutFilePath = workoutFilePath;
     }
 
-    public Path getWorkoutPlannerFilePath() {
-        return filePath;
+    public Path getExerciseFilePath() {
+        return exerciseFilePath;
+    }
+
+    public Path getWorkoutFilePath() {
+        return workoutFilePath;
     }
 
     @Override
     public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException {
-        return readWorkoutPlanner(filePath);
+        return readWorkoutPlanner(exerciseFilePath, workoutFilePath);
     }
 
     /**
      * Similar to {@link #readWorkoutPlanner()}.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param exerciseFilePath location of the data. Cannot be null.
+     * @param workoutFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path filePath) throws DataConversionException {
-        requireNonNull(filePath);
+    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path exerciseFilePath,
+                                                               Path workoutFilePath) throws DataConversionException {
+        requireAllNonNull(exerciseFilePath, workoutFilePath);
 
-        Optional<JsonSerializableExerciseCatalogue> jsonDukeCooks = JsonUtil.readJsonFile(
-                filePath, JsonSerializableExerciseCatalogue.class);
-        if (!jsonDukeCooks.isPresent()) {
+        Optional<JsonSerializableWorkoutPlanner> jsonWorkoutPlanner = JsonUtil.readJsonFile(
+                exerciseFilePath, JsonSerializableWorkoutPlanner.class);
+        if (!jsonWorkoutPlanner.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonDukeCooks.get().toModelType());
+            return Optional.of(jsonWorkoutPlanner.get().toModelType());
         } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            logger.info("Illegal values found in " + exerciseFilePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
     }
 
     @Override
     public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks) throws IOException {
-        saveWorkoutPlanner(dukeCooks, filePath);
+        saveWorkoutPlanner(dukeCooks, exerciseFilePath);
     }
 
     /**
@@ -74,7 +83,7 @@ public class JsonWorkoutPlannerStorage implements WorkoutPlannerStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableExerciseCatalogue(dukeCooks), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableWorkoutPlanner(dukeCooks), filePath);
     }
 
 }

@@ -11,11 +11,11 @@ import java.util.Objects;
 
 public class WorkoutRun {
 
-    final private LocalDateTime timeStarted;
-    final private LocalDateTime timeEnded;
-    final private Integer totalExercisesCompleted;
-    final private ArrayList<ExerciseRun> exercisesRan;
-    final private Duration totalTimeTaken;
+    private final LocalDateTime timeStarted;
+    private final LocalDateTime timeEnded;
+    private final Integer totalExercisesCompleted;
+    private final ArrayList<ExerciseRun> exercisesRan;
+    private final Duration totalTimeTaken;
 
 
     public WorkoutRun(LocalDateTime timeStarted, LocalDateTime timeEnded,

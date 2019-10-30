@@ -18,7 +18,7 @@ import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
 import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
-import dukecooks.storage.exercise.WorkoutPlannerStorage;
+import dukecooks.storage.workout.exercise.WorkoutPlannerStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
 import dukecooks.storage.mealplan.MealPlanBookStorage;
 import dukecooks.storage.profile.UserProfileStorage;
@@ -194,25 +194,32 @@ public class StorageManager implements Storage {
     // ================ Workout Planner methods ==============================
 
     @Override
-    public Path getWorkoutPlannerFilePath() {
-        return workoutPlannerStorage.getWorkoutPlannerFilePath();
+    public Path getExerciseFilePath() {
+        return workoutPlannerStorage.getExerciseFilePath();
+    }
+
+
+    @Override
+    public Path getWorkoutFilePath() {
+        return workoutPlannerStorage.getWorkoutFilePath();
     }
 
     @Override
     public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException, IOException {
-        return readWorkoutPlanner(workoutPlannerStorage.getWorkoutPlannerFilePath());
+        return readWorkoutPlanner(workoutPlannerStorage.getExerciseFilePath(),
+                workoutPlannerStorage.getWorkoutFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path filePath)
+    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path exerciseFilePath, Path workoutFilePath)
             throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return workoutPlannerStorage.readWorkoutPlanner(filePath);
+        logger.fine("Attempting to read data from file: " + exerciseFilePath);
+        return workoutPlannerStorage.readWorkoutPlanner(exerciseFilePath, workoutFilePath);
     }
 
     @Override
     public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner) throws IOException {
-        saveWorkoutPlanner(workoutPlanner, workoutPlannerStorage.getWorkoutPlannerFilePath());
+        saveWorkoutPlanner(workoutPlanner, workoutPlannerStorage.getExerciseFilePath());
     }
 
     @Override

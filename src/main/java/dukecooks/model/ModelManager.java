@@ -29,6 +29,7 @@ import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.WorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
@@ -55,6 +56,7 @@ public class ModelManager implements Model {
     private final FilteredList<Exercise> filteredExercises;
     private final FilteredList<Diary> filteredDiaries;
     private final FilteredList<Dashboard> filteredDashboard;
+    private final FilteredList<Workout> filteredWorkout;
 
     private final UserProfile defaultProfile = new UserProfile();
     private final HealthRecords defaultHealthRecords = new HealthRecords();
@@ -95,6 +97,7 @@ public class ModelManager implements Model {
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
     }
 
     /**
@@ -122,6 +125,7 @@ public class ModelManager implements Model {
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
     }
 
     public ModelManager() {
@@ -151,6 +155,7 @@ public class ModelManager implements Model {
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
     }
 
     public ModelManager(ReadOnlyMealPlanBook mealPlanBook, ReadOnlyUserPrefs userPrefs) {
@@ -175,6 +180,7 @@ public class ModelManager implements Model {
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
     }
 
     public ModelManager(ReadOnlyDiary diaryRecord, ReadOnlyUserPrefs userPrefs) {
@@ -199,6 +205,7 @@ public class ModelManager implements Model {
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
     }
 
     public ModelManager(ReadOnlyDashboard dashboardRecord, ReadOnlyUserPrefs userPrefs) {
@@ -223,6 +230,7 @@ public class ModelManager implements Model {
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
     }
     //=========== UserPrefs ==================================================================================
 
@@ -490,13 +498,36 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteExercise(Exercise target) {
-        workoutPlanner.removePerson(target);
+        workoutPlanner.removeExercise(target);
     }
 
     @Override
     public void setExercise(Exercise target, Exercise editedExercise) {
         CollectionUtil.requireAllNonNull(target, editedExercise);
         workoutPlanner.setExercise(target, editedExercise);
+    }
+
+    @Override
+    public void deleteWorkout(Workout target) {
+        workoutPlanner.removeWorkout(target);
+    }
+
+    @Override
+    public void setWorkout(Workout target, Workout editedWorkout) {
+        CollectionUtil.requireAllNonNull(target, editedWorkout);
+        workoutPlanner.setWorkout(target, editedWorkout);
+    }
+
+    @Override
+    public boolean hasWorkout(Workout workout) {
+        requireNonNull(workout);
+        return workoutPlanner.hasWorkout(workout);
+    }
+
+    @Override
+    public void addWorkout(Workout workout) {
+        workoutPlanner.addWorkout(workout);
+        updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUT);
     }
 
     //=========== Diary Records ================================================================================
@@ -668,6 +699,18 @@ public class ModelManager implements Model {
         filteredExercises.setPredicate(predicate);
     }
 
+    //=========== Filtered Workout List Accessors =============================================================
+
+    @Override
+    public ObservableList<Workout> getFilteredWorkoutList() { return filteredWorkout; }
+
+    @Override
+    public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
+        requireNonNull(predicate);
+        filteredWorkout.setPredicate(predicate);
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -694,7 +737,8 @@ public class ModelManager implements Model {
                 && filteredRecords.equals(other.filteredRecords)
                 && filteredRecipes.equals(other.filteredRecipes)
                 && filteredExercises.equals(other.filteredExercises)
-                && filteredDiaries.equals(other.filteredDiaries);
+                && filteredDiaries.equals(other.filteredDiaries)
+                && filteredWorkout.equals(other.filteredWorkout);
     }
 
     //=========== Filtered Diary List Accessors =============================================================

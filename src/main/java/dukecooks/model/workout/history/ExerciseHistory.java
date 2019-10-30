@@ -31,6 +31,9 @@ public class ExerciseHistory {
     }
 
     private Duration getAverageRunTime() {
+        if (previousRuns.isEmpty()) {
+            return Duration.ZERO;
+        }
         Duration totalDuration = Duration.ZERO;
         for (ExerciseRun run : previousRuns){
             totalDuration.plus(run.getTotalTimeTaken());

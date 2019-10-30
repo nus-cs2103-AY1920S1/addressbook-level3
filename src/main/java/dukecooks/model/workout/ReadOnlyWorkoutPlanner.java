@@ -9,9 +9,15 @@ import javafx.collections.ObservableList;
 public interface ReadOnlyWorkoutPlanner {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the exercises list.
+     * This list will not contain any duplicate exercises.
      */
     ObservableList<Exercise> getExerciseList();
+
+    /**
+     * Returns an unmodifiable view of the workouts list.
+     * This list will not contain any duplicate workouts.
+     */
+    ObservableList<Workout> getWorkoutList();
 
 }
