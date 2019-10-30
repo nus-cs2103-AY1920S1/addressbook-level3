@@ -444,17 +444,17 @@ Commands that work on orders that you have.
 
 ==== Add an order : `add-o`
 Adds an order to the list of orders. +
-Format: `add-o p/PHONE_NUMBER i/ITEM...`
+Format: `add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`
 
 ==== Find an order : `find-o`
 Returns all the information pertaining to the order. +
-Format: `find-o INDEX`
+Format: `find-o KEYWORD [KEYWORD]...`
 
-==== Complete an order : `complete-o`
+==== Complete an order : `complete`
 Completes the order, order status changed to `COMPLETED`. +
 Format: `complete-o INDEX`
 
-==== Cancel an order : `cancel-o`
+==== Cancel an order : `cancel`
 Cancels the order at the specified index. +
 Format: `cancel-o INDEX`
 
@@ -462,13 +462,13 @@ Format: `cancel-o INDEX`
 List all the orders in the list. +
 Format: `list-o`
 
-==== Copy order field : `copy-o`
-Copies an order field to clipboard. +
-Format: `copy-o <field>`
+//==== Copy order field : `copy-o`
+//Copies an order field to clipboard. +
+//Format: `copy-o <field>`
 
-==== Duplicate an order : `duplicate-o`
-Duplicate an order of the specified index. +
-Format: `duplicate-o INDEX`
+//==== Duplicate an order : `duplicate-o`
+//Duplicate an order of the specified index. +
+//Format: `duplicate-o INDEX`
 
 
 === Schedule Commands
