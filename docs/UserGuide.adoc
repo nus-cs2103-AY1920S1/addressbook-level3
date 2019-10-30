@@ -2,6 +2,7 @@
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -39,9 +40,9 @@ our app.
 +
 image::Ui.png[width="790"]
 +
-.  Click on the specific function you want, Finance, Manpower or Event
+.  Click on the specific tab you want. For now, we have `Main` and `Schedule`.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+* e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
@@ -57,7 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower, Event, and General. The commands
 that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands.
-For new users, do refer to Section 3.1 till Section 3.4 for the specific command and how to use them. For more advanced
+For new users, do refer to the subsections under Section 3 for the specific command and how to use them. For more advanced
 users, you could refer to <<Command Summary>>.
 
 *Command Format*
@@ -97,7 +98,7 @@ Employee Format: `list_em`
 
 Event Format: `list_ev`
 
-==== Adding: `add | add_ev`
+==== Adding: `add_em | add_ev`
 
 Employee: Adds an employee to the employee list
 
@@ -111,10 +112,12 @@ Event Format: `add_ev n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY a
 A employee can have any number of tags (including 0)
 
 Add Employee Examples:
+
 * `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/Enthusiastic p/CFO e/betsycrowe@example.com a/Newgate Prison no/1234567 t/criminal`
 
 Add Event Examples:
+
 * `add_ev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music`
 * `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
 
@@ -171,8 +174,8 @@ Examples:
 
 * `find_em John` +
 Returns `john` and `John Doe`
-* `find_em Betsy Tim John` +
-Returns any entity having names `Betsy`, `Tim`, or `John`
+* `find_ev Concert Musical Play` +
+Returns any event having names `Concert`, `Musical`, or `Play`
 
 ==== Deleting an entity : `delete_em | delete_ev`
 
@@ -190,18 +193,16 @@ Event Format: `delete_ev INDEX`
 
 Examples:
 
-* `list_em` +
-`delete_em 2` +
+* `list_em` `delete_em 2` +
 Deletes the 2nd employee in the displayed employee list.
-* `find Music` +
-`delete_ev 1` +
+* `find Music` `delete_ev 1` +
 Deletes the 1st event in the results of the `find` command.
 
 === Employee-Specific Management
 
 ==== Fetch Full Details of an Employee: `fetch_em`
 
-Fetches an employee by displaying a pop-up window with full details of the employee.
+Fetches an employee by displaying a pop-up window that shows the full list of every working date of an employee, based on the dates of the events allocated.
 
 Format: `fetch_em EMPLOYEE_INDEX`
 
@@ -209,6 +210,7 @@ Format: `fetch_em EMPLOYEE_INDEX`
 * The `EMPLOYEE_INDEX` refers to the index number shown in the displayed event list.
 * The `EMPLOYEE_INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
+
 Examples:
 
 * `fetch_em 2` +
@@ -298,9 +300,16 @@ Examples:
 Frees all employees allocated the 1st event on the event list.
 //end::calvin[]
 
-==== Setting a Date&Time to an Event
+==== Setting a Date&Time to an Event: `set_ev_dt`
 
 Sets a Date-Time mapping to an specific Event.
+
+[NOTE]
+Events are initialized without any schedule, other than their stated start and end date with a default time of 8-6pm. Hence, the mapping _declares_ the schedule for the dates that the event is being held.
+
+[TIP]
+Fields in [] are optional. +
+If `EVENT_DATE` is not stated, then all dates inclusive of the start to end date will be filled with the stated `EVENT_DAYTIME`
 
 Format: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME`
 
@@ -311,10 +320,48 @@ Format: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME`
 * THE `EVENT_DATE` *must be within the Event's Start and End Date*
 * The `EVENT_DAYTIME` *must be of the format* HHMM-HHMM
 ****
+
 Examples:
 
 * `set_ev_dt 2 on/18/10/2019 time/1000-2000` +
 Sets the 2nd Event from the Event List a time period of 10am-10pm on the date 18th October 2019.
+
+* `set_ev_dt 3 time/0500-1500` +
+Sets the 1st Event from the Event List a time period of 5am-3pm on all dates from the start to the end date.
+
+==== Delete a DateTime Mapping from an Event: `delete_ev_dt`
+
+Deletes a mapping on a specific date for a specific event.
+
+Format: `delete_ev_dt EVENT_INDEX on/EVENT_DATE`
+
+****
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* The `EVENT_INDEX` *must be a positive integer:* 1, 2, 3, ...
+* The `EVENT_DATE` *must be of the format* DD/MM/YYYY, and within the Event's Start and End Date*
+* The `EVENT_DAYTIME` *must be of the format* HHMM-HHMM, where the _start time_ is before the _end time_.
+****
+
+Example:
+
+* `delete_ev_dt 2 on/18/10/2019` +
+Deletes the mapping on 18th October from the 2nd Event on the Event list.
+
+==== Clear all DateTime Mappings from an Event: `clear_ev_dt`
+
+Clears all date-time mappings for a specific event. As a side effect, all manpower allocated to the event will be deallocated.
+
+Format: `clear_ev_dt EVENT_INDEX `
+
+****
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* The `EVENT_INDEX` *must be a positive integer:* 1, 2, 3, ...
+****
+
+Example:
+
+* `clear_ev_dt 2` +
+Clears all the date-time mapping from the 2nd Event on the Event list.
 
 //tag::calvin2[]
 
@@ -416,7 +463,7 @@ Examples:
 * for/ represents the month and year in MM/yyyy that the user wants to display
 ****
 
-=== Generate Entire Schedule
+==== Generate Entire Schedule
 Generate a new list which shows all the dates that has an event as well as all the events that are on that corresponding date.
 
 Format: `generate_schedule`
@@ -438,7 +485,6 @@ Format: `clear`
 
 AddMin+ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
 
 
 == FAQ

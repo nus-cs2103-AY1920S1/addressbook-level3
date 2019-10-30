@@ -42,7 +42,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit_em";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the employee identified "
             + "by the index number used in the displayed employee list. "
