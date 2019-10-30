@@ -2,6 +2,8 @@ package seedu.address.websocket;
 
 import static java.util.Objects.requireNonNull;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,6 +29,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.commons.util.SimpleJsonUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.gmaps.Location;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
@@ -330,10 +335,12 @@ public class Cache {
             result = (JSONObject) placesJson.get(sanitizedUrl);
         } else {
             try {
+                checkGmapsKey(fullUrl);
                 logger.info("Getting location: " + locationName + " data from Google Maps API");
                 result = GmapsApi.getLocation(locationName);
                 saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_PLACES_PATH);
             } catch (ConnectException e) {
+                logger.info(e.getMessage());
                 logger.severe("Failed to get info for " + locationName + " from caching and API");
             }
         }
@@ -347,7 +354,7 @@ public class Cache {
      * @param locationsColumn
      * @return
      */
-    public static JSONObject loadDistanceMatrix(ArrayList<String> locationsRow, ArrayList<String> locationsColumn) {
+    public static JSONObject loadDistanceMatrix(ArrayList<Location> locationsRow, ArrayList<Location> locationsColumn) {
         String fullUrl = UrlUtil.generateGmapsDistanceMatrixUrl(locationsRow, locationsColumn);
         String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
         JSONObject distanceMatrixJson = new JSONObject();
@@ -363,14 +370,22 @@ public class Cache {
             try {
                 logger.info("Getting row: " + locationsRow + " column " + locationsColumn
                         + " data from Google Maps API");
+                checkGmapsKey(fullUrl);
                 result = GmapsApi.getDistanceMatrix(locationsRow, locationsColumn);
                 saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_DISTANCE_MATRIX_PATH);
             } catch (ConnectException e) {
+                logger.info(e.getMessage());
                 logger.severe("Failed to get info for row: " + locationsRow + " column: " + locationsColumn
                         + " from caching and API");
             }
         }
         return result;
+    }
+
+    private static void checkGmapsKey(String url) throws ConnectException {
+        if (url.split("key=").length == 1) {
+            throw new ConnectException("Enter API key to make API call");
+        }
     }
 
     //TODO: change to return Image object instead.
@@ -382,5 +397,22 @@ public class Cache {
      */
     public static String imagePath(String validLocation) {
         return writablePath + CacheFileNames.GMAPS_IMAGE_DIR + validLocation + ".png";
+    }
+
+    /**
+     * Load the image from the resources dir
+     * @param validLocation
+     * @return
+     */
+    public static BufferedImage loadImage(String validLocation) {
+        String path = imagePath(validLocation);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(path));
+            logger.info("Successfully loaded image for " + validLocation);
+        } catch (IOException e) {
+            logger.warning("Error reading from image file " + path + ": " + e);
+        }
+        return img;
     }
 }

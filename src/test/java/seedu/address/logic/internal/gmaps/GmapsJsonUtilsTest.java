@@ -34,6 +34,22 @@ class GmapsJsonUtilsTest {
     }
 
     @Test
+    void getPlaceId() {
+        try {
+            JSONParser parser = new JSONParser();
+            apiResponse = (JSONObject) parser.parse(
+                    new FileReader("src/test/data/ApiStubsTest/GmapsPlacesOK.json.json"));
+            assertEquals(GmapsJsonUtils.getPlaceId(apiResponse), "ChIJMW2gnpUb2jERlUYTYSaawlc");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     void getArrayListMatrix() {
         ArrayList<Long> row1 = new ArrayList<Long>(Arrays.asList((long) 0, (long) 2268, (long) 2293));
         ArrayList<Long> row2 = new ArrayList<Long>(Arrays.asList((long) 821, (long) 0, (long) 498));

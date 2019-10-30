@@ -1,6 +1,7 @@
 package seedu.address.websocket;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -10,14 +11,15 @@ import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.internal.gmaps.GmapsJsonUtils;
+import seedu.address.model.gmaps.Location;
 
 class GmapsApiTest {
 
     @Test
     void getDistanceMatrix() throws ConnectException {
-        ArrayList<String> input = new ArrayList<>(Arrays.asList("foo", "foo", "foo", "foo", "foo"));
-        JSONObject response = GmapsApi.getDistanceMatrix(input, input);
-        assertEquals(GmapsJsonUtils.getStatus(response), "REQUEST_DENIED");
+        ArrayList<Location> input = new ArrayList<>(Arrays.asList(new Location("foo"),
+                new Location("foo"), new Location("foo"), new Location("foo")));
+        assertThrows(ConnectException.class, () -> GmapsApi.getDistanceMatrix(input, input));
     }
 
     @Test

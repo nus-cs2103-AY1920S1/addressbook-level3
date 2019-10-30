@@ -66,31 +66,27 @@ public class ClosestLocation {
                 throw new IllegalValueException("No location entered");
             }
             ArrayList<ArrayList<Long>> currMatrix = new ArrayList<ArrayList<Long>>();
-            ArrayList<String> validLocationList = locationGraph.getValidLocationList();
+            ArrayList<Location> validLocationList = locationGraph.getValidLocationList();
             ArrayList<Location> locations = locationGraph.getLocations();
             for (int i = locationNameList.size() - 1; i >= 0; i--) {
-                String currLocationName = locationNameList.get(i);
-                int indexLocation = LocationArrayListUtils.getIndex(locations, currLocationName);
-                String validLocation = null;
-                if (indexLocation >= 0) {
-                    Location currLocation = locations.get(indexLocation);
-                    validLocation = currLocation.getValidLocation();
-                } else {
-                    if (validLocationList.contains("NUS_" + locationNameList.get(i))) {
-                        validLocation = "NUS_" + locationNameList.get(i);
-                    }
-                }
-                if (validLocation != null) {
-                    int indexValidLocation = validLocationList.indexOf(validLocation);
-                    if (indexValidLocation == -1) {
-                        indexValidLocation = validLocationList.indexOf("NUS_" + validLocation);
-                    }
-                    ArrayList<Long> currRow = locationGraph.getLocationRow(indexValidLocation);
-                    currMatrix.add(currRow);
+                String currLocationString = locationNameList.get(i);
+                int validLocationListIndex = -1;
+                if (LocationArrayListUtils.containLocationName(locations, currLocationString)) {
+                    int locationListIndex = LocationArrayListUtils.getIndex(locations, currLocationString);
+                    Location currLocation = locations.get(locationListIndex);
+                    validLocationListIndex = LocationArrayListUtils.getIndex(validLocationList,
+                            currLocation.getValidLocation());
+                } else if (LocationArrayListUtils.containLocationName(validLocationList,
+                        "NUS_" + currLocationString)) {
+                    validLocationListIndex = LocationArrayListUtils.getIndex(validLocationList,
+                            "NUS_" + currLocationString);
                 } else {
                     invalidLocation.add(locationNameList.get(i));
                     locationNameList.remove(i);
+                    continue;
                 }
+                ArrayList<Long> currRow = locationGraph.getLocationRow(validLocationListIndex);
+                currMatrix.add(currRow);
             }
 
             if (currMatrix.isEmpty()) {
@@ -118,12 +114,12 @@ public class ClosestLocation {
             int firstClosestIndex = 0;
             int secondClosestIndex = 0;
             int thirdClosestIndex = 0;
-            ArrayList<String> closestLocations = new ArrayList<>();
+            ArrayList<Location> closestLocations = new ArrayList<>();
             Long firstClosestTime = Long.MAX_VALUE;
             Long secondClosestTime = Long.MAX_VALUE;
             Long thirdClosestTime = Long.MAX_VALUE;
             for (int i = 0; i < totalDistance.size(); i++) {
-                String currValidLocation = validLocationList.get(i);
+                Location currValidLocation = validLocationList.get(i);
                 if (closestLocations.contains(currValidLocation)) {
                     continue;
                 }
@@ -136,21 +132,20 @@ public class ClosestLocation {
                     secondClosestTime = totalDistance.get(i);
                     closestLocations.add(currValidLocation);
                 } else if (totalDistance.get(i) < thirdClosestTime) {
-                    secondClosestIndex = i;
+                    thirdClosestIndex = i;
                     thirdClosestTime = totalDistance.get(i);
                     closestLocations.add(currValidLocation);
                 }
             }
 
-            firstClosest = StringUtil.removeNusPrefix(validLocationList.get(firstClosestIndex));
-            secondClosest = StringUtil.removeNusPrefix(validLocationList.get(secondClosestIndex));
-            thirdClosest = StringUtil.removeNusPrefix(validLocationList.get(thirdClosestIndex));
+            firstClosest = StringUtil.removeNusPrefix(validLocationList.get(firstClosestIndex).getValidLocation());
+            secondClosest = StringUtil.removeNusPrefix(validLocationList.get(secondClosestIndex).getValidLocation());
+            thirdClosest = StringUtil.removeNusPrefix(validLocationList.get(thirdClosestIndex).getValidLocation());
 
             long firstClosestAvgTime = firstClosestTime / groupSize;
             long secondClosestAvgTime = secondClosestTime / groupSize;
             long thirdClosestAvgTime = thirdClosestTime / groupSize;
 
-            closestCommonLocationData.setImagePath("NUS_" + firstClosest);
             closestCommonLocationData.setFirstClosest(firstClosest);
             closestCommonLocationData.setSecondClosest(secondClosest);
             closestCommonLocationData.setThirdClosest(thirdClosest);
