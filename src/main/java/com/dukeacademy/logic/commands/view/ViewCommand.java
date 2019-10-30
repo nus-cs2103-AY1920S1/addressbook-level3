@@ -13,7 +13,6 @@ import com.dukeacademy.model.question.Question;
 public class ViewCommand implements Command {
     private final QuestionsLogic questionsLogic;
     private final int index;
-    private ProblemStatementLogic problemStatementLogic;
 
     /**
      * Instantiates a new View command.
@@ -26,7 +25,6 @@ public class ViewCommand implements Command {
                        ProblemStatementLogic problemStatementLogic) {
         this.index = index - 1;
         this.questionsLogic = questionsLogic;
-        this.problemStatementLogic = problemStatementLogic;
     }
 
     @Override
@@ -35,12 +33,11 @@ public class ViewCommand implements Command {
             // Update status of question
             Question questionToView =
                 this.questionsLogic.getQuestion(index);
-            this.questionsLogic.setProblemStatement(questionToView.getDescription());
-            this.problemStatementLogic.setProblemStatementObservable(questionToView.getDescription());
+            this.questionsLogic.selectQuestion(index);
 
             String feedback =
                 "Viewing question " + (index + 1) + " : " + questionToView.getTitle();
-            return new CommandResult(feedback, false, false, false, true
+            return new CommandResult(feedback, false, false
             );
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("Index entered out of range for current list of questions.");

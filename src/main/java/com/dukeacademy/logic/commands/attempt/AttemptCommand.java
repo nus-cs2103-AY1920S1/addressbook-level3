@@ -50,7 +50,7 @@ public class AttemptCommand implements Command {
                 // Notify user that he has already passed this question
                 String feedback = "Reattempting question " + (index + 1) + " : " + userSelection.getTitle() + " - "
                         + "You have already passed this question successfully.";
-                return new CommandResult(feedback, false, false, false, false
+                return new CommandResult(feedback, false, false
                 );
             } else {
                 // Update status of question to ATTEMPTED
@@ -62,7 +62,7 @@ public class AttemptCommand implements Command {
                 this.programSubmissionLogic.setCurrentQuestion(questionToAttempt);
 
                 String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
-                return new CommandResult(feedback, false, false, false, false
+                return new CommandResult(feedback, false, false
                 );
             }
 

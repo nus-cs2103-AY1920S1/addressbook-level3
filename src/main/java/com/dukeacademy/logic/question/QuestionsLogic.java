@@ -6,10 +6,12 @@ import java.util.function.Predicate;
 
 import com.dukeacademy.model.question.Question;
 
+import com.dukeacademy.observable.Observable;
 import javafx.collections.ObservableList;
 
 /**
- * Interface to handle all CRUD operations related to questions.
+ * Interface to handle all CRUD operations related to questions. It also stores a current selected question for viewing
+ * purposes.
  */
 public interface QuestionsLogic {
     /**
@@ -92,16 +94,15 @@ public interface QuestionsLogic {
     void deleteAllQuestions();
 
     /**
-     * Gets problem statement.
-     *
-     * @return the problem statement
+     * Returns an observable of the currently selected question
+     * @return observable of the selected question.
      */
-    String getProblemStatement();
+    Observable<Question> getSelectedQuestion();
 
     /**
-     * Sets problem statement.
-     *
-     * @param problemStatement the problem statement
+     * Sets the current selected question. Selects the question corresponding to the index in the list returned by
+     * getFilteredQuestionsList.
+     * @param index the index of the question to be selected.
      */
-    void setProblemStatement(String problemStatement);
+    void selectQuestion(int index);
 }

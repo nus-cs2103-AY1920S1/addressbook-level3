@@ -187,7 +187,8 @@ class MainWindow extends UiPart<Stage> {
         homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
         homePagePlaceholder.getChildren().add(homePage.getRoot());
 
-        questionsPage = new QuestionsPage(questionsLogic.getFilteredQuestionsList());
+        questionsPage = new QuestionsPage(questionsLogic.getFilteredQuestionsList(),
+                questionsLogic.getSelectedQuestion());
         questionsPagePlaceHolder.getChildren().add(questionsPage.getRoot());
 //        updateProgramEvaluationPanel();
 //
@@ -318,11 +319,6 @@ class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isView()) {
-                problemStatementPanel.setProblemStatement(questionsLogic
-                    .getProblemStatement());
             }
 
             return commandResult;

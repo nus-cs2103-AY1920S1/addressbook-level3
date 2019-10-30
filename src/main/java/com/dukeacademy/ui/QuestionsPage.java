@@ -18,7 +18,7 @@ public class QuestionsPage extends UiPart<Region> {
 
     private ProblemStatementPanel problemStatementPanel;
 
-    public QuestionsPage(ObservableList<Question> questions) {
+    public QuestionsPage(ObservableList<Question> questions, Observable<Question> selectedQuestion) {
         super(FXML);
 
         QuestionListPanel questionListPanel = new QuestionListPanel(questions);
@@ -26,7 +26,11 @@ public class QuestionsPage extends UiPart<Region> {
 
         problemStatementPanel = new ProblemStatementPanel();
         problemStatementDisplayPlaceholder.getChildren().add(problemStatementPanel.getRoot());
+
+        selectedQuestion.addListener(question -> {
+            if (question != null) {
+                problemStatementPanel.setProblemStatement(question.getDescription());
+            }
+        });
     }
-
-
 }

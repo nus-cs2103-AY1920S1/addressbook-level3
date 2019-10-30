@@ -12,6 +12,8 @@ import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.model.util.SampleDataUtil;
+import com.dukeacademy.observable.Observable;
+import com.dukeacademy.observable.StandardObservable;
 import com.dukeacademy.storage.question.QuestionBankStorage;
 
 import javafx.collections.ObservableList;
@@ -26,7 +28,7 @@ public class QuestionsLogicManager implements QuestionsLogic {
     private final QuestionBankStorage storage;
     private final QuestionBank questionBank;
     private final FilteredList<Question> filteredList;
-    private String problemStatement = "";
+    private final StandardObservable<Question> selectedQuestion;
 
     /**
      * Instantiates a new Questions logic manager.
@@ -38,6 +40,7 @@ public class QuestionsLogicManager implements QuestionsLogic {
         this.storage = storage;
         this.questionBank = this.loadQuestionsFromStorage();
         this.filteredList = new FilteredList<>(questionBank.getReadOnlyQuestionListObservable());
+        this.selectedQuestion = new StandardObservable<>();
     }
 
     /**
@@ -157,11 +160,14 @@ public class QuestionsLogicManager implements QuestionsLogic {
         }
     }
 
-    public String getProblemStatement() {
-        return problemStatement;
+    @Override
+    public Observable<Question> getSelectedQuestion() {
+        return this.selectedQuestion;
     }
 
-    public void setProblemStatement(String problemStatement) {
-        this.problemStatement = problemStatement;
+    @Override
+    public void selectQuestion(int index) {
+        Question selectedQuestion = this.filteredList.get(index);
+        this.selectedQuestion.setValue(selectedQuestion);
     }
 }

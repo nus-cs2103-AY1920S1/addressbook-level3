@@ -297,6 +297,7 @@ public class HomePage extends UiPart<Region> {
         }
         attemptingListView.setPrefWidth(300);
         VBox.setVgrow(attemptingListView, Priority.ALWAYS);
+        attempting.getChildren().clear();
         attempting.getChildren().add(attemptingListView);
     }
 
@@ -314,6 +315,7 @@ public class HomePage extends UiPart<Region> {
         }
         bookmarkedListView.setPrefWidth(300);
         VBox.setVgrow(bookmarkedListView, Priority.ALWAYS);
+        bookmarked.getChildren().clear();
         bookmarked.getChildren().add(bookmarkedListView);
     }
 

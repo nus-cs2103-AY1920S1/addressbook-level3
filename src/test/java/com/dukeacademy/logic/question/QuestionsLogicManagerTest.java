@@ -344,4 +344,14 @@ class QuestionsLogicManagerTest {
                 topics, testCases, userProgram, true, description);
         }
     }
+
+    @Test
+    void getSelectedQuestion() {
+        // TODO
+    }
+
+    @Test
+    void selectQuestion() {
+        // TODO
+    }
 }

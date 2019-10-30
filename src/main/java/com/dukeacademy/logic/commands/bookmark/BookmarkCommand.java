@@ -47,7 +47,7 @@ public class BookmarkCommand implements Command {
                 // Simply notify user that question is already bookmarked
                 String feedback = "Question " + (index + 1) + " : " + userSelection.getTitle()
                         + " - is already bookmarked.";
-                return new CommandResult(feedback, false, false, false, false
+                return new CommandResult(feedback, false, false
                 );
             } else {
                 // Update isBookmarked of question
@@ -57,7 +57,7 @@ public class BookmarkCommand implements Command {
 
                 // Notify user of successful bookmark action
                 String feedback = "Bookmarked question " + (index + 1) + " : " + bookmarkedQuestion.getTitle();
-                return new CommandResult(feedback, false, false, false, false
+                return new CommandResult(feedback, false, false
                 );
             }
 
