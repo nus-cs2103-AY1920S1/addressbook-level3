@@ -24,6 +24,9 @@ public class FilterAllByTagCommand extends Command {
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "List the whole StudyBuddy by tag(s) : ";
 
+    public static final String NO_ITEM_FOUND = "There is no such StudyBuddyItem with the specified "
+            + "tag(s) in StudyBuddy!";
+
     private ArrayList<String> tagKeywords;
 
     private final StudyBuddyItemContainsTagPredicate tagPredicate;
@@ -60,14 +63,29 @@ public class FilterAllByTagCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         ArrayList<String> tagListResult = model.collectTaggedItems(tagPredicate);
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         for (String s : tagListResult) {
             sb.append(s);
-            sb.append("\n");
+            sb.append("\n\n");
         }
+        StringBuilder resultToDisplay = new StringBuilder();
+        if (tagListResult.size() == 0) {
+            resultToDisplay.append(NO_ITEM_FOUND);
+        } else {
+            resultToDisplay.append(FILTER_TAG_MESSAGE_SUCCESS)
+                    .append("\n\n")
+                    .append(showTagQueries())
+                    .append("\n")
+                    .append(sb.toString());
+        }
+        return new GlobalCommandResult(resultToDisplay.toString());
+    }
 
-        return new GlobalCommandResult(FILTER_TAG_MESSAGE_SUCCESS
-                + "\n" + showTagQueries()
-                + "\n" + sb.toString());
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterAllByTagCommand // instanceof handles nulls
+                && tagPredicate.equals(((FilterAllByTagCommand) other).tagPredicate));
     }
 }

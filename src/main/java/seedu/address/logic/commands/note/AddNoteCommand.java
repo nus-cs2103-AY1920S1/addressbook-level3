@@ -33,7 +33,7 @@ public class AddNoteCommand extends Command {
             + PREFIX_TAG + "Pipelining";
 
     public static final String MESSAGE_SUCCESS = "New note added: %1$s";
-    public static final String MESSAGE_DUPLICATE_NOTE = "This note title already exists in FiveNotes.";
+    public static final String MESSAGE_DUPLICATE_NOTE = "This note title already exists in Notes.";
 
     private final Note toAdd;
 

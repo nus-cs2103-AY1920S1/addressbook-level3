@@ -20,6 +20,7 @@ import seedu.address.logic.commands.cheatsheet.ViewCheatSheetCommand;
 import seedu.address.logic.commands.flashcard.AddFlashcardCommand;
 import seedu.address.logic.commands.flashcard.DeleteFlashcardCommand;
 import seedu.address.logic.commands.flashcard.FilterFlashcardByTagCommand;
+import seedu.address.logic.commands.flashcard.RemindCommand;
 import seedu.address.logic.commands.flashcard.ShowFlashcardAnswerCommand;
 import seedu.address.logic.commands.flashcard.StartTimeTrialCommand;
 import seedu.address.logic.commands.flashcard.ViewFlashcardCommand;
@@ -33,6 +34,7 @@ import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.logic.commands.note.DeleteNoteCommand;
 import seedu.address.logic.commands.note.FilterNoteByTagCommand;
 import seedu.address.logic.commands.note.ViewNoteCommand;
+import seedu.address.logic.commands.note.ViewRawNoteCommand;
 import seedu.address.logic.parser.cheatsheet.AddCheatSheetCommandParser;
 import seedu.address.logic.parser.cheatsheet.DeleteCheatSheetCommandParser;
 import seedu.address.logic.parser.cheatsheet.EditCheatSheetCommandParser;
@@ -48,6 +50,7 @@ import seedu.address.logic.parser.note.AddNoteCommandParser;
 import seedu.address.logic.parser.note.DeleteNoteCommandParser;
 import seedu.address.logic.parser.note.FilterNoteByTagCommandParser;
 import seedu.address.logic.parser.note.ViewNoteCommandParser;
+import seedu.address.logic.parser.note.ViewRawNoteCommandParser;
 
 /**
  * Parses user input.
@@ -122,22 +125,6 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    private Command parseTimeTrialCommands(String commandWord, String arguments) throws ParseException {
-        switch (commandWord) {
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
-    }
-
-
-    /**
-     * Parses user input into command for execution.
-     * @param commandWord the command to execute
-     * @param arguments the parameters supplied to command
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
-     */
     private Command parseCheatSheetCommands(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
         case AddCheatSheetCommand.COMMAND_WORD:
@@ -187,6 +174,9 @@ public class AddressBookParser {
         case ShowFlashcardAnswerCommand.COMMAND_WORD:
             return new ShowFlashcardAnswerCommand();
 
+        case RemindCommand.COMMAND_WORD:
+            return new RemindCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -212,6 +202,9 @@ public class AddressBookParser {
 
         case ViewNoteCommand.COMMAND_WORD:
             return new ViewNoteCommandParser().parse(arguments);
+
+        case ViewRawNoteCommand.COMMAND_WORD:
+            return new ViewRawNoteCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
