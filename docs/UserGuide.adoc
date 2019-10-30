@@ -87,11 +87,13 @@ Format: `exit`
 === Entity Management
 AddMin+ contains two main entities - Employees and Events with similar commands, especially in Create, Read, Update and Delete (CRUD) operations.
 
-==== List : `list_em | list_ev`
+==== List : `list | list_em | list_ev`
 
 Employee: Shows the list of all employees on the company’s roster. Full details are truncated.
 
 Event: Shows the list of all events on the company’s calendar. Full details are truncated.
+
+Both Employee and Event: `list`
 
 Employee Format: `list_em`
 
@@ -450,6 +452,7 @@ There is no need to save manually.
 
 * *Help* : `help`
 * *Search* : `search`
+* *List Both Employees and Event* : `list`
 * *List Employees* : `list_em`
 * *List Events* : `list_ev`
 * *Add Employee*: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
