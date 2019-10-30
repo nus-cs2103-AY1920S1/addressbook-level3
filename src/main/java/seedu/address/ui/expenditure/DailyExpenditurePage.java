@@ -41,7 +41,6 @@ public class DailyExpenditurePage extends ExpensesPage {
         expenses = model.getPageStatus().getTrip().getExpenditureList().internalUnmodifiableList;
         viewOptionButton.setSelected(true);
         getNumberOfDay();
-        generateSummary();
     }
 
     /**
@@ -52,17 +51,6 @@ public class DailyExpenditurePage extends ExpensesPage {
         dailyExpendituresPanelContainer.getChildren().addAll(generateTitledPanes());
         expendituresContainer.setContent(dailyExpendituresPanelContainer);
     }
-
-    /**
-     * Generates total expenditure and total budget for the trip.
-     */
-    private void generateSummary() {
-        totalExpenditure = expenses.stream().mapToDouble(expense -> {
-            return Double.parseDouble(expense.getBudget().toString());
-        }).sum();
-
-        totalBudget = Double.parseDouble(model.getPageStatus().getTrip().getBudget().toString());
-    };
 
     /**
      * Divides expenditures into lists of expenditure cards grouped according to day.
@@ -76,10 +64,10 @@ public class DailyExpenditurePage extends ExpensesPage {
         for (int j = 0; j < expenses.size(); j++) {
             Expenditure expenditure = expenses.get(j);
             if (expenditure.getDayNumber().isEmpty()) {
-                expenditureLists.get(0).add(new ExpenditureCard(expenditure, Index.fromZeroBased(j)));
+                expenditureLists.get(0).add(new ExpenditureCard(expenditure, Index.fromZeroBased(j), model));
             } else {
                 expenditureLists.get(Integer.parseInt(expenditure.getDayNumber().get().value))
-                        .add(new ExpenditureCard(expenditure, Index.fromZeroBased(j)));
+                        .add(new ExpenditureCard(expenditure, Index.fromZeroBased(j), model));
             }
         }
     }

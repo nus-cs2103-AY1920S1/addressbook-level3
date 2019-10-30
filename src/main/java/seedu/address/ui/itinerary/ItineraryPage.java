@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -50,6 +51,9 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
     @FXML
     private Label totalBudgetLabel;
 
+    @FXML
+    private ImageView tripImageView;
+
     public ItineraryPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
         fillPage();
@@ -64,6 +68,7 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
                 .getPageStatus().getTrip().getEndDate().format(dateFormatter).toString());
         destinationLabel.setText("Destination: " + model.getPageStatus().getTrip().getDestination().toString());
         totalBudgetLabel.setText("Total Budget: " + model.getPageStatus().getTrip().getBudget().toString());
+        model.getPageStatus().getTrip().getPhoto().ifPresent(photo -> tripImageView.setImage(photo.getImage()));
 
         List<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
 

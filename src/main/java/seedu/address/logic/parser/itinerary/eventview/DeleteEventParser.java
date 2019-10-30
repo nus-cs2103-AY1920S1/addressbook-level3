@@ -9,7 +9,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Placeholder javadoc.
+ * Parser user input string and returns a {@linke DeleteEventCommand}.
  */
 public class DeleteEventParser implements Parser<DeleteEventCommand> {
     /**

@@ -10,9 +10,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.exceptions.ExpenditureNotRemovableException;
 import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
+import seedu.address.model.expenditure.exceptions.ExpenditureNotRemovableException;
 
 /**
  * List containing {@code Expenditure}s.

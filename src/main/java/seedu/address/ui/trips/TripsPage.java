@@ -56,7 +56,7 @@ public class TripsPage extends Page<AnchorPane> {
         List<Node> tripCards = IntStream.range(0, trips.size())
                 .mapToObj(i -> Index.fromZeroBased(i))
                 .map(index -> {
-                    TripCard tripCard = new TripCard(trips.get(index.getZeroBased()), index);
+                    TripCard tripCard = new TripCard(trips.get(index.getZeroBased()), index, model);
                     int column = index.getZeroBased() % MAX_COLUMNS;
                     int row = index.getZeroBased() / MAX_COLUMNS;
 

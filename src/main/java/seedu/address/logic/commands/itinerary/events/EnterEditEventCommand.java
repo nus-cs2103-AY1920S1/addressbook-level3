@@ -15,7 +15,7 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.model.itinerary.event.Event;
 
 /**
- * Placeholder.
+ * Enters the {@code EditEventPage}.
  */
 public class EnterEditEventCommand extends Command {
     public static final String COMMAND_WORD = "edit";

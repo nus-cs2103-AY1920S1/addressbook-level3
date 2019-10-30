@@ -5,11 +5,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
@@ -17,7 +15,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.common.EnterPrefsCommand;
 import seedu.address.logic.commands.itinerary.days.EnterCreateDayCommand;
-import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.ui.MainWindow;
@@ -52,16 +49,7 @@ public class DaysPage extends PageWithSidebar<AnchorPane> {
         List<Node> dayThumbnails = IntStream.range(0, days.size())
                 .mapToObj(i -> Index.fromZeroBased(i))
                 .map(index -> {
-                    DayThumbnail dayThumbnail = new DayThumbnail(days.get(index.getZeroBased()), index);
-
-                    dayThumbnail.getRoot().addEventFilter(MouseEvent.MOUSE_CLICKED,
-                            new EventHandler<MouseEvent>() {
-                                @Override
-                                public void handle(MouseEvent event) {
-                                    mainWindow.executeGuiCommand(EnterDayCommand.COMMAND_WORD
-                                            + " " + index.getOneBased());
-                                }
-                            });
+                    DayThumbnail dayThumbnail = new DayThumbnail(days.get(index.getZeroBased()), index, mainWindow);
                     return dayThumbnail.getRoot();
                 }).collect(Collectors.toList());
 
