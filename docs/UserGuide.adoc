@@ -65,6 +65,42 @@ image::UserGuideCommandBox.png[width="790"]
 
 3. Text-based feedback for each command entered is shown in the _ResultDisplay_ (region in red box).
 
+=== QuickStart
+
+1.  `bank sample` kbd:[Enter]
+2.  `open` kbd:[Enter]
+3.  `start` kbd:[Enter]
+4.  `guess <your_guess>` kbd:[Enter]
+*   keep guessing till the statistics screen appears
+5.  `home` kbd:[Enter]
+
+You have just played the sample wordbank
+
+=== Switching Modes
+
+There are 4 application modes. Namely, `home`, `open`, `settings` and `game`.
+
+To transition betwwen them you have to enter the `SwitchCommand` that represent each mode.
+
+* `open` +
+to enter `open` mode
+* `start` +
+to enter `game` mode
+* `settings` +
+to enter `settings` mode
+* `home` +
+to enter `home` mode
+
+====
+*Requirements before changing mode*
+
+* A bank should be loaded
+* No game should be running
+
+====
+
+Yes, it feels like a steep learning curve >_< But do not worry as we have the AutoComplete Bar that auto completes the available commands whichever mode you are in.
+
 _Some typical commands  to get familiar with are:_
 
 * *`create <NAME>`* : Create an empty _WordBank_ with specified name.
@@ -338,6 +374,12 @@ Have more than one account to monitor statistics on the same computer
 
 *Q*: How do I pronounce your app name? +
 *A*: Think Pokemon.
+
+== Overview of Modes for Advanced Users
+
+.All possible application modes
+image::ParserManagerActivityDiagram.PNG[]
+
 
 == Command Summary
 
