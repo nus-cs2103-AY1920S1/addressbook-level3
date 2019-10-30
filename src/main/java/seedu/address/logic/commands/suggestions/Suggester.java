@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.commands.AddNusModsCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
@@ -42,6 +43,7 @@ public abstract class Suggester {
     static final Map<String, Class<? extends Suggester>> SUGGESTER_MAP = Map.ofEntries(
             Map.entry(AddEventCommand.COMMAND_WORD, AddEventCommandSuggester.class),
             Map.entry(AddGroupCommand.COMMAND_WORD, AddGroupCommandSuggester.class),
+            Map.entry(AddNusModCommand.COMMAND_WORD, AddNusModCommandSuggester.class),
             Map.entry(AddNusModsCommand.COMMAND_WORD, AddNusModsCommandSuggester.class),
             Map.entry(AddPersonCommand.COMMAND_WORD, AddPersonCommandSuggester.class),
             Map.entry(AddToGroupCommand.COMMAND_WORD, AddToGroupCommandSuggester.class),
