@@ -21,12 +21,12 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
-import seedu.address.model.common.Tag;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.Tag;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -51,9 +51,9 @@ public class RegisterStaffCommandParser implements Parser<ReversibleActionPairCo
 
         ReferenceId referenceId = ParserUtil.parseStaffReferenceId(argMultimap.getValue(PREFIX_ID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).orElse(""));
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(""));
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(""));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Person person = new Person(referenceId, name, phone, email, address, tagList);

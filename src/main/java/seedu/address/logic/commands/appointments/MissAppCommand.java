@@ -4,6 +4,7 @@ package seedu.address.logic.commands.appointments;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
@@ -26,9 +27,11 @@ public class MissAppCommand extends NonActionableCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        model.setTabListing(OmniPanelTab.APPOINTMENTS_TAB);
         model.updateFilteredAppointmentList(new EventsMissedPredicate());
         int size = model.getFilteredAppointmentList().size();
-        String displayMess = "";
+        String displayMess;
 
         if (size <= 1) {
             displayMess = Messages.MESSAGE_MISSED_EVENT_LISTED_OVERVIEW;
