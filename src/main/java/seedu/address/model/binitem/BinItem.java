@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,8 @@ import java.util.Objects;
  */
 public class BinItem {
 
-    public static final int TIME_TO_LIVE = 30;
+    public static final int TIME_TO_LIVE_AMOUNT = 10;
+    public static final ChronoUnit TIME_TO_LIVE_UNIT = ChronoUnit.SECONDS;
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy 'at' hh:mm a");
 
     private final Binnable item;
@@ -40,7 +42,7 @@ public class BinItem {
     }
 
     private LocalDateTime generateExpiryDate() {
-        LocalDateTime expiryDate = LocalDateTime.now().plusDays(TIME_TO_LIVE);
+        LocalDateTime expiryDate = LocalDateTime.now().minus(TIME_TO_LIVE_AMOUNT, TIME_TO_LIVE_UNIT);
         return expiryDate;
     }
 

@@ -212,6 +212,11 @@ public class ModelManager implements Model {
         statefulAddressBook.setBinItem(target, editedBinItem);
     }
 
+    @Override
+    public void binCleanUp() {
+        statefulAddressBook.binCleanUp();
+    }
+
     //=========== Functions related to undo/redo =============================================================
 
     @Override

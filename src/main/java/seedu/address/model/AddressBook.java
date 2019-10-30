@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -213,6 +214,19 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeBinItem(BinItem key) {
         binItems.remove(key);
+    }
+
+    /**
+     * Permanently destroys all BinItems that have passed their expiryDate.
+     */
+    public void binCleanUp() {
+        ArrayList<BinItem> cleanList = new ArrayList<>();
+        for (BinItem b : binItems) {
+            if (!b.isExpired()) {
+                cleanList.add(b);
+            }
+        }
+        binItems.setBinItems(cleanList);
     }
 
     //// util methods

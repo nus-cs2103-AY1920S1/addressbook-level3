@@ -199,6 +199,11 @@ public class TestUtil {
         }
 
         @Override
+        public void binCleanUp() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }

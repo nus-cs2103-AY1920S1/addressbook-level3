@@ -89,7 +89,10 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
-        return new ModelManager(initialData, userPrefs);
+        ModelManager manager = new ModelManager(initialData, userPrefs);
+        // Remove expired items in the bin
+        manager.binCleanUp();
+        return manager;
     }
 
     private void initLogging(Config config) {

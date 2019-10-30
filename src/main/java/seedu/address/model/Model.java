@@ -226,6 +226,11 @@ public interface Model {
     void updateFilteredBinItemList(Predicate<BinItem> predicate);
 
     /**
+     * Checks BinItems against their expiryDate and permanently destroys items that have passed their expiryDate.
+     */
+    void binCleanUp();
+
+    /**
      * Checks whether an undo is possible in the address book.
      */
     boolean canUndoAddressBook();
