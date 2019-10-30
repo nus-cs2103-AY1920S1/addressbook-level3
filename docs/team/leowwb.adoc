@@ -1,25 +1,32 @@
-= John Doe - Project Portfolio
+//@@author LeowWB
+= Leow Wen Bin - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: KeyboardFlashCards
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop rating book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+KeyboardFlashCards is a desktop flashcard manager application. The user interacts with it using a CLI (command-line interface), and it has a GUI created with JavaFX. It is written in Java, and has roughly 16 KLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+* *Major enhancement*: Added *the ability to export flashcards*.
+** What it does: Allows the user to save a subset of their flashcards to a specified external file. The format of the file is inferred from the specified file extension, and hence can be determined by the user.
+** Justification: This feature greatly improves the application, as the ability to export flashcards would mean that the user can easily generate cheat sheets or share flashcards with others.
+** Highlights: This enhancement was designed in such a way as to maximize extensibility in the future (if a developer wishes to add support for more file formats). It required an in-depth analysis of design alternatives. The implementation was challenging due to the dependence on an external library, as well as the tendency of certain file paths to break our parser. 
+** Credits: All writing of flashcards to `.docx` format is done with the use of Apache POI.
+
+* *Major enhancement*: old king cole was a merry old soul and a merry old soul was he
+** What it does: Allows the user to save a subset of their flashcards to a specified external file. The format of file is inferred from the specified file extension.
+** Justification: This feature improves the product significantly because a user .
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+//* *Minor enhancement*: ???
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -33,13 +40,15 @@ AddressBook - Level 3 is a desktop rating book application used for teaching Sof
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** PRs reviewed (with non-trivial review comments): 
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/98[#98],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/154[#154]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library (Apache POI) to the project (https://github.com/AY1920S1-CS2103T-T12-4/main/pull/44[#44])
+*** Integrated new Github plugins (Travis CI, Appveyor, Coveralls) to the team repo
 
 _{you can add/remove categories in the list above}_
 
