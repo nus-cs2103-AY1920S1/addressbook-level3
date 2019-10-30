@@ -14,6 +14,7 @@ import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.enums.TaskType;
 
 class EventTest {
 
@@ -175,6 +176,16 @@ class EventTest {
         Event testEvent = new Event("borrow book", start, end);
 
         assertEquals(Status.NOT_DONE, testEvent.getStatus());
+    }
+
+    @Test
+    void getTaskType() {
+        LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
+        LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
+        Event e = new Event("borrow book", start, end);
+
+        TaskType expected = TaskType.EVENT;
+        assertEquals(expected, e.getTaskType());
     }
 
 }

@@ -8,6 +8,7 @@ import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.enums.TaskType;
 import seedu.jarvis.storage.planner.JsonAdaptedDeadline;
 import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
@@ -50,6 +51,15 @@ public class Deadline extends Task {
     public String toString() {
         return "Deadline: " + this.taskDes + " by " + this.deadline
                 + attributesString();
+    }
+
+    /**
+     * Retrieves the {@code TaskType} of the task
+     * @return {@TaskType} of the task
+     */
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.DEADLINE;
     }
 
     /**
