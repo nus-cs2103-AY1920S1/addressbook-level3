@@ -1,4 +1,4 @@
-= image:address_book_32.png[width="30"] Dukemon - User Guide  image:address_book_32.png[width="30"]
+= image:address_book_32.png[icon, 39, 36] Dukemon - User Guide  image:address_book_32.png[icon, 39, 36]
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -133,7 +133,7 @@ specified.
 * Parameters can be in any order e.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acceptable.
 ====
 
-=== Load commands
+=== Load commands image:load_mode_icon.png[load, 22]
 ==== To enter loading page : `load`
 Changes the app mode to load, so that the user can perform load commands.
 
@@ -183,7 +183,7 @@ Examples:
 * `bank CS2040`
 * `bank Biology`
 
-=== Flash card commands
+=== FlashCard commands image:card_commands_icon.png[width="29.5"]
 
 ==== Help : `help`
 Shows help
@@ -259,46 +259,88 @@ Returns entries containing elephant and giraffe.
 * `find mammal fish bird` +
 Returns any entries containing `mammal`, `fish` or `bird` in its descriptions or words.
 
-==== Exit the game : `exit`
+==== Exit Dukemon: `exit`
 
-=== Game Mode and Commands
+=== Game Mode & Commands image:game_mode_icon.png[width="30"]
 
 .UI regions that are relevant when a Game session is in progress.
 image::UserGuideGameSessionDiagram1.png[width="790"]
 
-The general layout of the UI when a _Game_ is in session is as seen above.
 
-1. The timer will be activated reflects the time left before the _Game_ skips over to the next card. (region in yellow box)
+This section covers the actions and feedback that are relevant to the _Game_ mode.  The general layout of the UI when a _Game_ is in progress is as seen above.
 
-2. The _Meaning_ of the current _Card_ is shown in the region contained by the red box. Based on this _Meaning_ you will need to make a _Guess_ for the _Word_ it is describing.
+1. The timer will be activated to reflect the time left before the _Game_ skips over to the next card. (region in yellow box)
 
-3. _Hints_ will be periodically shown (if enabled) as time passes (region in the blue box) in a Hangman-style. The number of hints given
+2. The _Meaning_ of the current _Card_ is shown in the region contained by the red box. Based on this _Meaning_ you will  make a _Guess_ for the _Word_ it is describing.
+
+3. _Hints_ (if enabled) will be periodically shown as time passes (region in the blue box) in a Hangman-style. The number of hints given
 differs across each _Difficulty_.
 
-==== Start new game session : `start`
+==== Game Mode - [underline]#Starting# image:game_mode_icon.png[width="30"]
+
+The relevant command(s) are:
+
+1. *Starting new game session:*
++
+Format: `start [EASY/MEDIUM/HARD]`
+
+- Starts a game session with the currently selected _WordBank_ and specified _Difficulty_.
+(_WorkBank_ selection is done in _Home_ mode.)
+
+- If no _Difficuty_ is specfied, the default _Difficulty_ in _Settings_
+will be used.
 
 
-Starts a game session with the selected word bank. +
-You select your word bank from the load command : `bank WORD_BANK`
 
-Format: `start [difficulty]`
 
-==== Guess the answer : `guess`
-Input your answer for the prompted word, given a meaning.
+==== Game Mode - [underline]#Playing# image:game_mode_icon.png[width="30"]
 
+.UI regions that show feedback during a Game session.
+image::UserGuideGameSessionDiagram2.png[width="790"][height="850"]
+
+
+
+During a _Game_, the _Timer_ will change colour according to the time left (region in green box). Feedback for each _Guess_ is shown via the _ResultDisplay_ (region in the red box). +
+ +
+The relevant command(s) are:
+
+1. *Making a _Guess_ for a _Word_*: +
++
 Format: `guess WORD`
 
-==== Skip a word : `skip`
-Stops current game session (all progress will be lost) and returns to the home page.
+- Makes a guess for the _Word_ described by the currently shown _Meaning_. (*non case-sensitive*)
 
+2. *Skipping over a _Word_:*
++
+Format: `skip`
+
+- Skips over the current _Word_. (*is counted as a wrong answer*)
+
+
+==== Game Mode - [underline]#Terminating & Statistics# image:game_mode_icon.png[width="30"]
+
+.UI regions showing Statistics and results after a Game session has completed.
+image::UserGuideGameOverDiagram.png[width="790"][height="850"]
+
+.UI regions showing feedback when a Game is forcibly stopped.
+image::UserGuideGameStopDiagram.png[width="790"][height="850"]
+
+A _Game_ finishes when *all _Cards_ have been attempted*. _Statistics_ are
+*automatically shown* upon completion of a _Game_ (see Fig. 6 above). +
+ +
+The user can choose to `stop` a _Game_ before it has finished. This will result in all current _Game_ progress being lost, and
+no _Statistics_ being collected or generated (see Fig. 7 above). +
+ +
+The relevant command(s) are:
+
+1. *Stopping a _Game_ (before it has finished)*: +
++
 Format: `stop`
 
-==== Stop game session : `stop`
-Stops current game session (all progress will be lost) and returns to the home page.
+- Forcibly terminates the current active _Game_ session (*all progress will be lost, and no _Statistics_ will
+be reported.*)
 
-Format: `stop`
-
-=== Changing settings : `settings`
+=== Settings Mode & Commands image:settings_mode_icon.png[width="27"]
 
 Goes into the settings menu. +
 Format: `settings`
