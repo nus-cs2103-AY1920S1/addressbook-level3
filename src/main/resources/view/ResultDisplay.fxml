@@ -24,7 +24,7 @@
             <VBox fx:id="dialogContainer"
                   prefHeight="441.0"
                   prefWidth="507.0"
-                  style="-fx-background-color:#383838 " />
+                  styleClass="dialog-container"/>
         </content>
     </ScrollPane>
 </StackPane>

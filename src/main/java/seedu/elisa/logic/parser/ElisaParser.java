@@ -21,6 +21,7 @@ import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.RedoCommand;
 import seedu.elisa.logic.commands.ShowCommand;
 import seedu.elisa.logic.commands.SortCommand;
+import seedu.elisa.logic.commands.ThemeCommand;
 import seedu.elisa.logic.commands.UndoCommand;
 import seedu.elisa.logic.commands.UpCommand;
 
@@ -108,10 +109,10 @@ public class ElisaParser {
 
         case JokeCommand.COMMAND_WORD:
             return new JokeCommand();
-        /*
-        case ShowCommand.COMMAND_WORD:
-            return new ShowCommand(description);
-        */
+
+        case ThemeCommand.COMMAND_WORD:
+            return new ThemeCommand(description);
+
         case UpCommand.COMMAND_WORD:
             return new UpCommand(description);
 
