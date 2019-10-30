@@ -38,7 +38,7 @@ import seedu.address.model.notif.Notif;
 public class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
-    public static final int NOTIF_PERIOD = 10;
+    public static final long NOTIF_PERIOD = 10;
     public static final TimeUnit NOTIF_TIME_UNIT = TimeUnit.SECONDS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entity to Mortago.\n"

@@ -10,6 +10,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.UndoableCommand.MESSAGE_NOT_EXECUTED_BEFORE;
 import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UNDO_SUCCESS;
+import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
+import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
+import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_UPDATE_COMMAND;
@@ -29,8 +32,10 @@ import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
+import seedu.address.model.notif.Notif;
 import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.FridgeBuilder;
+import seedu.address.testutil.NotifBuilder;
 
 //@@author ambervoong
 /**
@@ -162,6 +167,71 @@ public class UpdateCommandTest {
 
         assertEquals(f1.getFridgeStatus(), FridgeStatus.OCCUPIED);
     }
+
+    @Test
+    public void executeBody_removeNotifAfterContactPolice_success() throws CommandException {
+        Body body = new BodyBuilder().withStatus("contact police").build();
+        Notif notif = new NotifBuilder().withBody(body).build();
+        model.addEntity(body);
+        model.addNotif(notif);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setBodyStatus(CLAIMED);
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        assertEquals(model.getFilteredNotifList().size(), 0);
+    }
+
+    @Test
+    public void executeBody_removeNotifAfterArrived_success() throws CommandException {
+        Body body = new BodyBuilder().build();
+        Notif notif = new NotifBuilder().withBody(body).build();
+        model.addEntity(body);
+        model.addNotif(notif);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setBodyStatus(CLAIMED);
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        assertEquals(model.getFilteredNotifList().size(), 0);
+
+    }
+
+    @Test
+    public void executeBody_removeNotifAfterArrivedAndCop_success() throws CommandException {
+        Body body = new BodyBuilder().build();
+        Notif notif = new NotifBuilder().withBody(body).build();
+        model.addEntity(body);
+        model.addNotif(notif);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setBodyStatus(CONTACT_POLICE);
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        assertEquals(model.getFilteredNotifList().size(), 1);
+    }
+
+    @Test
+    public void executeBody_addNotifOnChangeToArrival_success() throws CommandException {
+        Body body = new BodyBuilder().withStatus("pending police report").build();
+        model.addEntity(body);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setBodyStatus(ARRIVED);
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        assertEquals(model.getFilteredNotifList().size(), 1);
+        model.deleteEntity(body);
+        model.deleteNotif(model.getFilteredNotifList().get(0));
+    }
     //@@author
 
     @Test
@@ -174,6 +244,7 @@ public class UpdateCommandTest {
         String expectedMessage = MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 
         assertCommandFailure(updateCommand, model, expectedMessage);
+
     }
 
     // Note that a Fridge's status is automatically set to UNOCCUPIED if does not contain a body.
