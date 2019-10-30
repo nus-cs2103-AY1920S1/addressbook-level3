@@ -1,6 +1,9 @@
 package seedu.address.logic.finance.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_KEYWORD;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TYPE;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.finance.Model;
@@ -23,9 +26,10 @@ public class FindCommand extends Command {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers. "
             + "Filtering by entry type (Spend, Income, Borrow, Lend) is also possible. "
             + "At least one field must be specified.\n"
-            + "Parameters: <sort> amt <filter> spend/income/borrow/lend "
-            + "<keyword> KEYWORD [MORE_KEYWORDS]... <cat> CATEGORY_NAME [MORE_CATEGORY_NAMES]\n"
-            + "Example: " + COMMAND_WORD + "<sort> amount <filter> borrow";
+            + "Parameters: " + PREFIX_TYPE + " spend/income/borrow/lend "
+            + PREFIX_KEYWORD + "KEYWORD [MORE_KEYWORDS]... "
+            + PREFIX_CATEGORY + "CATEGORY_NAME [MORE_CATEGORY_NAMES]\n"
+            + "Example: " + COMMAND_WORD + "<filter> borrow";
 
     private final LogEntryMatchesPredicate predicate;
 
