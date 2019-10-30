@@ -1,4 +1,4 @@
-package seedu.deliverymans.storage;
+package seedu.deliverymans.storage.order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +12,13 @@ import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.model.database.OrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.storage.order.JsonAdaptedOrder;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "orderdatabase")
-class JsonSerializableOrderDatabase {
+public class JsonSerializableOrderDatabase {
 
     public static final String MESSAGE_DUPLICATE_ORDER = "Orders list contains duplicate order(s).";
 

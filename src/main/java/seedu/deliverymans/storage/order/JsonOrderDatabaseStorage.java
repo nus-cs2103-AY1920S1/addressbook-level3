@@ -1,4 +1,4 @@
-package seedu.deliverymans.storage;
+package seedu.deliverymans.storage.order;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,7 +13,6 @@ import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.commons.util.FileUtil;
 import seedu.deliverymans.commons.util.JsonUtil;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
-import seedu.deliverymans.storage.order.OrderDatabaseStorage;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.

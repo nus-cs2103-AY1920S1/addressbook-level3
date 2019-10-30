@@ -17,7 +17,7 @@ import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.order.Order;
-import seedu.deliverymans.storage.JsonAdaptedOrder;
+import seedu.deliverymans.storage.order.JsonAdaptedOrder;
 import seedu.deliverymans.storage.JsonAdaptedTag;
 
 /**

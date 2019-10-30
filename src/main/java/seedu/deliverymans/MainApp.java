@@ -32,7 +32,7 @@ import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.util.SampleDataUtil;
 import seedu.deliverymans.storage.AddressBookStorage;
 import seedu.deliverymans.storage.JsonAddressBookStorage;
-import seedu.deliverymans.storage.JsonOrderDatabaseStorage;
+import seedu.deliverymans.storage.order.JsonOrderDatabaseStorage;
 import seedu.deliverymans.storage.JsonUserPrefsStorage;
 import seedu.deliverymans.storage.Storage;
 import seedu.deliverymans.storage.StorageManager;
