@@ -42,7 +42,7 @@
                <content>
                   <VBox style="-fx-background-color: transparent;">
                      <children>
-                   <StackPane fx:id="cardListPanelPlaceholder" style="-fx-border-color: transparent; -fx-background-color: transparent;" />
+                   <StackPane fx:id="viewPanelPlaceholder" style="-fx-border-color: transparent; -fx-background-color: transparent;" />
                      </children>
                   </VBox>
                </content>
