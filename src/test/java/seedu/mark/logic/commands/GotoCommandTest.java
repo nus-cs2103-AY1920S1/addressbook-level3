@@ -1,5 +1,6 @@
 package seedu.mark.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -71,5 +72,27 @@ public class GotoCommandTest {
         GotoCommand gotoCommand = new GotoCommand(outOfBoundIndex);
 
         assertCommandFailure(gotoCommand, model, storage, Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        GotoCommand gotoFirstCommand = new GotoCommand(INDEX_FIRST_BOOKMARK);
+        GotoCommand gotoSecondCommand = new GotoCommand(INDEX_SECOND_BOOKMARK);
+
+        // same object -> returns true
+        assertTrue(gotoFirstCommand.equals(gotoFirstCommand));
+
+        // same values -> returns true
+        GotoCommand gotoFirstCommandCopy = new GotoCommand(INDEX_FIRST_BOOKMARK);
+        assertTrue(gotoFirstCommand.equals(gotoFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(gotoFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(gotoFirstCommand.equals(null));
+
+        // different bookmark -> returns false
+        assertFalse(gotoFirstCommand.equals(gotoSecondCommand));
     }
 }

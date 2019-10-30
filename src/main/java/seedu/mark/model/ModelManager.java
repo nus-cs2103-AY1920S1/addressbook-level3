@@ -155,21 +155,27 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasFolder(Folder folder) {
+        requireNonNull(folder);
+
         return versionedMark.hasFolder(folder);
     }
 
     @Override
     public boolean hasTagger(SelectiveBookmarkTagger tagger) {
         requireNonNull(tagger);
-
         return versionedMark.hasTagger(tagger);
     }
 
     @Override
     public void addTagger(SelectiveBookmarkTagger tagger) {
         requireNonNull(tagger);
-
         versionedMark.addTagger(tagger);
+    }
+
+    @Override
+    public boolean removeTagger(String taggerName) {
+        requireNonNull(taggerName);
+        return versionedMark.removeTagger(taggerName);
     }
 
     @Override
@@ -197,27 +203,39 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoMark() {
-        return versionedMark.canUndo();
+    public boolean canUndoMark(int steps) {
+        return versionedMark.canUndo(steps);
     }
 
     @Override
-    public boolean canRedoMark() {
-        return versionedMark.canRedo();
+    public int getMaxStepsToUndo() {
+        return versionedMark.getMaxStepsToUndo();
     }
 
     @Override
-    public String undoMark() {
-        return versionedMark.undo();
+    public boolean canRedoMark(int steps) {
+        return versionedMark.canRedo(steps);
     }
 
     @Override
-    public String redoMark() {
-        return versionedMark.redo();
+    public int getMaxStepsToRedo() {
+        return versionedMark.getMaxStepsToRedo();
+    }
+
+    @Override
+    public String undoMark(int steps) {
+        return versionedMark.undo(steps);
+    }
+
+    @Override
+    public String redoMark(int steps) {
+        return versionedMark.redo(steps);
     }
 
     @Override
     public void saveMark(String record) {
+        requireNonNull(record);
+
         versionedMark.save(record);
     }
 
@@ -256,28 +274,6 @@ public class ModelManager implements Model {
             return pid1.compareTo(pid2);
         }
         ));
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return versionedMark.equals(other.versionedMark)
-                && userPrefs.equals(other.userPrefs)
-                && filteredBookmarks.equals(other.filteredBookmarks)
-                && (currentUrl.getValue() == null
-                ? other.currentUrl.getValue() == null
-                : currentUrl.getValue().equals(other.currentUrl.getValue()));
     }
 
     //=========== Reminder =================================================================================
@@ -331,6 +327,13 @@ public class ModelManager implements Model {
     }
 
 
+    /**
+     * Sets the reminders in Mark.
+     */
+    public void setReminders() {
+        versionedMark.setReminders();
+    }
+
     //=========== Cache =================================================================================
     @Override
     public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {
@@ -340,5 +343,27 @@ public class ModelManager implements Model {
     @Override
     public SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty() {
         return bookmarkToDisplayCache;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return versionedMark.equals(other.versionedMark)
+                && userPrefs.equals(other.userPrefs)
+                && filteredBookmarks.equals(other.filteredBookmarks)
+                && (currentUrl.getValue() == null
+                ? other.currentUrl.getValue() == null
+                : currentUrl.getValue().equals(other.currentUrl.getValue()));
     }
 }

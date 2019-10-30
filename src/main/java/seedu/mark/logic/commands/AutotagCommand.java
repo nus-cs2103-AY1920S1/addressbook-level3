@@ -21,12 +21,15 @@ public class AutotagCommand extends Command {
             + ": Creates an automatic tagger that tags bookmarks which match the given conditions. At least one "
             + "condition must be specified.\n"
             + "Parameters: TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... "
-            + "[nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]...\n"
-            + "Example: " + COMMAND_WORD + " Quiz u/luminus.nus.edu.sg u/quiz nu/attempt";
+            + "[f/FOLDER]... [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...\n"
+            + "Example: " + COMMAND_WORD + " Quiz u/luminus.nus.edu.sg u/quiz nu/attempt f/AY1920";
 
     public static final String MESSAGE_AUTOTAG_ADDED = "An autotag was added successfully: %1$s";
     public static final String MESSAGE_AUTOTAG_EXISTS = "An autotag with this name already exists: %1$s";
-    public static final String MESSAGE_NO_CONDITION_SPECIFIED = "At least one name or URL condition must be specified";
+    public static final String MESSAGE_NO_CONDITION_SPECIFIED = "At least one name, URL, or folder condition "
+            + "must be specified";
+    public static final String MESSAGE_CONDITION_EMPTY = "Conditions cannot be blank. E.g. the empty condition "
+            + "u/ is invalid";
 
     private final SelectiveBookmarkTagger tagger;
 
@@ -40,14 +43,16 @@ public class AutotagCommand extends Command {
         requireAllNonNull(model, storage);
 
         if (model.hasTagger(tagger)) {
+            // TODO: prompt user whether tagger conditions should be overwritten
             throw new CommandException(String.format(MESSAGE_AUTOTAG_EXISTS, tagger));
         }
 
         model.addTagger(tagger);
         model.applyAllTaggers();
         // TODO: Don't save Mark if no taggers were actually applied
-        model.saveMark(String.format(MESSAGE_AUTOTAG_ADDED, tagger));
-        return new CommandResult(String.format(MESSAGE_AUTOTAG_ADDED, tagger));
+        String resultMessage = String.format(MESSAGE_AUTOTAG_ADDED, tagger);
+        model.saveMark(resultMessage);
+        return new CommandResult(resultMessage);
     }
 
     @Override

@@ -1,12 +1,11 @@
 package seedu.mark.testutil;
 
-import static seedu.mark.testutil.TypicalBookmarks.ALICE;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_AMY;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.util.BookmarkBuilder;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
 
@@ -16,19 +15,19 @@ import seedu.mark.model.reminder.Reminder;
  */
 public class ReminderBuilder {
     public static final String DEFAULT_NOTE = Note.DEFAULT_VALUE;
-    public static final Bookmark DEFAULT_BOOKMARK = ALICE;
+    public static final String DEFAULT_URL = VALID_URL_AMY;
     public static final String DEFAULT_TIME = "12/12/2020 1800";
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMATTER);
 
 
     private Note note;
-    private Bookmark bookmark;
+    private Url url;
     private LocalDateTime time;
 
     public ReminderBuilder() {
         note = new Note(DEFAULT_NOTE);
-        bookmark = (new BookmarkBuilder(DEFAULT_BOOKMARK)).build();
+        url = new Url(DEFAULT_URL);
         time = LocalDateTime.parse(DEFAULT_TIME, FORMATTER);
     }
 
@@ -37,7 +36,7 @@ public class ReminderBuilder {
      */
     public ReminderBuilder(Reminder reminderToCopy) {
         note = reminderToCopy.getNote();
-        bookmark = reminderToCopy.getBookmark();
+        url = reminderToCopy.getUrl();
         time = reminderToCopy.getRemindTime();
     }
 
@@ -50,10 +49,10 @@ public class ReminderBuilder {
     }
 
     /**
-     * Sets the {@code Bookmark} of the {@code Reminder} that we are building.
+     * Sets the {@code Url} of the {@code Reminder} that we are building.
      */
-    public ReminderBuilder withBookmark(Bookmark bookmark) {
-        this.bookmark = (new BookmarkBuilder(bookmark)).build();
+    public ReminderBuilder withUrl(String url) {
+        this.url = new Url(url);
         return this;
     }
 
@@ -66,7 +65,7 @@ public class ReminderBuilder {
     }
 
     public Reminder build() {
-        return new Reminder(bookmark, time, note);
+        return new Reminder(url, time, note);
     }
 
 }

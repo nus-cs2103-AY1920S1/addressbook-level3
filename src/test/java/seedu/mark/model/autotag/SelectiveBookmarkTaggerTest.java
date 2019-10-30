@@ -3,20 +3,19 @@ package seedu.mark.model.autotag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
-import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
+import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.tag.Tag;
 
 class SelectiveBookmarkTaggerTest {
 
     private static final Tag SAMPLE_TAG = new Tag("myTag");
-    private static final Predicate<Bookmark> NAME_PREDICATE_HELLO =
-            new NameContainsKeywordsPredicate(Arrays.asList("hello"));
+    private static final BookmarkPredicate NAME_PREDICATE_HELLO =
+            new BookmarkPredicate().withNameKeywords(Arrays.asList("hello"));
 
     @Test
     public void applyTagSelectively_bookmarkMatches_returnTaggedBookmark() {

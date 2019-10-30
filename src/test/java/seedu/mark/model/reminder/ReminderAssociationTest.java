@@ -11,7 +11,6 @@ import static seedu.mark.testutil.TypicalReminders.READ;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.model.bookmark.exceptions.BookmarkContainNoReminderException;
 import seedu.mark.model.bookmark.exceptions.ExistReminderException;
 import seedu.mark.model.bookmark.exceptions.ReminderNotFoundException;
 import seedu.mark.testutil.ReminderBuilder;
@@ -50,8 +49,8 @@ class ReminderAssociationTest {
     }
 
     @Test
-    public void setBookmark_notExistBookmark_throwsBookmarkContainNoReminderException() {
-        assertThrows(BookmarkContainNoReminderException.class, () -> association.setReminder(READ, OPEN));
+    public void setBookmark_notExistBookmark_throwsReminderNotFoundException() {
+        assertThrows(ReminderNotFoundException.class, () -> association.setReminder(READ, OPEN));
     }
 
     @Test
@@ -77,14 +76,14 @@ class ReminderAssociationTest {
     }
 
     @Test
-    public void remove_notExistReminder_throwsBookmarkContainNoReminderException() {
-        assertThrows(BookmarkContainNoReminderException.class, () -> association.deleteReminder(READ));
+    public void remove_notExistReminder_throwsReminderNotFoundException() {
+        assertThrows(ReminderNotFoundException.class, () -> association.deleteReminder(READ));
     }
 
     @Test
     public void remove_notExistReminderofSepcifiedBookmark_throwsReminderNotFoundException() {
         association.addReminder(ALICE, OPEN);
-        Reminder reminder = new ReminderBuilder().withBookmark(ALICE).withNote("Read").build();
+        Reminder reminder = new ReminderBuilder().withUrl(ALICE.getUrl().toString()).withNote("Read").build();
         assertThrows(ReminderNotFoundException.class, () -> association.deleteReminder(reminder));
     }
 

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_REMINDER;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -42,9 +43,9 @@ class AddReminderCommandTest {
         Note note = new Note("Open");
 
         Bookmark validBookmark = model.getFilteredBookmarkList().get(0);
-        Reminder validReminder = new Reminder(validBookmark, time, note);
+        Reminder validReminder = new Reminder(validBookmark.getUrl(), time, note);
 
-        CommandResult commandResult = new AddReminderCommand(INDEX_FIRST_BOOKMARK, note, time)
+        CommandResult commandResult = new AddReminderCommand(INDEX_FIRST_REMINDER, note, time)
                 .execute(modelStub, new StorageStub());
 
         assertEquals(String.format(AddReminderCommand.MESSAGE_SUCCESS, validReminder),

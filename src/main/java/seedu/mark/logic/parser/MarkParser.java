@@ -10,13 +10,16 @@ import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AddReminderCommand;
 import seedu.mark.logic.commands.AutotagCommand;
+import seedu.mark.logic.commands.AutotagDeleteCommand;
 import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.CollapseCommand;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.commands.DeleteCommand;
+import seedu.mark.logic.commands.DeleteReminderCommand;
 import seedu.mark.logic.commands.EditCommand;
+import seedu.mark.logic.commands.EditReminderCommand;
 import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.ExpandCommand;
 import seedu.mark.logic.commands.ExportCommand;
@@ -100,10 +103,10 @@ public class MarkParser {
             return new TabCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            return new UndoCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            return new RedoCommandParser().parse(arguments);
 
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);
@@ -114,8 +117,17 @@ public class MarkParser {
         case CollapseCommand.COMMAND_WORD:
             return new CollapseCommandParser().parse(arguments);
 
+        case EditReminderCommand.COMMAND_WORD:
+            return new EditReminderCommandParser().parse(arguments);
+
+        case DeleteReminderCommand.COMMAND_WORD:
+            return new DeleteReminderCommandParser().parse(arguments);
+
         case AddReminderCommand.COMMAND_WORD:
             return new AddReminderCommandParser().parse(arguments);
+
+        case AutotagDeleteCommand.COMMAND_WORD:
+            return new AutotagDeleteCommandParser().parse(arguments);
 
         case AutotagCommand.COMMAND_WORD:
             return new AutotagCommandParser().parse(arguments);

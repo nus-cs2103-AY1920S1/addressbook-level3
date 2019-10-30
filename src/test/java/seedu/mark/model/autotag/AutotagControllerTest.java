@@ -14,18 +14,17 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
-import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
-import seedu.mark.model.predicates.UrlContainsKeywordsPredicate;
+import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.tag.Tag;
 
 class AutotagControllerTest {
 
     private static final SelectiveBookmarkTagger TAGGER_HELLO = new SelectiveBookmarkTagger(
-            new Tag("Hello"), new NameContainsKeywordsPredicate(Collections.singletonList("hello")));
+            new Tag("Hello"), new BookmarkPredicate().withNameKeywords(Collections.singletonList("hello")));
     private static final SelectiveBookmarkTagger TAGGER_WORLD = new SelectiveBookmarkTagger(
-            new Tag("World"), new NameContainsKeywordsPredicate(Collections.singletonList("world")));
+            new Tag("World"), new BookmarkPredicate().withNameKeywords(Collections.singletonList("world")));
     private static final SelectiveBookmarkTagger TAGGER_URL_EXAMPLE = new SelectiveBookmarkTagger(
-            new Tag("exampleTag"), new UrlContainsKeywordsPredicate(Collections.singletonList("example")));
+            new Tag("exampleTag"), new BookmarkPredicate().withUrlKeywords(Collections.singletonList("example")));
 
     private static final Bookmark BOOKMARK_HELLO = new BookmarkBuilder().withName("Hello World")
             .withUrl("https://hello-world.org").build();

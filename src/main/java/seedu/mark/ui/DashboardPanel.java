@@ -20,14 +20,21 @@ public class DashboardPanel extends UiPart<Region> {
 
     @FXML
     private StackPane folderStructurePlaceholder;
+    @FXML
+    private StackPane reminderListPlaceholder;
 
     public DashboardPanel(Logic logic, Consumer<Url> currentUrlChangeHandler) {
         super(FXML);
         FolderStructureTreeView folderStructureTreeView = new FolderStructureTreeView(
                 logic.getFolderStructure(), logic.getFilteredBookmarkList(), currentUrlChangeHandler);
 
+
         this.folderStructureTreeView = folderStructureTreeView;
 
+        ReminderListPanel reminderListPanel = new ReminderListPanel(logic.getReminderList());
+
+
         folderStructurePlaceholder.getChildren().add(folderStructureTreeView.getRoot());
+        reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
     }
 }
