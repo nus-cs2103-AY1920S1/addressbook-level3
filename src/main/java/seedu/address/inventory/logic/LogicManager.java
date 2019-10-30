@@ -18,7 +18,7 @@ public class LogicManager implements Logic {
     private ModelManager inventoryModel;
     private final seedu.address.inventory.storage.Storage inventoryStorage;
 
-    public LogicManager(seedu.address.inventory.model.ModelManager inventoryModel,
+    public LogicManager(ModelManager inventoryModel,
                         seedu.address.inventory.storage.StorageManager inventoryStorage) {
         parser = new InventoryTabParser();
 
