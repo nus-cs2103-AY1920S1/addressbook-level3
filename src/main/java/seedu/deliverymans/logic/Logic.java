@@ -11,10 +11,12 @@ import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -48,9 +50,21 @@ public interface Logic {
     Path getAddressBookFilePath();
 
     //=========== Customer =============================================================
+    /**
+     * Returns the CustomerDatabase.
+     *
+     * @see seedu.deliverymans.model.Model#getCustomerDatabase()
+     */
+    ReadOnlyCustomerDatabase getCustomerDatabase();
 
     /** Returns an unmodifiable view of the filtered list of customers */
     ObservableList<Customer> getFilteredCustomerList();
+
+    Customer getCustomerOrders();
+    /**
+     * Returns the user prefs' customer database file path.
+     */
+    Path getCustomerDatabaseFilePath();
 
     //=========== Deliveryman =============================================================
     /**
@@ -76,6 +90,8 @@ public interface Logic {
     ObservableList<Deliveryman> getUnavailableDeliverymenList();
 
     ObservableList<Deliveryman> getDeliveringDeliverymenList();
+
+    DeliveryRecord getDeliverymanRecordPlaceholder();
 
     //=========== Restaurant =============================================================
     /**
