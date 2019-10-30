@@ -7,7 +7,6 @@ import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.util.StringUtil;
 
 import com.dukeacademy.logic.commands.CommandLogic;
-import com.dukeacademy.logic.problemstatement.ProblemStatementLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 
@@ -34,7 +33,6 @@ public class UiManager implements Ui {
     private final CommandLogic commandLogic;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
-    private final ProblemStatementLogic problemStatementLogic;
     private MainWindow mainWindow;
 
     /**
@@ -43,16 +41,13 @@ public class UiManager implements Ui {
      * @param commandLogic           the command logic
      * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
-     * @param problemStatementLogic  the problem statement logic
      */
     public UiManager(CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                     ProgramSubmissionLogic programSubmissionLogic,
-                     ProblemStatementLogic problemStatementLogic) {
+                     ProgramSubmissionLogic programSubmissionLogic) {
         super();
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
-        this.problemStatementLogic = problemStatementLogic;
     }
 
     @Override
@@ -64,7 +59,7 @@ public class UiManager implements Ui {
 
         try {
             mainWindow = new MainWindow(primaryStage, commandLogic, questionsLogic,
-                    programSubmissionLogic, problemStatementLogic);
+                    programSubmissionLogic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

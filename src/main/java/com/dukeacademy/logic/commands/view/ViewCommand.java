@@ -3,7 +3,6 @@ package com.dukeacademy.logic.commands.view;
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
-import com.dukeacademy.logic.problemstatement.ProblemStatementLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
 
@@ -19,10 +18,8 @@ public class ViewCommand implements Command {
      *
      * @param index                 the index
      * @param questionsLogic        the questions logic
-     * @param problemStatementLogic the problem statement logic
      */
-    public ViewCommand(int index, QuestionsLogic questionsLogic,
-                       ProblemStatementLogic problemStatementLogic) {
+    public ViewCommand(int index, QuestionsLogic questionsLogic) {
         this.index = index - 1;
         this.questionsLogic = questionsLogic;
     }

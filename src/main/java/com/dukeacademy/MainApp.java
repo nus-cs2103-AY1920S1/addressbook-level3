@@ -28,8 +28,6 @@ import com.dukeacademy.logic.commands.list.ListCommandFactory;
 import com.dukeacademy.logic.commands.load.LoadCommandFactory;
 import com.dukeacademy.logic.commands.submit.SubmitCommandFactory;
 import com.dukeacademy.logic.commands.view.ViewCommandFactory;
-import com.dukeacademy.logic.problemstatement.ProblemStatementLogic;
-import com.dukeacademy.logic.problemstatement.ProblemStatementLogicManager;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
@@ -65,7 +63,6 @@ public class MainApp extends Application {
     private Ui ui;
     private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogic programSubmissionLogic;
-    private ProblemStatementLogic problemStatementLogic;
 
     @Override
     public void init() throws Exception {
@@ -90,7 +87,6 @@ public class MainApp extends Application {
 
         questionsLogic = this.initQuestionsLogic(userPrefs);
         programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
-        problemStatementLogic = this.initProblemStatementLogic();
 
         CommandLogicManager commandLogic = this.initCommandLogic();
 
@@ -100,8 +96,7 @@ public class MainApp extends Application {
             return;
         }
 
-        ui = this.initUi(commandLogic, questionsLogic, programSubmissionLogic,
-            problemStatementLogic);
+        ui = this.initUi(commandLogic, questionsLogic, programSubmissionLogic);
     }
 
     /**
@@ -275,7 +270,7 @@ public class MainApp extends Application {
         commandLogicManager.registerCommand(submitCommandFactory);
         // Registering view command
         ViewCommandFactory viewCommandFactory =
-            new ViewCommandFactory(this.questionsLogic, problemStatementLogic);
+            new ViewCommandFactory(this.questionsLogic);
         commandLogicManager.registerCommand(viewCommandFactory);
         // Registering home command
         HomeCommandFactory homeCommandFactory =
@@ -333,18 +328,11 @@ public class MainApp extends Application {
         }
     }
 
-    private ProblemStatementLogic initProblemStatementLogic() {
-        logger.info("============================ [ Initializing problem "
-            + "statement " + "logic ] =============================");
-        return new ProblemStatementLogicManager();
-    }
-
     private Ui initUi(CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                      ProgramSubmissionLogic programSubmissionLogic,
-                      ProblemStatementLogic problemStatementLogic) {
+                      ProgramSubmissionLogic programSubmissionLogic) {
         logger.info("============================ [ Initializing UI ] =============================");
         return new UiManager(commandLogic, questionsLogic,
-            programSubmissionLogic, problemStatementLogic);
+            programSubmissionLogic);
     }
 
     @Override

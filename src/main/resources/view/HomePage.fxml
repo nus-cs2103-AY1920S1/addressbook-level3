@@ -125,7 +125,7 @@
                         </padding>
                     </Label>
 
-                    <VBox style="-fx-border-color: lightgrey" VBox.vgrow="ALWAYS" alignment="CENTER" spacing="30.0">
+                    <VBox style="-fx-border-color: #63075d" VBox.vgrow="ALWAYS" alignment="CENTER" spacing="30.0">
                         <ProgressIndicator fx:id="indicator" minHeight="250.0" minWidth="250.0" progress="0.22"/>
 
                         <TextFlow textAlignment="CENTER">
@@ -196,11 +196,11 @@
                                 </font>
                             </Text>
                         </TextFlow>
-                    </VBox>
 
-                    <padding>
-                        <Insets left="15.0" right="15.0"/>
-                    </padding>
+                        <padding>
+                            <Insets top="15.0" bottom="15.0" left="15.0" right="15.0"/>
+                        </padding>
+                    </VBox>
                 </VBox>
 
                 <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="10.0" VBox.vgrow="ALWAYS">
