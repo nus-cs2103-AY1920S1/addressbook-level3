@@ -1,19 +1,14 @@
 package dream.fcard;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
 
-import dream.fcard.core.commons.core.Config;
-import dream.fcard.core.commons.core.LogsCenter;
-import dream.fcard.core.commons.core.Version;
-import dream.fcard.core.commons.exceptions.DataConversionException;
-import dream.fcard.core.commons.util.ConfigUtil;
-import dream.fcard.core.commons.util.StringUtil;
-import dream.fcard.gui.UiManager;
+import dream.fcard.core.Main;
+import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.State;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -21,81 +16,22 @@ import javafx.stage.Stage;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 3, 0, true);
-
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
-
-    protected UiManager ui;
-    protected Config config;
-
     @Override
-    public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
-        super.init();
-
-        AppParameters appParameters = AppParameters.parse(getParameters());
-        config = initConfig(appParameters.getConfigPath());
-
-
-        initLogging(config);
-
-        // initialise the State of the application
-        //State state = new State(StorageManager.loadDecks());
-        State state = new State(); // using no argument constructor for now
-
-        // initialise UI of application
-        ui = new UiManager(state);
-    }
-
-
-    private void initLogging(Config config) {
-        LogsCenter.init(config);
-    }
-
-    /**
-     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
-     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
-     * if {@code configFilePath} is null.
-     */
-    protected Config initConfig(Path configFilePath) {
-        Config initializedConfig;
-        Path configFilePathUsed;
-
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
-        if (configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
-        }
-
-        logger.info("Using config file : " + configFilePathUsed);
-
+    public void start(Stage stage) throws Exception {
         try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            initializedConfig = configOptional.orElse(new Config());
-        } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
-            initializedConfig = new Config();
-        }
-
-        //Update config file in case it was missing to begin with or there are new/unused fields
-        try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+            StorageManager.provideRoot("./");
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Windows/MainWindow.fxml"));
+            VBox vbox = fxmlLoader.load();
+            Scene scene = new Scene(vbox);
+            stage.setScene(scene);
+            stage.setTitle("FlashCard Pro");
+            stage.show();
+            // when the 'X' button is clicked.
+            stage.setOnCloseRequest(e -> StorageManager.saveAll(State.getState().getDecks()));
         } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            // TODO: Our yet-to-be-reinstated-logger will replace this rudimentary error printing
+            System.err.println("Failed to load app");
+            e.printStackTrace();
         }
-        return initializedConfig;
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
-        ui.start(primaryStage);
-    }
-
-    @Override
-    public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
     }
 }

@@ -2,6 +2,7 @@ package dream.fcard.model.cards;
 
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 
+import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -10,6 +11,12 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  * Card that evaluates input as javascript code whose output has to match back of card.
  */
 public class JavascriptCard extends FlashCard {
+
+    protected String front; //question
+    protected String back;
+    protected Statistics stats;
+    protected String attempt;
+
 
     /**
      *
@@ -20,6 +27,8 @@ public class JavascriptCard extends FlashCard {
         front = frontString;
         back = outputString;
         priority = LOW_PRIORITY;
+        stats = new Statistics();
+
     }
 
     /**
@@ -48,6 +57,11 @@ public class JavascriptCard extends FlashCard {
         obj.put(Schema.FRONT_FIELD, front);
         obj.put(Schema.BACK_FIELD, back);
         return new JsonValue(obj);
+    }
+
+    @Override
+    public FlashCard duplicate() {
+        return new JavascriptCard(front, back, 0);
     }
 
     /**
@@ -93,13 +107,18 @@ public class JavascriptCard extends FlashCard {
     }
 
     /**
-     * Returns boolean value false.
-     * Since no choices exist in this class.
-     *
-     * @return Boolean value false.
+     * Return the user's attempted code.
+     * @return code attempt
      */
-    @Override
-    public boolean hasChoices() {
-        return false;
+    public String getAttempt() {
+        return attempt;
+    }
+
+    /**
+     * Store the user's attempted code.
+     * @param attempt code attempt
+     */
+    public void setAttempt(String attempt) {
+        this.attempt = attempt;
     }
 }

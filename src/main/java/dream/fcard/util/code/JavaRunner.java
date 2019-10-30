@@ -8,22 +8,10 @@ import java.io.InputStreamReader;
 //Credits: Pankaj
 
 /**
- * Type your Java code inside Solution.java in the /data directory. Then run the main method in this class to see
+ * Type your Java code inside Main.java in the /data directory. Then run the main method in this class to see
  * your code being compiled and run during runtime.
  */
 public class JavaRunner {
-
-    /**
-     * Exists for testing {@code compileAndRun} without GUI.
-     * @param args not needed.
-     * @throws IOException thrown when reading in the Java file.
-     */
-    public static void main(String[] args) throws IOException {
-        String result = compileAndRun("C:\\Users\\User\\Documents\\GitHub\\main\\src\\main\\java"
-                + "\\dream\\fcard\\util\\code\\data\\Solution.java");
-        System.out.print(result);
-    }
-
     /**
      * Will look for a .java file in the given filepath and compile and run the code, returning any output
      * as a String.
@@ -35,8 +23,8 @@ public class JavaRunner {
         if (!filepath.endsWith(".java")) {
             throw new IOException("Your file is not a Java file");
         }
-        runProcess("javac " + filepath);
-        return runProcess("java " + filepath);
+        String compileOutput = runProcess("javac " + filepath);
+        return compileOutput + "\n" + runProcess("java " + filepath);
     }
 
     /**
@@ -62,7 +50,7 @@ public class JavaRunner {
      * @return the output from the computer.
      * @throws IOException if the command could not be run.
      */
-    private static String runProcess(String command) throws IOException {
+    public static String runProcess(String command) throws IOException {
         Process pro = Runtime.getRuntime().exec(command);
         StringBuilder sb = new StringBuilder();
         sb.append(collectOutput(pro.getInputStream()));
@@ -72,5 +60,3 @@ public class JavaRunner {
     }
 
 }
-
-

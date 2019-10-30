@@ -109,7 +109,7 @@ Format: `stats [deck/DECK_NAME]`
 Examples:
 
 * `stats`
-Displays the overview of the time spent and usage count of all decks of cards.
+Displays the overview of the time spent and usage count of all decks of cards. Also shows the statistics of the current program State.
 * `stats deck/science_deck`
 Display the overview of time spend and usage count of the deck of cards, `science_deck`.
 

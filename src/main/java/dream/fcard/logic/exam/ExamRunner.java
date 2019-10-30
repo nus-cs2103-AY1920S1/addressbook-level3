@@ -51,30 +51,6 @@ public class ExamRunner implements Exam {
 
             }
         }
-        /* for (FlashCard card : deck.getCards()) {
-            //Load front of card
-            System.out.println(card.getFront());
-            // Ask user for input
-            String answer = promptUserInput();
-            // Check if the answer is correct
-
-            boolean isAnswerCorrect;
-            try {
-                isAnswerCorrect = card.evaluate(answer);
-            } catch (IndexNotFoundException i) {
-                // for mcq test, if input is invalid index
-
-                // do something
-                // decide when to handle
-                throw new IndexNotFoundException(i.getMessage());
-            }
-
-            if (isAnswerCorrect) {
-                score++;
-            }
-            //Display the correct answer
-            System.out.println("Correct Answer:" + card.getBack());
-        } */
     }
 
     private String promptUserInput() {
