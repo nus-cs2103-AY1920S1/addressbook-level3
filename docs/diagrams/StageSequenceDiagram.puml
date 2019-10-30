@@ -10,7 +10,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager  MODEL_COLOR
-participant ":VersionedMemeBook" as MemeBook MODEL_COLOR
+participant ":VersionedWeme" as Weme MODEL_COLOR
 participant "exportList:UniqueMemeList" as UniqueMemeList MODEL_COLOR
 end box
 
@@ -35,14 +35,14 @@ LogicManager -> MemeStageCommand : execute(model)
 activate MemeStageCommand
 MemeStageCommand -> ModelManager : stageMeme(meme)
 activate ModelManager
-ModelManager -> MemeBook : stageMeme(meme)
-activate MemeBook
-MemeBook -> UniqueMemeList : add(meme)
+ModelManager -> Weme : stageMeme(meme)
+activate Weme
+Weme -> UniqueMemeList : add(meme)
 activate UniqueMemeList
-UniqueMemeList --> MemeBook
+UniqueMemeList --> Weme
 deactivate UniqueMemeList
-MemeBook --> ModelManager
-deactivate MemeBook
+Weme --> ModelManager
+deactivate Weme
 ModelManager --> MemeStageCommand
 deactivate ModelManager
 MemeStageCommand --> LogicManager : CommandResult(success)

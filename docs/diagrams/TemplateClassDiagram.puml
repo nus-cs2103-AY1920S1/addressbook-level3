@@ -7,7 +7,7 @@ skinparam classBackgroundColor MODEL_COLOR
 Package Model <<Rectangle>>{
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class MemeBook
+Class Weme
 Class ModelManager
 Class FilteredList
 
@@ -27,9 +27,9 @@ HiddenOutside ..> Model
 
 Model .right.> ObservableList
 ModelManager .up.|> Model
-ModelManager o--> "1" MemeBook
+ModelManager o--> "1" Weme
 
-MemeBook *--> "1" UniqueTemplateList
+Weme *--> "1" UniqueTemplateList
 UniqueTemplateList o--> "*" Template
 Template *--> "1" Name
 Template *--> "1" ImagePath

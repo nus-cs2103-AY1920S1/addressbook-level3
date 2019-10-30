@@ -12,7 +12,7 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 
 /**
- * Tag manager in Statistics feature that reads tags from a {@code MemeBook}.
+ * Tag manager in Statistics feature that reads tags from a {@code memeList}.
  */
 public class TagManager {
 
@@ -68,7 +68,7 @@ public class TagManager {
     }
 
     /**
-     * Parses a {@code ReadOnlyMemeBook} for tags and their occurrence.
+     * Parses a {@code memeList} for tags and their occurrence.
      */
     public void parseMemeListForTags(List<Meme> memeList) {
         purgeData();

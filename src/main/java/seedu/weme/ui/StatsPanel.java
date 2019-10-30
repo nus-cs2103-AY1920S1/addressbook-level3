@@ -58,7 +58,7 @@ public class StatsPanel extends UiPart<Region> {
     }
 
     /**
-     * Generates a {@code PieChart} with a given {@code MemeBook} and {@code Stats}.
+     * Generates a {@code PieChart} with a given {@code Weme}.
      *
      * <p>Styling is mainly done in the CSS file.</p>
      */

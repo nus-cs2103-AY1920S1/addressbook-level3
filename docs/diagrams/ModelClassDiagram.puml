@@ -5,12 +5,12 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyMemeBook <<Interface>>
+Interface ReadOnlyWeme <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Interface Stats <<Interface>>
-Class MemeBook
-Class ReadOnlyMemeBook
+Class Weme
+Class ReadOnlyWeme
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -47,22 +47,22 @@ Class ImagePath
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-MemeBook .up.|> ReadOnlyMemeBook
+Weme .up.|> ReadOnlyWeme
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" MemeBook
+ModelManager o--> "1" Weme
 ModelManager o-left-> "1" UserPrefs
 ModelManager o-right-> "1" Stats
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-MemeBook *--> "1" UniqueMemeList
+Weme *--> "1" UniqueMemeList
 UniqueMemeList o--> "*" Meme
 Meme *--> "1" ImagePath
 Meme *--> Description
 Meme *--> "*" Tag
 
-MemeBook *--> "1" UniqueTemplateList
+Weme *--> "1" UniqueTemplateList
 UniqueTemplateList o--> "*" Template
 Template *--> "1" Name
 Template *--> "1" ImagePath

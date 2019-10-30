@@ -18,13 +18,13 @@ By: `CS2103-T16-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-ɯeme is a meme manager app for those who *prefer to use a desktop app for managing memes*. More importantly, ɯeme is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ɯeme can let you manage memes faster than traditional GUI apps. Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
+Weme is a meme manager app for those who *prefer to use a desktop app for managing memes*. More importantly, Weme is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Weme can let you manage memes faster than traditional GUI apps. Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `weme.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your ɯeme.
+.  Copy the file to the folder you want to use as the home folder for your Weme.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 //image::Ui.png[width="790"]
@@ -47,7 +47,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `meme add p/PATH`, `PATH` is a parameter which can be used as `meme add p/~/Downloads/meme.jpg`.
-* Items in square brackets are optional e.g `p/PATH [t/TAG]` can be used as `p/~/Downloads/meme.jpg t/cs2103` or as `p/~/Downloads/meme.jpg`.
+* Items in square brackets are optional e.g `p/PATH [t/TAG]` can be used as `p//Users/Me/Downloads/meme.jpg t/cs2103` or as `p/Users/Me/Downloads/meme.jpg`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/cs2103`, `t/soc t/funny` etc.
 * Parameters can be in any order e.g. if the command specifies `p/PATH d/DESCRIPTION`, `d/DESCRIPTION p/PATH` is also acceptable.
 * Whenever INDEX is encountered, it refers to the index in the currently displayed list.
@@ -61,24 +61,40 @@ Format: `help`
 
 ==== Undo : `undo`
 
-Undoes commands TIMES number of times. +
-Format: `undo TIMES` +
-Example: `undo 3`
+Undoes commands and tells you the command you just undid. +
+Format: `undo` +
+Example: `undo`
 
 ==== Redo : `redo`
-Redoes commands TIMES number of times. +
-Format: `redo TIMES` +
-Example: redo 3
+Redoes previously undone commands and tells you the command you just redid. +
+Format: `redo` +
+Example: `redo`
+
+***
+`undo` and `redo` only supports commands that modify data in Weme. This means that commands that alter the UI (such as `find` and `list`), as well as commands that modify the staging / import list (such as `load`, `stage`) are not undoable. +
+* Meme Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`
+* Template Tab: `add`, `edit`, `delete`, `archive`, `unarchive`, `use`
+* Create Tab: `add`, `abort`, `create`
+* Import Tab: `import`
+***
+
+***
+Undo and Redo only supports commands that modify data in Weme. This means that commands that alter the UI (such as `find` and `list`), as well as commands that modify the staging / import list (such as `load`, `stage`) are not undoable.
+* Meme Tab: `add`, `edit`, `delete`, `clear`, `like`
+* Template Tab: `add`, `edit`, `delete`, `use`
+* Create Tab: `add`, `abort`
+* Import Tab: `import`
+***
 
 ==== Exit : `exit`
-Exits Weme.
+Exits Weme. +
 Format: `exit`
 
 === Meme
 
 ==== Add - meme : `add`
 
-Add a new meme to weme. Weme will copy the given image into the it’s data storage folder. +
+Add a new meme to Weme. Weme will copy the given image into the it’s data storage folder. +
 Format: `meme add p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
 Examples:
 
@@ -86,7 +102,7 @@ Examples:
 
 ==== List - meme : `list`
 
-List all memes. +
+List all memes in Weme. +
 Format: `meme list`
 
 ==== Edit - meme : `edit`
@@ -98,7 +114,7 @@ Format: `meme edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
 
 ==== Delete - meme : `delete`
 
-Delete the specified meme from ɯeme.
+Delete the specified meme from Weme.
 Format: `meme delete INDEX`
 
 ****
@@ -317,15 +333,13 @@ e.g. `p/home/pictures/p1.jpeg d/My favorite meme n/sad sponge bob t/spongebob t/
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and import the data using the <<Import/Export>> feature
+*A*: Download the jar in the other computer and copy the entire data folder over.
 
 == Command Summary
 
 * *Help* : `help`
-* *Undo* : `undo TIMES` +
-e.g. `undo 3`
-* *Redo* : `redo TIMES` +
-e.g. `redo 3`
+* *Undo* : `undo`
+* *Redo* : `redo`
 * *Exit* : `exit`
 * *Add Meme* : `meme add p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
 e.g. `meme add p/~/Downloads/dgirl_oof.jpg n/Disaster Girl t/Funny`

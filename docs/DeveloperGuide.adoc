@@ -122,7 +122,7 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Weme data in `MemeBook`.
+* stores the Weme data in `Weme`.
 * exposes an unmodifiable `ObservableList<Meme>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * exposes an unmodifiable `ObservableList<Template>`.
 * stores and exposes the current Weme context (will be discussed later)
@@ -158,44 +158,48 @@ The Undo and Redo commands are necessary to give users the flexibility of undoin
 
 ==== Current implementation
 
-The undo/redo mechanism is facilitated by `VersionedMemeBook` and `VersionedStatsEngine`.
-`VersionedMemeBook` extends `MemeBook` with an undo/redo history, stored internally as a `versionedMemeBookStates`, `stateIndex` and a `undoableCommandHistoryList`.
+The undo/redo mechanism is facilitated by `VersionedWeme`.
+`VersionedWeme` extends `Weme` with an undo/redo history, stored internally as a `versionedWemeStates`, `stateIndex` and a `feedbackList`.
 Additionally, it implements the following operations:
 
-* `VersionedMemeBook#commit()` -- Saves the current meme book state in its history.
-* `VersionedMemeBook#undo()` -- Restores the previous meme book state from its history and returns the undo message of the undone command.
-* `VersionedMemeBook#redo()` -- Restores a previously undone meme book state from its history and returns the redo message of the redone command.
+* `VersionedWeme#commit()` -- Saves the current Weme state in its history.
+* `VersionedWeme#undo()` -- Restores the previous Weme state from its history and returns the feedback message of the undone command.
+* `VersionedWeme#redo()` -- Restores a previously undone Weme state from its history and returns the feedback message of the redone command.
 
-These operations are exposed in the `Model` interface as `Model#commitMemeBook()`, `Model#undoMemeBook()` and `Model#redoMemeBook()` respectively.
-
-`VersionedStatsEngine` extends `StatsEngine` with similar additional methods and components.
+These operations are exposed in the `Model` interface as `Model#commitWeme()`, `Model#undoWeme()` and `Model#redoWeme()` respectively.
 
 [NOTE]
-Only state changes are undoable. Commands such as `list`, `find` that only change the user interface are not undoable.
+Only state changes on the internal structure of Weme are undoable. Commands such as `list`, `find` that only change the user interface as well as commands such as `stage`, `load` that modify the staging / import list are not undoable.
+
+These are the list of commands that support undo / redo operations:
+* Meme Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`
+* Template Tab: `add`, `edit`, `delete`, `archive`, `unarchive`, `use`
+* Create Tab: `add`, `abort`, `create`
+* Import Tab: `import`
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedMemeBook` will be initialized with the initial meme book state, and the `stateIndex` pointing to that single meme book state.
+Step 1. The user launches the application for the first time. The `VersionedWeme` will be initialized with the initial Weme state, and the `stateIndex` pointing to that single Weme state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th meme in the meme book. The `delete` command calls `Model#commitMemeBook()`, causing the modified state of the meme book after the `delete 5` command executes to be saved in the `versionedMemeBookStates`, and the `stateIndex` is shifted to the newly inserted meme book state. The delete command is then inserted into the `undoableCommandHistoryList`.
+Step 2. The user executes `delete 5` command to delete the 5th meme in the meme list. The `delete` command calls `Model#commitWeme()` with the success feedback message as a parameter, causing the modified state of the Weme after the `delete 5` command executes to be saved in the `versionedWemeStates`, the `stateIndex` is shifted to the newly inserted Weme state, and finally the delete command's feedback message is inserted into the `feedbackList`.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `edit 2 d/surprised pikachu` to edit a meme's description. The `edit` command also calls `Model#commitMemeBook()`, causing another modified meme book state to be saved into the `versionedMemeBookStates`.
+Step 3. The user executes `edit 2 d/surprised pikachu` to edit a meme's description. The `edit` command also calls `Model#commitWeme()`, causing another modified Weme state to be saved into the `versionedWemeStates`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitMemeBook()`, so the meme book state will not be saved into the `versionedMemeBookStates`.
+If a command fails its execution, it will not call `Model#commitWeme()`, so the Weme state will not be saved into the `versionedWemeStates`.
 
-Step 4. The user now decides that editing the meme was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoMemeBook()`, which will shift the `stateIndex` once to the left, pointing it to the previous meme book state, and restores the meme book to that state.
+Step 4. The user now decides that editing the meme was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoWeme()`, which will shift the `stateIndex` once to the left, pointing it to the previous Weme state, and restores the Weme to that state. The feedback message is then returned to pass into and construct the CommandResult.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `stateIndex` is at index 0, pointing to the initial meme book state, then there are no previous meme book states to restore. The `undo` command uses `Model#canUndoMemeBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `stateIndex` is at index 0, pointing to the initial Weme state, then there are no previous Weme states to restore. The `undo` command uses `Model#canUndoWeme()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -203,16 +207,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoMemeBook()`, which shifts the `stateIndex` once to the right, pointing to the previously undone state, and restores the meme book to that state.
+The `redo` command does the opposite -- it calls `Model#redoWeme()`, which shifts the `stateIndex` once to the right, pointing to the previously undone state, and restores the Weme to that state.
 
 [NOTE]
-If the `stateIndex` is at index `versionedMemeBookStates.size() - 1`, pointing to the latest meme book state, then there are no undone meme book states to restore. The `redo` command uses `Model#canRedoMemeBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `stateIndex` is at index `versionedWemeStates.size() - 1`, pointing to the latest Weme state, then there are no undone Weme states to restore. The `redo` command uses `Model#canRedoWeme()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the meme book, such as `list`, will usually not call `Model#commitMemeBook()`, `Model#undoMemeBook()` or `Model#redoMemeBook()`. Thus, the `versionedMemeBookStates` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the Weme, such as `list`, will usually not call `Model#commitWeme()`, `Model#undoWeme()` or `Model#redoWeme()`. Thus, the `versionedWemeStates` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitMemeBook()`. Since the `stateIndex` is not pointing at the end of the `versionedMemeBookStates`, all meme book states after the `stateIndex` will be purged. We designed it this way because it no longer makes sense to redo the `edit 2 d/surprised pikachu` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitWeme()`. Since the `stateIndex` is not pointing at the end of the `versionedWemeStates`, all Weme states after the `stateIndex` will be purged. We designed it this way because it no longer makes sense to redo the `edit 2 d/surprised pikachu` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -220,7 +224,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::CommitActivityDiagram.png[]
 
-The addition of undo redo complicates certain commands. An example of this complication is when undoing add or delete commands. Originally, deleting a Meme will delete the corresponding image file on the disk. However, this means it is not possible to retrieve the file afterwards. Hence, the current implementation is to delete the Meme Entry in the json, but keep the original image file until Weme is closed. When Weme is closed, a thread will clean up all unreferenced image files in the image folder.
+The addition of undo redo complicates certain commands. An example of this complication is when undoing add or delete commands. Originally, deleting a Meme will delete the corresponding image file on the disk. However, this means it is not possible to retrieve the file afterwards. Hence, the current implementation is to delete the Meme Entry in the json, but keep the original image file until Weme is closed. When Weme is closed, a thread will clean up all unreferenced image files in the image folder. This is part of the reason why certain commands such as `load` are not supported.
+
+The following sequence diagram shows how the clean up works:
+
+image::CleanUpSequenceDiagram.png[]
+
+When the handleExit command is called, MainWindow will create a Thread to call `logic.cleanUp()` to prevent the GUI from slowing down. The thread then further spawns other threads to clean up the files in the data folder, deleting those images that are not found in the memes and templates list stored on Weme.
 
 ==== Design Considerations
 
@@ -230,7 +240,7 @@ The addition of undo redo complicates certain commands. An example of this compl
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the meme being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Types of commands to undo
@@ -240,7 +250,7 @@ The addition of undo redo complicates certain commands. An example of this compl
 ** Cons: Might be less intuitive as a user calling `tab templates` then `undo` might expect to revert the Tab command instead.
 * **Alternative 2:** Includes all commands
 ** Pros: Intuitive
-** Cons: Might be very troublesome for a user if they want to revert the state instead of the view.
+** Cons: Might be very troublesome for a user if they want to revert the state instead of the view. More unexpected behaviours as certain commands such as `load` depends on files outside Weme's data folder. If there is an error on redoing a command, there is no easy way to find out.
 
 ===== Aspect: Context for commands to be undoable
 
@@ -255,7 +265,7 @@ The addition of undo redo complicates certain commands. An example of this compl
 
 * **Alternative 1 (current choice):** Use a list to store the history of past states.
 ** Pros: Easy to understand and adjust according to needs. Undo and redo simply moves along the list to change the state.
-** Cons: Each individual type (in this case, StatsEngine and MemeBook) will need to keep track of it's own versions.
+** Cons: Each individual type (in this case, StatsEngine and Weme) will need to keep track of it's own versions.
 * **Alternative 2:** Use a wrapper class
 ** Pros: Everything will be handled within a single UndoRedoManager class.
 ** Cons: Might introduce complications as managing states now needs to go through another class instead of just the model.
@@ -285,7 +295,7 @@ A user can add, edit, delete, or find a template.
 .Partial class diagram showing only classes in `Model` that concern `Template`
 image::TemplateClassDiagram.png[]
 
-Templates are stored alongside `Memes` in `MemeBook` in a `UniqueTemplateList`.
+Templates are stored alongside `Memes` in `Weme` in a `UniqueTemplateList`.
 The `ModelManager` will store a `FilteredList<Template>` that only holds the `Templates` that satisfy the current filter predicate.
 The `Model` exposes this filtered list of `Templates` as an unmodifiable `ObservableList<Template>` that the UI can subscribe to.
 In order to display the effect of adding text to a template while in meme creation mode,
@@ -361,13 +371,13 @@ For example, `a` to add a piece of text, arrow keys to adjust the position of th
 === Statistics feature 1: Like Meme
 
 It is important to include a like meme feature such that the user gets to indicate their preference of certain memes.
-This is part of the statistics feature and isolated from the main MemeBook.
+This is part of the statistics feature and isolated from the main Weme.
 The like data can be used for other statistical analysis.
 
 ==== Current Implementation
 
 Like data of the memes are stored inside `LikeData` class. It is built upon the infrastructure of statistics.
-Statistics infrastructure is parallel to `MemeBook` structure from the runtime storage to logic to hard disk storage.
+Statistics infrastructure is parallel to `Weme` structure from the runtime storage to logic to hard disk storage.
 
 image::ModelClassDiagram.png[]
 
@@ -378,7 +388,7 @@ Updates to the like count of any memes inside the currently displayed memes will
 
 image::StorageClassDiagram.png[]
 
-In the storage component, LikeData is stored in a similar fashion as `MemeBook`,
+In the storage component, LikeData is stored in a similar fashion as `Weme`,
 whereas the LikeData is stored as json file.
 
 The following activity diagram summarizes the meme liking process:
@@ -399,7 +409,7 @@ image::LikeMemeSequenceDiagram.png[]
 It would not make sense to add new field everytime we have some new statistics data for a meme (Like views in 2.0)
 * **Alternative 2 (Current choice):** Separate `LikeData` as a `HashMap` and keep it in Stats.
 ** Pros: It isolates an additional feature (which is not essential) from Meme
-and allows `Stats` features in the future to use the data easily without looking through the entire MemeBook.
+and allows `Stats` features in the future to use the data easily without looking through the entire Weme.
 (After a long while, when the number of memes pile up, like statistics has a O(n) growth in running time)
 ** Cons: Harder to implement as it involves constructing a new infrastructure.
 Also, it looks somewhat out of place in `Model` as alternative 1 seems to be able to solve the problem (for now).

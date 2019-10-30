@@ -7,23 +7,23 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface MemeBookStorage <<Interface>>
+Interface WemeStorage <<Interface>>
 Interface StatsDataStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonMemeBookStorage
+Class JsonWemeStorage
 class JsonStatsDataStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> MemeBookStorage
+StorageManager o--> WemeStorage
 StorageManager o-up-> StatsDataStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonMemeBookStorage .left.|> MemeBookStorage
-JsonMemeBookStorage .down.> JsonSerializableMemeBookStorage
-JsonSerializableMemeBookStorage .right.> JsonSerializableMeme
+JsonWemeStorage .left.|> WemeStorage
+JsonWemeStorage .down.> JsonSerializableWemeStorage
+JsonSerializableWemeStorage .right.> JsonSerializableMeme
 JsonSerializableMeme .right.> JsonAdaptedTag
 
 JsonStatsDataStorage .left.|> StatsDataStorage

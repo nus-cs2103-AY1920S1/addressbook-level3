@@ -4,7 +4,7 @@ import seedu.weme.model.tag.Tag;
 
 /**
  * A wrapper class of {@code Tag} that carries the number of occurrence of such a tag
- * in a {@code MemeBook}for {@code TagManager} in statistics.
+ * in a {@code memeList}for {@code TagManager} in statistics.
  */
 public class TagWithCount extends TagWithStats implements Comparable<TagWithCount> {
 
