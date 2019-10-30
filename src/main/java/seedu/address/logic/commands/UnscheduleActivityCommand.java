@@ -26,14 +26,15 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
 
     public static final String SECOND_COMMAND_WORD = "activity";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-            + ": Unschedules all instances of an activity on a certain day. "
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_DAY + "DAY\n"
-            + "Example: " + COMMAND_WORD
-            + " " + SECOND_COMMAND_WORD
-            + " 2 "
-            + PREFIX_DAY + "3";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            ": Unschedules all instances of an activity on a certain day.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + "INDEX(must be a positive integer) "
+                    + PREFIX_DAY + "NUMBER OF DAYS",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 2 "
+                    + PREFIX_DAY + "2"
+    );
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity %d unscheduled from Day %d";
 

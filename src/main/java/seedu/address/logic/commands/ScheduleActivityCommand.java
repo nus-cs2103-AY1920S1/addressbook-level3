@@ -29,18 +29,21 @@ public class ScheduleActivityCommand extends ScheduleCommand {
 
     public static final String SECOND_COMMAND_WORD = "activity";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-            + ": Schedule the activity identified "
-            + "by the index number used in the displayed activity list "
-            + "to a day.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_START_TIME + "START_TIME "
-            + PREFIX_END_TIME + "END_TIME "
-            + PREFIX_DAY + "DAY_INDEX "
-            + "Example: " + COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1 "
-            + PREFIX_START_TIME + "1100 "
-            + PREFIX_END_TIME + "1300 "
-            + PREFIX_DAY + "2 ";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            ": Schedule the activity identified "
+                    + "by the index number used in the displayed activity list to a day. "
+                    + "Existing values will be overwritten by the input values.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + "INDEX(must be a positive integer) "
+                    + PREFIX_START_TIME + "START_TIME "
+                    + PREFIX_END_TIME + "END_TIME "
+                    + PREFIX_DAY + "DAY_INDEX",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 3 "
+                    + PREFIX_START_TIME + "1100 "
+                    + PREFIX_END_TIME + "1300 "
+                    + PREFIX_DAY + "2 "
+    );
 
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activity scheduled to day %d";
     public static final String MESSAGE_DUPLICATE_DAY = "This day already exists in the planner.";

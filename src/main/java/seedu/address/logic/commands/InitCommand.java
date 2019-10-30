@@ -21,14 +21,15 @@ public class InitCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "init";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
-            + ": Initialises the Planner with a name and trip start date. "
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_START_DATE + "START_DATE\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "An amazing trip to Germany "
-            + PREFIX_START_DATE + "23-7-2020";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD,
+            ": Initialises the Planner with a name and trip start date.",
+            COMMAND_WORD + " "
+                    + PREFIX_NAME + "NAME "
+                    + PREFIX_START_DATE + "START_DATE",
+            COMMAND_WORD + " " + PREFIX_NAME + "An amazing trip to Germany "
+                    + PREFIX_START_DATE + "23-7-2020"
+    );
 
     public static final String MESSAGE_SUCCESS = "Planner initialised with name:%1$s and"
             + " start date:%2$s";

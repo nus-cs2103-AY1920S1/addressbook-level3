@@ -20,10 +20,13 @@ import seedu.address.model.itineraryitem.activity.Activity;
 public class DeleteActivityCommand extends DeleteCommand {
     public static final String SECOND_COMMAND_WORD = "activity";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the activity identified by the index number used in the displayed activity list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + DeleteCommand.COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Deletes the activity identified by the index "
+                    + "number used in the displayed activity list.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX(must be a positive integer)",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 3"
+    );
 
     public static final String MESSAGE_DELETE_ACTIVITY_SUCCESS = "Deleted Activity: %1$s";
 

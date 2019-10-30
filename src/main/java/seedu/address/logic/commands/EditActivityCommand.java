@@ -38,16 +38,21 @@ import seedu.address.model.tag.Tag;
 public class EditActivityCommand extends EditCommand {
     public static final String SECOND_COMMAND_WORD = "activity";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the activity identified "
-            + "by the index number used in the displayed activity list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_DURATION + "DURATION\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 ";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            ": Edits the details of the activity identified "
+                    + "by the index number used in the displayed activity list. "
+                    + "Existing values will be overwritten by the input values.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + "INDEX(must be a positive integer) "
+                    + "[" + PREFIX_NAME + "NAME] "
+                    + "[" + PREFIX_ADDRESS + "ADDRESS] "
+                    + "[" + PREFIX_PHONE + "PHONE] "
+                    + "[" + PREFIX_DURATION + "DURATION] "
+                    + "[" + PREFIX_TAG + "TAG]...",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 2 "
+                    + PREFIX_PHONE + "91234567 "
+    );
 
     public static final String MESSAGE_EDIT_ACTIVITY_SUCCESS = "Edited Activity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

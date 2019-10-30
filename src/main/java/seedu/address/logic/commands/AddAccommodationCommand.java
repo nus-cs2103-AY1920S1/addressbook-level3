@@ -23,17 +23,18 @@ import seedu.address.model.itineraryitem.accommodation.Accommodation;
 public class AddAccommodationCommand extends AddCommand {
     public static final String SECOND_COMMAND_WORD = "accommodation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-            + ": Adds an Accommodation to the itinerary."
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_PHONE + "NUMBER "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: add " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Hotel 81 "
-            + PREFIX_ADDRESS + "Geylang "
-            + PREFIX_TAG + "cheap";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Adds an Accommodation to the itinerary.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " " + PREFIX_NAME + "NAME "
+                    + PREFIX_ADDRESS + "ADDRESS "
+                    + PREFIX_PHONE + "NUMBER "
+                    + "[" + PREFIX_TAG + "TAG]...",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + PREFIX_NAME + "Hotel 81 "
+                    + PREFIX_ADDRESS + "Geylang "
+                    + PREFIX_TAG + "cheap"
+    );
 
     public static final String MESSAGE_SUCCESS = "New accommodation added: %1s";
     public static final String MESSAGE_DUPLICATE_ACCOMMODATION = "This accommodation already exists in the itinerary.";

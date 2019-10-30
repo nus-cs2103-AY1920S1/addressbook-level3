@@ -35,16 +35,20 @@ import seedu.address.model.tag.Tag;
 public class EditAccommodationCommand extends EditCommand {
     public static final String SECOND_COMMAND_WORD = "accommodation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD
-            + ": Edits the details of the accommodation identified "
-            + "by the index number used in the displayed accommodation list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 ";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            ": Edits the details of the accommodation identified "
+                    + "by the index number used in the displayed accommodation list. "
+                    + "Existing values will be overwritten by the input values.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + "INDEX(must be a positive integer) "
+                    + "[" + PREFIX_NAME + "NAME] "
+                    + "[" + PREFIX_ADDRESS + "ADDRESS] "
+                    + "[" + PREFIX_PHONE + "PHONE] "
+                    + "[" + PREFIX_TAG + "TAG]...",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1 "
+                    + PREFIX_PHONE + "91234567 "
+    );
 
     public static final String MESSAGE_EDIT_ACCOMMODATION_SUCCESS = "Edited Accommodation: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -119,7 +123,7 @@ public class EditAccommodationCommand extends EditCommand {
      * edited with {@code editAccommodationDescriptor}.
      */
     private static Accommodation createEditedAccommodation(Accommodation accommodationToEdit,
-                                                      EditAccommodationDescriptor editAccommodationDescriptor) {
+                                                           EditAccommodationDescriptor editAccommodationDescriptor) {
         assert accommodationToEdit != null;
 
         Name updatedName = editAccommodationDescriptor.getName().orElse(accommodationToEdit.getName());

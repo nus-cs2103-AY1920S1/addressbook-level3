@@ -20,10 +20,13 @@ import seedu.address.model.itineraryitem.accommodation.Accommodation;
 public class DeleteAccommodationCommand extends DeleteCommand {
     public static final String SECOND_COMMAND_WORD = "accommodation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the accommodation identified by the index number used in the displayed accommodation list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Deletes the accommodation identified by the index "
+                    + "number used in the displayed accommodation list.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX(must be a positive integer)",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1"
+    );
 
     public static final String MESSAGE_DELETE_ACCOMMODATION_SUCCESS = "Deleted Accommodation: %1$s";
 
@@ -69,10 +72,10 @@ public class DeleteAccommodationCommand extends DeleteCommand {
                 String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, accommodationToDelete),
                 new ResultInformation[]{
                         new ResultInformation(
-                            accommodationToDelete,
-                            indexOfAccommodation,
-                            String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, "")
-                    )
+                                accommodationToDelete,
+                                indexOfAccommodation,
+                                String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, "")
+                        )
                 },
                 new UiFocus[] { UiFocus.ACCOMMODATION, UiFocus.INFO }
         );

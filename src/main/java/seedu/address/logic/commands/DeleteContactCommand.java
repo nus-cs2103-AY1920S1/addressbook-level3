@@ -21,10 +21,13 @@ public class DeleteContactCommand extends DeleteCommand {
 
     public static final String SECOND_COMMAND_WORD = "contact";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + DeleteCommand.COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Deletes the contact identified by the index "
+                    + "number used in the displayed contact list.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX(must be a positive integer)",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1"
+    );
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
 

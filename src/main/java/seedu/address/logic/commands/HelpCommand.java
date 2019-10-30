@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.Model;
 
 /**
@@ -17,6 +18,6 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, new UiFocus[]{UiFocus.HELP});
     }
 }

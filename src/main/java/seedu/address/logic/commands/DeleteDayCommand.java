@@ -18,10 +18,13 @@ import seedu.address.model.day.Day;
 public class DeleteDayCommand extends DeleteCommand {
     public static final String SECOND_COMMAND_WORD = "day";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the day identified by the index number used in the displayed day list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + DeleteCommand.COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Deletes the day identified by the index "
+                    + "number used in the displayed day list.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX(must be a positive integer)",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 4"
+    );
 
     public static final String MESSAGE_DELETE_DAY_SUCCESS = "Deleted day: %1$d";
 

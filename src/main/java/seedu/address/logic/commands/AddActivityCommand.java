@@ -24,18 +24,20 @@ public class AddActivityCommand extends AddCommand {
 
     public static final String SECOND_COMMAND_WORD = "activity";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-            + ": Adds an Activity to the itinerary."
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]..."
-            + PREFIX_DURATION + "DURATION\n"
-            + "Example: " + COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-            + PREFIX_NAME + "visit mt Fuji "
-            + PREFIX_ADDRESS + "Mount Fuji "
-            + PREFIX_TAG + "sightseeing "
-            + PREFIX_DURATION + "120";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Adds an Activity to the itinerary.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + PREFIX_NAME + "NAME "
+                    + PREFIX_ADDRESS + "ADDRESS "
+                    + PREFIX_DURATION + "DURATION "
+                    + "[" + PREFIX_TAG + "TAG]...",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + PREFIX_NAME + "visit mt Fuji "
+                    + PREFIX_ADDRESS + "Mount Fuji "
+                    + PREFIX_DURATION + "120"
+                    + PREFIX_TAG + "sight-seeing"
+    );
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1s";
     public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the itinerary.";

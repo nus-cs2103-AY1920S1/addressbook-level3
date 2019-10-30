@@ -27,14 +27,15 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
 
     public static final String SECOND_COMMAND_WORD = "time";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-            + ": Unschedules an activity by a time occupied by the activity on a certain day. "
-            + "Parameters: TIME (in 24-hour clock format) "
-            + PREFIX_DAY + "DAY\n"
-            + "Example: " + COMMAND_WORD
-            + " " + SECOND_COMMAND_WORD
-            + " 0900 "
-            + PREFIX_DAY + "3";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            ": Unschedules all instances of an activity on a certain day.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + "TIME(in 24-hour clock format) "
+                    + PREFIX_DAY + "NUMBER OF DAYS",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 0900 "
+                    + PREFIX_DAY + "3"
+    );
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity unscheduled: %1$s";
     public static final String MESSAGE_ACTIVITY_DOES_NOT_EXIST = "Activity does not exist at given time.";

@@ -1,10 +1,8 @@
 package seedu.address.logic.commands.result;
 
-import javax.xml.transform.Result;
-
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -15,11 +13,11 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
-
     /** The application should exit. */
     private final boolean exit;
+
+    /** Help information should be shown to the user. */
+    private final boolean showHelp;
 
     private final UiFocus[] uiFocus;
     private final ResultInformation[] resultInformation;
@@ -37,6 +35,13 @@ public class CommandResult {
     }
 
     /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, UiFocus[] uiFocus) {
+        this(feedbackToUser, null, showHelp, exit, uiFocus);
+    }
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields,
      * but with uiFocus in its default value of null.
      */
@@ -49,7 +54,8 @@ public class CommandResult {
      * and other fields set to their default values.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, null, false, false, null);
+        this(feedbackToUser, null, false,
+                false, null);
     }
 
     /**
@@ -65,8 +71,8 @@ public class CommandResult {
      * and {@code uiFocus, while other fields are set to their default values.
      */
     public CommandResult(String feedbackToUser, ResultInformation[] resultInformation, UiFocus[] uiFocus) {
-        this(feedbackToUser, requireAllNonNullAndReturn(resultInformation), false,
-                false, requireAllNonNullAndReturn(uiFocus));
+        this(feedbackToUser, requireAllNonNullAndReturn(resultInformation),
+                false, false, requireAllNonNullAndReturn(uiFocus));
     }
 
     private static <E> E[] requireAllNonNullAndReturn(E[] elements) {
@@ -85,12 +91,12 @@ public class CommandResult {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
-    }
-
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowHelp() {
+        return showHelp;
     }
 
     public Optional<UiFocus[]> getUiFocus() {
@@ -110,13 +116,15 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
+                && Arrays.equals(uiFocus, otherCommandResult.uiFocus)
+                && Arrays.equals(resultInformation, otherCommandResult.resultInformation)
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, Arrays.hashCode(uiFocus), Arrays.hashCode(resultInformation),
+                showHelp, exit);
     }
 
 }
