@@ -289,6 +289,8 @@ Format: `sendReminder`
 Tired of switching between applications? We got you covered, below you will find some commands which support sending
 emails right here within the application.
 
+Do keep in mind that only the user Account in our current version is only compatible with Gmail Account and please ensure that the Access to less secure app in the security setting is enabled before signing in! 
+
 ==== 1. Sign in to your account: `signIn`
 Signs in to the your email account. +
 Format: `signIn [ac/ACCOUNT_EMAIL_ADDRESS] [pa/PASSWORD]`
