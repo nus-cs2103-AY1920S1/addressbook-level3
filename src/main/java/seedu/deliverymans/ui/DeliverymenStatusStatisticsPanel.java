@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
@@ -29,6 +30,8 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
     private Label deliveringDeliverymenLabel;
     @FXML
     private PieChart statusStatisticsPieChart;
+    @FXML
+    private TextArea resultDisplay;
 
     // Data fields
     private int availableListSize;
@@ -61,6 +64,14 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
         unavailableDeliverymenLabel.setText("UNAVAILABLE :  " + unavailableListSize + "  ");
         deliveringDeliverymenLabel.setText("DELIVERING    :  " + deliveringListSize + "   ");
         fillPieChart();
+        initialiseTextArea();
+    }
+
+    /**
+     * Set up the text area and the inside text.
+     */
+    private void initialiseTextArea() {
+        resultDisplay.appendText("Utilisation level: 10000%");
     }
 
     /**
@@ -78,15 +89,14 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Available", availableListSize),
-                        new PieChart.Data("Delivering", deliveringListSize),
-                        new PieChart.Data("Unavailable", unavailableListSize));
-        // applyCustomColorSequence(pieChartData);
+                        new PieChart.Data("Unavailable", unavailableListSize),
+                        new PieChart.Data("Delivering", deliveringListSize));
         statusStatisticsPieChart.setTitle("CURRENT STATUS PIE CHART");
         statusStatisticsPieChart.setData(pieChartData);
     }
 
     /**
-     * Customise the colors of the pie chart nodes to green, red and yellow.
+     * Customise the colors of the pie chart nodes to green, red and yellow to match status colors.
      */
     private void applyCustomColorSequence(
             ObservableList<PieChart.Data> pieChartData,
