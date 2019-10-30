@@ -244,7 +244,7 @@ The logic part is implemented through `java.seedu.address.logic.search` package 
 
 The model is constructed through `java.seedu.address.model.autocomplete` which contains `AutoCompleteModel` and `Word`.
 
-The Ui part is implemented through `java.seedu.address.ui.QueryCard`on top of `CommandBox`.
+The Ui part is implemented through `java.seedu.address.ui.QueryCard` on top of `CommandBox`.
 
 Given below is an example usage scenario and how the autocomplete mechanism behaves at each step. (p.s. details are
 omitted)
@@ -255,7 +255,7 @@ Step 2. User enter `a` and the listener is triggered. Then `AutoComplete#initAc(
 `AutoComplete#getSuggestions()` is invoked.
 
 Step 3. `initAc()` calls `AutoComplete#readWordsFromFile()` which reads the vocabulary from our local dictionary to get
-the "database and then construct an `AutocompleteModel` with the vocabulary read"
+the database and then construct an `AutocompleteModel` with the vocabulary read.
 
 Step 4. `getSuggestions(input)` calls `AutocompleteModel#allMatches()` which utilises the improved version of binary
 search algorithm `BinarySearch`. The algorithm will return the first and last index of potential matched results.
