@@ -58,6 +58,9 @@ public class TypicalSpendings {
             .build();
     public static final Reminder BILL_REMINDER = new ReminderBuilder().build();
 
+    public static final Reminder SCHOOL_FEE_REMINDER = new ReminderBuilder().withDeadline("30/08/2020")
+            .withRemark("Pay School Fee").build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalSpendings() {} // prevents instantiation

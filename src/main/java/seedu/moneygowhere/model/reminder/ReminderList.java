@@ -1,14 +1,17 @@
 package seedu.moneygowhere.model.reminder;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.reminder.exception.ReminderNotFoundException;
 
-import java.util.Iterator;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * A list of reminders
+ * Supports a minimal set of list operations.
+ */
 public class ReminderList implements Iterable<Reminder> {
 
     private final ObservableList<Reminder> internalList = FXCollections.observableArrayList();

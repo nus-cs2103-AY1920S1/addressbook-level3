@@ -397,11 +397,11 @@ The recorded reminders sorted with deadline in descending order, are displayed o
 
 This feature is implemented with the following operations:
 
-* Adding a reminder `reminder d/DATE m/MESSAGE` +
-e.g. `reminder d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
+* Adding a reminder `reminder add d/DATE m/MESSAGE` +
+e.g. `reminder add d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
 
-* Deleting a reminder `dreminder INDEX` +
-e.g. `dreminder 1` - delete the first reminder in the reminder list shown in UI.
+* Deleting a reminder `reminder delete INDEX` +
+e.g. `reminder delete 1` - delete the first reminder in the reminder list shown in UI.
 
 Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
 
@@ -500,65 +500,131 @@ The implementation of the Statistics feature can be split into 2 phases, prepara
 ===== Preparation
 
 During the preparation phase, the program parses the command for Statistics and prepares to open a new Statistics Window.
-The following sequence diagram shows how `stats d/01/01/2019 d/07/01/2019` works during the preparation phase.
+The following sequence diagram shows how `stats` command works during the preparation phase.
 
 .Sequence Diagram demonstrating the preparation stage of Statistics feature
 image::StatsSequenceDiagram.png[]
 
 NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-1. User executes `stats d/01/01/2019 d/07/01/2019` to generate statistics for spending within `01/01/2019` and `07/01/2019`.
+1. User first enters the command `stats d/01/01/2019 d/07/01/2019`.
 
-2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/01/01/2019 d/07/01/2019` to StatsCommandParser.
+2. `SpendingBookParser` will parse and identify the command as a `StatsCommand` and pass on the argument to `StatsCommandParser`.
 
-3. StatsCommandParser will check whether the date range parameters provided are valid.
-
-4. `StatsCommand#execute()` is executed, returning a message which tells the user that the Stats Window will be opened and set a boolean `isShowStats` = true to indicate that a new window to display the statistics will be opened.
+3. If no arguments were provided by the user, `StatsCommand#StatsCommand()` is called to create a StatsCommand with no parameters.
+Otherwise, `StatsCommandParser` will verify whether the arguments provided were valid.
+.. If they are valid, `StatsCommand#StatsCommand(DATE_START, DATE_END)` is called to create a `StatsCommand` with the specified parameters.
+.. Else, a `ParseException` will be thrown and an error message will be shown to the user.
+4. `StatsCommand` is returned to `LogicManager` which then calls `StatsCommand#execute()`, which updates the `statsPredicate` in `Model`.
 
 ===== Execution
 
 In the execution phase, the program processes and retrieves the data to be displayed and finally displaying it.
 
-There are 2 types of data that the program require, `statsMessage` for displaying the statistics in text and `statsData` for displaying the data in a piechart.
-Below is the UML sequence diagram and a step-by-step explanation for the retrieval of `statsData`. `statsMessage` is retrieved in the same manner.
+Below is the UML sequence diagram and a step-by-step explanation.
 
-.Sequence Diagram of Execution Phase showing retrieving of `statsData`
+.Sequence Diagram demonstrating the execution stage of Statistics feature
 image::StatsDataSequenceDiagram.png[]
 
 
 NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 
-1. Upon checking that the boolean `isShowStats` = true, the MainWindow calls `LogicManager#getStatsData()`.
+1. Upon checking that the boolean `isShowStats` = true, the `MainWindow` calls `LogicManager#getStatsData()`.
 
-2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/01/01/2019 d/07/01/2019` to StatsCommandParser.
+2. `LogicManager` then gets the filtered list by calling `Model#getStatsList`, which returns an unmodifiable `ObservableList`, containing only spending within the specified date range.
 
-3. StatsCommandParser will check whether the date range parameters provided are valid.
+3. `LogicManager#getStatsData()` then processes the spending and organise the data into a `LinkedHashMap<String, Double>` where the key value pairs represents tag and cost respectively.
 
-4. `StatsCommand#getStatsData()` is executed. Spending with date range within `01/01/2019` and `07/01/2019` is filtered.
-The filtering is done through a predicate parameter which checks through the dates of the spending in the application.
-
-5. Finally, the `statsData` will be displayed on the Ui through `StatsWindow#loadData()` call.
+4. Finally, the `statsData` is returned to the `MainWindow`. The data will be displayed on the Ui through `StatsWindow#loadData(statsData)` call.
 
 ==== Design Considerations
 
-===== How to pass statistics data parameters from Logic to UI
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 (Current choice) |Alternative 2 (Planned for future releases)
 
-====== Alternative 1 (current choice): UI gets all data and parameters from Logic, which gets data from Model.
+|How to handle statistics data and parameters
+|Data and each parameter is handled as separate objects +
+Pros: Easy to implement +
+Cons: Need to call multiple methods to get parameters
+|Create Statistics object which contains data and all the parameters +
+Pros: More scalable. Less method calls to get parameters +
+Cons: None.
 
-Pros: Easy to implement. Aligned with architecture.
+|===
 
-Cons: A lot of method calls.
+=== Graph feature
+==== Current Implementation
+For the current `graph` feature, there are 2 main commands that the user can execute.
 
-====== Alternative 2: Pass data and parameters through event
+1. `graph` - generates graph for all spending
+2. `graph d/DATE_START d/DATE_END` - generates graph for spending within a date range
 
-Pros: Less method calls. Easier to read.
+The `GraphCommandParser` differentiates these 2 commands based on whether a valid date range is provided as illustrated in the diagram below.
 
-Cons: Not in alignment with architecture. Need to consider application startup when there are no events posted.
+.Activity Diagram showing behaviour of GraphCommandParser
+image::GraphActivityDiagram.png[width="600"]
 
-Alternative 1 was chosen due to the ease of implementation.
-As the current statistics feature does not require a large amount of data, the number of method calls is not too large.
-Alternative 2 requires a change in the architecture which may result in higher complexity.
+The implementation of the Graph feature can be split into 2 phases, preparation and execution. Given below is an explanation of how the Graph mechanism behaves at each phase.
+
+===== Preparation
+
+During the preparation phase, the program parses the command for Graph and prepares to open a new Graph Window.
+The following sequence diagram shows how `graph` command works during the preparation phase.
+
+.Sequence Diagram demonstrating the preparation stage of Graph feature
+image::GraphSequenceDiagram.png[]
+
+NOTE: The lifeline for `GraphCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+1. User first enters the command `graph d/01/01/2019 d/07/01/2019`.
+
+2. `SpendingBookParser` will parse and identify the command as a `GraphCommand` and pass on the argument to `GraphCommandParser`.
+
+3. If no arguments were provided by the user, `GraphCommand#GraphCommand()` is called to create a GraphCommand with no parameters.
+Otherwise, `GraphCommandParser` will verify whether the arguments provided were valid.
+.. If they are valid, `GraphCommand#GraphCommand(DATE_START, DATE_END)` is called to create a `GraphCommand` with the specified parameters.
+.. Else, a `ParseException` will be thrown and an error message will be shown to the user.
+4. `GraphCommand` is returned to `LogicManager` which then calls `GraphCommand#execute()`, which updates the `statsPredicate` in `Model`.
+
+===== Execution
+
+In the execution phase, the program processes and retrieves the data to be displayed and finally displaying it.
+
+Below is the UML sequence diagram and a step-by-step explanation.
+
+.Sequence Diagram demonstrating the execution stage of Graph feature
+image::GraphDataSequenceDiagram.png[]
+
+
+NOTE: The lifeline for `GraphCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+1. Upon checking that the boolean `isShowGraph` = true, the `MainWindow` calls `LogicManager#getGraphData()`.
+
+2. `LogicManager` then gets the filtered list by calling `Model#getStatsList`, which returns an unmodifiable `ObservableList`, containing only spending within the specified date range.
+
+3. `LogicManager#getGraphData()` then processes the spending and organise the data into a `LinkedHashMap<String, Double>` where the key value pairs represents date and cost respectively.
+
+4. Finally, the `graphData` is returned to the `MainWindow`. The data will be displayed on the Ui through `GraphWindow#loadData(graphData)` call.
+
+==== Design Considerations
+
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 (Current choice) |Alternative 2 (Planned for future releases)
+
+|How to handle graph data and parameters
+|Data and each parameter is handled as separate objects +
+Pros: Easy to implement +
+Cons: Need to call multiple methods to get parameters
+|Create Graph object which contains data and all the parameters +
+Pros: More scalable. Less method calls to get parameters +
+Cons: None.
+
+|===
+
 
 === Budget Feature
 The `Budget` component has two core features:

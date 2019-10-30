@@ -1,11 +1,14 @@
 package seedu.moneygowhere.logic.sorting;
 
-import seedu.moneygowhere.model.reminder.Reminder;
-
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import seedu.moneygowhere.model.reminder.Reminder;
+
+/**
+ * Compares Reminder objects.
+ */
 public class ReminderComparator implements Comparator<Reminder> {
     private Set<SortField> fields;
 
@@ -36,7 +39,7 @@ public class ReminderComparator implements Comparator<Reminder> {
 
             switch (field.getAttribute()) {
             case DEADLINE:
-                rank = o1.getDeadline().compareTo(o2.getDeadline());
+                rank = -(o1.getDeadline().compareTo(o2.getDeadline()));
                 break;
             case REMINDER_MESSAGE:
                 rank = o1.getReminderMessage().compareTo(o2.getReminderMessage());

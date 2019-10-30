@@ -49,14 +49,14 @@ class GraphCommandParserTest {
     public void parse_invalidDateRange_failure() {
         // start date is later than end date
         assertParseFailure(parser, DATE_DESC_BOB + DATE_DESC_AMY ,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_INVALID_DATERANGE));
     }
 
     @Test
     public void parse_moreThan2Parameters_failure() {
         // more than 2 date parameters
         assertParseFailure(parser, DATE_DESC_BOB + DATE_DESC_AMY + DATE_DESC_AMY ,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_INVALID_DATERANGE));
     }
 
 }

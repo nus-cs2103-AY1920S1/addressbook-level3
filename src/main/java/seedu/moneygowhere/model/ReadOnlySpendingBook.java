@@ -1,7 +1,5 @@
 package seedu.moneygowhere.model;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.reminder.Reminder;

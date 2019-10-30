@@ -2,7 +2,8 @@ package seedu.moneygowhere.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,7 +17,6 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.reminder.Reminder;
-import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.storage.Storage;
@@ -58,21 +58,48 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Map<Date, Double> getGraphData(String commandText) throws ParseException {
-        Command command = spendingBookParser.parseCommand(commandText);
-        return command.getGraphData(model);
+    /**
+     * Returns a map of spending with key and value pair representing data for the statistics chart.
+     * The key represents the different tags.
+     * The value represents the cumulative cost for that tag.
+     *
+     * @return the map of data used for the statistics
+     */
+    public LinkedHashMap<String, Double> getGraphData() {
+        ObservableList<Spending> spendingList = model.getStatsList();
+        LinkedHashMap<String, Double> graphData = new LinkedHashMap<>();
+        for (Spending s : spendingList) {
+            if (graphData.containsKey(s.getDate().value)) {
+                graphData.put(s.getDate().value,
+                    graphData.get(s.getDate().value) + Double.parseDouble(s.getCost().toString()));
+            } else {
+                graphData.put(s.getDate().value, Double.parseDouble(s.getCost().toString()));
+            }
+        }
+        return graphData;
     }
 
-    @Override
-    public Map<Tag, Double> getStatsData(String commandText) throws ParseException {
-        Command command = spendingBookParser.parseCommand(commandText);
-        return command.getStatsData(model);
-    }
-
-    @Override
-    public String getStatsMessage(String commandText) throws ParseException {
-        Command command = spendingBookParser.parseCommand(commandText);
-        return command.getStatsMessage(model);
+    /**
+     * Returns a map of spending with key and value pair representing data for the statistics chart.
+     * The key represents the different tags.
+     * The value represents the cumulative cost for that tag.
+     *
+     * @return the map of data used for the statistics
+     */
+    public LinkedHashMap<String, Double> getStatsData() {
+        ObservableList<Spending> spendingList = model.getStatsList();
+        LinkedHashMap<String, Double> statsData = new LinkedHashMap<>();
+        for (Spending s : spendingList) {
+            Set<Tag> tagSet = s.getTags();
+            for (Tag t: tagSet) {
+                if (statsData.containsKey(t.tagName)) {
+                    statsData.put(t.tagName, statsData.get(t.tagName) + Double.parseDouble(s.getCost().toString()));
+                } else {
+                    statsData.put(t.tagName, Double.parseDouble(s.getCost().toString()));
+                }
+            }
+        }
+        return statsData;
     }
 
     @Override

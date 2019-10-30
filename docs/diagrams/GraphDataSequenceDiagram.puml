@@ -3,7 +3,7 @@
 
 box UI UI_COLOR_T1
 participant ":MainWindow" as MainWindow UI_COLOR
-participant ":StatsWindow" as StatsWindow UI_COLOR
+participant ":GraphWindow" as GraphWindow UI_COLOR
 end box
 
 box Logic LOGIC_COLOR_T1
@@ -14,10 +14,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> MainWindow : isShowStats = true
+[-> MainWindow : isShowGraph = true
 activate MainWindow
 
-MainWindow -> LogicManager : getStatsData()
+MainWindow -> LogicManager : getGraphData()
 activate LogicManager
 
 LogicManager -> Model : getStatsList()
@@ -26,10 +26,10 @@ activate Model
 Model --> LogicManager
 deactivate Model
 
-LogicManager --> MainWindow: statsData
+LogicManager --> MainWindow: graphData
 deactivate Model
 
-MainWindow --> StatsWindow: loadData(statsData)
-activate StatsWindow
+MainWindow --> GraphWindow: loadData(graphData)
+activate GraphWindow
 
 @enduml

@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,7 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 public class DateUtil {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter DATE_FORMAT_PRETTY = DateTimeFormatter.ofPattern("EE dd/MM/yyyy");
+    private static final DateTimeFormatter DATE_FORMAT_TWO_DIGIT_YEAR = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     /** Date pattern which allows leading zeroes to be omitted. **/
     private static final Pattern DATE_PATTERN = Pattern.compile("([0-9]{1,2})(?:[/\\-])([0-9]{1,2})"
@@ -209,5 +212,29 @@ public class DateUtil {
         } catch (DateTimeParseException e) {
             return "";
         }
+    }
+
+    /**
+     * formats a date to a string with two-digit year.
+     * Example output: 25/12/19
+     *
+     * @param date Input date
+     * @return A formatted date string
+     */
+    public static String twoDigitYearFormatDate(String date) {
+        try {
+            LocalDate parsedDate = LocalDate.parse(date, DATE_FORMAT);
+            return DATE_FORMAT_TWO_DIGIT_YEAR.format(parsedDate);
+        } catch (DateTimeParseException e) {
+            return "";
+        }
+    }
+
+    public static LocalDate getTodayDate() {
+        return LocalDate.now();
+    }
+
+    public static long getDaysBetween(LocalDate d1, LocalDate d2) {
+        return ChronoUnit.DAYS.between(d1, d2);
     }
 }

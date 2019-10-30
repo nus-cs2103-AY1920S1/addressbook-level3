@@ -10,7 +10,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -167,7 +166,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
         public void deleteReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
         }
@@ -176,8 +174,17 @@ public class AddCommandTest {
         public ObservableList<Reminder> getSortedReminderList() {
             throw new AssertionError("This method should not be called.");
         }
-    }
 
+        @Override
+        public ObservableList<Spending> getStatsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateStatsPredicate(Predicate<Spending> statsPredicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
     /**
      * A Model stub that contains a single Spending.
      */
@@ -219,5 +226,4 @@ public class AddCommandTest {
             return new SpendingBook();
         }
     }
-
 }

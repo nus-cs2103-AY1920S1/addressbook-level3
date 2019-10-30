@@ -3,9 +3,9 @@ package seedu.moneygowhere.ui;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import seedu.moneygowhere.commons.util.DateUtil;
+import javafx.scene.paint.Color;
 import seedu.moneygowhere.model.reminder.Reminder;
 
 /**
@@ -26,7 +26,7 @@ public class ReminderCard extends UiPart<Region> {
     public final Reminder reminder;
 
     @FXML
-    private VBox cardPane;
+    private HBox cardPane;
     @FXML
     private Label id;
     @FXML
@@ -38,7 +38,27 @@ public class ReminderCard extends UiPart<Region> {
         super(FXML);
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
-        deadline.setText(DateUtil.prettyFormatDate(reminder.getDeadline().value));
+        switch(reminder.getDueDateDescription()) {
+
+        case "Today":
+            deadline.setTextFill(Color.ORANGE);
+            deadline.setText("Due " + reminder.getDueDateDescription());
+            break;
+
+        case "Tomorrow":
+            deadline.setTextFill(Color.GREEN);
+            deadline.setText("Due " + reminder.getDueDateDescription());
+            break;
+
+        case "Overdue":
+            deadline.setTextFill(Color.RED);
+            deadline.setText(reminder.getDueDateDescription());
+            break;
+
+        default:
+            deadline.setText("Due " + reminder.getDueDateDescription());
+        }
+        message.setText(reminder.getReminderMessage().value);
     }
 
     @Override

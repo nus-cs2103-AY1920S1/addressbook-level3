@@ -13,10 +13,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("stats d/01/01/2019 d/07/01/2019")
+[-> LogicManager : execute(commandText)
 activate LogicManager
 
-LogicManager -> SpendingBookParser : parseCommand("stats d/01/01/2019 d/07/01/2019")
+LogicManager -> SpendingBookParser : parseCommand(commandText)
 activate SpendingBookParser
 
 create StatsCommandParser
@@ -26,15 +26,22 @@ activate StatsCommandParser
 StatsCommandParser --> SpendingBookParser
 deactivate StatsCommandParser
 
-SpendingBookParser -> StatsCommandParser : parse("01/01/2019, 07/01/2019")
+SpendingBookParser -> StatsCommandParser : parse(argument)
 activate StatsCommandParser
 
-create StatsCommand
-StatsCommandParser -> StatsCommand
-activate StatsCommand
-
-StatsCommand --> StatsCommandParser
-deactivate StatsCommand
+alt No arguments
+    create StatsCommand
+    StatsCommandParser -> StatsCommand: StatsCommand()
+    activate StatsCommand
+    StatsCommand --> StatsCommandParser
+    deactivate StatsCommand
+else else
+    create StatsCommand
+	StatsCommandParser -> StatsCommand: StatsCommand(DATE_START, DATE_END)
+	activate StatsCommand
+	StatsCommand --> StatsCommandParser
+    deactivate StatsCommand
+end
 
 StatsCommandParser --> SpendingBookParser
 deactivate StatsCommandParser
@@ -48,7 +55,7 @@ deactivate SpendingBookParser
 LogicManager -> StatsCommand : execute()
 activate StatsCommand
 
-StatsCommand -> Model : updateFilteredSpendingList(allspendings)
+StatsCommand -> Model : updateStatsPredicate(predicate)
 activate Model
 
 Model --> StatsCommand
@@ -61,7 +68,7 @@ activate CommandResult
 CommandResult --> StatsCommand
 deactivate CommandResult
 
-StatsCommand --> LogicManager : statsmessage, isShowStats = true
+StatsCommand --> LogicManager : MESSAGE_SUCCESS, isShowStats = true
 deactivate StatsCommand
 
 [<--LogicManager

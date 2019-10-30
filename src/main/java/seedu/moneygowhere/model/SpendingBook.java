@@ -2,11 +2,9 @@ package seedu.moneygowhere.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.reminder.Reminder;

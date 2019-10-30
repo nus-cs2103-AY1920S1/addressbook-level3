@@ -13,7 +13,7 @@ import seedu.moneygowhere.model.reminder.Reminder;
 /**
  * Panel containing the list of reminders.
  */
-public class ReminderListPanel extends UiPart<Region>{
+public class ReminderListPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
