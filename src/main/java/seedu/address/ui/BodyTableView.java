@@ -186,7 +186,7 @@ public class BodyTableView extends UiPart<Region> {
             } else {
                 Label label = new Label();
                 String bodyStatusString = bodyStatus.toString();
-                label.setText(bodyStatusString);
+                label.setText(bodyStatusString.replace("_", " "));
                 if (bodyStatusString.equals(ARRIVED.toString())) {
                     label.getStyleClass().add("bodyStatusLabelArrived");
                 } else if (bodyStatusString.equals(CLAIMED.toString())) {

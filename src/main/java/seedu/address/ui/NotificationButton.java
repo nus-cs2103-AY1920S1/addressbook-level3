@@ -68,6 +68,13 @@ public class NotificationButton extends UiPart<Region> {
     }
 
     /**
+     * Displays the notification popover to the user.
+     */
+    public void showNotifications() {
+        notificationPopOver.show(notifButton);
+    }
+
+    /**
      * Initializes the icon number which indicates the number of active notifications.
      */
     private void initIconNumber() {
