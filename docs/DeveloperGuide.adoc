@@ -197,6 +197,87 @@ image::ReminderSequenceDiagram.png[]
 
 Pros: Allows fast method of keeping track of instance specific reminders when object is edited/deleted and loaded form storage.
 Cons: Might not be as OOP as other designs.
+
+=== Undo/ Redo
+
+==== Implementation
+The undo/redo mechanism is facilitated by `VersionedGuiltTrip`.
+It extends `GuiltTrip` with an undo/redo history, stored internally as an `guiltTripStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedGuiltTrip#commit()` -- Saves the current finance tracker state in its history.
+* `VersionedGuiltTrip#undo()` -- Restores the previous finance trackerk state from its history.
+* `VersionedGuiltTrip#redo()` -- Restores a previously undone finance tracker state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitGuiltTrip()`, `Model#undoGuiltTrip()` and `Model#redoGuiltTrip()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedGuiltTrip` will be initialized with the initial finance tracker state, and the `currentStatePointer` pointing to that single finance tracker state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes `delete 5` command to delete the 5th entry in the finance tracker. The `delete` command calls `Model#commitGuiltTrip()`, causing the modified state of the finance tracker after the `delete 5` command executes to be saved in the `guiltTripStateList`, and the `currentStatePointer` is shifted to the newly inserted finance tracker state.
+
+image::UndoRedoState1.png[]
+
+Step 3. The user executes `add typ/Expense...` to add a new expense. The `add` command also calls `Model#commitGuiltTrip()`, causing another modified finance tracker state to be saved into the `guiltTripStateList`.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitGuiltTrip()`, so the finance tracker state will not be saved into the `guiltTripStateList`.
+
+Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoGuiltTrip()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous finance tracker state, and restores the finance tracker to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial finance tracker state, then there are no previous finance tracker states to restore. The `undo` command uses `Model#canUndoGuiltTrip()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoGuiltTrip()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the finance tracker to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `guiltTripStateList.size() - 1`, pointing to the latest finance tracker state, then there are no undone finance tracker states to restore. The `redo` command uses `Model#canRedoGuiltTrip()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the finance tracker, such as `list`, will usually not call `Model#commitGuiltTrip()`, `Model#undoGuiltTrip()` or `Model#redoGuiltTrip()`. Thus, the `guiltTripStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+Step 6. The user executes `clear`, which calls `Model#commitGuiltTrip()`. Since the `currentStatePointer` is not pointing at the end of the `guiltTripStateList`, all finance tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add typ/Expense ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of finance tracker states.
+** Pros: Easy to understand and implement.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedGuiltTrip`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
