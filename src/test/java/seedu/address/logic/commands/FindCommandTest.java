@@ -25,6 +25,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.entity.body.BodyNameContainsKeywordsPredicate;
 import seedu.address.model.entity.worker.WorkerNameContainsKeywordsPredicate;
 
+// @@author dalisc
+
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
