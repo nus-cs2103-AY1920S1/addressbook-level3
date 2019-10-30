@@ -293,7 +293,7 @@ Format: `addmod n/NAME m/MODULE_CODE cl/CLASS_1_TYPE:CLASS_1_NUMBER,CLASS_2_TYPE
 
 ****
 * Currently supports academic year 2019/2020 and semester 1 only.
-* Just like adding a normal event via `addevent`, the module will only be added if the specified classes does not clash with any events in the person's schedule.
+* image:./icons/warning.png[]: Just like adding a normal event via `addevent`, the module will only be added if the specified classes does not clash with any events in the person's schedule.
 ****
 
 
@@ -307,11 +307,11 @@ Step-By-Step:
 
 . Add a module's classes easily by typing `addmod` into the command box and follow the format as shown above, then press btn:[Enter] to execute it.
 
-image::nusmods/addmod1.png[]
+image::nusmods/addmod1.PNG[]
 
 . If you manage to successfully add the module and its classes into the person's schedule, you will see the person's schedule appearing with the newly added timeslots:
 
-image::nusmods/addmod2.png[]
+image::nusmods/addmod2.PNG[]
 
 ==== Add Modules via NUSMods Link: `addmods`
 
@@ -322,7 +322,7 @@ Format: `addmods n/NAME l/NUSMODS_SHARE_LINK`
 ****
 * Reads the specified `NUSMODS_SHARE_LINK` to get the modules and classes, then adds the classes into the person's schedule.
 * Currently supports academic year 2019/2020 and semester 1 only.
-* WARNING: Just like adding a normal event via `addevent`, the module will only be added if the specified classes does not clash with any events in the person's schedule.
+* image:./icons/warning.png[]: Just like adding a normal event via `addevent`, the module will only be added if the specified classes does not clash with any events in the person's schedule.
 ****
 
 Examples:
@@ -334,11 +334,11 @@ Step-By-Step:
 
 . Add an NUSMods timetable easily by typing `addmods` into the command box and follow the format as shown above, then press btn:[Enter] to execute it.
 
-image::nusmods/addmods1.png[]
+image::nusmods/addmods1.PNG[]
 
 . If you manage to successfully add all the modules and their respective classes into the person's schedule, you will see the person's schedule appearing with the newly added timeslots:
 
-image::nusmods/addmods2.png[]
+image::nusmods/addmods2.PNG[]
 
 === Group Management
 
