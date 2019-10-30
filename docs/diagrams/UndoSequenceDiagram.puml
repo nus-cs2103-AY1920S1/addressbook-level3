@@ -3,42 +3,42 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":GuiltTripParser" as GuiltTripParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":VersionedGuiltTrip" as VersionedGuiltTrip MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> GuiltTripParser : parseCommand(undo)
+activate GuiltTripParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+GuiltTripParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> GuiltTripParser
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+GuiltTripParser --> LogicManager : u
+deactivate GuiltTripParser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> Model : undoGuiltTrip()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+Model -> VersionedGuiltTrip : undo()
+activate VersionedGuiltTrip
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+VersionedGuiltTrip -> VersionedGuiltTrip :resetData(ReadOnlyGuiltTrip)
+VersionedGuiltTrip --> Model :
+deactivate VersionedGuiltTrip
 
 Model --> UndoCommand
 deactivate Model

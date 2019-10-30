@@ -126,12 +126,14 @@ Format: `deleteAutoExpenditure <index>`
 
 Adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month
 
-Format: `addBudget --desc <description> --amt <budget> --period <period> [--tag <tag>]`
+Format: `addBudget cat/<category> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]` +
+Note: format for inputting period is <number><d/m/y> where d/m/y stands for days / months / years respectively
+e.g. for a period input of 10 days, use 10d
 
 Examples:
 
-* `addBudget --desc food budget --period day --amt 200 --tag food`
-* `addBudget --desc entertainment budget --amt 300`
+* `addBudget cat/Food n/Nov Budget amt/50.00 d/2019 09 09 p/1m tg/food`
+* `addBudget cat/Food n/Mala Budget amt/100.00 d/2019 09 10 p/50d`
 
 ==== Listing Budget : 'listBudget`
 
@@ -146,13 +148,13 @@ Examples:
 ==== Editing Budget : 'editBudget`
 Edits a current budget's description, amount or tag (if applicable) at the given index.
 
-Format: `editBudget --index <index> [--desc <description>] [--amt <budget>] [--tag <tag>]`
+Format: `editBudget <index> [n/<description>] [amt/<budget>] [tg/<tag>]`
 
 Examples:
 
-* `editBudget 1 --desc fooooood budget`
-* `editBudget 2 --desc lunch budget --amt 150`
-* `editBudget 2 --tag fun`
+* `editBudget 1 n/fooooood budget`
+* `editBudget 2 n/lunch budget amt/150`
+* `editBudget 2 tg/fun`
 
 ==== Deleting Budget : `deleteBudget`
 Deletes a current budget at the given index.
@@ -553,6 +555,37 @@ Format: `purchase <index>`
 Examples:
 
 * `purchase 1`
+
+=== Undo/ Redo
+==== Undo previous command : `undo`
+Restores the finance tracker to the state before the previous undoable command was executed
+
+Format: `undo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command)
+
+* `delete 1` +
+`delete 2` +
+`undo` (reverses the `delete 2` command) +
+`undo` (reverses the `delete 1` command)
+
+==== Redo previously undone command : `redo`
+Reverses the most recent undone command
+
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command)
+
+* `delete 1` +
+`delete 2` +
+`undo` (reverses the `delete 2` command) +
+`undo` (reverses the `delete 1` command)
 
 === UI features
 

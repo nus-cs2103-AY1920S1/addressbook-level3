@@ -6,9 +6,9 @@ skinparam ClassBorderColor #000000
 title After command "delete 5"
 
 package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+    class State1 as "__gt0:GuiltTrip__"
+    class State2 as "__gt1:GuiltTrip__"
+    class State3 as "__gt2:GuiltTrip__"
 }
 
 State1 -[hidden]right-> State2

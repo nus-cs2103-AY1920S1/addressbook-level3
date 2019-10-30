@@ -28,7 +28,7 @@
 
       </HBox>
     <FlowPane GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="tags" />
-    <Label fx:id="spent" styleClass="cell_big_label_amt" text="\$spend" GridPane.columnIndex="1"/>
+    <Label fx:id="left" styleClass="cell_big_label_amt" text="\$left" GridPane.columnIndex="1"/>
     <Label GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="date" styleClass="cell_small_label" text="\$date" />
   </GridPane>
 </HBox>
