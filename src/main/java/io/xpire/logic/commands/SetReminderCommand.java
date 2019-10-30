@@ -61,12 +61,12 @@ public class SetReminderCommand extends Command {
         }
 
         String daysLeft = xpireItemToSetReminder.getExpiryDate().getStatus();
-        ReminderThreshold finalThreshold = getValidThreshold(xpireItemToSetReminder);
+        ReminderThreshold finalThreshold = getValidThreshold(daysLeft);
         xpireItemToSetReminder.setReminderThreshold(finalThreshold);
 
         model.setItem(xpireItemToSetReminder, xpireItemToSetReminder);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
-        if (isThresholdExceeded(xpireItemToSetReminder)) {
+        if (isThresholdExceeded(daysLeft)) {
             return new CommandResult(String.format(MESSAGE_REMINDER_THRESHOLD_EXCEEDED, daysLeft));
         } else {
             return new CommandResult(this.threshold.getValue() > 0
@@ -75,14 +75,15 @@ public class SetReminderCommand extends Command {
         }
     }
 
-    private boolean isThresholdExceeded(XpireItem item) {
-        return !ReminderThreshold.isValidReminderThreshold(
-                this.threshold.toString(), item.getExpiryDate());
+    private boolean isThresholdExceeded(String daysLeft) {
+        int threshold = this.threshold.getValue();
+        long remainingDays = Long.parseLong(daysLeft);
+        return threshold >= remainingDays;
     }
 
-    private ReminderThreshold getValidThreshold(XpireItem item) {
-        if (isThresholdExceeded(item)) {
-            return new ReminderThreshold(item.getExpiryDate().getStatus());
+    private ReminderThreshold getValidThreshold(String daysLeft) {
+        if (isThresholdExceeded(daysLeft)) {
+            return new ReminderThreshold(daysLeft);
         } else {
             return this.threshold;
         }
