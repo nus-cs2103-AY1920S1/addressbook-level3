@@ -5,14 +5,22 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import budgetbuddy.commons.exceptions.DataConversionException;
-import budgetbuddy.model.ReadOnlyAddressBook;
+import budgetbuddy.model.LoansManager;
+import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyUserPrefs;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
+import budgetbuddy.storage.loans.LoansStorage;
+import budgetbuddy.storage.rules.RuleStorage;
+import budgetbuddy.storage.scripts.ScriptsStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends LoansStorage, RuleStorage, ScriptsStorage, UserPrefsStorage {
+
+
+    void save(Model model) throws IOException;
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +29,14 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getLoansFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    void saveLoans(LoansManager loansManager) throws IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    Path getRuleFilePath();
 
+    @Override
+    void saveRules(RuleManager ruleManager) throws IOException;
 }

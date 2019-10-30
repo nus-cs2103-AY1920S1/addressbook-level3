@@ -1,6 +1,7 @@
 package budgetbuddy.logic.parser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,10 @@ public class ArgumentMultimap {
      * @param argValue Argument value to be associated with the specified prefix key
      */
     public void put(Prefix prefix, String argValue) {
-        List<String> argValues = getAllValues(prefix);
+        List<String> argValues = argMultimap.get(prefix);
+        if (argValues == null) {
+            argValues = new ArrayList<>();
+        }
         argValues.add(argValue);
         argMultimap.put(prefix, argValues);
     }
@@ -35,8 +39,10 @@ public class ArgumentMultimap {
      * Returns the last value of {@code prefix}.
      */
     public Optional<String> getValue(Prefix prefix) {
-        List<String> values = getAllValues(prefix);
-        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+        List<String> values = argMultimap.get(prefix);
+        return values == null || values.isEmpty()
+               ? Optional.empty()
+               : Optional.of(values.get(values.size() - 1));
     }
 
     /**
@@ -46,9 +52,22 @@ public class ArgumentMultimap {
      */
     public List<String> getAllValues(Prefix prefix) {
         if (!argMultimap.containsKey(prefix)) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
         return new ArrayList<>(argMultimap.get(prefix));
+    }
+
+    /**
+     * Returns the number of values for {@code prefix}.
+     *
+     * @param prefix the prefix to check
+     * @return the number of values for the prefix
+     */
+    public int getValueCount(Prefix prefix) {
+        if (!argMultimap.containsKey(prefix)) {
+            return 0;
+        }
+        return argMultimap.get(prefix).size();
     }
 
     /**

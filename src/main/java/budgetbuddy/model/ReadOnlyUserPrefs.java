@@ -11,6 +11,9 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getAddressBookFilePath();
+    Path getLoansFilePath();
 
+    Path getRuleFilePath();
+
+    Path getScriptsPath();
 }

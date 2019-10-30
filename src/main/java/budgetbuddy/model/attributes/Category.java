@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Category {
     public static final String MESSAGE_CONSTRAINTS =
-            "Category should not be null.";
+            "Category should not be empty.";
 
     private String category;
 
@@ -22,7 +22,7 @@ public class Category {
         return category;
     }
 
-    boolean isValidDescription(String description) {
+    public static boolean isValidDescription(String description) {
         return description != null;
     }
 

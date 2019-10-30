@@ -11,6 +11,8 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    private final CommandCategory commandCategory;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -20,22 +22,29 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser,
+                         CommandCategory commandCategory, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        // todo: add requireNonNull on commandCategory after every command has set their category
+        this.commandCategory = commandCategory;
         this.showHelp = showHelp;
         this.exit = exit;
     }
 
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code commandCategory},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String feedbackToUser, CommandCategory commandCategory) {
+        this(feedbackToUser, commandCategory, false, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public CommandCategory getCommandCategory() {
+        return commandCategory;
     }
 
     public boolean isShowHelp() {

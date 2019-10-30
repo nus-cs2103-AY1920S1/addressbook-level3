@@ -8,6 +8,8 @@ import budgetbuddy.commons.util.AppUtil;
  */
 public class Amount {
 
+    public static final String CURRENCY_SIGN = "$";
+
     public static final String MESSAGE_CONSTRAINTS =
             "Amounts should be non-negative numbers and should not be blank.";
     public static final String MESSAGE_CENTS_PARSE_ERROR =
@@ -40,7 +42,7 @@ public class Amount {
 
     @Override
     public String toString() {
-        return String.format("%d.%02d", amount / 100, amount % 100);
+        return String.format("%s%d.%02d", CURRENCY_SIGN, amount / 100, amount % 100);
     }
 
     @Override

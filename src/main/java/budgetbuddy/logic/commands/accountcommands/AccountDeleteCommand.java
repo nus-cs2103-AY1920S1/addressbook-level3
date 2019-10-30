@@ -44,13 +44,13 @@ public class AccountDeleteCommand extends Command {
 
         List<Account> lastShownList = model.getAccountsManager().getAccountsList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ACCOUNT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         Account accountToDelete = lastShownList.get(targetIndex.getZeroBased());
         accountsManager.deleteAccount(accountToDelete);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete), null);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class LoanDeleteCommandParser extends MultiLoanCommandParser {
     public LoanDeleteCommand parse(String args) throws ParseException {
         try {
             parseMultiLoanArgs(args);
-            return new LoanDeleteCommand(personLoanIndexPairs, personIndices);
+            return new LoanDeleteCommand(loanIndices, persons);
         } catch (ParseException | CommandException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanDeleteCommand.MESSAGE_USAGE), e);

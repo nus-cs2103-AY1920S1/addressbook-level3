@@ -5,11 +5,12 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Status;
-import budgetbuddy.model.loan.util.PersonLoanIndexPair;
+import budgetbuddy.model.person.Person;
 
 /**
  * Marks one or more loans as unpaid.
@@ -25,26 +26,20 @@ public class LoanUnpaidCommand extends UpdateStatusCommand {
             + "Example: " + COMMAND_WORD + " "
             + MULTI_LOAN_SYNTAX_EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "Loan(s) marked as unpaid.";
-    public static final String MESSAGE_FAILURE = "One or more targeted loans could not be found.";
+    public static final String MESSAGE_SUCCESS = "Loan(s) %1$s marked as unpaid.";
 
-    public LoanUnpaidCommand(
-            List<PersonLoanIndexPair> personLoanIndexPairs, List<Index> personIndices) throws CommandException {
-        super(personLoanIndexPairs, personIndices);
+    public LoanUnpaidCommand(List<Index> loanIndices, List<Person> persons) throws CommandException {
+        super(loanIndices, persons);
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireAllNonNull(model, model.getLoansManager());
 
-        try {
-            updateStatuses(model.getLoansManager(), Status.UNPAID);
-        } catch (CommandException e) {
-            throw new CommandException(MESSAGE_FAILURE);
-        }
+        updateStatuses(model.getLoansManager(), Status.UNPAID);
 
-        String result = constructMultiLoanResult(MESSAGE_SUCCESS, MESSAGE_FAILURE);
-        return new CommandResult(result);
+        String result = constructMultiLoanResult(MESSAGE_SUCCESS);
+        return new CommandResult(result, CommandCategory.LOAN);
     }
 
     @Override

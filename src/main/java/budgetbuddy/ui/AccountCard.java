@@ -1,6 +1,7 @@
 package budgetbuddy.ui;
 
 import budgetbuddy.model.account.Account;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -45,7 +46,7 @@ public class AccountCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof AccountCard)) {
             return false;
         }
 

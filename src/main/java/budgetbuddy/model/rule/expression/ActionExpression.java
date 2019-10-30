@@ -1,10 +1,12 @@
 package budgetbuddy.model.rule.expression;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static budgetbuddy.logic.rules.RuleProcessor.isValueParsable;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RuleAction;
 
 /**
@@ -14,12 +16,13 @@ import budgetbuddy.model.rule.RuleAction;
 public class ActionExpression extends RuleAction {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Expressions should contain exactly two terms in the order <operator> <value> "
+            "Action expressions should contain exactly two terms in the order\n"
+            + "<operator> <value> "
             + "and should not be blank";
 
     public static final String MESSAGE_TYPE_REQUIREMENTS =
-            "The operator and value of the expression have to evaluate to the correct type: "
-            + "e.g. setcategory food, where 'setcategory' expects a string , "
+            "The operator and value of the expression have to evaluate to the correct type:\n"
+            + "e.g. setcategory food, where 'setcategory' expects a string\n"
             + "and 'food' is a string";
 
     public static final Pattern FORMAT_REGEX =
@@ -46,6 +49,20 @@ public class ActionExpression extends RuleAction {
 
     public Value getValue() {
         return value;
+    }
+
+    /**
+     * Returns if the action expression is valid,
+     * i.e. value is working with the expected type specified by the operator.
+     */
+    public static boolean isValidActionExpr(Operator operator, Value value) {
+        return operator.getExpectedTypes().stream()
+                .anyMatch(type -> isValueParsable(type, value));
+    }
+
+    @Override
+    public String getType() {
+        return Rule.TYPE_EXPRESSION;
     }
 
     /**

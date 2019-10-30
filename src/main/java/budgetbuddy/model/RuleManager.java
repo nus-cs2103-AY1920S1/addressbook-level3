@@ -4,112 +4,114 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.rule.Rule;
-import budgetbuddy.model.rule.UniqueRuleList;
+import budgetbuddy.model.rule.exceptions.RuleNotFoundException;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Manages all rules in a unique rule list.
+ * Maintains a list of unique rules.
  */
 public class RuleManager {
 
-    private final UniqueRuleList rules;
+    private final ObservableList<Rule> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Rule> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Creates a new (empty) list of rules.
      */
-    public RuleManager() {
-        this.rules = new UniqueRuleList();
+    public RuleManager() {}
+
+    /**
+     * Creates and fills a new list of rules.
+     * @param rules A list of rules with which to fill the new list.
+     */
+    public RuleManager(List<Rule> rules) {
+        requireNonNull(rules);
+        this.internalList.setAll(rules);
     }
 
     /**
-     * Creates a RuleManager using the Rules in the {@code toBeCopied}
+     * Retrieves the list of rules
      */
-    public RuleManager(RuleManager toBeCopied) {
-        this();
-        resetData(toBeCopied);
-    }
-
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the rule list with {@code rules}.
-     * {@code rules} must not contain duplicate rules.
-     */
-    public void setRules(List<Rule> rules) {
-        this.rules.setRules(rules);
+    public ObservableList<Rule> getRules() {
+        return internalUnmodifiableList;
     }
 
     /**
-     * Resets the existing data of this {@code RuleManager} with {@code newData}.
+     * Returns the rule at the specified index in the list.
+     * @param toGet The index of the target rule.
+     * @throws RuleNotFoundException If the rule is not in the list.
      */
-    public void resetData(RuleManager newData) {
-        requireNonNull(newData);
-
-        setRules(newData.getRuleList());
+    public Rule getRule(Index toGet) throws RuleNotFoundException {
+        checkIndexValidity(toGet);
+        return getRules().get(toGet.getZeroBased());
     }
 
-    //// rule-level operations
+    /**
+     * Returns the current number of rules in the list.
+     * @return The current number of rules in the list as an {@code int}.
+     */
+    public int getRuleCount() {
+        return getRules().size();
+    }
 
     /**
-     * Returns true if a rule with the same identity as {@code rule} exists in the rule manager.
+     * Returns true if the list contains an equivalent rule as the given argument.
      */
-    public boolean hasRule(Rule rule) {
-        requireNonNull(rule);
-        return rules.contains(rule);
+    public boolean hasRule(Rule toCheck) {
+        return internalList.contains(toCheck);
     }
 
     /**
      * Adds a rule to the rule manager.
      * The rule must not already exist in the rule manager.
      */
-    public void addRule(Rule rule) {
-        rules.add(rule);
+    public void addRule(Rule toAdd) {
+        internalList.add(0, toAdd);
     }
 
     /**
-     * Replaces the given rule {@code target} in the list with {@code editedRule}.
-     * {@code target} must exist in the rule manager.
-     * The rule identity of {@code editedRule} must not be the same as another existing rule in the rule manager.
+     * Replaces a target rule with the given rule.
+     * @param toEdit The index of the target rule to replace.
+     * @param editedRule The edited rule to replace the target rule with.
      */
-    public void setRule(Rule target, Rule editedRule) {
-        requireNonNull(editedRule);
-
-        rules.setRule(target, editedRule);
+    public void editRule(Index toEdit, Rule editedRule) throws RuleNotFoundException {
+        checkIndexValidity(toEdit);
+        internalList.set(toEdit.getZeroBased(), editedRule);
     }
 
     /**
-     * Removes {@code key} from this {@code RuleManager}.
-     * {@code key} must exist in the rule manager.
+     * Deletes a target rule from the list.
+     * @param toDelete The index of the target rule to delete.
      */
-    public void removeRule(Rule key) {
-        rules.remove(key);
-    }
-
-    //// util methods
-
-    @Override
-    public String toString() {
-        return rules.asUnmodifiableObservableList().size() + " rules";
+    public void deleteRule(Index toDelete) {
+        checkIndexValidity(toDelete);
+        internalList.remove(toDelete.getZeroBased());
     }
 
     /**
-     * Retrieves the list of rules.
+     * Check that the index given is valid.
+     * @param toCheck The index to check.
+     * @throws RuleNotFoundException If the index exceeds the current number of rules.
      */
-    public ObservableList<Rule> getRuleList() {
-        return rules.asUnmodifiableObservableList();
+    private void checkIndexValidity(Index toCheck) throws RuleNotFoundException {
+        if (toCheck.getOneBased() > getRuleCount()) {
+            throw new RuleNotFoundException();
+        }
     }
-
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RuleManager // instanceof handles nulls
-                && rules.equals(((RuleManager) other).rules));
+                && getRules().equals(((RuleManager) other).getRules()));
     }
 
     @Override
     public int hashCode() {
-        return rules.hashCode();
+        return getRules().hashCode();
     }
 }

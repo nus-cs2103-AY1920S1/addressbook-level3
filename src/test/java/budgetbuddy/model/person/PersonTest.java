@@ -1,8 +1,6 @@
 package budgetbuddy.model.person;
 
 import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static budgetbuddy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static budgetbuddy.testutil.Assert.assertThrows;
 import static budgetbuddy.testutil.TypicalPersons.ALICE;
 import static budgetbuddy.testutil.TypicalPersons.BOB;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,12 +13,6 @@ import budgetbuddy.testutil.PersonBuilder;
 public class PersonTest {
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Person person = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
-    }
-
-    @Test
     public void isSamePerson() {
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));
@@ -31,10 +23,6 @@ public class PersonTest {
         // different name -> returns false
         Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
-
-        // same name, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
     }
 
     @Test

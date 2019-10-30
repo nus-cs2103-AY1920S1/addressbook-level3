@@ -1,5 +1,7 @@
 package budgetbuddy.logic.rules.testable;
 
+import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+
 import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Value;
 
@@ -17,6 +19,7 @@ public abstract class TestableExpression implements Testable {
      * @param value the value to be tested against.
      */
     public TestableExpression(Attribute attribute, Value value) {
+        requireAllNonNull(attribute, value);
         this.attribute = attribute;
         this.value = value;
     }

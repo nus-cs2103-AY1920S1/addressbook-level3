@@ -1,8 +1,8 @@
 package budgetbuddy.model.loan;
 
+import static budgetbuddy.commons.util.AppUtil.getDateFormat;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,17 +12,18 @@ import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
 
 /**
- * Represents a Loan in a LoanList.
+ * Represents a loan.
  * Guarantees: details are present and not null, field values are validated and immutable.
  */
 public class Loan {
 
-    private final Person person;
     private final Direction direction;
     private final Amount amount;
     private final Date date;
     private final Description description;
-    private final Status status;
+
+    private Person person;
+    private Status status;
 
     /**
      * Every field must be present and not null.
@@ -42,6 +43,10 @@ public class Loan {
         return person;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     public Direction getDirection() {
         return direction;
     }
@@ -55,8 +60,7 @@ public class Loan {
     }
 
     public String getDateString() {
-        // TODO Should standardize the date display format throughout the app.
-        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+        return getDateFormat().format(date);
     }
 
     public Description getDescription() {
@@ -67,12 +71,25 @@ public class Loan {
         return status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     /**
      * Checks if the Loan has been paid.
      * @return True if paid, false otherwise.
      */
     public boolean isPaid() {
-        return status.toString().equals("PAID");
+        return status == Status.PAID;
+    }
+
+    /**
+     * Returns a {@code string} containing the amount, direction and person of the loan.
+     */
+    public String getEssentialInfo() {
+        return getDirection() == Direction.OUT
+                ? String.format("%s owes you %s", getPerson(), getAmount())
+                : String.format("You owe %s %s", getPerson(), getAmount());
     }
 
     /**
@@ -104,15 +121,16 @@ public class Loan {
     @Override
     public String toString() {
         String directionWithFunctionWord = getDirection() == Direction.OUT
-                ? getDirection().direction.toLowerCase() + " to "
-                : getDirection().direction.toLowerCase() + " from ";
+                ? getDirection().direction.toLowerCase() + " to"
+                : getDirection().direction.toLowerCase() + " from";
 
         final String divider = " | ";
         final StringBuilder builder = new StringBuilder();
         builder.append(getStatus().getStatusIcon()).append(" ")
                 .append(getAmount()).append(" ")
-                .append(directionWithFunctionWord)
-                .append(getPerson().getName()).append(divider)
+                .append(directionWithFunctionWord).append(" ")
+                .append(getPerson())
+                .append(divider)
                 .append(getDateString());
         if (!description.getDescription().isBlank()) {
             builder.append(divider).append(getDescription());

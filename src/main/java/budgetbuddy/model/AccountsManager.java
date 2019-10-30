@@ -3,24 +3,30 @@ package budgetbuddy.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.account.exception.DefaultAccountCannotBeDeletedException;
+import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Manages the accounts in a list of accounts.
  */
 public class AccountsManager {
 
-    private static Account defaultAccount = new Account(new Name("DEFAULT"), new TransactionList());
+    private static Account defaultAccount = new Account(new Name("DEFAULT"),
+            new Description(""), new TransactionList());
+
+    private final FilteredList<Account> filteredAccounts;
     private final UniqueAccountList accounts;
 
     /**
@@ -28,6 +34,7 @@ public class AccountsManager {
      */
     public AccountsManager() {
         this.accounts = new UniqueAccountList();
+        filteredAccounts = new FilteredList<>(this.getAccountsList(), s -> true);
         this.accounts.add(defaultAccount);
     }
 
@@ -39,12 +46,14 @@ public class AccountsManager {
     public AccountsManager(List<Account> accounts) {
         requireNonNull(accounts);
         this.accounts = new UniqueAccountList(accounts);
+        filteredAccounts = new FilteredList<>(this.getAccountsList(), s -> true);
         defaultAccount = this.accounts.getAccountByIndex(Index.fromZeroBased(0));
     }
 
     public Account getDefaultAccount() {
         return defaultAccount;
     }
+
 
     /**
      * Retrieves the list of accounts.
@@ -53,6 +62,14 @@ public class AccountsManager {
     public ObservableList<Account> getAccountsList() {
         return accounts.asUnmodifiableObservableList();
     }
+
+    /**
+     * Returns an unmodifiable view of the list of Account
+     */
+    public ObservableList<Account> getFilteredAccountList() {
+        return filteredAccounts;
+    }
+
 
     /**
      * Adds a given account to its specified account in the list.
@@ -79,7 +96,7 @@ public class AccountsManager {
      * before it can be deleted.
      * @param toDelete The target account for deletion.
      */
-    public void deleteAccount (Account toDelete) {
+    public void deleteAccount(Account toDelete) {
         if (accounts.contains(toDelete)) {
             if (defaultAccount.isSameAccount(toDelete)) {
                 throw new DefaultAccountCannotBeDeletedException();
@@ -88,6 +105,15 @@ public class AccountsManager {
         } else {
             throw new AccountNotFoundException();
         }
+    }
+
+    /**
+     * Updates the filter of the filtered account list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    public void updateFilteredAccountList(Predicate<Account> predicate) {
+        requireNonNull(predicate);
+        filteredAccounts.setPredicate(predicate);
     }
 
     /**
@@ -109,7 +135,6 @@ public class AccountsManager {
         Account account = toDelete.getAccount();
         account.deleteTransaction(toDelete);
     }
-
 
     @Override
     public boolean equals(Object other) {

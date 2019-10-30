@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="5"/>
+        </columnConstraints>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="80" />
+        </columnConstraints>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="15"/>
+        </columnConstraints>
+        <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15"/>
+            </padding>
+            <Label fx:id="id" styleClass="cell_big_label"/>
+        </VBox>
+        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="1">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <Label fx:id="amountDirectionPerson" text="\$first" styleClass="cell_big_label" />
+            <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
+            <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+        </VBox>
+        <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="2">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <Label fx:id="status" styleClass="cell_big_label"/>
+        </VBox>
+    </GridPane>
+</HBox>

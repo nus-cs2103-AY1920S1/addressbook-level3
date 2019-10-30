@@ -1,8 +1,10 @@
 package budgetbuddy.logic.parser.commandparsers.accountcommandparsers;
 
 import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import budgetbuddy.logic.commands.accountcommands.AccountAddCommand;
@@ -13,6 +15,7 @@ import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.Prefix;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.account.Account;
+import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.TransactionList;
 
@@ -32,7 +35,7 @@ public class AccountAddCommandParser implements CommandParser<AccountAddCommand>
      */
     public AccountAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -41,9 +44,14 @@ public class AccountAddCommandParser implements CommandParser<AccountAddCommand>
 
         Name name = CommandParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
+        Optional<String> optionalDescription = argMultimap.getValue(PREFIX_DESCRIPTION);
+        Description description = optionalDescription.isPresent()
+                ? CommandParserUtil.parseDescription(optionalDescription.get())
+                : new Description("");
+
         TransactionList transactionList = new TransactionList();
 
-        Account account = new Account(name, transactionList);
+        Account account = new Account(name, description, transactionList);
 
         return new AccountAddCommand(account);
     }

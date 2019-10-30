@@ -6,12 +6,16 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 package Logic {
 
-package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
+package Script {
+Class ScriptManager
+}
+
+package CommandParser {
+Interface CommandParser <<Interface>>
+Class CommandLineParser
 Class XYZCommandParser
 Class CliSyntax
-Class ParserUtil
+Class CommandParserUtil
 Class ArgumentMultimap
 Class ArgumentTokenizer
 Class Prefix
@@ -23,6 +27,15 @@ Class CommandResult
 Class "{abstract}\nCommand" as Command
 }
 
+package Rule {
+Interface Testable <<Interface>>
+Interface Performable <<Interface>>
+Class "{abstract}\nTestableExpression" as TestableExpression
+Class "{abstract}\nPerformableExpression" as PerformableExpression
+Class TUVExpression
+Class ABCExpression
+}
+
 Interface Logic <<Interface>>
 Class LogicManager
 }
@@ -32,31 +45,42 @@ Class HiddenModel #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
+HiddenOutside ...> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager --->"1" CommandLineParser
+CommandLineParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
+XYZCommandParser ..|> CommandParser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
 ArgumentTokenizer .left.> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
+XYZCommandParser ..> CommandParserUtil
+CommandParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+TestableExpression .right.|> Testable
+PerformableExpression .right.|> Performable
+TUVExpression -right-|> TestableExpression
+ABCExpression -right-|> PerformableExpression
+LogicManager .left.> Testable : tests >
+LogicManager .left.> Performable : performs >
+PerformableExpression -[hidden]-> TestableExpression
+
+LogicManager -up--> ScriptManager
+Command .up.> ScriptManager
+
+LogicManager -left-> Model
+Command .left.> Model
+note right of XYZCommand: XYZCommand = AccountAddCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
 Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+CommandResult -[hidden]-> CommandParser
 @enduml

@@ -2,17 +2,18 @@ package budgetbuddy.logic.commands.loancommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
 import budgetbuddy.commons.core.index.Index;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.LoanList;
-import budgetbuddy.model.loan.util.PersonLoanIndexPair;
+import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
+import budgetbuddy.model.person.Person;
 
 /**
  * Delete one or more loans.
@@ -28,30 +29,45 @@ public class LoanDeleteCommand extends MultiLoanCommand {
             + "Example: " + COMMAND_WORD + " "
             + MULTI_LOAN_SYNTAX_EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "Loan(s) deleted.";
-    public static final String MESSAGE_FAILURE = "One or more targeted loans could not be found.";
+    public static final String MESSAGE_SUCCESS = "Loan(s) %1$s deleted.";
 
-    public LoanDeleteCommand(
-            List<PersonLoanIndexPair> personLoanIndexPairs, List<Index> personIndices) throws CommandException {
-        super(personLoanIndexPairs, personIndices);
+    public LoanDeleteCommand(List<Index> loanIndices, List<Person> persons) throws CommandException {
+        super(loanIndices, persons);
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireAllNonNull(model, model.getLoansManager());
 
         LoansManager loansManager = model.getLoansManager();
-        LoanList targetLoans = constructTargetLoanList(loansManager);
-        Consumer<Loan> operation = loansManager::deleteLoan;
+        List<Index> targetLoanIndices = constructTargetLoanIndicesList(loansManager);
+        Consumer<Index> deleteLoanOp = loansManager::deleteLoan;
 
-        try {
-            actOnTargetLoans(targetLoans, operation);
-        } catch (CommandException e) {
-            throw new CommandException(MESSAGE_FAILURE);
+        actOnTargetLoans(targetLoanIndices, deleteLoanOp);
+
+        String resultMessage = constructMultiLoanResult(MESSAGE_SUCCESS);
+        return new CommandResult(resultMessage, CommandCategory.LOAN);
+    }
+
+    /**
+     * The indices of loans in the list will (potentially) change after each deletion.
+     * This version of multi-loan targeting takes this into account
+     * when passing the target indices to the given operation.
+     */
+    @Override
+    public void actOnTargetLoans(List<Index> targetLoanIndices, Consumer<Index> operation) {
+        int indicesProcessed = 0;
+        // indices MUST be sorted before iteration
+        targetLoanIndices.sort(Comparator.comparingInt(Index::getZeroBased));
+        for (Index index : targetLoanIndices) {
+            try {
+                operation.accept(Index.fromZeroBased(index.getZeroBased() - indicesProcessed));
+                indicesProcessed++;
+                hitLoanIndices.add(index);
+            } catch (LoanNotFoundException e) {
+                missingLoanIndices.add(index);
+            }
         }
-
-        String resultMessage = constructMultiLoanResult(MESSAGE_SUCCESS, MESSAGE_FAILURE);
-        return new CommandResult(resultMessage);
     }
 
     @Override

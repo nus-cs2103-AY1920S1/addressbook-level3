@@ -13,6 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W13-4/main
+:jarName: budgetbuddy.jar
 
 By: `CS2103T W13-4`
 
@@ -23,48 +24,87 @@ More importantly, Budget Buddy is *optimized for those who prefer to work with a
 while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, Budget Buddy can get your expense management tasks done faster than traditional GUI apps.
 Furthermore, Budget Buddy allows computing students to add their own functions through customized JavaScript files,
-as well as a set of rules to simplify expense tracking.
+as well as a set of rules to simplify expense tracking through automation.
 
 == Quick Start
 
-Nothing to see here.
+_Ensure that Java 11 is installed on your system._
+
+Download the latest version of Budget Buddy link:{repoURL}/releases[here].
+
+Place the _{jarName}_ file in your desired home folder. This folder will contain all data saved into Budget Buddy.
+
+Double click the _{jarName}_ file to launch Budget Buddy.
+
+====
+*Launching for the first time*
+
+* A default account will created.
+* Type `transaction out x/100 d/This is my first transaction!` to add a new spending.
+* To view your accounts, type `account list`
+* To view available commands, type `help`
+====
+
+If the application does not run, follow the instructions below based on your operating system:
+
+* Mac/Linux:
+** Launch _Terminal_
+** Navigate to the home folder where _{jarName}_ is, using the `cd` command, e.g. `cd ~/Documents/BudgetBuddy`
+** Execute the jar file using `java -jar budgetbuddy.jar`
+
+* Windows:
+** Launch _Cmd_, or Windows' Command Prompt
+** Navigate to the home folder where _{jarName}_ is, using the `cd` command, e.g. `cd Documents\BudgetBuddy`
+** Execute the jar file using `java -jar budgetbuddy.jar`
+
 
 [[Features]]
 == Features
 
+Budget Buddy comes with many tools to help you manage your expenses better! You can create multiple accounts,
+add and remove transactions that you have made, and even track any outstanding loans that you may have.
+
+What's more? Automate processes by using rules. Typing repetitive descriptions? Set the description of a transaction
+automatically by using a keyword! Set a Food category automatically each time you make a food
+transaction! Automate everything!
+
+If you know how to code in JavaScript, great news for you too. Write and evaluate your own scripts within the application,
+do complicated things in a snap. And even use your script in rules!
+
 ====
 *Command Format*
 
-* Words within `<>` brackets are parameters to be supplied by the user.
+* Commands start with a category, and a command type usually follows, e.g. `rule add`
+* Words written using `<>` brackets are parameters to be supplied by the user.
 * Parameters within `[]` brackets are optional and can be omitted.
 * `|` indicates that a choice must be made between two parameters.
 * `...` indicates a variable number (at least 1) of the specified parameter.
 ====
 
-=== Viewing help : `help`
+=== Viewing help: `help`
 
 Displays help. If `command` is specified, view detailed help for that command.
 
-Format: `help [<command]>`
+Format: `help [<command>]`
 
-=== Manage defaults : `default`
+=== Managing defaults: `default`
 
-==== Set default account : `default account`
+==== Set default account: `default account`
 
 Sets the default account.
 
 Format: `default account <id>`
 
-=== Manage the main transaction view : `view`
+=== Managing the main transaction view: `view`
 
-==== Filter transactions : `view filter`
+==== Filter transactions: `view filter`
 
 Filters the main transaction view. If no arguments are provided, all transactions are shown.
 Otherwise, only transactions meeting all the criteria are shown.
 
 Format: `view filter [a/<account>] [c/<category>] [f/<from date>] [t/<to date>]`
 
-==== Sort transactions : `view sort`
+==== Sort transactions: `view sort`
 
 Sorts transactions by (a)ccount, (c)ategory, (d)ate or (x)amount.
 Specify `o/a` to sort in ascending order, or `o/d` to sort in descending order.
@@ -72,84 +112,84 @@ If omitted, sort in ascending order.
 
 Format: `view sort s/<a|c|d|x> [o/<a|d>]`
 
-=== Managing transactions : `transaction`
+=== Managing transactions: `transaction`
 
-==== Add a transaction : `txn out|in`
+==== Add a transaction: `txn out|in`
 
 Adds a new transaction of the specified amount and with the given description.
 
 Format: `txn out|in x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 ****
 * If the account is not given, the transaction is inserted into the default account.
-* If the category is not given, the transaction is not categorised.
+* If the category is not given, the transaction is not categorized.
 * If the date is not given, the date is set to the current date.
 * If the argument ‘r’ is added, the transition is marked as recurring;
 identical entries will be added either daily, weekly, monthly, or yearly.
 ****
 
-==== Edit a transaction : `txn edit`
+==== Edit a transaction: `txn edit`
 
 Edits the specified txn, setting the specified fields.
 If the ‘recurring’ field is modified, the app will ask if all previous recurring entries should be deleted.
 
 Format: `txn edit <id> out|in [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 
-==== Delete transaction(s) : `txn delete`
+==== Delete transaction(s): `txn delete`
 
-Deletes the txn with the specified ID.
+Deletes the transaction with the specified ID.
 
-Format: `txn delete <id ...>`
+Format: `txn delete <id>`
 
-=== Managing accounts : `account`
+=== Managing accounts: `account`
 
-==== Add an account : `account add`
+==== Add an account: `account add`
 
 Creates a new account with the given name. If the currency symbol is not specified, “$” is used.
 
 Format: `account add n/<name> [c/<currency symbol>]`
 
-==== List accounts : `account list`
+==== List accounts: `account list`
 
 Lists all accounts.
 
-==== Edit an account : `account edit`
+==== Edit an account: `account edit`
 
 Edits the specified account, setting the specified fields.
 
 Format: `account edit <id> [n/<name>] [c/<currency symbol>]`
 
-==== Delete account(s) : `account delete`
+==== Delete account(s): `account delete`
 
 Deletes the accounts with the specified IDs, as in `account list`.
 Note: you cannot delete an account if there are transactions associated with the account.
 
 Format: `account delete <id ...>`
 
-=== Managing categories : `category`
+=== Managing categories: `category`
 
-==== Adding a category
+==== Add a category
 
 Categories do not need to be added; you can simply use the category name and a new category will be created if no such one exists.
 
-==== List categories : `category list`
+==== List categories: `category list`
 
 Lists all categories.
 
-==== Rename a category : `category rename`
+==== Rename a category: `category rename`
 
 Renames the specified category.
 Note that this is the same as setting the category of all transactions of category `old name` to `new name`.
 
 Format: `category rename o/<old name> n/<new name>`
 
-==== Delete a category : `category delete`
+==== Delete a category: `category delete`
 
 Deletes the specified category.
 Note that this is the same as un-categorising all transactions under the specified category.
 
 Format: `category delete n/<name>`
 
-=== Viewing reports : `report`
+=== Viewing reports: `report`
 
 Displays a report.
 
@@ -163,104 +203,121 @@ If the type is omitted, it defaults to a total report.
 * Your goal progress will also be shown in both reports.
 ****
 
-=== Managing budgets : `budget`
+=== Tracking loans: `loan`
 
-Displays or sets the budget for the specified period.
-If the period is omitted, it defaults to the entire current month.
-
-Format: `budget [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [<amount>|unset]`
-
-==== Viewing budgets
-
-To view budgets, omit `[<amount>|unset]` from the command.
-All budgets overlapping the period specified will be displayed.
-
-==== Setting budgets
-
-To set a budget, specify the `[<amount>]`. Note that budgets cannot overlap.
-
-==== Removing budgets
-
-To unset a budget, specify `[unset]`.
-
-=== Goal setting : `goal`
-
-==== Adding a goal : `goal add`
-
-Adds a goal on the specified account to reach the specified amount by the target date or at the end of the specified period.
-
-Format: `goal add [a/<account>] [[d/<target date>] | [p/<this week|this month|next month|this year>]] x/[+]<amount>`
-****
-* If the account is omitted, the default account is set.
-* If the period is omitted, the target date is set to the last day of the current month.
-* If + is specified before amount, then the target amount is set as amount more than the current balance in the target account.
-****
-
-==== View goals : `goal list`
-
-List all goals.
-
-==== Delete goal(s) : `goal delete`
-
-Deletes the goals with the specified goal IDs. Goal IDs can be retrieved from `goal list`.
-
-Format: `goal delete <id ...>`
-
-=== Tracking loans : `loan`
-
-==== Add a new loan : `loan out|in`
+==== Add a new loan: `loan out|in`
 
 Adds a new loan out/in entry.
-Each person has a unique ID and each person's loans have unique IDs (across both out and in entries).
-If date is not given, it is set to the default date.
+Each loan has a unique ID (across both out and in entries).
+If date is not given, it is set to the current date.
 
-Format: `loan out|in p/<person's name> x/<amount> d/<description> [w/<date>]`
+Format: `loan out|in p/<person's name> x/<amount> [w/<date>] [d/<description>]`
 
-==== List loans : `loan list`
+==== List loans: `loan list`
 
-Displays a list of all loans, sorted by newest first.
+Displays a list of all loans, sorted alphabetically by person first, then by newest for each person's loans.
 
-Format: `loan list [p/<person's name ...>] [o|i] [s/a]`
+Format: `loan list [out|in|unpaid|paid ...] [p/<person> ...] [x/<amount> ...] [w/<date> ...] [d/<description> ...] [s/<w|x|p>]`
 ****
-* Adding a person's name filters the list to that/those person(s)'s loans.
-* Adding ‘o’ argument filters list to out loans only.
-* Adding ‘i’ argument filters list to in loans only.
-* Add `s/a` to sort the list by amount.
+* Filter the list using one or more of the `out`, `in`, `unpaid`, `paid` filters.
+* Filter persons, amounts, dates and descriptions in the list by adding one or more of the `p/<person>`, `x/<amount>`, `w/<date>`, `d/<description>` filters.
+* Sort the list by date, amount, or persons using `s/w`, `s/x`, or `s/p` respectively.
+** Adding `s/x` when the list is already sorted by amount will reverse the order of sorting (e.g. descending to ascending). This works for all available sorts.
 ****
 
-==== Edit loan : `loan edit`
+==== Edit loan: `loan edit`
 
 Edits the specified field of the loan entry with the specified ID.
 
-Format: `loan edit <person number>.<loan number> [x/<amount>] [d/<description>] [w/<date>]`
+Format: `loan edit <loan ID> [<p/person>] [x/<amount>] [d/<description>] [w/<date>]`
 
-==== Mark loan(s) as paid : `loan paid`
+==== Mark loan(s) as paid: `loan paid`
 
 Marks the specified loan(s) as paid.
+If a person's name is specified, all their loans are marked as paid.
 
-Format: `loan paid <person number>[.<loan number>[- ...]] ...`
+Format: `loan paid <loan ID ...> [<p/person ...>]`
 
-==== Mark loan(s) as unpaid : `loan unpaid`
+==== Mark loan(s) as unpaid: `loan unpaid`
 
 Marks the specified loan(s) as unpaid.
+If a person's name is specified, all their loans are marked as unpaid.
 
-Format:  `loan unpaid <person number>[.<loan number>[- ...]] ...`
+Format: `loan unpaid <loan ID ...> <p/person ...>`
 
-==== Delete loan(s) : `loan delete`
+==== Delete loan(s): `loan delete`
 
 Deletes the loan(s) with the specified loan ID(s).
+If a person's name is specified, all of that person's loans are deleted.
 
-Format: `loan delete <person number>[.<loan number>[- ...]] ...`
+Format: `loan delete <loan ID ...> <p/person ...>`
 
-==== Calculate loans : `loan split`
+==== Calculate loans: `loan split`
 
-Splits and calculates a group payment, then prints a list of who owes who.
+Splits and calculates a group payment, then displays a list of who owes who how much.
 
-Format: `loan split n/<name> a/<amount paid> ...`
+Format: `loan split [me/<your name> w/<date> d/<description>] n/<name> x/<amount paid> ...`
+****
+* Adding the optional `me/` will add all debts from the resulting list to your loan list.
++
+`<your name>` must match one of the names among the other `n/<name>` names.
+* Adding `w/` will set the date of the loans added to your list.
+* Adding `d/` will set the description of the loans added to your list.
+****
 
-=== Import and export : `import, export`
+=== Automating with rules: `rule`
 
-==== Import a file : `import`
+==== Add a new rule: `rule add`
+
+Adds a new rule to the rule engine.
+A rule can be formed using either expressions or scripts, or both.
+
+Format: `rule add pred/<expression | script name> act/<expression | script name>`
+
+Refer to <<Scripting>> for script usage.
+****
+*Expression Formatting Guide:*
+
+* Predicate: In the order of `<attribute> <predicate operator> <value>`
+** An attribute can be one of the following:
+*** `inamt` : Transaction amount inwards
+*** `outamt` : Transaction amount outwards
+*** `desc` : Transaction description
+** A predicate operator can be one of the following:
+*** `=` : equality operator
+*** `<` , `\<=`  , `>=` , `>` : inequality operators
+*** `contains` : string comparison operator
+** A value can be a number or a string of length not more than 50 characters
+
+* Action: In the order of `<action operator> <value>`
+** An action operator can be one of the following:
+*** `setcategory` : Adds a category to the transaction
+*** `setdesc` : Sets the description of the transaction
+** A value is as described in a predicate expression
+****
+
+==== List rules: `rule list`
+
+Displays the list of all existing rules, sorted by the order in which a rule was added.
+
+Format: `rule list`
+
+==== Edit a rule: `rule edit`
+
+Edits the specified fields in the rule with the specified ID.
+Both the predicate and action can be modified.
+
+Format: `rule edit <rule ID> [pred/<expression | script>] [act/<expression | script>]`
+
+==== Delete a rule: `rule delete`
+
+Deletes a rule with the specified rule ID.
+
+Format: `rule delete <rule ID>`
+
+=== Import and export: `import, export`
+
+==== Import a file: `import`
 
 Imports transactions from the file at the given path.
 
@@ -272,7 +329,7 @@ If the path is omitted, a file browser is opened for you to select the file.
 If the format is omitted, automatic detection is attempted.
 ****
 
-==== Export transactions : `export`
+==== Export transactions: `export`
 
 Exports all transactions to the given path.
 
@@ -283,6 +340,71 @@ If the path is omitted, a file browser is opened for you to select where to save
 * The file is a comma-separated values file.
 ****
 
+[[Scripting]]
+=== Scripting: `script`
+
+==== Evaluate a script: `script eval`
+
+Evaluates a script and displays the result.
+
+Format: `script eval <script>`
+
+****
+* The scripting language is JavaScript (specifically, ECMAScript 5.1).
+****
+
+==== Add a stored script: `script add`
+
+Stores a script for future invocation.
+
+Format: `script add <script name> [p/<file path> | s/<script>]`
+
+****
+* The script name may contain only alphanumeric characters, underscores, and dashes.
+* If neither a file path nor the script code is given, a file browser is opened for you to
+select the script file.
+****
+
+WARNING: The script is not checked for correctness before it is stored. Any syntax errors
+will be reported only when the script is run.
+
+==== Run a stored script: `script run`
+
+Runs a previously-stored script.
+
+Format: `script run <script name> [<argument>]`
+
+****
+* The argument is the rest of the command line after the script name, and is passed to the script as a single string.
+****
+
 == FAQ
 
+*Q:* Which version of Java do I require to run this application?
+
+*A:* Java 11
+
+'''
+
+*Q:* How do I switch between the different tabs without clicking on them?
+
+*A:* Simply execute the `list` command for that category, e.g. `rule list`.
+On the other hand, executing any command from that category will switch you over as well.
+
+'''
+
+*Q:* How do I reset the application data?
+
+*A:* All data is stored within the same folder as your execution path, under the "data/" folder.
+Deleting that folder will reset the application data.
+
 == Command Summary
+
+=== Rules
+
+* `rule add` - Add a new rule
+* `rule list` - List rules
+* `rule edit` - Edit a rule
+* `rule delete` - Delete a rule
+
+

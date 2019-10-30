@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/budgetbuddy/Main.java[`Main`] and link:{repoURL}/src/main/java/budgetbuddy/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,11 +77,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/budgetbuddy/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/budgetbuddy/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,20 +96,20 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/budgetbuddy/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `CommandLineParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a loan).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as switching the current panel on display.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `account delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `AccountDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -117,13 +117,13 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/budgetbuddy/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores Budget Buddy's data.
+* exposes multiple unmodifiable `ObservableLists` that can be 'observed' e.g. the `ListPanels` in UI are bound to these lists so that the UI automatically updates when the data in the lists change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -137,21 +137,190 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/budgetbuddy/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save Budget Buddy's data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `budgetbuddy.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::loans[]
+=== Loans Feature
+==== Implementation
+
+The Loans feature exists outside of the Account/Transaction mechanisms.
+It adds a separate `LoansManager` alongside the main `AccountsManager`, with `Loan` objects stored internally in an `internalList`.
+
+The following class diagram demonstrates the association between the `LoansManager` and `Loan` objects
+(miscellaneous methods such as getters and setters are omitted):
+
+image::LoanClassDiagram.png[]
+
+Each `Loan` object has the following attributes:
+
+* `person:Person` -- The person to whom the loan belongs.
+* `amount:Amount` -- The amount of money loaned.
+* `direction:Direction` -- The direction of the loan (either *in* or *out*).
+* `status:Status` -- The status of the loan (either *paid* or *unpaid*).
+* `date:Date` -- The date of the loan.
+* `description:Description` (optional) -- A description of the loan.
+
+To facilitate the manipulation of `Loan` objects, `LoansManager` implements the following operations.
+
+* `LoansManager#getLoans()` -- Gets the current list of loans.
+* `LoansManager#addLoan(Index toAdd)` -- Adds the `Loan toAdd` to `internalList`.
+* `LoansManager#editLoan(Index toEdit, Loan editedLoan)` -- Edits the loan at `Index toEdit` to match `Loan editedLoan`.
+* `LoansManager#updateLoanStatus(Index toUpdate, Status newStatus)` -- Updates the `Status` of the loan at `Index toUpdate` to `newStatus`.
+* `LoansManager#deleteLoan(Index toDelete)` -- Deletes the loan at `Index toDelete` from `internalList`.
+
+After each of the above operations, the state of `internalList` is saved in the file `loans.json`, which is stored on the local hard disk.
+
+Given below is an example usage scenario and how the `LoansManager` behaves at each step.
+
+Step 1. The user launches the application.
+If `loans.json` exists on the hard disk, its data is loaded into `internalList`.
+Otherwise, `loans.json` is created and the `LoansManager` initializes with an empty `internalList`.
+
+Step 2. The user executes the command `loan out p/John x/4.20` to add a new loan.
+This creates a new loan `toAdd` of `amount` 4.20 `out` to the `person` John, with the current `date` being used as the user did not provide one.
+`LoansManager#addLoan(Loan toAdd)` is then called and `toAdd` is added to `internalList`.
+
+The following sequence diagram illustrates how the process of adding a loan works:
+
+image::LoanSequenceDiagram.png[]
+
+In general, the rest of the operations work using a similar sequence of steps.
+Some commands might create a new `Loan` object (as shown above) while others might simply use the `Index` of a loan.
+
+Step 3. The user executes the command `loan list` to see their current list of loans.
+`LoansManager#getLoans()` is called.
+An immutable version of `internalList` sorted by `person` is retrieved and displayed to the user.
+
+Step 4. The user executes the command `loan edit 1 x/500` to edit the `amount` of the first loan in the list.
+This creates a new `editedLoan` identical to the first loan in `internalList`, except that `editedLoan` has an `amount` of 500.
+`LoansManager#editLoan(Index toEdit, Loan editedLoan)` is then called,
+where `toEdit` is the index of the first loan in `internalList`,
+and `toEdit` is replaced with `editedLoan`.
+
+Step 5. The user executes the command `loan paid 1` to update the status of the first loan in the list to *paid*.
+`LoansManager#updateLoanStatus(Index toUpdate, Status newStatus)` is called
+(where `toUpdate` is the index of the first loan in `internalList` and `newStatus` has the value `Status.PAID`)
+and the loan at index `toUpdate` in `internalList` has its `status` updated to `newStatus`.
+
+[NOTE]
+The command `loan unpaid` works identically to `loan paid`, except that `newStatus` has the value `Status.UNPAID`.
+
+Step 6. The user executes the command `loan delete 1` to delete the first loan in the list.
+`LoansManager#deleteLoan(Index toDelete)` is called,
+where `toDelete` is the index of the first loan in `internalList`,
+and the loan at index `toDelete` is removed from `internalList`.
+
+[NOTE]
+For the commands `loan paid`, `loan unpaid` and `loan delete`,
+if the user targets a loan outside of the list (e.g. index greater than list size)
+an error message will be displayed.
+
+===== Multi-Loan Targeting
+
+The user can target and act on multiple loans with a single command.
+For example, `loan delete 1 3 4` can be used to delete the first, third and fourth loans in `internalList`.
+Alternatively or additionally, `loan delete p/John Mary` can also be used
+to delete all the loans of the persons John and Mary in `internalList`.
+The `LoansManager` handles this by executing the appropriate operation repeatedly.
+In the case of `loan delete 1 3 4`, `LoansManager#deleteLoan(Index toDelete)` is called once for each of the three loans.
+
+If any of the targeted loan indices cannot be found by the `LoansManager` in `internalList`, they are added to a `missingLoanIndices` list.
+The `missingLoanIndices` list is then displayed to the user after all other loans have been acted upon,
+notifying them that the loans with those indices could not be found.
+
+Multi-loan targeting is implemented for the commands `loan paid`, `loan unpaid` and `loan delete`.
+
+==== Design Considerations
+===== Aspect: Structure of the loan - person interaction
+
+* **Alternative 1 (current choice)**: `LoansManager` stores `internalList`; each `Loan` references a `Person`
+** Pros: Easy to implement and understand.
+** Cons: Takes a longer time to get all the loans belonging to a person.
+* **Alternative 2**: `LoansManager` stores `persons` list; each `Person` stores `LoanList`; each `Loan` references `Person`
+** Pros: Easy to retrieve the person of each loan and retrieve all the loans belonging to a person.
+** Cons: Circular dependency and high coupling, potentially leading to lower testability and a higher bug count.
+// end::loans[]
+
+// tag::rules[]
+=== Rules Feature
+==== Implementation
+
+The Rules feature exists as an integration onto the Transaction system. It makes use
+of syntax processing, together with scripts to provide an automation solution to
+repetitive tasks when adding transactions.
+
+Rules are defined with a pair of predicate and action, where an action is performed
+given that the predicate returns true. This predicate-action split allows us to decouple
+testing from performing, which helps to increase reusability of individual predicates
+and actions.
+
+Basic attributes and operators are exposed to provide users a way of writing simple
+tests on transactions without having to manually check and make changes. Storing rules
+works similarly to LoansManager, where individual rules are stored in a
+`RuleManager` which manages all CRUD operations.
+
+All rules are stored in in a JSON file formatted to be retrieved and parsed by the
+application when relaunched.
+
+The following class diagram illustrates the structure of the rule model and how it
+integrates with the logic.
+
+image::RuleClassDiagram.png[]
+
+_TODO: class diagram_
+
+image::RuleSequenceDiagram.png[]
+
+_TODO: sequence diagram_
+
+image::RuleActivityDiagram.png[]
+
+_TODO: activity diagram_
+
+==== Design Considerations
+
+_TODO: design considerations_
+// end::rules[]
+
+// tag::scripts[]
+=== Scripting
+==== Implementation
+
+The scripting engine works independently of the rest of the application.
+At its core, it uses the Nashorn ECMAScript 5.1 engine bundled with Java 11 to
+evaluate scripts.
+
+A set of convenience functions are provided to make basic tasks, such as manipulating
+transactions and accounts, easier. The full model and UI are nevertheless exposed to
+scripts, and scripts are able to access any classes provided in the Java 11 standard
+library, as well as any dependencies included in the application.
+
+There is a simple mechanism to store scripts to be run in future. This works together
+with rules to give the ability to have complex predicates and actions outside of
+those supported inherently by the program. This also works with aliases to allow,
+in effect, custom commands to be created.
+
+The following class diagram illustrates the design of the scripting engine and model.
+
+_TODO: Class diagram_
+
+==== Design considerations
+
+_TODO_
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature

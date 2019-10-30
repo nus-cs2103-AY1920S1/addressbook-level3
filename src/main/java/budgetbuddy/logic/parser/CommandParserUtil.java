@@ -1,22 +1,19 @@
 package budgetbuddy.logic.parser;
 
+import static budgetbuddy.commons.util.AppUtil.getDateFormat;
 import static java.util.Objects.requireNonNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Matcher;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.StringUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.logic.rules.RuleProcessingUtil;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RuleAction;
 import budgetbuddy.model.rule.RulePredicate;
 import budgetbuddy.model.rule.expression.ActionExpression;
@@ -24,7 +21,7 @@ import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Operator;
 import budgetbuddy.model.rule.expression.PredicateExpression;
 import budgetbuddy.model.rule.expression.Value;
-import budgetbuddy.model.tag.Tag;
+import budgetbuddy.model.script.ScriptName;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.TransactionList;
 
@@ -34,7 +31,6 @@ import budgetbuddy.model.transaction.TransactionList;
 public class CommandParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String TYPE_EXPRESSION = "EXPRESSION";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
@@ -74,8 +70,9 @@ public class CommandParserUtil {
     public static Account parseAccount(String account) throws ParseException {
         requireNonNull(account);
         String trimmedAccount = account.trim();
-        return new Account(new Name(trimmedAccount), new TransactionList());
+        return new Account(new Name(trimmedAccount), new Description("null"), new TransactionList());
     }
+
     /**
      * Parses a {@code String amount} into an {@code Amount}.
      * Leading and trailing whitespaces will be trimmed.
@@ -87,7 +84,7 @@ public class CommandParserUtil {
         String trimmedAmount = amount.trim();
 
         String[] dollarCentArray = trimmedAmount.split("\\.");
-        if (dollarCentArray.length < 1) {
+        if (dollarCentArray.length <= 0 || dollarCentArray.length >= 3) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
 
@@ -137,38 +134,10 @@ public class CommandParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         try {
-            // TODO Some problems, e.g. 12/13/2020 gets parsed to 12/01/2021
-            return new SimpleDateFormat("dd/MM/yy").parse(trimmedDate);
+            return getDateFormat().parse(trimmedDate);
         } catch (java.text.ParseException e) {
             throw new ParseException(e.getMessage());
         }
-    }
-
-    /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
     }
 
     /**
@@ -183,7 +152,7 @@ public class CommandParserUtil {
         if (!Attribute.isValidAttribute(trimmedAttr)) {
             throw new ParseException(Attribute.MESSAGE_CONSTRAINTS);
         }
-        return Attribute.of(trimmedAttr).get();
+        return Attribute.of(trimmedAttr);
     }
 
     /**
@@ -198,7 +167,7 @@ public class CommandParserUtil {
         if (!Operator.isValidOperator(trimmedOp)) {
             throw new ParseException(Operator.MESSAGE_CONSTRAINTS);
         }
-        return Operator.of(trimmedOp).get();
+        return Operator.of(trimmedOp);
     }
 
     /**
@@ -235,7 +204,7 @@ public class CommandParserUtil {
         Operator operator = parseOperator(matcher.group("exprOperator"));
         Value value = parseValue(matcher.group("exprValue"));
 
-        if (!RuleProcessingUtil.isValidPredicateExpr(attribute, operator, value)) {
+        if (!PredicateExpression.isValidPredicateExpr(attribute, operator, value)) {
             throw new ParseException(PredicateExpression.MESSAGE_TYPE_REQUIREMENTS);
         }
         return new PredicateExpression(attribute, operator, value);
@@ -259,7 +228,7 @@ public class CommandParserUtil {
         Operator operator = parseOperator(matcher.group("exprOperator"));
         Value value = parseValue(matcher.group("exprValue"));
 
-        if (!RuleProcessingUtil.isValidActionExpr(operator, value)) {
+        if (!ActionExpression.isValidActionExpr(operator, value)) {
             throw new ParseException(ActionExpression.MESSAGE_TYPE_REQUIREMENTS);
         }
         return new ActionExpression(operator, value);
@@ -270,7 +239,7 @@ public class CommandParserUtil {
      */
     public static RulePredicate parsePredicate(String predicate, String type) throws ParseException {
         requireNonNull(predicate);
-        if (type.equals(TYPE_EXPRESSION)) {
+        if (type.equals(Rule.TYPE_EXPRESSION)) {
             return parsePredicateExpr(predicate);
         } else {
             throw new ParseException(RulePredicate.MESSAGE_CONSTRAINTS);
@@ -285,10 +254,29 @@ public class CommandParserUtil {
      */
     public static RuleAction parseAction(String action, String type) throws ParseException {
         requireNonNull(action);
-        if (type.equals(TYPE_EXPRESSION)) {
+        if (type.equals(Rule.TYPE_EXPRESSION)) {
             return parseActionExpr(action);
         } else {
             throw new ParseException(RuleAction.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String name} into a {@link ScriptName}.
+     *
+     * Leading and trailing whitespace is trimmed.
+     *
+     * @param name the string to parse
+     * @return the parsed script name
+     * @throws ParseException if the given string is not a valid script name
+     */
+    public static ScriptName parseScriptName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmed = name.trim();
+        try {
+            return new ScriptName(trimmed);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
     }
 

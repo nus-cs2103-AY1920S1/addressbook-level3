@@ -1,13 +1,19 @@
 package budgetbuddy.ui;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.logic.Logic;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.ui.panel.ListPanel;
+import budgetbuddy.ui.panel.LoanPanel;
+import budgetbuddy.ui.panel.LoanSplitPanel;
+import budgetbuddy.ui.panel.RulePanel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -26,12 +32,15 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private HashMap<CommandCategory, ListPanel> panelMap;
 
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    //private PersonListPanel personListPanel;
+    private RulePanel ruleListPanel;
+    private LoanPanel loanListPanel;
+    private LoanSplitPanel loanSplitPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -41,8 +50,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    //@FXML
-    //private StackPane personListPanelPlaceholder;
+    @FXML
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -63,6 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        panelMap = new HashMap<>();
     }
 
     public Stage getPrimaryStage() {
@@ -107,17 +117,31 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        // instantiate all list panels
+        ruleListPanel = new RulePanel(logic.getRuleList());
+        panelMap.put(CommandCategory.RULE, ruleListPanel);
+
+        loanListPanel = new LoanPanel(logic.getFilteredLoanList());
+        panelMap.put(CommandCategory.LOAN, loanListPanel);
+        loanSplitPanel = new LoanSplitPanel(logic.getSortedDebtorList());
+        panelMap.put(CommandCategory.LOAN_SPLIT, loanSplitPanel);
+
+        // add initial panel as child
+        // setCurrentPanel(INITIAL_PANEL_HERE.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private void setCurrentPanel(ListPanel toSwitch) {
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(toSwitch.getRoot());
     }
 
     /**
@@ -160,10 +184,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /**public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }*/
-
     /**
      * Executes the command and returns the result.
      *
@@ -174,6 +194,11 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            ListPanel toSwitch = panelMap.get(commandResult.getCommandCategory());
+            if (toSwitch != null) {
+                setCurrentPanel(toSwitch);
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

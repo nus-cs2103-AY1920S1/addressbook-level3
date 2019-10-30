@@ -4,6 +4,7 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 
 import java.util.Date;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.CollectionUtil;
 import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
@@ -21,7 +23,6 @@ import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.person.exceptions.PersonNotFoundException;
 import budgetbuddy.model.transaction.Amount;
 
 /**
@@ -33,26 +34,23 @@ public class LoanEditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a loan.\n"
             + "Parameters: "
-            + "<person number>.<loan number> "
-            + String.format("[%sAMOUNT]", PREFIX_AMOUNT) + " "
-            + String.format("[%sDESCRIPTION]", PREFIX_DESCRIPTION) + " "
-            + String.format("[%sDATE]", PREFIX_DATE) + "\n"
-            + "Example: " + COMMAND_WORD + " "
-            + "1.1 "
+            + "<loan number> "
+            + String.format("[%sPERSON] ", PREFIX_PERSON)
+            + String.format("[%sAMOUNT] ", PREFIX_AMOUNT)
+            + String.format("[%sDESCRIPTION] ", PREFIX_DESCRIPTION)
+            + String.format("[%sDATE]\n", PREFIX_DATE)
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "4.30";
 
-    public static final String MESSAGE_SUCCESS = "Loan edited: %1$s";
+    public static final String MESSAGE_SUCCESS = "Loan %1$d edited.";
     public static final String MESSAGE_UNEDITED = "At least one field must be provided for editing.";
-    public static final String MESSAGE_DUPLICATE_LOAN = "This loan already exists in the person's list.";
     public static final String MESSAGE_FAILURE = "The loan targeted for editing could not be found.";
 
-    private final Index targetPersonIndex;
     private final Index targetLoanIndex;
     private final LoanEditDescriptor loanEditDescriptor;
 
-    public LoanEditCommand(Index targetPersonIndex, Index targetLoanIndex, LoanEditDescriptor loanEditDescriptor) {
-        requireAllNonNull(targetPersonIndex, targetLoanIndex, loanEditDescriptor);
-        this.targetPersonIndex = targetPersonIndex;
+    public LoanEditCommand(Index targetLoanIndex, LoanEditDescriptor loanEditDescriptor) {
+        requireAllNonNull(targetLoanIndex, loanEditDescriptor);
         this.targetLoanIndex = targetLoanIndex;
         this.loanEditDescriptor = new LoanEditDescriptor(loanEditDescriptor);
     }
@@ -62,20 +60,18 @@ public class LoanEditCommand extends Command {
         requireAllNonNull(model, model.getLoansManager());
 
         LoansManager loansManager = model.getLoansManager();
-        Person targetPerson = loansManager.getPersonsList().get(targetPersonIndex.getZeroBased());
-        Loan targetLoan = targetPerson.getLoans().get(targetLoanIndex.getZeroBased());
-        Loan editedLoan = createEditedLoan(targetLoan, loanEditDescriptor);
 
-        if (!targetLoan.equals(editedLoan) && targetPerson.hasLoan(editedLoan)) {
-            throw new CommandException(MESSAGE_DUPLICATE_LOAN);
-        }
-
+        Loan editedLoan;
         try {
-            loansManager.editLoan(targetPerson, targetLoan, editedLoan);
-        } catch (PersonNotFoundException | LoanNotFoundException e) {
+            Loan targetLoan = loansManager.getLoan(targetLoanIndex);
+            editedLoan = createEditedLoan(targetLoan, loanEditDescriptor);
+            loansManager.editLoan(targetLoanIndex, editedLoan);
+        } catch (LoanNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedLoan));
+
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, targetLoanIndex.getOneBased()), CommandCategory.LOAN);
     }
 
     /**
@@ -85,7 +81,7 @@ public class LoanEditCommand extends Command {
     private static Loan createEditedLoan(Loan loanToEdit, LoanEditDescriptor loanEditDescriptor) {
         assert loanToEdit != null;
 
-        Person updatedPerson = loanToEdit.getPerson();
+        Person updatedPerson = loanEditDescriptor.getPerson().orElse(loanToEdit.getPerson());
         Direction updatedDirection = loanEditDescriptor.getDirection().orElse(loanToEdit.getDirection());
         Amount updatedAmount = loanEditDescriptor.getAmount().orElse(loanToEdit.getAmount());
         Date updatedDate = loanEditDescriptor.getDate().orElse(loanToEdit.getDate());
@@ -107,14 +103,13 @@ public class LoanEditCommand extends Command {
         }
 
         LoanEditCommand otherCommand = (LoanEditCommand) other;
-        return targetPersonIndex.equals(otherCommand.targetPersonIndex)
-                && targetLoanIndex.equals(otherCommand.targetLoanIndex)
+        return targetLoanIndex.equals(otherCommand.targetLoanIndex)
                 && loanEditDescriptor.equals(otherCommand.loanEditDescriptor);
     }
 
     /**
      * Stores the details to edit the loan with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the loan.
      */
     public static class LoanEditDescriptor {
         private Person person;
@@ -139,14 +134,10 @@ public class LoanEditCommand extends Command {
          * Returns true if any field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(direction, amount, date, description, status);
+            return CollectionUtil.isAnyNonNull(person, direction, amount, date, description, status);
         }
 
-        /**
-         * A loan's Person field cannot be edited by the user.
-         * This method should never be exposed to any other class beyond ```LoanEditCommand```.
-         */
-        private void setPerson(Person person) {
+        public void setPerson(Person person) {
             this.person = person;
         }
 

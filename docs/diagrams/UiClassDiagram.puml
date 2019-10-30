@@ -5,14 +5,22 @@ skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
+
+package Card {
+Class DEFCard
+}
+
+package Panel {
+Class "{abstract}\nListPanel" as ListPanel
+Class DEFPanel
+}
+
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
 Class StatusBarFooter
 Class CommandBox
 }
@@ -33,28 +41,32 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> ListPanel
 MainWindow *-down-> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+DEFPanel .up.|> ListPanel
+DEFPanel -down-> DEFCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+ListPanel --|> UiPart
+DEFCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
+DEFCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+ListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+
+note right of DEFPanel: DEFPanel = RulePanel,\n AccountPanel, etc
+note right of DEFCard: DEFCard = RuleCard,\n AccountCard, etc
 
 MainWindow -[hidden]-|> UiPart
 @enduml

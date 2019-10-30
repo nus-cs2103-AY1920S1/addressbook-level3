@@ -28,8 +28,8 @@ public class RuleAddCommandParser implements CommandParser<RuleAddCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RuleAddCommand
+     * and returns an RuleAddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public RuleAddCommand parse(String args) throws ParseException {
@@ -41,10 +41,11 @@ public class RuleAddCommandParser implements CommandParser<RuleAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RuleAddCommand.MESSAGE_USAGE));
         }
 
+
         RulePredicate predicate = CommandParserUtil.parsePredicate(argMultimap.getValue(PREFIX_PREDICATE).get(),
-                CommandParserUtil.TYPE_EXPRESSION);
+                Rule.TYPE_EXPRESSION);
         RuleAction action = CommandParserUtil.parseAction(argMultimap.getValue(PREFIX_ACTION).get(),
-                CommandParserUtil.TYPE_EXPRESSION);
+                Rule.TYPE_EXPRESSION);
 
         Rule rule = new Rule(predicate, action);
 

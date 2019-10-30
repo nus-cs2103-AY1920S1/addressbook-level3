@@ -5,6 +5,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PREDICATE;
 import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
@@ -12,13 +13,13 @@ import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.rule.Rule;
 
 /**
- * Adds a rule to budget buddy.
+ * Adds a rule.
  */
 public class RuleAddCommand extends Command {
 
     public static final String COMMAND_WORD = "rule add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new rule to budget buddy. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new rule. "
             + "Parameters: "
             + PREFIX_PREDICATE + "PREDICATE "
             + PREFIX_ACTION + "ACTION "
@@ -49,6 +50,6 @@ public class RuleAddCommand extends Command {
         }
 
         ruleManager.addRule(rule);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, rule));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, rule), CommandCategory.RULE);
     }
 }

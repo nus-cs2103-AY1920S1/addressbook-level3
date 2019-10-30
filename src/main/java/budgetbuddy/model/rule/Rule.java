@@ -9,6 +9,7 @@ import java.util.Objects;
  * Guarantees: predicate and action are present and not null, field values are validated, immutable.
  */
 public class Rule {
+    public static final String TYPE_EXPRESSION = "EXPRESSION";
 
     // rule details
     private final RulePredicate predicate;

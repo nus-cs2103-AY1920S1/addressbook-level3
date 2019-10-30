@@ -21,7 +21,6 @@ import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.LoanList;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
@@ -52,8 +51,15 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanCommand.MESSAGE_USAGE));
         }
 
+        if (argMultimap.getValueCount(PREFIX_PERSON) > 1
+                || argMultimap.getValueCount(PREFIX_AMOUNT) > 1
+                || argMultimap.getValueCount(PREFIX_DESCRIPTION) > 1
+                || argMultimap.getValueCount(PREFIX_DATE) > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanCommand.MESSAGE_USAGE));
+        }
+
         Name name = CommandParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON).get());
-        Person person = new Person(name, new LoanList());
+        Person person = new Person(name);
 
         Direction direction = Direction.valueOf(directionString.toUpperCase());
         Amount amount = CommandParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
@@ -77,7 +83,6 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
         Status status = Status.UNPAID;
 
         Loan loan = new Loan(person, direction, amount, date, description, status);
-        person.addLoan(loan);
 
         return new LoanCommand(loan);
     }

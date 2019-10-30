@@ -13,6 +13,7 @@ import static java.util.Objects.requireNonNull;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
+import budgetbuddy.logic.rules.RuleProcessor;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.transaction.Transaction;
 
@@ -63,7 +64,8 @@ public class TransactionAddCommand extends Command {
             //TODO change to accept more specific exception
             throw new CommandException(MESSAGE_FAILURE);
         }
+        RuleProcessor.executeRules(model, toAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), null);
     }
 }

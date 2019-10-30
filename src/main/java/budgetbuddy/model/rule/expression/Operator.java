@@ -1,9 +1,11 @@
 package budgetbuddy.model.rule.expression;
 
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
-import budgetbuddy.logic.rules.RuleProcessingUtil;
+import budgetbuddy.logic.rules.RuleProcessor;
 
 /**
  * Represents an Operator in an expression.
@@ -11,27 +13,31 @@ import budgetbuddy.logic.rules.RuleProcessingUtil;
  */
 public enum Operator {
     // Predicate operators
-    LESS_THAN("<", RuleProcessingUtil.TYPE_AMOUNT),
-    MORE_THAN(">", RuleProcessingUtil.TYPE_AMOUNT),
-    LESS_EQUAL("<=", RuleProcessingUtil.TYPE_AMOUNT),
-    MORE_EQUAL(">=", RuleProcessingUtil.TYPE_AMOUNT),
-    EQUAL_TO("=", RuleProcessingUtil.TYPE_AMOUNT),
-    CONTAINS("contains", RuleProcessingUtil.TYPE_DESC),
+    LESS_THAN("<", RuleProcessor.TYPE_NUMBER),
+    MORE_THAN(">", RuleProcessor.TYPE_NUMBER),
+    LESS_EQUAL("<=", RuleProcessor.TYPE_NUMBER),
+    MORE_EQUAL(">=", RuleProcessor.TYPE_NUMBER),
+    EQUAL_TO("=", RuleProcessor.TYPE_NUMBER),
+    CONTAINS("contains", RuleProcessor.TYPE_STRING, RuleProcessor.TYPE_NUMBER),
 
     // Action operators
-    SET_CATEGORY("setcategory", RuleProcessingUtil.TYPE_CATEGORY),
-    SET_DESC("setdesc", RuleProcessingUtil.TYPE_DESC);
+    SET_CATEGORY("setcategory", RuleProcessor.TYPE_STRING),
+    SET_DESC("setdesc", RuleProcessor.TYPE_STRING);
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Operators are restricted to only the ones already pre-defined "
-            + "and should not be blank";
+            "Operators should be valid for their expression and not be blank\n"
+            + "Valid operators: "
+            + Arrays.stream(Operator.values())
+                    .map(op -> op.representation)
+                    .reduce((x, y) -> x + ", " + y)
+                    .orElse("");
 
     private final String representation;
-    private final String expectedType;
+    private final Set<String> expectedTypes = new HashSet<>();
 
-    Operator(String representation, String expectedType) {
+    Operator(String representation, String... expectedType) {
         this.representation = representation;
-        this.expectedType = expectedType;
+        this.expectedTypes.addAll(Arrays.asList(expectedType));
     }
 
     /**
@@ -44,20 +50,21 @@ public enum Operator {
     }
 
     /**
-     * Returns an {@code Optional<Operator>} given a representation.
+     * Returns an {@code Operator} given a valid representation.
      */
-    public static Optional<Operator> of(String rep) {
+    public static Operator of(String rep) {
         return Arrays
                 .stream(Operator.values())
                 .filter(operator -> operator.representation.equals(rep.toLowerCase()))
-                .findFirst();
+                .findFirst()
+                .get();
     }
 
     /**
-     * Returns the type that this operator expects from its arguments.
+     * Returns the set of types that this operator expect from its arguments.
      */
-    public String getExpectedType() {
-        return expectedType;
+    public Set<String> getExpectedTypes() {
+        return Collections.unmodifiableSet(expectedTypes);
     }
 
     @Override

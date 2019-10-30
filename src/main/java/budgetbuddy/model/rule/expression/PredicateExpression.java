@@ -1,10 +1,12 @@
 package budgetbuddy.model.rule.expression;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static budgetbuddy.logic.rules.RuleProcessor.isValueParsable;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RulePredicate;
 
 /**
@@ -14,13 +16,14 @@ import budgetbuddy.model.rule.RulePredicate;
 public class PredicateExpression extends RulePredicate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Expressions should contain exactly three terms in the order <attribute> <operator> <value> "
+            "Predicate expressions should contain exactly three terms in the order\n"
+            + "<attribute> <operator> <value> "
             + "and should not be blank";
 
     public static final String MESSAGE_TYPE_REQUIREMENTS =
-            "The attribute, operator, and value of the expression have to evaluate to the correct type: "
-            + "e.g. amount < 5, where 'amount' evaluates to a long integer, "
-            + "'<' expects a long integer, and '5' is a long integer";
+            "The attribute, operator, and value of the expression have to evaluate to the correct type:\n"
+            + "e.g. inamt < 5, where 'inamt' evaluates to a decimal value,\n"
+            + "'<' expects a decimal value, and '5' is a decimal value";
 
     public static final Pattern FORMAT_REGEX =
             Pattern.compile("^(?<exprAttribute>\\S+)\\s+(?<exprOperator>\\S+)\\s(?<exprValue>.*)$");
@@ -53,6 +56,22 @@ public class PredicateExpression extends RulePredicate {
 
     public Value getValue() {
         return value;
+    }
+
+    /**
+     * Returns if the predicate expression is valid,
+     * i.e. attribute and value are all working with the expected type specified by the operator.
+     */
+    public static boolean isValidPredicateExpr(Attribute attribute, Operator operator, Value value) {
+        return operator.getExpectedTypes()
+                .stream()
+                .anyMatch(type -> type.equals(attribute.getEvaluatedType())
+                        && isValueParsable(type, value));
+    }
+
+    @Override
+    public String getType() {
+        return Rule.TYPE_EXPRESSION;
     }
 
     /**

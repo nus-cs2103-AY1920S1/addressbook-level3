@@ -7,5 +7,6 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "ruleFilePath": "rules.json",
+  "loansFilePath": "loans.json"
 }
