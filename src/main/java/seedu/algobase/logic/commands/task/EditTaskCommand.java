@@ -7,7 +7,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -57,26 +56,36 @@ public class EditTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Plan> lastShownPlanList = model.getFilteredPlanList();
 
+        List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (editTaskDescriptor.planIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
         Plan planToUpdate = lastShownPlanList.get(editTaskDescriptor.planIndex.getZeroBased());
-        List<Task> taskList = new ArrayList<>(planToUpdate.getTasks());
-        Task taskToUpdate = taskList.get(editTaskDescriptor.taskIndex.getZeroBased());
-        taskList.remove(editTaskDescriptor.taskIndex.getZeroBased());
+
+        List<Task> taskList = planToUpdate.getTaskList();
+        int taskIndex = editTaskDescriptor.taskIndex.getZeroBased();
+        if (taskIndex >= taskList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+        Task taskToUpdate = taskList.get(taskIndex);
+        LocalDate newDate = editTaskDescriptor.targetDate;
+        if (!planToUpdate.checkWithinDateRange(newDate)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
+        }
+        taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
-        taskSet.add(Task.updateDueDate(taskToUpdate, editTaskDescriptor.targetDate));
+        taskSet.add(Task.updateDueDate(taskToUpdate, newDate));
+
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+
         return new CommandResult(
-            String.format(MESSAGE_EDIT_TASK_SUCCESS,
-                taskToUpdate.getProblem().getName(),
-                editTaskDescriptor.targetDate,
-                updatedPlan.getPlanName()));
+                String.format(MESSAGE_EDIT_TASK_SUCCESS,
+                        taskToUpdate.getProblem().getName(),
+                        editTaskDescriptor.targetDate,
+                        updatedPlan.getPlanName()));
     }
 
     @Override
@@ -103,10 +112,10 @@ public class EditTaskCommand extends Command {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                || (other instanceof EditTaskDescriptor // instanceof handles nulls
-                && planIndex.equals(((EditTaskDescriptor) other).planIndex)
-                && taskIndex.equals(((EditTaskDescriptor) other).taskIndex)
-                && targetDate.equals(((EditTaskDescriptor) other).targetDate));
+                    || (other instanceof EditTaskDescriptor // instanceof handles nulls
+                    && planIndex.equals(((EditTaskDescriptor) other).planIndex)
+                    && taskIndex.equals(((EditTaskDescriptor) other).taskIndex)
+                    && targetDate.equals(((EditTaskDescriptor) other).targetDate));
         }
     }
 }

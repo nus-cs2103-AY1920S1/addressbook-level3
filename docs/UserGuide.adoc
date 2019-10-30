@@ -173,7 +173,6 @@ When providing the search restrictions, you should ensure that keywords are non-
 [NOTE]
 Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
 
-
 Examples:
 
 * `find n/Sequence` +
@@ -311,6 +310,27 @@ Edits the starting date of the 2nd plan to be `2019-08-13`.
 Displays a list of all existing plans. +
 Format: `listplan`
 
+=== Searching Plans
+
+==== Locating plans: `findplan`
+
+Finds plans fulfilling all provided constraints. +
+Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
+
+* Name
+** is case-insensitive.
+** is considered a match as long as one word matches.
+** is matched word by word.
+* Description
+** is case-insensitive
+** is matched word by word
+** is considered as a match only when the problem's description includes all words in the constraint.
+* Start and end range
+** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
+** both `RANGE_START` and `RANGE_END` should be specified.
+
+=== Task Management
+
 ==== Adding a new task to a plan: `addtask`
 
 Adds a task to a specified plan. +
@@ -319,6 +339,15 @@ Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/TARGET_DATE]`
 Examples:
 
 * `addtask plan/1 prob/1 due/2019-12-12`
+
+==== Copying a task from one plan to another: `copytask`
+
+Copies a specified task from one plan to another. +
+Format: `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
+
+Examples:
+
+* `copytask task/1 from/1 to/2`
 
 ==== Deleting a task from a plan: `deletetask`
 
@@ -365,24 +394,14 @@ Examples:
 
 * `movetask task/1 from/1 to/2`
 
-=== Searching Plans
+==== Setting the plan to be used in main display: `setplan`
 
-==== Locating plans: `findplan`
+Sets a specified plan as the current display plan. +
+Format: `setplan PLAN_INDEX`
 
-Finds plans fulfilling all provided constraints. +
-Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
+Examples:
 
-* Name
-** is case-insensitive.
-** is considered a match as long as one word matches.
-** is matched word by word.
-* Description
-** is case-insensitive
-** is matched word by word
-** is considered as a match only when the problem's description includes all words in the constraint.
-* Start and end range
-** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
-** both `RANGE_START` and `RANGE_END` should be specified.
+* `setplan 10`
 
 === Tabs
 
@@ -398,7 +417,7 @@ Examples:
 * `switchtab t/display i/1`
 * `switchtab t/details i/2`
 
-==== Open Tabs: `opentab`
+==== Opening Tabs: `opentab`
 Opens a new tab in the GUI +
 Format: `opentab m/MODEL_TYPE i/MODEL_INDEX`
 
@@ -410,7 +429,7 @@ Examples:
 * `opentab m/problem i/1`
 * `opentab m/plan i/2`
 
-==== Close Tabs: `closetab`
+==== Closing Tabs: `closetab`
 Closes a tab in the GUI +
 Format: `closetab t/TAB_TYPE i/TAB_INDEX`
 
@@ -422,7 +441,7 @@ Examples:
 * `closetab t/display i/1`
 * `closetab t/details i/2`
 
-=== Importing and Exporting data
+=== Data Management
 
 ==== Importing data: `import`
 
@@ -524,8 +543,11 @@ e.g. `find n/CS2040 start/2019-03-01 end/2019-03-31`
 * *List Training Plans* : `listplan`
 * *Delete Training Plan* : `deleteplan INDEX` +
 e.g. `deleteplan 2`
+
 * *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
 e.g. `addtask plan/1 prob/2`
+* *Copy Tasks among Plans* : `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
+e.g. `copytask task/1 from/1 to/2`
 * *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `deletetask plan/1 task/2`
 * *Edit Due Date of Task* : `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE` +
@@ -536,6 +558,8 @@ e.g. `donetask plan/1 task/2`
 e.g. `undonetask plan/1 task/2`
 * *Move Tasks among Plans* : `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
 e.g. `movetask task/1 from/1 to/2`
+* *Set Current Plan* : `setplan PLAN_TASK` +
+e.g. `setplan 10`
 
 * *Exporting data* : `export format/FORMAT path/DIRECTORY_PATH` +
 e.g. `export format/json path/.`

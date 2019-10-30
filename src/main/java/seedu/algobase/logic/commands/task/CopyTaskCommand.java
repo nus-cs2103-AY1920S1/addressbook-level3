@@ -21,14 +21,14 @@ import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.task.Task;
 
 /**
- * Moves a Task from one Plan to another.
+ * Copies a Task from one Plan to another.
  */
-public class MoveTaskCommand extends Command {
+public class CopyTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "movetask";
+    public static final String COMMAND_WORD = "copytask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Moves the Task identified by the index from one plan to another.\n"
+            + ": Copies the Task identified by the index from one plan to another.\n"
             + "Parameters:\n"
             + PREFIX_TASK + "TASK_INDEX "
             + PREFIX_PLAN_FROM + "PLAN_INDEX "
@@ -39,18 +39,18 @@ public class MoveTaskCommand extends Command {
             + PREFIX_PLAN_FROM + "1 "
             + PREFIX_PLAN_TO + "2";
 
-    public static final String MESSAGE_MOVE_TASK_SUCCESS = "Task [%1$s] moved from Plan [%2$s] to Plan [%3$s].";
+    public static final String MESSAGE_MOVE_TASK_SUCCESS = "Task [%1$s] copied from Plan [%2$s] to Plan [%3$s].";
     public static final String MESSAGE_DUPLICATE_TASK = "Task [%1$s] already exists in Plan [%2$s].";
 
-    private final MoveTaskDescriptor moveTaskDescriptor;
+    private final CopyTaskDescriptor copyTaskDescriptor;
 
     /**
-     * Creates a MoveTaskCommand to move a {@code Task} from the specified {@code Plan} to another
+     * Creates a CopyTaskCommand to copy a {@code Task} from the specified {@code Plan} to another
      *
-     * @param moveTaskDescriptor details of the plan and problem involved
+     * @param copyTaskDescriptor details of the plan and problem involved
      */
-    public MoveTaskCommand(MoveTaskDescriptor moveTaskDescriptor) {
-        this.moveTaskDescriptor = moveTaskDescriptor;
+    public CopyTaskCommand(CopyTaskDescriptor copyTaskDescriptor) {
+        this.copyTaskDescriptor = copyTaskDescriptor;
     }
 
     @Override
@@ -58,63 +58,59 @@ public class MoveTaskCommand extends Command {
         requireNonNull(model);
 
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
-        if (moveTaskDescriptor.planFromIndex.getZeroBased() >= lastShownPlanList.size()
-                || moveTaskDescriptor.planToIndex.getZeroBased() >= lastShownPlanList.size()) {
+        if (copyTaskDescriptor.planFromIndex.getZeroBased() >= lastShownPlanList.size()
+            || copyTaskDescriptor.planToIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        Plan planFrom = lastShownPlanList.get(moveTaskDescriptor.planFromIndex.getZeroBased());
-        Plan planTo = lastShownPlanList.get(moveTaskDescriptor.planToIndex.getZeroBased());
+        Plan planFrom = lastShownPlanList.get(copyTaskDescriptor.planFromIndex.getZeroBased());
+        Plan planTo = lastShownPlanList.get(copyTaskDescriptor.planToIndex.getZeroBased());
 
         List<Task> taskListFrom = planFrom.getTaskList();
         List<Task> taskListTo = planTo.getTaskList();
-        int taskIndex = moveTaskDescriptor.taskIndex.getZeroBased();
+        int taskIndex = copyTaskDescriptor.taskIndex.getZeroBased();
         if (taskIndex >= taskListFrom.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        Task taskToMove = taskListFrom.get(taskIndex);
-        taskListFrom.remove(taskIndex);
-        Set<Task> taskSetFrom = new HashSet<>(taskListFrom);
+        Task taskToCopy = taskListFrom.get(taskIndex);
         Set<Task> taskSetTo = new HashSet<>(taskListTo);
-        if (taskSetTo.contains(taskToMove)) {
+        if (taskSetTo.contains(taskToCopy)) {
             throw new CommandException(
-                    String.format(MESSAGE_DUPLICATE_TASK, taskToMove.getProblem().getName(), planTo.getPlanName()));
+                String.format(MESSAGE_DUPLICATE_TASK, taskToCopy.getProblem().getName(), planTo.getPlanName()));
         }
-        if (!planTo.checkWithinDateRange(taskToMove.getTargetDate())) {
+        if (!planTo.checkWithinDateRange(taskToCopy.getTargetDate())) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
         }
-        taskSetTo.add(taskToMove);
+        taskSetTo.add(taskToCopy);
 
-        Plan updatedPlanFrom = Plan.updateTasks(planFrom, taskSetFrom);
         Plan updatedPlanTo = Plan.updateTasks(planTo, taskSetTo);
-        model.setPlan(planFrom, updatedPlanFrom);
         model.setPlan(planTo, updatedPlanTo);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
 
         return new CommandResult(
-                String.format(MESSAGE_MOVE_TASK_SUCCESS,
-                        taskToMove.getProblem().getName(),
-                        updatedPlanFrom.getPlanName(),
-                        updatedPlanTo.getPlanName()
-                )
+            String.format(MESSAGE_MOVE_TASK_SUCCESS,
+                taskToCopy.getProblem().getName(),
+                planFrom.getPlanName(),
+                updatedPlanTo.getPlanName()
+            )
         );
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MoveTaskCommand // instanceof handles nulls
-                && moveTaskDescriptor.equals(((MoveTaskCommand) other).moveTaskDescriptor)); // state check
+                || (other instanceof CopyTaskCommand // instanceof handles nulls
+                && copyTaskDescriptor.equals(((CopyTaskCommand) other).copyTaskDescriptor)); // state check
     }
 
     /**
      * Stores the details of the plan and problem involved.
      */
-    public static class MoveTaskDescriptor {
+    public static class CopyTaskDescriptor {
         private Index taskIndex;
         private Index planFromIndex;
         private Index planToIndex;
 
-        public MoveTaskDescriptor(Index taskIndex, Index planFromIndex, Index planToIndex) {
+        public CopyTaskDescriptor(Index taskIndex, Index planFromIndex, Index planToIndex) {
             this.taskIndex = taskIndex;
             this.planFromIndex = planFromIndex;
             this.planToIndex = planToIndex;
@@ -123,10 +119,10 @@ public class MoveTaskCommand extends Command {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                    || (other instanceof MoveTaskDescriptor // instanceof handles nulls
-                    && taskIndex.equals(((MoveTaskDescriptor) other).taskIndex)
-                    && planFromIndex.equals(((MoveTaskDescriptor) other).planFromIndex)
-                    && planToIndex.equals(((MoveTaskDescriptor) other).planToIndex));
+                || (other instanceof CopyTaskDescriptor // instanceof handles nulls
+                && taskIndex.equals(((CopyTaskDescriptor) other).taskIndex)
+                && planFromIndex.equals(((CopyTaskDescriptor) other).planFromIndex)
+                && planToIndex.equals(((CopyTaskDescriptor) other).planToIndex));
         }
     }
 }

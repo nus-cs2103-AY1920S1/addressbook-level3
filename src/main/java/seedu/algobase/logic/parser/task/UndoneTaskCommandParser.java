@@ -13,7 +13,7 @@ import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteTaskCommand object
+ * Parses input arguments and creates a new UndoneTaskCommand object
  */
 public class UndoneTaskCommandParser implements Parser<UndoneTaskCommand> {
 

@@ -5,7 +5,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,23 +52,33 @@ public class DoneTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Plan> lastShownPlanList = model.getFilteredPlanList();
 
+        List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (doneTaskDescriptor.planIndex.getZeroBased() >= lastShownPlanList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PLAN_DISPLAYED_INDEX);
+        }
+        Plan planToUpdate = lastShownPlanList.get(doneTaskDescriptor.planIndex.getZeroBased());
+
+        List<Task> taskList = planToUpdate.getTaskList();
+        int taskIndex = doneTaskDescriptor.taskIndex.getZeroBased();
+        if (taskIndex >= taskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        Plan planToUpdate = lastShownPlanList.get(doneTaskDescriptor.planIndex.getZeroBased());
-        List<Task> taskList = new ArrayList<>(planToUpdate.getTasks());
-        Task taskToUpdate = taskList.get(doneTaskDescriptor.taskIndex.getZeroBased());
-        taskList.remove(doneTaskDescriptor.taskIndex.getZeroBased());
+        Task taskToUpdate = taskList.get(taskIndex);
+        if (taskToUpdate.getIsSolved()) {
+            throw new CommandException(Messages.MESSAGE_TASK_ALREADY_DONE);
+        }
+        taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
         taskSet.add(Task.updateStatus(taskToUpdate, true));
+
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+
         return new CommandResult(
-            String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUpdate.getProblem().getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUpdate.getProblem().getName(),
+                        updatedPlan.getPlanName()));
     }
 
     @Override
@@ -94,9 +103,9 @@ public class DoneTaskCommand extends Command {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                || (other instanceof DoneTaskDescriptor // instanceof handles nulls
-                && planIndex.equals(((DoneTaskDescriptor) other).planIndex)
-                && taskIndex.equals(((DoneTaskDescriptor) other).taskIndex));
+                    || (other instanceof DoneTaskDescriptor // instanceof handles nulls
+                    && planIndex.equals(((DoneTaskDescriptor) other).planIndex)
+                    && taskIndex.equals(((DoneTaskDescriptor) other).taskIndex));
         }
     }
 }

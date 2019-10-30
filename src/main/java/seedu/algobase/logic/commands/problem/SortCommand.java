@@ -30,7 +30,7 @@ public class SortCommand extends Command {
         bySource;
 
         public static final String MESSAGE_CONSTRAINTS = "Sorting method should be one of \"name\", "
-            + "\"author\", \"weblink\", \"difficulty\" or \"source\"";
+                + "\"author\", \"weblink\", \"difficulty\" or \"source\"";
         public static final String KEYWORD_NAME = "name";
         public static final String KEYWORD_AUTHOR = "author";
         public static final String KEYWORD_WEBLINK = "weblink";

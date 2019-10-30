@@ -49,12 +49,16 @@ public interface ReadOnlyAlgoBase {
     Plan findPlanById(Id planId) throws IllegalValueException;
 
     /**
+     * Sets current plan.
+     */
+    void setCurrentPlan(Plan plan);
+
+    /**
      * Returns an unmodifiable view of the current tasks list.
      */
     ObservableList<Task> getCurrentTaskList();
 
     /**
-     * Returns an unmodifiable view of the command history.
      * Returns current plan name.
      */
     StringProperty getCurrentPlan();

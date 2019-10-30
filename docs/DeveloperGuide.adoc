@@ -197,11 +197,13 @@ the task management feature.
 The task management feature mainly involves six main behaviours:
 
 * `AlgoBase#addTask()` - create a new task for a problem and add it to a specified plan.
+* `AlgoBase#copyTask()` - copy a task from one plan to another.
 * `AlgoBase#deleteTask()` - delete an existing task from a specified plan.
 * `AlgoBase#doneTask()` - mark a task as done in a specified plan.
 * `AlgoBase#editTask()` - edit the due date of a task in a specified plan.
 * `AlgoBase#moveTask()` - move a task from one plan to another.
 * `AlgoBase#undoneTask()` - mark a task as undone in a specified plan.
+* `AlgoBase#setPlan()` - set a task as the current plan in main display.
 
 Given below is an example usage scenario and how the mechanism for adding tasks behaves at each step.
 
@@ -902,132 +904,15 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 8: Delete Tasks from Plan
+=== Use Case 8: Copy Tasks between Plans
 
 *MSS*
 
-1.  User requests to delete an existing task by entering the index of the plan and index of the task.
-2.  AlgoBase deletes the specified task from the specified plan.
-3.  AlgoBase indicates successful deletion of the existing task.
-4.  AlgoBase updates the UI with the remaining tasks in the plan.
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 2a. AlgoBase detects that the index of plan is out of bounds.
-+
-[none]
-** 2a1. AlgoBase informs user that the deletion is unsuccessful because the index of plan is out of bounds.
-+
-Use case ends.
-
-[none]
-* 2b. AlgoBase detects that the index of task is out of bounds.
-+
-[none]
-** 2b1. AlgoBase informs user that the deletion is unsuccessful because the index of task is out of bounds.
-+
-Use case ends.
-
-[discrete]
-=== Use Case 9: Mark Tasks as Done in Plan
-
-*MSS*
-
-1.  User requests to mark an existing task as done by entering the index of the plan and index of the task.
-2.  AlgoBase marks the specified task as done in the specified plan.
-3.  AlgoBase indicates that the existing task is marked as done successfully.
-4.  AlgoBase displays details of the task updated.
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 2a. AlgoBase detects that the index of plan is out of bounds.
-+
-[none]
-** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
-+
-Use case ends.
-
-[none]
-* 2b. AlgoBase detects that the index of task is out of bounds.
-+
-[none]
-** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
-+
-Use case ends.
-
-[discrete]
-=== Use Case 10: Mark Tasks as Undone in Plan
-
-*MSS*
-
-1.  User requests to mark an existing task as undone by entering the index of the plan and index of the task.
-2.  AlgoBase marks the specified task as undone in the specified plan.
-3.  AlgoBase indicates that the existing task is marked as done successfully.
-4.  AlgoBase displays details of the task updated.
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 2a. AlgoBase detects that the index of plan is out of bounds.
-+
-[none]
-** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
-+
-Use case ends.
-
-[none]
-* 2b. AlgoBase detects that the index of task is out of bounds.
-+
-[none]
-** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
-+
-Use case ends.
-
-[discrete]
-=== Use Case 11: Edit Due Dates of Tasks
-
-*MSS*
-
-1.  User requests to edit due date of an existing task
-by entering the index of the plan, index of the task and new due date.
-2.  AlgoBase edits the due date of the specified task in the specified plan.
-3.  AlgoBase indicates that the existing task is edited successfully.
-4.  AlgoBase displays details of the task updated.
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 2a. AlgoBase detects that the index of plan is out of bounds.
-+
-[none]
-** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
-+
-Use case ends.
-
-[none]
-* 2b. AlgoBase detects that the index of task is out of bounds.
-+
-[none]
-** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
-+
-Use case ends.
-
-[discrete]
-=== Use Case 12: Move Tasks between Plans
-
-*MSS*
-
-1.  User requests to move an existing task from one plan to another
+1.  User requests to copy an existing task from one plan to another
 by entering the index of the task and the indices of the plans involved.
-2.  AlgoBase moves the specified task from the specified "from" plan to the "to" plan.
-3.  AlgoBase indicates that the existing task is moved successfully.
-4.  AlgoBase displays list of tasks of the "to" plan updated.
+2.  AlgoBase copies the specified task from the specified "from" plan to the "to" plan.
+3.  AlgoBase indicates that the existing task is copied successfully.
+4.  AlgoBase displays list of tasks of the updated "to" plan.
 +
 Use case ends.
 
@@ -1048,8 +933,133 @@ Use case ends.
 +
 Use case ends.
 
+[none]
+* 2c. AlgoBase detects that task to be copied already exists in the "to" plan.
++
+[none]
+** 2c1. AlgoBase informs user that the update is unsuccessful because the task already exists.
++
+Use case ends.
+
 [discrete]
-=== Use Case 13: Switch between View of Items
+=== Use Case 9: Delete Tasks from Plan
+
+*MSS*
+
+1.  User requests to delete an existing task by entering the index of the plan and index of the task.
+2.  AlgoBase deletes the specified task from the specified plan.
+3.  AlgoBase indicates successful deletion of the existing task.
+4.  AlgoBase updates the UI with the remaining tasks in the plan.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. Similar to `2a` in Use Case 8.
+
+[none]
+* 2b. Similar to `2b` in Use Case 8.
+
+
+[discrete]
+=== Use Case 10: Edit Due Dates of Tasks
+
+*MSS*
+
+1.  User requests to edit due date of an existing task
+by entering the index of the plan, index of the task and new due date.
+2.  AlgoBase edits the due date of the specified task in the specified plan.
+3.  AlgoBase indicates that the existing task is edited successfully.
+4.  AlgoBase displays details of the task updated.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. Similar to `2a` in Use Case 8.
+
+[none]
+* 2b. Similar to `2b` in Use Case 8.
+
+[discrete]
+=== Use Case 11: Mark Tasks as Done in Plan
+
+*MSS*
+
+1.  User requests to mark an existing task as done by entering the index of the plan and index of the task.
+2.  AlgoBase marks the specified task as done in the specified plan.
+3.  AlgoBase indicates that the existing task is marked as done successfully.
+4.  AlgoBase displays details of the task updated.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. Similar to `2a` in Use Case 8.
+
+[none]
+* 2b. Similar to `2b` in Use Case 8.
+
+[discrete]
+=== Use Case 12: Mark Tasks as Undone in Plan
+
+*MSS*
+
+1.  User requests to mark an existing task as undone by entering the index of the plan and index of the task.
+2.  AlgoBase marks the specified task as undone in the specified plan.
+3.  AlgoBase indicates that the existing task is marked as done successfully.
+4.  AlgoBase displays details of the task updated.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. Similar to `2a` in Use Case 8.
+
+[none]
+* 2b. Similar `2b` in Use Case 8.
+
+[discrete]
+=== Use Case 13: Move Tasks between Plans
+
+*MSS*
+
+1.  User requests to move an existing task from one plan to another
+by entering the index of the task and the indices of the plans involved.
+2.  AlgoBase moves the specified task from the specified "from" plan to the "to" plan.
+3.  AlgoBase indicates that the existing task is moved successfully.
+4.  AlgoBase displays list of tasks of the updated "to" plan.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. Similar to `2a` in Use Case 8.
+
+[none]
+* 2b. Similar to `2b` in Use Case 8.
+
+[none]
+* 2c. Similar to `2c` in Use Case 8.
+
+[discrete]
+=== Use Case 14: Set Current Plan in Main Display
+
+*MSS*
+
+1.  User requests to set a plan as the current plan in main display.
+2.  AlgoBase sets the specified plan as the current plan.
+3.  AlgoBase indicates that the specified plan is successfully set as the current plan.
+4.  AlgoBase displays updated current plan in main display.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. Same as `2a` in Use Case 9.
+
+[discrete]
+=== Use Case 15: Switch between View of Items
 
 *MSS*
 
@@ -1068,7 +1078,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 14: See details of an item
+=== Use Case 16: See details of an item
 
 *MSS*
 
@@ -1078,7 +1088,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 15: Export AlgoBase data
+=== Use Case 17: Export AlgoBase data
 
 *MSS*
 
@@ -1098,7 +1108,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 16: Import AlgoBase data
+=== Use Case 18: Import AlgoBase data
 
 *MSS*
 

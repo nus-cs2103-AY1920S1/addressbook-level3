@@ -54,7 +54,7 @@ public class ImportCommand extends Command {
 
         try {
             Optional<JsonSerializableAlgoBase> jsonAlgoBase = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAlgoBase.class);
+                    filePath, JsonSerializableAlgoBase.class);
             model.setAlgoBase(jsonAlgoBase.get().toModelType());
         } catch (DataConversionException | IllegalValueException | NoSuchElementException e) {
             return new CommandResult("Invalid data.");

@@ -11,10 +11,12 @@ import seedu.algobase.logic.commands.problem.SortCommand;
 import seedu.algobase.logic.commands.storage.ExportCommand;
 import seedu.algobase.logic.commands.storage.ImportCommand;
 import seedu.algobase.logic.commands.task.AddTaskCommand;
+import seedu.algobase.logic.commands.task.CopyTaskCommand;
 import seedu.algobase.logic.commands.task.DeleteTaskCommand;
 import seedu.algobase.logic.commands.task.DoneTaskCommand;
 import seedu.algobase.logic.commands.task.EditTaskCommand;
 import seedu.algobase.logic.commands.task.MoveTaskCommand;
+import seedu.algobase.logic.commands.task.SetPlanCommand;
 import seedu.algobase.logic.commands.task.UndoneTaskCommand;
 import seedu.algobase.model.Model;
 
@@ -32,6 +34,7 @@ public abstract class Command {
         ApplyCommand.class,
         ClearCommand.class,
         CloseTabCommand.class,
+        CopyTaskCommand.class,
         DeleteCommand.class,
         DeletePlanCommand.class,
         DeleteFindRuleCommand.class,
@@ -53,6 +56,8 @@ public abstract class Command {
         ListCommand.class,
         ListPlanCommand.class,
         ListTagCommand.class,
+        MoveTaskCommand.class,
+        SetPlanCommand.class,
         SortCommand.class,
         SwitchTabCommand.class,
         UndoneTaskCommand.class

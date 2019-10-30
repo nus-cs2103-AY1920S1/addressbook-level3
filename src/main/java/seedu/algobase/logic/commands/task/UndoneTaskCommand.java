@@ -5,7 +5,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,23 +52,33 @@ public class UndoneTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Plan> lastShownPlanList = model.getFilteredPlanList();
 
+        List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (undoneTaskDescriptor.planIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
         Plan planToUpdate = lastShownPlanList.get(undoneTaskDescriptor.planIndex.getZeroBased());
-        List<Task> taskList = new ArrayList<>(planToUpdate.getTasks());
-        Task taskToUpdate = taskList.get(undoneTaskDescriptor.taskIndex.getZeroBased());
-        taskList.remove(undoneTaskDescriptor.taskIndex.getZeroBased());
+
+        List<Task> taskList = planToUpdate.getTaskList();
+        int taskIndex = undoneTaskDescriptor.taskIndex.getZeroBased();
+        if (taskIndex >= taskList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+        Task taskToUpdate = taskList.get(taskIndex);
+        if (!taskToUpdate.getIsSolved()) {
+            throw new CommandException(Messages.MESSAGE_TASK_NOT_YET_DONE);
+        }
+        taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
         taskSet.add(Task.updateStatus(taskToUpdate, false));
+
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+
         return new CommandResult(
-            String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToUpdate.getProblem().getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToUpdate.getProblem().getName(),
+                        updatedPlan.getPlanName()));
     }
 
     @Override
@@ -94,9 +103,9 @@ public class UndoneTaskCommand extends Command {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                || (other instanceof UndoneTaskDescriptor // instanceof handles nulls
-                && planIndex.equals(((UndoneTaskDescriptor) other).planIndex)
-                && taskIndex.equals(((UndoneTaskDescriptor) other).taskIndex));
+                    || (other instanceof UndoneTaskDescriptor // instanceof handles nulls
+                    && planIndex.equals(((UndoneTaskDescriptor) other).planIndex)
+                    && taskIndex.equals(((UndoneTaskDescriptor) other).taskIndex));
         }
     }
 }

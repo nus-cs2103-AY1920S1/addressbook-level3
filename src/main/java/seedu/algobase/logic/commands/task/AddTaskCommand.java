@@ -60,6 +60,7 @@ public class AddTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
         List<Problem> lastShownProblemList = model.getFilteredProblemList();
 
@@ -75,24 +76,29 @@ public class AddTaskCommand extends Command {
         Problem problem = lastShownProblemList.get(addTaskDescriptor.problemIndex.getZeroBased());
 
         Task task;
-        if (addTaskDescriptor.targetDate != null) {
-            task = new Task(problem, addTaskDescriptor.targetDate, false);
+        LocalDate taskDate = addTaskDescriptor.targetDate;
+        LocalDate planDate = planToUpdate.getEndDate();
+        if (taskDate != null) {
+            if (!planToUpdate.checkWithinDateRange(taskDate)) {
+                throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
+            }
+            task = new Task(problem, taskDate, false);
         } else {
-            task = new Task(problem, planToUpdate.getEndDate(), false);
+            task = new Task(problem, planDate, false);
         }
 
         Set<Task> taskSet = new HashSet<>(planToUpdate.getTasks());
         if (taskSet.contains(task)) {
-            return new CommandResult(
-                String.format(MESSAGE_DUPLICATE_TASK, task.getProblem().getName(), planToUpdate.getPlanName()));
+            throw new CommandException(
+                    String.format(MESSAGE_DUPLICATE_TASK, task.getProblem().getName(), planToUpdate.getPlanName()));
         }
-
         taskSet.add(task);
+
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
         return new CommandResult(
-            String.format(MESSAGE_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override
@@ -119,10 +125,10 @@ public class AddTaskCommand extends Command {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                || (other instanceof AddTaskDescriptor // instanceof handles nulls
-                && planIndex.equals(((AddTaskDescriptor) other).planIndex)
-                && problemIndex.equals(((AddTaskDescriptor) other).problemIndex)
-                && targetDate.equals(((AddTaskDescriptor) other).targetDate));
+                    || (other instanceof AddTaskDescriptor // instanceof handles nulls
+                    && planIndex.equals(((AddTaskDescriptor) other).planIndex)
+                    && problemIndex.equals(((AddTaskDescriptor) other).problemIndex)
+                    && targetDate.equals(((AddTaskDescriptor) other).targetDate));
         }
     }
 }

@@ -6,7 +6,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_TO;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.task.MoveTaskCommand;
+import seedu.algobase.logic.commands.task.CopyTaskCommand;
 import seedu.algobase.logic.parser.ArgumentMultimap;
 import seedu.algobase.logic.parser.ArgumentTokenizer;
 import seedu.algobase.logic.parser.Parser;
@@ -14,16 +14,16 @@ import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new MoveTaskCommand object
+ * Parses input arguments and creates a new CopyTaskCommand object
  */
-public class MoveTaskCommandParser implements Parser<MoveTaskCommand> {
+public class CopyTaskCommandParser implements Parser<CopyTaskCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the MoveTaskCommand
-     * and returns a MoveTaskCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CopyTaskCommand
+     * and returns a CopyTaskCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public MoveTaskCommand parse(String args) throws ParseException {
+    public CopyTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
             PREFIX_PLAN_FROM, PREFIX_PLAN_TO, PREFIX_TASK);
 
@@ -32,7 +32,7 @@ public class MoveTaskCommandParser implements Parser<MoveTaskCommand> {
             || !ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TASK)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MoveTaskCommand.MESSAGE_USAGE));
+                CopyTaskCommand.MESSAGE_USAGE));
         }
 
         Index planFromIndex;
@@ -40,7 +40,7 @@ public class MoveTaskCommandParser implements Parser<MoveTaskCommand> {
             planFromIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PLAN_FROM).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MoveTaskCommand.MESSAGE_USAGE), pe);
+                CopyTaskCommand.MESSAGE_USAGE), pe);
         }
 
         Index planToIndex;
@@ -48,7 +48,7 @@ public class MoveTaskCommandParser implements Parser<MoveTaskCommand> {
             planToIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PLAN_TO).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MoveTaskCommand.MESSAGE_USAGE), pe);
+                CopyTaskCommand.MESSAGE_USAGE), pe);
         }
 
         Index taskIndex;
@@ -56,13 +56,13 @@ public class MoveTaskCommandParser implements Parser<MoveTaskCommand> {
             taskIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MoveTaskCommand.MESSAGE_USAGE), pe);
+                CopyTaskCommand.MESSAGE_USAGE), pe);
         }
 
-        MoveTaskCommand.MoveTaskDescriptor moveTaskDescriptor =
-            new MoveTaskCommand.MoveTaskDescriptor(taskIndex, planFromIndex, planToIndex);
+        CopyTaskCommand.CopyTaskDescriptor copyTaskDescriptor =
+            new CopyTaskCommand.CopyTaskDescriptor(taskIndex, planFromIndex, planToIndex);
 
-        return new MoveTaskCommand(moveTaskDescriptor);
+        return new CopyTaskCommand(copyTaskDescriptor);
     }
 
 }
