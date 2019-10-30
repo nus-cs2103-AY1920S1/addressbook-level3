@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.ResultDisplay;
 
 /**
  * Change the theme of the GUI
@@ -15,9 +14,10 @@ public class SetThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "theme";
 
-    public static final String DARKTHEME ="view/DarkTheme.css";
+    public static final String DARKTHEME = "view/DarkTheme.css";
     public static final String LIGHTTHEME = "view/LightTheme.css";
     public static final String PINKTHEME = "view/PinkTheme.css";
+    public static final String BLUETHEME = "view/BlueTheme.css";
 
     public static final String MESSAGE_SUCCESS = "Theme changed to %s";
 

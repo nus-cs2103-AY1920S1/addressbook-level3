@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import seedu.address.model.deadline.Deadline;
@@ -37,9 +35,11 @@ public class DeadlinePanel extends UiPart<Region> {
         deadlineText.setId("deadlinetext");
         task.getChildren().add(deadlineText);
         dueDate.setText("Due Date: " + deadline.getDueDate().toString());
-        if(false) {
+        /*todo
+        if (false) {
             deadlineText.setFill(Paint.valueOf("red"));
         }
+        */
 
     }
 
