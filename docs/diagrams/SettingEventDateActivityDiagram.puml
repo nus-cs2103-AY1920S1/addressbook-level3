@@ -9,8 +9,10 @@ if () then ([Parse Successful])
     :Instantiate Objects;
     :Check Objects for Violations;
     if() then ([No Errors])
+    repeat
     :Set EventDate-EventDayTime map
     in EventDateTimeMap;
+    repeat while (Single Target EventDate?) is (no)
     :Save in EventBookStorage;
     else([Violation])
     endif
