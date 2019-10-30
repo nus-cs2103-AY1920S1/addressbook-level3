@@ -18,7 +18,7 @@ import seedu.address.model.event.Event;
 public class FetchEventCommand extends Command {
     public static final String COMMAND_WORD = "fetch_ev";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the details of the employee identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the details of the event identified "
             + "by the index number used in the displayed employee list \n"
             + "Parameters: INDEX (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 ";

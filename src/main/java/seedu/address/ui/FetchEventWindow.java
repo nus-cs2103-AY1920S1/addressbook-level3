@@ -60,8 +60,8 @@ public class FetchEventWindow extends UiPart<Stage> {
      */
     public FetchEventWindow(Stage root, Logic logic, Integer index) {
         super(FXML, root);
-        ObservableList<Employee> employeeList = logic.getFilteredEmployeeList();
-        ObservableList<Event> filteredEventList = logic.getFilteredEventList();
+        ObservableList<Employee> employeeList = logic.getFullEmployeeList();
+        ObservableList<Event> filteredEventList = logic.getFullEventList();
         Event event = logic.getFilteredEventList().get(index);
         updateCards(event, employeeList, filteredEventList);
         EventHandler<MouseEvent> handleAllocate = new EventHandler<MouseEvent>() {
