@@ -33,6 +33,7 @@ Package Statistics {
 Class StatsManager
 Class LikeData
 Class LikeManager
+Class TagManager
 }
 
 Package Tag {
@@ -53,7 +54,6 @@ ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" Weme
 ModelManager o-left-> "1" UserPrefs
-ModelManager o-right-> "1" Stats
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 Weme *--> "1" UniqueMemeList
@@ -62,6 +62,8 @@ Meme *--> "1" ImagePath
 Meme *--> Description
 Meme *--> "*" Tag
 
+Weme *-right-> "1" Stats
+
 Weme *--> "1" UniqueTemplateList
 UniqueTemplateList o--> "*" Template
 Template *--> "1" Name
@@ -69,6 +71,7 @@ Template *--> "1" ImagePath
 
 StatsManager .up.|> Stats
 StatsManager *--> "1" LikeManager
+StatsManager *--> "1" TagManager
 LikeManager *--> "1" LikeData
 
 ModelManager -->"1" Meme : filtered list
