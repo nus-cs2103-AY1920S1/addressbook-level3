@@ -38,7 +38,7 @@ public class EditVehicleCommandParser implements Parser<EditVehicleCommand> {
 
         EditVehicle editVehicle = new EditVehicle();
         if (argMultiMap.getValue(PREFIX_DISTRICT).isPresent()) {
-            editVehicle.setVehicleDistrict(ParserUtil.parseLocation(argMultiMap.getValue(PREFIX_DISTRICT).get()));
+            editVehicle.setVehicleDistrict(ParserUtil.parseDistrict(argMultiMap.getValue(PREFIX_DISTRICT).get()));
         }
         if (argMultiMap.getValue(PREFIX_VTYPE).isPresent()) {
             editVehicle.setVehicleType(ParserUtil.parseVType(argMultiMap.getValue(PREFIX_VTYPE).get()));

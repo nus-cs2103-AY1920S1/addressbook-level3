@@ -28,14 +28,17 @@ public class Incident {
     /** Date and time information of this incident report. */
     private final IncidentDateTime incidentDateTime;
 
-    /** The vehicle assigned to investigate this incident. */
+    /**
+     * The vehicle assigned to investigate this incident.
+     * Assigned when the new incident is created, and cannot be changed after.
+     * */
     private Vehicle vehicle;
 
     /** The unique id associated with this incident. */
     private final IncidentId id;
 
-    /** The location associated with this incident. */
-    private final District location;
+    /** The district associated with this incident. */
+    private final District district;
 
     // fields to be filled in by the operator
 
@@ -70,11 +73,11 @@ public class Incident {
 
     /** Constructor for generating an incident draft according to 'new' command i.e. fills auto-filled fields.
      * @param operator operator generating the new incident report.
-     * @param location district number where the incident occurred.
+     * @param district district number where the incident occurred.
      */
-    public Incident (Person operator, District location) {
+    public Incident (Person operator, District district) {
         this.operator = operator;
-        this.location = location;
+        this.district = district;
 
         this.incidentDateTime = new IncidentDateTime();
         this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
@@ -94,7 +97,7 @@ public class Incident {
         this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = incidentDateTime;
-        this.location = district;
+        this.district = district;
         this.callerNumber = callerNumber;
         this.description = desc;
         this.id = id;
@@ -103,7 +106,7 @@ public class Incident {
     /**
      * Constructor that takes in all attributes of incident. Only called when loading data.
      * @param operator
-     * @param location
+     * @param district
      * @param incidentDateTime
      * @param incidentId
      * @param callerNumber
@@ -111,10 +114,10 @@ public class Incident {
      * @param status
      * @param vehicle
      */
-    public Incident(Person operator, District location, IncidentDateTime incidentDateTime, IncidentId incidentId,
+    public Incident(Person operator, District district, IncidentDateTime incidentDateTime, IncidentId incidentId,
                     CallerNumber callerNumber, Description description, Status status, Vehicle vehicle) {
         this.operator = operator;
-        this.location = location;
+        this.district = district;
         this.incidentDateTime = incidentDateTime;
         this.id = incidentId;
         this.callerNumber = callerNumber;
@@ -128,10 +131,10 @@ public class Incident {
      * Vehicle should have already been attached to incident when draft first created.
      * // TODO add vehicle field
      */
-    public Incident(Person operator, District location, IncidentDateTime incidentDateTime, IncidentId incidentId,
+    public Incident(Person operator, District district, IncidentDateTime incidentDateTime, IncidentId incidentId,
                     CallerNumber callerNumber, Description description, Status status) {
         this.operator = operator;
-        this.location = location;
+        this.district = district;
         this.incidentDateTime = incidentDateTime;
         this.id = incidentId;
         this.callerNumber = callerNumber;
@@ -156,7 +159,7 @@ public class Incident {
     }
 
     public District getDistrict() {
-        return this.location;
+        return this.district;
     }
 
     public IncidentId getIncidentId() {

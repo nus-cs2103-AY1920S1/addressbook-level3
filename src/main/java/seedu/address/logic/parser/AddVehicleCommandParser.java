@@ -35,7 +35,7 @@ public class AddVehicleCommandParser {
 
         VehicleType type = ParserUtil.parseVType(argMultiMap.getValue(PREFIX_VTYPE).get());
         VehicleNumber number = ParserUtil.parseVNum(argMultiMap.getValue(PREFIX_VNUM).get());
-        District district = ParserUtil.parseLocation(argMultiMap.getValue(PREFIX_DISTRICT).get());
+        District district = ParserUtil.parseDistrict(argMultiMap.getValue(PREFIX_DISTRICT).get());
         Availability availability = ParserUtil.parseAvailability(argMultiMap.getValue(PREFIX_AVAIL).get());
 
         Vehicle vehicle = new Vehicle(type, number, district, availability);

@@ -41,7 +41,7 @@ public class EditIncidentCommandParser implements Parser<EditIncidentCommand> {
             editIncident.setCaller(ParserUtil.parseCallerNumber(argMultimap.getValue(PREFIX_CALLER_NUMBER).get()));
         }
         if (argMultimap.getValue(PREFIX_DISTRICT).isPresent()) {
-            editIncident.setDistrict(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_DISTRICT).get()));
+            editIncident.setDistrict(ParserUtil.parseDistrict(argMultimap.getValue(PREFIX_DISTRICT).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editIncident.setDesc(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
