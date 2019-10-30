@@ -19,12 +19,12 @@ import seedu.address.logic.commands.CommandResult;
 class AddFinCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullExpense_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddFinCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_expenseAcceptedByModel_addSuccessful() throws Exception {
 
         Expense ep1 = new Expense(new Date("271016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
                 new Type("Food"), new Country("Singapore"));

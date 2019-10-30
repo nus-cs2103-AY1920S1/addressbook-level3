@@ -14,12 +14,8 @@ class AmountTest {
 
     @Test
     public void constructor_invalidAmount_throwsIllegalArgumentException() {
-        String invalidAmount1 = "30.000";
-        String invalidAmount2 = "30.";
-        String invalidAmount3 = "";
-        assertThrows(IllegalArgumentException.class, () -> new Amount(invalidAmount1));
-        assertThrows(IllegalArgumentException.class, () -> new Amount(invalidAmount2));
-        assertThrows(IllegalArgumentException.class, () -> new Amount(invalidAmount3));
+        String invalidAmount = "";
+        assertThrows(IllegalArgumentException.class, () -> new Amount(invalidAmount));
     }
 
     @Test
