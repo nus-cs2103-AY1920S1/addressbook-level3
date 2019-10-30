@@ -1,8 +1,10 @@
 package seedu.algobase.model.util;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -85,9 +87,23 @@ public class SampleDataUtil {
         };
     }
 
+    private static List<Tag> getSampleTags() {
+        List<Tag> tags = new ArrayList<>();
+        tags.add(new Tag("algorithm"));
+        tags.add(new Tag("array"));
+        tags.add(new Tag("hash-table"));
+        tags.add(new Tag("MySQL"));
+        tags.add(new Tag("database"));
+        tags.add(new Tag("backtracking"));
+        tags.add(new Tag("brute-force"));
+        tags.add(new Tag("recursion"));
+        return tags;
+    }
+
     public static ReadOnlyAlgoBase getSampleAlgoBase() {
         AlgoBase sampleAb = new AlgoBase();
         Set<Task> tasks = new HashSet<>();
+        getSampleTags();
         for (Problem sampleProblem : getSampleProblems()) {
             sampleAb.addProblem(sampleProblem);
             tasks.add(new Task(sampleProblem, LocalDate.now().plusMonths(1), false));
