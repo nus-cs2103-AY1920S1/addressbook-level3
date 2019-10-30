@@ -55,6 +55,7 @@ class ProcessVenuesTest {
     }
 
     @Disabled
+    @Test
     void imageSanityCheck() {
         processVenues.process();
         ArrayList<Location> validLocationList = processVenues.getValidLocationList();
