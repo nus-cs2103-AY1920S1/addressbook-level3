@@ -52,7 +52,7 @@ image::UserGuideCommandBox.png[width="790"]
 
 === Switching Modes
 
-There are 4 application modes. 
+There are 4 application modes.
 
 .Application modes
 image::UGModes.PNG[width="790"]
@@ -86,8 +86,8 @@ image::ModesAvailable.PNG[width="300"]
 
 ====
 
-Yes, it feels like a steep learning curve >_< 
-    
+Yes, it feels like a steep learning curve >_<
+
 But do not worry as we have the AutoComplete Bar that auto completes the available commands whichever mode you are in.
 
 === AutoComplete Bar
@@ -95,7 +95,7 @@ But do not worry as we have the AutoComplete Bar that auto completes the availab
 .AutoComplete Bar
 image::AutoCompleteBar.PNG[width="790"]
 
-The highlighted section shows, what commands are currently available. You can click them to automatically fill it in for you. Each of your keystroke will dynamically update the AutoComplete bar, just like the keyboard on your smartphone. 
+The highlighted section shows, what commands are currently available. You can click them to automatically fill it in for you. Each of your keystroke will dynamically update the AutoComplete bar, just like the keyboard on your smartphone.
 
 
 
