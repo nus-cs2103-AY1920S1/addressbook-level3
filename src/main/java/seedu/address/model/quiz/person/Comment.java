@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Comment {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Answer should not contains any instruction command";
+            "Comment should not contains any instruction command";
 
     public final String value;
 
@@ -29,7 +29,7 @@ public class Comment {
      * Returns true if a given string is a valid comment number.
      */
     public static boolean isValidComment(String test) {
-        return !test.contains("<comment>");
+        return !test.contains("<val>");
     }
 
     @Override

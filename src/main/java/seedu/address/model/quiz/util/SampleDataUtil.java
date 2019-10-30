@@ -26,12 +26,13 @@ public class SampleDataUtil {
             new Question(new Name("In which year did NUS founded?"), null, new Answer("1905"),
                 new Category("Random"), new Type("low"),
                 getTagSet("general", "trivia")),
-            new Question(new Name("What is always coming, but never arrives?"),
-                new Comment("The explanation is on lecture 10"), new Answer("Tomorrow"),
-                new Category("CS2132"), new Type("medium"),
+            new Question(new Name("If you have a bowl with six apples and you take away four, how many do you have?"),
+                new Comment("The explanation is on lecture 10"), new Answer("Four"),
+                new Category("CS2132"), new Type("normal"),
                 getTagSet("tutorial")),
-            new Question(new Name("In which year did NUS founded?"), new Comment("The explanation is on lecture 20"),
-                new Answer("1905"), new Category("Random"), new Type("high"),
+            new Question(new Name("What is it that goes up, but never comes down?"),
+                new Comment("The explanation is on lecture 20"), new Answer("Age"),
+                new Category("Random"), new Type("high"),
                 getTagSet("trivia"))
         };
     }

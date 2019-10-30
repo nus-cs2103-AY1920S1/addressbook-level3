@@ -50,6 +50,23 @@ public class Question {
         return answer;
     }
 
+    public Answer getMockAnswer() {
+        String answerValue = answer.value;
+        int answerLength = answerValue.length();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < answerLength; i++) {
+            if (answerValue.charAt(i) == ' ') {
+                sb.append(' ');
+            } else {
+                sb.append('*');
+            }
+        }
+
+        return new Answer(sb.toString());
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -112,15 +129,13 @@ public class Question {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Comment: ")
-                .append(getComment())
-                .append(" Answer: ")
+                .append("\nAnswer: ")
                 .append(getAnswer())
-                .append(" Category: ")
+                .append(", Category: ")
                 .append(getCategory())
-                .append(" Type: ")
+                .append(", Type: ")
                 .append(getType())
-                .append(" Tags: ");
+                .append(", Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

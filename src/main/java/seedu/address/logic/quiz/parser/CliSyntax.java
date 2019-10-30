@@ -11,5 +11,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_CATEGORY = new Prefix("<cat>");
     public static final Prefix PREFIX_TYPE = new Prefix("<type>");
     public static final Prefix PREFIX_TAG = new Prefix("<tag>");
-    public static final Prefix PREFIX_COMMENT = new Prefix("<comment>");
+    public static final Prefix PREFIX_COMMENT = new Prefix("<val>");
+    public static final Prefix PREFIX_KEYWORD = new Prefix("<key>");
 }

@@ -25,7 +25,7 @@ public class AddCommand extends Command {
             + PREFIX_ANSWER + "ANSWER "
             + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_TYPE + "PRIORITY "
-            + PREFIX_TAG + "TAG \n"
+            + "[" + PREFIX_TAG + "TAG]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "What is always coming, but never arrives? "
             + PREFIX_ANSWER + "Tomorrow "
@@ -55,6 +55,7 @@ public class AddCommand extends Command {
         }
 
         model.addQuestion(toAdd);
+        model.commitQuizBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
