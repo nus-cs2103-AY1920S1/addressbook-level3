@@ -143,9 +143,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Activity Diagram that shows the workflows that change state of `ParserManager` that produce different outcomes for commands entered.
 
 .Activity diagram of Application flow
-image::ParserManagerActivityDiagram.png[]
+image::ParserManagerActivityDiagram.PNG[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 
 [[Design-Model]]
 === Model component

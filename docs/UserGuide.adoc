@@ -1,4 +1,4 @@
-= Dukemon - User Guide
+= image:address_book_32.png[icon, 39, 36] Dukemon - User Guide  image:address_book_32.png[icon, 39, 36]
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -17,50 +17,155 @@ endif::[]
 
 By: `SErebros`      Since: `September 2019`      Licence: `MIT`
 
-== Introduction
+== Introduction - What is Dukemon?
 
-We aim to streamline and gamify the process of learning words or definitions through the use of self-created flash cards.
-
-The general flow of the program is as follows:
-
-1. Create your word bank.
-2. Add flash cards, each containing a word and a meaning, into your word bank.
-3. Configure settings, or modify word bank as you wish.
-4. Start the game.
-5. The meaning of the card will appear and you will have to key in the answer in a given time.
-6. At the end of the game, statistics of your game session appears, so you can know how well you did.
-7. Revisit the word bank to beat your previous high score.
-
-You write your own words and meaning into a word bank. You can also import a word bank given to him from a file. +
-During the game, you are prompted with a meaning and you have to answer with a word. Depending on the game mode, there may also be time restrictions and hints given. Answer correctly as quickly as possible and to score as much as you can! +
-You can view your statistics afterwards to review your performance! Revisit word banks which you scored badly.
-
-== Quick Start
-
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `Dukemon.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Dukemon.
-.  Double-click the file to start the app. Enjoy learning!
-
+.Home screen of Dukemon.
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try to get familiar with the app :
 
-* *`create WORD_BANK`* : Create an empty word bank.
-* *`bank WORD_BANK`* : Select this particular bank.
-* *`add w/WORD m/MEANING`* : Add a flash card into the word bank.
-* *`list`* : List all cards in the word bank.
-* **`start [DIFFICULTY]`** : Starts the game with a selected difficulty. Default difficulty will be selected if none is keyed in.
-* **`guess ANSWER`** : Input your answer according to the meaning given.
-* **`stop`** : Stops the game.
-* *`exit`* : Exits the app.
+*_Welcome to Dukemon_* _, the Flashcard app of the future!_
+
+_Dukemon_ aims to streamline and gamify the process of learning words or definitions through
+the use of self-created digital flashcards. *Supercharge your learning with Dukemon!*
+
+== Getting Started
+
+=== Installation
+
+1.  Ensure you have Java `11` or above installed on your system.
+2.  Download the latest `Dukemon.jar` link:{repoURL}/releases[here].
+3.  Copy the file to the folder you want to use as the home directory of _Dukemon_ (this is where your
+data will be stored).
+4.  Double-click the `Dukemon.jar` to run the app.
+5. Before getting to the quick start instructions, get familiar with our interface and appication modes.
+
+=== User Interface
+
+.Regions of the UI where commands are entered (via CLI) and feedback from Dukemon is shown.
+image::UserGuideCommandBox.png[width="790"]
+
+1. Click on the _CommandBox_ as shown above (region in yellow box) and type commands in.
+
+2. Use kbd:[Enter] to execute commands.
+.. e.g. Typing *`help`* into the _CommandBox_ and pressing kbd:[Enter] will open the _Help_ window.
+
+3. Text-based feedback for each command entered is shown in the _ResultDisplay_ (region in red box).
+
+=== Switching Modes
+
+There are 4 application modes.
+
+.Application modes
+image::UGModes.PNG[width="790"]
+
+.Mode Display
+image::RestrictedHomeMode.PNG[width="790"]
+
+In the highlighed section above, you can see the current mode you are in and the available modes.
+
+
+
+To transition between them you have to enter the `SwitchCommand` that represents each mode.
+
+* `open` kbd:[Enter] +
+to enter `open` mode
+* `start` kbd:[Enter] +
+to enter `game` mode
+* `settings` kbd:[Enter] +
+to enter `settings` mode
+* `home` kbd:[Enter] +
+to enter `home` mode
+
+====
+*Requirements before changing mode*
+
+* A bank should be loaded
+* No game should be running
+
+.If other modes are available, they would be displayed beside the Command Box
+image::ModesAvailable.PNG[width="300"]
+
+====
+
+Yes, it feels like a steep learning curve >_<
+
+But do not worry as we have the AutoComplete Bar that auto completes the available commands whichever mode you are in.
+
+=== AutoComplete Bar
+
+.AutoComplete Bar
+image::AutoCompleteBar.PNG[width="790"]
+
+The highlighted section shows, what commands are currently available. You can click them to automatically fill it in for you. Each of your keystroke will dynamically update the AutoComplete bar, just like the keyboard on your smartphone.
+
+
+
+=== QuickStart
+
+
+.General program flow of Dukemon, showing how the different parts work together.
+image::UserGuideFlowOverview.png[width="790"]
+
+
+Lets load the sample wordbank and play a game to get familiar.
+
+
+1.  `bank sample` kbd:[Enter]
+* This would allow you to switch modes
+2.  `open` kbd:[Enter]
+3.  `start` kbd:[Enter]
+4.  `guess <your_guess>` kbd:[Enter]
+*   keep guessing till the statistics screen appears
+* you can switch modes now
+5.  `home` kbd:[Enter]
+
+Getting comfortable? Ready to master the application commands?
+
+_Some typical commands  to get familiar with are:_
+
+* *`create <NAME>`* : Create an empty _WordBank_ with specified name.
+* *`bank <NAME>`* : Select and switch to _WordBank_ with the specified name.
+* *`add w/<WORD> m/<MEANING>`* : Adds a new _Card_ with specified _Word_ and _Meaning_ into the current _WordBank_.
+* *`list`* : List all _Cards_ in the current _WordBank_.
+* **`start <EASY/MEDIUM/HARD>`** : Starts a _Game_ session with the specified _Difficulty_. Default difficulty in
+_Settings_
+will be used if not
+specified.
+* **`guess <YOUR_ANSWER>`** : Make a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI.
+* **`stop`** : Stops the current _Game_ session.
+* *`exit`* : Exit _Dukemon_.
 
 .  Refer to <<Features>> for details of each command.
 
-[[Features]]
-== Features
+=== Purposes of each mode
+
+image::HomeMode.PNG[width="450"]
+
+* Create/Choose a _Wordbank_
+
+* View Global Statistics
+
+
+image::OpenMode.PNG[width="450"]
+
+* Create/Add/Modify _Cards_ of your _WordBank_. (Each _Card_ contains a _Word_ and _Meaning_).
+* View Statistics belonging to a specific _WordBank_
+
+image::GameMode.PNG[width="450"]
+
+
+* Guess  _Words_ based on each _Meaning_ that appear as quickly as possible!
+* Finish the _Game_ and  view the _Statistics_ for your game session.
+* Evaluate your performance
+
+image::SettingsMode.PNG[width="450"]
+
+
+* Configure your preferred _Settings_. (change _Difficulty_, _Theme_ etc.)
+
+
+
+[[Commands]]
+== Commands
 
 ====
 *Command Format*
@@ -75,7 +180,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acceptable.
 ====
 
-=== Load commands
+=== Home Mode & Commands image:load_mode_icon.png[load, 22]
 ==== To enter loading page : `load`
 Changes the app mode to load, so that the user can perform load commands.
 
@@ -125,7 +230,7 @@ Examples:
 * `bank CS2040`
 * `bank Biology`
 
-=== Flash card commands
+=== Open Mode & Commands image:card_commands_icon.png[width="29.5"]
 
 ==== Help : `help`
 Shows help
@@ -201,31 +306,88 @@ Returns entries containing elephant and giraffe.
 * `find mammal fish bird` +
 Returns any entries containing `mammal`, `fish` or `bird` in its descriptions or words.
 
-==== Exit the game : `exit`
+==== Exit Dukemon: `exit`
 
-=== Game commands
-==== Start new game session : `start`
-Starts a game session with the selected word bank. +
-You select your word bank from the load command : `bank WORD_BANK`
+=== Game Mode & Commands image:game_mode_icon.png[width="30"]
 
-Format: `start [difficulty]`
+.UI regions that are relevant when a Game session is in progress.
+image::UserGuideGameSessionDiagram1.png[width="790"]
 
-==== Guess the answer : `guess`
-Input your answer for the prompted word, given a meaning.
 
+This section covers the actions and feedback that are relevant to the _Game_ mode.  The general layout of the UI when a _Game_ is in progress is as seen above.
+
+1. The timer will be activated to reflect the time left before the _Game_ skips over to the next card. (region in yellow box)
+
+2. The _Meaning_ of the current _Card_ is shown in the region contained by the red box. Based on this _Meaning_ you will  make a _Guess_ for the _Word_ it is describing.
+
+3. _Hints_ (if enabled) will be periodically shown as time passes (region in the blue box) in a Hangman-style. The number of hints given
+differs across each _Difficulty_.
+
+==== Game Mode - [underline]#Starting# image:game_mode_icon.png[width="30"]
+
+The relevant command(s) are:
+
+1. *Starting new game session:*
++
+Format: `start [EASY/MEDIUM/HARD]`
+
+- Starts a game session with the currently selected _WordBank_ and specified _Difficulty_.
+(_WorkBank_ selection is done in _Home_ mode.)
+
+- If no _Difficuty_ is specfied, the default _Difficulty_ in _Settings_
+will be used.
+
+
+
+
+==== Game Mode - [underline]#Playing# image:game_mode_icon.png[width="30"]
+
+.UI regions that show feedback during a Game session.
+image::UserGuideGameSessionDiagram2.png[width="790"][height="850"]
+
+
+
+During a _Game_, the _Timer_ will change colour according to the time left (region in green box). Feedback for each _Guess_ is shown via the _ResultDisplay_ (region in the red box). +
+ +
+The relevant command(s) are:
+
+1. *Making a _Guess_ for a _Word_*: +
++
 Format: `guess WORD`
 
-==== Skip a word : `skip`
-Stops current game session (all progress will be lost) and returns to the home page.
+- Makes a guess for the _Word_ described by the currently shown _Meaning_. (*non case-sensitive*)
 
+2. *Skipping over a _Word_:*
++
+Format: `skip`
+
+- Skips over the current _Word_. (*is counted as a wrong answer*)
+
+
+==== Game Mode - [underline]#Terminating & Statistics# image:game_mode_icon.png[width="30"]
+
+.UI regions showing Statistics and results after a Game session has completed.
+image::UserGuideGameOverDiagram.png[width="790"][height="850"]
+
+.UI regions showing feedback when a Game is forcibly stopped.
+image::UserGuideGameStopDiagram.png[width="790"][height="850"]
+
+A _Game_ finishes when *all _Cards_ have been attempted*. _Statistics_ are
+*automatically shown* upon completion of a _Game_ (see Fig. 6 above). +
+ +
+The user can choose to `stop` a _Game_ before it has finished. This will result in all current _Game_ progress being lost, and
+no _Statistics_ being collected or generated (see Fig. 7 above). +
+ +
+The relevant command(s) are:
+
+1. *Stopping a _Game_ (before it has finished)*: +
++
 Format: `stop`
 
-==== Stop game session : `stop`
-Stops current game session (all progress will be lost) and returns to the home page.
+- Forcibly terminates the current active _Game_ session (*all progress will be lost, and no _Statistics_ will
+be reported.*)
 
-Format: `stop`
-
-=== Changing settings : `settings`
+=== Settings Mode & Commands image:settings_mode_icon.png[width="27"]
 
 Goes into the settings menu. +
 Format: `settings`
@@ -268,31 +430,10 @@ Changes the difficulty to medium. (Timer = 20 seconds)
 * `difficulty high` +
 Changes the difficulty to high. (Timer = 10 seconds)
 
-=== Navigating back : `back`
 
-At any point in time, if there is a previous screen, navigates back to that screen. add home to navigate back to the home page. +
-Format: `back [home]`
 
-Examples:
 
-* `back`
-* `back home`
 
-=== Saving the data
-Dukemon data are saved in the hard disk automatically after any command that changes the data. +
-These commands are generally load commands.
-There is no need to save manually.
-Statistics are also stored automatically.
-
-// tag::dataencryption[]
-=== Leaderboard `[coming in v2.0]`
-
-View and compare your statistics with peers on the internet.
-
-=== User profiles `[coming in v2.0]`
-
-Have more than one account to monitor statistics on the same computer
-// end::dataencryption[]
 
 == FAQ
 
@@ -301,6 +442,20 @@ Have more than one account to monitor statistics on the same computer
 
 *Q*: How do I pronounce your app name? +
 *A*: Think Pokemon.
+
+*Q*: Do I have to save data? +
+*A*: Dukemon data are saved in the hard disk automatically after any command that changes the data.
+These commands are generally load commands.
+There is no need to save manually.
+Statistics are also stored automatically.
+
+
+
+== Overview of Modes for Advanced Users
+
+.All possible application modes
+image::ParserManagerActivityDiagram.PNG[]
+
 
 == Command Summary
 
@@ -373,3 +528,15 @@ s| start m| [DIFFICULTY]
 s| setting m|
 
 |===
+
+== Upcoming Features
+
+// tag::dataencryption[]
+=== Leaderboard `[coming in v2.0]`
+
+View and compare your statistics with peers on the internet.
+
+=== User profiles `[coming in v2.0]`
+
+Have more than one account to monitor statistics on the same computer
+// end::dataencryption[]
