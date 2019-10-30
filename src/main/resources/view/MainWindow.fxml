@@ -38,7 +38,7 @@
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-without-border"
+        <StackPane VBox.vgrow="NEVER" fx:id="feedbackDisplayPlaceholder" styleClass="pane-without-border"
                    maxHeight="10">
           <padding>
             <Insets right="15" left="15"/>

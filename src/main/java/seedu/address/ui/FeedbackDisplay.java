@@ -10,34 +10,34 @@ import javafx.scene.layout.Region;
 /**
  * A ui for the status bar that is displayed at the header of the application.
  */
-public class ResultDisplay extends UiPart<Region> {
+public class FeedbackDisplay extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "errorResultFeedback";
-    private static final String FXML = "ResultDisplay.fxml";
+    private static final String FXML = "FeedbackDisplay.fxml";
 
     @FXML
-    private TextField resultDisplay;
+    private TextField feedbackDisplay;
 
-    public ResultDisplay() {
+    public FeedbackDisplay() {
         super(FXML);
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
-        resultDisplay.getStyleClass().remove(ERROR_STYLE_CLASS);
-        resultDisplay.setText(feedbackToUser);
+        feedbackDisplay.getStyleClass().remove(ERROR_STYLE_CLASS);
+        feedbackDisplay.setText(feedbackToUser);
     }
 
     public void setErrorFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
 
-        ObservableList<String> styleClass = resultDisplay.getStyleClass();
+        ObservableList<String> styleClass = feedbackDisplay.getStyleClass();
 
         if (!styleClass.contains(ERROR_STYLE_CLASS)) {
             styleClass.add(ERROR_STYLE_CLASS);
         }
 
-        resultDisplay.setText(feedbackToUser);
+        feedbackDisplay.setText(feedbackToUser);
     }
 
 }

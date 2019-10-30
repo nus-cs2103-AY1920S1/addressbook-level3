@@ -26,7 +26,7 @@ We'll assume that you have already set up the development environment as outline
 
 Looking in the `logic.command` package, you will notice that each existing command have their own class.
 All the commands inherit from the abstract class `Command` which means that they must override `execute()`.
-Each `Command` returns an instance of `CommandResult` upon success and `CommandResult#feedbackToUser` is printed to the `ResultDisplay`.
+Each `Command` returns an instance of `CommandResult` upon success and `CommandResult#feedbackToUser` is printed to the `FeedbackDisplay`.
 
 Let's start by creating a new `RemarkCommand` class in the `src/main/java/seedu/address/logic/command` directory.
 
@@ -71,7 +71,7 @@ image::RemarkHello.png[]
 
 == Change `RemarkCommand` to throw an exception
 
-While we have successfully printed a message to `ResultDisplay`, the command does not do what it is supposed to do.
+While we have successfully printed a message to `FeedbackDisplay`, the command does not do what it is supposed to do.
 Let's change the command to throw an `CommandException` to accurately reflect that our command is still a work in progress.
 
 .The relationship between RemarkCommand and Command

@@ -7,7 +7,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -33,7 +32,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     // private SplitDisplay splitDisplay;
     private CentralDisplay centralDisplay;
-    private ResultDisplay resultDisplay;
+    private FeedbackDisplay feedbackDisplay;
     private HelpWindow helpWindow;
 
     @FXML
@@ -43,7 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane feedbackDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -75,7 +74,7 @@ public class MainWindow extends UiPart<Stage> {
         splitDisplayPanelPlaceholder.getChildren().add(splitDisplay.getRoot()); */
 
         updateCentralDisplay();
-        updateResultDisplay();
+        updateFeedbackDisplay();
 
         //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPlannerFilePath());
         //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -98,9 +97,9 @@ public class MainWindow extends UiPart<Stage> {
         centralDisplay.getRoot().prefWidthProperty().bind(centralDisplayPlaceholder.widthProperty());
     }
 
-    private void updateResultDisplay() {
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+    private void updateFeedbackDisplay() {
+        feedbackDisplay = new FeedbackDisplay();
+        feedbackDisplayPlaceholder.getChildren().add(feedbackDisplay.getRoot());
     }
 
     /**
@@ -152,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            feedbackDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -165,7 +164,7 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setErrorFeedbackToUser(e.getMessage()); // @ernest: may need to rework this part
+            feedbackDisplay.setErrorFeedbackToUser(e.getMessage()); // @ernest: may need to rework this part
             throw e;
         }
     }
