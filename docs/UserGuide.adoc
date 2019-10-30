@@ -520,7 +520,7 @@ The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
 
-|=== 
+|===
 |:bulb: a|
 Only commands that change Mortago's data can be undone. For example, `add`, `update`, `clear`, and `delete` can be undone while
 `list` or `find` cannot be undone.
