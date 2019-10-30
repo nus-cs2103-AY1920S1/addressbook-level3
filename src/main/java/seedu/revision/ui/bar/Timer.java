@@ -12,7 +12,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
@@ -28,6 +27,7 @@ public class Timer {
     private final Label label;
     private final CommandExecutor commandExecutor;
     private ReadOnlyIntegerWrapper currentTime;
+    private Timeline timeline;
 
 
 
@@ -47,12 +47,12 @@ public class Timer {
     }
 
     public void startTimer() {
-        Timeline time = new Timeline();
+        timeline = new Timeline();
 
         KeyFrame frame = new KeyFrame(Duration.seconds(1), event -> {
             currentTime.set(currentTime.get() - 1);
                 if (currentTime.get() <= 0) {
-                    time.stop();
+                    timeline.stop();
                     try {
                         commandExecutor.execute("n");
                     } catch (CommandException | ParseException | IOException e) {
@@ -61,9 +61,9 @@ public class Timer {
                 }
             });
 
-        time.setCycleCount(Timeline.INDEFINITE);
-        time.getKeyFrames().add(frame);
-        time.play();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(frame);
+        timeline.play();
     }
 
     public Label getLabel() {
@@ -78,6 +78,11 @@ public class Timer {
         currentTime.set(startTime);
         startTimer();
     }
+
+    public void stopTimer() {
+        timeline.stop();
+    }
+
     /**
      * Represents a function that can execute commands.
      */

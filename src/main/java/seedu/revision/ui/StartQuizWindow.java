@@ -61,15 +61,16 @@ public class StartQuizWindow extends Window {
             this, "currentProgressIndex", 0);
 
 
-
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
         super(primaryStage, mainLogic);
         this.mode = mode;
         this.quizList = getListBasedOnMode(this.mode);
     }
+
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
     }
+
     public final ReadOnlyDoubleProperty currentProgressIndexProperty() {
         return currentProgressIndex.getReadOnlyProperty();
     }
@@ -107,7 +108,6 @@ public class StartQuizWindow extends Window {
 
         progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
         scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
-
     }
 
     private int getSizeOfCurrentLevel(Answerable answerable) {
@@ -119,7 +119,7 @@ public class StartQuizWindow extends Window {
 
     private ObservableList<Answerable> getListBasedOnMode(Mode mode) {
         Comparator<Answerable> difficultyComparator = Comparator.comparing(
-            answerable -> answerable.getDifficulty().value);
+                answerable -> answerable.getDifficulty().value);
         switch (mode.value.toLowerCase()) {
         case "normal":
             ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(
@@ -133,6 +133,7 @@ public class StartQuizWindow extends Window {
 
     /**
      * Handles progression to the next level and receives response from the user.
+     *
      * @param nextAnswerable next answerable that will be displayed.
      */
     @FXML
@@ -143,10 +144,10 @@ public class StartQuizWindow extends Window {
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("You have completed level " + (nextLevel - 1) + "\n"
-            + "Your current score is: " + score + "\n"
-            + "Would you like to proceed to level " + nextLevel + "?\n"
-            + "Press [ENTER] to proceed.\n"
-            + "Press [ESC] to return to main screen.");
+                + "Your current score is: " + score + "\n"
+                + "Would you like to proceed to level " + nextLevel + "?\n"
+                + "Press [ENTER] to proceed.\n"
+                + "Press [ESC] to return to main screen.");
 
         ButtonType tryAgainButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -162,7 +163,9 @@ public class StartQuizWindow extends Window {
             progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                     getSizeOfCurrentLevel(nextAnswerable),
                     "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-            scoreProgressAndTimerPlaceholder.getChildren().add(progressIndicatorBar.getRoot());
+            timer = new Timer(5, this::executeCommand);
+            progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
+            scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
         }
     }
 
@@ -227,7 +230,8 @@ public class StartQuizWindow extends Window {
      * @see MainLogic#execute(String, Answerable)
      */
     @Override
-    protected CommandResult executeCommand (String commandText) throws CommandException, ParseException {
+    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        timer.stopTimer();
         try {
             CommandResult commandResult = mainLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
@@ -252,9 +256,18 @@ public class StartQuizWindow extends Window {
 
             previousAnswerable = currentAnswerable;
             currentAnswerable = answerableIterator.next();
-            currentProgressIndex.set(getCurrentProgressIndex() + 1);
-            timer.resetTimer();
-            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
+
+            if (previousAnswerable != null && answerableIterator.hasNext()) {
+                int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
+                int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
+                if (previousLevel < currentLevel) {
+                    handleNextLevel(currentAnswerable);
+                } else {
+                    currentProgressIndex.set(getCurrentProgressIndex() + 1);
+                    timer.resetTimer();
+                    questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
+                }
+            }
 
             if (currentAnswerable instanceof Mcq) {
                 answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
@@ -271,13 +284,7 @@ public class StartQuizWindow extends Window {
             //    answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
             //}
             //answersGridPane.updateAnswers(currentAnswerable);
-            if (previousAnswerable != null && answerableIterator.hasNext()) {
-                int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
-                int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
-                if (previousLevel < currentLevel) {
-                    handleNextLevel(currentAnswerable);
-                }
-            }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {
