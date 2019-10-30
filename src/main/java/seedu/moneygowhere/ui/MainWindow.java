@@ -16,9 +16,7 @@ import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.Logic;
 import seedu.moneygowhere.logic.commands.CommandResult;
-import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.logic.commands.HelpCommand;
-import seedu.moneygowhere.logic.commands.StatsCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 
@@ -139,11 +137,11 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         graphTab = new Tab("Graph");
-        graphPanel = new GraphPanel(logic.getGraphData(), GraphCommand.MESSAGE_SUCCESS);
+        graphPanel = new GraphPanel(logic.getGraphData(), "Graph for all dates\n");
         graphTab.setContent(graphPanel.getRoot());
 
         statsTab = new Tab("Statistics");
-        statsPanel = new StatsPanel(logic.getStatsData(), StatsCommand.MESSAGE_SUCCESS);
+        statsPanel = new StatsPanel(logic.getStatsData(), "Statistics for all dates\n");
         statsTab.setContent(statsPanel.getRoot());
 
         tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);

@@ -19,8 +19,6 @@ public class GraphCommand extends Command {
 
     public static final String COMMAND_WORD = "graph";
 
-    public static String MESSAGE_SUCCESS = "Graph for all dates\n";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Updates the graph panel.\n"
         + "Parameters: "
@@ -35,12 +33,15 @@ public class GraphCommand extends Command {
         + "DATE_START being earlier or equal to DATE_END.\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DATE + "today "
-        + PREFIX_DATE + "tomorrow ";;
+        + PREFIX_DATE + "tomorrow ";
+
+    private String messageSuccess;
 
     private final Logger logger = Logger.getLogger("Graph Logger");
 
     private Date startDate;
     private Date endDate;
+
 
     /**
      * Creates a GraphCommand with whole date range of all spending
@@ -49,7 +50,7 @@ public class GraphCommand extends Command {
     public GraphCommand() {
         startDate = null;
         endDate = null;
-        MESSAGE_SUCCESS = "Graph for all dates.\n";
+        messageSuccess = "Graph for all dates\n";
     }
 
     /**
@@ -60,7 +61,7 @@ public class GraphCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
-        MESSAGE_SUCCESS = String.format("Graph for spending between %s and %s\n", startDate, endDate);
+        messageSuccess = String.format("Graph for spending between %s and %s\n", startDate, endDate);
     }
 
     @Override
@@ -69,7 +70,7 @@ public class GraphCommand extends Command {
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
         model.updateStatsPredicate(getGraphPredicate());
         logger.log(Level.INFO, String.format("Showing graph from %s to %s", startDate, endDate));
-        return new CommandResult(MESSAGE_SUCCESS, true, false, false);
+        return new CommandResult(messageSuccess, true, false, false);
     }
 
     public Predicate<Spending> getGraphPredicate() {

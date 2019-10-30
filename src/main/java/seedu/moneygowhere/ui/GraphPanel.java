@@ -27,6 +27,9 @@ public class GraphPanel extends UiPart<Region> {
         loadData(graphData, commandResult);
     }
 
+    /**
+     * Constructs the spending graph with the data.
+     */
     private void loadData(LinkedHashMap<String, Double> graphData, String commandResult) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");

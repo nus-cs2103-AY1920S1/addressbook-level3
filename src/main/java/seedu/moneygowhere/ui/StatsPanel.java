@@ -6,14 +6,13 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 /**
- * Tab containing the spending graph.
+ * Tab containing the pie chart.
  */
 public class StatsPanel extends UiPart<Region> {
     private static final String FXML = "PlaceholderPanel.fxml";
@@ -26,6 +25,9 @@ public class StatsPanel extends UiPart<Region> {
         loadData(statsData, commandResult);
     }
 
+    /**
+     * Constructs the pie chart with the data.
+     */
     private void loadData(LinkedHashMap<String, Double> statsData, String commandResult) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
