@@ -6,29 +6,34 @@ skinparam classBackgroundColor UI_COLOR
 
 '==== Packages ====
 package UI <<Rectangle>> {
-'Class "{abstract}\nUiPart" as UiPart
 Class MainWindow
-Interface UserOutputListener <<Interface>>
-    package Calendar <<Rectangle>> {
+Class PopUpBox
+    package Log <<Rectangle>> {
         Class LogPanel
         Class LogBox
     }
 }
 
+package Logic <<Rectangle>> {
+    Class UiManager
+}
+
+package Model <<Rectangle>> {
+    Interface UserOutputListener <<Interface>>
+}
+
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> MainWindow
+HiddenOutside ..> UiManager
+
+'==== UiManager====
+UiManager .left..|> UserOutputListener
+UiManager *--> MainWindow
 
 '==== MainWindow ====
 MainWindow *-down--> LogPanel
-MainWindow .left..|> UserOutputListener
-'MainWindow -down--|> UiPart
+MainWindow .left.> PopUpBox
 
 '==== LogPanel ====
-'LogPanel -down--|> UiPart
 LogPanel *-right--> LogBox
-
-'==== LogBox ====
-'LogBox -down--|> UiPart
-
 
 @enduml

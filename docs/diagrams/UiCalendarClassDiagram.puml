@@ -9,8 +9,11 @@ package Ui <<Rectangle>> {
 'Class "{abstract}\nUiPart" as UiPart
 Class "{abstract}\nCard" as Card
 Class MainWindow
-    Class CardHolder
-    Class EventCard
+Class CardHolder
+Class EventCard
+Class TaskCard
+Class UpcomingEventCard
+Class UpcomingTaskCard
     package Calendar <<Rectangle>> {
         Class "{abstract}\nTimelineView" as TimelineView
         Class CalendarPanel
@@ -19,43 +22,50 @@ Class MainWindow
         Class TimelineMonthView
         Class CalendarScreen
         Class CalendarGridDay
+        Class UpcomingView
     }
 }
 
+package Logic <<Rectangle>> {
+    Class UiManager
+}
+
 package Model <<Rectangle>> {
-    Class EventListListener
+    Class EventSource
+    Class TaskSource
+    Interface ModelListsListener <<Interface>>
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> MainWindow
+HiddenOutside .down.> UiManager
+
+'==== UiManager ====
+UiManager *--> MainWindow
+UiManager ..|> ModelListsListener
 
 '==== MainWindow =====
-Class HiddenOutside #FFFFFF
 MainWindow *-down--> CalendarPanel
-MainWindow .left-|> EventListListener
-'MainWindow -down--|> UiPart
 
 '==== CalendarPanel ====
-'CalendarPanel -down--|> UiPart
-CalendarPanel *-left--> TimelineView
-CalendarPanel *-down--> CalendarScreen
+CalendarPanel *-right--> TimelineView
+CalendarPanel *-left-> CalendarScreen
+CalendarPanel *-up--> UpcomingView
 
 '==== CardHolder ====
-'CardHolder -down|> UiPart
 CardHolder *-down-> Card
 
 '==== Card ====
-'Card -down|> UiPart
-Card -up..> Model
 
 '==== EventCard ====
 EventCard --|> Card
+EventCard *-up-> EventSource
+
 
 '==== TaskCard ====
-'TaskCard --|> Card
+TaskCard --|> Card
+TaskCard *-up-> TaskSource
 
 '==== TimelineView ====
-'TimelineView -down--|> UiPart
 TimelineView *-up--> CardHolder
 
 '==== TimelineDayView ====
@@ -68,11 +78,19 @@ TimelineWeekView -up--|> TimelineView
 TimelineMonthView -up--|> TimelineView
 
 '==== CalendarScreen ===='
-'CalendarScreen -down--|> UiPart
 CalendarScreen *-down-> CalendarGridDay
 
-'==== CalendarGridDay ===='
-'CalendarGridDay -down--|> UiPart
+'==== UpcomingView ====
+UpcomingView *-up-> UpcomingEventCard
+UpcomingView *-up-> UpcomingTaskCard
 
+'==== UpcomingEventCard ====
+UpcomingEventCard *-up-> EventSource
+
+'==== UpcomingTaskCard ====
+UpcomingTaskCard *-up-> TaskSource
+
+EventSource ..[hidden]down|> TaskSource
+UpcomingTaskCard ..[hidden]left|> MainWindow
 
 @enduml

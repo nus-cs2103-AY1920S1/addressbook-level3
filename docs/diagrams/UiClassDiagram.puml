@@ -5,10 +5,9 @@ skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
 '==== Packages ====
-package UI <<Rectangle>>{
+package UI <<Rectangle>> {
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
-Class UiManager
 Class MainWindow
 Class CommandBox
 Class CalendarPanel
@@ -17,7 +16,9 @@ Class LogPanel
 Class PopUpBox
 }
 
+
 package Logic <<Rectangle>> {
+    Class UiManager
 }
 
 package List <<Rectangle>> {
@@ -30,12 +31,11 @@ package Log <<Rectangle>> {
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Ui
+HiddenOutside .down.> Ui
 
 '==== UiManager ====
 UiManager .left.|> Ui
-UiManager -down-> MainWindow
-UiManager -right-> Logic
+UiManager *-down-> MainWindow
 
 '==== MainWindow ====
 MainWindow *-down-> CommandBox
@@ -45,7 +45,6 @@ MainWindow *-down-> LogPanel
 MainWindow *-down-> PopUpBox
 
 MainWindow -|> UiPart
-MainWindow -right-> Logic
 
 '==== CommandBox ====
 CommandBox -down-|> UiPart
@@ -67,6 +66,6 @@ PopUpBox -down--> UiPart
 
 '==== Positioning ====
 MainWindow -[hidden]-|> UiPart
-MainWindow -[hidden]-|> UiPart
+UiManager -[hidden]-|> MainWindow
 
 @enduml
