@@ -13,7 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.chart.PieChart;
-import javafx.util.Pair;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.note.Note;
@@ -445,11 +445,11 @@ public class ModelManager implements Model {
         List<StackBarChartModel> barChartData = new ArrayList<>();
 
         for (Difficulty d : uniqueDifficultyList) {
-            List<Pair<Subject, Integer>> dataListPerDifficulty = new ArrayList<>();
+            List<XYChart.Data<String, Number>> dataListPerDifficulty = new ArrayList<>();
             for (Subject s : uniqueSubjectList) {
                 quizResultFilter.setOperation(s, d);
                 int n = filterQuizResultAndReturn(quizResultFilter).size();
-                dataListPerDifficulty.add(new Pair<>(s, n));
+                dataListPerDifficulty.add(new XYChart.Data<>(s.toString(), n));
             }
             barChartData.add(new StackBarChartModel(d, dataListPerDifficulty));
         }

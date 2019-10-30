@@ -207,6 +207,8 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Shows the various charts depending on the type of command.
+     * @param type The type of command.
+     * @throws ParseException if the command is invalid.
      */
     @FXML
     private void showStats(Type type) throws ParseException {
@@ -243,10 +245,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Remove the pie chart from the noteListPanel.
+     * Hides the stats panel.
      */
     @FXML
-    private void removeStats() {
+    private void hideStatsPanel() {
         mainPanel.setVisible(true);
         stats.setVisible(false);
     }
@@ -283,7 +285,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowStats()) {
                 showStats(commandResult.getType());
             } else {
-                removeStats();
+                hideStatsPanel();
             }
 
             return commandResult;

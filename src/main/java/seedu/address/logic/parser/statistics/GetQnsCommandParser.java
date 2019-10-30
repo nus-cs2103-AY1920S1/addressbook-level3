@@ -29,7 +29,7 @@ public class GetQnsCommandParser implements Parser<GetQnsCommand> {
      */
     public GetQnsCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        QuizResultFilter quizResultFilter;
+        QuizResultFilter quizResultFilter = new QuizResultFilter();
         boolean getCorrectQns;
 
         ArgumentMultimap argMultimap =
