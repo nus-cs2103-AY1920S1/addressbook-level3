@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.SetThemeCommand.BLUETHEME;
 import static seedu.address.logic.commands.SetThemeCommand.DARKTHEME;
 import static seedu.address.logic.commands.SetThemeCommand.LIGHTTHEME;
 import static seedu.address.logic.commands.SetThemeCommand.HACKERTHEME;
+import static seedu.address.logic.commands.SetThemeCommand.NUSTHEME;
 import static seedu.address.logic.commands.SetThemeCommand.PINKTHEME;
 
 import seedu.address.logic.commands.SetThemeCommand;
@@ -31,6 +32,8 @@ public class SetThemeCommandParser implements Parser<SetThemeCommand> {
             styleSheet = BLUETHEME;
         } else if (trimedInput.equals("hacker")) {
             styleSheet = HACKERTHEME;
+        } else if (trimedInput.equalsIgnoreCase("nus")) {
+            styleSheet = NUSTHEME;
         }
         if (styleSheet == null) {
             throw new ParseException(String.format(MESSAGE_INVALID_THEME));

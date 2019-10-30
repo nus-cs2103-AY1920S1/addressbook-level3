@@ -19,6 +19,7 @@ public class SetThemeCommand extends Command {
     public static final String PINKTHEME = "view/PinkTheme.css";
     public static final String BLUETHEME = "view/BlueTheme.css";
     public static final String HACKERTHEME = "view/HackerTheme.css";
+    public static final String NUSTHEME = "view/NUSTheme.css";
 
     public static final String MESSAGE_SUCCESS = "Theme changed to %s";
 
