@@ -75,9 +75,10 @@ SML allows you to save time by:
 
 SML generates real-time sales charts for you:
 
-* Revenue
-* Profit
-* Cost
+
+* Total Revenue (monthly)
+* Total Profit (monthly)
+* Total Cost (monthly)
 
 === Glossary
 
@@ -552,6 +553,9 @@ Format: `redo`
 
 ==== Generate stats : `generate-s`
 
+`v1.4` only allows statistics on orders marked as `Completed` and calculates the three type of
+statistics as shown below.
+
 Accepts two types of input: Without date input and with date input +
 
 Generates the statistics with no date input. +
@@ -562,7 +566,7 @@ The argument must match this three words perfectly.
 
 Shown below:
 
-image::docs/images/StatsExampleDefault.png[width="600"]
+image::images/StatsExampleDefault.png[width="600"]
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
 Format: `generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` +
@@ -571,7 +575,7 @@ Format for date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
-image::docs/images/StatsExampleGraph.png[width="600"]
+image::images/StatsExampleGraph.png[width="600"]
 
 Limitations:
 
