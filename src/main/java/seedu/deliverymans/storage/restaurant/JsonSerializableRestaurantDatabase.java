@@ -39,6 +39,7 @@ public class JsonSerializableRestaurantDatabase {
         restaurants.addAll(source.getRestaurantList()
                 .stream()
                 .map(JsonAdaptedRestaurant::new)
+
                 .collect(Collectors.toList()));
     }
 

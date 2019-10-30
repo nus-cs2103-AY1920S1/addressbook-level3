@@ -189,6 +189,26 @@ public class ModelManager implements Model {
     }
 
     //=========== Customer Methods =============================================================
+    @Override
+    public Path getCustomerDatabaseFilePath() {
+        return userPrefs.getCustomerDatabaseFilePath();
+    }
+
+    @Override
+    public void setCustomerDatabaseFilePath(Path customerDatabaseFilePath) {
+        requireNonNull(customerDatabaseFilePath);
+        userPrefs.setCustomerDatabaseFilePath(customerDatabaseFilePath);
+    }
+
+    @Override
+    public void setCustomerDatabase(ReadOnlyCustomerDatabase customerDatabase) {
+        this.customerDatabase.resetData(customerDatabase);
+    }
+
+    @Override
+    public ReadOnlyCustomerDatabase getCustomerDatabase() {
+        return customerDatabase;
+    }
 
     @Override
     public boolean hasCustomer(Customer customer) {
@@ -414,6 +434,7 @@ public class ModelManager implements Model {
 
     private void setData(Data data) {
         setAddressBook(data.addressBook);
+        setCustomerDatabase(data.customerDatabase);
         setDeliverymenDatabase(data.deliverymenDatabase);
         setRestaurantDatabase(data.restaurantDatabase);
         setOrderDatabase(data.orderDatabase);
@@ -545,12 +566,14 @@ public class ModelManager implements Model {
      */
     public static class Data {
         private final AddressBook addressBook;
+        private final CustomerDatabase customerDatabase;
         private final DeliverymenDatabase deliverymenDatabase;
         private final RestaurantDatabase restaurantDatabase;
         private final OrderDatabase orderDatabase;
 
         public Data(Model model) {
             addressBook = new AddressBook(model.getAddressBook());
+            customerDatabase = new CustomerDatabase(model.getCustomerDatabase());
             deliverymenDatabase = new DeliverymenDatabase(model.getDeliverymenDatabase());
             restaurantDatabase = new RestaurantDatabase(model.getRestaurantDatabase());
             orderDatabase = new OrderDatabase(model.getOrderDatabase());
@@ -571,6 +594,7 @@ public class ModelManager implements Model {
             // state check
             Data other = (Data) obj;
             return addressBook.equals(other.addressBook)
+                    && customerDatabase.equals(other.customerDatabase)
                     && deliverymenDatabase.equals(other.deliverymenDatabase)
                     && restaurantDatabase.equals(other.restaurantDatabase)
                     && orderDatabase.equals(other.orderDatabase);

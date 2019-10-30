@@ -47,15 +47,15 @@ public class JsonSerializableCustomerDatabase {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public CustomerDatabase toModelType() throws IllegalValueException {
-        CustomerDatabase addressBook = new CustomerDatabase();
+        CustomerDatabase customerDatabase = new CustomerDatabase();
         for (JsonAdaptedCustomer jsonAdaptedCustomer : customers) {
             Customer customer = jsonAdaptedCustomer.toModelType();
-            if (addressBook.hasCustomer(customer)) {
+            if (customerDatabase.hasCustomer(customer)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_CUSTOMER);
             }
-            addressBook.addCustomer(customer);
+            customerDatabase.addCustomer(customer);
         }
-        return addressBook;
+        return customerDatabase;
     }
 
 }

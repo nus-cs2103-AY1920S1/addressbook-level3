@@ -16,6 +16,7 @@ import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
@@ -52,6 +53,7 @@ public class LogicManager implements Logic {
         model.notifyChange(commandText);
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveCustomerDatabase(model.getCustomerDatabase());
             storage.saveRestaurantDatabase(model.getRestaurantDatabase());
             storage.saveDeliverymenDatabase(model.getDeliverymenDatabase());
         } catch (IOException ioe) {
@@ -79,10 +81,19 @@ public class LogicManager implements Logic {
 
     //=========== Customer =============================================================
     @Override
+    public ReadOnlyCustomerDatabase getCustomerDatabase() {
+        return model.getCustomerDatabase();
+    }
+
+    @Override
     public ObservableList<Customer> getFilteredCustomerList() {
         return model.getFilteredCustomerList();
     }
 
+    @Override
+    public Path getCustomerDatabaseFilePath() {
+        return model.getCustomerDatabaseFilePath();
+    }
     //=========== Deliveryman =============================================================
     @Override
     public ReadOnlyDeliverymenDatabase getDeliverymenDatabase() {

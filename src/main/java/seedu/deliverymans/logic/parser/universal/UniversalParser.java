@@ -85,7 +85,7 @@ public class UniversalParser {
                 throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
             }
             nextContext = Context.CUSTOMER;
-            checkContext(nextContext);
+            //checkContext(nextContext);
             currentContext = nextContext;
             return new ContextCommand(nextContext);
 
@@ -94,7 +94,7 @@ public class UniversalParser {
                 throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
             }
             nextContext = Context.DELIVERYMEN;
-            checkContext(nextContext);
+            //checkContext(nextContext);
             currentContext = nextContext;
             return new ContextCommand(nextContext);
 
@@ -103,7 +103,7 @@ public class UniversalParser {
                 throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
             }
             nextContext = Context.RESTAURANT;
-            checkContext(nextContext);
+            //checkContext(nextContext);
             currentContext = nextContext;
             return new ContextCommand(nextContext);
 
