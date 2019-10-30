@@ -129,6 +129,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Employee> getFullListEmployees() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasEmployee(Employee employee) {
             throw new AssertionError("This method should not be called.");
         }
@@ -154,12 +159,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<DistinctDate> getDistinctDatesList() {
+        public ObservableList<DistinctDate> getEventDistinctDatesList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateDistinctDatesList(List<DistinctDate> list) {
+        public void updateEmployeeDistinctDateList(List<DistinctDate> list) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateEventDistinctDatesList(List<DistinctDate> list) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -181,6 +191,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyEventBook getEventBook() {
             return null;
+        }
+
+        @Override
+        public ObservableList<Event> getFullListEvents() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -220,6 +235,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredScheduledEventList(Predicate<Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<DistinctDate> getEmployeeDistinctDatesList() {
             throw new AssertionError("This method should not be called.");
         }
     }
