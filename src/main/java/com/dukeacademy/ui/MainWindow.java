@@ -8,13 +8,15 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
-import com.dukeacademy.logic.problemstatement.ProblemStatementLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 
+import com.dukeacademy.ui.tabs.Tab;
+import com.dukeacademy.ui.tabs.TabsSupport;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -26,8 +28,7 @@ import javafx.stage.Stage;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-class MainWindow extends UiPart<Stage> {
-
+class MainWindow extends UiPart<Stage> implements TabsSupport {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -36,7 +37,6 @@ class MainWindow extends UiPart<Stage> {
     private final CommandLogic commandLogic;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
-    private final ProblemStatementLogic problemStatementLogic;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
@@ -51,6 +51,9 @@ class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private AnchorPane homePagePlaceholder;
@@ -75,11 +78,9 @@ class MainWindow extends UiPart<Stage> {
      * @param commandLogic           the command logic
      * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
-     * @param problemStatementLogic  the problem statement logic
      */
     public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                      ProgramSubmissionLogic programSubmissionLogic,
-                      ProblemStatementLogic problemStatementLogic) {
+                      ProgramSubmissionLogic programSubmissionLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -87,7 +88,6 @@ class MainWindow extends UiPart<Stage> {
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
-        this.problemStatementLogic = problemStatementLogic;
 
         // Configure the UI
         setWindowDefaultSize();
@@ -169,25 +169,27 @@ class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize() {
-        primaryStage.setFullScreen(true);
+        primaryStage.setMaximized(true);
     }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML private void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
 
     /**
      * Show.
      */
     void show() {
         primaryStage.show();
+    }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    private void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
     }
 
     /**
@@ -222,5 +224,25 @@ class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    @Override
+    public void selectTab(Tab tab) {
+        if (tab == Tab.HOME) {
+            tabPane.getSelectionModel().select(0);
+        }
+
+        if (tab == Tab.QUESTIONS) {
+            tabPane.getSelectionModel().select(1);
+        }
+
+        if (tab == Tab.WORKSPACE) {
+            tabPane.getSelectionModel().select(2);
+        }
+    }
+
+    @Override
+    public void toggleTab() {
+        tabPane.getSelectionModel().selectNext();
     }
 }
