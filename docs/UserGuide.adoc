@@ -507,11 +507,32 @@ Generates the statistics with no date input. +
 Used for calculating `total profit` , `total Revenue` and `total Cost`. +
 Format: `generate-s s/stat` +
 Type for `stat` includes: `profit`, `revenue`, `cost` +
+The argument must match this three words perfectly.
+
+Shown below:
+
+image::docs/images/StatsExampleDefault.png[width="600"]
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
 Format: `generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` +
 Example: `generate-s s/revenue d1/2019.10.16 d2/2019.11.21` +
 Format for date is in YYYY.MM.DD e.g `2019.05.12`
+
+Shown below:
+
+image::docs/images/StatsExampleGraph.png[width="600"]
+
+Limitations:
+
+* Range of dates affecting chart display:
+** The chart is able to accept a large range of dates, but take note that above a
+certain threshold the gap between the months will change, depending on how large of a range you are calculating.
+This behaviour is intentional and not a bug.
+
+* Load time:
+** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
+we estimate at least a few seconds before the window will be loaded.
+
 
 
 ==== Check : `check`
