@@ -10,8 +10,10 @@ import static javafx.scene.input.KeyCode.Y;
 import static javafx.scene.input.KeyCombination.SHIFT_ANY;
 import static javafx.scene.input.KeyCombination.SHORTCUT_ANY;
 import static javafx.scene.input.KeyCombination.SHORTCUT_DOWN;
+import static org.fxmisc.wellbehaved.event.EventPattern.eventType;
 import static org.fxmisc.wellbehaved.event.EventPattern.keyPressed;
 import static org.fxmisc.wellbehaved.event.EventPattern.keyReleased;
+import static org.fxmisc.wellbehaved.event.EventPattern.mousePressed;
 import static seedu.address.ui.textfield.SyntaxHighlightingSupportedInput.PLACEHOLDER_REGEX;
 
 import java.time.Duration;
@@ -43,6 +45,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -79,6 +82,12 @@ public class CommandTextField extends Region {
             keyPressed(KeyCode.Z, SHIFT_ANY, SHORTCUT_DOWN),
             keyReleased(Y, SHIFT_ANY, SHORTCUT_DOWN),
             keyReleased(KeyCode.Z, SHIFT_ANY, SHORTCUT_DOWN)));
+    private static InputMap<Event> consumeMouseDragEvent = InputMap.consume(EventPattern.anyOf(
+            eventType(MouseEvent.MOUSE_DRAGGED),
+            eventType(MouseEvent.DRAG_DETECTED),
+            mousePressed().unless(e -> e.getClickCount() == 1 && !e.isShiftDown())));
+
+
 
     private TextField functionalTextField;
     private StyleClassedTextArea visibleTextArea;
@@ -179,9 +188,11 @@ public class CommandTextField extends Region {
         Nodes.addInputMap(functionalTextField, consumeCopyPasteEvent);
         Nodes.addInputMap(functionalTextField, consumeUndoRedoEvent);
         Nodes.addInputMap(functionalTextField, consumeTabKey);
+        Nodes.addInputMap(functionalTextField, consumeMouseDragEvent);
         Nodes.addInputMap(visibleTextArea, consumeUndoRedoEvent);
         Nodes.addInputMap(visibleTextArea, consumeEnterKeyEvent);
         Nodes.addInputMap(visibleTextArea, consumeTabKey);
+        Nodes.addInputMap(visibleTextArea, consumeMouseDragEvent);
     }
 
     /**
