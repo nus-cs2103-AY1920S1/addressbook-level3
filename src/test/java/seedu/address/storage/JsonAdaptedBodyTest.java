@@ -17,11 +17,12 @@ import seedu.address.model.person.Name;
 import seedu.address.testutil.BodyBuilder;
 
 //@@author ambervoong
-public class JsonAdaptedBodyTest<priavte> {
+public class JsonAdaptedBodyTest {
     private static final String VALID_BODY_ID = "1";
     private static final String VALID_DATE_OF_ADMISSION = "11/11/1111";
     private static final String VALID_BODY_STATUS = "ARRIVED";
     private static final String VALID_NAME = "Rachel";
+    private static final String VALID_DETAILS = "tomato";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_BODY_STATUS = "ARXIVED";
     private static final String INVALID_DATE = "17/ad/11";
@@ -39,7 +40,7 @@ public class JsonAdaptedBodyTest<priavte> {
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedBody body = new JsonAdaptedBody(VALID_BODY_ID, VALID_DATE_OF_ADMISSION, VALID_BODY_STATUS,
                 INVALID_NAME, null, null, null, null, null, null,
-                null, null, null, null, null);
+                null, null, null, null, null, null);
 
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, body::toModelType);
@@ -49,7 +50,8 @@ public class JsonAdaptedBodyTest<priavte> {
     public void toModelType_nullId_throwsIllegalValueException() {
         JsonAdaptedBody body = new JsonAdaptedBody(null, VALID_DATE_OF_ADMISSION, INVALID_BODY_STATUS,
                 VALID_NAME, null, null, null, null, null, null,
-                null, null, null, null, null);
+                null, null, null, null, null,
+                VALID_DETAILS);
 
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 IdentificationNumber.class.getSimpleName());
@@ -60,7 +62,7 @@ public class JsonAdaptedBodyTest<priavte> {
     public void toModelType_illegalStatus_throwsIllegalValueException() {
         JsonAdaptedBody body = new JsonAdaptedBody(VALID_BODY_ID, VALID_DATE_OF_ADMISSION, null,
                 VALID_NAME, null, null, null, null, null, null,
-                null, null, null, null, null);
+                null, null, null, null, null, VALID_DETAILS);
 
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 BodyStatus.class.getSimpleName());
@@ -69,7 +71,7 @@ public class JsonAdaptedBodyTest<priavte> {
         JsonAdaptedBody bodyWrongStatus = new JsonAdaptedBody(VALID_BODY_ID, VALID_DATE_OF_ADMISSION,
                 INVALID_BODY_STATUS, VALID_NAME, null, null, null, null, null,
                 null, null, null, null, null,
-                null);
+                null, VALID_DETAILS);
 
         expectedMessage = "Invalid Body Status: " + INVALID_BODY_STATUS.toLowerCase();
         assertThrows(ParseException.class, expectedMessage, bodyWrongStatus::toModelType);
@@ -79,13 +81,13 @@ public class JsonAdaptedBodyTest<priavte> {
     public void toModelType_invalidDates_throwsIllegalValueException() {
         JsonAdaptedBody bodyA = new JsonAdaptedBody(VALID_BODY_ID, VALID_DATE_OF_ADMISSION, VALID_BODY_STATUS,
                 VALID_NAME, null, null, null, null, null, INVALID_DATE,
-                null, null, null, null, null);
+                null, null, null, null, null, VALID_DETAILS);
         JsonAdaptedBody bodyB = new JsonAdaptedBody(VALID_BODY_ID, VALID_DATE_OF_ADMISSION, VALID_BODY_STATUS,
                 VALID_NAME, null, null, null, null, null, null,
-                INVALID_DATE, null, null, null, null);
+                INVALID_DATE, null, null, null, null, VALID_DETAILS);
         JsonAdaptedBody bodyC = new JsonAdaptedBody(VALID_BODY_ID, INVALID_DATE, VALID_BODY_STATUS,
                 VALID_NAME, null, null, null, null, null, null,
-                null, null, null, null, null);
+                null, null, null, null, null, VALID_DETAILS);
         assertThrows(ParseException.class, MESSAGE_INVALID_DATE, bodyA::toModelType);
         assertThrows(ParseException.class, MESSAGE_INVALID_DATE, bodyB::toModelType);
         assertThrows(ParseException.class, MESSAGE_INVALID_DATE, bodyC::toModelType);

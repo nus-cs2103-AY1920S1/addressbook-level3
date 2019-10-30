@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.io.IOException;
@@ -61,9 +62,8 @@ public class NotifCommand extends Command {
     }
 
     //@@author ambervoong
-
     /**
-     * Removes a notification from the model. Used to undo changes made in an AddCommand
+     * Removes a notification from the model. Used to undo changes made in an AddCommand.
      *
      * @param model model of Mortago.
      */
@@ -72,6 +72,20 @@ public class NotifCommand extends Command {
 
         if (model.hasNotif(notif)) {
             model.deleteNotif(notif);
+        }
+    }
+
+    /**
+     * Adds a notification back into the model. Used to redo changes made in an AddCommand.
+     * @param model model of Mortago.
+     * @throws CommandException if this notification already exists in the model.
+     */
+    public void addNotif(Model model) throws CommandException {
+        requireNonNull(model);
+        if (model.hasNotif(notif)) {
+            throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
+        } else {
+            model.addNotif(notif);
         }
     }
     //@@author
@@ -98,7 +112,8 @@ public class NotifCommand extends Command {
         Runnable changeUi = () -> Platform.runLater(() -> {
             if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
                 UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
-                up.setUpdateFromNotif(true);
+                // This is so that when undone, the status goes back to ARRIVED.
+                body.setBodyStatus(ARRIVED);
                 try {
                     up.execute(model);
                     NotifWindow notifWindow = new NotifWindow();
@@ -110,7 +125,8 @@ public class NotifCommand extends Command {
                     logger.info("Error updating the body and fridge ");
                 }
             }
-            NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
+            NotificationButton.getInstance(model.getFilteredNotifList())
+                    .updateNotifCount(model.getNumberOfNotifs());
         });
         ses.schedule(changeUi, period, timeUnit);
     }

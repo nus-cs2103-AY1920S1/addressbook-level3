@@ -12,7 +12,7 @@ import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
 
-//@@author shaoyi
+//@@author shaoyi1997
 /**
  * Represents a worker entry in Mortago.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -23,16 +23,17 @@ public class Worker implements Entity {
     private final Name name;
     private Sex sex;
     private IdentificationNumber workerIdNum;
+    private Date dateJoined;
 
     // Data fields
-    private Date dateJoined;
     private Optional<String> designation;
     private Optional<Date> dateOfBirth;
     private Optional<PhoneNumber> phone;
     private Optional<String> employmentStatus;
+    private Optional<Photo> photo;
 
     public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
-                  String designation) {
+                  String designation, Photo photo) {
         this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
         this.name = name;
         this.sex = sex;
@@ -41,6 +42,7 @@ public class Worker implements Entity {
         this.employmentStatus = Optional.ofNullable(employmentStatus);
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
         this.designation = Optional.ofNullable(designation);
+        this.photo = Optional.ofNullable(photo);
     }
 
     public Worker(Name name, Sex sex, Date dateJoined) {
@@ -51,8 +53,10 @@ public class Worker implements Entity {
         this.designation = Optional.empty();
         this.phone = Optional.empty();
         this.dateOfBirth = Optional.empty();
+        this.photo = Optional.empty();
     }
 
+    //@@author ambervoong
     /**
      * Generates a new Worker with bare-minimum attributes and a custom ID. Only used for creating a Worker
      * from storage.
@@ -71,6 +75,7 @@ public class Worker implements Entity {
         worker.workerIdNum = IdentificationNumber.generateNewWorkerId(worker, id);
         return worker;
     }
+    //@@author
 
     public IdentificationNumber getIdNum() {
         return workerIdNum;
@@ -104,6 +109,10 @@ public class Worker implements Entity {
         return employmentStatus;
     }
 
+    public Optional<Photo> getPhoto() {
+        return photo;
+    }
+
     public void setPhone(PhoneNumber phone) {
         this.phone = Optional.ofNullable(phone);
     }
@@ -128,6 +137,10 @@ public class Worker implements Entity {
         this.employmentStatus = Optional.ofNullable(employmentStatus);
     }
 
+    public void setPhoto(Photo photo) {
+        this.photo = Optional.ofNullable(photo);
+    }
+
     /**
      * Returns true if both workers have the same identity fields.
      * This defines a weaker notion of equality between two workers.
@@ -139,7 +152,8 @@ public class Worker implements Entity {
             Worker otherWorker = (Worker) o;
             return otherWorker != null
                 && otherWorker.getName().equals(getName())
-                && otherWorker.getSex().equals(getSex());
+                && otherWorker.getSex().equals(getSex())
+                && otherWorker.getDateJoined().equals(getDateJoined());
         } else {
             return false;
         }
@@ -170,7 +184,8 @@ public class Worker implements Entity {
             && otherPerson.getPhone().equals(getPhone())
             && otherPerson.getDateJoined().equals(getDateJoined())
             && otherPerson.getDateOfBirth().equals(getDateOfBirth())
-            && otherPerson.getDesignation().equals(getDesignation());
+            && otherPerson.getDesignation().equals(getDesignation())
+            && otherPerson.getPhoto().equals(getPhoto());
     }
 
     @Override
@@ -200,3 +215,4 @@ public class Worker implements Entity {
         return builder.toString();
     }
 }
+//@@ author

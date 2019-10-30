@@ -144,8 +144,8 @@ class BodyTest {
 
     @Test
     void getSetReligion() {
-        ALICE.setReligion(Religion.SIKHISM);
-        assertEquals(Religion.SIKHISM, ALICE.getReligion().get());
+        ALICE.setReligion("Islam");
+        assertEquals("Islam", ALICE.getReligion().get());
     }
 
     @Test
@@ -197,6 +197,12 @@ class BodyTest {
         Fridge fridge = new FridgeBuilder().build();
         assertEquals(fridge.getIdNum(), new BodyBuilder(ALICE).build().getFridgeId().get());
         ALICE.setFridgeId(null);
+    }
+
+    @Test
+    void getSetDetails() {
+        ALICE.setDetails("note");
+        assertEquals("note", ALICE.getDetails().get());
     }
 
     // Stub Classes

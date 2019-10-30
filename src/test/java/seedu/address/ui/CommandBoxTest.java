@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+//@@ author shaoyi1997-reused
 public class CommandBoxTest extends GuiUnitTest {
 
     private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
@@ -61,75 +62,6 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     /**
-    @Test
-    public void commandBox_handleKeyPress() {
-        commandBoxHandle.run(COMMAND_THAT_FAILS);
-        assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
-        guiRobot.push(KeyCode.ESCAPE);
-        assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
-
-        guiRobot.push(KeyCode.A);
-        assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
-    }
-
-    @Test
-    public void handleKeyPress_startingWithUp() {
-        // empty history
-        assertInputHistory(KeyCode.UP, "");
-        assertInputHistory(KeyCode.DOWN, "");
-
-        // one command
-        commandBoxHandle.run(COMMAND_THAT_SUCCEEDS);
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
-        assertInputHistory(KeyCode.DOWN, "");
-
-        // two commands (latest command is failure)
-        commandBoxHandle.run(COMMAND_THAT_FAILS);
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
-        assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
-        assertInputHistory(KeyCode.DOWN, "");
-        assertInputHistory(KeyCode.DOWN, "");
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
-
-        // insert command in the middle of retrieving previous commands
-        guiRobot.push(KeyCode.UP);
-        String thirdCommand = "list";
-        commandBoxHandle.run(thirdCommand);
-        assertInputHistory(KeyCode.UP, thirdCommand);
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
-        assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
-        assertInputHistory(KeyCode.DOWN, thirdCommand);
-        assertInputHistory(KeyCode.DOWN, "");
-    }
-
-    @Test
-    public void handleKeyPress_startingWithDown() {
-        // empty history
-        assertInputHistory(KeyCode.DOWN, "");
-        assertInputHistory(KeyCode.UP, "");
-
-        // one command
-        commandBoxHandle.run(COMMAND_THAT_SUCCEEDS);
-        assertInputHistory(KeyCode.DOWN, "");
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
-
-        // two commands
-        commandBoxHandle.run(COMMAND_THAT_FAILS);
-        assertInputHistory(KeyCode.DOWN, "");
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
-
-        // insert command in the middle of retrieving previous commands
-        guiRobot.push(KeyCode.UP);
-        String thirdCommand = "list";
-        commandBoxHandle.run(thirdCommand);
-        assertInputHistory(KeyCode.DOWN, "");
-        assertInputHistory(KeyCode.UP, thirdCommand);
-    }
-    **/
-
-    /**
      * Runs a command that fails, then verifies that <br>
      *      - the text remains <br>
      *      - the command box's style is the same as {@code errorStyleOfCommandBox}.
@@ -159,3 +91,5 @@ public class CommandBoxTest extends GuiUnitTest {
         assertEquals(expectedCommand, commandBoxHandle.getInput());
     }
 }
+//@@ author
+
