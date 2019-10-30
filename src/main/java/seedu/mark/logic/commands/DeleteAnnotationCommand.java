@@ -16,7 +16,7 @@ import seedu.mark.storage.Storage;
  * Deletes a whole or part of an {@code Annotation} from a {@code Paragraph}.
  * By default, the {@code Highlight} and {@code AnnotationNote} of the {@code Annotation} is retained.
  */
-public class DeleteAnnotationCommand extends AnnotationCommand {
+public abstract class DeleteAnnotationCommand extends AnnotationCommand {
 
 
     public static final String COMMAND_WORD = "annotate-delete";
@@ -41,7 +41,8 @@ public class DeleteAnnotationCommand extends AnnotationCommand {
             + "Download a cache using the " + CacheCommand.COMMAND_WORD + " command to start annotating.";
     //TODO: change msg to more informative one (what content, to which paragraph, which colour, which bkmark version
     public static final String MESSAGE_NOTHING_TO_DELETE = "There is no annotation to delete from this paragraph.";
-    public static final String MESSAGE_DEFAULT = "Successfully kept your note and highlight.";
+    public static final String MESSAGE_NOTHING_TO_DO = "You have requested to keep your note and highlight! "
+            + "No change shall be made.";
 
 
     private final boolean isRemoveNote;
@@ -54,11 +55,13 @@ public class DeleteAnnotationCommand extends AnnotationCommand {
         this.isRemoveNote = isRemoveNote;
     }
 
+    /*
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         model.saveMark(MESSAGE_DEFAULT);
         return new OfflineCommandResult(MESSAGE_DEFAULT);
     }
+     */
 
 
     @Override

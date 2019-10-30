@@ -7,6 +7,7 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARAGRAPH;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.DeleteAnnotationAllCommand;
+import seedu.mark.logic.commands.DeleteAnnotationClearAllCommand;
 import seedu.mark.logic.commands.DeleteAnnotationCommand;
 import seedu.mark.logic.commands.DeleteAnnotationHighlightCommand;
 import seedu.mark.logic.commands.DeleteAnnotationNoteCommand;
@@ -17,8 +18,6 @@ import seedu.mark.model.annotation.ParagraphIdentifier;
  * Parses input arguments and creates new DeleteAnnotationCommand object.
  */
 public class DeleteAnnotationCommandParser implements Parser<DeleteAnnotationCommand> {
-
-    public static final String MESSAGE_INVALID_BOOL = "Boolean options should be spelt either true or false.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteAnnotationCommand
@@ -38,26 +37,32 @@ public class DeleteAnnotationCommandParser implements Parser<DeleteAnnotationCom
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAnnotationCommand.MESSAGE_USAGE), pe);
         }
 
+
         if (!argMultimap.getValue(PREFIX_PARAGRAPH).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteAnnotationCommand.MESSAGE_USAGE));
         }
+
+        if (isClearAll(argMultimap.getValue(PREFIX_PARAGRAPH).get())) {
+            return new DeleteAnnotationClearAllCommand(index);
+        }
+
         ParagraphIdentifier pid = ParserUtil.parseParagraphIdentifier(argMultimap.getValue(PREFIX_PARAGRAPH).get());
 
         boolean isKeepHighlight = false;
         if (argMultimap.getValue(PREFIX_HIGHLIGHT).isPresent()) {
-            isKeepHighlight = strToBool(argMultimap.getValue(PREFIX_HIGHLIGHT).get());
+            isKeepHighlight = ParserUtil.strToBool(argMultimap.getValue(PREFIX_HIGHLIGHT).get());
         }
 
         boolean isKeepNote = false;
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
-            isKeepNote = strToBool(argMultimap.getValue(PREFIX_NOTE).get());
+            isKeepNote = ParserUtil.strToBool(argMultimap.getValue(PREFIX_NOTE).get());
         }
 
         DeleteAnnotationCommand cmd;
         if (isKeepHighlight) {
             if (isKeepNote) {
-                cmd = new DeleteAnnotationCommand(index, pid, false, false);
+                throw new ParseException(DeleteAnnotationCommand.MESSAGE_NOTHING_TO_DO);
             } else {
                 cmd = new DeleteAnnotationNoteCommand(index, pid);
             }
@@ -72,19 +77,8 @@ public class DeleteAnnotationCommandParser implements Parser<DeleteAnnotationCom
         return cmd;
     }
 
-    /**
-     * Converts a {@code String boolStr}containing only "true" or "false" into true and false respectively.
-     * @throws ParseException if {@code boolStr} is neither "true" nor "false" case-insensitively.
-     */
-    private boolean strToBool(String boolStr) throws ParseException {
-        switch (boolStr.toLowerCase()) {
-        case "true":
-            return true;
-        case "false":
-            return false;
-        default:
-            throw new ParseException(MESSAGE_INVALID_BOOL);
-        }
+    private boolean isClearAll(String arg) {
+        return arg.trim().toLowerCase().equals("all");
     }
 
 }

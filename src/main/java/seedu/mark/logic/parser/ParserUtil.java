@@ -28,6 +28,7 @@ import seedu.mark.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_BOOL = "Boolean options should be spelt either true or false.";
 
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
@@ -223,5 +224,19 @@ public class ParserUtil {
         return new ParagraphIdentifier(idx, t);
     }
 
+    /**
+     * Converts a {@code String boolStr}containing only "true" or "false" into true and false respectively.
+     * @throws ParseException if {@code boolStr} is neither "true" nor "false" case-insensitively.
+     */
+    public static boolean strToBool(String boolStr) throws ParseException {
+        switch (boolStr.toLowerCase()) {
+        case "true":
+            return true;
+        case "false":
+            return false;
+        default:
+            throw new ParseException(MESSAGE_INVALID_BOOL);
+        }
+    }
 
 }

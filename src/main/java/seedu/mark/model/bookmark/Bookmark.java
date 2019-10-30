@@ -68,6 +68,12 @@ public class Bookmark {
         return Collections.unmodifiableList(cachedCopies);
     }
 
+    public void resetCachedCopy() {
+        String html = cachedCopies.get(0).html;
+        cachedCopies.clear();
+        cachedCopies.add(new CachedCopy(html));
+    }
+
     /**
      * Returns true if both bookmarks have the same name or the same url.
      * This defines a weaker notion of equality between two bookmarks.
