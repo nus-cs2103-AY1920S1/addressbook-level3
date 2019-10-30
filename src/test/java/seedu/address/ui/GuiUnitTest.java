@@ -9,6 +9,7 @@ import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
 import seedu.address.ui.testutil.UiPartExtension;
 
+//@@ author shaoyi1997-reused
 /**
  * A GUI unit test class for AddressBook.
  */
@@ -38,3 +39,4 @@ public abstract class GuiUnitTest {
         return node.orElseThrow(NodeNotFoundException::new);
     }
 }
+//@@ author

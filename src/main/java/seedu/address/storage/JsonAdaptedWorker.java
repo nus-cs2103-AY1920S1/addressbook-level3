@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DATE;
 
 import java.text.SimpleDateFormat;
@@ -14,11 +15,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
 
 
 //@@author ambervoong
+
 /**
  * Jackson-friendly version of {@link Worker}.
  */
@@ -35,6 +38,7 @@ class JsonAdaptedWorker {
     private final String dateOfBirth;
     private final String phone;
     private final String employmentStatus;
+    private final String photo;
 
 
     /**
@@ -42,13 +46,14 @@ class JsonAdaptedWorker {
      */
     @JsonCreator
     public JsonAdaptedWorker(@JsonProperty("workerIdNum") String workerIdNum,
-                           @JsonProperty("name") String name,
-                           @JsonProperty("sex") String sex,
-                           @JsonProperty("dateJoined") String dateJoined,
-                           @JsonProperty("designation") String designation,
-                           @JsonProperty("dateOfBirth") String dateOfBirth,
-                           @JsonProperty("phone") String phone,
-                           @JsonProperty("employmentStatus") String employmentStatus) {
+                             @JsonProperty("name") String name,
+                             @JsonProperty("sex") String sex,
+                             @JsonProperty("dateJoined") String dateJoined,
+                             @JsonProperty("designation") String designation,
+                             @JsonProperty("dateOfBirth") String dateOfBirth,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("employmentStatus") String employmentStatus,
+                             @JsonProperty("photo") String photo) {
         this.workerIdNum = workerIdNum;
         this.name = name;
         this.sex = sex;
@@ -57,6 +62,7 @@ class JsonAdaptedWorker {
         this.dateOfBirth = dateOfBirth;
         this.phone = phone;
         this.employmentStatus = employmentStatus;
+        this.photo = photo;
     }
 
     /**
@@ -72,6 +78,11 @@ class JsonAdaptedWorker {
         phone = source.getPhone().map(PhoneNumber::toString).orElse(null);
         employmentStatus = source.getEmploymentStatus().orElse(null);
 
+        if (source.getPhoto().isPresent()) {
+            photo = source.getPhoto().get().getStoragePathToDataDirectory();
+        } else {
+            photo = null;
+        }
         // Dates
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         dateJoined = formatter.format(source.getDateJoined());
@@ -93,7 +104,7 @@ class JsonAdaptedWorker {
         try {
             idNumber = Integer.parseInt(workerIdNum);
         } catch (NumberFormatException e) {
-            throw new IllegalValueException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
         }
 
         // Convert Name
@@ -137,9 +148,20 @@ class JsonAdaptedWorker {
             actualPhoneNumber = null;
         } else {
             if (!PhoneNumber.isValidPhoneNumber(phone)) {
-                throw new IllegalValueException(PhoneNumber.VALID_NUMBER);
+                throw new IllegalValueException(PhoneNumber.MESSAGE_CONSTRAINTS);
             }
             actualPhoneNumber = new PhoneNumber(phone);
+        }
+
+        // Get photo
+        final Photo actualPhoto;
+        if (photo == null) {
+            actualPhoto = null;
+        } else {
+            if (!Photo.isValidPhoto(photo)) {
+                throw new IllegalValueException(Photo.MESSAGE_CONSTRAINTS);
+            }
+            actualPhoto = ParserUtil.parsePhoto(photo);
         }
 
         // Convert dates
@@ -172,6 +194,7 @@ class JsonAdaptedWorker {
         worker.setDateOfBirth(actualDateOfBirth);
         worker.setPhone(actualPhoneNumber);
         worker.setEmploymentStatus(actualEmploymentStatus);
+        worker.setPhoto(actualPhoto);
         return worker;
     }
 }

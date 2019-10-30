@@ -273,6 +273,7 @@ The `UndoableCommand` class is an abstract class that extends the abstract `Comm
 Commands that don't change the user-visible program state, like `find`, can still inherit directly from `Command`.
 
 Here is where the Command pattern comes in. A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
+
 ``UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
 
 ===== Defensive programming
@@ -373,27 +374,111 @@ After the analysis described below, the Command pattern was thought to be the be
 // end::undoredo[]
 
 === Notification Feature
-A notification is a message that Mortago will display when the status of a body is automatically updated.
-If the next-of-kin of a body has not been uncontactable for 24 hours, Mortago will prompt the user to contact
-the police for a more thorough investigation and change the status of the body from `ARRIVED` to `CONTACT_POLICE`.
+This feature in Mortago acts as a reminder to a mortuary manager to contact the police when the next-of-kin of a body
+has been uncontactable for a given period of time. He / She then needs to contact the police to proceed with a
+more thorough investigation. In Singapore, this period is 24 hours. For testing purposes, it has been set to
+10 seconds in Mortago.
+
+If the status of a `Body` is `ARRIVED` after the 10 second window, it is updated to `CONTACT_POLICE` and a
+pop-up alert is displayed to remind regarding the same.
+
+This command is supported by the model component `Notif` and logic component `NotifCommand`.
+
+In `Notif` command, the following are the key private variables:
+
+* `body`: Refers to the `Body` for which the `Notif` is associated with. This is passed in as a parameter when a new
+object of the class is instantiated.
+
+* `alert`: Refers to a `Runnable` function which checks if the current status of the body is `ARRIVED` and if so,
+changes it to `CONTACT_POLICE`.
+
+* `notifCreationTime`: Refers to a `Date` object which store the date and time at the point of addition of the body.
+
+The constructor of a `NotifCommand` must be provided with the following parameters:
+
+* `notif`: Refers to the the instance of the `Notif` which needs to be handled.
+
+* `period`: Refers to a `long` value for which the NotifCommand needs to wait before executing the `alert` function
+of the `notif`. `long` is used because `notifCreationTime.getTime()` returns a `long` which is useful in storage.
+ It will be explained in futher detail later.
+
+* `timeUnit`: Refers to a `TimeUnit` associated with the `period`.
 
 ==== Current Implementation
-Given below is the execution process of the `NotificationCommand`:
+Given below is the typical execution process of this command:
 
-1. The user executes `add -b /name John ...` to add a new body to Mortago.
-2. The add command also created a new new `Notif` using this body as the parameter.
-3. The add command instantiates a new`NotifCommand` with `Notif`, `period`, `unit` as parameters.
-`period` is a static final integer initialized for 10 seconds and `unit` is static final TimeUnit set at TimeUnit.SECONDS.
-4. `NotifCommand` creates a new static `ScheduledExecutorService` which is scheduled to update the `BodyStatus` to
-`CONTACT_POLICE` if there is no change in its status for the specified `period` using the `UpdateCommand`.
+1. The user executes `add -b /name John ...` to add a new `Body` to Mortago.
+2. The `AddCommand` creates a new `Notif` using this `Body` as the parameter.
+3. The `AddCommand` instantiates a new `NotifCommand` with `Notif`, `period`, `unit` as parameters.
+`period` is as a `static final long` equal to 10 and `unit` is `static final TimeUnit` set to `TimeUnit.SECONDS` in `AddCommand`.
+4. `NotifCommand` has a static instance of the `ScheduledExecutorService` which schedules updating the status of the
+bodies to `CONTACT_POLICE` if there is no change in their status for the specified `period` using the `UpdateCommand`.
 5. After the `BodyStatus` is updated, a `NotifWindow` will be shown to alert the user of the automatic update in
 `BodyStatus`.
+
+Here is the code snippet of the `NotifCommand`:
+```
+Body body = notif.getBody();
+String notifContent = "Body Id: " + body.getIdNum()
++ "\nName: " + body.getName()
++ "\nNext of Kin has been uncontactable. Please contact the police";
+
+Runnable changeUi = () -> Platform.runLater(() -> {
+    if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
+        UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
+        up.setUpdateFromNotif(true);
+        try {
+            up.execute(model);
+            NotifWindow notifWindow = new NotifWindow();
+            notifWindow.setTitle("Contact Police!");
+            notifWindow.setContent(notifContent);
+            notifWindow.display();
+            storageManager.saveAddressBook(model.getAddressBook());
+        } catch (CommandException | IOException e) {
+            logger.info("Error updating the body and fridge ");
+        }
+    }
+    NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
+});
+ses.schedule(changeUi, period, timeUnit);
+```
+
+The following sequence diagrams illustrate the execution of the notification feature:
 
 .Notification Command Sequence Diagram
 image::NotifCommandSequenceDiagram.png[]
 
 .ChangeUI function Sequence Diagram
 image::ChangeUiFnSequenceDiagram.png[]
+
+The following activity diagram shows what happens when a user adds a new body and the `NotifCommand` is instantiated:
+
+.Notification Command Activity Diagram
+image::NotifCommandActivityDiagram.png[]
+
+|===
+|:bulb: *Is `NotifCommand` only executed when a `Body` is added?*
+a| No! If the status of the `Body` is changed to `ARRIVED` using the `UpdateCommand`, `NotifCommand` is still
+executed. The `Notif` is scheduled to be executed after the specified `period` from the point in time when the
+status of the body was updated.
+|===
+
+This command supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
+`notifCreationTime` are stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, all
+the `Notif` stored will be added in the `model`. During this process, for each `Notif`, the difference of the current system
+time and `notifCreationTime` is calculated. If it is more than the `period`, then the status of the associated `Body` is
+changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be executed after the calculated time difference.
+
+|===
+
+|:bulb: *When is the `NotifComand` not executed?*
+
+a|* If the status of the `Body` is changed before the 10 second window.
+
+* If the `Body` is deleted before the time period.
+
+|===
+
 
 ==== Design Considerations
 ===== Aspect: How to delay change in BodyStatus
@@ -410,7 +495,7 @@ image::ChangeUiFnSequenceDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: Increases `NotifCommand`'s dependency.
 
-* **Alternative 2: Directly make changes to the model.
+* **Alternative 2:** Directly make changes to the model.
 ** Pros: Does not increase dependency .
 ** Cons: Cause a lot of repetition of code.
 
@@ -419,11 +504,12 @@ image::ChangeUiFnSequenceDiagram.png[]
 ==== Implementation
 
 The generate PDF feature is facilitated by `ReportGenerator`.
-It extends `Mortago` with the ability to create a report, supported by iText external library.
+It extends `Mortago` with the ability to create a report, supported by https://github.com/itext/itext7[iText external library].
 Additionally, it implements the following operations:
 
 * `ReportGenerator#generate(body)` -- Creates report in a PDF file for the specific body.
-* `ReportGenerator#generateAll()` -- Creates report in a PDF file for all bodies registered in Mortago.
+* `ReportGenerator#generateAll()` -- Creates reports in a PDF file for all bodies registered in Mortago.
+* `ReportGenerator#generateSummary()` -- Creates a tabular summary report in a PDF file for all bodies registered in Mortago.
 
 The following sequence diagram shows how the execute operation works:
 

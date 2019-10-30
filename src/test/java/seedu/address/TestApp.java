@@ -18,6 +18,7 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import systemtests.ModelHelper;
 
+//@@ author shaoyi1997-reused
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
  * testing
@@ -87,7 +88,7 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        ModelHelper.setFilteredList(copy, model.getFilteredWorkerList());
         return copy;
     }
 
@@ -101,3 +102,4 @@ public class TestApp extends MainApp {
     }
 
 }
+//@@ author

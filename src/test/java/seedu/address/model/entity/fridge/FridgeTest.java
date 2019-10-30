@@ -2,6 +2,7 @@ package seedu.address.model.entity.fridge;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
@@ -74,6 +75,27 @@ public class FridgeTest {
 
 
     }
+
+    //@@author ambervoong
+    @Test
+    void getSetBodyIdNum() {
+        Fridge fridge = ALICE_FRIDGE;
+        fridge.setBodyId(3);
+        assertEquals(3, fridge.getBodyId());
+    }
+
+    @Test
+    void generateNewStoredFridge_wasStored() {
+        Fridge storedFridge = Fridge.generateNewStoredFridge(10);
+        assertEquals(IdentificationNumber.customGenerateId("F", 10), storedFridge.getIdNum());
+
+    }
+
+    @Test
+    void generateNewStoredFridge_invalidIdNumber() {
+        assertThrows(IllegalArgumentException.class, () -> Fridge.generateNewStoredFridge(0));
+    }
+    //@@author
 
     @Test
     void getFridgeIdNum() {
