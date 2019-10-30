@@ -15,6 +15,9 @@ public abstract class Node<T> {
         this.backingList = backingList;
     }
 
+    /**
+     * Returns a {@code Node} that does not tracking anything.
+     */
     public static Node emptyNode() {
         return new Node(Collections.emptyList()) {
             @Override

@@ -1,9 +1,12 @@
 package seedu.address.logic;
 
-import java.util.SortedSet;
-
 import static java.util.Objects.requireNonNull;
 
+import java.util.SortedSet;
+
+/**
+ * Represents a result from autocompletion comparison, containing a set of possible values and a string to match them.
+ */
 public class AutoCompleteResult {
 
     private final SortedSet<String> values;

@@ -1,12 +1,15 @@
 package seedu.address.logic.nodes.order;
 
-import seedu.address.model.order.Order;
-import seedu.address.logic.Node;
-
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import seedu.address.logic.Node;
+import seedu.address.model.order.Order;
+
+/**
+ * Represents a {@code Node} tracking {@code Order} {@code Price} for autocompletion.
+ */
 public class OrderPriceNode extends Node<Order> {
 
     public OrderPriceNode(List<Order> backingList) {

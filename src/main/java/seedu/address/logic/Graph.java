@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import seedu.address.logic.parser.Prefix;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +8,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.logic.parser.Prefix;
 
 /**
  * Represents a graph implemented as an {@link Edge} list.
@@ -30,6 +30,11 @@ class Graph {
         return new Graph(Node.emptyNode(), Collections.emptyList());
     }
 
+    /**
+     * Processes an input string by traversing the {@code Node}s of this graph.
+     * @param input A user input string.
+     * @return An {@code AutoCompleteResult} containing possible autocomplete values.
+     */
     AutoCompleteResult process(String input) {
         String stringToCompare = input;
         Node<?> currentNode = startingNode;
@@ -53,6 +58,11 @@ class Graph {
         return new AutoCompleteResult(values, stringToCompare);
     }
 
+    /**
+     * Iterates through the {@code Edge} list and returns edge weights for source node.
+     * @param node A source node.
+     * @return A list of edge weights (prefixes).
+     */
     private List<Prefix> getPrefixes(Node<?> node) {
         List<Prefix> prefixes = new ArrayList<>();
         for (Edge edge : edges) {
@@ -63,6 +73,12 @@ class Graph {
         return prefixes;
     }
 
+    /**
+     * Attempts to return a neighbour node of input node by traversing an edge with given prefix.
+     * @param currentNode A source node.
+     * @param prefix An edge weight.
+     * @return Empty optional if node does not have outgoing edge with given prefix, otherwise return neighbouring node.
+     */
     private Optional<Node<?>> traverse(Node<?> currentNode, Prefix prefix) {
         for (Edge edge : edges) {
             if (edge.getWeight().equals(prefix) && edge.getSource().equals(currentNode)) {

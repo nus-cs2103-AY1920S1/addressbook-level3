@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
-import java.util.SortedSet;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;

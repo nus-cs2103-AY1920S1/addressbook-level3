@@ -1,15 +1,18 @@
 package seedu.address.logic.nodes.schedule;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Node;
-import seedu.address.model.schedule.Schedule;
-
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Node;
+import seedu.address.model.schedule.Schedule;
+
+/**
+ * Represents a {@code Node} tracking {@code Schedule} {@code Date} for autocompletion.
+ */
 public class ScheduleDateNode extends Node<Schedule> {
 
     public ScheduleDateNode(List<Schedule> backingList) {

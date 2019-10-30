@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.SortedSet;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;

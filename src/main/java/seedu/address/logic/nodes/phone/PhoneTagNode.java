@@ -1,12 +1,15 @@
 package seedu.address.logic.nodes.phone;
 
-import seedu.address.model.phone.Phone;
-import seedu.address.logic.Node;
-
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import seedu.address.logic.Node;
+import seedu.address.model.phone.Phone;
+
+/**
+ * Represents a {@code Node} tracking {@code Phone} {@code Tag} for autocompletion.
+ */
 public class PhoneTagNode extends Node<Phone> {
 
     public PhoneTagNode(List<Phone> backingList) {

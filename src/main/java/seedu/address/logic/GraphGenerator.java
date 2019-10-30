@@ -1,49 +1,5 @@
 package seedu.address.logic;
 
-import seedu.address.logic.commands.statisticcommand.StatisticType;
-import seedu.address.logic.nodes.schedule.AddScheduleStartNode;
-import seedu.address.logic.nodes.schedule.ScheduleDateNode;
-import seedu.address.logic.nodes.schedule.ScheduleTagNode;
-import seedu.address.logic.nodes.schedule.ScheduleTimeNode;
-import seedu.address.logic.nodes.schedule.ScheduleVenueNode;
-import seedu.address.model.Model;
-import seedu.address.model.customer.Customer;
-import seedu.address.logic.nodes.stats.StatsDateNode;
-import seedu.address.logic.nodes.stats.StatsStartNode;
-import seedu.address.logic.nodes.stats.StatsTypeNode;
-import seedu.address.model.order.Order;
-import seedu.address.model.phone.Phone;
-import seedu.address.logic.nodes.customer.AddCustomerStartNode;
-import seedu.address.logic.nodes.customer.CustomerContactNumberNode;
-import seedu.address.logic.nodes.customer.CustomerEmailNode;
-import seedu.address.logic.nodes.customer.CustomerNameNode;
-import seedu.address.logic.nodes.customer.CustomerTagNode;
-import seedu.address.logic.nodes.order.AddOrderStartNode;
-import seedu.address.logic.nodes.order.OrderCustomerIndexNode;
-import seedu.address.logic.nodes.order.OrderPhoneIndexNode;
-import seedu.address.logic.nodes.order.OrderPriceNode;
-import seedu.address.logic.nodes.order.OrderTagNode;
-import seedu.address.logic.nodes.phone.AddPhoneStartNode;
-import seedu.address.logic.nodes.phone.PhoneBrandNode;
-import seedu.address.logic.nodes.phone.PhoneCapacityNode;
-import seedu.address.logic.nodes.phone.PhoneColourNode;
-import seedu.address.logic.nodes.phone.PhoneCostNode;
-import seedu.address.logic.nodes.phone.PhoneIdentityNumberNode;
-import seedu.address.logic.nodes.phone.PhoneNameNode;
-import seedu.address.logic.nodes.phone.PhoneSerialNumberNode;
-import seedu.address.logic.nodes.phone.PhoneTagNode;
-import seedu.address.model.schedule.Schedule;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
@@ -65,6 +21,47 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import seedu.address.logic.commands.statisticcommand.StatisticType;
+import seedu.address.logic.nodes.customer.CustomerContactNumberNode;
+import seedu.address.logic.nodes.customer.CustomerEmailNode;
+import seedu.address.logic.nodes.customer.CustomerNameNode;
+import seedu.address.logic.nodes.customer.CustomerTagNode;
+import seedu.address.logic.nodes.order.OrderCustomerIndexNode;
+import seedu.address.logic.nodes.order.OrderPhoneIndexNode;
+import seedu.address.logic.nodes.order.OrderPriceNode;
+import seedu.address.logic.nodes.order.OrderTagNode;
+import seedu.address.logic.nodes.phone.PhoneBrandNode;
+import seedu.address.logic.nodes.phone.PhoneCapacityNode;
+import seedu.address.logic.nodes.phone.PhoneColourNode;
+import seedu.address.logic.nodes.phone.PhoneCostNode;
+import seedu.address.logic.nodes.phone.PhoneIdentityNumberNode;
+import seedu.address.logic.nodes.phone.PhoneNameNode;
+import seedu.address.logic.nodes.phone.PhoneSerialNumberNode;
+import seedu.address.logic.nodes.phone.PhoneTagNode;
+import seedu.address.logic.nodes.schedule.ScheduleDateNode;
+import seedu.address.logic.nodes.schedule.ScheduleTagNode;
+import seedu.address.logic.nodes.schedule.ScheduleTimeNode;
+import seedu.address.logic.nodes.schedule.ScheduleVenueNode;
+import seedu.address.logic.nodes.stats.StatsTypeNode;
+import seedu.address.model.Model;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
+import seedu.address.model.phone.Phone;
+import seedu.address.model.schedule.Schedule;
+
+/**
+ * Represents a generator of graphs for autocomplete support.
+ */
 class GraphGenerator {
 
     private final Model model;
@@ -77,6 +74,9 @@ class GraphGenerator {
         buildGraphs();
     }
 
+    /**
+     * Instantiates supporting graphs.
+     */
     private void buildGraphs() {
         // Customer commands
         graphs.put("switch-c", Graph.emptyGraph());
@@ -90,7 +90,7 @@ class GraphGenerator {
 
         // Phone commands
         graphs.put("switch-p", Graph.emptyGraph());
-        graphs.put("add-p",  generateAddPhoneGraph());
+        graphs.put("add-p", generateAddPhoneGraph());
         graphs.put("delete-p", Graph.emptyGraph());
         graphs.put("find-p", Graph.emptyGraph());
         graphs.put("list-p", Graph.emptyGraph());
@@ -134,6 +134,11 @@ class GraphGenerator {
         return graphs.keySet();
     }
 
+    /**
+     * Processes an input string and returns possible autocomplete results.
+     * @param input A user input string.
+     * @return An {@code AutoCompleteResult} containing possible autocomplete values.
+     */
     AutoCompleteResult process(String input) {
         int firstSpace = input.indexOf(" ");
         if (firstSpace == -1) { // there is no space, indicating still typing command word
@@ -151,9 +156,12 @@ class GraphGenerator {
         }
     }
 
+    /**
+     * Returns a graph supporting AddCustomer parser/command.
+     */
     private Graph generateAddCustomerGraph() {
         List<Customer> customerList = model.getCustomerBook().getList();
-        Node<Customer> addCustomerStartNode = new AddCustomerStartNode(Collections.emptyList());
+        Node<?> addCustomerStartNode = Node.emptyNode();
         Node<Customer> customerContactNumberNode = new CustomerContactNumberNode(customerList);
         Node<Customer> customerEmailNode = new CustomerEmailNode(customerList);
         Node<Customer> customerNameNode = new CustomerNameNode(customerList);
@@ -167,9 +175,12 @@ class GraphGenerator {
         ));
     }
 
+    /**
+     * Returns a graph supporting AddPhone parser/command.
+     */
     private Graph generateAddPhoneGraph() {
         List<Phone> phoneList = model.getPhoneBook().getList();
-        Node<Phone> addPhoneStartNode = new AddPhoneStartNode(phoneList);
+        Node<?> addPhoneStartNode = Node.emptyNode();
         Node<Phone> phoneIdentityNumberNode = new PhoneIdentityNumberNode(phoneList);
         Node<Phone> phoneSerialNumberNode = new PhoneSerialNumberNode(phoneList);
         Node<Phone> phoneNameNode = new PhoneNameNode(phoneList);
@@ -191,9 +202,12 @@ class GraphGenerator {
         ));
     }
 
+    /**
+     * Returns a graph supporting AddOrder parser/command.
+     */
     private Graph generateAddOrderGraph() {
         List<Order> orderList = model.getOrderBook().getList();
-        Node<Order> addOrderStartNode = new AddOrderStartNode(orderList);
+        Node<?> addOrderStartNode = Node.emptyNode();
         Node<Order> orderCustomerIndexNode = new OrderCustomerIndexNode(orderList);
         Node<Order> orderPhoneIndexNode = new OrderPhoneIndexNode(orderList);
         Node<Order> orderPriceNode = new OrderPriceNode(orderList);
@@ -207,9 +221,12 @@ class GraphGenerator {
         ));
     }
 
+    /**
+     * Returns a graph supporting AddSchedule parser/command.
+     */
     private Graph generateAddScheduleGraph() {
         List<Schedule> scheduleList = model.getScheduleBook().getList();
-        Node<Schedule> addScheduleStartNode = new AddScheduleStartNode(scheduleList);
+        Node<?> addScheduleStartNode = Node.emptyNode();
         Node<Schedule> scheduleDateNode = new ScheduleDateNode(scheduleList);
         Node<Schedule> scheduleTimeNode = new ScheduleTimeNode(scheduleList);
         Node<Schedule> scheduleVenueNode = new ScheduleVenueNode(scheduleList);
@@ -223,11 +240,14 @@ class GraphGenerator {
         ));
     }
 
+    /**
+     * Returns a graph supporting generate stats parser/command.
+     */
     private Graph generateStatisticsGraph() {
         List<Schedule> scheduleList = model.getScheduleBook().getList();
+        Node<?> statsStartNode = Node.emptyNode();
         Node<StatisticType> statsTypeNode = new StatsTypeNode(Arrays.asList(StatisticType.values()));
-        Node<Schedule> statsDateNode = new StatsDateNode(scheduleList);
-        Node<Schedule> statsStartNode = new StatsStartNode(scheduleList);
+        Node<Schedule> statsDateNode = new ScheduleDateNode(scheduleList);
         return new Graph(statsStartNode, Arrays.asList(
             new Edge(PREFIX_STAT_TYPE, statsStartNode, statsTypeNode),
             new Edge(PREFIX_STARTING_DATE, statsTypeNode, statsDateNode),
