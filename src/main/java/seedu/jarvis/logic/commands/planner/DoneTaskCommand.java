@@ -129,14 +129,13 @@ public class DoneTaskCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        Task undone = model.getTask(targetIndex);
-        if (undone.getStatus() == Status.NOT_DONE) {
+        if (doneTask.getStatus() == Status.NOT_DONE) {
             throw new CommandException(MESSAGE_INVERSE_TASK_ALREADY_UNDONE);
         }
 
-        undone.markAsNotDone();
+        doneTask.markAsNotDone();
 
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_UNDONE, undone));
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_UNDONE, doneTask));
 
     }
 
