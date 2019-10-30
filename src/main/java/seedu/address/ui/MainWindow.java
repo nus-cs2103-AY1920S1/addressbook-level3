@@ -21,7 +21,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -59,7 +59,9 @@ import seedu.address.logic.parser.AddAliasCommandParser;
 import seedu.address.logic.parser.AddBudgetCommandParser;
 import seedu.address.logic.parser.AddEventCommandParser;
 import seedu.address.logic.parser.AddExpenseCommandParser;
+import seedu.address.logic.parser.DeleteExpenseFromBudgetCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
+import seedu.address.logic.parser.EditExpenseFromBudgetCommandParser;
 import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
@@ -91,9 +93,9 @@ public class MainWindow extends UiPart<Stage> {
     private static final String MESSAGE_BUDGET_EXCEEDED = "Your budget is exceeded.";
     private static final Background BUDGET_WARNING_POPUP_BACKGROUND = new Background(
             new BackgroundFill(
-                    Color.RED,
+                    Paint.valueOf("f57d7d"),
                     new CornerRadii(10),
-                    Insets.EMPTY)
+                    new Insets(-15))
     );
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -379,11 +381,20 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.ADD);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.DELETE);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.LIST);
+        commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.EDIT);
         if (panelName.equals(BudgetPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
                     AddExpenseCommandParser.REQUIRED_PREFIXES,
                     AddExpenseCommandParser.OPTIONAL_PREFIXES);
+            commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                    GenericCommandWord.EDIT,
+                    EditExpenseFromBudgetCommandParser.REQUIRED_PREFIXES,
+                    EditExpenseFromBudgetCommandParser.OPTIONAL_PREFIXES);
+            commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                    GenericCommandWord.DELETE,
+                    DeleteExpenseFromBudgetCommandParser.REQUIRED_PREFIXES,
+                    DeleteExpenseFromBudgetCommandParser.OPTIONAL_PREFIXES);
         } else if (panelName.equals(ExpenseListPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
@@ -490,16 +501,16 @@ public class MainWindow extends UiPart<Stage> {
             UnmappedPanelException {
 
         try {
+            Budget primaryBudget = logic.getPrimaryBudget();
+            boolean initialIsNear = primaryBudget.isNear();
+            boolean initialIsExceeded = primaryBudget.isExceeded();
+
             String commandGroup = decideCommandGroup();
             CommandResult commandResult = logic.execute(commandText, commandGroup);
 
             singlePanelView.setPanel(AliasPanel.PANEL_NAME, new AliasPanel(logic.getAliasMappings()));
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
             changePanel(commandResult.viewrequest());
-
-            Budget primaryBudget = logic.getPrimaryBudget();
-            boolean initialIsNear = primaryBudget.isNear();
-            boolean initialIsExceeded = primaryBudget.isExceeded();
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
