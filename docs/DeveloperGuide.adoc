@@ -458,24 +458,59 @@ debug and resolve problems in the code.
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-=== [underline]#Word Bank data structure and it's features#
-A quick look at `WordBank` and `Card` through it's `UI`.
 {nbsp} +
 
+=== [underline]#Word Bank features#
+Dukemon, a flashcard app, requires a non-trivial implementation of a data structure to contain it's information. +
+It comes along with a set of commands that either modifies it's data, or modify the view. +
+These commands will then synchronise the data in storage, or update the model for viewing. +
+Lastly, there is a cool drag and drop feature for word banks, to transfer the files into and out of your computer.
+
+Lets begin by explaining some key terms:
+
+A `Card` contains a word and a unique meaning. (May contain tags) +
+`CardCommands` work on `Cards`. +
+
+A `WordBank` contains multiple `Cards`. (May contain tags) +
+`HomeCommands` work on `WordBanks`.
+
+A `WordBankList` contains multiple `WordBanks`.
+
+Each time a `CardCommand` or `HomeCommand` is executed, `Storage` data is synchronised and
+`Model` gets updated automatically for `UI` to retrieve updated information for user viewing.
+
+---
+
+First, we take a quick look at `WordBank` and `Card` as it is displayed through it's `UI`.
+
+
+.`CardCommands`
+image::CardCommands.png[]
+
+{nbsp} +
+
+.`Cards`
+image::Cards.png[]
+{nbsp} +
+
+---
+{nbsp} +
+
+
+.`HomeCommands`
 image::HomeCommands.png[]
 
-.`HomeCommands` and the `WordBank` it works on.
+{nbsp} +
+
+.`WordBanks`
 image::WordBanks.png[]
 
 {nbsp} +
 
-image::CardCommands.png[]
-.`CardCommands` and the `Card` it works on.
-image::Cards.png[]
-{nbsp} +
-
 ==== Data Structure Overview
-Internally, the `WordBank` contains an observable list.
+I will talk about how the `Card` and `WordBank` is designed, along with `WordBankList` that encompasses the WordBanks.
+
+Internally, the `WordBank` contains an observable list of `Card`.
 
 [NOTE]
 To avoid having the UI display different things with what is actually in the storage, the UI takes information from the
