@@ -22,7 +22,7 @@ public class FindTagPeopleCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons who possess all "
             + "the specified tags (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " nonsmoker senior";
+            + "Example: " + COMMAND_WORD + " t/nonsmoker t/senior";
 
     private final List<String> tagNames;
 
