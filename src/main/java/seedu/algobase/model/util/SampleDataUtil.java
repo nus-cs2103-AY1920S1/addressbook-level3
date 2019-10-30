@@ -103,7 +103,7 @@ public class SampleDataUtil {
     public static ReadOnlyAlgoBase getSampleAlgoBase() {
         AlgoBase sampleAb = new AlgoBase();
         Set<Task> tasks = new HashSet<>();
-        getSampleTags();
+        sampleAb.setTags(getSampleTags());
         for (Problem sampleProblem : getSampleProblems()) {
             sampleAb.addProblem(sampleProblem);
             tasks.add(new Task(sampleProblem, LocalDate.now().plusMonths(1), false));
