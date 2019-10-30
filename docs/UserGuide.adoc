@@ -33,7 +33,7 @@ Hope following features will benefit you and enjoy!
 * Easy-to-use reminder and calendar
 * Personalized user experience and bio encouragements
 * Weekly and Monthly summary for your activities and health level
-* Customized recommendations for food and fun quizzes about healthy dieting
+* Customized recommendations for healthy dieting
 
 == Quick Start
 
@@ -230,104 +230,96 @@ Format: `export [d/START_DATE]`
 If START_DATE is given, summary from START_DATE to the current date will be exported.
 Else, summary of all data will be exported.
 
-=== EDUCATION AND QUIZ
+=== Food Recommendation
 
 ==== Recommending food: `recmf`
 
-Recommends a list of medically suggested foods for type II diabetes patients.
-The user can specify flags:
+Recommends some medically suggested foods for type II diabetes patients. +
+To make searching more efficient, the user can specify two kinds of filters:
 
-`-b`: breakfast recommendations
+* food type: in the form of following flags:
 
-`-l`: lunch recommendations
+    -nsv: non-starchy vegetable, such as broccoli
 
-`-d`: dinner recommendations
+    -sv: starchy vegetable, such as potato
 
-`-f`: fruit recommendations
+    -f: fruit, such as cherry
 
-`-v`: vegetable recommendations
+    -p: protein, such as lean lamb
 
-With specified one or more FOOD_ITEM, the user will only view recommendations match at least one item.
-However, if any food item is considered dangerous for type II diabetes patients, a warning will be shown.
-(case-insensitive)
+    -s: snack, such fig roll
 
-Format: `recmf [-b] [-l] [-d] [-f] [-v] [FOOD]...`
+    -m: meal, such as spanish omelet
+
+Note::
+** Flags are case-insensitive.
+** If no flag is specifies, it is equivalent to specifying all flags. Namely, foods of all types will be shown.
+** For fast typing, white spaces are allowed before, between, or after flags. Duplicate flags are also allowed.
+
+* food name: in the form of `fn/FOOD_NAME [FOOD_NAME]...` +
+
+Note::
+** Food names are case-insensitive.
+** Food name matching is full-word matching. For example, "ch" does not match "chicken", which "chicken" matches both "Chicken" and "Rice with Chicken".
+** `fn/` is the only allowed prefix for `recmf` command. If only `fn/` presents without following food names, all foods (of specified types) will be shown.
+
+Format: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
 
 Examples:
 
-`recm -b strawberries`
+`recmf -p -f` `recmf fn/chicken` `recmf -p -m -f fn/chicken`
 
-`recm -b -l -d`
+==== Adding new food items : `addfood`
 
-==== Recommending exercise: `recme`
+Adds a new food item of certain category for future recommendations.
+The following six fields are compulsorily required:
 
-Recommends a list of medically suggested exercises for type II diabetes patients.
+* food name: `fn/FOOD_NAME` +
+Food name should be less than 30 characters. This is mainly for display quality and readability.
+Only alphabets, numbers, and whitespace are allowed in the name.
 
-Format: `recme`
+* food type: `ft/FOOD_TYPE` +
+Food types should be exactly one of the following: nsv(non-starchy vegetable), sv(starchy vegetable),
+f(fruit), p(protein), s(snack), m(meal).
+* calorie (cal): `ca/CALORIE` +
+Calorie should be less than 700(cal) to be considered as safe for type II diabetes patients.
+* gi: `gi/GI` +
+Glycemic Index should be less than 70 to be considered as safe for type II diabetes patients.
+* sugar (g): `su/SUGAR` +
+Sugar should be less than 25(g) to be considered as safe for type II diabetes patients.
+* fat (g): `fa/FAT` +
+Fat should be less than 35(g) to be considered as safe for type II diabetes patients.
 
-==== Adding new food items : `put`
+Note::
+** No duplicate food names are allowed.
+** All nutrition values are numerical values and should be equal or greater than zero.
+Besides, the values are suggested to be per serving.
+** The order of fields is flexible.
 
-Adds a new food time into certain category.
-Calorie and glycemic can be attached followed by -i flag.
-Otherwise, another prompt will be shown to ask for these two values.
-
-Format: `put FOOD[, FOOD]...[-i CALORIE GI] in CATEGORY`
+Format: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 
 Example:
+`addfood fn/Cucumber ft/f ca/15 gi/15 fa/0 su/1.7`
 
-`put guava -i 68 20, green apple -i 52 38 in fruits`
+=== Other Common Features
 
-`put guava in fruits`
+==== Exiting the program : `exit`
 
-==== Disliking certain foods: `dislike`
+Exits the program.
 
-Dislikes certain foods so that those foods will no longer be shown on the recommendations. (case-insensitive)
-
-Format: `dislike FOOD[, FOOD]...`
-
-Example: `dislike watermelon, chicken`
-
-==== Playing flash cards: `game`
-
-Shows an interactive page for user to play the flash card game.
-The user will win certain points if answering a question correctly.
-
-Format: `game`
-
-During the game session, the user is able to:
-
-. Selecting the correct answer: `<alphabet>`
-
-* Answers the multiple-choice question.
-If the answer is correct, the user will be awarded a few points.
-If the answer is wrong, multiple, or not within the choice range, a few points will be deducted and the correct answer
-will be revealed.
-
-* Format: `<alphabet>`
-
-
-. Skipping a certain question: `skip`
-
-* Skips a certain question and moves to the next question.
-
-* Format: `skip`
-
-
-. Exiting the game: `exit`
-
-* Exits the game and go back to normal page
-* Format: `exit`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
+
+==== Viewing full User Guide
+
+Shows the URL to this User Guide.
+
+Format: `help`
+
+== Features Coming in v2.0
 
 === Autocomplete Command
 
 SugarMummy will recommend list of possible commands that can be add on to user current input.
-
-== Features Coming in v2.0
 
 === Clearing all entries: `clear all`
 
@@ -364,6 +356,8 @@ E.g. `add r/bloodsugar v/10 t/now`
 . *Add bio* : `addbio n/NAME [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] p/CONTACT_NUMBER e/EMERGENCY_CONTACT
 m/MEDICAL_CONDITION [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
 E.g. `addbio n/Bob p/98765432 e/91234567 m/Type II Diabetes`
+. *Add Food*: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
+E.g. `addfood fn/Cucumber ca/15 gi/15 fa/0 su/1.7`
 . *Average*: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
 E.g. `average a/weekly r/bloodsugar n/3`
 . *Bio*: `bio`
@@ -389,6 +383,8 @@ E.g. `fontcolor yellow`
 E.g. `fontcolor 00FF00`
 . *List*: `list [r/RECORD_TYPE] ...`
 E.g. `list r/bloodsugar r/sleep r/food`
+. *Recommend Food*: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
+E.g. `recmf -p -m -f fn/chicken`
 . *Reminder*: `reminder DESCRIPTION t/TIME [t/TIME]... [rp/repetition] [v/venue] [p/people]`
 E.g. `reminder insulin injection t/13:00 rp/daily`
 . *Search*: `search [KEYWORD] [t/TIME] [t/END_TIME] [tp/TYPE] [v/VENUE] [p/PEOPLE]`
