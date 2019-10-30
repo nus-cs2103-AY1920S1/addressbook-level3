@@ -39,22 +39,19 @@ public class ReminderCard extends UiPart<Region> {
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
 
-        switch(reminder.getDueDateDescription()) {
+        switch (reminder.getDueDateDescription()) {
         case "Today":
             deadline.setTextFill(Color.ORANGE);
             deadline.setText("Due " + reminder.getDueDateDescription());
             break;
-
         case "Tomorrow":
             deadline.setTextFill(Color.GREEN);
             deadline.setText("Due " + reminder.getDueDateDescription());
             break;
-
         case "Overdue":
             deadline.setTextFill(Color.RED);
             deadline.setText(reminder.getDueDateDescription());
             break;
-
         default:
             deadline.setText("Due " + reminder.getDueDateDescription());
         }
