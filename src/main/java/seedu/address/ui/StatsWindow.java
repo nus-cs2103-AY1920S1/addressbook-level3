@@ -54,7 +54,6 @@ public class StatsWindow extends UiPart<Stage> {
 
         int[] stats = model.getTestStats();
 
-        //stage.setTitle("Statistics");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> bc = new BarChart<>(xAxis, yAxis);
