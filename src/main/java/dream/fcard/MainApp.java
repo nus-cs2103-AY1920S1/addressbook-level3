@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import dream.fcard.core.Main;
 import dream.fcard.logic.stats.Stats;
+import dream.fcard.logic.storage.StatsStorageManager;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.State;
 import javafx.application.Application;
@@ -33,6 +34,7 @@ public class MainApp extends Application {
             stage.setOnCloseRequest(e -> {
                 Stats.endCurrentSession();
                 StorageManager.saveAll(State.getState().getDecks());
+                StatsStorageManager.saveStats();
             });
             // start a session
             Stats.startCurrentSession();

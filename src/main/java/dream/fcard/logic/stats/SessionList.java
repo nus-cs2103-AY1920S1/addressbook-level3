@@ -1,12 +1,13 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * A list of Session objects.
  */
-public class SessionList {
+public class SessionList implements Serializable {
 
     private ArrayList<Session> sessionArrayList;
     // todo: add another data structure to store sessions by date?

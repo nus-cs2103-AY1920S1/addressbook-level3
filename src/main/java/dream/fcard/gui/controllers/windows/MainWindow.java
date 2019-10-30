@@ -11,6 +11,7 @@ import dream.fcard.gui.controllers.displays.NoDecksDisplay;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.logic.stats.Stats;
+import dream.fcard.logic.storage.StatsStorageManager;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -94,6 +95,7 @@ public class MainWindow extends VBox {
 
             // save all files only on exit
             StorageManager.saveAll(State.getState().getDecks());
+            StatsStorageManager.saveStats();
             System.exit(0);
         });
         javaEditor.setOnAction(e -> openEditor(true));

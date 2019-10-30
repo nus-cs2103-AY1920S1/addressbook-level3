@@ -1,12 +1,13 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Represents the user's statistics.
  */
-public class Stats {
+public class Stats implements Serializable {
     /** The one and only instance of Stats allowed to exist. */
     private static Stats userStats;
 

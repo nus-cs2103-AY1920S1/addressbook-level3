@@ -1,8 +1,12 @@
 package dream.fcard.logic.storage;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -37,7 +41,6 @@ public class StorageManager {
 
     private static String root;
     private static String decksSubDir = "./decks";
-    private static String statsPath = "./stats/stats.txt";
 
     /**
      * Determine root directory of the application, main for project, directory containing jar
@@ -219,28 +222,4 @@ public class StorageManager {
             writeDeck(d);
         }
     }
-
-    //@@author nattanyz
-    /**
-     * Load the stored Stats object. Else, create a new one.
-     * @return Stats object representing user's overall statistics
-     */
-    public static Stats getStats() {
-        // todo: this method is unused as of now, to be used when storage for Stats is implemented.
-        resolveRoot();
-        String path = FileReadWrite.resolve(root, statsPath);
-
-        if (!FileReadWrite.fileExists(path)) {
-            return new Stats();
-        }
-
-        try {
-            String fileText = FileReadWrite.read(path);
-            return Stats.parseStats(fileText);
-        } catch (FileNotFoundException e) {
-            System.out.println("FILE DOES NOT EXIST");
-        }
-        return null;
-    }
-    //@@author
 }

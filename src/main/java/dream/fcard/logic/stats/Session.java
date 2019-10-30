@@ -1,5 +1,6 @@
 package dream.fcard.logic.stats;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -10,7 +11,7 @@ import dream.fcard.util.DateTimeUtil;
  * A Session object represents a length of time the user spends doing a task, e.g. using the app
  * or running a test on a deck.
  */
-public class Session {
+public class Session implements Serializable {
     // should implement JsonInterface, todo: @AHaliq can store LocalDateTime?
 
     /** The start time of the session, in the user's local time zone. */
