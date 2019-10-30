@@ -21,7 +21,7 @@ public class DefaultStatisticsWindow extends UiPart<Stage> {
      */
     public DefaultStatisticsWindow(String defaultValue, String statsLabel) {
         super(FXML, new Stage());
-        this.statsLabel.setText("Currently, Total " + statsLabel + "  on all  completed Orders are:");
+        this.statsLabel.setText("Currently, " + statsLabel + "  on all  completed Orders are:");
         this.statsLabel.setWrapText(true);
         this.defaultValue.setText(defaultValue);
         this.defaultValue.setWrapText(true);
