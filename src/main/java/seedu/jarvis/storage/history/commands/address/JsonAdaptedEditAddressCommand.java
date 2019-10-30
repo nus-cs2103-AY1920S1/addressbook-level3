@@ -16,7 +16,6 @@ import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
  * Jackson-friendly version of {@link EditAddressCommand}.
  */
 public class JsonAdaptedEditAddressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
-    public static final String MESSAGE_INVALID_COMMAND = "This command is not a EditAddressCommand";
     public static final String MESSAGE_INVALID_FIELDS = "Incomplete data on the changes to person";
     private final JsonAdaptedIndex index;
     private final JsonAdaptedEditPersonDescriptor editPersonDescriptor;
@@ -66,13 +65,10 @@ public class JsonAdaptedEditAddressCommand extends JsonAdaptedCommand implements
      * {@code JsonAdaptedEditAddressCommand}.
      */
     public Command toModelType() throws IllegalValueException {
-        if (originalPerson == null && editedPerson == null) {
-            return new EditAddressCommand(index.toModelType(), editPersonDescriptor.toModelType());
-        }
-        if (originalPerson == null || editedPerson == null) {
-            throw new IllegalValueException(MESSAGE_INVALID_FIELDS);
-        }
-        return new EditAddressCommand(index.toModelType(), editPersonDescriptor.toModelType(),
-                originalPerson.toModelType(), editedPerson.toModelType());
+        return new EditAddressCommand(
+                index.toModelType(),
+                editPersonDescriptor.toModelType(),
+                originalPerson != null ? originalPerson.toModelType() : null,
+                editedPerson != null ? editedPerson.toModelType() : null);
     }
 }

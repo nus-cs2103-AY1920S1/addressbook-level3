@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 
 import seedu.jarvis.commons.core.GuiSettings;
@@ -431,6 +432,22 @@ public class ModelManager implements Model {
         financeTracker.listSpending();
     }
 
+    /**
+     * Calculates total expenditure by user for this month.
+     */
+    @Override
+    public double calculateTotalSpending() {
+        return financeTracker.calculateTotalSpending();
+    }
+
+    /**
+     * Calculates remaining available amount by user.
+     */
+    @Override
+    public double calculateRemainingAmount() {
+        return financeTracker.calculateRemainingAmount();
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override
@@ -590,6 +607,32 @@ public class ModelManager implements Model {
     public void increaseProgress(Index index) {
         ccaTracker.increaseProgress(index);
     }
+
+    @Override
+    public boolean ccaContainsProgress(Index index) {
+        return ccaTracker.ccaContainsProgress(index);
+    }
+
+    @Override
+    public boolean ccaAtMaxIncrement(Index targetIndex) {
+        return ccaTracker.ccaAtMaxIncrement(targetIndex);
+    }
+
+    @Override
+    public void removeProgress(Cca targetCca, CcaMilestoneList toRemoveCcaMilestoneList) {
+        ccaTracker.removeCcaMilestoneList(targetCca, toRemoveCcaMilestoneList);
+    };
+
+    @Override
+    public boolean ccaProgressAtMinLevel(Index targetIndex) {
+        return ccaTracker.ccaProgressAtMinLevel(targetIndex);
+    };
+
+    @Override
+    public void decreaseProgress(Index targetIndex) {
+        ccaTracker.decreaseProgress(targetIndex);
+    }
+
 
     //=========== Planner =============================================================
 
@@ -754,13 +797,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getDisplayText() {
+    public ObservableStringValue getDisplayText() {
         return coursePlanner.getText();
-    }
-
-    @Override
-    public String getDisplayText(int lineCharacterLimit) {
-        return coursePlanner.getText(lineCharacterLimit);
     }
 
     @Override

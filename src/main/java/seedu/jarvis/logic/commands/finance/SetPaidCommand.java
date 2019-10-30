@@ -9,6 +9,9 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.purchase.Purchase;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.finance.JsonAdaptedSetPaidCommand;
 
 /**
  * Adds a purchase to the finance tracker.
@@ -51,6 +54,15 @@ public class SetPaidCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the {@code Purchase} to be added.
+     *
+     * @return {@code Purchase} to be added.
+     */
+    public Purchase getAddedPurchase() {
+        return toAdd;
     }
 
     /**
@@ -105,6 +117,17 @@ public class SetPaidCommand extends Command {
         model.deletePurchase(toAdd);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedSetPaidCommand(this);
     }
 
     @Override

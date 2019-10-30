@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.logic.commands.Command;
@@ -8,6 +9,8 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.cca.CcaNameContainsKeywordsPredicate;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Finds and lists all ccas in CcaTracker whose name contains any of the argument keywords.
@@ -65,9 +68,10 @@ public class FindCcaCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredCcaList(predicate);
+        model.setViewStatus(LIST_CCA);
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_CCAS_LISTED_OVERVIEW, model.getFilteredCcaList().size()));
+                String.format(Messages.MESSAGE_CCAS_LISTED_OVERVIEW, model.getFilteredCcaList().size()), true);
     }
 
     /**
@@ -79,6 +83,17 @@ public class FindCcaCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        throw new InvalidCommandToJsonException();
     }
 
     @Override

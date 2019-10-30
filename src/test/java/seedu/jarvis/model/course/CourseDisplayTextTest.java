@@ -33,6 +33,6 @@ class CourseDisplayTextTest {
     public void setValue_sameCourse_same() {
         CourseDisplayText cdt = new CourseDisplayText();
         cdt.setValue(CS3230);
-        assertEquals(cdt.get(), CS3230.toDisplayableString());
+        assertEquals(cdt.getAsString(), CS3230.toDisplayableString());
     }
 }

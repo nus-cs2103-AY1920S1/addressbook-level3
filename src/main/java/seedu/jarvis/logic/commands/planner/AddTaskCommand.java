@@ -13,6 +13,9 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.planner.JsonAdaptedAddTaskCommand;
 
 /**
  * Adds a task to JARVIS
@@ -54,6 +57,15 @@ public class AddTaskCommand extends Command {
     public AddTaskCommand(Task task) {
         requireNonNull(task);
         toAdd = task;
+    }
+
+    /**
+     * Gets the {@code Task} to be added.
+     *
+     * @return {@code Task} to be added.
+     */
+    public Task getAddedTask() {
+        return toAdd;
     }
 
     /**
@@ -118,6 +130,17 @@ public class AddTaskCommand extends Command {
         model.deleteTask(toAdd);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedAddTaskCommand(this);
     }
 
     @Override

@@ -23,7 +23,6 @@ public class JsonAdaptedCcaProgressTest {
         CcaProgress ccaProgress = new CcaProgress();
         ccaProgress.setMilestones(Arrays.asList(MILESTONE_1, MILESTONE_2, MILESTONE_3));
         CcaCurrentProgress ccaCurrentProgress = new CcaCurrentProgress();
-        ccaCurrentProgress.setMaxProgress(100);
         ccaCurrentProgress.setCurrentProgress(50);
         ccaProgress.setCcaCurrentProgress(ccaCurrentProgress);
         JsonAdaptedCcaProgress jsonAdaptedCcaProgress = new JsonAdaptedCcaProgress(ccaProgress);

@@ -1,5 +1,6 @@
 package seedu.jarvis.model.course;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -42,14 +43,9 @@ public interface CoursePlannerModel {
     ObservableList<Course> getUnfilteredCourseList();
 
     /**
-     * Returns the text displayed to the user in the Course Planner.
-     */
-    String getDisplayText();
-
-    /**
      * Returns the text displayed to the user in the Course Planner by the line character limit.
      */
-    String getDisplayText(int lineCharacterLimit);
+    ObservableStringValue getDisplayText();
 
     /**
      * Gets this Model's course planner

@@ -8,6 +8,8 @@ import static seedu.jarvis.commons.core.Messages.MESSAGE_CCAS_LISTED_OVERVIEW;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.cca.TypicalCcas.CANOEING;
+import static seedu.jarvis.testutil.cca.TypicalCcas.GUITAR_ENSEMBLE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -89,18 +91,19 @@ public class FindCcaCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredCcaList());
     }
 
-    // TODO Debug this test!!!
-    //    @Test
-    //    public void execute_multipleKeywords_multipleCcasFound() {
-    //        model.addCca(CANOEING);
-    //        model.addCca(GUITAR_ENSEMBLE);
-    //        String expectedMessage = String.format(MESSAGE_CCAS_LISTED_OVERVIEW, 2);
-    //        CcaNameContainsKeywordsPredicate predicate = preparePredicate("Canoeing Guitar");
-    //        FindCcaCommand command = new FindCcaCommand(predicate);
-    //        expectedModel.updateFilteredCcaList(predicate);
-    //        assertEquals(Arrays.asList(CANOEING, GUITAR_ENSEMBLE), model.getFilteredCcaList());
-    //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-    //    }
+    @Test
+    public void execute_multipleKeywords_multipleCcasFound() {
+        model.addCca(CANOEING);
+        model.addCca(GUITAR_ENSEMBLE);
+        expectedModel.addCca(CANOEING);
+        expectedModel.addCca(GUITAR_ENSEMBLE);
+        String expectedMessage = String.format(MESSAGE_CCAS_LISTED_OVERVIEW, 2);
+        CcaNameContainsKeywordsPredicate predicate = preparePredicate("Canoeing Guitar");
+        FindCcaCommand command = new FindCcaCommand(predicate);
+        expectedModel.updateFilteredCcaList(predicate);
+        assertEquals(Arrays.asList(CANOEING, GUITAR_ENSEMBLE), model.getFilteredCcaList());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
 
     /**
      * Verifies that calling inverse execution of {@code FindCcaCommand} will always throw a

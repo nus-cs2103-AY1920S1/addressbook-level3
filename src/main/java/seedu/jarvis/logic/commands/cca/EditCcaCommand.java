@@ -1,9 +1,12 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import java.util.Optional;
 
@@ -19,6 +22,9 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Edits the details of an existing cca in the address book.
@@ -50,7 +56,7 @@ public class EditCcaCommand extends Command {
     public static final String MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA =
             "There is a conflict in reverting edits made to cca as there is an existing cca with similar details";
 
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
     private final Index targetIndex;
     private final EditCcaDescriptor editCcaDescriptor;
@@ -59,15 +65,25 @@ public class EditCcaCommand extends Command {
     private Cca editedCca;
 
     /**
-     * @param index of the {@code Cca} in the {@code CcaList} to edit
+     * @param targetIndex of the {@code Cca} in the {@code CcaList} to edit
+     * @param editCcaDescriptor details to edit the {@code cca} with
+     * @param originalCca cca before the edit.
+     * @param editedCca cca after the edit.
+     */
+    public EditCcaCommand(Index targetIndex, EditCcaDescriptor editCcaDescriptor, Cca originalCca, Cca editedCca) {
+        requireAllNonNull(targetIndex, targetIndex);
+        this.targetIndex = targetIndex;
+        this.editCcaDescriptor = editCcaDescriptor;
+        this.originalCca = originalCca;
+        this.editedCca = editedCca;
+    }
+
+    /**
+     * @param targetIndex of the {@code Cca} in the {@code CcaList} to edit
      * @param editCcaDescriptor details to edit the {@code cca} with
      */
-    public EditCcaCommand(Index index, EditCcaDescriptor editCcaDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editCcaDescriptor);
-
-        this.targetIndex = index;
-        this.editCcaDescriptor = new EditCcaDescriptor(editCcaDescriptor);
+    public EditCcaCommand(Index targetIndex, EditCcaDescriptor editCcaDescriptor) {
+        this(targetIndex, editCcaDescriptor, null, null);
     }
 
     /**
@@ -81,6 +97,42 @@ public class EditCcaCommand extends Command {
     }
 
     /**
+     * Gets the {@code Index} of the cca to be edited.
+     *
+     * @return {@code Index} of the cca to be edited.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the {@code EditCcaDescriptor} to edit the cca.
+     *
+     * @return {@code EditCcaDescriptor} to edit the cca.
+     */
+    public EditCcaDescriptor getEditCcaDescriptor() {
+        return editCcaDescriptor;
+    }
+
+    /**
+     * Gets the original {@code Cca} before the edit.
+     *
+     * @return Original {@code Cca} before the edit.
+     */
+    public Optional<Cca> getOriginalCca() {
+        return Optional.ofNullable(originalCca);
+    }
+
+    /**
+     * Gets the {@code Cca} after the edit.
+     *
+     * @return {@code Cca} after the edit.
+     */
+    public Optional<Cca> getEditedCca() {
+        return Optional.ofNullable(editedCca);
+    }
+
+    /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}
      * will be guaranteed to always throw a {@code CommandException}.
@@ -89,7 +141,7 @@ public class EditCcaCommand extends Command {
      */
     @Override
     public boolean hasInverseExecution() {
-        return false;
+        return HAS_INVERSE;
     }
 
     /**
@@ -121,8 +173,10 @@ public class EditCcaCommand extends Command {
         editedCca = createdEditedCca;
 
         model.updateCca(originalCca, createdEditedCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_CCA_SUCCESS, editedCca));
+        return new CommandResult(String.format(MESSAGE_EDIT_CCA_SUCCESS, editedCca), true);
     }
 
     /**
@@ -137,7 +191,33 @@ public class EditCcaCommand extends Command {
      */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        // checks if cca to be reverted is in Cca Tracker.
+        if (!model.containsCca(editedCca)) {
+            throw new CommandException(MESSAGE_INVERSE_CCA_NOT_FOUND);
+        }
+
+        // checks if reverting the Cca will be in conflict with another existing Cca in the CcaTracker.
+        if (!originalCca.isSameCca(editedCca) && model.containsCca(originalCca)) {
+            throw new CommandException(MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA);
+        }
+
+        model.updateCca(editedCca, originalCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+
+        return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedEditCcaCommand(this);
     }
 
     /**
