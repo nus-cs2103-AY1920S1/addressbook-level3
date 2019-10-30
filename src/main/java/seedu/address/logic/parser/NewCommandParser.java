@@ -1,8 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_ONE_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VEHICLE;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -24,8 +26,9 @@ public class NewCommandParser implements Parser<NewCommand> {
      */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DISTRICT,
-                PREFIX_AUTO);
+                PREFIX_AUTO, PREFIX_VEHICLE);
 
+        // if auto/y then dont need v/
         if (!arePrefixesPresent(argMultimap, PREFIX_DISTRICT, PREFIX_AUTO)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
@@ -33,11 +36,27 @@ public class NewCommandParser implements Parser<NewCommand> {
 
         List<District> districts = ParserUtil.parseDistricts(argMultimap.getValue(PREFIX_DISTRICT).get());
 
+
         if (districts.size() != 1) {
-            throw new ParseException("Please ensure there is one input for district number!");
+            throw new ParseException(MESSAGE_NOT_ONE_DISTRICT);
         }
         boolean isAuto = ParserUtil.parseAuto(argMultimap.getValue(PREFIX_AUTO).get());
-        return new NewCommand(districts.get(0), isAuto);
+
+        if (isAuto) {
+            return new NewCommand(districts.get(0), true, 0);
+        } else {
+            // I'm guessing it needs all prefixes tokenised
+            ArgumentMultimap vArgMap = ArgumentTokenizer.tokenize(args, PREFIX_DISTRICT,
+                    PREFIX_AUTO, PREFIX_VEHICLE);
+            if (!arePrefixesPresent(vArgMap, PREFIX_VEHICLE)
+                    || !vArgMap.getPreamble().isEmpty()) {
+                return new NewCommand(districts.get(0), false, -1);
+            }
+
+            String v = vArgMap.getValue(PREFIX_VEHICLE).get();
+            int indexOfV = Integer.valueOf(v);
+            return new NewCommand(districts.get(0), false, indexOfV);
+        }
     }
 
     /**
