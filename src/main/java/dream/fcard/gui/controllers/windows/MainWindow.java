@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 public class MainWindow extends VBox {
 
     @FXML
-    private ScrollPane deckScrollPane;
+    private VBox deckScrollPane;
     @FXML
     private ListView<Deck> deckList;
     @FXML
@@ -75,7 +75,6 @@ public class MainWindow extends VBox {
      */
     @FXML
     public void initialize() {
-        deckScrollPane.vvalueProperty().bind(deckList.heightProperty());
         displayScrollPane.vvalueProperty().bind(displayContainer.heightProperty());
         onCreateNewDeck.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
