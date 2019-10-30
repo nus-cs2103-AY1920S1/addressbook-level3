@@ -38,7 +38,7 @@ public class UnregisterPatientCommandTest {
 
         DequeueCommand removeFromQueueCommand = new DequeueCommand(personToDelete.getReferenceId());
         String expectedMessage1 = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS,
-                personToDelete.getReferenceId());
+                model.resolvePatient(personToDelete.getReferenceId()).getName());
         expectedModel.removeFromQueue(personToDelete.getReferenceId());
         assertCommandSuccess(removeFromQueueCommand, model, expectedMessage1, expectedModel);
 
