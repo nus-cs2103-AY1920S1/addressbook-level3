@@ -2,6 +2,7 @@ package seedu.address.diaryfeature.model.util;
 
 import java.text.ParseException;
 
+import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.diaryEntry.Memory;
@@ -27,5 +28,12 @@ public class SampleDataUtil {
             return null;
         }
 
+    }
+
+
+    public static DiaryBook getSampleDiaryBook() {
+        DiaryBook sample = new DiaryBook();
+        sample.loadData(getSampleDiaryEntry());
+        return sample;
     }
 }
