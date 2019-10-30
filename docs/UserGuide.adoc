@@ -327,44 +327,69 @@ There is no need to save manually.
 
 === Table Summary
 
+[cols=".<2,.^4,.^4"]
 |===
 |Command |Format |Example
 
 |*Help*|`help`|
 
-|*View*|`view\|<list>`|`view\|main`
+1.2+|*View*
+1.2+|`view\|<list>`
+|`view\|main`
+|`view\|replenish`
 
-|*Search*
-|`search\|<keyword>[\|<other keywords>]...`
+1.2+|*Search*
+1.2+|`search\|<keyword>[\|<other keywords>]...`
+|`search\|#drink\|tea\|pudding`
 |`search\|milk\|tea\|pearls`
 
 |*Add*
-|`add \|<item name>\|<expiry date>[\|<quantity>]...`
+|`add\|<item name>\|<expiry date>[\|<quantity>]...`
 |`add\|durian\|30/9/2019`
 
-|*Shift*
-|
-|
+1.2+|*Shift*
+|`shift\|<index>`
+|`shift\|2`
+|`shift\|<index>\|<expiry date>\|<quantity>`
+|`shift\|2\|1/1/2020\|2`
 
-|*Delete*
-|`delete\|<index>[\|<tag> or <quantity>]`
+1.3+|*Delete*
+|`delete\|<index>`
 |`delete\|3`
 
-|*Tag*
-|`tag\|<index>\|[<tag>]...`
+|`delete\|<index>\|<tag>]`
+|`delete\|3\|#fruit`
+
+|`delete\|<index>\|[<quantity>]`
+|`delete\|3\|2`
+
+1.2+|*Tag*
+|`tag`
 |
+
+|`tag\|<index>\|[<tag>]...`
+|`tag\|2\|#drink #healthy`
 
 |*Set reminder*
 |`set reminder\|<index>\|<reminder threshold>`
 |`set reminder\|1\|7`
 
-|*Check*|`check[\|<days>]`|`check\|20`
+1.2+|*Check*
+|`check`
+|
 
-|*Sort*|`sort\|<key>`|`sort\|date`
+|`check[\|<days>]`
+|`check\|20`
+
+1.2+|*Sort*
+1.2+|`sort\|<key>`
+|`sort\|name`
+|`sort\|date`
 
 |*Clear*|`clear`|
 
 |*Exit*|`exit`|
+
 
 |===
 
