@@ -7,6 +7,7 @@ import static seedu.address.testutil.ItemBuilder.DEFAULT_COST;
 import static seedu.address.testutil.ItemBuilder.DEFAULT_DESCRIPTION;
 import static seedu.address.testutil.ItemBuilder.DEFAULT_PRICE;
 import static seedu.address.testutil.ItemBuilder.DEFAULT_QUANTITY;
+import static seedu.address.testutil.TypicalItem.CHIPS;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_COST;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
@@ -28,6 +29,7 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String VALID_DESCRIPTION_FISH_BURGER = "Burger";
     public static final String VALID_DESCRIPTION_STORYBOOK = "The tale";
+    public static final String VALID_DESCRIPTION_CHIPS = CHIPS.getDescription();
     public static final String VALID_DESCRIPTION_BLACK_SHIRT = "CCA shirt";
     public static final String VALID_CATEGORY_1 = "food";
     public static final String VALID_CATEGORY_2 = "Book";
@@ -43,6 +45,7 @@ public class CommandTestUtil {
     public static final String DESC_DESCRIPTION_FISH_BURGER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_FISH_BURGER;
     public static final String DESC_DESCRIPTION_STORYBOOK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_STORYBOOK;
     public static final String DESC_DESCRIPTION_BLACK_SHIRT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BLACK_SHIRT;
+    public static final String DESC_DESCRIPTION_CHIPS = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHIPS;
     public static final String DESC_CATEGORY_1 = " " + PREFIX_CATEGORY + VALID_CATEGORY_1;
     public static final String DESC_CATEGORY_2 = " " + PREFIX_CATEGORY + VALID_CATEGORY_2;
     public static final String DESC_QUANTITY_1 = " " + PREFIX_QUANTITY + VALID_QUANTITY_1;
