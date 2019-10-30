@@ -67,7 +67,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'ims-1.2.1.jar'
+    archiveName = 'ims-1.3.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

@@ -200,7 +200,7 @@ The access control feature is centered around three core concepts:
 
 ===== Command Restrictions
 
-Prior to login, the user is only granted access to the `Login`, `Add`, `Help`, and `Exit` commands. This is achieved via a guard statement in the `LogicManager` checking whether the user is logged in or the command created is an approved command that doesn't require login.
+Prior to login, the user is only granted access to the `Login`, `Register`, `Help`, and `Exit` commands. This is achieved via a guard statement in the `LogicManager` checking whether the user is logged in or the command created is an approved command that doesn't require login.
 
 [NOTE]
 The guard statement throws a command exception and informs the user of the available commands prior to login.
@@ -216,7 +216,11 @@ Users are required to login via the `Login` command with a `Username` and `Passw
 [NOTE]
 Session details are displayed on the status bar in the GUI to reflect whether a user is logged in, and the username as well as time logged in if a user is logged in.
 
-Uniqueness of a username is ensured by preventing duplicates during the account creation [`AddCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
+Class Diagram for illustration:
+
+image::SessionClassDiagram.png[]
+
+Uniqueness of a username is ensured by preventing duplicates during the account creation [`RegisterCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
 
 ===== Account Management Restrictions
 
@@ -227,7 +231,7 @@ To prevent abuse (e.g. adding a dummy account and editing/deleting other account
 * Only Admins are allowed to edit or add tags (via both AddCommand and UpdateCommand).
 
 [NOTE]
-Non-admins can still edit their own account details via the `Update` command. Refer to user guide for more info.
+Non-admins can still edit their own account details via the `UpdateCommand`. Refer to user guide for more info.
 
 Additional access restrictions:
 
@@ -236,11 +240,13 @@ Additional access restrictions:
 * Admins cannot delete their own account.
 * Admins cannot 'downgrade' themselves by removing their own admin tag.
 
-The checks described above all function in the command execution stage. The `AddCommand`, `UpdateCommand`, and `DeleteCommand` retrieves the logged in `Person` from the `Model` via utilisation of the `Session` object.
+The checks described above all function in the command execution stage. The `RegisterCommand`, `UpdateCommand`, and `DeleteCommand` retrieves the logged in `Person` from the `Model` via utilisation of the `Session` object.
 
 Sequence Diagram for illustration:
 
 image::AccessSequenceDiagram.png[]
+
+NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
 
 ==== Design Considerations
 
@@ -282,7 +288,7 @@ A sufficiently advanced user can access the data file directly to manipulate acc
 
 The account management feature functions as a suite of commands available to the user. The commands available as part of this suite:
 
-* Add Command - Creates a new user account.
+* Register Command - Creates a new user account.
 * Update Command - Edits a user account. Not including an index updates your own account.
 * Delete Command - Deletes a a user account. Not allowed to delete your own account.
 * List Persons Command - Lists all user accounts or those whose tags match the user input.
@@ -290,12 +296,11 @@ The account management feature functions as a suite of commands available to the
 * Swap Command - Swaps GUI interface between account management and incident management.
 
 [NOTE]
-Only `Admin` accounts can access the full suite of account management features. See access control feature for more information. Non-Admins only have access to `Add`, `List`, `Find`, and `Swap` commands, as well as `Update` for their own account.
+Users are restricted from accessing commands affecting objects not on display. They need to invoke `Swap` to access the different command suites.
+
+Only `Admin` accounts can access the full suite of account management features. See access control feature for more information. Non-Admins only have access to `Register`, `List`, `Find`, and `Swap` commands, as well as `Update` for their own account.
 
 In the code base, Persons represent user accounts. See person model for more information.
-
-[NOTE]
-The swap command also restricts users from accessing commands affecting objects not on display.
 
 ==== Design Considerations
 ===== Aspect: How Update executes
@@ -310,11 +315,11 @@ The swap command also restricts users from accessing commands affecting objects 
 ===== Aspect: How Tag searching executes
 
 * **Current Choice:** Adding keywords after the list command performs a search
-** Pros: Easy to implement.
-** Cons: User might get confused between list and find command usage.
+** Pros: Does not require argument prefixes, improves user experience.
+** Cons: Decreases system cohesiveness as searching is performed in two separate commands.
 * **Alternative:** Utilising find command to search for tags
-** Pros: Centralise all account search operations in one command.
-** Cons: Requires the addition of argument prefixes, hard to implement.
+** Pros: Centralise all account search operations in one command, improves system cohesiveness.
+** Cons: Requires the addition of argument prefixes, decreases user experience.
 // end::accountManagement[]
 
 // tag::incidentdraftcreation[]

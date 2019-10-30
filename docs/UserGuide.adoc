@@ -60,7 +60,7 @@ Logs the user into the IMS and registers the active session. +
 Format: `login u/USERNAME p/PASSWORD`
 
 [NOTE]
-The only commands available prior to login are `Add`, `Login`, `Help`, and `Exit`.
+The only commands available prior to login are `Register`, `Login`, `Help`, and `Exit`.
 
 === Logging out: `logout`
 
@@ -78,18 +78,18 @@ A user cannot access commands affecting entities not displayed in their current 
 // end::access[]
 
 // tag::account[]
-=== Adding a user: `add`
+=== Registering an account: `register`
 
-Adds an account to the IMS as a registered user +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...`
+Registers an account into the Incident Management System +
+Format: `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...`
 
 [TIP]
 A account can have any number of tags (including 0). Only logged-in admins can add tags.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com u/op1`
-* `add n/Betsy Crowe e/betsycrowe@example.com u/oc1 p/1234567 t/Team-1-OC`
+* `register n/John Doe p/98765432 e/johnd@example.com u/op1`
+* `register n/Betsy Crowe e/betsycrowe@example.com u/oc1 p/1234567 t/Team-1-OC`
 
 === Updating an account : `update`
 
@@ -116,7 +116,7 @@ updates the phone number and email address of the logged in account to be `91234
 * `update 2 n/Betsy Crower t/` +
 updates the name of the 2nd account to be `Betsy Crower` and clears all existing tags.
 
-=== Listing accounts : `list-p`
+=== Listing accounts : `list-a`
 
 Shows a list of all accounts registered in the incident Manager or those whose tags match any of the keywords if a keyword is specified. +
 Format: `list-p [KEYWORD] [MORE_KEYWORDS]`
@@ -125,33 +125,41 @@ Format: `list-p [KEYWORD] [MORE_KEYWORDS]`
 * The search is case insensitive. e.g `admin` will match `Admin`
 * Only the account tags are searched.
 * Only full words will be matched e.g. `ad` will not match `admin`
-* accounts matching at least one keyword will be returned (i.e. `OR` search). e.g. `admin team-1` will return all accounts with the `admin` tag and those with the `team-1` tag.
+* Accounts matching all keywords will be returned (i.e. `AND` search).
 ****
 
-=== Locating accounts by name or username: `find-p`
+Examples:
+
+* `list-a` +
+Displays the entire list of accounts
+* `list-a team-1 admin` +
+Returns a list of all accounts that have both the `admin` and `team-1` tag
+
+=== Locating accounts by name or username: `find-a`
 
 Finds accounts whose name or username contains any of the given keywords. +
-Format: `find-p KEYWORD [MORE_KEYWORDS]`
+Format: `find-a KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name and username is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched for Names e.g. `Han` will not match `Hans`
+* Partial words will be matched for Usernames e.g. `Agent` will match `Agent01`
 * Accounts matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find-p John` +
+* `find-a John` +
 Returns `john` and `John Doe`
-* `find-p Betsy Tim John` +
-Returns any account having names or usernames `Betsy`, `Tim`, or `John`
+* `find-a Betsy agent` +
+Returns any account having names or usernames `Betsy` or `agent`
 
-=== Deleting an account : `delete`
+=== Deleting an account : `delete-a`
 
 Deletes the specified account from the incident Manager. +
-Format: `delete INDEX`
+Format: `delete-a INDEX`
 
 ****
 * Deletes the account at the specified `INDEX`.
@@ -160,15 +168,15 @@ Format: `delete INDEX`
 ****
 
 [NOTE]
-Only admins can access the delete command.
+Only admins can access the delete command. You cannot delete your own account.
 
 Examples:
 
 * `list` +
-`delete 2` +
+`delete-a 2` +
 Deletes the 2nd account in the incident Manager.
-* `find Betsy` +
-`delete 1` +
+* `find-a Agent01` +
+`delete-a 1` +
 Deletes the 1st account in the results of the `find` command.
 
 // end::account[]
