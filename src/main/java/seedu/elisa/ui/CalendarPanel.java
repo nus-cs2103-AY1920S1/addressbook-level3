@@ -3,6 +3,7 @@ package seedu.elisa.ui;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -61,15 +62,43 @@ public class CalendarPanel extends UiPart<Region> {
         ObservableList<Item> eventList = visualList.filtered(x -> x.hasEvent());
         ObservableList<Item> monthEvent = eventList.filtered(x -> x.getEvent()
                 .get().getStartDateTime().getMonthValue() == month);
-        for (Item item : monthEvent) {
-            Label lbl = new Label();
-            lbl.setText(item.getItemDescription().toString());
-            lbl.setStyle("-fx-background-color: #eff516");
-            int date = item.getEvent().get().getStartDateTime().getDayOfMonth();
-            Node node = calendarGrid.lookup("#" + Integer.toString(date));
-            if (node instanceof VBox) {
-                VBox vPane = (VBox) node;
-                vPane.getChildren().add(lbl);
+
+        HashMap<Integer, Integer> checker = new HashMap<>();
+        if (!monthEvent.isEmpty()) {
+            for (Item item: monthEvent) {
+                int date = item.getEvent().get().getStartDateTime().getDayOfMonth();
+                if (checker.containsKey(date)) {
+                    checker.put(date, checker.get(date) + 1);
+                    if (checker.get(date) > 2) {
+                        continue;
+                    }
+                } else {
+                    checker.put(date, 1);
+                }
+                Node node = calendarGrid.lookup("#" + Integer.toString(date));
+                VBox pane = (VBox) node;
+
+                Label lbl = new Label();
+                lbl.setText(item.getItemDescription().toString());
+                lbl.setPadding(new Insets(0, 5, 0, 5));
+
+                String priority = item.getPriority().toString();
+                switch (priority) {
+                case "HIGH":
+                    lbl.setStyle("-fx-background-color: red; -fx-background-radius: 15, 15, 15, 15");
+                    break;
+                case "MEDIUM":
+                    lbl.setStyle("-fx-background-color: orange; -fx-background-radius: 15, 15, 15, 15");
+                    break;
+                case "LOW":
+                    lbl.setStyle("-fx-background-color: green; -fx-background-radius: 15, 15, 15, 15");
+                    break;
+                default:
+                }
+
+                if (node instanceof VBox) {
+                    pane.getChildren().add(lbl);
+                }
             }
         }
     }
