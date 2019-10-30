@@ -20,6 +20,10 @@ import seedu.address.logic.commands.appointments.MissAppCommand;
 import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.duties.AddDutyShiftCommand;
+import seedu.address.logic.commands.duties.CancelDutyShiftCommand;
+import seedu.address.logic.commands.duties.ChangeDutyShiftCommand;
+import seedu.address.logic.commands.duties.DutyShiftCommand;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
@@ -39,6 +43,10 @@ import seedu.address.logic.parser.appointments.CancelAppCommandParser;
 import seedu.address.logic.parser.appointments.ChangeAppCommandTimingParser;
 import seedu.address.logic.parser.appointments.MissAppCommandParser;
 import seedu.address.logic.parser.appointments.SettleAppCommandParser;
+import seedu.address.logic.parser.duties.AddDutyShiftCommandParser;
+import seedu.address.logic.parser.duties.CancelDutyShiftCommandParser;
+import seedu.address.logic.parser.duties.ChangeDutyShiftCommandTimingParser;
+import seedu.address.logic.parser.duties.DutyShiftCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.patients.EditPatientDetailsCommandParser;
 import seedu.address.logic.parser.patients.ListPatientCommandParser;
@@ -120,20 +128,19 @@ public class AddressBookParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand(commandHistory);
 
+
         case EnqueueCommand.COMMAND_WORD:
             return new EnqueueCommandParser().parse(arguments);
 
         case DequeueCommand.COMMAND_WORD:
             return new DequeueCommandParser(model).parse(arguments);
 
-        case AddAppCommand.COMMAND_WORD:
-            return new AddAppCommandParser(model).parse(arguments);
 
         case AppointmentsCommand.COMMAND_WORD:
             return new AppointmentsCommandParser(model).parse(arguments);
 
-        case AckAppCommand.COMMAND_WORD:
-            return new AckAppCommandParser(model).parse(arguments);
+        case AddAppCommand.COMMAND_WORD:
+            return new AddAppCommandParser(model).parse(arguments);
 
         case CancelAppCommand.COMMAND_WORD:
             return new CancelAppCommandParser(model).parse(arguments);
@@ -141,17 +148,36 @@ public class AddressBookParser {
         case ChangeAppCommand.COMMAND_WORD:
             return new ChangeAppCommandTimingParser(model).parse(arguments);
 
+
+        case DutyShiftCommand.COMMAND_WORD:
+            return new DutyShiftCommandParser(model).parse(arguments);
+
+        case AddDutyShiftCommand.COMMAND_WORD:
+            return new AddDutyShiftCommandParser(model).parse(arguments);
+
+        case CancelDutyShiftCommand.COMMAND_WORD:
+            return new CancelDutyShiftCommandParser(model).parse(arguments);
+
+        case ChangeDutyShiftCommand.COMMAND_WORD:
+            return new ChangeDutyShiftCommandTimingParser(model).parse(arguments);
+
+
+        case AckAppCommand.COMMAND_WORD:
+            return new AckAppCommandParser(model).parse(arguments);
+
         case MissAppCommand.COMMAND_WORD:
             return new MissAppCommandParser().parse(arguments);
 
         case SettleAppCommand.COMMAND_WORD:
             return new SettleAppCommandParser(model).parse(arguments);
 
+
         case AddConsultationRoomCommand.COMMAND_WORD:
             return new AddConsultationRoomCommandParser(model).parse(arguments);
 
         case RemoveRoomCommand.COMMAND_WORD:
             return new RemoveRoomCommandParser(model).parse(arguments);
+
 
         case NextCommand.COMMAND_WORD:
             return new NextCommandParser(model).parse(arguments);
@@ -161,6 +187,7 @@ public class AddressBookParser {
 
         case ResumeCommand.COMMAND_WORD:
             return new ResumeCommandParser(model).parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

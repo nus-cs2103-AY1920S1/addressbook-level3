@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -36,7 +37,7 @@ public class AddDutyShiftCommand extends ReversibleCommand {
             + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
             + "[" + PREFIX_RECURSIVE_TIMES + "PREFIX_RECURSIVE_TIMES]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ID + "001A "
+            + PREFIX_ID + "S001A "
             + PREFIX_START + "01/11/19 1800 "
             + PREFIX_RECURSIVE + "m "
             + PREFIX_RECURSIVE_TIMES + "2\n";
@@ -70,6 +71,8 @@ public class AddDutyShiftCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        model.setTabListing(OmniPanelTab.DUTY_SHIFT_TAB);
         try {
             if (eventList == null) {
                 model.scheduleDutyShift(toAdd);

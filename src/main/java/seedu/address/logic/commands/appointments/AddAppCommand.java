@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -72,6 +73,8 @@ public class AddAppCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        model.setTabListing(OmniPanelTab.APPOINTMENTS_TAB);
         try {
             if (eventList == null) {
                 model.scheduleAppointment(toAdd);
