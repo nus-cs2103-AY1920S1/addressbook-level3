@@ -7,7 +7,6 @@ import organice.model.Model;
 import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
-import organice.model.person.Person;
 import organice.model.person.TaskList;
 import organice.model.person.exceptions.PersonNotFoundException;
 
@@ -24,7 +23,8 @@ public class ProcessingMarkDoneCommand extends Command {
             + "Parameters: ic/PATIENT NRIC ic/DONOR NRIC TASK_NUMBER \n"
             + "Example: " + COMMAND_WORD + " ic/s4512345A ic/s7711123C 1";
 
-    public static final String MESSAGE_NOT_PROCESSED = "Donor and Patient NRIC must be valid and task number must exist";
+    public static final String MESSAGE_NOT_PROCESSED = "Donor and Patient NRIC must be "
+            + "valid and task number must exist";
 
     private String firstNricString;
     private String secondNricString;
@@ -37,8 +37,8 @@ public class ProcessingMarkDoneCommand extends Command {
     private Donor donor;
     private Patient patient;
 
-    private Nric patientNRIC;
-    private  Nric donorNRIC;
+    private Nric patientNric;
+    private Nric donorNric;
 
     private TaskList processingList;
 
@@ -49,22 +49,29 @@ public class ProcessingMarkDoneCommand extends Command {
         taskNumber = Integer.parseInt(taskNumberString);
     }
 
+    /**
+     * To check if the Nrics given contains a patient and a donor from the database
+     * @param firstNric
+     * @param secondNric
+     * @param model
+     * @return boolean, to see whether the given Nrics are valid
+     */
     public boolean isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model) {
         if (model.hasDonor(firstNric)) {
-            donorNRIC = firstNric;
-            donor = model.getDonor(donorNRIC);
+            donorNric = firstNric;
+            donor = model.getDonor(donorNric);
 
-            patientNRIC = secondNric;
-            patient = model.getPatient(patientNRIC);
+            patientNric = secondNric;
+            patient = model.getPatient(patientNric);
         } else {
-            patientNRIC = firstNric;
-            patient = model.getPatient(patientNRIC);
+            patientNric = firstNric;
+            patient = model.getPatient(patientNric);
 
-            donorNRIC = secondNric;
-            donor = model.getDonor(donorNRIC);
+            donorNric = secondNric;
+            donor = model.getDonor(donorNric);
         }
-        if (model.hasPatient(patientNRIC) && model.hasDonor(donorNRIC)
-                && match(donor, patient))  {
+        if (model.hasPatient(patientNric) && model.hasDonor(donorNric)
+                && match(donor,patient))  {
             return true;
         } else {
             return false;
@@ -77,11 +84,11 @@ public class ProcessingMarkDoneCommand extends Command {
         requireNonNull(model);
         try {
             if (isValidDonorPatientPair(firstNric, secondNric, model)
-            && taskNumber < donor.getProcessingList(patientNRIC).size()) {
-                model.getFilteredPersonList();
-                donor.markTaskAsDone(taskNumber);
+                && taskNumber < donor.getProcessingList(patientNric).size()) {
+                    model.getFilteredPersonList();
+                    donor.markTaskAsDone(taskNumber);
             }
-            return new CommandResult(donor.getProcessingList(patientNRIC).display());
+            return new CommandResult(donor.getProcessingList(patientNric).display());
         } catch (PersonNotFoundException pne) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
         }

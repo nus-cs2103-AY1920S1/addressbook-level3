@@ -19,7 +19,8 @@ public class ProcessingCommand extends Command {
     public static final String COMMAND_WORD = "processing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Process the pair of donor and patient identified "
-            + "by their NRICs respectively and provide a checklist of the current status of the organ transplantation. \n"
+            + "by their NRICs respectively and provide a checklist of"
+            + "the current status of the organ transplantation. \n"
             + "Parameters: ic/PATIENT NRIC ic/DONOR NRIC \n"
             + "Example: " + COMMAND_WORD + " ic/s4512345A ic/s7711123C";
 
@@ -45,6 +46,13 @@ public class ProcessingCommand extends Command {
         secondNric = new Nric(secondNricString);
     }
 
+    /**
+     * To check if the Nrics given contains a patient and a donor from the database
+     * @param firstNric
+     * @param secondNric
+     * @param model
+     * @return boolean, to see whether the given Nrics are valid
+     */
     public boolean isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model) {
         if (model.hasDonor(firstNric)) {
             donorNRIC = firstNric;

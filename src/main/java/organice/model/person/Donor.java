@@ -5,8 +5,6 @@ import static organice.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.HashMap;
 import java.util.Objects;
 
-import javafx.scene.control.skin.TextAreaSkin;
-
 /**
  * Represents a Donor in ORGANice.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -117,12 +115,12 @@ public class Donor extends Person {
             this.processingTodoList = processingTodoList;
         } else {
             TaskList updatedProcessingList = new TaskList("");
-            String taskString[] = newProcessingList.split("\n");
-            for (int i = 0; i < taskString.length; i++ ) {
+            String[] taskString = newProcessingList.split("\n");
+            for (int i = 0; i < taskString.length; i++) {
                 String currentTaskString = taskString[i];
                 if (!currentTaskString.isEmpty()) {
                     currentTaskString.substring(2);
-                    String taskDes[] = currentTaskString.split("]");
+                    String[] taskDes = currentTaskString.split("]");
                     Task toBeAddedTask = new Task(taskDes[1]);
                     if (taskDes[0].equals("[\u2713")) {
                         toBeAddedTask.markAsDone(toBeAddedTask);
@@ -134,6 +132,10 @@ public class Donor extends Person {
         }
     }
 
+    /**
+     * Mark the task given as done
+     * @param taskNumber of the task needed to mark as done in the list
+     */
     public void markTaskAsDone(int taskNumber) {
         TaskList updatedTaskList = getProcessingList(patientNric);
         updatedTaskList.get(taskNumber - 1).markAsDone(updatedTaskList.get(taskNumber - 1));

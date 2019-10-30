@@ -9,9 +9,9 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    protected ArrayList<Task> listOfTask;
-
     public final String value;
+
+    protected ArrayList<Task> listOfTask;
 
     public TaskList(String tasklist) {
         this.listOfTask = new ArrayList<Task>();
@@ -34,6 +34,10 @@ public class TaskList {
         listOfTask.remove(index);
     }
 
+    /**
+     * Generate a default list with all the default tasks necessary for the cross-matching to occur
+     * @return TaskList of the default list
+     */
     public TaskList defaultList() {
         TaskList processingTodoList = new TaskList("");
         processingTodoList.add(new Task("Contact donor"));
@@ -44,6 +48,10 @@ public class TaskList {
         return processingTodoList;
     }
 
+    /**
+     * Generate a string of all the tasks in the task list with the task number and title
+     * @return a string of tasks
+     */
     public String display() {
         int count = 1;
         String tasks = "";
@@ -59,8 +67,8 @@ public class TaskList {
     public String toString() {
         String tasks = "";
         for (int i = 0; i < listOfTask.size(); i++) {
-        Task t = listOfTask.get(i);
-        tasks = tasks + t.toString() + "\n";
+            Task t = listOfTask.get(i);
+            tasks = tasks + t.toString() + "\n";
         }
         return tasks;
     }

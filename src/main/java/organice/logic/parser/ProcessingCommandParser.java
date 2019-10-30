@@ -1,10 +1,9 @@
 package organice.logic.parser;
 
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static java.util.Objects.requireNonNull;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
 
-import java.util.Arrays;
+import static java.util.Objects.requireNonNull;
 
 import organice.logic.commands.ProcessingCommand;
 import organice.logic.parser.exceptions.ParseException;
@@ -22,20 +21,20 @@ public class ProcessingCommandParser implements Parser<ProcessingCommand> {
     public ProcessingCommand parse(String args) throws ParseException {
         requireNonNull(args);
         String trimmedArgs = args.trim();
-        String PREFIX_NRIC_STRING = PREFIX_NRIC.toString();
+        String prefixNricString = PREFIX_NRIC.toString();
 
-        String firstNRIC;
-        String secondNRIC;
+        String firstNric;
+        String secondNric;
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        if (nameKeywords[0].startsWith(PREFIX_NRIC_STRING) && nameKeywords[1].startsWith(PREFIX_NRIC_STRING)) {
-            firstNRIC = nameKeywords[0].replaceFirst(PREFIX_NRIC_STRING, "");
-            secondNRIC = nameKeywords[1].replaceFirst(PREFIX_NRIC_STRING, "");
+        if (nameKeywords[0].startsWith(prefixNricString) && nameKeywords[1].startsWith(prefixNricString)) {
+            firstNric = nameKeywords[0].replaceFirst(prefixNricString, "");
+            secondNric = nameKeywords[1].replaceFirst(prefixNricString, "");
         } else {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
         }
-        return new ProcessingCommand(firstNRIC, secondNRIC);
+        return new ProcessingCommand(firstNric, secondNric);
     }
 
 }

@@ -18,7 +18,6 @@ import organice.model.person.Person;
 import organice.model.person.Phone;
 import organice.model.person.Priority;
 import organice.model.person.Status;
-import organice.model.person.Task;
 import organice.model.person.TaskList;
 import organice.model.person.TissueType;
 import organice.model.person.Type;
@@ -54,7 +53,8 @@ class JsonAdaptedPerson {
                              @JsonProperty("age") String age, @JsonProperty("priority") String priority,
                              @JsonProperty("bloodType") String bloodType, @JsonProperty("tissueType") String tissueType,
                              @JsonProperty("organ") String organ, @JsonProperty("doctorInCharge") String doctorInCharge,
-                             @JsonProperty("organExpiryDate") String organExpiryDate, @JsonProperty("status") String status,
+                             @JsonProperty("organExpiryDate") String organExpiryDate,
+                             @JsonProperty("status") String status,
                              @JsonProperty("processingTaskList") String processingTaskList) {
 
         this.type = type;
@@ -229,7 +229,8 @@ class JsonAdaptedPerson {
 
             final TaskList modelTaskList = new TaskList(processingTaskList);
 
-            Donor modelDonor = new Donor(modelType, modelNric, modelName, modelPhone, modelAge, modelBloodType, modelTissueType,
+            Donor modelDonor = new Donor(modelType, modelNric, modelName, modelPhone,
+                    modelAge, modelBloodType, modelTissueType,
                     modelOrgan, modelOrganExpiryDate, modelStatus);
 
             modelDonor.setProcessingList(processingTaskList);
