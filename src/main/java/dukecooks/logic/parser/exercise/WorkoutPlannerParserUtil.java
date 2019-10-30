@@ -9,6 +9,7 @@ import java.util.List;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.StringUtil;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.workout.WorkoutName;
 import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.components.MuscleType;
@@ -248,7 +249,21 @@ public class WorkoutPlannerParserUtil {
             throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
         }
         CharSequence timeCharSequence = trimmedTime.subSequence(0, trimmedTime.length());
-        System.out.println(timeCharSequence);
         return new Timing(Duration.parse(timeCharSequence));
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code WorkoutName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static WorkoutName parseWorkoutName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!WorkoutName.isValidName(trimmedName)) {
+            throw new ParseException(WorkoutName.MESSAGE_CONSTRAINTS);
+        }
+        return new WorkoutName(trimmedName);
     }
 }
