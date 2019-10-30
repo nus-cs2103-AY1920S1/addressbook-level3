@@ -75,7 +75,7 @@ public class DeleteCommandTest {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
 
         Index outOfBoundIndex = INDEX_SECOND_EXPENSE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of billboard list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getBillboard().getExpenses().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);

@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.billboard.model.tag.Tag;
 
 /**
- * Represents a Expense in the address book.
+ * Represents a Expense in the billboard.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Expense {
