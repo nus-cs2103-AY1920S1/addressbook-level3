@@ -534,7 +534,7 @@ Given below is an example usage scenario and how the tag mechanism behaves at ea
 image::gui/SwitchTabsSequenceDiagram0.png[]
 _Figure 2.1 Sequence Diagram for instantiating a `SwitchCommand` object_
 
-Step 1: The user executes `switchtab t/display i/1` to switch to the first tab in the `display` tabpane.
+Step 1: The user executes `switchtab tt/display i/1` to switch to the first tab in the `display` tabpane.
 
 Step 2: `SwitchTabCommandParser` processes the user input, retrieving the tab type (`display`) and the index (`1`).
 

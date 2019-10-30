@@ -430,8 +430,8 @@ The details for this problem can be seen in the details tab where the orange arr
 
 ==== Switching Tabs: `switchtab`
 Switches between tabs in the GUI +
-Format: `switchtab t/TAB_TYPE i/TAB_INDEX`
-Format: `st t/TAB_TYPE i/TAB_INDEX`
+Format: `switchtab tt/TAB_TYPE i/TAB_INDEX`
+Format: `st tt/TAB_TYPE i/TAB_INDEX`
 
 * Tab Type
 ** can be `display` or `details`
@@ -439,10 +439,10 @@ Format: `st t/TAB_TYPE i/TAB_INDEX`
 
 Examples:
 
-* `switchtab t/display i/1` – Switches to the first display tab (i.e. `problems` tab)
-* `st t/1 i/1` – Same effects as the previous command but in a shorter format.
-* `switchtab t/details i/3` – Switches to the third details tab
-* `st t/2 i/3` – Same effects as the previous command but in a shorter format.
+* `switchtab tt/display i/1` – Switches to the first display tab (i.e. `problems` tab)
+* `st tt/1 i/1` – Same effects as the previous command but in a shorter format.
+* `switchtab tt/details i/3` – Switches to the third details tab
+* `st tt/2 i/3` – Same effects as the previous command but in a shorter format.
 
 
 ==== Opening Tabs: `opentab`
@@ -459,15 +459,15 @@ Examples:
 
 ==== Closing Tabs: `closetab`
 Closes a tab in the GUI +
-Format: `closetab t/TAB_TYPE i/TAB_INDEX`
+Format: `closetab tt/TAB_TYPE i/TAB_INDEX`
 
 * Tab Type
 ** can be `display` or `details`
 
 Examples:
 
-* `closetab t/display i/1`
-* `closetab t/details i/2`
+* `closetab tt/display i/1`
+* `closetab tt/details i/2`
 
 === Data Management
 
