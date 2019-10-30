@@ -22,7 +22,7 @@ Main project tasks: Information and UI features
 
 === Low Jun Kai Sean
 image::seanlowjk.png[width="150", align="left"]
-link:https://github.com/seanlowjk[Github] | <<johndoe#, Portfolio>>
+link:https://github.com/seanlowjk[Github] | <<sean-low#, Portfolio>>
 
 Role: Documentation +
 Responsibilities: Deliverables, and deadlines +
