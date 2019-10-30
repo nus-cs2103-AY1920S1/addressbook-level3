@@ -1,9 +1,7 @@
 package seedu.address.ui.textfield;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -13,26 +11,20 @@ import seedu.address.logic.parser.Prefix;
  * A supported command input for autofill.
  */
 public class AutofillSupportedCommand {
-    private Map<Prefix, Boolean> requiredPrefixToIsPresentMapping;
-    private Map<Prefix, Boolean> optionalPrefixToIsPresentMapping;
+    private List<Prefix> required;
+    private List<Prefix> optional;
     private String command;
 
     AutofillSupportedCommand(String commandWord, List<Prefix> requiredPrefixes, List<Prefix> optionalPrefixes) {
         this.command = commandWord;
 
-        requiredPrefixToIsPresentMapping = new HashMap<>();
-        for (Prefix p : requiredPrefixes) {
-            requiredPrefixToIsPresentMapping.put(p, false);
-        }
+        required = List.copyOf(requiredPrefixes);
 
-        optionalPrefixToIsPresentMapping = new HashMap<>();
-        for (Prefix p : optionalPrefixes) {
-            optionalPrefixToIsPresentMapping.put(p, false);
-        }
+        optional = List.copyOf(optionalPrefixes);
     }
 
     public boolean isRequired(Prefix p) {
-        return requiredPrefixToIsPresentMapping.keySet().contains(p);
+        return required.contains(p);
     }
 
     public String getCommand() {
@@ -44,8 +36,8 @@ public class AutofillSupportedCommand {
      * @param input The string to check for prefixes.
      */
     public List<Prefix>[] getMissingPrefixes(String input) {
-        ArrayList<Prefix> prefixes = new ArrayList<>(requiredPrefixToIsPresentMapping.keySet());
-        prefixes.addAll(optionalPrefixToIsPresentMapping.keySet());
+        ArrayList<Prefix> prefixes = new ArrayList<>(required);
+        prefixes.addAll(optional);
         Prefix[] prefixArray = prefixes.toArray(new Prefix[]{});
 
         // tokenize to find prefixes
@@ -55,14 +47,14 @@ public class AutofillSupportedCommand {
         ArrayList<Prefix> missingOpt = new ArrayList<>();
 
         // find missing required prefixes
-        requiredPrefixToIsPresentMapping.forEach((p, v) -> {
+        required.forEach(p -> {
             if (argumentMultimap.getValue(p).isEmpty()) {
                 missingReq.add(p);
             }
         });
 
         // find missing optional prefixes
-        optionalPrefixToIsPresentMapping.forEach((p, v) -> {
+        optional.forEach(p -> {
             if (argumentMultimap.getValue(p).isEmpty()) {
                 missingOpt.add(p);
             }

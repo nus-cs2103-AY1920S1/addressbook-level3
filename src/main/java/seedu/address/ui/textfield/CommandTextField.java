@@ -115,20 +115,21 @@ public class CommandTextField extends Region {
         //------------ visible text area ---------------
 
         visibleTextArea = new StyleClassedTextArea();
-        visibleTextArea.setId("styled");
         visibleTextArea.setDisable(true);
         functionalTextField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
             if (t1) {
                 visibleTextArea.setShowCaret(Caret.CaretVisibility.ON);
             } else {
+                clear();
                 visibleTextArea.setShowCaret(Caret.CaretVisibility.OFF);
             }
         });
-        visibleTextArea.setShowCaret(Caret.CaretVisibility.ON);
+
         functionalTextField.caretPositionProperty().addListener((unused1, unused2, position) -> {
             visibleTextArea.displaceCaret((int) position);
             visibleTextArea.requestFollowCaret();
         });
+
 
         // --------- input history -------
         inputHistory = new InputHistory();
@@ -181,8 +182,10 @@ public class CommandTextField extends Region {
             visibleTextArea.setPrefWidth(width.doubleValue());
             visibleTextArea.setMinWidth(width.doubleValue());
             visibleTextArea.setMaxWidth(width.doubleValue());
+            clear();
         });
 
+        // prevent certain behaviour
         Nodes.addInputMap(functionalTextField, consumeCopyPasteEvent);
         Nodes.addInputMap(functionalTextField, consumeUndoRedoEvent);
         Nodes.addInputMap(functionalTextField, consumeTabKey);
@@ -191,6 +194,14 @@ public class CommandTextField extends Region {
         Nodes.addInputMap(visibleTextArea, consumeEnterKeyEvent);
         Nodes.addInputMap(visibleTextArea, consumeTabKey);
         Nodes.addInputMap(visibleTextArea, consumeMouseDragEvent);
+
+        // prevent selection of text
+        functionalTextField.selectionProperty().addListener((observableValue, indexRange, t1) -> {
+            if (t1.getLength() > 0) {
+                functionalTextField.deselect();
+                visibleTextArea.deselect();
+            }
+        });
     }
 
     /**
@@ -281,8 +292,7 @@ public class CommandTextField extends Region {
      * Import the css stylesheet containing the different styles for the syntax highlighter.
      */
     public void importStyleSheet(Scene parentSceneOfNode) {
-        parentSceneOfNode
-                .getStylesheets()
+        parentSceneOfNode.getStylesheets()
                 .add(CommandTextField.class.getResource(CSS_FILE_PATH).toExternalForm());
         enableSyntaxHighlighting();
     }
@@ -443,10 +453,7 @@ public class CommandTextField extends Region {
             }
 
 
-            // find prefixes
-            // find arguments
-            // if no args insert placeholder
-            // if no prefix remove placeholder
+            // insert placeholder
             if (!currentCommand.get().isBlank() && change.isAdded()) {
                 String cmd = currentCommand.get();
                 String beforecaret = change.getControlNewText().substring(0, change.getRangeEnd() + 1);

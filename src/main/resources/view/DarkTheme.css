@@ -21,11 +21,6 @@
     -fx-font-family: "Droid Sans Mono"
 }
 
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: -font-semibold;
-}
-
 .list-view {
     -fx-background-color: -colour-medium2;
 }
@@ -126,7 +121,7 @@
 }
 
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
-    -fx-shape: " ";
+    /*-fx-shape: " ";*/
     -fx-fill: transparent;
 }
 
