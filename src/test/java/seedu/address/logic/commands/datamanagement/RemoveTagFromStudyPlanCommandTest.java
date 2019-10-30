@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -52,8 +53,10 @@ public class RemoveTagFromStudyPlanCommandTest {
         // construct command to remove the tag
         RemoveTagFromStudyPlanCommand removeTagFromStudyPlanCommand =
                 new RemoveTagFromStudyPlanCommand("HIGH", 1);
-        assertCommandSuccess(removeTagFromStudyPlanCommand, model,
-                String.format(RemoveTagFromStudyPlanCommand.MESSAGE_SUCCESS, validTagOne, studyPlan), expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(
+                String.format(RemoveTagFromStudyPlanCommand.MESSAGE_SUCCESS, validTagOne, studyPlan),
+                        true, false);
+        assertCommandSuccess(removeTagFromStudyPlanCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

@@ -38,6 +38,12 @@ public class DefaultTagTest {
     }
 
     @Test
+    public void getDescription() {
+        DefaultTag defaultTag = new TagBuilder().buildDefaultCoreTag();
+        assertEquals(DefaultTagType.CORE.getDescription(), defaultTag.getDescription());
+    }
+
+    @Test
     public void isSameTag_returnsTrue() {
         assertTrue(new TagBuilder().buildDefaultCoreTag()
                 .isSameTag(new TagBuilder().buildDefaultCoreTag()));

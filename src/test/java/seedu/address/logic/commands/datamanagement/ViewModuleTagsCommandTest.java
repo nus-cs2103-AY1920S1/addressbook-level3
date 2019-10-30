@@ -112,9 +112,9 @@ public class ViewModuleTagsCommandTest {
     @Test
     public void execute_noTagsPresentInModule_throwsCommandException() {
         // construct module with no user tags
-        Module cs2101 = new ModuleBuilder().withModuleCode("CS2101").build();
+        Module cs3230 = new ModuleBuilder().withModuleCode("CS3230").build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS2101", cs2101);
+        moduleHashMap.put("CS3230", cs3230);
 
         // construct model containing study plan
         StudyPlan studyPlan = new StudyPlanBuilder().withModules(moduleHashMap).build();
@@ -122,14 +122,8 @@ public class ViewModuleTagsCommandTest {
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
-        // construct list of tags that should be shown
-        UniqueTagList expectedList = new UniqueTagList();
-
-        CommandResult expectedCommandResult = new CommandResult(ViewModuleTagsCommand.MESSAGE_NO_TAGS_FOUND,
-                ResultViewType.TAG, expectedList.asUnmodifiableObservableList());
-
         // construct command to show all tags for the module
-        ViewModuleTagsCommand viewModuleTagsCommand = new ViewModuleTagsCommand("CS2101");
+        ViewModuleTagsCommand viewModuleTagsCommand = new ViewModuleTagsCommand("CS3230");
         assertThrows(CommandException.class, () -> viewModuleTagsCommand.execute(model),
                 ViewModuleTagsCommand.MESSAGE_NO_TAGS_FOUND);
     }

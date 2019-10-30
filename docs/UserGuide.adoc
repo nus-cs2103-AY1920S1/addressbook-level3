@@ -380,12 +380,8 @@ Examples:
 Attaches a priority tag to the study plan. +
 Format: `tagsp PRIORITY_LEVEL STUDY_PLAN_INDEX`
 
-[NOTE]
-The `PRIORITY_LEVEL` must be entered in the format `priority_` followed by one of the priority level types
-as shown below.
-
 ****
-List of priority tags:
+List of priority levels:
 
 * `HIGH` +
 * `MEDIUM` +
@@ -394,8 +390,8 @@ List of priority tags:
 
 Examples:
 
-* `tagsp priority_high 1`
-* `tagsp priority_low 3`
+* `tagsp high 1`
+* `tagsp low 3`
 
 ==== Removing priority tags from study plan: `removesptag`
 Removes the priority tag from the study plan. +
@@ -403,8 +399,8 @@ Format: `removesptag PRIORITY_LEVEL STUDY_PLAN_INDEX`
 
 Examples
 
-* `removesptag priority_high 1`
-* `removesptag priority_low 3`
+* `removesptag high 1`
+* `removesptag low 3`
 
 ==== Listing study plans by priority: `listbypriority`
 Lists all study plans in the order of their priorities. +

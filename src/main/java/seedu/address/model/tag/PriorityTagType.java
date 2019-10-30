@@ -4,9 +4,9 @@ package seedu.address.model.tag;
  * Represents priority tag types.
  */
 public enum PriorityTagType {
-    HIGH("HIGH", "highPriority"),
-    MEDIUM("MEDIUM", "mediumPriority"),
-    LOW("LOW", "lowPriority");
+    HIGH("PRIORITY.HIGH", "highPriority"),
+    MEDIUM("PRIORITY.MEDIUM", "mediumPriority"),
+    LOW("PRIORITY.LOW", "lowPriority");
 
     private String priorityTagTypeName;
     private String style;

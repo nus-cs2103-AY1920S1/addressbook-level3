@@ -28,7 +28,7 @@ public class PriorityTagTest {
 
     @Test
     public void getTagName() {
-        assertEquals("HIGH", new TagBuilder().buildPriorityHighTag().getTagName());
+        assertEquals("PRIORITY.HIGH", new TagBuilder().buildPriorityHighTag().getTagName());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class PriorityTagTest {
 
     @Test
     public void toString_stringReturned() {
-        assertEquals("[HIGH]", new TagBuilder().buildPriorityHighTag().toString());
+        assertEquals("[PRIORITY.HIGH]", new TagBuilder().buildPriorityHighTag().toString());
     }
 
 }

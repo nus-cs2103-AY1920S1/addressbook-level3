@@ -45,6 +45,8 @@ public class ViewModuleTagsCommand extends Command {
 
         UniqueTagList tags = model.getModuleTagsFromActiveSp(moduleCode);
 
+        System.out.println(tags.asListOfStrings().size());
+
         if (tags.asUnmodifiableObservableList().size() == 0) {
             throw new CommandException(MESSAGE_NO_TAGS_FOUND);
         }

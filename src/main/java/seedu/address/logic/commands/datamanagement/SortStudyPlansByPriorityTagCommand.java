@@ -2,10 +2,9 @@ package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.Command;
@@ -37,38 +36,33 @@ public class SortStudyPlansByPriorityTagCommand extends Command {
             return new CommandResult(MESSAGE_NO_STUDYPLAN);
         }
 
-        List<StudyPlan> studyPlansListCopy = new ArrayList<StudyPlan>();
-        for (StudyPlan studyPlan : studyPlans) {
-            studyPlansListCopy.add(studyPlan);
-        }
-
-        studyPlansListCopy.sort(new Comparator<StudyPlan>() {
-            public int compare(StudyPlan studyPlan1, StudyPlan studyPlan2) {
-                if (studyPlan1.equals(studyPlan2)) {
-                    return 0;
+        List<StudyPlan> sortedList = studyPlans.stream().sorted((studyPlan1, studyPlan2) -> {
+            if (studyPlan1.getPriorityTag() == null) {
+                if (studyPlan2.getPriorityTag() == null) {
+                    return studyPlan1.getIndex() - studyPlan2.getIndex();
                 } else {
-                    if (studyPlan1.getPriorityTag() == null) {
-                        if (studyPlan2.getPriorityTag() == null) {
-                            return studyPlan1.getTitle().toString().compareTo(studyPlan2.getTitle().toString());
-                        } else {
-                            return -1;
-                        }
-                    } else {
-                        if (studyPlan2.getPriorityTag() == null) {
-                            return 1;
-                        } else {
-                            return studyPlan1.getPriorityTag().compareTo(studyPlan2.getPriorityTag());
-                        }
-                    }
+                    return 1;
+                }
+            } else {
+                if (studyPlan2.getPriorityTag() == null) {
+                    return -1;
+                } else {
+                    return studyPlan1.getPriorityTag().compareTo(studyPlan2.getPriorityTag());
                 }
             }
-        });
+        })
+                .collect(Collectors.toList());
 
         StringBuilder toReturn = new StringBuilder(MESSAGE_SUCCESS);
-        Iterator<StudyPlan> studyPlanIterator = studyPlans.iterator();
+        Iterator<StudyPlan> studyPlanIterator = sortedList.iterator();
         while (studyPlanIterator.hasNext()) {
             StudyPlan studyPlan = studyPlanIterator.next();
-            toReturn.append(studyPlan.toString() + "\n");
+            toReturn.append(studyPlan.toString());
+            if (studyPlan.containsPriorityTag()) {
+                toReturn.append(" [" + studyPlan.getPriorityTag().getTagName() + "]\n");
+            } else {
+                toReturn.append("\n");
+            }
         }
         return new CommandResult(toReturn.toString());
     }

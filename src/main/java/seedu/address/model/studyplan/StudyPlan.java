@@ -712,7 +712,7 @@ public class StudyPlan implements Cloneable {
 
     @Override
     public String toString() {
-        return "Study Plan index: " + index + " Title: " + title.toString();
+        return "Study Plan Index: " + index + ", Title: " + title.toString();
     }
 
     @Override

@@ -26,7 +26,7 @@ public class StudyPlanTagPanel extends UiPart<Region> {
         tagList.stream().forEach(tag -> {
             Label tagLabel = new Label(tag.getTagName());
             if (tag.isPriority()) {
-                tagLabel.getStyleClass().add(((PriorityTag) tag).getPriorityTagType().getStyle());
+                tagLabel.setId(((PriorityTag) tag).getPriorityTagType().getStyle());
             }
             tags.getChildren().add(tagLabel);
         });

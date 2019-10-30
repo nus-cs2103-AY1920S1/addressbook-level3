@@ -16,16 +16,17 @@ public class RemoveTagFromStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "removesptag";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Removing a tag from a study plan";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes the specified tag from the "
-            + "study plan with the specified index "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes the tag of the specified priority "
+            + "(high, medium, low) "
+            + "from the study plan of the specified index. "
             + "Parameters: "
             + "PRIORITY_TYPE "
             + "STUDY_PLAN_INDEX \n"
             + "Example: "
-            + "removesptag priority_high 1";
+            + "removesptag high 1";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been removed from %2$s";
-    public static final String MESSAGE_TAG_DOES_NOT_EXIST = "%1%s does not have the tag %2$s";
+    public static final String MESSAGE_TAG_DOES_NOT_EXIST = "%1$s does not have the tag %2$s";
 
     private String priorityLevel;
     private int index;
@@ -44,7 +45,7 @@ public class RemoveTagFromStudyPlanCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         PriorityTag priorityTag = new PriorityTag(PriorityTagType.valueOf(priorityLevel));
 
-        if (!model.spContainsStudyPlanTag(priorityLevel, index)) {
+        if (!model.spContainsStudyPlanTag(priorityTag.getTagName(), index)) {
             throw new CommandException(String.format(MESSAGE_TAG_DOES_NOT_EXIST, model.getStudyPlan(index),
                     priorityTag));
         }
@@ -52,7 +53,8 @@ public class RemoveTagFromStudyPlanCommand extends Command {
         model.removeStudyPlanTagFromSp(priorityTag, index);
         model.addToHistory();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, priorityTag, model.getStudyPlan(index)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, priorityTag, model.getStudyPlan(index)),
+                true, false);
     }
 
     @Override

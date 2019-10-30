@@ -100,7 +100,7 @@ public class MainWindow extends UiPart<Stage> {
             semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
             title.setText(sp.getTitle().toString());
             mcCount.setText(sp.getMcCountString());
-            StudyPlanTagPanel studyPlanTagPanel = new StudyPlanTagPanel(sp.getStudyPlanTags()
+            studyPlanTagPanel = new StudyPlanTagPanel(sp.getStudyPlanTags()
                     .asUnmodifiableObservableList());
             studyPlanTagsPlaceholder.getChildren().add(studyPlanTagPanel.getRoot());
         }
@@ -170,6 +170,9 @@ public class MainWindow extends UiPart<Stage> {
                     semesterListPanel = new SemesterListPanel(semesters);
                     semesterListPanelPlaceholder.getChildren().remove(0);
                     semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+                    studyPlanTagPanel = new StudyPlanTagPanel(sp.getStudyPlanTags().asUnmodifiableObservableList());
+                    studyPlanTagsPlaceholder.getChildren().remove(0);
+                    studyPlanTagsPlaceholder.getChildren().add(studyPlanTagPanel.getRoot());
                     title.setText(sp.getTitle().toString());
                     commandBox.handleChangeOfActiveStudyPlan();
                 }

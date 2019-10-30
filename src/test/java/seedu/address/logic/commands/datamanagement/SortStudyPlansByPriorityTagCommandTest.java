@@ -21,24 +21,27 @@ public class SortStudyPlansByPriorityTagCommandTest {
     @Test
     public void execute_studyPlansPresent_sortSuccessful() {
         // construct study plans
-        StudyPlan studyPlanOne = new StudyPlanBuilder().build();
+        StudyPlan studyPlanOne = new StudyPlanBuilder().withIndex(1).build();
         StudyPlan studyPlanTwo = new StudyPlanBuilder().withStudyPlanTags(
                 new TagBuilder().buildPriorityTag(PriorityTagType.LOW)).build();
         StudyPlan studyPlanThree = new StudyPlanBuilder().withStudyPlanTags(
                 new TagBuilder().buildPriorityTag(PriorityTagType.MEDIUM)).build();
         StudyPlan studyPlanFour = new StudyPlanBuilder().withStudyPlanTags(new TagBuilder().buildPriorityHighTag())
                 .build();
+        StudyPlan studyPlanFive = new StudyPlanBuilder().withIndex(2).build();
 
         // construct model with study plans
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlans(studyPlanOne, studyPlanTwo,
-                studyPlanThree, studyPlanFour).build(), new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+                studyPlanThree, studyPlanFour, studyPlanFive).build(), new UserPrefs(),
+                        TypicalModulesInfo.getTypicalModulesInfo());
 
         // construct expected string
         StringBuilder toReturn = new StringBuilder(SortStudyPlansByPriorityTagCommand.MESSAGE_SUCCESS);
-        toReturn.append(studyPlanFour.toString() + "\n");
-        toReturn.append(studyPlanThree.toString() + "\n");
-        toReturn.append(studyPlanTwo.toString() + "\n");
+        toReturn.append(studyPlanFour.toString() + " [PRIORITY.HIGH]\n");
+        toReturn.append(studyPlanThree.toString() + " [PRIORITY.MEDIUM]\n");
+        toReturn.append(studyPlanTwo.toString() + " [PRIORITY.LOW]\n");
         toReturn.append(studyPlanOne.toString() + "\n");
+        toReturn.append(studyPlanFive.toString() + "\n");
 
         SortStudyPlansByPriorityTagCommand sortStudyPlansByPriorityTagCommand =
                 new SortStudyPlansByPriorityTagCommand();

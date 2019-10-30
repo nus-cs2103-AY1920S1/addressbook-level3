@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.datamanagement.TagStudyPlanCommand;
-import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -32,13 +31,13 @@ public class TagStudyPlanCommandParser implements Parser<TagStudyPlanCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public TagStudyPlanCommand parse(String args) throws ParseException {
-        String[] tokens = args.split(" ");
+        String[] tokens = args.trim().split(" ");
         if (tokens.length < 2 || !PriorityTagType.isValidPriorityTagString(tokens[0])
                 || !tokens[1].matches("\\d")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewModuleTagsCommand.MESSAGE_USAGE));
+                    TagStudyPlanCommand.MESSAGE_USAGE));
         }
-        return new TagStudyPlanCommand(tokens[0], Integer.parseInt(tokens[1]));
+        return new TagStudyPlanCommand(tokens[0].toUpperCase(), Integer.parseInt(tokens[1]));
     }
 
     @Override

@@ -7,6 +7,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class PriorityTag implements Tag, Comparable<PriorityTag> {
 
+    public static final String MESSAGE_CONSTRAINTS = "Tag names can only be \"high\", \"medium\" or \"low\".";
+
     private PriorityTagType priorityTagType;
 
     /**
@@ -17,6 +19,13 @@ public class PriorityTag implements Tag, Comparable<PriorityTag> {
     public PriorityTag(PriorityTagType priorityTagType) {
         requireNonNull(priorityTagType);
         this.priorityTagType = priorityTagType;
+    }
+
+    /**
+     * Checks if the given name is a valid name for a priority tag.
+     */
+    public static boolean isValidTagName(String name) {
+        return PriorityTagType.isValidPriorityTagString(name);
     }
 
     /**

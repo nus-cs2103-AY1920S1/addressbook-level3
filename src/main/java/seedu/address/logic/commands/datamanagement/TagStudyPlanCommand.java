@@ -17,15 +17,16 @@ public class TagStudyPlanCommand extends Command {
     public static final String COMMAND_WORD = "tagsp";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Adding a priority tag to a study plan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds a tag of the specified priority to "
-            + "the study plan of the specified index. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds a tag of the specified priority "
+            + "(high, medium, low) "
+            + "to the study plan of the specified index. "
             + "Parameters: "
             + "PRIORITY_TYPE "
             + "STUDY_PLAN_INDEX \n"
             + "Example: "
-            + "tagsp priority_high 1";
+            + "tagsp high 1";
 
-    public static final String MESSAGE_SUCCESS = "Tag %1$s has been added to %2$s";
+    public static final String MESSAGE_SUCCESS = "Tag %1$s has been attached to %2$s";
     public static final String MESSAGE_TAG_ALREADY_EXISTS = "%1%s already has the tag %2$s";
 
     private String priorityLevel;
@@ -45,7 +46,7 @@ public class TagStudyPlanCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         PriorityTag priorityTag = new PriorityTag(PriorityTagType.valueOf(priorityLevel));
 
-        if (model.spContainsStudyPlanTag(priorityLevel, index)) {
+        if (model.spContainsStudyPlanTag(priorityTag.getTagName(), index)) {
             throw new CommandException(String.format(MESSAGE_TAG_ALREADY_EXISTS, model.getStudyPlan(index),
                     priorityTag));
         }
@@ -57,7 +58,8 @@ public class TagStudyPlanCommand extends Command {
         model.addStudyPlanTagToSp(priorityTag, index);
         model.addToHistory();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, priorityTag, model.getStudyPlan(index)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, priorityTag, model.getStudyPlan(index)),
+                true, false);
     }
 
     @Override

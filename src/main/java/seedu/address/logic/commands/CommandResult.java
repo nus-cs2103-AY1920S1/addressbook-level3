@@ -14,9 +14,6 @@ public class CommandResult<T> {
 
     private final String feedbackToUser;
 
-    /**
-     * Help information should be shown to the user.
-     */
     private final boolean changesActiveStudyPlan;
 
     /**
@@ -41,7 +38,8 @@ public class CommandResult<T> {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean changesActiveStudyPlan, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean changesActiveStudyPlan,
+            boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.changesActiveStudyPlan = changesActiveStudyPlan;
         this.exit = exit;

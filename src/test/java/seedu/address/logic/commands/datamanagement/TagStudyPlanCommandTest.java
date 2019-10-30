@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -52,8 +53,9 @@ public class TagStudyPlanCommandTest {
 
         // construct command to add a priority tag
         TagStudyPlanCommand tagStudyPlanCommand = new TagStudyPlanCommand("HIGH", 1);
-        assertCommandSuccess(tagStudyPlanCommand, model, String.format(TagStudyPlanCommand.MESSAGE_SUCCESS,
-                validTagOne, studyPlan), expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(String.format(TagStudyPlanCommand.MESSAGE_SUCCESS,
+                validTagOne, studyPlan), true, false);
+        assertCommandSuccess(tagStudyPlanCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -75,8 +77,9 @@ public class TagStudyPlanCommandTest {
 
         // construct command to add a priority tag
         TagStudyPlanCommand tagStudyPlanCommand = new TagStudyPlanCommand("LOW", 1);
-        assertCommandSuccess(tagStudyPlanCommand, model, String.format(TagStudyPlanCommand.MESSAGE_SUCCESS,
-                validTagTwo, studyPlan), expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(String.format(TagStudyPlanCommand.MESSAGE_SUCCESS,
+                validTagTwo, studyPlan), true, false);
+        assertCommandSuccess(tagStudyPlanCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
