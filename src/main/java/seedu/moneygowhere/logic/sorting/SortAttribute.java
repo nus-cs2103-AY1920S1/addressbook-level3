@@ -9,8 +9,7 @@ public enum SortAttribute {
     DATE("Date"),
     DEADLINE("Deadline"),
     REMARK("Remark"),
-    REMINDER_MESSAGE("Message")
-  
+    REMINDER_MESSAGE("Message");
     private final String identifier;
 
     SortAttribute(String identifier) {
