@@ -2,6 +2,7 @@
 package dream.fcard.logic.stats;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Represents the user's statistics.
@@ -96,6 +97,11 @@ public class Stats implements Serializable {
     /** Gets the list of login sessions. */
     public static SessionList getLoginSessions() {
         return loginSessions;
+    }
+
+    /** Gets the list of login sessions, as the underlying ArrayList, to display in the GUI. */
+    public static ArrayList<Session> getLoginSessionsAsArrayList() {
+        return getLoginSessions().getSessionArrayList();
     }
 
     /** Gets the current session. */
