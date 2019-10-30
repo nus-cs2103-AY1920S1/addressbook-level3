@@ -43,15 +43,18 @@
                     <Insets bottom="5" right="5"/>
                 </padding>
             </FlowPane>
-            <VBox maxHeight="50.0" HBox.hgrow="ALWAYS">
-                <SplitPane>
+            <HBox maxHeight="50.0" HBox.hgrow="ALWAYS">
+                <SplitPane  styleClass="indiv-split">
                         <ImageView fx:id="imageView" layoutX="20" layoutY="20" />
-                    <VBox>
-                        <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Tasks Assigned" />
-                        <Text fx:id="listTasks" styleClass="tasks_text"/>
-                    </VBox>
                 </SplitPane>
-            </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="5" right="5" top="5" left="10" />
+                    </padding>
+                    <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Tasks Assigned" />
+                    <Text fx:id="listTasks" styleClass="tasks_text"/>
+                </VBox>
+            </HBox>
         </VBox>
         <rowConstraints>
             <RowConstraints />
