@@ -23,7 +23,9 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
+import seedu.revision.model.quiz.History;
 import seedu.revision.model.quiz.Mode;
+import seedu.revision.model.quiz.Statistics;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
 import seedu.revision.ui.answers.TfAnswersGridPane;
@@ -158,12 +160,12 @@ public class StartQuizWindow extends Window {
      */
     @FXML
     private void handleEnd() {
-        currentProgressIndex.set(currentProgressIndex.get() + 1);
+        currentProgressIndex.set(getCurrentProgressIndex() + 1);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Congratulations!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.setContentText("Quiz has ended! Your score is " + score + "\n"
+        alert.setContentText("Quiz has ended! Your score is " + score + "/" + getCurrentProgressIndex() + "\n"
                 + "Try again?\n"
                 + "Press [ENTER] to try again.\n"
                 + "Press [ESC] to return to main screen.");
@@ -174,6 +176,10 @@ public class StartQuizWindow extends Window {
         alert.getButtonTypes().setAll(tryAgainButton, endButton);
 
         Optional<ButtonType> result = alert.showAndWait();
+
+        double totalScore = (double) Math.round(score/getCurrentProgressIndex()) * 100;
+        Statistics updateStatistics = new Statistics(totalScore);
+        History.updateHistory(updateStatistics);
 
         if (result.get() == tryAgainButton) {
             restartQuiz();

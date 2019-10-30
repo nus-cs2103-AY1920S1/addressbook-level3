@@ -8,17 +8,15 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
 
 /**
- * Provides a summary of statistics for current quiz session or last done quiz.
+ * Provides a view on the results from all past attempts of quizzes.
  */
-public class StatsCommand extends Command {
+public class HistoryCommand extends Command {
 
-    public static final String COMMAND_WORD = "stats";
+    public static final String COMMAND_WORD = "history";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows summary statistics of your latest "
-            + "quiz performance.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all results from your past history. ";
 
-    private static final String MESSAGE_SUCCESS = "Summary statistics shown!";
-
+    private static final String MESSAGE_SUCCESS = "History shown!";
 
     /**
      * Executes the command and returns the result message.
