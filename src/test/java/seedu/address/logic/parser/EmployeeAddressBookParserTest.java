@@ -17,8 +17,6 @@ import seedu.address.logic.commands.employee.ClearCommand;
 import seedu.address.logic.commands.employee.DeleteCommand;
 import seedu.address.logic.commands.employee.EditCommand;
 import seedu.address.logic.commands.employee.EditCommand.EditEmployeeDescriptor;
-import seedu.address.logic.commands.employee.FindCommand;
-import seedu.address.logic.commands.employee.ListCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -65,14 +63,6 @@ public class EmployeeAddressBookParserTest {
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
