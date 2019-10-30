@@ -53,7 +53,6 @@ import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.websocket.Cache;
 
-
 /**
  * Represents the in-memory model of the address book data.
  */

@@ -3,7 +3,6 @@ package seedu.address.model.person.schedule;
 import java.util.ArrayList;
 
 import seedu.address.model.person.PersonId;
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.EventNotFoundException;
 

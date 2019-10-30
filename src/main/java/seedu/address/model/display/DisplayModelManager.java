@@ -1,5 +1,7 @@
 package seedu.address.model.display;
 
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -35,8 +37,6 @@ import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.person.schedule.Timeslot;
 import seedu.address.model.person.schedule.Venue;
-
-import static java.time.temporal.ChronoUnit.MINUTES;
 
 /**
  * Handler for all display models.
@@ -78,14 +78,14 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of a person.
      *
-     * @param name of person's schedule to be updated
-     * @param time start time of the schedule
-     * @param type type of schedule
+     * @param name     of person's schedule to be updated
+     * @param time     start time of the schedule
+     * @param type     type of schedule
      * @param timeBook data
      */
     public void updateScheduleWindowDisplay(Name name, LocalDateTime time,
-                                          ScheduleWindowDisplayType type,
-                                          TimeBook timeBook) {
+                                            ScheduleWindowDisplayType type,
+                                            TimeBook timeBook) {
 
         try {
             HashMap<Integer, ArrayList<PersonSchedule>> personMonthSchedules = new HashMap<>();
@@ -109,8 +109,8 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of the user.
      *
-     * @param time start time of the schedule
-     * @param type type of schedule
+     * @param time     start time of the schedule
+     * @param type     type of schedule
      * @param timeBook data
      */
     public void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type, TimeBook timeBook) {
@@ -134,14 +134,14 @@ public class DisplayModelManager {
      * Update with a schedule of a group.
      *
      * @param groupName of the group
-     * @param time start time of the schedule
-     * @param type type of schedule
-     * @param timeBook data
+     * @param time      start time of the schedule
+     * @param type      type of schedule
+     * @param timeBook  data
      */
     public void updateScheduleWindowDisplay(GroupName groupName,
-                                          LocalDateTime time,
-                                          ScheduleWindowDisplayType type,
-                                          TimeBook timeBook) {
+                                            LocalDateTime time,
+                                            ScheduleWindowDisplayType type,
+                                            TimeBook timeBook) {
 
         try {
 
@@ -201,7 +201,7 @@ public class DisplayModelManager {
     /**
      * Updates the side panel display of type.
      *
-     * @param type of side panel display to be updated
+     * @param type     of side panel display to be updated
      * @param timeBook data
      */
     public void updateSidePanelDisplay(SidePanelDisplayType type, TimeBook timeBook) {
@@ -249,9 +249,9 @@ public class DisplayModelManager {
      * Generates the PersonSchedule of a Person.
      *
      * @param scheduleName name of the schedule
-     * @param now current time
-     * @param person of the schedule
-     * @param role role of the person
+     * @param now          current time
+     * @param person       of the schedule
+     * @param role         role of the person
      * @return PersonSchedule
      */
     private PersonSchedule generatePersonSchedule(String scheduleName, LocalDateTime now, Person person, Role role) {
@@ -362,7 +362,7 @@ public class DisplayModelManager {
                 } else {
                     if (newFreeStartTime != null) {
 
-                        if(newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
+                        if (newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
                             ArrayList<String> temp = new ArrayList<>(lastVenues);
                             for (int arr = 0; arr < temp.size(); arr++) {
                                 if (temp.get(arr) == null) {
@@ -394,7 +394,7 @@ public class DisplayModelManager {
                 if (currentTime.equals(endTime)) {
                     if (!isClash) {
 
-                        if(newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
+                        if (newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
                             ArrayList<String> temp = new ArrayList<>(lastVenues);
                             for (int arr = 0; arr < temp.size(); arr++) {
                                 if (temp.get(arr) == null) {

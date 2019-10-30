@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.display.detailwindow.PersonTimeslot;
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
