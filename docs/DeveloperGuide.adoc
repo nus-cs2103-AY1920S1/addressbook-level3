@@ -337,7 +337,7 @@ Due to development constraints, we have decided to only update the budget durati
 .Wallet-related class diagram in Model component.
 image::WalletClassDiagram.png[width=400]
 
-==== *Setting a Budget*
+==== Setting a Budget
 
 A budget can be set using the `budget` command which takes a budget amount, and an optional budget duration.
 
@@ -400,7 +400,7 @@ the purchase history data of the user while maintaining data integrity.
 `TimeOfPurchase` stores the time the `Purchase` was made by the user.
 ****
 
-==== *Buying a Food Item*
+==== Buying a Food Item
 
 The user may want to buy a food item and record the purchase. This can be done with the `buy` command.
 
