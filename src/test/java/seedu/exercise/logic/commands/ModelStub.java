@@ -149,11 +149,6 @@ class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public PropertyBook getPropertyBook() {
         throw new AssertionError("This method should not be called.");
     }
@@ -180,11 +175,6 @@ class ModelStub implements Model {
 
     @Override
     public void removeCustomProperty(String fullName) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updateFilteredRegimeList(Predicate<Regime> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

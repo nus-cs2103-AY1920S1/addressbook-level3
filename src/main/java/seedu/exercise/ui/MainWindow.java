@@ -1,15 +1,12 @@
 package seedu.exercise.ui;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.exercise.commons.core.GuiSettings;
@@ -19,7 +16,7 @@ import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Resource;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -28,7 +25,6 @@ import seedu.exercise.model.resource.Exercise;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String DEFAULT_MESSAGE = "Select an exercise/regime/schedule to display its info.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -88,10 +84,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setTitle("ExerHealth");
 
         helpWindow = new HelpWindow();
-
-        resourceListPanelPlaceholder.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            displayInfoPanelResult();
-        });
     }
 
     public Stage getPrimaryStage() {
@@ -102,7 +94,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        Image imageView = new Image(getClass().getResource("/images/logo_eH.png").toExternalForm());
+        Image imageView = new Image(getClass().getResource("/images/logo_no_bg_eH.png").toExternalForm());
         logoImageView.setImage(imageView);
 
         resultDisplay = new ResultDisplay();
@@ -111,6 +103,7 @@ public class MainWindow extends UiPart<Stage> {
         resolveWindow = new ResolveWindow(logic, resultDisplay);
 
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+
         exerciseListTabPlaceholder = new Tab();
         exerciseListTabPlaceholder.setContent((exerciseListPanel).getExerciseListView());
 
@@ -131,13 +124,17 @@ public class MainWindow extends UiPart<Stage> {
         resourceListPanelPlaceholder.getTabs().add(scheduleListTabPlaceholder);
         resourceListPanelPlaceholder.getTabs().add(suggestionListTabPlaceholder);
 
-        displayDefaultMessage();
-
         chartPlaceholder.getChildren().add(new LineChartPanel(logic.getStatistic()).getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         commandBox.requestFocus();
+
+        infoDisplayPanel = new InfoDisplayPanel();
+        infoDisplayPanelPlaceholder.getChildren().add(infoDisplayPanel.getRoot());
+
+        initListenersForResourceListPanels();
+        displayInitialList();
     }
 
     /**
@@ -155,6 +152,31 @@ public class MainWindow extends UiPart<Stage> {
             chartPlaceholder.getChildren().add(new PieChartPanel(statistic).getRoot());
         }
     }
+
+    private void displayInitialList() {
+        changeTab(scheduleListTabPlaceholder);
+        infoDisplayPanel.showDefaultMessage();
+    }
+
+    /**
+     * Initialises a listener for each list panel on the left of the window
+     */
+    private void initListenersForResourceListPanels() {
+        exerciseListPanel.setOnItemSelectListener(getListener());
+        regimeListPanel.setOnItemSelectListener(getListener());
+        scheduleListPanel.setOnItemSelectListener(getListener());
+        suggestionListPanel.setOnItemSelectListener(getListener());
+    }
+
+    private ResourceListPanel.OnItemSelectListener getListener() {
+        return new ResourceListPanel.OnItemSelectListener() {
+            @Override
+            public void onItemSelect(Resource selected) {
+                infoDisplayPanel.update(selected);
+            }
+        };
+    }
+
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -182,7 +204,6 @@ public class MainWindow extends UiPart<Stage> {
             shouldShowWindowsBasedOnCommandResult(commandResult);
             shouldExitAppBasedOnCommandResult(commandResult);
             updateResourceListTab(commandResult);
-            displayInfoPanelResult();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -271,7 +292,7 @@ public class MainWindow extends UiPart<Stage> {
         case "SCHEDULE":
             handleShowScheduleList();
             return;
-        case "SUGGESTION":
+        case "SUGGEST":
             handleShowSuggestionList();
             return;
         default:
@@ -298,28 +319,4 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowSuggestionList() {
         resourceListPanelPlaceholder.getSelectionModel().select(suggestionListTabPlaceholder);
     }
-
-    private void updateDisplayPanel(ExerciseInfoPanel newExerciseDisplay) {
-        infoDisplayPanelPlaceholder.getChildren().clear();
-        infoDisplayPanelPlaceholder.getChildren().add(newExerciseDisplay.getRoot());
-    }
-
-    private void displayDefaultMessage() {
-        infoDisplayPanelPlaceholder.getChildren().clear();
-        infoDisplayPanelPlaceholder.getChildren().add(new Label(DEFAULT_MESSAGE));
-    }
-
-    /**
-     * Displays the selected exercise on the info panel if there are any. Otherwise, it will display be the
-     * default message.
-     */
-    private void displayInfoPanelResult() {
-        Optional<Exercise> selectedExercise = exerciseListPanel.getSelectedExercise();
-        if (selectedExercise.isPresent()) {
-            updateDisplayPanel(new ExerciseInfoPanel(selectedExercise.get()));
-        } else {
-            displayDefaultMessage();
-        }
-    }
-
 }

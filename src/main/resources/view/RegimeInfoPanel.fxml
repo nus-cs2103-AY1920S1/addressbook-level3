@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@CustomTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="1.0" prefHeight="99.0" prefWidth="600.0" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="5.0"
+      AnchorPane.topAnchor="10.0" AnchorPane.bottomAnchor="152.0">
+         <children>
+            <Label fx:id="regimeName" styleClass="infoPanel_name" stylesheets="@CustomTheme.css" text="\$name" />
+            <Label fx:id="totalCalorieCount" styleClass="infoPanel_name" text="\$totalCalorieCount"/>
+         </children>
+      </VBox>
+      <VBox layoutY="94.0" prefHeight="308.0" prefWidth="600.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="94.0">
+         <children>
+            <StackPane fx:id="exerciseListPanelPlaceholder" prefHeight="306.0" prefWidth="600.0" VBox.vgrow="ALWAYS"/>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

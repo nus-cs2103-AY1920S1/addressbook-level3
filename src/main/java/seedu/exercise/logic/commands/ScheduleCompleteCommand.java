@@ -32,7 +32,7 @@ public class ScheduleCompleteCommand extends ScheduleCommand {
         completeSchedule(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Integer.toString(index.getOneBased())),
-                ListResourceType.SCHEDULE);
+                ListResourceType.EXERCISE);
     }
 
     @Override

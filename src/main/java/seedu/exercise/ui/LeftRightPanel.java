@@ -43,5 +43,7 @@ public class LeftRightPanel extends UiPart<Region> {
     public void clearAll() {
         leftPanel = null;
         rightPanel = null;
+        leftPanelPlaceholder.getChildren().clear();
+        rightPanelPlaceholder.getChildren().clear();
     }
 }

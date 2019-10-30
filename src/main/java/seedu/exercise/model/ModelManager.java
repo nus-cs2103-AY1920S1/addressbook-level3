@@ -158,7 +158,6 @@ public class ModelManager implements Model {
      */
     public void addExercise(Exercise exercise) {
         exerciseBook.addResource(exercise);
-        updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
     }
 
     public void setExercise(Exercise target, Exercise editedExercise) {
@@ -261,8 +260,8 @@ public class ModelManager implements Model {
             UniqueResourceList<Exercise> resolvedExercises =
                 getResolvedExerciseList(indexFromSchedule, indexFromConflict);
             Schedule resolvedSchedule = getResolvedSchedule(regimeName, resolvedExercises);
-            addResolvedSchedule(resolvedSchedule);
             addCombinedRegime(resolvedSchedule.getRegime());
+            addResolvedSchedule(resolvedSchedule);
         }
     }
 
@@ -292,11 +291,6 @@ public class ModelManager implements Model {
         return filteredExercises;
     }
 
-    @Override
-    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
-        requireNonNull(predicate);
-        filteredExercises.setPredicate(predicate);
-    }
 
     //=========== Filtered Regime List Accessors ===============================================================
 
@@ -308,11 +302,6 @@ public class ModelManager implements Model {
         return filteredRegimes;
     }
 
-    @Override
-    public void updateFilteredRegimeList(Predicate<Regime> predicate) {
-        requireNonNull(predicate);
-        filteredRegimes.setPredicate(predicate);
-    }
 
     //=========== Filtered Schedule List Accessors ===============================================================
 

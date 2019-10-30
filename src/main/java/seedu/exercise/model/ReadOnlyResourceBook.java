@@ -109,4 +109,10 @@ public class ReadOnlyResourceBook<T extends Resource> {
     public int hashCode() {
         return resources.hashCode();
     }
+
+
+    @Override
+    public String toString() {
+        return "" + resources.asUnmodifiableObservableList().size() + " exercises.";
+    }
 }

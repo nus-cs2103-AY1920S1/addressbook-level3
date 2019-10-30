@@ -15,6 +15,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
+import seedu.exercise.ui.ListResourceType;
 
 public class UndoCommandTest {
 
@@ -50,6 +51,7 @@ public class UndoCommandTest {
     @Test
     public void execute_nonEmptyUndoStack_success() {
         String expectedString = String.format(UndoCommand.MESSAGE_SUCCESS, eventToUndo);
-        assertCommandSuccess(new UndoCommand(), actualModel, expectedString, expectedModel);
+        CommandResult expectedResult = new CommandResult(expectedString, ListResourceType.EXERCISE);
+        assertCommandSuccess(new UndoCommand(), actualModel, expectedResult, expectedModel);
     }
 }

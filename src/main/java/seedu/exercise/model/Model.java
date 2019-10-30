@@ -108,13 +108,6 @@ public interface Model {
     ObservableList<Schedule> getFilteredScheduleList();
 
     /**
-     * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredExerciseList(Predicate<Exercise> predicate);
-
-    /**
      * Returns the user prefs' regime book file path.
      */
     Path getRegimeBookFilePath();
@@ -163,13 +156,6 @@ public interface Model {
      * Returns the index of regime in regime book.
      */
     int getRegimeIndex(Regime regime);
-
-    /**
-     * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredRegimeList(Predicate<Regime> predicate);
 
     /**
      * Returns true if another schedule has been scheduled on the same date as {@code schedule}.

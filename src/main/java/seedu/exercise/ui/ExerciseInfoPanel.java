@@ -28,7 +28,7 @@ public class ExerciseInfoPanel extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Exercise exercise;
+    private Exercise exercise;
 
     @FXML
     private AnchorPane cardPane;
@@ -60,7 +60,6 @@ public class ExerciseInfoPanel extends UiPart<Region> {
         customPropertiesList = new CustomPropertyListPanel(exercise.getObservableCustomPropertiesList());
         customProperties.getChildren().add(customPropertiesList.getRoot());
     }
-
 
     @Override
     public boolean equals(Object other) {

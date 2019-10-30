@@ -53,7 +53,7 @@ public class ScheduleCompleteCommandTest {
                 new UserPrefs(), DefaultPropertyBookUtil.getDefaultPropertyBook());
         expectedModel.completeSchedule(toComplete);
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SCHEDULE);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         CommandTestUtil.assertCommandSuccess(scheduleCompleteCommandWithValidIndex,
                 model, expectedCommandResult, expectedModel);
 

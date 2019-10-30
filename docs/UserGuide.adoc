@@ -336,6 +336,8 @@ Example:
 
 * `schedule n/cardio d/19/9/2019`
 
+Schedules the regime called `cardio` on the date `19/19/2019`. If there are no other regimes scheduled on `19/19/2019` then the command is successful. Otherwise, you will be prompted to resolve the scheduling conflict.
+
 ==== Completes a schedule regime
 
 Once a scheduled regime is completed, users can add that regime to the exercise tracker. The schedule is then deleted from the scheduling list.
@@ -346,6 +348,7 @@ Example:
 
 * `schedule i/2`
 
+Completes all the exercises that are in the schedule at index `2`. All the exercises will be added to the exercise list and the schedule at index `2` is deleted.
 [[resolve]]
 === Resolving scheduling conflicts: `resolve`
 
@@ -359,6 +362,7 @@ Example:
 
 * `resolve n/cardio`
 
+Takes the scheduled regime named `cardio` and schedule at the conflicting date.
 
 ==== Taking some exercises from some regime
 Takes some exercises from the scheduled regime and some from the conflicting regime to make a brand new regime. The new regime that is a result of the combination will be added  to the user’s collection and scheduled at the date of conflict. This new regime will also be added to the user’s collection of regimes
@@ -377,7 +381,7 @@ Format: `resolve n/REGIME_NAME [i/INDEX_OF_EXERCISE_IN_SCHEDULED]... [r/INDEX_OF
 
 Example:
 
-* `resolve d/date n/cardios i/1 i/2 i/3 r/4 r/2`
+* `resolve n/cardios i/1 i/2 i/3 r/4 r/2`
 
 Takes exercise 1, 2, 3 from scheduled regime and exercise 2, 4 from conflicting regime and adds them to a new regime called cardios
 

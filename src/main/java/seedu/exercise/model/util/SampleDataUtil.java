@@ -22,22 +22,22 @@ import seedu.exercise.model.resource.Schedule;
 public class SampleDataUtil {
     public static Exercise[] getSampleExercises() {
         return new Exercise[]{
-            new Exercise(new Name("Rope Skipping"), new Date("26/09/2019"), new Calories("330"),
+            new Exercise(new Name("Rope Skipping"), new Date("12/12/2019"), new Calories("330"),
                 new Quantity("10"), new Unit("counts"),
                 getMuscleSet("Legs")),
-            new Exercise(new Name("Cycling"), new Date("26/09/2019"), new Calories("284"),
+            new Exercise(new Name("Cycling"), new Date("12/12/2019"), new Calories("284"),
                 new Quantity("5"), new Unit("km"),
                 getMuscleSet("Legs")),
-            new Exercise(new Name("Strength Training"), new Date("26/09/2019"), new Calories("341"),
+            new Exercise(new Name("Strength Training"), new Date("12/12/2019"), new Calories("341"),
                 new Quantity("20"), new Unit("counts"),
                 getMuscleSet("Chest")),
-            new Exercise(new Name("Swimming"), new Date("26/09/2019"), new Calories("354"),
+            new Exercise(new Name("Swimming"), new Date("12/12/2019"), new Calories("354"),
                 new Quantity("10"), new Unit("laps"),
                 getMuscleSet("Calves")),
-            new Exercise(new Name("Bench Press"), new Date("26/09/2019"), new Calories("222"),
+            new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
                 new Quantity("30"), new Unit("counts"),
                 getMuscleSet("Triceps")),
-            new Exercise(new Name("Running"), new Date("26/09/2019"), new Calories("9999999"),
+            new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999999"),
                 new Quantity("2.4"), new Unit("km"),
                 getMuscleSet("Legs"))
         };
@@ -45,39 +45,39 @@ public class SampleDataUtil {
 
     public static Regime[] getSampleRegimes() {
         UniqueResourceList<Exercise> list1 = new UniqueResourceList<>();
-        list1.add(new Exercise(new Name("Rope Skipping"), new Date("26/09/2019"), new Calories("330"),
+        list1.add(new Exercise(new Name("Rope Skipping"), new Date("12/12/2019"), new Calories("330"),
             new Quantity("10"), new Unit("counts"),
             getMuscleSet("Legs")));
-        list1.add(new Exercise(new Name("Bench Press"), new Date("26/09/2019"), new Calories("222"),
+        list1.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
             getMuscleSet("Triceps")));
 
 
         UniqueResourceList<Exercise> list2 = new UniqueResourceList<>();
-        list2.add(new Exercise(new Name("Running"), new Date("26/09/2019"), new Calories("9999999"),
+        list2.add(new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999999"),
             new Quantity("2.4"), new Unit("km"),
             getMuscleSet("Legs")));
-        list2.add(new Exercise(new Name("Bench Press"), new Date("26/09/2019"), new Calories("222"),
+        list2.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
             getMuscleSet("Triceps")));
-        list2.add(new Exercise(new Name("Swimming"), new Date("26/09/2019"), new Calories("354"),
+        list2.add(new Exercise(new Name("Swimming"), new Date("12/12/2019"), new Calories("354"),
             new Quantity("10"), new Unit("laps"),
             getMuscleSet("Calves")));
 
         UniqueResourceList<Exercise> list3 = new UniqueResourceList<>();
-        list3.add(new Exercise(new Name("Rope Skipping"), new Date("26/09/2019"), new Calories("330"),
+        list3.add(new Exercise(new Name("Rope Skipping"), new Date("12/12/2019"), new Calories("330"),
             new Quantity("10"), new Unit("counts"),
             getMuscleSet("Legs")));
-        list3.add(new Exercise(new Name("Swimming"), new Date("26/09/2019"), new Calories("354"),
+        list3.add(new Exercise(new Name("Swimming"), new Date("12/12/2019"), new Calories("354"),
             new Quantity("10"), new Unit("laps"),
             getMuscleSet("Calves")));
-        list3.add(new Exercise(new Name("Bench Press"), new Date("26/09/2019"), new Calories("222"),
+        list3.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
             getMuscleSet("Triceps")));
-        list3.add(new Exercise(new Name("Cycling"), new Date("26/09/2019"), new Calories("284"),
+        list3.add(new Exercise(new Name("Cycling"), new Date("12/12/2019"), new Calories("284"),
             new Quantity("5"), new Unit("km"),
             getMuscleSet("Legs")));
-        list3.add(new Exercise(new Name("Strength Training"), new Date("26/09/2019"), new Calories("341"),
+        list3.add(new Exercise(new Name("Strength Training"), new Date("12/12/2019"), new Calories("341"),
             new Quantity("20"), new Unit("counts"),
             getMuscleSet("Chest")));
 
@@ -91,9 +91,9 @@ public class SampleDataUtil {
     public static Schedule[] getSampleSchedules() {
         Regime[] sampleRegimes = getSampleRegimes();
         return new Schedule[]{
-            new Schedule(sampleRegimes[0], new Date("27/09/2019")),
-            new Schedule(sampleRegimes[1], new Date("28/09/2019")),
-            new Schedule(sampleRegimes[2], new Date("29/09/2018"))
+            new Schedule(sampleRegimes[0], new Date("29/12/2019")),
+            new Schedule(sampleRegimes[1], new Date("30/12/2019")),
+            new Schedule(sampleRegimes[2], new Date("31/12/2019"))
         };
     }
 

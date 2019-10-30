@@ -31,6 +31,7 @@ import seedu.exercise.testutil.typicalutil.TypicalExercises;
 import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 import seedu.exercise.testutil.typicalutil.TypicalRegime;
 import seedu.exercise.testutil.typicalutil.TypicalSchedule;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Contains integration tests (interaction with Model) and unit tests for
@@ -129,8 +130,9 @@ public class ResolveCommandTest {
         expectedModel.removeSchedule(conflict.getScheduled());
         expectedModel.addSchedule(conflict.getScheduled());
 
+        CommandResult expectedResult = new CommandResult(expectedMessage, ListResourceType.SCHEDULE);
         assertCommandSuccess(validResolveCommandWithEmptyIndexes,
-                model, expectedMessage, expectedModel);
+                model, expectedResult, expectedModel);
         assertStateNormal();
     }
 
@@ -148,8 +150,9 @@ public class ResolveCommandTest {
         expectedModel.addSchedule(resolvedSchedule);
         expectedModel.addRegime(resolvedRegime);
 
+        CommandResult expectedResult = new CommandResult(expectedMessage, ListResourceType.SCHEDULE);
         assertCommandSuccess(validResolveCommandWithNonEmptyIndexesDifferentName,
-                model, expectedMessage, expectedModel);
+                model, expectedResult, expectedModel);
         assertStateNormal();
     }
 

@@ -11,6 +11,7 @@ import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.Logic;
 import seedu.exercise.logic.commands.CommandResult;
+import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 
@@ -28,6 +29,8 @@ public class ResolveWindow extends UiPart<Stage> {
     private static final String FXML = "ResolveWindow.fxml";
     private static final String UNABLE_TO_CLOSE_WINDOW = "Please resolve your conflict using the resolve command.\n"
             + "You are not allowed to close this window before resolving this conflict.";
+    private static final String INITIAL_HELP_MESSAGE = "Please resolve your conflict with the resolve command.\n"
+           + ResolveCommand.MESSAGE_USAGE;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -95,6 +98,7 @@ public class ResolveWindow extends UiPart<Stage> {
     }
 
     public void setLeftRightPanel() {
+        resultDisplay.setFeedbackToUser(INITIAL_HELP_MESSAGE);
         leftRightPanel.setLeftPanel(logic.getConflict().getScheduledRegime());
         leftRightPanel.setRightPanel(logic.getConflict().getConflictingRegime());
     }

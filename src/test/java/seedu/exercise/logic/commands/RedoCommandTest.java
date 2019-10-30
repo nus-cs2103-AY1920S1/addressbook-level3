@@ -15,6 +15,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
+import seedu.exercise.ui.ListResourceType;
 
 public class RedoCommandTest {
 
@@ -51,6 +52,7 @@ public class RedoCommandTest {
     public void execute_nonEmptyRedoStack_success() {
         EventHistory.getInstance().undo(actualModel);
         String expectedString = String.format(RedoCommand.MESSAGE_SUCCESS, eventToRedo);
-        assertCommandSuccess(new RedoCommand(), actualModel, expectedString, expectedModel);
+        CommandResult expectedResult = new CommandResult(expectedString, ListResourceType.EXERCISE);
+        assertCommandSuccess(new RedoCommand(), actualModel, expectedResult, expectedModel);
     }
 }

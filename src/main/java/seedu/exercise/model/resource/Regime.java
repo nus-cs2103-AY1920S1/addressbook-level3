@@ -46,6 +46,14 @@ public class Regime extends Resource {
         return new Regime(newName, newRegimeExercises);
     }
 
+    public int getTotalCalorieCount() {
+        int count = 0;
+        for (Exercise e : regimeExercises) {
+            count += Integer.parseInt(e.getCalories().value);
+        }
+        return count;
+    }
+
     /**
      * Returns true if both regimes have the same name.
      */

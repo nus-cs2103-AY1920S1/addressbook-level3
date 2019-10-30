@@ -9,7 +9,6 @@ import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_ORIGINAL_
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.PREDICATE_SHOW_ALL_REGIMES;
 
 import java.util.HashSet;
 import java.util.List;
@@ -105,7 +104,6 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
         addToEventPayloadForEditRegime(originalRegime, editedRegime);
 
         model.setRegime(originalRegime, editedRegime);
-        model.updateFilteredRegimeList(PREDICATE_SHOW_ALL_REGIMES);
         return new CommandResult(MESSAGE_SUCCESS_ADD_EXERCISE_TO_REGIME, ListResourceType.REGIME);
     }
 

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.logic.commands.CommandTestUtil.showExerciseAtIndex;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
@@ -57,8 +56,6 @@ public class DeleteExerciseCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
-
         Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(INDEX_ONE_BASED_FIRST);
 
@@ -67,23 +64,9 @@ public class DeleteExerciseCommandTest {
         Model expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
         expectedModel.deleteExercise(exerciseToDelete);
-        showNoExercise(expectedModel);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         assertCommandSuccess(deleteExerciseCommand, model, expectedCommandResult, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
-
-        Index outOfBoundIndex = INDEX_ONE_BASED_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of exercise book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseBookData().getResourceList().size());
-
-        DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(outOfBoundIndex);
-
-        assertCommandFailure(deleteExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -106,14 +89,5 @@ public class DeleteExerciseCommandTest {
 
         // different exercise -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoExercise(Model model) {
-        model.updateFilteredExerciseList(p -> false);
-
-        assertTrue(model.getFilteredExerciseList().isEmpty());
     }
 }

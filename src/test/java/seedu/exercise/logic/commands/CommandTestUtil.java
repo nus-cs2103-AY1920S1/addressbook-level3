@@ -1,19 +1,15 @@
 package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
-import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
 
@@ -78,19 +74,5 @@ public class CommandTestUtil {
 
         assertEquals(expectedScheduleBook, actualModel.getAllScheduleData());
         assertEquals(expectedScheduleList, actualModel.getFilteredScheduleList());
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the exercise at the given {@code targetIndex} in the
-     * {@code model}'s exercise book.
-     */
-    public static void showExerciseAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredExerciseList().size());
-
-        Exercise exercise = model.getFilteredExerciseList().get(targetIndex.getZeroBased());
-        final String[] splitName = exercise.getName().fullName.split("\\s+");
-        model.updateFilteredExerciseList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredExerciseList().size());
     }
 }

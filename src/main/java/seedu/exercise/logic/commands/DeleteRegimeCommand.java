@@ -8,7 +8,6 @@ import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_ORIGINAL_
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.PREDICATE_SHOW_ALL_REGIMES;
 
 import java.util.HashSet;
 import java.util.List;
@@ -106,7 +105,6 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
 
         addToEventPayloadForEditRegime(originalRegime, editedRegime);
         model.setRegime(originalRegime, editedRegime);
-        model.updateFilteredRegimeList(PREDICATE_SHOW_ALL_REGIMES);
         return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS, editedRegime),
                 ListResourceType.REGIME);
     }

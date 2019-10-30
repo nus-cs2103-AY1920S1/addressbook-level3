@@ -11,7 +11,7 @@
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11"
          xmlns:fx="http://javafx.com/fxml/1" title = "Resolve" onCloseRequest="#handleCloseRequest">
     <icons>
-        <Image url="@/images/ExerHealth.png"/>
+        <Image url="@/images/logo_eH.png"/>
     </icons>
     <scene>
         <Scene>

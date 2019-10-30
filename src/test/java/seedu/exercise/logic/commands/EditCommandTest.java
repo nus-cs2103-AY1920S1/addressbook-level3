@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.logic.commands.CommandTestUtil.showExerciseAtIndex;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.CommonTestData.DESC_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.DESC_BASKETBALL;
@@ -102,7 +101,6 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
 
         Exercise exerciseInFilteredList = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
         Exercise editedExercise =
@@ -132,7 +130,6 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateExerciseFilteredList_failure() {
-        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
 
         // edit exercise in filtered list into a duplicate in exercise book
         Exercise exerciseInList = model.getExerciseBookData().getResourceList()
@@ -149,23 +146,6 @@ public class EditCommandTest {
         EditExerciseDescriptor descriptor =
             new EditExerciseDescriptorBuilder().withName(VALID_NAME_BASKETBALL).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
-
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
-    }
-
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of exercise book
-     */
-    @Test
-    public void execute_invalidExerciseIndexFilteredList_failure() {
-        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
-        Index outOfBoundIndex = INDEX_ONE_BASED_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of exercise book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseBookData().getResourceList().size());
-
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
-            new EditExerciseDescriptorBuilder().withName(VALID_NAME_BASKETBALL).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }

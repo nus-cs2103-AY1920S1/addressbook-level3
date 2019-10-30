@@ -21,6 +21,7 @@ import seedu.exercise.model.UniqueResourceList;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Regime;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Represents a Resolve Command that resolves scheduling conflicts.
@@ -76,7 +77,7 @@ public class ResolveCommand extends Command {
         resolveConflict(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 conflict.getScheduledName(),
-                conflict.getConflictedName()));
+                conflict.getConflictedName()), ListResourceType.SCHEDULE);
     }
 
     @Override

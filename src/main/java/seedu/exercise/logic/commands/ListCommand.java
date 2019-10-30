@@ -2,7 +2,6 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.PREDICATE_SHOW_ALL_EXERCISES;
 
 import seedu.exercise.model.Model;
 import seedu.exercise.ui.ListResourceType;
@@ -31,9 +30,8 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
         return new CommandResult(String.format(MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
-                ListResourceType.EXERCISE);
+                listResourceType);
     }
 
 }

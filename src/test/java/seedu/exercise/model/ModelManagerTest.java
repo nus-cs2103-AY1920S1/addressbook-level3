@@ -10,14 +10,12 @@ import static seedu.exercise.testutil.typicalutil.TypicalExercises.WALK;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
-import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.testutil.builder.ExerciseBookBuilder;
@@ -129,15 +127,6 @@ public class ModelManagerTest {
         // different exerciseBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentExerciseBook, regimeBook,
             databaseBook, scheduleBook, userPrefs, propertyBook)));
-
-        // different filteredList -> returns false
-        String[] keywords = WALK.getName().fullName.split("\\s+");
-        modelManager.updateFilteredExerciseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(exerciseBook, regimeBook, databaseBook,
-            scheduleBook, userPrefs, propertyBook)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredExerciseList(Model.PREDICATE_SHOW_ALL_EXERCISES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
