@@ -6,8 +6,6 @@ import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_BUDGET_SUCC
 import seedu.address.overview.logic.commands.exception.InvalidValueException;
 import seedu.address.overview.model.Model;
 
-import java.util.Set;
-
 /**
  * Command representing setting of budget target.
  */

@@ -5,6 +5,7 @@ import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_COMMAND
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_NUMBER_FORMAT;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.overview.logic.commands.SetBudgetCommand;
 import seedu.address.overview.logic.commands.SetExpenseCommand;
 import seedu.address.overview.logic.commands.SetSalesCommand;
@@ -27,9 +28,9 @@ public class SetCommandParserTest {
         try {
             SetCommandParser.parse(" ");
             throw new AssertionError("This command should have failed");
-        } catch (ParseException e){
+        } catch (ParseException e) {
             assertEquals(e.getMessage(), MESSAGE_INVALID_COMMAND_FORMAT);
-        };
+        }
     }
 
     @Test
@@ -37,9 +38,9 @@ public class SetCommandParserTest {
         try {
             SetCommandParser.parse(" b/abcde");
             throw new AssertionError("This command should have failed");
-        } catch (ParseException e){
+        } catch (ParseException e) {
             assertEquals(e.getMessage(), MESSAGE_INVALID_NUMBER_FORMAT);
-        };
+        }
     }
 
     @Test
@@ -56,9 +57,9 @@ public class SetCommandParserTest {
         try {
             SetCommandParser.parse(" ");
             throw new AssertionError("This command should have failed");
-        } catch (ParseException e){
+        } catch (ParseException e) {
             assertEquals(e.getMessage(), MESSAGE_INVALID_COMMAND_FORMAT);
-        };
+        }
     }
 
     @Test
@@ -66,9 +67,9 @@ public class SetCommandParserTest {
         try {
             SetCommandParser.parse(" e/abcde");
             throw new AssertionError("This command should have failed");
-        } catch (ParseException e){
+        } catch (ParseException e) {
             assertEquals(e.getMessage(), MESSAGE_INVALID_NUMBER_FORMAT);
-        };
+        }
     }
 
     @Test
@@ -85,9 +86,9 @@ public class SetCommandParserTest {
         try {
             SetCommandParser.parse(" ");
             throw new AssertionError("This command should have failed");
-        } catch (ParseException e){
+        } catch (ParseException e) {
             assertEquals(e.getMessage(), MESSAGE_INVALID_COMMAND_FORMAT);
-        };
+        }
     }
 
     @Test
@@ -95,8 +96,8 @@ public class SetCommandParserTest {
         try {
             SetCommandParser.parse(" s/abcde");
             throw new AssertionError("This command should have failed");
-        } catch (ParseException e){
+        } catch (ParseException e) {
             assertEquals(e.getMessage(), MESSAGE_INVALID_NUMBER_FORMAT);
-        };
+        }
     }
 }
