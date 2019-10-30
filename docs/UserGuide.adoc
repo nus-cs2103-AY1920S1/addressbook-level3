@@ -172,7 +172,7 @@ Format: `clearq`
 
 === Quiz mode
 
-There is a built-in Test mode in NUStudy for you to take a revision test based on questions and answers input by you.
+There is a built-in quiz mode in NUStudy for you to take a revision quiz.
 
 ==== Enter quiz mode : `quiz`
 
@@ -180,7 +180,7 @@ Enters quiz mode for you to answer questions. +
 Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT`
 
 ==== Answer the quiz question : `type answer` +
-Answers the specified question. +
+Answers the displayed question. +
 Format: `ANSWER`
 
 ==== Show an answer : `show`
@@ -266,12 +266,12 @@ Format: `unfinished`
 
 ==== View overdue revision tasks: `overdue`
 Displays the revision tasks that are yet to be done but having passed the deadline
-Format: `roverdue`
+Format: `overdue`
 
-==== Enable push notification: `notify -e`
+==== Enable push notification: `notify -e` `[coming in v2.0]`
 Format: `notify -e [-A] [INDEX]`
 
-==== Disable push notification: `notify -d`
+==== Disable push notification: `notify -d` `[coming in v2.0]`
 Format: `notify -d [-A] [INDEX]`
 
 === Auto-complete feature `[coming in v2.0]`
