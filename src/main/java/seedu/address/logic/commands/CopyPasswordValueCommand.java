@@ -40,6 +40,9 @@ public class CopyPasswordValueCommand extends CopyPasswordCommand {
         }
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
         ClipboardUtil.copyToClipboard(passwordToRead.getNonEncryptedPasswordValue(), null);
-        return new CommandResult(MESSAGE_SUCCESS, passwordToRead, targetIndex);
+        return CommandResult.builder(MESSAGE_SUCCESS)
+                .setObject(passwordToRead)
+                .setIndex(targetIndex)
+                .build();
     }
 }

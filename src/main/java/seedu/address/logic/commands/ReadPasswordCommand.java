@@ -48,6 +48,7 @@ public class ReadPasswordCommand extends Command {
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
         passwordToRead.updateExpiry();
         return CommandResult.builder(MESSAGE_SUCCESS)
+                .read()
                 .setObject(passwordToRead)
                 .setIndex(targetIndex)
                 .build();
