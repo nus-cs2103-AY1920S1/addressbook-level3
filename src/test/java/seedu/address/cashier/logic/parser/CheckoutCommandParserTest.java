@@ -63,7 +63,6 @@ public class CheckoutCommandParserTest {
         model.clearSalesList();
         model.setCashier(new PersonBuilder().build());
         model.addItem(STORYBOOK);
-        //double totalAmount = STORYBOOK.getSubtotal();
         assertCommandParserFailure(parser, INVALID_PRICE_PAID_3, AMOUNT_NOT_A_NUMBER, model, personModel);
         model.clearSalesList();
     }
@@ -73,14 +72,6 @@ public class CheckoutCommandParserTest {
         setInventoryList();
         model.clearSalesList();
         model.setCashier(new PersonBuilder().build());
-
-        /*with no sales item, negative price paid
-        //    double totalAmount = 0;
-        //    String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
-        //    assertCommandParserFailure(parser, INVALID_PRICE_PAID_1, message, model, personModel);*/
-        //
-        //    //with sales item added, insufficient price paid
-        //    //model.addItem(FISH_BURGER);
         model.addItem(CHIPS);
         double totalAmount = CHIPS.getSubtotal();
         String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);

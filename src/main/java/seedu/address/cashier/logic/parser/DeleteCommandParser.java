@@ -29,7 +29,6 @@ public class DeleteCommandParser implements Parser {
         try {
             String[] input = userInput.split(" ");
             index = Integer.parseInt(input[1]);
-            //index = Integer.parseInt(userInput.substring(1));
         } catch (Exception e) {
             logger.info("Index is not an integer.");
             throw new NotANumberException(CashierMessages.INDEX_NOT_A_NUMBER);

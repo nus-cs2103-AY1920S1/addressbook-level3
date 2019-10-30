@@ -22,6 +22,4 @@ public interface Storage {
 
     void appendToTransaction(Transaction transaction) throws Exception;
 
-    //InventoryList getInventoryList(seedu.address.inventory.util.InventoryList inventoryList);
-
 }

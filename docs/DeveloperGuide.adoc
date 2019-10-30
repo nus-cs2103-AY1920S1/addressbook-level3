@@ -644,6 +644,12 @@ Upon every successful checkout, all the sales items sold will recorded as one tr
 appended to the list of transactions on the `Home tab`. +
 In addition, the stock remaining in the inventory will be updated accordingly in the `Inventory tab`.
 
+[NOTE]
+If the user key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483, 647, the range
+of an integer, an exception will be thrown. This is the intended behaviour as the view cannot accommodate such large integers.
+If it exceeds 2,147,483, 647, users are advised to key in a smaller quantity or checkout items separately.
+
+
 ==== Add Sales Item Feature
 This feature allows the addition of sales items to the cart.
 
