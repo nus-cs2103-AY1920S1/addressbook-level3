@@ -78,6 +78,9 @@ public class MoveTaskCommand extends Command {
             throw new CommandException(
                 String.format(MESSAGE_DUPLICATE_TASK, taskToMove.getProblem().getName(), planTo.getPlanName()));
         }
+        if (!planTo.checkWithinDateRange(taskToMove.getTargetDate())) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
+        }
         taskSetTo.add(taskToMove);
 
         Plan updatedPlanFrom = Plan.updateTasks(planFrom, taskSetFrom);

@@ -68,9 +68,13 @@ public class EditTaskCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         Task taskToUpdate = taskList.get(taskIndex);
+        LocalDate newDate = editTaskDescriptor.targetDate;
+        if (!planToUpdate.checkWithinDateRange(newDate)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
+        }
         taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
-        taskSet.add(Task.updateDueDate(taskToUpdate, editTaskDescriptor.targetDate));
+        taskSet.add(Task.updateDueDate(taskToUpdate, newDate));
 
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);

@@ -53,7 +53,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProblems = new FilteredList<>(this.algoBase.getProblemList());
         filteredTags = new FilteredList<>(this.algoBase.getTagList());
-        sortedProblems = new SortedList<>(filteredProblems);
+        sortedProblems = (new SortedList<>(filteredProblems));
         filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
         filteredTasks = new FilteredList<>(this.algoBase.getCurrentTaskList());
         filteredFindRules = new FilteredList<>(this.algoBase.getFindRules());

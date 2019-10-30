@@ -74,6 +74,14 @@ public class Plan {
     }
 
     /**
+     * Check whether a given date lies inside its own date range.
+     * @return result.
+     */
+    public boolean checkWithinDateRange(LocalDate date) {
+        return date.compareTo(this.getStartDate()) > 0 && date.compareTo(this.getEndDate()) < 0;
+    }
+
+    /**
      * Returns number of solved tasks within plan.
      * @return number of solved tasks.
      */

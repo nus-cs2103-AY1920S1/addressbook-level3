@@ -75,10 +75,15 @@ public class AddTaskCommand extends Command {
         Problem problem = lastShownProblemList.get(addTaskDescriptor.problemIndex.getZeroBased());
 
         Task task;
-        if (addTaskDescriptor.targetDate != null) {
-            task = new Task(problem, addTaskDescriptor.targetDate, false);
+        LocalDate taskDate = addTaskDescriptor.targetDate;
+        LocalDate planDate = planToUpdate.getEndDate();
+        if (taskDate != null) {
+            if (!planToUpdate.checkWithinDateRange(taskDate)) {
+                throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
+            }
+            task = new Task(problem, taskDate, false);
         } else {
-            task = new Task(problem, planToUpdate.getEndDate(), false);
+            task = new Task(problem, planDate, false);
         }
 
         Set<Task> taskSet = new HashSet<>(planToUpdate.getTasks());

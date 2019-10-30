@@ -39,11 +39,8 @@ public class PlanList implements Iterable<Plan> {
      */
     public void add(Plan toAdd) {
         requireNonNull(toAdd);
-        currentPlan.set(toAdd.getPlanName().fullName);
-        solvedCount.set(toAdd.getSolvedTaskCount());
-        unsolvedCount.set(toAdd.getUnsolvedTaskCount());
         internalList.add(toAdd);
-        internalTaskList.setAll(toAdd.getTaskList());
+        setCurrentPlan(toAdd);
     }
 
     /**
@@ -58,11 +55,8 @@ public class PlanList implements Iterable<Plan> {
             throw new PlanNotFoundException();
         }
 
-        currentPlan.set(updatedPlan.getPlanName().fullName);
-        solvedCount.set(updatedPlan.getSolvedTaskCount());
-        unsolvedCount.set(updatedPlan.getUnsolvedTaskCount());
         internalList.set(index, updatedPlan);
-        internalTaskList.setAll(updatedPlan.getTaskList());
+        setCurrentPlan(updatedPlan);
     }
 
     /**
@@ -98,11 +92,7 @@ public class PlanList implements Iterable<Plan> {
 
         if (plans.size() > 0) {
             // Default to first plan in list
-            Plan plan = plans.get(0);
-            currentPlan.set(plan.getPlanName().fullName);
-            solvedCount.set(plan.getSolvedTaskCount());
-            unsolvedCount.set(plan.getUnsolvedTaskCount());
-            internalTaskList.setAll(plan.getTaskList());
+            setCurrentPlan(plans.get(0));
         }
     }
 

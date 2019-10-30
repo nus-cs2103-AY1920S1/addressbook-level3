@@ -76,6 +76,9 @@ public class CopyTaskCommand extends Command {
             throw new CommandException(
                 String.format(MESSAGE_DUPLICATE_TASK, taskToCopy.getProblem().getName(), planTo.getPlanName()));
         }
+        if (!planTo.checkWithinDateRange(taskToCopy.getTargetDate())) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
+        }
         taskSetTo.add(taskToCopy);
 
         Plan updatedPlanTo = Plan.updateTasks(planTo, taskSetTo);
