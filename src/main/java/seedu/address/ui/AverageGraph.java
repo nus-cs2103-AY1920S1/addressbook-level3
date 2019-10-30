@@ -22,7 +22,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
-import seedu.address.model.statistics.CustomLineChart;
+import seedu.address.ui.statistics.CustomLineChart;
 
 /**
  * Represents ui of an average graph with no legend.

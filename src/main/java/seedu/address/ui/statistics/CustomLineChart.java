@@ -1,4 +1,4 @@
-package seedu.address.model.statistics;
+package seedu.address.ui.statistics;
 
 import static java.util.Objects.requireNonNull;
 
