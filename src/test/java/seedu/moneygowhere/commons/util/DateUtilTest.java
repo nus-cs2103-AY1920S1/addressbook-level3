@@ -76,6 +76,12 @@ class DateUtilTest {
     }
 
     @Test
+    public void twoDigitYearFormatDate_correctResult() {
+        assertEquals("25/12/19", DateUtil.twoDigitYearFormatDate("25/12/2019"));
+        assertEquals("", DateUtil.twoDigitYearFormatDate(" "));
+    }
+
+    @Test
     public void parseDates_validDates() {
         LocalDate date1 = LocalDate.of(2019, Month.OCTOBER, 12);
         LocalDate date2 = LocalDate.of(2019, Month.OCTOBER, 13);

@@ -410,11 +410,11 @@ The recorded reminders sorted with deadline in descending order, are displayed o
 
 This feature is implemented with the following operations:
 
-* Adding a reminder `reminder d/DATE m/MESSAGE` +
-e.g. `reminder d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
+* Adding a reminder `reminder add d/DATE m/MESSAGE` +
+e.g. `reminder add d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
 
-* Deleting a reminder `dreminder INDEX` +
-e.g. `dreminder 1` - delete the first reminder in the reminder list shown in UI.
+* Deleting a reminder `reminder delete INDEX` +
+e.g. `reminder delete 1` - delete the first reminder in the reminder list shown in UI.
 
 Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
 

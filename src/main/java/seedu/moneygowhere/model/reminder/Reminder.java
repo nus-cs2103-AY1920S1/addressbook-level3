@@ -4,6 +4,7 @@ import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.moneygowhere.commons.util.DateUtil;
 import seedu.moneygowhere.model.spending.Date;
 
 /**
@@ -12,11 +13,13 @@ import seedu.moneygowhere.model.spending.Date;
 public class Reminder {
     private ReminderMessage reminderMessage;
     private Date deadline;
+    private long remainingDays;
 
     public Reminder(Date deadline, ReminderMessage reminderMessage) {
         requireAllNonNull(deadline, reminderMessage);
         this.reminderMessage = reminderMessage;
         this.deadline = deadline;
+        this.remainingDays = DateUtil.getDaysBetween(DateUtil.getTodayDate(), deadline.dateValue);
     }
 
     public ReminderMessage getReminderMessage() {
@@ -25,6 +28,21 @@ public class Reminder {
 
     public Date getDeadline() {
         return this.deadline;
+    }
+
+    /**
+     * Returns the due date description of a reminder for displaying on UI.
+     */
+    public String getDueDateDescription() {
+        if (remainingDays == 0) {
+            return "Today";
+        } else if (remainingDays == 1) {
+            return "Tomorrow";
+        } else if (remainingDays < 0) {
+            return "Overdue";
+        } else {
+            return "in " + remainingDays + " days\n" + DateUtil.twoDigitYearFormatDate(deadline.value);
+        }
     }
 
     /**

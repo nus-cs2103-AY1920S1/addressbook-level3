@@ -17,10 +17,11 @@ public class AddReminderCommand extends ReminderCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Reminder to MoneyGoWhere. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Reminder to MoneyGoWhere. \n"
             + "Parameters: "
             + PREFIX_DATE + "DATE "
-            + PREFIX_MESSAGE + "MESSAGE ";
+            + PREFIX_MESSAGE + "MESSAGE \n"
+            + "Example: " + ReminderCommand.COMMAND_WORD + " " + COMMAND_WORD + " d/today m/Pay Bill";
 
     public static final String MESSAGE_SUCCESS = "New Reminder added: %1$s";
 

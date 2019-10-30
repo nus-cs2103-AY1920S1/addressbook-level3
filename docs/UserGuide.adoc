@@ -358,18 +358,18 @@ Generates a graph for spending that fall between and including 01/01/2019 and 07
 * `graph` +
 Generates a graph for all spending.
 
-=== Adding a reminder: `reminder`
+=== Adding a reminder: `reminder add`
 Adds a reminder to the reminder list
-Format: `reminder d/DATE m/MESSAGE`
+Format: `reminder add d/DATE m/MESSAGE`
 
 Examples:
 
-* `reminder d/30/08/2020 m/Pay school fees` +
-* `reminder d/3 days from now m/Pay phone bill` +
+* `reminder add d/30/08/2020 m/Pay school fees` +
+* `reminder add d/3 days from now m/Pay phone bill` +
 
-=== Deleting a reminder: `dreminder`
+=== Deleting a reminder: `reminder delete`
 Deletes a reminder at the specified `INDEX`.
-Format: `dreminder INDEX`
+Format: `reminder delete INDEX`
 
 ****
 * Deletes the reminder at the specified `INDEX`.
@@ -379,7 +379,7 @@ Format: `dreminder INDEX`
 
 Example:
 
-* `dreminder 2` +
+* `reminder delete 2` +
 Deletes the second reminder in the list based on the current results shown.
 
 
@@ -498,10 +498,10 @@ e.g. `graph d/01/01/2019 d/07/01/2019` +
 e.g. `import p/C:\Users\User\Documents\importfile.csv` +
 | *Export data*| `export p/FILE_PATH` +
 e.g. `export p/C:\Users\User\Documents\importfile.csv` +
-| *Add reminder*| `reminder d/DATE m/MESSAGE` +
+| *Add reminder*| `reminder add d/DATE m/MESSAGE` +
 e.g. `reminder n/30/08/2020 m/Pay school fee`
-| *Delete reminder* | `dreminder INDEX` +
-e.g. `dreminder 2`
+| *Delete reminder* | `reminder delete INDEX` +
+e.g. `reminder delete 2`
 | *Undo*| `undo` +
 | *Redo*| `redo` +
 | *Clear*| `clear` +

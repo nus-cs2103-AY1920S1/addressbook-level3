@@ -2,7 +2,6 @@ package seedu.moneygowhere.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,6 +14,7 @@ import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.currency.UniqueCurrencyList;
 import seedu.moneygowhere.model.reminder.Reminder;
+import seedu.moneygowhere.model.reminder.ReminderList;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.spending.SpendingList;
 import seedu.moneygowhere.model.util.CurrencyDataUtil;
@@ -26,7 +26,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
 
     private final SpendingList spendings;
     private final Budget budget;
-    private List<Reminder> reminders;
+    private final ReminderList reminders;
     private UniqueCurrencyList currencies;
     private ObjectProperty<Currency> currencyInUse;
 
@@ -40,7 +40,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
     {
         spendings = new SpendingList();
         budget = new Budget(0);
-        reminders = new ArrayList<>();
+        reminders = new ReminderList();
         currencies = new UniqueCurrencyList();
         for (Currency currency : CurrencyDataUtil.getSampleCurrencies()) {
             currencies.add(currency);
@@ -219,8 +219,8 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     @Override
-    public List<Reminder> getReminderList() {
-        return reminders;
+    public ObservableList<Reminder> getReminderList() {
+        return reminders.asUnmodifiableObservableList();
     }
 
     @Override

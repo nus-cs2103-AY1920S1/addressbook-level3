@@ -10,10 +10,8 @@ import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -84,7 +82,7 @@ public class SpendingBookTest {
     }
 
     @Test
-    public void hasSpending_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasSpending_spendingWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addSpending(APPLE);
         Spending editedAlice = new SpendingBuilder(APPLE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -108,7 +106,7 @@ public class SpendingBookTest {
      */
     private static class SpendingBookStub implements ReadOnlySpendingBook {
         private final ObservableList<Spending> spendings = FXCollections.observableArrayList();
-        private final List<Reminder> reminders = new ArrayList<>();
+        private final ObservableList<Reminder> reminders = FXCollections.observableArrayList();
         private final Budget budget = new Budget(0);
         private final ObservableList<Currency> currencies =
                 FXCollections.observableArrayList(CurrencyDataUtil.getSampleCurrencies());
@@ -124,7 +122,7 @@ public class SpendingBookTest {
         }
 
         @Override
-        public List<Reminder> getReminderList() {
+        public ObservableList<Reminder> getReminderList() {
             return reminders;
         }
 
