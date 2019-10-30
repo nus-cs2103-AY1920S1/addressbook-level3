@@ -1,5 +1,6 @@
 package seedu.address.model.training;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,6 +17,7 @@ import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalTrainings.FIRST_TRAINING;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,22 @@ import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 
 class TrainingTest {
+
+    @Test
+    public void constructor() {
+        Training training = new Training(FIRST_DATE, new HashMap<Person, Boolean>());
+        assertNotNull(training);
+    }
+
+    @Test
+    public void getDate() {
+        assertEquals(FIRST_TRAINING.getDate(), FIRST_DATE);
+    }
+
+    @Test
+    public void getTrainingAttendance() {
+        assertNotNull(FIRST_TRAINING.getTrainingAttendance());
+    }
 
     @Test
     public void test_validDate_returnTrue() {

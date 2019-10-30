@@ -163,47 +163,86 @@ If successfully edited, the edited information of Roy (now Shawn) will be displa
 The team list should also reflect Roy's new details.
 
 === Training
+Athletick allows you to record your team's training sessions, so that you can track your team's attendance and look
+at past training records.
+
+Add a training session by indicating members present (see
+<<Taking attendance of a training session by athletes present : `training`>>) or by indicating absent members
+(see <<Taking attendance of a training session by members absent : `training -a`>>)
+
+After adding a training session, you can look at past trainings to check attendance on that date.
 
 ==== Taking attendance of a training session by athletes present : `training`
 
-This command adds a training session on the specified day to Athletick.
+This command saves a training session to Athletick, and marks the team members indicated as attended.
 
 *What you should do*
+Let's say you want to record a training session that took place on the 20th of October 2019 and only Alex and David
+attended. Type in the training command, date and the indexes of athletes who attended in the following format and press `Enter` to execute it.
 
-Type in the training command, followed by the indexes of athletes who attended.
+Format : `training [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …`
 
-Format : `attendance INDEX [INDEX] [INDEX ] …`
+Examples : `training d/20102019 #/1 4` or `training #/1 3 4 7`
 
-Examples : `training 1 2 3 5 9`
+IMPORTANT: If no date is entered, the training will be recorded under today's date.
 
 *What you should see*
 
-// insert picture
+image::training_without_flag.png[width:"250]
+If successfully added, the result box will display the following result.
 
 ==== Taking attendance of a training session by members absent : `training -a`
 
-This command adds a training session on the specified day to Athletick.
+This command saves a training session to Athletick, and marks the team members indicated as absent.
 
 *What you should do*
+Let's say you want to record a training session that took place today and everyone attended except Charlotte. Type in
+the training command, the absent flag, date and the indexes of athletes who were absent in the following format and press `Enter` to execute it.
 
-Type in the training command, followed by the indexes of players who were absent.
+Format : `training -a [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …`
 
-Format : `attendance -a INDEX [INDEX] [INDEX ] …​`
+Examples : `training -a d/23112019 #/3 6` or `training -a #/2`
 
-Examples : `training -a 2 4`
+IMPORTANT: If no date is entered, the training will be recorded under today's date.
 
-*What you will see*
+*What you should see*
 
-// insert picture
+image::training_with_flag.png[width:"250]
+If successfully added, the result box will display the following result.
+
+=== Attendance
+To save you the trouble of manually checking your team member's attendance, Athletick has an attendance tracker that
+checks your team's overall attendance rate.
+
+Check the attendance of an athlete (see <<Check attendance of an athlete : `attendance`>>) or check overall team
+attendance (see: <<>>)
+
+==== Check attendance of an athlete : `attendance`
+This command allows you to check the attendance of an Athlete.
+
+*What you should do*
+Let's say you notice that Alex hasn't been attending recent trainings and would like to check on his overall
+attendance rate. Type the attendance command, athlete index and press `Enter` to execute it.
+
+Format : `attendance INDEX`
+
+Examples: `attendance 1`
+
+*What you should see*
+
+image::attendance_alex.png[width:"250]
+If the command is successful, the athlete's name and attendance will be displayed in the result box.
+
+==== Check overall attendance of team : ` view attendance` `Coming in v1.4`
+Coming in v1.4
 
 === Performance
-
 To help you keep track of your team's performance,
 Athletick has a built-in performance tracker for you record and analyse your team's performance.
 
 All you have to is add an event (see <<Adding an event : `event`>>),
 and then add records from timed trials under the event
-(see <<Recording an athlete’s performance : `performance`>>.
+(see <<Recording an athlete’s performance : `performance`>>).
 
 ==== Adding an event : `event`
 
