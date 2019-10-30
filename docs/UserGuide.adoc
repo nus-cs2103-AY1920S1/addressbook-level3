@@ -464,6 +464,10 @@ Copies a phone in SML to clipboard +
 === Order Commands
 Commands that work on orders that you have.
 
+==== Switch to Order Tab Panel : `switch-o`
+Switches to Order Tab Panel.
+[underline]#Format#: `switch-o`
+
 ==== Add an order : `add-o`
 Adds an order to the list of orders. +
 Format: `add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`
@@ -483,6 +487,28 @@ Format: `cancel-o INDEX`
 ==== List the orders : `list-o`
 List all the orders in the list. +
 Format: `list-o`
+
+==== Edit an order : `edit-o`
+Edits the data fields of an order. +
+[underline]#Format#: `edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
+
+
+****
+- Edits the phone at the specified `INDEX`. The index refers to the index number shown in the displayed customer list.
+The index *must be a positive integer* 1, 2, 3, ...
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+- When editing tags, the existing tags of the phone  will be removed i.e adding of tags is not cumulative.
+- You can remove all the phones's tags by typing `t/` without specifying any tags after it.
+****
+
+[underline]#Examples#:
+
+* Edit the phone name and colour of the 1st phone.
+. `edit-c 1 n/iPhone 11 cl/Green` +
+* Clear all existing tags from the 2nd phone.
+. `edit-c 2 t/` +
+
 
 ==== Copy order field : `copy-o`
 Copies an order field to clipboard. +
