@@ -42,7 +42,6 @@ public class MainWindow extends UiPart<Stage> {
     private CustomerListPanel customerListPanel;
     private DeliverymanListPanel deliverymanListPanel;
     private AvailableDeliverymenListPanel availableDeliverymenListPanel;
-    private UnavailableDeliverymenListPanel unavailableDeliverymenListPanel;
     private RestaurantListPanel restaurantListPanel;
     private OrderListPanel orderListPanel;
     private FoodListPanel foodListPanel;
