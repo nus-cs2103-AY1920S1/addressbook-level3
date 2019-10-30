@@ -12,11 +12,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="650.0" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage"
-         xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="650.0" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <scene>
     <Scene>
       <stylesheets>
@@ -25,25 +23,30 @@
       </stylesheets>
 
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-        <bottom>
-          <AnchorPane fx:id="commandBoxPlaceholder" maxHeight="35.0" minHeight="35.0" minWidth="0.0" prefHeight="35.0" prefWidth="600.0" styleClass="pane-with-border" BorderPane.alignment="CENTER">
+          <bottom>
+            <AnchorPane fx:id="commandBoxPlaceholder" maxHeight="35.0" minHeight="35.0" minWidth="0.0" prefHeight="35.0" prefWidth="600.0" styleClass="pane-with-border" BorderPane.alignment="CENTER">
           </AnchorPane>
         </bottom>
         <right>
-          <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="200.0" style="-fx-background-color: #d8dae3#d8dae3;" BorderPane.alignment="CENTER">
-            <children>
-                     <Pane fx:id="resultDisplayPlaceholder" maxWidth="200.0" minWidth="200.0" prefHeight="115.0" prefWidth="200.0" />
-              <Text layoutX="31.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: John" wrappingWidth="109.7158203125" />
-              <Text layoutX="31.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loans: 4" />
-              <Text layoutX="31.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unpaid fees: 0" />
-            </children></AnchorPane>
+          <AnchorPane style="-fx-background-color: #d8dae3#d8dae3;" BorderPane.alignment="CENTER">
+                  <children>
+                     <VBox>
+                        <children>
+                    <StackPane fx:id="borrowerPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                        </children>
+                     </VBox>
+                  </children></AnchorPane>
         </right>
         <center>
-            <VBox fx:id="bookList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <VBox fx:id="bookList" minWidth="500.0" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                 <padding>
                     <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
                 <StackPane fx:id="bookListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                 <Pane fx:id="resultDisplayPlaceholder" maxHeight="90.0" minHeight="90.0" prefHeight="90.0">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding></Pane>
             </VBox>
         </center>
             <top>
@@ -58,7 +61,7 @@
                         </HBox.margin>
                      </ImageView>
                      <Pane prefHeight="47.0" prefWidth="286.0" HBox.hgrow="ALWAYS" />
-                     <Label prefHeight="57.0" prefWidth="201.0" text="Mode: Serving" />
+                     <Label fx:id="mode" prefHeight="47.0" prefWidth="201.0" />
                   </children>
                </HBox>
             </top>

@@ -17,6 +17,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
+import seedu.address.model.borrower.Borrower;
 import seedu.address.storage.Storage;
 
 /**
@@ -60,6 +62,22 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public Borrower getServingBorrower() {
+        assert (isServeMode()) : "Not in serve mode";
+        return model.getServingBorrower();
+    }
+
+    @Override
+    public Book getBook(SerialNumber sn) {
+        return model.getBook(sn);
+    }
+
+    @Override
+    public boolean isServeMode() {
+        return model.isServeMode();
     }
 
     @Override

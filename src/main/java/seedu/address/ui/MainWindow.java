@@ -1,8 +1,13 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -13,6 +18,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.book.Book;
+import seedu.address.model.loan.Loan;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -21,6 +28,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String SERVE_MODE = "Serve Mode";
+    private static final String NORMAL_MODE = "Normal Mode";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -29,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BookListPanel bookListPanel;
+    private BorrowerPanel borrowerPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -41,6 +51,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane bookListPanelPlaceholder;
 
+    @FXML
+    private StackPane borrowerPanelPlaceholder;
+
+    @FXML
+    private Label mode;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -52,6 +68,12 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         helpWindow = new HelpWindow();
+        if (logic.isServeMode()) {
+            mode.setText(SERVE_MODE);
+        } else {
+            mode.setText(NORMAL_MODE);
+        }
+        resultDisplayPlaceholder.setStyle("-fx-background-color: #2b2b2b#2b2b2b");
     }
 
     public Stage getPrimaryStage() {
@@ -67,6 +89,9 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        borrowerPanel = new BorrowerPanel();
+        borrowerPanelPlaceholder.getChildren().add(borrowerPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -112,6 +137,42 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Updates the borrower panel and sets the label to Serve M:w
+     * ode.
+     */
+    @FXML
+    private void handleServe() {
+        mode.setText(SERVE_MODE);
+        updateBorrowerPanel();
+    }
+
+    /**
+     * Updates the borrower panel.
+     */
+    @FXML
+    private void updateBorrowerPanel() {
+        ArrayList<Loan> loanList = new ArrayList<>();
+        logic.getServingBorrower()
+                .getCurrentLoanList()
+                .forEach(loan -> loanList.add(loan));
+        ArrayList<Book> bookList = (ArrayList<Book>) loanList.stream()
+                .map(loan -> loan.getBookSerialNumber())
+                .map(sn -> logic.getBook(sn))
+                .collect(Collectors.toList());
+        ObservableList<Book> observableBookList = FXCollections.observableArrayList(bookList);
+        borrowerPanel.setBorrower(logic.getServingBorrower(), observableBookList);
+    }
+
+    /**
+     * Resets the borrower panel and sets the label to Normal Mode.
+     */
+    @FXML
+    private void handleDone() {
+        mode.setText(NORMAL_MODE);
+        borrowerPanel.reset();
+    }
+
     public BookListPanel getBookListPanel() {
         return bookListPanel;
     }
@@ -129,10 +190,16 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            } else if (commandResult.isExit()) {
+                handleExit();
+            } else if (commandResult.isServe()) {
+                handleServe();
+            } else if (commandResult.isDone()) {
+                handleDone();
             }
 
-            if (commandResult.isExit()) {
-                handleExit();
+            if (!commandResult.isDone()) {
+                updateBorrowerPanel();
             }
 
             return commandResult;

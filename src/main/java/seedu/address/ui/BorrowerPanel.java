@@ -1,0 +1,90 @@
+package seedu.address.ui;
+
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.Region;
+import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
+
+/**
+ * A Ui component containing the borrower's information.
+ */
+public class BorrowerPanel extends UiPart<Region> {
+    private static final String FXML = "BorrowerPanel.fxml";
+
+    @FXML
+    private Label name;
+
+    @FXML
+    private Label id;
+
+    @FXML
+    private ListView<Book> bookListView;
+
+    /** Constructor when not in Serve Mode */
+    public BorrowerPanel() {
+        super(FXML);
+        name.setText("");
+        id.setText("");
+    }
+
+    /**
+     * Sets a borrower when transiting into serve mode
+     *
+     * @param borrower Borrower being served/
+     * @param observableBookList List of books the borrower loaned from the library.
+     */
+    public void setBorrower(Borrower borrower, ObservableList<Book> observableBookList) {
+        requireNonNull(borrower);
+        name.setText("Borrower: " + borrower.getName().toString());
+        id.setText("ID: " + borrower.getBorrowerId().toString());
+        bookListView.setItems(observableBookList);
+        bookListView.setCellFactory(listView -> new BorrowerPanel.BookListViewCell());
+    }
+
+    /**
+     * Resets the borrower panel when Done command is invoked.
+     */
+    public void reset() {
+        name.setText("");
+        id.setText("");
+        ObservableList<Book> nullList = FXCollections.observableArrayList(new ArrayList<>());
+        bookListView.setItems(nullList);
+        bookListView.setCellFactory(listView -> new BorrowerPanel.BookListViewCell());
+    }
+
+    /**
+     * Updates the list of books whenever the borrower loans/returns a book.
+     *
+     * @param observableBookList List of books the borrower loaned from the library.
+     */
+    public void updateBooks(ObservableList<Book> observableBookList) {
+        bookListView.setItems(observableBookList);
+        bookListView.setCellFactory(listView -> new BorrowerPanel.BookListViewCell());
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Book} using a {@code BookCard}.
+     */
+    class BookListViewCell extends ListCell<Book> {
+        @Override
+        protected void updateItem(Book book, boolean empty) {
+            super.updateItem(book, empty);
+
+            if (empty || book == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new BookCard(book, getIndex() + 1).getRoot());
+            }
+        }
+    }
+}

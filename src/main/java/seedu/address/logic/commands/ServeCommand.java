@@ -47,7 +47,7 @@ public class ServeCommand extends Command {
         model.setServingBorrower(borrowerId);
         Borrower borrower = model.getServingBorrower();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, borrower));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, borrower), false, false, true, false);
     }
 
     @Override
