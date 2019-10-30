@@ -5,9 +5,8 @@ import static seedu.savenus.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.savenus.commons.core.Messages;
-import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Price;
+import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
 public class WalletTest {
 
@@ -33,10 +32,9 @@ public class WalletTest {
     }
 
     @Test
-    public void deduct_validPriceNotEnoughFunds_throwsCommandException() {
+    public void deduct_validPriceNotEnoughFunds_throwsInsufficientFundsException() {
         Wallet modelWallet = new Wallet(EMPTYWALLET.getRemainingBudget(), EMPTYWALLET.getDaysToExpire());
-        assertThrows(CommandException.class, Messages.MESSAGE_INSUFFICIENT_FUNDS
-                + " to make purchase!", () -> modelWallet.deduct(VALIDPRICE));
+        assertThrows(InsufficientFundsException.class,
+                new InsufficientFundsException().getMessage(), () -> modelWallet.deduct(VALIDPRICE));
     }
-
 }

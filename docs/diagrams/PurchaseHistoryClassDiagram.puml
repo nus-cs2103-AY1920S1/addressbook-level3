@@ -1,0 +1,19 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package Model <<Rectangle>> {
+    Interface ReadOnlyPurchaseHistory <<Interface>>
+    Class PurchaseHistory
+    Class PurchaseHistoryList
+    Class Purchase
+    Class TimeOfPurchase
+}
+PurchaseHistory .up.|> ReadOnlyPurchaseHistory
+PurchaseHistory *--> "1" PurchaseHistoryList
+PurchaseHistoryList o--> "*" Purchase
+Purchase *--> TimeOfPurchase
+
+@enduml

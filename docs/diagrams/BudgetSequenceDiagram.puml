@@ -1,0 +1,121 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
+participant ":BudgetCommandParser" as BudgetCommandParser LOGIC_COLOR
+participant "d:BudgetCommand" as BudgetCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":newWallet:Wallet" as newWallet MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":Wallet" as Wallet MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+participant ":WalletStorage" as WalletStorage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("budget 100 10")
+activate LogicManager
+
+LogicManager -> SaveNusParser : parseCommand("budget 100 10")
+activate SaveNusParser
+
+create BudgetCommandParser
+SaveNusParser -> BudgetCommandParser
+activate BudgetCommandParser
+
+BudgetCommandParser --> SaveNusParser
+deactivate BudgetCommandParser
+
+SaveNusParser -> BudgetCommandParser : parse("10.00")
+activate BudgetCommandParser
+
+create newWallet
+BudgetCommandParser -> newWallet
+activate newWallet
+
+newWallet --> BudgetCommandParser : newWallet
+deactivate newWallet
+
+create BudgetCommand
+BudgetCommandParser -> BudgetCommand : newWallet
+activate BudgetCommand
+
+
+BudgetCommand --> BudgetCommandParser : d
+deactivate BudgetCommand
+
+BudgetCommandParser --> SaveNusParser : d
+deactivate BudgetCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BudgetCommandParser -[hidden]-> SaveNusParser
+destroy BudgetCommandParser
+
+SaveNusParser --> LogicManager : d
+deactivate SaveNusParser
+
+LogicManager -> BudgetCommand : execute()
+activate BudgetCommand
+
+BudgetCommand -> Model : setWallet(Wallet newWallet)
+activate Model
+
+Model -> Model : setRemainingBudget(RemainingBudget newAmt)
+activate Model
+
+Model -> Wallet : setRemainingBudget(RemainingBudget newAmt)
+activate Wallet
+
+Wallet --> Model
+deactivate Wallet
+
+Model --> Model
+deactivate Model
+
+Model -> Model : setDaysToExpire(DaysToExpire newDuration)
+activate Model
+
+Model -> Wallet : setDaysToExpire(DaysToExpire newDuration)
+activate Wallet
+
+Wallet --> Model
+deactivate Wallet
+
+Model --> Model
+deactivate Model
+
+Model --> BudgetCommand
+deactivate Model
+
+create CommandResult
+BudgetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> BudgetCommand
+deactivate CommandResult
+
+BudgetCommand --> LogicManager : result
+deactivate BudgetCommand
+
+LogicManager -> Storage : saveWallet(Wallet wallet)
+activate Storage
+
+Storage -> WalletStorage : saveWallet(Wallet wallet)
+activate WalletStorage
+
+WalletStorage --> Storage
+deactivate WalletStorage
+
+Storage --> LogicManager
+deactivate Storage
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

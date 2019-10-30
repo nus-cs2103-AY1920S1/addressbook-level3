@@ -10,6 +10,7 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
 /**
  * Buy a food using it's displayed index from the menu.
@@ -42,8 +43,11 @@ public class BuyCommand extends Command {
 
         Food foodToBuy = lastShownList.get(targetIndex.getZeroBased());
         Purchase purchaseToAdd = new Purchase(foodToBuy);
-        model.buyFood(foodToBuy); // Throws insufficient funds command exception
-        model.addPurchase(purchaseToAdd);
+        try {
+            model.buyFood(foodToBuy); // Throws insufficient funds command exception
+        } catch (InsufficientFundsException e) {
+            throw new CommandException(e.getMessage() + " to buy selected food!");
+        }
         return new CommandResult(String.format(MESSAGE_BUY_FOOD_SUCCESS, purchaseToAdd.toString()));
     }
 

@@ -7,6 +7,8 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
+import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 
 
 /**
@@ -29,32 +31,34 @@ public class BudgetCommand extends Command {
             + "\n"
             + MESSAGE_SET_DAYSTOEXPIRE_SUCCESS;
 
-    private final RemainingBudget newRemainingBudget;
-    private final DaysToExpire newDaysToExpire;
+    private final Wallet newWallet;
 
     public BudgetCommand(Wallet newWallet) {
-        this.newRemainingBudget = newWallet.getRemainingBudget();
-        this.newDaysToExpire = newWallet.getDaysToExpire();
+        this.newWallet = newWallet;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.setRemainingBudget(newRemainingBudget);
-        model.setDaysToExpire(newDaysToExpire);
+        try {
+            model.setWallet(newWallet);
+        } catch (BudgetAmountOutOfBoundsException e) {
+            throw new CommandException(e.getMessage());
+        } catch (BudgetDurationOutOfBoundsException e) {
+            throw new CommandException(e.getMessage());
+        }
 
-        return new CommandResult(newDaysToExpire.getDaysToExpire() == 0
+        return new CommandResult(newWallet.getNumberOfDaysToExpire() == 0
                 ? String.format(MESSAGE_SET_REMAININGBUDGET_SUCCESS,
-                newRemainingBudget.toString())
+                newWallet.getRemainingBudget().toString())
                 : String.format(MESSAGE_SET_BUDGET_SUCCESS,
-                newRemainingBudget.toString(), newDaysToExpire.toString()));
+                newWallet.getRemainingBudget().toString(), newWallet.getDaysToExpire().toString()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BudgetCommand // instanceof handles nulls
-                && newRemainingBudget.equals(((BudgetCommand) other).newRemainingBudget) // state check
-                && newDaysToExpire.equals(((BudgetCommand) other).newDaysToExpire)); // state check
+                && newWallet.equals(((BudgetCommand) other).newWallet)); // state check
     }
 }
