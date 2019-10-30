@@ -1,9 +1,18 @@
 package seedu.address.ui;
 
+import java.io.InputStream;
 import java.util.logging.Logger;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
@@ -11,12 +20,15 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.scheduler.Scheduler;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -24,6 +36,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    public static final String ALERT_SOUND_PATH = "/alert.wav";
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -84,6 +97,8 @@ public class MainWindow extends UiPart<Stage> {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+
+
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
@@ -204,6 +219,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            listenToLesson();
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -243,5 +259,75 @@ public class MainWindow extends UiPart<Stage> {
         combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
         assignmentListPanelPlaceholder.getChildren().clear();
         assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+    }
+    /**
+     * method to add a listener to lesson observable list.
+     * whenever a lesson is added to the list, a scheduler is created.
+     */
+    public void listenToLesson() {
+        logger.info("listening to lesson");
+        ObservableList<Lesson> lessons = logic.getFilteredLessonList();
+        lessons.addListener(new ListChangeListener<Lesson>() {
+            @Override
+            public void onChanged(Change<? extends Lesson> c) {
+                while (c.next()) {
+                    if (c.wasAdded()) {
+                        for (Object addedItem : c.getAddedSubList()) {
+                            logger.info("creating scheduler");
+                            Scheduler scheduler = new Scheduler((Lesson) addedItem);
+                            scheduler.scheduleLesson(new Runnable() {
+                                @Override
+                                public void run() {
+                                    logger.info("creating countdown");
+                                    countDownAlert("You have a lesson", addedItem.toString());
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * alert for scheduler.
+     * sets properties of alert then
+     * plays sound file and shows alert dialog
+     */
+    public void countDownAlert(String reminderType, String reminderDetails) {
+        try {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+                    alert.initOwner(getPrimaryStage());
+                    //alert.initOwner(new Stage());
+                    alert.setTitle("Reminder!");
+                    alert.setHeaderText(reminderType);
+                    alert.setContentText(reminderDetails);
+                    playSound();
+                    alert.show();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * handles playing alert audio for scheduled alert.
+     * get .wav file from resource folder as input stream,
+     * then open and play.
+     */
+    private void playSound() {
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream(ALERT_SOUND_PATH);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(inputStream);
+            Clip sound = AudioSystem.getClip();
+            sound.open(audioStream);
+            sound.start();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
