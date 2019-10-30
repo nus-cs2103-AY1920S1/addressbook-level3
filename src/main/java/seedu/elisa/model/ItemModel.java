@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.exceptions.IllegalValueException;
@@ -123,6 +124,10 @@ public interface ItemModel {
     public EventList getEventList();
 
     public Item getItem(int index);
+
+    SimpleBooleanProperty getPriorityMode();
+
+    boolean isSystemToggle();
 
     public Item editItem(Item oldItem, Item newItem);
 }
