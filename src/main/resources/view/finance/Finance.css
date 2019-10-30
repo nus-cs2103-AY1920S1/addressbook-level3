@@ -2,23 +2,6 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-.list-cell:filled #spendCardPane {
-}
-.list-cell:filled:selected #spendCardPane {
-}
-.list-cell:filled #incomeCardPane {
-}
-.list-cell:filled:selected #incomeCardPane {
-}
-.list-cell:filled #borrowCardPane {
-}
-.list-cell:filled:selected #borrowCardPane {
-}
-.list-cell:filled #lendCardPane {
-}
-.list-cell:filled:selected #lendCardPane {
-}
-
 #incomeEntryTypeCol {
     -fx-background-color: rgba(186, 37, 20, 0.74);
 }

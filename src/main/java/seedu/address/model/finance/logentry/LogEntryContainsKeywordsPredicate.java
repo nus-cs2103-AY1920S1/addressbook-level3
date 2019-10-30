@@ -26,7 +26,7 @@ public class LogEntryContainsKeywordsPredicate implements Predicate<LogEntry> {
             return true;
         }
 
-        boolean descriptionMatch = keywords.stream()
+        boolean isDescriptionMatch = keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(
                         logEntry.getDescription().value, keyword));
         boolean tMethodMatch = keywords.stream()
@@ -56,7 +56,7 @@ public class LogEntryContainsKeywordsPredicate implements Predicate<LogEntry> {
                             (LendLogEntry) logEntry).getTo().name, keyword));
         }
 
-        return descriptionMatch || tMethodMatch || placeMatch || fromMatch || toMatch;
+        return isDescriptionMatch || tMethodMatch || placeMatch || fromMatch || toMatch;
     }
 
     @Override
