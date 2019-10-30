@@ -21,6 +21,7 @@ public class QuizSkipQuestion extends Command {
     public static final String MESSAGE_SUCCESS = "Next question is displayed";
 
     public static final String EMPTY_QUESTION = "There is no more question. Please quit the mode.";
+    public static final String LAST_QUESTION = "All questions have been answered";
     public static final String NO_ANSWER = "This question is not answered.";
 
     public String getQuizTime() {
@@ -44,6 +45,10 @@ public class QuizSkipQuestion extends Command {
         model.addQuizResult(quizResult);
         model.removeOneQuizQuestion();
 
-        return new CommandResult(MESSAGE_SUCCESS, 4);
+        if (model.getSize() == 0) {
+            return new CommandResult(LAST_QUESTION, 4);
+        } else {
+            return new CommandResult(MESSAGE_SUCCESS, 4);
+        }
     }
 }

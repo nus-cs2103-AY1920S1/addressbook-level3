@@ -2,7 +2,10 @@ package seedu.address.logic.parser.statistics;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX;
+import static seedu.address.commons.core.index.Index.fromOneBased;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.statistics.GetReportCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,11 +23,15 @@ public class GetReportCommandParser implements Parser<GetReportCommand> {
      */
     public GetReportCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        int index;
+        Index index;
         try {
-            index = Integer.parseInt(args.trim());
+            index = fromOneBased(Integer.parseInt(args.trim()));
         } catch (NumberFormatException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GetReportCommand.MESSAGE_USAGE), e);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    GetReportCommand.MESSAGE_USAGE), e);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX,
+                    GetReportCommand.MESSAGE_USAGE), e);
         }
         return new GetReportCommand(index);
     }

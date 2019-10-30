@@ -21,12 +21,22 @@ import seedu.address.logic.commands.note.DeleteNoteCommand;
 import seedu.address.logic.commands.note.EditNoteCommand;
 import seedu.address.logic.commands.note.FindNoteCommand;
 import seedu.address.logic.commands.note.ListNoteCommand;
+import seedu.address.logic.commands.questioncommands.AddQuestionCommand;
+import seedu.address.logic.commands.questioncommands.DeleteQuestionCommand;
+import seedu.address.logic.commands.questioncommands.EditQuestionCommand;
+import seedu.address.logic.commands.questioncommands.FindQuestionCommand;
+import seedu.address.logic.commands.questioncommands.ListQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.TitleContainsKeywordsPredicate;
+import seedu.address.model.question.BodyContainsKeywordsPredicate;
+import seedu.address.model.question.Question;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
+import seedu.address.testutil.EditQuestionDescriptorBuilder;
 import seedu.address.testutil.NoteBuilder;
 import seedu.address.testutil.NoteUtil;
+import seedu.address.testutil.QuestionBuilder;
+import seedu.address.testutil.QuestionUtil;
 
 public class AppDataParserTest {
 
@@ -85,6 +95,45 @@ public class AppDataParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListNoteCommand.COMMAND_WORD) instanceof ListNoteCommand);
         assertTrue(parser.parseCommand(ListNoteCommand.COMMAND_WORD + " 3") instanceof ListNoteCommand);
+    }
+
+    @Test
+    public void parseCommand_addq() throws Exception {
+        Question note = new QuestionBuilder().build();
+        AddQuestionCommand command = (AddQuestionCommand) parser.parseCommand(QuestionUtil.getAddCommand(note));
+        assertEquals(new AddQuestionCommand(note), command);
+    }
+
+    @Test
+    public void parseCommand_deleteq() throws Exception {
+        DeleteQuestionCommand command = (DeleteQuestionCommand) parser.parseCommand(
+                DeleteQuestionCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteQuestionCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_editq() throws Exception {
+        Question note = new QuestionBuilder().build();
+        EditQuestionCommand.EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder(note).build();
+        EditQuestionCommand command = (EditQuestionCommand) parser.parseCommand(EditQuestionCommand
+                .COMMAND_WORD + " " + INDEX_FIRST.getOneBased() + " "
+                + QuestionUtil.getEditQuestionDescriptorDetails(descriptor));
+        assertEquals(new EditQuestionCommand(INDEX_FIRST, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_findq() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindQuestionCommand command = (FindQuestionCommand) parser.parseCommand(
+                FindQuestionCommand.COMMAND_WORD + " " + keywords.stream()
+                        .collect(Collectors.joining(" ")));
+        assertEquals(new FindQuestionCommand(new BodyContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_listq() throws Exception {
+        assertTrue(parser.parseCommand(ListQuestionCommand.COMMAND_WORD) instanceof ListQuestionCommand);
+        assertTrue(parser.parseCommand(ListQuestionCommand.COMMAND_WORD + " 3") instanceof ListQuestionCommand);
     }
 
     @Test

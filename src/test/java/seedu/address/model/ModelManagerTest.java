@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAppData.ALGEBRA_QUESTION;
 import static seedu.address.testutil.TypicalAppData.ALICE;
 import static seedu.address.testutil.TypicalAppData.BENSON;
+import static seedu.address.testutil.TypicalAppData.CONCEPT_QUESTION;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.note.TitleContainsKeywordsPredicate;
+import seedu.address.model.question.BodyContainsKeywordsPredicate;
 import seedu.address.testutil.AppDataBuilder;
 
 public class ModelManagerTest {
@@ -93,9 +97,32 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredNoteList().remove(0));
     }
 
+    // question
+    @Test
+    public void hasQuestion_nullQuestion_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasQuestion(null));
+    }
+
+    @Test
+    public void hasQuestion_noteNotInAppData_returnsFalse() {
+        assertFalse(modelManager.hasQuestion(ALGEBRA_QUESTION));
+    }
+
+    @Test
+    public void hasQuestion_noteInAppData_returnsTrue() {
+        modelManager.addQuestion(ALGEBRA_QUESTION);
+        assertTrue(modelManager.hasQuestion(ALGEBRA_QUESTION));
+    }
+
+    @Test
+    public void getFilteredQuestionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredQuestionList().remove(0));
+    }
+
     @Test
     public void equals() {
-        AppData appData = new AppDataBuilder().withNote(ALICE).withNote(BENSON).build();
+        AppData appData = new AppDataBuilder().withNote(ALICE).withNote(BENSON)
+                .withQuestion(ALGEBRA_QUESTION).withQuestion(CONCEPT_QUESTION).build();
         AppData differentAppData = new AppData();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -121,8 +148,14 @@ public class ModelManagerTest {
         modelManager.updateFilteredNoteList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(appData, userPrefs)));
 
+        // different filteredQuestionList -> returns false
+        String[] questionkeywords = ALGEBRA_QUESTION.getQuestionBody().body.split("\\s+");
+        modelManager.updateFilteredQuestionList(new BodyContainsKeywordsPredicate(Arrays.asList(questionkeywords)));
+        assertFalse(modelManager.equals(new ModelManager(appData, userPrefs)));
+
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        modelManager.updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

@@ -1,12 +1,15 @@
-= NUStudy project portfolio for Shui Yao (shuiyao-sg)
+= NUStudy project portfolio for Irene Lee (irene-lly)
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Introduction
+== About the project
+
 
 == Summary of contributions
 
+
 == User guide contributions
+
 
 == Developer guide contributions

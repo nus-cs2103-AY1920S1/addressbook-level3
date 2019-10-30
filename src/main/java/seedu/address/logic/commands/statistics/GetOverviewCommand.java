@@ -12,13 +12,13 @@ import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 
 /**
- * Gets statistics of how well the user has attempted the questions.
+ * Gets an overview of the types of questions that have been attempted overall.
  */
-public class GetOverviewqCommand extends Command {
-    public static final String COMMAND_WORD = "overviewq";
+public class GetOverviewCommand extends Command {
+    public static final String COMMAND_WORD = "overview";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets an overview of the types of "
-            + "questions that have been added into the app.\n"
+            + "questions that have been attempted overall.\n"
             + "An optional time period can be included.\n"
             + "A stacked bar chart, sorted by subjects, will be returned.\n"
             + "Parameters: "
@@ -35,7 +35,12 @@ public class GetOverviewqCommand extends Command {
 
     private QuizResultFilter quizResultFilter;
 
-    public GetOverviewqCommand(QuizResultFilter quizResultFilter) {
+    /**
+     * Creates a GetOverviewCommand to get the specified quiz
+     * results filtered by the {@code QuizResultFilter}.
+     * @param quizResultFilter The filter to be applied to the quiz results.
+     */
+    public GetOverviewCommand(QuizResultFilter quizResultFilter) {
         requireNonNull(quizResultFilter);
         this.quizResultFilter = quizResultFilter;
     }
@@ -51,5 +56,12 @@ public class GetOverviewqCommand extends Command {
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(OVERVIEW);
         return c;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GetOverviewCommand // instanceof handles nulls
+                && quizResultFilter.equals(((GetOverviewCommand) other).quizResultFilter)); // state check
     }
 }

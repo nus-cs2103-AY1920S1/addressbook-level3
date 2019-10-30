@@ -15,7 +15,8 @@ import seedu.address.testutil.TypicalAppData;
 
 public class JsonSerializableAppDataTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAppDataTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonSerializableAppDataTest");
     private static final Path TYPICAL_APPDATA_FILE = TEST_DATA_FOLDER.resolve("typicalAppData.json");
     private static final Path INVALID_APPDATA_FILE = TEST_DATA_FOLDER.resolve("invalidAppData.json");
     private static final Path DUPLICATE_APPDATA_FILE = TEST_DATA_FOLDER.resolve("duplicateAppData.json");

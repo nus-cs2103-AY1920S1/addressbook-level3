@@ -32,6 +32,11 @@ public class GetStatisticsCommand extends Command {
 
     private QuizResultFilter quizResultFilter;
 
+    /**
+     * Creates a GetStatisticsCommand to get the specified statistics
+     * filtered by the {@code QuizResultFilter}.
+     * @param quizResultFilter The filter to be applied to the quiz results.
+     */
     public GetStatisticsCommand(QuizResultFilter quizResultFilter) {
         requireNonNull(quizResultFilter);
         this.quizResultFilter = quizResultFilter;
@@ -48,5 +53,12 @@ public class GetStatisticsCommand extends Command {
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(STATS);
         return c;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GetStatisticsCommand // instanceof handles nulls
+                && quizResultFilter.equals(((GetStatisticsCommand) other).quizResultFilter)); // state check
     }
 }

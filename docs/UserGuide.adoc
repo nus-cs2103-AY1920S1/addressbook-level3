@@ -126,10 +126,6 @@ Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 Shows a list of questions. +
 Format: `listq`
 
-==== Listing all questions with answers: `listq -all`
-
-Shows a list of questions and their corresponding answers. +
-Format: `listq -all`
 
 ==== Editing a question: `editq`
 
@@ -159,19 +155,24 @@ Format: `deleteq INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-==== Find difficulty: `difficulty`
+==== Filter by difficulty: `difficulty`
 
 Views the list of all questions with a specific difficulty. +
-Format: `difficulty d/DIFFICULTY`
+Format: `difficulty DIFFICULTY`
 
-==== Find difficulty within a subject: `difficulty -s`
+==== Filter by subject: `subject`
 
-Views the list of questions of a specified subject with a specific difficulty. +
-Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
+Views the list of all questions from a specific subject. +
+Format: `subject SUBJECT`
+
+==== Clear all questions: `clearq`
+
+Delete all questions. +
+Format: `clearq`
 
 === Quiz mode
 
-There is a built-in Test mode in NUStudy for you to take a revision test based on questions and answers input by you.
+There is a built-in quiz mode in NUStudy for you to take a revision quiz.
 
 ==== Enter quiz mode : `quiz`
 
@@ -179,15 +180,8 @@ Enters quiz mode for you to answer questions. +
 Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT`
 
 ==== Answer the quiz question : `type answer` +
-Answers the specified question. +
+Answers the displayed question. +
 Format: `ANSWER`
-
-==== Set mixed difficulty : `mix -dif`
-
-Set the exam with mixed levels of difficulty, minimum of two levels. +
-Format: +
-`mix -dif [d/DIFFICULTY1] [n/NUMBER1] [d/DIFFICULTY2] [n/NUMBER2] [d/DIFFICULTY3] [n/NUMBER3]...` +
-`mix -dif all n/NUMBER`
 
 ==== Show an answer : `show`
 
@@ -208,31 +202,30 @@ Format: `quit`
 
 ==== Get statistics for subjects : `stats`
 
-Returns a pie chart of the number of questions that have been answered correctly and incorrectly.
+Returns a panel containing a break down of the questions by its results.
 You can choose to get the statistics for a difficulty level by adding `d/` or
-get the statistics of different subjects by adding `s/`. +
+get the statistics of different subjects by adding `s/`.
+Typing any other non-statistics command will close this panel. +
 Format: `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
 
-==== Get questions with correct/incorrect answers: `questions`
-Gets all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
-Either one of `-c` or `-i` must be used, you can also filter by subjects by adding `s/`. +
-Format: `questions [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
+==== Get questions with correct/incorrect answers: `question`
+Get a panel containing all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
+Either one of `-c` or `-i` must be used. You can also filter by subjects by adding `s/`.
+Typing any other non-statistics command will close this panel. +
+Format: `question [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
 
 ==== Get a report for individual questions: `report`
-Returns a report of how well you have answered a particular question,
-the number of times the question has been attempted and the past answers to the question. +
+Returns a panel containing a report of how well you have answered a particular question,
+the number of times the question has been attempted and the past answers to the question.
+Typing any other non-statistics command will close this panel. +
 Format: `report INDEX`
 
-==== Get overview of lecture notes: `overviewn`
-Gets an overview of the types of notes that have been added into the app.
-A stacked bar graph, sorted by subjects will be returned. +
-Format: `overviewn`
-
-==== Get overview of questions attempted: `overviewq`
-Gets an overview of the types of questions that have been attempted overall.
-A stacked bar graph, sorted by subjects will be returned.
-You can also add a `dt/` field to get questions that you have done within that time period. +
-Format: `overviewq [dt/START_DATE] [dt/END_DATE]`
+==== Get overview of questions attempted: `overview`
+Get an overview of the types of questions that have been attempted overall.
+A panel containing a stacked bar graph, sorted by subjects will be returned.
+You can also add a `dt/` field to get questions that you have done within that time period.
+Typing any other non-statistics command will close this panel. +
+Format: `overview [dt/START_DATE] [dt/END_DATE]`
 
 === Revision tasks
 
@@ -273,12 +266,12 @@ Format: `unfinished`
 
 ==== View overdue revision tasks: `overdue`
 Displays the revision tasks that are yet to be done but having passed the deadline
-Format: `roverdue`
+Format: `overdue`
 
-==== Enable push notification: `notify -e`
+==== Enable push notification: `notify -e` `[coming in v2.0]`
 Format: `notify -e [-A] [INDEX]`
 
-==== Disable push notification: `notify -d`
+==== Disable push notification: `notify -d` `[coming in v2.0]`
 Format: `notify -d [-A] [INDEX]`
 
 === Auto-complete feature `[coming in v2.0]`

@@ -48,24 +48,24 @@
 
                 <StackPane VBox.vgrow="ALWAYS" minWidth="450" prefWidth="450" styleClass="pane-with-border">
                     <HBox fx:id="mainPanel" minWidth="450" prefWidth="450" styleClass="pane-with-border">
-                        <VBox fx:id="noteList" styleClass="pane-with-border" minWidth="440" prefWidth="440"
-                              VBox.vgrow="ALWAYS">
+                        <VBox fx:id="noteList" styleClass="pane-with-border" prefWidth="440"
+                              VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                             <padding>
                                 <Insets top="10" right="10" bottom="10" left="10"/>
                             </padding>
                             <StackPane fx:id="noteListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                         </VBox>
 
-                        <VBox fx:id="taskList" styleClass="pane-with-border" minWidth="440" prefWidth="440"
-                              VBox.vgrow="ALWAYS">
+                        <VBox fx:id="taskList" styleClass="pane-with-border" prefWidth="440"
+                              VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                             <padding>
                                 <Insets top="10" right="10" bottom="10" left="10"/>
                             </padding>
                             <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                         </VBox>
 
-                        <VBox fx:id="questionList" styleClass="pane-with-border" minWidth="440" prefWidth="440"
-                              VBox.vgrow="ALWAYS">
+                        <VBox fx:id="questionList" styleClass="pane-with-border" prefWidth="440"
+                              VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                             <padding>
                                 <Insets top="10" right="10" bottom="10" left="10"/>
                             </padding>

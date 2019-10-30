@@ -54,17 +54,53 @@
     "status" : "[Y]"
   }],
   "questions" : [ {
-    "questionBody" : "(  ) is a measure of the degree of dependence between components, classes, methods, etc.",
-    "answer" : "Coupling",
+    "questionBody" : "MVC design pattern refers to (  ).",
+    "answer" : "Model View Controller",
     "subject" : "CS2103T",
+    "difficulty" : "medium"
+  }, {
+    "questionBody" : "A port number in TCP is (  ) bytes long.",
+    "answer" : "2",
+    "subject" : "CS2105",
+    "difficulty" : "hard"
+  }, {
+    "questionBody" : "UDP uses (  ) to dispatch incoming packets to different processes in the same host.",
+    "answer" : "de-multiplexing",
+    "subject" : "CS2105",
+    "difficulty" : "hard"
+  }, {
+    "questionBody" : "Who is your favourite female character in Detective Conan?",
+    "answer" : "Haibara Ai",
+    "subject" : "Anime",
     "difficulty" : "easy"
   } ],
   "quizResults" : [ {
-    "answer" : "Coupling",
-    "questionBody" : "(  ) is a measure of the degree of dependence between components, classes, methods, etc.",
+    "answer" : "Model View Controller",
+    "questionBody" : "MVC design pattern refers to (  ).",
     "subject" : "CS2103T",
-    "difficulty" : "easy",
+    "difficulty" : "medium",
     "quizTime" : "2019/10/10 12:00",
-    "result" : true
+    "result" : "true"
+  }, {
+    "answer" : "4",
+    "questionBody" : "A port number in TCP is (  ) bytes long.",
+    "subject" : "CS2105",
+    "difficulty" : "hard",
+    "quizTime" : "2019/10/20 13:00",
+    "result" : "false"
+  }, {
+    "answer" : "de-multiplexing",
+    "questionBody" : "UDP uses (  ) to dispatch incoming packets to different processes in the same host.",
+    "subject" : "CS2105",
+    "difficulty" : "hard",
+    "quizTime" : "2019/10/30 1530",
+    "result" : "true"
+  }, {
+    "answer" : "Haibara Ai",
+    "questionBody" : "Who is your favourite female character in Detective Conan?",
+    "subject" : "Anime",
+    "difficulty" : "easy",
+    "quizTime" : "2019/10/29 2000",
+    "result" : "true"
   } ]
 }

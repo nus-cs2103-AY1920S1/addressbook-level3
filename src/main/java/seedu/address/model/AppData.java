@@ -181,6 +181,13 @@ public class AppData implements ReadOnlyAppData {
         questions.remove(key);
     }
 
+    /**
+     * Clears all questions.
+     */
+    public void clearQuestions() {
+        questions.setQuestions(new UniqueQuestionList());
+    }
+
     // quiz operations
 
     /**
@@ -277,6 +284,10 @@ public class AppData implements ReadOnlyAppData {
         return quizResults.getUniqueDifficultyList();
     }
 
+    public ObservableList<QuizResult> getQnsReport(Question question) {
+        return quizResults.getQnsReport(question);
+    }
+
     // util methods
 
     @Override
@@ -311,6 +322,7 @@ public class AppData implements ReadOnlyAppData {
                 || (other instanceof AppData // instanceof handles nulls
                 && notes.equals(((AppData) other).notes)
                 && questions.equals(((AppData) other).questions)
+                && quizResults.equals(((AppData) other).quizResults)
                 && tasks.equals(((AppData) other).tasks));
     }
 

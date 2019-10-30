@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -13,11 +15,15 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.note.EditNoteCommand;
+import seedu.address.logic.commands.questioncommands.EditQuestionCommand;
 import seedu.address.model.AppData;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.TitleContainsKeywordsPredicate;
+import seedu.address.model.question.BodyContainsKeywordsPredicate;
+import seedu.address.model.question.Question;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
+import seedu.address.testutil.EditQuestionDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -42,9 +48,55 @@ public class CommandTestUtil {
     public static final EditNoteCommand.EditNoteDescriptor DESC_AMY;
     public static final EditNoteCommand.EditNoteDescriptor DESC_BOB;
 
+    // question
+    public static final String VALID_QUESTION_BODY_ALGEBRA = "1 + 1 = ";
+    public static final String VALID_QUESTION_BODY_CONCEPT = "(  ) is a measure of the degree of dependence between "
+            + "components, classes, methods, etc.";
+    public static final String VALID_ANSWER_ALGEBRA = "2";
+    public static final String VALID_ANSWER_CONCEPT = "Coupling";
+    public static final String VALID_SUBJECT_ALGEBRA = "Math";
+    public static final String VALID_SUBJECT_CONCEPT = "CS2103T";
+    public static final String VALID_DIFFICULTY_ALGEBRA = "easy";
+    public static final String VALID_DIFFICULTY_CONCEPT = "medium";
+
+    public static final String QUESTION_BODY_DESC_ALGEBRA = " " + PREFIX_QUESTION + VALID_QUESTION_BODY_ALGEBRA;
+    public static final String QUESTION_BODY_DESC_CONCEPT = " " + PREFIX_QUESTION + VALID_QUESTION_BODY_CONCEPT;
+    public static final String ANSWER_DESC_ALGEBRA = " " + PREFIX_ANSWER + VALID_ANSWER_ALGEBRA;
+    public static final String ANSWER_DESC_CONCEPT = " " + PREFIX_ANSWER + VALID_ANSWER_CONCEPT;
+
+    public static final String INVALID_QUESTION_BODY_DESC = " " + PREFIX_QUESTION;
+    public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER;
+
+    public static final EditQuestionCommand.EditQuestionDescriptor DESC_ALGEBRA;
+    public static final EditQuestionCommand.EditQuestionDescriptor DESC_CONCEPT;
+
+    // quiz result
+    public static final String CORRECT_ANSWER_ALGEBRA = "2";
+    public static final String INCORRECT_ANSWER_ALGEBRA = "3";
+
+    public static final String CORRECT_ANSWER_CONCEPT = "Coupling";
+    public static final String INCORRECT_ANSWER_CONCEPT = "Dependency";
+
+    public static final String FINISH_TIME_CONCEPT = "2019/10/30 1530";
+    public static final String FINISH_TIME_ALGEBRA = "2019/10/31 1300";
+    public static final String CORRECT_RESULT = "true";
+    public static final String INCORRECT_RESULT = "false";
+
     static {
         DESC_AMY = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_AMY).withContent(VALID_CONTENT_AMY).build();
         DESC_BOB = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_BOB).withContent(VALID_CONTENT_BOB).build();
+        DESC_ALGEBRA = new EditQuestionDescriptorBuilder()
+                .withQuestionBody(VALID_QUESTION_BODY_ALGEBRA)
+                .withAnswer(VALID_ANSWER_ALGEBRA)
+                .withSubject(VALID_SUBJECT_ALGEBRA)
+                .withDifficulty(VALID_DIFFICULTY_ALGEBRA)
+                .build();
+        DESC_CONCEPT = new EditQuestionDescriptorBuilder()
+                .withQuestionBody(VALID_QUESTION_BODY_CONCEPT)
+                .withAnswer(VALID_ANSWER_CONCEPT)
+                .withSubject(VALID_SUBJECT_CONCEPT)
+                .withDifficulty(VALID_DIFFICULTY_CONCEPT)
+                .build();
     }
 
     /**
@@ -84,10 +136,13 @@ public class CommandTestUtil {
         // only do so by copying its components.
         AppData expectedAppData = new AppData(actualModel.getAppData());
         List<Note> expectedFilteredList = new ArrayList<>(actualModel.getFilteredNoteList());
+        List<Question> expectedFilteredQuestionList = new ArrayList<>(actualModel.getFilteredQuestionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAppData, actualModel.getAppData());
         assertEquals(expectedFilteredList, actualModel.getFilteredNoteList());
+        assertEquals(expectedFilteredQuestionList, actualModel.getFilteredQuestionList());
+
     }
     /**
      * Updates {@code model}'s filtered list to show only the note at the given {@code targetIndex} in the
@@ -103,4 +158,17 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredNoteList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the question at the given {@code targetIndex} in the
+     * {@code model}'s application data.
+     */
+    public static void showQuestionAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredQuestionList().size());
+
+        Question question = model.getFilteredQuestionList().get(targetIndex.getZeroBased());
+        final String[] splitName = question.getQuestionBody().body.split("\\s+");
+        model.updateFilteredQuestionList(new BodyContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredQuestionList().size());
+    }
 }

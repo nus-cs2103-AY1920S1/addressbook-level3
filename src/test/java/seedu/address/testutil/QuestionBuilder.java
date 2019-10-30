@@ -33,6 +33,8 @@ public class QuestionBuilder {
     public QuestionBuilder(Question questionToCopy) {
         questionBody = questionToCopy.getQuestionBody();
         answer = questionToCopy.getAnswer();
+        subject = questionToCopy.getSubject();
+        difficulty = questionToCopy.getDifficulty();
     }
 
     /**

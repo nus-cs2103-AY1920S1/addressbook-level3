@@ -10,13 +10,14 @@ import static seedu.address.model.quiz.FilterType.SUBJECT;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
 
 /**
- * A class to store the operations to filter quiz results by.
+ * A filter to store the operations to filter {@code QuizResultList} by.
  */
 public class QuizResultFilter {
 
@@ -24,7 +25,7 @@ public class QuizResultFilter {
     private Difficulty difficulty;
     private Date startDate;
     private Date endDate;
-    private boolean isCorrectQns;
+    private Boolean isCorrectQns;
     private Stack<FilterType> operations = new Stack<>();
 
     public QuizResultFilter() {}
@@ -98,6 +99,11 @@ public class QuizResultFilter {
         return operations;
     }
 
+    /**
+     * Sets the operations in the {@code QuizResultFilter}.
+     * @param s The subject to filter by.
+     * @param d The difficulty to filter by.
+     */
     public void setOperation(Subject s, Difficulty d) {
         this.subjects = new ArrayList<>();
         this.subjects.add(s);
@@ -107,5 +113,36 @@ public class QuizResultFilter {
         }
         operations.push(SUBJECT);
         operations.push(DIFFICULTY);
+    }
+
+    /**
+     * Sets the operations in the {@code QuizResultFilter}.
+     * @param d The difficulty to filter by.
+     */
+    public void setOperation(Difficulty d) {
+        this.difficulty = d;
+        if (operations.empty() && isCorrectQns != null) {
+            if (isCorrectQns) {
+                operations.push(CORRECT);
+            } else {
+                operations.push(INCORRECT);
+            }
+        }
+        if (!subjects.isEmpty()) {
+            operations.push(SUBJECT);
+        }
+        operations.push(DIFFICULTY);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof QuizResultFilter // instanceof handles nulls
+                && Objects.equals(subjects, ((QuizResultFilter) other).subjects)
+                && Objects.equals(difficulty, ((QuizResultFilter) other).difficulty)
+                && Objects.equals(startDate, ((QuizResultFilter) other).startDate)
+                && Objects.equals(endDate, ((QuizResultFilter) other).endDate)
+                && Objects.equals(isCorrectQns, ((QuizResultFilter) other).isCorrectQns)
+                && Objects.equals(operations, ((QuizResultFilter) other).operations));
     }
 }
