@@ -144,7 +144,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleServe() {
         mode.setText(SERVE_MODE);
-        updateBorrowerPanel();
     }
 
     /**
@@ -152,6 +151,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void updateBorrowerPanel() {
+        assert logic.isServeMode() : "Not in serve mode";
         ArrayList<Loan> loanList = new ArrayList<>();
         logic.getServingBorrower()
                 .getCurrentLoanList()
@@ -198,8 +198,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleDone();
             }
 
-            if (!commandResult.isDone()) {
-                updateBorrowerPanel(); // throws NotInServeModeException if command is not a serve mode command
+            if (logic.isServeMode() && !commandResult.isDone()) {
+                updateBorrowerPanel();
             }
 
             return commandResult;
