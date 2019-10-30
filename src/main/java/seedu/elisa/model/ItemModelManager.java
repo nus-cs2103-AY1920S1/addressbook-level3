@@ -523,7 +523,7 @@ public class ItemModelManager implements ItemModel {
         if (sortedTask.peek().getTask().get().isComplete()) {
             systemToggle = true;
             toggleOffPriorityMode();
-            return taskList;
+            return visualList;
         }
 
         result.add(sortedTask.peek());
