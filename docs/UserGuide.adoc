@@ -276,6 +276,23 @@ For example, if you would like to include the fact that your grandparents are co
 
     i/Grandparents will be here!!
 
+== Add Command
+
+Whew! After reading so much, it is time to find out how you can add your event, be it your commitment, holiday, school break or trip, so that TravEzy can start suggesting when you can travel! 😊
+
+*Add an event to your calendar: ``add``
+
+Adds an event to your calendar. Are you unable to travel on a day or over a duration of time due to commitments during the public holidays/school vacation? Well, then add an event with the EVENT TYPE ``commitment``. Or is a public holiday coming up (i.e. a possibility to go for a short trip! 😃)? Add it to your calendar with the EVENT TYPE ``holiday``! Or... Is it your school break? Well, we have got that covered to! Just add it to your calendar with the EVENT TYPE ``school_break``. Hmm... Or may it is your long-coveted *trip*! Can you add that to your calendar too? You bet!
+
+Format: ``add EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [i/INFO]``
+
+Example: To indicate that you have a commitment rom 2 Dec 2019 to 5 Dec 2019 because you are volunteering, just key in
+
+    add commitment n/volunteering d/2 m/dec y/2019 D/5 M/Dec Y/2019
+    
+TIP: As mentioned, you do not have to specify the END YEAR, END MONTH and/or END DAY if they are the same as START YEAR, START MONTH and/or START DAY, respectively.
+
+IMPORTANT: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
 
 *Adding a commitment: ``addCommitment``* +
 Adds commitment to indicate that you won’t be able to travel on a day or over a duration of time due to commitments during the public holidays/school vacation. +
