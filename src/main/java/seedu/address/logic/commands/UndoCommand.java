@@ -11,7 +11,7 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_NO_MODEL = "There is nothing to be undone.";
-    public static final String MESSAGE_SUCCESS = "Undid the last undoable command. ";
+    public static final String MESSAGE_SUCCESS = "Undid \"%1$s\".";
 
     @Override
     protected void validate(Model model) throws CommandException {
@@ -22,9 +22,8 @@ public class UndoCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        // prevModel guaranteed to be present due to previous validation.
-        Model prevModel = model.rollbackModel().get();
-        model.resetData(prevModel);
-        return new CommandResult(MESSAGE_SUCCESS);
+        String prevCommandDesc = model.getLastCommandDesc();
+        model.rollbackModel();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, prevCommandDesc));
     }
 }

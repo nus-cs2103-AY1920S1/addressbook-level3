@@ -17,7 +17,7 @@ public class ClearCommandTest {
     public void run_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.addToHistory();
+        expectedModel.commitModel("");
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -26,7 +26,7 @@ public class ClearCommandTest {
     public void run_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
         Model expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
-        expectedModel.addToHistory();
+        expectedModel.commitModel("");
         expectedModel.setMooLah(new MooLah());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

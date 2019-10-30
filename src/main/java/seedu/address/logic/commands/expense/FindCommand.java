@@ -16,7 +16,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
 public class FindCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "find";
-
+    public static final String COMMAND_DESCRIPTION = "Find expenses with keywords %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all expenses whose descriptions contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
@@ -26,6 +26,11 @@ public class FindCommand extends UndoableCommand {
 
     public FindCommand(DescriptionContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, String.join(" ", predicate.getKeywords()));
     }
 
     @Override

@@ -17,6 +17,7 @@ import seedu.address.model.expense.Event;
  */
 public class AddEventCommand extends AddCommand {
 
+    public static final String COMMAND_DESCRIPTION = "Add event %1$s (%1$s)";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an event to MooLah. \n"
             + "Parameters: "
@@ -41,6 +42,11 @@ public class AddEventCommand extends AddCommand {
     public AddEventCommand(Event event) {
         requireNonNull(event);
         toAdd = event;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, toAdd.getDescription(), toAdd.getPrice());
     }
 
     @Override

@@ -18,6 +18,7 @@ import seedu.address.ui.budget.BudgetPanel;
  */
 public class AddExpenseCommand extends AddCommand {
 
+    public static final String COMMAND_DESCRIPTION = "Add expense %1$s (%2$s)";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an expense to MooLah. \n"
             + "Parameters: "
@@ -42,6 +43,11 @@ public class AddExpenseCommand extends AddCommand {
     public AddExpenseCommand(Expense expense) {
         requireNonNull(expense);
         toAdd = expense;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, toAdd.getDescription(), toAdd.getPrice());
     }
 
     @Override

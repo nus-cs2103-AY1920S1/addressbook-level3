@@ -58,7 +58,7 @@ public class AliasCommandTest {
 
     @Test
     public void run_aliasCommandIsValid_success() {
-        expectedModel.addToHistory();
+        expectedModel.commitModel("");
         expectedModel.addUserAlias(ALIAS_A_TO_B);
         assertCommandSuccess(
                 new AliasCommand(ALIAS_A_TO_B), model,

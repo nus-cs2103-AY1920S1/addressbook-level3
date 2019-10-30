@@ -8,10 +8,15 @@ import seedu.address.model.Model;
  */
 public abstract class UndoableCommand extends Command {
 
+    /**
+     * Returns the description of the command.
+     */
+    public abstract String getDescription();
+
     @Override
     public CommandResult run(Model model) throws CommandException {
         validate(model);
-        model.addToHistory();
+        model.commitModel(getDescription());
         return execute(model);
     }
 

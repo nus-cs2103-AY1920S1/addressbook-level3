@@ -6,7 +6,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.Period;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -70,6 +69,7 @@ public class ModelManager implements Model {
     @Override
     public void resetData(Model model) {
         requireNonNull(model);
+
         setMooLah(model.getMooLah());
         setUserPrefs(model.getUserPrefs());
         setModelHistory(model.getModelHistory());
@@ -93,6 +93,11 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
+    public Model copy() {
+        return new ModelManager(this);
+    }
+
     //=========== ModelHistory ==================================================================================
 
     @Override
@@ -107,9 +112,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addToHistory() {
-        modelHistory.addToPastModels(new ModelManager(this));
-        modelHistory.clearFutureModels();
+    public String getLastCommandDesc() {
+        return modelHistory.getDescription();
     }
 
     @Override
@@ -125,20 +129,23 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void commitModel(String desc) {
+        modelHistory.addToPastModels(new ModelManager(this));
+        modelHistory.clearFutureModels();
+        modelHistory.setDescription(desc);
+    }
+
+    @Override
     public boolean canRollback() {
         return !modelHistory.isPastModelsEmpty();
     }
 
     @Override
-    public Optional<Model> rollbackModel() {
-        Optional<Model> prevModel = modelHistory.getPrevModel();
-        if (prevModel.isEmpty()) {
-            return Optional.empty();
-        }
-
-        Model pastModel = prevModel.get();
-        pastModel.addToFutureHistory(this);
-        return Optional.of(pastModel);
+    public void rollbackModel() {
+        Model prevModel = modelHistory.getPrevModel();
+        requireNonNull(prevModel);
+        prevModel.addToFutureHistory(new ModelManager(this));
+        resetData(prevModel);
     }
 
     @Override
@@ -147,15 +154,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Model> migrateModel() {
-        Optional<Model> nextModel = modelHistory.getNextModel();
-        if (nextModel.isEmpty()) {
-            return Optional.empty();
-        }
-
-        Model futureModel = nextModel.get();
-        futureModel.addToPastHistory(this);
-        return Optional.of(futureModel);
+    public void migrateModel() {
+        Model nextModel = modelHistory.getNextModel();
+        requireNonNull(nextModel);
+        nextModel.addToPastHistory(new ModelManager(this));
+        resetData(nextModel);
     }
 
     //=========== UserPrefs ==================================================================================

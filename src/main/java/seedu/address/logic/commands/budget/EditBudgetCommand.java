@@ -29,7 +29,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  */
 public class EditBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "editbudget";
-
+    public static final String COMMAND_DESCRIPTION = "Edit budget on index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the budget identified "
             + "by the index number used in the displayed expense list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -59,6 +59,11 @@ public class EditBudgetCommand extends UndoableCommand {
 
         this.index = index;
         this.editBudgetDescriptor = new EditBudgetDescriptor(editBudgetDescriptor);
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, index.getOneBased());
     }
 
     @Override

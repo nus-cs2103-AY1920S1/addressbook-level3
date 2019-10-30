@@ -30,6 +30,6 @@ public class RedoCommandTest {
         Model other = new ModelManager();
         model.addToFutureHistory(other);
         expectedModel.addToPastHistory(other);
-        assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, String.format(RedoCommand.MESSAGE_SUCCESS, ""), expectedModel);
     }
 }

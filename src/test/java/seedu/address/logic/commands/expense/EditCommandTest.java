@@ -47,7 +47,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
-        expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
+        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -74,7 +74,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(lastExpense, editedExpense);
-        expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
+        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -88,7 +88,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
-        expectedModel.addToHistory();
+        expectedModel.commitModel("");
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -111,7 +111,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
-        expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
+        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

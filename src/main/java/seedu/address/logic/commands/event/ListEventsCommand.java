@@ -13,8 +13,13 @@ import seedu.address.model.Model;
 public class ListEventsCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "events";
-
+    public static final String COMMAND_DESCRIPTION = "List events";
     public static final String MESSAGE_SUCCESS = "Listed all events";
+
+    @Override
+    public String getDescription() {
+        return COMMAND_DESCRIPTION;
+    }
 
     @Override
     protected void validate(Model model) {

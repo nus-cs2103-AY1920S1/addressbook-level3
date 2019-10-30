@@ -13,7 +13,6 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.Stack;
 import java.util.function.Predicate;
 
@@ -146,6 +145,11 @@ public class AddBudgetCommandTest {
         }
 
         @Override
+        public Model copy() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyModelHistory getModelHistory() {
             throw new AssertionError("This method should not be called.");
         }
@@ -156,12 +160,17 @@ public class AddBudgetCommandTest {
         }
 
         @Override
+        public String getLastCommandDesc() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canRollback() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Optional<Model> rollbackModel() {
+        public void rollbackModel() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -171,12 +180,12 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public Optional<Model> migrateModel() {
+        public void migrateModel() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addToHistory() {
+        public void commitModel(String description) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -402,7 +411,7 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public void addToHistory() {
+        public void commitModel(String description) {
             pastModels.push(new ModelStubAcceptingBudgetAdded(this));
         }
 

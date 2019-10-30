@@ -12,7 +12,6 @@ import static seedu.address.testutil.TypicalExpenses.BUSAN_TRIP;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,11 +53,8 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void rollbackModel_noModel_returnsEmptyOptional() {
-        ModelHistory before = new ModelHistory(modelManager.getModelHistory());
-        Optional<Model> model = modelManager.rollbackModel();
-        assertEquals(before, modelManager.getModelHistory());
-        assertTrue(model.isEmpty());
+    public void rollbackModel_noModel_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.rollbackModel());
     }
 
     @Test
@@ -67,17 +63,14 @@ public class ModelManagerTest {
         modelManager.addToPastHistory(other);
         expectedModelManager.addToFutureHistory(other);
 
-        Optional<Model> model = modelManager.rollbackModel();
-        assertTrue(model.isPresent());
-        assertEquals(model.get().getModelHistory(), expectedModelManager.getModelHistory());
+        modelManager.rollbackModel();
+        assertEquals(modelManager.getModelHistory(), expectedModelManager.getModelHistory());
     }
 
     @Test
-    public void migrateModel_noModel_returnsEmptyOptional() {
-        ModelHistory before = new ModelHistory(modelManager.getModelHistory());
-        Optional<Model> model = modelManager.migrateModel();
-        assertEquals(before, modelManager.getModelHistory());
-        assertTrue(model.isEmpty());
+    public void migrateModel_noModel_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.migrateModel());
+
     }
 
     @Test
@@ -86,9 +79,8 @@ public class ModelManagerTest {
         modelManager.addToFutureHistory(other);
         expectedModelManager.addToPastHistory(other);
 
-        Optional<Model> model = modelManager.migrateModel();
-        assertTrue(model.isPresent());
-        assertEquals(model.get().getModelHistory(), expectedModelManager.getModelHistory());
+        modelManager.migrateModel();
+        assertEquals(modelManager.getModelHistory(), expectedModelManager.getModelHistory());
     }
 
     @Test
@@ -196,7 +188,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(mooLah, differentUserPrefs, modelHistory)));
 
         // different history -> returns false
-        ModelHistory differentHistory = new ModelHistory(makeModelStack(modelManager), makeModelStack());
+        ModelHistory differentHistory = new ModelHistory("", makeModelStack(modelManager), makeModelStack());
         modelManagerCopy.setModelHistory(differentHistory);
         assertFalse(modelManager.equals(modelManagerCopy));
     }

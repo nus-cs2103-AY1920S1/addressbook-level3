@@ -2,11 +2,12 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TestUtil.makeModelStack;
 
-import java.util.Optional;
 import java.util.Stack;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,8 @@ public class ModelHistoryTest {
 
     @Test
     public void resetData_success() {
-        ModelHistory other = new ModelHistory(makeModelStack(new ModelManager()), makeModelStack(new ModelManager()));
+        ModelHistory other = new ModelHistory("",
+                makeModelStack(new ModelManager()), makeModelStack(new ModelManager()));
         history.resetData(other);
         assertEquals(other, history);
     }
@@ -102,31 +104,31 @@ public class ModelHistoryTest {
     }
 
     @Test
-    public void getPrevModel_noModel_returnsEmptyOptional() {
-        assertTrue(history.getPrevModel().isEmpty());
+    public void getPrevModel_noModel_returnsNull() {
+        assertNull(history.getPrevModel());
     }
 
     @Test
     public void getPrevModel_hasModel_returnsModel() {
         Model model = new ModelManager();
         history.setPastModels(makeModelStack(model));
-        Optional<Model> prevModel = history.getPrevModel();
-        assertTrue(prevModel.isPresent());
-        assertEquals(model, prevModel.get());
+        Model prevModel = history.getPrevModel();
+        assertNotNull(prevModel);
+        assertEquals(model, prevModel);
     }
 
     @Test
-    public void getNextModel_noModel_returnsEmptyOptional() {
-        assertTrue(history.getNextModel().isEmpty());
+    public void getNextModel_noModel_returnsNull() {
+        assertNull(history.getNextModel());
     }
 
     @Test
     public void getNextModel_hasModel_returnsModel() {
         Model model = new ModelManager();
         history.setFutureModels(makeModelStack(model));
-        Optional<Model> nextModel = history.getNextModel();
-        assertTrue(nextModel.isPresent());
-        assertEquals(model, nextModel.get());
+        Model nextModel = history.getNextModel();
+        assertNotNull(nextModel);
+        assertEquals(model, nextModel);
     }
 
     @Test
@@ -140,12 +142,13 @@ public class ModelHistoryTest {
         // To objects from other classes
         assertNotEquals(history, 1);
         // To ModelHistory objects but different in past models
-        assertNotEquals(history, new ModelHistory(oneModelInStack, history.getFutureModels()));
+        assertNotEquals(history, new ModelHistory("", oneModelInStack, history.getFutureModels()));
         // To ModelHistory objects but different in future models
-        assertNotEquals(history, new ModelHistory(history.getPastModels(), oneModelInStack));
+        assertNotEquals(history, new ModelHistory("", history.getPastModels(), oneModelInStack));
         // To ModelHistory objects but different in past and future models
-        assertNotEquals(history, new ModelHistory(oneModelInStack, oneModelInStack));
+        assertNotEquals(history, new ModelHistory("", oneModelInStack, oneModelInStack));
         // To ModelHistory objects and equal in both models
-        assertEquals(history, new ModelHistory(history.getPastModels(), history.getFutureModels()));
+        assertEquals(history, new ModelHistory(history.getDescription(),
+                history.getPastModels(), history.getFutureModels()));
     }
 }

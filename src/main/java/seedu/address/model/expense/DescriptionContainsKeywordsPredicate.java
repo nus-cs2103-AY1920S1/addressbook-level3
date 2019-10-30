@@ -22,6 +22,10 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Expense> 
                         .containsWordIgnoreCase(expense.getDescription().fullDescription, keyword));
     }
 
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

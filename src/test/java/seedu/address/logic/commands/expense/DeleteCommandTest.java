@@ -36,7 +36,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
-        expectedModel.addToHistory();
+        expectedModel.commitModel("");
         expectedModel.deleteExpense(expenseToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
         expectedModel.deleteExpense(expenseToDelete);
-        expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
+        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
         showNoExpense(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
