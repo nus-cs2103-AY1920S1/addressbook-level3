@@ -164,7 +164,7 @@ Format: `clear`
 === Setting shorthand commands: `alias`
 
 Set an alias for a command to do shorthand. +
-Format: `alias l/[SHORTHAND] v/[COMMAND]`
+Format: `alias l/SHORTHAND v/COMMAND`
 
 Examples:
 
@@ -176,21 +176,21 @@ Typing `h` now works equivalently as `help`.
 === Deleting shorthand commands: `unalias`
 
 Delete a existing alias. +
-Format: `unalias [SHORTHAND]`
+Format: `unalias SHORTHAND`
 
 Examples:
 
 * `unalias ls` +
 Typing `ls` is no longer equivalent to `list`.
 
-=== Showing all existing aliases: `showalias`
+=== Showing all existing aliases: `aliaslist`
 
 Show all existing aliases. +
-Format: `showalias`
+Format: `aliaslist`
 
 Examples:
 
-* `showalias` +
+* `aliaslist` +
 Shows all the existing aliases.
 
 === Clearing all entries : `clear`
