@@ -29,6 +29,8 @@ The Dashboard in DukeCooks provides an overview of the list of tasks to be done.
 
 Initial works for the Dashboard include referencing the AB3  codebase. The add / delete / edit / list / find functions from AB3 was adapted and available in the Dashboard. As a comparison, the functions listed before was used in AB3 to create and manipulate a person's contact information. In DukeCook’s Dashboard, these functions are used to create and manipulate a task's information.
 
+image::thedashboard.png[width="790"]
+
 === Enhancement 1: Creating the `done` command
 
 The done command was created to complement the Dashboard. The user is able to use the command done, to mark a task as complete. Whenever a 'done' command is executed, the progress bar will refresh and update to display the latest information.
@@ -86,6 +88,8 @@ When entering the date for a task, please follow the given format: day/month/yea
 
 Example usage: `add task tn/Bake a Cake td/29/10/2019`
 
+image::addtask-ug.png[width="790"]
+
 === pass:[<u>Editing a task's details</u>]
 
 Made some typos when adding a task? +
@@ -95,6 +99,8 @@ Command: `edit task` +
 Format: `edit task _index number_`
 
 Example usage: `edit task 1 tn/Bake cupcakes td/30/10/2019`
+
+image::edittask-ug.png[width="790"]
 
 === pass:[<u>Removing a task</u>]
 
@@ -106,6 +112,8 @@ Format: `delete task _index number_`
 
 Example usage: `delete task 2`
 
+image::deletetask-ug.png[width="790"]
+
 === pass:[<u>Marking a task as complete</u>]
 
 Finished with a task? +
@@ -115,6 +123,8 @@ Command: `done` +
 Format: `done _index number_`
 
 Example usage: `done 1`
+
+image::donetask-ug.png[width="790"]
 
 [NOTE]
 ====
@@ -130,11 +140,15 @@ Format: `find task _keyword_`
 
 Example usage: `find task cake`
 
+image::findtask-ug.png[width="790"]
+
 === pass:[<u>Viewing all the tasks</u>]
 
 For those that want to know all the tasks they have added into DukeCooks.
 
 Command: `list task`
+
+image::listtask-ug.png[width="790"]
 
 === pass:[<u>Viewing incomplete tasks</u>]
 
@@ -142,11 +156,15 @@ Look at all the tasks you have to complete!
 
 Command: `list taskincomplete`
 
+image::listtaskincomplete-ug.png[width="790"]
+
 === pass:[<u>Viewing completed tasks</u>]
 
 Look at all the tasks you have done!
 
 Command: `list taskcomplete`
+
+image::listtaskcomplete-ug.png[width="790"]
 
 == Contributions to the Developer Guide
 
