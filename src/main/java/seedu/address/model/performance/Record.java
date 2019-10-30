@@ -36,4 +36,17 @@ public class Record {
         return date;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Record)) {
+            return false;
+        }
+
+        Record otherRecord = (Record) other;
+        return otherRecord.getTiming().equals(timing) && otherRecord.getDate().equals(date);
+    }
 }
