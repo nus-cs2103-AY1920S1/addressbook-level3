@@ -24,7 +24,9 @@ Mortago is a mortuary management system for hospitals. Mortago is optimized for 
 to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
 
 Mortago provides a *convenient dashboard* for the mortuary manager to keep track of all bodies and fridges, outstanding
-tasks, and alerts. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary management to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating reports automatically.
+tasks, and notifs. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary
+management
+to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating reports automatically.
 
 Interested? Refer to <<Quick-Start>> below to get started. Enjoy!
 
@@ -176,6 +178,9 @@ add -b
 (/organsForDonation organsForDonation)
 (/fridgeId fridgeId)
 
+[TIP]
+Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
+
 ---
 | Add a new fridge
 a|
@@ -183,7 +188,7 @@ a|
 add -f
 
 [TIP]
-Default status: Unoccupied
+Default status: `UNOCCUPIED`
 
 |===
 
@@ -243,7 +248,9 @@ add -f
 
 [[update]]
 ==== Updating an entity: `update`
+
 This command allows you to update the attributes of a body or worker.
+
 You have to indicate the entity type you want to update with a flag, as described in <<Features>>.
 [TIP]
 `-f` is not a valid flag for this command. Fridges will be automatically updated when bodies are assigned or removed.
@@ -251,6 +258,21 @@ You have to indicate the entity type you want to update with a flag, as describe
 You can specify one or more attributes to change, but at least one valid attribute must be provided.
 
 Format: `update -flag /id id (/attributeName attributeValue ...)`
+
+
+|===
+| :bulb: a|
+When the `fridgeId` of a `body` is updated, changes to the fridges will be made as follows:
+
+* Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `body`.
+
+* New fridge's status is set to `OCCUPIED` and is assigned this `body`.
+
+When you update the `CONTACT_POLICE` status of a `body`, the associated `notif` will be automatically deleted.
+
+When you update `bodyStatus` to `ARRIVED`, a `notif` pop-up will be shown after 10 seconds.
+
+|===
 
 There are some attributes that you can update once the entity is created. For this command,
 the list of valid attributes and their command prefixes can be found below:
@@ -261,6 +283,7 @@ the list of valid attributes and their command prefixes can be found below:
 | Body
 
 a|
+
 Name `/name` +
 Sex `/sex` +
 NRIC `/nric` +
@@ -316,15 +339,20 @@ and her new designation. You see that her ID number is W00001.
 
 Finds bodies or workers whose names contain any of the given keywords. +
 
-Below are some important information regarding this command:
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
 Format: `find (flag) (keyword)...`
+
+|===
+| :bulb: a|
+The search is case insensitive. e.g `hans` will match `Hans`
+
+The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+
+Only the name is searched.
+
+Only full words will be matched e.g. `Han` will not match `Hans`
+
+Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+|===
 
 Examples:
 
@@ -340,12 +368,23 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 
 ==== Deleting a person : `delete`
 
-Delete a body, worker or fridge entry, indicated by its id number. +
+You can delete a body, worker or fridge entry, using its id number. +
 Format: `delete -flag  id`
 
+|===
+| :bulb: a|
+When you delete a body, its associated notifications will also be deleted.
+
+If a fridge is occupied by a body, you cannot delete it.
+
+You only need to specify the number portion of the ID, without leading zeroes. Mortago will automatically convert it
+in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a body, worker or fridge entry respectively.
+|===
 
 ****
-* Deletes the body, worker or fridge entry with the specified identification number.
+* Deletes the body, worker or fridge entry with t
+he specified identification number.
+
 * The identification number is automatically generated when an entity is created and is in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
 body, worker or fridge entry respectively.
 X represents any digit.
@@ -355,6 +394,7 @@ X represents any digit.
 Examples:
 
 * `delete -w 1` +
+
 The worker with the identification number `W00001` will be deleted.
 
 // end::delete
@@ -419,20 +459,21 @@ Format: `dashboard`
 
 // end::dashboard[]
 
-// tag::alerts[]
+// tag::notifs[]
 
-==== View alerts panel: `alerts`
-View all alerts. Alerts are automatically generated by Mortago.
-Alerts are made when one of the following happens:
+==== View notifs panel: `notifs`
+View all notifications.
 
-* Next of kin could not be contacted within 24 hours from the time of arrival of the body.
-* The body is not claimed on the specified date of collection as specified by next of kin.
+A `notif` is automatically created when you could not contact the next of kin within 24 hours from the time
+of arrival of the body. For the purpose of testing, this period is set to 10 seconds instead of 24 hours.
+The `bodyStatus` will be automatically changed to `CONTACT_POLICE` if it is `ARRVIED` after the 10 second period.
+A pop-up window to remind you to contact the police will be shown so that they can search for the body's next of kin.
 
-Once the mortuary manager takes the relevant action, the alert will be automatically removed.
+Once you change the `bodyStatus`, the `notif` will be be deleted.
 
-Format: `alerts`
+Format: `notifs`
 
-// end::alerts[]
+// end::notifs[]
 
 // tag::sortfilter[]
 
@@ -457,17 +498,19 @@ All entries will be sorted and grouped according to their statuses.
 * `sort /order id asc` +
 All entries will be sorted according to their id number in ascending order.
 
-==== Filter body entries: `filter` `[coming in v2.0]`
-Filter all entries according to the given keyword in any of an entry’s attribute. All entries with matching keyword will be displayed. Keyword is case-insensitive.
+==== Filter all entries: `filter`
+This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
-All attributes of a body entry can be filtered. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
+All attributes of a body or worker entry can be filtered. If more than one attribute is specified, the entries displayed must fulfill all attributes. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
 
-Format: `filter (/attributeName attributeValue)...`
+Format: `filter -flag /attributeName attributeValue ...`
 
 Example:
-`filter /cod Car Accident`
-All body entries with car accident as the cause of death will be displayed.
+* `filter -w /sex female` +
+All female worker entries will be displayed.
 
+* `filter -b /cod Car Accident /sex male` +
+All body entries with car accident as the cause of death and those that are male will be displayed.
 // end::sortfilter[]
 
 // tag::undoredo[]
@@ -477,14 +520,17 @@ The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
 
-[TIP]
+|=== 
+|:bulb: a|
 Only commands that change Mortago's data can be undone. For example, `add`, `update`, `clear`, and `delete` can be undone while
 `list` or `find` cannot be undone.
-[TIP]
+
 You can `undo` a `clear` command, but note that you cannot redo any past undone commands after that.
-[TIP]
+
 Automated commands can be undone after they are executed as well.
 
+
+|===
 
 Example: +
 Imagine that you've accidentally deleted the wrong Body (John Doe) from Mortago. You can easily reverse that mistake with the `undo` command instead of adding John Doe all over again!
@@ -563,11 +609,24 @@ Format: `genReportSummary`
 // end::genReportSummary[]
 
 === Administrative
-==== View admission statistics
-View a line-chart of the number of bodies admitted to the morgue over the past 10 days.
+==== View admission statistics: `stats`
+This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
 
-The line-chart is on the main page of the application and is automatically updated when a body is added or deleted.
-No user command is needed to display it.
+The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days and is automatically updated when a body is added or deleted. You can change the time frame with the commands.
+
+The following is the correct format for typing in stats commands, with example usage:
+
+* To display the last 10 days: `stats` +
+The line chart will display statistics over the last 10 days.
+
+* To display a specific week: `stats /week 12/10/2019` +
+The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019.
+
+* To display a specific month: `stats /month 5/2019` +
+The line chart will display statistics or the month specified. In this case, it is May 2019.
+
+* To display a specific year: `stats /year 2019` +
+The line chart will display statistics for the year specified. In this case is it 2019.
 
 ==== Archive entries: `archive` `[coming in v2.0]`
 Archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
@@ -685,8 +744,8 @@ Lists emergency help hotlines.
 
 * *View dashboard* : `dashboard`
     ** Brings the dashboard to the front of the app.
-* *View alerts* : `alerts`
-    ** View all alerts brought up by the app.
+* *View notifs* : `notifs`
+    ** View all notifs brought up by the app.
 * *Sort* : `sort`
     ** Sort all displayed entries according to a given order. +
     Format: `sort /order order (/idOrder idOrder)`
