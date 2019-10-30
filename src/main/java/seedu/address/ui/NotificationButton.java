@@ -43,7 +43,7 @@ public class NotificationButton extends UiPart<Region> {
         super(FXML);
         notifButton.setGraphic(buttonIcon);
         notifButton.setStyle("-fx-border-width: 0");
-        initIconNumber();
+        initIconNumber(filteredListNotif);
         initPopOver(filteredListNotif);
     }
 
@@ -67,9 +67,9 @@ public class NotificationButton extends UiPart<Region> {
     /**
      * Initializes the icon number which indicates the number of active notifications.
      */
-    private void initIconNumber() {
+    private void initIconNumber(ObservableList<Notif> filteredListNotif) {
         iconNumber = new Label();
-        iconNumber.setText("0");
+        iconNumber.setText("" + filteredListNotif.size());
         iconNumber.getStyleClass().add("notificationButtonLabel");
         addJumpingAnimation();
         bindIconNumberToStackPane();

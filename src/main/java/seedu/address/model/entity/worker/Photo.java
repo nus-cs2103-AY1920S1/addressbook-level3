@@ -20,7 +20,8 @@ import seedu.address.commons.util.FileUtil;
  */
 public class Photo {
 
-    public static final String PATH_TO_EXAMPLE_PHOTO = "src/main/resources/images/ExamplePhoto.jpg";
+    public static final String PATH_TO_EXAMPLE_PHOTO = "src" + File.separator + "main" + File.separator
+            + "resources" + File.separator + "images" + File.separator + "ExamplePhoto.jpg";
     public static final String MESSAGE_CONSTRAINTS =
         "Error in importing display photo: Photo should be less than 2MB or it does not exist.";
     public static final String MESSAGE_DATA_COPY_ERROR =
