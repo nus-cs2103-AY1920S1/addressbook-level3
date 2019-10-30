@@ -72,7 +72,6 @@ public class AddCommand extends Command {
         default:
             throw new CommandException("command not found");
         }
-
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

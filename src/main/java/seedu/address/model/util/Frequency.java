@@ -19,4 +19,36 @@ public enum Frequency {
     public TemporalAmount getPeriod() {
         return period;
     }
+
+    /**
+     * Quasi-NLP superpowers using switch cases.
+     *
+     * TODO: daily: daily, every day, everyday, every night weekly: weekly, every
+     * week, every wk, wkly, wk fortnightly: fortnightly, every 2 weeks, every 2
+     * wks, every two weeks, every two wks, fortnight, fortnite monthly: monthly,
+     * mthly, mth quarterly: quarterly, qtrly anually: anually, yearly, every year,
+     * every yr
+     *
+     * @param stringFreq
+     * @return
+     */
+    public static Frequency parse(String stringFreq) {
+        String sanitized = stringFreq.trim().toLowerCase();
+        switch (sanitized) {
+        case "daily":
+            return DAILY;
+        case "fortnightly":
+            return FORTNIGHTLY;
+        case "monthly":
+            return MONTHLY;
+        case "quarterly":
+            return QUARTERLY;
+        case "yearly":
+        case "anually":
+            return ANUALLY;
+        case "weekly":
+        default:
+            return WEEKLY;
+        }
+    }
 }

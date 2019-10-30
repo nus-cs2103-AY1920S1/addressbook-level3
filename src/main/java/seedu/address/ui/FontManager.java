@@ -23,12 +23,6 @@ public class FontManager {
      */
     public FontManager() {}
 
-    /*public FontManager(FontName currentFontName) {
-        requireAllNonNull(fonts, currentFontName);
-        checkArgument(isValidFontName(currentFontName), MESSAGE_CONSTRAINTS);
-        this.currentFontName = currentFontName;
-    }*/
-
     /**
      * Generates a list of {@code FontName} from their string equivalents.
      * @return

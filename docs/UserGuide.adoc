@@ -46,8 +46,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [--desc <description>]`, `<description>` is a parameter which can be used as `addExpense --desc deck mala`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [n/<description>]`, `<description>` is a parameter which can be used as `addExpense n/deck mala`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/mala at deck t/mala` or as `n/mala at deck`.
 ====
 
 === Expenses and Income
@@ -116,23 +116,23 @@ Format: `deleteAutoExpenditure <index>`
 
 Adds the amount to your total income. Inputs can be arranged in a different order. Description may be omitted from the income record.
 
-Format: `addIncome [--desc <description>] --amt <income amount>`
+Format: `addIncome [n/<description>] amt/<income amount>`
 
 Examples:
 
-* `addIncome --amt 6000`
-* `addIncome --amt 1000 --desc year-end bonus!! :DD`
+* `addIncome amt/6000`
+* `addIncome amt/1000 n/year-end bonus!! :DD`
 
 ==== Editing Income : `editIncome`
 
 Edits a current income record at the given index number.
 
-Format: `editIncome <index> [--desc <description> --amt <income amount>] [--tag <tag>]`
+Format: `editIncome <index> [n/<description>] [amt/<income amount>] [t/<tag>]`
 
 Examples:
 
-* `editIncome 1 --desc salary for feb`
-* `editIncome 1 --desc february --amt 6500 --tag salary`
+* `editIncome 1 n/salary for feb`
+* `editIncome 1 n/february amt/650 t/salary`
 
 ==== Deleting Income : `deleteIncome`
 
@@ -201,27 +201,17 @@ Example:
 * `viewHistory -- cat income --period 11/9/2019`
 * `viewHistory -- cat expenditure --period ,2 21/9/2019`
 
-==== Sorting Time : `sortTime`
+==== Sorting : `sort`
 
-List of expenditure/ income currently displayed by viewHistory will be sorted according to time in increasing/ decreasing order.
+Sorts the aforementioned list currently displayed according to SortType which can be `amount, time, description, tags and category` ,
+and SortSequence which can be in `ascending, descending` order.
 
-Format: `sortTime order <ascending || descending>`
-
-Example:
-
-* `sortTime ascending`
-* `sortTime descending`
-
-==== Sorting Amount : `sortAmt`
-
-List of expenditure/ income currently displayed by viewHistory will be sorted according to amount in increasing/ decreasing order.
-
-Format: `sortAmt order <ascending || descending>`
+Format: `sort typ/<SortType> s/<SortSequence>`
 
 Example:
 
-* `sortAmt ascending`
-* `sortAmt descending`
+* `sort typ/amount s/ascending`
+* `sort typ/category s/descending`
 
 ==== Search : `search`
 
@@ -494,6 +484,40 @@ Examples:
 `delete 2` +
 `undo` (reverses the `delete 2` command) +
 `undo` (reverses the `delete 1` command)
+
+=== UI features
+
+==== Toggle Panel : `toggle`
+Toggles visibility of the specified panel on the GUI. Only the following inputs are accepted:
+
+* `wishlist`/`wishes`/`wish`/`w` for wishlist panel,
+* `budgets`/`budget`/`b` for budget panel, and
+* `reminders`/`reminder`/`r` for reminders panel
+Format: `toggle <panel_name>`
+
+Examples:
+
+* `toggle wishlist`
+* `toggle budget`
+* `toggle r`
+
+==== List Fonts : `listFont`
+Lists all available fonts the user can switch to.
+
+Format: `listFont`
+
+Example: `listFont`
+
+==== Change Font : `changeFont`
+Changes the font used in application to the specified font. The input is case-sensitive. Only the following font names are accepted:
+"arial", "calibri", "cambria", "candara", "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana"
+
+Format: `changeFont <font_name>`
+
+Examples:
+
+* `changeFont arial`
+* `changeFont segoe UI`
 
 == FAQ
 
