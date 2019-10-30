@@ -4,9 +4,12 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.model.cca.exceptions.CcaProgressAlreadySetException;
+import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 
 /**
  * Represents a Cca in the Jarvis parser.
@@ -61,19 +64,40 @@ public class Cca {
     }
 
     /**
+     * Gets the current progress percentage of the Cca.
+     */
+    public double getCcaProgressPercentage() throws MaxProgressNotSetException {
+        return ccaProgress.getCcaProgressPercentage();
+    }
+
+    /**
+     * Gets the current {@code CcaMilestone}.
+     */
+    public CcaMilestone getCurrentCcaMilestone() {
+        return ccaProgress.getCurrentCcaMilestone();
+    }
+
+    /**
+     * Gets the backing equipment list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Equipment> getFilteredEquipmentList() {
+        return equipmentList.asUnmodifiableObservableList();
+    }
+
+    /**
      * Returns true if the cca progresslist is empty.
      *
      * @return true if the cca progresslist is empty.
      */
-    public boolean ccaProgressListIsEmpty() {
-        return ccaProgress.ccaProgressListIsEmpty();
+    public boolean ccaMilestoneListIsEmpty() {
+        return ccaProgress.ccaMilestoneListIsEmpty();
     }
 
     /**
      * Adds a progresslist to the {@code CcaProgress}.
      */
     public void addProgress(CcaMilestoneList ccaMilestoneList) {
-        if (!ccaProgressListIsEmpty()) {
+        if (!ccaMilestoneListIsEmpty()) {
             throw new CcaProgressAlreadySetException();
         }
         ccaProgress.setMilestones(ccaMilestoneList);
@@ -84,6 +108,41 @@ public class Cca {
      */
     public void increaseProgress() {
         ccaProgress.increaseProgress();
+    }
+
+    /**
+     * Checks if the CcaProgress is already set.
+     */
+    public boolean containsProgress() {
+        return !ccaProgress.ccaMilestoneListIsEmpty();
+    }
+
+    /**
+     * Checks if the CcaProgress is at max.
+     */
+    public boolean progressAtMaxIncrement() {
+        return ccaProgress.progressAtMax();
+    }
+
+    /**
+     * Removes the {@code toRemoveCcaMilestoneList} from this Cca.
+     */
+    public void removeCcaMilestoneList(CcaMilestoneList toRemoveCcaMilestoneList) {
+        ccaProgress.setMilestones(new CcaMilestoneList());
+    }
+
+    /**
+     * Returns true of ccaProgress is at the minimum level.
+     */
+    public boolean ccaProgressAtMinLevel() {
+        return ccaProgress.progressAtMin();
+    }
+
+    /**
+     * Decreases the progress of the {@code Cca}.
+     */
+    public void decreaseProgress() {
+        ccaProgress.decreaseProgress();
     }
 
     /**
@@ -137,5 +196,4 @@ public class Cca {
                 .append(getEquipmentList());
         return builder.toString();
     }
-
 }

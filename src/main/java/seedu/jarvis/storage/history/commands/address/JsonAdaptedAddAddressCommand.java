@@ -15,7 +15,7 @@ import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
  */
 public class JsonAdaptedAddAddressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
-    public static final String MESSAGE_INVALID_COMMAND = "This command is not an AddAddressCommand.";
+    public static final String MESSAGE_INVALID_PERSON = "Invalid person.";
 
     private final JsonAdaptedPerson toAdd;
 
@@ -48,6 +48,9 @@ public class JsonAdaptedAddAddressCommand extends JsonAdaptedCommand implements 
      */
     @Override
     public Command toModelType() throws IllegalValueException {
+        if (toAdd == null) {
+            throw new IllegalValueException(MESSAGE_INVALID_PERSON);
+        }
         return new AddAddressCommand(toAdd.toModelType());
     }
 

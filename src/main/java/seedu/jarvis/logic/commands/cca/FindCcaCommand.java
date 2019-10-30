@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.logic.commands.Command;
@@ -65,9 +66,10 @@ public class FindCcaCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredCcaList(predicate);
+        model.setViewStatus(LIST_CCA);
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_CCAS_LISTED_OVERVIEW, model.getFilteredCcaList().size()));
+                String.format(Messages.MESSAGE_CCAS_LISTED_OVERVIEW, model.getFilteredCcaList().size()), true);
     }
 
     /**

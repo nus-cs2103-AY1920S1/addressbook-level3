@@ -3,12 +3,11 @@ package seedu.jarvis.ui;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -23,6 +22,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
+import seedu.jarvis.ui.course.CoursePlannerWindow;
 import seedu.jarvis.ui.finance.FinanceListView;
 import seedu.jarvis.ui.template.View;
 
@@ -127,9 +127,10 @@ public class MainWindow extends UiPart<Stage> {
          * in CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
+            if (event.getCode() == KeyCode.TAB) {
                 event.consume();
+                model.setViewStatus(ViewType.getNextViewType(model.getViewStatus().getViewType()));
+                handleSwitch();
             }
         });
     }
@@ -182,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -245,9 +246,14 @@ public class MainWindow extends UiPart<Stage> {
             toUpdatePlaceHolder = financeContentPlaceholder;
             break;
 
+        case LIST_COURSE:
+            newView = new CoursePlannerWindow(this, logic, model);
+            toUpdatePlaceHolder = moduleContentPlaceholder;
+            break;
+
         default:
             resultDisplay.setFeedbackToUser(
-                    String.format(MESSAGE_VIEW_NOT_IMPLEMENTED, currentViewType.toString()));
+                String.format(MESSAGE_VIEW_NOT_IMPLEMENTED, currentViewType.toString()));
             return;
         }
 

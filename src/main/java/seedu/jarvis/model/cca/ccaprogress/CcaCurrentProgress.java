@@ -1,18 +1,18 @@
 package seedu.jarvis.model.cca.ccaprogress;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
-import seedu.jarvis.model.cca.exceptions.CcaProgressAtMaxException;
 import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
-import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 
 /**
  * A wrapper class containing the progress of the current cca.
  */
 public class CcaCurrentProgress {
 
-    private int maxProgress = 0;
-    private int currentProgress = 0;
+    private static final String MESSAGE_CONSTRAINTS = "Current progress cannot be smaller than 1.";
+
+    private int currentProgress = 1;
 
     /**
      * Default constructor used.
@@ -21,8 +21,9 @@ public class CcaCurrentProgress {
 
     }
 
-    public int getMaxProgress() {
-        return maxProgress;
+    public void setCurrentProgress(int currentProgress) {
+        checkArgument(numberIsLargerThanZero(currentProgress), MESSAGE_CONSTRAINTS);
+        this.currentProgress = currentProgress;
     }
 
     public int getCurrentProgress() {
@@ -33,9 +34,6 @@ public class CcaCurrentProgress {
      * Increments the current progress by 1.
      */
     public void increaseProgress() {
-        if (currentProgress >= maxProgress) {
-            throw new CcaProgressAtMaxException();
-        }
         currentProgress++;
     }
 
@@ -43,70 +41,28 @@ public class CcaCurrentProgress {
      * Decreases the current progress by 1.
      */
     public void decreaseProgress() {
-        if (lessThanOne(currentProgress)) {
+        if (progressAtMin()) {
             throw new CcaProgressAtZeroException();
         }
         currentProgress--;
-    }
-
-    /**
-     * Sets the maximum progress.
-     *
-     * @param maxProgress needed.
-     */
-    public void setMaxProgress(int maxProgress) {
-        this.maxProgress = maxProgress;
-    }
-
-    /**
-     * Sets the current progress.
-     *
-     * @param currentProgress to be updated.
-     */
-    public void setCurrentProgress(int currentProgress) {
-        this.currentProgress = currentProgress;
-    }
-
-    /**
-     * Returns the current progress as a percentage of the max progress.
-     *
-     * @return the current progress as a percentage of the max progress.
-     */
-    public float getProgressPercentage() {
-        if (isNotSet(maxProgress)) {
-            throw new MaxProgressNotSetException();
-        }
-        return currentProgress / maxProgress;
     }
 
 
     //// util methods
 
     /**
-     * Method to check whether a number is less than one.
-     *
-     * @param num
-     * @return a boolean.
+     * Returns true of the progress is at 1.
      */
-    public boolean lessThanOne(int num) {
-        requireNonNull(num);
-        if (num < 1) {
-            return true;
-        }
-        return false;
+    public boolean progressAtMin() {
+        return currentProgress == 1;
     }
 
     /**
-     * Method to check if max progress is not yet set.
-     *
-     * @param maxProgress
-     * @return true if max progress is 0.
+     * Returns true if a number is larger than 0.
      */
-    private boolean isNotSet(int maxProgress) {
-        if (maxProgress == 0) {
-            return true;
-        }
-        return false;
+    public boolean numberIsLargerThanZero(int num) {
+        requireNonNull(num);
+        return num > 0;
     }
 
     @Override
@@ -120,8 +76,6 @@ public class CcaCurrentProgress {
         }
 
         CcaCurrentProgress otherCcaCurrentProgress = (CcaCurrentProgress) other;
-        return otherCcaCurrentProgress.maxProgress == this.maxProgress
-                && otherCcaCurrentProgress.currentProgress == this.currentProgress;
+        return otherCcaCurrentProgress.currentProgress == this.currentProgress;
     }
-
 }

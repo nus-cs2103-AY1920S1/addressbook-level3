@@ -3,6 +3,9 @@ package seedu.jarvis.logic.commands.finance;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 
+import java.util.Objects;
+import java.util.Optional;
+
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -34,14 +37,23 @@ public class SetMonthlyLimitCommand extends Command {
     public static final boolean HAS_INVERSE = true;
 
     private MonthlyLimit originalLimit;
-    private final MonthlyLimit toSet;
+    private final MonthlyLimit updatedLimit;
 
     /**
-     * Creates a {@code SetMonthlyLimitCommand} to add the specified (@code MonthlyLimit}.
+     * Creates a {@code SetMonthlyLimitCommand} to update the specified (@code MonthlyLimit} and the original
+     * {@code MonthlyLimit}.
      */
-    public SetMonthlyLimitCommand(MonthlyLimit monthlyLimit) {
-        requireNonNull(monthlyLimit);
-        toSet = monthlyLimit;
+    public SetMonthlyLimitCommand(MonthlyLimit updatedLimit, MonthlyLimit originalLimit) {
+        requireNonNull(updatedLimit);
+        this.updatedLimit = updatedLimit;
+        this.originalLimit = originalLimit;
+    }
+
+    /**
+     * Creates a {@code SetMonthlyLimitCommand} to update the specified (@code MonthlyLimit}.
+     */
+    public SetMonthlyLimitCommand(MonthlyLimit updatedLimit) {
+        this(updatedLimit, null);
     }
 
     /**
@@ -52,6 +64,24 @@ public class SetMonthlyLimitCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the original {@code MonthlyLimit} before the update wrapped in an {@code Optional}.
+     *
+     * @return original {@code MonthlyLimit} before the update wrapped in an {@code Optional}.
+     */
+    public Optional<MonthlyLimit> getOriginalLimit() {
+        return Optional.ofNullable(originalLimit);
+    }
+
+    /**
+     * Gets the updated {@code MonthlyLimit}.
+     *
+     * @return updated {@code MonthlyLimit}.
+     */
+    public MonthlyLimit getUpdatedLimit() {
+        return updatedLimit;
     }
 
     /**
@@ -80,8 +110,8 @@ public class SetMonthlyLimitCommand extends Command {
             originalLimit = model.getMonthlyLimit().get();
         }
 
-        model.setMonthlyLimit(toSet);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toSet), true);
+        model.setMonthlyLimit(updatedLimit);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedLimit), true);
     }
 
     /**
@@ -108,8 +138,15 @@ public class SetMonthlyLimitCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this
-                || (other instanceof SetMonthlyLimitCommand)
-                && toSet.equals(((SetMonthlyLimitCommand) other).toSet);
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof SetMonthlyLimitCommand)) {
+            return false;
+        }
+
+        SetMonthlyLimitCommand command = (SetMonthlyLimitCommand) other;
+        return updatedLimit.equals(command.updatedLimit) && Objects.equals(originalLimit, command.originalLimit);
     }
 }

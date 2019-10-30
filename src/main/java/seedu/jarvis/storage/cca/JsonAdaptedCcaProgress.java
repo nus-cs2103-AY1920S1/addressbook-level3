@@ -41,7 +41,7 @@ public class JsonAdaptedCcaProgress implements JsonAdapter<CcaProgress> {
      * @param ccaProgress {@code CcaProgress} to be used to construct the {@code JsonAdaptedCcaProgress}.
      */
     public JsonAdaptedCcaProgress(CcaProgress ccaProgress) {
-        ccaProgressList.addAll(ccaProgress.getCcaProgressList()
+        ccaProgressList.addAll(ccaProgress.getCcaMilestoneList()
                 .asUnmodifiableObservableList()
                 .stream()
                 .map(JsonAdaptedCcaMilestone::new)

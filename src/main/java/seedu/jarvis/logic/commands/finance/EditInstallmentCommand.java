@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 
@@ -53,20 +54,71 @@ public class EditInstallmentCommand extends Command {
     /**
      * Creates a {@code EditInstallmentCommand} to edit the specified {@code Installment}.
      *
+     * @param index of the installment in the installment list to editx
+     * @param editInstallmentDescriptor details to edit the installment with
+     * @param originalInstallment of the edited installment before it was edited.
+     * @param editedInstallment after the edit.
+     */
+    public EditInstallmentCommand(Index index, EditInstallmentDescriptor editInstallmentDescriptor,
+                                  Installment originalInstallment, Installment editedInstallment) {
+        requireAllNonNull(index, editInstallmentDescriptor);
+        this.index = index;
+        this.editInstallmentDescriptor = editInstallmentDescriptor;
+        this.originalInstallment = originalInstallment;
+        this.editedInstallment = editedInstallment;
+    }
+
+    /**
+     * Creates a {@code EditInstallmentCommand} to edit the specified {@code Installment}.
+     *
      * @param index of the installment in the installment list to edit
      * @param editInstallmentDescriptor details to edit the installment with
      */
     public EditInstallmentCommand(Index index, EditInstallmentDescriptor editInstallmentDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editInstallmentDescriptor);
-
-        this.index = index;
-        this.editInstallmentDescriptor = editInstallmentDescriptor;
+        this(index, editInstallmentDescriptor, null, null);
     }
 
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the {@code Index} of the installment to be edited.
+     *
+     * @return {@code Index} of the installment to be edited.
+     */
+    public Index getIndex() {
+        return index;
+    }
+
+    /**
+     * Gets the {@code EditInstallmentDescriptor} containing the details of the edit.
+     *
+     * @return {@code EditInstallmentDescriptor} containing the details of the edit.
+     */
+    public EditInstallmentDescriptor getEditInstallmentDescriptor() {
+        return editInstallmentDescriptor;
+    }
+
+    /**
+     * Gets the original {@code Installment} wrapped in an {@code Optional} before the edit, which is empty if the edit
+     * has not been made.
+     *
+     * @return {@code Optional} of {@code Installment} before the edit, or empty if the person has not been edited.
+     */
+    public Optional<Installment> getOriginalInstallment() {
+        return Optional.ofNullable(originalInstallment);
+    }
+
+    /**
+     * Gets the edited {@code Installment} wrapped in an {@code Optional}, which is empty if the installment has not
+     * been edited.
+     *
+     * @return {@code Optional} of edited {@code Installment}, which is empty if the installment has not been edited.
+     */
+    public Optional<Installment> getEditedInstallment() {
+        return Optional.ofNullable(editedInstallment);
     }
 
     /**

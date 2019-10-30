@@ -28,6 +28,7 @@ import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.commands.course.AddCourseCommand;
 import seedu.jarvis.logic.commands.course.CheckCommand;
 import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
+import seedu.jarvis.logic.commands.course.ListCourseCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
@@ -118,12 +119,6 @@ public class JarvisParserTest {
     }
 
     @Test
-    public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
-    }
-
-    @Test
     public void parseCommand_lookUp() throws Exception {
         assertThrows(ParseException.class, () -> parser.parseCommand(LookUpCommand.COMMAND_WORD));
         assertTrue(parser.parseCommand(LookUpCommand.COMMAND_WORD + " " + PREFIX_COURSE + "CS3230")
@@ -160,7 +155,19 @@ public class JarvisParserTest {
     }
 
     @Test
+    public void parseCommand_listCourse() throws Exception {
+        assertTrue(parser.parseCommand(ListCourseCommand.COMMAND_WORD) instanceof ListCourseCommand);
+        assertTrue(parser.parseCommand(ListCourseCommand.COMMAND_WORD + " 3") instanceof ListCourseCommand);
+    }
+
+    @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_unrecognisedInput_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
+            -> parser.parseCommand(""));
     }
 }

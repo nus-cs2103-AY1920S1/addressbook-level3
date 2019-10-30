@@ -34,6 +34,11 @@ public class AddCcaCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Cca added: %1$s";
     public static final String MESSAGE_DUPLICATE_CCA = "This cca already exists in the cca tracker.";
 
+    public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Cca: %1$s";
+    public static final String MESSAGE_INVERSE_CCA_NOT_FOUND = "Cca already deleted: %1$s";
+
+    public static final boolean HAS_INVERSE = false;
+
     private final Cca toAddCca;
 
     /**
@@ -54,9 +59,18 @@ public class AddCcaCommand extends Command {
         return COMMAND_WORD;
     }
 
+    /**
+     * Gets the {@code Cca} that was added.
+     *
+     * @return {@code Cca} that was added.
+     */
+    public Cca getAddedCca() {
+        return toAddCca;
+    }
+
     @Override
     public boolean hasInverseExecution() {
-        return false;
+        return HAS_INVERSE;
     }
 
     @Override
@@ -74,7 +88,15 @@ public class AddCcaCommand extends Command {
 
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (!model.containsCca(toAddCca)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_CCA_NOT_FOUND, toAddCca));
+        }
+
+        model.removeCca(toAddCca);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAddCca));
     }
 
     @Override

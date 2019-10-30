@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
@@ -15,6 +16,7 @@ import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.course.Course;
 import seedu.jarvis.storage.Storage;
 
 /**
@@ -105,5 +107,17 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    // Course Planner ====================================================================
+
+    @Override
+    public ObservableList<Course> getUnfilteredCourseList() {
+        return model.getUnfilteredCourseList();
+    }
+
+    @Override
+    public ObservableStringValue getCourseTextDisplay() {
+        return model.getDisplayText();
     }
 }

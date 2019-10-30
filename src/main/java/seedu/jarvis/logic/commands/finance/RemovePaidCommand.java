@@ -2,6 +2,9 @@ package seedu.jarvis.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+import java.util.Optional;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -32,16 +35,23 @@ public class RemovePaidCommand extends Command {
 
     private final Index targetIndex;
 
-    private Purchase toDelete;
+    private Purchase deletedPurchase;
 
     /**
-     * Creates a {@code RemovePaidCommand} and sets the targetIndex to the {@code Index}
-     * of the {@code Purchase} to be deleted.
+     * Creates a {@code RemovePaidCommand} and sets the targetIndex to the {@code Index} of the {@code Purchase} to be
+     * deleted.
      *
      * @param targetIndex of the {@code Purchase} to be deleted
+     * @param deletedPurchase {@code Purchase} that was deleted, can be null.
      */
-    public RemovePaidCommand(Index targetIndex) {
+    public RemovePaidCommand(Index targetIndex, Purchase deletedPurchase) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
+        this.deletedPurchase = deletedPurchase;
+    }
+
+    public RemovePaidCommand(Index targetIndex) {
+        this(targetIndex, null);
     }
 
     /**
@@ -52,6 +62,24 @@ public class RemovePaidCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the {@code Index} of the purchase to be deleted.
+     *
+     * @return {@code Index} of the purchase to be deleted.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the {@code Purchase} that was deleted wrapped in {@code Optional}.
+     *
+     * @return {@code Purchase} that was deleted wrapped in {@code Optional}.
+     */
+    public Optional<Purchase> getDeletedPurchase() {
+        return Optional.ofNullable(deletedPurchase);
     }
 
     /**
@@ -77,9 +105,9 @@ public class RemovePaidCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            toDelete = model.getPurchase(targetIndex.getOneBased());
+            deletedPurchase = model.getPurchase(targetIndex.getOneBased());
             model.deletePurchase(targetIndex.getOneBased());
-            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS, toDelete));
+            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS, deletedPurchase));
         } catch (PurchaseNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_PURCHASE_DISPLAYED_INDEX);
         }
@@ -98,15 +126,22 @@ public class RemovePaidCommand extends Command {
     public CommandResult executeInverse(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addPurchase(targetIndex.getZeroBased(), toDelete);
+        model.addPurchase(targetIndex.getZeroBased(), deletedPurchase);
 
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, toDelete));
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedPurchase));
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this
-                || (other instanceof RemovePaidCommand
-                && targetIndex.equals((((RemovePaidCommand) other).targetIndex)));
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof RemovePaidCommand)) {
+            return false;
+        }
+
+        RemovePaidCommand command = (RemovePaidCommand) other;
+        return targetIndex.equals(command.targetIndex) && Objects.equals(deletedPurchase, command.deletedPurchase);
     }
 }
