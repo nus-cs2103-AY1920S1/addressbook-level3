@@ -11,7 +11,7 @@ import seedu.jarvis.storage.JsonAdapter;
  * Jackson-friendly version of {@link CcaMilestone}.
  */
 public class JsonAdaptedCcaMilestone implements JsonAdapter<CcaMilestone> {
-    public final String fullName;
+    private final String fullName;
 
     /**
      * Converts a given {@code CcaMilestone} into this class for Jackson use.

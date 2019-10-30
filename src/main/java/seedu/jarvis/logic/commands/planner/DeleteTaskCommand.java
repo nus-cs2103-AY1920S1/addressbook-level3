@@ -3,6 +3,7 @@ package seedu.jarvis.logic.commands.planner;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
@@ -14,6 +15,9 @@ import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.viewstatus.ViewType;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDeleteTaskCommand;
 
 /**
  * Deletes a task from JARVIS
@@ -43,6 +47,7 @@ public class DeleteTaskCommand extends Command {
      * @param deletedTask {@code Task} that was deleted, which is null if the task has not been deleted
      */
     public DeleteTaskCommand(Index targetIndex, Task deletedTask) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
         this.deletedTask = deletedTask;
     }
@@ -53,7 +58,7 @@ public class DeleteTaskCommand extends Command {
      * @param targetIndex {@code Index} of the {@code Task} to be deleted
      */
     public DeleteTaskCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        this(targetIndex, null);
     }
 
     /**
@@ -71,6 +76,14 @@ public class DeleteTaskCommand extends Command {
      */
     public Index getTargetIndex() {
         return targetIndex;
+    }
+
+    /**
+     * Gets the {@code Task} that was deleted wrapped in an {@code Optional}.
+     * @return {@code Task} that was deleted wrapped in an {@code Optional}.
+     */
+    public Optional<Task> getDeletedTask() {
+        return Optional.ofNullable(deletedTask);
     }
 
     /**
@@ -129,6 +142,17 @@ public class DeleteTaskCommand extends Command {
         model.addTask(targetIndex.getZeroBased(), deletedTask);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedTask));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedDeleteTaskCommand(this);
     }
 
     @Override

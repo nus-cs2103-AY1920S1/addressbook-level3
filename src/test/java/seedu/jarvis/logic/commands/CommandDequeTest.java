@@ -14,9 +14,8 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotFoundException;
-import seedu.jarvis.model.Model;
+import seedu.jarvis.testutil.CommandStub;
 
 /**
  * Tests the behaviour of {@code CommandDeque}.
@@ -237,31 +236,4 @@ public class CommandDequeTest {
         assertEquals(sizeLimit, commandDeque.getSize());
     }
 
-    /**
-     * {@code CommandStub} to be added to {@code CommandDeque}.
-     * {@code CommandStub} returns true when checked for having an inverse execution.
-     * {@code CommandStub} should not be executed or inversely executed and will throw an {@code AssertionError} if it
-     * is executed or inversely executed.
-     */
-    private static class CommandStub extends Command {
-        @Override
-        public String getCommandWord() {
-            throw new AssertionError("This message should not be called.");
-        }
-
-        @Override
-        public boolean hasInverseExecution() {
-            return true;
-        }
-
-        @Override
-        public CommandResult execute(Model model) throws CommandException {
-            throw new AssertionError("This message should not be called.");
-        }
-
-        @Override
-        public CommandResult executeInverse(Model model) throws CommandException {
-            throw new AssertionError("This message should no be called.");
-        }
-    }
 }

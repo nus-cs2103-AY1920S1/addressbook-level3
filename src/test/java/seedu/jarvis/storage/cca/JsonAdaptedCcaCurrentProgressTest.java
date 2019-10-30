@@ -13,10 +13,8 @@ public class JsonAdaptedCcaCurrentProgressTest {
 
     @Test
     public void toModelType_returnsCcaCurrentProgress() throws Exception {
-        int maxProgress = 100;
         int currentProgress = 50;
         CcaCurrentProgress ccaCurrentProgress = new CcaCurrentProgress();
-        ccaCurrentProgress.setMaxProgress(maxProgress);
         ccaCurrentProgress.setCurrentProgress(currentProgress);
         JsonAdaptedCcaCurrentProgress jsonAdaptedCcaCurrentProgress = new JsonAdaptedCcaCurrentProgress(
                 ccaCurrentProgress);

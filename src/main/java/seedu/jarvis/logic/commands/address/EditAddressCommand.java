@@ -29,6 +29,9 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.address.JsonAdaptedEditAddressCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -124,7 +127,8 @@ public class EditAddressCommand extends Command {
     }
 
     /**
-     * Gets the original {@code Person} before the edit, which is null if the edit has not been made.
+     * Gets the original {@code Person} wrapped in an {@code Optional} before the edit,
+     * which is empty if the edit has not been made.
      *
      * @return {@code Optional} of {@code Person} before the edit, or empty if the person has not been edited.
      */
@@ -133,7 +137,7 @@ public class EditAddressCommand extends Command {
     }
 
     /**
-     * Gets the edited {@code Person}, which is null if the person has not been edited.
+     * Gets the edited {@code Person} wrapped in an {@code Optional}, which is empty if the person has not been edited.
      *
      * @return {@code Optional} of edited {@code Person}, which is empty if the person has not been edited.
      */
@@ -215,6 +219,17 @@ public class EditAddressCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedEditAddressCommand(this);
     }
 
     /**

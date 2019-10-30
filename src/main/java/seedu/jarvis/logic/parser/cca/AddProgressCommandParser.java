@@ -2,7 +2,6 @@ package seedu.jarvis.logic.parser.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVELS;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
 
 import java.util.stream.Stream;
@@ -26,7 +25,7 @@ public class AddProgressCommandParser implements Parser<AddProgressCommand> {
     public AddProgressCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argumentMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PROGRESS_LEVELS, PREFIX_PROGRESS_LEVEL_NAMES);
+                ArgumentTokenizer.tokenize(args, PREFIX_PROGRESS_LEVEL_NAMES);
 
         Index index;
 
@@ -38,7 +37,7 @@ public class AddProgressCommandParser implements Parser<AddProgressCommand> {
         }
 
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_PROGRESS_LEVELS, PREFIX_PROGRESS_LEVEL_NAMES)) {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_PROGRESS_LEVEL_NAMES)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProgressCommand.MESSAGE_USAGE));
         }
 

@@ -328,10 +328,31 @@ public class FinanceTracker {
     }
 
     /**
+     * Calculates total expenditure by user for this month.
+     */
+    public double calculateTotalSpending() {
+        double totalAmount = purchaseList.getTotalSpending()
+                + installmentList.getTotalMoneySpentOnInstallments();
+        return totalAmount;
+    }
+
+    /**
+     * Calculates remaining available amount by user.
+     */
+    public double calculateRemainingAmount() {
+        totalSpending = calculateTotalSpending();
+        double remainingAmount = -1;
+        if (getMonthlyLimit().isPresent()) {
+            remainingAmount = monthlyLimit.getMonthlyLimit() - totalSpending;
+        }
+        return remainingAmount;
+    }
+
+    /**
      * Lists all purchases and payments from this month.
      */
     public void listSpending() {
-        totalSpending = purchaseList.totalSpending() + installmentList.getTotalMoneySpentOnInstallments();
+        totalSpending = purchaseList.getTotalSpending() + installmentList.getTotalMoneySpentOnInstallments();
         System.out.println("Here are your expenditures this month! Your current expenses are at: $" + totalSpending);
         installmentList.toString();
         purchaseList.toString();

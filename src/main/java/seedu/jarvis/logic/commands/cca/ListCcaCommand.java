@@ -2,15 +2,17 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.viewstatus.ViewType;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all Ccas in the Cca Tracker to the user.
  */
 public class ListCcaCommand extends Command {
 
@@ -47,8 +49,8 @@ public class ListCcaCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setViewStatus(ViewType.LIST_CCA);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
@@ -61,5 +63,16 @@ public class ListCcaCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NO_INVERSE);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        throw new InvalidCommandToJsonException();
     }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
@@ -16,6 +17,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.course.Course;
 import seedu.jarvis.storage.Storage;
 
 /**
@@ -108,6 +110,17 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    public ObservableList<Command> getExecutedCommandsList() {
+        return model.getExecutedCommandsList();
+    }
+
+    @Override
+    public ObservableList<Command> getInverselyExecutedCommandsList() {
+        return model.getInverselyExecutedCommandsList();
+    }
+
+    // Planner ===========================================================================
+    
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         return model.getFilteredTaskList();
@@ -116,5 +129,19 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getUnfilteredTaskList() {
         return model.getUnfilteredTaskList();
+
+    }
+
+
+    // Course Planner ====================================================================
+
+    @Override
+    public ObservableList<Course> getUnfilteredCourseList() {
+        return model.getUnfilteredCourseList();
+    }
+
+    @Override
+    public ObservableStringValue getCourseTextDisplay() {
+        return model.getDisplayText();
     }
 }
