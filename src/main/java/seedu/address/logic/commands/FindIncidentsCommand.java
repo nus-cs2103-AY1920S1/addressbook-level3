@@ -13,8 +13,6 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
-import seedu.address.model.incident.DescriptionKeywordsPredicate;
-import seedu.address.model.incident.IdKeywordsPredicate;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.NameKeywordsPredicate;
 import seedu.address.model.person.Name;
@@ -46,10 +44,6 @@ public class FindIncidentsCommand extends Command {
     private boolean isSelfSearch = false;
     private List<Predicate> predicateArr = new ArrayList<>();
 
-    public FindIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
-        this.predicate = descriptionPredicate;
-    }
-
     public FindIncidentsCommand(List<Predicate> predicateArr) {
         this.predicateArr = predicateArr;
         combinePredicates();
@@ -63,8 +57,11 @@ public class FindIncidentsCommand extends Command {
         }
     }
 
+    /**
+     * Combines predicates if there are multiple predicates
+     */
     private void combinePredicates() {
-        if(predicateArr.size() != 1) {
+        if (predicateArr.size() != 1) {
             for (int i = 0; i < predicateArr.size() - 1; i++) {
                 this.predicate = predicateArr.get(i).and(predicateArr.get(i + 1));
             }

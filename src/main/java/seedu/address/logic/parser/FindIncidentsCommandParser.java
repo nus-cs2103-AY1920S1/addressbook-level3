@@ -13,7 +13,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindIncidentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.incident.*;
+import seedu.address.model.incident.Description;
+import seedu.address.model.incident.DescriptionKeywordsPredicate;
+import seedu.address.model.incident.IdKeywordsPredicate;
+import seedu.address.model.incident.IncidentId;
+import seedu.address.model.incident.NameKeywordsPredicate;
 import seedu.address.model.person.Name;
 
 /**
