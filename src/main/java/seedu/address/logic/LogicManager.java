@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.SellerManagerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CalendarDate;
 import seedu.address.model.Model;
@@ -35,7 +35,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final SellerManagerParser sellerManagerParser;
     private final Statistic statistic;
     private final CommandHistory commandHistory = CommandHistory.getCommandHistory();
     private final UndoRedoStack undoRedoStack = UndoRedoStack.getUndoRedoStack();
@@ -45,8 +45,8 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         this.statistic = statistic;
-        addressBookParser = new AddressBookParser();
         graphGenerator = new GraphGenerator(model);
+        sellerManagerParser = new SellerManagerParser();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
 
 
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = sellerManagerParser.parseCommand(commandText);
             commandResult = command.execute(model, commandHistory, undoRedoStack);
             storage.saveCustomerBook(model.getCustomerBook());
             storage.savePhoneBook(model.getPhoneBook());
