@@ -72,7 +72,8 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadMemberListView(Logic logic) {
-        MemberListPanel memberListPanel = new MemberListPanel(logic.getProjectDashboard().getMemberList());
+        MemberListPanel memberListPanel = new MemberListPanel(logic.getProjectDashboard().getMemberList(),
+                logic.getProjectDashboard().getTaskList(), logic.getProjectDashboard().getTasMemMappingList());
         userViewController.setUserView(memberListPanel);
     }
 
@@ -144,7 +145,8 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadFoundMembersView(Logic logic) {
-        MemberListPanel memberListPanel = new MemberListPanel(logic.getFilteredMemberList());
+        MemberListPanel memberListPanel = new MemberListPanel(logic.getFilteredMemberList(),
+                logic.getProjectDashboard().getTaskList(),logic.getProjectDashboard().getTasMemMappingList());
         userViewController.setUserView(memberListPanel);
     }
 

@@ -199,4 +199,8 @@ public class Task {
         }
         return builder.toString();
     }
+
+    public String toStringShort() {
+        return name.fullName;
+    }
 }

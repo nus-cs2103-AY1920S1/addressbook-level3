@@ -68,7 +68,7 @@ public class SetImageCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEMBER);
         }
 
-        if (editedMember.getImage() == null) {
+        if (editedMember.getImage().errorProperty().getValue()) {
             throw new CommandException(MESSAGE_NO_IMAGE_FOUND);
         }
 

@@ -94,6 +94,12 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.split_pane_indiv {
+    -fx-background-color: #3c3e3f;
+}
+
+
+
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
@@ -154,7 +160,8 @@
 }
 
 .tasks_text {
-    -fx-font-color: #010504;
+    -fx-fill: white;
+    -fx-font-size: 14px;
 }
 
 .stack-pane {

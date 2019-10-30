@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -42,6 +43,8 @@ public class IndivMemberCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private Text listTasks;
+    @FXML
+    private SplitPane split_pane_indiv;
 
     public IndivMemberCard(Member member, int displayedIndex) {
         super(FXML);
@@ -85,7 +88,7 @@ public class IndivMemberCard extends UiPart<Region> {
         String listOfTasks = "";
 
         for (int i = 0; i < tasks.size(); i++) {
-            listOfTasks += (i+1) + ". " + tasks.get(i).toString() + "\n";
+            listOfTasks += (i+1) + ". " + tasks.get(i).toStringShort() + "\n";
         }
 
         listTasks.setText(listOfTasks);
