@@ -39,7 +39,7 @@ So, is TravEzy for you?
 
 IF you answered yes to the questions above, then __yes__ it is. If not, it still is :)
 
-What is Travezy? TravEzy is a desktop application with a command line interface (CLI) which is *perfect* for NUS students who love travelling as much as we do. What's more, with a (CLI), you will be able to type in your commands much faster than similar applications which require you to keep using your mouse
+What is TravEzy? TravEzy is a desktop application with a command line interface (CLI) and is *perfect* for NUS students who love travelling as much as we do. What's more, with a (CLI), you will be able to type in your commands much faster than similar applications which require you to keep using your mouse
 
 
 TravEzy is perfect for:
@@ -104,7 +104,7 @@ We've split up this guide into the different portions of our application, namely
 . Achievements
 
 
-In each portion, you will find the commands that you can type to begin making use of the feature.
+In each section, you will find the commands that you can type to begin making use of the features.
 We have provided the word that you type into TravEzy to trigger the
 command, or the _Command Word_  in a special format, for example -  ``Command Word``. With this, there
 is a short description of the command as well.
@@ -196,7 +196,86 @@ Note: Both Goto Command and Exit Command are implemented in every features  resp
 
 == Calendar
 
-Gives you an overview of when you will be free to travel and recommends when will be a suitable time to travel.
+We have all been there. It's the end of the semester but we still have orientation camps to plan, upcoming projects for our CCA, hackathons to attend, internships to complete, family commitments, etc. However, we have worked so hard and *really* want to go for a trip with our friends and unwind. Sounds like you this semester? 
+
+Well, TravEzy has got you covered. Simply inform TravEzy of your schedule (your commitments, school breaks and public holidays) and TravEzy will suggest periods of time when you can travel! Excited to find out more? Well... Read on!
+
+=== Interface
+
+=== Parameters
+
+Let us find out what are the main parameters (or fields, just like those which you fill up in a regular form📝).
+
+. DAY. This refers to which day of the month (e.g. *1*, *2*, ..., *31* of January). To specify the day, simply place ``d/`` before it. 
+
+For example, if you would like to specify that is it first of January, key in:
+
+    d/1
+
+. MONTH. This refers to which month (i.e. *January*, *February*, *March*, ..., *December*) you would like to refer to. To specify the month, just place ``m``. Since people have different ways of specifying month, TravEzy has tried to accommodate these differences. In particular, you may choose to refer to it using numbers (with *1* referring to *January*, *2* referring to *February*, etc.) or you may choose to refer to it using words. Please type *at least the first three letters* of the month 😄. 
+
+Referring to the previous example, to specify that it is January, you can type:
+
+    m/1
+    
+or you can type:
+
+    m/Jan
+
+or:
+
+    m/January
+    
+. YEAR. This refers to which year (i.e. *2019*, *2020*, ...) you are referring to. To indicate the year, prepend the year with ``y/``. Since TravEzy allows you to refer to any year between 1970 and 2200 (because travelling in time is fun too!), please key in a *4 digit number* . If otherwise, it would be confused 😔. 
+
+For instance, if you want to specify the year 2019, just key in:
+
+    y/2019
+
+. END DAY. This refers to the day of the last date. This is very similar to how you would specify the (start) DAY, as mentioned in point 1. Now, instead of using the small letter, use the capitalised version. In other words, ``D/``. 
+
+For example, if you would like to indicate that your event (i.e. commitment, holiday, school break or trip) ends on fifth of January, enter:
+
+    D/5
+
+. END MONTH. This refers to the month of the last date. Again, this is very similar to how you would specify the (start) MONTH, as mentioned in point 2. Now, instead of using the small letter, use the capitalised version ``M/``. 
+
+Following from the above example, if you would like to state that your event ends (i.e. commitment, holiday, school break or trip) ends in January, just type:
+
+    M/1
+
+Alternatively, if you are more comfortable with spelling the month out in words, TravEzy also understands:
+
+    M/Jan
+    
+and:
+
+    M/January
+
+IMPORTANT: As with the above (MONTH), if you are spelling END MONTH in words, please specify it with *at least the first three letters* of the month.
+
+. END YEAR. This refers to the year of the last date. Similarly, to specify the year of the last date, key in the capitalised version instead. In essence, place ``Y/`` before the year of the last date. How simple is that?
+
+For instance, if your trip ends in 2020, just type:
+
+    Y/2020
+    
+IMPORTANT: As with the above (YEAR), please specify END YEAR using *four digits*.
+
+TIP: As expected, specifying the END DAY, END MONTH and/or END YEAR is not always applicable. Hence, by default, TravEzy assumes that the END DAY, END MONTH and/or END YEAR are the same as DAY, MONTH and/or YEAR respectively. 
+
+. NAME. This refers to the name of your event (i.e. commitment, holiday, school break or trip). To indicate the name, just key in ``n/`` before it. 
+
+For instance, if you would like to specify that the holiday you are adding refers to Christmas 🎄 , just type:
+
+    n/Christmas
+
+. INFO. This refers to any additional information associated with your event (i.e. commitment, holiday, school break or trip). To include this, just type ``i/`` before you start typing the relevant information. 
+
+For example, if you would like to include the fact that your grandparents are coming for christmas this year to remind yourself that you definitely have to make time for them, you can do so by typing:
+
+    i/Grandparents will be here!!
+
 
 *Adding a commitment: ``addCommitment``* +
 Adds commitment to indicate that you won’t be able to travel on a day or over a duration of time due to commitments during the public holidays/school vacation. +
