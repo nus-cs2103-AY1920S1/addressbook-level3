@@ -13,6 +13,9 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.cca.JsonAdaptedIncreaseProgressCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Increments progress for the chosen cca.
@@ -123,6 +126,17 @@ public class IncreaseProgressCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_DECREMENT_PROGRESS_SUCCESS, targetIndex.getOneBased()));
 
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedIncreaseProgressCommand(this);
     }
 
     @Override

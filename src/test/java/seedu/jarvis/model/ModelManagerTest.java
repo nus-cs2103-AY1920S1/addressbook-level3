@@ -13,9 +13,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.GuiSettings;
-import seedu.jarvis.logic.commands.Command;
-import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
@@ -25,6 +22,10 @@ import seedu.jarvis.model.finance.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.testutil.CommandStub;
+import seedu.jarvis.testutil.CommandStubExecutionThrowsCommandException;
+import seedu.jarvis.testutil.CommandStubHasNoInverse;
+import seedu.jarvis.testutil.CommandStubInverseExecutionThrowsCommandException;
 import seedu.jarvis.testutil.address.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -288,71 +289,6 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, financeTracker,
                 addressBook, differentUserPrefs, planner, coursePlanner)));
-    }
-
-    /**
-     * {@code CommandStub} to be added {@code ModelManager}.
-     * {@code CommandStub} returns true when checked for having an inverse execution.
-     * {@code CommandStub} returns null and does nothing to {@code Model} when {@code CommandStub#execute(Model)} or
-     * {@code CommandStub#executeInverse(Model)} is called.
-     */
-    private static class CommandStub extends Command {
-        @Override
-        public String getCommandWord() {
-            throw new AssertionError("This message should not be called.");
-        }
-
-        @Override
-        public boolean hasInverseExecution() {
-            return true;
-        }
-
-        @Override
-        public CommandResult execute(Model model) throws CommandException {
-            return null;
-        }
-
-        @Override
-        public CommandResult executeInverse(Model model) throws CommandException {
-            return null;
-        }
-
-    }
-
-    /**
-     * {@code CommandStubHasNoInverse} is a stub class for {@code Command} which should fail when added to
-     * {@code ModelManager} as it has no inverse.
-     * {@code CommandStubHasNoInverse} returns false when checked for having an inverse execution.
-     */
-    private static class CommandStubHasNoInverse extends CommandStub {
-        @Override
-        public boolean hasInverseExecution() {
-            return false;
-        }
-    }
-
-    /**
-     * {@code CommandStubExecutionThrowsCommandException} is a stub class for {@code Command} that will always throw a
-     * {@code CommandException} when executed.
-     * {@code CommandStubExecutionThrowsCommandException} returns true when checked for having an inverse execution.
-     */
-    private static class CommandStubExecutionThrowsCommandException extends CommandStub {
-        @Override
-        public CommandResult execute(Model model) throws CommandException {
-            throw new CommandException("CommandException always thrown.");
-        }
-    }
-    /**
-     * {@code CommandStubInverseExecutionThrowsCommandException} is a stub class for command that will always throw a
-     * {@code CommandException} when inversely executed.
-     * {@code CommandStubInverseExecutionThrowsCommandException} returns true when checked for having an inverse
-     * execution.
-     */
-    private static class CommandStubInverseExecutionThrowsCommandException extends CommandStub {
-        @Override
-        public CommandResult executeInverse(Model model) throws CommandException {
-            throw new CommandException("CommandException always thrown.");
-        }
     }
 
 }

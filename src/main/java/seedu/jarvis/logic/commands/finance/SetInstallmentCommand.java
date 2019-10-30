@@ -9,6 +9,9 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.finance.JsonAdaptedSetInstallmentCommand;
 
 /**
  * Adds a purchase to the finance tracker.
@@ -115,6 +118,17 @@ public class SetInstallmentCommand extends Command {
         model.deleteInstallment(toAdd);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedSetInstallmentCommand(this);
     }
 
     @Override

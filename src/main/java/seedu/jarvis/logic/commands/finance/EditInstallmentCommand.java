@@ -18,6 +18,9 @@ import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.installment.InstallmentDescription;
 import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.finance.JsonAdaptedEditInstallmentCommand;
 
 /**
  * Edits an existing installment using its displayed index in the finance tracker.
@@ -203,6 +206,17 @@ public class EditInstallmentCommand extends Command {
         model.setInstallment(editedInstallment, originalInstallment);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_REVERSE, originalInstallment));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedEditInstallmentCommand(this);
     }
 
     @Override

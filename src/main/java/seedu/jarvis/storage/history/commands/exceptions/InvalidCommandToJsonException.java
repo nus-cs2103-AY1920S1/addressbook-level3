@@ -6,6 +6,13 @@ package seedu.jarvis.storage.history.commands.exceptions;
 public class InvalidCommandToJsonException extends Exception {
 
     /**
+     * Constructs a new {@code InvalidCommandToJsonException} with a default message.
+     */
+    public InvalidCommandToJsonException() {
+        super("This command cannot be adapted to JSON.");
+    }
+
+    /**
      * Constructs a new {@code InvalidCommandToJsonException} with the specified detail {@code message}.
      *
      * @param message Message of the exception.

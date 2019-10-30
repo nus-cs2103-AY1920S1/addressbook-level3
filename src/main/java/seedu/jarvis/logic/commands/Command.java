@@ -2,6 +2,8 @@ package seedu.jarvis.logic.commands;
 
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -42,4 +44,11 @@ public abstract class Command {
      */
     public abstract CommandResult executeInverse(Model model) throws CommandException;
 
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    public abstract JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException;
 }
