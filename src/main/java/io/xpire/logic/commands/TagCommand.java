@@ -32,7 +32,7 @@ public class TagCommand extends Command {
     public static final String COMMAND_WORD = "tag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Tags the xpireItem identified by the index number used in the displayed xpireItem list.\n"
+            + ": Tags the item identified by the index number used in the displayed tracking list.\n"
             + "Format: <index>|<tag>[<other tags>]...\n"
             + "(index must be a positive integer; each tag must be prefixed with a '#')\n"
             + "Example: " + COMMAND_WORD + "|1|#Food #Fruit";

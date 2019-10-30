@@ -15,7 +15,7 @@ import io.xpire.model.item.XpireItem;
 public class CheckCommand extends Command {
     public static final String COMMAND_WORD = "check";
 
-    public static final String MESSAGE_SUCCESS = "XpireItem(s) expiring soon";
+    public static final String MESSAGE_SUCCESS = "Item(s) expiring soon";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays all items whose expiry date is within"
             + "the specified duration (in days). Expired items, if any, are also included in the list.\n"

@@ -22,7 +22,7 @@ public class SetReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "set reminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the reminder threshold of the xpireItem "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the reminder threshold of the item "
             + "identified with its displayed index. "
             + "Existing threshold will be overwritten by the input.\n"
             + "Format: set reminder|<index>|<threshold> (both index and threshold must be positive numbers)\n"

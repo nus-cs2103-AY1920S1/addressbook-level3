@@ -17,6 +17,7 @@ public class Quantity {
     public static final String DEFAULT_QUANTITY = "1";
     public static final String MESSAGE_CONSTRAINTS =
             "Quantity added should be a positive integer and should not be blank";
+    public static final String MESSAGE_QUANTITY_LIMIT = "Quantity exceeds maximum input quantity of 100000";
     public static final int MAX_VALUE = 100000;
     private static final String INTERNAL_MESSAGE_CONSTRAINTS =
             "Quantity added should be a non-negative integer and should not be blank";
@@ -26,12 +27,13 @@ public class Quantity {
     /**
      * Constructs a {@code Quantity}.
      *
-     * @param quantity A valid input quantity, i.e. positive integer.
+     * @param quantity A valid input quantity, i.e. positive integer not exceeding maximum allowed limit.
      */
     public Quantity(String quantity) {
         String trimmedQuantity = quantity.trim();
         requireNonNull(trimmedQuantity);
         AppUtil.checkArgument(isValidInputQuantity(trimmedQuantity), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isAcceptedRange(trimmedQuantity), MESSAGE_QUANTITY_LIMIT);
         this.quantity = Integer.parseInt(trimmedQuantity);
     }
 
@@ -56,17 +58,27 @@ public class Quantity {
         this.quantity = quantity;
     }
 
-    public static boolean isValidQuantity(String test) {
-        return StringUtil.isNonNegativeInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
-    }
+
     /**
      * Returns true if a given input string is a valid quantity.
      */
+    public static boolean isValidQuantity(String test) {
+        return StringUtil.isNonNegativeInteger(test);
+    }
+
     /**
-     * Returns true if a given input string is a valid quantity and lies below the maximum value.
+     * Returns true if a given input string lies below the maximum value.
+     */
+    public static boolean isAcceptedRange(String test) {
+        return Integer.parseInt(test) <= MAX_VALUE;
+    }
+
+
+    /**
+     * Returns true if a given input string is a valid integer.
      */
     public static boolean isValidInputQuantity(String test) {
-        return StringUtil.isNonZeroUnsignedInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
+        return StringUtil.isNonZeroUnsignedInteger(test);
     }
 
     /**

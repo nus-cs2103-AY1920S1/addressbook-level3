@@ -32,14 +32,14 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             "Three formats available for " + COMMAND_WORD + ":\n"
-            + "1) Deletes the xpireItem identified by the index number.\n"
+            + "1) Deletes the item identified by the index number.\n"
             + "Format: delete|<index> (index must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + "|1" + "\n"
-            + "2) Deletes all tags in the xpireItem identified by the index number.\n"
+            + "2) Deletes all tags in the item identified by the index number.\n"
             + "Format: delete|<index>|<tag>[<other tags>]...\n"
             + "Example: " + COMMAND_WORD + "|1" + "|#Fruit #Food"
-            + "3) Reduces the quantity in the xpireItem identified by the index number. \n"
-            + "Format: delete|<index>|<quantity> (quantity must be positive and less than xpireItem's quantity.\n";
+            + "3) Reduces the quantity in the item identified by the index number. \n"
+            + "Format: delete|<index>|<quantity> (quantity must be positive and less than item's quantity.\n";
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted item: %s";
     public static final String MESSAGE_DELETE_TAGS_SUCCESS = "Deleted tags from item: %s";
