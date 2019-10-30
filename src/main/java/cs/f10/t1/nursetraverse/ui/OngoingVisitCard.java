@@ -93,6 +93,7 @@ public class OngoingVisitCard extends UiPart<Region> {
         remark.setText(remarks);
 
         //Setup visit task display columns and rows
+        //Setup the auto-incrementing index
         indexColumn.setCellFactory(col -> new TableCell<>() {
             @Override
             public void updateIndex(int index) {
@@ -105,36 +106,34 @@ public class OngoingVisitCard extends UiPart<Region> {
             }
         });
 
-        descriptionColumn.setCellFactory(tc -> {
-            TableCell<VisitTask, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(descriptionColumn.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-
+        setupWordWrappedTableColumnCellFactory(descriptionColumn);
         descriptionColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getVisitTodo().getDescription()));
 
-        detailColumn.setCellFactory(tc -> {
-            TableCell<VisitTask, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(detailColumn.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-
-        detailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDetail().toString()));
+        setupWordWrappedTableColumnCellFactory(detailColumn);
+        detailColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDetail().toString()));
 
         finishedColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getIsDoneAsString()));
 
         visitTasks.setPlaceholder((new Label("This visit has no assigned tasks.")));
         visit.getVisitTasks().forEach(visitTask -> visitTasks.getItems().add(visitTask));
+    }
+
+    /**
+     * Helper class to setup a word wrapped table column cell factory.
+     */
+    private void setupWordWrappedTableColumnCellFactory(final TableColumn<VisitTask, String> column) {
+        column.setCellFactory(tableCell -> {
+            TableCell<VisitTask, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(column.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
     }
 
     @Override

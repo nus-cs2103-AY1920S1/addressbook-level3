@@ -21,12 +21,8 @@
     -fx-background-color: #FEFEFE;
 }
 
-.table-row-cell:filled:selected {
-    -fx-background-color: #75a2c7;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #75a2c7;
+.list-cell:filled:selected * {
+    -fx-text-fill: #000000;
 }
 
 .bold {
