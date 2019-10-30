@@ -36,8 +36,6 @@ public class BodyCardSelected extends UiPart<Region> {
     @FXML
     private Label selectedBodySex;
     @FXML
-    private ImageView sexIcon;
-    @FXML
     private Label selectedBodyNric;
     @FXML
     private Label selectedBodyReligion;
