@@ -2,6 +2,7 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.flashcard.commons.core.index.Index;
@@ -45,7 +46,9 @@ public class QuizCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_FLASHCARD_INDEX);
         }
         Flashcard cardToView = lastShownList.get(targetIndex.getZeroBased());
-        model.updateLastViewedFlashcard(cardToView);
+        List<Flashcard> quizList = new ArrayList<>();
+        quizList.add(cardToView);
+        model.setQuiz(quizList);
         return new CommandResult(cardToView.toString());
     }
 

@@ -2,6 +2,7 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +30,8 @@ public class QuizTagCommand extends Command {
             + "Parameters: TAG (must be an existing tag)\n"
             + "Example: " + COMMAND_WORD + " geography";
 
-    public static final String MESSAGE_INVALID_FLASHCARD_TAG = "The tag you entered is invalid!";
+    public static final String MESSAGE_SUCCESS = "Quiz mode has started.";
+    public static final String TAG_INVALID = "There are no quizable flashcards in this tag.";
     private final Set<Tag> target;
 
     public QuizTagCommand(Set<Tag> inputTag) {
@@ -47,15 +49,16 @@ public class QuizTagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredFlashcardList(model.getHasTagPredicate(target));
-        List<Flashcard> taggedList = model.getFilteredFlashcardList();
-        for (Flashcard flashcard : taggedList) {
-            try {
-                Command quizCommand = new QuizCommandParser().parse(String.format("%d", taggedList.indexOf(flashcard) + 1));
-                quizCommand.execute(model);
-            } catch (ParseException e) {
-                throw new CommandException(e.toString());
-            }
+        List<Flashcard> taggedList = new ArrayList<>();
+        List<Flashcard> filteredList = model.getFilteredFlashcardList();
+        for (int i = 0; i < filteredList.size(); i++) {
+            taggedList.add(filteredList.get(i));
         }
-        return new CommandResult("SUCCESS");
+        if (taggedList.isEmpty()) {
+            throw new CommandException(TAG_INVALID);
+        }
+        model.setQuiz(taggedList);
+        Flashcard firstCard = model.getQuiz().quizCard();
+        return new CommandResult(firstCard.toString());
     }
 }

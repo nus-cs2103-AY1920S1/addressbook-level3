@@ -36,7 +36,7 @@ public class FlashcardListParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static boolean isQuizMode = false;
+    public static boolean isQuizMode = false;
 
     /**
      * Parses the original user input and calls corresponding commands or sub-parsers.
@@ -124,7 +124,6 @@ public class FlashcardListParser {
             return new ExitCommand();
 
         case FlipCommand.COMMAND_WORD:
-            isQuizMode = false;
             return new FlipCommandParser().parse(arguments);
 
         default:

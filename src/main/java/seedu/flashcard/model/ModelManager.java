@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -26,6 +27,8 @@ public class ModelManager implements Model {
     private final FilteredList<Flashcard> filteredFlashcards;
     private Flashcard viewedFlashcard;
     private Statistics desiredStats;
+    private Quiz quiz;
+
 
     /**
      * Default initializer
@@ -46,6 +49,7 @@ public class ModelManager implements Model {
         filteredFlashcards = new FilteredList<Flashcard>(this.flashcardList.getFlashcardList());
         this.viewedFlashcard = null;
         this.desiredStats = new Statistics();
+        this.quiz = new Quiz();
     }
 
     @Override
@@ -180,5 +184,15 @@ public class ModelManager implements Model {
     @Override
     public Statistics getStatistics() {
         return desiredStats;
+    }
+
+    @Override
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    @Override
+    public void setQuiz(List<Flashcard> quizableFlashcards) {
+        quiz.setQuizList(quizableFlashcards);
     }
 }

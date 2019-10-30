@@ -66,6 +66,7 @@ public class CommandResult {
         return showStats;
     }
 
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
