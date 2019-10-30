@@ -4,6 +4,8 @@
  'comprehensive list of skinparams.
  '/
 
+ 
+!define COMMON_COLOR #B88FF2
 
 'T1 through T4 are shades of the original color from lightest to darkest
 

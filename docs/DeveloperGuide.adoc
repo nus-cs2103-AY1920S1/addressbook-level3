@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -249,7 +250,186 @@ The following sequence diagram shows how the undo operation works:
 image::FindSequenceDiagram.png[]
 // end::find[]
 
-//tag::ui[]
+
+// tag::history[]
+=== Command History
+The command history feature encapsulates a few different related functions, mainly:
+
+* The ability to cycle through previous inputs in the `CommandBox` using the kbd:[&uarr;]
+and kbd:[&darr;] arrow keys.
+* A command to open a new window displaying the command history
+- Optional parameters can be specified to hide command output
+* Persistent storage of command history - the history is serialized to JSON file format
+and is loaded upon the next startup
+
+==== Cycling Through Previous Inputs
+The core of the cycle-command-history feature is implemented through three different classes:
+ `CommandHistory`, `ListPointer`, and `InputOutput`.
+
+* `InputOutput`: Class wrapper around two `String` objects representing the command input
+and command feedback output from MAMS. It is chiefly comprised of an input and an output, hence
+the name.
+* `CommandHistory`: A wrapper around a list of `InputOutput` objects along with specific methods, representing
+the command history of the command entered thus far.
+* `ListPointer`: An iterable pointer to a `List` of objects.
+- This differs from `java.util.Iterator` in the sense that `ListPointer#next()` always advances the pointer first then returns the
+next element in the `List`, while `java.util.Iterator#next()` does the opposite: it returns
+the current value, then advances the pointer.
+- `ListPointer` was implemented using Java generics
+to serve as a common utility class in `mams.common.util`, but is used primarily for
+iterating a `List` of `InputOutput` objects for the command history feature.
+* `CommandBox`: The command box in MAMs was modified to respond to the kbd:[&uarr;] and kbd:[&darr;]
+arrows, constantly replacing the text field with the previous commands when iterating.
+
+Below is a class diagram depicting the relationship between the involved classes for cycling
+through previous inputs in the command box.
+
+image::CycleCommandHistoryClassDiagram.png[]
+
+`CommandHistory` provides an unmodifiable view into the command history using an `ObservableList`
+passed to `CommandBox` upon initialization. `CommandBox` uses this list to reinitialize and
+update `ListPointer` after every command execution. Upon initialization, `ListPointer` keeps
+an internal copy of the InputOutput list. Finally, `CommandBox` responds to key-presses and
+retrieves the previous commands by using `ListPointer` to iterate
+through its internal defensive list.
+
+Below is a simple sequence diagram depicting this function. Note that some methods/pathways are not
+depicted for brevity.
+
+image::CycleCommandHistorySequenceDiagram.png[]
+
+The diagram above first shows how `CommandBox` re-initializes and updates `ListPointer` after
+a command has been entered. Thereafter (in the period between command inputs),
+`KeyEvent` events are handled by `handleKeyPress`,
+which replaces the text in its text field accordingly.
+
+
+altenatives: placement of commandHistory attribute
+alternatives: usage of ListPointer versus Iterator
+
+==== Displaying History Window: `HistoryCommand`
+
+The `HistoryCommand` feature allows users to display a separate window showing the
+MAMS input/output history upon command.
+
+The core of the `HistoryCommand` feature is facilitated by a few different classes:
+
+* `HistoryCommand`: A sub-type of `Command`. Represents a user command to trigger the display
+of the history window.
+* `HistoryCommandParser`: A class to parse user input in the context of a `HistoryCommand`,
+returning a `HistoryCommand`.
+* `HistoryWindow`: A UI class representing the controller for the history window. Displays information
+about the command history to the user
+* `CommandHistory`: see previous section.
+
+The following activity sequence diagram provides a high-level view
+of how the command is executed:
+
+image::HistoryCommandActivityDiagram.png[]
+
+One specific execution example of the show-history feature with
+more specific implementation details is as follows:
+
+1. User enters `history -h` into command box.
+2. A `HistoryCommand` object is created after parsing, with `hideOutput` set to true.
+3. `HistoryCommand` is executed and produces a `CommandResult`
+with `showHistory` and `hideOutput` flags set to true.
+4. `CommandResult` is passed to the calling GUI element (`MainWindow`), which is then used to set
+the flags in `HistoryWindow` contoller accordingly.
+5. `HistoryWindow` hides all command outputs in the history window.
+6. `MainWindow` gets `CommandHistory` from `Logic`, and uses it to update `HistoryWindow`.
+7. GUI displays the history window.
+
+This specific execution case is shown in the following sequence diagram. Note that some
+methods are omitted for brevity.
+
+image::HistoryCommandSequenceDiagram.png[]
+
+NOTE: The lifeline for `HistoryCommandParser` and `HistoryCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+*Design Considerations*
+
+
+* Current Implementation: `HistoryCommand` sets boolean flags (`showHistory` and `hideOutput`)
+in `CommandResult` to prompt the GUI to display the history window and hide command outputs
+respectively.
+
+** Pros:
+*** `CommandHistory` does not need to be passed in as a parameter for
+`Command#execute`. There is thus no need to
+modify the existing `Command` abstract class, which will require
+changes to every single existing `Command` sub-type (for very little benefit,
+since `HistoryCommand` is the only `Command` that acts on `CommandHistory`).
+*** `HistoryCommand` does not need to handle the formatting and display of
+`CommandHistory` in the history GUI window. This separates their responsibilities
+better as such display options should be left up to the GUI classes.
+*** Since `HistoryCommand` only sets parameter flags for the `HistoryWindow`, and
+the `HistoryWindow` controller gets the history data directly from an `ObservableList`, the
+history window GUI is able to update while adhering to the user-specified configuration
+(ie. hide output/ show output) after every command iteration, even if `HistoryCommand` is not executed.
+
+** Cons:
+*** If more parameters need to be added to `HistoryCommand` (eg. filter history
+display by execution success) in future iterations of MAMS, more boolean flags
+will have to be added to the `CommandResult` class. This can eventually be
+unsustainable if there are too many parameters that needs to be communicated
+to the GUI.
+
+* Alternative Implementation 1: Change the method signature in `Command#execute(Model model)`
+to accept a `CommandHistory` object. `HistoryCommand` will format the command history
+text based on the user specifications, then pass the formatted text as a single string in the
+`feedbackToUser` parameter. The `HistoyWindow` controller will then display this text on
+on the history window.
+
+** Pros:
+*** Since all of the user specifications and flags are processed within execution of
+`HistoryCommand`, `CommandResult` does not need to store too many flags if future
+parameters are added to `HistoryCommand`. (Refer to the current implementation)
+
+**  Cons:
+*** Requires a change to `execute()` method signature of the `Command` abstract class. Since all
+other commands are a sub-type of the `Command` class, this will require a change to every other
+command, which will necessitate huge changes across many classes and tests, and may result
+in regression problems,.
+*** Text display formatting is handled directly by the `HistoryCommand` class, which limits
+the ability of the GUI to customize the display. Moreover, the `HistoryCommand` class is now
+in charge of one aspect of the display formatting, which is not a good separation of responsibilities
+between the `Logic` and `Ui` components of MAMS.
+*** If the entire command history is passed to `Logic` as a `CommandResult` feedback of
+an executed `HistoryCommand`, future requests of the command history will also include
+that that particular `HistoryCommand` feedback.
+**** A crude CLI example of this is shown below.
+
+ >> history
+ input: list -a
+ output: listed all appeals
+ >> history
+ input: list -a
+ output: listed all appeals
+ input: history
+ output: input: list -a
+         output: listed all appeals
+ >> history
+ input: list -a
+ output: listed all appeals
+ input: history
+ output: input: list -a
+         output: listed all appeals
+ input: history
+ output: input: list -a
+         output: listed all appeals
+         input: history
+         output: input: list -a
+                 output: listed all appeals
+
+**** Special conditionals hence needs to be implemented to handle
+such cases when updating `CommandHistory`, which can make the implementation
+more complicated.
+
+// end::history[]
+
+// tag::ui[]
 === UI/UX
 
 The GUI interface from AddressBook-Level3 was re-designed to incorporate additional
@@ -343,7 +523,7 @@ is made to list out all items, then filter them using the IDs stored in the `Has
 
 to be continued...
 
-//end::ui[]
+// end::ui[]
 
 
 // tag::undoredo[]

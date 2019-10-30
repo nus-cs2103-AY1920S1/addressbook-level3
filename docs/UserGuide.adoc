@@ -127,6 +127,8 @@ image::HistoryCommandArrowDemoAfter.png[width="790"]
 Opens a separate window displaying the command history in MAMS. The display of the command feedback can be turned
 off.
 
+TIP: Press the kbd:[esc] key to quickly exit the history window.
+
 Format: `history [-h]`
 
 Tags:
