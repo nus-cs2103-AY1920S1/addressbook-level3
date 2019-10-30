@@ -15,6 +15,7 @@ import seedu.jarvis.storage.history.commands.cca.JsonAdaptedAddCcaCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedAddProgressCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedDeleteCcaCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
+import seedu.jarvis.storage.history.commands.cca.JsonAdaptedIncreaseProgressCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedAddCourseCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedDeleteCourseCommand;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedEditInstallmentCommand;
@@ -60,7 +61,8 @@ import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDoneTaskCommand;
         @Type(value = JsonAdaptedAddCcaCommand.class, name = "JsonAdaptedAddCcaCommand"),
         @Type(value = JsonAdaptedAddProgressCommand.class, name = "JsonAdaptedAddProgressCommand"),
         @Type(value = JsonAdaptedDeleteCcaCommand.class, name = "JsonAdaptedDeleteCcaCommand"),
-        @Type(value = JsonAdaptedEditCcaCommand.class, name = "JsonAdaptedEditCcaCommand")
+        @Type(value = JsonAdaptedEditCcaCommand.class, name = "JsonAdaptedEditCcaCommand"),
+        @Type(value = JsonAdaptedIncreaseProgressCommand.class, name = "JsonAdaptedIncreaseProgressCommand")
 })
 public abstract class JsonAdaptedCommand implements JsonAdapter<Command> {
     /**
