@@ -15,7 +15,7 @@ public class DeleteModuleCommand extends Command {
     public static final String COMMAND_WORD = "removemod";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Removing a module from a given semester";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ":Removes the specified module to a given semester of the current study plan.\n. "
+            + ":Removes the specified module to a given semester of the current study plan.\n"
             + "Parameters: "
             + "SEMESTER "
             + "MODULE_CODE\n";
