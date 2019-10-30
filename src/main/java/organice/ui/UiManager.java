@@ -7,10 +7,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import organice.MainApp;
 import organice.commons.core.LogsCenter;
 import organice.commons.util.StringUtil;
 import organice.logic.Logic;
+import organice.model.Model;
 
 /**
  * The manager of the UI component.
@@ -23,11 +25,14 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/organice.png";
 
     private Logic logic;
+    private Model model;
     private MainWindow mainWindow;
+    private FormUiManager formUiManager;
 
-    public UiManager(Logic logic) {
+    public UiManager(Logic logic, Model model) {
         super();
         this.logic = logic;
+        this.model = model;
     }
 
     @Override
@@ -38,9 +43,10 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage, logic, model);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            formUiManager = new FormUiManager(mainWindow, null, model, logger);
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

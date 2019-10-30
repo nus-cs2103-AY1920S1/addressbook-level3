@@ -33,7 +33,7 @@ to get started.
 
 == Quick Start
 
-Below is a list of things to do to use the application:
+Below is a list of things to do to use ORGANice:
 
 1.  Ensure you have Java `11` or above installed in your computer. +
 If not, install it link:{javaURL}[here].
@@ -154,7 +154,7 @@ a person and the criteria for valid inputs:
 
 === Viewing help : `help`
 There may be times where you do not understand how ORGANice works, or you need a simple reminder on how to use
-ORGANice. This command allows you to access the user guide to ORGANice.
+ORGANice. To access the user guide of ORGANice, you can do the following:
 
 . Type `help` in the Command Box and press kbd:[Enter].
 . A new window is launched, as shown in Figure 3. Open the link in a browser to read this document.
@@ -207,40 +207,85 @@ exp/23-Nov-2020 a/21`
 
 ==== Add with system prompting
 
-In this mode, the user can add the person's attributes one by one.
-After entering an attribute, the system will prompt the user input for another attribute.
+In this mode, instead of typing a long command at one go, you can add a person's attributes one by one.
+After entering an attribute, the system will prompt you to input another attribute.
 
-Format: `add t/**TYPE**`
+To add a person in this mode, enter the following command of the format: `add t/**TYPE**`
 
-When the user type in the command above, a form will be displayed. For example, if a user wants to add a patient,
-type `add t/patient` to the command box. The form will be as below:
+ORGANice will prompt you to type in each attribute, one by one until all the fields are filled.
+Here are some special commands that might be useful when you are in the process of filling up the form:
 
-image::form.png[width="790"]
+* `/abort` - The command to abandon the current form that you are currently filling.
+* `/undo` - The command to undo the last entry that you entered, which is useful when you want to undo any changes made.
+* `/done` - The command to indicate that you are done with filling all the required attributes and want to add the person into the application.
 
-ORGANice will prompt the user to type in each attribute, one by one until all the fields are filled.
+Note that both `/abort` and `/undo` commands can be used at any point in time, while `/done` command can only be used once all the required attributes have been specified.
 
-For example, when a user wants to add a patient, the display box will prompt the user to enter the patient's name.
-For the user to add a patient that is named "John Doe", type `John Doe` and then press enter.
-After entering the name, the patient's name will be displayed in the form, as shown below.
+These are the important commands for this feature, so now let's take a look at an example of this how this feature can be used.
+When you want to add a `Patient`, type `add t/patient` in the `Command Box`. Three changes will occur on your screen:
 
-image::nameField.png[width="790"]
+* A form will appear in the space where the `Person List` used to occupy.
+* The `Message Display Box` will display a message that prompts you to enter the patient’s name.
+* There is a `Progress Bar` detailing how much of the form is filled.
 
-Inputs for each attribute will be checked, if it is a valid input then the user input will automatically reflected
-on the form, if it is not valid, ORGANice will show a warning to the user.
+Refer to the `Figure 4` to see how the resulting screen will look like.
 
-The following screenshot shows the warning that ORGANice will give to the user if the input is not valid:
+.Screenshot of the screen after you have successfully entered the `Form` mode
+image::addForm.png[width="790"]
 
-image::wrongInput.png[width="790"]
+If you want to add a patient named "John Doe", type `John Doe` and then press kbd:[Enter].
+After entering the name, the patient's name will be displayed on the form and the progress bar will increase indicating your progress in filling up the form as seen in `Figure 5`.
 
-After all of the attributes have been specified, the user can type `/done` to add the person to the ORGANice list of persons
-or `/abort` if the user decided not to add the person into the list.
+.Form layout after you have entered a valid name
+image::nameFilled.png[width="790"]
 
-image::allField.png[width="790"]
+Each time you type an input, ORGANice will check if it is a valid input. If the input is valid, it will be reflected on the form.
+If not, ORGANice will display a warning message stating the criteria for a valid input of that attribute.
 
-When the user typed `/done` the UI will changed back to it's original state and shows a success message suggesting that
-the user has successfully added a new person into the list.
+Say you typed in "G999999999A" and pressed kbd:[Enter] when ORGANice prompts you to type in the NRIC of the patient.
+Three changes occur to ORGANice, which can be seen in the `Figure 6`:
 
+* Your input will remain in the `Command Box`, but the colour of the input text turns to red.
+* An error message is displayed in the `Message Display Box`. This error message details the criteria for a valid NRIC input. This error message is specific to the attribute type. For example if you typed in an invalid NRIC, an error message detailing the criteria for a valid NRIC will be displayed.
+* Your input will not be reflected in the form.
+
+.Form layout if you entered an invalid value
+image::invalidInput.png[width="790"]
+
+After all of the attributes have been specified, you can type in:
+
+* `/done` to add the person to the ORGANice list of persons
+* Click the `Find Match` button to directly add the person and find the potential donors at the same time.
+Note that the `Find Match` button will only appear on the `Patient` form.
+
+The `Figure 7` will show how the form will look like after you have entered all the required attributes.
+
+.Form layout after all the required attributes have been specified
+image::allFieldSpecified.png[width="790"]
+
+When you type in `/done`, the Person List will return to its original state of displaying people in ORGANice.
+The Message Display Box will show a success message, indicating that you have successfully added a new person to the Person List as seen in `Figure 8`.
+
+.The UI changed back to it's original state and shows a success message
 image::addSuccess.png[width="790"]
+
+The `Find Match` button will appear when the list is fully filled. You can click this button and you will be shown a list of potential donors as seen in `Figure 10`. Note that the Find Match button will only appear on the Patient form.
+Refer to `Figure 7` on where you can find the `Find Match` button
+
+.The UI displayed the potential donors for a patient that you have added
+image::findMatch.png[width="790"]
+
+At any point in time, if you decided not to proceed with the addition and typed in `/abort`, you will be directed into the main page and notified that
+you have abandoned the form as seen in `Figure 10`.
+
+.The UI changed back to it's original state and shows a message the form has been abandoned
+image::abandonForm.png[width="790"]
+
+Furthermore, if you made any mistake while you are filling up the form, you can type in `/undo` to remove the last entry you entered.
+For example, if you enter the wrong name and want to undo the action, type `/undo` in the `Command Box` and press kbd:[Enter]. Your previous input for the name will be removed from the form as seen in `Figure 11`
+
+.Form layout showing that the last entry is removed after you typed in `/undo`
+image::undoCommand.png[width="790"]
 
 === Listing persons : `list`
 
@@ -278,30 +323,46 @@ Edits the phone number of the specified patient to be `91234567`.
 * `edit ic/S8732457G n/Betsy Crower b/A` +
 Edits the name and blood type of the specified donor to be `Betsy Crower` and `A` respectively.
 
-=== Locating persons by name: `find`
+// tag::find[]
+=== Finding persons by attributes: `find`
 
-Finds persons whose attributes contain any of the given keywords.
-A list of patient/donor/doctor's information whose attributes partially match the keywords
-will be displayed. +
+You can use the `find` command to search for persons whose attributes match your input keywords. Matching persons will
+be displayed in a list. +
 
-Format: `find`
+Format: `find __PREFIX__/__KEYWORD__`
 
-Optional parameters: any parameter from <<List of Attributes>>
+Optional parameters: Multiple `keywords` per `prefix`, multiple `prefixes` in the same find command.
 
+The find command performs case insensitive `OR` matching within a prefix and `AND` matching between prefixes. The
+following example illustrates this concept:
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* Persons matching at least one attribute will be returned. +
-e.g. `a/28 n/Hans Bo` will return people whose attributes are `n/Hans Gruber`, `n/Bo Yang`,
-`a/28 n/Jane`
+.Find command with multiple prefixes and multiple keywords per prefix.
+image::findByPrefix.png[width="790"]
 
-****
+As seen from Figure 12, `find n/Alice Carl Elle t/doctor donor` displays both `Alice Pauline` and `Elle Meyer`.
+This is due to the fact that Alice's name matches either of 'Alice' `OR` 'Carl', `AND` she is also either a 'doctor'
+`OR` 'donor'. The same is true for Elle.
 
-Examples:
+You may wish to reference the following section: <<List of Attributes>>; to view the list of available prefixes to
+search by.
 
-* `find t/patient n/Lim` +
-Returns any patient whose name contains 'Lim'
+Here are some examples and pointers showcasing the use of `find`:
 
+__Use case with single prefix and keyword__ +
+* `find n/Alice` +
+Displays all persons whose name contains 'Alice'
+
+__Use case demonstrating keyword case insensitivity__ +
+* `find n/aLiCe` +
+Displays the same result as the preceding example.
+
+__Use case with multiple keywords per prefix__ +
+* `find n/Alice Benson b/A B O` +
+Displays all persons whose name contains either 'Alice' or 'Benson' and whose blood type is either 'A', 'B' or 'O'.
+
+__Use case demonstrating prefix order insensitivity__ +
+* `find b/A B O n/Alice Benson` +
+Displays the same result as the preceding example.
 
 // tag::delete[]
 === Deleting a person : `delete`
@@ -336,12 +397,11 @@ what you can do:
 
 . Type `match ic/S1234568R` in the Command Box and press kbd:[Enter].
 
-. The list of donors and their success rate are displayed as shown in the screenshot below. The success rate is a number
-which indicates the degree of compatibility between the patient and donor. +
+. The list of donors and their success rate are displayed as shown in the screenshot below. +
 +
 image::MatchingDonorsDisplayed.png[width=790]
 +
-
+For more information on success rate, you may refer to <<FAQ>>.
 
 ==== Matching all patients
 This section will explain how to run kidney matching tests on all patients stored in ORGANice and run you
@@ -355,29 +415,59 @@ To match all the patients in ORGANice, do the following:
 image::Patient Matches Displayed.png[width=790]
 +
 
+Following this, you can sort the matches based on different categories to deduce which patient to prioritize.
++
+Refer to refer to <<Sorting matches: `sort`>> for more information.
 
 === Sorting matches: `sort`
-Users can specify how they want the patient-donor pairs to be sorted. +
-Sorting is done by passing in optional parameters to the `match` command. +
+After matching patients and donors, you can sort the list of matches to determine which patient to prioritize for organ transplant.
 
-Matches can be sorted according to three categories:
+**The sort command can only be used after a match command** to sort the resulting list of patient-donor pairs generated.
+There are three categories by which you can sort the matches, namely:
 
-1. Success rate of match
-2. Priority of patient
-3. Date of expiry of donors' organs
+* Sorting based on donor's organ expiry date
++
+* Sorting based on priority
++
+* Sorting based on success rate of match
++
 
-To return a sorted list of patient-donor pairs, include the `sort/` flag in the command. +
-Format:
-`match ic/**NRIC** sort/[rate/priority/expiry]`
 
-Typing this command causes the application to display a list of matches sorted
-according to the specified criteria. More than one sorting criteria can be included.
+These categories are further elaborated below. Note that **only one category can be used in one sort command**.
 
-Examples:
+==== Sorting based on donor's organ expiry date
+This category sorts a list of matched donors belonging to a particular patient based on the donated organ's expiry date (from the earliest to the latest expiry date).
 
-* `match ic/S7778983D sort/rate`
-* `match ic/S7778983D sort/rate, priority, expiry`
+This allows you to determine which organs are expiring soon so that you can prioritize them for organ transplant.
 
+Format: `sort expiry`
+
+Example: +
+After running a match command on a specific patient with `match ic/**NRIC**`, you will get the list of donors that are compatible with said patient.
+You can then run `sort expiry` to obtain the list of donors with the earliest organ expiration date at the top of the list.
+
+==== Sorting based on priority
+This category sorts a list of matched patients based on their priority (from highest to lowest). You may refer to <<Glossary>> for more information on priority.
+
+This allows you to determine which patient to prioritize for organ transplant.
+
+Format: `sort priority`
+
+Example: +
+After running `match ic/all`, you will obtain a list of patients. +
+You can then run `sort priority` to obtain a list with high priority patients at the top of the list.
+
+==== Sorting based on success rate of match
+This category sorts the list of matched donors belonging to a particular patient based on the success rate of the match (from highest to lowest).
+(Refer to <<Glossary>> for more information on success rate.)
+
+This allows you to determine which patient-donor pair has the highest compatibility and are safe to proceed for organ transplant.
+
+Format: `sort rate`
+
+Example: +
+After running a match command on a specific patient with `match ic/**NRIC**`, you will get the list of donors that are compatible with said patient.
+You can then run `sort rate` to obtain the list of donors with the highest success rate at the top of the list.  +
 
 === Processing potential matches: `processing`
 //TODO: change to shorter term that captures the meaning
@@ -517,6 +607,9 @@ that contains the data of your previous ORGANice folder.
 2. Do a tissue typing test to determine the HLA antigens of the patient and the donor.
 3. Do a cross match, which is a trial transfusion.
 
+*Q*: What is the success rate and how is it computed? +
+*A*: The success rate measures the tissue compatibility between a donor and a patient. It is computed via this formula: (number of common tissue types between donor and patient) / 6 * 100%
+
 == Command Summary
 
 This section summarises the commands to use this application. The following list
@@ -564,3 +657,7 @@ for harmful interactions between patient and donor's blood
 * match: refers to a donor-patient pair whose organs pass all three matching tests
 
 * duplicate: refers to two persons of the same type which have the same NRIC
+
+* success rate: refers to a number which indicates the degree of compatibility between the patient and donor. This percentage is calculated from the number of tissue matches between the patient and donor.
+
+* priority: used to indicate the level of importance or urgency of getting organ transplant for the patient. The different levels are include high, medium and low, and it is specified by the doctor after an assessment.

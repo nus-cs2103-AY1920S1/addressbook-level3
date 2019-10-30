@@ -3,7 +3,7 @@ package organice.logic.commands;
 import organice.model.Model;
 
 /**
- * Format full help instructions for every command for display.
+ * Formats full help instructions for every command for display.
  */
 public class HelpCommand extends Command {
 

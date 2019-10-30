@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import organice.testutil.DonorBuilder;
 
 public class MatchedDonorTest {
-    private static MatchedDonor MATCHED_DONOR_IRENE_DONOR = new MatchedDonor(DONOR_IRENE_DONOR);
+    private static final MatchedDonor MATCHED_DONOR_IRENE_DONOR = new MatchedDonor(DONOR_IRENE_DONOR);
 
     @Test
     public void alternativeConstructor_success() {

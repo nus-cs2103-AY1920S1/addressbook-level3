@@ -18,6 +18,7 @@ import organice.model.Model;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Person;
+import organice.model.person.Type;
 
 /**
  * Adds a person to the address book.
@@ -38,7 +39,7 @@ public class AddCommand extends Command {
             + PREFIX_TISSUE_TYPE + "TISSUE TYPE "
             + PREFIX_ORGAN + "ORGAN "
             + PREFIX_DOCTOR_IN_CHARGE + "DOCTOR IN CHARGE "
-        + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "patient "
             + PREFIX_NRIC + "S1234568R "
             + PREFIX_NAME + "John Doe "
@@ -55,6 +56,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DOCTOR_NOT_FOUND = "The doctor in charge specified is not found in ORGANice";
 
     private final Person toAdd;
+    private final Type formType;
 
     /**
      * Creates an AddCommand to add the specified {@code person}
@@ -62,11 +64,21 @@ public class AddCommand extends Command {
     public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
+        formType = null;
+    }
+
+    public AddCommand(Type formType) {
+        toAdd = null;
+        this.formType = formType;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (toAdd == null) {
+            return new CommandResult(String.format("Add doctor"), true, formType);
+        }
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

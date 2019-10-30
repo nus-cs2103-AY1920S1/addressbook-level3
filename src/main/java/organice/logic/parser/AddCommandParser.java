@@ -14,7 +14,6 @@ import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.NoSuchElementException;
-
 import java.util.stream.Stream;
 
 import organice.logic.commands.AddCommand;
@@ -67,6 +66,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Type type = parseType(argMultimap);
 
         if (type.isDoctor()) {
+            if (arePrefixesNotPresentDoctor(argMultimap)) {
+                return new AddCommand(type);
+            }
+
             arePrefixesPresentDoctor(argMultimap);
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -75,6 +78,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             Doctor doctor = new Doctor(type, nric, name, phone);
             return new AddCommand(doctor);
         } else if (type.isDonor()) {
+            if (arePrefixesNotPresentDonor(argMultimap)) {
+                return new AddCommand(type);
+            }
+
             arePrefixesPresentDonor(argMultimap);
 
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
@@ -92,6 +99,10 @@ public class AddCommandParser implements Parser<AddCommand> {
                     status);
             return new AddCommand(donor);
         } else if (type.isPatient()) {
+            if (arePrefixesNotPresentPatient(argMultimap)) {
+                return new AddCommand(type);
+            }
+
             arePrefixesPresentPatient(argMultimap);
 
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
@@ -120,6 +131,14 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if at least one prefix contains non-empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean areAnyPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).filter(prefix -> argumentMultimap.getValue(prefix).isPresent()).count() != 0;
     }
 
     /**
@@ -154,4 +173,38 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
     }
 
+    /**
+     * Returns true if at least one prefix is specified for {@code Doctor} is present
+     */
+    private static boolean arePrefixesNotPresentDoctor(ArgumentMultimap argMultimap) {
+        if (areAnyPrefixPresent(argMultimap, PREFIX_NRIC, PREFIX_NAME, PREFIX_PHONE)
+            || !argMultimap.getPreamble().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns true if at least one prefix is specified for {@code Patient} is present
+     */
+    private static boolean arePrefixesNotPresentPatient(ArgumentMultimap argMultimap) {
+        if (areAnyPrefixPresent(argMultimap, PREFIX_NRIC, PREFIX_AGE, PREFIX_NAME, PREFIX_PHONE,
+            PREFIX_PRIORITY, PREFIX_BLOOD_TYPE, PREFIX_TISSUE_TYPE, PREFIX_ORGAN, PREFIX_DOCTOR_IN_CHARGE)
+            || !argMultimap.getPreamble().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns true if at least one prefix is specified for {@code Donor} is present
+     */
+    private static boolean arePrefixesNotPresentDonor(ArgumentMultimap argMultimap) {
+        if (areAnyPrefixPresent(argMultimap, PREFIX_NRIC, PREFIX_AGE, PREFIX_NAME, PREFIX_PHONE,
+            PREFIX_ORGAN_EXPIRY_DATE, PREFIX_BLOOD_TYPE, PREFIX_TISSUE_TYPE, PREFIX_ORGAN)
+            || !argMultimap.getPreamble().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 }

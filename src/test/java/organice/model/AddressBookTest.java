@@ -67,7 +67,8 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        Person person = null;
+        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(person));
     }
 
     @Test

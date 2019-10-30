@@ -2,8 +2,6 @@ package organice.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_IRENE;
-import static organice.testutil.TypicalPersons.DONOR_IRENE_DONOR;
-import static organice.testutil.TypicalPersons.PATIENT_IRENE;
 import static organice.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,8 +19,6 @@ public class CommandResultIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        model.addPerson(PATIENT_IRENE);
-        model.addPerson(DONOR_IRENE_DONOR);
     }
 
     @Test

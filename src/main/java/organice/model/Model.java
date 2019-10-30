@@ -4,7 +4,11 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import organice.commons.core.GuiSettings;
+
+import organice.logic.commands.exceptions.CommandException;
+
 import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
@@ -71,7 +75,12 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
-     * Returns true if a doctor in charge with the same NRIC as {@code doctorInCharge} exists in the address book.
+     * Returns true if a person with the same nric as {@code personNric} exists in the address book.
+     */
+    boolean hasPerson(Nric personNric);
+
+    /**
+     * Returns true if a doctor in charge with the same nric as {@code doctorInCharge} exists in the address book.
      */
     boolean hasDoctor(Nric doctor);
 
@@ -145,4 +154,30 @@ public interface Model {
      * Retrieves the match list.
      */
     ObservableList<Person> getMatchList();
+
+    /**
+
+     * Returns the number of {@code MatchedDonors} that matches a specific {@code Patient}.
+     */
+    int numberOfMatches();
+
+    /**
+     * Retrieves the sort list.
+     */
+    SortedList<Person> getSortList();
+
+    /**
+     * Sorts list by priority level.
+     */
+    void sortByPriority() throws CommandException;
+
+    /**
+     * Sorts list by rate of success.
+     */
+    void sortBySuccessRate() throws CommandException;
+
+    /**
+     * Sorts list by organ expiry date.
+     */
+    void sortByOrganExpiryDate() throws CommandException;
 }

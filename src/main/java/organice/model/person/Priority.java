@@ -8,7 +8,7 @@ import static organice.commons.util.AppUtil.checkArgument;
  * The higher the priority, the more likely they will be matched with donor's organs.
  * Guarantees: immutable; is valid as declared in {@link #isValidPriority(String)}
  */
-public class Priority {
+public class Priority implements Comparable<Priority> {
 
     public static final String MESSAGE_CONSTRAINTS = "Priority can only be high, medium or low"
             + "and it should not be blank";
@@ -87,4 +87,27 @@ public class Priority {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Priority priority) {
+        Integer thisPriorityNumber = 0;
+        Integer otherPriorityNumber = 0;
+
+        if (this.isHighPriority()) {
+            thisPriorityNumber = 3;
+        } else if (this.isMediumPriority()) {
+            thisPriorityNumber = 2;
+        } else if (this.isLowPriority()) {
+            thisPriorityNumber = 1;
+        }
+
+        if (priority.isHighPriority()) {
+            otherPriorityNumber = 3;
+        } else if (priority.isMediumPriority()) {
+            otherPriorityNumber = 2;
+        } else if (priority.isLowPriority()) {
+            otherPriorityNumber = 1;
+        }
+
+        return thisPriorityNumber.compareTo(otherPriorityNumber);
+    }
 }

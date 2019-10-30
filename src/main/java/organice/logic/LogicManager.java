@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import organice.commons.core.GuiSettings;
 import organice.commons.core.LogsCenter;
 import organice.logic.commands.Command;
@@ -64,6 +65,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getMatchList() {
         return model.getMatchList();
+    }
+
+    @Override
+    public SortedList<Person> getSortList() {
+        return model.getSortList();
     }
 
     @Override

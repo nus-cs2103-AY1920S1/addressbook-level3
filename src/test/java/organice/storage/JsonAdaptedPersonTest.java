@@ -3,7 +3,7 @@ package organice.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static organice.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static organice.testutil.Assert.assertThrows;
-import static organice.testutil.TypicalPersons.DOCTOR_BENSON;
+import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
 import static organice.testutil.TypicalPersons.DONOR_JOHN;
 import static organice.testutil.TypicalPersons.PATIENT_IRENE;
 
@@ -41,9 +41,9 @@ public class JsonAdaptedPersonTest {
     private static final String PLACEHOLDER_ORGAN_EXPIRY_DATE = "";
     private static final String PLACEHOLDER_PROCESSINGLIST = "";
 
-    private static final String VALID_NAME = DOCTOR_BENSON.getName().toString();
-    private static final String VALID_PHONE = DOCTOR_BENSON.getPhone().toString();
-    private static final String VALID_NRIC = DOCTOR_BENSON.getNric().toString();
+    private static final String VALID_NAME = DOCTOR_ALICE.getName().toString();
+    private static final String VALID_PHONE = DOCTOR_ALICE.getPhone().toString();
+    private static final String VALID_NRIC = DOCTOR_ALICE.getNric().toString();
     private static final String VALID_TYPE = PATIENT_IRENE.getType().toString();
     private static final String VALID_AGE = PATIENT_IRENE.getAge().toString();
     private static final String VALID_PRIORITY = PATIENT_IRENE.getPriority().toString();
@@ -55,8 +55,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_validDoctorDetails_returnsDoctor() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(DOCTOR_BENSON);
-        assertEquals(DOCTOR_BENSON, person.toModelType());
+        JsonAdaptedPerson person = new JsonAdaptedPerson(DOCTOR_ALICE);
+        assertEquals(DOCTOR_ALICE, person.toModelType());
     }
 
     @Test

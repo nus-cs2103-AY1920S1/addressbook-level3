@@ -52,7 +52,7 @@ public class MatchCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(donor.getName().fullName);
         phone.setText("Phone Number: " + donor.getPhone().value);
-        nric.setText(donor.getNric().value);
+        nric.setText("Nric: " + donor.getNric().value);
         age.setText("Age: " + donor.getAge().value);
         bloodType.setText("Blood type: " + donor.getBloodType().value);
         tissueType.setText("Tissue type: " + donor.getTissueType().value);
