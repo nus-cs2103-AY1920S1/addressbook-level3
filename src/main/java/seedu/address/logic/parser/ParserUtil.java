@@ -23,6 +23,7 @@ import seedu.address.model.person.Password;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.VehicleNumber;
 import seedu.address.model.vehicle.VehicleType;
@@ -144,7 +145,7 @@ public class ParserUtil {
      * @return
      * @throws ParseException
      */
-    public static District parseLocation(String district) throws ParseException {
+    public static District parseDistrict(String district) throws ParseException {
         requireNonNull(district);
         String trimmedDistrict = district.trim();
         try {
@@ -165,7 +166,7 @@ public class ParserUtil {
      *
      * throws ParseException if the given {@code district} is invalid.
      */
-    public static List<District> parseLocations(String district) throws ParseException {
+    public static List<District> parseDistricts(String district) throws ParseException {
         requireNonNull(district);
         try {
             List<String> splittedD = Arrays.asList(district.trim().split("\\s"));
@@ -209,6 +210,19 @@ public class ParserUtil {
         return new VehicleNumber(trimmedVNum);
     }
 
+    /**
+     * Parses a {@code String avail} into a {@code Availability}.
+     * Input will be checked for validity.
+     * Leading and trailing white spaces will be trimmed.
+     */
+    public static Availability parseAvailability(String avail) throws ParseException {
+        requireNonNull(avail);
+        String trimmedAvail = avail.trim();
+        if (!trimmedAvail.equalsIgnoreCase("available") && !trimmedAvail.equalsIgnoreCase("busy")) {
+            throw new ParseException(Availability.MESSAGE_CONSTRAINTS);
+        }
+        return new Availability(trimmedAvail);
+    }
     /**
      * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing white spaces will be trimmed.

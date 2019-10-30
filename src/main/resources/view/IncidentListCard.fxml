@@ -55,12 +55,17 @@
                      <Insets right="5.0" />
                   </GridPane.margin>
                </Label>
-                  <Label fx:id="incidentLocation" alignment="CENTER_RIGHT" prefHeight="20.0" styleClass="cell_small_label" text="\$incidentLocation" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <Label fx:id="incidentDistrict" alignment="CENTER_RIGHT" prefHeight="20.0" styleClass="cell_small_label" text="\$incidentLocation" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                   <GridPane.margin>
                      <Insets right="5.0" />
                   </GridPane.margin>
                </Label>
-                  <Label fx:id="callerNumber" alignment="CENTER_RIGHT" prefHeight="20.0" styleClass="cell_small_label" text="\$callerNumber" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                    <Label fx:id="vehicle" alignment="CENTER_RIGHT" prefHeight="20.0" styleClass="cell_small_label" text="\$callerNumber" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                  <Label fx:id="callerNumber" alignment="CENTER_RIGHT" prefHeight="20.0" styleClass="cell_small_label" text="\$callerNumber" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
                   <GridPane.margin>
                      <Insets right="5.0" />
                   </GridPane.margin>

@@ -1,10 +1,19 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.incident.Incident.getTagSet;
+
 import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.Incident.Status;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Username;
 import seedu.address.model.vehicle.District;
 
 /**
@@ -16,7 +25,14 @@ public class IncidentBuilder {
     public static final String DEFAULT_DATETIME = "2016-12-02T14:30:40";
     public static final String DEFAULT_DESC = "This is an incident description.";
     public static final String DEFAULT_ID = "1220160001";
+    public static final Person DEFAULT_PERSON = new Person(new Name("Alex Yeoh"),
+            new Phone("87438807"),
+            new Email("alexyeoh@example.com"), getTagSet("friends"),
+            new Username("user1"),
+            new Password("pass123"));
 
+    private Person operator;
+    private Status status;
     private District district;
     private IncidentDateTime dateTime;
     private Description desc;
@@ -29,6 +45,8 @@ public class IncidentBuilder {
         desc = new Description(DEFAULT_DESC);
         caller = new CallerNumber(DEFAULT_CALLER);
         id = new IncidentId(DEFAULT_ID);
+        operator = DEFAULT_PERSON;
+        status = Status.COMPLETE_DRAFT;
     }
 
     /**
@@ -84,6 +102,6 @@ public class IncidentBuilder {
 
 
     public Incident build() {
-        return new Incident(id, district, dateTime, caller, desc);
+        return new Incident(operator, district, dateTime, id, caller, desc, status);
     }
 }

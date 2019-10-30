@@ -11,9 +11,12 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 // import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.AddVehicleCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.DeleteVehicleCommand;
+import seedu.address.logic.commands.EditIncidentCommand;
+import seedu.address.logic.commands.EditVehicleCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FillCommand;
 import seedu.address.logic.commands.FindIncidentsCommand;
@@ -61,11 +64,20 @@ public class IncidentManagerParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case AddVehicleCommand.COMMAND_WORD:
+            return new AddVehicleCommandParser().parse(arguments);
+
+        case EditIncidentCommand.COMMAND_WORD:
+            return new EditIncidentCommandParser().parse(arguments);
+
+        case EditVehicleCommand.COMMAND_WORD:
+            return new EditVehicleCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteVehicleCommand.COMMAND_WORD:
+            return new DeleteVehicleCommandParser().parse(arguments);
 
         /* case ClearCommand.COMMAND_WORD:
             return new ClearCommand(); */

@@ -18,7 +18,7 @@ public class VehicleType {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String vehicleType;
+    private final String vehicleType;
 
     /**
      * Constructs a {@code Name}.

@@ -18,7 +18,7 @@ public class VehicleNumber {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String vehicleNumber;
+    private final String vehicleNumber;
 
     /**
      * Constructs a {@code VehicleNumber}.

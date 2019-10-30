@@ -15,7 +15,7 @@ public class District {
     public static final int FIRST_DISTRICT = 1;
     public static final int LAST_DISTRICT = 28;
 
-    public final int districtNum;
+    private final int districtNum;
 
     /**
      * Constructs a {@code District}.
@@ -26,6 +26,10 @@ public class District {
         requireNonNull(d);
         checkArgument(isValidDistrict(d), MESSAGE_CONSTRAINTS);
         districtNum = d;
+    }
+
+    public int getDistrictNum() {
+        return this.districtNum;
     }
 
     /**

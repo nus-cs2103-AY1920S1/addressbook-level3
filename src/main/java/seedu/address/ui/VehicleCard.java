@@ -38,9 +38,9 @@ public class VehicleCard extends UiPart<Region> {
         super(FXML);
         this.vehicle = vehicle;
         id.setText(displayedIndex + ". ");
-        vehicleNumber.setText(vehicle.getVehicleNumber().vehicleNumber);
-        vehicleType.setText(vehicle.getVehicleType().vehicleType);
-        district.setText("District: " + String.valueOf(vehicle.getDistrict().districtNum));
+        vehicleNumber.setText(vehicle.getVehicleNumber().toString());
+        vehicleType.setText(vehicle.getVehicleType().toString());
+        district.setText("District: " + String.valueOf(vehicle.getDistrict().getDistrictNum()));
         availability.setText("Availability: " + vehicle.getAvailability().getAvailabilityTag());
     }
 

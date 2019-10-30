@@ -11,6 +11,7 @@ import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.Vehicle;
 
 /**
  * Jackson-friendly version of {@link Incident}.
@@ -26,6 +27,7 @@ class JsonAdaptedIncident {
     private final String callerNumber;
     private final String description;
     private final String status;
+    private final JsonAdaptedVehicle vehicle;
 
     /**
      * Constructs a {@code JsonAdaptedIncident} with the given incident details.
@@ -37,7 +39,8 @@ class JsonAdaptedIncident {
                               @JsonProperty("incidentId") String incidentId,
                               @JsonProperty("callerNumber") String callerNumber,
                               @JsonProperty("description") String description,
-                              @JsonProperty("status") String status) {
+                              @JsonProperty("status") String status,
+                              @JsonProperty("vehicle") JsonAdaptedVehicle vehicle) {
         this.operator = operator;
         this.districtNum = districtNum;
         this.dateTime = dateTime;
@@ -45,6 +48,7 @@ class JsonAdaptedIncident {
         this.callerNumber = callerNumber;
         this.description = description;
         this.status = status;
+        this.vehicle = vehicle;
     }
 
     /**
@@ -52,12 +56,18 @@ class JsonAdaptedIncident {
      */
     public JsonAdaptedIncident(Incident source) {
         operator = new JsonAdaptedPerson(source.getOperator());
-        districtNum = source.getDistrict().districtNum;
+        districtNum = source.getDistrict().getDistrictNum();
         dateTime = source.getDateTime().toString();
         incidentId = source.getIncidentId().getId();
         callerNumber = source.getCallerNumber().toString();
         description = source.getDesc().toString();
         status = source.getStatus().name(); // do not use toString() because it has been overridden
+        vehicle = new JsonAdaptedVehicle(
+                source.getVehicle().getVehicleType().toString(),
+                source.getVehicle().getVehicleNumber().toString(),
+                source.getVehicle().getDistrict().getDistrictNum(),
+                source.getVehicle().getAvailability().toString()
+        );
     }
 
     /**
@@ -120,7 +130,11 @@ class JsonAdaptedIncident {
         }
         final Incident.Status modelStatus = Incident.Status.valueOf(status);
 
+        // no need check for vehicle validity because vehicle must alr be created to be added.
+        assert(this.vehicle != null);
+        final Vehicle modelVehicle = this.vehicle.toModelType();
+
         return new Incident(modelOperator, modelDistrict, modelDateTime, modelIncidentId, modelCallerNumber,
-                modelDescription, modelStatus);
+                modelDescription, modelStatus, modelVehicle);
     }
 }

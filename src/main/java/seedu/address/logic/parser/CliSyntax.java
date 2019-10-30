@@ -14,8 +14,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_CALLER_NUMBER = new Prefix("c/");
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
-    public static final Prefix PREFIX_LOCATION = new Prefix("l/");
+    public static final Prefix PREFIX_DISTRICT = new Prefix("l/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
+    public static final Prefix PREFIX_VTYPE = new Prefix("vt/");
+    public static final Prefix PREFIX_VNUM = new Prefix("vn/");
+    public static final Prefix PREFIX_AVAIL = new Prefix("a/");
 
     /* For all auto-fill prompts */
     public static final Prefix PREFIX_AUTO = new Prefix("auto/");
@@ -27,4 +30,6 @@ public class CliSyntax {
     public static final Prefix SEARCH_PREFIX_DISTRICT = new Prefix("ds/");
     public static final Prefix SEARCH_PREFIX_VTYPE = new Prefix("vtype/");
     public static final Prefix SEARCH_PREFIX_VNUM = new Prefix("vnum/");
+
+    public static final Prefix SEARCH_PREFIX_SELF = new Prefix("self");
 }

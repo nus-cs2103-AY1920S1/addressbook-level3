@@ -50,27 +50,29 @@ public class SampleDataUtil {
     public static Incident[] getSampleIncidents() {
         Person[] samplePersons = getSamplePersons();
         IncidentDateTime[] sampleIncidentDateTimes = getSampleIncidentDateTimes();
+        Vehicle[] sampleVehicles = getSampleVehicles();
+
         Incident[] sampleIncidents = new Incident[] {
             new Incident(samplePersons[0], new District(1), sampleIncidentDateTimes[0],
                 new IncidentId(sampleIncidentDateTimes[0].getMonth(), sampleIncidentDateTimes[0].getYear()),
                 new CallerNumber("93894576"), new Description("Shoplifting reported in District 1 Mall"),
-                Incident.Status.SUBMITTED_REPORT),
+                Incident.Status.SUBMITTED_REPORT, sampleVehicles[0]),
             new Incident(samplePersons[1], new District(2), sampleIncidentDateTimes[1],
                 new IncidentId(sampleIncidentDateTimes[1].getMonth(), sampleIncidentDateTimes[1].getYear()),
                 new CallerNumber("98098765"), new Description("."),
-                Incident.Status.INCOMPLETE_DRAFT),
+                Incident.Status.INCOMPLETE_DRAFT, sampleVehicles[1]),
             new Incident(samplePersons[2], new District(3), sampleIncidentDateTimes[2],
                 new IncidentId(sampleIncidentDateTimes[2].getMonth(), sampleIncidentDateTimes[2].getYear()),
                 new CallerNumber("87595849"), new Description("."),
-                Incident.Status.INCOMPLETE_DRAFT),
+                Incident.Status.INCOMPLETE_DRAFT, sampleVehicles[2]),
             new Incident(samplePersons[3], new District(4), sampleIncidentDateTimes[3],
                 new IncidentId(sampleIncidentDateTimes[3].getMonth(), sampleIncidentDateTimes[3].getYear()),
                 new CallerNumber("89090908"), new Description("Minor traffic accident in District 4 highway"),
-                Incident.Status.SUBMITTED_REPORT),
+                Incident.Status.SUBMITTED_REPORT, sampleVehicles[3]),
             new Incident(samplePersons[4], new District(5), sampleIncidentDateTimes[4],
                 new IncidentId(sampleIncidentDateTimes[4].getMonth(), sampleIncidentDateTimes[4].getYear()),
                 new CallerNumber("87656743"), new Description("Arson reported at District 5 warehouse"),
-                Incident.Status.COMPLETE_DRAFT)
+                Incident.Status.COMPLETE_DRAFT, sampleVehicles[4])
         };
 
         return sampleIncidents;
@@ -86,16 +88,31 @@ public class SampleDataUtil {
         };
     }
 
+    /**
+     * The assigned vehicles are of "busy" status here because
+     * it's just loading of data; they were alr dispatched.
+     */
     public static Vehicle[] getSampleVehicles() {
         return new Vehicle[] {
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SFD3204V"),
+                    new District(1), new Availability("BUSY")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SDF2044R"),
+                    new District(2), new Availability("BUSY")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FEP3249J"),
+                    new District(3), new Availability("BUSY")),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("GRB3294K"),
+                    new District(4), new Availability("BUSY")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GJR8923L"),
+                    new District(5), new Availability("BUSY")),
             new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("SGS2121G"),
                 new District(1), new Availability("AVAILABLE")),
             new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("BBA2222F"),
-                new District(6), new Availability("BUSY")),
-            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKTH1221P"),
+                new District(6), new Availability("AVAILABLE")),
+            new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKH1221P"),
                 new District(20), new Availability("AVAILABLE")),
             new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
-                new District(8), new Availability("BUSY"))
+                new District(8), new Availability("AVAILABLE"))
+
         };
     }
 

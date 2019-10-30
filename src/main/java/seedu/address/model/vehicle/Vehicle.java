@@ -83,6 +83,16 @@ public class Vehicle {
         return Objects.hash(vehicleType, vehicleNumber, district, availability);
     }
 
+    /**
+     * Description of vehicle specifically used for UI.
+     * @return description of vehicle to display on UI.
+     */
+    public String toDisplayString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getVehicleType())
+                .append(getVehicleNumber());
+        return sb.toString();
+    }
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

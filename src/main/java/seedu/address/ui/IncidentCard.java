@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.incident.CallerNumber;
+import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 
 /**
@@ -14,7 +16,7 @@ public class IncidentCard extends UiPart<Region> {
     private static final String FXML = "IncidentListCard.fxml";
 
     /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
+     * Note: Certain keywords such as "district" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      */
@@ -26,7 +28,7 @@ public class IncidentCard extends UiPart<Region> {
     @FXML
     private Label operator;
     @FXML
-    private Label incidentLocation;
+    private Label incidentDistrict;
     @FXML
     private Label dateTime;
     @FXML
@@ -39,7 +41,8 @@ public class IncidentCard extends UiPart<Region> {
     private Label description;
     @FXML
     private Label status;
-
+    @FXML
+    private Label vehicle;
 
     public IncidentCard(Incident incident, int displayedIndex) {
         super(FXML);
@@ -49,9 +52,23 @@ public class IncidentCard extends UiPart<Region> {
         dateTime.setText("created on " + incident.getDateTime().toDisplayString()); // get the display format, not ISO
         operator.setText("Filed by: " + incident.getOperator().getName().toString() + " ("
                 + incident.getOperator().getUsername() + ")");
-        incidentLocation.setText("District: " + String.valueOf(incident.getDistrict().districtNum));
-        callerNumber.setText("Caller: " + incident.getCallerNumber().toString());
-        description.setText(incident.getDesc().toString());
+        incidentDistrict.setText("District: " + incident.getDistrict().toString());
+        vehicle.setText("Vehicle: " + incident.getVehicle().toDisplayString());
+
+        // fields not filled for draft
+        CallerNumber incidentCallerNumber = incident.getCallerNumber();
+        if (incidentCallerNumber == null) {
+            callerNumber.setText("");
+        } else {
+            callerNumber.setText("Caller: " + incidentCallerNumber.toString());
+        }
+
+        Description incidentDesc = incident.getDesc();
+        if (incidentDesc == null) {
+            description.setText("");
+        } else {
+            description.setText(incidentDesc.toString());
+        }
 
         // status label setup
         String statusString = incident.getStatus().toString();

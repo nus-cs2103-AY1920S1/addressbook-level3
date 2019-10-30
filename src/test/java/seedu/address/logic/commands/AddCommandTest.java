@@ -191,6 +191,25 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasVehicle(Vehicle vehicle) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setVehicle(Vehicle target, Vehicle editedVehicle) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addVehicle(Vehicle toAdd) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void deleteVehicle(Vehicle toDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
         public void updateFilteredVehicleList(Predicate<Vehicle> predicate) {
             throw new AssertionError("This method should not be called.");
         }

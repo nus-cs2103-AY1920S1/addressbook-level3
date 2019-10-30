@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditIncident;
+import seedu.address.logic.commands.EditIncidentCommand;
+import seedu.address.logic.commands.EditIncidentCommand.EditIncident;
 import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
@@ -13,21 +13,21 @@ import seedu.address.model.vehicle.District;
  * A utility class to help with the building of EditIncident objects.
  */
 public class EditIncidentBuilder {
-    private EditCommand.EditIncident editor;
+    private EditIncidentCommand.EditIncident editor;
 
     public EditIncidentBuilder() {
-        editor = new EditCommand.EditIncident();
+        editor = new EditIncidentCommand.EditIncident();
     }
 
-    public EditIncidentBuilder(EditCommand.EditIncident editor) {
-        this.editor = new EditCommand.EditIncident(editor);
+    public EditIncidentBuilder(EditIncidentCommand.EditIncident editor) {
+        this.editor = new EditIncidentCommand.EditIncident(editor);
     }
 
     /**
      * Returns an {@code EditIncident} with fields containing {@code incident}'s details
      */
     public EditIncidentBuilder (Incident incident) {
-        editor = new EditCommand.EditIncident();
+        editor = new EditIncidentCommand.EditIncident();
         editor.setDistrict(incident.getDistrict());
         editor.setCaller(incident.getCallerNumber());
         editor.setDateTime(incident.getDateTime());

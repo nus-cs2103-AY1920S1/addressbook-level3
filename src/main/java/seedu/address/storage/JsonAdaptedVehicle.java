@@ -40,9 +40,9 @@ class JsonAdaptedVehicle {
      * Converts a given {@code Vehicle} into this class for Jackson use.
      */
     public JsonAdaptedVehicle(Vehicle source) {
-        vehicleType = source.getVehicleType().vehicleType;
-        vehicleNumber = source.getVehicleNumber().vehicleNumber;
-        districtNum = source.getDistrict().districtNum;
+        vehicleType = source.getVehicleType().toString();
+        vehicleNumber = source.getVehicleNumber().toString();
+        districtNum = source.getDistrict().getDistrictNum();
         availability = source.getAvailability().getAvailabilityTag();
     }
 

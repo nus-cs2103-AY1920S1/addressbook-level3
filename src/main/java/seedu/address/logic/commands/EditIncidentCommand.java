@@ -2,9 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
 
 import java.util.List;
@@ -18,34 +17,33 @@ import seedu.address.model.Model;
 import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.Incident.Status;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
+import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.District;
 
 /**
- * Edits the details of an existing incident in the address book.
+ * Edits the details of an existing incident in the IMS.
  */
-public class EditCommand extends Command {
+public class EditIncidentCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit-i";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the incident identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed incidents list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_LOCATION + "DISTRICT] "
+            + "[" + PREFIX_DISTRICT + "DISTRICT] "
             + "[" + PREFIX_CALLER_NUMBER + "CALLER NUMBER] "
-            + "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DATETIME + "01/10/2019 20:22 "
-            + PREFIX_CALLER_NUMBER + "91302402";
+            + PREFIX_CALLER_NUMBER + "91302402 "
+            + PREFIX_DESCRIPTION + "This is a incident description.";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_INCIDENT = "This incident already exists in the address book.";
-
     public static final String MESSAGE_EDIT_INCIDENT_SUCCESS = "Edited Incident: %1$s";
+    public static final String MESSAGE_INCIDENT_NOT_EDITED = "No fields were provided, incident is not edited.";
 
     private final Index index;
     private final EditIncident editIncident;
@@ -56,7 +54,7 @@ public class EditCommand extends Command {
      * @param index of the person in the filtered person list to edit
      * @param editIncident details to edit the incident with
      */
-    public EditCommand(Index index, EditIncident editIncident) {
+    public EditIncidentCommand(Index index, EditIncident editIncident) {
         requireNonNull(index);
         requireNonNull(editIncident);
 
@@ -74,7 +72,7 @@ public class EditCommand extends Command {
         }
 
         Incident incidentToEdit = listOfIncidents.get(index.getZeroBased());
-        Incident editedIncident = createEditedIncident(incidentToEdit, editIncident);
+        Incident editedIncident = createEditedIncident(incidentToEdit, editIncident, model);
 
         if (!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)) {
             throw new CommandException(MESSAGE_DUPLICATE_INCIDENT);
@@ -87,17 +85,20 @@ public class EditCommand extends Command {
 
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Incident} with the details of {@code IncidentToEdit}
+     * edited with {@code editIncident}.
      */
-    private static Incident createEditedIncident(Incident incidentToEdit, EditIncident editIncident) {
+    private static Incident createEditedIncident(Incident incidentToEdit, EditIncident editIncident, Model model) {
         assert incidentToEdit != null;
+        Person operator = model.getLoggedInPerson();
         District updateDistrict = editIncident.getDistrict().orElse(incidentToEdit.getDistrict());
         CallerNumber updateCaller = editIncident.getCaller().orElse(incidentToEdit.getCallerNumber());
         IncidentDateTime updateDateTime = editIncident.getDateTime().orElse(incidentToEdit.getDateTime());
         Description updateDesc = editIncident.getDesc().orElse(incidentToEdit.getDesc());
+        Status status = incidentToEdit.getStatus();
 
-        return new Incident(incidentToEdit.getIncidentId(), updateDistrict, updateDateTime, updateCaller, updateDesc);
+        return new Incident(operator, updateDistrict, updateDateTime, incidentToEdit.getIncidentId(), updateCaller,
+                updateDesc, status);
     }
 
     @Override
@@ -108,19 +109,19 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditIncidentCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditIncidentCommand e = (EditIncidentCommand) other;
         return index.equals(e.index)
                 && editIncident.equals(e.editIncident);
     }
 
     /**
      * Stores the details to edit the incident with. Each non-empty field value will replace the corresponding
-     * field value of the person.
+     * field value of the incident.
      */
     public static class EditIncident {
         private District district;

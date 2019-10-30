@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -23,21 +23,20 @@ public class NewCommandParser implements Parser<NewCommand> {
      * or does not only have 1 input for district.
      */
     public NewCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LOCATION,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DISTRICT,
                 PREFIX_AUTO);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_LOCATION, PREFIX_AUTO)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DISTRICT, PREFIX_AUTO)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
         }
 
-        List<District> districts = ParserUtil.parseLocations(argMultimap.getValue(PREFIX_LOCATION).get());
+        List<District> districts = ParserUtil.parseDistricts(argMultimap.getValue(PREFIX_DISTRICT).get());
 
         if (districts.size() != 1) {
             throw new ParseException("Please ensure there is one input for district number!");
         }
         boolean isAuto = ParserUtil.parseAuto(argMultimap.getValue(PREFIX_AUTO).get());
-
         return new NewCommand(districts.get(0), isAuto);
     }
 

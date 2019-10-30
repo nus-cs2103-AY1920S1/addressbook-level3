@@ -34,13 +34,14 @@ public class FindVehiclesCommandParser implements Parser<FindVehiclesCommand> {
 
         if (arePrefixesPresent(argDistrictMap, SEARCH_PREFIX_DISTRICT)) {
             List<District> districtKeywords =
-                    ParserUtil.parseLocations(argDistrictMap.getValue(SEARCH_PREFIX_DISTRICT).get());
+                    ParserUtil.parseDistricts(argDistrictMap.getValue(SEARCH_PREFIX_DISTRICT).get());
             return new FindVehiclesCommand(new DistrictKeywordsPredicate(districtKeywords));
         } else if (arePrefixesPresent(argVTypeMap, SEARCH_PREFIX_VTYPE)) {
             VehicleType vTypeKeywords = ParserUtil.parseVType(argVTypeMap.getValue(SEARCH_PREFIX_VTYPE).get());
             return new FindVehiclesCommand(new VTypeKeywordsPredicate(vTypeKeywords));
         } else if (arePrefixesPresent(argVNumMap, SEARCH_PREFIX_VNUM)) {
-            VehicleNumber vNumKeywords = ParserUtil.parseVNum(argVTypeMap.getValue(SEARCH_PREFIX_VNUM).get());
+            VehicleNumber vNumKeywords = ParserUtil.parseVNum(argVNumMap.getValue(SEARCH_PREFIX_VNUM).get());
+            assert(vNumKeywords != null);
             return new FindVehiclesCommand(new VNumKeywordsPredicate(vNumKeywords));
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
