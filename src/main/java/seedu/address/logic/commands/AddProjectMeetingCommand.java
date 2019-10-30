@@ -60,6 +60,7 @@ public class AddProjectMeetingCommand extends Command {
         editedProject.setListOfMeeting(newMeetingList);
 
         model.setProject(projectToEdit, editedProject);
+        model.setWorkingProject(editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_WORD);
     }

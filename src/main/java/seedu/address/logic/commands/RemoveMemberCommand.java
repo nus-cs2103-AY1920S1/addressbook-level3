@@ -52,6 +52,7 @@ public class RemoveMemberCommand extends Command {
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
                 editedMemberList, projectToEdit.getTasks(), projectToEdit.getFinance());
+        editedProject.setListOfMeeting(projectToEdit.getListOfMeeting());
 
         model.setProject(projectToEdit, editedProject);
         model.setWorkingProject(editedProject);

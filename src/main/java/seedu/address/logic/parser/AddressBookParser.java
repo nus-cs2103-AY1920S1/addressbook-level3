@@ -127,6 +127,9 @@ public class AddressBookParser {
         case AddTimetableCommand.COMMAND_WORD:
             return new AddTimetableCommandParser().parse(arguments);
 
+        case DeleteProjectMeetingCommand.COMMAND_WORD:
+            return new DeleteProjectMeetingCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

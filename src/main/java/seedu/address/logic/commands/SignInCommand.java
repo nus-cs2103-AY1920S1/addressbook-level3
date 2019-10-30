@@ -21,6 +21,8 @@ public class SignInCommand extends Command {
     public static final String MESSAGE_SIGNED_IN = "You have signed in, please log out to sign in to another account";
 
     public static final String MESSAGE_SIGN_IN_ISSUE = "Unable to sign in. Please check that: \n"
+            + "  - You have enabled Less secure app access in your Google Account Setting\n"
+            + "  - You have disabled the 2-Step Verification in your Google Account Setting\n"
             + "  - You have correctly input the email address and password.\n"
             + "  - You are connected to the Internet.";
 

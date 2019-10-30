@@ -60,6 +60,7 @@ public class DeleteTaskCommand extends Command {
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
                 projectToEdit.getMemberNames(), taskList, finance);
+        editedProject.setListOfMeeting(projectToEdit.getListOfMeeting());
 
         model.setProject(projectToEdit, editedProject);
         model.setWorkingProject(editedProject);

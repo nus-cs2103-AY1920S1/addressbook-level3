@@ -23,7 +23,7 @@ public class Mailer {
         //for gmail server need to set this to true (need to provide authentication)
         props.put("mail.smtp.auth", "true");
 
-        //in gmail have to proveid true value for this key
+        //in gmail have to provide true value for this key
         props.put("mail.smtp.starttls.enable", "true");
 
         //the email host which in this case is gmail
