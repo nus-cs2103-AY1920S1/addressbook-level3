@@ -116,7 +116,7 @@ public class ItemModelManager implements ItemModel {
 
     @Override
     public void updateCommandHistory(Command command) {
-        elisaCommandHistory.pushCommand(command);
+        elisaCommandHistory.pushUndo(command);
     }
 
     @Override
@@ -254,15 +254,28 @@ public class ItemModelManager implements ItemModel {
     public Item removeItem(Item item) {
         Item removedItem = visualList.removeItemFromList(item);
         if (visualList instanceof TaskList) {
-            taskList.removeItemFromList(item);
+            taskList.removeItemFromList(removedItem);
         } else if (visualList instanceof EventList) {
-            eventList.removeItemFromList(item);
+            eventList.removeItemFromList(removedItem);
         } else if (visualList instanceof ReminderList) {
-            reminderList.removeItemFromList(item);
+            reminderList.removeItemFromList(removedItem);
         } else {
             // never reached here as there are only three variants for the visualList
         }
         return removedItem;
+    }
+
+    /**
+     * Removes an item from a list. Used for edit command to remove the old item.
+     * @param item the item to be removed from the list
+     * @return the item that is removed.
+     */
+    private Item removeFromSeparateList(Item item) {
+        visualList.remove(item);
+        taskList.remove(item);
+        eventList.remove(item);
+        reminderList.remove(item);
+        return item;
     }
 
     /**
@@ -391,6 +404,18 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
+     * Edits an item with another item.
+     * @param oldItem the item to be edited
+     * @param newItem the edited item
+     * @return the edited item
+     */
+    public Item editItem(Item oldItem, Item newItem) {
+        replaceItem(oldItem, newItem);
+        addToSeparateList(newItem);
+        return newItem;
+    }
+
+    /**
      * Find an item based on its description.
      * @param searchStrings the string to search for within the description
      * @return the item list containing all the items that contain the search string
@@ -484,22 +509,12 @@ public class ItemModelManager implements ItemModel {
         }, date);
     }
 
-    /**
-     * Handles the turning off of priority mode when exiting the application.
-     */
-    public void forceOffPriorityMode() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-    }
-
     private VisualizeList getNextTask() {
         TaskList result = new TaskList();
 
         if (sortedTask.peek().getTask().get().isComplete()) {
             systemToggle = true;
-            priorityMode.setValue(false);
+            toggleOffPriorityMode();
             return taskList;
         }
 
@@ -585,7 +600,7 @@ public class ItemModelManager implements ItemModel {
             Task task = item.getTask().get();
             Task newTask = task.markComplete();
             newItem = item.changeTask(newTask);
-            replaceItem(item, newItem);
+            editItem(item, newItem);
         }
         return newItem;
     }
@@ -604,7 +619,7 @@ public class ItemModelManager implements ItemModel {
             Task task = item.getTask().get();
             Task newTask = task.markIncomplete();
             newItem = item.changeTask(newTask);
-            replaceItem(item, newItem);
+            editItem(item, newItem);
         }
 
         return newItem;

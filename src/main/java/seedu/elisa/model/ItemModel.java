@@ -106,8 +106,6 @@ public interface ItemModel {
 
     public void offPriorityMode();
 
-    public void forceOffPriorityMode();
-
     public Item markComplete(int index) throws IllegalListException;
 
     public Item markIncomplete(int index) throws IllegalListException;
@@ -130,4 +128,6 @@ public interface ItemModel {
     SimpleBooleanProperty getPriorityMode();
 
     boolean isSystemToggle();
+  
+    public Item editItem(Item oldItem, Item newItem);
 }
