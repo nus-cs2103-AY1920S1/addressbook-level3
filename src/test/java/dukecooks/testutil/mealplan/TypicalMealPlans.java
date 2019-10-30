@@ -45,16 +45,16 @@ public class TypicalMealPlans {
             .withDay5("Kappa Maki").withDay6("Kappa Maki").withDay7("Kappa Maki").build();
 
     // Manually added - MealPlan's details found in {@code CommandTestUtil}
-    public static final MealPlan FISH_MP = new MealPlanBuilder().withName(CommandTestUtil.VALID_NAME_FISHMP)
-            .withDay1(CommandTestUtil.VALID_INGREDIENT_FISH).withDay2(CommandTestUtil.VALID_INGREDIENT_FISH)
-            .withDay3(CommandTestUtil.VALID_INGREDIENT_FISH).withDay4(CommandTestUtil.VALID_INGREDIENT_FISH)
-            .withDay5(CommandTestUtil.VALID_INGREDIENT_FISH).withDay6(CommandTestUtil.VALID_INGREDIENT_FISH)
-            .withDay7(CommandTestUtil.VALID_INGREDIENT_FISH).build();
-    public static final MealPlan BURGER_MP = new MealPlanBuilder().withName(CommandTestUtil.VALID_NAME_BURGERMP)
-            .withDay1(CommandTestUtil.VALID_INGREDIENT_BURGER).withDay2(CommandTestUtil.VALID_INGREDIENT_BURGER)
-            .withDay3(CommandTestUtil.VALID_INGREDIENT_BURGER).withDay4(CommandTestUtil.VALID_INGREDIENT_BURGER)
-            .withDay5(CommandTestUtil.VALID_INGREDIENT_BURGER).withDay6(CommandTestUtil.VALID_INGREDIENT_BURGER)
-            .withDay7(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+    public static final MealPlan FISH_MP = new MealPlanBuilder().withName(CommandTestUtil.VALID_NAME_FISH_MP)
+            .withDay1(CommandTestUtil.VALID_NAME_FISH).withDay2(CommandTestUtil.VALID_NAME_FISH)
+            .withDay3(CommandTestUtil.VALID_NAME_FISH).withDay4(CommandTestUtil.VALID_NAME_FISH)
+            .withDay5(CommandTestUtil.VALID_NAME_FISH).withDay6(CommandTestUtil.VALID_NAME_FISH)
+            .withDay7(CommandTestUtil.VALID_NAME_FISH).build();
+    public static final MealPlan BURGER_MP = new MealPlanBuilder().withName(CommandTestUtil.VALID_NAME_BURGER_MP)
+            .withDay1(CommandTestUtil.VALID_NAME_BURGER).withDay2(CommandTestUtil.VALID_NAME_BURGER)
+            .withDay3(CommandTestUtil.VALID_NAME_BURGER).withDay4(CommandTestUtil.VALID_NAME_BURGER)
+            .withDay5(CommandTestUtil.VALID_NAME_BURGER).withDay6(CommandTestUtil.VALID_NAME_BURGER)
+            .withDay7(CommandTestUtil.VALID_NAME_BURGER).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Maki"; // A keyword that matches MAKI
 

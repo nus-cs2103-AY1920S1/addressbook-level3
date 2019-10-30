@@ -3,6 +3,13 @@ package dukecooks.logic.commands;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CARBS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY1;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY2;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY3;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY4;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY5;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY6;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY7;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DOB;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_FATS;
@@ -14,6 +21,13 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY1;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY2;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY3;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY4;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY5;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY6;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY7;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEINGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
@@ -85,8 +99,8 @@ public class CommandTestUtil {
     public static final String VALID_PROTEIN_FISH = "35";
     public static final String VALID_PROTEIN_BURGER = "28";
 
-    public static final String VALID_NAME_FISHMP = "Fish and Chips Plan";
-    public static final String VALID_NAME_BURGERMP = "Cheese Burger Plan";
+    public static final String VALID_NAME_FISH_MP = "Fish and Chips Plan";
+    public static final String VALID_NAME_BURGER_MP = "Cheese Burger Plan";
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -138,6 +152,37 @@ public class CommandTestUtil {
     public static final String PROTEIN_DESC_FISH = " " + PREFIX_PROTEIN + VALID_PROTEIN_FISH;
     public static final String PROTEIN_DESC_BURGER = " " + PREFIX_PROTEIN + VALID_PROTEIN_BURGER;
 
+    public static final String NAME_DESC_FISH_MP = " " + PREFIX_NAME + VALID_NAME_FISH_MP;
+    public static final String NAME_DESC_BURGER_MP = " " + PREFIX_NAME + VALID_NAME_BURGER_MP;
+    public static final String DAY1_DESC_FISH_MP = " " + PREFIX_DAY1 + VALID_NAME_FISH;
+    public static final String DAY1_DESC_BURGER_MP = " " + PREFIX_DAY1 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY1_DESC_FISH_MP = " " + PREFIX_REMOVEDAY1 + VALID_NAME_FISH;
+    public static final String REMOVEDAY1_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY1 + VALID_NAME_BURGER;
+    public static final String DAY2_DESC_FISH_MP = " " + PREFIX_DAY2 + VALID_NAME_FISH;
+    public static final String DAY2_DESC_BURGER_MP = " " + PREFIX_DAY2 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY2_DESC_FISH_MP = " " + PREFIX_REMOVEDAY2 + VALID_NAME_FISH;
+    public static final String REMOVEDAY2_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY2 + VALID_NAME_BURGER;
+    public static final String DAY3_DESC_FISH_MP = " " + PREFIX_DAY3 + VALID_NAME_FISH;
+    public static final String DAY3_DESC_BURGER_MP = " " + PREFIX_DAY3 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY3_DESC_FISH_MP = " " + PREFIX_REMOVEDAY3 + VALID_NAME_FISH;
+    public static final String REMOVEDAY3_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY3 + VALID_NAME_BURGER;
+    public static final String DAY4_DESC_FISH_MP = " " + PREFIX_DAY4 + VALID_NAME_FISH;
+    public static final String DAY4_DESC_BURGER_MP = " " + PREFIX_DAY4 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY4_DESC_FISH_MP = " " + PREFIX_REMOVEDAY4 + VALID_NAME_FISH;
+    public static final String REMOVEDAY4_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY4 + VALID_NAME_BURGER;
+    public static final String DAY5_DESC_FISH_MP = " " + PREFIX_DAY5 + VALID_NAME_FISH;
+    public static final String DAY5_DESC_BURGER_MP = " " + PREFIX_DAY5 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY5_DESC_FISH_MP = " " + PREFIX_REMOVEDAY5 + VALID_NAME_FISH;
+    public static final String REMOVEDAY5_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY5 + VALID_NAME_BURGER;
+    public static final String DAY6_DESC_FISH_MP = " " + PREFIX_DAY6 + VALID_NAME_FISH;
+    public static final String DAY6_DESC_BURGER_MP = " " + PREFIX_DAY6 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY6_DESC_FISH_MP = " " + PREFIX_REMOVEDAY6 + VALID_NAME_FISH;
+    public static final String REMOVEDAY6_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY6 + VALID_NAME_BURGER;
+    public static final String DAY7_DESC_FISH_MP = " " + PREFIX_DAY7 + VALID_NAME_FISH;
+    public static final String DAY7_DESC_BURGER_MP = " " + PREFIX_DAY7 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY7_DESC_FISH_MP = " " + PREFIX_REMOVEDAY7 + VALID_NAME_FISH;
+    public static final String REMOVEDAY7_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY7 + VALID_NAME_BURGER;
+
     public static final String NAME_DESC_PUSHUP = " " + PREFIX_NAME + VALID_NAME_PUSHUP;
     public static final String NAME_DESC_SITUP = " " + PREFIX_NAME + VALID_NAME_SITUP;
     public static final String MUSCLE_DESC_ABS = " " + PREFIX_PRIMARY_MUSCLE + VALID_MUSCLE_ABS;
@@ -152,6 +197,8 @@ public class CommandTestUtil {
     public static final String INVALID_FOOD_NAME_DESC = " " + PREFIX_NAME + "Fish & Chips"; // '&' not allowed in names
     public static final String INVALID_INGREDIENT_DESC = " " + PREFIX_INGREDIENT
             + "Cheese*Burger"; // '*' not allowed in ingredient names
+    public static final String INVALID_MEALPLAN_NAME_DESC = " " + PREFIX_NAME
+            + "Fish & Chips Plan"; // '&' not allowed in names
     public static final String INVALID_CALORIES_DESC = " " + PREFIX_CALORIES + "1a"; // 'a' not allowed in calories
     public static final String INVALID_CARBS_DESC = " " + PREFIX_CARBS + "1a"; // 'a' not allowed in carbs
     public static final String INVALID_FATS_DESC = " " + PREFIX_FATS + "1a"; // 'a' not allowed in fats

@@ -75,6 +75,18 @@ public class AddMealPlanCommand extends AddCommand {
         toCheckDay7 = day7;
     }
 
+    public AddMealPlanCommand(MealPlan mealPlan) {
+        requireNonNull(mealPlan);
+        toAdd = new MealPlan(mealPlan.getName());
+        toCheckDay1 = mealPlan.getDay1();
+        toCheckDay2 = mealPlan.getDay2();
+        toCheckDay3 = mealPlan.getDay3();
+        toCheckDay4 = mealPlan.getDay4();
+        toCheckDay5 = mealPlan.getDay5();
+        toCheckDay6 = mealPlan.getDay6();
+        toCheckDay7 = mealPlan.getDay7();
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
