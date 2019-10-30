@@ -12,6 +12,7 @@ import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.enums.TaskType;
 
 class TodoTest {
 
@@ -120,5 +121,13 @@ class TodoTest {
         Todo t = new Todo("homework");
 
         assertEquals(Status.NOT_DONE, t.getStatus());
+    }
+
+    @Test
+    void getTaskType() {
+        Todo t = new Todo("homework");
+
+        TaskType expected = TaskType.Todo;
+        assertEquals(expected, t.getTaskType());
     }
 }

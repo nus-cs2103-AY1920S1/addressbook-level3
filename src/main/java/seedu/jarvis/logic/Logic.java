@@ -70,7 +70,9 @@ public interface Logic {
      */
     ObservableList<Task> getFilteredTaskList();
 
-    //TODO jdocs
+    /**
+     * Returns an unmodifiable view of the list of all the tasks in the planner
+     */
     ObservableList<Task> getUnfilteredTaskList();
 
     // Course Planner ====================================================================
