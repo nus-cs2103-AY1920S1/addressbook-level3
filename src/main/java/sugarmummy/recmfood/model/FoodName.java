@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class FoodName {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Names should only contain alphanumeric characters and spaces. It should not be blank "
-            + "and longer than 30 characters";
+            "Names should only contain alphanumeric characters and spaces. It should not be blank "
+                    + "and longer than 30 characters";
 
     /*
      * The first character of the food must not be a whitespace,

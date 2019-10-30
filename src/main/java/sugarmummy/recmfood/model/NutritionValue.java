@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public abstract class NutritionValue {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Nutrition value should only contain number and should be non-negative.";
+            "Nutrition value should only contain number and should be non-negative.";
     public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d*";
 
     public final String value;
@@ -41,7 +41,7 @@ public abstract class NutritionValue {
      * Indicates whether this {@code NutritionValue} is suitable for diabetes patients.
      *
      * @return {@code true} if a certain nutrition value is too high to be considered safe for diabetes, {@code false}
-     *     otherwise.
+     *         otherwise.
      */
     public abstract boolean isInDangerousRange();
 
@@ -60,7 +60,7 @@ public abstract class NutritionValue {
     //Helps the uniform warning message formats
     String getWarningMessage(String nutritionType, Double boundary) {
         return "The input value for " + nutritionType + " is too high. For diabetes patients, it should be lower than "
-            + boundary + "\n";
+                + boundary + "\n";
     }
 
     @Override

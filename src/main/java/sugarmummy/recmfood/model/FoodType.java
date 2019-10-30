@@ -15,7 +15,7 @@ public enum FoodType {
     MEAL("Meal", "m");
 
     public static final String MESSAGE_CONSTRAINTS = "Food types should only be one of the following"
-        + getAllTypesInfo();
+            + getAllTypesInfo();
 
     private String typeName;
     private String abbr;
@@ -38,12 +38,12 @@ public enum FoodType {
     }
 
     /**
-     * Returns true if a given string is a valid food type abbreviation.
+     * Returns true if a given string is a valid food type abbreviation (Case Insensitive).
      */
     public static boolean isValidType(String abbr) {
         for (FoodType type : FoodType.values()) {
             String standardAbbr = type.getAbbr();
-            if (abbr.equals(standardAbbr)) {
+            if (abbr.equalsIgnoreCase(standardAbbr)) {
                 return true;
             }
         }
@@ -55,7 +55,7 @@ public enum FoodType {
      */
     public static FoodType getFrom(String abbr) throws ParseException {
         for (FoodType type : FoodType.values()) {
-            if (type.getAbbr().equals(abbr)) {
+            if (type.getAbbr().equalsIgnoreCase(abbr)) {
                 return type;
             }
         }

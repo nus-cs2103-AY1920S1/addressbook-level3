@@ -27,7 +27,7 @@ public class ReminderTest {
 
         // different description and date, time -> returns false
         Reminder editedReminder = new ReminderBuilder(LUNCH_INSULIN_INJECTION).withDescription("description")
-            .withDateTime(DATE_DEC20, TIME_MORN).build();
+                .withDateTime(DATE_DEC20, TIME_MORN).build();
         assertFalse(LUNCH_INSULIN_INJECTION.isSameReminder(editedReminder));
 
         // different date and time -> returns false

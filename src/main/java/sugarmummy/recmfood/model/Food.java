@@ -75,16 +75,16 @@ public class Food {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getFoodName())
-            .append(" Type: ")
-            .append(getFoodType().getTypeName())
-            .append(" Calorie: ")
-            .append(getCalorie())
-            .append(" GI: ")
-            .append(getGi())
-            .append(" Sugar: ")
-            .append(getSugar())
-            .append(" Fat: ")
-            .append(getFat());
+                .append(" Type: ")
+                .append(getFoodType().getTypeName())
+                .append(" Calorie: ")
+                .append(getCalorie())
+                .append(" GI: ")
+                .append(getGi())
+                .append(" Sugar: ")
+                .append(getSugar())
+                .append(" Fat: ")
+                .append(getFat());
         return builder.toString();
     }
 }
