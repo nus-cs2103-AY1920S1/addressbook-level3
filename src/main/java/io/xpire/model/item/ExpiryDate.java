@@ -39,6 +39,7 @@ public class ExpiryDate {
         return DateUtil.convertStringToDate(date, DATE_FORMAT) != null;
     }
 
+    //@@author febee99
     /**
      * Returns true if a given string is a valid expiry date that has not yet passed.
      */
@@ -47,6 +48,7 @@ public class ExpiryDate {
         return d.isAfter(DateUtil.getCurrentDate());
     }
 
+    //@@author
     /**
      * Checks if an item is expired.
      * @return true if item is expired; false otherwise.
