@@ -20,6 +20,9 @@ package Model{
     Class HiddenModel #FFFFFF
 }
 
+Class HiddenOutside #FFFFFF
+HiddenOutside .right.> NotificationManager
+
 NotificationManager -down-> "1" NotificationCheckingThread : runs >
 NotificationManager -right-> "1" SystemTrayCommunicator : creates >
 
