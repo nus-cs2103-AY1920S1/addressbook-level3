@@ -6,8 +6,10 @@ import seedu.elisa.commons.core.Messages;
 import seedu.elisa.commons.core.index.Index;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.logic.commands.exceptions.CommandException;
+import seedu.elisa.model.AutoRescheduleManager;
 import seedu.elisa.model.ItemIndexWrapper;
 import seedu.elisa.model.ItemModel;
+import seedu.elisa.model.RescheduleTask;
 import seedu.elisa.model.item.VisualizeList;
 
 /**
@@ -41,14 +43,24 @@ public class DeleteCommand extends UndoableCommand {
         }
 
         deleted = model.getIndices(targetIndex.getZeroBased());
-
         Item itemDeleted = model.deleteItem(targetIndex.getZeroBased());
+
+        if (itemDeleted.hasAutoReschedule()) { // also ensures that itemDeleted has an Event.
+            RescheduleTask.removeFromAllTasks(itemDeleted.getEvent().get());
+        }
+
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemDeleted));
     }
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
         model.addItem(deleted);
+
+        // if deleted item is autoReschedulable, add item back to thread with an updated DateTime.
+        if (deleted.getItem().hasAutoReschedule()) {
+            Item item = deleted.getItem();
+            AutoRescheduleManager.updateEvent(item, model);
+        }
     }
 
     @Override
