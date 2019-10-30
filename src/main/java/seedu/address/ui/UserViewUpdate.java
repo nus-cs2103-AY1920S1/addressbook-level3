@@ -98,7 +98,9 @@ public class UserViewUpdate {
         case "home":
             paneToRender.getChildren().add(userViewMain.loadDashboard());
             break;
-
+        
+        case "help":
+            paneToRender.getChildren().add(userViewMain.loadHelpView());
         default:
             // show nothing (only exit has no case)
         }
