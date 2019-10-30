@@ -180,6 +180,22 @@ public interface Model {
 
     Name getNameTemplateToBeShown();
 
+    void commitTemplateList(UniqueTemplateItems prevTemplate, UniqueTemplateItems newTemplate, int index);
+
+    ReadOnlyTemplateList undoTemplateList();
+
+    ReadOnlyTemplateList redoTemplateList();
+
+    UniqueTemplateItems getPrevTemplate();
+
+    UniqueTemplateItems getNewTemplate();
+
+    Integer getIndex();
+
+    boolean canUndoTemplateList();
+
+    boolean canRedoTemplateList();
+
     //=========== WasteList ==================================================================================
     /**
      * Returns the user prefs' waste list file path.
@@ -294,6 +310,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredShoppingList(Predicate<ShoppingItem> predicate);
+
+    void commitShoppingList();
+
+    ReadOnlyShoppingList undoShoppingList();
+
+    ReadOnlyShoppingList redoShoppingList();
+
+    boolean canUndoShoppingList();
+
+    boolean canRedoShoppingList();
 
     //=========== BoughtList ==================================================================================
     /**

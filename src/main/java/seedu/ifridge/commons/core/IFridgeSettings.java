@@ -9,35 +9,19 @@ import java.util.Objects;
  */
 public class IFridgeSettings implements Serializable {
     private static final String DEFAULT_NUMBER_OF_DAYS = "3";
-    private static final String DEFAULT_SORT_METHOD = "alphabetical";
-    private static final String DEFAULT_LIST_DISPLAY = "merge";
 
     private final String numberOfDays;
-    private final String sortMethod;
-    private final String listDisplay;
 
     public IFridgeSettings() {
         numberOfDays = DEFAULT_NUMBER_OF_DAYS;
-        sortMethod = DEFAULT_SORT_METHOD;
-        listDisplay = DEFAULT_LIST_DISPLAY;
     }
 
-
-    public IFridgeSettings(String numberOfDays, String sortMethod, String listDisplay) {
+    public IFridgeSettings(String numberOfDays) {
         this.numberOfDays = numberOfDays;
-        this.sortMethod = sortMethod;
-        this.listDisplay = listDisplay;
     }
+
     public String getNumberOfDays() {
         return numberOfDays;
-    }
-
-    public String getSortMethod() {
-        return sortMethod;
-    }
-
-    public String getListDisplay() {
-        return listDisplay;
     }
 
     @Override
@@ -51,22 +35,18 @@ public class IFridgeSettings implements Serializable {
 
         IFridgeSettings o = (IFridgeSettings) other;
 
-        return Objects.equals(numberOfDays, o.numberOfDays)
-                && Objects.equals(sortMethod, o.sortMethod)
-                && Objects.equals(listDisplay, o.listDisplay);
+        return Objects.equals(numberOfDays, o.numberOfDays);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numberOfDays, sortMethod, listDisplay);
+        return Objects.hash(numberOfDays);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("numberOfDays : " + numberOfDays + "\n");
-        sb.append("sortMethod : " + sortMethod + "\n");
-        sb.append("listDisplay : " + listDisplay);
         return sb.toString();
     }
 }

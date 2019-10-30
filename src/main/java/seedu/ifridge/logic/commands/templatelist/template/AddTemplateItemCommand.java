@@ -57,7 +57,8 @@ public class AddTemplateItemCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
         }
         UniqueTemplateItems templateToEdit = lastShownList.get(index.getZeroBased());
-        UniqueTemplateItems editedTemplate = templateToEdit;
+        UniqueTemplateItems editedTemplate = new UniqueTemplateItems(templateToEdit.getName());
+        editedTemplate.setTemplateItems(templateToEdit);
 
         if (templateToEdit.contains(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOOD);
@@ -69,6 +70,7 @@ public class AddTemplateItemCommand extends Command {
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
         model.setShownTemplate(editedTemplate);
         model.updateFilteredTemplateToBeShown();
+        model.commitTemplateList(templateToEdit, editedTemplate, index.getZeroBased());
 
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         commandResult.setTemplateListItemCommand();
