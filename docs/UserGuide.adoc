@@ -154,7 +154,7 @@ Adds David and Alex to the current viewed activity if they are found in the cont
 Removes a contact from the currently viewed activity. Multiple contacts can also be removed at once.
 If there is no current viewed activity, then the contact cannot be removed and there will be an error.
 If the specified contact does not exist in the current activity, a warning message indicating that the contact does not exist in the current activity will be shown instead.
-If the specified contact is involved in an expense, he cannot be removed since participants in activity will owe him money or he will owe participants money and a warning message indicating that he is involved in an expense will be shown.
+If the specified contact is involved in an expense, he cannot be removed since he does not owe money to anyone and no one else owes him money and a warning message indicating that he is involved in an expense will be shown instead.
 
 Format: `disinvite p/PERSON ...`
 
