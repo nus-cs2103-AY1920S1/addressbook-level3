@@ -224,3 +224,53 @@ Format: `undo`
 
 Redo a destructive action +
 Format: `redo`
+
+== Commands Summary ==
+
+* *Queue Management* +
+** enqueue: `enqueue <PATIENT_REFERENCE_ID>`
+** dequeue: `dequeue <QUEUE_NUMBER>`
+** next: `next <ROOM_NUMBER>`
+** break: `break <ROOM_NUMBER>`
+** resume: `resume <ROOM_NUMBER>`
+
+* *Patient Management* +
+** patient: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
+** register: `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
+ [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+** unregister: `unregister <ENTRY_ID>`
+** update: `update <ENTRY_ID> [n/<PATIENT_NAME>] [i/<PATIENT_REFERENCE_ID>] [p/<PHONE_NUM>]
+ [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+
+* *On-Duty Doctors Management* +
+** doctors: `doctors [<DOCTOR_NAME>]`
+** newdoctor: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
+** updatedoctor: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
+[i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
+** resigndoctor: `resigndoctor <ENTRY_ID>`
+** onduty: `onduty <ROOM_NUMBER>`
+** offduty: `offduty <ENTRY_ID>`
+
+* *Appointment Management* +
+** appointments: `appointments [p/<PATIENT_NAME | PATIENT_IC>] [s/<START_DATE>] [e/<END_DATE>]`
+** cancelappt: `cancelappt <ENTRY_ID>`
+** changeappt: `changeappt <ENTRY_ID> [i/<PATIENT_IC>] [s/<START_DATE_TIME>] [e/<END_DATE_TIME>]`
+** slot: `slot s/<START_DATE> e/<END_DATE>`
+** missappt: `missappt`
+** settle: `settle <ENTRY_ID>`
+** maxconcurrentappt: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
+
+* *Inventory commands (v2.0)* +
+** inventory: `inventory`
+** prescription: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
+
+* *User Accounts (v2.0)* +
+** login: `login <USER_NAME>`
+** logout: `logout`
+
+* *General Commands* +
+** help: `help`
+** exit: `exit`
+** undo: `undo`
+** redo: `redo`
+
