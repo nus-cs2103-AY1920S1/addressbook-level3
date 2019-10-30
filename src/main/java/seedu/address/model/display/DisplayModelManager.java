@@ -41,6 +41,8 @@ import seedu.address.model.person.schedule.Venue;
  */
 public class DisplayModelManager {
 
+    private static final int DAYS_OF_A_WEEK = 7;
+
     private GmapsModelManager gmapsModelManager;
 
     private LocalTime startTime;
@@ -87,8 +89,9 @@ public class DisplayModelManager {
             for (int i = 0; i < 4; i++) {
                 ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
 
-                PersonSchedule personSchedule = generatePersonSchedule(name.toString(), time.plusDays(i * 7),
-                        timeBook.getPersonList().findPerson(name), Role.emptyRole());
+                PersonSchedule personSchedule =
+                        generatePersonSchedule(name.toString(), time.plusDays(i * DAYS_OF_A_WEEK),
+                                timeBook.getPersonList().findPerson(name), Role.emptyRole());
                 personSchedulesForWeek.add(personSchedule);
                 personMonthSchedules.put(i, personSchedulesForWeek);
             }
@@ -115,7 +118,7 @@ public class DisplayModelManager {
             ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
 
             PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
-                    time.plusDays(i * 7), user, Role.emptyRole());
+                    time.plusDays(i * DAYS_OF_A_WEEK), user, Role.emptyRole());
             personSchedulesForWeek.add(personSchedule);
             personSchedules.put(i, personSchedulesForWeek);
         }
@@ -154,7 +157,8 @@ public class DisplayModelManager {
                 Role userRole = Role.emptyRole();
 
                 //Add user schedule.
-                personSchedules.add(generatePersonSchedule(groupName.toString(), time.plusDays(h * 7), user, userRole));
+                personSchedules.add(generatePersonSchedule(groupName.toString(),
+                        time.plusDays(h * DAYS_OF_A_WEEK), user, userRole));
 
                 //Add other schedules.
                 for (int i = 0; i < personIds.size(); i++) {
@@ -163,7 +167,8 @@ public class DisplayModelManager {
                     if (role == null) {
                         role = Role.emptyRole();
                     }
-                    PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(), time.plusDays(h * 7),
+                    PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(),
+                            time.plusDays(h * DAYS_OF_A_WEEK),
                             person, role);
                     personSchedules.add(personSchedule);
                 }
@@ -253,7 +258,7 @@ public class DisplayModelManager {
         Schedule personSchedule = person.getSchedule();
         ArrayList<Event> events = personSchedule.getEvents();
 
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 1; i <= DAYS_OF_A_WEEK; i++) {
             scheduleDisplay.put(DayOfWeek.of(i), new ArrayList<>());
         }
 
@@ -271,7 +276,7 @@ public class DisplayModelManager {
                 Venue currentVenue = currentTimeslot.getVenue();
 
                 //Checks to see if the currentStartTime is within the upcoming 7 days.
-                if (now.toLocalDate().plusDays(7).isAfter(currentStartTime.toLocalDate())
+                if (now.toLocalDate().plusDays(DAYS_OF_A_WEEK).isAfter(currentStartTime.toLocalDate())
                         && now.toLocalDate().minusDays(1).isBefore(currentStartTime.toLocalDate())
                         && (startTime.isBefore(currentStartTime.toLocalTime())
                         || startTime.compareTo(currentStartTime.toLocalTime()) == 0)
@@ -307,7 +312,7 @@ public class DisplayModelManager {
 
         int idCounter = 1;
 
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 1; i <= DAYS_OF_A_WEEK; i++) {
 
             freeSchedule.put(DayOfWeek.of(i), new ArrayList<>());
 
