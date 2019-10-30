@@ -39,26 +39,26 @@ public class SuggestingCommandUtil {
     private static ObservableList<String> commandWords = FXCollections.observableArrayList(
             AddEventCommand.COMMAND_WORD,
             AddGroupCommand.COMMAND_WORD,
+            AddNusModCommand.COMMAND_WORD,
+            AddNusModsCommand.COMMAND_WORD,
             AddPersonCommand.COMMAND_WORD,
             AddToGroupCommand.COMMAND_WORD,
+            ClosestLocationCommand.COMMAND_WORD,
             DeleteEventCommand.COMMAND_WORD,
             DeleteGroupCommand.COMMAND_WORD,
             DeletePersonCommand.COMMAND_WORD,
             EditGroupCommand.COMMAND_WORD,
             EditPersonCommand.COMMAND_WORD,
             EditUserCommand.COMMAND_WORD,
+            ExitCommand.COMMAND_WORD,
             ExportCommand.COMMAND_WORD,
             FindGroupCommand.COMMAND_WORD,
             FindPersonCommand.COMMAND_WORD,
-            ScheduleCommand.COMMAND_WORD,
-            ShowNusModCommand.COMMAND_WORD,
-            AddNusModCommand.COMMAND_WORD,
-            AddNusModsCommand.COMMAND_WORD,
-            ShowCommand.COMMAND_WORD,
-            ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
             ListCommand.COMMAND_WORD,
-            ClosestLocationCommand.COMMAND_WORD
+            ScheduleCommand.COMMAND_WORD,
+            ShowCommand.COMMAND_WORD,
+            ShowNusModCommand.COMMAND_WORD
     );
     private static ObservableList<String> readOnlyCommandWords = FXCollections.unmodifiableObservableList(commandWords);
 
