@@ -1,6 +1,9 @@
 package io.xpire.model;
 
 import io.xpire.model.item.Item;
+import io.xpire.model.item.ListToView;
+import io.xpire.model.item.SortedUniqueReplenishItemList;
+import io.xpire.model.item.SortedUniqueXpireItemList;
 import io.xpire.model.item.XpireItem;
 import javafx.collections.transformation.FilteredList;
 
@@ -19,13 +22,50 @@ public class CloneModel {
     public CloneModel(ReadOnlyListView<XpireItem> xpire, ReadOnlyListView<Item> replenishList,
                       ReadOnlyUserPrefs userPrefs, FilteredList<XpireItem> filteredXpireItemList,
                       FilteredList<Item> filteredReplenishItemList,
-                      FilteredList<? extends Item> currentFilteredItemList) {
+                      ListToView listToView) {
         this.xpire = new Xpire(xpire);
         this.replenishList = new ReplenishList(replenishList);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.filteredXpireItemList = new FilteredList<>(filteredXpireItemList);
-        this.filteredReplenishItemList = new FilteredList<>(filteredReplenishItemList);
-        this.currentFilteredItemList = new FilteredList<>(currentFilteredItemList);
+        this.filteredXpireItemList = cloneFilteredXpireItemList(filteredXpireItemList);
+        this.filteredReplenishItemList = cloneFilteredReplenishItemList(filteredReplenishItemList);
+        this.currentFilteredItemList = checkListToView(listToView);
+    }
+
+    /**
+     * Checks the model's list to view
+     */
+    private FilteredList<? extends Item> checkListToView(ListToView listToView) {
+        if (listToView.equals(new ListToView("main"))) {
+            return filteredXpireItemList;
+        } else {
+            return filteredReplenishItemList;
+        }
+    }
+
+    /**
+     * Clones the FilteredXpireItemList.
+     */
+    private FilteredList<XpireItem> cloneFilteredXpireItemList(FilteredList<XpireItem> filteredXpireItemList) {
+        SortedUniqueXpireItemList items = new SortedUniqueXpireItemList();
+        for (XpireItem item: filteredXpireItemList) {
+            items.add(new XpireItem(item));
+        }
+        FilteredList<XpireItem> result = new FilteredList<>(items.asUnmodifiableObservableList());
+        result.setPredicate(filteredXpireItemList.getPredicate());
+        return result;
+    }
+
+    /**
+     * Clones the FilteredReplenishItemList.
+     */
+    private FilteredList<Item> cloneFilteredReplenishItemList(FilteredList<Item> filteredReplenishItemList) {
+        SortedUniqueReplenishItemList items = new SortedUniqueReplenishItemList();
+        for (Item item: filteredReplenishItemList) {
+            items.add(new Item(item));
+        }
+        FilteredList<Item> result = new FilteredList<>(items.asUnmodifiableObservableList());
+        result.setPredicate(filteredReplenishItemList.getPredicate());
+        return result;
     }
 
     public ReadOnlyListView<XpireItem> getXpire() {

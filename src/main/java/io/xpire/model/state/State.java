@@ -22,7 +22,7 @@ public class State {
     private CloneModel clone(Model model) {
         return new CloneModel(model.getXpire(), model.getReplenishList(), model.getUserPrefs(),
                 model.getFilteredXpireItemList(), model.getFilteredReplenishItemList(),
-                model.getCurrentFilteredItemList());
+                model.getListToView());
     }
 
     public CloneModel getCloneModel() {

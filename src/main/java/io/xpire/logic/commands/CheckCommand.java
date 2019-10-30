@@ -39,7 +39,8 @@ public class CheckCommand extends Command {
     @Override
     public CommandResult execute(Model model, StackManager stackManager) {
         requireNonNull(model);
-        stackManager.saveState(new State(model));
+        State test = new State(model);
+        stackManager.saveState(test);
         model.updateFilteredItemList(this.predicate);
         return new CommandResult(MESSAGE_SUCCESS);
     }

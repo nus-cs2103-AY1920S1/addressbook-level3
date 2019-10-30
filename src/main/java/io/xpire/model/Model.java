@@ -207,4 +207,7 @@ public interface Model {
     void shiftItemToReplenishList(XpireItem xpireItem);
 
     void update(State state);
+
+    ListToView getListToView();
+
 }

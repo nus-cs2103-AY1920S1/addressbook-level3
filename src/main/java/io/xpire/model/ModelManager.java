@@ -41,6 +41,7 @@ public class ModelManager implements Model {
     private final FilteredList<XpireItem> previousXpireItems;
     private final FilteredList<Item> previousReplenishItems;
     private FilteredList<? extends Item> currentFilteredItems;
+    private ListToView listToView;
 
     /**
      * Initializes a ModelManager with the given xpire and userPrefs.
@@ -60,6 +61,7 @@ public class ModelManager implements Model {
         this.filteredReplenishItems = new FilteredList<>(this.replenishList.getItemList());
         this.previousReplenishItems = new FilteredList<>(this.replenishList.getItemList());
         this.currentFilteredItems = this.filteredXpireItems;
+        this.listToView = new ListToView("main");
 
     }
 
@@ -262,6 +264,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setCurrentFilteredItemList(ListToView list) {
+        this.listToView = list;
         if (list.equals(new ListToView("main"))) {
             this.currentFilteredItems = this.filteredXpireItems;
         } else {
@@ -375,5 +378,12 @@ public class ModelManager implements Model {
         this.setCurrentFilteredItemList(clone.getCurrentFilteredItemList());
         this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
         this.setFilteredXpireItems(clone.getFilteredXpireItemList());
+    }
+
+    /**
+     * Returns list to view.
+     */
+    public ListToView getListToView() {
+        return this.listToView;
     }
 }
