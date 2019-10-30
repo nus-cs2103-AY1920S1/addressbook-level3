@@ -45,7 +45,8 @@ public class DequeueCommand extends ReversibleCommand {
 
         model.removeFromQueue(patientReferenceId);
 
-        return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS, model.resolvePatient(patientReferenceId).getName()));
+        return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS,
+                model.resolvePatient(patientReferenceId).getName()));
     }
 
     @Override
