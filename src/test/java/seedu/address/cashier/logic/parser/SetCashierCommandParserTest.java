@@ -39,8 +39,6 @@ public class SetCashierCommandParserTest {
 
     @Test
     public void parse_validCashierWithOtherPrefix_success() {
-        /*Person p = personModel.getPersonByName("Alice Pauline");
-        SetCashierCommand setCashierCommand = new SetCashierCommand(p);*/
         assertCommandParserFailure(parser, " Alice Pauline" + DESC_DESCRIPTION_STORYBOOK,
                 NO_SUCH_PERSON, model, personModel);
         model.resetCashier();

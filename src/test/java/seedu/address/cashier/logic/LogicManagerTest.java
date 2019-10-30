@@ -21,38 +21,38 @@ import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.storage.Storage;
 import seedu.address.cashier.storage.StorageManager;
 import seedu.address.inventory.model.Item;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 
-//import seedu.address.testutil.TypicalReimbursements.resetReimbursements
-
 public class LogicManagerTest {
 
     private Model model;
-    //private Storage storage;
+    private Storage storage;
     //private seedu.address.person.model.Model personModel;
     //private seedu.address.transaction.storage.Storage transactionStorage;
     //private seedu.address.transaction.model.Model transactionModel;
     //private seedu.address.inventory.model.Model inventoryModel;
+    private seedu.address.inventory.storage.Storage inventoryStorage;
     private Logic logic;
 
     LogicManagerTest() throws Exception {
         File iFile;
         File tFile;
         File rFile;
-        seedu.address.person.model.Model personModel1;
-        Storage storage;
-        seedu.address.person.model.GetPersonByNameOnlyModel personModel;
+        seedu.address.person.model.Model personModel;
+        //Storage storage;
+        //seedu.address.person.model.GetPersonByNameOnlyModel personModel;
         //seedu.address.person.model.Model personModel;
         seedu.address.transaction.model.Model transactionModel = null;
         seedu.address.inventory.model.Model inventoryModel;
         seedu.address.transaction.logic.Logic transactionLogic;
         seedu.address.inventory.logic.Logic inventoryLogic;
         seedu.address.transaction.storage.Storage transactionStorage;
-        seedu.address.inventory.storage.Storage inventoryStorage;
+        //seedu.address.inventory.storage.Storage inventoryStorage;
         //seedu.address.reimbursement.logic.Logic reimbursementLogic = null;
         //seedu.address.reimbursement.storage.Storage reimbursementStorage = null;
         //Logic logic;
@@ -60,7 +60,6 @@ public class LogicManagerTest {
         try {
             model = new ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
-            personModel1 = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             iFile = File.createTempFile("testing", "tempInventory.txt");
             tFile = File.createTempFile("testing", "tempTransaction.txt");
@@ -73,15 +72,14 @@ public class LogicManagerTest {
                             reimbursementManager.getReimbursementFromFile(model.getTransactionList()));
 
             transactionStorage =
-                    new seedu.address.transaction.storage.StorageManager(tFile, personModel);
+                    new seedu.address.transaction.storage.StorageManager(tFile, (GetPersonByNameOnlyModel) personModel);
 
 
             transactionModel = new seedu.address.transaction.model.ModelManager(
                     TypicalTransactions.getTypicalTransactionList());
 
-            //model.getTransactionList();
             transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel,
-                    transactionStorage, personModel);
+                    transactionStorage, (GetPersonByNameOnlyModel) personModel);
 
 
             inventoryModel =
@@ -96,7 +94,7 @@ public class LogicManagerTest {
             storage = new StorageManager(inventoryLogic, transactionLogic);
 
             logic =
-                    new LogicManager(model, storage, personModel1, transactionModel, inventoryModel);
+                    new LogicManager(model, storage, personModel, transactionModel, inventoryModel);
         } catch (IOException e) {
             throw new AssertionError("This method should not throw an exception.");
         }
@@ -105,7 +103,6 @@ public class LogicManagerTest {
 
     @Test
     public void getCashier_successful() throws NoCashierFoundException {
-        //resetReimbursements();
         Person p = new PersonBuilder().build();
         model.setCashier(p);
         assertEquals(String.valueOf(p.getName()), logic.getCashier());
@@ -113,30 +110,33 @@ public class LogicManagerTest {
 
     @Test
     public void getCashier_failure() throws NoCashierFoundException {
-        //resetReimbursements();
         model.resetCashier();
         assertEquals("", logic.getCashier());
     }
 
     @Test
     public void getAmount_successful() {
-        //resetReimbursements();
         double amount = model.getTotalAmount();
         assertEquals(String.valueOf(amount), logic.getAmount());
     }
 
     @Test
     public void getSalesList_successful() throws Exception {
-        //resetTransactionsForReimbursement();
         ArrayList<Item> list = model.getSalesList();
         assertEquals(list, logic.getSalesList());
     }
 
     @Test
     public void getInventoryList_successful() throws Exception {
-        //resetTransactionsForReimbursement();
         assertEquals(logic.getInventoryList(), model.getInventoryList());
     }
+
+    @Test
+    public void writeInInventoryFile_successful() throws Exception {
+        logic.writeInInventoryFile();
+        assertEquals(storage.getInventoryList(), model.getInventoryList());
+    }
+
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
@@ -217,7 +217,6 @@ public class LogicManagerTest {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel.getInventoryList(), model.getInventoryList());
         assertEquals(expectedModel.getSalesList(), model.getSalesList());
-        //assertEquals(expectedModel, model);
     }
 
 

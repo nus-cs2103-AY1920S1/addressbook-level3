@@ -80,6 +80,8 @@ public class EditCommandParser implements Parser {
             }
         }
 
+
+
         String quantityString = argMultimap.getValue(PREFIX_QUANTITY).get();
         try {
             quantity = Integer.parseInt(quantityString);
@@ -94,7 +96,6 @@ public class EditCommandParser implements Parser {
             int quantityLeft = modelManager.getStockLeft(description);
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
         }
-
         return new EditCommand(index, quantity);
     }
 

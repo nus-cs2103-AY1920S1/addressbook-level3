@@ -43,7 +43,6 @@ public class CheckoutCommandParser implements Parser {
 
         try {
             String[] input = userInput.split(" ");
-            //amount = Double.parseDouble(userInput.substring(1));
             amount = Double.parseDouble(input[1]);
         } catch (Exception e) {
             throw new NotANumberException(AMOUNT_NOT_A_NUMBER);

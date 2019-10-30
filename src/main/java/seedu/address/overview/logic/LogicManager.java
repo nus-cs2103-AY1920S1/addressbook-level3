@@ -17,7 +17,7 @@ import seedu.address.inventory.util.InventoryList;
 import seedu.address.overview.logic.commands.Command;
 import seedu.address.overview.logic.commands.CommandResult;
 import seedu.address.overview.model.Model;
-import seedu.address.overview.storage.StorageManager;
+import seedu.address.overview.storage.Storage;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.util.OverallCommandResult;
@@ -28,12 +28,12 @@ import seedu.address.util.OverallCommandResult;
 public class LogicManager implements Logic {
 
     private final Model model;
-    private final StorageManager storage;
+    private final Storage storage;
     private OverviewTabParser parser;
     private final seedu.address.transaction.logic.Logic transactionLogic;
     private final seedu.address.inventory.logic.Logic inventoryLogic;
 
-    public LogicManager(Model overviewModel, StorageManager overviewStorage,
+    public LogicManager(Model overviewModel, Storage overviewStorage,
                         seedu.address.transaction.logic.Logic transactionLogic,
                         seedu.address.inventory.logic.Logic inventoryLogic) {
         this.model = overviewModel;

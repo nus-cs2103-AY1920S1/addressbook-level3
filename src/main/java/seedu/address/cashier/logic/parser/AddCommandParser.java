@@ -89,6 +89,7 @@ public class AddCommandParser implements Parser {
             throw new NoSuchItemException(NO_SUCH_ITEM_FOR_SALE_CASHIER);
         }
 
+        // if there is sufficient quantity in the inventory
         if (!modelManager.hasSufficientQuantityToAdd(description, quantity)) {
             int quantityLeft = modelManager.getStockLeft(description);
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
