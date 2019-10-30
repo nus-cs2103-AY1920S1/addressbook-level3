@@ -12,9 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.financialtracker.model.Model;
-import seedu.address.financialtracker.ui.control.AutoCompleteComboBoxListener;
-import seedu.address.ui.ResultDisplay;
+import seedu.address.financialtracker.logic.FinancialTrackerLogic;
 import seedu.address.ui.UiPart;
 
 /**
@@ -39,7 +37,7 @@ public class CountriesDropdown extends UiPart<Region> {
 
     private static String field = "Singapore";
 
-    public CountriesDropdown(Model model, ExpensePanel expensePanel) {
+    public CountriesDropdown(FinancialTrackerLogic financialTrackerLogic, ExpensePanel expensePanel) {
         super(FXML);
         String[] locales = Locale.getISOCountries();
         for (String countryCode : locales) {
@@ -55,7 +53,7 @@ public class CountriesDropdown extends UiPart<Region> {
             @Override
             public void handle(ActionEvent event) {
                 field = countriesDropdown.getValue();
-                model.setCountry(field);
+                financialTrackerLogic.setCountry(field);
                 expensePanel.update();
                 logger.info("Financial_Tracker Selection Menu switched to: " + countriesDropdown.getValue());
             }

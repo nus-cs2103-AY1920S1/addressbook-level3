@@ -1,4 +1,4 @@
-package seedu.address.financialtracker.commands;
+package seedu.address.financialtracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,7 +15,7 @@ import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.model.expense.Time;
 import seedu.address.financialtracker.model.expense.Type;
-import seedu.address.financialtracker.parser.CliSyntax;
+import seedu.address.financialtracker.logic.parser.CliSyntax;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;

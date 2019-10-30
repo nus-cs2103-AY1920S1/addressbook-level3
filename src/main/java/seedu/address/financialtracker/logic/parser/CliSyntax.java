@@ -1,4 +1,4 @@
-package seedu.address.financialtracker.parser;
+package seedu.address.financialtracker.logic.parser;
 
 import seedu.address.logic.parser.Prefix;
 

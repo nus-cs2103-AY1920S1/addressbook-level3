@@ -2,21 +2,24 @@ package seedu.address.financialtracker.model.expense;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.util.AppUtil;
+
 public class Type {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Type should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Type can take any values, and it should not be blank";
 
     /*
-     * The first character of the description must not be a whitespace,
+     * The first character of the type must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
     public final String value;
 
-    public Type(String desc) {
-        requireNonNull(desc);
-        this.value = desc;
+    public Type(String type) {
+        requireNonNull(type);
+        AppUtil.checkArgument(isValidType(type), MESSAGE_CONSTRAINTS);
+        this.value = type;
     }
 
     /**
