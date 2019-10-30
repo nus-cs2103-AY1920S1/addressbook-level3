@@ -2,45 +2,111 @@
 ====
 *Importing and Exporting of Patient Data*
 
-As a community nurse, you may be assigned new patients, or some of your patients may be assigned to other community nurses.
-To facilitate the transferring of patient information from one device to another, you can import and export the data of your patients. This section describes the features that will allow you to import and export patient information.
+As a community nurse, you may be assigned new patients, or some of your patients may be assigned to other community nurses. To facilitate the transferring of patient information from one device to another, you can import and export the data of your patients. This section describes the features that will allow you to import and export patient information.
 ====
 
-=== Importing patient data from a CSV file: `import`
+=== Importing patient data from a CSV file
 
-You can import patient data from a .csv file into the application using `import`.
+You can import patient data from a .csv file into the application using
+`app-import-replace` or `app-import-merge`.
 
 ****
- * Only the file format .csv is supported.
- * The application will look for filename.csv in the ./import folder.
- * Imported data can either replace or be combined with existing data.
- * The .csv file must adhere to the following format: `example.csv`.
+* Only the file format .csv is supported.
+* The application will look for the specified .csv file in the `./imports` folder.
+* Both import commands are undoable.
 ****
 
-Format: `import [flag]/filename.csv` +
-	 `flag: r/ (replace) or c/ (combine)`
+==== Import and Replace
+
+Reads patient data from a specified .csv file.
+
+All existing patient data will be deleted and replaced with this new data.
+
+**Cannot be executed when there is an ongoing visit.**
+
+Format: `app-import-replace [n/FILENAME]`
 
 Examples:
 
- * `import r/my_patients.csv`
- * `import c/my_new_patients.csv`
+* `app-import-replace n/my_assigned_patients`
 
-=== Exporting data into .csv: `export`
+** Patient data will be entirely replaced with new data from `./imports/my_assigned_patients.csv`.
 
-You can export patient data from the application into a .csv file using `export`.
+==== Import and Merge
 
-****
- * Only the file format .csv is supported.
- * Creates filename.csv in the ./export folder
- * Exported data will be in the following format: example.csv
- * Patient data can be selectively exported (?)
-****
+Patient data will be read from a specified .csv file and merged without
+affecting existing data.
 
-Format: `export filename.csv [flag?] [num...]` +
-	 `flag: r/(range) or i/(indexes)`
+**The .csv file cannot contain a patient that already exists in the app.**
+
+Can be executed when there is an ongoing visit.
+
+Format: `app-import-merge [n/FILENAME]`
 
 Examples:
 
- * `export patients.csv`
- * `export patients.csv r/5 10`
- * `export patients.csv i/2 4 6 7 10`
+* `app-import-replace n/my_new_patients`
+
+** Patient data from `./imports/my_new_patients.csv` will be added into the app.
+
+[IMPORTANT]
+=====
+CSV files used for importing must adhere to the following format requirements.
+
+* The top row of the file must be exactly the following headers in the order:
+
+	name, phone, email, address, conditions, visitTodos
+
+* Each row in the .csv corresponds to one patient.
+* The data in each cell must adhere to the format of the field it belongs in.
+** Cells under `phone` must contain 8 digit numbers, cells under `name` must contain only alphanumerics and spaces, etc.
+** For the fields `conditions` and `visitTodos` with multiple elements per cell,
+each element is to be separated with a newline.
+* The data row for any patient cannot have empty cells in the following fields:
+
+	`name`, `phone`, `address`, `email`
+
+* Do not have any of the following special characters in the .csv:
+
+	`,` and `;`
+
+=====
+An example of a valid .csv can be seen link:ExampleCsv.png[here]
+
+=== Exporting data into a CSV file
+
+You can export patient data from the application into a .csv file using `app-export`.
+A new .csv file will be created and data will be written into it.
+Indexes can be provided to selectively export data of specific persons.
+
+****
+* Only the file format .csv is supported.
+* Creates `FILENAME.csv` in the `./exports` folder
+* **The provided file name must not be already in use.**
+****
+
+Format: `app-export [n/FILENAME] [i/INDEX...]`
+
+Examples:
+
+* `app-export n/patients.csv`
+** All patient data will be exported to `./exports/patients.csv`.
+* `app-export n/alex.csv i/1`
+** The data of the patient at index 1 will be exported to `./exports/alex.csv`.
+* `app-export n/tomorrow.csv i/2 i/4 i/6`
+** The data of the patients at indexes 2, 4 and 6 will be exported to `./exports/tomorrow.csv`.
+
+[IMPORTANT]
+
+=====
+* **As of version 1.4, the export feature does not support Visits and Appointments.**
+
+* **Patients' visit data will not be exported.**
+
+* Ensure the provided file name does not contain any illegal characters shown below:
+
+	< >  : " / \ | ? *
+
+They are also system specific restrictions, such as for
+link:https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file?redirectedfrom=MSDN[Windows]
+=====
