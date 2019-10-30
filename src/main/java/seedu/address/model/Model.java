@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -34,6 +33,11 @@ public interface Model {
      */
     void resetData(Model model);
 
+    /**
+     * Creates a copy of the current model.
+     */
+    Model copy();
+
     // ======== MODEL HISTORY ===============
 
     /**
@@ -47,19 +51,24 @@ public interface Model {
     void setModelHistory(ReadOnlyModelHistory history);
 
     /**
-     * Adds the current model to the history.
+     * Returns the description of the last command executed at the time.
      */
-    void addToHistory();
+    String getLastCommandDesc();
 
     /**
-     * Adds a to the past history.
+     * Adds an entry to the past history.
      */
     void addToPastHistory(Model model);
 
     /**
-     * Adds a to the future history.
+     * Adds an entry to the future history.
      */
     void addToFutureHistory(Model model);
+
+    /**
+     * Commits the current model to the history.
+     */
+    void commitModel(String description);
 
     /**
      * Checks whether model can be rolled-back.
@@ -67,9 +76,9 @@ public interface Model {
     boolean canRollback();
 
     /**
-     * Returns the rolled-back version of the model to the immediate previous state.
+     * Rolls back model to the immediate previous state.
      */
-    Optional<Model> rollbackModel();
+    void rollbackModel();
 
     /**
      * Checks whether model can be migrated.
@@ -77,9 +86,9 @@ public interface Model {
     boolean canMigrate();
 
     /**
-     * Returns the migrated version of the model to the immediate next state.
+     * Migrates model to the immediate next state.
      */
-    Optional<Model> migrateModel();
+    void migrateModel();
 
     // ======== USER PREFS ===============
     /**

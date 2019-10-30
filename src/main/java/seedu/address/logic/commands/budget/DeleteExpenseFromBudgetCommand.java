@@ -18,7 +18,7 @@ import seedu.address.ui.budget.BudgetPanel;
  */
 public class DeleteExpenseFromBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "deletefrombudget";
-
+    public static final String COMMAND_DESCRIPTION = "Delete expense with index %1$d from budget";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the expense identified by the index number used in the "
             + "displayed expense list in this budget.\n"
@@ -31,6 +31,11 @@ public class DeleteExpenseFromBudgetCommand extends UndoableCommand {
 
     public DeleteExpenseFromBudgetCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, targetIndex.getOneBased());
     }
 
     @Override

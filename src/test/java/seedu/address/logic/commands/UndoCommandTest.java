@@ -30,6 +30,6 @@ public class UndoCommandTest {
         Model other = new ModelManager();
         model.addToPastHistory(other);
         expectedModel.addToFutureHistory(other);
-        assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, String.format(UndoCommand.MESSAGE_SUCCESS, ""), expectedModel);
     }
 }

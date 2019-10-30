@@ -7,6 +7,8 @@ import java.util.Stack;
  */
 public interface ReadOnlyModelHistory {
 
+    String getDescription();
+
     Stack<Model> getPastModels();
 
     Stack<Model> getFutureModels();

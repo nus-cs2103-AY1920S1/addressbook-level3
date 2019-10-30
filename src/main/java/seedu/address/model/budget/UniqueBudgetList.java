@@ -51,7 +51,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
 
     /**
      * Adds a budget to the list.
-     * The budget must not already exist in the list.
+     * The budget must not already exist in the list.F
      */
     public void add(Budget toAdd) {
         requireNonNull(toAdd);
