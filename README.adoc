@@ -1,15 +1,3 @@
-# Milestone v1.3
-
-Free Time
-
-- [ ] Show Free Time
-- [ ] Popup
-- [ ] NusMods + GMaps
-- [ ] Suggestion Params
-- [ ] Calender Invite
-- [ ] Test case(60%)
-- [ ] UG + DG
-
 = TimeBook
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
@@ -18,11 +6,12 @@ https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appv
 https://coveralls.io/github/AY1920S1-CS2103T-T10-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T10-4/main/badge.svg?branch=master[Coverage Status]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 https://www.codacy.com/manual/AY1920S1-CS2103T-T10-4/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2103T-T10-4/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/6efe8b569efb4c928ba846a370d681e7[Codacy Badge]]
-ifndef::env-github[]
-image::images/Ui.png[width="600"]
+
+ifdef::env-github[]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop TimeBook application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 
@@ -40,4 +29,6 @@ endif::[]
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 * AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
+* Api Used: Google Maps Api and  NUSMods API
+
 == Licence : link:LICENSE[MIT]
