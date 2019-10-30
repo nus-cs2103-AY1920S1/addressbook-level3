@@ -76,6 +76,10 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    public void setStyleSheet(String styleSheet) {
+        userPrefs.setStyleSheet(styleSheet);
+    }
+
     @Override
     public Path getKeyboardFlashCardsFilePath() {
         return userPrefs.getKeyboardFlashCardsFilePath();
@@ -213,6 +217,7 @@ public class ModelManager implements Model {
     @Override
     public void initializeTestModel(List<FlashCard> testList) {
         flashCardTestModel = new FlashCardTestModel(testList);
+        hideFlashCardList();
     }
 
     @Override
@@ -221,15 +226,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    // TODO: refactor parameter here
-    public String getTestQuestion(Model model) {
-        return flashCardTestModel.getQuestion(model);
+    public String getTestQuestion() {
+        return flashCardTestModel.getQuestion();
     }
 
     @Override
     public String getTestAnswer() {
         return flashCardTestModel.getAnswer();
 
+    }
+
+    @Override
+    public FlashCard getCurrentTestFlashCard() {
+        return flashCardTestModel.getCurrentFlashCard();
+    }
+
+    /** Hides the list of flashcards during test mode. */
+    private void hideFlashCardList() {
+        updateFilteredFlashCardList(pred -> false);
     }
 
     //@@author LeowWB

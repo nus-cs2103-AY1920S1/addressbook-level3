@@ -41,6 +41,8 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    void setStyleSheet(String string);
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -138,9 +140,11 @@ public interface Model {
 
     boolean hasTestFlashCard();
 
-    String getTestQuestion(Model model);
+    String getTestQuestion();
 
     String getTestAnswer();
+
+    FlashCard getCurrentTestFlashCard();
 
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.

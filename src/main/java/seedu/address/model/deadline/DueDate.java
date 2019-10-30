@@ -59,5 +59,4 @@ public class DueDate {
     public int hashCode() {
         return dateStr.hashCode();
     }
-
 }

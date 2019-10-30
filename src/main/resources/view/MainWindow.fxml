@@ -21,7 +21,6 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
          <VBox>
@@ -39,7 +38,7 @@
                         focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
                <items>
 
-                 <VBox fx:id="categoryList" minWidth="50.0" prefWidth="50.0" styleClass="pane-with-border">
+                 <VBox fx:id="categoryList" minWidth="50.0" prefWidth="50.0" prefHeight="50" styleClass="pane-with-border">
                    <padding>
                      <Insets bottom="10" left="10" right="10" top="10" />
                    </padding>
@@ -53,7 +52,7 @@
                      </padding>
                    </StackPane>
 
-                   <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                   <StackPane fx:id="resultDisplayPlaceholder" minHeight="50" styleClass="pane-with-border" VBox.vgrow="NEVER">
                      <padding>
                        <Insets bottom="5" left="10" right="10" top="5" />
                      </padding>

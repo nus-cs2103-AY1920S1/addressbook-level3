@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.BadCommand;
 import seedu.address.logic.commands.CalendarCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -26,6 +27,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RateQuestionCommand;
 import seedu.address.logic.commands.RemoveCommand;
+import seedu.address.logic.commands.SetThemeCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.StatsCommand;
@@ -83,6 +85,7 @@ public class KeyboardFlashCardsParser {
     private Command parseTestCommand(Matcher matcher) throws ParseException {
 
         final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
         if (commandWord.equals(EndTestCommand.COMMAND_WORD)) {
             return new EndTestCommand(this);
         }
@@ -90,7 +93,7 @@ public class KeyboardFlashCardsParser {
             return new ShowAnswerCommand(this);
         }
         if (commandWord.equals(RateQuestionCommand.COMMAND_WORD) && !isAwaitingAnswer) {
-            return new RateQuestionCommand(this);
+            return new RateQuestionCommandParser(this).parse(arguments);
         }
         throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
     }
@@ -144,6 +147,9 @@ public class KeyboardFlashCardsParser {
         case DeadlineCommand.COMMAND_WORD:
             return new DeadlineCommandParser().parse(arguments);
 
+        case BadCommand.COMMAND_WORD:
+            return new BadCommandParser().parse(arguments);
+
         case RemoveCommand.COMMAND_WORD:
             return new RemoveCommandParser().parse(arguments);
 
@@ -153,6 +159,8 @@ public class KeyboardFlashCardsParser {
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
 
+        case SetThemeCommand.COMMAND_WORD:
+            return new SetThemeCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -138,6 +138,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setStyleSheet(String string) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getKeyboardFlashCardsFilePath() {
             throw new AssertionError("This method should not be called.");
         }
@@ -249,7 +254,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public String getTestQuestion(Model model) {
+        public String getTestQuestion() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -260,6 +265,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<FlashCard> getFlashCardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public FlashCard getCurrentTestFlashCard() {
             throw new AssertionError("This method should not be called.");
         }
 

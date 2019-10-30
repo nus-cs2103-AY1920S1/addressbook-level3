@@ -245,7 +245,7 @@ prefixes like `t>` and `d>`
 ** Cons: Difficult to implement.
 // end::deadline[]
 
-//@@ author LeowWB
+//@@author LeowWB
 // tag::flashcardexport[]
 === Exporting of FlashCards
 ==== Implementation
@@ -296,11 +296,30 @@ image::ExportActivityDiagram.png[width=320,height=480]
 * **Alternative 2:** Export to a `.txt` file
 ** Pros: Is easier to implement; the Java standard libraries already have the ability to write to text files
 ** Cons: Might give rise to inconvenience in printing, as most text editors (e.g. Notepad, Vim, Gedit) do not have built-in printing functionality
+
+===== Aspect: Parsing of file path from user input
+
+Background: the original AddressBook application, from which KeyboardFlashCards was morphed, delimited its command arguments using slash-containing flags
+(e.g. `c/CATEGORY`). This had the potential to cause problems due to the nature of file paths, which likewise contain slashes. While the existing
+AddressBook parser was able to correctly parse most file paths, there were a few degenerate cases that gave rise to errors.
+
+* **Alternative 1:** Read file path as-is, using the existing AddressBook parser
+** Pros: Does not require further code changes
+** Cons: Means that errors are likely to occur given repeated use
+* **Alternative 2:** Disallow user from selecting file path - instead, always export to a specific directory
+** Pros: Is somewhat easy to implement
+** Cons: Requires user to navigate to the specified directory to obtain the file; requires a means of finding alternatives if the default directory does not exist
+* **Alternative 3:** Ask user to replace slashes in file path with another character
+** Pros: Is very easy to implement
+** Cons: Greatly inconveniences the user; extra work must be done to restore the input to the original file path
+* **Alternative 4 (current choice):** Overhaul the AddressBook parser to use `>` rather than `/` as a delimiter
+** Pros: Provides the user with the most power and convenience
+** Cons: Might possibly break existing functional and test code; may require an additional button press from the user (`Shift`) in order to type `>`
 // end::flashcardexport[]
 
 //@@author keiteo
 // tag::dataencryption[]
-=== Test Yourself Mode
+=== Test mode
 Test mode allows users to start a flash card test from a selected list of tags. If no parameters are provided, all
 flashcards contained in the system will be tested.
 
