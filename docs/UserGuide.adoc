@@ -248,32 +248,9 @@ Examples:
 `eligiblepeople 1` +
 Finds all people eligible for the 1st policy in the displayed policy list.
 
-=== Adding policies to a person : `assignpolicy`
-
-Assigns a policy to the person at the specified index. +
-Format: `assignpolicy INDEX pol/POLICY NAME`
-
-****
-* Adds the policies to the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The policy refers to the name of the policy.
-* The index *must be a positive integer* 1, 2, 3, ...
-* Each policy name must match the policy exactly as it appears in the absolute policy list.
-* Any number of policies can be added as long as the person is eligible for the policy.
-****
-
-Examples:
-
-* `listpeople` +
-`assignpolicy perindex/2 polindex/2` +
-Assigns the 'Senior Care' (the second policy in the list) policy to the 2nd person in the list of people.
-* `find Betsy` +
-`assignpolicy 1 pol/Accident Insurance` +
-Assigns the 'Accident Insurance' (the first policy in the list) policy to the 1st person in the results of the `find` command.
-
 === Adding tags to a person : `addtag`
 
-Adds a new tag to the person at the specified index. +
+Adds new tag(s) to the person at the specified index. +
 Format: `addtag INDEX t/TAG [MORE_TAGS]`
 
 ****
@@ -294,7 +271,7 @@ Adds a `high_risk` tag to the 1st person in the results of the `find` command.
 
 === Adding tags to a policy : `addpolicytag`
 
-Adds a new tag to the policy at the specified index. +
+Adds new tag(s) to the policy at the specified index. +
 Format: `addpolicytag INDEX t/TAG [MORE_TAGS]`
 
 ****
@@ -307,16 +284,16 @@ Format: `addpolicytag INDEX t/TAG [MORE_TAGS]`
 Examples:
 
 * `listpolicy` +
-`addpolicytag 2 t/lifeinsurance` +
-Adds a `lifeinsurance` tag to the 2nd policy in the list of polciies.
-* `findpolicy Betsy` +
-`addpolicytag 1 t/motorinsurance` +
-Adds a `motorinsurance` tag to the 1st policy in the results of the `find` command.
+`addpolicytag 2 t/life_insurance` +
+Adds a `life_insurance` tag to the 2nd policy in the list of polciies.
+* `findpolicy Car` +
+`addpolicytag 1 t/motor_insurance` +
+Adds a `motor_insurance` tag to the 1st policy in the results of the `find` command.
 
-=== Adding criteria to a policy : `addpolicycriteria`
+=== Adding criteria to a policy : `addcriteria`
 
-Adds a new criteria to the policy at the specified index. +
-Format: `addpolicycriteria INDEX cri/CRITERIA [MORE_CRITERIA]`
+Adds new criteria (singular or plural) to the policy at the specified index. +
+Format: `addcriteria INDEX cr/CRITERIA [MORE_CRITERIA]`
 
 ****
 * Adds the criteria to the policy at the specified `INDEX`.
@@ -328,11 +305,32 @@ Format: `addpolicycriteria INDEX cri/CRITERIA [MORE_CRITERIA]`
 Examples:
 
 * `listpolicy` +
-`addpolicycriteria 2 t/nonsmoker` +
+`addcriteria 2 t/nonsmoker` +
 Adds a `nonsmoker` criteria to the 2nd policy in the list of policies.
 * `findpolicy Betsy` +
-`addpolicycriteria 1 t/nonsmoker` +
+`addcriteria 1 t/nonsmoker` +
 Adds a `nonsmoker` tag to the 1st policy in the results of the `findpolicy` command.
+
+=== Deleting criteria from a policy : `deletecriteria`
+
+Deletes criteria (singular or plural) from the policy at the specified index. +
+Format: `deletecriteria INDEX cr/CRITERIA [MORE_CRITERIA]`
+
+****
+* Deletes the criteria from the policy at the specified `INDEX`.
+* The index refers to the index number shown in the displayed policies list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Any number of criteria can be added.
+****
+
+Examples:
+
+* `listpolicy` +
+`deletecriteria 2 t/nonsmoker` +
+Deletes the `nonsmoker` criteria from the 2nd policy in the list of policies.
+* `findpolicy Betsy` +
+`deletecriteria 1 t/nonsmoker` +
+Deletes the `nonsmoker` tag from the 1st policy in the results of the `findpolicy` command.
 
 // tag::delete[]
 === Deleting a person : `delete`
@@ -377,6 +375,29 @@ Deletes the 2nd policy in the list of policies.
 `deletepolicy 1` +
 Deletes the 1st policy in the results of the `findpolicy` command.
 
+=== Adding policies to a person : `assignpolicy`
+
+Assigns a policy to the person at the specified index. +
+Format: `assignpolicy INDEX pol/POLICY NAME`
+
+****
+* Adds the policies to the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The policy refers to the name of the policy.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Each policy name must match the policy exactly as it appears in the absolute policy list.
+* Any number of policies can be added as long as the person is eligible for the policy.
+****
+
+Examples:
+
+* `listpeople` +
+`assignpolicy perindex/2 polindex/2` +
+Assigns the 'Senior Care' (the second policy in the list) policy to the 2nd person in the list of people.
+* `find Betsy` +
+`assignpolicy 1 pol/Accident Insurance` +
+Assigns the 'Accident Insurance' (the first policy in the list) policy to the 1st person in the results of the `find` command.
+
 === Deleting policies from a person : `unassignpolicy`
 
 Removes a policy from the person at the specified index. +
@@ -401,7 +422,7 @@ Removes the policy 'Health Insurance' in the absolute list from the 1st person i
 
 === Deleting tags from a person : `deletetag`
 
-Deletes a tag from the person at the specified index. +
+Deletes tag(s) from the person at the specified index. +
 Format: `deletetag INDEX t/TAG [MORE_TAGS]`
 
 ****
@@ -422,7 +443,7 @@ Deletes a `high_risk` tag from the 1st person in the results of the `find` comma
 
 === Deleting tags from a policy : `deletepolicytag`
 
-Deletes a tag from the policy at the specified index. +
+Deletes tag(s) from the policy at the specified index. +
 Format: `deletepolicytag INDEX t/TAG [MORE_TAGS]`
 
 ****
