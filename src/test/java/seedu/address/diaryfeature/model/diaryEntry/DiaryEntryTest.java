@@ -17,12 +17,13 @@ public class DiaryEntryTest {
     @Test
     public void DiaryEntryConstructor() {
         DiaryEntry tester = null;
-        try {
-            tester = new DiaryEntry(new Title(TITLE_SAMPLE), DateFormatter.convertToDate(DATE_SAMPLE_AS_STRING));
-        } catch (TitleException | ParseException ex) {
-            //Note that this is always correct
-        }
-        //assertEquals("Title: Title Date: Wed, 12 Dec 1212 12:12:00 SGT", tester.toString());
-    }
 
+        //  tester = new DiaryEntry(new Title(TITLE_SAMPLE), DateFormatter.convertToDate(DATE_SAMPLE_AS_STRING));
+        //} catch (TitleException | ParseException ex) {
+        //Note that this is always correct
+
+        //assertEquals("Title: Title Date: Wed, 12 Dec 1212 12:12:00 SGT", tester.toString());
+
+
+    }
 }

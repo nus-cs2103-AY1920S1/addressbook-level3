@@ -288,13 +288,13 @@ Each of these features have their own design and implementation logic.
 
 === Calendar
 
-The calendar feature in TravEzy allows users to easily find a free period of time to travel.
+The calendar feature in TravEzy allows users to easily find a free duration of time to travel.
 
 *Calendar Class Diagram:*+
 
 image::CalendarClassDiagram.png[]
 
-The above diagram shows that ``Calendar`` stores information about the state of the user's calendar, including information about the user's current view as indicated by ``currentMonth``.
+The above diagram shows that ``Calendar`` stores information about the state of the user's calendar, including information about the user's current view as indicated by ``currentViewOnlyMonth``.
 
 image::ShowSequenceDiagram.png[]
 
@@ -313,7 +313,7 @@ Current, the itinerary feature supports the basic commands of add, delete, edit 
 It also includes other more advanced commands such as search, sort and wish(TM).
 
 [TIP]
-Not sure what you should do during a certain period of time?
+Not sure what you should do during a certain duration of time?
 Use the wish function in the itinerary and TravEzy will grant you three event suggestions based on your past entries.
 These suggestions are
 personalized for each user!

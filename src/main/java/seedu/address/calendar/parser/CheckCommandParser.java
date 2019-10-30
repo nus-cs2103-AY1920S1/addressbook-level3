@@ -1,6 +1,7 @@
 package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.CheckCommand;
+import seedu.address.calendar.commands.CommandUtil;
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -35,7 +36,7 @@ public class CheckCommandParser {
 
         if (!isValidPeriod) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CheckCommand.MESSAGE_DATE_RESTRICTION));
+                    CommandUtil.MESSAGE_DATE_RESTRICTION));
         }
 
         EventQuery eventQuery = new EventQuery(startDate, endDate);

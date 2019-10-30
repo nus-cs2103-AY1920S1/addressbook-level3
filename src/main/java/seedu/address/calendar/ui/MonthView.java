@@ -6,8 +6,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import seedu.address.calendar.model.date.Day;
-import seedu.address.calendar.model.Month;
+import seedu.address.calendar.model.date.ViewOnlyDay;
+import seedu.address.calendar.model.date.ViewOnlyMonth;
 
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -15,15 +15,15 @@ import java.util.stream.Stream;
 class MonthView {
     private static final int NUM_ROWS = 5;
     private static final int NUM_COLS = 7;
-    private Month month;
+    private ViewOnlyMonth viewOnlyMonth;
 
-    MonthView(Month month) {
-        this.month = month;
+    MonthView(ViewOnlyMonth viewOnlyMonth) {
+        this.viewOnlyMonth = viewOnlyMonth;
     }
 
     GridPane generateMonthGrid() {
-        Stream<Day> days = month.getDaysInMonth();
-        Day firstDay = month.getFirstDayOfMonth();
+        Stream<ViewOnlyDay> days = viewOnlyMonth.getDaysInMonth();
+        ViewOnlyDay firstDay = viewOnlyMonth.getFirstDayOfMonth();
 
         GridPane monthView = new GridPane();
         GridPane.setVgrow(monthView, Priority.ALWAYS);
