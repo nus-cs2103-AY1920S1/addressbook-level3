@@ -45,7 +45,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe no/98765432 p/Event Coordinator e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Employee List.
+* **`add`**`add_em n/John Doe g/Male p/Manager no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends` : adds a contact named `John Doe` to the Employee List.
 * **`delete`**`3` : deletes the 3rd Employee shown in the current list
 * *`exit`* : exits the app
 
@@ -113,11 +113,15 @@ Event Format: `add_ev n/NAME at/VENUE m/MANPOWER NEEDED on/START DATEtill/END DA
 A employee can have any number of tags (including 0)
 
 Add Employee Examples:
+
 * `add_em n/John Doe g/Male p/Manager no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends t/owesMoney`
+
 * `add_em n/Betsy Crowe g/Female p/CFO no/91909111 e/betsycrowe@example.com a/Newgate Prison on/10/12/2019 t/criminal`
 
 Add Event Examples:
+
 * `add_ev n/Free Coffee at/Utown Starbucks m/5 on/16/03/2019 till/17/03/2019 t/fun t/free`
+
 * `add_ev n/NUS RUN at/NUS Sports Hall m/5 on/19/10/2019 till/20/10/2019 t/running t/sports`
 
 ==== Editing details : `edit_em | edit_ev`
@@ -126,9 +130,9 @@ Employee: Edit an existing employee in the employee list.
 
 Event: Edits an existing event in the event list.
 
-Employee Format: `edit_em INDEX (must be a positive integer) [n/NAME] [g/GENDER] [p/POSITION] [no/PHONE] [e/EMAIL] [a/ADDRESS] [on/JOINDATE] [t/TAG]...`
+Employee Format: `edit_em INDEX [n/NAME] [g/GENDER] [p/POSITION] [no/PHONE] [e/EMAIL] [a/ADDRESS] [on/JOINDATE] [t/TAG]...`
 
-Event Format Format: `edit_ev INDEX (must be a positive integer) [n/EVENT NAME] [at/VENUE] [m/MANPOWER NEEDED] [on/START DATE] [till/END DATE] [t/TAG]...`
+Event Format Format: `edit_ev INDEX [n/EVENT NAME] [at/VENUE] [m/MANPOWER NEEDED] [on/START DATE] [till/END DATE] [t/TAG]...`
 
 ****
 * Edits the entity at the specified `INDEX`. The index refers to the index number shown in the displayed entity list. The index *must be a positive integer* 1, 2, 3, ...
@@ -176,6 +180,9 @@ Returns `john` and `John Doe`
 * `find_em Betsy Tim John` +
 Returns any entity having names `Betsy`, `Tim`, or `John`
 
+* `find_em Party` +
+Returns any event having names `Party` or `party`
+
 ==== Deleting an entity : `delete_em | delete_ev`
 
 Deletes the entity from the employee roster/event calendar.
@@ -186,7 +193,7 @@ Event Format: `delete_ev INDEX`
 
 ****
 * Deletes the entity at the specified `INDEX`.
-* The index refers to the index number shown in the displayed employee list.
+* The index refers to the index number shown in the displayed list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -197,7 +204,7 @@ Examples:
 Deletes the 2nd employee in the displayed employee list.
 * `find Music` +
 `delete_ev 1` +
-Deletes the 1st event in the results of the `find` command.
+Deletes the 1st event in the list shown after the `find` command.
 
 === Employee-Specific Management
 
@@ -214,7 +221,7 @@ Format: `fetch_em EMPLOYEE_INDEX`
 Examples:
 
 * `fetch_em 2` +
-Returns the 2rd employee from the event list
+Returns the 2rd employee from the employee list.
 
 //tag::calvin[]
 === Event-Specific Management
@@ -234,7 +241,7 @@ Format: `fetch_ev EVENT_INDEX`
 Examples:
 
 * `fetch_ev 2` +
-Returns the 2rd event from the event list
+Returns the 2rd event from the event list.
 
 ==== Automated allocation of Employees to Events: `allocate`
 
@@ -267,7 +274,7 @@ Allocates 3 employees who are tagged as 'female' to the 2nd event.
 
 ==== Manually allocation of Employees to Events: `allocatem`
 
-Manually chooses and allocates employees to events.
+Manually chooses and allocates a single employee to an event.
 
 Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
 
@@ -275,7 +282,7 @@ Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
 * Allocates an employee with `EMPLOYEE_INDEX` to the event at the specified `EVENT_INDEX`.
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * The `EMPLOYEE_INDEX` refers to the index number shown in the displayed employee list.
-* Both `EVENT_INDEX` and `EMPLOYEE_INDEX` *must be a positive integer* 1, 2, 3, ...
+* Both `EVENT_INDEX` and `EMPLOYEE_INDEX` *must be positive integers* 1, 2, 3, ...
 ****
 
 Examples:
@@ -287,7 +294,7 @@ Allocates the 2nd employee on the employee list to the 1st event on the event li
 
 Frees *ALL* employees allocated to the event.
 
-Format: `free EVENT_INDEX `
+Format: `free EVENT_INDEX`
 
 ****
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
@@ -324,30 +331,35 @@ Sets the 2nd Event from the Event List a time period of 10am-10pm on the date 18
 
 *For this guide, the relevant picture is shown after the instruction.*
 
-Step 1. For `fetch_ev`, simply *double-click the event* in the list as shown in the figure below:
+*Step 1*. For `fetch_ev`, simply *double-click the event* in the list as shown in the figure below:
 
 image::beforefetch.png[width="600"]
-Step 2: After successfully fetching the event, the following *Fetch Window* should show:
+
+*Step 2*: After successfully fetching the event, the following *Fetch Window* should show:
 
 image::afterfetch.png[width="600"]
 
-Step 3: To perform a `allocate` command without number/filter specification, click the *allocate* button
+*Step 3*: To perform a `allocate` command without number/filter specification, click the *allocate* button
 as shown in the *Fetch Window* in step 2. The two lists will be updated again as shown in the following figure:
 
 image::afterallocate.png[width="600"]
-Step 4: To perform a `free` command, click the *free* button as shown in the *Fetch Window* in step 2.
+
+*Step 4*: To perform a `free` command, click the *free* button as shown in the *Fetch Window* in step 2.
 The two lists will be updated as shown in the following figure. Now, if you are interested to allocate a particular
 employee to an event, continue to step 5.
 
 image::afterfree.png[width="600"]
 
-Step 5: To *allocate* a particular employee to an event, double-click the employee card on the left list. Notice the employee to allocate
+*Step 5*: To *allocate* a particular employee to an event or an `allocatem` command, double-click the employee card on the left list. Notice the employee to allocate
 has moved to the list on the right as shown in the figure below:
+
+[NOTE]
+To *free* a particular employee to an event, double-click the employee card on the right
+as shown in the figure below:
 
 image::afterallocatem.png[width="600"]
 
-Step 6: Finally, to *free* a particular employee to an event, double-click the employee card on the right
-as shown in the figure above in step 5:
+
 
 
 [NOTE]
@@ -529,7 +541,7 @@ such as the location, budget, and date.
 | *Add Employee*
 
 | `add_em n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
-|`add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
+|`add_em n/John Doe g/Male p/Manager no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends`
 
 | *Add Event* |`add_ev n/NAME at/VENUE m/MANPOWER NEEDED on/START DATE till/END DATE[t/TAG]…`
 | `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
