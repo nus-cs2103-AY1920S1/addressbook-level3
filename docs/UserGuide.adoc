@@ -242,7 +242,7 @@ Format: `findperson n/NAME`
 ****
 
 ==== Show person: `show`
-Want to arrange a private meeting with someone in TimeBook? You can see the details of this person using
+Want to arrange a private meeting with someone in TimeBook? You can see the schedule of this person up to 4 weeks in advance using
 the `show` command. +
 Format: `show n/NAME`
 
@@ -262,7 +262,7 @@ image::showpersonresult.png[]
 *****
 image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `nw` see next week's schedule!
+image:./icons/lightbulb.png[] You can use the command `nw` see next week's schedule! You may see this person's schedule up to 4 weeks in advance.
 *****
 
 ==== Listing all persons: `list`
@@ -362,7 +362,7 @@ Format: `findgroup g/GROUP_NAME`
 ****
 * Only the group name is searched.
 * Only full words will be matched
-* Shows the group in the tabs panel.
+* Finds the group in the tabs panel.
 ****
 
 ==== Show group: `show`
