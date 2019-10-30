@@ -67,7 +67,11 @@ public class DetailWindowDisplay {
     }
 
     public FreeTimeslot getFreeTimeslot(int id) {
-        return freeSchedule.getFreeTimeslot(id);
+        if(freeSchedule == null) {
+            return null;
+        } else {
+            return freeSchedule.getFreeTimeslot(id);
+        }
     }
 
     /**
