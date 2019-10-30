@@ -69,12 +69,14 @@ public class Student {
         this.name = studentName;
     }
 
-    public void setMarked() {
+    public Student setMarked() {
         this.isMarked = true;
+        return this;
     }
 
-    public void setUnmarked() {
+    public Student setUnmarked() {
         this.isMarked = false;
+        return this;
     }
 
     public boolean getIsMarked() {

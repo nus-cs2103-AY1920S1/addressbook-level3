@@ -2,6 +2,7 @@ package seedu.address.logic.commands.mark;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class AddMarkCommand extends MarkCommand {
     }
 
     /**
-     * Executes the add student command.
+     * Executes the add mark command.
      *
      * @param model {@code Model} which the command should operate on.
      * @return a command result if the command is executed successfully.
@@ -56,7 +57,11 @@ public class AddMarkCommand extends MarkCommand {
         if (studentToMark.getIsMarked()) {
             throw new CommandException(String.format(MESSAGE_STUDENT_ALREADY_MARKED, toMark.getOneBased()));
         }
-        studentToMark.setMarked();
+
+        Student newStudent = studentToMark.setMarked();
+        model.setStudent(studentToMark, newStudent);
+        model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+
         return new CommandResult(generateSuccessMessage(MESSAGE_SUCCESS, toMark.getOneBased()));
     }
 
@@ -64,7 +69,7 @@ public class AddMarkCommand extends MarkCommand {
      * Generates a command execution success message.
      *
      * @param successMessage Success message
-     * @param index           of student to mark
+     * @param index          of student to mark
      */
     private String generateSuccessMessage(String successMessage, int index) {
         return String.format(successMessage, index);
