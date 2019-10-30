@@ -20,7 +20,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  */
 public class DeleteBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.BUDGET;
-
+    public static final String COMMAND_DESCRIPTION = "Delete budget on index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the budget identified by the index number used in the displayed budget list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -32,6 +32,11 @@ public class DeleteBudgetCommand extends UndoableCommand {
 
     public DeleteBudgetCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, targetIndex.getOneBased());
     }
 
     @Override

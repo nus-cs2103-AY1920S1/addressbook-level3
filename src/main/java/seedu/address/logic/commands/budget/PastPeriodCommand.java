@@ -14,7 +14,7 @@ import seedu.address.ui.budget.BudgetPanel;
  */
 public class PastPeriodCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "pastperiod";
-
+    public static final String COMMAND_DESCRIPTION = "Switch budget to period %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches the budget to a past period anchored by "
             + "the specified date and displays a list of expenses under this budget during that period.\n"
             + "Parameters: "
@@ -29,6 +29,11 @@ public class PastPeriodCommand extends UndoableCommand {
 
     public PastPeriodCommand(Timestamp pastDate) {
         this.pastDate = pastDate;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, pastDate);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class EditExpenseCommandTest {
         Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
-        expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
+        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
 
         assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel);
     }
@@ -74,7 +74,7 @@ public class EditExpenseCommandTest {
         Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(lastExpense, editedExpense);
-        expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
+        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
 
         assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel);
     }
@@ -89,7 +89,7 @@ public class EditExpenseCommandTest {
 
         Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
-        expectedModel.addToHistory();
+        expectedModel.commitModel("");
 
         assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel);
     }
@@ -112,7 +112,7 @@ public class EditExpenseCommandTest {
         Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
-        expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
+        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
 
         assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel);
     }

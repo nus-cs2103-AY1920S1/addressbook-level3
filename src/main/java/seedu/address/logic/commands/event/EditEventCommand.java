@@ -32,7 +32,7 @@ import seedu.address.ui.event.EventListPanel;
 public class EditEventCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.EDIT + CommandGroup.EVENT;
-
+    public static final String COMMAND_DESCRIPTION = "Edit event with index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
             + "by the index number used in the displayed event list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -61,6 +61,11 @@ public class EditEventCommand extends UndoableCommand {
 
         this.index = index;
         this.editEventDescriptor = new EditEventDescriptor(editEventDescriptor);
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, index.getOneBased());
     }
 
     @Override

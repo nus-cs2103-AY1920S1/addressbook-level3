@@ -21,7 +21,7 @@ import seedu.address.ui.budget.BudgetPanel;
 public class AddBudgetCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.ADD + CommandGroup.BUDGET;
-
+    public static final String COMMAND_DESCRIPTION = "Add budget %1$s (%2$s)";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an budget to MooLah.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
@@ -42,6 +42,11 @@ public class AddBudgetCommand extends UndoableCommand {
     public AddBudgetCommand(Budget budget) {
         requireNonNull(budget);
         toAdd = budget;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, toAdd.getDescription(), toAdd.getAmount());
     }
 
     @Override

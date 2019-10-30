@@ -16,8 +16,13 @@ import seedu.address.ui.budget.BudgetListPanel;
 public class ListBudgetCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.BUDGET;
-
+    public static final String COMMAND_DESCRIPTION = "List budgets";
     public static final String MESSAGE_SUCCESS = "Listed all budgets";
+
+    @Override
+    public String getDescription() {
+        return COMMAND_DESCRIPTION;
+    }
 
     @Override
     protected void validate(Model model) {

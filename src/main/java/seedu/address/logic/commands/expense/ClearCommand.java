@@ -14,7 +14,13 @@ import seedu.address.ui.expense.ExpenseListPanel;
 public class ClearCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_DESCRIPTION = "Clear MooLah";
     public static final String MESSAGE_SUCCESS = "All expenses in MooLah have been cleared!";
+
+    @Override
+    public String getDescription() {
+        return COMMAND_DESCRIPTION;
+    }
 
     @Override
     protected void validate(Model model) {

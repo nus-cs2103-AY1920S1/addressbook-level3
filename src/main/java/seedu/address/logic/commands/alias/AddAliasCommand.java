@@ -11,7 +11,6 @@ import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-//import seedu.address.ui.expense.AliasPanel;
 import seedu.address.ui.alias.AliasPanel;
 
 /**
@@ -20,7 +19,7 @@ import seedu.address.ui.alias.AliasPanel;
 public class AddAliasCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.ADD + CommandGroup.ALIAS;
-
+    public static final String COMMAND_DESCRIPTION = "Create alias %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a shortcut for commonly used Commands.\n"
             + "Parameters: " + PREFIX_ALIAS_ALIAS_NAME
             + " <alias name>  " + PREFIX_ALIAS_ALIAS_INPUT + " <input string> \n"
@@ -44,6 +43,11 @@ public class AddAliasCommand extends UndoableCommand {
     public AddAliasCommand(Alias alias) {
         requireNonNull(alias);
         this.toAdd = alias;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, toAdd.getAliasName());
     }
 
     @Override

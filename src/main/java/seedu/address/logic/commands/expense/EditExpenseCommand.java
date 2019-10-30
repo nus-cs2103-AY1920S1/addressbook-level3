@@ -31,7 +31,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
 public class EditExpenseCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit" + CommandGroup.EXPENSE;
-
+    public static final String COMMAND_DESCRIPTION = "Edit expense with index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
             + "by the index number used in the displayed expense list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -60,6 +60,11 @@ public class EditExpenseCommand extends UndoableCommand {
 
         this.index = index;
         this.editExpenseDescriptor = new EditExpenseDescriptor(editExpenseDescriptor);
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, this.index.getOneBased());
     }
 
     @Override

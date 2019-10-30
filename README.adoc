@@ -12,7 +12,7 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 * Our unique expense tracker app, MooLah, is tailored to students from National University of Singapore.
-It helps users cultivate good financial management habits through tracking their expenses and setting periodical budgets.
+It helps users cultivate good financial management habits through tracking their expenses and setting periodic budgets.
 With MooLah, you can spend smart and save smart.
 * This is a desktop application. It has a GUI but most of the user interactions occur using a CLI (Command Line Interface).
 

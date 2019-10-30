@@ -21,7 +21,7 @@ import seedu.address.ui.event.EventListPanel;
 public class DeleteEventCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.EVENT;
-
+    public static final String COMMAND_DESCRIPTION = "Delete event with index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by the index number used in the displayed event list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -33,6 +33,11 @@ public class DeleteEventCommand extends UndoableCommand {
 
     public DeleteEventCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, targetIndex.getOneBased());
     }
 
     @Override

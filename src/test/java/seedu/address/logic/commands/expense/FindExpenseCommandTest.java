@@ -60,7 +60,7 @@ public class FindExpenseCommandTest {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 0);
         DescriptionContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindExpenseCommand command = new FindExpenseCommand(predicate);
-        expectedModel.addToHistory();
+        expectedModel.commitModel("");
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredExpenseList());
@@ -71,7 +71,7 @@ public class FindExpenseCommandTest {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
         DescriptionContainsKeywordsPredicate predicate = preparePredicate("the Chicken Movie");
         FindExpenseCommand command = new FindExpenseCommand(predicate);
-        expectedModel.addToHistory();
+        expectedModel.commitModel("");
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CHICKEN_RICE, ENTERTAINMENT, FASHION), model.getFilteredExpenseList());

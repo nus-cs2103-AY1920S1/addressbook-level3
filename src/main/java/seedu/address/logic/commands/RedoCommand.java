@@ -11,7 +11,7 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_NO_MODEL = "There is nothing to be redone.";
-    public static final String MESSAGE_SUCCESS = "Redid the undoable command";
+    public static final String MESSAGE_SUCCESS = "Redid \"%1$s\".";
 
     @Override
     protected void validate(Model model) throws CommandException {
@@ -22,9 +22,8 @@ public class RedoCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        // nextModel is guaranteed to be present due to previous validation.
-        Model nextModel = model.migrateModel().get();
-        model.resetData(nextModel);
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.migrateModel();
+        String nextCommandDesc = model.getLastCommandDesc();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, nextCommandDesc));
     }
 }

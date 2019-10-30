@@ -30,14 +30,14 @@ public class ListExpenseCommandTest {
 
     @Test
     public void run_listIsNotFiltered_showsSameList() {
-        expectedModel.addToHistory();
+        expectedModel.commitModel("");
         assertCommandSuccess(new ListExpenseCommand(), model, ListExpenseCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void run_listIsFiltered_showsEverything() {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
-        expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
+        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
         assertCommandSuccess(new ListExpenseCommand(), model, ListExpenseCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

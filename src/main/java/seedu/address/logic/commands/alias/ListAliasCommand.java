@@ -8,7 +8,6 @@ import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-//import seedu.address.ui.expense.AliasPanel;
 import seedu.address.ui.alias.AliasPanel;
 
 /**
@@ -17,7 +16,7 @@ import seedu.address.ui.alias.AliasPanel;
 public class ListAliasCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.ALIAS;
-
+    public static final String COMMAND_DESCRIPTION = "List aliases";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all user defined alises.";
 
     public static final String MESSAGE_SUCCESS = "You have %d aliases.";
@@ -26,6 +25,11 @@ public class ListAliasCommand extends UndoableCommand {
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
         // no validation needed
+    }
+
+    @Override
+    public String getDescription() {
+        return COMMAND_DESCRIPTION;
     }
 
     @Override

@@ -2,30 +2,33 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Optional;
 import java.util.Stack;
 
 /**
- * A history of models throughout execution, to facilitate easy rollback and migration.
+ * A history of models throughout execution, to facilitate model manipulation through history.
  */
 public class ModelHistory implements ReadOnlyModelHistory {
+
+    private String description;
     private Stack<Model> pastModels;
     private Stack<Model> futureModels;
 
-    public ModelHistory(Stack<Model> pastModels, Stack<Model> futureModels) {
+    public ModelHistory(String description, Stack<Model> pastModels, Stack<Model> futureModels) {
+        setDescription(description);
         setPastModels(pastModels);
         setFutureModels(futureModels);
     }
 
     public ModelHistory() {
-        this(new Stack<>(), new Stack<>());
+        this("", new Stack<>(), new Stack<>());
     }
 
     /**
      * Copy constructor for ModelHistory.
      */
     public ModelHistory(ReadOnlyModelHistory history) {
-        this(history.getPastModels(), history.getFutureModels());
+        this();
+        resetData(history);
     }
 
     /**
@@ -33,8 +36,14 @@ public class ModelHistory implements ReadOnlyModelHistory {
      */
     public void resetData(ReadOnlyModelHistory history) {
         requireNonNull(history);
+        setDescription(history.getDescription());
         setPastModels(history.getPastModels());
         setFutureModels(history.getFutureModels());
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -45,6 +54,10 @@ public class ModelHistory implements ReadOnlyModelHistory {
     @Override
     public Stack<Model> getFutureModels() {
         return futureModels;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setPastModels(Stack<Model> pastModels) {
@@ -58,7 +71,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
     }
 
     /**
-     * Adds the copy of a model to the past models history.
+     * Adds the model state to the past models history.
      */
     public void addToPastModels(Model model) {
         requireNonNull(model);
@@ -66,7 +79,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
     }
 
     /**
-     * Adds the copy of a model to the future models history.
+     * Adds the model state to the future models history.
      */
     public void addToFutureModels(Model model) {
         requireNonNull(model);
@@ -95,27 +108,25 @@ public class ModelHistory implements ReadOnlyModelHistory {
     }
 
     /**
-     * Returns the previous model in history, if exists.
+     * Returns the previous model in history and removes it from the history, if exists.
      */
-    public Optional<Model> getPrevModel() {
+    public Model getPrevModel() {
         if (isPastModelsEmpty()) {
-            return Optional.empty();
+            return null;
         }
 
-        Model prevModel = pastModels.pop();
-        return Optional.of(prevModel);
+        return pastModels.pop();
     }
 
     /**
-     * Returns the next model in history, if exists.
+     * Returns and removes the next model in history, if exists.
      */
-    public Optional<Model> getNextModel() {
+    public Model getNextModel() {
         if (isFutureModelsEmpty()) {
-            return Optional.empty();
+            return null;
         }
 
-        Model nextModel = futureModels.pop();
-        return Optional.of(nextModel);
+        return futureModels.pop();
     }
 
     @Override
@@ -132,6 +143,8 @@ public class ModelHistory implements ReadOnlyModelHistory {
         return pastModels.equals(other.pastModels)
                 && futureModels.equals(other.futureModels);
     }
+
+    // Debug purposes
 
     @Override
     public String toString() {

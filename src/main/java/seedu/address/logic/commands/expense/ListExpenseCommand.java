@@ -16,8 +16,13 @@ import seedu.address.ui.expense.ExpenseListPanel;
 public class ListExpenseCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.EXPENSE;
-
+    public static final String COMMAND_DESCRIPTION = "List expenses";
     public static final String MESSAGE_SUCCESS = "Listed all expenses";
+
+    @Override
+    public String getDescription() {
+        return COMMAND_DESCRIPTION;
+    }
 
     @Override
     protected void validate(Model model) {

@@ -8,9 +8,7 @@ import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-//import seedu.address.ui.expense.AliasPanel;
 import seedu.address.ui.alias.AliasPanel;
-
 
 /**
  * Create an alias for common user input.
@@ -18,7 +16,7 @@ import seedu.address.ui.alias.AliasPanel;
 public class DeleteAliasCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.ALIAS;
-
+    public static final String COMMAND_DESCRIPTION = "Delete alias %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete an alias with the alias name.\n"
             + "Parameters: <alias name>\n"
             + "Example: deletealias findCat";
@@ -35,6 +33,11 @@ public class DeleteAliasCommand extends UndoableCommand {
     public DeleteAliasCommand(String aliasName) {
         requireNonNull(aliasName);
         this.aliasName = aliasName;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, aliasName);
     }
 
     @Override

@@ -1,13 +1,21 @@
 #SyntaxBox {
     -fx-font-size: 20px;
-    -fx-font-family: Monospaced;
+    -fx-font-family: "Droid Sans Mono";
+    -fx-padding: 0;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-border-image-insets: 0;
 }
 
 #SyntaxBox .text-field {
-    -fx-opacity: .3;
+    -fx-opacity: .2;
     -fx-padding: 0;
+    -fx-background-color: none;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-border-image-insets: 0;
     -fx-font-size: 20px;
-    -fx-font-family: Monospaced;
+    -fx-font-family: "Droid Sans Mono";
     -fx-text-fill: none;
 }
 

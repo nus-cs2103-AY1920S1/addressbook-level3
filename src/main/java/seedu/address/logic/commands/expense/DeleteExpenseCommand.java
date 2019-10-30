@@ -20,7 +20,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
 public class DeleteExpenseCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete" + CommandGroup.EXPENSE;
-
+    public static final String COMMAND_DESCRIPTION = "Delete expense with index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the expense identified by the index number used in the displayed expense list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -32,6 +32,11 @@ public class DeleteExpenseCommand extends UndoableCommand {
 
     public DeleteExpenseCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, targetIndex.getOneBased());
     }
 
     @Override
