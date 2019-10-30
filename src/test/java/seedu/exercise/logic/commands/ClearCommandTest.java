@@ -20,7 +20,7 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
 
         CommandResult expectedCommandResult = new CommandResult(ClearCommand.MESSAGE_SUCCESS,
-                ListResourceType.SUGGESTION);
+                ListResourceType.SUGGEST);
         assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 
@@ -35,7 +35,7 @@ public class ClearCommandTest {
         expectedModel.setExerciseBook(new ReadOnlyResourceBook<>());
 
         CommandResult expectedCommandResult = new CommandResult(ClearCommand.MESSAGE_SUCCESS,
-                ListResourceType.SUGGESTION);
+                ListResourceType.SUGGEST);
         assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 

@@ -27,6 +27,9 @@ import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_NAME_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_INDEX;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_INDEX_2;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_INDEX_3;
 import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_UNIT_AEROBICS;
@@ -62,7 +65,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_AEROBICS, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, VALID_PREFIX_INDEX, EditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -85,40 +88,40 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS); // invalid date
-        assertParseFailure(parser, "1" + INVALID_CALORIES_DESC, Calories.MESSAGE_CONSTRAINTS); // invalid calories
-        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS); // invalid quantity
-        assertParseFailure(parser, "1" + INVALID_UNIT_DESC, Unit.MESSAGE_CONSTRAINTS); // invalid unit
-        assertParseFailure(parser, "1" + INVALID_MUSCLE_DESC, Muscle.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, " i/1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, " i/1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS); // invalid date
+        assertParseFailure(parser, " i/1" + INVALID_CALORIES_DESC, Calories.MESSAGE_CONSTRAINTS); // invalid calories
+        assertParseFailure(parser, " i/1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS); // invalid quantity
+        assertParseFailure(parser, " i/1" + INVALID_UNIT_DESC, Unit.MESSAGE_CONSTRAINTS); // invalid unit
+        assertParseFailure(parser, " i/1" + INVALID_MUSCLE_DESC, Muscle.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid date followed by valid calories
-        assertParseFailure(parser, "1" + INVALID_DATE_DESC + CALORIES_DESC_AEROBICS,
+        assertParseFailure(parser, " i/1" + INVALID_DATE_DESC + CALORIES_DESC_AEROBICS,
             Date.MESSAGE_CONSTRAINTS);
 
         // valid date followed by invalid date. The test case for invalid date followed by valid date
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + DATE_DESC_BASKETBALL + INVALID_DATE_DESC,
+        assertParseFailure(parser, " i/1" + DATE_DESC_BASKETBALL + INVALID_DATE_DESC,
             Date.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_MUSCLE} alone will reset the muscles of the {@code Exercise} being edited,
         // parsing it together with a valid muscle results in error
-        assertParseFailure(parser, "1" + MUSCLE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS + TAG_EMPTY,
+        assertParseFailure(parser, " i/1" + MUSCLE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS + TAG_EMPTY,
             Muscle.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + MUSCLE_DESC_BASKETBALL + TAG_EMPTY + MUSCLE_DESC_AEROBICS,
+        assertParseFailure(parser, " i/1" + MUSCLE_DESC_BASKETBALL + TAG_EMPTY + MUSCLE_DESC_AEROBICS,
             Muscle.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + MUSCLE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS,
+        assertParseFailure(parser, " i/1" + TAG_EMPTY + MUSCLE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS,
             Muscle.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_CALORIES_DESC
+        assertParseFailure(parser, " i/1" + INVALID_NAME_DESC + INVALID_CALORIES_DESC
             + VALID_QUANTITY_AEROBICS + VALID_DATE_AEROBICS, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_ONE_BASED_SECOND;
-        String userInput = targetIndex.getOneBased() + DATE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS + UNIT_DESC_AEROBICS
+        String userInput = VALID_PREFIX_INDEX_2 + DATE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS + UNIT_DESC_AEROBICS
             + CALORIES_DESC_AEROBICS + QUANTITY_DESC_AEROBICS + NAME_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL;
 
         EditCommand.EditExerciseDescriptor descriptor =
@@ -134,7 +137,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_ONE_BASED_FIRST;
-        String userInput = targetIndex.getOneBased() + DATE_DESC_BASKETBALL + CALORIES_DESC_AEROBICS;
+        String userInput = VALID_PREFIX_INDEX + DATE_DESC_BASKETBALL + CALORIES_DESC_AEROBICS;
 
         EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withDate(VALID_DATE_BASKETBALL)
             .withCalories(VALID_CALORIES_AEROBICS).build();
@@ -147,38 +150,38 @@ public class EditCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_ONE_BASED_THIRD;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AEROBICS;
+        String userInput = VALID_PREFIX_INDEX_3 + NAME_DESC_AEROBICS;
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder()
             .withName(VALID_NAME_AEROBICS).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // date
-        userInput = targetIndex.getOneBased() + DATE_DESC_AEROBICS;
+        userInput = VALID_PREFIX_INDEX_3 + DATE_DESC_AEROBICS;
         descriptor = new EditExerciseDescriptorBuilder().withDate(VALID_DATE_AEROBICS).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // calories
-        userInput = targetIndex.getOneBased() + CALORIES_DESC_AEROBICS;
+        userInput = VALID_PREFIX_INDEX_3 + CALORIES_DESC_AEROBICS;
         descriptor = new EditExerciseDescriptorBuilder().withCalories(VALID_CALORIES_AEROBICS).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // quantity
-        userInput = targetIndex.getOneBased() + QUANTITY_DESC_AEROBICS;
+        userInput = VALID_PREFIX_INDEX_3 + QUANTITY_DESC_AEROBICS;
         descriptor = new EditExerciseDescriptorBuilder().withQuantity(VALID_QUANTITY_AEROBICS).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // unit
-        userInput = targetIndex.getOneBased() + UNIT_DESC_AEROBICS;
+        userInput = VALID_PREFIX_INDEX_3 + UNIT_DESC_AEROBICS;
         descriptor = new EditExerciseDescriptorBuilder().withUnit(VALID_UNIT_AEROBICS).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // muscles
-        userInput = targetIndex.getOneBased() + MUSCLE_DESC_BASKETBALL;
+        userInput = VALID_PREFIX_INDEX_3 + MUSCLE_DESC_BASKETBALL;
         descriptor = new EditExerciseDescriptorBuilder().withMuscles(VALID_MUSCLE_BASKETBALL).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -187,7 +190,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_ONE_BASED_FIRST;
-        String userInput = targetIndex.getOneBased() + DATE_DESC_AEROBICS + QUANTITY_DESC_AEROBICS
+        String userInput = VALID_PREFIX_INDEX + DATE_DESC_AEROBICS + QUANTITY_DESC_AEROBICS
             + CALORIES_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL + DATE_DESC_AEROBICS
             + QUANTITY_DESC_AEROBICS + CALORIES_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL
             + DATE_DESC_BASKETBALL + QUANTITY_DESC_BASKETBALL + CALORIES_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS;
@@ -205,14 +208,14 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_ONE_BASED_FIRST;
-        String userInput = targetIndex.getOneBased() + INVALID_DATE_DESC + DATE_DESC_BASKETBALL;
+        String userInput = VALID_PREFIX_INDEX + INVALID_DATE_DESC + DATE_DESC_BASKETBALL;
         EditExerciseDescriptor descriptor =
             new EditExerciseDescriptorBuilder().withDate(VALID_DATE_BASKETBALL).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + CALORIES_DESC_BASKETBALL + INVALID_DATE_DESC
+        userInput = VALID_PREFIX_INDEX + CALORIES_DESC_BASKETBALL + INVALID_DATE_DESC
             + QUANTITY_DESC_BASKETBALL + DATE_DESC_BASKETBALL;
         descriptor = new EditExerciseDescriptorBuilder().withDate(VALID_DATE_BASKETBALL)
             .withCalories(VALID_CALORIES_BASKETBALL).withQuantity(VALID_QUANTITY_BASKETBALL).build();
@@ -223,7 +226,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_resetTags_success() {
         Index targetIndex = INDEX_ONE_BASED_THIRD;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+        String userInput = VALID_PREFIX_INDEX_3 + TAG_EMPTY;
 
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withMuscles().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);

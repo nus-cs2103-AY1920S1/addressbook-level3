@@ -9,8 +9,10 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
-import static seedu.exercise.logic.parser.CliSyntax.getPrefixesSet;
+import static seedu.exercise.logic.parser.CliSyntax.getPropertyPrefixesSet;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,7 +45,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        Prefix[] commandPrefixes = getPrefixesSet();
+        Prefix[] commandPrefixes = getPrefixes();
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, commandPrefixes);
 
@@ -100,6 +102,19 @@ public class AddCommandParser implements Parser<AddCommand> {
         List<Index> indexes = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
 
         return new AddRegimeCommand(indexes, regimeName);
+    }
+
+    /**
+     * Returns an array of prefixes to parse for.
+     */
+    private Prefix[] getPrefixes() {
+        Set<Prefix> prefixes = new HashSet<>();
+        prefixes.addAll(List.of(PREFIX_CATEGORY, PREFIX_INDEX, PREFIX_NAME, PREFIX_DATE,
+                PREFIX_CALORIES, PREFIX_QUANTITY, PREFIX_UNIT, PREFIX_MUSCLE));
+
+        // Includes any custom properties that have been added
+        prefixes.addAll(Arrays.asList(getPropertyPrefixesSet()));
+        return prefixes.toArray(new Prefix[prefixes.size()]);
     }
 
 }

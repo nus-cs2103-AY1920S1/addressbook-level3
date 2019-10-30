@@ -33,6 +33,8 @@ public class CommonTestData {
     public static final String VALID_PREFIX_INDEX = " " + PREFIX_INDEX + VALID_INDEX;
     public static final String VALID_INDEX_2 = "2";
     public static final String VALID_PREFIX_INDEX_2 = " " + PREFIX_INDEX + VALID_INDEX_2;
+    public static final String VALID_INDEX_3 = "3";
+    public static final String VALID_PREFIX_INDEX_3 = " " + PREFIX_INDEX + VALID_INDEX_3;
 
     //=======================For valid conflict index=============================
     public static final String VALID_PREFIX_CONFLICT_INDEX = " " + PREFIX_CONFLICT_INDEX + VALID_INDEX;
@@ -74,7 +76,7 @@ public class CommonTestData {
     public static final String INVALID_NUMBERS_FOR_ALPHABETS_AND_SPACES = "words123";
     public static final String INVALID_SYMBOLS_FOR_ALPHABETS_AND_SPACES = "legitwords@#%";
 
-    //=======================For invalids index=============================
+    //=======================For invalid index=============================
     public static final String INVALID_INDEX_ZERO = "0";
     public static final String INVALID_INDEX_NEGATIVE = "-1";
     public static final String INVALID_INDEX_EMPTY = "";
@@ -290,4 +292,14 @@ public class CommonTestData {
     public static final String INVALID_END_DATE_DESC = " " + PREFIX_END_DATE + INVALID_END_DATE;
     public static final String INVALID_END_DATE_TOO_FAR_APART_DESC = " " + PREFIX_END_DATE
             + INVALID_END_DATE_TOO_FAR_APART;
+
+    //======================For valid list type=========================================================
+    public static final String VALID_LIST_TYPE_EXERCISE = "exercise";
+    public static final String VALID_PREFIX_LIST_TYPE_EXERCISE = " " + PREFIX_CATEGORY + VALID_LIST_TYPE_EXERCISE;
+    public static final String VALID_LIST_TYPE_REGIME = "regime";
+    public static final String VALID_PREFIX_LIST_TYPE_REGIME = " " + PREFIX_CATEGORY + VALID_LIST_TYPE_REGIME;
+    public static final String VALID_LIST_TYPE_SCHEDULE = "schedule";
+    public static final String VALID_PREFIX_LIST_TYPE_SCHEDULE = " " + PREFIX_CATEGORY + VALID_LIST_TYPE_SCHEDULE;
+    public static final String VALID_LIST_TYPE_SUGGEST = "suggest";
+    public static final String VALID_PREFIX_LIST_TYPE_SUGGEST = " " + PREFIX_CATEGORY + VALID_LIST_TYPE_SUGGEST;
 }

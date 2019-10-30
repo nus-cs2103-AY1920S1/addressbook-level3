@@ -4,18 +4,24 @@ import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
-import static seedu.exercise.logic.parser.CliSyntax.getPrefixesSet;
+import static seedu.exercise.logic.parser.CliSyntax.getPropertyPrefixesSet;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.EditCommand.EditExerciseDescriptor;
@@ -27,6 +33,7 @@ import seedu.exercise.model.property.Muscle;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    private final Logger logger = LogsCenter.getLogger(EditCommandParser.class);
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -35,16 +42,14 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        Prefix[] commandPrefixes = getPrefixesSet();
+        Prefix[] commandPrefixes = getPrefixes();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, commandPrefixes);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+        if (!argMultimap.arePrefixesPresent(PREFIX_INDEX)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
 
         EditCommand.EditExerciseDescriptor editExerciseDescriptor = new EditExerciseDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -109,5 +114,18 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         return Optional.of(ParserUtil.parseCustomProperties(customProperties));
     }
+
+    /**
+     * Returns an array of prefixes to parse for.
+     */
+    private Prefix[] getPrefixes() {
+        Set<Prefix> prefixes = new HashSet<>();
+        prefixes.addAll(List.of(PREFIX_INDEX, PREFIX_NAME, PREFIX_DATE,
+                PREFIX_CALORIES, PREFIX_QUANTITY, PREFIX_UNIT, PREFIX_MUSCLE));
+
+        prefixes.addAll(Arrays.asList(getPropertyPrefixesSet()));
+        return prefixes.toArray(new Prefix[prefixes.size()]);
+    }
+
 
 }

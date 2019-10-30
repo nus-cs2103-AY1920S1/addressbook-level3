@@ -5,6 +5,7 @@ import static seedu.exercise.logic.commands.events.EditEvent.KEY_EDITED_EXERCISE
 import static seedu.exercise.logic.commands.events.EditEvent.KEY_ORIGINAL_EXERCISE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
@@ -46,14 +47,16 @@ public class EditCommand extends Command implements UndoableCommand, PayloadCarr
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the exercise identified "
         + "by the index number used in the displayed exercise list. "
         + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) "
+        + "Parameters: "
+        + PREFIX_INDEX + "INDEX (must be a positive integer) "
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_CALORIES + "CALORIES] "
         + "[" + PREFIX_QUANTITY + "QUANTITY] "
         + "[" + PREFIX_UNIT + "UNIT] "
         + "[" + PREFIX_MUSCLE + "MUSCLE]...\n"
-        + "Example: " + COMMAND_WORD + " 1 "
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_INDEX + "1 "
         + PREFIX_DATE + "03/10/2019 "
         + PREFIX_CALORIES + "800";
 

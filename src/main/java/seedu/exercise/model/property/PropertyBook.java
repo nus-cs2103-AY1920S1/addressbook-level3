@@ -1,6 +1,6 @@
 package seedu.exercise.model.property;
 
-import static seedu.exercise.logic.parser.CliSyntax.setPrefixesSet;
+import static seedu.exercise.logic.parser.CliSyntax.setPropertyPrefixesSet;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -145,7 +145,7 @@ public class PropertyBook {
     }
 
     public void updatePropertyPrefixes() {
-        setPrefixesSet(getPrefixes());
+        setPropertyPrefixesSet(getPrefixes());
     }
 
     @Override

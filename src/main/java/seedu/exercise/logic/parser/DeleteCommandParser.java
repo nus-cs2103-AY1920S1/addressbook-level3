@@ -6,7 +6,6 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.DeleteCommand;
@@ -29,7 +28,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     public DeleteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_NAME, PREFIX_INDEX);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY)
+        if (!argMultimap.arePrefixesPresent(PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
@@ -51,7 +50,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * Parses arguments and returns DeleteExerciseCommand for execution
      */
     private DeleteExerciseCommand parseExercise(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_INDEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteExerciseCommand.MESSAGE_USAGE));
         }
@@ -64,7 +63,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * Parses arguments and returns DeleteRegimeCommand for execution
      */
     private DeleteRegimeCommand parseRegime(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteRegimeCommand.MESSAGE_USAGE));
         }
@@ -72,7 +71,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         Name regimeName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         // index present, delete exercise in regime
-        if (arePrefixesPresent(argMultimap, PREFIX_INDEX)) {
+        if (argMultimap.arePrefixesPresent(PREFIX_INDEX)) {
 
             List<Index> indexes = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
             return new DeleteRegimeCommand(regimeName, indexes);
@@ -80,13 +79,5 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         } else { //index not present delete regime
             return new DeleteRegimeCommand(regimeName, null);
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

@@ -16,7 +16,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_MUSCLE = new Prefix("m/");
     public static final Prefix PREFIX_UNIT = new Prefix("u/");
 
-    /* Prefix definitions for add and edit commands */
+    /* Prefix definitions for add, delete and edit commands */
     public static final Prefix PREFIX_CATEGORY = new Prefix("t/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
@@ -39,22 +39,22 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_DATE = new Prefix("e/");
 
     /* A set consisting of property prefix definitions for add and edit commands */
-    private static final Set<Prefix> PREFIXES_SET = new HashSet<>();
+    private static final Set<Prefix> PROPERTY_PREFIXES_SET = new HashSet<>();
 
     /**
      * Updates the prefixes in {@code PREFIXES_SET} with the input {@code prefixes}.
      */
-    public static void setPrefixesSet(Set<Prefix> prefixes) {
-        PREFIXES_SET.addAll(prefixes);
-        PREFIXES_SET.retainAll(prefixes);
+    public static void setPropertyPrefixesSet(Set<Prefix> prefixes) {
+        PROPERTY_PREFIXES_SET.addAll(prefixes);
+        PROPERTY_PREFIXES_SET.retainAll(prefixes);
     }
 
     /**
      * Returns an array that contains the prefixes in {@code PREFIXES_SET} and {@code otherPrefixes}.
      * This prefix array can be used for {@link ArgumentTokenizer#tokenize}.
      */
-    public static Prefix[] getPrefixesSet() {
-        Prefix[] prefixArray = PREFIXES_SET.toArray(new Prefix[PREFIXES_SET.size()]);
+    public static Prefix[] getPropertyPrefixesSet() {
+        Prefix[] prefixArray = PROPERTY_PREFIXES_SET.toArray(new Prefix[PROPERTY_PREFIXES_SET.size()]);
         return prefixArray;
     }
 }

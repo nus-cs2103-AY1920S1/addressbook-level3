@@ -2,6 +2,8 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.logic.commands.events.DeleteExerciseEvent.KEY_EXERCISE_TO_DELETE;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.List;
 
@@ -20,6 +22,11 @@ import seedu.exercise.ui.ListResourceType;
  */
 public class DeleteExerciseCommand extends DeleteCommand implements PayloadCarrierCommand {
 
+    public static final String MESSAGE_USAGE_EXERCISE = "Parameters: INDEX (must be a positive integer)\n"
+            + "\t\tExample: "
+            + COMMAND_WORD + " "
+            + PREFIX_CATEGORY + "exercise "
+            + PREFIX_INDEX + "1";
     public static final String MESSAGE_DELETE_EXERCISE_SUCCESS = "Deleted Exercise: %1$s";
     public static final String RESOURCE_TYPE = "exercise";
 

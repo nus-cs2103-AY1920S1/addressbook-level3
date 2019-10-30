@@ -39,7 +39,7 @@ public class SuggestPossibleCommand extends SuggestCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateSuggestedExerciseList(predicate);
-        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.SUGGESTION);
+        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.SUGGEST);
     }
 
     @Override

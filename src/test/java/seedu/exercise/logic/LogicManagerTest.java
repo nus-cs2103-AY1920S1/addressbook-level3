@@ -3,6 +3,8 @@ package seedu.exercise.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
 import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_EXERCISE;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.CALORIES_DESC_AEROBICS;
@@ -13,6 +15,7 @@ import static seedu.exercise.testutil.CommonTestData.NAME_DESC_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.QUANTITY_DESC_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.REGIME_BOOK_FILE_NAME;
 import static seedu.exercise.testutil.CommonTestData.UNIT_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_LIST_TYPE_EXERCISE;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_CARDIO;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.AEROBICS;
 
@@ -100,8 +103,10 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListCommand.COMMAND_WORD + " " + PREFIX_CATEGORY + LIST_TYPE_EXERCISE;
+        assertCommandSuccess(listCommand,
+                String.format(ListCommand.MESSAGE_SUCCESS, LIST_TYPE_EXERCISE),
+                model);
     }
 
     @Test
@@ -147,7 +152,8 @@ public class LogicManagerTest {
 
         //Any non resolve command in conflict state
         MainApp.setState(State.IN_CONFLICT);
-        assertThrows(CommandException.class, () -> logic.execute(ListCommand.COMMAND_WORD));
+        assertThrows(CommandException.class, () -> logic.execute(ListCommand.COMMAND_WORD
+                + VALID_PREFIX_LIST_TYPE_EXERCISE));
         assertThrows(CommandException.class, () -> logic.execute(UndoCommand.COMMAND_WORD));
     }
 

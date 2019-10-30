@@ -7,6 +7,9 @@ import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.CATEGORY_DESC_EXERCISE;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_INDEX;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_LIST_TYPE_EXERCISE;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_LIST_TYPE_SUGGEST;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
 
 import org.junit.jupiter.api.Test;
@@ -56,8 +59,8 @@ public class ExerciseBookParserTest {
     public void parseCommand_edit() throws Exception {
         Exercise build = new ExerciseBuilder().build();
         EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(build).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-            + INDEX_ONE_BASED_FIRST.getOneBased() + " " + ExerciseUtil.getEditExerciseDescriptorDetails(descriptor));
+        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD
+            + VALID_PREFIX_INDEX + " " + ExerciseUtil.getEditExerciseDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_ONE_BASED_FIRST, descriptor), command);
     }
 
@@ -75,8 +78,12 @@ public class ExerciseBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser
+                .parseCommand(ListCommand.COMMAND_WORD
+                        + VALID_PREFIX_LIST_TYPE_EXERCISE) instanceof ListCommand);
+        assertTrue(parser
+                .parseCommand(ListCommand.COMMAND_WORD
+                        + VALID_PREFIX_LIST_TYPE_SUGGEST) instanceof ListCommand);
     }
 
     @Test
