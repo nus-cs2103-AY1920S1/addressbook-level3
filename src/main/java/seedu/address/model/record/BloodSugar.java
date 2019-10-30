@@ -10,7 +10,7 @@ import seedu.address.model.DateTime;
  */
 public class BloodSugar extends Record {
 
-    public static final String MESSAGE_CONSTRAINTS = "BloodSugar can take any postitive values, "
+    public static final String MESSAGE_CONSTRAINTS = "BloodSugar can take any positive values, "
             + "and it should not be blank";
 
     private final Concentration concentration;

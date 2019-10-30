@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.StringJoiner;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.record.RecordType;
@@ -22,11 +20,12 @@ public class AverageCommand extends Command {
             + "Parameters: a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]\n"
             + "Example: " + COMMAND_WORD + " a/daily rt/bloodsugar n/5";
 
+    public static final String MESSAGE_SUCCESS = "You %1$s averages for %2$s have been calculated successfully.";
+
     public static final String MESSAGE_INVALID_COUNT = "n/COUNT";
 
     public static final String MESSAGE_INVALID_AVGTYPE = "a/AVERAGE_TYPE";
 
-    public static final String MESSAGE_INVALID_RECORDTYPE = "rt/RECORD_TYPE";
 
     public static final String MESSAGE_NO_RECORD = "Sorry! You do not have any %1$s record.";
 
@@ -50,18 +49,11 @@ public class AverageCommand extends Command {
 
         model.calculateAverageMap(averageType, recordType, count);
 
-        StringJoiner result = new StringJoiner(System.lineSeparator());
-
-        model.getAverageMap().entrySet().stream()
-                .limit(count)
-                .forEach(ele -> result.add("average for " + this.recordType + " "
-                        + ele.getKey() + " is " + ele.getValue()));
-
-        if (result.toString().isEmpty()) {
-            throw new CommandException(String.format(MESSAGE_NO_RECORD, this.recordType));
+        if (model.getAverageMap().isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_NO_RECORD, recordType));
         }
 
-        return new CommandResult(String.format(result.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, averageType, recordType));
     }
 
     @Override
