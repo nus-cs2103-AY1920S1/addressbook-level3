@@ -23,7 +23,7 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Action(s) successfully undone: \n%1$s";
     public static final String MESSAGE_FAILURE = "Not enough commands to undo! "
-            + "Only %1$s remaining undoable command(s).";
+            + "Only %1$s remaining commands to undo.";
 
     private final int steps;
 

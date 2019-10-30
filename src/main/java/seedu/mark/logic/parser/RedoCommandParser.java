@@ -7,7 +7,7 @@ import seedu.mark.logic.commands.RedoCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new UndoCommand object
+ * Parses input arguments and creates a new RedoCommand object
  */
 public class RedoCommandParser implements Parser<RedoCommand> {
     /**

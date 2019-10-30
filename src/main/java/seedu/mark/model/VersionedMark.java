@@ -34,9 +34,18 @@ public class VersionedMark extends Mark {
         markStateRecords.subList(currentPointer + 1, markStateRecords.size()).clear();
     }
 
-    public String getRecords(int start, int end) {
+    public String getUndoRecords(int start, int end) {
         StringBuilder records = new StringBuilder();
         for (int i = end; i >= start; i--) {
+            records.append(markStateRecords.get(i).getRecord())
+                    .append("\n");
+        }
+        return records.toString();
+    }
+
+    public String getRedoRecords(int start, int end) {
+        StringBuilder records = new StringBuilder();
+        for (int i = start; i <= end; i++) {
             records.append(markStateRecords.get(i).getRecord())
                     .append("\n");
         }
@@ -51,7 +60,7 @@ public class VersionedMark extends Mark {
         if (!canUndo(steps)) {
             throw new CannotUndoMarkException();
         }
-        String records = getRecords(currentPointer - steps + 1, currentPointer);
+        String records = getUndoRecords(currentPointer - steps + 1, currentPointer);
         currentPointer = currentPointer - steps;
         resetData(markStateRecords.get(currentPointer).getState());
         return records;
@@ -65,7 +74,7 @@ public class VersionedMark extends Mark {
         if (!canRedo(steps)) {
             throw new CannotRedoMarkException();
         }
-        String records = getRecords(currentPointer + 1, currentPointer + steps);
+        String records = getRedoRecords(currentPointer + 1, currentPointer + steps);
         currentPointer = currentPointer + steps;
         resetData(markStateRecords.get(currentPointer).getState());
         return records;

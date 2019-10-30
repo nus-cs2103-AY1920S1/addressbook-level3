@@ -23,7 +23,7 @@ public class RedoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Action(s) successfully redone: \n%1$s";
     public static final String MESSAGE_FAILURE = "Not enough commands to redo! "
-            + "Only %1$s remaining undo command(s).";
+            + "Only %1$s remaining commands to redo.";
 
     private final int steps;
 
