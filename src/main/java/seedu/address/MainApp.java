@@ -26,7 +26,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
-import seedu.address.model.util.SampleDataUtil;
+//import seedu.address.model.util.SampleDataUtil;
 import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.AddressBookStorage;
@@ -110,10 +110,10 @@ public class MainApp extends Application {
         try {
             customerBookOptional = storage.readCustomerBook();
 
-            if (!customerBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Customer DataBook");
+            if (customerBookOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a new Customer DataBook");
             }
-            initialCustomerData = customerBookOptional.orElseGet(SampleDataUtil::getSampleCustomerBook);
+            initialCustomerData = customerBookOptional.orElse(new DataBook<>());
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format."
@@ -129,11 +129,11 @@ public class MainApp extends Application {
         try {
             phoneBookOptional = storage.readPhoneBook();
 
-            if (!phoneBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Phone DataBook");
+            if (phoneBookOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a new Phone DataBook");
             }
 
-            initialPhoneData = phoneBookOptional.orElseGet(SampleDataUtil::getSamplePhoneBook);
+            initialPhoneData = phoneBookOptional.orElse(new DataBook<>());
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Phone DataBook");
@@ -147,11 +147,14 @@ public class MainApp extends Application {
         try {
             scheduleBookOptional = storage.readScheduleBook();
 
-            if (!scheduleBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Schedule DataBook");
+            if (scheduleBookOptional.isEmpty() || storage.readCustomerBook().isEmpty()
+                || storage.readPhoneBook().isEmpty() || storage.readOrderBook().isEmpty()) {
+                logger.info("Data file not found. Will be starting with a new Schedule DataBook");
+                initialScheduleData = new DataBook<>();
+            } else {
+                initialScheduleData = scheduleBookOptional.orElse(new DataBook<>());
             }
 
-            initialScheduleData = scheduleBookOptional.orElseGet(SampleDataUtil::getSampleScheduleBook);
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Schedule DataBook");
@@ -165,11 +168,15 @@ public class MainApp extends Application {
         try {
             orderBookOptional = storage.readOrderBook();
 
-            if (!orderBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Order DataBook");
+            if (orderBookOptional.isEmpty() || storage.readCustomerBook().isEmpty()
+                || storage.readPhoneBook().isEmpty() || storage.readScheduleBook().isEmpty()) {
+                logger.info("Data file not found. Will be starting with a new Order DataBook");
+                initialOrderData = new DataBook<>();
+            } else {
+                initialOrderData = orderBookOptional.orElse(new DataBook<>());
+
             }
 
-            initialOrderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
 
 
         } catch (DataConversionException e) {
