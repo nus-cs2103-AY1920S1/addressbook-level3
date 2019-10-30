@@ -6,17 +6,22 @@ import java.util.Calendar;
 
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.Model;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Greet thee user by giving the current date and time. Events for the day are also filtered and shown.
  */
-public class GreetCommand extends Command {
+public class GreetCommand extends Command<Model> {
     public static final String COMMAND_WORD = "greet";
 
     private String message = "Hello! Welcome to the itinerary page!\nThe time now is "
             + dateGenerate() + "\nHere are the events that you have for the day!";
+
+    public String getMessage() {
+        return message;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -40,8 +45,11 @@ public class GreetCommand extends Command {
      * @return filtered list with the current event for the day.
      */
     private boolean filterCurrentDate(Event event) {
-        DateFormat df = new SimpleDateFormat("dd/MM/yy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
 
-        return event.getDate().toString().equals(df.toString());
+        boolean verdict = event.getDate().toString().equals(df.format(calendar.getTime()));
+
+        return verdict;
     }
 }

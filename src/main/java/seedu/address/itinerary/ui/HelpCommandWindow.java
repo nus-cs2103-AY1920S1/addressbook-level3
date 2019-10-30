@@ -6,12 +6,18 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
@@ -24,7 +30,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private static final String HELP_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
     private static final String HELP_MESSAGE = "For more information check out our user guide here: \n" + HELP_URL;
     private static final String GREET_MESSAGE = "greet";
-    private static final String SUMMARY_MESSAGE = "summary";
+    private static final String SUMMARY_MESSAGE = "clear";
     private static final String HELP = "help";
     private static final String GOTO_MESSAGE = "goto [page]";
     private static final String EXIT_MESSAGE = "exit";
@@ -34,16 +40,22 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private static final String DONE_MESSAGE = "done [index]";
     private static final String LIST_MESSAGE = "list";
     private static final String SORT_MESSAGE = "sort by/[title | location | chronological | completion | priority]";
-    private static final String REDO_MESSAGE = "redo";
-    private static final String UNDO_MESSAGE = "undo";
-    private static final String SEARCH_MESSAGE = "search by/[title | date | time | location] [keyword]";
-    private static final String WISH_MESSAGE = "wish by/[activity | time] [details]";
+    private static final String HISTORY_MESSAGE = "history";
+    private static final String UNDO_MESSAGE = "This command box supports auto-completion!";
+    private static final String SEARCH_MESSAGE = "search [title | date | time | location]/[keyword]";
+//    private static final String WISH_MESSAGE = "wish by/[activity | time] [details]";
     private static final String INSTA_URL = "https://www.instagram.com/zhaoming_boiboi/";
     private static final String GITHUB_URL = "https://github.com/ngzhaoming";
     private static final String WEBSITE_URL = "https://ngzhaoming.github.io/";
 
     private static final Logger logger = LogsCenter.getLogger(HelpCommandWindow.class);
     private static final String FXML = "HelpCommandWindow.fxml";
+
+    Notifications notificationBuilder;
+
+    Node graphic;
+
+    String wishSuccess = "Yeah, me too... I wish the developers can release this wish feature sooner （╯°□°）╯︵( .o.)";
 
     @FXML
     private Button copyButton;
@@ -306,7 +318,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private void copyRedo() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
-        url.putString(REDO_MESSAGE);
+        url.putString(HISTORY_MESSAGE);
         clipboard.setContent(url);
     }
 
@@ -332,16 +344,40 @@ public class HelpCommandWindow extends UiPart<Stage> {
         clipboard.setContent(url);
     }
 
-    /**
-     * Copies the wish command template to the clipboard.
-     */
+//    /**
+//     * Copies the wish command template to the clipboard.
+//     */
+//    @FXML
+//    private void copyWish() {
+//        final Clipboard clipboard = Clipboard.getSystemClipboard();
+//        final ClipboardContent url = new ClipboardContent();
+//        url.putString(WISH_MESSAGE);
+//        clipboard.setContent(url);
+//    }
+
     @FXML
-    private void copyWish() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(WISH_MESSAGE);
-        clipboard.setContent(url);
+    private void handleWish() {
+        getRoot().hide();
+        notification(Pos.TOP_RIGHT, graphic, wishSuccess);
+        notificationBuilder.showInformation();
+
     }
+
+    private void notification(Pos pos, Node graphic, String Text) {
+        notificationBuilder = Notifications.create()
+                .title("Hold it!")
+                .text(Text)
+                .graphic(graphic)
+                .hideAfter(Duration.seconds(5))
+                .position(pos)
+                .onAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println("Notification is clicked");
+                    }
+                });
+    }
+
 
     /**
      * Opens up user default browser to the instagram URL

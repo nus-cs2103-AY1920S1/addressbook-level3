@@ -51,7 +51,7 @@
                     <RowConstraints maxHeight="202.0" minHeight="10.0" percentHeight="90.0" prefHeight="192.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
-                    <GridPane id="week-header" alignment="CENTER">
+                    <GridPane fx:id="weekHeader" id="week-header" alignment="CENTER">
                         <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

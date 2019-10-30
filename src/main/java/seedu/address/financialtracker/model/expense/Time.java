@@ -1,5 +1,7 @@
 package seedu.address.financialtracker.model.expense;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -14,10 +16,13 @@ public class Time {
     public static final String VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
     public final String value;
     public final int valueToCompare;
+    public final String storageTime;
 
     public Time(String time) {
+        requireNonNull(time);
         this.valueToCompare = Integer.parseInt(time);
         this.value = formatTime(time);
+        this.storageTime = time;
     }
 
     /**

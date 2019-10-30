@@ -18,6 +18,7 @@ import seedu.address.itinerary.model.event.Tag;
 import seedu.address.itinerary.model.event.Time;
 import seedu.address.itinerary.model.event.Title;
 import seedu.address.itinerary.ui.TagDropdown;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -37,18 +38,29 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME,
                         PREFIX_LOCATION, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME,
-                PREFIX_LOCATION, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
-        Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         Tag tag = ParserUtil.parseTag(TagDropdown.getDropdownText());
+
+        Description description;
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        } else {
+            description = new Description("-");
+        }
+
+        Location location;
+        if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
+            location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
+        } else {
+            location = new Location("-");
+        }
 
         Event event = new Event(title, date, location, description, time, tag);
 
