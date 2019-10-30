@@ -1,6 +1,8 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
+import java.util.ArrayList;
+
 /**
  * Represents the user's statistics.
  */
@@ -9,19 +11,22 @@ public class Stats {
     private static Stats userStats;
 
     /** List of Sessions the user has engaged in to date. */
-    private static SessionList loginSessions;
+    private static ArrayList<Session> loginSessions;
 
     /** Current Session the user is engaging in, if the application is open. */
     private static Session currentSession;
 
     /** Constructs a new instance of Stats with no stored data. */
     public Stats() {
-        loginSessions = new SessionList();
+        System.out.println("New Stats object created");
+        loginSessions = new ArrayList<>();
+        System.out.println("New loginSessions created");
     }
 
     /** Returns the Statistics object pertaining to this user. */
     public static Stats getUserStats() {
         if (userStats == null) {
+            System.out.println("No userStats found!");
             userStats = new Stats();
         }
         return userStats;
@@ -33,14 +38,14 @@ public class Stats {
      * @return The new Stats object created.
      */
     public static Stats parseStats(String fileText) {
-        // todo
+        // todo: should parse Stats from file every time app is initialised. now, just create new
         return new Stats();
     }
 
     /** Returns the number of login sessions. */
-    public int getNumberOfLoginSessions() {
-        return loginSessions.numberOfSessions();
-    }
+    //public int getNumberOfLoginSessions() {
+    //    return loginSessions.numberOfSessions();
+    //}
 
     // todo: calculate number of sessions in past week, past month etc. should this generate a list?
     // todo: possibly compare past week to previous week etc.
@@ -62,10 +67,13 @@ public class Stats {
     public static void endCurrentSession() {
         // assert current session is not null?
         try {
-            currentSession.endSession();
-            loginSessions.addSession(currentSession);
+            // ensure that new Stats() is called
+            getUserStats(); // temporary
 
-            // reset
+            currentSession.endSession();
+            loginSessions.add(currentSession);
+
+            // reset currentSession to null since this is terminated
             currentSession = null;
 
             // debug (change to Logger when implemented)
@@ -77,7 +85,12 @@ public class Stats {
     }
 
     /** Gets the list of login sessions. */
-    public static SessionList getLoginSessions() {
-        return loginSessions;
+    //public static SessionList getLoginSessions() {
+    //    return loginSessions;
+    //}
+
+    /** Gets the current session. */
+    public static Session getCurrentSession() {
+        return currentSession;
     }
 }

@@ -34,6 +34,8 @@ public class MainApp extends Application {
                 Stats.endCurrentSession();
                 StorageManager.saveAll(State.getState().getDecks());
             });
+            // start a session
+            Stats.startCurrentSession();
         } catch (IOException e) {
             // TODO: Our yet-to-be-reinstated-logger will replace this rudimentary error printing
             System.err.println("Failed to load app");

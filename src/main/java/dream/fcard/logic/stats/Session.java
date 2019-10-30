@@ -57,7 +57,9 @@ public class Session {
 
     /** Calculates and sets the duration of this session. */
     public void setDuration() {
-        this.duration = DateTimeUtil.calculateDuration(this.getSessionStart(), this.getSessionEnd());
+        Duration duration = DateTimeUtil.calculateDuration(this.getSessionStart(), this.getSessionEnd());
+        this.duration = duration;
+        System.out.println("Duration set to: " + DateTimeUtil.getStringFromDuration(duration));
     }
 
     /** Gets the duration of this session, as a Duration object. */

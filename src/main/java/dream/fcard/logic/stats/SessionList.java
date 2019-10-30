@@ -65,5 +65,9 @@ public class SessionList {
         return this.sessionArrayList;
     }
 
+    /** Gets the sessionArrayList contained in this SessionList. */
+    public ArrayList<Session> getSessionArrayList() {
+        return this.sessionArrayList;
+    }
     // todo: get sessions in the past week, past month etc. --> sublist? wrapped in SessionList?
 }

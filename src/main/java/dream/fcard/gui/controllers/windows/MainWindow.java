@@ -81,9 +81,6 @@ public class MainWindow extends VBox {
         registerConsumers();
         displayMessage.accept("Welcome to FlashCard Pro!");
 
-        // start a session
-        Stats.startCurrentSession();
-
         deckList.setOnMouseClicked(e -> {
             Deck d = deckList.getSelectionModel().getSelectedItem();
             displaySpecificDeck(d);

@@ -18,9 +18,6 @@ public class State {
     private boolean isCreateMode;
     private HashMap<String, Consumer> consumerHashMap;
 
-    /** The one and only instance of Stats allowed. */
-    private static Stats userStats;
-
     /**
      * Constructor to create a State object with existing Deck objects.
      *
