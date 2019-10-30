@@ -39,39 +39,20 @@ public class FindIncidentsCommand extends Command {
             + SEARCH_PREFIX_SELF + "\n"
             + "Example: " + COMMAND_WORD + " "
             + SEARCH_PREFIX_OPERATOR + "alex "
-            + SEARCH_PREFIX_DESCRIPTION + "district";
+            + SEARCH_PREFIX_DESCRIPTION + "district "
+            + SEARCH_PREFIX_SELF;
 
     private Predicate<Incident> predicate;
     private boolean isSelfSearch = false;
-    private Predicate<Incident> secondPredicate;
     private List<Predicate> predicateArr = new ArrayList<>();
 
     public FindIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
         this.predicate = descriptionPredicate;
     }
 
-    public FindIncidentsCommand(IdKeywordsPredicate idPredicate) {
-        this.predicate = idPredicate;
-    }
-
-    public FindIncidentsCommand(NameKeywordsPredicate namePredicate) {
-        this.predicate = namePredicate;
-    }
-
-    public FindIncidentsCommand(NameKeywordsPredicate namePredicate, DescriptionKeywordsPredicate descriptionPredicate) {
-        this.predicate = namePredicate;
-        this.secondPredicate = descriptionPredicate;
-    }
-
     public FindIncidentsCommand(List<Predicate> predicateArr) {
         this.predicateArr = predicateArr;
         combinePredicates();
-    }
-
-    public FindIncidentsCommand(Prefix prefix) {
-        if (prefix == SEARCH_PREFIX_SELF) {
-            this.isSelfSearch = true;
-        }
     }
 
     public FindIncidentsCommand(List<Predicate> predicateArr, Prefix prefix) {
@@ -81,6 +62,7 @@ public class FindIncidentsCommand extends Command {
             this.isSelfSearch = true;
         }
     }
+
     private void combinePredicates() {
         if(predicateArr.size() != 1) {
             for (int i = 0; i < predicateArr.size() - 1; i++) {
@@ -94,11 +76,8 @@ public class FindIncidentsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        if(secondPredicate != null) {
-            predicate = predicate.and(secondPredicate);
-        }
         if (isSelfSearch) {
-            // quick fix to allow searching using first name. when full name is allowed in search, change this
+            // TODO: quick fix to allow searching using first name. when full name is allowed in search, change this
             Name operatorName = new Name(model.getLoggedInPerson().getName().fullName.split(" ", 2)[0]);
             if (predicate != null) {
                 predicate = predicate.and(new NameKeywordsPredicate(operatorName));
@@ -106,7 +85,10 @@ public class FindIncidentsCommand extends Command {
                 predicate = new NameKeywordsPredicate(operatorName);
             }
         }
+
         model.updateFilteredIncidentList(predicate);
+
+        // prints grammatically correct messages to user
         if (model.getFilteredIncidentList().size() == 0) {
             return new CommandResult(Messages.MESSAGE_NO_INCIDENTS_FOUND);
         } else if (model.getFilteredIncidentList().size() == 1) {
