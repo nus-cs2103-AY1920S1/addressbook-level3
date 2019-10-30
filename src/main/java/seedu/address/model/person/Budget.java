@@ -13,8 +13,8 @@ public class Budget extends Entry {
 
     private Amount spent;
 
-    public Budget(Description desc, Date date, Amount amount, Set<Tag> tags) {
-        super(desc, date, amount, tags);
+    public Budget(Category cat, Description desc, Date date, Amount amount, Set<Tag> tags) {
+        super(cat, desc, date, amount, tags);
         spent = new Amount(0);
     }
 
@@ -50,7 +50,8 @@ public class Budget extends Entry {
         }
 
         Budget otherBudget = (Budget) other;
-        return otherBudget.getDesc().equals(getDesc())
+        return otherBudget.getCategory().equals(getCategory())
+                && otherBudget.getDesc().equals(getDesc())
                 && otherBudget.getAmount().equals(getAmount())
                 && otherBudget.getTags().equals(getTags())
                 && otherBudget.getDate().equals(getDate());
@@ -60,6 +61,9 @@ public class Budget extends Entry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRY_TYPE + ": ")
+                .append(" | Category: ")
+                .append(getCategory())
+                .append(" Description: ")
                 .append(getDesc())
                 .append(" Amount: ")
                 .append(getAmount())

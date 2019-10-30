@@ -46,8 +46,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [--desc <description>]`, `<description>` is a parameter which can be used as `addExpense --desc deck mala`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [n/<description>]`, `<description>` is a parameter which can be used as `addExpense n/deck mala`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/mala at deck t/mala` or as `n/mala at deck`.
 ====
 
 === Expenses and Income
@@ -116,23 +116,23 @@ Format: `deleteAutoExpenditure <index>`
 
 Adds the amount to your total income. Inputs can be arranged in a different order. Description may be omitted from the income record.
 
-Format: `addIncome [--desc <description>] --amt <income amount>`
+Format: `addIncome [n/<description>] amt/<income amount>`
 
 Examples:
 
-* `addIncome --amt 6000`
-* `addIncome --amt 1000 --desc year-end bonus!! :DD`
+* `addIncome amt/6000`
+* `addIncome amt/1000 n/year-end bonus!! :DD`
 
 ==== Editing Income : `editIncome`
 
 Edits a current income record at the given index number.
 
-Format: `editIncome <index> [--desc <description> --amt <income amount>] [--tag <tag>]`
+Format: `editIncome <index> [n/<description>] [amt/<income amount>] [t/<tag>]`
 
 Examples:
 
-* `editIncome 1 --desc salary for feb`
-* `editIncome 1 --desc february --amt 6500 --tag salary`
+* `editIncome 1 n/salary for feb`
+* `editIncome 1 n/february amt/650 t/salary`
 
 ==== Deleting Income : `deleteIncome`
 
@@ -185,33 +185,33 @@ Examples:
 
 * `deleteBudget 2`
 
-==== Adding a Loan : `addLoan`
+==== Adding a Loan : `addLoan` [coming in v2.0]
 Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
 
-Format: `addLoan --desc <description> --amt <loan amount> --int <interest>`
+Format: `addLoan  n/<description> amt/<loan amount> i/<interest>`
 
-Examples:
+Example:
 
-* `addLoan --desc student loan --amt 30000 --int 4.5`
+* `addLoan n/student loan amt/30000 i/4.5`
 
-==== Listing a loan : `listLoan`
+==== Listing a loan : `listLoan` [coming in v2.0]
 Lists all the loans that the user has.
 
 Format: `listLoan`
 
 Example: `listLoan`
 
-==== Editing a loan : `editLoan`
+==== Editing a loan : `editLoan` [coming in v2.0]
 Edits a current loan's description, loan amount, or both.
 
-Format: `editLoan <index> [--desc <description>] [--amt <loan amount>] [--int <interest>]`
+Format: `editLoan <index> [n/<description>] [amt/<loan amount>] [i/<interest>]`
 
 Example:
 
-* `editLoan 1 --desc nus tuition loan T.T`
-* `editLoan 1 --amt 25000 --int 4.45%`
+* `editLoan 1 n/nus tuition loan T.T`
+* `editLoan 1 amt/25000 i/4.45%`
 
-==== Deleting a loan : `deleteLoan`
+==== Deleting a loan : `deleteLoan` [coming in v2.0]
 
 Deletes a current loan at the given index.
 
@@ -221,15 +221,15 @@ Example:
 
 * `deleteLoan 1`
 
-==== Paying a loan : `payLoan`
+==== Paying a loan : `payLoan` [coming in v2.0]
 
 Reduces the loan amount for the loan at the given index after user pays for part of the loan.
 
-Format: `payLoan <index> <amountPaid>`
+Format: `payLoan <index> amt/<amountPaid>`
 
 Example:
 
-* `payLoan 1 4000`
+* `payLoan 1 amt/4000`
 
 === Statistics
 
@@ -245,27 +245,17 @@ Example:
 * `viewHistory -- cat income --period 11/9/2019`
 * `viewHistory -- cat expenditure --period ,2 21/9/2019`
 
-==== Sorting Time : `sortTime`
+==== Sorting : `sort`
 
-List of expenditure/ income currently displayed by viewHistory will be sorted according to time in increasing/ decreasing order.
+Sorts the aforementioned list currently displayed according to SortType which can be `amount, time, description, tags and category` ,
+and SortSequence which can be in `ascending, descending` order.
 
-Format: `sortTime order <ascending || descending>`
-
-Example:
-
-* `sortTime ascending`
-* `sortTime descending`
-
-==== Sorting Amount : `sortAmt`
-
-List of expenditure/ income currently displayed by viewHistory will be sorted according to amount in increasing/ decreasing order.
-
-Format: `sortAmt order <ascending || descending>`
+Format: `sort typ/<SortType> s/<SortSequence>`
 
 Example:
 
-* `sortAmt ascending`
-* `sortAmt descending`
+* `sort typ/amount s/ascending`
+* `sort typ/category s/descending`
 
 ==== Search : `search`
 
@@ -507,6 +497,40 @@ Format: `purchase <index>`
 Examples:
 
 * `purchase 1`
+
+=== UI features
+
+==== Toggle Panel : `toggle`
+Toggles visibility of the specified panel on the GUI. Only the following inputs are accepted:
+
+* `wishlist`/`wishes`/`wish`/`w` for wishlist panel,
+* `budgets`/`budget`/`b` for budget panel, and
+* `reminders`/`reminder`/`r` for reminders panel
+Format: `toggle <panel_name>`
+
+Examples:
+
+* `toggle wishlist`
+* `toggle budget`
+* `toggle r`
+
+==== List Fonts : `listFont`
+Lists all available fonts the user can switch to.
+
+Format: `listFont`
+
+Example: `listFont`
+
+==== Change Font : `changeFont`
+Changes the font used in application to the specified font. The input is case-sensitive. Only the following font names are accepted:
+"arial", "calibri", "cambria", "candara", "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana"
+
+Format: `changeFont <font_name>`
+
+Examples:
+
+* `changeFont arial`
+* `changeFont segoe UI`
 
 == FAQ
 

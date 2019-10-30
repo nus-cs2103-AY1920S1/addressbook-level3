@@ -41,9 +41,9 @@ public class UniqueEntryList implements Iterable<Entry> {
      */
     public void add(Entry toAdd) {
         requireNonNull(toAdd);
-
         internalList.add(toAdd);
     }
+
 
     /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.

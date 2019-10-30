@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -35,9 +36,13 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private EntryListPanel entryListPanel;
-    private WishListPanel wishListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticsWindow statsListPanel;
+    private StatisticsGraphics statsGraphics;
+
+    private boolean isStatsWindow;
+    private boolean isStatsGraphicsWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -76,16 +81,15 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+        this.isStatsGraphicsWindow = false;
+        this.isStatsWindow = false;
+
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        /*String style = "-fx-font-family: ";
-        style += "Verdana";
-        window.setStyle(style);*/
     }
 
     public Stage getPrimaryStage() {
@@ -130,8 +134,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        statsListPanel = new StatisticsWindow(logic);
+        statsGraphics = new StatisticsGraphics(logic.getListOfStatsForExpense(), logic.getListOfStatsForIncome());
 
-        entryListPanel = new EntryListPanel(logic.getFilteredEntryList());
+        entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
         entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -143,13 +149,14 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        WishListPanel wishListPanel = new WishListPanel(logic.getFilteredEntryList());
+        WishListPanel wishListPanel = new WishListPanel(logic.getFilteredWishList());
         wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
 
-        BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredEntryList());
+        BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
 
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredEntryList());
+        // TODO: add wish reminders to the panel as well
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredExpenseReminderList());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 
@@ -194,6 +201,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Toggles the isVisible and isManaged property for the specified panel.
+     * Checks if the entire side panel needs to be toggled as well.
+     */
+    private void handleTogglePanel(String panelNameString) {
+        togglePanel(panelNameString);
+        toggleEntireSidePanelIfNecessary();
+    }
+
+    /**
      * Calls the togglePlaceHolder method with the place holder of the specified panel.
      * @param panelName name of the specified panel to be toggled.
      */
@@ -211,6 +227,7 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+        logger.info("Toggled " + panelName + " side panel");
     }
 
     /**
@@ -222,6 +239,20 @@ public class MainWindow extends UiPart<Stage> {
         placeHolder.setManaged(!isManaged);
         boolean isVisible = placeHolder.isVisible();
         placeHolder.setVisible(!isVisible);
+    }
+
+    /**
+     * Toggles the isVisible and isManaged properties of the sidePanelsPlaceHolder.
+     */
+    private void togglePlaceHolderForStats(boolean isStatsWindow) {
+        if (isStatsWindow == true) {
+            sidePanelsPlaceHolder.setManaged(false);
+            sidePanelsPlaceHolder.setVisible(false);
+        } else {
+            sidePanelsPlaceHolder.setManaged(true);
+            sidePanelsPlaceHolder.setVisible(true);
+            toggleAllTrue();
+        }
     }
 
     /**
@@ -237,6 +268,66 @@ public class MainWindow extends UiPart<Stage> {
             sidePanelsPlaceHolder.setManaged(true);
             sidePanelsPlaceHolder.setVisible(true);
         }
+        logger.info("Toggled entire side panel");
+    }
+
+    /**
+     * Returns a {@code String} for the updated feedback to user that includes a list of all the fonts.
+     */
+    private String handleListFonts(String oldFeedbackToUser) {
+        FontManager fontManager = new FontManager();
+        String feedbackToUserWithFontList = oldFeedbackToUser + ": "
+                + Arrays.toString(fontManager.getFonts().toArray());
+        logger.info("Listed all fonts");
+        return feedbackToUserWithFontList;
+    }
+
+    /**
+     * Changes font in the application to the specified font.
+     */
+    private void handleChangeFont(String font) {
+        String style = "-fx-font-family: " + font;
+        window.setStyle(style);
+    }
+
+    /**
+     * Sets both the isVisible and isManaged properties of all the PlaceHolders in the sidepanelPlaceHolder to True.
+     * This occurs if the window is switched back to Entry Window.
+     */
+    private void toggleAllTrue() {
+        budgetsPlaceHolder.setVisible(true);
+        budgetsPlaceHolder.setManaged(true);
+        remindersPlaceHolder.setVisible(true);
+        remindersPlaceHolder.setManaged(true);
+        wishesPlaceHolder.setVisible(true);
+        wishesPlaceHolder.setManaged(true);
+    }
+
+    /**
+     * Fills the entryListPanel with either the StatisticsWindow or the EntryListPanel.
+     * entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+     * @param isStatistics is the truthvalue of whether it is the statistics panel.
+     */
+    private void fillEntryListPanel(boolean isStatistics) {
+        entryListPanelPlaceholder.getChildren().clear();
+        if (isStatistics) {
+            entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+        } else {
+            entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Fills the entryListPanel with either the StatisticsWindow or the EntryListPanel.
+     * entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+     */
+    private void toggleStatsPanel() {
+        entryListPanelPlaceholder.getChildren().clear();
+        if (isStatsGraphicsWindow) {
+            entryListPanelPlaceholder.getChildren().add(statsGraphics.getRoot());
+        } else {
+            entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+        }
     }
 
     public EntryListPanel getEntryListPanel() {
@@ -248,8 +339,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException,
-            ParseException, IllegalArgumentException {
+    private CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, IllegalArgumentException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -266,8 +357,31 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isTogglePanel()) {
                 PanelName panelName = commandResult.getPanelName();
                 String panelNameString = panelName.getName();
-                togglePanel(panelNameString);
-                toggleEntireSidePanelIfNecessary();
+                handleTogglePanel(panelNameString);
+            }
+
+            if (commandResult.isListFonts()) {
+                String feedbackToUser = commandResult.getFeedbackToUser();
+                String feedbackToUserWithFontList = handleListFonts(feedbackToUser);
+                resultDisplay.setFeedbackToUser(feedbackToUserWithFontList);
+            }
+
+            if (commandResult.isChangeFont()) {
+                String fontNameString = commandResult.getFontName().toString();
+                handleChangeFont(fontNameString);
+            }
+
+            if (commandResult.isToggleStats()) {
+                isStatsWindow = !isStatsWindow;
+                this.togglePlaceHolderForStats(isStatsWindow);
+                this.fillEntryListPanel(isStatsWindow);
+            }
+
+            if (commandResult.isToggleGraphics()) {
+                isStatsWindow = true;
+                isStatsGraphicsWindow = !isStatsGraphicsWindow;
+                this.togglePlaceHolderForStats(true);
+                this.toggleStatsPanel();
             }
 
             return commandResult;

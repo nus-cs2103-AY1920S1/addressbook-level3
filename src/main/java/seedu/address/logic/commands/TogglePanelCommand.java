@@ -17,6 +17,7 @@ public class TogglePanelCommand extends Command {
             + "PARAMETERS: (wishlist) wishlist/wishes/wish/w, (budget) budget/budgets/b "
             + "or (reminder) reminder/reminders/r. "
             + "EXAMPLE: " + COMMAND_WORD + " wishlist";
+
     public static final String MESSAGE_SUCCESS = "Toggled visibility of %1$s panel";
 
     private final PanelName panelName;
@@ -28,7 +29,6 @@ public class TogglePanelCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory) {
         requireNonNull(model);
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, panelName), panelName, true);
     }
 }

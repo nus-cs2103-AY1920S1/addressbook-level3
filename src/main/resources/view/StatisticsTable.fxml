@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="464.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <TableView fx:id="statsTable" prefHeight="466.0" prefWidth="586.0">
+    <columns>
+         <TableColumn fx:id="categoryName" prefWidth="425.0" text="Category Name" />
+         <TableColumn fx:id="amtSpent" prefWidth="150.0" text="Amount Spent" />
+    </columns>
+  </TableView>
+</VBox>

@@ -26,7 +26,6 @@ public class DailyList {
         listOfExpenses = retrievedExpenseList;
         listOfIncomes = FXCollections.observableArrayList();
         dateOfRecord = date;
-        System.out.println(dateOfRecord);
         totalExpense = 0.00;
         totalIncome = 0.00;
         initLoadFromFilteredList(retrievedExpenseList);
@@ -36,7 +35,6 @@ public class DailyList {
         listOfExpenses = new FilteredList(FXCollections.observableArrayList());
         listOfIncomes = FXCollections.observableArrayList();
         dateOfRecord = LocalDate.now();
-        System.out.println(dateOfRecord);
         totalExpense = 0.00;
         totalIncome = 0.00;
     }

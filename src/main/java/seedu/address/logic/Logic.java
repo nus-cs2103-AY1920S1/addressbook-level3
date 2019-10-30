@@ -8,8 +8,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Wish;
+import seedu.address.model.statistics.CategoryStatistics;
 
 /**
  * API of the Logic component
@@ -32,14 +35,22 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Entry> getFilteredEntryList();
+    ObservableList<CategoryStatistics> getListOfStatsForExpense();
+
+    ObservableList<CategoryStatistics> getListOfStatsForIncome();
+
+    ObservableList<Entry> getFilteredExpenseAndIncomeList();
 
     ObservableList<Wish> getFilteredWishList();
 
+    ObservableList<Budget> getFilteredBudgetList();
+
+    ObservableList<ExpenseReminder> getFilteredExpenseReminderList();
+
     /**
-     * Returns an unmodifiable view of the list of commands entered by the user.
-     * The list is ordered from the least recent command to the most recent command.
-     */
+         * Returns an unmodifiable view of the list of commands entered by the user.
+         * The list is ordered from the least recent command to the most recent command.
+         */
     ObservableList<String> getHistory();
 
     /**

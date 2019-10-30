@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -21,6 +22,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Expense;
@@ -37,6 +39,7 @@ public class EditExpenseCommand extends Command {
             + "by the index number used in the displayed Expenses list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_DESC + "NAME] "
             + "[" + PREFIX_DATE + "TIME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
@@ -69,7 +72,7 @@ public class EditExpenseCommand extends Command {
         List<Expense> lastShownList = model.getFilteredExpenses();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         Expense entryToEdit = lastShownList.get(index.getZeroBased());
@@ -92,11 +95,12 @@ public class EditExpenseCommand extends Command {
      */
     private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editEntryDescriptor) {
         assert expenseToEdit != null;
+        Category updatedCategory = editEntryDescriptor.getCategory().orElse(expenseToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(expenseToEdit.getDesc());
         Date updatedTime = editEntryDescriptor.getTime().orElse(expenseToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(expenseToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(expenseToEdit.getTags());
-        return new Expense(updatedName, updatedTime, updatedAmount, updatedTags);
+        return new Expense(updatedCategory, updatedName, updatedTime, updatedAmount, updatedTags);
     }
 
     @Override
@@ -122,6 +126,7 @@ public class EditExpenseCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditExpenseDescriptor {
+        private Category category;
         private Description desc;
         private Date date;
         private Amount amt;
@@ -134,6 +139,7 @@ public class EditExpenseCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
+            setCategory(toCopy.category);
             setDesc(toCopy.desc);
             setTime(toCopy.date);
             setAmount(toCopy.amt);
@@ -144,7 +150,15 @@ public class EditExpenseCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(desc, amt, tags);
+            return CollectionUtil.isAnyNonNull(category, desc, date, amt, tags);
+        }
+
+        public void setCategory(Category cat) {
+            this.category = cat;
+        }
+
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
         public void setDesc(Description desc) {

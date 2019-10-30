@@ -11,12 +11,20 @@ public class Income extends Entry {
 
     private static final String ENTRY_TYPE = "Income";
 
-    public Income(Description desc, Date time, Amount amt, Set<Tag> tags) {
-        super(desc, time, amt, tags);
+    public Income(Category cat, Description desc, Date time, Amount amt, Set<Tag> tags) {
+        super(cat, desc, time, amt, tags);
     }
 
     public String getType() {
         return this.ENTRY_TYPE;
+    }
+
+    /**
+     * Returns a new Income if and only if it's category is edited.
+     */
+    public Income modifiedCategory(String newName) {
+        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        return new Income(newCategory, super.getDesc(), super.getDate(), super.getAmount(), super.getTags());
     }
 
     /**
@@ -36,7 +44,8 @@ public class Income extends Entry {
         }
 
         Income otherIncome = (Income) other;
-        return otherIncome.getDesc().equals(getDesc())
+        return otherIncome.getCategory().equals(getCategory())
+                && otherIncome.getDesc().equals(getDesc())
                 && otherIncome.getAmount().equals(getAmount())
                 && otherIncome.getTags().equals(getTags())
                 && otherIncome.getDate().equals(getDate());
@@ -46,6 +55,9 @@ public class Income extends Entry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRY_TYPE + ": ")
+                .append(" | Category: ")
+                .append(getCategory())
+                .append(" Description: ")
                 .append(getDesc())
                 .append(" Amount: ")
                 .append(getAmount())

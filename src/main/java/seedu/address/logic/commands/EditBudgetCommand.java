@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Budget;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.tag.Tag;
@@ -70,17 +71,17 @@ public class EditBudgetCommand extends Command {
         List<Budget> lastShownList = model.getFilteredBudgets();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         Budget entryToEdit = lastShownList.get(index.getZeroBased());
         Budget editedEntry = createEditedBudget(entryToEdit, editEntryDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (!entryToEdit.isSameEntry(editedEntry) && model.hasBudget(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(entryToEdit, editedEntry);
+        model.setBudget(entryToEdit, editedEntry);
         model.updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
@@ -93,11 +94,12 @@ public class EditBudgetCommand extends Command {
      */
     private static Budget createEditedBudget(Budget budgetToEdit, EditBudgetDescriptor editEntryDescriptor) {
         assert budgetToEdit != null;
+        Category updatedCategory = editEntryDescriptor.getCategory().orElse(budgetToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(budgetToEdit.getDesc());
         Date updatedDate = editEntryDescriptor.getDate().orElse(budgetToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(budgetToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(budgetToEdit.getTags());
-        return new Budget(updatedName, updatedDate, updatedAmount, updatedTags);
+        return new Budget(updatedCategory, updatedName, updatedDate, updatedAmount, updatedTags);
     }
 
     @Override
@@ -123,6 +125,7 @@ public class EditBudgetCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditBudgetDescriptor {
+        private Category category;
         private Description desc;
         private Date date;
         private Amount amt;
@@ -135,6 +138,7 @@ public class EditBudgetCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditBudgetDescriptor(EditBudgetDescriptor toCopy) {
+            setCategory(toCopy.category);
             setDesc(toCopy.desc);
             setDate(toCopy.date);
             setAmount(toCopy.amt);
@@ -145,7 +149,15 @@ public class EditBudgetCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(desc, amt, tags);
+            return CollectionUtil.isAnyNonNull(category, desc, date, amt, tags);
+        }
+
+        public void setCategory(Category cat) {
+            this.category = cat;
+        }
+
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
         public void setDesc(Description desc) {

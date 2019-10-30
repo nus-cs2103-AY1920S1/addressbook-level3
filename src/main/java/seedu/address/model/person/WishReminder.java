@@ -7,13 +7,16 @@ import java.time.LocalDate;
  */
 public class WishReminder extends Reminder {
     private Wish wish;
+
     public WishReminder(String desc, Wish wish) {
         super(desc);
         this.wish = wish;
     }
+
     public Wish getWish() {
         return wish;
     }
+
     /**
      *checks status of reminder. i.e. should reminder trigger.
      */
@@ -26,6 +29,7 @@ public class WishReminder extends Reminder {
         assert (wish.equals(wish));
         this.wish = wish;
     }
+
     @Override
     /**
      * Returns true if both WishReminders have all identity fields that are the same.
