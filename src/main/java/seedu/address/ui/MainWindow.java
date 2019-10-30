@@ -14,7 +14,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -24,7 +23,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.export.VisualExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.display.detailwindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
@@ -159,14 +157,10 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting up default detailsview
-        /*
         detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getMainWindowDisplay()
-                .getMonthSchedules().get(0)
-                .getWeekScheduleOf(0)
-                .getWeekSchedule().get(LocalDate.now().getDayOfWeek())).getRoot());
-
-         */
-        detailsViewPlaceholder.getChildren().add(new VBox());
+                .getPersonSchedules().get(0).get(0)
+                .getScheduleDisplay().get(LocalDate.now().getDayOfWeek()))
+                .getRoot());
     }
 
     /**
@@ -340,12 +334,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleTabSwitch();
                 break;
             case HOME:
-                /*
                 handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
-                        .getMonthSchedules().get(0)
-                        .getWeekScheduleOf(0)
-                        .getWeekSchedule().get(LocalDate.now().getDayOfWeek())).getRoot());
-                 */
+                        .getPersonSchedules().get(0).get(0)
+                        .getScheduleDisplay().get(LocalDate.now().getDayOfWeek()))
+                        .getRoot());
                 handleChangeToTabsPanel();
                 break;
             default:

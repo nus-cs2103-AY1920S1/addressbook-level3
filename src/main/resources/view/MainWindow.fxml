@@ -39,16 +39,19 @@
           </Menu>
         </MenuBar>
 
-        <GridPane VBox.vgrow="ALWAYS">
+        <GridPane VBox.vgrow="SOMETIMES">
           <columnConstraints>
             <ColumnConstraints percentWidth="25" />
-            <ColumnConstraints percentWidth="75" hgrow="ALWAYS"/>
+            <ColumnConstraints percentWidth="70" hgrow="SOMETIMES"/>
+              <ColumnConstraints percentWidth="5" hgrow="NEVER" />
           </columnConstraints>
-          <StackPane fx:id="sideBarPlaceholder" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS"
-                       GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS"/>
+          <StackPane fx:id="sideBarPlaceholder" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                     VBox.vgrow="ALWAYS" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS"/>
 
-          <StackPane fx:id="detailsViewPlaceholder" VBox.vgrow="ALWAYS"
-                      GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+          <StackPane fx:id="detailsViewPlaceholder"
+                      GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+          <VBox fx:id="rightBorder" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
         </GridPane>
         <!-- <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" /> !-->
 

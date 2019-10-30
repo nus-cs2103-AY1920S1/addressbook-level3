@@ -7,6 +7,8 @@ import javafx.scene.layout.Region;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.ui.UiPart;
 
+import java.time.LocalTime;
+
 /**
  * Ui component to show upcoming schedules for today.
  */
@@ -32,5 +34,12 @@ public class ScheduleDisplayCard extends UiPart<Region> {
         this.venue.setText(timeslot.getVenue().toString());
         this.timing.setText(timeslot.getStartTime().toString()
                 + " - " + timeslot.getEndTime().toString());
+
+        if (timeslot.getEndTime().isBefore(LocalTime.now())) {
+            //This event has passed.
+            eventName.setStyle("-fx-opacity: 0.5;");
+            venue.setStyle("-fx-opacity: 0.5;");
+            timing.setStyle("-fx-opacity: 0.5;");
+        }
     }
 }

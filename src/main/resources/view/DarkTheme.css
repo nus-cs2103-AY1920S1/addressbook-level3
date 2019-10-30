@@ -447,11 +447,21 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#freeTimeslot{
+#freeTimeslot #freeTimeslotBlock {
     -fx-background-radius: 0 !important;
     -fx-border-width: 0 !important;
     -fx-border-radius: 0 !important;
-    -fx-background-color: rgba(152,251,152, 0.35) !important;
+    -fx-background-color: rgba(152, 251, 152, 0.35) !important;
+}
+
+#freeTimeslot #freeTimeslotBlock:hover {
+    -fx-background-color: rgba(100, 200, 100, 0.35) !important;
+}
+
+#freeTimeslot .label {
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-alignment: center;
 }
 
 #groupDetailCard, #detailCard, #listHeaderContainer, #listMemberContainer {
@@ -508,6 +518,10 @@
 #resultDisplay .content {
     -fx-background-color: transparent, #393E46, transparent, #393E46;
     -fx-background-radius: 0;
+}
+
+#rightBorder {
+    -fx-background-color: #222831;
 }
 
 #tags {

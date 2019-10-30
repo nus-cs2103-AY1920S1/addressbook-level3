@@ -8,7 +8,7 @@
 
 <?import javafx.geometry.Insets?>
 <GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml" fx:id="scheduleDisplayContainer" prefWidth="400">
+          xmlns:fx="http://javafx.com/fxml" fx:id="scheduleDisplayContainer" prefWidth="300">
     <columnConstraints>
         <ColumnConstraints percentWidth="50"/>
         <ColumnConstraints percentWidth="50"/>

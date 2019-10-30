@@ -106,7 +106,7 @@ public class ModelManager implements Model {
         Group.setCounter(groupCounter + 1);
 
         this.userPrefs = new UserPrefs(userPrefs);
-        //initialiseDefaultWindowDisplay();
+        initialiseDefaultWindowDisplay();
     }
 
     public ModelManager(TimeBook timeBook) {
@@ -416,11 +416,10 @@ public class ModelManager implements Model {
         return personList.getUser();
     }
 
-    /*
+
     public void initialiseDefaultWindowDisplay() {
-        updateDetailWindowDisplay(user.getName(), LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
+        displayModelManager.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME, timeBook);
     }
-     */
 
     //=========== Suggesters =============================================================
 

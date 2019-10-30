@@ -21,8 +21,8 @@ public class ShowCommand<T> extends Command {
 
     public static final String COMMAND_WORD = "show";
     public static final String MESSAGE_SUCCESS = "Showing: %1$s";
-    public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the address book!";
-    public static final String MESSAGE_GROUP_NOT_FOUND = "This group does not exists in the address book!";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in TimeBook!";
+    public static final String MESSAGE_GROUP_NOT_FOUND = "This group does not exists in the TimeBook!";
     public static final String MESSAGE_USAGE = "Show command takes in a person's or group's name as argument!";
 
     private final T name;
@@ -39,6 +39,11 @@ public class ShowCommand<T> extends Command {
         if (name instanceof Name) {
             ObservableList<Person> personList = model.getObservablePersonList();
             Optional<Person> person = Optional.empty();
+
+            if (name.equals(model.getUser().getName())) {
+                person = Optional.of(model.getUser());
+            }
+
             for (Person p : personList) {
                 if (p.getName().equals((Name) name)) {
                     person = Optional.of(p);
@@ -50,7 +55,11 @@ public class ShowCommand<T> extends Command {
                 throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
             }
 
-            model.updateScheduleWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            if (person.get().equals(model.getUser())) {
+                model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            } else {
+                model.updateScheduleWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
                     false);
         } else {

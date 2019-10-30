@@ -7,7 +7,6 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 
@@ -25,10 +24,8 @@ public class HomeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        //MonthSchedule monthSchedule = new MonthSchedule(model.getUser(), LocalDateTime.now());
-        //ArrayList<MonthSchedule> monthSchedules = new ArrayList<>(List.of(monthSchedule));
 
-        model.updateScheduleWindowDisplay(model.getUser().getName(), LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
+        model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, false,
                 false, false, true);
     }

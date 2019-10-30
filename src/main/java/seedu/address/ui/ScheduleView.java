@@ -233,13 +233,14 @@ public class ScheduleView extends UiPart<Region> {
      */
     private VBox getDayVBoxOfFreeSchedule(ArrayList<FreeTimeslot> freeSchedule) {
         VBox timeslotContainer = new VBox();
+        int counter = 0;
         timeslotContainer.getChildren().add(new Block(30).makeEmptyTimeslot());
         int originalTimeStamp = startTime * 100;
         for (int j = 0; j < freeSchedule.size(); j++) {
             FreeTimeslot timeslot = freeSchedule.get(j);
             int startTime = TimeFormatter.formatTimeToInt(timeslot.getStartTime());
             int endTime = TimeFormatter.formatTimeToInt(timeslot.getEndTime());
-            Region freeTime = new Block(getTimeDifference(startTime, endTime)).makeFreeTimeslot();
+            StackPane freeTime = new Block(getTimeDifference(startTime, endTime)).makeFreeTimeslot("" + counter);
             if (originalTimeStamp != startTime) {
                 int timeUntilNext = getTimeDifference(originalTimeStamp, startTime);
                 Region untilNext = new Block(timeUntilNext).makeEmptyTimeslot();
@@ -247,6 +248,7 @@ public class ScheduleView extends UiPart<Region> {
             }
             timeslotContainer.getChildren().add(freeTime);
             originalTimeStamp = endTime;
+            counter++;
         }
         return timeslotContainer;
     }
@@ -310,8 +312,12 @@ public class ScheduleView extends UiPart<Region> {
      */
     class Block {
         private int duration;
+        private double heightOfTimeslot;
         public Block(int duration) {
             this.duration = duration;
+            int hours = duration / 60;
+            int minutes = duration % 60;
+            this.heightOfTimeslot = hours * oneHourLength + (minutes / 60.0) * oneHourLength;
         }
 
         /**
@@ -319,9 +325,6 @@ public class ScheduleView extends UiPart<Region> {
          */
         private Region makeColouredTimeslot(String color) {
             Region result = new Region();
-            int hours = duration / 60;
-            int minutes = duration % 60;
-            double heightOfTimeslot = hours * oneHourLength + (minutes / 60.0) * oneHourLength;
             result.setPrefSize(blockWidth, heightOfTimeslot);
             result.setStyle("-fx-background-color: " + getLinearGradient(color));
             result.setId("colouredTimeslot");
@@ -342,17 +345,19 @@ public class ScheduleView extends UiPart<Region> {
          */
         private Region makeEmptyTimeslot() {
             Region result = new Region();
-            int hours = duration / 60;
-            int minutes = duration % 60;
-            double heightOfTimeslot = hours * oneHourLength + (minutes / 60.0) * oneHourLength;
             result.setPrefSize(blockWidth, heightOfTimeslot);
             return result;
         }
 
-        private Region makeFreeTimeslot() {
+        private StackPane makeFreeTimeslot(String text) {
+            StackPane freeTimeslot = new StackPane();
+            Label label = new Label(text);
+            label.setPrefSize(blockWidth, heightOfTimeslot);
             Region region = makeColouredTimeslot("lightgreen");
-            region.setId("freeTimeslot");
-            return region;
+            region.setId("freeTimeslotBlock");
+            freeTimeslot.setId("freeTimeslot");
+            freeTimeslot.getChildren().addAll(label, region);
+            return freeTimeslot;
         }
     }
 }

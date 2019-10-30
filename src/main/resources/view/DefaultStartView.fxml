@@ -10,10 +10,10 @@
 <?import javafx.geometry.Insets?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          prefHeight="500.0" prefWidth="1000.0" fx:id="defaultStartViewContainer">
+          prefHeight="500.0" fx:id="defaultStartViewContainer">
     <columnConstraints>
-        <ColumnConstraints percentWidth="50"/>
-        <ColumnConstraints percentWidth="50"/>
+        <ColumnConstraints percentWidth="50" />
+        <ColumnConstraints percentWidth="50" />
     </columnConstraints>
     <padding>
         <Insets top="10"/>
@@ -22,13 +22,13 @@
            GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER"/>
     <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER">
         <padding>
-            <Insets top="10" right="10" left="10" bottom="10"/>
+            <Insets top="10" left="10" bottom="10"/>
         </padding>
         <StackPane fx:id="calendarPlaceHolder" />
     </VBox>
     <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="CENTER">
         <padding>
-            <Insets top="10" right="10" left="10" bottom="10"/>
+            <Insets top="10" left="10" bottom="10"/>
         </padding>
         <StackPane fx:id="noticeBoardPlaceHolder"/>
     </VBox>

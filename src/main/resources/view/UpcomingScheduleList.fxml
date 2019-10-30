@@ -8,10 +8,10 @@
 
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml" prefWidth="400" maxHeight="398" minHeight="398" fx:id="upcomingScheduleWrapper">
-    <Label fx:id="upcomingScheduleHeader" alignment="CENTER" prefWidth="500"/>
-    <ScrollPane fx:id="upcomingScheduleContainer" prefWidth="400" hbarPolicy="NEVER">
-        <VBox fx:id="scheduleCards" spacing="8">
+      xmlns:fx="http://javafx.com/fxml" maxHeight="398" minHeight="398" maxWidth="400" fx:id="upcomingScheduleWrapper">
+    <Label fx:id="upcomingScheduleHeader" alignment="CENTER" prefWidth="400"/>
+    <ScrollPane fx:id="upcomingScheduleContainer" hbarPolicy="NEVER" fitToWidth="true">
+        <VBox fx:id="scheduleCards" spacing="8" >
             <padding>
                 <Insets top="10" right="10" left="10" bottom="10"/>
             </padding>
