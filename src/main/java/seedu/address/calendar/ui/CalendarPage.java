@@ -66,7 +66,6 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         }
         calendarLogic = new CalendarLogic(calendar, calendarStorage);
         monthViewWidth = weekHeader.widthProperty();
-        monthViewWidth.addListener(((observable, oldValue, newValue) -> System.out.println(newValue)));
 
         fillInnerParts();
     }

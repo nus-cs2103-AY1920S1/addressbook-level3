@@ -191,7 +191,6 @@ public class EventManager {
         }
 
         try {
-            System.out.println("Hello remove");
             vacationSchedule.remove(event);
         } catch (NoSuchElementException e) {
             assert false : "This event should exist in vacationSchedule";
@@ -202,9 +201,7 @@ public class EventManager {
     public boolean isAvailable(EventQuery eventQuery) {
         Event placeHolderEvent = Event.getEventPlaceHolder(eventQuery);
         boolean hasNoEventsPlanned = !engagedSchedule.hasCollision(placeHolderEvent);
-        System.out.println("HAS NO EVENTS: " + hasNoEventsPlanned);
         boolean hasVacation = vacationSchedule.hasCollision(placeHolderEvent);
-        System.out.println("HAS VACATION: " + hasVacation);
         return hasNoEventsPlanned && hasVacation;
     }
 
