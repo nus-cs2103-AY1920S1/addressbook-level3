@@ -10,8 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 
 /**
  * Panel containing the list of persons.
@@ -24,13 +24,13 @@ public class DiaryListPanel extends UiPart<Region> {
     private ListView<Diary> diaryListView;
 
     @FXML
-    private StackPane pageViewPanel;
+    private HBox pageViewPanel;
 
     @FXML
     private ListView<Page> pageListView;
 
     @FXML
-    private Label diaryName;
+    private Label diaryHeader;
 
     private ObservableList<Diary> diaryList;
 
@@ -42,7 +42,7 @@ public class DiaryListPanel extends UiPart<Region> {
         diaryListView.setCellFactory(listView -> new DiaryListViewCell());
 
         // Sets the name of the diary
-        diaryName.setText(diaryList.get(targetIndex).getDiaryName().fullName);
+        diaryHeader.setText(diaryList.get(targetIndex).getDiaryName().fullName);
         initializePageListView(targetIndex);
     }
 
@@ -55,7 +55,7 @@ public class DiaryListPanel extends UiPart<Region> {
         ObservableList<Page> pageList = diaryList.get(targetIndex).getPages();
 
         // Sets the name of the diary
-        diaryName.setText(diaryList.get(targetIndex).getDiaryName().fullName);
+        diaryHeader.setText(diaryList.get(targetIndex).getDiaryName().fullName);
 
         pageListView.setItems(pageList);
         pageListView.setCellFactory(listView -> new PageListViewCell());
@@ -98,6 +98,7 @@ public class DiaryListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Diary} using a {@code DiaryCard}.
      */
     class DiaryListViewCell extends ListCell<Diary> {
+
         @Override
         protected void updateItem(Diary diary, boolean empty) {
             super.updateItem(diary, empty);
@@ -118,7 +119,6 @@ public class DiaryListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Page page, boolean empty) {
             super.updateItem(page, empty);
-
             if (empty || page == null) {
                 setGraphic(null);
                 setText(null);;
@@ -126,6 +126,8 @@ public class DiaryListPanel extends UiPart<Region> {
                 setGraphic(new PageCard(page, getIndex() + 1).getRoot());
             }
         }
+
+
     }
 
 }

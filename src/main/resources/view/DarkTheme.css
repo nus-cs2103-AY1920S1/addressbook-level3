@@ -349,9 +349,9 @@
     -fx-text-fill: black ;
 }
 
-.diaryHeader {
+#diaryHeader {
     -fx-font-size: 36;
-    -fx-background-color: #ffe0b2;
+    -fx-font-weight: bold;
 }
 
 #pageViewPanel #diaryHeaderContainer {
@@ -361,7 +361,7 @@
 #pageCardPane {
     -fx-border-radius: 5;
     -fx-border-color: black;
-    -fx-background-color: beige;
+    -fx-background-color: #eeeeee;
 }
 
 .pageCard .title {
@@ -371,25 +371,31 @@
 .pageCard .description {
     -fx-font-size: 14px;
 }
+#pageListView {
+    -fx-background-insets: 0;
+    -fx-padding: 0 0 0 0;
+    -fx-background-color: white;
+}
 
 #pageListView .list-cell {
-    -fx-background-insets: 4px ;
-    -fx-border-color: black;
-    -fx-padding: 5 5 5 25;
+    -fx-label-padding: 0 0 0 0;
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: #ded7d7;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
 }
 
 
 #pageListView .list-cell:filled:even {
-    -fx-background-color: transparent;
+    -fx-background-color: #f8f8f8;
 }
 
 #pageListView .list-cell:filled:odd {
-    -fx-background-color: transparent;
+    -fx-background-color: #f8f8f8;
 }
 
 #pageListView .list-cell:filled:selected {
-    -fx-border-color: #1e90ff;
-    -fx-border-width: 2;
+    -fx-background-color: #f8f8f8;
 }
 
 #pageListView .list-cell .label {
@@ -399,6 +405,7 @@
 #pageTitle {
     -fx-font-size: 20;
     -fx-font-weight: bold;
+    -fx-background-color: #fbe9e7;
 }
 
 #pageDescription {
