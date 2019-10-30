@@ -92,6 +92,7 @@ class ReturnCommandTest {
         assertEquals(actualMessage, expectedMessage);
     }
 
+    /*
     @Test
     public void execute_noSuchIndex_returnUnsuccessful() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
@@ -112,6 +113,7 @@ class ReturnCommandTest {
         String expectedMessage = MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
         assertEquals(expectedMessage, actualMessage);
     }
+    */
 
     @Test
     public void equals() {
