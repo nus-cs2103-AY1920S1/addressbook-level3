@@ -75,7 +75,6 @@ public class RenewCommand extends Command {
             throw new CommandException(String.format(MESSAGE_NOT_LOANED_BY_BORROWER, servingBorrower, bookToBeRenewed));
         }
 
-        // TODO test this
         if (loanToBeRenewed.getRenewCount() >= model.getUserSettings().getMaxRenews()) {
             throw new CommandException(String.format(MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE, bookToBeRenewed));
         }

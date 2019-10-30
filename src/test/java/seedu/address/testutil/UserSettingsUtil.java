@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FINE_INCREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_RENEWS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEW_PERIOD;
 
 import seedu.address.logic.commands.SetCommand;
@@ -24,6 +25,9 @@ public class UserSettingsUtil {
 
         descriptor.getFineIncrement().ifPresent(fineIncrement -> sb.append(PREFIX_FINE_INCREMENT)
                 .append(fineIncrement.getFineIncrement()).append(" "));
+
+        descriptor.getMaxRenews().ifPresent(maxRenews -> sb.append(PREFIX_MAX_RENEWS)
+                .append(maxRenews.getMaxRenews()).append(" "));
 
         return sb.toString();
     }
