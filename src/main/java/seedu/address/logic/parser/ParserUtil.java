@@ -14,6 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.calendar.FilePath;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Price;
 import seedu.address.model.member.MemberId;
@@ -178,6 +179,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code filePath} into an {@code filePath} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws DateTimeParseException if the input string is not in the valid format.
+     */
+    public static FilePath parseFilePath(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        String trimmedFilePath = filePath.trim();
+
+        if (!FilePath.isValidFilePath(filePath)) {
+            throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
+        }
+        return new FilePath(trimmedFilePath);
+    }
+
+    /**
      * Parses {@code theme} into a {@code Theme} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      * @throws ParseException if the given {@code theme}'s code is invalid.
@@ -214,5 +230,4 @@ public class ParserUtil {
 
         return clockFormat;
     }
-
 }
