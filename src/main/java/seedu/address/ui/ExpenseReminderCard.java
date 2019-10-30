@@ -31,6 +31,8 @@ public class ExpenseReminderCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label amt;
+    @FXML
+    private Label date;
 
     public ExpenseReminderCard(ExpenseReminder expenseReminder, int displayedIndex) {
         super(FXML);
@@ -38,7 +40,9 @@ public class ExpenseReminderCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
 
         desc.setText(expenseReminder.getMessage());
-        amt.setText(expenseReminder.getSum() + " / " + expenseReminder.getQuota());
+        amt.setText("$" + expenseReminder.getSum() + " / $" + expenseReminder.getQuota());
+
+        //date.setText(expenseReminder.getDa)
 
         /*String type = reminder.getType().toLowerCase();
         String descWithType = "[" + type + "] " + entry.getDesc().fullDesc;

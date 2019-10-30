@@ -23,12 +23,15 @@
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css" />
-                <URL value="@ExtensionsDark.css" />
+                <URL value="@LightTheme.css" />
+                <URL value="@ExtensionsLight.css" />
             </stylesheets>
 
-            <HBox fx:id="window" minHeight="1180" prefHeight="1180" maxHeight="1180">
-                <VBox HBox.hgrow="ALWAYS">
+            <HBox fx:id="window" minHeight="1180" prefHeight="1180" maxHeight="1180" style="-fx-background-color: White" spacing="5">
+                <padding>
+                    <Insets bottom="5" left="5" right="5" top="5"/>
+                </padding>
+                <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: white">
                     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                         <Menu mnemonicParsing="false" text="File">
                             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -60,30 +63,33 @@
                     <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                 </VBox>
                 <!-- to contain the side panels in vbox -->
-                <VBox fx:id="sidePanelsPlaceHolder" minWidth="400" prefWidth="400">
-                    <VBox fx:id="wishesPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS" style="-fx-border-color: Lavender">
+                <VBox fx:id="sidePanelsPlaceHolder" minWidth="400" prefWidth="400" spacing="5" styleClass="side-panel-placeholder">
+                    <padding>
+                        <Insets bottom="5" left="5" right="5" top="5"/>
+                    </padding>
+                    <VBox fx:id="wishesPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
-                        <Label fx:id="wishlistTitle" styleClass="cell_big_label" text="Wishlist" />
+                        <Label fx:id="wishlistTitle" styleClass="side-panel-title" text="Wishlist" style="-fx-text-fill: MediumPurple"/>
                     </VBox>
-                    <VBox fx:id="budgetsPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS" style="-fx-border-color: SteelBlue">
+                    <VBox fx:id="budgetsPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
-                        <Label fx:id="budgetTitle" styleClass="cell_big_label" text="Budgets" />
+                        <Label fx:id="budgetTitle" styleClass="side-panel-title" text="Budgets" style="-fx-text-fill: SteelBlue"/>
                     </VBox>
-                    <VBox fx:id="remindersPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS" style="-fx-border-color: Gold">
+                    <VBox fx:id="remindersPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS" >
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
-                        <Label fx:id="remindersTitle" styleClass="cell_big_label" text="Reminders" />
+                        <Label fx:id="remindersTitle" styleClass="side-panel-title" text="Reminders" style="-fx-text-fill: GoldenRod"/>
                     </VBox>
-                    <VBox fx:id="autoExpensesPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS" style="-fx-border-color: Coral">
+                    <VBox fx:id="autoExpensesPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS" >
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
-                        <Label fx:id="autoExpTitle" styleClass="cell_big_label" text="Auto Expenses" />
+                        <Label fx:id="autoExpTitle" styleClass="side-panel-title" text="Auto Expenses" style="-fx-text-fill: Coral" />
                     </VBox>
                 </VBox>
             </HBox>

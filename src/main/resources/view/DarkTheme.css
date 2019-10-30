@@ -3,7 +3,7 @@
     /*-fx-background-color: #FAFAFA;*/
     /*background-color: #383838; /* Used in the default.html file */
     /*background-color: #FAFAFA;*/
-    -fx-background-color: #FFFFFF
+    /*-fx-background-color: derive(#1d1d1d, 20%);*/
 }
 
 .label {
@@ -152,9 +152,32 @@
      -fx-border-top-width: 1px;
 }
 
+.side-panel-placeholder {
+    -fx-background-color: White;
+}
+
 .side-panel {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-width: 5px;
+    -fx-background-color: White;
+    -fx-border-color: Grey;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+}
+
+.side-panel-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: Grey;
+}
+
+.side-panel-listview {
+    -fx-background-color: White;
+
+}
+
+.side-panel-listcard {
+    -fx-background-color: WhiteSmoke;
+    -fx-text-fill: Grey;
+
 }
 
 .status-bar {
