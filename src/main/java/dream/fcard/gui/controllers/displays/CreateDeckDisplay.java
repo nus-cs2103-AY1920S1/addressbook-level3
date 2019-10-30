@@ -1,13 +1,20 @@
 package dream.fcard.gui.controllers.displays;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.gui.controllers.windows.CardCreatingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.MultipleChoiceCard;
+import dream.fcard.model.exceptions.DeckNotFoundException;
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -36,6 +43,20 @@ public class CreateDeckDisplay extends AnchorPane {
     private int numCards = 0;
     private CardCreatingWindow editingWindow;
 
+    private String deckNameString;
+    private String front;
+    private String back;
+    private ArrayList<String> choices;
+
+    private boolean hasFront;
+    private boolean hasBack;
+    private boolean hasChoice;
+
+    private final String frontBack = "Front-back";
+    private final String mcq = "MCQ";
+    //private final String java = "Java";
+    private final String js = "JavaScript";
+
     private Consumer<Integer> incrementNumCards = x -> {
         ++numCards;
         deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));
@@ -46,6 +67,7 @@ public class CreateDeckDisplay extends AnchorPane {
     private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
     @SuppressWarnings("unchecked")
     private Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
+    //private Consumer<Boolean> exitCreate = State.getState().getConsumer(ConsumerSchema.EXIT_CREATE);
 
     /**
      * Creates the form required to add questions to a deck.
@@ -73,7 +95,7 @@ public class CreateDeckDisplay extends AnchorPane {
      * Note that the temporary deck is inside CardCreatingWindow. This method pulls that Deck object out and saves it
      * to the State.
      */
-    void onSaveDeck() {
+    public void onSaveDeck() {
         if (editingWindow != null) {
             Deck deck = editingWindow.getTempDeck();
             if (deck.getCards().size() == 0) {
@@ -90,6 +112,125 @@ public class CreateDeckDisplay extends AnchorPane {
             }
             exitEditingMode.accept(true);
         }
+    }
+
+    public void processInput(String input) {
+        hasFront = hasFront(input);
+        hasBack = hasBack(input);
+        hasChoice = hasChoice(input);
+
+        boolean success;
+        if (!hasChoice) {
+            success = parseInputOneShot(input);
+        } else {
+            success = parseInputWithChoice(input);
+        }
+
+        if (!success) {
+            displayMessage.accept("MCQ card creation failed.");
+        }
+
+        try {
+            Deck deck = editingWindow.getTempDeck();
+
+            if (!hasChoice) {
+                editingWindow.setCardType(frontBack);
+                editingWindow.setQuestionFieldText(front);
+                editingWindow.setAnswerFieldText(back);
+                editingWindow.publicAddCard();
+            } else {
+                deck.addNewCard(new MultipleChoiceCard(front, back, choices));
+            }
+
+            //LogsCenter.getLogger(CreateCommand.class).info("DECK_CREATE_REG_CARD: Card added to " + deckName);
+
+        } catch (DuplicateInChoicesException e) {
+            displayMessage.accept("Duplicate found in choices.");
+        } catch (IndexNotFoundException e) {
+            displayMessage.accept("Answer not valid.");
+        } catch (NumberFormatException n) {
+            displayMessage.accept("Answer not valid.");
+        }
+    }
+
+    /**
+     *
+     *
+     * @param commandInput
+     * @return
+     */
+    private boolean parseInputWithChoice(String commandInput) {
+        String userInput = commandInput.replaceFirst("create deck/", "");
+
+        String[] userCardFields;
+        if (hasBack && hasFront) {
+            String[] userInputFields = userInput.trim().split(" front/");
+            //String newDeckName = userInputFields[0];
+            userCardFields = userInputFields[1].trim().split(" back/");
+            front = userCardFields[0];
+
+            userCardFields = userCardFields[1].trim().split(" choice/");
+            back = userCardFields[0];
+        } else {
+            return false;
+        }
+
+        choices = new ArrayList<>();
+        for (int i = 1; i < userCardFields.length; i++) {
+            choices.add(userCardFields[i]);
+        }
+
+        if (choices.size() <= 1) {
+            displayMessage.accept("Too few choices provided");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean parseInputOneShot(String commandInput) {
+        String userInput = commandInput.replaceFirst("create deck/", "");
+
+        if (hasBack && hasFront) {
+            //String[] userInputFields = userInput.trim().split("front/");
+
+            //deckName = userInputFields[0];
+
+            //String[] userCardFields = userInputFields[1].trim().split("back/");
+
+            front = commandInput.split("front/")[1].split("back/")[0].strip();
+            back = commandInput.split("back/")[1].split("front/")[0].strip();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @param input
+     * @return
+     */
+    private boolean hasFront(String input) {
+        return input.contains("front/");
+    }
+
+    /**
+     *
+     * @param input
+     * @return
+     */
+    private boolean hasBack(String input) {
+        return input.contains("back/");
+    }
+
+    /**
+     *
+     * @param input
+     * @return
+     */
+    private boolean hasChoice(String input) {
+        return input.contains("choice/");
     }
 
 }

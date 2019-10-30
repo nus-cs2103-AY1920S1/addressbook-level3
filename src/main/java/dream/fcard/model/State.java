@@ -7,16 +7,16 @@ import java.util.function.Consumer;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 
+
+
 /**
  * Running state of the program.
  */
 public class State {
     private static State state;
     private ArrayList<Deck> decks;
-    private boolean isEditMode;
-    private boolean isCreateMode;
     private HashMap<String, Consumer> consumerHashMap;
-
+    private StateEnum currState;
 
     /**
      * Constructor to create a State object with existing Deck objects.
@@ -33,6 +33,7 @@ public class State {
     public State() {
         decks = StorageManager.loadDecks();
         consumerHashMap = new HashMap<>();
+        currState = StateEnum.DEFAULT;
     }
 
     /**
@@ -151,5 +152,23 @@ public class State {
      */
     public Consumer getConsumer(String identifier) {
         return consumerHashMap.get(identifier);
+    }
+
+    /**
+     * Sets the current state at a specified StateEnum.
+     *
+     * @param currState the StateEnum that state should be at at this time.
+     */
+    public void setCurrState(StateEnum currState) {
+        this.currState = currState;
+    }
+
+    /**
+     * Getter for the current StateEnum.
+     *
+     * @return the StateEnum that the state is in at this time.
+     */
+    public StateEnum getCurrState() {
+        return this.currState;
     }
 }

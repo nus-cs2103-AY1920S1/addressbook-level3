@@ -219,4 +219,24 @@ public class CardCreatingWindow extends AnchorPane {
     public Deck getTempDeck() {
         return tempDeck;
     }
+
+    public void setCardType(String s) {
+        this.cardType = s;
+    }
+
+    public void setQuestionFieldText(String s) {
+        this.questionField.setText(s);
+    }
+
+    public void setAnswerFieldText(String s) {
+        this.frontBackTextArea.setText(s);
+    }
+
+    public void publicAddCard() {
+        try {
+            addCardToDeck();
+        } catch (DuplicateInChoicesException | IndexNotFoundException ex) {
+            displayMessage.accept("You have duplicated options!");
+        }
+    }
 }

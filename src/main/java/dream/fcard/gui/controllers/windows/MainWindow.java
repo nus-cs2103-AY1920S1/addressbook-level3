@@ -13,6 +13,7 @@ import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateEnum;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -63,7 +64,12 @@ public class MainWindow extends VBox {
     //Example code
     private Consumer<Boolean> create = b -> showCreateNewDeckForm();
     private Consumer<Integer> seeDeck = i -> displaySpecificDeck(State.getState().getDecks().get(i - 1));
+    private Consumer<Boolean> exitCreate = b -> exitCreate();
+    private Consumer<String> processInputCreate = s -> processInputCreate(s);
 
+    private Consumer<Boolean> quitProgram = b -> quit();
+
+    private CreateDeckDisplay tempCreateDeckDisplay;
 
     /**
      * Binds the vertical height of the scroll panes to the size of the Nodes inside them so that the scrollbar
@@ -85,8 +91,7 @@ public class MainWindow extends VBox {
         });
         quit.setOnAction(e -> {
             //Save all files only exit
-            StorageManager.saveAll(State.getState().getDecks());
-            System.exit(0);
+            quit();
         });
         javaEditor.setOnAction(e -> openEditor(true));
         jsEditor.setOnAction(e -> openEditor(false));
@@ -130,7 +135,10 @@ public class MainWindow extends VBox {
      */
     private void showCreateNewDeckForm() {
         displayContainer.getChildren().clear();
-        displayContainer.getChildren().add(new CreateDeckDisplay());
+        this.tempCreateDeckDisplay = new CreateDeckDisplay();
+        displayContainer.getChildren().add(tempCreateDeckDisplay);
+        State.getState().setCurrState(StateEnum.CREATE);
+        //State.getState().setCreateCommand(new CreateCommand(editingWindow.getTempDeck();));
     }
 
     /**
@@ -166,7 +174,7 @@ public class MainWindow extends VBox {
     @FXML
     private void handleUserInput() {
         String input = commandLine.getText();
-        Dispatcher.parseAndDispatch(input);
+        Dispatcher.parseAndDispatch(input, State.getState().getCurrState());
         commandLine.clear();
     }
 
@@ -178,6 +186,8 @@ public class MainWindow extends VBox {
         State.getState().addConsumer(ConsumerSchema.DISPLAY_DECKS, displayDecks);
         State.getState().addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
         State.getState().addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
+        State.getState().addConsumer(ConsumerSchema.EXIT_CREATE, exitCreate);
+
 
         //ignore the duplicates for now, if dispatcher carries all the consumers then transfer over from state
         Dispatcher.addConsumer(ConsumerSchema.SWAP_DISPLAYS, swapDisplays);
@@ -186,6 +196,10 @@ public class MainWindow extends VBox {
         Dispatcher.addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
         Dispatcher.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
         Dispatcher.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
+        Dispatcher.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
+        Dispatcher.addConsumer(ConsumerSchema.EXIT_CREATE, exitCreate);
+        Dispatcher.addConsumer(ConsumerSchema.PROCESS_INPUT, processInputCreate);
+
     }
 
     /**
@@ -202,6 +216,22 @@ public class MainWindow extends VBox {
             app.start(stage);
         }
 
+    }
+
+    /**
+     * Quits from the entire program. Saves the decks to a file first.
+     */
+    public void quit() {
+        StorageManager.saveAll(State.getState().getDecks());
+        System.exit(0);
+    }
+
+    public void exitCreate() {
+        tempCreateDeckDisplay.onSaveDeck();
+    }
+
+    public void processInputCreate(String input) {
+        tempCreateDeckDisplay.processInput(input);
     }
 
 }
