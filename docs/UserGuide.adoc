@@ -65,7 +65,7 @@ users, you could refer to <<Command Summary>>.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME no/PHONE_NUMBER`, `no/PHONE_NUMBER n/NAME` is also acceptable.
 * Previous commands can be accessed by using the *up-arrow keys*.
 ====
 
@@ -105,9 +105,9 @@ Employee: Adds an employee to the employee list
 
 Event: Adds an event that the company is organizing or hosting to the company’s calendar.
 
-Employee Format: `add_em n/NAME g/GENDER p/POSITION no/PHONE e/EMAIL a/ADDRESS on/Join Date [t/TAG]...`
+Employee Format: `add_em n/NAME g/GENDER p/POSITION no/PHONE e/EMAIL a/ADDRESS on/Join_Date [t/TAG]...`
 
-Event Format: `add_ev n/NAME at/VENUE m/MANPOWER NEEDED on/START DATEtill/END DATE[t/TAG]...`
+Event Format: `add_ev n/NAME at/VENUE m/MANPOWER_NEEDED on/START_DATE till/END_DATE[t/TAG]...`
 
 [TIP]
 A employee can have any number of tags (including 0)
@@ -130,9 +130,9 @@ Employee: Edit an existing employee in the employee list.
 
 Event: Edits an existing event in the event list.
 
-Employee Format: `edit_em INDEX [n/NAME] [g/GENDER] [p/POSITION] [no/PHONE] [e/EMAIL] [a/ADDRESS] [on/JOINDATE] [t/TAG]...`
+Employee Format: `edit_em INDEX [n/NAME] [g/GENDER] [p/POSITION] [no/PHONE] [e/EMAIL] [a/ADDRESS] [on/JOIN_DATE] [t/TAG]...`
 
-Event Format Format: `edit_ev INDEX [n/EVENT NAME] [at/VENUE] [m/MANPOWER NEEDED] [on/START DATE] [till/END DATE] [t/TAG]...`
+Event Format Format: `edit_ev INDEX [n/EVENT_NAME] [at/VENUE] [m/MANPOWER_NEEDED] [on/START_DATE] [till/END_DATE] [t/TAG]...`
 
 ****
 * Edits the entity at the specified `INDEX`. The index refers to the index number shown in the displayed entity list. The index *must be a positive integer* 1, 2, 3, ...
@@ -151,7 +151,7 @@ Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing 
 
 Event Edit Examples:
 
-* `edit_ev 1 on/16092019` +
+* `edit_ev 1 on/16/09/2019` +
 Edits the start date of the 1st event to be on the 16th September, 2019.
 * `edit_ev 2 n/Concert t/` +
 Edits the name of the 2nd event to be `Concert` and clears all existing tags.
@@ -202,9 +202,9 @@ Examples:
 * `list_em` +
 `delete_em 2` +
 Deletes the 2nd employee in the displayed employee list.
-* `find Music` +
+* `find_ev Music` +
 `delete_ev 1` +
-Deletes the 1st event in the list shown after the `find` command.
+Deletes the 1st event in the list shown after the `find_ev` command.
 
 === Employee-Specific Management
 
@@ -246,13 +246,10 @@ Returns the 2rd event from the event list.
 ==== Automated allocation of Employees to Events: `allocate`
 
 Automatically chooses and allocates employees that meet the requirements to events.
-[%hardbreaks]
-For GUI feature, kindly refer to <<GUI Guide for Event Fetch and Allocation Commands>>.
 
 Format: `allocate EVENT_INDEX [n/NUMBER] [t/TAG]...`
 
 [TIP]
-Fields in [] are optional.
 Random selection of employee to allocate if supply exceeds demand of event.
 
 ****
@@ -350,7 +347,8 @@ employee to an event, continue to step 5.
 
 image::afterfree.png[width="600"]
 
-*Step 5*: To *allocate* a particular employee to an event or an `allocatem` command, double-click the employee card on the left list. Notice the employee to allocate
+*Step 5*: To *allocate* a particular employee to an event or perform an `allocatem` command, double-click the employee card on
+the left list. Notice the employee to allocate
 has moved to the list on the right as shown in the figure below:
 
 [NOTE]
