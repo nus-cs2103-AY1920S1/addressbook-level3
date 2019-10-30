@@ -12,7 +12,7 @@ public class Model {
 
     public static final Predicate<Expense> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
     private FinancialTracker financialTracker;
-    private final ObservableMap<String, ExpenseList> internalUnmodifiableExpenseListMap;
+    private ObservableMap<String, ExpenseList> internalUnmodifiableExpenseListMap;
 
     public Model() {
         this.financialTracker = new FinancialTracker();
@@ -46,5 +46,11 @@ public class Model {
 
     public FinancialTracker getFinancialTracker() {
         return financialTracker;
+    }
+
+    //todo: this implementation is so bad. Change it?
+    public void updateFinancialTracker(FinancialTracker financialTracker) {
+        this.financialTracker = financialTracker;
+        internalUnmodifiableExpenseListMap = this.financialTracker.getInternalUnmodifiableExpenseListMap();
     }
 }

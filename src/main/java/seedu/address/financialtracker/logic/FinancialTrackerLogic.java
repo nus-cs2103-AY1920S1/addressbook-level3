@@ -3,10 +3,12 @@ package seedu.address.financialtracker.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.financialtracker.logic.parser.FinancialTrackerParser;
 import seedu.address.financialtracker.model.FinancialTracker;
 import seedu.address.financialtracker.model.Model;
@@ -32,6 +34,14 @@ public class FinancialTrackerLogic {
         this.financialTrackerModel = financialTrackerModel;
         this.storage = storage;
         financialTrackerParser = new FinancialTrackerParser();
+        try {
+            Optional<FinancialTracker> financialTrackerOptional = storage.readFinancialTracker();
+            financialTrackerOptional.ifPresent(financialTrackerModel::updateFinancialTracker);
+        } catch (DataConversionException e) {
+            System.out.println("Data file not in the correct format. Will be starting with an empty Financial Tracker");
+        } catch (IOException e) {
+            System.out.println("Problem while reading from the file. Will be starting with an empty Financial Tracker");
+        }
     }
 
     public CommandResult execute(String commandText) throws CommandException, ParseException {
@@ -60,6 +70,10 @@ public class FinancialTrackerLogic {
 
     public Path getFinancialTrackerFilePath() {
         return Paths.get("data" , "financialtracker.json");
+    }
+
+    public void setCountry(String field) {
+        this.financialTrackerModel.setCountry(field);
     }
 
     //public GuiSettings getGuiSettings() { return userPrefsModel.getGuiSettings(); }

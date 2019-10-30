@@ -20,6 +20,7 @@ public class Date {
     private static final SimpleDateFormat sdfDate = new SimpleDateFormat("ddMMyyyy");
     public final String value;
     public java.util.Date valueToCompare;
+    public final String storageDate;
 
     public Date(String date) {
         try {
@@ -27,6 +28,7 @@ public class Date {
         } catch (ParseException e) {
             assert false : "date format should be always correct";
         }
+        this.storageDate = date;
         this.value = formatDate(date);
     }
 

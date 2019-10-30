@@ -7,6 +7,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.financialtracker.logic.FinancialTrackerLogic;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.ui.UiPart;
@@ -21,12 +22,12 @@ public class ExpensePanel extends UiPart<Region> {
     @FXML
     private ListView<Expense> expenseListView;
 
-    private final Model model;
+    private final FinancialTrackerLogic financialTrackerLogic;
 
-    public ExpensePanel(Model model) {
+    public ExpensePanel(FinancialTrackerLogic financialTrackerLogic) {
         super(FXML);
-        this.model = model;
-        expenseListView.setItems(model.getExpenseList());
+        this.financialTrackerLogic = financialTrackerLogic;
+        expenseListView.setItems(financialTrackerLogic.getExpenseList());
         expenseListView.setCellFactory(listView -> new ExpenseListViewCell());
     }
 
@@ -35,7 +36,7 @@ public class ExpensePanel extends UiPart<Region> {
      * Perform ListView update whenever the {@code CountriesDropdown } changed country.
      */
     public void update() {
-        expenseListView.setItems(model.getExpenseList());
+        expenseListView.setItems(financialTrackerLogic.getExpenseList());
         expenseListView.setCellFactory(listView -> new ExpenseListViewCell());
     }
 

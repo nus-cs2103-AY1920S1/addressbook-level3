@@ -41,6 +41,10 @@ public class FinancialTracker {
         expenseListMap.get(currentCountry).addExpense(expense);
     }
 
+    public void addExpense(Expense expense, Country country) {
+        expenseListMap.get(country.value).addExpense(expense);
+    }
+
     public void deleteExpense(int index) {
         assert expenseListMap.get(currentCountry) != null;
         expenseListMap.get(currentCountry).deleteExpense(index);

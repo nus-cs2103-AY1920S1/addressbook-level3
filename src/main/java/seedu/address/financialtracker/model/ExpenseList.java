@@ -71,6 +71,10 @@ public class ExpenseList {
         sort();
     }
 
+    public boolean isEmpty() {
+        return expenses.isEmpty();
+    }
+
     public double getSummary() {
         double sum = 0;
         for(Expense expense : expenses) {

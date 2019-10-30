@@ -60,8 +60,8 @@ public class JsonFinancialTrackerStorage implements FinancialTrackerStorage {
     }
 
     @Override
-    public void saveFinancialTracker(FinancialTracker addressBook) throws IOException {
-        saveFinancialTracker(addressBook, filePath);
+    public void saveFinancialTracker(FinancialTracker financialTracker) throws IOException {
+        saveFinancialTracker(financialTracker, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonFinancialTrackerStorage implements FinancialTrackerStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveFinancialTracker(FinancialTracker addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveFinancialTracker(FinancialTracker financialTracker, Path filePath) throws IOException {
+        requireNonNull(financialTracker);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableFinancialTracker(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableFinancialTracker(financialTracker), filePath);
     }
 
 }

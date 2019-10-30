@@ -44,8 +44,8 @@ public class JsonAdaptedExpense {
      * Converts a given {@code Expense} into this class for Jackson use.
      */
     public JsonAdaptedExpense(Expense source) {
-        date = source.getDate().value;
-        time = source.getTime().value;
+        date = source.getDate().storageDate;
+        time = source.getTime().storageTime;
         amount = source.getAmount().value;
         description = source.getDescription().value;
         type = source.getType().value;
@@ -59,7 +59,7 @@ public class JsonAdaptedExpense {
      */
     public Expense toModelType() throws IllegalValueException {
         if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "date"));
         }
         if (!Date.isValidDate(date)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
@@ -67,7 +67,7 @@ public class JsonAdaptedExpense {
         final Date modelDate = new Date(date);
 
         if (time == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "time"));
         }
         if (!Time.isValidTime(time)) {
             throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
@@ -75,7 +75,7 @@ public class JsonAdaptedExpense {
         final Time modelTime = new Time(time);
 
         if (amount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "amount"));
         }
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
@@ -83,7 +83,7 @@ public class JsonAdaptedExpense {
         final Amount modelAmount = new Amount(amount);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "description"));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -91,12 +91,15 @@ public class JsonAdaptedExpense {
         final Description modelDescription = new Description(description);
 
         if (type == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "type"));
+        }
+        if (!Type.isValidType(country)) {
+            throw new IllegalValueException(Type.MESSAGE_CONSTRAINTS);
         }
         final Type modelType = new Type(type);
 
         if (country == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Country.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "country"));
         }
         if (!Country.isValidCountry(country)) {
             throw new IllegalValueException(Country.MESSAGE_CONSTRAINTS);
