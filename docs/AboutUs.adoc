@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://github.com/AY1920S1-CS2103-T14-3[AY1920S1-CS2103-T14-3] team. +
+FlashMind was developed by the https://github.com/AY1920S1-CS2103-T14-3[AY1920S1-CS2103-T14-3] team based on Address Book - 3. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
