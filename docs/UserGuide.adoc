@@ -25,7 +25,7 @@ Get started on this journey by installing SML and take a quick tour of our main 
 
 === Installation
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `sellermanagerlite.jar` https://github.com/AY1920S1-CS2103T-T09-4/main/releasesreleases[here].
+.  Download the latest `sellermanagerlite.jar` https://github.com/AY1920S1-CS2103T-T09-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Seller Manager Lite.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
@@ -56,7 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Clutter-free
 
-SML helps you to organize your customers, phones and orders without clutter.
+SML helps you to organize your customers, phones, orders and schedules without clutter.
 
 * Use our smart tab view to toggle between customers, phones, orders, schedules and archives.
 * Search for the customer, phone and order you want with our find function.
@@ -504,7 +504,7 @@ Switches to Schedule Tab Panel. +
 Shows the week of the date specified by the user. +
 [underline]#Format#: `schedule cd/DATE`
 [TIP]
-Date should be in the format YYYY.MM.HH with valid year, month and date.
+Date should be in the format YYYY.MM.DD with valid year, month and date.
 
 ==== Add a schedule : `add-s`
 Adds a schedule. +
@@ -519,7 +519,7 @@ image::ug-command/ug-add-s.png[width="800"]
 [TIP]
 Order index should be a positive integer and must exist in the order list.
 [TIP]
-Date should be in the format YYYY.MM.HH with valid year, month and date.
+Date should be in the format YYYY.MM.DD with valid year, month and date.
 [TIP]
 Time should be in the 24-hour format HH.MM with valid hour and minute.
 [TIP]
