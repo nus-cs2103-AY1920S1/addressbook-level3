@@ -172,20 +172,32 @@ Deletes the 2nd reminder in the shown reminder list.
 === Undoing the latest modification(s) : `undo`
 
 Reverts the latest commands given on the ELISA. +
-Format: `undo [number of commands]`
+Format: `undo`
 
 ****
-* Omitting the number reverts the last one command
-* The number of commands must be *at most 20*
-* The number *must be a positive integer* 1, 2, 3, ...
+* `undo` can only be done if commands have been executed
 ****
 
 Examples:
 
 * `undo` +
 Undoes the last command
-* `undo 2` +
-Undoes the last 2 commands
+
+
+// tag::redo[]
+=== Redoing the latest undone command(s) : `redo`
+
+Re-executes the latest undone commands given on the ELISA. +
+Format: `redo`
+
+****
+* `redo` can only be done if undo has already been executed
+* After `undo`, if a new command is executed then `redo` cannot be executed
+****
+
+Examples:
+
+* `redo` +
 
 === Sorting ELISA out: `sort`
 Is ELISA getting too cluttered and disorganized? Do you want to sort your task by their priority? Or the events by their start date?
