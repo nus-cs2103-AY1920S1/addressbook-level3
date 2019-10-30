@@ -27,7 +27,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new Mark(), new Mark(modelManager.getMark()));
+        assertEquals(new VersionedMark(new Mark()), modelManager.getMark());
     }
 
     @Test
@@ -90,6 +90,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setBookmark_nullBookmark_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setBookmark(null, null));
+    }
+
+    @Test
     public void hasFolder_folderNotInMark_returnsFalse() {
         assertFalse(modelManager.hasFolder(new Folder(VALID_FOLDER_CS2103T)));
     }
@@ -99,6 +104,11 @@ public class ModelManagerTest {
         Folder validFolder = new Folder(VALID_FOLDER_CS2103T);
         modelManager.addFolder(validFolder, Folder.ROOT_FOLDER);
         assertTrue(modelManager.hasFolder(validFolder));
+    }
+
+    @Test
+    public void hasTagger_nullTagger_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasTagger(null));
     }
 
     @Test

@@ -9,6 +9,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_FOLDER = new Prefix("f/");
     public static final Prefix PREFIX_HIGHLIGHT = new Prefix("h/");
     public static final Prefix PREFIX_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_NOT_FOLDER = new Prefix("nf/");
     public static final Prefix PREFIX_NOT_NAME = new Prefix("nn/");
     public static final Prefix PREFIX_NOT_URL = new Prefix("nu/");
     public static final Prefix PREFIX_NOTE = new Prefix("n/");

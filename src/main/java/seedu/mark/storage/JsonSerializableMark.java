@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.ReadOnlyMark;
+import seedu.mark.model.autotag.AutotagController;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.folderstructure.FolderStructure;
@@ -19,7 +20,7 @@ import seedu.mark.model.folderstructure.FolderStructure;
  * An Immutable Mark that is serializable to JSON format.
  */
 @JsonRootName(value = "mark")
-class JsonSerializableMark {
+public class JsonSerializableMark {
 
     public static final String MESSAGE_DUPLICATE_BOOKMARK = "Bookmark list contains duplicate bookmark(s).";
     public static final String MESSAGE_DUPLICATE_FOLDER = "There are duplicate folder(s).";
@@ -27,15 +28,18 @@ class JsonSerializableMark {
 
     private final List<JsonAdaptedBookmark> bookmarks = new ArrayList<>();
     private final JsonAdaptedFolderStructure folderStructure;
+    private final JsonAdaptedAutotagController autotagController;
 
     /**
      * Constructs a {@code JsonSerializableMark} with the given bookmarks.
      */
     @JsonCreator
     public JsonSerializableMark(@JsonProperty("bookmarks") List<JsonAdaptedBookmark> bookmarks,
-        @JsonProperty("folderStructure") JsonAdaptedFolderStructure folderStructure) {
+                                @JsonProperty("folderStructure") JsonAdaptedFolderStructure folderStructure,
+                                @JsonProperty("autotagController") JsonAdaptedAutotagController autotagController) {
         this.bookmarks.addAll(bookmarks);
         this.folderStructure = folderStructure;
+        this.autotagController = autotagController;
     }
 
     /**
@@ -48,6 +52,7 @@ class JsonSerializableMark {
         bookmarks.addAll(source.getBookmarkList().stream().map(JsonAdaptedBookmark::new)
             .collect(Collectors.toList()));
         folderStructure = new JsonAdaptedFolderStructure(source.getFolderStructure());
+        autotagController = new JsonAdaptedAutotagController(source.getAutotagController());
     }
 
     /**
@@ -64,6 +69,7 @@ class JsonSerializableMark {
             }
             mark.addBookmark(bookmark);
         }
+
         FolderStructure modelFolderStructure = folderStructure.toModelType();
         if (!modelFolderStructure.getFolder().equals(Folder.ROOT_FOLDER)) {
             throw new IllegalValueException(MESSAGE_NO_ROOT_FOLDER);
@@ -72,6 +78,12 @@ class JsonSerializableMark {
             throw new IllegalValueException(MESSAGE_DUPLICATE_FOLDER);
         }
         mark.setFolderStructure(modelFolderStructure);
+
+        if (autotagController == null) { // for backwards compatibility
+            mark.setAutotagController(new AutotagController());
+        } else {
+            mark.setAutotagController(autotagController.toModelType());
+        }
         return mark;
     }
 

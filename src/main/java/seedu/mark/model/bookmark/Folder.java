@@ -12,8 +12,10 @@ public class Folder {
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     private static final String ROOT_FOLDER_NAME = "ROOT";
+    private static final String IMPORT_FOLDER_NAME = "ImportedBookmarks";
     public static final String DEFAULT_FOLDER_NAME = ROOT_FOLDER_NAME;
     public static final Folder ROOT_FOLDER = new Folder(ROOT_FOLDER_NAME);
+    public static final Folder IMPORT_FOLDER = new Folder(IMPORT_FOLDER_NAME);
 
     public final String folderName;
 

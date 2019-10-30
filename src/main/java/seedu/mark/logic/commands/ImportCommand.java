@@ -18,7 +18,6 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
-import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.storage.JsonMarkStorage;
 import seedu.mark.storage.Storage;
 
@@ -96,15 +95,14 @@ public class ImportCommand extends Command {
         ReadOnlyMark newMark = readMarkFromStorage(storage, filePath);
 
         MarkImporter importer = new MarkImporter(model, newMark);
-        importer.importFolders();
 
         if (!importer.hasBookmarksToImport()) {
             return new CommandResult(String.format(MESSAGE_NO_BOOKMARKS_TO_IMPORT,
                     importer.getExistingBookmarksAsString()));
         }
+
         importer.importBookmarks();
 
-        // TODO: rewrite messages to indicate whether folders were imported
         String message = importer.hasExistingBookmarks()
                 ? String.format(MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
                     importer.getExistingBookmarksAsString())
@@ -133,23 +131,21 @@ public class ImportCommand extends Command {
      */
     public static class MarkImporter {
         private Model model;
-        private FolderStructure foldersToImport;
         private List<Bookmark> existingBookmarks = new ArrayList<>();
         private List<Bookmark> bookmarksToImport = new ArrayList<>();
 
         MarkImporter(Model model, ReadOnlyMark markToImport) {
             this.model = model;
-            this.foldersToImport = markToImport.getFolderStructure();
             processBookmarks(markToImport.getBookmarkList());
         }
 
         /**
          * Returns copy of the given {@code Bookmark} with its folder set to
-         * {@code Folder.ROOT_FOLDER}.
+         * {@code Folder.IMPORT_FOLDER}.
          */
-        public static Bookmark setToRootFolder(Bookmark bookmark) {
+        public static Bookmark setFolderAsImportFolder(Bookmark bookmark) {
             return new Bookmark(bookmark.getName(), bookmark.getUrl(), bookmark.getRemark(),
-                    Folder.ROOT_FOLDER, bookmark.getTags(), bookmark.getCachedCopies());
+                    Folder.IMPORT_FOLDER, bookmark.getTags(), bookmark.getCachedCopies());
         }
 
         /**
@@ -160,20 +156,17 @@ public class ImportCommand extends Command {
             for (Bookmark bookmark : bookmarks) {
                 if (model.hasBookmark(bookmark)) {
                     this.existingBookmarks.add(bookmark);
-                } else if (model.hasFolder(bookmark.getFolder())) {
-                    this.bookmarksToImport.add(bookmark);
+                } else if (!model.hasFolder(bookmark.getFolder())
+                        || bookmark.getFolder().equals(Folder.ROOT_FOLDER)) {
+                    this.bookmarksToImport.add(setFolderAsImportFolder(bookmark));
                 } else {
-                    this.bookmarksToImport.add(setToRootFolder(bookmark));
+                    this.bookmarksToImport.add(bookmark);
                 }
             }
         }
 
         private Model getModel() {
             return this.model;
-        }
-
-        public FolderStructure getFolders() {
-            return this.foldersToImport;
         }
 
         /**
@@ -227,15 +220,10 @@ public class ImportCommand extends Command {
         }
 
         /**
-         * Imports new bookmarks to the {@code model} and saves the state of
-         * Mark.
+         * Imports new bookmarks to the {@code model}.
          */
         public void importBookmarks() {
             model.addBookmarks(bookmarksToImport);
-        }
-
-        public void importFolders() {
-            model.addFolders(foldersToImport);
         }
 
         @Override
@@ -254,7 +242,6 @@ public class ImportCommand extends Command {
             MarkImporter markImporter = (MarkImporter) other;
 
             return getModel().equals(markImporter.getModel())
-                    && getFolders().equals(markImporter.getFolders())
                     && getExistingBookmarks().equals(markImporter.getExistingBookmarks())
                     && getBookmarksToImport().equals(markImporter.getBookmarksToImport());
         }
