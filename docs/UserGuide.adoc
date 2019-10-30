@@ -35,6 +35,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
+// tag::UGshiyao3[]
 == Features
 
 ====
@@ -46,6 +47,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `...`​ after them can be used multiple times including zero times e.g. `[g/GENRE]...` can be used as `{nbsp}` (i.e. 0 times), `g/fiction`, `g/fiction g/adventure` etc.
 * Parameters can be in any order e.g. if the command specifies `t/TITLE a/AUTHOR`, `a/AUTHOR t/TITLE` is also acceptable.
 ====
+// end::UGshiyao3[]
 
 === Using Normal Mode
 
@@ -55,6 +57,8 @@ The Normal Mode is for librarians to manage the books in the library. Commands i
 
 Opens the help window, which includes a list of possible commands +
 Format: `help`
+
+// tag::UGshiyao1[]
 
 ==== Locating books by title: `find`
 
@@ -88,6 +92,7 @@ Search for the book titled “Animal Farm” by the author “George Orwell”
 
 * `find 3 g/mystery g/children -available` +
 Search for children mystery books that are not on loan and show the first 3 entries
+// end::UGshiyao1[]
 
 ==== Viewing a book: `info`
 
@@ -302,6 +307,8 @@ LiBerry data are saved in the hard disk automatically after any command that cha
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LiBerry folder.
 
+
+// tag::UGshiyao2[]
 == Command Summary
 Commands applicable to both *Normal* and *Serve* mode:
 
@@ -339,3 +346,4 @@ e.g. `loan sn/B00201`
 * *Return book(s)* : `return INDEX [-all]`
 * *Pay fines* : `pay $AMOUNT`
 * *Reserve book* : `reserve INDEX` or `reserve sn/BOOK_SN`
+// end::UGshiyao2[]
