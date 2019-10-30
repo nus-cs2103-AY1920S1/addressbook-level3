@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private FlashcardListPanel flashcardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsDisplay statsDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -66,6 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsDisplay = new StatsDisplay(logic.getStatistics());
     }
 
     public Stage getPrimaryStage() {
@@ -144,6 +146,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the stats display or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handlestats() {
+        statsDisplay.updateStats();
+        if (!statsDisplay.isShowing()) {
+            statsDisplay.show();
+        } else {
+            statsDisplay.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -157,6 +172,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statsDisplay.hide();
         primaryStage.hide();
     }
 
@@ -184,8 +200,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowStats()) {
-                StatsDisplay statsDisplay = new StatsDisplay(logic.getStatistics());
-                statisticsDisplayPlaceholder.getChildren().addAll(statsDisplay.getRoot());
+                handlestats();
             }
 
             return commandResult;

@@ -1,40 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" stylesheets="" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
-      <VBox fx:id="statsBox">
-         <children>
-            <HBox fx:id="pieCharts" nodeOrientation="RIGHT_TO_LEFT">
-               <children>
-                  <PieChart fx:id="accuracy" labelsVisible="false" legendSide="TOP" legendVisible="false" minHeight="200.0" minWidth="200.0" nodeOrientation="LEFT_TO_RIGHT" />
-                  <PieChart fx:id="completion" labelsVisible="false" legendSide="TOP" legendVisible="false" minHeight="200.0" minWidth="200.0" nodeOrientation="LEFT_TO_RIGHT">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </PieChart>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <StackedBarChart fx:id="individualCards" alternativeRowFillVisible="false" categoryGap="20.0" legendSide="TOP" minHeight="400.0" title="Statistics for individual cards">
-              <xAxis>
-                <CategoryAxis fx:id="xAxis" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis fx:id="yAxis" label="Attempts" minorTickCount="0" minorTickLength="0.0" minorTickVisible="false" prefHeight="206.0" prefWidth="57.0" side="LEFT" tickLabelGap="0.0" tickUnit="0.0" upperBound="10.0" />
-              </yAxis>
-            </StackedBarChart>
-         </children>
-      </VBox>
-   </content>
-</ScrollPane>
+<fx:root type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <VBox fx:id="statsBox">
+            <children>
+               <HBox fx:id="pieCharts" VBox.vgrow="ALWAYS">
+                  <children>
+                     <PieChart fx:id="completion" animated="false" HBox.hgrow="ALWAYS" />
+                     <PieChart fx:id="accuracy" animated="false" HBox.hgrow="ALWAYS" />
+                  </children>
+               </HBox>
+               <ScrollPane VBox.vgrow="ALWAYS">
+                  <content>
+                     <Pane>
+                        <children>
+                           <StackedBarChart fx:id="individualCards" alternativeRowFillVisible="false" animated="false" legendSide="TOP" minHeight="600.0" minWidth="1000.0">
+                             <xAxis>
+                               <CategoryAxis animated="false" label="Name" side="BOTTOM" fx:id="xAxis" />
+                             </xAxis>
+                             <yAxis>
+                               <NumberAxis fx:id="yAxis" animated="false" label="Number of attempts" minorTickCount="0" minorTickLength="0.0" minorTickVisible="false" side="LEFT" tickUnit="0.0" upperBound="0.0" />
+                             </yAxis>
+                           </StackedBarChart>
+                        </children>
+                     </Pane>
+                  </content>
+               </ScrollPane>
+            </children></VBox>
+        </Scene>
+    </scene>
+</fx:root>

@@ -21,6 +21,7 @@ public class Statistics {
     private XYChart.Series<String, Number> wrongSeries;
 
     public Statistics() {
+        reset();
     }
 
     /**
