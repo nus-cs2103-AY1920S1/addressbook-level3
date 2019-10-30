@@ -71,8 +71,8 @@ public class VehicleAssignmentCommand extends Command {
             // ObservableList<Vehicle> availableVehicles = nearbyVehicles
                     // .filtered(predicate);
 
-            if (indexOfV < nearbyVehicles.size()) {
-                Vehicle vehicle = nearbyVehicles.get(indexOfV);
+            if (indexOfV <= nearbyVehicles.size()) {
+                Vehicle vehicle = nearbyVehicles.get(indexOfV-1);
 
                 if (vehicle.isAvailable()) {
                     draft.addVehicle(vehicle);

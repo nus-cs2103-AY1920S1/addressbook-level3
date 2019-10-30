@@ -24,7 +24,7 @@ public class NewCommandParser implements Parser<NewCommand> {
      */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DISTRICT,
-                PREFIX_AUTO);
+                PREFIX_AUTO, PREFIX_VEHICLE);
 
         // if auto/y then dont need v/
         if (!arePrefixesPresent(argMultimap, PREFIX_DISTRICT, PREFIX_AUTO)
