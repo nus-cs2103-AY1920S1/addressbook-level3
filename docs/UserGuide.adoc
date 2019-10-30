@@ -361,9 +361,11 @@ There is no need to save manually.
 
 == Command Summary
 
-* Add new flashcard: add [q>QUESTION] [q>ANSWER] [c>CATEGORY]…​ +
+* Add new flashcard - `add [q>QUESTION] [q>ANSWER] [c>CATEGORY]…​` +
 e.g. `add q>1+1 a>2`
-* Show Calendar of Deadlines- `calendar`
+* Set a flashcard as bad - `bad [INDEX]` +
+e.g.  `bad 2`
+* Show Calendar of Deadlines - `calendar`
 * Clear all the flashcard - `clear` +
 e.g. `clear`
 * Edit an existing flashcard - ` edit [INDEX] {fields wanted to edit}…​` +
@@ -393,4 +395,4 @@ e.g.  `start Mathematics`
 * View overall statistics - `stats`
 * Search specific flashcards - `search [keywords]` +
 e.g.  `search UML diagrams`
-* Stop flashcard test - `stop`
+* Stop flashcard test - `end`
