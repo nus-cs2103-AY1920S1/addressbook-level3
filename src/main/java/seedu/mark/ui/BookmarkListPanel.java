@@ -76,7 +76,6 @@ public class BookmarkListPanel extends UiPart<Region> {
             if (newValue == null) {
                 return;
             }
-            System.out.println("listener");
             bookmarkListView.refresh();
             bookmarkListView.scrollTo(newValue);
         });
