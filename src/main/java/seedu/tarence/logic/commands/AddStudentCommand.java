@@ -33,7 +33,7 @@ public class AddStudentCommand extends Command {
             + "Full format: "
             + PREFIX_NAME + "NAME "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME"
+            + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
             + PREFIX_MODULE + "MODULE_CODE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "

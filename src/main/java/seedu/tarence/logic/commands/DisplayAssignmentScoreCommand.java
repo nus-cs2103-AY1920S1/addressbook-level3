@@ -33,11 +33,12 @@ public class DisplayAssignmentScoreCommand extends Command {
     // TODO: Update message to include full format
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays the tutorial assignment identified by the tutorial name, module code and assignment name.\n"
-            + PREFIX_INDEX + "TUTORIAL_INDEX\n"
-            + PREFIX_NAME + "ASSIGNMENT_NAME\n"
+            + "Parameters: "
+            + PREFIX_INDEX + "TUTORIAL_INDEX "
+            + PREFIX_NAME + "ASSIGNMENT_NAME "
             + PREFIX_FORMAT + "DISPLAY_FORMAT(t for table and g for graph)\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + "1"
-            + PREFIX_NAME + "Lab 1" + PREFIX_FORMAT + "t";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + "1 "
+            + PREFIX_NAME + "Lab 1 " + PREFIX_FORMAT + "t";
 
     private Index tutorialIndex;
     private String assignmentName;

@@ -36,8 +36,8 @@ public class MarkAttendanceCommand extends Command {
             + "(y/n)";
     public static final String MESSAGE_MARK_ATTENDANCE_TUTORIAL = "Marking attendance of %1$s";
 
-    public static final String COMMAND_WORD = "mark";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
+    public static final String COMMAND_WORD = "markAttendance";
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "mark", "marka", "markatt"};
 
     // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the attendance of a student in a tutorial.\n"

@@ -257,6 +257,12 @@ Example:
 * `cd m`
 * `cd s`
 
+=== Import tutorials via NUSMods url: `import`
+
+Imports tutorials via NUSMods url.
+
+Format: `import [URL]
+
 === Undo Previously-entered Commands : `undo` [coming in v2.0]
 
 === Clearing all entries : `clear` [coming in v2.0]
