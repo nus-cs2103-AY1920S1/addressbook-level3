@@ -58,7 +58,6 @@
 
                     <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                 </VBox>
-                
                 <!-- to contain the side panels in vbox -->
                 <VBox fx:id="sidePanelsPlaceHolder" minWidth="400" prefWidth="400">
                     <VBox fx:id="wishesPlaceHolder" minWidth="400" prefWidth="400" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
