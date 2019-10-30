@@ -652,7 +652,7 @@ The LogicManager will store the command to CommandHistory before parsing it to e
 ** Cons: Duplicate list will be saved while saving billboards to VersionedBillboard. Also, restoring billboard will need to update the history list.
 // end::history[]
 
-// tag::up/down key[]
+// tag::updownkey[]
 [[Up-Down-Feature]]
 === Up/Down key feature
 ==== Implementation
@@ -701,7 +701,7 @@ image::UpkeySequenceDiagram.png[]
 The Down(`&darr;`) key does the opposite — it calls CommandHistory#peekPreviousCmd(),
 which shifts the statePointer once to the left,
 pointing to the previous command state, and return the command.
-// end::up/down key[]
+// end::updownkey[]
 
 === Logging
 
