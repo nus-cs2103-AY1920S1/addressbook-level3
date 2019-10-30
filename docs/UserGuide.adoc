@@ -276,7 +276,7 @@ For example, if you would like to include the fact that your grandparents are co
 
     i/Grandparents will be here!!
 
-== Add Command
+=== Add Command
 
 Whew! After reading so much, it is time to find out how you can add your event, be it your commitment, holiday, school break or trip, so that TravEzy can start suggesting when you can travel! 😊
 
