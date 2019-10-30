@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Dictionary;
-//import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,6 +17,8 @@ import seedu.address.model.password.analyser.SequenceAnalyser;
 import seedu.address.model.password.analyser.SimilarityAnalyser;
 import seedu.address.model.password.analyser.StrengthAnalyser;
 import seedu.address.model.password.analyser.UniqueAnalyser;
+import seedu.address.model.password.analyser.report.AnalysisReport;
+import seedu.address.model.password.analyser.result.Result;
 
 /**
  * Analyses passwords in the password book.
@@ -29,16 +30,9 @@ public class AnalysePasswordCommand extends Command {
             + ": Analyses security of the entire list of passwords.\n"
             + "OPTIONAL Parameters: \n"
             + PREFIX_STRONG + "INDEX (Analyses the password identified by the index in greater detail.)";
-    public static final String MESSAGE_INIT =
-            "  ____                           ___ _____  \n"
-            + " / ___|  ___  ___ _   _ _ __ ___|_ _|_   _| \n"
-            + " \\___ \\ / _ \\/ __| | | | '__/ _ \\| |  | |   \n"
-            + "  ___) |  __/ (__| |_| | | |  __/| |  | |   \n"
-            + " |____/ \\___|\\___|\\__,_|_|  \\___|___| |_|   \n"
-            + "                                            \n"
-            + "---- Password analysis ----\n"
-            + "\n";
+
     public static final String DICTIONARY_PASSWORD = "passwords.txt";
+
 
     public AnalysePasswordCommand() {
     }
@@ -48,18 +42,16 @@ public class AnalysePasswordCommand extends Command {
         requireNonNull(model);
         List<Password> passwordList = model.getFilteredPasswordList();
         List<Analyser> analyserList = getRequiredAnalysers();
-        StringBuilder reportBuilder = new StringBuilder();
-        reportBuilder.append(MESSAGE_INIT);
+        AnalysisReport analysisReport = new AnalysisReport();
         for (Analyser analyser : analyserList) {
-            analyser.analyse(passwordList);
-            String report = analyser.outputSummaryReport();
-            reportBuilder.append(report);
+            analysisReport.writeHeading(analyser.getHeader());
+            List<Result> results = analyser.analyse(passwordList);
+            analysisReport.write(results);
         }
-        System.out.println(reportBuilder.toString());
-        return new CommandResult("Details are shown in CLI!");
+        return new CommandResult("Results shown below", analysisReport, null);
     }
 
-    private List<Analyser> getRequiredAnalysers() throws DictionaryException {
+    List<Analyser> getRequiredAnalysers() throws DictionaryException {
         ArrayList<Analyser> analyserList = new ArrayList<>();
         analyserList.add(new UniqueAnalyser());
         //analyserList.add(new UserAsPassAnalyser());

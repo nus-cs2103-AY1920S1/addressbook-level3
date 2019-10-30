@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.Dictionary;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.LeetUtil;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.DictionaryMatch;
 import seedu.address.model.password.analyser.result.DictionaryResult;
+import seedu.address.model.password.analyser.result.Result;
 
 /**
  * Represents analyser object that analyses passwords in password book for common dictionary string.
@@ -18,15 +18,14 @@ public class DictionaryAnalyser implements Analyser {
 
     private static final String MESSAGE_HEADER = "Analysing passwords for commonly used passwords:\n";
     private Dictionary dictionary;
-    private ArrayList<DictionaryResult> results;
 
     public DictionaryAnalyser(Dictionary dictionary) {
         this.dictionary = dictionary;
     }
 
     @Override
-    public void analyse(List<Password> passwordList) {
-        ArrayList<DictionaryResult> results = new ArrayList<>();
+    public List<Result> analyse(List<Password> passwordList) {
+        ArrayList<Result> results = new ArrayList<>();
         for (Password acc : passwordList) {
             List<DictionaryMatch> matches = getAllMatches(acc.getPasswordValue().value);
             if (matches.isEmpty()) {
@@ -35,7 +34,7 @@ public class DictionaryAnalyser implements Analyser {
                 results.add(new DictionaryResult(acc, DESC_FAIL, matches));
             }
         }
-        this.results = results;
+        return results;
     }
 
     List<DictionaryMatch> getAllMatches(String password) {
@@ -70,23 +69,7 @@ public class DictionaryAnalyser implements Analyser {
     }
 
     @Override
-    public String outputSummaryReport() {
-        StringBuilder reportBuilder = new StringBuilder();
-        reportBuilder.append(MESSAGE_HEADER);
-        reportBuilder.append(MESSAGE_COLUMNS);
-        for (DictionaryResult o : results) {
-            reportBuilder.append(o);
-        }
-        return reportBuilder.toString();
-    }
-
-    @Override
-    public String outputDetailedReport(Index index) {
-        StringBuilder reportBuilder = new StringBuilder();
-        reportBuilder.append(MESSAGE_INIT);
-        reportBuilder.append(MESSAGE_HEADER);
-        DictionaryResult target = results.get(index.getZeroBased());
-        reportBuilder.append(target.getGreaterDetail());
-        return reportBuilder.toString();
+    public String getHeader() {
+        return MESSAGE_HEADER;
     }
 }

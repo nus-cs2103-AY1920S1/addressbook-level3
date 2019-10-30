@@ -3,8 +3,8 @@ package seedu.address.model.password.analyser;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.analyser.result.Result;
 import seedu.address.model.password.analyser.result.StrengthResult;
 
 /**
@@ -16,16 +16,14 @@ public class StrengthAnalyser implements Analyser {
     private static final String DESC_STRONG = "strong";
     private static final String MESSAGE_HEADER = "Analysing passwords for strength: \n";
 
-    private ArrayList<StrengthResult> results;
-
     @Override
-    public void analyse(List<Password> accountList) {
-        ArrayList<StrengthResult> results = new ArrayList<>();
+    public List<Result> analyse(List<Password> accountList) {
+        ArrayList<Result> results = new ArrayList<>();
         for (Password p : accountList) {
             StrengthResult o = calculateStrength(p);
             results.add(o);
         }
-        this.results = results;
+        return results;
     }
 
     /**
@@ -97,23 +95,7 @@ public class StrengthAnalyser implements Analyser {
     }
 
     @Override
-    public String outputSummaryReport() {
-        StringBuilder reportBuilder = new StringBuilder();
-        reportBuilder.append(MESSAGE_HEADER);
-        reportBuilder.append(MESSAGE_COLUMNS);
-        for (StrengthResult o : results) {
-            reportBuilder.append(o);
-        }
-        return reportBuilder.toString();
-    }
-
-    @Override
-    public String outputDetailedReport(Index index) {
-        StringBuilder report = new StringBuilder();
-        report.append(MESSAGE_INIT);
-        report.append(MESSAGE_HEADER);
-        StrengthResult target = results.get(index.getZeroBased());
-        report.append(target.getGreaterDetail());
-        return report.toString();
+    public String getHeader() {
+        return MESSAGE_HEADER;
     }
 }

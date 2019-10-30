@@ -65,7 +65,7 @@ public abstract class Result {
      */
     @Override
     public String toString() {
-        return String.format("%-30s %-10s %-30s %-10s %-30s %-10s %-30s", this.password.getDescription(),
+        return String.format("%-20s %-5s %-20s %-5s %-20s %-5s %-20s", this.password.getDescription(),
                 ":", this.password.getUsername(), ":",
                 this.password.getPasswordValue() , ":" , getDescription()) + "\n";
     }

@@ -21,7 +21,7 @@ public class SequenceResult extends Result {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (matches.isEmpty()) {
-            report.append("No passwords were found to have contained common sequences");
+            report.append("No passwords were found to have contained common sequences\n");
             return report.toString();
         }
         for (Match m : matches) {
