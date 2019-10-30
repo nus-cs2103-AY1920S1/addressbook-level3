@@ -52,7 +52,7 @@ public class ReadDisplayCard extends UiPart<Region> {
         cardNumber.setText(card.getNonEncryptedCardNumber());
         cvc.setText(card.getNonEncryptedCvc());
         expiryDate.setText(card.getExpiryDate().value);
-        cardType.setText("create method in cardNumber");
+        cardType.setText(card.getCardNumber().value.charAt(0) == '4' ? "Visa" : "MasterCard");
         card.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

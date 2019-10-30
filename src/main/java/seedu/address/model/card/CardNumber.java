@@ -15,10 +15,9 @@ import java.util.regex.Pattern;
 public class CardNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Card numbers should only contain 16 numeric characters, and it should not be blank\n"
-            + "It should be in the format ";
+            "Card number provided is not a valid VISA or MasterCard number.";
 
-    public static final String VALIDATION_REGEX = "(\\d{4})-?(\\d{4})-?(\\d{4})-?(\\d{4})";
+    public static final String VALIDATION_REGEX = "(4\\d{3}|5[1-5]\\d{2})-?(\\d{4})-?(\\d{4})-?(\\d{4})";
 
     public final String value;
 
