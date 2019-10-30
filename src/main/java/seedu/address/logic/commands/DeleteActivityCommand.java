@@ -67,7 +67,11 @@ public class DeleteActivityCommand extends DeleteCommand {
         model.deleteActivity(activityToDelete);
         return new CommandResult(
                 String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete),
-                new ResultInformation(activityToDelete, indexOfActivity),
+                new ResultInformation(
+                        activityToDelete,
+                        indexOfActivity,
+                        String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, "")
+                ),
                 UiFocus.ACTIVITY, UiFocus.INFO
         );
     }

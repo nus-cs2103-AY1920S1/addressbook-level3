@@ -83,7 +83,11 @@ public class AddActivityCommand extends AddCommand {
                 model.addActivity(linkedActivity);
                 return new CommandResult(
                         String.format(MESSAGE_SUCCESS, toAdd),
-                        new ResultInformation(linkedActivity, findIndexOfActivity(model, linkedActivity)),
+                        new ResultInformation(
+                                linkedActivity,
+                                findIndexOfActivity(model, linkedActivity),
+                                String.format(MESSAGE_SUCCESS, "")
+                        ),
                         UiFocus.ACTIVITY, UiFocus.INFO);
             } else {
                 if (index == null) {
@@ -101,7 +105,7 @@ public class AddActivityCommand extends AddCommand {
         }
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, toAdd),
-                new ResultInformation(toAdd, findIndexOfActivity(model, toAdd)),
+                new ResultInformation(toAdd, findIndexOfActivity(model, toAdd), String.format(MESSAGE_SUCCESS, "")),
                 UiFocus.ACTIVITY, UiFocus.INFO);
     }
 

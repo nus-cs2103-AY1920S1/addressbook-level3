@@ -81,7 +81,11 @@ public class AddAccommodationCommand extends AddCommand {
                         toAdd.getTags());
                 model.addAccommodation(linkedAccommodation);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
-                        new ResultInformation(linkedAccommodation, findIndexOfAccommodation(model, linkedAccommodation)),
+                        new ResultInformation(
+                                linkedAccommodation,
+                                findIndexOfAccommodation(model, linkedAccommodation),
+                                String.format(MESSAGE_SUCCESS, "")
+                        ),
                         UiFocus.ACCOMMODATION, UiFocus.INFO
                 );
             } else {
@@ -99,7 +103,11 @@ public class AddAccommodationCommand extends AddCommand {
             }
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
-                new ResultInformation(toAdd, findIndexOfAccommodation(model, toAdd)),
+                new ResultInformation(
+                        toAdd,
+                        findIndexOfAccommodation(model, toAdd),
+                        String.format(MESSAGE_SUCCESS, "")
+                ),
                 UiFocus.ACCOMMODATION, UiFocus.INFO);
     }
 

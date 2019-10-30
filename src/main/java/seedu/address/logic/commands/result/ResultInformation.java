@@ -8,6 +8,7 @@ import seedu.address.model.itineraryitem.activity.Activity;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the information to display to user after command execution.
@@ -17,25 +18,29 @@ public class ResultInformation {
     private final Activity activity;
     private final Accommodation accommodation;
     private final Index displayedIndex;
+    private final String descriptionOfInformation;
 
-    public ResultInformation(Contact contact, Activity activity, Accommodation accommodation, Index displayedIndex) {
-        this.displayedIndex = requireNonNull(displayedIndex);
+    public ResultInformation(Contact contact, Activity activity, Accommodation accommodation,
+                             Index displayedIndex, String descriptionOfInformation) {
+        requireAllNonNull(displayedIndex, descriptionOfInformation);
+        this.descriptionOfInformation = descriptionOfInformation;
+        this.displayedIndex = displayedIndex;
         onlyOneNonNull(contact, activity, accommodation);
         this.contact = contact;
         this.activity = activity;
         this.accommodation = accommodation;
     }
 
-    public ResultInformation(Contact contact, Index displayedIndex) {
-        this(requireNonNull(contact), null, null, displayedIndex);
+    public ResultInformation(Contact contact, Index displayedIndex, String description) {
+        this(requireNonNull(contact), null, null, displayedIndex, description);
     }
 
-    public ResultInformation(Activity activity, Index displayedIndex) {
-        this(null, requireNonNull(activity), null, displayedIndex);
+    public ResultInformation(Activity activity, Index displayedIndex, String description) {
+        this(null, requireNonNull(activity), null, displayedIndex, description);
     }
 
-    public ResultInformation(Accommodation accommodation, Index displayedIndex) {
-        this(null, null, requireNonNull(accommodation), displayedIndex);
+    public ResultInformation(Accommodation accommodation, Index displayedIndex, String description) {
+        this(null, null, requireNonNull(accommodation), displayedIndex, description);
     }
 
     public Optional<Contact> getContact() {
@@ -51,7 +56,11 @@ public class ResultInformation {
     }
 
     public Index getIndex() {
-        return this.displayedIndex;
+        return displayedIndex;
+    }
+
+    public String getDescription() {
+        return descriptionOfInformation;
     }
 
     /**

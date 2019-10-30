@@ -67,7 +67,11 @@ public class DeleteAccommodationCommand extends DeleteCommand {
         model.deleteAccommodation(accommodationToDelete);
         return new CommandResult(
                 String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, accommodationToDelete),
-                new ResultInformation(accommodationToDelete, indexOfAccommodation),
+                new ResultInformation(
+                        accommodationToDelete,
+                        indexOfAccommodation,
+                        String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, "")
+                ),
                 UiFocus.ACCOMMODATION, UiFocus.INFO
         );
     }

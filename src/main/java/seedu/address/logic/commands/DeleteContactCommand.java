@@ -68,7 +68,11 @@ public class DeleteContactCommand extends DeleteCommand {
         model.deleteContact(contactToDelete);
         return new CommandResult(
                 String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete),
-                new ResultInformation(contactToDelete, indexOfContact),
+                new ResultInformation(
+                        contactToDelete,
+                        indexOfContact,
+                        String.format(MESSAGE_DELETE_CONTACT_SUCCESS, "")
+                ),
                 UiFocus.CONTACT, UiFocus.INFO
         );
     }
