@@ -1,6 +1,5 @@
 package seedu.exercise.model.property;
 
-import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.AppUtil.checkArgument;
 
@@ -8,18 +7,26 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
- * Represents Exercise's and Statistic's date in ExerHealth.
+ * Represents date in ExerHealth.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
+
     public static final String PROPERTY_DATE = "Date";
+    public static final String DAYS = "day(s)";
+    public static final String WEEKS = "week(s)";
     public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/MM/yyyy and must be valid.";
     public static final String MESSAGE_INVALID_END_DATE = "End date must be after start date";
+    public static final String MESSAGE_PRETTY_PRINT_ONE_UNIT = "%1$s %2$s left...";
+    public static final String MESSAGE_PRETTY_PRINT_TWO_UNITS = "%1$s and %2$s left...";
+
     private static final String DATE_FORMAT = "dd/MM/yyyy";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    public static final DateTimeFormatter STANDARD_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
     public final LocalDate value;
 
     /**
@@ -30,7 +37,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        value = LocalDate.parse(date, formatter);
+        value = LocalDate.parse(date, STANDARD_DATE_TIME_FORMATTER);
     }
 
     /**
@@ -38,7 +45,7 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         try {
-            LocalDate.parse(test, formatter);
+            LocalDate.parse(test, STANDARD_DATE_TIME_FORMATTER);
             return true;
         } catch (DateTimeParseException e) {
             return false;
@@ -50,8 +57,8 @@ public class Date {
      */
     public static boolean isEndDateAfterStartDate(String startDate, String endDate) {
         try {
-            LocalDate sDate = LocalDate.parse(startDate, formatter);
-            LocalDate eDate = LocalDate.parse(endDate, formatter);
+            LocalDate sDate = LocalDate.parse(startDate, STANDARD_DATE_TIME_FORMATTER);
+            LocalDate eDate = LocalDate.parse(endDate, STANDARD_DATE_TIME_FORMATTER);
             return eDate.compareTo(sDate) >= 0;
         } catch (DateTimeParseException e) {
             return false;
@@ -67,9 +74,9 @@ public class Date {
         LocalDate d;
 
         try {
-            d = LocalDate.parse(date.toString(), formatter);
-            sDate = LocalDate.parse(startDate.toString(), formatter);
-            eDate = LocalDate.parse(endDate.toString(), formatter);
+            d = LocalDate.parse(date.toString(), STANDARD_DATE_TIME_FORMATTER);
+            sDate = LocalDate.parse(startDate.toString(), STANDARD_DATE_TIME_FORMATTER);
+            eDate = LocalDate.parse(endDate.toString(), STANDARD_DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             return false;
         }
@@ -84,13 +91,13 @@ public class Date {
         LocalDate sDate;
         LocalDate eDate;
         try {
-            sDate = LocalDate.parse(startDate.toString(), formatter);
-            eDate = LocalDate.parse(endDate.toString(), formatter);
+            sDate = LocalDate.parse(startDate.toString(), STANDARD_DATE_TIME_FORMATTER);
+            eDate = LocalDate.parse(endDate.toString(), STANDARD_DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             return -1;
         }
 
-        return (int) DAYS.between(sDate, eDate);
+        return (int) ChronoUnit.DAYS.between(sDate, eDate);
     }
 
     /**
@@ -98,16 +105,16 @@ public class Date {
      */
     public static Date getToday() {
         LocalDate today = LocalDate.now(ZoneId.systemDefault());
-        return new Date(today.format(formatter));
+        return new Date(today.format(STANDARD_DATE_TIME_FORMATTER));
     }
 
     /**
      * Returns the date of a week before today.
      */
     public static Date getOneWeekBeforeToday() {
-        LocalDate today = LocalDate.parse(getToday().toString(), formatter);
+        LocalDate today = LocalDate.parse(getToday().toString(), STANDARD_DATE_TIME_FORMATTER);
         LocalDate oneWeekBefore = today.minusDays(6);
-        return new Date(oneWeekBefore.format(formatter));
+        return new Date(oneWeekBefore.format(STANDARD_DATE_TIME_FORMATTER));
     }
 
     /**
@@ -119,26 +126,64 @@ public class Date {
         LocalDate eDate;
 
         try {
-            sDate = LocalDate.parse(startDate.toString(), formatter);
-            eDate = LocalDate.parse(endDate.toString(), formatter);
+            sDate = LocalDate.parse(startDate.toString(), STANDARD_DATE_TIME_FORMATTER);
+            eDate = LocalDate.parse(endDate.toString(), STANDARD_DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             return new ArrayList<>();
         }
-        days = (int) DAYS.between(sDate, eDate) + 1;
+        days = (int) ChronoUnit.DAYS.between(sDate, eDate) + 1;
 
         ArrayList<Date> dates = new ArrayList<>();
         for (int i = 0; i < days; i++) {
             LocalDate temp = sDate.plusDays(i);
-            Date date = new Date(temp.format(formatter));
+            Date date = new Date(temp.format(STANDARD_DATE_TIME_FORMATTER));
             dates.add(date);
         }
 
         return dates;
     }
 
+    /**
+     * Convenient overloaded method to pretty print a date of format dd/MM/YYYY.
+     */
+    public static String prettyPrint(String date) {
+        requireNonNull(date);
+        Date localDate = new Date(date);
+        return prettyPrint(localDate);
+    }
+
+    /**
+     * Returns a representation of {@code date} that is more natural to human language.
+     * {@code prettyPrint} will use {@link Date#getToday()} to determine how to print the dates.
+     */
+    public static String prettyPrint(Date date) {
+        int daysBetween = numberOfDaysBetween(Date.getToday(), date);
+
+        //Within a week
+        if (daysBetween < 7) {
+            return String.format(MESSAGE_PRETTY_PRINT_ONE_UNIT, daysBetween, DAYS);
+        } else {
+            int numOfWeeksLeft = daysBetween / 7;
+            int numOfDaysLeft = daysBetween % 7;
+
+            // A full week distance away. Don't show xxx days remaining.
+            if (numOfDaysLeft == 0) {
+                return String.format(MESSAGE_PRETTY_PRINT_ONE_UNIT, numOfWeeksLeft, WEEKS);
+            } else {
+                return String.format(MESSAGE_PRETTY_PRINT_TWO_UNITS, numOfWeeksLeft + " " + WEEKS,
+                        numOfDaysLeft + " " + DAYS);
+            }
+        }
+    }
+
+    /**
+     * Returns the dd/MM/YYYY representation of the date.
+     * Call {@link Date#prettyPrint} to return a more natural form of
+     * the date.
+     */
     @Override
     public String toString() {
-        return value.format(formatter);
+        return value.format(STANDARD_DATE_TIME_FORMATTER);
     }
 
     @Override

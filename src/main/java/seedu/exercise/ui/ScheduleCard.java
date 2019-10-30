@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.exercise.model.property.Date;
 import seedu.exercise.model.resource.Schedule;
 
 /**
@@ -38,7 +39,7 @@ public class ScheduleCard extends UiPart<Region> {
         this.schedule = schedule;
         id.setText(displayedIndex + ". ");
         name.setText(schedule.getRegime().getRegimeName().toString());
-        date.setText(DATE_PREAMBLE + schedule.getDate().toString());
+        date.setText(getDateStringForDisplay(schedule.getDate().toString()));
     }
 
     @Override
@@ -57,5 +58,12 @@ public class ScheduleCard extends UiPart<Region> {
         ScheduleCard card = (ScheduleCard) other;
         return id.getText().equals(card.id.getText())
             && schedule.equals(card.schedule);
+    }
+
+    /**
+     * Returns a string representation of {@code date} that is pretty printed.
+     */
+    private String getDateStringForDisplay(String date) {
+        return DATE_PREAMBLE + date + "\n" + Date.prettyPrint(date);
     }
 }

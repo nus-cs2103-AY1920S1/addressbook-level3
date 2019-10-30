@@ -12,6 +12,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
+import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.model.util.DefaultPropertyBookUtil;
@@ -29,6 +30,9 @@ public class ScheduleRegimeCommandTest {
     private final ScheduleCommand scheduleRegimeCommandWithConflictingDate =
             new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_LEGS),
                 TypicalDates.DATE_1);
+    private final ScheduleCommand scheduleRegimeCommandWithEpochDate =
+            new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
+                    TypicalDates.DATE_EPOCH);
     private final ScheduleCommand validScheduleRegimeCommand =
             new ScheduleRegimeCommand(new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
                 TypicalDates.DATE_3);
@@ -59,6 +63,14 @@ public class ScheduleRegimeCommandTest {
                 TypicalRegime.VALID_REGIME_NAME_CHEST);
 
         CommandTestUtil.assertCommandFailure(scheduleRegimeCommandWithUnknownRegime, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_dateBeforeCurrentDate_throwsCommandException() {
+        String expectedMessage = String.format(ScheduleRegimeCommand.MESSAGE_DATE_BEFORE_CURRENT_DATE,
+                Date.getToday().toString());
+
+        CommandTestUtil.assertCommandFailure(scheduleRegimeCommandWithEpochDate, model, expectedMessage);
     }
 
     /**

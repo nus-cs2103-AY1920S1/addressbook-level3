@@ -2,12 +2,16 @@ package seedu.exercise.model.property;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.exercise.testutil.CommonTestData;
 
 public class DateTest {
 
@@ -55,6 +59,11 @@ public class DateTest {
     }
 
     @Test
+    public void isEndDateAfterStartDate_invalidDateString_returnsFalse() {
+        assertFalse(Date.isEndDateAfterStartDate(CommonTestData.INVALID_DATE_ALPHABETS, CommonTestData.VALID_DATE));
+    }
+
+    @Test
     public void isBetweenStartAndEndDate() {
         //all same date
         assertTrue(Date.isBetweenStartAndEndDate(new Date("01/10/2019"), new Date("01/10/2019"),
@@ -67,6 +76,29 @@ public class DateTest {
         //target date not in between start and end date
         assertFalse(Date.isBetweenStartAndEndDate(new Date("14/12/2019"), new Date("01/03/2019"),
                 new Date("30/03/2019")));
+    }
+
+    @Test
+    public void getOneWeeksBeforeToday_returnsOneWeekBeforeToday() {
+        Date expectedDate = new Date(LocalDate.now().minusDays(6)
+                .format(Date.STANDARD_DATE_TIME_FORMATTER));
+        assertEquals(expectedDate, Date.getOneWeekBeforeToday());
+    }
+
+    @Test
+    public void hashCode_variousScenarios_success() {
+        Date date = new Date(CommonTestData.VALID_DATE);
+        Date other = new Date(CommonTestData.VALID_DATE_2);
+
+        // different date -> different hashcode
+        assertNotEquals(date.hashCode(), other.hashCode());
+
+        // same object -> same hashcode
+        assertEquals(date.hashCode(), date.hashCode());
+
+        // same date -> same hashcode
+        other = new Date(CommonTestData.VALID_DATE);
+        assertEquals(date.hashCode(), other.hashCode());
     }
 
     @Test
@@ -92,5 +124,35 @@ public class DateTest {
         expectedDate.add(new Date("05/05/2019"));
 
         assertEquals(actualDates, expectedDate);
+    }
+
+    @Test
+    public void prettyPrint_validDateLessThanAWeek_returnsCorrectString() {
+        String expectedMessage = String.format(Date.MESSAGE_PRETTY_PRINT_ONE_UNIT, 1, Date.DAYS);
+        assertPrettyPrintCorrectNumberOfDaysFromCurrent(1, expectedMessage);
+    }
+
+    @Test
+    public void prettyPrint_validDateExactlyAWeek_returnsCorrectString() {
+        String expectedMessage = String.format(Date.MESSAGE_PRETTY_PRINT_ONE_UNIT, 1, Date.WEEKS);
+        assertPrettyPrintCorrectNumberOfDaysFromCurrent(7, expectedMessage);
+    }
+
+    @Test
+    public void prettyPrint_validDateMoreThanAWeek_returnsCorrectString() {
+        String expectedMessage = String.format(Date.MESSAGE_PRETTY_PRINT_TWO_UNITS, 1 + " " + Date.WEEKS,
+                1 + " " + Date.DAYS);
+        assertPrettyPrintCorrectNumberOfDaysFromCurrent(8, expectedMessage);
+    }
+
+    private String getDateStringNumberOfDaysFromNow(int x) {
+        Date today = Date.getToday();
+        LocalDate added = today.value.plusDays(x);
+        return added.format(Date.STANDARD_DATE_TIME_FORMATTER);
+    }
+
+    private void assertPrettyPrintCorrectNumberOfDaysFromCurrent(int x, String expectedMessage) {
+        String dateString = getDateStringNumberOfDaysFromNow(x);
+        assertEquals(expectedMessage, Date.prettyPrint(dateString));
     }
 }
