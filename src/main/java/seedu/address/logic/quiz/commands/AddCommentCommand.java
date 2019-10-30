@@ -3,7 +3,6 @@ package seedu.address.logic.quiz.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_COMMENT;
-import static seedu.address.model.quiz.Model.PREDICATE_SHOW_ALL_QUESTIONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -76,8 +75,8 @@ public class AddCommentCommand extends Command {
         model.setQuestion(questionToEdit, editedQuestion);
         model.commitQuizBook();
 
-        String commentMessages = index.getOneBased() + ": " + questionComment +".\nEnter detail " +
-                index.getOneBased() + " to see the updates.";
+        String commentMessages = index.getOneBased() + ": " + questionComment + ".\nEnter detail "
+                + index.getOneBased() + " to see the updates.";
 
         return new CommandResult(String.format(MESSAGE_COMMENT_QUESTION_SUCCESS, commentMessages),
                 "detail");

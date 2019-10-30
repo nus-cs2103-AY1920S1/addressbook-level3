@@ -1,5 +1,9 @@
 package seedu.address.ui.quiz;
 
+import static javafx.scene.paint.Color.GREENYELLOW;
+import static javafx.scene.paint.Color.ORANGE;
+import static javafx.scene.paint.Color.RED;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -10,10 +14,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import seedu.address.model.quiz.person.Question;
-
-import static javafx.scene.paint.Color.RED;
-import static javafx.scene.paint.Color.ORANGE;
-import static javafx.scene.paint.Color.GREENYELLOW;
 
 /**
  * An UI component that displays information of a {@code Question}.

@@ -53,8 +53,8 @@ public class EditCommand extends Command {
     public static final String CATEGORY_MISMATCH = "Wrong category mention with the desired question.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the modulo quiz.";
-    public static final String MESSAGE_INVALID_EDIT_COMMAND = "Invalid category, question index or instruction.\n" +
-            "Format: edit [CATEGORY] [INDEX] [QUESTION_INSTRUCTION]";
+    public static final String MESSAGE_INVALID_EDIT_COMMAND = "Invalid category, question index or instruction.\n"
+            + "Format: edit [CATEGORY] [INDEX] [QUESTION_INSTRUCTION]";
 
     private final Index index;
     private final String category;

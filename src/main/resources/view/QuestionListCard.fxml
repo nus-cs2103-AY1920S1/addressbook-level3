@@ -24,7 +24,6 @@
          <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 3 0 0 0;">
             <children>
                <Circle fx:id="circleType" fill="DODGERBLUE" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-      
             <FlowPane fx:id="tags" />
             </children>
          </HBox>

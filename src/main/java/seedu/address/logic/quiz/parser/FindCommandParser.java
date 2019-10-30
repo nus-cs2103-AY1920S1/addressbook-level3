@@ -59,6 +59,14 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
     }
 
+    /**
+     * Validate the input that the user enter and throw an error if the command does not
+     * follow the syntax provided.
+     *
+     * @param instructionKeyword the left part of your command before key instruction
+     * @param searchKeyword command or keywords that follows after the key instruction
+     * @throws ParseException
+     */
     public void validateParsedFindKeyword (String[] instructionKeyword, String[] searchKeyword) throws ParseException {
         for (int i = 0; i < searchKeyword.length; i++) {
             String validWord = searchKeyword[i].replaceAll("[^A-Za-z0-9]", "");

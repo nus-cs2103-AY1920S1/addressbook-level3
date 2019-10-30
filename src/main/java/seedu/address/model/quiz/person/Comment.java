@@ -1,7 +1,5 @@
 package seedu.address.model.quiz.person;
 
-import seedu.address.logic.quiz.commands.CommandResult;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 

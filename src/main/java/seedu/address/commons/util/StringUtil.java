@@ -8,7 +8,6 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Set;
 
-import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.tag.Tag;
 
 /**
