@@ -25,9 +25,9 @@ import seedu.address.logic.commands.ListContactCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
-import seedu.address.testutil.ContactBuilder;
-import seedu.address.testutil.ContactUtil;
-import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.contact.ContactBuilder;
+import seedu.address.testutil.contact.ContactUtil;
+import seedu.address.testutil.contact.EditContactDescriptorBuilder;
 
 public class PlannerParserTest {
 

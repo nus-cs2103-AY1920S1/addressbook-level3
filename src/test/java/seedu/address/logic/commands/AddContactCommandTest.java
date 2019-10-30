@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ContactManager;
 import seedu.address.model.Model;
@@ -32,12 +33,12 @@ import seedu.address.model.day.Day;
 import seedu.address.model.field.Name;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
 import seedu.address.model.itineraryitem.activity.Activity;
-import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.contact.ContactBuilder;
 
 public class AddContactCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullContact_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddContactCommand((Contact) null));
     }
 
@@ -127,6 +128,11 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public void addAccommodationAtIndex(Index index, Accommodation accommodation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasAccommodation(Accommodation accommodation) {
             throw new AssertionError("This method should not be called.");
         }
@@ -171,8 +177,14 @@ public class AddContactCommandTest {
         public ReadOnlyActivity getActivities() {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void addActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addActivityAtIndex(Index index, Activity activity) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -214,6 +226,11 @@ public class AddContactCommandTest {
 
         @Override
         public void addContact(Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addContactAtIndex(Index index, Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 

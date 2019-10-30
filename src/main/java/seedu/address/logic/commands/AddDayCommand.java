@@ -30,6 +30,15 @@ public class AddDayCommand extends AddCommand {
         toAdd = numDays;
     }
 
+    public int getToAdd() {
+        return toAdd;
+    }
+
+    @Override
+    public String getSecondCommandWord() {
+        return SECOND_COMMAND_WORD;
+    }
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

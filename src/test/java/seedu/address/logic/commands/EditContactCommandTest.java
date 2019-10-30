@@ -1,4 +1,3 @@
-/*
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,9 +10,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
-import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
+import static seedu.address.testutil.accommodation.TypicalAccommodations.getTypicalAccommodationManager;
+import static seedu.address.testutil.activity.TypicalActivity.getTypicalActivityManager;
+import static seedu.address.testutil.contact.TypicalContacts.getTypicalContactManager;
+import static seedu.address.testutil.day.TypicalDays.getTypicalItinerary;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,16 +26,18 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
-import seedu.address.testutil.ContactBuilder;
-import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.contact.ContactBuilder;
+import seedu.address.testutil.contact.EditContactDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * EditContactCommand.
+*/
 
 public class EditContactCommandTest {
 
-    private Model model = new ModelManager(getTypicalPlanner(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAccommodationManager(), getTypicalActivityManager(),
+            getTypicalContactManager(), getTypicalItinerary(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -43,7 +47,9 @@ public class EditContactCommandTest {
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new Planner(model.getPlanner()), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAccommodations(), model.getActivities(),
+                model.getContacts(), model.getItinerary(), new UserPrefs());
+
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
@@ -64,7 +70,9 @@ public class EditContactCommandTest {
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new Planner(model.getPlanner()), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAccommodations(), model.getActivities(),
+                model.getContacts(), model.getItinerary(), new UserPrefs());
+
         expectedModel.setContact(lastContact, editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
@@ -78,7 +86,8 @@ public class EditContactCommandTest {
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new Planner(model.getPlanner()), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAccommodations(), model.getActivities(),
+                model.getContacts(), model.getItinerary(), new UserPrefs());
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
     }
@@ -94,7 +103,9 @@ public class EditContactCommandTest {
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
-        Model expectedModel = new ModelManager(new Planner(model.getPlanner()), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAccommodations(), model.getActivities(),
+                model.getContacts(), model.getItinerary(), new UserPrefs());
+
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
@@ -114,7 +125,7 @@ public class EditContactCommandTest {
         showContactAtIndex(model, INDEX_FIRST_CONTACT);
 
         // edit contacts in filtered list into a duplicate in address book
-        Contact contactInList = model.getPlanner().getContactList().get(INDEX_SECOND_CONTACT.getZeroBased());
+        Contact contactInList = model.getContacts().getContactList().get(INDEX_SECOND_CONTACT.getZeroBased());
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_CONTACT,
                 new EditContactDescriptorBuilder(contactInList).build());
 
@@ -135,13 +146,13 @@ public class EditContactCommandTest {
     /**
      * Edit filtered list where index is larger than size of filtered list,
      * but smaller than size of address book
-     *
+     */
     @Test
     public void execute_invalidContactIndexFilteredList_failure() {
         showContactAtIndex(model, INDEX_FIRST_CONTACT);
         Index outOfBoundIndex = INDEX_SECOND_CONTACT;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getPlanner().getContactList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getContacts().getContactList().size());
 
         EditContactCommand editContactCommand = new EditContactCommand(outOfBoundIndex,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -175,5 +186,3 @@ public class EditContactCommandTest {
     }
 
 }
-
-*/

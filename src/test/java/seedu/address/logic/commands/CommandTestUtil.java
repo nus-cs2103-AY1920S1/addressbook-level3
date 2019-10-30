@@ -19,7 +19,7 @@ import seedu.address.model.ContactManager;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.contact.EditContactDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

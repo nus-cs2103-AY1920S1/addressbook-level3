@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.UniqueContactList;
@@ -83,6 +84,14 @@ public class ContactManager implements ReadOnlyContact {
      */
     public void addContact(Contact c) {
         contacts.add(c);
+    }
+
+    /**
+     * Adds a contacts to the address book.
+     * The contacts must not already exist in the address book.
+     */
+    public void addContactAtIndex(Index index, Contact c) {
+        contacts.addAtIndex(index, c);
     }
 
     /**

@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.contact;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -62,7 +62,7 @@ public class TypicalContacts {
     /**
      * Returns an {@code Planner} with all the typical persons.
      */
-    public static ContactManager getTypicalPlanner() {
+    public static ContactManager getTypicalContactManager() {
         ContactManager cm = new ContactManager();
         for (Contact contact : getTypicalContacts()) {
             cm.addContact(contact);

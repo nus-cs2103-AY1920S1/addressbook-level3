@@ -9,5 +9,8 @@
       "z" : 99
     }
   },
-  "plannerFilePath" : "planner.json"
+  "accommodationFilePath" : "accommodation.json",
+  "activityFilePath" : "activity.json",
+  "contactFilePath" : "contact.json",
+  "itineraryFilePath" : "itinerary.json"
 }

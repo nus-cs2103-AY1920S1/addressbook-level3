@@ -1,15 +1,16 @@
-/*
 package seedu.address.logic.commands;
-
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
-import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
+import static seedu.address.testutil.accommodation.TypicalAccommodations.getTypicalAccommodationManager;
+import static seedu.address.testutil.activity.TypicalActivity.getTypicalActivityManager;
+import static seedu.address.testutil.contact.TypicalContacts.getTypicalContactManager;
+import static seedu.address.testutil.day.TypicalDays.getTypicalItinerary;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +24,11 @@ import seedu.address.model.contact.Contact;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteCommand}.
- *
+ */
 public class DeleteContactCommandTest {
 
-    private Model model = new ModelManager(getTypicalPlanner(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAccommodationManager(), getTypicalActivityManager(),
+            getTypicalContactManager(), getTypicalItinerary(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -35,7 +37,8 @@ public class DeleteContactCommandTest {
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getPlanner(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAccommodations(), model.getActivities(),
+                model.getContacts(), model.getItinerary(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -58,7 +61,9 @@ public class DeleteContactCommandTest {
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        Model expectedModel = new ModelManager(model.getPlanner(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAccommodations(), model.getActivities(), model.getContacts(),
+                model.getItinerary(), new UserPrefs());
+
         expectedModel.deleteContact(contactToDelete);
         showNoContact(expectedModel);
 
@@ -71,7 +76,7 @@ public class DeleteContactCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_CONTACT;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getPlanner().getContactList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getContacts().getContactList().size());
 
         DeleteCommand deleteCommand = new DeleteContactCommand(outOfBoundIndex);
 
@@ -102,7 +107,7 @@ public class DeleteContactCommandTest {
 
     /**
      * Updates {@code model}'s filtered list to show no one.
-     *
+     */
     private void showNoContact(Model model) {
         model.updateFilteredContactList(p -> false);
 
@@ -110,4 +115,3 @@ public class DeleteContactCommandTest {
     }
 }
 
-*/

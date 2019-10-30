@@ -11,10 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.address.model.AccommodationManager;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
-import seedu.address.testutil.TypicalContacts;
+import seedu.address.testutil.contact.TypicalContacts;
 
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.
@@ -26,9 +25,9 @@ public class TypicalAccommodations {
             .withTags("Jurong", "Cool", "Cheap").build();
     public static final Accommodation BENSON = new AccommodationBuilder().withName("Benson Meier Home")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withContact(TypicalContacts.BENSON).withTags("Near Mrt", "Cozy").build();
+            .withContact(TypicalContacts.BENSON).withTags("NearMrt", "Cozy").build();
     public static final Accommodation CARL = new AccommodationBuilder().withName("Carl Kurz Home")
-            .withContact(TypicalContacts.CARL).withAddress("wall street").build();
+            .withContact(TypicalContacts.CARL).withAddress("wallbstreet").build();
     public static final Accommodation DANIEL = new AccommodationBuilder().withName("Daniel Meier Home")
             .withContact(TypicalContacts.DANIEL).withAddress("10th street").withTags("friends").build();
     public static final Accommodation ELLE = new AccommodationBuilder().withName("Elle Meyer Home")
@@ -57,15 +56,15 @@ public class TypicalAccommodations {
     /**
      * Returns an {@code Model} with all the typical accommodations.
      */
-    public static Model getTypicalAccommodations() {
-        Model ab = new ModelManager();
-        for (Accommodation accommodation : getTypicalContacts()) {
-            ab.addAccommodation(accommodation);
+    public static AccommodationManager getTypicalAccommodationManager() {
+        AccommodationManager am = new AccommodationManager();
+        for (Accommodation accommodation : getTypicalAccommodations()) {
+            am.addAccommodation(accommodation);
         }
-        return ab;
+        return am;
     }
 
-    public static List<Accommodation> getTypicalContacts() {
+    public static List<Accommodation> getTypicalAccommodations() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

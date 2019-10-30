@@ -1,12 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -37,14 +39,31 @@ public class AddContactCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the contact list";
 
+    private final Index index;
     private final Contact toAdd;
 
     /**
-     * Creates an AddContactCommand to add the specified {@code Person}
+     * Creates an AddContactCommand to add the specified {@Contact}
      */
     public AddContactCommand(Contact contact) {
         requireNonNull(contact);
         toAdd = contact;
+        index = null;
+    }
+
+    public AddContactCommand(Index index, Contact contact) {
+        requireAllNonNull(index, contact);
+        toAdd = contact;
+        this.index = index;
+    }
+
+    public Contact getToAdd() {
+        return toAdd;
+    }
+
+    @Override
+    public String getSecondCommandWord() {
+        return SECOND_COMMAND_WORD;
     }
 
     @Override
@@ -55,7 +74,11 @@ public class AddContactCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 
-        model.addContact(toAdd);
+        if (index == null) {
+            model.addContact(toAdd);
+        } else {
+            model.addContactAtIndex(index, toAdd);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -25,21 +25,42 @@ public class DeleteContactCommand extends DeleteCommand {
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
 
     private final Index targetIndex;
+    private final Contact toDelete;
 
     public DeleteContactCommand(Index targetIndex) {
+        toDelete = null;
         this.targetIndex = targetIndex;
+    }
+
+    public DeleteContactCommand(Contact contact) {
+        toDelete = contact;
+        targetIndex = null;
+    }
+
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    @Override
+    public String getSecondCommandWord() {
+        return SECOND_COMMAND_WORD;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Contact> lastShownList = model.getFilteredContactList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        List<Contact> lastShownList = model.getFilteredContactList();
+        Contact contactToDelete;
+
+        if (toDelete != null) {
+            contactToDelete = toDelete;
+        } else if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        } else {
+            contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         }
 
-        Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteContact(contactToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete));
     }

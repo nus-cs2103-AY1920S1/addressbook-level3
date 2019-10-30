@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.itineraryitem.activity.exceptions.ActivityNotFoundException;
 import seedu.address.model.itineraryitem.activity.exceptions.DuplicateActivityException;
 
@@ -38,8 +39,8 @@ public class UniqueActivityList implements Iterable<Activity> {
     }
 
     /**
-     * Adds a contacts to the list.
-     * The contacts must not already exist in the list.
+     * Adds a activity to the list.
+     * The activity must not already exist in the list.
      */
     public void add(Activity toAdd) {
         requireNonNull(toAdd);
@@ -47,6 +48,18 @@ public class UniqueActivityList implements Iterable<Activity> {
             throw new DuplicateActivityException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds a activity to the list at a specific index.
+     * The activity must not already exist in the list.
+     */
+    public void addAtIndex(Index index, Activity toAdd) {
+        requireAllNonNull(index, toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateActivityException();
+        }
+        internalList.add(index.getZeroBased(), toAdd);
     }
 
     public void setActivities(UniqueActivityList replacement) {

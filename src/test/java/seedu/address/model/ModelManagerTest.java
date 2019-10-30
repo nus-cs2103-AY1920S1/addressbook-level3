@@ -1,12 +1,10 @@
-/*
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.ALICE;
-import static seedu.address.testutil.TypicalContacts.BENSON;
+import static seedu.address.testutil.contact.TypicalContacts.ALICE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +14,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
-import seedu.address.testutil.PlannerBuilder;
+import seedu.address.testutil.accommodation.TypicalAccommodations;
+import seedu.address.testutil.activity.TypicalActivity;
+import seedu.address.testutil.contact.TypicalContacts;
+import seedu.address.testutil.day.TypicalDays;
 
 public class ModelManagerTest {
 
@@ -26,7 +27,10 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new Planner(), new Planner(modelManager.getPlanner()));
+        assertEquals(new AccommodationManager(), new AccommodationManager(modelManager.getAccommodations()));
+        assertEquals(new ActivityManager(), new ActivityManager(modelManager.getActivities()));
+        assertEquals(new ContactManager(), new ContactManager(modelManager.getContacts()));
+        assertEquals(new Itinerary(), new Itinerary(modelManager.getItinerary()));
     }
 
     @Test
@@ -37,14 +41,17 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setPlannerFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setAccommodationFilePath(Paths.get("accommodation/file/path"));
+        userPrefs.setActivityFilePath(Paths.get("activity/file/path"));
+        userPrefs.setContactFilePath(Paths.get("contact/file/path"));
+        userPrefs.setItineraryFilePath(Paths.get("itinerary/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setPlannerFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setAccommodationFilePath(Paths.get("new/accommodation/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -60,16 +67,17 @@ public class ModelManagerTest {
         assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
+    //========== ACCOMMODATIONS ========================================================================
     @Test
-    public void setPlannerFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setPlanner(null));
+    public void setAccommodationFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setAccommodations(null));
     }
 
     @Test
-    public void setPlannerFilePath_validPath_setsPlannerFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setPlannerFilePath(path);
-        assertEquals(path, modelManager.getPlannerFilePath());
+    public void setAccommodationFilePath_validPath_setsAccommodationFilePath() {
+        Path path = Paths.get("accommodation/file/path");
+        modelManager.setAccommodationFilePath(path);
+        assertEquals(path, modelManager.getAccommodationFilePath());
     }
 
     @Test
@@ -95,13 +103,23 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Planner planner = new PlannerBuilder().withContact(ALICE).withContact(BENSON).build();
-        Planner differentPlanner = new Planner();
+        AccommodationManager accommodation = TypicalAccommodations.getTypicalAccommodationManager();
+        AccommodationManager differentAccommodation = new AccommodationManager();
+
+        ActivityManager activity = TypicalActivity.getTypicalActivityManager();
+        ActivityManager differentActivity = new ActivityManager();
+
+        ContactManager contact = TypicalContacts.getTypicalContactManager();
+        ContactManager differentContact = new ContactManager();
+
+        Itinerary itinerary = TypicalDays.getTypicalItinerary();
+        Itinerary differentItinerary = new Itinerary();
+
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(planner, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(planner, userPrefs);
+        modelManager = new ModelManager(accommodation, activity, contact, itinerary, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(accommodation, activity, contact, itinerary, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,22 +131,34 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different planner -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentPlanner, userPrefs)));
+        // different accommodation -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentAccommodation, activity, contact,
+                itinerary, userPrefs)));
+
+        // different activity -> returns false
+        assertFalse(modelManager.equals(new ModelManager(accommodation, differentActivity, contact,
+                itinerary, userPrefs)));
+
+        // different contact -> returns false
+        assertFalse(modelManager.equals(new ModelManager(accommodation, activity, differentContact,
+                itinerary, userPrefs)));
+
+        // different itinerary -> returns false
+        assertFalse(modelManager.equals(new ModelManager(accommodation, activity, contact,
+                differentItinerary, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().toString().split("\\s+");
         modelManager.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(planner, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(accommodation, activity, contact, itinerary, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setPlannerFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(planner, differentUserPrefs)));
+        differentUserPrefs.setActivityFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(accommodation, activity, contact,
+                itinerary, differentUserPrefs)));
     }
 }
-
-*/

@@ -1,15 +1,13 @@
-/*
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.AMY;
+import static seedu.address.testutil.contact.TypicalContacts.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -20,19 +18,22 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.ListContactCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.events.exceptions.EventException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyPlanner;
+import seedu.address.model.ReadOnlyAccommodation;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
-import seedu.address.storage.JsonPlannerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.ContactBuilder;
+import seedu.address.storage.accommodation.JsonAccommodationStorage;
+import seedu.address.storage.activity.JsonActivityStorage;
+import seedu.address.storage.contact.JsonContactStorage;
+import seedu.address.storage.day.JsonItineraryStorage;
+import seedu.address.testutil.contact.ContactBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -45,10 +46,17 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonPlannerStorage addressBookStorage =
-                new JsonPlannerStorage(temporaryFolder.resolve("planner.json"));
+        JsonAccommodationStorage accommodationStorage =
+                new JsonAccommodationStorage(temporaryFolder.resolve("accommodation.json"));
+        JsonActivityStorage activityStorage =
+                new JsonActivityStorage(temporaryFolder.resolve("activity.json"));
+        JsonContactStorage contactStorage =
+                new JsonContactStorage(temporaryFolder.resolve("contact.json"));
+        JsonItineraryStorage itineraryStorage =
+                new JsonItineraryStorage(temporaryFolder.resolve("itinerary.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(accommodationStorage, activityStorage, contactStorage,
+                itineraryStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -58,11 +66,13 @@ public class LogicManagerTest {
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
+    /*
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteContactCommand = "delete " + DeleteContactCommand.SECOND_COMMAND_WORD + " 9";
         assertCommandException(deleteContactCommand, MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
+    */
 
     @Test
     public void execute_validCommand_success() throws Exception {
@@ -72,12 +82,19 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonPlannerIoExceptionThrowingStub
-        JsonPlannerStorage addressBookStorage =
-                new JsonPlannerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionPlanner.json"));
+        // Setup LogicManager with JsonAccommodationIoExceptionThrowingStub
+        JsonAccommodationStorage accommodationStorage =
+                new JsonAccommodationIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAccommodation.json"));
+        JsonActivityStorage activityStorage =
+                new JsonActivityStorage(temporaryFolder.resolve("ioExceptionActivity.json"));
+        JsonContactStorage contactStorage =
+                new JsonContactStorage(temporaryFolder.resolve("ioExceptionContact.json"));
+        JsonItineraryStorage itineraryStorage =
+                new JsonItineraryStorage(temporaryFolder.resolve("ioExceptionItinerary.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(accommodationStorage, activityStorage, contactStorage,
+                itineraryStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -101,9 +118,9 @@ public class LogicManagerTest {
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
      * @see #assertCommandFailure(String, Class, String, Model)
-     *
+     */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+            Model expectedModel) throws CommandException, ParseException, EventException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -112,7 +129,7 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
      * @see #assertCommandFailure(String, Class, String, Model)
-     *
+     */
     private void assertParseException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
     }
@@ -120,7 +137,7 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
      * @see #assertCommandFailure(String, Class, String, Model)
-     *
+     */
     private void assertCommandException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
     }
@@ -128,10 +145,11 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
      * @see #assertCommandFailure(String, Class, String, Model)
-     *
+     */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getPlanner(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAccommodations(), model.getActivities(), model.getContacts(),
+                model.getItinerary(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -141,7 +159,7 @@ public class LogicManagerTest {
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
      * @see #assertCommandSuccess(String, String, Model)
-     *
+     */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
@@ -149,18 +167,16 @@ public class LogicManagerTest {
     }
 
     /**
-     * A stub class to throw an {@code IOException} when the save method is called.
-     *
-    private static class JsonPlannerIoExceptionThrowingStub extends JsonPlannerStorage {
-        private JsonPlannerIoExceptionThrowingStub(Path filePath) {
+     * A stub class to throw an {@code IOException} when the save method is called, for accommodation storage.
+     */
+    private static class JsonAccommodationIoExceptionThrowingStub extends JsonAccommodationStorage {
+        private JsonAccommodationIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void savePlanner(ReadOnlyPlanner addressBook, Path filePath) throws IOException {
+        public void saveAccommodation(ReadOnlyAccommodation accommodation, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
 }
-
- */

@@ -24,9 +24,25 @@ public class DeleteAccommodationCommand extends DeleteCommand {
     public static final String MESSAGE_DELETE_ACCOMMODATION_SUCCESS = "Deleted Accommodation: %1$s";
 
     private final Index targetIndex;
+    private final Accommodation toDelete;
 
     public DeleteAccommodationCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        toDelete = null;
+    }
+
+    public DeleteAccommodationCommand(Accommodation accommodation) {
+        toDelete = accommodation;
+        targetIndex = null;
+    }
+
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    @Override
+    public String getSecondCommandWord() {
+        return SECOND_COMMAND_WORD;
     }
 
     @Override
@@ -34,16 +50,19 @@ public class DeleteAccommodationCommand extends DeleteCommand {
         requireNonNull(model);
 
         List<Accommodation> lastShownList = model.getFilteredAccommodationList();
+        Accommodation accommodationToDelete;
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (toDelete != null) {
+            accommodationToDelete = toDelete;
+        } else if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ACCOMMODATION_DISPLAYED_INDEX);
+        } else {
+            accommodationToDelete = lastShownList.get(targetIndex.getZeroBased());
         }
 
-        Accommodation accommodationToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteAccommodation(accommodationToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, accommodationToDelete));
     }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

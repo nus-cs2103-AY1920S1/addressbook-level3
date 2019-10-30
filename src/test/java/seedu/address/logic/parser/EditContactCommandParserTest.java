@@ -41,7 +41,7 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.contact.EditContactDescriptorBuilder;
 
 public class EditContactCommandParserTest {
 

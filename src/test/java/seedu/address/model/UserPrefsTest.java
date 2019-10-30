@@ -1,4 +1,3 @@
-/*
 package seedu.address.model;
 
 import static seedu.address.testutil.Assert.assertThrows;
@@ -14,11 +13,27 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setPlannerFilePath_nullPath_throwsNullPointerException() {
+    public void setAccommodationFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        assertThrows(NullPointerException.class, () -> userPrefs.setPlannerFilePath(null));
+        assertThrows(NullPointerException.class, () -> userPrefs.setAccommodationFilePath(null));
     }
 
+    @Test
+    public void setActivityFilePath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setActivityFilePath(null));
+    }
+
+    @Test
+    public void setContactFilePath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setContactFilePath(null));
+    }
+
+    @Test
+    public void setItineraryFilePath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setItineraryFilePath(null));
+    }
 }
 
- */

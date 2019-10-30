@@ -26,8 +26,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalContacts.AMY;
-import static seedu.address.testutil.TypicalContacts.BOB;
+import static seedu.address.testutil.contact.TypicalContacts.AMY;
+import static seedu.address.testutil.contact.TypicalContacts.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +38,7 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.contact.ContactBuilder;
 
 public class AddContactCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();

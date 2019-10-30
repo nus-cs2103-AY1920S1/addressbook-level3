@@ -1,4 +1,3 @@
-/*
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,10 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalContacts.CARL;
-import static seedu.address.testutil.TypicalContacts.ELLE;
-import static seedu.address.testutil.TypicalContacts.FIONA;
-import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
+import static seedu.address.testutil.accommodation.TypicalAccommodations.getTypicalAccommodationManager;
+import static seedu.address.testutil.activity.TypicalActivity.getTypicalActivityManager;
+import static seedu.address.testutil.contact.TypicalContacts.CARL;
+import static seedu.address.testutil.contact.TypicalContacts.ELLE;
+import static seedu.address.testutil.contact.TypicalContacts.FIONA;
+import static seedu.address.testutil.contact.TypicalContacts.getTypicalContactManager;
+import static seedu.address.testutil.day.TypicalDays.getTypicalItinerary;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,10 +25,12 @@ import seedu.address.model.field.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
- *
+ */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalPlanner(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalPlanner(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAccommodationManager(), getTypicalActivityManager(),
+            getTypicalContactManager(), getTypicalItinerary(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAccommodationManager(), getTypicalActivityManager(),
+            getTypicalContactManager(), getTypicalItinerary(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -77,9 +81,9 @@ public class FindCommandTest {
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     *
+     */
     private NameContainsKeywordsPredicate preparePredicate(String userInput) {
         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
-*/
+
