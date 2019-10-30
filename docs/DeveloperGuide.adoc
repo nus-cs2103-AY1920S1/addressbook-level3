@@ -426,7 +426,7 @@ As with other Manager classes, an instance of the  `NotificationManager` is crea
 To give a better explanation of how the `NotificationCheckingThread` works, a single run of its loop is illustrated below:
 
 .Sequence diagram for NotificationCheckingThread's main loop
-image::NotificationCheckingLoopSequenceDiagram[]
+image::NotificationCheckingLoopSequenceDiagram.png[]
 
 Step 1. The `NotificationCheckingThread` calls the `NotificationChecker` to generate `PopupNotification`s through a call to `NotificationChecker#getListOfPopupNotifications()`
 
