@@ -141,10 +141,9 @@ public class LogicCapManager implements Logic {
             list.add(grade);
             set.add(grade);
         }
-        System.out.println("getFilteredGradeCounts");
+
         for (String grade : set) {
             result.add(new PieChart.Data(grade, Collections.frequency(list, grade)));
-            System.out.println(grade + " " + Collections.frequency(filteredModules, set));
         }
 
         return result;
