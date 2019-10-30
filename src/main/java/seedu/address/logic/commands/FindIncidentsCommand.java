@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_SELF;
 
 import java.util.function.Predicate;
 
@@ -13,7 +16,6 @@ import seedu.address.model.incident.IdKeywordsPredicate;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.NameKeywordsPredicate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 
 
 /**
