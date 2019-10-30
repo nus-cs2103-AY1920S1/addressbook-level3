@@ -17,7 +17,6 @@ import seedu.moneygowhere.commons.core.LogsCenter;
  */
 public class StatsPanel extends UiPart<Region> {
     private static final String FXML = "PlaceholderPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(StatsPanel.class);
 
     @FXML
     private StackPane panePlaceholder;
