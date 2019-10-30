@@ -1,9 +1,10 @@
 package seedu.address.itinerary.parser;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.Messages;
 import seedu.address.itinerary.commands.DeleteEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.commons.core.Messages;
+import seedu.address.logic.parser.Parser;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

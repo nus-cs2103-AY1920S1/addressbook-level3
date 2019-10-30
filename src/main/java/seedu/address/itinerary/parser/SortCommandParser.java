@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import seedu.address.itinerary.commands.SortCommand;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 

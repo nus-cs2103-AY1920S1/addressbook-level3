@@ -1,13 +1,14 @@
 package seedu.address.itinerary.commands;
 
 import seedu.address.itinerary.model.Model;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Give a list of the current events in the itinerary.
  */
-public class ListCommand extends Command {
+public class ListCommand extends Command<Model> {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all the event that you "
             + "currently have in your itinerary.";
