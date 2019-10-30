@@ -6,13 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_SELF;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
-import seedu.address.model.incident.DescriptionKeywordsPredicate;
-import seedu.address.model.incident.IdKeywordsPredicate;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.NameKeywordsPredicate;
 import seedu.address.model.person.Name;
@@ -36,26 +36,37 @@ public class FindIncidentsCommand extends Command {
             + SEARCH_PREFIX_DESCRIPTION + "<KEYWORD [MORE_KEYWORDS]...> OR "
             + SEARCH_PREFIX_SELF + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + SEARCH_PREFIX_OPERATOR + "alex";
+            + SEARCH_PREFIX_OPERATOR + "alex "
+            + SEARCH_PREFIX_DESCRIPTION + "district "
+            + SEARCH_PREFIX_SELF;
 
     private Predicate<Incident> predicate;
     private boolean isSelfSearch = false;
+    private List<Predicate> predicateArr = new ArrayList<>();
 
-    public FindIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
-        this.predicate = descriptionPredicate;
+    public FindIncidentsCommand(List<Predicate> predicateArr) {
+        this.predicateArr = predicateArr;
+        combinePredicates();
     }
 
-    public FindIncidentsCommand(IdKeywordsPredicate idPredicate) {
-        this.predicate = idPredicate;
-    }
-
-    public FindIncidentsCommand(NameKeywordsPredicate namePredicate) {
-        this.predicate = namePredicate;
-    }
-
-    public FindIncidentsCommand(Prefix prefix) {
+    public FindIncidentsCommand(List<Predicate> predicateArr, Prefix prefix) {
+        this.predicateArr = predicateArr;
+        combinePredicates();
         if (prefix == SEARCH_PREFIX_SELF) {
             this.isSelfSearch = true;
+        }
+    }
+
+    /**
+     * Combines predicates if there are multiple predicates
+     */
+    private void combinePredicates() {
+        if (predicateArr.size() != 1) {
+            for (int i = 0; i < predicateArr.size() - 1; i++) {
+                this.predicate = predicateArr.get(i).and(predicateArr.get(i + 1));
+            }
+        } else {
+            this.predicate = predicateArr.get(0);
         }
     }
 
@@ -63,11 +74,18 @@ public class FindIncidentsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         if (isSelfSearch) {
-            // quick fix to allow searching using first name. when full name is allowed in search, change this
+            // TODO: quick fix to allow searching using first name. when full name is allowed in search, change this
             Name operatorName = new Name(model.getLoggedInPerson().getName().fullName.split(" ", 2)[0]);
-            predicate = new NameKeywordsPredicate(operatorName);
+            if (predicate != null) {
+                predicate = predicate.and(new NameKeywordsPredicate(operatorName));
+            } else {
+                predicate = new NameKeywordsPredicate(operatorName);
+            }
         }
+
         model.updateFilteredIncidentList(predicate);
+
+        // prints grammatically correct messages to user
         if (model.getFilteredIncidentList().size() == 0) {
             return new CommandResult(Messages.MESSAGE_NO_INCIDENTS_FOUND);
         } else if (model.getFilteredIncidentList().size() == 1) {

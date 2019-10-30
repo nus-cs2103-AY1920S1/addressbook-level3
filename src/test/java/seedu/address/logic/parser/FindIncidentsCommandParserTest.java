@@ -5,6 +5,10 @@ import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindIncidentsCommand;
@@ -23,9 +27,12 @@ public class FindIncidentsCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
+        List<Predicate> predicateArr = new ArrayList<>();
+        predicateArr.add(new DescriptionKeywordsPredicate(new Description("test")));
+
         // no leading and trailing whitespaces
         FindIncidentsCommand expectedSearchIncidentsCommand =
-                new FindIncidentsCommand(new DescriptionKeywordsPredicate(new Description("test")));
+                new FindIncidentsCommand(predicateArr);
         assertParseSuccess(parser, " " + SEARCH_PREFIX_DESCRIPTION + "test", expectedSearchIncidentsCommand);
     }
 

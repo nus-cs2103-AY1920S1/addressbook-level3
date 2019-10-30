@@ -103,7 +103,7 @@ public class FillCommand extends Command {
     private Incident fillReport(Incident toUpdate, CallerNumber callerNumber, Description description) {
         Incident updatedIncident = new Incident(toUpdate.getOperator(), toUpdate.getDistrict(),
                 toUpdate.getIncidentDateTime(), toUpdate.getIncidentId(), callerNumber, description,
-                Incident.Status.COMPLETE_DRAFT); // set status as complete
+                Incident.Status.COMPLETE_DRAFT, toUpdate.getVehicle()); // set status as complete
         return updatedIncident;
     }
 

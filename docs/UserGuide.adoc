@@ -195,13 +195,39 @@ Deletes the 1st account in the results of the `find` command.
 
 ==== Usage
 
-Format: `new l/DISTRICT_NUM auto/[y/n]`
+This command works in two ways:
 
-For multi-step:
+*1. auto/y* +
+Format: `new l/DISTRICT_NUM auto/y`
 
-* Prompts for default vehicle dispatchment.
-** `y`- an available vehicle in the given district is automatically dispatched and attached to the incident.
-** `n`- an indexed list of available vehicles in the given district is shown.
+* An available vehicle in the given district will be automatically dispatched to the incident site.
+* The vehicle pane will show all available vehicles in the district.
+** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
+
+* Example usage:
+
+image::newCommandAutoYBeforeSS.png[]
+
+* Expected outcome: In this case, there is no vehicle available in district 1.
+
+image::newCommandAutoYAfterSS.png[]
+
+*2. auto/n* +
+Format: `new l/DISTRICT_NUM auto/n`
+
+* A list of available vehicles in the given district will be shown.
+* A message will also appear to prompt user to also include the index of the chosen vehicle.
+** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
+
+* Example usage:
+
+image::newCommandAutoNBeforeSS.png[]
+
+image::newCommandAutoNPromptSS.png[]
+
+image::newCommandAutoNAfterPromptSS.png[]
+
+image::newCommandAutoNAfterSS.png[]
 
 === Filling a draft incident report: `fill`
 Fills a draft incident report if relevant parameters are specified, otherwise lists all draft reports ready for filling.
@@ -500,7 +526,7 @@ e.g. `list-p Admin`
 e.g. `find-p James Jake`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *New* `new POSTAL_CODE`
+* *New* `new DISTRICT_NUMBER`
 * *Fill*
 1. `fill` (to list all draft incidents ready for filling)
 2. `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` (to fill specified incident report) +
@@ -512,3 +538,6 @@ e.g. `submit 4`
 * *List Incidents* : `list-i`
 * *Find Incidents* : `find-i [op/KEYWORD] [desc/KEYWORD] [id/KEYWORD]` +
 e.g. `find-i op/alex`
+* *List Vehicles* : `list-v`
+* *Find Vehicles* : `find-v [ds/KEYWORDS] [vtype/KEYWORD] [vnum/KEYWORD]` +
+e.g. `find-v ds/1 2 3`
