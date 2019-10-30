@@ -184,6 +184,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(entry);
         return entries.contains(entry);
     }
+
+    /**
+     * Returns true if a budget with the same identity as {@code entry} exists in the
+     * address book.
+     */
+    public boolean hasBudget(Budget entry) {
+        requireNonNull(entry);
+        return budgets.contains(entry);
+    }
+
+    /**
+     * Returns true if a wish with the same identity as {@code entry} exists in the
+     * address book.
+     */
+    public boolean hasWish(Wish entry) {
+        requireNonNull(entry);
+        return wishes.contains(entry);
+    }
+
     /**
      * Returns true if a reminder with the same identity as {@code reminder} exists
      * in the address book.
@@ -245,7 +264,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addBudget(Budget budget) {
         checkArgument(hasCategory(budget.getCategory()), MESSAGE_INVALID_CATEGORY);
-        entries.add(budget);
         budgets.add(budget);
         indicateModified();
     }
@@ -258,7 +276,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addWish(Wish wish) {
         checkArgument(hasCategory(wish.getCategory()), MESSAGE_INVALID_CATEGORY);
-        entries.add(wish);
         wishes.add(wish);
         indicateModified();
     }
@@ -344,6 +361,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setEntry(Entry target, Entry editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         entries.setEntry(target, editedEntry);
         indicateModified();
     }
@@ -356,8 +374,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setExpense(Expense target, Expense editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         expenses.setExpense(target, editedEntry);
-        entries.setEntry(target, editedEntry);
         indicateModified();
     }
 
@@ -369,8 +387,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setIncome(Income target, Income editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         incomes.setIncome(target, editedEntry);
-        entries.setEntry(target, editedEntry);
         indicateModified();
     }
 
@@ -382,8 +400,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setWish(Wish target, Wish editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         wishes.setWish(target, editedEntry);
-        entries.setEntry(target, editedEntry);
         indicateModified();
     }
 
@@ -414,6 +432,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setBudget(Budget target, Budget editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         budgets.setBudget(target, editedEntry);
         indicateModified();
     }
@@ -439,6 +458,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setAutoExpense(AutoExpense target, AutoExpense editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         autoExpenses.setAutoExpense(target, editedEntry);
         entries.setEntry(target, editedEntry);
         indicateModified();
@@ -516,7 +536,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeWish(Wish key) {
         checkArgument(hasCategory(key.getCategory()), MESSAGE_NONEXISTENT_CATEGORY);
         wishes.remove(key);
-        entries.remove(key);
         indicateModified();
     }
 
@@ -526,7 +545,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeBudget(Budget key) {
         budgets.remove(key);
-        entries.remove(key);
         indicateModified();
     }
 

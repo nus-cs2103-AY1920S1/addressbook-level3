@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Jackson-friendly version of {@link Entry}.
+ * Jackson-friendly version of {@link Wish}.
  */
 class JsonAdaptedWish {
 
@@ -27,7 +27,7 @@ class JsonAdaptedWish {
 
     private final String category;
     private final String desc;
-    private final String time;
+    private final String date;
     private final double amt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -36,12 +36,12 @@ class JsonAdaptedWish {
      */
     @JsonCreator
     public JsonAdaptedWish(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
-                           @JsonProperty("amt") double amt, @JsonProperty("time") String time,
+                           @JsonProperty("amt") double amt, @JsonProperty("date") String date,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.category = category;
         this.desc = desc;
         this.amt = amt;
-        this.time = time;
+        this.date = date;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -55,7 +55,7 @@ class JsonAdaptedWish {
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
-        time = source.getDate().toString();
+        date = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -79,10 +79,18 @@ class JsonAdaptedWish {
         if (!Description.isValidDescription(desc)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
+        final Description modelDesc = new Description(desc);
+
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+        }
+        /*if (!Date.isValidDate(date)) {
+            throw new IllegalValueException((Date.MESSAGE_CONSTRAINTS));
+        }*/
+        final Date modelDate = new Date(date);
 
         final Category modelCategory = new Category(category, "Expense");
-        final Description modelDesc = new Description(desc);
-        final Date modelDate = new Date(time);
         final Amount modelAmt = new Amount(amt);
         final Set<Tag> modelTags = new HashSet<>(entryTags);
         return new Wish(modelCategory, modelDesc, modelDate, modelAmt, modelTags);

@@ -37,7 +37,7 @@ public class DeleteBudgetCommand extends Command {
         List<Budget> lastShownList = model.getFilteredBudgets();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         Budget entryToDelete = lastShownList.get(targetIndex.getZeroBased());

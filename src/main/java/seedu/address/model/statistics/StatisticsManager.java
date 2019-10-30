@@ -131,7 +131,6 @@ public class StatisticsManager implements Statistics {
             CategoryStatistics toCheck = new CategoryStatistics(toVerifyCat, amountVerified);
             if (!typeOfCategory.get(i).equals(toCheck)) {
                 typeOfCategory.set(i, toCheck);
-//                typeOfCategory.get(i).setAmountCalculated(amountVerified);
             }
         }
     }

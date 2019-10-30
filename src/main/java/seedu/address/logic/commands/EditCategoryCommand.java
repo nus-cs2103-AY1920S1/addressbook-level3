@@ -56,7 +56,6 @@ public class EditCategoryCommand extends Command {
         if (!model.hasCategory(toEditCategory)) {
             throw new CommandException(String.format(MESSAGE_NONEXISTENT_CATEGORY, toEditCategory.categoryType));
         }
-        System.out.println(editCategoryDescriptor.getCategoryType());
         ObservableList<Category> typeOfCategoryList = model.getCategoryList()
                 .determineWhichList(editCategoryDescriptor.getCategoryType());
         //TODO

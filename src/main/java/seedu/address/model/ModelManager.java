@@ -152,6 +152,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return versionedAddressBook.hasBudget(budget);
+    }
+
+    @Override
+    public boolean hasWish(Wish wish) {
+        requireNonNull(wish);
+        return versionedAddressBook.hasWish(wish);
+    }
+
+    @Override
     public boolean hasExpenseReminder(ExpenseReminder reminder) {
         requireNonNull(reminder);
         return versionedAddressBook.hasExpenseReminder(reminder);
@@ -194,13 +206,11 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteWish(Wish target) {
-        versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeWish(target);
     }
 
     @Override
     public void deleteBudget(Budget target) {
-        versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeBudget(target);
     }
 
@@ -288,18 +298,49 @@ public class ModelManager implements Model {
     @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
-        versionedAddressBook.setEntry(target, editedEntry);
         if (target instanceof Expense) {
-            versionedAddressBook.setExpense((Expense) target, (Expense) editedEntry);
+            //TODO
+            Expense toEditEntry = new Expense(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
+                     editedEntry.getAmount(), editedEntry.getTags());
+            Expense expenseToEdit = versionedAddressBook.getExpenseList().filtered(t -> t == target).get(0);
+            versionedAddressBook.setEntry(expenseToEdit, toEditEntry);
+            versionedAddressBook.setExpense(expenseToEdit, toEditEntry);
             expenseTrackers.track(filteredExpenses);
             versionedAddressBook.updateExpenseReminders();
-        } else if (target instanceof Income) {
-            versionedAddressBook.setIncome((Income) target, (Income) editedEntry);
-        } else if (target instanceof Wish) {
-            versionedAddressBook.setWish((Wish) target, (Wish) editedEntry);
-        } else if (target instanceof Budget) {
-            versionedAddressBook.setBudget((Budget) target, (Budget) editedEntry);
+        } else {
+            Income incomeToEdit = versionedAddressBook.getIncomeList().filtered(t -> t == target).get(0);
+            Income toEditEntry = new Income(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
+                    editedEntry.getAmount(), editedEntry.getTags());
+            versionedAddressBook.setIncome(incomeToEdit, toEditEntry);
         }
+    }
+
+    @Override
+    public void setExpense(Expense target, Expense editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        versionedAddressBook.setEntry(target, editedEntry);
+        versionedAddressBook.setExpense(target, editedEntry);
+        expenseTrackers.track(filteredExpenses);
+        versionedAddressBook.updateExpenseReminders();
+    }
+
+    @Override
+    public void setIncome(Income target, Income editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        versionedAddressBook.setEntry(target, editedEntry);
+        versionedAddressBook.setIncome(target, editedEntry);
+    }
+
+    @Override
+    public void setWish(Wish target, Wish editedWish) {
+        requireAllNonNull(target, editedWish);
+        versionedAddressBook.setWish(target, editedWish);
+    }
+
+    @Override
+    public void setBudget(Budget target, Budget editedBudget) {
+        requireAllNonNull(target, editedBudget);
+        versionedAddressBook.setBudget(target, editedBudget);
     }
 
     @Override
@@ -347,6 +388,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Entry> getFilteredExpensesAndIncomes() {
+        return new FilteredList<>(filteredEntries,
+            entry -> entry instanceof Expense || entry instanceof Income);
+    }
+
+    @Override
     public ObservableList<Wish> getFilteredWishes() {
         return filteredWishes;
     }
@@ -361,12 +408,13 @@ public class ModelManager implements Model {
         return filteredAutoExpenses;
     }
 
+    @Override
     public ObservableList<ExpenseReminder> getFilteredExpenseReminders() {
         return filteredExpenseReminders;
     }
 
-
-    public ObservableList<WishReminder> getFiltereWishReminders() {
+    @Override
+    public ObservableList<WishReminder> getFilteredWishReminders() {
         return filteredWishReminders;
     }
 

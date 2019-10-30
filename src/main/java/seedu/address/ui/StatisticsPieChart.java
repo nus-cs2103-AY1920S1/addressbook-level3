@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
@@ -63,7 +62,7 @@ public class StatisticsPieChart extends UiPart<Region> {
                 toAdd.add(new PieChart.Data(t.getCategoryName(), t.getAmountCalculated()));
             }
         }
-        if(toAdd.isEmpty()) {
+        if (toAdd.isEmpty()) {
             statsPieChart.setVisible(false);
             noEntryLabel.setVisible(true);
         } else {

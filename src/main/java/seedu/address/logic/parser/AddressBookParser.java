@@ -6,10 +6,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddAutoExpenseCommand;
 import seedu.address.logic.commands.AddCategoryCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddExpenseReminderCommand;
 import seedu.address.logic.commands.BudgetListCommand;
+import seedu.address.logic.commands.ChangeFontCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteBudgetCommand;
@@ -20,9 +22,7 @@ import seedu.address.logic.commands.DeleteWishCommand;
 import seedu.address.logic.commands.EditBudgetCommand;
 import seedu.address.logic.commands.EditCategoryCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditExpenseCommand;
 import seedu.address.logic.commands.EditExpenseReminderCommand;
-import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.EditWishCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindBudgetCommand;
@@ -32,6 +32,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListFontCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatisticsCommand;
@@ -81,12 +82,6 @@ public class AddressBookParser {
         case EditCategoryCommand.COMMAND_WORD:
             return new EditCategoryCommandParser().parse(arguments);
 
-        case EditExpenseCommand.COMMAND_WORD:
-            return new EditExpenseCommandParser().parse(arguments);
-
-        case EditIncomeCommand.COMMAND_WORD:
-            return new EditIncomeCommandParser().parse(arguments);
-
         case EditWishCommand.COMMAND_WORD:
             return new EditWishCommandParser().parse(arguments);
 
@@ -123,6 +118,9 @@ public class AddressBookParser {
         case ListCategoryCommand.COMMAND_WORD:
             return new ListCategoryCommand();
 
+        case ListFontCommand.COMMAND_WORD:
+            return new ListFontCommand();
+
         case WishListCommand.COMMAND_WORD:
             return new WishListCommand();
 
@@ -153,6 +151,9 @@ public class AddressBookParser {
         case DeleteExpenseReminderCommand.COMMAND_WORD:
             return new DeleteExpenseReminderCommandParser().parse(arguments);
 
+        case AddAutoExpenseCommand.COMMAND_WORD:
+            return new AddAutoExpenseCommandParser().parse(arguments);
+
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommandParser().parse(arguments);
 
@@ -167,6 +168,9 @@ public class AddressBookParser {
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
+
+        case ChangeFontCommand.COMMAND_WORD:
+            return new ChangeFontCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

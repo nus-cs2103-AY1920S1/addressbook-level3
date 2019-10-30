@@ -32,6 +32,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
@@ -47,37 +48,39 @@ public class AddCommandParser implements Parser<AddCommand> {
         String type = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
         String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get();
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
-        Date time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_DATE).get());
+        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Entry entry;
         switch (type) {
         case "expense":
-            entry = new Expense(new Category(categoryName, "Expense"), desc, time, amt, tagList);
+            entry = new Expense(new Category(categoryName, "Expense"), desc, date, amt, tagList);
             break;
         case "income":
-            entry = new Income(new Category(categoryName, "Income"), desc, time, amt, tagList);
+            entry = new Income(new Category(categoryName, "Income"), desc, date, amt, tagList);
             break;
         case "wish":
-            entry = new Wish(new Category(categoryName, "Expense"), desc, time, amt, tagList);
+            entry = new Wish(new Category(categoryName, "Expense"), desc, date, amt, tagList);
             break;
         case "budget":
-            entry = new Budget(new Category(categoryName, "Expense"), desc, time, amt, tagList);
+            entry = new Budget(new Category(categoryName, "Expense"), desc, date, amt, tagList);
             break;
         default:
-            throw new ParseException("invalid command");
+            throw new ParseException("Invalid command");
         }
 
         return new AddCommand(entry);
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns true if none of the prefixes contains empty {@code Optional} values
+     * in the given {@code ArgumentMultimap}.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap,
+            Prefix... prefixes) {
+        return Stream.of(prefixes)
+                .allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

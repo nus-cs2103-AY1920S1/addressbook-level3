@@ -8,6 +8,9 @@ import java.util.List;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
+/**
+ * Switches in between the Statistics Graphics and the Statistics Table in guiltTrip.
+ */
 public class SwitchStatisticsCommand extends Command {
 
     public static final String COMMAND_WORD = "switchStats";

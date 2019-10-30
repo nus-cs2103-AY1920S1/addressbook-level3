@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import seedu.address.model.person.PanelName;
+import seedu.address.ui.FontName;
 
 /**
  * Represents the result of a command execution.
@@ -20,10 +21,16 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** For toggling the panels. */
     private final PanelName panelName;
     private final boolean togglePanel;
     private final boolean toggleStats;
     private final boolean toggleGraphics;
+
+    /** For changing the font. */
+    private final FontName fontName;
+    private final boolean listFonts;
+    private final boolean changeFont;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -36,6 +43,9 @@ public class CommandResult {
         this.togglePanel = false;
         this.toggleStats = false;
         this.toggleGraphics = false;
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
     }
 
     /**
@@ -54,14 +64,40 @@ public class CommandResult {
         this.panelName = null;
         this.toggleStats = toggleBooleans.get(0);
         this.toggleGraphics = toggleBooleans.get(1);
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
     }
 
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
     public CommandResult(String feedbackToUser, PanelName panelName, boolean togglePanel) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
         this.panelName = panelName;
         this.togglePanel = togglePanel;
+        this.toggleStats = false;
+        this.toggleGraphics = false;
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
+    public CommandResult(String feedbackToUser, FontName fontName, boolean listFonts, boolean changeFont) {
+        this.feedbackToUser = feedbackToUser;
+        this.showHelp = false;
+        this.exit = false;
+        this.panelName = null;
+        this.togglePanel = false;
+        this.fontName = fontName;
+        this.listFonts = listFonts;
+        this.changeFont = changeFont;
         this.toggleStats = false;
         this.toggleGraphics = false;
     }
@@ -94,6 +130,18 @@ public class CommandResult {
         return this.panelName;
     }
 
+    public boolean isChangeFont() {
+        return changeFont;
+    }
+
+    public boolean isListFonts() {
+        return listFonts;
+    }
+
+    public FontName getFontName() {
+        return fontName;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -109,12 +157,16 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && togglePanel == otherCommandResult.togglePanel;
+                && panelName == otherCommandResult.panelName
+                && togglePanel == otherCommandResult.togglePanel
+                && fontName == otherCommandResult.fontName
+                && listFonts == otherCommandResult.listFonts
+                && changeFont == otherCommandResult.changeFont;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel);
+        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont);
     }
 
 }

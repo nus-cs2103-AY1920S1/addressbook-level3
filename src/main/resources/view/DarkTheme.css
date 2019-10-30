@@ -1,6 +1,8 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
+    /*-fx-background-color: #FAFAFA;*/
     background-color: #383838; /* Used in the default.html file */
+    /*background-color: #FAFAFA;*/
 }
 
 .label {
@@ -124,6 +126,13 @@
     /*-fx-font-family: "Segoe UI";*/
     -fx-font-size: 16px;
     -fx-text-fill: white;
+}
+
+.cell_big_label_amt {
+    /*-fx-font-family: "Segoe UI";*/
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
 .cell_small_label {

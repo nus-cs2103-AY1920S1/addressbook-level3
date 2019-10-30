@@ -30,9 +30,7 @@ public class Wish extends Entry {
             return true;
         }
 
-        if (!(other instanceof Expense)) {
-            return false;
-        } else if (!(other instanceof Income)) {
+        if (!(other instanceof Wish)) {
             return false;
         }
 
@@ -56,7 +54,7 @@ public class Wish extends Entry {
                 .append(getAmount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + getDate() + ")");
+        builder.append(" (" + getDate() + ")");
         return builder.toString();
     }
 

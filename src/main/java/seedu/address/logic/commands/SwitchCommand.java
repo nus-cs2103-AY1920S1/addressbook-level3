@@ -19,6 +19,6 @@ public class SwitchCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        return new CommandResult((MESSAGE_SUCCESS), new ArrayList<Boolean>(List.of(true,false)));
+        return new CommandResult((MESSAGE_SUCCESS), new ArrayList<Boolean>(List.of(true, false)));
     }
 }

@@ -86,6 +86,10 @@ public interface Model {
      */
     boolean hasEntry(Entry entry);
 
+    boolean hasBudget(Budget budget);
+
+    boolean hasWish(Wish wish);
+
     boolean hasExpenseReminder(ExpenseReminder reminder);
 
     /**
@@ -156,6 +160,14 @@ public interface Model {
      */
     void setEntry(Entry target, Entry editedEntry);
 
+    void setIncome(Income target, Income editedEntry);
+
+    void setExpense(Expense target, Expense editedEntry);
+
+    void setWish(Wish target, Wish editedWish);
+
+    void setBudget(Budget target, Budget editedbudget);
+
     void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry);
 
     CategoryList getCategoryList();
@@ -175,6 +187,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Income> getFilteredIncomes();
 
+    /** Returns an unmodifiable view of filtered expense and income list */
+    ObservableList<Entry> getFilteredExpensesAndIncomes();
+
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();
 
@@ -187,7 +202,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered expense reminder list */
     ObservableList<ExpenseReminder> getFilteredExpenseReminders();
 
-    ObservableList<WishReminder> getFiltereWishReminders();
+    ObservableList<WishReminder> getFilteredWishReminders();
     /**
      * Updates the filter of the filtered entry list to filter by the given
      * {@code predicate}.

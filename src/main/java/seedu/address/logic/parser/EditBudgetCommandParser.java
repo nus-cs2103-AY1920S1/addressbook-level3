@@ -48,7 +48,7 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            editBudgetDescriptor.setDate(ParserUtil.parseTime(argMultimap.getValue(PREFIX_DATE).get()));
+            editBudgetDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
