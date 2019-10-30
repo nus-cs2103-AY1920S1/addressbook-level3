@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatsDisplay statsDisplay;
+    private FlashcardDisplay flashcardDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -117,6 +118,9 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        flashcardDisplay = new FlashcardDisplay();
+        statisticsDisplayPlaceholder.getChildren().add(flashcardDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -201,6 +205,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowStats()) {
                 handlestats();
+            }
+
+            if (commandResult.isFlip()) {
+                flashcardDisplay.setFeedbackToUser(commandResult.getFlashcardToDisplay());
             }
 
             return commandResult;

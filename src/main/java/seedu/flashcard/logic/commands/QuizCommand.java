@@ -2,6 +2,7 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.flashcard.commons.core.index.Index;
@@ -24,6 +25,7 @@ public class QuizCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_INVALID_FLASHCARD_INDEX = "The index you entered is invalid!";
+    public static final String MESSAGE_RESULT_SUCCESS = "Please answer the flashcard below with the flip command.";
     private final Index targetIndex;
 
     public QuizCommand(Index targetIndex) {
@@ -45,8 +47,10 @@ public class QuizCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_FLASHCARD_INDEX);
         }
         Flashcard cardToView = lastShownList.get(targetIndex.getZeroBased());
-        model.updateLastViewedFlashcard(cardToView);
-        return new CommandResult(cardToView.toString());
+        List<Flashcard> quizList = new ArrayList<>();
+        quizList.add(cardToView);
+        model.setQuiz(quizList);
+        return new CommandResult(MESSAGE_RESULT_SUCCESS, true, cardToView.toString());
     }
 
     @Override

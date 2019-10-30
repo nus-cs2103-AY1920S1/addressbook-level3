@@ -1,7 +1,8 @@
 package seedu.flashcard.logic.parser;
 
 import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.flashcard.commons.core.Messages.MESSAGE_UNKOWN_COMMAND;
+import static seedu.flashcard.commons.core.Messages.MESSAGE_QUIZ_UNSUPPORTED_COMMAND;
+import static seedu.flashcard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,6 +12,7 @@ import seedu.flashcard.logic.commands.Command;
 import seedu.flashcard.logic.commands.DeleteCommand;
 import seedu.flashcard.logic.commands.DeleteTagCommand;
 import seedu.flashcard.logic.commands.EditCommand;
+import seedu.flashcard.logic.commands.EndCommand;
 import seedu.flashcard.logic.commands.ExitCommand;
 import seedu.flashcard.logic.commands.FindCommand;
 import seedu.flashcard.logic.commands.FlipCommand;
@@ -19,6 +21,7 @@ import seedu.flashcard.logic.commands.ListCardByTagCommand;
 import seedu.flashcard.logic.commands.ListCommand;
 import seedu.flashcard.logic.commands.ListTagCommand;
 import seedu.flashcard.logic.commands.QuizCommand;
+import seedu.flashcard.logic.commands.QuizTagCommand;
 import seedu.flashcard.logic.commands.StatsCommand;
 import seedu.flashcard.logic.commands.ViewCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
@@ -27,6 +30,8 @@ import seedu.flashcard.logic.parser.exceptions.ParseException;
  * The major controlling panel of command parsers.
  */
 public class FlashcardListParser {
+
+    private static boolean quizMode = false;
 
     /**
      * Used for initial separation of command word and args.
@@ -47,6 +52,11 @@ public class FlashcardListParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        if (quizMode) {
+            return parseQuizMode(commandWord, arguments);
+        }
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -80,10 +90,15 @@ public class FlashcardListParser {
             return new DeleteTagCommandParser().parse(arguments);
 
         case QuizCommand.COMMAND_WORD:
+            quizMode = true;
             return new QuizCommandParser().parse(arguments);
 
+        case QuizTagCommand.COMMAND_WORD:
+            quizMode = true;
+            return new QuizTagCommandParser().parse(arguments);
+
         case FlipCommand.COMMAND_WORD:
-            return new FlipCommandParser().parse(arguments);
+            throw new ParseException(FlipCommand.MESSAGE_NULL_QUIZ_FLASHCARD);
 
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
@@ -92,8 +107,51 @@ public class FlashcardListParser {
             return new StatsCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(MESSAGE_UNKOWN_COMMAND);
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    /**
+     * Parses corresponding commands that are triggered in quiz mode.
+     * @param commandWord String representing the command.
+     * @param arguments Arguments of the command.
+     * @return Command based on user input.
+     * @throws ParseException when the user input is unrecognised.
+     */
+    public Command parseQuizMode(String commandWord, String arguments) throws ParseException {
+
+        switch (commandWord) {
+
+        case EndCommand.COMMAND_WORD:
+            quizMode = false;
+            return new EndCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            quizMode = false;
+            return new ExitCommand();
+
+        case FlipCommand.COMMAND_WORD:
+            return new FlipCommandParser().parse(arguments);
+
+        default:
+            throw new ParseException(MESSAGE_QUIZ_UNSUPPORTED_COMMAND);
+        }
+    }
+
+    /**
+     * Getter for quiz mode boolean.
+     * @return True if logic is currently in quiz mode.
+     */
+    public boolean isQuizMode() {
+        return quizMode;
+    }
+
+    /**
+     * Setter for quiz mode boolean.
+     * @param quizMode Sets quiz mode boolean to quizMode.
+     */
+    public static void setQuizMode(boolean quizMode) {
+        FlashcardListParser.quizMode = quizMode;
     }
 
 }
