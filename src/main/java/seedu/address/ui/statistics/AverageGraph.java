@@ -40,8 +40,8 @@ public class AverageGraph {
 
     // labels used for x axis
     private static final String DAY = "day";
-    private static final String WEEK = "week";
-    private static final String MONTH = "month";
+    private static final String WEEK = "week (Date is Monday of the week)";
+    private static final String MONTH = "month (Date is first day of the month)";
 
     // Horizontal range marker for BMI
     private static final XYChart.Data<Number, Number> UNDER_WEIGHT_MARKER = new XYChart.Data<>(0, 18.5);
