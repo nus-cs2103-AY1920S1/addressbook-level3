@@ -55,7 +55,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -71,7 +71,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiComponentClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/io/xpire/ui/Ui.java[`Ui.java`]
 
@@ -89,7 +89,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/io/xpire/logic/Logic.java[`Logic.java`]
@@ -103,7 +103,7 @@ link:{repoURL}/src/main/java/io/xpire/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::LogicComponentSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -111,34 +111,29 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelComponentClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/io/xpire/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Xpire data.
+* stores the Xpire and ReplenishList data.
 * exposes an unmodifiable `ObservableList<Item>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Xpire`, which `Item` can reference. This would allow `Xpire` to only require one `Tag` object per unique `Tag`, instead of each `Item` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageComponentClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/io/xpire/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Xpire data in json format and read it back.
+* can save the Xpire and ReplenishList data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -149,16 +144,16 @@ Classes used by multiple components are in the `io.xpire.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag:tobuylist[]
+// tag:replenishList[]
 
-=== [Proposed] Replenish List
+=== Replenish List
 ==== Implementation
 //{Explain here how the ToReplenish/ToBuy List is implemented}_
 Items are added to the replenish list by the user using the replenish command.
 When an item expires, the item is automatically tagged as "expired".
 This enables the user to search for a list of expired items by searching for the "expired" tag.
 With this, the user is able to view the list of expired items and decide which items to add to the replenish list.
-On the other hand, when an item has run out, the user is prompted to replenish the item using the replenish command.
+On the other hand, when an item has run out, an item is automatically added to the replenish list.
 
 image::ItemManagerClassDiagram.png[]
 
@@ -941,7 +936,15 @@ _{More to be added}_
 
 |Parser |Converts user input into a Command object
 
+|ReadOnlyListView |Provides an unmodifiable view of a list
+
+|ReminderThreshold |Number of days user wants to be reminded before item expiry date
+
+|ReplenishList |List that contains items that are to be replenished
+
 |SceneBuilder |Visual layout tool that allows developers to design JavaFX application user interfaces
+
+|SortedUniqueList |List of items that enforces uniqueness between elements and disallows nulls
 
 |Storage |Manages data in the expiry date tracker in local storage
 
