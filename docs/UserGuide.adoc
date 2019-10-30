@@ -147,17 +147,59 @@ whereas the second cell represents an expenditure item.
 The filter title indicates which transactions are being shown. In <<transactionsScreenshot>>, the list
 shows only transactions that occur on October 2019, under the category "Food".
 
+Minimally, the filter title contains the month and year of the filter applied. It can also display
+the category shown, as well as whether only expenditure/income items are shown. On startup, there is only
+a month and year filter. This filter is generated based on the latest transaction you have recorded,
+up to
+
 The filter title changes along with the filter that is applied to the list. You can change the filter using
 the `filtertx` command in <<filtertx>>
-
-Minimally, the filter title contains the month and year of the filter applied. It can also display
-the category shown, as well as whether only expenditure/income items are shown.
 
 // tag::filtertx[]
 [[filtertx]]
 ==== Filtering transactions: `filtertx`
+Format: `filtertx [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TYPE]`
+
+Let's say you are currently viewing transactions from September 2018. The GUI of Ichifund may look like this:
+
+image::filtertx1.png[]
+
+Suppose you want to view transactions from a different month, say, September 2018.
+You can simply enter the command `filtertx m/9 y/2018`, which results in the following view:
+
+image::filtertx2.png[]
+
+Now, if you want to only see expenditure items, simply enter the command `filtertx ty/exp`.
+
+image::filtertx3.png[]
+
+You can further limit the transactions in the list to contain only items from the category "FOOD" using
+the command `filtertx c/food`
+
+image::filtertx4.png[]
+
+If you want to see expenditure items of the same time, but in a different month, say, August 2019, enter
+the command `filtertx m/8`. Note that you do not need to enter the year, category, or transaction type again.
+
+image::filtertx5.png[]
+
+[NOTE]
+To see only expenditure items, enter `filtertx ty/exp`; to see only income items, enter `filtertx ty/in`. This
+also applies when you are adding transactions in <<addtx>>
+
+===== Removing category and transaction type filter
+Now, if you want to remove both the category filter and the transaction type, you can enter the command
+`filtertx c/!all ty/!all`.
+
+image::filtertx6.png[]
+
+[NOTE]
+You can only remove the category and transaction type filter using the `!all` argument. We do not support
+the removal of the month and year filter.
+
 // end::filtertx[]
 
+[[addtx]]
 ==== Creating transaction: `addtx`
 Creates a transaction. +
 Format: `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
@@ -170,7 +212,7 @@ Creates an income transaction of $2101.00 titled "Salary" occurring today under 
 * `addtx de/Lunch a/12.31 c/Food d/10 m/09 y/2019 ty/exp` +
 Creates an expenditure transaction of $12.32 titled "Food" occurring on the 10th September 2019 under the category "Food".
 
-==== Editing transaction: `edittx`
+==== Editing transaction: `edittx` [Coming in v2.0]
 Edits a transaction. +
 Format: `edittx INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
@@ -179,7 +221,7 @@ Examples:
 * `edittx 1 de/Dinner a/32.30` +
 Edits the description of the 1st transaction in the current list to "Dinner", and its amount to $32.30.
 
-==== Deleting transaction: `deletetx`
+==== Deleting transaction: `deletetx` [Coming in v2.0]
 Deletes a transaction. +
 Format: `deletetx INDEX`
 
@@ -187,19 +229,6 @@ Examples:
 
 * `deletetx 5` +
 Deletes the 5th transaction in the current list.
-
-==== Finding transaction: `findtx`
-Filters transactions in current list by keywords, category, month, year and/or type. +
-Format: `findtx [s/KEYWORD]... [c/CATEGORY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
-
-Examples:
-
-* `findtx m/5 y/2019 c/Education` +
-Finds all transactions in the current list from May 2019 from the category "Education".
-
-==== List all transactions: `txlist`
-Lists all transactions. +
-Format `listtx`
 
 === Repeaters
 
