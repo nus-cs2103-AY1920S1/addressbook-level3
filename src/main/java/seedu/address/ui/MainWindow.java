@@ -38,6 +38,8 @@ import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.alias.DeleteAliasCommand;
 import seedu.address.logic.commands.alias.ListAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
+import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
+import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.ListEventsCommand;
@@ -242,7 +244,17 @@ public class MainWindow extends UiPart<Stage> {
                 Collections.emptyList());
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                DeleteExpenseFromBudgetCommand.COMMAND_WORD,
+                Collections.emptyList(),
+                Collections.emptyList());
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 EditExpenseCommand.COMMAND_WORD,
+                EditCommandParser.REQUIRED_PREFIXES,
+                EditCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                EditExpenseFromBudgetCommand.COMMAND_WORD,
                 EditCommandParser.REQUIRED_PREFIXES,
                 EditCommandParser.OPTIONAL_PREFIXES);
 
