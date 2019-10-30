@@ -1,20 +1,14 @@
 package seedu.address.ui;
 
-import java.io.File;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
-
+//@@author LeonardTay748
 /**
  * Controller for a help page
  */
