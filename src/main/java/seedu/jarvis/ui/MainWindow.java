@@ -3,12 +3,10 @@ package seedu.jarvis.ui;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -133,10 +131,6 @@ public class MainWindow extends UiPart<Stage> {
                 model.setViewStatus(ViewType.getNextViewType(model.getViewStatus().getViewType()));
                 handleSwitch();
             }
-            //if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-            //    menuItem.getOnAction().handle(new ActionEvent());
-            //    event.consume();
-            //}
         });
     }
 
