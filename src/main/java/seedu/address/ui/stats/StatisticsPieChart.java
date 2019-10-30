@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.stats;
 
 import java.util.logging.Logger;
 
@@ -13,13 +13,14 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.statistics.CategoryStatistics;
+import seedu.address.ui.UiPart;
 
 /**
  * Displays the user's statistics by months in the form of a pie chart.
  */
 public class StatisticsPieChart extends UiPart<Region> {
 
-    private static final String FXML = "StatisticsPieChart.fxml";
+    private static final String FXML = "/statistics/StatisticsPieChart.fxml";
     private boolean wasChanged;
     private ObservableList<CategoryStatistics> statsMap;
     private ObservableList<PieChart.Data> toAdd;

@@ -19,8 +19,9 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.PanelName;
+import seedu.address.ui.stats.StatisticsGraphics;
+import seedu.address.ui.stats.StatisticsWindow;
 
 /**
  * The Main Window. Provides the basic application layout containing

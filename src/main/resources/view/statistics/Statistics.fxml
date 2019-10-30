@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->
+<?import javafx.geometry.Insets?>
 
 <HBox HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -17,6 +17,9 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
+        <padding>
+            <Insets bottom="5" top="5" left="5" right="5" />
+        </padding>
       </GridPane>
    </children>
 </HBox>
