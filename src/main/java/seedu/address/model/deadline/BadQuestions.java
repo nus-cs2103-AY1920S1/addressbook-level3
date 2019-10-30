@@ -1,3 +1,5 @@
+//@@author dalsontws
+
 package seedu.address.model.deadline;
 
 import java.io.FileNotFoundException;
@@ -58,21 +60,18 @@ public class BadQuestions {
     }
 
     /**
-     * Save as json.
+     * Using Google's Gson library, save HashMap as a JSON Object and store it
+     * in BadQuestions.json. This can later be used to fetch the 'bad' questions
+     * to test in a future date.
      */
     public void saveAsJson(BadQuestions badQuestions) {
         Gson gson = new Gson();
-
-        // convert java object to JSON format,
-        // and returned as JSON formatted string
         String json = gson.toJson(badQuestions.getBadQuestionsList());
         try {
-            //write converted json data to a file
             //TODO: fix load and save json, json save replace file instead of appending
             FileWriter writer = new FileWriter("data/BadDeadlines.json", true);
             writer.write(json);
             writer.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

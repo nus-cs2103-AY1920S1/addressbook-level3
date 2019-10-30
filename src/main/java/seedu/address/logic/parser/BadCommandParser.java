@@ -1,4 +1,4 @@
-//@@author: dalsontws
+//@@author dalsontws
 
 package seedu.address.logic.parser;
 
