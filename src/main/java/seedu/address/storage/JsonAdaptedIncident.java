@@ -131,6 +131,7 @@ class JsonAdaptedIncident {
         final Incident.Status modelStatus = Incident.Status.valueOf(status);
 
         // no need check for vehicle validity because vehicle must alr be created to be added.
+        assert(this.vehicle != null);
         final Vehicle modelVehicle = this.vehicle.toModelType();
 
         return new Incident(modelOperator, modelDistrict, modelDateTime, modelIncidentId, modelCallerNumber,

@@ -53,8 +53,7 @@ public class IncidentCard extends UiPart<Region> {
         operator.setText("Filed by: " + incident.getOperator().getName().toString() + " ("
                 + incident.getOperator().getUsername() + ")");
         incidentLocation.setText("District: " + incident.getDistrict().toString());
-        assert(incident.getVehicle() != null);
-        vehicle.setText("Vehicle: " + incident.getVehicle().toString());
+        vehicle.setText("Vehicle: " + incident.getVehicle().toDisplayString());
 
         // fields not filled for draft
         CallerNumber incidentCallerNumber = incident.getCallerNumber();

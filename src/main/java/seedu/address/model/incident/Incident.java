@@ -12,8 +12,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.Vehicle;
+import seedu.address.model.vehicle.*;
 
 
 /**
@@ -99,6 +98,8 @@ public class Incident {
         this.callerNumber = callerNumber;
         this.description = desc;
         this.id = id;
+        this.vehicle = new Vehicle(new VehicleType("dummy type"), new VehicleNumber("ABC1234D"),
+                new District(8), new Availability("BUSY"));
         // this.vehicle = TODO
     }
 
@@ -139,6 +140,8 @@ public class Incident {
         this.callerNumber = callerNumber;
         this.description = description;
         this.status = status;
+        this.vehicle = new Vehicle(new VehicleType("dummy type"), new VehicleNumber("ABC1234D"),
+                new District(8), new Availability("BUSY"));
         // this.vehicle = TODO
     }
 
