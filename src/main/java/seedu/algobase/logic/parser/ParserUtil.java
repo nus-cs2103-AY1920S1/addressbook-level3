@@ -289,42 +289,36 @@ public class ParserUtil {
         }
     }
 
-    /** Parses a {@code String tabTypeString} into an {@code TabType}.
+    /** Parses a {@code String tabType} into an {@code TabType}.
      *
-     * @throws ParseException if the given {@code string tabTypeString} is invalid.
+     * @throws ParseException if the given {@code string tabType} is invalid.
      */
-    public static TabType parseTabType(String tabTypeString) throws ParseException {
-        TabType tabType;
-
+    public static TabType parseTabType(String tabType, String errorMessage) throws ParseException {
         // Check if valid string
         try {
-            tabType = TabType.valueOf(tabTypeString.toUpperCase());
+            return TabType.valueOf(tabType.toUpperCase());
         } catch (IllegalArgumentException ire) {
             // Try if the index is valid
         }
 
         // Check if valid index
         try {
-            Index tabTypeIndex = Index.fromOneBased(Integer.parseInt(tabTypeString));
-            tabType = TabType.values()[tabTypeIndex.getZeroBased()];
-        } catch (NumberFormatException ne) {
-            throw new ParseException(ne.toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(e.toString());
+            Index tabTypeIndex = Index.fromOneBased(Integer.parseInt(tabType));
+            return TabType.values()[tabTypeIndex.getZeroBased()];
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(errorMessage);
         }
-
-        return tabType;
     }
 
     /** Parses a {@code String tabIndex} into an {@code Index}.
      *
      * @throws ParseException if the given {@code string tabIndex} is invalid.
      */
-    public static Index parseTabIndex(String tabIndex) throws ParseException {
+    public static Index parseTabIndex(String tabIndex, String errorMessage) throws ParseException {
         try {
             return ParserUtil.parseIndex(tabIndex);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(errorMessage);
         }
     }
 
@@ -332,12 +326,10 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code string modelTypString} is invalid.
      */
-    public static ModelType parseModelType(String modelTypeString) throws ParseException {
-        ModelType modelType;
-
+    public static ModelType parseModelType(String modelTypeString, String errorMessage) throws ParseException {
         // Check if valid string
         try {
-            modelType = ModelType.valueOf(modelTypeString.toUpperCase());
+            return ModelType.valueOf(modelTypeString.toUpperCase());
         } catch (IllegalArgumentException ire) {
             // Try if the index is valid
         }
@@ -345,25 +337,22 @@ public class ParserUtil {
         // Check if valid index
         try {
             Index modelTypeIndex = Index.fromOneBased(Integer.parseInt(modelTypeString));
-            modelType = ModelType.values()[modelTypeIndex.getZeroBased()];
-        } catch (NumberFormatException ne) {
-            throw new ParseException(ne.toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(e.toString());
-        }
+            return ModelType.values()[modelTypeIndex.getZeroBased()];
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(errorMessage);
 
-        return modelType;
+        }
     }
 
     /** Parses a {@code String modelIndex} into an {@code ModelIndex}.
      *
      * @throws ParseException if the given {@code string modelIndex} is invalid.
      */
-    public static Index parseModelIndex(String modelIndex) throws ParseException {
+    public static Index parseModelIndex(String modelIndex, String errorMessage) throws ParseException {
         try {
             return ParserUtil.parseIndex(modelIndex);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenTabCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(errorMessage);
         }
     }
 
