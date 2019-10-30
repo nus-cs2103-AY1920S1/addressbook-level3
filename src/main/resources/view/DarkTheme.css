@@ -38,7 +38,6 @@
     -taskTagColor: #E6BEB5;
     -taskDoneTagColor: #99FFC0;
     -secondaryColor: #FFFFFF;
-    -white: #FFFFFF;
 }
 
 .background {
@@ -221,7 +220,7 @@
 
 #monthYearTitle, #timelineTitle, #upcomingViewTitle {
     -fx-font-family: "Roboto Medium";
-    -fx-font-size: 13pt
+    -fx-font-size: 13pt;
 }
 
 /** For Timeline **/
