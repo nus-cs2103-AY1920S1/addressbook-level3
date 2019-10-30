@@ -36,13 +36,11 @@ public class Donor extends Person {
         this.organ = organ;
         this.organExpiryDate = organExpiryDate;
         processingTodoList = new TaskList("");
+        this.processingTodoList = processingTodoList;
         this.status = status;
         successRateMap = new HashMap<>();
-        if (status.isNotProcessing()) {
-            this.processingTodoList = processingTodoList.defaultList();
-        } else {
-            this.processingTodoList = processingTodoList;
-        }
+
+
     }
 
     public Age getAge() {
@@ -110,9 +108,14 @@ public class Donor extends Person {
         this.status = updatedStatus;
     }
 
+    public void setEmptyList() {
+        TaskList updatedProcessingList = new TaskList("");
+        this.processingTodoList = updatedProcessingList;
+    }
+
     public void setProcessingList(String newProcessingList) {
         TaskList updatedProcessingList = new TaskList("");
-        if (newProcessingList.isEmpty()) {
+        if (newProcessingList == null || newProcessingList.equals("")) {
             this.processingTodoList = updatedProcessingList;
         } else {
             String[] taskString = newProcessingList.split("\n");
@@ -127,8 +130,8 @@ public class Donor extends Person {
                     }
                     updatedProcessingList.add(toBeAddedTask);
                 }
+                this.processingTodoList = updatedProcessingList;
             }
-            this.processingTodoList = updatedProcessingList;
         }
     }
 

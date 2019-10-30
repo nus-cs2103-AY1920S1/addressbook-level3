@@ -82,6 +82,10 @@ public class ProcessingCommand extends Command {
         try {
             if (isValidDonorPatientPair(firstNric, secondNric, model)) {
                 model.getFilteredPersonList();
+
+                if (donor.getStatus().isNotProcessing()) {
+                    donor.setProcessingList(donor.getProcessingList(patientNric).defaultList().toString());
+                }
                 taskList = donor.getProcessingList(patientNric);
 
                 donor.setStatus("processing");

@@ -227,11 +227,11 @@ class JsonAdaptedPerson {
             }
             final Status modelStatus = new Status(status);
 
-            final TaskList modelTaskList = new TaskList(processingTaskList);
-
             Donor modelDonor = new Donor(modelType, modelNric, modelName, modelPhone,
                     modelAge, modelBloodType, modelTissueType,
                     modelOrgan, modelOrganExpiryDate, modelStatus);
+
+            final TaskList modelTaskList = new TaskList("");
 
             modelDonor.setProcessingList(processingTaskList);
 
