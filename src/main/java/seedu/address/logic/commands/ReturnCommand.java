@@ -80,8 +80,7 @@ public class ReturnCommand extends Command {
                 * model.getUserSettings().getFineIncrement();
         Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, fineAmount);
 
-        Book returnedBook = new Book(bookToBeReturned.getTitle(), bookToBeReturned.getSerialNumber(),
-                bookToBeReturned.getAuthor(), null, bookToBeReturned.getGenres());
+        Book returnedBook = bookToBeReturned.returnBook();
 
         // update Book in model to have Loan removed
         model.setBook(bookToBeReturned, returnedBook);

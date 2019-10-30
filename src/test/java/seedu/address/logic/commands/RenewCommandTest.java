@@ -11,7 +11,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_6;
-import static seedu.address.testutil.TypicalBooks.BOOK_7;
+import static seedu.address.testutil.TypicalBooks.BOOK_7_ON_LOAN;
 import static seedu.address.testutil.TypicalBorrowers.HOON;
 import static seedu.address.testutil.TypicalBorrowers.IDA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
@@ -53,7 +53,7 @@ class RenewCommandTest {
         BorrowerId servingBorrowerId = IDA.getBorrowerId();
 
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7);
+        catalog.addBook(BOOK_7_ON_LOAN);
 
         LoanRecords loanRecords = new LoanRecords();
         loanRecords.addLoan(LOAN_7);
@@ -70,9 +70,9 @@ class RenewCommandTest {
         Loan renewedLoan = new LoanBuilder(LOAN_7).withDueDate(extendedDueDate.toString())
                 .withRenewCount(1).build();
 
-        Book renewedBook = new BookBuilder(BOOK_7).withLoan(renewedLoan).build();
+        Book renewedBook = new BookBuilder(BOOK_7_ON_LOAN).withLoan(renewedLoan).build();
 
-        expectedModel.setBook(BOOK_7, renewedBook);
+        expectedModel.setBook(BOOK_7_ON_LOAN, renewedBook);
         expectedModel.servingBorrowerRenewLoan(LOAN_7, renewedLoan);
         expectedModel.updateLoan(LOAN_7, renewedLoan);
 
@@ -88,7 +88,7 @@ class RenewCommandTest {
         borrowerRecords.addBorrower(IDA);
 
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7);
+        catalog.addBook(BOOK_7_ON_LOAN);
 
         LoanRecords loanRecords = new LoanRecords();
         loanRecords.addLoan(LOAN_7);
@@ -114,7 +114,7 @@ class RenewCommandTest {
         BorrowerId servingBorrowerId = IDA.getBorrowerId();
 
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7);
+        catalog.addBook(BOOK_7_ON_LOAN);
 
         LoanRecords loanRecords = new LoanRecords();
         loanRecords.addLoan(LOAN_7);
@@ -167,7 +167,7 @@ class RenewCommandTest {
         BorrowerId servingBorrowerId = HOON.getBorrowerId();
 
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7);
+        catalog.addBook(BOOK_7_ON_LOAN);
 
         LoanRecords loanRecords = new LoanRecords();
         loanRecords.addLoan(LOAN_7);
@@ -183,7 +183,7 @@ class RenewCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         }
-        String expectedMessage = String.format(MESSAGE_NOT_LOANED_BY_BORROWER, HOON, BOOK_7);
+        String expectedMessage = String.format(MESSAGE_NOT_LOANED_BY_BORROWER, HOON, BOOK_7_ON_LOAN);
         assertEquals(actualMessage, expectedMessage);
     }
 
@@ -195,7 +195,7 @@ class RenewCommandTest {
         loanRecords.addLoan(overdueLoan);
 
         Catalog catalog = new Catalog();
-        Book overdueBook = new BookBuilder(BOOK_7).withLoan(overdueLoan).build();
+        Book overdueBook = new BookBuilder(BOOK_7_ON_LOAN).withLoan(overdueLoan).build();
         catalog.addBook(overdueBook);
 
         BorrowerRecords borrowerRecords = new BorrowerRecords();

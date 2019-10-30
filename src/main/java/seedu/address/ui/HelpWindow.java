@@ -17,7 +17,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditBorrowerCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -70,7 +70,7 @@ public class HelpWindow extends UiPart<Stage> implements Initializable {
                 new HelpTableEntry(ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_USAGE),
                 new HelpTableEntry(DeleteCommand.COMMAND_WORD, DeleteCommand.MESSAGE_USAGE),
                 new HelpTableEntry(DoneCommand.COMMAND_WORD, DoneCommand.MESSAGE_USAGE),
-                new HelpTableEntry(EditCommand.COMMAND_WORD, EditCommand.MESSAGE_USAGE),
+                new HelpTableEntry(EditBorrowerCommand.COMMAND_WORD, EditBorrowerCommand.MESSAGE_USAGE),
                 new HelpTableEntry(ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_USAGE),
                 new HelpTableEntry(FindCommand.COMMAND_WORD, FindCommand.MESSAGE_USAGE),
                 new HelpTableEntry(HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE),

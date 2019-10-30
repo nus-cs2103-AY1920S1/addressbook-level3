@@ -86,7 +86,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
      */
     public Borrower getBorrowerFromId(BorrowerId id) throws NullPointerException {
         if (!borrowersMap.containsKey(id)) {
-            throw new NullPointerException("Borrower does not exists");
+            throw new NullPointerException("Borrower " + id.toString() + " does not exists");
         }
         return borrowersMap.get(id);
     }

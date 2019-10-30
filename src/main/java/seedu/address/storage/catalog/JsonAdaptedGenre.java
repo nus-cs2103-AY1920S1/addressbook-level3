@@ -9,28 +9,28 @@ import seedu.address.model.genre.Genre;
 /**
  * Jackson-friendly version of {@link Genre}.
  */
-public class JsonAdaptedTag {
+public class JsonAdaptedGenre {
 
-    private final String tagName;
+    private final String genreName;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedGenre} with the given {@code genreName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
-        this.tagName = tagName;
+    public JsonAdaptedGenre(String genreName) {
+        this.genreName = genreName;
     }
 
     /**
      * Converts a given {@code Genre} into this class for Jackson use.
      */
-    public JsonAdaptedTag(Genre source) {
-        tagName = source.genreName;
+    public JsonAdaptedGenre(Genre source) {
+        genreName = source.genreName;
     }
 
     @JsonValue
-    public String getTagName() {
-        return tagName;
+    public String getGenreName() {
+        return genreName;
     }
 
     /**
@@ -39,10 +39,10 @@ public class JsonAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted genre.
      */
     public Genre toModelType() throws IllegalValueException {
-        if (!Genre.isValidGenreName(tagName)) {
+        if (!Genre.isValidGenreName(genreName)) {
             throw new IllegalValueException(Genre.MESSAGE_CONSTRAINTS);
         }
-        return new Genre(tagName);
+        return new Genre(genreName);
     }
 
 }

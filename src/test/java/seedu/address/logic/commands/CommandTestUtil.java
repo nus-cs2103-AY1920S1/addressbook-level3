@@ -26,7 +26,6 @@ import seedu.address.model.Catalog;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
-import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.EditBorrowerDescriptorBuilder;
 import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
 
@@ -106,19 +105,6 @@ public class CommandTestUtil {
     public static final String VALID_FINE_INCREMENT_2_DESC = " " + PREFIX_FINE_INCREMENT + VALID_FINE_INCREMENT_2;
 
     public static final int VALID_CENT_AMOUNT = 120;
-
-
-    public static final EditCommand.EditBookDescriptor DESC_BOOK_1;
-    public static final EditCommand.EditBookDescriptor DESC_BOOK_2;
-
-    static {
-        DESC_BOOK_1 = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_1)
-                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_1).withAuthor(VALID_AUTHOR_BOOK_1)
-                .withGenres(VALID_GENRE_FICTION).build();
-        DESC_BOOK_2 = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_2)
-                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).withAuthor(VALID_AUTHOR_BOOK_2)
-                .withGenres(VALID_GENRE_ACTION, VALID_GENRE_FICTION).build();
-    }
 
     public static final SetCommand.SetUserSettingsDescriptor DESC_USER_SETTINGS_1;
     public static final SetCommand.SetUserSettingsDescriptor DESC_USER_SETTINGS_2;

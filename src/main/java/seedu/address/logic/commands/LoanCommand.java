@@ -72,21 +72,21 @@ public class LoanCommand extends Command {
         LocalDate dueDate = DateUtil.getTodayPlusDays(model.getUserSettings().getLoanPeriod());
         Loan loan = new Loan(LoanIdGenerator.generateLoanId(), toLoan, servingBorrower.getBorrowerId(),
                 DateUtil.getTodayDate(), dueDate);
-        Book loanedOutBook = new Book(bookToBeLoaned.getTitle(), bookToBeLoaned.getSerialNumber(),
-                bookToBeLoaned.getAuthor(), loan, bookToBeLoaned.getGenres());
+        Book loanedOutBook = bookToBeLoaned.loanOut(loan);
+        Book updatedLoanedOutBook = loanedOutBook.updateLoanHistory(loan);
 
         // replace the previous Book object with a new Book object that has a Loan
-        model.setBook(bookToBeLoaned, loanedOutBook);
+        model.setBook(bookToBeLoaned, updatedLoanedOutBook);
         model.addLoan(loan); // add Loan object to LoanRecords in model
         model.servingBorrowerNewLoan(loan); // add Loan object to Borrower's currentLoanList
 
         try {
-            LoanSlipUtil.mountLoan(loan, loanedOutBook, servingBorrower);
+            LoanSlipUtil.mountLoan(loan, updatedLoanedOutBook, servingBorrower);
         } catch (LoanSlipException e) {
             e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook, servingBorrower));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedLoanedOutBook, servingBorrower));
     }
 
     @Override

@@ -26,7 +26,7 @@ public class TypicalBooks {
             .withSerialNumber("B00005").withAuthor("Jin Yong").withGenres("FICTION", "ACTION").build();
     public static final Book BOOK_6 = new BookBuilder().withTitle("My Book")
             .withSerialNumber("B00006").withAuthor("Jin Yong").withGenres("FICTION", "ACTION").build();
-    public static final Book BOOK_7 = new BookBuilder().withTitle("The Hunger Games")
+    public static final Book BOOK_7_ON_LOAN = new BookBuilder().withTitle("The Hunger Games")
             .withSerialNumber("B00007").withAuthor("Suzanne Collins")
             .withGenres("FICTION", "ACTION").withLoan(LOAN_7).build();
 
@@ -36,11 +36,11 @@ public class TypicalBooks {
      * Returns a {@code Catalog} with all the typical books.
      */
     public static Catalog getTypicalCatalog() {
-        Catalog ab = new Catalog();
+        Catalog catalog = new Catalog();
         for (Book book : getTypicalBooks()) {
-            ab.addBook(book);
+            catalog.addBook(book);
         }
-        return ab;
+        return catalog;
     }
 
     public static List<Book> getTypicalBooks() {
