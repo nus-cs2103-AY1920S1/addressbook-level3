@@ -1,9 +1,16 @@
-package sugarmummy.recmfood.model;
+package sugarmummy.recmfood.testutil;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import sugarmummy.recmfood.model.Calorie;
+import sugarmummy.recmfood.model.Fat;
+import sugarmummy.recmfood.model.Food;
+import sugarmummy.recmfood.model.FoodName;
+import sugarmummy.recmfood.model.FoodType;
+import sugarmummy.recmfood.model.Gi;
+import sugarmummy.recmfood.model.Sugar;
 
 /**
- * A utility class to help with building Food objects.
+ * This is a utility class to help with building Food objects.
  */
 public class FoodBuilder {
 

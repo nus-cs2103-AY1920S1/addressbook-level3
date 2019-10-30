@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
 
-import seedu.address.model.DateTime;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Event;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.calendar.Repetition;
+import seedu.address.model.time.DateTime;
 
 /**
  * A utility class to help with building Event objects.

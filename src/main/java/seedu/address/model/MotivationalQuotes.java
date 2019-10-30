@@ -17,8 +17,8 @@ public class MotivationalQuotes {
             "We have diabetes, it gets to come along with us, it doesn’t get to stop us. -Chris Olsen",
             "Be nice to diabetics, we deal with enough pricks already. -Anonymous",
             "The way to deal with the devil of obesity and diabetes is literally one day at a time. -Stephen Furst",
-            "I should have titled it “Diet Like Your Life Depended On It! because it’s about so much more than just "
-                    + "beating Diabetes. -Russell Stamets",
+            "I should have titled it “Diet Like Your Life Depended On It! because it’s about so much more "
+                    + "than just beating Diabetes. -Russell Stamets",
             "A world free of diabetes is not our dream, it’s our pledge. -Anonymous",
             "Never give up on your determination to fight and win against diabetes. -Anonymous",
             "Duck the highs, duck the lows, duck the diabetes. -Anonymous",
@@ -26,16 +26,16 @@ public class MotivationalQuotes {
             "Don’t mistake my bad days as a sign of weakness those are actually the days I am fighting diabetes with "
                     + "everything I’ve got! -Anonymous",
             "Life is not over because you have diabetes. Make the most of what you have, be grateful. -Dale Evans",
-            "Many people find themselves with illness as they become successful: higher blood pressure and diabetes. "
-                    + "-Zong Qinghou",
-            "I’ve always been independent. I’ve always had courage. But I didn’t always own my diabetes. -Mary Tyler "
-                    + "Moore",
+            "Many people find themselves with illness as they become successful: higher blood pressure and "
+                    + " diabetes. -Zong Qinghou",
+            "I’ve always been independent. I’ve always had courage. But I didn’t always own my diabetes. "
+                    + "-Mary Tyler Moore",
             "Diabetes is a great example whereby, giving the patient the tools, you can manage yourself very well. "
                     + "-Clayton Christensen",
             "I chalk up the fact that I got diabetes to my body saying, Dude, you have been doing wrong for way too "
                     + "long! -Randy Jackson",
-            "Trying to manage diabetes is hard because if you don’t, there are consequences you’ll have to deal with "
-                    + "later in life. -Bryan Adams",
+            "Trying to manage diabetes is hard because if you don’t, there are consequences you’ll have to "
+                    + "deal with later in life. -Bryan Adams",
             "I was determined to share my positive approach and not let diabetes stand in the way of enjoying my life"
                     + ". -Paula Deen",
             "Diabetes is passed that way -over and down, like a knight in chess. -Maile Meloy",
@@ -164,10 +164,10 @@ public class MotivationalQuotes {
                     + "entrepreneur",
             "A champion is someone who gets up when they can’t. -Jack Dempsey, professional boxer",
             "What hurts today makes you stronger tomorrow. -Jay Cutler, pro bodybuilder and four-time Mr. Olympia",
-            "If something stands between you and your success, move it. Never be denied. -Dwayne ‘The Rock’ Johnson, "
-                    + "actor and pro wrestler",
-            "If you want something you’ve never had, you must be willing to do something you’ve never done. -Thomas "
-                    + "Jefferson, Third President of the United States",
+            "If something stands between you and your success, move it. Never be denied. -Dwayne ‘The Rock’ "
+                    + "Johnson, actor and pro wrestler",
+            "If you want something you’ve never had, you must be willing to do something you’ve never done. "
+                    + "-Thomas Jefferson, Third President of the United States",
             "You have to think it before you can do it. The mind is what makes it all possible. -Kai Greene, pro "
                     + "bodybuilder and artist",
             "Things work out best for those who make the best of how things work out. -John Wooden, basketball player"
@@ -252,14 +252,14 @@ public class MotivationalQuotes {
                     + "-Kurt Vonnegut, “The Sirens of Titan",
             "The secret of life, though, is to fall seven times and to get up eight times. -Paulo Coelho, “The "
                     + "Alchemist",
-            "Time is priceless, but it’s free. You can’t own it, you can use it. You can spend it. But you can’t keep"
-                    + " it. Once you’ve lost it you ca never get it back. -Anonymous",
+            "Time is priceless, but it’s free. You can’t own it, you can use it. You can spend it. But "
+                    + "you can’t keep it. Once you’ve lost it you ca never get it back. -Anonymous",
             "Start by doing what’s necessary; then do what’s possible; and suddenly you are doing the impossible. "
                     + "-Francis of Assis",
             "It is not length of life, but depth of life that matters. -Ralph Waldo Emerso",
             "Courage is grace under pressure. -Ernest Hemingwa",
-            "People ask me if I live each day like it’s my last, and I don’t I live each day like it’s my first, and "
-                    + "I can’t wait for the next one. -Anonymous",
+            "People ask me if I live each day like it’s my last, and I don’t I live each day like it’s "
+                    + "my first, and I can’t wait for the next one. -Anonymous",
             "Healing takes courage, and we all have courage, even if we have to dig a little to find it. -Tori Amo",
             "Healing yourself is connected with healing others. -Yoko On",
             "The wound is the place where the Light enters you. -Jalaluddin Rum",
@@ -316,32 +316,32 @@ public class MotivationalQuotes {
             "You either get bitter or you get better. It’s that simple. You either take what has been dealt to you "
                     + "and allow it to make you a better person, or you allow it to tear you down. The choice does "
                     + "not belong to fate, it belongs to you. -Josh Shipp",
-            "I don’t want my pain and struggle to make me a victim. I want my battle to make me someone else’s hero. "
-                    + "-Unknown",
+            "I don’t want my pain and struggle to make me a victim. I want my battle to make me someone "
+                    + "else’s hero. -Unknown",
             "Resting is not laziness, it’s medicine! -Glenn Schweitzer",
             "Never let the things you cannot do prevent you from doing the things you can. -Coach John Wooden",
             "When the unthinkable happens, the lighthouse is hope. Once we choose hope, everything is possible. "
                     + "-Christopher Reeve",
             "If opening your eyes, or getting out of bed, or holding a spoon, or combing your hair is the daunting "
                     + "Mount Everest you climb today, that is okay. -Carmen Ambrosio",
-            "Sometimes you will be in control of your illness and other times you’ll sink into despair, and that’s "
-                    + "OK! Freak out, forgive yourself, and try again tomorrow. -Kelly Hemingway (I always say I can "
-                    + "do this twice a year)",
+            "Sometimes you will be in control of your illness and other times you’ll sink into despair, "
+                    + "and that’s OK! Freak out, forgive yourself, and try again tomorrow. -Kelly Hemingway "
+                    + "(I always say I can do this twice a year)",
             "You are strong when you know your weaknesses. You are beautiful when you appreciate your flaws. You "
                     + "are wise when you learn from your mistakes. -Unknown",
             "Life is either a daring adventure or nothing at all. -Helen Keller",
             "Most of the important things in the world have been accomplished by people who have kept on trying when "
                     + "there seemed to be no hope at all. -Dale Carnegie",
             "We are stronger in the places we have been broken. -Ernest Hemingway",
-            "I often say now I don’t have any choice whether I have Parkinson’s, but surrounding that non-choice is a"
-                    + " million other choices that I can make. -Michael J. Fox",
+            "I often say now I don’t have any choice whether I have Parkinson’s, but surrounding that non-choice"
+                    + " is a million other choices that I can make. -Michael J. Fox",
             "We must accept finite disappointment, but never lose infinite hope. -Martin Luther King Jr.",
             "Promise me you’ll always remember: You’re braver than you believe, and stronger than you seem, and "
                     + "smarter than you think. -A. A. Milne",
             "The reason why people give up so fast is because they tend to look at how far they still have to go, "
                     + "instead of how far they have gotten. -Unknown",
-            "You can’t calm the storm, so stop trying. What you can do is calm yourself. The storm will pass. -Timber"
-                    + " Hawkeye",
+            "You can’t calm the storm, so stop trying. What you can do is calm yourself. The storm will pass."
+                    + " -Timber Hawkeye",
             "Those you love will go through hard times. Don’t give up on them. Patience + Caring + Empathy = Love. "
                     + "-Unknown",
             "So, this is my life. And I want you to know that I am both happy and sad and I’m still trying to figure "
@@ -351,30 +351,31 @@ public class MotivationalQuotes {
             "Do not believe the things you tell yourself when you’re sad and alone. -Unknown",
             "Hope begins in the dark, the stubborn hope that if you just show up and try to do the right thing, the "
                     + "dawn will come. You wait and watch and work; you don’t give up. -Anne Lamott",
-            "Please be patient with me. Sometimes when I’m quiet, it’s because I need to figure myself out. It’s not "
-                    + "because I don’t want to talk. Sometimes there are no words for my thoughts. -Kamla Bolaños",
-            "If you can’t fly then run, if you can’t run then walk, if you can’t walk then crawl, but whatever you do"
-                    + " you have to keep moving forward. -Martin Luther King Jr.",
-            "Maybe it’s not always about trying to fix something that is broken. Maybe it’s about starting over and "
-                    + "creating something better. -Unknown",
+            "Please be patient with me. Sometimes when I’m quiet, it’s because I need to figure myself out. "
+                    + "It’s not because I don’t want to talk. Sometimes there are no words for my thoughts. "
+                    + "-Kamla Bolaños",
+            "If you can’t fly then run, if you can’t run then walk, if you can’t walk then crawl, but "
+                    + "whatever you do you have to keep moving forward. -Martin Luther King Jr.",
+            "Maybe it’s not always about trying to fix something that is broken. Maybe it’s about starting "
+                    + "over and creating something better. -Unknown",
             "When you have exhausted all possibilities, remember this: you haven’t. -Thomas Edison",
             "Maybe life isn’t about avoiding the bruises. Maybe it’s about collecting the scars to prove that we "
                     + "showed up for it. -Hannah Brencher",
             "The measure of who we are is what we do with what we have. -Vince Lombardi",
             "Nothing is more beautiful than a real smile that has struggled through tears. -Unknown",
-            "Courage does not always roar. Sometimes courage is the quiet voice at the end of the day saying, ‘I will"
-                    + " try again tomorrow.’ -Mary Anne Radmacher",
+            "Courage does not always roar. Sometimes courage is the quiet voice at the end of the day saying,"
+                    + " ‘I will try again tomorrow.’ -Mary Anne Radmacher",
             "What would the hero of your life’s movie do right now? Do that! -Joe Rogan",
             "Normality is a paved road. It’s comfortable to walk, but no flowers grow on it. -Vincent Van Gogh",
-            "The strongest people I’ve met have not been given an easier life. They’ve learned to create strength and"
-                    + " happiness from dark places. -Kristen Butler",
+            "The strongest people I’ve met have not been given an easier life. They’ve learned to create "
+                    + "strength and happiness from dark places. -Kristen Butler",
             "Hope doesn’t require a massive chain where heavy links of logic hold it together. A thin wire will "
                     + "do…just strong enough to get us through the night until the winds die down. -Charles R. "
                     + "Swindoll",
             "Every adversity, every failure, every heartache carries with it the seed of an equal or greater benefit."
                     + " -Napoleon Hill",
-            "I fight for my health every day in ways that most people don’t understand. I’m not lazy. I’m a warrior! "
-                    + "-Unknown",
+            "I fight for my health every day in ways that most people don’t understand. I’m not lazy. "
+                    + "I’m a warrior! -Unknown",
             "I can’t tell you when, but I can promise you it will get better, it will get easier, and it will all be "
                     + "worthwhile. Just promise me you won’t ever give up. -Unknown",
             "Believe in yourself and all that you are. Know that there is something inside of you that is greater "
@@ -408,13 +409,14 @@ public class MotivationalQuotes {
             "What the caterpillar calls the end of the world, the master calls a butterfly. -Richard Bach",
             "Behind every chronic illness is just a person trying to find their way in the world. We want to find "
                     + "love and be loved and be happy just like you. We want to be successful and do something that "
-                    + "matters. We’re just dealing with unwanted limitations in our hero’s journey. -Glenn Schweitzer",
+                    + "matters. We’re just dealing with unwanted limitations in our hero’s journey."
+                    + " -Glenn Schweitzer",
             "Courage does not always roar. Sometimes courage is the quiet voice at the end of the day saying, ‘I will"
                     + " try again tomorrow. -Mary Anne Radmacher",
             "Promise me you’ll always remember: You’re braver than you believe, and stronger than you seem, and "
                     + "smarter than you think -A. A. Milne",
-            "You shouldn’t focus on why you can’t do something, which is what most people do. You should focus on why"
-                    + " perhaps you can, and be one of the exceptions. -Steve Case",
+            "You shouldn’t focus on why you can’t do something, which is what most people do. You should focus"
+                    + " on why perhaps you can, and be one of the exceptions. -Steve Case",
             "Regret for the things we have done will be tempered by time. It is regret for the things we did not do "
                     + "that is inconsolable. -Sydney J. Harris",
             "Our greatest weakness lies in giving up. The most certain way to succeed is always to just try one more "
@@ -430,8 +432,8 @@ public class MotivationalQuotes {
                     + "out how that could be. -Stephen Chbosky",
             "I often say now I don’t have any choice whether or not I have Parkinson’s, but surrounding that "
                     + "non-choice is a million other choices that I can make. -Michael J. Fox",
-            "Don’t forget you’re human. It’s okay to have a meltdown, just don’t unpack and live there. Cry it out "
-                    + "and then refocus on where you are headed. -unknown",
+            "Don’t forget you’re human. It’s okay to have a meltdown, just don’t unpack and live there. Cry it "
+                    + "out and then refocus on where you are headed. -unknown",
             "ome days are better, some days are worse. Look for the blessing instead of the curse. Be positive, stay "
                     + "strong, and get enough rest. You can’t do it all, but you can do your best. -Doe Zantamata",
             "Sometimes you will be in control of your illness and other times you’ll sink into despair, and that’s "
@@ -442,16 +444,17 @@ public class MotivationalQuotes {
             "He who has health has hope; and he who has hope has everything. -Arabian proverb ",
             "Man needs difficulties; they are necessary for health. -Carl Jung ",
             "Keep your vitality. A life without health is like a river without water. -Maxime Lagacé ",
-            "Three things in life – your health, your mission, and the people you love. That’s it. -Naval Ravikant ",
+            "Three things in life – your health, your mission, and the people you love. That’s it."
+                    + " -Naval Ravikant",
             "A fit body, a calm mind, a house full of love. These things cannot be bought – they must be earned. "
                     + "-Naval Ravikant ",
             "True silence is the rest of the mind, and is to the spirit what sleep is to the body, nourishment and "
                     + "refreshment. -William Penn ",
             "Happiness is the highest form of health. -Dalai Lama ",
             "The human body is the best picture of the human soul. -Tony Robbins ",
-            "Doctors won’t make you healthy. Nutritionists won’t make you slim. Teachers won’t make you smart. Gurus "
-                    + "won’t make you calm. Mentors won’t make you rich. Trainers won’t make you fit. Ultimately, you"
-                    + " have to take responsibility. Save yourself. -Naval Ravikant ",
+            "Doctors won’t make you healthy. Nutritionists won’t make you slim. Teachers won’t make you "
+                    + "smart. Gurus won’t make you calm. Mentors won’t make you rich. Trainers won’t "
+                    + "make you fit. Ultimately, you have to take responsibility. Save yourself. -Naval Ravikant ",
             "Let food be thy medicine and medicine be thy food. -Hippocrates",
             "You’re in pretty good shape for the shape you are in. Dr. -Seuss",
             "When the heart is at ease, the body is healthy. -Chinese proverb",
@@ -459,8 +462,8 @@ public class MotivationalQuotes {
             "Your health is what you make of it. Everything you do and think either adds to the vitality, energy and "
                     + "spirit you possess or takes away from it. -Ann Wigmore",
             "A good laugh and a long sleep are the best cures in the doctor’s. -Irish proverb",
-            "Give a man health and a course to steer, and he’ll never stop to trouble about whether he’s happy or not"
-                    + ". -George Bernard Shaw",
+            "Give a man health and a course to steer, and he’ll never stop to trouble about whether he’s"
+                    + " happy or not. -George Bernard Shaw",
             "The scientific truth may be put quite briefly; eat moderately, having an ordinary mixed diet, and don’t "
                     + "worry. -Robert Hutchison",
             "Happiness is nothing more than good health and a bad memory. -Albert Schweitzer ",
@@ -491,8 +494,8 @@ public class MotivationalQuotes {
             "Your body hears everything your mind says. Naomi Judd (This is one of my favorite health quote. -Leave a"
                     + " reply here and let me know what’s yours!)",
             "Health is a relationship between you and your body. -Unknown",
-            "Health is a large word. It embraces not the body only, but the mind and spirit as well; …and not today’s"
-                    + " pain or pleasure alone, but the whole being and outlook of a man. James H. -West",
+            "Health is a large word. It embraces not the body only, but the mind and spirit as well; …and"
+                    + " not today’s pain or pleasure alone, but the whole being and outlook of a man. James H. -West",
             "Health is the thing that makes you feel that now is the best time of year. Franklin P. -Adams",
             "Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship. -Buddha",
             "Physical fitness is not only one of the most important keys to a healthy body, it is the basis of "
@@ -517,8 +520,8 @@ public class MotivationalQuotes {
                     + " hotels. We all know that good health is much more important. -Keanu Reeves",
             "Love is not as important as good health. You cannot be in love if you’re not healthy. You can’t "
                     + "appreciate it. -Bryan Cranston (Breaking Bad)",
-            "The only way to keep your health is to eat what you don’t want, drink what you don’t like, and do what "
-                    + "you’d rather not. -Mark Twain",
+            "The only way to keep your health is to eat what you don’t want, drink what you don’t like, "
+                    + "and do what you’d rather not. -Mark Twain",
             "The really important thing is not to live, but to live well… and to live well means the same thing as to"
                     + " live honourably or rightly. -Socrates",
             "Nothing is more fatal to health, than an over care of it. -Benjamin Franklin",
@@ -562,12 +565,12 @@ public class MotivationalQuotes {
                     + " feel and the more you will use your talent to produce outstanding results. -Tony Robbins",
             "Use your health, even to the point of wearing it out. That is what it is for. Spend all you have before "
                     + "you die; do not outlive yourself. -George Bernard Shaw",
-            "Most of us would be upset if we were accused of being ‘silly.’ But the word ‘silly’ comes from the old "
-                    + "English word ‘selig’ and its literal definition is ‘to be blessed, happy, healthy and "
-                    + "prosperous’. -Zig Ziglar",
-            "Never continue in a job you don’t enjoy. If you’re happy in what you’re doing, you’ll like yourself, "
-                    + "you’ll have inner peace. And if you have that, along with physical health, you will have had "
-                    + "more success than you could possibly have imagined. -Johnny Carson",
+            "Most of us would be upset if we were accused of being ‘silly.’ But the word ‘silly’ comes from"
+                    + " the old English word ‘selig’ and its literal definition is ‘to be blessed, happy, "
+                    + " healthy and prosperous’. -Zig Ziglar",
+            "Never continue in a job you don’t enjoy. If you’re happy in what you’re doing, you’ll like "
+                    + "yourself, you’ll have inner peace. And if you have that, along with physical health"
+                    + ", you will have had more success than you could possibly have imagined. -Johnny Carson",
             "The chief condition on which life, health, and vigor depend on, is action. It is by action that an "
                     + "organism develops its faculties, increases its energy, and attains the fulfillment of its "
                     + "destiny. -Colin Powell",
@@ -608,8 +611,8 @@ public class MotivationalQuotes {
             "Doctors are always working to preserve our health and cooks to destroy it, but the latter are the more "
                     + "often successful. -Denis Diderot",
             "Joy and temperance and repose, slam the door on the doctor’s nose. -Henry Wadsworth Longfellow ",
-            "There’s lots of people in this world who spend so much time watching their health that they haven’t the "
-                    + "time to enjoy it. -Josh Billings",
+            "There’s lots of people in this world who spend so much time watching their health that they "
+                    + "haven’t the time to enjoy it. -Josh Billings",
             "A bad cold wouldn’t be so annoying if it weren’t for the advice of our friends. -Kin Hubbard",
             "I reckon being ill as one of the great pleasures of life, provided one is not too ill and is not obliged"
                     + " to work till one is better. -Samuel Butler",
@@ -649,7 +652,8 @@ public class MotivationalQuotes {
             "To keep the body in good health is a duty otherwise we shall not be able to keep our mind strong and "
                     + "clear. -Buddha",
             "No time for your health today, no health for your time tomorrow. -Thibaut",
-            "Without health life is not life; it is only a state of languor and suffering – an image of death. -Buddha",
+            "Without health life is not life; it is only a state of languor and suffering – "
+                    + "an image of death. -Buddha",
             "Love, success, family and friends all come after my health. No health, no enjoyment. -Maxime Lagacé",
             "If you are going to heal in a magnificent way, you have to feel magnificent. -Joe Dispenza",
             "My number one priority in life, above my happiness, above my family, above my work, is my own health. It"
@@ -713,8 +717,8 @@ public class MotivationalQuotes {
                     + " power to heal and to connect than the most well-intentioned words. -Rachel Naomi Remen",
             "Healing is not linear. -Unknown",
             "A certain darkness is needed to see the stars. -Unknown",
-            "Switch your mentality from “I’m broken and helpless to “I’m growing and healing and watch how your life "
-                    + "changes, for the better. -Unknown",
+            "Switch your mentality from “I’m broken and helpless to “I’m growing and healing and watch "
+                    + "how your life changes, for the better. -Unknown",
             "The mind has great influence over the body, and maladies often have their origin there. -Jean Baptiste "
                     + "Moliere",
             "The best six doctors anywhere and no one can deny it are sunshine, water, rest, air, exercise and diet. "
@@ -758,8 +762,8 @@ public class MotivationalQuotes {
             "People who laugh actually live longer than those who don’t laugh. Few persons realize that health "
                     + "actually varies according to the amount of laughter. James J. -Walsh",
             "You can look in the mirror and find a million things wrong with yourself. Or you can look in the mirror "
-                    + "and think, ‘I feel good, I have my health, and I’m so blessed.’ That’s the way I choose to "
-                    + "look at it. -Isla Fisher",
+                    + "and think, ‘I feel good, I have my health, and I’m so blessed.’ That’s the way I "
+                    + "choose to look at it. -Isla Fisher",
             "The existence of illness in the body may no doubt be called a shadow of the true illness which is held "
                     + "by man in his mind. -Hazrat Khan",
             "You are as important to your health as it is to you. Terri Guillemets (quotegarden. -com)",
@@ -840,13 +844,13 @@ public class MotivationalQuotes {
                     + "disabilities and mental distractions, the gates of the soul open. B.K.S. -Iyengar",
             "To ensure good health: eat lightly, breathe deeply, live moderately, cultivate cheerfulness, and "
                     + "maintain an interest in life. -William Londen",
-            "If one’s bowels move, one is happy; and if they don’t move, one is unhappy. That is all there is to it. "
-                    + "-Lin Yutang",
+            "If one’s bowels move, one is happy; and if they don’t move, one is unhappy. That is all there "
+                    + "is to it. -Lin Yutang",
             "Happily we are learning that the mind has to do with the misdeeds of the body, and that there are no "
                     + "more valuable therapeutic agents than cheerfulness, happiness, and hope. -Olive Thorne Miller",
             "Eliminating the things you love is not wellness. Wellness feeds your soul and makes you feel good. -Iman",
-            "Nurturing yourself is not selfish – it’s essential to your survival and your well-being. -Renee Peterson"
-                    + " Trudeau",
+            "Nurturing yourself is not selfish – it’s essential to your survival and your well-being."
+                    + " -Renee Peterson Trudeau",
             "As I see it, every day you do one of two things: build health or produce disease in yourself. -Adelle "
                     + "Davis",
             "Sufficient sleep, exercise, healthy food, friendship, and peace of mind are necessities, not luxuries. "
@@ -861,9 +865,9 @@ public class MotivationalQuotes {
                     + "world. -Gwendolyn Brooks",
             "Wellness encompasses a healthy body, a sound mind, and a tranquil spirit. Enjoy the journey as you "
                     + "strive for wellness. -Laurette Gagnon Beaulieu",
-            "Wellness is not a ‘medical fix’ but a way of living – a lifestyle sensitive and responsive to all the "
-                    + "dimensions of body, mind, and spirit, an approach to life we each design to achieve our "
-                    + "highest potential for well-being now and forever. -Greg Anderson",
+            "Wellness is not a ‘medical fix’ but a way of living – a lifestyle sensitive and responsive to "
+                    + "all the dimensions of body, mind, and spirit, an approach to life we each design to "
+                    + "achieve our highest potential for well-being now and forever. -Greg Anderson",
             "Wellness seeks more than the absence of illness; it searches for new levels of excellence. Beyond any "
                     + "disease-free neutral point, wellness dedicates its efforts to our total well-being – in body, "
                     + "mind, and spirit. -Greg Anderson",
@@ -873,8 +877,8 @@ public class MotivationalQuotes {
                     + "thoughts of being elsewhere. -Wayne Dyer",
             "A healthy lifestyle is the most potent medicine at your disposal. -Sravani Saha Nakhro",
             "Self-care is how you take your power back. -Lalah Delia",
-            "If you look at healthcare today, it’s all about disease. It’s not about understanding wellness at all. "
-                    + "-Leroy Hood",
+            "If you look at healthcare today, it’s all about disease. It’s not about understanding wellness "
+                    + "at all. -Leroy Hood",
             "America’s health care system is neither healthy, caring, nor a system. -Walter Conkite",
             "I appreciate health care that gets to the root cause of our symptoms and promotes wellness, rather than "
                     + "the one-size-fits-all drug-based approach to treating disease. I love maintaining an optimal "
@@ -932,8 +936,8 @@ public class MotivationalQuotes {
             "Developing inner values is much like physical exercise. The more we train our abilities, the stronger "
                     + "they become. The difference is that, unlike the body, when it comes to training the mind, "
                     + "there is no limit to how far we can go. -Dalai Lama",
-            "The very heart of yoga practice is ‘abyhasa’ – steady effort in the direction you want to go. -Sally "
-                    + "Kempton",
+            "The very heart of yoga practice is ‘abyhasa’ – steady effort in the direction you want to go. "
+                    + "-Sally Kempton",
             "For every hour Charles Dickens wrote, he walked an hour. -Mary Pipher",
             "To enjoy the glow of good health, you must exercise. -Gene Tunney"));
 }

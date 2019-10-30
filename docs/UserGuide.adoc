@@ -33,7 +33,7 @@ Hope following features will benefit you and enjoy!
 * Easy-to-use reminder and calendar
 * Personalized user experience and bio encouragements
 * Weekly and Monthly summary for your activities and health level
-* Customized recommendations for food and fun quizzes about healthy dieting
+* Customized recommendations for healthy dieting
 
 == Quick Start
 
@@ -60,10 +60,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `reminder d/DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `reminder d/medicine`.
+* Items in square brackets are optional e.g `d/DESCRIPTION [r/REPETITION]` can be used as `d/medicine r/daily` or as `d/medicine`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `d/description dt/2020-01-20 12:00`, `dt/2020-01-20 12:00 d/description` is also acceptable.
 ====
 
 === DATA LOG
@@ -101,44 +101,46 @@ The index refers to the index number shown in the displayed entries list
 
 ==== Add a reminder: `reminder`
 
-Format: `reminder DESCRIPTION t/TIME [t/TIME]... [rp/repetition] [v/venue] [p/people]`
+Format: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
 
-Add a reminder at a specific time with possible detail information of other time, repetition, venue(e.g. hospital) ,people(e.g. doctor) and sound.
+Add a reminder at a specific time starting from a date. There is no repetition by default, user can specify a daily or weekly or no repetition optionally.
 
 ==== Add an event: `event`
 
-Format: `event TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD]  [v/venue] [p/people]`
+Format: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME]  [td/TIME_DURATION]`
 
 Add an event with starting time and optional ending time.
-Set a reminder some time before the event with possible detail information of venue(e.g. hospital) ,people(e.g. doctor) and sound.
+Optionally set a reminder some time before the event.
 
-==== Add a task: `task`
+==== View calendar entries: `calendar`
 
-Format: `task TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD] [tg/TARGET]`
+Format: `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
 
-Add a task with starting time and optional ending time.
-Set a reminder some time before the task begins and a target for the task.
+View calendar entries in a month or in a week or on a day.
+`ymw` accepts a date also but it will include all days in the same week as the given date and week starts from Monday.
+(If more than one of the arguments are present, then it accepts the one with the smallest time unit. e.g. if `ymw` and `ymd` are
+both typed in, then it only shows entries on the given date if the date is valid.)
 
-==== Snooze reminder: `snooze`
+==== Snooze reminder: `snooze` `[coming in v2.0]`
 
 Format: `snooze [tp/TIME_PERIOD]`
 
 Silence the current reminder and activate it after a time period.
 
-==== Complete a task: `complete`
+==== Complete a task: `complete` `[coming in v2.0]`
 
 Format: `complete [INDEX]... [t/TIME]`
 
 Mark all the reminders before now as completed if no argument provided.
 Otherwise, mark only those tasks with indices provided or before the specific time as completed.
 
-==== Set time zone: `timezone`
+==== Set time zone: `timezone` `[coming in v2.0]`
 
 Format: `timezone tz/TIME_ZONE [t/TIME] [t/TIME_END]`
 
 Set the time zone of the application permanently or in any time interval(e.g. For travelling).
 
-==== Search for entries in calendar: `search`
+==== Search for entries in calendar: `search` `[coming in v2.0]`
 
 Format: `search [KEYWORD] [t/TIME] [t/END_TIME] [tp/TYPE] [v/VENUE] [p/PEOPLE]`
 
@@ -204,130 +206,135 @@ This helps to motivate them to have a healthy BMI.
 
 === DATA ANALYSIS
 
-==== Display the daily/weekly/monthly average in a graph: `average`
+==== Display the daily/weekly/monthly average of records in a line graph: `average`
 
-Format: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
+Format: `average a/AVERAGE_TYPE r/RECORD_TYPE [n/COUNT]`
 
-AVERAGE_TYPE is either day/week/month.
-Displays a graph of the AVERAGE_TYPE average value of a particular RECORD_TYPE. COUNT is an integer value.
-If COUNT is given, show only the latest COUNT number of average values.
-Else, COUNT is set to 5 and show only latest 5 average values by default.
+AVERAGE_TYPE is either "daily", "weekly" or "monthly". +
+RECORD_TYPE is either "bloodsugar" or "bmi". +
+Displays a graph of the "daily"/"weekly"/"monthly" average of a particular RECORD_TYPE.
+COUNT is an integer between 1 to 9 inclusive. +
+If COUNT is given, SugarMummy shows __up to__ COUNT most recent number of average values.
+Else, COUNT is set to 5 by default and show most recent 5 average values.
 
-==== Display interesting statistics: `summary`
+NOTE: If SugarMummy does not show __exactly__ COUNT number of average values,
+that means you do not have enough records in the database.
 
-Examples of statistics: minimum, maximum, average, number of dangerously high blood sugar level, weekly quiz points etc
-in suitable graph
+Example usage 1: `average a/weekly r/bloodsugar`:
+Shows the latest 5 weekly average of blood sugar records.
+
+Example usage 2: `average a/daily r/bmi n/9`:
+Shows the latest 9 weekly average of BMI records.
+
+
+==== Display interesting statistics: `summary` `[coming in v1.4]`
+
+Shows minimum, maximum, average of the records. Categorize records into low, normal, high values
+in pie chart.
 
 Format: `summary r/RECORD_TYPE [d/START_DATE]`
 
 If START_DATE is given, statistics from START_DATE to the current date will be retrieved.
 Else, statistics will be based on all data.
 
-==== Export summary of all medical records into pdf: `export`
+==== Export summary of all medical records into pdf: `export` `[coming in v2.0]`
+
 
 Format: `export [d/START_DATE]`
 
 If START_DATE is given, summary from START_DATE to the current date will be exported.
 Else, summary of all data will be exported.
 
-=== EDUCATION AND QUIZ
+=== Food Recommendation
 
 ==== Recommending food: `recmf`
 
-Recommends a list of medically suggested foods for type II diabetes patients.
-The user can specify flags:
+Recommends some medically suggested foods for type II diabetes patients. +
+To make searching more efficient, the user can specify two kinds of filters:
 
-`-b`: breakfast recommendations
+* food type: in the form of following flags:
 
-`-l`: lunch recommendations
+    -nsv: non-starchy vegetable, such as broccoli
 
-`-d`: dinner recommendations
+    -sv: starchy vegetable, such as potato
 
-`-f`: fruit recommendations
+    -f: fruit, such as cherry
 
-`-v`: vegetable recommendations
+    -p: protein, such as lean lamb
 
-With specified one or more FOOD_ITEM, the user will only view recommendations match at least one item.
-However, if any food item is considered dangerous for type II diabetes patients, a warning will be shown.
-(case-insensitive)
+    -s: snack, such fig roll
 
-Format: `recmf [-b] [-l] [-d] [-f] [-v] [FOOD]...`
+    -m: meal, such as spanish omelet
+
+Note::
+** Flags are case-insensitive.
+** If no flag is specifies, it is equivalent to specifying all flags. Namely, foods of all types will be shown.
+** For fast typing, white spaces are allowed before, between, or after flags. Duplicate flags are also allowed.
+
+* food name: in the form of `fn/FOOD_NAME [FOOD_NAME]...` +
+
+Note::
+** Food names are case-insensitive.
+** Food name matching is full-word matching. For example, "ch" does not match "chicken", which "chicken" matches both "Chicken" and "Rice with Chicken".
+** `fn/` is the only allowed prefix for `recmf` command. If only `fn/` presents without following food names, all foods (of specified types) will be shown.
+
+Format: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
 
 Examples:
 
-`recm -b strawberries`
+`recmf -p -f` `recmf fn/chicken` `recmf -p -m -f fn/chicken`
 
-`recm -b -l -d`
+==== Adding new food items : `addfood`
 
-==== Recommending exercise: `recme`
+Adds a new food item of certain category for future recommendations.
+The following six fields are compulsorily required:
 
-Recommends a list of medically suggested exercises for type II diabetes patients.
+* food name: `fn/FOOD_NAME` +
+Food name should be less than 30 characters. This is mainly for display quality and readability.
+Only alphabets, numbers, and whitespace are allowed in the name.
 
-Format: `recme`
+* food type: `ft/FOOD_TYPE` +
+Food types should be exactly one of the following: nsv(non-starchy vegetable), sv(starchy vegetable),
+f(fruit), p(protein), s(snack), m(meal).
+* calorie (cal): `ca/CALORIE` +
+Calorie should be less than 700(cal) to be considered as safe for type II diabetes patients.
+* gi: `gi/GI` +
+Glycemic Index should be less than 70 to be considered as safe for type II diabetes patients.
+* sugar (g): `su/SUGAR` +
+Sugar should be less than 25(g) to be considered as safe for type II diabetes patients.
+* fat (g): `fa/FAT` +
+Fat should be less than 35(g) to be considered as safe for type II diabetes patients.
 
-==== Adding new food items : `put`
+Note::
+** No duplicate food names are allowed.
+** All nutrition values are numerical values and should be equal or greater than zero.
+Besides, the values are suggested to be per serving.
+** The order of fields is flexible.
 
-Adds a new food time into certain category.
-Calorie and glycemic can be attached followed by -i flag.
-Otherwise, another prompt will be shown to ask for these two values.
-
-Format: `put FOOD[, FOOD]...[-i CALORIE GI] in CATEGORY`
+Format: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 
 Example:
+`addfood fn/Cucumber ft/f ca/15 gi/15 fa/0 su/1.7`
 
-`put guava -i 68 20, green apple -i 52 38 in fruits`
+=== Other Common Features
 
-`put guava in fruits`
+==== Exiting the program : `exit`
 
-==== Disliking certain foods: `dislike`
+Exits the program.
 
-Dislikes certain foods so that those foods will no longer be shown on the recommendations. (case-insensitive)
-
-Format: `dislike FOOD[, FOOD]...`
-
-Example: `dislike watermelon, chicken`
-
-==== Playing flash cards: `game`
-
-Shows an interactive page for user to play the flash card game.
-The user will win certain points if answering a question correctly.
-
-Format: `game`
-
-During the game session, the user is able to:
-
-. Selecting the correct answer: `<alphabet>`
-
-* Answers the multiple-choice question.
-If the answer is correct, the user will be awarded a few points.
-If the answer is wrong, multiple, or not within the choice range, a few points will be deducted and the correct answer
-will be revealed.
-
-* Format: `<alphabet>`
-
-
-. Skipping a certain question: `skip`
-
-* Skips a certain question and moves to the next question.
-
-* Format: `skip`
-
-
-. Exiting the game: `exit`
-
-* Exits the game and go back to normal page
-* Format: `exit`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
+
+==== Viewing full User Guide
+
+Shows the URL to this User Guide.
+
+Format: `help`
+
+== Features Coming in v2.0
 
 === Autocomplete Command
 
 SugarMummy will recommend list of possible commands that can be add on to user current input.
-
-== Features Coming in v2.0
 
 === Clearing all entries: `clear all`
 
@@ -364,13 +371,15 @@ E.g. `add r/bloodsugar v/10 t/now`
 . *Add bio* : `addbio n/NAME [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] p/CONTACT_NUMBER e/EMERGENCY_CONTACT
 m/MEDICAL_CONDITION [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
 E.g. `addbio n/Bob p/98765432 e/91234567 m/Type II Diabetes`
+. *Add Food*: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
+E.g. `addfood fn/Cucumber ca/15 gi/15 fa/0 su/1.7`
 . *Average*: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
 E.g. `average a/weekly r/bloodsugar n/3`
 . *Bio*: `bio`
 . *Bg*: `bg p/PATH`
 E.g. `bg p//Users/Bob/Pictures/bg.jpg`
-. *Complete*: `complete [INDEX]... [t/TIME]`
-E.g. `complete t/today`
+. *Calendar* `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
+E.g. `calendar ymd/2019-12-24`
 . *Dailymsg*: `dailymsg`
 . *Delete*: `delete INDEX`
 E.g. `delete 2`
@@ -378,8 +387,8 @@ E.g. `delete 2`
 E.g. `edit 1 v/15 t/now`
 . *Export*: `export [d/START_DATE]`
 E.g `export d/01.09.2019`
-. *Event*: `event TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD]  [v/venue] [p/people]`
-E.g. `event appointment t/1400 20/12/2019 v/NUH p/Dr Lim`
+. *Event*: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
+E.g. `event d/appointment dt/2019-12-14 16:00 td/01:00`
 . *Edit bio*: `edit [n/NAME] [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] [p/CONTACT_NUMBER] [e/EMERGENCY_CONTACT]
 [m/MEDICAL_CONDITION] [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
 E.g. `edit g/Male dp//Users/Bob/Pictures/dp.jpg`
@@ -389,6 +398,8 @@ E.g. `fontcolor yellow`
 E.g. `fontcolor 00FF00`
 . *List*: `list [r/RECORD_TYPE] ...`
 E.g. `list r/bloodsugar r/sleep r/food`
+. *Recommend Food*: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
+E.g. `recmf -p -m -f fn/chicken`
 . *Reminder*: `reminder DESCRIPTION t/TIME [t/TIME]... [rp/repetition] [v/venue] [p/people]`
 E.g. `reminder insulin injection t/13:00 rp/daily`
 . *Search*: `search [KEYWORD] [t/TIME] [t/END_TIME] [tp/TYPE] [v/VENUE] [p/PEOPLE]`
@@ -396,11 +407,9 @@ E.g. `search tp/event v/NUH`
 . *Snooze*: `snooze [tp/TIME_PERIOD]`
 E.g `snooze 30min`
 . *Summary*: `summary r/RECORD_TYPE [d/START_DATE]`
+. *Reminder*: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
+E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 E.g `summary r/bloodsugar d/01.09.2019`
-. *Task*: `task TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD] [tg/TARGET]`
-E.g `task Running running for 40 minutes t/15:00 tp/10 min tg/200 calories`
-. *Timezone*: `timezone tz/TIME_ZONE [t/TIME] [t/TIME_END]`
-E.g `timezone tz/GMT+8`
 
 == FAQ
 

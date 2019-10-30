@@ -7,6 +7,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -164,5 +165,16 @@ public class AverageMap {
      */
     public ObservableMap<LocalDate, Double> asUnmodifiableObservableMap() {
         return internalUnmodifiableMap;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AverageMap // instanceof handles nulls
+                && internalMap.equals(((AverageMap) other).internalMap) // state check
+                && internalUnmodifiableMap.equals(((AverageMap) other).internalUnmodifiableMap)
+                // Objects.equals checks for null String before calling .equals()
+                && Objects.equals(internalAverageType.get(), ((AverageMap) other).internalAverageType.get())
+                && Objects.equals(internalRecordType.get(), ((AverageMap) other).internalRecordType.get()));
     }
 }

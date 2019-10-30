@@ -1,12 +1,10 @@
-package seedu.address.model.calendar;
+package seedu.address.model.time;
 
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import seedu.address.model.YearMonth;
 
 /**
  * Represents a year, month and day.

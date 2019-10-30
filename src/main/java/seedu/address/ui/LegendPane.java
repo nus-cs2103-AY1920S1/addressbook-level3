@@ -31,8 +31,10 @@ public class LegendPane extends UiPart<Region> {
     private static final String OBESE = "Obese: BMI above 30";
 
     // Blood sugar categorization description
-    private static final String BEFORE_MEALS = "Non-diabetic (before meals): Between 4.0 and 5.9";
-    private static final String AFTER_MEALS = "Non-diabetic (At least 90 minutes after meals): Between 5.9 and 7.8";
+    private static final String BEFORE_MEALS = "Before meals (Non-diabetic): Between 4.0 and 5.9 mmol/L";
+    private static final String AFTER_MEALS = "At least 90 minutes after meals (Non-diabetic):"
+            + " Between 5.9 and 7.8 mmol/L";
+
 
     // Weight legend row
     private static final LegendRow UNDER_WEIGHT_LEGEND_ROW = new LegendRow(COLOR_BLUE, UNDERWEIGHT);
@@ -45,7 +47,7 @@ public class LegendPane extends UiPart<Region> {
     private static final LegendRow AFTER_MEAL_LEGEND_ROW = new LegendRow(COLOR_BLUE, AFTER_MEALS);
 
     @FXML
-    private FlowPane flowPane;
+    private FlowPane lineChartLegendFlowPane;
 
     public LegendPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty recordType) {
         super(FXML);
@@ -53,7 +55,7 @@ public class LegendPane extends UiPart<Region> {
         recordType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                flowPane.getChildren().clear();
+                lineChartLegendFlowPane.getChildren().clear();
                 updateLegendPane(averageMap, recordType);
             }
         });
@@ -61,7 +63,7 @@ public class LegendPane extends UiPart<Region> {
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
-                flowPane.getChildren().clear();
+                lineChartLegendFlowPane.getChildren().clear();
                 updateLegendPane(averageMap, recordType);
             }
         });
@@ -77,24 +79,24 @@ public class LegendPane extends UiPart<Region> {
         switch (RecordType.valueOf(recordType.get())) {
         case BMI:
             if (maxAvg >= 0) {
-                flowPane.getChildren().add(UNDER_WEIGHT_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(UNDER_WEIGHT_LEGEND_ROW.getRoot());
             }
             if (maxAvg >= 18.5) {
-                flowPane.getChildren().add(NORMAL_WEIGHT_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(NORMAL_WEIGHT_LEGEND_ROW.getRoot());
             }
             if (maxAvg >= 25) {
-                flowPane.getChildren().add(OVER_WEIGHT_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(OVER_WEIGHT_LEGEND_ROW.getRoot());
             }
             if (maxAvg >= 30) {
-                flowPane.getChildren().add(OBESE_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(OBESE_LEGEND_ROW.getRoot());
             }
             break;
         case BLOODSUGAR:
             if (maxAvg >= 4.0) {
-                flowPane.getChildren().add(BEFORE_MEAL_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(BEFORE_MEAL_LEGEND_ROW.getRoot());
             }
             if (maxAvg >= 5.9) {
-                flowPane.getChildren().add(AFTER_MEAL_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(AFTER_MEAL_LEGEND_ROW.getRoot());
             }
             break;
         default:
