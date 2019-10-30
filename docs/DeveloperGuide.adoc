@@ -388,8 +388,7 @@ Updates to the like count of any memes inside the currently displayed memes will
 
 image::StorageClassDiagram.png[]
 
-In the storage component, LikeData is stored in a similar fashion as `Weme`,
-whereas the LikeData is stored as json file.
+In the storage component, LikeData is stored under JsonSerializableStats as a map.
 
 The following activity diagram summarizes the meme liking process:
 
@@ -416,9 +415,38 @@ Also, it looks somewhat out of place in `Model` as alternative 1 seems to be abl
 
 // end::stats[]
 
+// tag::stats2
+
+=== Statistics feature 2: Graphic display
+
+This feature displays the statistics of the App. In the current version, it displays two types of data:
+tags organized by the number of memes under them and by the like counts of the memes under them.
+The graphics are embedded in the statistics panel in Weme.
+
+==== Current Implementation
+
+The statistics data is collated by a TagManager in the Statistics package.
+
+image::modelClassDiagram.png[]
+
+It parses the current MemeList to collate all the tags and generate either a list of `TagWithCount` or `TagWithLike`.
+The `UI` passes the current `MemeList` and `Stats` interface into the panel, where the tag collation information can be
+extracted in runtime.
+
+==== Design Consideration
+
+* **Alternative 1:** Use a TagManager class (Current implementation)
+** Pros: Able to store `Tag` information for future use. Hard to morph it as the class grows bigger.
+** Cons: The Manager class behaves like a Util class.
+* **Alternative 2:** Use a TagUtil class
+** Pros: At the moment the class behaves like a Util class, not storing any information that is being used later.
+** Cons: Lack extensibility for future statistics use.
+
+// end::stats2[]
+
 // tag::export/import
 
-===  Export/Import feature
+=== Export/Import feature
 
 This feature allows the user to do exporting and importing of memes using their respective staging areas as
 intermediate platforms. This allows the user to both load memes into the application from their local directory,
