@@ -25,7 +25,7 @@ Licence: `NUS`
 
 image::ug_introduction.png[]
 
-Hello, I am an Extremely Loud and Intelligent Student Assistant (ELISA).
+Hello, I am an Extremely Loud and Intelligent Student Assistant (ELISA)!
 
 I am here to be *your intelligent companion that keeps track of your tasks and remind you to take breaks*.
 
