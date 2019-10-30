@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
+import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 

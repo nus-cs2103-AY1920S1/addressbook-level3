@@ -19,6 +19,7 @@ import seedu.address.model.employee.Employee;
 import seedu.address.model.employee.UniqueEmployeeList;
 import seedu.address.model.employee.exceptions.DuplicateEmployeeException;
 import seedu.address.model.employee.exceptions.EmployeeNotFoundException;
+import seedu.address.testutil.PersonBuilder;
 
 public class UniqueEmployeeListTest {
 

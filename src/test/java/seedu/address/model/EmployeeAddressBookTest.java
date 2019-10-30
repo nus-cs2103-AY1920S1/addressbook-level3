@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.employee.exceptions.DuplicateEmployeeException;
+import seedu.address.testutil.PersonBuilder;
 
 public class EmployeeAddressBookTest {
 
