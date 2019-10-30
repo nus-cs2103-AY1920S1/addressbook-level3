@@ -2,6 +2,7 @@
 package seedu.address.logic.commands.appointments;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class CancelAppCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "Appointment cancelled: %1$s";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_SUCCESS = "Recursive appointments cancelled: \n";
+    public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS
+            = "Must indicate at least 1 appointment to delete";
 
     private final Event toDelete;
     private final List<Event> eventList;
@@ -37,6 +40,7 @@ public class CancelAppCommand extends ReversibleCommand {
 
     public CancelAppCommand(List<Event> eventList) {
         requireNonNull(eventList);
+        checkArgument(eventList.size() > 0, MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS);
         this.toDelete = null;
         this.eventList = eventList;
     }
@@ -45,26 +49,29 @@ public class CancelAppCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (eventList == null) {
-            deleteOneEvent(model, toDelete);
+            checkHasEvent(model, toDelete);
+            model.deleteAppointment(toDelete);
             model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(toDelete.getPersonId()));
             return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
         }
+
         for (Event e : eventList) {
-            //TODO: Should it still delete the other appointments if one fails?
-            deleteOneEvent(model, e);
+            if(model.hasExactAppointment(e)) {
+                model.deleteAppointment(e);
+            }
         }
         model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
-        return new CommandResult(CancelAppCommand.COMMAND_WORD, eventList);
+        return new CommandResult(CancelAppCommand.MESSAGE_CANCEL_APPOINTMENTS_SUCCESS, eventList);
     }
 
+    //@@author SakuraBlossom
     /**
-     * delete a exist event from the address book.
+     * Checks if the given {@code eventToDelete} exist in the appointment book.
      */
-    private void deleteOneEvent(Model model, Event eventToDelete) throws CommandException {
+    private void checkHasEvent(Model model, Event eventToDelete) throws CommandException {
         if (!model.hasExactAppointment(eventToDelete)) {
             throw new CommandException(String.format(Messages.MESSAGE_EVENT_NOT_FOUND, eventToDelete));
         }
-        model.deleteAppointment(eventToDelete);
     }
 
     @Override

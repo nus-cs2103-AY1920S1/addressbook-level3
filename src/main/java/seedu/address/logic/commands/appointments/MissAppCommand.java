@@ -28,7 +28,7 @@ public class MissAppCommand extends NonActionableCommand {
         requireNonNull(model);
         model.updateFilteredAppointmentList(new EventsMissedPredicate());
         int size = model.getFilteredAppointmentList().size();
-        String displayMess = "";
+        String displayMess;
 
         if (size <= 1) {
             displayMess = Messages.MESSAGE_MISSED_EVENT_LISTED_OVERVIEW;

@@ -43,18 +43,18 @@ public class AckAppCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.deleteAppointment(eventToEdit);
 
         if (model.hasExactAppointment(editedEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACKED);
         }
 
-        model.scheduleAppointment(editedEvent);
+        model.deleteAppointment(eventToEdit);
+        model.scheduleAppointment(editedEvent, false);
         model.updateFilteredAppointmentList(
                 new EventContainsKeywordOrRecentlyAcknowledgedPredicate(
                         editedEvent.getPersonId(), editedEvent));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
 
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
     }
 
     @Override

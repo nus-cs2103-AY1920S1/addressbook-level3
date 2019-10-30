@@ -1,5 +1,5 @@
 //@@author woon17
-package seedu.address.logic.commands.appointments;
+package seedu.address.logic.commands.duties;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -7,8 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
-
-import java.util.List;
 
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
@@ -18,11 +16,13 @@ import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
+import java.util.List;
+
 
 /**
  * Adds a person to the address book.
  */
-public class AddAppCommand extends ReversibleCommand {
+public class AddDutyShiftCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "addappt";
 
@@ -34,8 +34,8 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_ID + "001A "
             + PREFIX_START + "01/11/19 1800";
 
-    public static final String MESSAGE_USAGE_RECURSIVELY = COMMAND_WORD + ": Adds recursively appointments"
-            + " to the address book. \n"
+    public static final String MESSAGE_USAGE_RECURSIVELY = COMMAND_WORD + ": Adds duty shifts recursively "
+            + " to the duty cha. \n"
             + "Parameters: "
             + PREFIX_ID + "REFERENCE ID "
             + PREFIX_START + "PREFIX_EVENT "
@@ -47,13 +47,10 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_RECURSIVE + "m "
             + PREFIX_RECURSIVE_TIMES + "2\n";
 
-    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "Appointment added: %1$s";
-    public static final String MESSAGE_SUCCESS_RECURSIVE = "%1$s recursive Appointment were added";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled: %1$s";
-    public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
-    public static final String MESSAGE_ADD_APPOINTMENTS_SUCCESS = "Recursive appointments added: \n";
+    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "Duty shift added: %1$s";
+    public static final String MESSAGE_SUCCESS_RECURSIVE = "%1$s recursive duty shifts were added";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS
-            = "Must indicate at least 1 appointment to add";
+            = "Must indicate at least 1 shift to add";
 
     private final Event toAdd;
     private final List<Event> eventList;
@@ -61,7 +58,7 @@ public class AddAppCommand extends ReversibleCommand {
     /**
      * Creates an AddAppCommand to add the specified {@code Event}
      */
-    public AddAppCommand(Event toAdd) {
+    public AddDutyShiftCommand(Event toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
         this.eventList = null;
@@ -70,7 +67,7 @@ public class AddAppCommand extends ReversibleCommand {
     /**
      * Creates an AddAppCommand to add the specified {@code Events}
      */
-    public AddAppCommand(List<Event> eventList) {
+    public AddDutyShiftCommand(List<Event> eventList) {
         requireNonNull(eventList);
         checkArgument(eventList.size() > 0, MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS);
         this.toAdd = null;
@@ -99,7 +96,7 @@ public class AddAppCommand extends ReversibleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddAppCommand // instanceof handles nulls
-                && toAdd.equals(((AddAppCommand) other).toAdd));
+                || (other instanceof AddDutyShiftCommand // instanceof handles nulls
+                && toAdd.equals(((AddDutyShiftCommand) other).toAdd));
     }
 }

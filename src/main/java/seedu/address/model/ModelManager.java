@@ -4,6 +4,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -15,9 +16,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.OmniPanelTab;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.AppointmentBook;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.exceptions.EntryNotFoundException;
 import seedu.address.model.person.AddressBook;
 import seedu.address.model.person.Person;
@@ -372,24 +373,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteAppointment(Event event) {
-        appointmentBook.removeEvent(event);
+    public void deleteAppointment(Event appointment) {
+        appointmentBook.removeEvent(appointment);
     }
 
     /**
      * Schedules a given {@code appointment}.
      *
-     * @throws CommandException if the number of unique events which timings are in conflict
+     * @throws InvalidEventScheduleChangeException if the number of unique events which timings are in conflict
      * is greater or equal to the {@code maxNumberOfConcurrentEvents} or the events in conflict
      * involves the same patient given in {@code appointment}, but ignores {@code ignoreEventCase}
      */
-    private void scheduleAppointment(Event appointment, Event ignoreEventCase) throws CommandException {
+    private void checkValidScheduleAppointment(Event appointment, Event ignoreEventCase)
+            throws InvalidEventScheduleChangeException {
         int numOfAvailableStaff = getNumberOfDutyShiftInConflict(appointment);
         ListIterator<Event> itr = getAppointmentsInConflict(appointment);
 
         //TODO: edge case, scheduling a staff member
         if (hasStaff(appointment.getPersonId())) {
-            throw new CommandException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
+            throw new InvalidEventScheduleChangeException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
         }
 
         int countNumberOfConcurrentAppointments = 0;
@@ -398,7 +400,7 @@ public class ModelManager implements Model {
             countNumberOfConcurrentAppointments++;
             if (appointment.getPersonId().isSameAs(apt.getPersonId())
                 && !appointment.equals(ignoreEventCase)) {
-                throw new CommandException(
+                throw new InvalidEventScheduleChangeException(
                         String.format(MESSAGE_NOT_OVERLAPPING_APPOINTMENT,
                                 apt.getEventTiming().toString()));
 
@@ -406,31 +408,39 @@ public class ModelManager implements Model {
         }
 
         if (numOfAvailableStaff <= countNumberOfConcurrentAppointments) {
-            throw new CommandException(
+            throw new InvalidEventScheduleChangeException(
                     String.format(MESSAGE_NOT_ENOUGH_STAFF,
                             appointment.getEventTiming().toString(),
                             numOfAvailableStaff));
         }
+    }
 
+    @Override
+    public void scheduleAppointment(Event appointment) throws InvalidEventScheduleChangeException {
+        checkValidScheduleAppointment(appointment, null);
         appointmentBook.addEvent(appointment);
-
-        //TODO: Display events only around appointment timing.
-        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
-    public void scheduleAppointment(Event appointment) throws CommandException {
-        scheduleAppointment(appointment, null);
+    public void scheduleAppointments(List<Event> appointments) throws InvalidEventScheduleChangeException {
+        for (Event e : appointments) {
+            checkValidScheduleAppointment(e, null);
+        }
+
+        for (Event e : appointments) {
+            appointmentBook.addEvent(e);
+        }
     }
 
     @Override
-    public void setAppointment(Event target, Event editedEvent) throws CommandException {
+    public void setAppointment(Event target, Event editedEvent) throws InvalidEventScheduleChangeException {
         requireAllNonNull(target, editedEvent);
         if (!hasExactAppointment(target)) {
             throw new EntryNotFoundException();
         }
 
-        scheduleAppointment(editedEvent, target);
+        checkValidScheduleAppointment(editedEvent, target);
+        appointmentBook.addEvent(editedEvent);
         deleteAppointment(target);
     }
 
@@ -515,8 +525,10 @@ public class ModelManager implements Model {
         return dutyRosterBook.hasExactEvent(dutyShift);
     }
 
-    @Override
-    public void deleteDutyShift(Event dutyShift) throws CommandException {
+    /**
+     * Checks if a given {@code dutyShift} can be deleted.
+     */
+    private void checksCanDeleteDutyShift(Event dutyShift) throws InvalidEventScheduleChangeException {
         requireNonNull(dutyShift);
         if (!hasExactDutyShift(dutyShift)) {
             throw new EntryNotFoundException();
@@ -526,21 +538,42 @@ public class ModelManager implements Model {
         int numOfAppointments = getNumberOfAppointmentsInConflict(dutyShift);
 
         if (numOfAvailableStaff <= numOfAppointments) {
-            throw new CommandException(
-                String.format(MESSAGE_NOT_ENOUGH_STAFF,
-                        dutyShift.getEventTiming().toString(),
-                        numOfAvailableStaff));
+            throw new InvalidEventScheduleChangeException(
+                    String.format(MESSAGE_NOT_ENOUGH_STAFF,
+                            dutyShift.getEventTiming().toString(),
+                            numOfAvailableStaff));
         }
+    }
 
+
+    @Override
+    public void deleteDutyShifts(Event dutyShift) throws InvalidEventScheduleChangeException {
+        checksCanDeleteDutyShift(dutyShift);
         dutyRosterBook.removeEvent(dutyShift);
     }
 
     @Override
-    public void scheduleDutyShift(Event dutyShift) throws CommandException {
+    public void deleteDutyShifts(List<Event> dutyShifts) throws InvalidEventScheduleChangeException {
+        for (Event e : dutyShifts) {
+            checksCanDeleteDutyShift(e);
+        }
 
+        for (Event e : dutyShifts) {
+            dutyRosterBook.removeEvent(e);
+        }
+    }
+
+
+    /**
+     * Schedules a given {@code dutyShift}.
+     *
+     * @throws InvalidEventScheduleChangeException if the events in conflict
+     * involves the same staff member given in {@code dutyShift}
+     */
+    private void checkValidScheduleDutyShift(Event dutyShift) throws InvalidEventScheduleChangeException {
         //TODO: edge case, scheduling a staff member
         if (hasPatient(dutyShift.getPersonId())) {
-            throw new CommandException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
+            throw new InvalidEventScheduleChangeException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
         }
 
         ListIterator<Event> itr = getDutyShiftInConflict(dutyShift);
@@ -548,23 +581,37 @@ public class ModelManager implements Model {
         while (itr.hasNext()) {
             Event shift = itr.next();
             if (dutyShift.getPersonId().isSameAs(shift.getPersonId())) {
-                throw new CommandException(
+                throw new InvalidEventScheduleChangeException(
                         String.format(MESSAGE_NOT_OVERLAPPING_DUTYSHIFT,
                                 shift.getEventTiming().toString()));
 
             }
         }
-
-        dutyRosterBook.addEvent(dutyShift);
-
-        //TODO: Display events only around appointment timing.
-        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
-    public void setDutyShift(Event target, Event editedEvent) throws CommandException {
-        deleteDutyShift(target);
-        scheduleDutyShift(editedEvent);
+    public void scheduleDutyShift(Event dutyShift) throws InvalidEventScheduleChangeException {
+        checkValidScheduleDutyShift(dutyShift);
+        dutyRosterBook.addEvent(dutyShift);
+    }
+
+    @Override
+    public void scheduleDutyShift(List<Event> dutyShifts) throws InvalidEventScheduleChangeException {
+        for (Event e : dutyShifts) {
+            checkValidScheduleDutyShift(e);
+        }
+
+        for (Event e : dutyShifts) {
+            dutyRosterBook.addEvent(e);
+        }
+    }
+
+    @Override
+    public void setDutyShift(Event target, Event editedEvent) throws InvalidEventScheduleChangeException {
+        checksCanDeleteDutyShift(target);
+        checkValidScheduleDutyShift(editedEvent);
+        dutyRosterBook.removeEvent(target);
+        dutyRosterBook.addEvent(editedEvent);
     }
 
     @Override
