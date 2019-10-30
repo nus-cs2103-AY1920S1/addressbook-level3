@@ -72,7 +72,7 @@ public class NoteFragmentFeatureUtilTest {
     @Test
     public void parseNoteFragmentsFromString_listWithInvalidString_throwsParseException() {
         List<String> actualList = List.of(INVALID_NOTE_FRAGMENT);
-        assertThrows(ParseException.class, () -> NoteFragmentFeatureUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
-                actualList));
+        assertThrows(ParseException.class, () -> NoteFragmentFeatureUtil
+                .parseNoteFragmentsFromString(new Title(VALID_TITLE), actualList));
     }
 }

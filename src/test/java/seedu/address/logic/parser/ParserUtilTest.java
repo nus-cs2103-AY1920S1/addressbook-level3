@@ -9,15 +9,11 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.NoteFragmentFeatureUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.note.NoteFragment;
-import seedu.address.model.note.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
