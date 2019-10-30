@@ -10,7 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
-import seedu.address.report.ReportGenerator;
+import seedu.address.storage.ReportGenerator;
 
 //@@author bernicechio
 /**
