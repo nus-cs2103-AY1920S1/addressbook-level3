@@ -14,7 +14,6 @@ import javafx.collections.ObservableList;
 public class VisitList {
 
     public static final String MESSAGE_CONSTRAINTS = "Visit date should follow dd/mm/yyyy format";
-    public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
 
     private ArrayList<VisitReport> records = new ArrayList<>();
 
@@ -52,13 +51,6 @@ public class VisitList {
         } else {
             return "Most Recent Visit: " + records.get(0).toString();
         }
-    }
-
-    /**
-     * Returns true if a given string is a valid tag name.
-     */
-    public static boolean isValidVisitDate(String test) {
-        return test.matches(VALIDATION_REGEX);
     }
 
     /**

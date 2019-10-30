@@ -159,6 +159,9 @@
                         </HBox.margin>
                      </Label>
                   </children>
+                  <VBox.margin>
+                     <Insets top="5.0" />
+                  </VBox.margin>
                </HBox>
                 </children>
                 <opaqueInsets>
