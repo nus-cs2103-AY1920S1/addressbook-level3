@@ -33,10 +33,12 @@ Weme is a meme manager app for those who *prefer to use a desktop app for managi
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`meme list`* : lists all memes
-* **`meme add`**`p/~/Downloads/meme.jpg d/Top meme` : adds a meme located at "~/Downloads/meme.jpg" with the description "Top meme"
-* **`meme delete`**`3` : deletes the 3rd meme shown in the window
-* *`exit`* : exits the app
+* *`tab memes`* : switches to the meme tab
+* In the meme tab:
+** *`list`* : lists all memes
+** **`add`**`p/~/Downloads/meme.jpg d/Top meme` : adds a meme located at "~/Downloads/meme.jpg" with the description "Top meme"
+** **`delete`**`3` : deletes the 3rd meme shown in the meme tab
+** *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -53,7 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Whenever INDEX is encountered, it refers to the index in the currently displayed list.
 ====
 
-=== General
+=== General Commands
 
 ==== Viewing help : `help`
 
@@ -70,52 +72,53 @@ Redoes previously undone commands and tells you the command you just redid. +
 Format: `redo` +
 Example: `redo`
 
-***
+****
 `undo` and `redo` only supports commands that modify data in Weme. This means that commands that alter the UI (such as `find` and `list`), as well as commands that modify the staging / import list (such as `load`, `stage`) are not undoable. +
 * Meme Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`
 * Template Tab: `add`, `edit`, `delete`, `archive`, `unarchive`, `use`
 * Create Tab: `add`, `abort`, `create`
 * Import Tab: `import`
-***
+****
 
-***
-Undo and Redo only supports commands that modify data in Weme. This means that commands that alter the UI (such as `find` and `list`), as well as commands that modify the staging / import list (such as `load`, `stage`) are not undoable.
-* Meme Tab: `add`, `edit`, `delete`, `clear`, `like`
-* Template Tab: `add`, `edit`, `delete`, `use`
-* Create Tab: `add`, `abort`
-* Import Tab: `import`
-***
+==== Tab : `tab`
+
+Switches between tabs in the application. +
+Format: `tab TAB_NAME` +
+`TAB_NAME` options:
+
+* *memes*
+* *templates*
+* *create*
+* *statistics*
+* *export*
+* *import*
+* *preferences*
 
 ==== Exit : `exit`
 Exits Weme. +
 Format: `exit`
 
-=== Meme
+=== Meme Tab
 
-==== Add - meme : `add`
+==== Add a meme: `add`
 
-Add a new meme to Weme. Weme will copy the given image into the it’s data storage folder. +
-Format: `meme add p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
+Add a new meme to the meme tab. Weme will copy the given image into the it’s data storage folder. +
+Format: `add p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
 Examples:
 
-* Add a meme that uses the “Disaster Girl” template from ~/Downloads/dgirl_oof.jpg `meme add p/~/Downloads/dgirl_oof.jpg n/Disaster Girl t/Funny`
+* Add a meme that uses the “Disaster Girl” template from ~/Downloads/dgirl_oof.jpg `add p/~/Downloads/dgirl_oof.jpg n/Disaster Girl t/Funny`
 
-==== List - meme : `list`
+==== Clear: `clear`
 
-List all memes in Weme. +
-Format: `meme list`
-
-==== Edit - meme : `edit`
-
-Edit the details of a meme at the specified index. Only optional fields are editable. +
-Format: `meme edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
+Clears all memes in the meme tab. +
+Format: `clear`
 
 // tag::delete[]
 
-==== Delete - meme : `delete`
+==== Delete a meme: `delete`
 
-Delete the specified meme from Weme.
-Format: `meme delete INDEX`
+Delete the specified meme from the meme tab. +
+Format: `delete INDEX`
 
 ****
 * Deletes the meme at the specified `INDEX`.
@@ -134,10 +137,39 @@ Deletes the 1st meme in the results of the `find` command.
 
 // end::delete[]
 
-==== Find - meme : `find`
+==== Edit a meme: `edit`
 
-Finds memes that fulfill the given search criteria. At least one field must be given. +
-Format: `meme find [d/DESCRIPTION]... [n/TEMPLATE_NAME]... [t/TAG]...`
+Edit the details of a meme at the specified index. Only optional fields are editable. +
+Format: `edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
+
+==== Stage a meme: `stage`
+
+Stages the meme into the export staging area at the specified index. +
+Format: `stage INDEX`
+
+==== Like a meme: `like`
+
+Like a meme by the index. Format: `like 1`
+
+****
+You could use arrow key UP to quick like a meme at the given index. +
+To do this, you have to key in the full command `like [INDEX]` then press arrow key. +
+You can also use arrow key LEFT and RIGHT to toggle the index from 1 to a higher index.
+****
+
+==== Dislike a meme: `dislike`
+
+Dislike a meme by the index. Format: `dislike 1`
+
+****
+Same as like, dislike also allows arrow key operations.
+****
+
+==== Find a meme: `find`
+Finds all memes with tags containing any of the specified keywords
+(case-insensitive) and displays them as a list with index numbers. +
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `Pikachu` will match `pikachu`
@@ -148,50 +180,43 @@ Format: `meme find [d/DESCRIPTION]... [n/TEMPLATE_NAME]... [t/TAG]...`
 
 Examples:
 
-* `meme find pikachu` +
+* `find pikachu` +
 Returns memes related to `pikachu` and `pikachu faceless`
 
-==== Like - meme : `like`
+==== List: `list`
 
-Like a meme by the index. Format: `like 1`
+Lists all memes in the meme tab. +
+Format: `list`
 
-****
-You could use arrow key UP to quick like a meme at the given index. +
-To do this, you have to key in the full command `like [INDEX]` then press arrow key. +
-You can also use arrow key LEFT and RIGHT to toggle the index from 1 to a higher index.
-****
+==== Archives: `archives`
 
-==== Dislike - meme : `dislike`
+Lists all memes that are archived in the meme tab. +
+Format: `archives`
 
-Dislike a meme by the index. Format: `dislike 1`
+==== Archive a meme:  `archive`
 
-****
-Same as like, dislike also allows arrow key operations.
-****
+Archives a meme by index. +
+Format: `archive 1`
 
-=== Templates
+==== Unarchive a meme: `unarchive`
+
+Unarchives a meme by index. +
+Format: `unarchive 1`
+
+=== Templates Tab
 Templates are meme prototypes. You can use any image as template base and add labels to it. Labels serve as placeholders that will be replaced with text supplied by the user when creating a meme from the template.
 
-==== Adding a template - template add
+==== Adding a template: `add`
 
-Add a new template to weme. The newly created template will not have any labels. +
-Format: `template add n/NAME p/PATH` +
+Adds a new template to weme. The newly created template will not have any labels. +
+Format: `add n/NAME p/PATH` +
 Examples:
 
 * Add a template named “Drake” from ~/Downloads/Drake_hotline_bling.jpg +
-`template add n/Drake p/~/Downloads/Drake_hotline_bling.jpg`
+`add n/Drake p/~/Downloads/Drake_hotline_bling.jpg`
 
-==== Listing all  templates - template list
-
-List all templates. +
-Format: `template list`
-
-==== Viewing a template - template view
-View a template. The list panel will be filled by the template. The labels will be displayed at their respective positions. +
-Format: `template view INDEX`
-
-==== Editing a template - template edit
-Edit a template at the specified index. The list panel will become the editing area and display the selected template. You can add, remove, or move labels. A set of keyboard actions are available: +
+==== Editing a template: `edit`
+Edits a template at the specified index. The list panel will become the editing area and display the selected template. You can add, remove, or move labels. A set of keyboard actions are available: +
 
 * a: add a label
 * NUMBER: focus a label labelled NUMBER
@@ -202,21 +227,21 @@ Edit a template at the specified index. The list panel will become the editing a
 * Delete/d: delete the currently focused label
 * Enter: finish editing
 
-Format: `template edit INDEX`
+Format: `edit INDEX`
 
 ****
 * Note: The current edit session will be aborted if another command is entered before the session is finished.
 ****
 
-==== Deleting a meme - template delete
+==== Deleting a template: `delete`
 
-Delete the specified template from weme. +
-Format: `template delete INDEX`
+Deletes the specified template from the template tab. +
+Format: `delete INDEX`
 
-==== Locating templates by name - template find
+==== Locating templates by name: `find`
 
 Finds templates whose names contain any of the given keywords. +
-Format: `template find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g drake will match dRaKE
@@ -234,110 +259,103 @@ Returns all template containing Thanos in their names
 * `find Stonks Doge Pikachu` +
 Returns any templates having names stonks, doge, or pikachu
 
-==== Creating memes from templates - template use
-Create a meme from one of the templates stored in weme. Multiple pieces of text can be supplied, each of which will be used to fill in the labels 1, 2, 3, …, etc, in the order they are supplied. The resultant meme will be saved in weme with the tags you specified. +
-Format: `template use INDEX l/TEXT [l/TEXT]... t/TAG [t/TAG]..` +
+****
+* The search is case insensitive. e.g `Pikachu` will match `pikachu`
+* The order of the keywords does not matter. e.g. `run naruto` will match `naruto run`
+* Only the name is searched.
+* Only full words will be matched e.g. `naru` will not match `naruto`
+****
+
+==== Archive a template: `archive`
+
+Archives a template by index. +
+Format: `archive 1`
+
+==== Unarchive a template: `unarchive`
+
+Unarchives a template by index. +
+Format: `unarchive 1`
+
+==== Listing all templates: `list`
+
+Lists all templates. +
+Format: `list`
+
+==== Viewing a template: `view`
+Views a template. The list panel will be filled by the template. The labels will be displayed at their respective positions. +
+Format: `view INDEX`
+
+==== Creating memes from templates: use
+Creates a meme from one of the templates stored in weme. Multiple pieces of text can be supplied, each of which will be used to fill in the labels 1, 2, 3, …, etc, in the order they are supplied. The resultant meme will be saved in weme with the tags you specified. +
+Format: `use INDEX l/TEXT [l/TEXT]... t/TAG [t/TAG]..` +
 Example:
 
-* `template use 1 t/wow t/so amaze t/random` +
+* `use 1 t/wow t/so amaze t/random` +
 Using the template at index 1, create a new meme tagged `random` by replacing label 1 with `wow` and label 2 with `so amaze`.
 
-=== Import/Export
-==== Export - export
 
-Exports existing memes into a zip file.
+=== Export Tab
 
-===== Toggles the export window - export toggle
+==== Unstage a meme: `unstage`
 
-Toggles the export window for exporting memes into a zip package. +
-Format: `export toggle`
+Unstages the meme from the export staging area at the specified index. +
+Format: `stage INDEX`
 
-===== Add export - export add
+==== Export meme: `export`
 
-Adds memes by tag or by position into the staging area for export. +
-Format: `export add t/TAG` +
-Format: `export add i/POSITION`
+Exports the memes in the export tab into a directory. The directory path can
+be either specified or not.
 
-===== Remove export - export remove
+* If the path is not specified, then the memes will
+be exported to an export folder located at where the jar file is.
 
-Removes memes from the export staging area by position. +
-Format: `export remove i/POSITION`
+** Format: `export`
 
-===== Sets path for export - export path
+* If path is specified, the memes will be exported to that directory.
 
-Sets the export path of the meme. +
-Format: `export path p/PATHNAME`
+** Format: `export p/~/Users/bill/favourites/`
 
-===== Execute the export - export execute
-Format: `export execute`
+* The user can use a special [d] keyword to export to a default path
+configured by preferences.json.
 
-==== Import - import
+** Format: `export p/[d]`
 
-Imports a set of memes from a directory as templates.
+==== Clear staging area: `clear`
 
-===== Toggles the import window - import toggle
+Clears all memes in the export tab. +
+Format: `clear`
 
-Toggles the import window to import memes from a directory. +
-Format: `import toggle`
+=== Import Tab
 
-===== Add import - import add
+==== Load memes: `load`
 
-Adds memes to the import staging area based on its path. +
-Format: `import add p/PATHNAME`
+Loads memes from a specified directory into the import tab. +
+Format: `load p/PATH`
 
-===== Remove import - import remove
+==== Edit a meme: `edit`
 
-Removes memes from the import staging area by position +
-Format: `import remove i/POSITION`
+Edits a meme from the import tab. This allows the user
+to make changes before actually importing the weme. +
+Format: `edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
 
-===== Execute the import - import execute
+==== Delete a meme: `delete`
 
-Successfully converts all meme files in the staging area into meme templates. +
-Format: `import execute`
+Deletes an unwanted meme from the import tab. +
+Format: `delete INDEX`
 
-=== Tags
+==== Import memes: `import`
 
-==== Add - tag add
+Imports memes from the import tab into Weme. +
+Format: `import`
 
-Creates a tag with a name, and optionally attach it to a meme at the specified index. +
-Format: `tag add n/NAME [INDEX]   +
-Examples:
+==== Clear loaded memes: `clear`
 
-* Add a tag called “CS2103” without a meme +
-`tag add n/CS2103`
-* Add a tag called “SoC” and tag meme #3 in the search list with it +
-`tag add n/SoC 3`
+Clears all the memes in the import tab. +
+Format: `clear`
 
-==== Edit - tag edit
+=== Statistics Tab
 
-Edits the name of a tag, replacing the old name with the new name. +
-Format: `tag edit o/OLDNAME n/NEWNAME` +
-Examples:
-
-* Change the name of tag “CS2010” to “CS2040” +
-`tag edit o/CS2010 n/CS2040`
-
-==== List - tag list
-
-Lists all the tags created so far. +
-Format: `tag list`
-
-==== Delete - tag delete
-
-Delete a tag specified by either its name or its index in the search result. +
-Format: `tag delete [n/NAME] [INDEX]` +
-Examples:
-
-* Delete tag “CS1101S” +
-`tag delete n/CS1101S`
-* Delete tag at index 4 in the search result +
-`tag delete 4`
-
-=== Statistics
-
-View stats - `tab stats` +
-View various statistics about the memes such as tags and likes count by tags, and most used templates. +
-Format: `tab stats`
+View various statistics about the memes such as tags and likes count by tags, and most used templates.
 
 === Auto-suggestions
 
@@ -347,7 +365,6 @@ when user type in meme add, the command format will appear below: +
 `p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
 e.g. `p/home/pictures/p1.jpeg d/My favorite meme n/sad sponge bob t/spongebob t/favorites`
 
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -355,36 +372,54 @@ e.g. `p/home/pictures/p1.jpeg d/My favorite meme n/sad sponge bob t/spongebob t/
 
 == Command Summary
 
-* *Help* : `help`
-* *Undo* : `undo`
-* *Redo* : `redo`
-* *Exit* : `exit`
-* *Add Meme* : `meme add p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
-e.g. `meme add p/~/Downloads/dgirl_oof.jpg n/Disaster Girl t/Funny`
-* *List Meme* : `meme list`
-* *Edit Meme* : `meme edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
-* *Delete Meme* : `meme delete INDEX`
-* *Find Meme* : `meme find [d/DESCRIPTION]... [n/TEMPLATE_NAME]... [t/TAG]...`
-* *Add Template* : `template add n/NAME p/PATH`
-* *List Template* : `template list`
-* *View template* : `template view INDEX`
-* *Edit Template* : `template edit INDEX`
-* *Delete Template* : `template delete INDEX`
-* *Find Template* : `template find KEYWORD [MORE_KEYWORDS]`
-* *Use Template* : `template use INDEX l/TEXT [l/TEXT]... t/TAG [t/TAG]..`
-* *Export Toggle* : `export toggle`
-* *Add Export* : `export add [t/tag] [i/position]`
-* *Remove Export* : `export remove i/position`
-* *Set Export Path* : `export path p/path_name`
-* *Execute Export* : `export execute`
-* *Import Toggle* : `import toggle`
-* *Add Import* : `import add p/PATHNAME`
-* *Remove Import* : `import remove i/POSITION`
-* *Set Import Path* : `import path p/PATHNAME`
-* *Execute Import* : `import execute`
-* *Add Tag* : `tag add n/NAME [INDEX]`
-* *Edit Tag* : `tag edit o/OLDNAME n/NEWNAME`
-* *List Tag* : `tag list`
-* *Delete Tag* : `tag delete [n/NAME] [INDEX]`
-* *Statistics* : `stats`
+* *General Command* :
+** *Help* : `help`
+** *Undo* : `undo`
+** *Redo* : `redo`
+** *Tab* :
+*** *Memes Tab* : `tab memes`
+*** *Templates Tab* : `tab templates`
+*** *Create Tab* : `tab create`
+*** *Statistics Tab* : `tab statistics`
+*** *Export Tab* : `tab export`
+*** *Import Tab* : `tab import`
+*** *Preferences Tab* : `tab preferences`
+** *Exit* : `exit`
 
+* *Memes Command* :
+** *Add Meme* : `add p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
+e.g. `add p/~/Downloads/dgirl_oof.jpg n/Disaster Girl t/Funny`
+** *Clear Meme* : `clear`
+** *Delete Meme* : `delete INDEX`
+** *Edit Meme* : `edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
+** *Stage Meme* : `stage INDEX`
+** *Like Meme* : `like INDEX`
+** *Dislike Meme* : `dislike INDEX`
+** *Find Meme* : `find KEYWORD [MORE_KEYWORDS]`
+** *List Meme* : `list`
+** *List Archived Memes* : `archives`
+** *Archive Meme* : `archive INDEX`
+** *Unarchive Meme* : `unarchive INDEX`
+
+* *Templates Tab* :
+** *Add Template* : `add n/NAME p/PATH`
+** *Edit Template* : `edit INDEX`
+** *Delete Template* : `delete INDEX`
+** *Find Template* : `find KEYWORD [MORE_KEYWORDS]`
+** *Archive Template* : `archive INDEX`
+** *Unarchive Template* : `unarchive INDEX`
+** *List Archived Templates* : `archives`
+** *View Template* : `view INDEX`
+** *Use Template* : `use INDEX`
+
+* *Export Tab* :
+** *Unstage Meme* : `unstage INDEX`
+** *Export Meme* : `export [p/PATH]`
+** *Clear staged Meme* : `clear`
+
+* *Import Tab* :
+** *Load Memes* : `load p/PATH`
+** *Edit Meme* : `edit INDEX [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...`
+** *Delete Meme* : `delete INDEX`
+** *Import Memes* : `import`
+** *Clear loaded Memes* : `clear`
