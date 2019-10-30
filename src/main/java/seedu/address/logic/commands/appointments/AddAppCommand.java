@@ -45,8 +45,7 @@ public class AddAppCommand extends ReversibleCommand {
     public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled: %1$s";
     public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
     public static final String MESSAGE_ADD_APPOINTMENTS_SUCCESS = "Recursive appointments added: \n";
-    public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS
-            = "Must indicate at least 1 appointment to add";
+    public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS = "Must indicate at least 1 appointment to add";
 
     private final Event toAdd;
     private final List<Event> eventList;

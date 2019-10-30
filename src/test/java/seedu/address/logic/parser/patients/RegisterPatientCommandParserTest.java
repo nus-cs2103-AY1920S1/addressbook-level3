@@ -38,12 +38,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
 import seedu.address.logic.commands.patients.UnregisterPatientCommand;
-import seedu.address.model.person.parameters.Tag;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class RegisterPatientCommandParserTest {

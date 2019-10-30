@@ -51,7 +51,7 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
         if (model.hasExactDutyShift(editedEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
-        
+
         try {
             model.setDutyShift(eventToEdit, editedEvent);
         } catch (InvalidEventScheduleChangeException ex) {

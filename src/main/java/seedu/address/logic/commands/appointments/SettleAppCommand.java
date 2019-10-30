@@ -10,7 +10,6 @@ import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventsMissedPredicate;
-import seedu.address.model.events.predicates.EventsSettledPredicate;
 
 
 /**

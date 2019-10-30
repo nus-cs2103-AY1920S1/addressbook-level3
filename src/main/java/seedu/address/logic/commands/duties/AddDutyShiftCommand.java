@@ -43,8 +43,7 @@ public class AddDutyShiftCommand extends ReversibleCommand {
 
     public static final String MESSAGE_ADD_SHIFT_SUCCESS = "Duty shift added: %1$s";
     public static final String MESSAGE_SUCCESS_RECURSIVE = "%1$s repeated duty shifts were added:\n %2$s";
-    public static final String MESSAGE_CANCEL_SHIFTS_CONSTRAINTS
-            = "Must indicate at least 1 shift to add";
+    public static final String MESSAGE_CANCEL_SHIFTS_CONSTRAINTS = "Must indicate at least 1 shift to add";
 
     private final Event toAdd;
     private final List<Event> eventList;

@@ -15,13 +15,13 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
-import seedu.address.model.person.parameters.Tag;
 import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationException;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_ID1 = "@001A";

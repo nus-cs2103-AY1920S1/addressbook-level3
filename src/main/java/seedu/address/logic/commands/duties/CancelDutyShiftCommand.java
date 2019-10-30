@@ -1,6 +1,12 @@
 //@@author SakuraBlossom
 package seedu.address.logic.commands.duties;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
@@ -9,12 +15,6 @@ import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * cancel a duty shift(s) for a staff member.
@@ -26,8 +26,7 @@ public class CancelDutyShiftCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_CANCEL_SHIFT_SUCCESS = "Duty shift has been cancelled: \n%1$s";
     public static final String MESSAGE_CANCEL_SHIFTS_SUCCESS = "%1$s repeated duty shifts cancelled: \n%2$s";
-    public static final String MESSAGE_CANCEL_SHIFTS_CONSTRAINTS
-            = "Must indicate at least 1 shift to delete";
+    public static final String MESSAGE_CANCEL_SHIFTS_CONSTRAINTS = "Must indicate at least 1 shift to delete";
 
     private final Event toDelete;
     private final List<Event> eventList;

@@ -26,8 +26,8 @@ public class CancelAppCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "appointment cancelled: %1$s";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_SUCCESS = "%1$s repeated appointments cancelled: \n";
-    public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS
-            = "Must indicate at least 1 appointment to delete";
+    public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS =
+            "Must indicate at least 1 appointment to delete";
 
     private final Event toDelete;
     private final List<Event> eventList;
@@ -57,7 +57,7 @@ public class CancelAppCommand extends ReversibleCommand {
         }
 
         for (Event e : eventList) {
-            if(model.hasExactAppointment(e)) {
+            if (model.hasExactAppointment(e)) {
                 model.deleteAppointment(e);
             }
         }
