@@ -272,15 +272,28 @@ exporting to document files.
 
 === Get the full list of commands: `help`
 
+This command allow to you to view all the commands available in the application. +
 `help`
+
+. Type `help` and press **Enter** to execute it.
++
+image::HelpCommand.png[width="600"]
+
+. The result box will display the message:
++
+Opened help window.
+
+. A help window with all the commands will also be displayed:
++
+image::HelpWindow.png[width="600"]
 
 === Search flashcards: `search [keywords]`
 
 `search process`
 
-=== Stop test: `stop`
+=== Stop test: `end`
 
-`stop`
+`end`
 
 === Exit: `exit`
 
@@ -293,9 +306,26 @@ To exit:
 . The application window will close by itself.
 
 
-=== View overall stats: `stats`
+=== View overall statistics: `stats`
 
+This command allow to you to view the number of good, hard and easy flashcards completed during test mode and in the application. +
 `stats`
+
+To view statistics:
+
+. Type `stats` and press **Enter** to execute it.
++
+image::StatsCommand.png[width="600"]
+
+. The result box will display the message:
++
+Displays the number of GOOD, HARD & EASY FlashCards
+
+. A bar chart will also be displayed:
++
+image::BarChart.png[width="600"]
+
+
 
 === Cycle through color themes: `theme` [coming in v2.0]
 
@@ -342,12 +372,14 @@ There is no need to save manually.
 
 == Command Summary
 
-* Add new flashcard: add [q>QUESTION] [q>ANSWER] [c>CATEGORY]…​ +
+* Add new flashcard - `add [q>QUESTION] [a>ANSWER] [c>CATEGORY]…​` +
 e.g. `add q>1+1 a>2`
-* Show Calendar of Deadlines- `calendar`
+* Set a flashcard as bad - `bad [INDEX]` +
+e.g.  `bad 2`
+* Show Calendar of Deadlines - `calendar`
 * Clear all the flashcard - `clear` +
 e.g. `clear`
-* Edit an existing flashcard - ` edit [INDEX] {fields wanted to edit}…​` +
+* Edit an existing flashcard - `edit [INDEX] {fields wanted to edit}…​` +
 e.g.  `edit 2 c>CS2103`
 * Add a new Deadline - `deadline t>[TASK] d>[DUE DATE]` +
 e.g.  `deadline t>Math Test d>01/10/2019`
@@ -374,4 +406,4 @@ e.g.  `start Mathematics`
 * View overall statistics - `stats`
 * Search specific flashcards - `search [keywords]` +
 e.g.  `search UML diagrams`
-* Stop flashcard test - `stop`
+* Stop flashcard test - `end`

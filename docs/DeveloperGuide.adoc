@@ -352,6 +352,38 @@ as a `LinkedList` implementation.
 
 // end::dataencryption[]
 
+//@@author LeonardTay748
+// tag::statistics[]
+=== Statistics Feature
+The statistics feature allows users to view the overall statistics (i.e. number of good, hard and easy flashcards in application and those completed in test mode)
+
+==== Implementation
+This feature is supported by the following classes:
+
+* `StatsCommand` -- Carries the message to be displayed to the user.
+* `RatingContainsKeywordPredicate` -- To generate a predicate for good, hard and easy ratings.
+* `Model` -- To provide a list of FlashCards given a rating predicate and the statistics from test mode
+
+The following sequence diagram shows how the `stats` operation works:
+
+image::StatisticsSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes the `stats` command:
+
+image::StatisticsActivityDiagram.png[]
+
+==== Design Considerations
+Aspect: Methods to collect statistics
+
+* **Alternative 1 (Current choice):** Collect total number of good/hard/easy flashcards using predicates and those completed in test mode using the model.
+** Pros: This is easy to implement.
+** Cons: This requires extra lines of code to combine all the statistics.
+* **Alternative 2:** Collect all statistics using the model.
+** Pros: This allows the collection of all statistics with minimal methods involved.
+** Cons: This requires constant updating of the model when new FlashCards are added, removed or edited.
+
+// end::statistics[]
+
 //@@author
 === Logging
 

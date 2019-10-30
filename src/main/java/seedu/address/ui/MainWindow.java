@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsWindow statsWindow;
     private CategoryListPanel categoryListPanel;
     private CalendarWindow calendarWindow;
 
@@ -73,6 +74,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsWindow = new StatsWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -160,6 +162,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the stats window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStats() {
+        if (!statsWindow.isShowing()) {
+            statsWindow.show(logic.getModel());
+        } else {
+            statsWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -173,6 +187,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statsWindow.hide();
         primaryStage.hide();
     }
 
@@ -195,13 +210,17 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
+            if (commandResult.isShowStats()) {
+                handleStats();
+            }
+
             if (commandResult.isExit()) {
                 handleExit();
             }
 
             //Todo
             // commandResult.isAdd() {
-            // handleaAdd
+            // handleAdd
 
             //todo
             // commandResult.is start() {
