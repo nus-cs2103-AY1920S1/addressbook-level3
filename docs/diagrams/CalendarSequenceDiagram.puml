@@ -4,8 +4,8 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":AddModCommandParser" as AddModCommandParser LOGIC_COLOR
-participant "d:AddModCommand" as AddModCommand LOGIC_COLOR
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant "d:SortCommand" as SortCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,56 +13,56 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("addmod <title>CS2109 Tutorial...")
+[-> LogicManager : execute("sort title")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("addmod <title>CS2109 Tutorial...")
+LogicManager -> AddressBookParser : parseCommand("sort title.")
 activate AddressBookParser
 
-create AddModCommandParser
-AddressBookParser -> AddModCommandParser
-activate AddModCommandParser
+create SortCommandParser
+AddressBookParser -> SortCommandParser
+activate SortCommandParser
 
-AddModCommandParser --> AddressBookParser
-deactivate AddModCommandParser
+SortCommandParser --> AddressBookParser
+deactivate SortCommandParser
 
-AddressBookParser -> AddModCommandParser : parse("<title>CS2109 Tutorial...")
-activate AddModCommandParser
+AddressBookParser -> SortCommandParser : parse("title")
+activate SortCommandParser
 
-create AddModCommand
-AddModCommandParser -> AddModCommand : ModuleTask(new TaskTitle(CS2109 Tutorial), ...)
-activate AddModCommand
+create SortCommand
+SortCommandParser -> SortCommand :
+activate SortCommand
 
-AddModCommand --> AddModCommandParser : d
-deactivate AddModCommand
+SortCommand --> SortCommandParser : d
+deactivate SortCommand
 
-AddModCommandParser --> AddressBookParser : d
-deactivate AddModCommandParser
+SortCommandParser --> AddressBookParser : d
+deactivate SortCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddModCommandParser -[hidden]-> AddressBookParser
-destroy AddModCommandParser
+SortCommandParser -[hidden]-> AddressBookParser
+destroy SortCommandParser
 
 AddressBookParser --> LogicManager : d
 deactivate AddressBookParser
 
-LogicManager -> AddModCommand : execute()
-activate AddModCommand
+LogicManager -> SortCommand : execute()
+activate SortCommand
 
-AddModCommand -> Model : addTask(ModuleTask(new TaskTitle(CS2109 Tutorial), ...))
+SortCommand -> Model : switchSortType("title")
 activate Model
 
-Model --> AddModCommand
+Model --> SortCommand
 deactivate Model
 
 create CommandResult
-AddModCommand -> CommandResult
+SortCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> AddModCommand
+CommandResult --> SortCommand
 deactivate CommandResult
 
-AddModCommand --> LogicManager : result
-deactivate AddModCommand
+SortCommand --> LogicManager : result
+deactivate SortCommand
 
 [<--LogicManager
 deactivate LogicManager
