@@ -6,7 +6,7 @@ import com.typee.model.EngagementList;
 import com.typee.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the engagement list.
  */
 public class ClearCommand extends Command {
 
