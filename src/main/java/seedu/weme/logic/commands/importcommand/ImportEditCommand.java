@@ -38,7 +38,7 @@ public class ImportEditCommand extends Command {
 
     public static final String MESSAGE_EDIT_MEME_SUCCESS = "Edited Meme: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in Weme.";
+    public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in import staging area.";
 
     private final Index index;
     private final MemeEditCommand.EditMemeDescriptor editMemeDescriptor;
@@ -72,7 +72,6 @@ public class ImportEditCommand extends Command {
         }
 
         model.setImportedMeme(memeToEdit, editedMeme);
-        model.addMemeToRecord(editedMeme);
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
 
         return result;
