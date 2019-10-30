@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,8 +78,12 @@ public class DateUtil {
             return null;
         }
 
-        return dateGroup.getDates()
-                .stream()
+        List<Date> dates = dateGroup.getDates();
+        if (dates.isEmpty()) {
+            return null;
+        }
+
+        return dates.stream()
                 .map(d -> d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                 .collect(Collectors.toList());
     }
