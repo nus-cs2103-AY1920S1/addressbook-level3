@@ -33,6 +33,10 @@ public class Timing {
         return test.matches(VALIDATION_REGEX) && (Double.parseDouble(test) > 0);
     }
 
+    public double getValue() {
+        return value;
+    }
+
     public String getUnparsed() {
         return Double.toString(value);
     }

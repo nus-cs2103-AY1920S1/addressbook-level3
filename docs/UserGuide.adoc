@@ -390,7 +390,8 @@ This command allows you to display the calendar for a specific month of your cho
 
 You will need to specify the month and the year you would like to view.
 
-Let's say that you would like to view the calendar containing training and performance records from 2 years ago (e.g. October 2017). Instead of clicking the left arrow over 20 times, you can immediately jump to your month of interest using this command. 
+Let's say that you would like to view the calendar containing training and performance records from 2 years ago (e.g. October 2017).
+Instead of clicking the left arrow over 20 times, you can immediately jump to your month of interest using this command.
 
 *What you should do*
 
@@ -585,9 +586,7 @@ A pop up box will appear, with a link to the user guide on Athletick.
 ==== Undoing a previous command : `undo`
 
 This command restores Athletick to the state before the previous command was executed.
-
 Let’s say you have accidentally deleted an athlete’s contact (Mohamad Ali) from your list.
-
 Instead of having to re-enter Mohamad Ali’s contact information all over again,
 you can easily restore all of Mohamad Ali’s details by `undo`-ing the `delete` command that you have just entered.
 
@@ -706,5 +705,3 @@ Clear data:: `clear`
 Get help:: `help`
 Undo:: `undo`
 Redo:: `redo`
-
-
