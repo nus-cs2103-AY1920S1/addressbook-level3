@@ -5,67 +5,166 @@
 
 == PROJECT: DukeCooks
 
----
+== What is in this document?
 
-== Overview
+This document is a project portfolio documenting the contributions made for DukeCooks by the writer - Hua Lun . It will present the user and developer guide of the Dashboard function in Duke cooks.
 
-DukeCooks is a one-stop healthy lifestyle desktop application created for busy individuals in Singapore. The team behind DukeCooks is a group of Computer Science students from the National University of Singapore. DukeCooks was developed for CS2103T module’s team project requirement.
+== What exactly is DukeCooks?
 
-DukeCooks uses the Command Line Interface (CLI). By using the CLI, it allows a user to easily navigate and use DukeCooks by typing in pre-configured commands defined by DukeCooks. A target user can use DukeCooks to plan their day, create recipes, manage their health, record exercise details and blog.
+DukeCooks is a one-stop healthy lifestyle Desktop application capable of managing your tasks, storing recipes, planning workouts, writing blogs and monitoring your health. DukeCooks is made with the mindset of busy individuals. As college students, we understand the struggles of maintaining a schedule and keeping notes. Not to mention, keeping a balanced and healthy body on top of all the workload.
 
-In this document, it will provide my contributions to DukeCooks. In summary, my contributions include – implementation, testing and creating a Graphical User Interface (GUI) for the Dashboard feature.
+Current applications in the market can satisfy one out of the many needs we have. This would mean that we would have to download and keep track of a myriad of applications in our system.
 
-== Summary of contributions
+Here in Duke cooks, we hope to eliminate; simplify these tedious and stressful chores, all just in one single application. DukeCooks is equipped with a command-line interface (CLI). With this CLI all you have to do is key in what you want to do with an array of predefined commands ranging from adding tasks to writing a new diary entry. Then, all you have to do is sit back, relax and let DukeCooks do all the dirty work!
 
-* *Major enhancement*: added *the Dashboard Feature*
-** Description: The Dashboard feature was created with references to AddressBook3 (AB3). AB3 contain the commands – add, delete, edit, find and list. In AB3, these commands are used to create and manipulate a user’s list contact records.
+== Who is behind DukeCooks?
 
-** What it does: In the case for DukeCooks’s Dashboard, a person’s contact in AB3 is substituted to a task. Users are able to add a task into the Dashboard. With a list of task added in, users can choose to delete a task or edit the task with new information. In addition, users can use the find and list commands to view tasks by giving a specific keyword.
+DukeCooks is proudly developed by a group of second-year students from the National University of Singapore. This application was made to fit the team project requirement of the CS2103T module. An application, AddressBook 3 (AB3), was assigned as a base for our project. Thus, this is a brownfield project which entails morphing AB3 into a new application which in this case, DukeCooks.
 
-** Justification: This is a needed feature for a healthy lifestyle application. In the case of DukeCooks,
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: AB3
+== My Contributions to DukeCooks
 
-* *Minor enhancement*: added *mark as complete function*
-** Description: The command; done, is added into DukeCookds. This function is developed to enhance usability of the Dashboard.
+=== Building the Dashboard
 
-** What it does: It marks a task as complete. When a user marks a certain number of task as complete, encouragement messages will be delivered to the user.
+The Dashboard in DukeCooks provides an overview of the list of tasks to be done. It is also coupled with a progress bar, mini calendar and joke column.
 
-** Justification: As a way to motivate users, marking task as complete can be seen as a sense of achievement. By encouraging users to complete their task, this creates a positive feedback, increasing productivity in users.
+Initial works for the Dashboard include referencing the AB3  codebase. The add / delete / edit / list / find functions from AB3 was adapted and available in the Dashboard. As a comparison, the functions listed before was used in AB3 to create and manipulate a person's contact information. In DukeCook’s Dashboard, these functions are used to create and manipulate a task's information.
 
+image::thedashboard.png[width="790"]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+=== Enhancement 1: Creating the `done` command
 
-* *Other contributions*:
+The done command was created to complement the Dashboard. The user is able to use the command done, to mark a task as complete. Whenever a 'done' command is executed, the progress bar will refresh and update to display the latest information.
+
+=== Enhancement 2: Adding more functionality to the `list` command
+
+The 'list' function adapted from ABS only list all the items in the list. In the case of a dashboard, this might not be adequate. As such, 2 additional functions were added to the `list` command.
+
+By entering `list taskcomplete` or `list taskincomplete` will display the list of task marked as complete or task that are not complete respectively.
+
+=== Enhancement 3: Upgrading the Graphic User Interface (GUI)
+
+Using AB3’s GUI as a backbone, the Dashboard was created. In the GUI for the Dashboard, it displays a progress bar which shows the progress of the tasks completed. A date picker is used to allow users to have quick access to the calendar. Lastly, as a way to motivate users to complete their task, a column is created for displaying jokes. In order to view a joke, users will have to mark a number of task as done.
+
+=== Enhancement 4: Sorting tasks by date
+
+Based off AB3's add command, the task that is last added will be display at the last of the list. Hence, in order to improve user's experience, a sorting system is built. Now, when a task is added, the task will be displayed based off the date entered in.
+
+=== Code contributed: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+=== Other contributions:
 
 ** Project management:
 *** Managed releases `v1.2.1` (1 release) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated Asciidoctor Gradle plugin to the team repo
 
 _{you can add/remove categories in the list above}_
 
-== Contributions to the User Guide
-
+== Getting Started with DukeCooks
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|The following information provides a how-to guide for the feature (Dashboard), that I am in-charged of.
+|To view the full user guide of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[link].
 |===
 
-//include::../UserGuide.adoc[tag=dashboard]
+=== pass:[<u>Adding a task</u>]
 
-//include::../UserGuide.adoc[tag=dataencryption]
+Let's start by using the `add` command to add some tasks into DukeCooks!
+
+Command: `add task` +
+Format: `add task tn/_insert task here_ td/ _insert date here_`
+
+[NOTE]
+====
+When entering the date for a task, please follow the given format: day/month/year
+====
+
+Example usage: `add task tn/Bake a Cake td/29/10/2019`
+
+image::addtask-ug.png[width="790"]
+
+=== pass:[<u>Editing a task's details</u>]
+
+Made some typos when adding a task? +
+Fret not! You are able to make changes to them.
+
+Command: `edit task` +
+Format: `edit task _index number_`
+
+Example usage: `edit task 1 tn/Bake cupcakes td/30/10/2019`
+
+image::edittask-ug.png[width="790"]
+
+=== pass:[<u>Removing a task</u>]
+
+Decided that this task is not needed? +
+Well you can delete them off from DukeCooks.
+
+Command: `delete task` +
+Format: `delete task _index number_`
+
+Example usage: `delete task 2`
+
+image::deletetask-ug.png[width="790"]
+
+=== pass:[<u>Marking a task as complete</u>]
+
+Finished with a task? +
+Check it off the list!
+
+Command: `done` +
+Format: `done _index number_`
+
+Example usage: `done 1`
+
+image::donetask-ug.png[width="790"]
+
+[NOTE]
+====
+A task index number is available at the left side of the task's name.
+====
+
+=== pass:[<u>Finding tasks</u>]
+
+For those who want to know what are the tasks relevant given a keyword.
+
+Command: `find task` +
+Format: `find task _keyword_`
+
+Example usage: `find task cake`
+
+image::findtask-ug.png[width="790"]
+
+=== pass:[<u>Viewing all the tasks</u>]
+
+For those that want to know all the tasks they have added into DukeCooks.
+
+Command: `list task`
+
+image::listtask-ug.png[width="790"]
+
+=== pass:[<u>Viewing incomplete tasks</u>]
+
+Look at all the tasks you have to complete!
+
+Command: `list taskincomplete`
+
+image::listtaskincomplete-ug.png[width="790"]
+
+=== pass:[<u>Viewing completed tasks</u>]
+
+Look at all the tasks you have done!
+
+Command: `list taskcomplete`
+
+image::listtaskcomplete-ug.png[width="790"]
 
 == Contributions to the Developer Guide
 
@@ -76,10 +175,3 @@ _{you can add/remove categories in the list above}_
 //include::../DeveloperGuide.adoc[tag=undoredo]
 
 //include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
-//---
-
-_{Optionally, you may include other projects in your portfolio.}_

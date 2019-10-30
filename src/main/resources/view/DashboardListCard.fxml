@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -8,6 +12,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
@@ -29,10 +34,10 @@
                                     </minWidth>
                                 </Label>
                                 <Label fx:id="dashboardName" styleClass="cell_big_label" text="\$first" />
-                                <Label fx:id="taskStatus" text="\$taskStatus" />
                             </children>
                         </HBox>
                         <Label fx:id="taskDate" styleClass="cell_small_label" text="\$taskDate" />
+                          <Label fx:id="taskStatus" text="\$taskStatus" />
                     </children>
                 </VBox>
             </children>
