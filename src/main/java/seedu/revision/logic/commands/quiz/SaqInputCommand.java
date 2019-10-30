@@ -13,7 +13,7 @@ import seedu.revision.model.answerable.answer.Answer;
  * User inputs that answer the SAQ questions in the quiz session.
  */
 public class SaqInputCommand extends Command {
-    public static final String MESSAGE_USAGE = "Input cannot be blank";
+    public static final String MESSAGE_USAGE = "Input must start with letter or number";
     private final String saqInput;
     private final Answerable currentAnswerable;
 

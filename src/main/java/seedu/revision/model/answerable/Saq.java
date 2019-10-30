@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
@@ -15,6 +16,8 @@ import seedu.revision.model.category.Category;
 public class Saq extends Answerable {
 
     public static final String MESSAGE_CONSTRAINTS = "SAQs should not be blank.";
+
+    private static final Logger logger = Logger.getLogger(Saq.class.getName());
 
     /**
      * Every field must be present and not null.
@@ -36,6 +39,17 @@ public class Saq extends Answerable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean isCorrect(Answer selectedAnswer) {
+        boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(), getCorrectAnswerList().get(0).toString());
+        if (answerIsCorrect) {
+            logger.info("answer is CORRECT");
+        } else {
+            logger.info("answer is WRONG");
+        }
+        return answerIsCorrect;
     }
 
     /**
