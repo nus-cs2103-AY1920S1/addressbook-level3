@@ -24,5 +24,10 @@
                 <Image url="@../images/doctor.png"/>
             </image>
         </ImageView>
+        <ImageView fx:id="dutyShiftTab" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/dutyShift.png"/>
+            </image>
+        </ImageView>
     </children>
 </TilePane>

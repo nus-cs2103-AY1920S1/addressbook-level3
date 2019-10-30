@@ -34,20 +34,19 @@ public class TabBar extends UiPart<Region> {
                 int size = ols.size();
 
                 switch (keyEvent.getCode()) {
-                case UP:
-                    selectedIndex = (size + selectedIndex + -1) % size;
-                    keyEvent.consume();
-                    break;
                 case DOWN:
                     selectedIndex = (size + selectedIndex + 1) % size;
-                    keyEvent.consume();
+                    break;
+                case UP:
+                    selectedIndex = (size + selectedIndex - 1) % size;
                     break;
                 case RIGHT:
                     omniPanel.regainOmniPanelSelector();
-                    break;
+                    return;
                 default:
+                    return;
                 }
-                selectTabUsingIndex(selectedIndex);
+                keyEvent.consume();
                 omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
             }
         });
@@ -55,10 +54,7 @@ public class TabBar extends UiPart<Region> {
         ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                tabBar.requestFocus();
-                selectedIndex = ols.indexOf(event.getTarget());
-                selectTabUsingIndex(selectedIndex);
-                omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
+                omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(event.getTarget())));
             }
         }));
     }
@@ -67,6 +63,7 @@ public class TabBar extends UiPart<Region> {
      * Selects the TabBar's tile using index.
      */
     public void selectTabUsingIndex(int selectedIndex) {
+        tabBar.requestFocus();
         this.selectedIndex = selectedIndex;
         ObservableList<Node> ols = tabBar.getChildren();
         ols.forEach(iv -> iv.getStyleClass().setAll("unselected-tab"));

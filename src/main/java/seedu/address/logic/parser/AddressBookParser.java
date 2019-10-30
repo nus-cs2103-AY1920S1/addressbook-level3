@@ -6,43 +6,53 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AckAppCommand;
-import seedu.address.logic.commands.AddAppCommand;
-import seedu.address.logic.commands.AddConsultationRoomCommand;
-import seedu.address.logic.commands.AppointmentsCommand;
-import seedu.address.logic.commands.BreakCommand;
-import seedu.address.logic.commands.CancelAppCommand;
-import seedu.address.logic.commands.ChangeAppCommand;
-import seedu.address.logic.commands.DequeueCommand;
-import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.MissAppCommand;
 import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.RemoveRoomCommand;
-import seedu.address.logic.commands.ResumeCommand;
-import seedu.address.logic.commands.SettleAppCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.appointments.AckAppCommand;
+import seedu.address.logic.commands.appointments.AddAppCommand;
+import seedu.address.logic.commands.appointments.AppointmentsCommand;
+import seedu.address.logic.commands.appointments.CancelAppCommand;
+import seedu.address.logic.commands.appointments.ChangeAppCommand;
+import seedu.address.logic.commands.appointments.MissAppCommand;
+import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
-import seedu.address.logic.commands.patients.UnregisterPatientCommand;
+import seedu.address.logic.commands.queue.AddConsultationRoomCommand;
+import seedu.address.logic.commands.queue.BreakCommand;
+import seedu.address.logic.commands.queue.DequeueCommand;
+import seedu.address.logic.commands.queue.EnqueueCommand;
+import seedu.address.logic.commands.queue.RemoveRoomCommand;
+import seedu.address.logic.commands.queue.ResumeCommand;
 import seedu.address.logic.commands.staff.EditStaffDetailsCommand;
 import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.commands.staff.RegisterStaffCommand;
-import seedu.address.logic.commands.staff.UnregisterStaffCommand;
+import seedu.address.logic.parser.appointments.AckAppCommandParser;
+import seedu.address.logic.parser.appointments.AddAppCommandParser;
+import seedu.address.logic.parser.appointments.AppointmentsCommandParser;
+import seedu.address.logic.parser.appointments.CancelAppCommandParser;
+import seedu.address.logic.parser.appointments.ChangeAppCommandTimingParser;
+import seedu.address.logic.parser.appointments.MissAppCommandParser;
+import seedu.address.logic.parser.appointments.SettleAppCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.patients.EditPatientDetailsCommandParser;
 import seedu.address.logic.parser.patients.ListPatientCommandParser;
 import seedu.address.logic.parser.patients.RegisterPatientCommandParser;
-import seedu.address.logic.parser.patients.UnregisterPatientCommandParser;
+import seedu.address.logic.parser.queue.AddConsultationRoomCommandParser;
+import seedu.address.logic.parser.queue.BreakCommandParser;
+import seedu.address.logic.parser.queue.DequeueCommandParser;
+import seedu.address.logic.parser.queue.EnqueueCommandParser;
+import seedu.address.logic.parser.queue.NextCommandParser;
+import seedu.address.logic.parser.queue.RemoveRoomCommandParser;
+import seedu.address.logic.parser.queue.ResumeCommandParser;
 import seedu.address.logic.parser.staff.EditStaffDetailsCommandParser;
 import seedu.address.logic.parser.staff.ListStaffCommandParser;
 import seedu.address.logic.parser.staff.RegisterStaffCommandParser;
-import seedu.address.logic.parser.staff.UnregisterStaffCommandParser;
 import seedu.address.model.Model;
 
 /**
@@ -87,9 +97,6 @@ public class AddressBookParser {
         case EditPatientDetailsCommand.COMMAND_WORD:
             return new EditPatientDetailsCommandParser(model).parse(arguments);
 
-        case UnregisterPatientCommand.COMMAND_WORD:
-            return new UnregisterPatientCommandParser(model).parse(arguments);
-
 
         case ListStaffCommand.COMMAND_WORD:
             return new ListStaffCommandParser().parse(arguments);
@@ -99,9 +106,6 @@ public class AddressBookParser {
 
         case EditStaffDetailsCommand.COMMAND_WORD:
             return new EditStaffDetailsCommandParser(model).parse(arguments);
-
-        case UnregisterStaffCommand.COMMAND_WORD:
-            return new UnregisterStaffCommandParser(model).parse(arguments);
 
 
         case ExitCommand.COMMAND_WORD:
@@ -144,7 +148,7 @@ public class AddressBookParser {
             return new SettleAppCommandParser(model).parse(arguments);
 
         case AddConsultationRoomCommand.COMMAND_WORD:
-            return new AddConsultationRoomCommandParser().parse(arguments);
+            return new AddConsultationRoomCommandParser(model).parse(arguments);
 
         case RemoveRoomCommand.COMMAND_WORD:
             return new RemoveRoomCommandParser(model).parse(arguments);
