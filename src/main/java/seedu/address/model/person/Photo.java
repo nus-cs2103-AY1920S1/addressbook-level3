@@ -28,6 +28,7 @@ public class Photo {
         value = "default.png";
         imageFile = new File(IMAGE_DIRECTORY + value);
         photo = new Image("file://" + imageFile.toURI().getPath());
+        //photo = new Image(this.getClass().getResourceAsStream(IMAGE_DIRECTORY + value));
     }
 
     public Photo(String image) {
@@ -36,6 +37,7 @@ public class Photo {
         value = image;
         imageFile = new File(IMAGE_DIRECTORY + value);
         photo = new Image("file://" + imageFile.toURI().getPath());
+        //photo = new Image(this.getClass().getResourceAsStream(IMAGE_DIRECTORY + image));
     }
 
     public static boolean isValidFilePath(String test) {
