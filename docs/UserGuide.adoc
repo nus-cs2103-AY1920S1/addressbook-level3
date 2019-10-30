@@ -10,6 +10,7 @@
 = Xpire - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -61,101 +62,32 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Optional parameters with `…`​ after them can be used multiple times including zero times e.g. `tag|<index>|[<tag>]...` can be used as `tag|1|#Fruit #Frozen #Cold`, `tag|1`, or `tag|1|#Fruit`.
 ====
 
-=== Viewing help : `help`
+=== Opening the help window: `help`
 
 Displays the help window. +
 Format: `help`
 
+=== Viewing all items : `view`
 
-=== Adding an item: `add`
-
-Adds an item to your tracker. +
-Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
-Format: `add|<item name>|<expiry date>[|<quantity>]`
-
-Examples:
-
-* `add|durian|30/9/2020` (without quantity) +
-Adds the item `durian` with expiry date `30/9/2019` with quantity `1`
-
-* `add|ice cream|18/8/2020|2` +
-Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
-
-****
-* Item quantity **must be a positive integer** 1,2,3...
-* When not specified, the item quantity is assumed to be 1.
-****
-
-[TIP]
-For items with single quantity, you can save time by keying in only the item name and expiry date.
-
-=== Listing all items : `view`
-
-Shows all items in the list. +
+==== Viewing all items in the current list
+Shows all items in the current list, which is the main list by default, or the replenish list if otherwise specified. +
 All items are sorted by both name (lexicographical order) and date (chronological order). +
 Format: `view`
 
-=== Setting reminder for an item: `set reminder`
-
-Sets a reminder threshold for your item. +
-Format: `set reminder|<index>|<reminder threshold>`
-
-This allows the check command to quickly find the item once the reminder threshold is exceeded.
-
-****
-* Reminder threshold refers to *the number of days before the item's expiry date* to activate the reminder.
-* All items have their default reminder threshold set to 0.
-* To reset a reminder threshold, simply write over the old one.
-* To delete a reminder, reset the reminder threshold to 0.
-****
+==== Viewing all items in another list
+Changes the list to be displayed. +
+You can toggle between the main list and the list of items to be replenished with this command. +
+Format: `view|<list to view>`
 
 Examples:
 
-* `set reminder|2|4` +
-Sets a reminder for the second item in the list 4 days before its expiry date.
-* `set|1|0` +
-Removes the reminder for the first item in the list.
+* `view|main` +
+Displays all items in the main list.
 
-=== Listing expiring items : `check`
+* `view|replenish` +
+Displays all items in the replenish list.
 
-Lists items that will expire within the specified number of days in your tracker. +
-Format: `check|<days>`
-
-Lists items whose reminder has been activated. +
-Format: `check`
-
-
-****
-* Number of days *must be a non-negative integer* 0,1,2,3,..
-****
-
-[TIP]
-`check|0` lists items that have already expired or expire on the day of checking.
-
-Examples:
-
-* `check`
-* `check|20` +
-Lists items expiring in the next 20 days.
-
-=== Sorting all items : `sort`
-
-Sorts all items in your list by either name or date. +
-Format: `sort|<key>`
-
-****
-* Items can be sorted by either name or date.
-* For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
-****
-
-Examples:
-
-* `sort|name`
-* `sort|date`
-
-
-=== Searching item by name: `search`
-
+=== Searching for item(s) by their name and/or tag: `search`
 Searches for items whose names or tag(s) contain any of the given keywords. +
 Format: `search|<keyword>[|<other keywords>]...`
 
@@ -178,18 +110,47 @@ Returns `Chicken Ham`
 * `search|milk|tea|#Drink` +
 Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 
-// tag::delete[]
-=== Deleting items, tags or quantity : `delete`
+=== Adding an item: `add` (Only permitted in the main list)
+Adds an item to your tracker. +
+Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
+Format: `add|<item name>|<expiry date>[|<quantity>]`
 
+Examples:
+
+* `add|durian|30/9/2020` (without quantity) +
+Adds the item `durian` with expiry date `30/9/2019` with quantity `1`
+
+* `add|ice cream|18/8/2020|2` +
+Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
+
+****
+* Item quantity **must be a positive integer** 1,2,3...
+* When not specified, the item quantity is assumed to be 1.
+****
+
+[TIP]
+For items with single quantity, you can save time by keying in only the item name and expiry date.
+
+//TODO: update shift command
+=== Shifting an item from one list to another: `shift`
+
+==== Shifting an item from the main list to the replenish list
+
+==== Shifting an item from the replenish list to the main list
+
+=== Deleting variable(s): `delete` (Only permitted in the main list)
+
+==== Deleting an item
 Deletes the specified item from your list. +
 Format: `delete|<index>` +
-OR +
+
+==== Deleting certain tags from an item
 Deletes tag(s) from the specified item. +
 Format: `delete|<index>|<tag>[<other tags>]...` +
-OR +
+
+==== Reducing the quantity of an item
 Reduces item quantity by the specified quantity. +
 Format `delete|<index>|<quantity>`
-
 
 ****
 * The index refers to the index number shown on the list.
@@ -217,10 +178,9 @@ Deletes the tags `#Fruit` and `#Food` from the 3rd item in the list.
 * `view` +
 `delete|4|1` +
 Reduces the quantity from the 4th item by 1.
-
 // end::delete[]
 
-=== Tagging an item : `tag`
+=== Tagging an item : `tag` (Only permitted in the main list)
 
 [TIP]
 An item can have any number of tags (including 0)
@@ -250,9 +210,78 @@ Tags the 2nd item in the list with `#Nestle` and `#Caffeine`.
 * `tag` +
 Shows all tags created.
 
+// tag::delete[]
+
+=== Setting reminder for an item: `set reminder` (Only permitted in the main list)
+
+==== Setting the number of days before an item's expiry date to start reminding you
+Sets a reminder threshold for your item. +
+Format: `set reminder|<index>|<reminder threshold>`
+
+This allows the check command to quickly find the item once the reminder threshold is exceeded.
+
+****
+* Reminder threshold refers to *the number of days before the item's expiry date* to activate the reminder.
+* All items have their default reminder threshold set to 0.
+* To reset a reminder threshold, simply write over the old one.
+* To delete a reminder, reset the reminder threshold to 0.
+****
+
+Examples:
+
+* `set reminder|2|4` +
+Sets a reminder for the second item in the list 4 days before its expiry date.
+
+
+==== Removing the reminder for an item
+Removes the reminder set for your item.
+Format: `set reminder|<index>|0`
+
+Examples:
+
+* `set reminder|1|0` +
+Removes the reminder for the first item in the list.
+
+=== Listing expiring items: `check` (Only permitted in the main list)
+
+==== Listing all expiring items with activated reminders
+Lists items whose reminder has been activated. +
+Format: `check`
+
+==== Listing items that will expire within a certain number of days
+Lists items that will expire within the specified number of days in your tracker. +
+Format: `check|<days>`
+
+****
+* Number of days *must be a non-negative integer* 0,1,2,3,..
+****
+
+[TIP]
+`check|0` lists items that have already expired or expire on the day of checking.
+
+Examples:
+
+* `check|20` +
+Lists items expiring in the next 20 days.
+
+=== Sorting all items : `sort` (Only permitted in the main list)
+Sorts all items in your list by their name or date. +
+Format: `sort|<key>`
+
+****
+* Items can be sorted by either name or date.
+* For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
+****
+
+==== Sorting all items by their name
+Format: `sort|name`
+
+==== Sorting all items by their date
+Format: `sort|date`
+
 === Clearing all entries : `clear`
 
-Clears all entries from the list. +
+Clears all entries from the current list that is displayed. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -278,21 +307,66 @@ There is no need to save manually.
 
 == Command Summary
 
+=== Table Summary
+
+|===
+|Command |Format |Example
+
+|*Help*|`help`|
+
+|*View*|`view\|<list>`|`view\|main`
+
+|*Search*
+|`search\|<keyword>[\|<other keywords>]...`
+|`search\|milk\|tea\|pearls`
+
+|*Add*
+|`add \|<item name>\|<expiry date>[\|<quantity>]...`
+|`add\|durian\|30/9/2019`
+
+|*Shift*
+|
+|
+
+|*Delete*
+|`delete\|<index>[\|<tag> or <quantity>]`
+|`delete\|3`
+
+|*Tag*
+|`tag\|<index>\|[<tag>]...`
+|
+
+|*Set reminder*
+|`set reminder\|<index>\|<reminder threshold>`
+|`set reminder\|1\|7`
+
+|*Check*|`check[\|<days>]`|`check\|20`
+
+|*Sort*|`sort\|<key>`|`sort\|date`
+
+|*Clear*|`clear`|
+
+|*Exit*|`exit`|
+
+|===
+
+=== List Summary
 * *Help* : `help`
+* *View* : `view|<list>`
+* *Search* : `search|<keyword>[|<other keywords>]...` +
+e.g. `search|milk|tea|pearls`
 * *Add* `add|<item name>|<expiry date>[|<quantity>]...` +
 e.g. `add|durian|30/9/2019`
-* *View* : `view`
+* *Delete* : `delete|<index>[|<tag> or <quantity>]` +
+e.g. `delete|3`
+* *Tag* : `tag|<index>|[<tag>]...`
 * *Set reminder* : `set reminder|<index>|<reminder threshold>` +
 e.g. `set reminder|1|7`
 * *Check* : `check[|<days>]` +
 e.g. `check|20`
 * *Sort* : `sort|<key>` +
 e.g. `sort|date`
-* *Search* : `search|<keyword>[|<other keywords>]...` +
-e.g. `search|milk|tea|pearls`
-* *Delete* : `delete|<index>[|<tag> or <quantity>]` +
-e.g. `delete|3`
-* *Tag* : `tag|<index>|[<tag>]...`
 * *Clear* : `clear`
 * *Exit* : `exit`
+
 
