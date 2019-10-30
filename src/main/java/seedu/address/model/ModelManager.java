@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,24 +12,19 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Amount;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.CategoryList;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
-import seedu.address.model.person.Period;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.StatisticsManager;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.EntryComparator;
 
 /**

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.conditioncommands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;

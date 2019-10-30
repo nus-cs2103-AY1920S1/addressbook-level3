@@ -68,8 +68,8 @@ class JsonSerializableAddressBook {
         wishes.addAll(source.getWishList().stream().map(JsonAdaptedWish::new).collect(Collectors.toList()));
         budgets.addAll(source.getBudgetList().stream().map(JsonAdaptedBudget::new).collect(Collectors.toList()));
         reminders.addAll(source.getReminderList().stream().map(JsonAdaptedReminder::new).collect(Collectors.toList()));
-        conditions.addAll
-(source.getConditionList().stream().map(JsonAdaptedCondition::new).collect(Collectors.toList()));
+        conditions
+                .addAll(source.getConditionList().stream().map(JsonAdaptedCondition::new).collect(Collectors.toList()));
     }
 
     /**

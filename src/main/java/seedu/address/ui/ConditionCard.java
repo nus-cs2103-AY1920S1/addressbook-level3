@@ -57,7 +57,8 @@ public class ConditionCard extends UiPart<Region> {
             params.getChildren().add(new Label("End: " + ((DateCondition) condition).getEnd().toString()));
             break;
         case "keyword condition":
-            ((KeyWordsCondition) condition).getKeywords().stream()
+            KeyWordsCondition keyWordsCondition = (KeyWordsCondition) condition;
+            keyWordsCondition.getKeywords().stream()
                     .sorted()
                     .forEach(keyword -> params.getChildren().add(new Label(keyword)));
             break;
@@ -65,7 +66,8 @@ public class ConditionCard extends UiPart<Region> {
             params.getChildren().add(new Label(String.valueOf(((QuotaCondition) condition).getQuota())));
             break;
         case "tags condition":
-            ((TagsCondition) condition).getTagList().stream()
+            TagsCondition tagsCondition = (TagsCondition) condition;
+            tagsCondition.getTagList().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> params.getChildren().add(new Label(tag.tagName)));
             break;

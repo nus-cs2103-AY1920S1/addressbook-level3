@@ -11,6 +11,9 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new AddTagsConditionCommand object
+ */
 public class AddTagsConditionCommandParser implements Parser<AddTagsConditionCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddClassConditionCommand
