@@ -24,6 +24,11 @@ public class Coordinates {
     }
 
     @Override
+    public String toString() {
+        return String.format("(%.2f, %.2f)", x, y);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(x, y);
     }

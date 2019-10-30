@@ -7,12 +7,12 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.model.util.ImageUtil;
 
@@ -21,11 +21,13 @@ import seedu.weme.model.util.ImageUtil;
  */
 public class MemeCreation {
 
-    private final List<MemeText> textList;
+    private final ObservableList<MemeText> textList;
+    private final ObservableList<MemeText> unmodifiableObservableTextList;
     private BufferedImage initialImage;
 
     public MemeCreation() {
-        textList = new ArrayList<>();
+        textList = FXCollections.observableArrayList();
+        unmodifiableObservableTextList = FXCollections.unmodifiableObservableList(textList);
         initialImage = null;
     }
 
@@ -36,6 +38,7 @@ public class MemeCreation {
      * @throws IOException if fails to read the image of the template
      */
     public void startWithTemplate(Template template) throws IOException {
+        clear();
         Path templateImagePath = template.getImagePath().getFilePath().toAbsolutePath();
         initialImage = ImageIO.read(templateImagePath.toFile());
     }
@@ -51,6 +54,10 @@ public class MemeCreation {
             throw new IllegalValueException("Text exceeds image boundary");
         }
         textList.add(text);
+    }
+
+    public ObservableList<MemeText> getMemeTextList() {
+        return unmodifiableObservableTextList;
     }
 
     private boolean isWithinImageBoundary(TextBoundaries boundaries) {
@@ -91,8 +98,10 @@ public class MemeCreation {
 
     private void clear() {
         textList.clear();
-        initialImage.getGraphics().dispose();
-        initialImage = null;
+        if (initialImage != null) {
+            initialImage.getGraphics().dispose();
+            initialImage = null;
+        }
     }
 
     public Optional<BufferedImage> getCurrentImage() {

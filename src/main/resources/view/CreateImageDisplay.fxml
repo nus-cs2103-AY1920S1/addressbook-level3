@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+
 <?import javafx.scene.layout.Region?>
-<?import javafx.geometry.Insets?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
   <HBox fx:id="memeCreationBox">
-    <VBox>
+    <VBox fx:id="memeImageDisplay">
       <HBox>
         <ImageView fx:id="memeImage" cache="true" fitHeight="500" fitWidth="500" pickOnBounds="true"
                    preserveRatio="true"/>
@@ -22,15 +24,19 @@
         <Image url="@../images/horizontal_rule.png"/>
       </ImageView>
     </VBox>
-    <VBox>
+
+    <GridPane>
       <padding>
-        <Insets left="10" top="10" bottom="10" />
+        <Insets left="30" top="10" bottom="10" />
       </padding>
-      <Label text="Sample Font sizes" textAlignment="CENTER" alignment="CENTER" styleClass="label-subheader" />
-      <ImageView cache="true" pickOnBounds="true" preserveRatio="true">
+      <Label GridPane.rowIndex="0" GridPane.halignment="CENTER" text="Sample Font Sizes" styleClass="label-subheader"/>
+      <ImageView GridPane.rowIndex="1" cache="true" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
         <Image url="@../images/sample_font_sizes.png"/>
       </ImageView>
-    </VBox>
+      <Label GridPane.rowIndex="2" GridPane.halignment="CENTER" text="Text added" styleClass="label-subheader"/>
+      <StackPane GridPane.rowIndex="3" fx:id="memeTextListPlaceholder"/>
+    </GridPane>
+
   </HBox>
 
   <VBox fx:id="memeCreationPlaceholder">

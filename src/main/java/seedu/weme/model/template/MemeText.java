@@ -38,6 +38,10 @@ public class MemeText {
         return coordinates.getY();
     }
 
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
     public Color getColor() {
         return color.getColor();
     }
