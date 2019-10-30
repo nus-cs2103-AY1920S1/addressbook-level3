@@ -569,7 +569,7 @@ Finally, the last functionality to rebuilt is the resizability of the Window. Th
 === Statistics feature
 ==== Current Implementation
 
-The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched.
+The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
 
 In `LineChartPanel`, four key operations that constructs the line chart and updates it dynamically are implemented, and they are executed in order:
 
@@ -578,13 +578,12 @@ In `LineChartPanel`, four key operations that constructs the line chart and upda
 * `LineChartPanel#updateSeries()` -- Adds data to the series of the line chart based on what is in the tree map.
 * `LineChartPanel#updateUponChanged()` -- If a body is added or removed, the tree map is changed accordingly depending on the date of admission of the body, and the series is updated again.
 
-The following sequence diagram shows how a user adding a new body enables the line chart to update dynamically:
+The above operations are invoked through a wrapper function `LineChartPanel#makeLineChart()` which is invoked when the user calls `LineChartPanel#getLineChart()`.
+
+The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected.
+The following sequence diagram shows hows `LineChartPanel` interacts `AddressBook` to obtain an observable list of bodies, creates a line chart from it, and then passes the line chart to be displayed in `MainWindow` with dynamic update:
 
 image::LineChartAddBodySequenceDiagram.png[]
-
-Similarly, the sequence diagram below shoes how a user deleting a body enables the line chart to update dynamically:
-
-image::LineChartDeleteBodySequenceDiagram.png[]
 
 ==== Design Considerations
 
