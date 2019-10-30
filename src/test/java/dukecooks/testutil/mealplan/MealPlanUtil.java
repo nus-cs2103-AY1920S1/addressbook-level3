@@ -1,14 +1,11 @@
 package dukecooks.testutil.mealplan;
 
-
 import java.util.List;
-import java.util.Set;
 
 import dukecooks.logic.commands.mealplan.AddMealPlanCommand;
 import dukecooks.logic.commands.mealplan.EditMealPlanCommand;
 import dukecooks.logic.parser.CliSyntax;
 import dukecooks.model.mealplan.components.MealPlan;
-import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.RecipeName;
 
 /**
@@ -20,7 +17,8 @@ public class MealPlanUtil {
      * Returns an add command string for adding the {@code mealPlan}.
      */
     public static String getAddMealPlanCommand(MealPlan mealPlan) {
-        return AddMealPlanCommand.COMMAND_WORD + " " + AddMealPlanCommand.VARIANT_WORD + " " + getMealPlanDetails(mealPlan);
+        return AddMealPlanCommand.COMMAND_WORD + " " + AddMealPlanCommand.VARIANT_WORD + " "
+                + getMealPlanDetails(mealPlan);
     }
 
     /**
@@ -33,22 +31,22 @@ public class MealPlanUtil {
             s -> sb.append(CliSyntax.PREFIX_DAY1 + s.fullName + " ")
         );
         mealPlan.getDay2().stream().forEach(
-                s -> sb.append(CliSyntax.PREFIX_DAY2 + s.fullName + " ")
+            s -> sb.append(CliSyntax.PREFIX_DAY2 + s.fullName + " ")
         );
         mealPlan.getDay3().stream().forEach(
-                s -> sb.append(CliSyntax.PREFIX_DAY3 + s.fullName + " ")
+            s -> sb.append(CliSyntax.PREFIX_DAY3 + s.fullName + " ")
         );
         mealPlan.getDay4().stream().forEach(
-                s -> sb.append(CliSyntax.PREFIX_DAY4 + s.fullName + " ")
+            s -> sb.append(CliSyntax.PREFIX_DAY4 + s.fullName + " ")
         );
         mealPlan.getDay5().stream().forEach(
-                s -> sb.append(CliSyntax.PREFIX_DAY5 + s.fullName + " ")
+            s -> sb.append(CliSyntax.PREFIX_DAY5 + s.fullName + " ")
         );
         mealPlan.getDay6().stream().forEach(
-                s -> sb.append(CliSyntax.PREFIX_DAY6 + s.fullName + " ")
+            s -> sb.append(CliSyntax.PREFIX_DAY6 + s.fullName + " ")
         );
         mealPlan.getDay7().stream().forEach(
-                s -> sb.append(CliSyntax.PREFIX_DAY7 + s.fullName + " ")
+            s -> sb.append(CliSyntax.PREFIX_DAY7 + s.fullName + " ")
         );
         return sb.toString();
     }
@@ -59,7 +57,7 @@ public class MealPlanUtil {
     public static String getEditMealPlanDescriptorDetails(EditMealPlanCommand.EditMealPlanDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
-        
+
         if (descriptor.getDay1ToAdd().isPresent()) {
             List<RecipeName> recipes = descriptor.getDay1ToAdd().get();
             if (recipes.isEmpty()) {
@@ -122,7 +120,7 @@ public class MealPlanUtil {
                 recipes.forEach(s -> sb.append(CliSyntax.PREFIX_DAY7).append(s.fullName).append(" "));
             }
         }
-        
+
         return sb.toString();
     }
 }

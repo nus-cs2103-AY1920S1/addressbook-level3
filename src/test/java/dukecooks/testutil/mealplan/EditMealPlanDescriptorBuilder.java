@@ -1,19 +1,12 @@
 package dukecooks.testutil.mealplan;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dukecooks.logic.commands.mealplan.EditMealPlanCommand;
 import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.mealplan.components.MealPlanName;
-import dukecooks.model.recipe.components.Calories;
-import dukecooks.model.recipe.components.Carbs;
-import dukecooks.model.recipe.components.Fats;
-import dukecooks.model.recipe.components.Ingredient;
-import dukecooks.model.recipe.components.Protein;
-import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
 
 
@@ -38,13 +31,13 @@ public class EditMealPlanDescriptorBuilder {
     public EditMealPlanDescriptorBuilder(MealPlan mealPlan) {
         descriptor = new EditMealPlanCommand.EditMealPlanDescriptor();
         descriptor.setName(mealPlan.getName());
-        descriptor.addDay1(mealPlan.getDay1().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay2(mealPlan.getDay2().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay3(mealPlan.getDay3().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay4(mealPlan.getDay4().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay5(mealPlan.getDay5().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay6(mealPlan.getDay6().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay7(mealPlan.getDay7().stream().map(Recipe::getName).collect(Collectors.toList()));
+        descriptor.addDay1(mealPlan.getDay1().stream().collect(Collectors.toList()));
+        descriptor.addDay2(mealPlan.getDay2().stream().collect(Collectors.toList()));
+        descriptor.addDay3(mealPlan.getDay3().stream().collect(Collectors.toList()));
+        descriptor.addDay4(mealPlan.getDay4().stream().collect(Collectors.toList()));
+        descriptor.addDay5(mealPlan.getDay5().stream().collect(Collectors.toList()));
+        descriptor.addDay6(mealPlan.getDay6().stream().collect(Collectors.toList()));
+        descriptor.addDay7(mealPlan.getDay7().stream().collect(Collectors.toList()));
     }
 
     /**
@@ -53,20 +46,20 @@ public class EditMealPlanDescriptorBuilder {
     public EditMealPlanDescriptorBuilder(MealPlan mealPlanFrom, MealPlan mealPlanTo) {
         descriptor = new EditMealPlanCommand.EditMealPlanDescriptor();
         descriptor.setName(mealPlanTo.getName());
-        descriptor.addDay1(mealPlanTo.getDay1().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.removeDay1(mealPlanFrom.getDay1().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay2(mealPlanTo.getDay2().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.removeDay2(mealPlanFrom.getDay2().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay3(mealPlanTo.getDay3().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.removeDay3(mealPlanFrom.getDay3().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay4(mealPlanTo.getDay4().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.removeDay4(mealPlanFrom.getDay4().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay5(mealPlanTo.getDay5().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.removeDay5(mealPlanFrom.getDay5().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay6(mealPlanTo.getDay6().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.removeDay6(mealPlanFrom.getDay6().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.addDay7(mealPlanTo.getDay7().stream().map(Recipe::getName).collect(Collectors.toList()));
-        descriptor.removeDay7(mealPlanFrom.getDay7().stream().map(Recipe::getName).collect(Collectors.toList()));
+        descriptor.addDay1(mealPlanTo.getDay1().stream().collect(Collectors.toList()));
+        descriptor.removeDay1(mealPlanFrom.getDay1().stream().collect(Collectors.toList()));
+        descriptor.addDay2(mealPlanTo.getDay2().stream().collect(Collectors.toList()));
+        descriptor.removeDay2(mealPlanFrom.getDay2().stream().collect(Collectors.toList()));
+        descriptor.addDay3(mealPlanTo.getDay3().stream().collect(Collectors.toList()));
+        descriptor.removeDay3(mealPlanFrom.getDay3().stream().collect(Collectors.toList()));
+        descriptor.addDay4(mealPlanTo.getDay4().stream().collect(Collectors.toList()));
+        descriptor.removeDay4(mealPlanFrom.getDay4().stream().collect(Collectors.toList()));
+        descriptor.addDay5(mealPlanTo.getDay5().stream().collect(Collectors.toList()));
+        descriptor.removeDay5(mealPlanFrom.getDay5().stream().collect(Collectors.toList()));
+        descriptor.addDay6(mealPlanTo.getDay6().stream().collect(Collectors.toList()));
+        descriptor.removeDay6(mealPlanFrom.getDay6().stream().collect(Collectors.toList()));
+        descriptor.addDay7(mealPlanTo.getDay7().stream().collect(Collectors.toList()));
+        descriptor.removeDay7(mealPlanFrom.getDay7().stream().collect(Collectors.toList()));
     }
 
     /**

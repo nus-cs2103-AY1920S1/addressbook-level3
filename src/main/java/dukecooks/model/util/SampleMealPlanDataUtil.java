@@ -2,14 +2,12 @@ package dukecooks.model.util;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.mealplan.components.MealPlanName;
-import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.RecipeName;
 
 /**

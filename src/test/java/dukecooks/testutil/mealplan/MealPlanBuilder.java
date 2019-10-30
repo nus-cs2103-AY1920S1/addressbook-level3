@@ -1,17 +1,10 @@
 package dukecooks.testutil.mealplan;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.mealplan.components.MealPlanName;
-import dukecooks.model.recipe.components.Calories;
-import dukecooks.model.recipe.components.Carbs;
-import dukecooks.model.recipe.components.Fats;
-import dukecooks.model.recipe.components.Ingredient;
-import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.RecipeName;
 import dukecooks.model.util.SampleMealPlanDataUtil;
 

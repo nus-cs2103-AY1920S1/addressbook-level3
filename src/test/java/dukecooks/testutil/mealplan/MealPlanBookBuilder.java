@@ -1,6 +1,5 @@
 package dukecooks.testutil.mealplan;
 
-
 import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.mealplan.components.MealPlan;
 
