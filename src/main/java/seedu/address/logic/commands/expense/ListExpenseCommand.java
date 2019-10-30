@@ -11,9 +11,9 @@ import seedu.address.ui.expense.ExpenseListPanel;
 /**
  * Lists all expenses in the MooLah to the user.
  */
-public class ListCommand extends UndoableCommand {
+public class ListExpenseCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "listexpense";
 
     public static final String MESSAGE_SUCCESS = "Listed all expenses";
 

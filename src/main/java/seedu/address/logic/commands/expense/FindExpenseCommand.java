@@ -13,7 +13,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
  * Finds and lists all expenses in MooLah whose description contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends UndoableCommand {
+public class FindExpenseCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "find";
 
@@ -24,7 +24,7 @@ public class FindCommand extends UndoableCommand {
 
     private final DescriptionContainsKeywordsPredicate predicate;
 
-    public FindCommand(DescriptionContainsKeywordsPredicate predicate) {
+    public FindExpenseCommand(DescriptionContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -45,7 +45,7 @@ public class FindCommand extends UndoableCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof FindExpenseCommand // instanceof handles nulls
+                && predicate.equals(((FindExpenseCommand) other).predicate)); // state check
     }
 }

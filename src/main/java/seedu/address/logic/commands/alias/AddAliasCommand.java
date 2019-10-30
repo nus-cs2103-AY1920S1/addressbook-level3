@@ -13,9 +13,9 @@ import seedu.address.model.Model;
 /**
  * Create an alias for common user input.
  */
-public class AliasCommand extends UndoableCommand {
+public class AddAliasCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "alias";
+    public static final String COMMAND_WORD = "addalias";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a shortcut for commonly used Commands.\n"
             + "Parameters: " + PREFIX_ALIAS_ALIAS_NAME
@@ -37,7 +37,7 @@ public class AliasCommand extends UndoableCommand {
     /**
      * Creates an AddExpenseCommand to add the specified {@code Expense}
      */
-    public AliasCommand(Alias alias) {
+    public AddAliasCommand(Alias alias) {
         requireNonNull(alias);
         this.toAdd = alias;
     }
@@ -71,7 +71,7 @@ public class AliasCommand extends UndoableCommand {
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
-                || (obj instanceof AliasCommand // instanceof handles nulls
-                && this.toAdd.equals(((AliasCommand) obj).toAdd));
+                || (obj instanceof AddAliasCommand // instanceof handles nulls
+                && this.toAdd.equals(((AddAliasCommand) obj).toAdd));
     }
 }

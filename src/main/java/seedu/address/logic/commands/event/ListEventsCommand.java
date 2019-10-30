@@ -13,7 +13,7 @@ import seedu.address.ui.event.EventListPanel;
  */
 public class ListEventsCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "listevents";
+    public static final String COMMAND_WORD = "listevent";
 
     public static final String MESSAGE_SUCCESS = "Listed all events";
 

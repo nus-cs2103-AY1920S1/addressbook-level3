@@ -27,7 +27,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
 /**
  * Edits the details of an existing expense in the MooLah.
  */
-public class EditCommand extends UndoableCommand {
+public class EditExpenseCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -53,7 +53,7 @@ public class EditCommand extends UndoableCommand {
      * @param index of the expense in the filtered expense list to edit
      * @param editExpenseDescriptor details to edit the expense with
      */
-    public EditCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
+    public EditExpenseCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
         requireNonNull(index);
         requireNonNull(editExpenseDescriptor);
 
@@ -115,12 +115,12 @@ public class EditCommand extends UndoableCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditExpenseCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditExpenseCommand e = (EditExpenseCommand) other;
         return index.equals(e.index)
                 && editExpenseDescriptor.equals(e.editExpenseDescriptor);
     }

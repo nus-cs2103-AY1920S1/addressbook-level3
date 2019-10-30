@@ -11,7 +11,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
 /**
  * Clears the MooLah.
  */
-public class ClearCommand extends UndoableCommand {
+public class ClearExpenseCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "MooLah has been cleared!";

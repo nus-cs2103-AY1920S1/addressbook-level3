@@ -17,6 +17,7 @@ import seedu.address.ui.budget.BudgetPanel;
  * Adds a budget to MooLah.
  */
 public class AddBudgetCommand extends UndoableCommand {
+
     public static final String COMMAND_WORD = "addbudget";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an budget to MooLah.\n"

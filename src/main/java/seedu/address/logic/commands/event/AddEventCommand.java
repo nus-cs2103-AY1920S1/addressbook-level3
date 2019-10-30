@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Event;
@@ -15,7 +15,9 @@ import seedu.address.model.expense.Event;
 /**
  * Adds an event to the MooLah.
  */
-public class AddEventCommand extends AddCommand {
+public class AddEventCommand extends UndoableCommand {
+
+    public static final String COMMAND_WORD = "addevent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an event to MooLah. \n"
