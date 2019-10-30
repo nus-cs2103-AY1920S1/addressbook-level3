@@ -27,6 +27,14 @@ public class TaskSource {
         this.tags = taskSourceBuilder.getTags();
     }
 
+    public DateTime getDueDate() {
+        return this.dueDate;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object instanceof TaskSource) {
