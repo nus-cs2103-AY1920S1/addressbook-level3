@@ -1,14 +1,15 @@
 package seedu.address.logic.parser.settings;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.settingcommands.HintsCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.settingcommands.AvatarCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
 public class AvatarCommandParserTest {
-    private HintsCommandParser parser = new HintsCommandParser();
+    private AvatarCommandParser parser = new AvatarCommandParser();
 
     @Test
     public void parse_invalidArgument_throwsParseException() {
@@ -17,24 +18,28 @@ public class AvatarCommandParserTest {
     }
 
     @Test
-    public void parse_caseSensitiveArgument_success() throws ParseException {
-        String upperCaseOff = "OFF";
-        String lowerCaseOff = "off";
-        String mixedCaseOff = "oFf";
-        HintsCommand result = new HintsCommand(false);
-        assertEquals(result, parser.parse(upperCaseOff));
-        assertEquals(result, parser.parse(lowerCaseOff));
-        assertEquals(result, parser.parse(mixedCaseOff));
+    public void parse_boundaryValues_throwsParseException() {
+        String lowerBound = "-1";
+        String upperBound = "152";
+        assertThrows(ParseException.class, () -> parser.parse(lowerBound));
+        assertThrows(ParseException.class, () -> parser.parse(upperBound));
     }
 
     @Test
-    public void parse_allPossibleDifficulties_success() throws ParseException {
-        String on = "ON";
-        String off = "off";
-        HintsCommand hintsOn = new HintsCommand(true);
-        HintsCommand hintsOff = new HintsCommand(false);
-        assertEquals(hintsOn, parser.parse(on));
-        assertEquals(hintsOff, parser.parse(off));
+    public void parse_boundaryValues_success() throws ParseException {
+        String lowerBound = "0";
+        String upperBound = "151";
+        AvatarCommand avatar1 = new AvatarCommand(0);
+        AvatarCommand avatar151 = new AvatarCommand(151);
+        assertEquals(avatar1, parser.parse(lowerBound));
+        assertEquals(avatar151, parser.parse(upperBound));
+    }
+
+    @Test
+    public void parse_easterEgg_success() throws ParseException {
+        String easterEgg = "29126";
+        AvatarCommand avatar29126 = new AvatarCommand(29126);
+        assertEquals(avatar29126, parser.parse(easterEgg));
     }
 
 }
