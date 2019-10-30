@@ -1,10 +1,8 @@
 package seedu.address.logic.commands.group;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.group.ListOfGroups;
 
 public class GroupExportCommand extends GroupCommand {
 

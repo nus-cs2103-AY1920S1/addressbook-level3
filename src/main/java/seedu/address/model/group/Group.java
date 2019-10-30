@@ -87,9 +87,9 @@ public class Group {
     /**
      * Exports the group into a word document
      */
-    public void export(){
+    public void export() {
         String studentsFormatted = this.getStudentsFormatted();
-        ExportWordDoc exportWordDoc = new ExportWordDoc(this.groupId,studentsFormatted);
+        ExportWordDoc exportWordDoc = new ExportWordDoc(this.groupId, studentsFormatted);
         exportWordDoc.saveExport();
     }
 }

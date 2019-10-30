@@ -170,7 +170,8 @@ public class UniqueStudentList implements Iterable<Student> {
     }
 
     /**
-     * Gets the list of students in string form.
+     * Gets the list of students in string form, including tag and mark
+     * information.
      *
      * @return List of students in string form.
      */
