@@ -149,6 +149,10 @@
     -fx-background-color:  #648a48;
 }
 
+.card:focused .label {
+    -fx-wrap-text: true;
+}
+
 .stack-pane-days {
     -fx-background-radius:  0 15 15 0;
 }
