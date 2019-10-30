@@ -245,7 +245,8 @@ Returns the 2rd event from the event list.
 
 ==== Automated allocation of Employees to Events: `allocate`
 
-Automatically chooses and allocates employees that meet the requirements to events.
+Automatically filters and allocates a specified number of employees from the
+complete employee list to an event.
 
 Format: `allocate EVENT_INDEX [n/NUMBER] [t/TAG]...`
 
