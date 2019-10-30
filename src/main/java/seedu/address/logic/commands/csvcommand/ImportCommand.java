@@ -50,7 +50,7 @@ public class ImportCommand extends Command implements TrackableState {
     public static final String MESSAGE_ERROR_FILE_CREATED =
             "CSV file containing the errors was created at %s."; // %s -> file path
     public static final String MESSAGE_ERROR_FILE_NOT_CREATED =
-            "CSV file containing the errors was not able to be created.";
+            "CSV file containing the errors was not created.";
     public static final String CAUSE_INVALID_DATA = "Invalid data format";
     public static final String CAUSE_DUPLICATE_ENTITY = "This entity already exists in Alfred";
     public static final String ASSERTION_FAILED_NOT_CSV = "File given is not a CSV file.";
