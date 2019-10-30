@@ -11,11 +11,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.parser.MooLahParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.Storage;
@@ -45,14 +47,27 @@ public class LogicManager implements Logic {
         Command command = mooLahParser.parseCommand(commandText, model.getUserPrefs());
         commandResult = command.run(model);
 
+        save();
+
+        return commandResult;
+    }
+
+    /**
+     * Saves any changes in MooLah or in user preferences into Storage.
+     * @throws CommandException If there is an IO error.
+     */
+    private void save() throws CommandException {
         try {
             storage.saveMooLah(model.getMooLah());
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
+    }
 
-        return commandResult;
+    @Override
+    public boolean hasBudgetWithName(Description targetDescription) {
+        return model.hasBudgetWithName(targetDescription);
     }
 
     @Override
@@ -84,7 +99,24 @@ public class LogicManager implements Logic {
         for (Event event : eventsToBeRemoved) {
             model.deleteEvent(event);
         }
+
+        try {
+            save();
+        } catch (CommandException e) {
+            logger.info(e.getMessage());
+        }
     }
+
+    @Override
+    public void addExpenseFromEvent(Event event) throws CommandException {
+        Expense toBeAdded = event.convertToExpense();
+        Command addExpenseCommand = new AddExpenseCommand(toBeAdded);
+        addExpenseCommand.run(model);
+    }
+    //@Override
+    //public ObservableList<Budget> getFilteredBudgetList() {
+    //  return model.getFilteredBudgetList();
+    //}
 
     @Override
     public Budget getPrimaryBudget() {

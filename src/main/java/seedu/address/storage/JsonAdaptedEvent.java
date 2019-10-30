@@ -24,7 +24,7 @@ class JsonAdaptedEvent {
     private final String price;
     private final String rawTimestamp;
     private final String category;
-    private final String originalUserInput;
+    private final String budgetName;
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -34,12 +34,12 @@ class JsonAdaptedEvent {
                               @JsonProperty("price") String price,
                               @JsonProperty("category") String category,
                               @JsonProperty("timestamp") String rawTimestamp,
-                              @JsonProperty("originalUserInput") String originalUserInput) {
+                              @JsonProperty("budgetName") String budgetName) {
         this.description = description;
         this.price = price;
         this.rawTimestamp = rawTimestamp;
         this.category = category;
-        this.originalUserInput = originalUserInput;
+        this.budgetName = budgetName;
     }
 
     /**
@@ -50,7 +50,7 @@ class JsonAdaptedEvent {
         this.price = source.getPrice().value;
         this.rawTimestamp = source.getTimestamp().fullTimestamp.toString();
         this.category = source.getCategory().getCategoryName();
-        this.originalUserInput = source.getOriginalUserInput();
+        this.budgetName = source.getBudgetName().fullDescription;
     }
 
     /**
@@ -96,13 +96,16 @@ class JsonAdaptedEvent {
         }
         final Timestamp modelTimestamp = potentialTimestamp.get();
 
-        if (originalUserInput == null) {
+        if (budgetName == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "originalUserInput"));
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "Budget Name"));
         }
-        final String modelOriginalInput = originalUserInput;
+        if (!Description.isValidDescription(budgetName)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+        final Description modelBudgetName = new Description(budgetName);
 
-        return new Event(modelDescription, modelPrice, modelCategory, modelTimestamp, modelOriginalInput);
+        return new Event(modelDescription, modelPrice, modelCategory, modelTimestamp, modelBudgetName);
     }
 
 }

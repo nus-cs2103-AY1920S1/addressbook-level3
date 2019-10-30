@@ -20,8 +20,6 @@ import seedu.address.model.expense.Timestamp;
  * Handles all comparisons between system time and the time fields of Expenses, Events and Budgets.
  */
 public class Timekeeper {
-    // public static final Timestamp SYSTEM_DATE = Timestamp.createTimestampIfValid("11-11").get();
-    public static final long LOWER_THRESHOLD = 0;
     public static final long UPPER_THRESHOLD = 7;
     private static Timestamp systemTime = new Timestamp(LocalDateTime.now());
     private Logic logic;
@@ -70,8 +68,10 @@ public class Timekeeper {
         for (Event event : events) {
             Timestamp timestamp = event.getTimestamp();
             if (hasTranspired(timestamp)) {
-                eventsToNotify.add(event);
                 eventsToBeRemoved.add(event);
+                if (logic.hasBudgetWithName(event.getBudgetName())) {
+                    eventsToNotify.add(event);
+                }
             }
         }
 
@@ -130,9 +130,21 @@ public class Timekeeper {
      * @param timestamp The given timestamp.
      * @return How many days outdated the given timestamp is. Can be negative.
      */
-    public static long calculateDaysOutdated(Timestamp timestamp) {
-        long daysOutdated = -systemTime.getFullTimestamp().until(timestamp.getFullTimestamp(), ChronoUnit.DAYS);
-        return daysOutdated;
+    public static String formatTimeOutdated(Timestamp timestamp) {
+        LocalDateTime temp = systemTime.fullTimestamp;
+
+        long daysLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.DAYS);
+        temp = temp.plusDays(daysLeft);
+
+        long hoursLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.HOURS);
+        temp = temp.plusHours(hoursLeft);
+
+        long minutesLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.MINUTES);
+
+        String timeRemaining = String.format("%d days, %d hours and %d minutes",
+                Math.abs(daysLeft), Math.abs(hoursLeft), Math.abs(minutesLeft));
+
+        return timeRemaining;
     }
 
     private static long calculateDaysRemaining(Timestamp timestamp) {
@@ -146,8 +158,7 @@ public class Timekeeper {
     }
 
     private static boolean hasTranspired(Timestamp timestamp) {
-        long daysOutdated = calculateDaysOutdated(timestamp);
-        return daysOutdated >= LOWER_THRESHOLD;
+        return timestamp.isBefore(systemTime);
     }
 
     public static boolean isFutureTimestamp(Timestamp timestamp) {

@@ -325,6 +325,12 @@ public class ModelManager implements Model {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
+    @Override
+    public void setEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
+
+        mooLah.setEvent(target, editedEvent);
+    }
 
 
     //=========== Statistics ================================================================================

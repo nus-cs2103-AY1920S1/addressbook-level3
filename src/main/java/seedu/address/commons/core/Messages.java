@@ -12,4 +12,5 @@ public class Messages {
     public static final String MESSAGE_CANNOT_DELETE_DEFAULT_BUDGET = "Default budget cannot be deleted";
     public static final String MESSAGE_EXPENSES_LISTED_OVERVIEW = "%1$d expenses listed!";
     public static final String MESSAGE_REPEATED_PREFIX_COMMAND = "Repeated prefixes are not allowed!";
+    public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
 }

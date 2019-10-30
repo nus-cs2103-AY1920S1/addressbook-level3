@@ -4,10 +4,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.budget.Budget;
 import seedu.address.model.category.Category;
+import seedu.address.model.expense.util.UniqueIdentifierGenerator;
 
 /**
- * Represents an Event in the MooLah.
+ * Represents an Event in MooLah.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
@@ -16,18 +18,28 @@ public class Event {
     private final Price price;
     private final Timestamp timestamp;
     private final Category category;
-    private final String originalUserInput;
+    private Description budgetName;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Description description, Price price, Category category, Timestamp timestamp, String userInput) {
+    public Event(Description description, Price price, Category category, Timestamp timestamp) {
         requireAllNonNull(description, price, timestamp);
         this.description = description;
         this.price = price;
         this.category = category;
         this.timestamp = timestamp;
-        this.originalUserInput = userInput;
+        this.budgetName = null;
+    }
+
+    public Event(Description description, Price price, Category category,
+                 Timestamp timestamp, Description budgetName) {
+        requireAllNonNull(description, price, timestamp);
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.timestamp = timestamp;
+        this.budgetName = budgetName;
     }
 
     public Description getDescription() {
@@ -44,6 +56,14 @@ public class Event {
 
     public Category getCategory() {
         return category;
+    }
+
+    public Description getBudgetName() {
+        return budgetName;
+    }
+
+    public void setBudget(Budget budget) {
+        budgetName = budget.getDescription();
     }
 
     /**
@@ -102,7 +122,13 @@ public class Event {
         return builder.toString();
     }
 
-    public String getOriginalUserInput() {
-        return originalUserInput;
+    /**
+     * Converts the transpired Event into its corresponding Expense.
+     * @return The Event's corresponding Expense.
+     */
+    public Expense convertToExpense() {
+        Expense convertedExpense = new Expense(description, price, category,
+                timestamp, budgetName, UniqueIdentifierGenerator.generateRandomUniqueIdentifier());
+        return convertedExpense;
     }
 }

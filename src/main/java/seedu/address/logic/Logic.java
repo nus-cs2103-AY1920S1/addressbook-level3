@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 
@@ -25,6 +26,8 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    boolean hasBudgetWithName(Description targetDescription);
 
     StringBuilder getBasicStatistics();
 
@@ -61,6 +64,7 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-
     void deleteTranspiredEvents(List<Event> eventsToBeRemoved);
+
+    void addExpenseFromEvent(Event currentEvent) throws CommandException, ParseException;
 }

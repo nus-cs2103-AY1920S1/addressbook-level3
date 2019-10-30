@@ -1,11 +1,11 @@
-package seedu.address.logic.commands.expense;
+package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,20 +19,20 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
-import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.ui.expense.ExpenseListPanel;
+import seedu.address.ui.event.EventListPanel;
 
 /**
  * Edits the details of an existing expense in the MooLah.
  */
-public class EditCommand extends UndoableCommand {
+public class EditEventCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editevent";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
-            + "by the index number used in the displayed expense list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
+            + "by the index number used in the displayed event list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
@@ -42,38 +42,38 @@ public class EditCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "3512.123 ";
 
-    public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in MooLah.";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in MooLah.";
 
     private final Index index;
-    private final EditExpenseDescriptor editExpenseDescriptor;
+    private final EditEventDescriptor editEventDescriptor;
 
     /**
-     * @param index of the expense in the filtered expense list to edit
-     * @param editExpenseDescriptor details to edit the expense with
+     * @param index of the event in the filtered event list to edit
+     * @param editEventDescriptor details to edit the event with
      */
-    public EditCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
+    public EditEventCommand(Index index, EditEventDescriptor editEventDescriptor) {
         requireNonNull(index);
-        requireNonNull(editExpenseDescriptor);
+        requireNonNull(editEventDescriptor);
 
         this.index = index;
-        this.editExpenseDescriptor = new EditExpenseDescriptor(editExpenseDescriptor);
+        this.editEventDescriptor = new EditEventDescriptor(editEventDescriptor);
     }
 
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Expense> lastShownList = model.getFilteredExpenseList();
+        List<Event> lastShownList = model.getFilteredEventList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        Expense expenseToEdit = lastShownList.get(index.getZeroBased());
-        Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
-        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasExpense(editedExpense)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
+        Event eventToEdit = lastShownList.get(index.getZeroBased());
+        Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
+        if (!eventToEdit.isSameEvent(editedEvent) && model.hasEvent(editedEvent)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
     }
 
@@ -81,30 +81,30 @@ public class EditCommand extends UndoableCommand {
     protected CommandResult execute(Model model) {
         requireNonNull(model);
 
-        List<Expense> lastShownList = model.getFilteredExpenseList();
-        Expense expenseToEdit = lastShownList.get(index.getZeroBased());
-        Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
+        List<Event> lastShownList = model.getFilteredEventList();
+        Event eventToEdit = lastShownList.get(index.getZeroBased());
+        Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
 
-        model.setExpense(expenseToEdit, editedExpense);
-        model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
-        return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense),
-                ExpenseListPanel.PANEL_NAME);
+        model.setEvent(eventToEdit, editedEvent);
+        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent),
+                EventListPanel.PANEL_NAME);
     }
 
     /**
      * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
      * edited with {@code editExpenseDescriptor}.
      */
-    private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
-        assert expenseToEdit != null;
+    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
+        assert eventToEdit != null;
 
-        Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
-        Price updatedPrice = editExpenseDescriptor.getPrice().orElse(expenseToEdit.getPrice());
-        Category updatedCategory = editExpenseDescriptor.getCategory().orElse(expenseToEdit.getCategory());
-        Timestamp updatedTimestamp = editExpenseDescriptor.getTimestamp().orElse(expenseToEdit.getTimestamp());
+        Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
+        Price updatedPrice = editEventDescriptor.getPrice().orElse(eventToEdit.getPrice());
+        Category updatedCategory = editEventDescriptor.getCategory().orElse(eventToEdit.getCategory());
+        Timestamp updatedTimestamp = editEventDescriptor.getTimestamp().orElse(eventToEdit.getTimestamp());
 
-        return new Expense(updatedDescription, updatedPrice, updatedCategory,
-                updatedTimestamp, expenseToEdit.getBudgetName(), expenseToEdit.getUniqueIdentifier());
+        return new Event(updatedDescription, updatedPrice, updatedCategory,
+                updatedTimestamp, eventToEdit.getBudgetName());
     }
 
     @Override
@@ -115,33 +115,33 @@ public class EditCommand extends UndoableCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditEventCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditEventCommand e = (EditEventCommand) other;
         return index.equals(e.index)
-                && editExpenseDescriptor.equals(e.editExpenseDescriptor);
+                && editEventDescriptor.equals(e.editEventDescriptor);
     }
 
     /**
      * Stores the details to edit the expense with. Each non-empty field value will replace the
      * corresponding field value of the expense.
      */
-    public static class EditExpenseDescriptor {
+    public static class EditEventDescriptor {
         private Description description;
         private Price price;
         private Category category;
         private Timestamp timestamp;
 
-        public EditExpenseDescriptor() {}
+        public EditEventDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
+        public EditEventDescriptor(EditEventDescriptor toCopy) {
             setDescription(toCopy.description);
             setPrice(toCopy.price);
             setCategory(toCopy.category);
@@ -195,12 +195,12 @@ public class EditCommand extends UndoableCommand {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditExpenseDescriptor)) {
+            if (!(other instanceof EditEventDescriptor)) {
                 return false;
             }
 
             // state check
-            EditExpenseDescriptor e = (EditExpenseDescriptor) other;
+            EditEventDescriptor e = (EditEventDescriptor) other;
 
             return getDescription().equals(e.getDescription())
                     && getPrice().equals(e.getPrice())

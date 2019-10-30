@@ -270,6 +270,15 @@ public class MooLah implements ReadOnlyMooLah {
      * The event must not already exist in the MooLah.
      */
     public void addEvent(Event event) {
+        if (budgets.isEmpty()) {
+            Budget defaultBudget = Budget.createDefaultBudget();
+            defaultBudget.setToPrimary();
+            budgets.add(defaultBudget);
+        }
+        Budget primaryBudget = budgets.getPrimaryBudget();
+        if (event.getBudgetName() == null) {
+            event.setBudget(primaryBudget);
+        }
         events.add(event);
     }
 
@@ -281,6 +290,21 @@ public class MooLah implements ReadOnlyMooLah {
         events.remove(key);
     }
     //// util methods
+
+    /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     * {@code target} must exist in MooLah.
+     * The event identity of {@code editedEvent} must not be the same as another existing
+     * expense in the MooLah.
+     */
+    public void setEvent(Event target, Event editedEvent) {
+        requireNonNull(editedEvent);
+
+        events.setEvent(target, editedEvent);
+        //        for (Budget budget : budgets) {
+        //            budget.setEvent(target, editedEvent);
+        //        }
+    }
 
     @Override
     public String toString() {

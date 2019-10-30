@@ -217,15 +217,15 @@ public interface Model {
 
     boolean hasEvent(Event event);
 
-
     void addEvent(Event event);
 
     void deleteEvent(Event target);
+
+    void setEvent(Event eventToEdit, Event editedEvent);
 
     Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period);
 
     boolean hasStatistic();
 
     StringBuilder getStatistic();
-
 }
