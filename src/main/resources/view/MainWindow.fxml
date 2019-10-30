@@ -33,22 +33,22 @@
                                 <Insets left="10.0" right="10.0" />
                             </padding>
                             <children>
-                                <ImageView fitHeight="80.0" fitWidth="90.0" layoutX="12.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="elisaImage" fitHeight="80.0" fitWidth="90.0" layoutX="12.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../images/ElisaImageWithoutWords.png" />
                                     </image>
                                 </ImageView>
-                                <Text fill="#8de7fd" layoutX="80.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exceptionally Loud n' Intelligent">
+                                <Text fx:id="elisaDescription" fill="#8de7fd" layoutX="80.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exceptionally Loud n' Intelligent">
                                     <font>
                                         <Font name="Titan One" size="12.0" />
                                     </font>
                                 </Text>
-                                <Text fill="#10b3d7" layoutX="80.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" text="ELISA">
+                                <Text fx:id="elisaText" fill="#10b3d7" layoutX="80.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" text="ELISA">
                                     <font>
                                         <Font name="Titan One" size="24.0" />
                                     </font>
                                 </Text>
-                                <Text fill="#8de7fd" layoutX="80.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Assistant ">
+                                <Text fx:id="elisaDescription2" fill="#8de7fd" layoutX="80.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Assistant ">
                                     <font>
                                         <Font name="Titan One" size="12.0" />
                                     </font>

@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ListPropertyBase;
+import javafx.beans.property.SimpleBooleanProperty;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
@@ -109,5 +110,13 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    public SimpleBooleanProperty getPriorityMode() {
+        return model.getPriorityMode();
+    }
+
+    public boolean isSystemToggle() {
+        return model.isSystemToggle();
     }
 }

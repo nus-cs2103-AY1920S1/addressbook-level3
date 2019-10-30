@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.item.Item;
@@ -43,7 +44,8 @@ public class ItemModelManager implements ItemModel {
     private ItemStorage itemStorage;
     private final ElisaCommandHistory elisaCommandHistory;
     private final JokeList jokeList;
-    private boolean priorityMode = false;
+    private SimpleBooleanProperty priorityMode = new SimpleBooleanProperty(false);
+    private boolean systemToggle = false;
     private PriorityQueue<Item> sortedTask = null;
 
     //Bryan Reminder
@@ -289,7 +291,7 @@ public class ItemModelManager implements ItemModel {
         taskList.remove(item);
         eventList.remove(item);
         reminderList.remove(item);
-        if (priorityMode) {
+        if (priorityMode.getValue()) {
             getNextTask();
         }
         return item;
@@ -306,7 +308,7 @@ public class ItemModelManager implements ItemModel {
         taskList.removeItemFromList(item);
         eventList.removeItemFromList(item);
         reminderList.removeItemFromList(item);
-        if (priorityMode) {
+        if (priorityMode.getValue()) {
             getNextTask();
         }
         return item;
@@ -329,7 +331,7 @@ public class ItemModelManager implements ItemModel {
     public void setVisualList(String listString) throws IllegalValueException {
         switch(listString) {
         case "T":
-            if (priorityMode) {
+            if (priorityMode.getValue()) {
                 setVisualList(getNextTask());
                 break;
             }
@@ -402,7 +404,7 @@ public class ItemModelManager implements ItemModel {
             futureReminders.add(newItem);
         }
 
-        if (priorityMode) {
+        if (priorityMode.getValue()) {
             sortedTask.remove(item);
             sortedTask.offer(newItem);
             visualList = getNextTask();
@@ -490,12 +492,12 @@ public class ItemModelManager implements ItemModel {
             throw new IllegalListException();
         }
 
-        if (priorityMode) {
+        if (priorityMode.getValue()) {
             toggleOffPriorityMode();
         } else {
             toggleOnPriorityMode();
         }
-        return priorityMode;
+        return priorityMode.getValue();
     }
 
     /**
@@ -509,6 +511,7 @@ public class ItemModelManager implements ItemModel {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                systemToggle = true;
                 toggleOffPriorityMode();
             }
         }, date);
@@ -518,7 +521,9 @@ public class ItemModelManager implements ItemModel {
         TaskList result = new TaskList();
 
         if (sortedTask.peek().getTask().get().isComplete()) {
+            systemToggle = true;
             toggleOffPriorityMode();
+            return taskList;
         }
 
         result.add(sortedTask.peek());
@@ -553,15 +558,27 @@ public class ItemModelManager implements ItemModel {
                 }
             });
         }
-        this.priorityMode = false;
+        priorityMode.setValue(false);
     }
 
     /**
      * Turns on the priority mode.
      */
     private void toggleOnPriorityMode() {
-        this.priorityMode = true;
-        sortedTask = new PriorityQueue<>(TaskList.COMPARATOR);
+        systemToggle = false;
+        this.priorityMode.setValue(true);
+
+        sortedTask = new PriorityQueue<Item>((item1, item2) -> {
+            int result;
+            if ((result = TaskList.COMPARATOR.compare(item1, item2)) != 0) {
+                return result;
+            } else {
+                int index1 = taskList.indexOf(item1);
+                int index2 = taskList.indexOf(item2);
+                return index1 > index2 ? 1 : -1;
+            }
+        });
+
         for (int i = 0; i < taskList.size(); i++) {
             Item item = taskList.get(i);
             if (!item.getTask().get().isComplete()) {
@@ -569,7 +586,7 @@ public class ItemModelManager implements ItemModel {
             }
         }
         if (sortedTask.size() == 0) {
-            priorityMode = false;
+            priorityMode.setValue(false);
         } else {
             this.visualList = getNextTask();
         }
@@ -626,5 +643,13 @@ public class ItemModelManager implements ItemModel {
 
     public Item getLatestOccurredReminder() throws NoSuchElementException {
         return activeReminders.getLatestOccurredReminder();
+    }
+
+    public SimpleBooleanProperty getPriorityMode() {
+        return this.priorityMode;
+    }
+
+    public boolean isSystemToggle() {
+        return systemToggle;
     }
 }
