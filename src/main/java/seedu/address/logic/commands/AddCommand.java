@@ -18,9 +18,10 @@ import seedu.address.model.person.Person;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "register";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a user to the incident management system.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Registers an account into the Incident Management system.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "

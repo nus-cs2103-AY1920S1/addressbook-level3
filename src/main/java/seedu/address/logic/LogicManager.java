@@ -34,7 +34,7 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    public static final String ACCESS_CONTROL_MESSAGE = "Only Add, Login, Exit, and Help commands are available.\n"
+    public static final String ACCESS_CONTROL_MESSAGE = "Only Register, Login, Exit, and Help commands are available.\n"
             + "Please login to access other commands. See help page for more information.";
     public static final String GUI_SWAP_MESSAGE = "Please swap the interface to access the command from this suite.\n"
             + "See help page for more information.";
