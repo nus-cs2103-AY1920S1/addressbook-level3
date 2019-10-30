@@ -85,6 +85,10 @@ public class Expense {
         this.budgetName = new Description("default budget");
     }
 
+    public boolean isWithId(String id) {
+        return this.uniqueIdentifier.value.equals(id);
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

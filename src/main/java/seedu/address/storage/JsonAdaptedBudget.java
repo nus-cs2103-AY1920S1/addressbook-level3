@@ -23,6 +23,7 @@ import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
+import seedu.address.model.expense.UniqueIdentifier;
 
 /**
  * Jackson-friendly version of {@link Budget}.
@@ -37,7 +38,7 @@ class JsonAdaptedBudget {
     private final String endDate;
     private final String period;
     private final boolean isPrimary;
-    private List<JsonAdaptedExpense> expenses = new ArrayList<>();
+    private List<String> expenseIds = new ArrayList<>();
     private final String proportionUsed;
 
     /**
@@ -49,7 +50,7 @@ class JsonAdaptedBudget {
                              @JsonProperty("startDate") String startDate,
                              @JsonProperty("endDate") String endDate,
                              @JsonProperty("period") String period,
-                             @JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
+                             @JsonProperty("expenses") List<String> expenseIds,
                              @JsonProperty("isPrimary") boolean isPrimary,
                              @JsonProperty("proportionUsed") String proportionUsed) {
         this.description = description;
@@ -57,8 +58,8 @@ class JsonAdaptedBudget {
         this.startDate = startDate;
         this.endDate = endDate;
         this.period = period;
-        if (expenses != null) {
-            this.expenses.addAll(expenses);
+        if (expenseIds != null) {
+            this.expenseIds.addAll(expenseIds);
         }
         this.isPrimary = isPrimary;
         this.proportionUsed = proportionUsed;
@@ -74,8 +75,8 @@ class JsonAdaptedBudget {
         startDate = source.getStartDate().toString();
         endDate = source.getEndDate().toString();
         period = source.getPeriod().toString();
-        expenses.addAll(source.getExpenses().stream()
-                .map(JsonAdaptedExpense::new)
+        expenseIds.addAll(source.getExpenses().stream()
+                .map(e -> e.getUniqueIdentifier().value)
                 .collect(Collectors.toList()));
         isPrimary = source.isPrimary();
         proportionUsed = source.getProportionUsed().toString();
@@ -86,10 +87,15 @@ class JsonAdaptedBudget {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted budget.
      */
-    public Budget toModelType() throws IllegalValueException {
+    public Budget toModelType(List<JsonAdaptedExpense> expenses) throws IllegalValueException {
         final ObservableList<Expense> expenseList = FXCollections.observableArrayList();
-        for (JsonAdaptedExpense expense : expenses) {
-            expenseList.add(expense.toModelType());
+        for (String id : expenseIds) {
+            for (JsonAdaptedExpense je : expenses) {
+                Expense e = je.toModelType();
+                if (e.isWithId(id)) {
+                    expenseList.add(e);
+                }
+            }
         }
 
         if (description == null) {
