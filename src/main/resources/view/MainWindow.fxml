@@ -31,7 +31,7 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
-            <StackPane fx:id="outputDisplayPlaceholder" minHeight="300.0" />
+            <StackPane fx:id="outputDisplayPlaceholder" minHeight="300.0" VBox.vgrow="ALWAYS" />
 
                           <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
