@@ -8,10 +8,10 @@ import javafx.beans.property.ObjectProperty;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.util.Money;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
-import seedu.savenus.model.util.Money;
 
 
 /**
@@ -73,7 +73,7 @@ public class Wallet {
      * @param newRemainingBudget New {@code RemainingBudget} created from user's input
      */
     public void setRemainingBudget(RemainingBudget newRemainingBudget) throws BudgetAmountOutOfBoundsException {
-        if (newRemainingBudget.getRemainingBudgetAmount().compareTo(new BigDecimal(1000000.00)) == 1) {
+        if (newRemainingBudget.isOutOfBounds()) {
             throw new BudgetAmountOutOfBoundsException();
         }
         remainingBudget.setRemainingBudget(newRemainingBudget);

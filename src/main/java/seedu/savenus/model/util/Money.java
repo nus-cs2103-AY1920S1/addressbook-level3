@@ -1,10 +1,9 @@
 package seedu.savenus.model.util;
 
-
-import java.math.BigDecimal;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.AppUtil.checkArgument;
+
+import java.math.BigDecimal;
 
 /**
  * Model for representing monetary amounts
@@ -12,7 +11,8 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
 public class Money implements Comparable<Money> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amount should only contain numbers and have either 0 or 2 decimal places";
+            "Amount should only contain numbers and have either 0 or 2 decimal places"
+                    + "For example: 1.50 or 200";
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
     public final BigDecimal value;
 
@@ -46,7 +46,7 @@ public class Money implements Comparable<Money> {
 
     @Override
     public String toString() {
-        return  String.format("$%.02f",  getAmount());
+        return String.format("$%.02f", getAmount());
     }
 
     @Override

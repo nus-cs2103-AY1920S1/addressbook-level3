@@ -7,8 +7,6 @@ import java.math.BigDecimal;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import seedu.savenus.model.util.Money;
 
 /**
