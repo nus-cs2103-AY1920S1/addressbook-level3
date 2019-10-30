@@ -13,7 +13,6 @@ import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
-import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.model.reminder.Reminder;
 
 /**
@@ -112,12 +111,6 @@ public interface Model {
     void addFolder(Folder folder, Folder parentFolder);
 
     boolean hasFolder(Folder folder);
-
-    /**
-     * Attempts to add a structure of folders to Mark.
-     * Implementation to be decided.
-     */
-    void addFolders(FolderStructure foldersToAdd);
 
     /**
      * Checks whether Mark contains this {@code tagger}.

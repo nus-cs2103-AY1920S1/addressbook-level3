@@ -23,7 +23,9 @@ import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.commands.AutotagDeleteCommand;
+import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
+import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
@@ -83,6 +85,11 @@ public class MarkParserTest {
     }
 
     @Test
+    public void parseCommand_cache() throws Exception {
+        assertTrue(parser.parseCommand(CacheCommand.COMMAND_WORD + " 3") instanceof CacheCommand);
+    }
+
+    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
@@ -93,6 +100,11 @@ public class MarkParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_BOOKMARK), command);
+    }
+
+    @Test
+    public void parseCommand_deleteCache() throws Exception {
+        assertTrue(parser.parseCommand(DeleteCacheCommand.COMMAND_WORD + " 3") instanceof DeleteCacheCommand);
     }
 
     @Test

@@ -19,7 +19,7 @@ public class TagContainsKeywordsPredicate implements Predicate<Bookmark> {
     public boolean test(Bookmark bookmark) {
         return keywords.stream()
                 .anyMatch(keyword -> bookmark.getTags()
-                        .stream().anyMatch(tag -> tag.tagName.equals(keyword)));
+                        .stream().anyMatch(tag -> tag.tagName.equalsIgnoreCase(keyword)));
     }
 
     @Override
