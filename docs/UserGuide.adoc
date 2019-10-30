@@ -506,15 +506,17 @@ The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
 
-[TIP]
+|=== 
+|:bulb: a|
 Only commands that change Mortago's data can be undone. For example, `add`, `update`, `clear`, and `delete` can be undone while
 `list` or `find` cannot be undone.
-[TIP]
+
 You can `undo` a `clear` command, but note that you cannot redo any past undone commands after that.
-[TIP]
+
 Other events that occur due to a command will also be undone if the command is undone. For example, if an `add` command
 automatically generates an `notif`, the `notif` will be removed if `add` was undone.
 
+|===
 
 Example: +
 Imagine that you've accidentally deleted the wrong Body (John Doe) from Mortago. You can easily reverse that mistake with the `undo` command instead of adding John Doe all over again!
