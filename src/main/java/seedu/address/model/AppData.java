@@ -181,6 +181,13 @@ public class AppData implements ReadOnlyAppData {
         questions.remove(key);
     }
 
+    /**
+     * Clears all questions.
+     */
+    public void clearQuestions() {
+        questions.setQuestions(new UniqueQuestionList());
+    }
+
     // quiz operations
 
     /**

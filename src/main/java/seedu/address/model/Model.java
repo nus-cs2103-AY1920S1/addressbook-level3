@@ -159,6 +159,11 @@ public interface Model {
     void deleteQuestion(Question target);
 
     /**
+     * Clears all questions.
+     */
+    void clearQuestions();
+
+    /**
      * Replaces the given question {@code target} with {@code editedQuestion}.
      * {@code target} must exist in NUStudy.
      * The question body of {@code editedQuestion} must not be the same as another existing question in NUStudy.
