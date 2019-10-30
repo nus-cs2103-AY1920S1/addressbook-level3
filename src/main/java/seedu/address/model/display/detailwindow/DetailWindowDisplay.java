@@ -66,6 +66,10 @@ public class DetailWindowDisplay {
         return freeSchedule;
     }
 
+    public FreeTimeslot getFreeTimeslot(int id) {
+        return freeSchedule.getFreeTimeslot(id);
+    }
+
     /**
      * For debugging purposes only.
      */

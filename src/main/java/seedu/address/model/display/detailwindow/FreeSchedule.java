@@ -19,4 +19,16 @@ public class FreeSchedule {
     public HashMap<DayOfWeek, ArrayList<FreeTimeslot>> getFreeSchedule() {
         return freeSchedule;
     }
+
+    public FreeTimeslot getFreeTimeslot(int id) {
+        for(int i = 1; i <= 7; i ++) {
+            ArrayList<FreeTimeslot> freeTimeslots = freeSchedule.get(DayOfWeek.of(i));
+            for(int j = 0; j < freeTimeslots.size(); j++) {
+                if(id == freeTimeslots.get(j).getId()) {
+                    return freeTimeslots.get(j);
+                }
+            }
+        }
+        return null;
+    }
 }
