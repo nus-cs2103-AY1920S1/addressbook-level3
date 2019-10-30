@@ -95,6 +95,9 @@ Multi-purpose mobile computing device. Also known as smartphones.
 . *Order* +
 A request for goods.
 
+. *Schedule* +
+A meetup with buyer to pass the goods.
+
 === SML-specific Terms
 
 . *Command* +
@@ -111,6 +114,10 @@ Each phone entry comprises of IdentityNumber, SerialNumber, Brand, PhoneName, Co
 . *OrderBook* +
 A OrderBook is a list that stores Order(s) that has been added in SML.
 Each order entry comprises of a customer, a phone, OrderID, Price and OrderStatus.
+
+. *ScheduleBook* +
+A ScheduleBook is a list that stores Schedules(s) that has been added in SML.
+Each schedule entry comprises a Venue and Calendar with date and time.
 
 . *Archived* +
 Archived is a list that stores Completed or Cancelled orders ONLY.
@@ -444,17 +451,17 @@ Commands that work on orders that you have.
 
 ==== Add an order : `add-o`
 Adds an order to the list of orders. +
-Format: `add-o p/PHONE_NUMBER i/ITEM...`
+Format: `add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`
 
 ==== Find an order : `find-o`
 Returns all the information pertaining to the order. +
-Format: `find-o INDEX`
+Format: `find-o KEYWORD [KEYWORD]...`
 
-==== Complete an order : `complete-o`
+==== Complete an order : `complete`
 Completes the order, order status changed to `COMPLETED`. +
 Format: `complete-o INDEX`
 
-==== Cancel an order : `cancel-o`
+==== Cancel an order : `cancel`
 Cancels the order at the specified index. +
 Format: `cancel-o INDEX`
 
@@ -462,32 +469,76 @@ Format: `cancel-o INDEX`
 List all the orders in the list. +
 Format: `list-o`
 
-==== Copy order field : `copy-o`
-Copies an order field to clipboard. +
-Format: `copy-o <field>`
+//==== Copy order field : `copy-o`
+//Copies an order field to clipboard. +
+//Format: `copy-o <field>`
 
-==== Duplicate an order : `duplicate-o`
-Duplicate an order of the specified index. +
-Format: `duplicate-o INDEX`
+//==== Duplicate an order : `duplicate-o`
+//Duplicate an order of the specified index. +
+//Format: `duplicate-o INDEX`
 
 
 === Schedule Commands
+Commands that work on schedules you have.
+
+==== Switch to Schedule Tab Panel : `switch-s`
+Switches to Schedule Tab Panel. +
+[underline]#Format#: `switch-s`
 
 ==== Go to specific date in calendar : `schedule`
 Shows the week of the date specified by the user. +
-Format: `schedule cd/DATE`
+[underline]#Format#: `schedule cd/DATE`
+[TIP]
+Date should be in the format YYYY.MM.HH with valid year, month and date.
 
 ==== Add a schedule : `add-s`
-Adds a schedule to the address book. +
-Format: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]…`
+Adds a schedule. +
+If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules, or change the time. +
+[underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow] ` +
+[underline]#Example#: +
+
+* `add-s 3 cd/2018.7.25 ct/18.00 v/Starbucks t/freebie -allow` +
+
+image::ug-command/ug-add-s.png[width="800"]
+
+[TIP]
+Order index should be a positive integer and must exist in the order list.
+[TIP]
+Date should be in the format YYYY.MM.HH with valid year, month and date.
+[TIP]
+Time should be in the 24-hour format HH.MM with valid hour and minute.
+[TIP]
+Schedule can have any number of tags, including 0.
 
 ==== Delete a schedule : `delete-s`
-Deletes a schedule in the address book. +
-Format: `delete-s ORDER_INDEX`
+Deletes a schedule. +
+[underline]#Format#: `delete-s ORDER_INDEX`
+****
+* Deletes the schedule of the order at the specified `ORDER_INDEX`.
+* Order index is a positive integer and must exist in the order list.
+****
+[underline]#Example#: +
+
+* Delete the schedule of the 2nd order.
+. `list-o` +
+. `delete-s 2`
 
 ==== Edit a schedule : `edit-s`
 Edits an existing schedule. +
-Format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]…`
+If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules, or change the time. +
+[underline]#Format#: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`
+****
+- Edits the schedule of the order at the specified `ORDER_INDEX`.
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+- When editing tags, the existing tags of the schedule will be removed i.e adding of tags is not cumulative.
+- You can remove all the schedule's tags by typing `t/` without specifying any tags after it.
+****
+
+[underline]#Examples#:
+
+* Edit the date of the schedule of the 1st order and allow it to clash with the existing schedules. +
+`edit-s 1 cd/2019.12.12 -allow`
 
 === Utility Commands
 
@@ -533,12 +584,23 @@ This behaviour is intentional and not a bug.
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
 we estimate at least a few seconds before the window will be loaded.
 
+Coming in `V2.0`:
+
+* Average Statistics
+** More advanced commands like `average profit` etc
+
+* Different Charts
+** Instead of just being able to display via a line chart, users will be able to select the type of chart
+
+* Export Chart to PDF
+** User will be able to export their charts to pdf with a click of a button.
 
 
-==== Check : `check`
-Check for stock etc. For stock, see the phones that have < threshold quantity.   +
-Format: `check <flag>` +
-Possible flag: `-p` for phone stock, `check -p <threshold>`
+
+//==== Check : `check`
+//Check for stock etc. For stock, see the phones that have < threshold quantity.   +
+//Format: `check <flag>` +
+//Possible flag: `-p` for phone stock, `check -p <threshold>`
 
 ==== Clearing all entries : `clear`
 Clears all entries of items, orders and customers. +
@@ -548,12 +610,11 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
-=== Import/export data : `import / export`
-Import csv file into the application. +
-Export application data into csv file. +
-Export application stats. +
-Format: `import <flag> <file name>` / `export <flag> <file name>` +
-Possible flag: `-p` for phone, `-c` for customer, `-o` for order.
+=== Export data : `export`
+Exports application data into csv file. +
+If csv file of the input file name exists, the application data will be exported to the existing file. +
+If csv file of the input file name does not exist, the application data will be exported into a new file.
+Format: `export <file name>` +
 
 === Saving the data
 SML data are saved in the hard disk automatically after any command that changes the data. +
@@ -580,7 +641,7 @@ Export any of the data in SML to PDF format.
 ** customer : `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 ** phone : `add-p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…`
 ** order : `add-o p/PHONE_NUMBER i/ITEM...`
-** schedule : `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]…`
+** schedule : `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]`
 
 * *Cancel* +
 ** order : `cancel INDEX`
@@ -607,14 +668,11 @@ Export any of the data in SML to PDF format.
 ** customer : `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 ** phone : `edit-p INDEX n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
 ** order : `edit-o INDEX ...`
-** schedule : `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]…`
+** schedule : `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`
 
 * *Exit* : `exit`
 
-* *Export* +
-** customer : `export-c`
-** phone : `export-p`
-** order : `export-o`
+* *Export* : `export <file name>`
 
 * *Find* +
 ** customer : `find-c KEYWORD [MORE_KEYWORDS]`
@@ -622,11 +680,6 @@ Export any of the data in SML to PDF format.
 ** order : `find-o INDEX`
 
 * *Generate* : `generate -s s/STAT -d d/ -t t/TYPE`
-
-* *Import* +
-** customer : `import-c`
-** phone : `import-p`
-** order : `import-o`
 
 * *List* +
 ** customer : `list-c`
