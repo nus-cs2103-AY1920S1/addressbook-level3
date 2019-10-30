@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.copycommand;
 
 import static java.util.Objects.requireNonNull;
 
@@ -11,6 +11,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -37,7 +40,7 @@ public class CopyCustomerCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory,
-                                                UndoRedoStack undoRedoStack) throws CommandException {
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         List<Customer> lastShownList = model.getFilteredCustomerList();
 
