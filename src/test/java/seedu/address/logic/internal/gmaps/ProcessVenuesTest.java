@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.TimeBookInvalidState;
@@ -50,7 +51,7 @@ class ProcessVenuesTest {
         assertTrue(newProcessVenues.getValidLocationList().contains(lt17));
     }
 
-    @Test
+    @Disabled
     void imageSanityCheck() {
         processVenues.process();
         ArrayList<Location> validLocationList = processVenues.getValidLocationList();
