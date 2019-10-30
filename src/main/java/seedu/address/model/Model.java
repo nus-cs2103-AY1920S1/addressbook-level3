@@ -3,6 +3,12 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+//Remove after changing to ObservableList for Calendar
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.inventory.Inventory;
@@ -231,7 +237,7 @@ public interface Model {
 
     boolean hasCalendar(CalendarWrapper calendar);
 
-    void getBestTiming();
+    List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDurationggG);
 
     // Settings
 

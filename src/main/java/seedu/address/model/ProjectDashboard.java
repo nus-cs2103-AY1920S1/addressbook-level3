@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import seedu.address.commons.util.DateTimeUtil;
@@ -387,7 +390,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         return calendars.asUnmodifiableObservableList();
     }
 
-    public void getBestTiming() {
-        calendars.getBestTiming();
+    public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
+        return calendars.findMeetingTime(startDate, endDate, meetingDuration);
     }
 }

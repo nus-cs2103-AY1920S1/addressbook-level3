@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -14,13 +15,17 @@ import seedu.address.model.calendar.exceptions.CalendarNotFoundException;
 import seedu.address.model.calendar.exceptions.DuplicateCalendarException;
 import seedu.address.model.member.MemberName;
 
-import java.text.ParseException;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
-import net.fortuna.ical4j.model.*;
-import net.fortuna.ical4j.model.component.*;
+import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.Period;
+import net.fortuna.ical4j.model.PeriodList;
 
-import org.apache.commons.lang3.time.DateUtils;
+
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -38,12 +43,12 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     private final ObservableList<CalendarWrapper> internalList = FXCollections.observableArrayList();
     private final ObservableList<CalendarWrapper> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-    private static final TimeZone DEFAULT_TIMEZONE = TimeZoneRegistryFactory
-            .getInstance()
-            .createRegistry()
-            .getTimeZone("Asia/Hong_Kong");
     private static final int END_HOUR = 22;
     private static final int END_MINUTE = 00;
+//    private static final TimeZone DEFAULT_TIMEZONE = TimeZoneRegistryFactory
+//            .getInstance()
+//            .createRegistry()
+//            .getTimeZone("Asia/Hong_Kong");
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -197,35 +202,193 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
 
     // ========= Funtional Commands ===========================================================================
 
-    public HashMap<DateTime, Integer> generateTimeslots(DateTime startDate, DateTime endDate, int duration) {
-        DateTime dateCount = startDate;
-        HashMap<DateTime, Integer> result = new HashMap<>();
-        List<DateTime> result2 = new ArrayList<>();
-        dateCount = new DateTime(DateUtils.addHours(dateCount, 0));
-        while (dateCount.before(endDate)) {
-            result.put(dateCount, 0);
-            result2.add(dateCount);
-            dateCount = new DateTime(DateUtils.addHours(dateCount, 1));
+    public static LocalDateTime roundUpToNearestHalfHour(LocalDateTime localDateTime) {
+        int minutes = localDateTime.getMinute();
+        int seconds = localDateTime.getSecond();
+        if (minutes % 30 == 0 && seconds == 0) {
+            return localDateTime;
+        } else if (minutes > 30 || (minutes == 30 && seconds > 0)) {
+            return localDateTime
+                    .withMinute(0)
+                    .withSecond(0)
+                    .withNano(0)
+                    .plusHours(1);
+        } else {
+            return localDateTime
+                    .withMinute(30)
+                    .withSecond(0)
+                    .withNano(0);
         }
-        return result;
     }
 
-    public void getBestTiming() {
-        try {
-            net.fortuna.ical4j.model.Calendar cal = internalList.get(0).getCalendar();
-            DateTime startDate = new DateTime("20191028T000000Z", DEFAULT_TIMEZONE);
-            DateTime endDate = new DateTime("20191101T170000Z", DEFAULT_TIMEZONE);
-            Period period = new Period(startDate, endDate);
-            Duration duration = Duration.ofHours(4);
-
-            PeriodList result = internalList.get(0).getFreeTimeDuringPeriod(period, duration);
-
-            for (Object po : result) {
-                System.out.println((Period)po);
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
+    public static LocalDateTime roundDownToNearestHalfHour(LocalDateTime localDateTime) {
+        int minutes = localDateTime.getMinute();
+        int seconds = localDateTime.getSecond();
+        if (minutes % 30 == 0 && seconds == 0) {
+            return localDateTime;
+        } else if (minutes > 30 || (minutes == 30 && seconds > 0)) {
+            return localDateTime
+                    .withMinute(30)
+                    .withSecond(0)
+                    .withNano(0);
+        } else {
+            return localDateTime
+                    .withMinute(0)
+                    .withSecond(0)
+                    .withNano(0);
         }
+    }
+
+    private static final LocalTime DEFAULT_START_TIME = LocalTime.of(8, 0, 0, 0);
+    private static final LocalTime DEFAULT_END_TIME = LocalTime.of(22, 0, 0, 0);
+
+    public static LocalDateTime adjustStartDate(LocalDateTime dateTime) {
+        LocalDateTime roundedDateTime = roundUpToNearestHalfHour(dateTime);
+        LocalTime roundedTime = roundedDateTime.toLocalTime();
+        if (roundedTime.isBefore(DEFAULT_START_TIME)) {
+            return LocalDateTime.of(roundedDateTime.toLocalDate(), DEFAULT_START_TIME);
+        } else if (roundedTime.isAfter(DEFAULT_END_TIME)) {
+            return LocalDateTime.of(roundedDateTime.toLocalDate().plusDays(1), DEFAULT_START_TIME);
+        } else {
+            return roundedDateTime;
+        }
+    }
+
+    public static LocalDateTime adjustEndDate(LocalDateTime dateTime) {
+        LocalDateTime roundedDateTime = roundDownToNearestHalfHour(dateTime);
+        LocalTime roundedTime = roundedDateTime.toLocalTime();
+        if (roundedTime.isAfter(DEFAULT_END_TIME)) {
+            return LocalDateTime.of(roundedDateTime.toLocalDate(), DEFAULT_END_TIME);
+        } else if (roundedTime.isBefore(DEFAULT_START_TIME)) {
+            return LocalDateTime.of(roundedDateTime.toLocalDate().minusDays(1), DEFAULT_END_TIME);
+        } else {
+            return roundedDateTime;
+        }
+    }
+
+    public static List<LocalDateTime> generateTimeslots(LocalDateTime lcdStartDate, LocalDateTime lcdEndDate,
+                                                        Duration meetingDuration, LocalTime lastDailyMeetingTime) {
+        LocalDateTime adjustedStartDate = adjustStartDate(lcdStartDate);
+        LocalDateTime adjustedEndDate = adjustEndDate(lcdEndDate);
+
+        List<LocalDateTime> timeslots = new ArrayList<>();
+
+        LocalDateTime lastPossibleMeetingDateTime = adjustedEndDate.minus(meetingDuration);
+        LocalDate lastPossibleMeetingDate = lastPossibleMeetingDateTime.toLocalDate();
+        LocalTime lastPossibleMeetingTime = lastPossibleMeetingDateTime.toLocalTime();
+
+        LocalDateTime currentMeetingDateTime = adjustedStartDate;
+        LocalDate currentMeetingDate = currentMeetingDateTime.toLocalDate();
+        LocalTime currentMeetingTime = currentMeetingDateTime.toLocalTime();
+
+
+        while (currentMeetingDate.isBefore(lastPossibleMeetingDate)) {
+            while (currentMeetingTime.isBefore(lastDailyMeetingTime) ||
+                    currentMeetingTime.equals(lastDailyMeetingTime)) {
+                LocalDateTime newMeetingDateTime = LocalDateTime.of(currentMeetingDate, currentMeetingTime);
+                currentMeetingTime = currentMeetingTime.plusMinutes(30);
+                timeslots.add(newMeetingDateTime);
+            }
+            currentMeetingDate = currentMeetingDate.plusDays(1);
+            currentMeetingTime = DEFAULT_START_TIME;
+        }
+
+        while (currentMeetingTime.isBefore(lastPossibleMeetingTime) ||
+                currentMeetingDate.equals(lastPossibleMeetingTime)) {
+            LocalDateTime newMeetingDateTime = LocalDateTime.of(currentMeetingDate, currentMeetingTime);
+            currentMeetingTime = currentMeetingTime.plusMinutes(30);
+            timeslots.add(newMeetingDateTime);
+        }
+        return timeslots;
+    }
+
+    public static List<LocalDateTime> generateMemberAvailibility(PeriodList availibilityPeriods,
+                                                                 Duration meetingDuration,
+                                                                 LocalTime lastDailyMeetingTime) {
+        availibilityPeriods = filterPeriodsShorterThan(availibilityPeriods, meetingDuration);
+        Iterator<Period> availibityPeriodIter = availibilityPeriods.iterator();
+        List<LocalDateTime> completeList = new ArrayList<LocalDateTime>();
+        while (availibityPeriodIter.hasNext()) {
+            Period availibityPeriod = availibityPeriodIter.next();
+            LocalDateTime lcdStartDate = LocalDateTime.ofInstant(
+                    availibityPeriod.getStart().toInstant(),
+                    ZoneId.systemDefault());
+            LocalDateTime lcdEndDate = LocalDateTime.ofInstant(
+                    availibityPeriod.getEnd().toInstant(),
+                    ZoneId.systemDefault());
+            completeList.addAll(
+                    generateTimeslots(lcdStartDate, lcdEndDate, meetingDuration, lastDailyMeetingTime));
+        }
+        return completeList;
+    }
+
+    public LinkedHashMap<LocalDateTime, Integer> generateAttendance(LocalDateTime lcdStartDate,
+                                                                    LocalDateTime lcdEndDate,
+                                                                    Duration meetingDuration,
+                                                                    net.fortuna.ical4j.model.Period searchPeriod) {
+        LocalTime lastDailyMeetingTime = DEFAULT_END_TIME.minus(meetingDuration);
+        List<LocalDateTime> meetingTimeslots = generateTimeslots(lcdStartDate, lcdEndDate,
+                meetingDuration, lastDailyMeetingTime);
+
+        LinkedHashMap<LocalDateTime, Integer> attendance = new LinkedHashMap<>();
+        for (LocalDateTime timeslot : meetingTimeslots) {
+            attendance.put(timeslot, 0);
+        }
+        for (CalendarWrapper memberCalendar : internalList) {
+            List<LocalDateTime> memberAvailability =
+                    generateMemberAvailibility(memberCalendar.getAvailabilityDuringPeriod(searchPeriod),
+                            meetingDuration,
+                            lastDailyMeetingTime);
+
+            addMemberAvailability(attendance, memberAvailability);
+        }
+        return attendance;
+    }
+
+    //Generate HashMap of LocalDateTime and Integer with value 0
+    //Get PeriodList of freeTimes of each Calendar
+    //Convert from ical4j.DateTime to time.LocalDateTime
+    //Normalise PeriodList of each calendar
+    //For each period, extract smaller period for meeting times and increment HashMap
+
+    ////Sample Duration
+//        LocalDateTime startDate = LocalDateTime.parse("20191028T000000Z");
+//        LocalDateTime endDate = LocalDateTime.parse("20191101T170000Z");
+    public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration duration) {
+        net.fortuna.ical4j.model.DateTime ical4jStartDate = new DateTime(java.sql.Timestamp.valueOf(startDate));
+        net.fortuna.ical4j.model.DateTime ical4jEndDate = new DateTime(java.sql.Timestamp.valueOf(endDate));
+
+        net.fortuna.ical4j.model.Period searchPeriod =
+                new net.fortuna.ical4j.model.Period(ical4jStartDate, ical4jEndDate);
+
+        LinkedHashMap<LocalDateTime, Integer> timeslotAttendance = generateAttendance(startDate, endDate,
+                                                                    duration, searchPeriod);
+        List<LocalDateTime> bestTimeSlots = new ArrayList<>();
+        int count = 1;
+        Iterator<LocalDateTime> timeIterator = timeslotAttendance.keySet().iterator();
+        while (timeIterator.hasNext()) {
+            LocalDateTime current = timeIterator.next();
+            int currentNum = timeslotAttendance.get(current);
+            if (currentNum == count) {
+                bestTimeSlots.add(current);
+            }
+        }
+        return bestTimeSlots;
+    }
+
+    public static void addMemberAvailability(HashMap<LocalDateTime, Integer> attendance,
+                                             List<LocalDateTime> memberAvailability) {
+        for (LocalDateTime availableSlot : memberAvailability) {
+            attendance.put(availableSlot, attendance.get(availableSlot) + 1);
+        }
+    }
+
+
+    public static PeriodList filterPeriodsShorterThan(PeriodList periodList, Duration duration) {
+        periodList.removeIf(currentPeriod -> {
+            Duration periodDuration = Duration.parse(currentPeriod.getDuration().toString());
+            return periodDuration.compareTo(duration) < 0;
+        });
+        return periodList;
     }
 }

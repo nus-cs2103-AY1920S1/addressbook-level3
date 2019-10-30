@@ -22,12 +22,34 @@ import seedu.address.model.task.TaskStatus;
  */
 public class AddCalendarParser implements Parser<AddCalendarCommand> {
 
+    private static int count = 0;
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCalendarCommand parse(String args) throws ParseException {
+        switch (count % 3) {
+        case 0:
+            args = "add-calendar mn/Gabriel fp/" +
+                    System.getProperty("user.dir") +
+                    "\\data\\gabriel_calendar.ics";
+            break;
+        case 1:
+            args = "add-calendar mn/Abhi fp/" +
+                    System.getProperty("user.dir") +
+                    "\\data\\abhi_calendar.ics";
+            break;
+        case 2:
+            args = "add-calendar mn/Lynn fp/" +
+                    System.getProperty("user.dir") +
+                    "\\data\\lynn_calendar.ics";
+            break;
+        }
+        //Remove after testing
+        count ++;
+        //
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MEMBER_NAME, PREFIX_FILE_PATH);
 

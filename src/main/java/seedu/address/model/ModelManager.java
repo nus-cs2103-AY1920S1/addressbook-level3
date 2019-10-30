@@ -9,6 +9,12 @@ import java.util.logging.Logger;
 import java.util.Stack;
 import java.util.EmptyStackException;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+//Remove after changing to ObservableList for Calendar
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -375,10 +381,9 @@ public class ModelManager implements Model {
         return projectDashboard.hasCalendar(calendar);
     }
 
-    //REMOVE AFTER TESTING
     @Override
-    public void getBestTiming() {
-        projectDashboard.getBestTiming();
+    public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
+        return projectDashboard.findMeetingTime(startDate, endDate, meetingDuration);
     }
 
     // ========= General Commands ===========================================================================

@@ -6,6 +6,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//Remove after implementing MeetingTime Parser
+import java.time.LocalDateTime;
+import java.time.Duration;
+
 import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddMemberCommand;
@@ -25,6 +29,7 @@ import seedu.address.logic.commands.EditInventoryCommand;
 import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindMeetingTimeCommand;
 import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.GeneratePDFCommand;
 import seedu.address.logic.commands.GetStatisticsCommand;
@@ -41,9 +46,6 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.ThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-/////REMOVE AFTER TESTING
-import seedu.address.logic.commands.GetBestTimingCommand;
 
 /**
  * Parses user input.
@@ -179,14 +181,21 @@ public class ProjectDashboardParser {
             return new RedoCommand();
 
         case AddCalendarCommand.COMMAND_WORD:
-            return new AddCalendarParser().parse("add-calendar mn/Bobby fp/C:\\Users\\gbrls\\OneDrive\\Desktop\\nusmods_calendar.ics");
+            return new AddCalendarParser().parse(arguments);
 
-        case "get-best-timing":
-            return new GetBestTimingCommand();
+        case FindMeetingTimeCommand.COMMAND_WORD:
+            ////Sample Duration
+//          LocalDateTime startDate = new LocalDateTime("20191028T000000Z");
+//          LocalDateTime endDate = new LocalDateTime("20191101T170000Z");
+//          Duration meetingDuration = Duration.ofHours(4);
+//            	of(int year, Month month, int dayOfMonth, int hour, int minute, int second, int nanoOfSecond)
+            LocalDateTime startDate = LocalDateTime.parse("2019-10-28T00:00:00");
+            LocalDateTime endDate = LocalDateTime.parse("2019-11-01T17:00:00");
+            Duration meetingDuration = Duration.ofHours(4);
+            return new FindMeetingTimeCommand(startDate, endDate, meetingDuration);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }
