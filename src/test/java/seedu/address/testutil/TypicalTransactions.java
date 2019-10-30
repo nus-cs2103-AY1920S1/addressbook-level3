@@ -71,17 +71,32 @@ public class TypicalTransactions {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns a {@code BankAccount} with all the typical persons.
      */
     public static BankAccount getTypicalBankAccount() {
         BankAccount ba = new BankAccount();
-        for (BankAccountOperation transaction : getTypicalTransactions()) {
-            ba.addTransaction(transaction);
+        for (BankAccountOperation op : getTypicalTransactions()) {
+            ba.addTransaction(op);
         }
         return ba;
     }
 
+    /**
+     * Returns a {@code BankAccount} with all the typical persons in unsorted amount order.
+     */
+    public static BankAccount getTypicalUnsortedBankAccount() {
+        BankAccount unsortedBa = new BankAccount();
+        for (BankAccountOperation op : getTypicalUnsortedTransactions()) {
+            unsortedBa.addTransaction(op);
+        }
+        return unsortedBa;
+    }
+
     public static List<BankAccountOperation> getTypicalTransactions() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<BankAccountOperation> getTypicalUnsortedTransactions() {
+        return new ArrayList<>(Arrays.asList(GEORGE, FIONA, ELLE, DANIEL, CARL, BENSON, ALICE));
     }
 }

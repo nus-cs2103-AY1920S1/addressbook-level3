@@ -216,7 +216,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedBankAccount.equals(other.versionedBankAccount)
                 && userPrefs.equals(other.userPrefs)
-                && filteredTransactions.equals(other.filteredTransactions);
+                && filteredTransactions.equals(other.filteredTransactions)
+                && filteredBudgets.equals(other.filteredBudgets);
     }
 
 }
