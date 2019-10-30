@@ -134,12 +134,12 @@ public class DisplayModelManager {
      * Update with a schedule of a group.
      *
      * @param groupName of the group
-     * @param time      start time of the schedule
+     * @param now       start time of the schedule
      * @param type      type of schedule
      * @param timeBook  data
      */
     public void updateScheduleWindowDisplay(GroupName groupName,
-                                            LocalDateTime time,
+                                            LocalDateTime now,
                                             ScheduleWindowDisplayType type,
                                             TimeBook timeBook) {
 
@@ -161,7 +161,7 @@ public class DisplayModelManager {
 
                 //Add user schedule.
                 personSchedules.add(generatePersonSchedule(groupName.toString(),
-                        time.plusDays(h * DAYS_OF_A_WEEK), user, userRole));
+                        now.plusDays(h * DAYS_OF_A_WEEK), user, userRole));
 
                 //Add other schedules.
                 for (int i = 0; i < personIds.size(); i++) {
@@ -171,12 +171,12 @@ public class DisplayModelManager {
                         role = Role.emptyRole();
                     }
                     PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(),
-                            time.plusDays(h * DAYS_OF_A_WEEK),
+                            now.plusDays(h * DAYS_OF_A_WEEK),
                             person, role);
                     personSchedules.add(personSchedule);
                 }
 
-                FreeSchedule freeSchedule = generateFreeSchedule(personSchedules);
+                FreeSchedule freeSchedule = generateFreeSchedule(personSchedules, now);
                 combinedMonthsSchedules.put(h, personSchedules);
                 freeScheduleForMonth.add(freeSchedule);
             }
@@ -309,15 +309,24 @@ public class DisplayModelManager {
      * @param personSchedules to generate the free schedule from
      * @return FreeSchedule
      */
-    private FreeSchedule generateFreeSchedule(ArrayList<PersonSchedule> personSchedules) {
+    private FreeSchedule generateFreeSchedule(ArrayList<PersonSchedule> personSchedules, LocalDateTime now) {
 
         HashMap<DayOfWeek, ArrayList<FreeTimeslot>> freeSchedule = new HashMap<>();
 
         int idCounter = 1;
 
-        for (int i = 1; i <= DAYS_OF_A_WEEK; i++) {
+        int currentDay = now.getDayOfWeek().getValue();
 
-            freeSchedule.put(DayOfWeek.of(i), new ArrayList<>());
+        for (int i = currentDay; i <= DAYS_OF_A_WEEK + currentDay - 1; i++) {
+
+            int day = i;
+            if (i > 7) {
+                day -= 7;
+            }
+
+            System.out.println("Day test: " + DayOfWeek.of(day).toString());
+
+            freeSchedule.put(DayOfWeek.of(day), new ArrayList<>());
 
             LocalTime currentTime = startTime;
             ArrayList<String> lastVenues = new ArrayList<>();
@@ -339,7 +348,7 @@ public class DisplayModelManager {
                 // loop through each person
                 for (int j = 0; j < personSchedules.size(); j++) {
                     ArrayList<PersonTimeslot> timeslots = personSchedules.get(j)
-                            .getScheduleDisplay().get(DayOfWeek.of(i));
+                            .getScheduleDisplay().get(DayOfWeek.of(day));
 
                     // loop through each timeslot
                     for (int k = 0; k < timeslots.size(); k++) {
@@ -374,7 +383,7 @@ public class DisplayModelManager {
                             ClosestCommonLocationData closestCommonLocationData =
                                     gmapsModelManager.closestLocationData(temp);
 
-                            freeSchedule.get(DayOfWeek.of(i))
+                            freeSchedule.get(DayOfWeek.of(day))
                                     .add(new FreeTimeslot(
                                             idCounter,
                                             new ArrayList<>(lastVenues),
@@ -405,7 +414,7 @@ public class DisplayModelManager {
                             ClosestCommonLocationData closestCommonLocationData =
                                     gmapsModelManager.closestLocationData(temp);
 
-                            freeSchedule.get(DayOfWeek.of(i))
+                            freeSchedule.get(DayOfWeek.of(day))
                                     .add(new FreeTimeslot(
                                             idCounter,
                                             new ArrayList<>(lastVenues),
