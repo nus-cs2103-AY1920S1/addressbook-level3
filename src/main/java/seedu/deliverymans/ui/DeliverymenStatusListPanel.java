@@ -18,8 +18,8 @@ import seedu.deliverymans.model.deliveryman.Deliveryman;
 /**
  * Panel containing the list of deliverymen.
  */
-public class AvailableDeliverymenListPanel extends UiPart<Region> implements Initializable {
-    private static final String FXML = "AvailableDeliverymenListPanel.fxml";
+public class DeliverymenStatusListPanel extends UiPart<Region> implements Initializable {
+    private static final String FXML = "DeliverymenStatusListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(DeliverymanListPanel.class);
 
     @FXML
@@ -36,23 +36,23 @@ public class AvailableDeliverymenListPanel extends UiPart<Region> implements Ini
     private ObservableList<Deliveryman> deliveringList;
 
     @javafx.fxml.FXML
-    private ListView<Deliveryman> availableDeliverymanListView;
+    private ListView<Deliveryman> deliverymenStatusListView;
 
-    public AvailableDeliverymenListPanel(ObservableList<Deliveryman> availableList,
+    public DeliverymenStatusListPanel(ObservableList<Deliveryman> availableList,
                                          ObservableList<Deliveryman> unavailableList,
                                          ObservableList<Deliveryman> deliveringList) {
         super(FXML);
         this.availableList = availableList;
         this.unavailableList = unavailableList;
         this.deliveringList = deliveringList;
-        availableDeliverymanListView.setItems(availableList);
-        availableDeliverymanListView.setCellFactory(listView -> new DeliverymanListViewCell());
+        deliverymenStatusListView.setItems(availableList);
+        deliverymenStatusListView.setCellFactory(listView -> new DeliverymenStatusListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Deliveryman} using a {@code DeliverymanCard}.
      */
-    class DeliverymanListViewCell extends ListCell<Deliveryman> {
+    class DeliverymenStatusListViewCell extends ListCell<Deliveryman> {
         @Override
         protected void updateItem(Deliveryman deliveryman, boolean empty) {
             super.updateItem(deliveryman, empty);
@@ -72,18 +72,18 @@ public class AvailableDeliverymenListPanel extends UiPart<Region> implements Ini
     public void initialize(URL url, ResourceBundle resourceBundle) {
         availableButton.setOnAction(e -> {
             statusLabel.setText("AVAILABLE DELIVERYMEN");
-            availableDeliverymanListView.setItems(availableList);
-            availableDeliverymanListView.setCellFactory(listView -> new DeliverymanListViewCell());
+            deliverymenStatusListView.setItems(availableList);
+            deliverymenStatusListView.setCellFactory(listView -> new DeliverymenStatusListViewCell());
         });
         unavailableButton.setOnAction(e -> {
             statusLabel.setText("UNAVAILABLE DELIVERYMEN");
-            availableDeliverymanListView.setItems(unavailableList);
-            availableDeliverymanListView.setCellFactory(listView -> new DeliverymanListViewCell());
+            deliverymenStatusListView.setItems(unavailableList);
+            deliverymenStatusListView.setCellFactory(listView -> new DeliverymenStatusListViewCell());
         });
         deliveringButton.setOnAction(e -> {
             statusLabel.setText("DELIVERING DELIVERYMEN");
-            availableDeliverymanListView.setItems(deliveringList);
-            availableDeliverymanListView.setCellFactory(listView -> new DeliverymanListViewCell());
+            deliverymenStatusListView.setItems(deliveringList);
+            deliverymenStatusListView.setCellFactory(listView -> new DeliverymenStatusListViewCell());
         });
     }
 
