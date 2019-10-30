@@ -69,11 +69,9 @@ public class UniqueEntryList implements Iterable<Entry> {
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Entry toRemove) {
+    public void remove(Entry toRemove) throws EntryNotFoundException {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new EntryNotFoundException();
-        }
+        internalList.remove(toRemove);
     }
 
     public void setEntries(UniqueEntryList replacement) {

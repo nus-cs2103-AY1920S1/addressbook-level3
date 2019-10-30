@@ -132,6 +132,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    public void updateBudgets() {
+        budgets.updateBudgets();
+    }
+
     public void setWishReminders(List<WishReminder> wishReminders) {
         this.wishReminders.setEntries(wishReminders);
     }

@@ -25,6 +25,7 @@ import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
+import seedu.address.model.person.Period;
 import seedu.address.model.tag.Tag;
 
 
@@ -97,9 +98,10 @@ public class EditBudgetCommand extends Command {
         Category updatedCategory = editEntryDescriptor.getCategory().orElse(budgetToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(budgetToEdit.getDesc());
         Date updatedDate = editEntryDescriptor.getDate().orElse(budgetToEdit.getDate());
+        Period updatedPeriod = editEntryDescriptor.getPeriod().orElse(budgetToEdit.getPeriod());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(budgetToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(budgetToEdit.getTags());
-        return new Budget(updatedCategory, updatedName, updatedDate, updatedAmount, updatedTags);
+        return new Budget(updatedCategory, updatedName, updatedDate, updatedPeriod, updatedAmount, updatedTags);
     }
 
     @Override
@@ -128,6 +130,7 @@ public class EditBudgetCommand extends Command {
         private Category category;
         private Description desc;
         private Date date;
+        private Period period;
         private Amount amt;
         private Set<Tag> tags;
 
@@ -141,6 +144,7 @@ public class EditBudgetCommand extends Command {
             setCategory(toCopy.category);
             setDesc(toCopy.desc);
             setDate(toCopy.date);
+            setPeriod(toCopy.period);
             setAmount(toCopy.amt);
             setTags(toCopy.tags);
         }
@@ -174,6 +178,14 @@ public class EditBudgetCommand extends Command {
 
         public Optional<Date> getDate() {
             return Optional.ofNullable(date);
+        }
+
+        public void setPeriod(Period period) {
+            this.period = period;
+        }
+
+        public Optional<Period> getPeriod() {
+            return Optional.ofNullable(period);
         }
 
         public void setAmount(Amount amt) {
@@ -220,6 +232,7 @@ public class EditBudgetCommand extends Command {
             return getDesc().equals(e.getDesc())
                     && getAmount().equals(e.getAmount())
                     && getDate().equals(e.getDate())
+                    && getPeriod().equals(e.getPeriod())
                     && getTags().equals(e.getTags());
         }
     }

@@ -15,10 +15,11 @@ import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
+import seedu.address.model.person.Period;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Entry}.
+ * Jackson-friendly version of {@link Budget}.
  */
 class JsonAdaptedBudget {
 
@@ -27,6 +28,7 @@ class JsonAdaptedBudget {
     private final String desc;
     private final String date;
     private final double amt;
+    private final String period;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -35,11 +37,13 @@ class JsonAdaptedBudget {
     @JsonCreator
     public JsonAdaptedBudget(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
                              @JsonProperty("amt") double amt, @JsonProperty("time") String time,
+                             @JsonProperty("period") String period,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.category = category;
         this.desc = desc;
         this.amt = amt;
         this.date = time;
+        this.period = period;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -54,6 +58,7 @@ class JsonAdaptedBudget {
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
         date = source.getDate().toString();
+        period = source.getPeriod().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -84,10 +89,12 @@ class JsonAdaptedBudget {
 
         final Date modelDate = new Date(date);
 
+        final Period modelPeriod = new Period(period);
+
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Budget(modelCategory, modelDesc, modelDate, modelAmt, modelTags);
+        return new Budget(modelCategory, modelDesc, modelDate, modelPeriod, modelAmt, modelTags);
     }
 
 }
