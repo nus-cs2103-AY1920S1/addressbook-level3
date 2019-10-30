@@ -25,6 +25,7 @@ public class QuizTagCommandParser implements Parser<QuizTagCommand> {
     public QuizTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
+            FlashcardListParser.setQuizMode(false);
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT
                     + QuizTagCommand.MESSAGE_USAGE));
         }
