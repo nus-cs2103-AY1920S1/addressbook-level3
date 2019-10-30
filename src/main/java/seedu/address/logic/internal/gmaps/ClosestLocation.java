@@ -1,7 +1,6 @@
 package seedu.address.logic.internal.gmaps;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -9,7 +8,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ArrayListUtil;
 import seedu.address.commons.util.LocationArrayListUtils;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.GmapsModelManager;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.gmaps.Location;
 import seedu.address.model.gmaps.LocationGraph;
@@ -81,7 +79,7 @@ public class ClosestLocation {
                 } else if (LocationArrayListUtils.containLocationName(validLocationList,
                         "NUS_" + currLocationString)) {
                     validLocationListIndex = LocationArrayListUtils.getIndex(validLocationList,
-                          "NUS_" + currLocationString);
+                            "NUS_" + currLocationString);
                 } else {
                     invalidLocation.add(locationNameList.get(i));
                     locationNameList.remove(i);
@@ -160,11 +158,5 @@ public class ClosestLocation {
             logger.info(e.getMessage());
         }
         return closestCommonLocationData;
-    }
-
-    public static void main(String[] args) {
-        GmapsModelManager gmapsModelManager = new GmapsModelManager();
-        ClosestCommonLocationData closestCommonLocationData = gmapsModelManager.closestLocationData(new ArrayList<String>(Arrays.asList("LT17", "LT17", "LT17")));
-        closestCommonLocationData.getImage();
     }
 }
