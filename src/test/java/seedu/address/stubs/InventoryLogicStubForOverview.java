@@ -1,11 +1,11 @@
 package seedu.address.stubs;
 
+import java.util.ArrayList;
+
 import seedu.address.inventory.logic.Logic;
 import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.util.InventoryList;
-
-import java.util.ArrayList;
 
 /**
  * Stub to test Overview statistics functions.
