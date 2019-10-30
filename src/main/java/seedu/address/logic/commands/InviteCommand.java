@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -85,6 +86,19 @@ public class InviteCommand extends Command {
                 continue;
             }
 
+            Person personToInvite;
+            Integer idOfPersonToInvite;
+
+            Optional<Person> exactMatch = model.findPersonByName(name.trim());
+
+            if (exactMatch.isPresent()) {
+                personToInvite = exactMatch.get();
+                idOfPersonToInvite = personToInvite.getPrimaryKey();
+                idsToInvite.add(idOfPersonToInvite);
+                successMessage.append(String.format(MESSAGE_SUCCESS_INVITE, personToInvite.getName()) + "\n");
+                continue;
+            }
+
             keywords = Arrays.asList(name.split(" "));
             NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
 
@@ -97,8 +111,8 @@ public class InviteCommand extends Command {
                 continue;
             }
 
-            Person personToInvite = findResult.get(0);
-            Integer idOfPersonToInvite = personToInvite.getPrimaryKey();
+            personToInvite = findResult.get(0);
+            idOfPersonToInvite = personToInvite.getPrimaryKey();
 
             if (activityToInviteTo.hasPerson(idOfPersonToInvite)) {
                 String warning = String.format(MESSAGE_DUPLICATE_PERSON_IN_ACTIVITY, name);
