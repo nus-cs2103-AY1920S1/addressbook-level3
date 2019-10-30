@@ -108,7 +108,7 @@ public class Event {
      */
     public boolean isAvailableForEvent(Employee employee, List<Event> filteredEventList) {
         List<Event> containsEmployeeEventList = filteredEventList.stream()
-                .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId().id))
+                .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId()))
                 .collect(Collectors.toList());
         long nonOverlapEventsCount = containsEmployeeEventList.stream()
                 .filter(x -> (startDate.getDate().compareTo(x.getEndDate().getDate()) > 0
@@ -213,7 +213,7 @@ public class Event {
         builder.append(" \nEvent Manpower Count: ").append(getCurrentManpowerCount() + " / ")
                 .append(getManpowerNeeded());
         builder.append(" \nEvent Date: ").append(getStartDate()).append(" - " + getEndDate());
-        builder.append(" \nEvent DateTime: ").append(getEventDateTimeMap());
+        builder.append(" \nAll Event Date/Time: \n").append(getEventDateTimeMap().toStringWithNewLine());
         builder.append(" \nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
