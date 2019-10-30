@@ -38,11 +38,11 @@ image::Ui.png[width="790"]
 Broadly speaking, the MAMS handles three main types of items: *Students, Appeals, and Modules*. Each of these items may be further grouped into sub-lists.
 eg. Students may be organized by matriculation year, course of study etc.
 
-A student is uniquely identified by his/her 9-character Matriculation Number starting and ending with a letter, eg. `A0132243W`
+A student is uniquely identified by his/her 8-character Matriculation Number starting and ending with a letter, eg. `A0132243`
 
 An appeal request is uniquely identified by a prefix `C`, followed by a 6-digit Case ID, eg. `C123456`
 
-A module is uniquely identified by a COURSE_PREFIX (eg. `CS` for Computer Science) and a 4 to 6 character sequence. eg. `CS2103` and `CS2103T`.
+A module is uniquely identified by a COURSE_PREFIX (eg. `CS` for Computer Science) and a 4 character sequence. eg. `CS2103`.
 
 ====
 *Command Format*
@@ -250,70 +250,70 @@ image::AppealClashDetected.png[width="790"]
 === Add or remove modules `addmod` & `removemod`
 
 ==== Add a module to a student
-This command adds a module to specific student. If there is a clash detected
-between existing modules and the module being added, additional confirmation will be required.
+This command adds a module to specific student. Either Index or matric id
+can be used. If both are given, index takes priority.
 
-Format: `addmod STUDENT_ID MODULE_CODE SESSION_ID`
+Format: `addmod s/STUDENT_ID m/MODULE_CODE` or
+`addmod i/INDEX m/MODULE_CODE`
 
 Examples:
 
-* `addmod A0180000A CS1010S 2`
+Sample input 1:
+
+* `addmod s/A0180000 m/CS1010`
+
+image::AddModCommandDemoBefore1.png[width="790"]
 
 Sample output:
 
-`CS1010S added to student A0180000A`
+`Added module to : Celina Conyers`
 
-* `addmod A0180001A CS1010S 2`
+image::AddModCommandDemoAfter1.png[width="790"]
+
+Sample input 2:
+
+* `addmod i/1 m/CS1010`
+
+image::AddModCommandDemoBefore2.png[width="790"]
 
 Sample output:
 
-* `Clash detected:`
+* `Student is already registered for this module.`
 
-`Existing module: CS1020S: Monday 1400-1600`
-
-`Module to be added: CS1010S: Monday 1500-1700`
-
-`Confirm addition? (y/n)`
-
-If (y):
-`CS1010S added to student A0180000A`
-
-If (n):
-`Addition of module cancelled`
-
+image::AddModCommandDemoAfter2.png[width="790"]
 
 ==== Removing a module from student's timetable
-This command removes a existing module from a student.
+This command removes a existing module from a student. Either Index or matric id
+can be used. If both are given, index takes priority.
 
-Format: `removemod STUDENT_ID MODULE_CODE SESSION_ID`
-
-Examples:
-
-* `removemod A0180000A CS1010S 2`
-
-Sample output:
-
-`CS1010S removed from student A0180000A`
-
-* `removemod A0180001A CS1020S 2`
-
-Sample output:
-
-`Invalid operation. Module CS1010S does not exist in student
-A0180001A's timetable`
-
-=== Switching modules for students: `switchmod`
-Switch out one module for another for a specific student
-
-Format: `switchmod STUDENT_ID MODULE_CODE1 MODULE_CODE2`
+Format: `removemod s/STUDENT_ID m/MODULE_CODE` or
+`removemod i/INDEX m/MODULE_CODE`
 
 Examples:
 
-* `switchmod A0180000A CS1010S CS1010J`
+Sample input 1:
+
+* `removemod s/A0180000 m/CS1010`
+
+image::RemoveModCommandDemoBefore1.png[width="790"]
 
 Sample output:
 
-`Switched CS1010S for CS1010J for student A0180000A`
+* `Removed module from : Celina Conyers`
+
+image::RemoveModCommandDemoAfter1.png[width="790"]
+
+Sample input 2:
+
+* `removemod i/1 m/CS1010`
+
+image::RemoveModCommandDemoBefore2.png[width="790"]
+
+Sample output:
+
+* `Student is not registered for this module.`
+
+image::RemoveModCommandDemoAfter2.png[width="790"]
 
 === Update maximum workload for a student: `set`
 Sets an existing student’s maximum modular credit for this semester to a new value.
@@ -439,28 +439,24 @@ Or `clash m/2 m/4` to shows clash details between the modules at indices 2 and 4
 ** `clash [a/INDEX]`
 - e.g. `clash a/INDEX` to show if the module a student is requesting for clashes with his/her current existing modules.
 
-* **addmod**: `addmod STUDENT_ID MODULE_CODE`
-- e.g `addmod A0180000A CS2103`
-To add module CS2103 to student A0180000A
+* **addmod**: `addmod s/STUDENT_ID m/MODULE_CODE` or `addmod i/INDEX m/MODULE_CODE`
+- e.g `addmod s/A0180000 m/CS2103` `addmod i/10 m/CS2103`
+To add module CS2103 to student A0180000
 
-* **removemod**: `removemod STUDENT_ID MODULE_CODE`
-- e.g `removemod A0180000A CS2103`
-To remove module CS2103 from student A0180000A
-
-* **switchmod**: `switchmod STUDENT_ID MODULE_CODE1 MODULE_CODE2`
-- e.g `switchmod A0180000A CS2103 CS2103T`
-To remove module CS2103 and add module 2103T to student A0180000A
+* **removemod**: `removemod s/STUDENT_ID m/MODULE_CODE` or `removemod i/INDEX m/MODULE_CODE`
+- e.g `removemod s/A0180000 m/CS1020` `removemod i/4 m/CS1020`
+To remove module CS2103 from student A0180000
 
 * **set**: `set STUDENT_ID NEW_MC`
-- e.g. `set A0180000A 28`
+- e.g. `set A0180000 28`
 To set the student’s maximum modular credit for this semester to a new value.
 
-* **remark**: `remark STUDENT_ID REMARKS`
-- e.g. `remark A0180000A timetable clash waivered`
+* **remark**: `remark s/STUDENT_ID rr/REMARKS`
+- e.g. `remark A0180000 timetable clash waivered`
 To add remarks to a student’s particulars page
 
 * **approve**:
-** `approve [INDEX] [REMARK]`
+** `approve [INDEX] [rr/REMARK]`
 - e.g `approve 2 rr/meets requisites` Marks the 2nd appeal in the appeal list as approved.
 
 ** `approve mass/ [APPEAL_ID]...`
@@ -468,7 +464,7 @@ To add remarks to a student’s particulars page
 
 * **reject**:
 -
-** `reject [INDEX] [REMARK]`
+** `reject [INDEX] [rr/REMARK]`
 - e.g `reject 2 rr/meets requisites` Marks the 2nd appeal in the appeal list as rejected.
 
 ** `reject mass/ [APPEAL_ID]...`
