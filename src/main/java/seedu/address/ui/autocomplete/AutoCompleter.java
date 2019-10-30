@@ -37,7 +37,16 @@ import seedu.address.logic.commands.staff.RegisterStaffCommand;
  */
 public class AutoCompleter {
     private static final Map<String, Set<String>> SUPPORTED_ARGUMENTS = Map.ofEntries(
-            Map.entry("add", Set.of("-name", "-id", "-phone", "-address"))
+            Map.entry("ackappt", Set.of("i/")),
+            Map.entry("addappt", Set.of("i/", "rec/", "num/", "str/")),
+            Map.entry("addshift", Set.of("i/", "rec/", "num/", "str/")),
+            Map.entry("appointments", Set.of("i/")),
+            Map.entry("changeappt", Set.of("str/")),
+            Map.entry("changeshift", Set.of("str/")),
+            Map.entry("newdoctor", Set.of("i/", "n/", "p/", "a/", "e/")),
+            Map.entry("register", Set.of("i/", "n/", "p/", "a/", "t/", "e/")),
+            Map.entry("update", Set.of("i/", "n/", "p/", "a/", "t/", "e/")),
+            Map.entry("updatedoctor", Set.of("i/", "n/", "p/", "a/", "e/"))
     );
 
     private static final String[] SUPPORTED_COMMANDS = new String[]{
@@ -52,18 +61,17 @@ public class AutoCompleter {
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
 
-            UndoCommand.COMMAND_WORD,
             RedoCommand.COMMAND_WORD,
+            UndoCommand.COMMAND_WORD,
 
             EnqueueCommand.COMMAND_WORD,
             DequeueCommand.COMMAND_WORD,
 
-            AppointmentsCommand.COMMAND_WORD,
+            AckAppCommand.COMMAND_WORD,
             AddAppCommand.COMMAND_WORD,
+            AppointmentsCommand.COMMAND_WORD,
             CancelAppCommand.COMMAND_WORD,
             ChangeAppCommand.COMMAND_WORD,
-
-            AckAppCommand.COMMAND_WORD,
             MissAppCommand.COMMAND_WORD,
             SettleAppCommand.COMMAND_WORD,
 
@@ -93,11 +101,16 @@ public class AutoCompleter {
      * @return AutoComplete itself
      */
     public AutoCompleter update(String currentQuery) {
-        if (currentQuery.matches("(.* )?(?<!-)\\w+\\s+$")) {
+        if (currentQuery.matches("(.*)?\\s*\\w+\\s+$")) { //For Linux flag use "(.* )?(?<!-)\\w+\\s+$"
             try {
-                HashSet<String> available = new HashSet<>(SUPPORTED_ARGUMENTS.get(currentQuery.substring(0,
-                        currentQuery.indexOf(' '))));
-                available.removeAll(Arrays.asList(currentQuery.split("\\s+")));
+                Set<String> result = SUPPORTED_ARGUMENTS.get(currentQuery.substring(0, currentQuery.indexOf(' ')));
+                HashSet<String> available = new HashSet<>(result);
+                Arrays.asList(currentQuery.split("\\s+"))
+                        .forEach(e -> available.remove(e.substring(0, e.indexOf('/') + 1).trim()));
+                //available.removeAll(Arrays.asList(currentQuery.split("\\s+"))); //Linux flag uses "\\s+"
+                if (result.contains("t/")) {
+                    available.add("t/");
+                }
                 AutoCompleter autoCompleter = new AutoCompleter(available.toArray(String[]::new));
                 autoCompleter.currentQuery = currentQuery.substring(currentQuery.lastIndexOf(' ') + 1);
                 return autoCompleter;
