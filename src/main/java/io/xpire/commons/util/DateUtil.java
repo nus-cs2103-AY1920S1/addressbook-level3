@@ -6,9 +6,6 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
-
-import io.xpire.model.item.ReminderDate;
 
 /**
  * Helper functions for handling dates.
@@ -82,12 +79,14 @@ public class DateUtil {
         return ChronoUnit.DAYS.between(earlierDate, laterDate);
     }
 
-    public static Optional<ReminderDate> getReminderDate(LocalDate laterDate, int offsetDays) {
-        requireAllNonNull(laterDate, offsetDays);
-        if (offsetDays == 0) {
-            return Optional.empty();
-        }
-        return Optional.of(new ReminderDate(laterDate.minusDays(offsetDays)));
+    /**
+     * Retrieves a date prior to current date by {@COde offsetDays} number of days.
+     *
+     * @param offsetDays Number of days before current date.
+     * @return Earlier date.
+     */
+    public static LocalDate getPreviousDate(LocalDate date, int offsetDays) {
+        return date.minusDays(offsetDays);
     }
 
     /**
