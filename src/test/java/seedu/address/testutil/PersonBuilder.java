@@ -5,7 +5,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.employee.*;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePay;
+import seedu.address.model.employee.EmployeePendingPay;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeeTotalSalary;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -16,9 +26,9 @@ public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Pauline";
     public static final String DEFAULT_PAY = "0";
-    public static final String DEFAULT_PendingPay = "0";
+    public static final String DEFAULT_PENDINGPAY = "0";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_TotalSalary= "0";
+    public static final String DEFAULT_TOTALSALARY= "0";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
@@ -34,9 +44,9 @@ public class PersonBuilder {
     public PersonBuilder() {
         employeeName = new EmployeeName(DEFAULT_NAME);
         employeePay = new EmployeePay(DEFAULT_PAY);
-        employeePendingPay = new EmployeePendingPay(DEFAULT_PendingPay);
+        employeePendingPay = new EmployeePendingPay(DEFAULT_PENDINGPAY);
         employeePhone = new EmployeePhone(DEFAULT_PHONE);
-        employeeTotalSalary = new EmployeeTotalSalary((DEFAULT_TotalSalary));
+        employeeTotalSalary = new EmployeeTotalSalary((DEFAULT_TOTALSALARY));
         employeeEmail = new EmployeeEmail(DEFAULT_EMAIL);
         employeeAddress = new EmployeeAddress(DEFAULT_ADDRESS);
         tags = new HashSet<>();
