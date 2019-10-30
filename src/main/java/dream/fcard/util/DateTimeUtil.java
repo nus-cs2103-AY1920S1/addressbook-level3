@@ -36,7 +36,7 @@ public class DateTimeUtil {
         String minutes = Long.toString(duration.toMinutesPart());
         String seconds = Long.toString(duration.toSecondsPart());
 
-        if (!equalsZero.test(hours))  {
+        if (!equalsZero.test(hours)) {
             sb.append(hours).append(" hours ");
         }
 

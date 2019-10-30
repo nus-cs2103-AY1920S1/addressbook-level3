@@ -2,19 +2,17 @@ package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.Stats;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-
-import dream.fcard.logic.stats.Session;
-import dream.fcard.logic.stats.Stats;
 
 /**
  * Window to display user's statistics.
@@ -44,13 +42,14 @@ public class StatisticsWindow extends VBox {
         displaySessionsTableView();
     }
 
+    /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displayStats() {
-        // retrieve and display total number of login sessions
         int numSessions = Stats.getNumberOfLoginSessions();
-        totalSessions.setText("Total sessions: " + numSessions +
-            (numSessions == 1 ? " session" : " sessions"));
+        totalSessions.setText("Total sessions: " + numSessions
+            + (numSessions == 1 ? " session" : " sessions"));
     }
 
+    /** Creates the TableView object from the list of login sessions. */
     private void displaySessionsTableView() {
         ArrayList<Session> sessionsList = Stats.getLoginSessionsAsArrayList();
         // temporary debug

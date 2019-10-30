@@ -3,7 +3,6 @@ package dream.fcard.logic.stats;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import javafx.beans.property.StringProperty;
 
 import dream.fcard.util.DateTimeUtil;
 
