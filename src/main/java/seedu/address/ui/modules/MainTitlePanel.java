@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -40,7 +39,7 @@ public class MainTitlePanel extends UiPart<Region> {
     private ScrollPane scrollPane;
 
     @FXML
-    private BorderPane logoPlaceholder;
+    private ImageView logoPlaceholder;
 
     @FXML
     private Label playedTimesText;
@@ -66,14 +65,9 @@ public class MainTitlePanel extends UiPart<Region> {
 
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        ImageView titleImage = new ImageView();
-        titleImage.setImage(LOGO);
-        titleImage.setPreserveRatio(true);
-        titleImage.setScaleX(0.4);
-        titleImage.setScaleY(0.4);
-        titleImage.setTranslateX(-500);
-        titleImage.setTranslateY(15);
-        logoPlaceholder.setCenter(titleImage);
+        logoPlaceholder.setImage(LOGO);
+        logoPlaceholder.setScaleX(3.0);
+        logoPlaceholder.setScaleY(3.0);
         int playedTimes = globalStats.getNumPlayed();
         playedTimesText.setText(playedTimes + "");
         timesText.setText(playedTimes == 1 ? " time" : " times");
