@@ -1,5 +1,6 @@
 package seedu.address.ui.util;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -7,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.ui.UiPart;
 
 /**
@@ -26,15 +28,16 @@ public class LocationsView extends UiPart<Region> {
     @FXML
     private StackPane locationsViewContainer;
 
-    public LocationsView() {
+    public LocationsView(ClosestCommonLocationData data) {
         super(FXML);
-        Image placeHolder = new Image(getClass().getResourceAsStream("/images/timebook_logo.png"));
+        Image placeHolder = SwingFXUtils.toFXImage(data.getImage(), null);
         ImageView imageView = new ImageView(placeHolder);
         imageView.setFitWidth(400.0);
         imageView.setFitHeight(400.0);
         locationMapPlaceholder.getChildren().add(imageView);
-        textContainer.getChildren().addAll(new Label(firstLocation),
-                new Label(secondLocation), new Label(thirdLocation));
+        textContainer.getChildren().addAll(new Label(firstLocation + " " + data.getFirstClosest()),
+                new Label(secondLocation + " " + data.getSecondClosest()), new Label(thirdLocation
+                        + " " + data.getThirdClosest()));
     }
 
 }

@@ -362,7 +362,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isPopUp()) {
-                LocationsView locationsView = new LocationsView();
+                LocationsView locationsView = new LocationsView(commandResult.getLocationData());
                 new LocationPopup(locationsView.getRoot()).show();
             }
 

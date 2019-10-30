@@ -53,7 +53,7 @@ public class CommandResult {
     /**
      * Data to show in popup.
      */
-    private Optional<ClosestCommonLocationData> locationData;
+    private Optional<ClosestCommonLocationData> locationData = Optional.empty();
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.

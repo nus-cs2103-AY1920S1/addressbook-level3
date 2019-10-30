@@ -215,7 +215,6 @@ public class ScheduleView extends UiPart<Region> {
             Region busyTimeslot = new Block(getTimeDifference(startTime, endTime)).makeColouredTimeslot(color);
             if (originalTimeStamp != startTime) {
                 int timeUntilBusy = getTimeDifference(originalTimeStamp, startTime);
-                System.out.println("start: " + originalTimeStamp + " / end: " + startTime + " / " + timeUntilBusy);
                 Region freeTimeslot = new Block(timeUntilBusy).makeEmptyTimeslot();
                 timeslotContainer.getChildren().add(freeTimeslot);
             }
@@ -233,14 +232,15 @@ public class ScheduleView extends UiPart<Region> {
      */
     private VBox getDayVBoxOfFreeSchedule(ArrayList<FreeTimeslot> freeSchedule) {
         VBox timeslotContainer = new VBox();
-        int counter = 0;
         timeslotContainer.getChildren().add(new Block(30).makeEmptyTimeslot());
         int originalTimeStamp = startTime * 100;
         for (int j = 0; j < freeSchedule.size(); j++) {
             FreeTimeslot timeslot = freeSchedule.get(j);
             int startTime = TimeFormatter.formatTimeToInt(timeslot.getStartTime());
             int endTime = TimeFormatter.formatTimeToInt(timeslot.getEndTime());
-            StackPane freeTime = new Block(getTimeDifference(startTime, endTime)).makeFreeTimeslot("" + counter);
+            int timeslotId = timeslot.getId();
+            StackPane freeTime = new Block(getTimeDifference(startTime, endTime))
+                    .makeFreeTimeslot("" + timeslotId);
             if (originalTimeStamp != startTime) {
                 int timeUntilNext = getTimeDifference(originalTimeStamp, startTime);
                 Region untilNext = new Block(timeUntilNext).makeEmptyTimeslot();
@@ -248,7 +248,6 @@ public class ScheduleView extends UiPart<Region> {
             }
             timeslotContainer.getChildren().add(freeTime);
             originalTimeStamp = endTime;
-            counter++;
         }
         return timeslotContainer;
     }

@@ -18,12 +18,13 @@ public class PopupCommandParser implements Parser<PopupCommand> {
     @Override
     public PopupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_GROUPNAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_GROUPNAME, PREFIX_FREETIMESLOT_ID);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_GROUPNAME, PREFIX_FREETIMESLOT_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PopupCommand.MESSAGE_USAGE));
         }
+        System.out.println(argMultimap.getValue(PREFIX_FREETIMESLOT_ID).get());
         return new PopupCommand(new GroupName(argMultimap.getValue(PREFIX_GROUPNAME).get()),
                 Integer.parseInt(argMultimap.getValue(PREFIX_FREETIMESLOT_ID).get()));
     }
