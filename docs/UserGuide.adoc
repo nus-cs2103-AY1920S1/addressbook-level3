@@ -530,11 +530,11 @@ image::ImportCommandScreenShot.png[]
 image::ImportFileScreenShot.png[]
 
 {empty} +
-The `import` command imports an .ics format file from the specified directory.
+The `import` command imports an .ics format file from the specified filepath.
 {empty} +
 
 Format: +
-`import ["DIRECTORY"]`
+`import ["FILEPATH"]`
 {empty} +
 
 Example: +
