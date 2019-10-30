@@ -11,7 +11,7 @@ import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.task.Task;
 
 /**
- * Deletes a task identified using it's displayed index from the address book.
+ * Deletes a <code>Task</code> identified using it's displayed index from Modulo's calendar.
  */
 public class DeleteCommand extends Command {
 

@@ -7,14 +7,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.calendar.commands.AddCommand;
+import seedu.address.logic.calendar.commands.AddModCommand;
 import seedu.address.logic.calendar.commands.ClearCommand;
+import seedu.address.logic.calendar.commands.ClearWeekCommand;
 import seedu.address.logic.calendar.commands.Command;
 import seedu.address.logic.calendar.commands.DeleteCommand;
 import seedu.address.logic.calendar.commands.EditCommand;
 import seedu.address.logic.calendar.commands.ExitCommand;
-import seedu.address.logic.calendar.commands.FindCommand;
+import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.logic.calendar.commands.HelpCommand;
 import seedu.address.logic.calendar.commands.ListCommand;
+import seedu.address.logic.calendar.commands.SortCommand;
 import seedu.address.logic.calendar.commands.SwitchCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 
@@ -54,11 +57,14 @@ public class AddressBookParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        // case FindCommand.COMMAND_WORD:
+        //    return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -71,6 +77,15 @@ public class AddressBookParser {
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
+
+        case GoCommand.COMMAND_WORD:
+            return new GoCommandParser().parse(arguments);
+
+        case ClearWeekCommand.COMMAND_WORD:
+            return new ClearWeekCommandParser().parse(arguments);
+
+        case AddModCommand.COMMAND_WORD:
+            return new AddModCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

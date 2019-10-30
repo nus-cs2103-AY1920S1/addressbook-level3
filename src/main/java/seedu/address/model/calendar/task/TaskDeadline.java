@@ -11,7 +11,8 @@ import java.text.SimpleDateFormat;
  */
 public class TaskDeadline {
 
-    public static final String MESSAGE_CONSTRAINTS = "Deadline should be in the format dd-mm-yyyy";
+    public static final String MESSAGE_CONSTRAINTS = "Deadline should be in the format dd-mm-yyyy. "
+        + "The date must exist (e.g. 31-02-2019 is not a valid deadline)";
 
     private String value;
 
@@ -39,6 +40,7 @@ public class TaskDeadline {
      */
     public static boolean isValidDeadline(String test) {
         DateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
+        parser.setLenient(false);
         try {
             parser.parse(test);
             return true;
@@ -49,7 +51,7 @@ public class TaskDeadline {
 
     @Override
     public String toString() {
-        return value.toString();
+        return value;
     }
 
     @Override

@@ -22,6 +22,8 @@ import seedu.address.model.calendar.task.TaskTitle;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_WEEK = "Week index to go to must be an integer from 0 to 14";
+    public static final String MESSAGE_INVALID_SORT_TYPE = "Sort type must be either 'deadline' or 'title'";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -34,6 +36,38 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code weekNumber} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static int parseWeek(String weekNumber) throws ParseException {
+        String trimmedWeekNumber = weekNumber.trim();
+        try {
+            int week = Integer.parseInt(trimmedWeekNumber);
+            if (week < 0 || week > 14) {
+                throw new ParseException(MESSAGE_INVALID_WEEK);
+            }
+            return week;
+        } catch (ParseException | NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_WEEK);
+        }
+    }
+
+    /**
+     * Parses {@code sortType} into an {@code String} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified sortType is invalid.
+     */
+    public static String parseSortType(String sortType) throws ParseException {
+        String trimmedSortType = sortType.trim();
+        if (!trimmedSortType.equals("deadline") && !trimmedSortType.equals("title")
+            && !trimmedSortType.equals("time")) {
+            throw new ParseException(MESSAGE_INVALID_SORT_TYPE);
+        }
+        return trimmedSortType;
     }
 
     /**
@@ -52,29 +86,29 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code TaskDay}.
+     * Parses a {@code String day} into a {@code TaskDay}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code day} is invalid.
      */
-    public static TaskDay parseTime(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!TaskDay.isValidDay(trimmedPhone)) {
+    public static TaskDay parseDay(String day) throws ParseException {
+        requireNonNull(day);
+        String trimmedDay = day.trim();
+        if (!TaskDay.isValidDay(trimmedDay)) {
             throw new ParseException(TaskDay.MESSAGE_CONSTRAINTS);
         }
-        return new TaskDay(trimmedPhone);
+        return new TaskDay(trimmedDay);
     }
 
     /**
-     * Parses a {@code String address} into an {@code TaskTime}.
+     * Parses a {@code String time} into an {@code TaskTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code time} is invalid.
      */
-    public static TaskTime parsePlace(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
+    public static TaskTime parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedAddress = time.trim();
         if (!TaskTime.isValidTime(trimmedAddress)) {
             throw new ParseException(TaskTime.MESSAGE_CONSTRAINTS);
         }

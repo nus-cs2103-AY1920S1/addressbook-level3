@@ -50,10 +50,10 @@ class JsonSerializableAddressBook {
         CalendarAddressBook calendarAddressBook = new CalendarAddressBook();
         for (JsonAdaptedTask jsonAdaptedTask : persons) {
             Task task = jsonAdaptedTask.toModelType();
-            if (calendarAddressBook.hasPerson(task)) {
+            if (calendarAddressBook.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            calendarAddressBook.addPerson(task);
+            calendarAddressBook.addTask(task);
         }
         return calendarAddressBook;
     }

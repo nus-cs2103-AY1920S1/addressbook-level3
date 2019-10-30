@@ -4,13 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.model.calendar.task.Task;
 
 /**
@@ -21,7 +27,12 @@ public class CalendarModelManager implements CalendarModel {
 
     private final CalendarAddressBook calendarAddressBook;
     private final CalendarUserPrefs userPrefs;
-    private final FilteredList<Task> filteredTasks;
+    private FilteredList<Task> filteredTasks;
+    private FilteredList<Task> filteredTasksByTitle;
+    private FilteredList<Task> filteredTasksByDeadline;
+    private FilteredList<Task> filteredTasksByTime;
+
+    private String currentSortType;
 
     /**
      * Initializes a CalendarModelManager with the given calendarAddressBook and userPrefs.
@@ -35,6 +46,10 @@ public class CalendarModelManager implements CalendarModel {
         this.calendarAddressBook = new CalendarAddressBook(addressBook);
         this.userPrefs = new CalendarUserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.calendarAddressBook.getPersonList());
+        filteredTasksByTitle = getFilteredListByTitle();
+        filteredTasksByDeadline = getFilteredListByDeadline();
+        filteredTasksByTime = getFilteredListByTime();
+        currentSortType = "time";
     }
 
     public CalendarModelManager() {
@@ -91,25 +106,26 @@ public class CalendarModelManager implements CalendarModel {
     @Override
     public boolean hasTask(Task task) {
         requireNonNull(task);
-        return calendarAddressBook.hasPerson(task);
+        return calendarAddressBook.hasTask(task);
     }
 
     @Override
     public void deleteTask(Task target) {
-        calendarAddressBook.removePerson(target);
+        calendarAddressBook.removeTask(target);
+        updateLists();
     }
 
     @Override
     public void addTask(Task task) {
-        calendarAddressBook.addPerson(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
+        calendarAddressBook.addTask(task);
+        updateLists();
     }
 
     @Override
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
-
-        calendarAddressBook.setPerson(target, editedTask);
+        calendarAddressBook.setTask(target, editedTask);
+        updateLists();
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -120,13 +136,18 @@ public class CalendarModelManager implements CalendarModel {
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
-        return filteredTasks;
+        FilteredList<Task> currentTasks = new FilteredList<>(filteredTasks);
+        currentTasks.setPredicate(task -> task.isPersistent() || task.getWeek() == GoCommand.getCurrentWeek());
+        return currentTasks;
     }
 
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+        filteredTasksByTitle.setPredicate(predicate);
+        filteredTasksByDeadline.setPredicate(predicate);
+        filteredTasksByTime.setPredicate(predicate);
     }
 
     @Override
@@ -146,6 +167,88 @@ public class CalendarModelManager implements CalendarModel {
         return calendarAddressBook.equals(other.calendarAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredTasks.equals(other.filteredTasks);
+    }
+
+    @Override
+    public void switchSortType(String sortType) {
+        if (sortType.equals("deadline")) {
+            filteredTasks = filteredTasksByDeadline;
+        } else if (sortType.equals("title")) {
+            filteredTasks = filteredTasksByTitle;
+        } else {
+            filteredTasks = filteredTasksByTime;
+        }
+        calendarAddressBook.setTasks(filteredTasks);
+
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    private FilteredList<Task> getFilteredListByDeadline() {
+        return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(),
+            new Comparator<Task>() {
+                @Override
+                public int compare(Task x, Task y) {
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    try {
+                        Date dateX = formatter.parse(x.getTaskDeadline().getValue());
+                        Date dateY = formatter.parse(y.getTaskDeadline().getValue());
+                        return dateX.compareTo(dateY);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        return 0;
+                    }
+                }
+            }));
+    }
+
+    private FilteredList<Task> getFilteredListByTitle() {
+        return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(),
+            new Comparator<Task>() {
+                @Override
+                public int compare(Task x, Task y) {
+                    return x.getTaskTitle().toString().compareTo(y.getTaskTitle().toString());
+                }
+            }));
+    }
+
+    private FilteredList<Task> getFilteredListByTime() {
+        return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(),
+            new Comparator<Task>() {
+                @Override
+                public int compare(Task x, Task y) {
+                    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+                    try {
+                        Date dateX = formatter.parse(x.getTaskTime().value);
+                        Date dateY = formatter.parse(y.getTaskTime().value);
+                        return dateX.getTime() < dateY.getTime() ? -1 : 1;
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        return 0;
+                    }
+                }
+            }));
+    }
+
+    /**
+     * Update lists
+     */
+    public void updateLists() {
+        filteredTasksByDeadline = getFilteredListByDeadline();
+        filteredTasksByTitle = getFilteredListByTitle();
+        switch (currentSortType) {
+        case "deadline":
+            filteredTasks = filteredTasksByDeadline;
+            break;
+        case "title":
+            filteredTasks = filteredTasksByTitle;
+            break;
+        case "time":
+        default:
+            filteredTasks = filteredTasksByTime;
+            break;
+        }
+        calendarAddressBook.setTasks(filteredTasks);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
 }
