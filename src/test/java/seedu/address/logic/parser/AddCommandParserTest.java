@@ -9,12 +9,12 @@ import java.time.Month;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.DateTime;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.Weight;
+import seedu.address.model.time.DateTime;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();

@@ -2,7 +2,7 @@ package seedu.address.model.record;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.DateTime;
+import seedu.address.model.time.DateTime;
 
 /**
  * Represents a Blood Sugar record in the record book. Guarantees: details are present and not null, field values are

@@ -10,12 +10,12 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.calendar.EventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.DateTime;
-import seedu.address.model.TimeDuration;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Event;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.calendar.Repetition;
+import seedu.address.model.time.DateTime;
+import seedu.address.model.time.TimeDuration;
 
 /**
  * Parses input arguments and creates a new EventCommand object

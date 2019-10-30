@@ -9,9 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
-import seedu.address.model.YearMonth;
 import seedu.address.model.bio.User;
-import seedu.address.model.calendar.YearMonthDay;
+import seedu.address.model.time.YearMonth;
+import seedu.address.model.time.YearMonthDay;
 import seedu.address.ui.bio.BioPane;
 import sugarmummy.recmfood.ui.FoodFlowPanel;
 

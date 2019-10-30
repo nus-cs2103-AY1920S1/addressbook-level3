@@ -6,8 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.model.DateTime;
 import seedu.address.model.calendar.Reminder;
+import seedu.address.model.time.DateTime;
 
 /**
  * An UI component that displays information of a {@code Reminder}.

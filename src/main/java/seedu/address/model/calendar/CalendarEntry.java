@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import seedu.address.model.DateTime;
+import seedu.address.model.time.DateTime;
 
 /**
  * Represents a Calendar Entry in the calendar.

@@ -6,11 +6,11 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.Calendar;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
+import seedu.address.model.calendar.Calendar;
 import seedu.address.model.record.UniqueRecordList;
 import sugarmummy.recmfood.model.UniqueFoodList;
 

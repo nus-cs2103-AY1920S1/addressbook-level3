@@ -12,8 +12,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.YearMonth;
-import seedu.address.model.calendar.YearMonthDay;
+import seedu.address.model.time.YearMonth;
+import seedu.address.model.time.YearMonthDay;
 import seedu.address.ui.DisplayPaneType;
 
 /**

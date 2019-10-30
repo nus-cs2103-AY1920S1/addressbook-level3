@@ -3,10 +3,10 @@ package seedu.address.testutil;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import seedu.address.model.DateTime;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.calendar.Repetition;
+import seedu.address.model.time.DateTime;
 
 /**
  * A utility class to help with building Reminder objects.
