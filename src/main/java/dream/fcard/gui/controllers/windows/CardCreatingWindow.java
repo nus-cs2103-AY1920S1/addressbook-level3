@@ -29,7 +29,7 @@ import javafx.scene.layout.VBox;
 /**
  * Creates a card within CreateDeckDisplay.
  */
-public class CardCreatingWindow extends AnchorPane {
+public class CardCreatingWindow extends VBox {
     @FXML
     private TextField questionField;
     @FXML

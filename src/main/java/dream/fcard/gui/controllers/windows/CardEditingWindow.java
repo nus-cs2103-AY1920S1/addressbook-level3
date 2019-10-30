@@ -18,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -26,7 +25,7 @@ import javafx.scene.layout.VBox;
  */
 // todo: suggestion - instead of opening within DeckDisplay, do the same as CardCreatingWindow, so
 // that the "Save Deck" and "Cancel" buttons appear too
-public class CardEditingWindow extends AnchorPane {
+public class CardEditingWindow extends VBox {
     @FXML
     private TextField questionField;
     @FXML
