@@ -57,6 +57,13 @@ public class SetThemeCommand extends Command {
         requireNonNull(model);
         MainWindow.setStylesheet(styleSheet);
         model.setStyleSheet(styleSheet);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, styleSheet));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, getStyleSheetName(styleSheet)));
+    }
+
+    private String getStyleSheetName(String styleSheet) {
+        requireNonNull(styleSheet);
+        String temp = styleSheet.split("view/")[1];
+        temp = temp.split(".css")[0];
+        return temp;
     }
 }
