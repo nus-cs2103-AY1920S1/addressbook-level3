@@ -10,9 +10,6 @@ import seedu.revision.ui.UiPart;
  */
 public abstract class AnswersGridPane extends UiPart<Region> {
 
-//    public static final String MCQ_GRID_PANE_FXML = "McqAnswersGridPane.fxml";
-//    public static final String TF_GRID_PANE_FXML = "TfAnswersGridPane.fxml";
-//    public static final String SAQ_GRID_PANE_FXML = "SaqAnswersGridPane.fxml";
     public final Answerable answerable;
 
     /**

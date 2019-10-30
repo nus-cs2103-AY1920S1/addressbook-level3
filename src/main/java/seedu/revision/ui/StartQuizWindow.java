@@ -22,11 +22,11 @@ import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
-import seedu.revision.ui.answers.SaqAnswersGridPane;
 import seedu.revision.ui.answers.TfAnswersGridPane;
 
 /**
@@ -78,8 +78,6 @@ public class StartQuizWindow extends Window {
             answersGridPane = new McqAnswersGridPane(currentAnswerable);
         } else if (currentAnswerable instanceof TrueFalse) {
             answersGridPane = new TfAnswersGridPane(currentAnswerable);
-        } else {
-            answersGridPane = new SaqAnswersGridPane(currentAnswerable);
         }
 
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
@@ -255,10 +253,9 @@ public class StartQuizWindow extends Window {
                 answersGridPane = new TfAnswersGridPane(currentAnswerable);
                 answersGridPane.updateAnswers(currentAnswerable);
                 answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
+            } else if (currentAnswerable instanceof Saq) {
+                answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
             }
-            //} else if (currentAnswerable instanceof Saq) {
-            //    answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
-            //}
             //answersGridPane.updateAnswers(currentAnswerable);
             if (previousAnswerable != null && answerableIterator.hasNext()) {
                 int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
