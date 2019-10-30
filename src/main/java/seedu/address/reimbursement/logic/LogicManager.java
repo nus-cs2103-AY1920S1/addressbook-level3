@@ -9,6 +9,7 @@ import seedu.address.reimbursement.logic.parser.ReimbursementTabParser;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 
 /**
  * Implements the logic for Reimbursements.
@@ -53,7 +54,8 @@ public class LogicManager implements Logic {
     }*/
 
     @Override
-    public void updateReimbursementModelAndStorage(TransactionList transactionList) throws IOException {
+    public void updateReimbursementModelAndStorage(TransactionList transactionList) throws FileReadWriteException,
+            IOException {
         reimbursementModel.updateReimbursementList(
                 reimbursementStorage.getReimbursementFromFile(transactionList));
         reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());

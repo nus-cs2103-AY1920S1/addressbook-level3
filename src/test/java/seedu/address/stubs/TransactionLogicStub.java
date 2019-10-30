@@ -56,7 +56,7 @@ public class TransactionLogicStub implements Logic {
     }
 
     @Override
-    public void updateTransactionFromReimbursement() throws IOException {
+    public void updateTransactionStorage() throws IOException {
         throw new AssertionError("This method should not be called.");
     }
 }
