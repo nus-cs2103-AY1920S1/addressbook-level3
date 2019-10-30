@@ -9,7 +9,8 @@ import seedu.savenus.model.Model;
  */
 public class AutoSortCommand extends Command {
     public static final String COMMAND_WORD = "autosort";
-    public static final String AUTO_SORT_ON_MESSAGE_SUCCESS = "You have turned auto-sorting on!";
+    public static final String AUTO_SORT_ON_MESSAGE_SUCCESS = "You have turned auto-sorting on!\n"
+            + "Current CustomSorter: %s";
     public static final String AUTO_SORT_OFF_MESSAGE_SUCCESS = "You have turned auto-sorting off!";
     public static final String MESSAGE_ERROR = "Please input a valid flag, either: ON or OFF\n"
             + "Example Usage: " + COMMAND_WORD + " ON";
@@ -29,7 +30,8 @@ public class AutoSortCommand extends Command {
         requireNonNull(model);
         if (shouldAutoSort) {
             model.setAutoSortFlag(true);
-            return new CommandResult(AUTO_SORT_ON_MESSAGE_SUCCESS);
+            String customSorterAsString = model.getCustomSorter().toString();
+            return new CommandResult(String.format(AUTO_SORT_ON_MESSAGE_SUCCESS, customSorterAsString));
         } else {
             model.setAutoSortFlag(false);
             return new CommandResult(AUTO_SORT_OFF_MESSAGE_SUCCESS);

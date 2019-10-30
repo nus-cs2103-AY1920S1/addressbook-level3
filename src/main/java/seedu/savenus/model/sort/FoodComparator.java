@@ -63,4 +63,15 @@ public class FoodComparator implements Comparator<Food> {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (String field : fieldList) {
+            sb.append(field + " ");
+        }
+
+        return sb.toString();
+    }
 }
