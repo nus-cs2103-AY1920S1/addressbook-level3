@@ -196,6 +196,7 @@ public class ItemModelManager implements ItemModel {
 
         if (item.hasEvent()) {
             eventList.add(item);
+            calendarList.add(item);
         }
 
         if (item.hasReminder()) {

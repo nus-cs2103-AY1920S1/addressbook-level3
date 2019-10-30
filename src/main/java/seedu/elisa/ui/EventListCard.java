@@ -1,10 +1,14 @@
 package seedu.elisa.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
 
 /**
@@ -27,26 +31,57 @@ public class EventListCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label date;
+    @FXML
     private Label description;
     @FXML
     private Label id;
     @FXML
-    private Label priority;
+    private Label priorityLabel;
     @FXML
-    private Label startdate;
+    private ImageView statusIcon;
     @FXML
-    private Label enddate;
-    @FXML
-    private FlowPane tags;
+    private ImageView eventIcon;
 
     public EventListCard(Item item, int displayedIndex) {
         super(FXML);
         this.item = item;
         id.setText(displayedIndex + ". ");
         description.setText(item.getItemDescription().toString());
-        priority.setText("Priority: " + item.getPriority().toString());
-        startdate.setText("Start Date: " + item.getEvent().get().getStartDateTime().toString());
-        enddate.setText("End Date: " + item.getEvent().get().getEndDateTime().toString());
+        eventIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/EventIcon.PNG")));
+        Event event = item.getEvent().get();
+        date.setText(String.valueOf(event.getStartDateTime().getDayOfMonth())
+                + " " + String.valueOf(event.getStartDateTime().getMonth()).substring(0, 3));
+        if (item.hasTask()) {
+            if (item.getTask().get().isComplete()) {
+                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Completed.PNG")));
+            } else {
+                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Uncompleted.PNG")));
+            }
+        }
+        String priority = item.getPriority().toString();
+        priorityLabel.setText(priority);
+        priorityLabel.setAlignment(Pos.CENTER);
+        priorityLabel.setPadding(new Insets(5, 10, 5, 10));
+        switch(priority) {
+        case "HIGH":
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: red; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
+            break;
+        case "MEDIUM":
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: orange; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
+            priorityLabel.setText("MED");
+            break;
+        case "LOW":
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: green; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
+            break;
+        default:
+        }
     }
 
     @Override

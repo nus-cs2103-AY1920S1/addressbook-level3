@@ -1,10 +1,14 @@
 package seedu.elisa.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
 
 /**
@@ -27,23 +31,57 @@ public class TaskListCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label date;
+    @FXML
     private Label description;
     @FXML
     private Label id;
     @FXML
-    private Label priority;
+    private Label priorityLabel;
     @FXML
-    private Label completed;
+    private ImageView statusIcon;
     @FXML
-    private FlowPane tags;
+    private ImageView eventIcon;
 
     public TaskListCard(Item item, int displayedIndex) {
         super(FXML);
         this.item = item;
         id.setText(displayedIndex + ". ");
         description.setText(item.getItemDescription().toString());
-        priority.setText("Priority: " + item.getPriority().toString());
-        completed.setText("Complete: " + item.getTask().get().isComplete().toString());
+        if (item.getTask().get().isComplete()) {
+            statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Completed.PNG")));
+        } else {
+            statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Uncompleted.PNG")));
+        }
+        if (item.hasEvent()) {
+            eventIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/EventIcon.PNG")));
+            Event event = item.getEvent().get();
+            date.setText(String.valueOf(event.getStartDateTime().getDayOfMonth())
+                + " " + String.valueOf(event.getStartDateTime().getMonth()).substring(0, 3));
+        }
+        String priority = item.getPriority().toString();
+        priorityLabel.setText(priority);
+        priorityLabel.setPadding(new Insets(5, 10, 5, 10));
+        priorityLabel.setAlignment(Pos.CENTER);
+        switch(priority) {
+        case "HIGH":
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: red; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
+            break;
+        case "MEDIUM":
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: orange; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
+            priorityLabel.setText("MED");
+            break;
+        case "LOW":
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: green; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
+            break;
+        default:
+        }
     }
 
     @Override
