@@ -19,7 +19,7 @@ public interface Logic {
 
     //void updateReimbursementFromTransaction() throws IOException;
 
-    void updateReimbursementFromTransaction(TransactionList transactionList) throws IOException;
+    void updateReimbursementModelAndStorage(TransactionList transactionList) throws IOException;
 
     void updateReimbursementFromPerson(Person editedPerson, Person personToEdit) throws IOException;
 

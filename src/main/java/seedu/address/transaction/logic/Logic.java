@@ -50,5 +50,9 @@ public interface Logic {
      */
     void addTransaction(Transaction transaction);
 
-    void updateTransactionFromReimbursement() throws IOException;
+    /**
+     * Updates storage in transaction package.
+     * @throws IOException
+     */
+    void updateTransactionStorage() throws IOException;
 }

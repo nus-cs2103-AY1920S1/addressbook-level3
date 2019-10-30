@@ -230,12 +230,12 @@ public class MainWindow extends UiPart<Stage> {
                 commandResult = uiLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
                 commandResult = transactionLogic.execute(commandText);
-                reimbursementLogic.updateReimbursementFromTransaction(transactionLogic.getTransactionList());
+                reimbursementLogic.updateReimbursementModelAndStorage(transactionLogic.getTransactionList());
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
                 commandResult = personLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Reimbursements")) {
                 commandResult = reimbursementLogic.execute(commandText);
-                transactionLogic.updateTransactionFromReimbursement();
+                transactionLogic.updateTransactionStorage();
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
                 commandResult = inventoryLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {

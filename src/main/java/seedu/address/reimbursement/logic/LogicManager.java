@@ -46,14 +46,14 @@ public class LogicManager implements Logic {
 
     /*@Override
     public void updateReimbursementFromTransaction() throws IOException {
-        TransactionList transList = transactionModel.getTransactionList();
+        TransactionList transList = transactionModel.getTransactionList(); no longer have the model
         ReimbursementList rmbList = reimbursementStorage.getReimbursementFromFile(transList);
         reimbursementModel.updateReimbursementList(rmbList);
         reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
     }*/
 
     @Override
-    public void updateReimbursementFromTransaction(TransactionList transactionList) throws IOException {
+    public void updateReimbursementModelAndStorage(TransactionList transactionList) throws IOException {
         reimbursementModel.updateReimbursementList(
                 reimbursementStorage.getReimbursementFromFile(transactionList));
         reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());

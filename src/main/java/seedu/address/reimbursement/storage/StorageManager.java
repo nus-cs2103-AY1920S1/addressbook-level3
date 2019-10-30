@@ -1,6 +1,7 @@
 package seedu.address.reimbursement.storage;
 
 import static seedu.address.reimbursement.model.Reimbursement.DATE_TIME_FORMATTER;
+import static seedu.address.transaction.storage.StorageManager.ERROR_READING_FILE;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 
 /**
  * Storage manager. Allows reimbursements to be stored and loaded from file.
@@ -51,7 +53,7 @@ public class StorageManager implements Storage {
      *
      * @return the hashmap.
      */
-    private HashMap<String, LocalDate> readReimbursementFile() {
+    private HashMap<String, LocalDate> readReimbursementFile() throws FileReadWriteException {
         try {
             HashMap<String, LocalDate> map = new HashMap<>();
             fileReimbursement.getAbsoluteFile().getParentFile().mkdirs();
@@ -63,7 +65,8 @@ public class StorageManager implements Storage {
             }
             return map;
         } catch (IOException e) {
-            return new HashMap<>();
+            //return new HashMap<>();
+            throw new FileReadWriteException(ERROR_READING_FILE);
         }
     }
 
@@ -87,7 +90,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public ReimbursementList getReimbursementFromFile(TransactionList transList) {
+    public ReimbursementList getReimbursementFromFile(TransactionList transList) throws FileReadWriteException {
         HashMap<String, LocalDate> map = readReimbursementFile();
         ReimbursementList newList = new ReimbursementList(transList);
         matchDeadline(newList, map);

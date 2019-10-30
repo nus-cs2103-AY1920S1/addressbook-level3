@@ -68,8 +68,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void updateTransactionFromReimbursement() throws IOException {
+    public void updateTransactionStorage() throws IOException {
         storage.writeFile(model.getTransactionList());
-
     }
 }
