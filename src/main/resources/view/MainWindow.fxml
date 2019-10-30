@@ -8,6 +8,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -47,12 +49,50 @@
         </StackPane>
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4, 0.5" VBox.vgrow="ALWAYS">
           <VBox fx:id="reminderList" alignment="CENTER" maxWidth="395.0" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Reminders" textFill="#FFD300">
+            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" minWidth="-Infinity" styleClass="cell_big_label" text="Reminders" textFill="#FFD300">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
             </Label>
-            <StackPane fx:id="reminderListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  <TabPane fx:id = "lessonTabPanel" prefHeight="1700.0" prefWidth="2100.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Mon">
+                           <content>
+                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                      <Tab text="Tue">
+                           <content>
+                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Wed">
+                           <content>
+                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Thur">
+                           <content>
+                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Fri">
+                           <content>
+                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Sat">
+                           <content>
+                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Sun">
+                           <content>
+                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
           </VBox>
           <VBox fx:id="assignmentList" alignment="CENTER" maxWidth="395" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Assignments" textFill="#FFC300">

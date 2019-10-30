@@ -55,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
 
 
     @FXML
+    private TabPane lessonTabPanel;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -165,16 +168,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void createLessonTabs() {
-        TabPane tabPane = new TabPane();
-        logger.info("tabpane created");
-        for (int i = 0; i < 7; i++) {
-            logger.info("creating tabs");
-            Tab tab = new Tab(String.valueOf(i + 1));
-            reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
-            reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        ObservableList<Tab> tabs = lessonTabPanel.getTabs();
+        tabs.forEach((tab -> {
             tab.setContent(reminderListPanelPlaceholder);
-            tabPane.getTabs().add(tab);
-        }
+        }));
     }
 
     /**
