@@ -107,16 +107,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getPurchaseHistoryFilePath() {
-        return model.getPurchaseHistoryFilePath();
-    }
-
-    @Override
-    public Path getWalletFilePath() {
-        return model.getWalletFilePath();
-    }
-
-    @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
     }

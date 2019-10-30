@@ -9,13 +9,15 @@ public class LikeInfo {
 
     public static final String COMMAND_WORD = LikeCommand.COMMAND_WORD;
 
-    public static final String INFORMATION = "The like command allows you to \n"
-            + "like a particular tag, category or location.\n"
-            + "The liked tags, categories and locations must not exist \n"
-            + "in the user's dislikes.\n\n";
+    public static final String INFORMATION = "Like command allows your to state your preferences.\n"
+            + "Do note that only one field is compulsory but multiple fields can be added\n\n"
+            + "The like feature will depend on the following factors:\n"
+            + "Category\n"
+            + "Tags\n"
+            + "Location\n\n";
 
     public static final String USAGE = "like c/Chinese t/Cheap t/Healthy l/University Town\n";
 
-    public static final String OUTPUT = "You will see a success message and your \n"
-            + "liked categories, tags and locations will be added.";
+    public static final String OUTPUT = "The app will store the information that you have liked Food with:\n"
+            + "Category: Chinese, Tags: Cheap and Healthy, Location: University Town";
 }

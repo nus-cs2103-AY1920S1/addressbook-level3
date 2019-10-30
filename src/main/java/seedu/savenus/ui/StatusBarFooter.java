@@ -18,10 +18,9 @@ public class StatusBarFooter extends UiPart<Region> {
     private Label saveLocationStatus;
 
 
-    public StatusBarFooter(Path saveFoodLocation, Path savePurchaseHistoryLocation) {
+    public StatusBarFooter(Path saveFoodLocation) {
         super(FXML);
-        saveLocationStatus.setText(Paths.get(".").resolve(saveFoodLocation).toString()
-                + " | " + Paths.get(".").resolve(savePurchaseHistoryLocation).toString());
+        saveLocationStatus.setText(Paths.get(".").resolve(saveFoodLocation.getParent()).toString());
     }
 
 }
