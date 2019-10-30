@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public class ViewBudgetListCommand extends Command {
 
-    public static final String COMMAND_WORD = "listbudgets";
+    public static final String COMMAND_WORD = "budgetlist";
 
     public static final String MESSAGE_SUCCESS = "Listed all budgets";
 
@@ -18,6 +18,7 @@ public class ViewBudgetListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
+        model.setViewState("budgetlist");
         return new CommandResult(null, model.getFilteredBudgetList(), MESSAGE_SUCCESS);
     }
 }

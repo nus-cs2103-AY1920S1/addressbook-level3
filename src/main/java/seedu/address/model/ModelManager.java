@@ -25,6 +25,8 @@ import seedu.address.model.expense.Expense;
  */
 public class ModelManager implements Model {
 
+    private static String viewState = "default expenselist";
+    private static Budget lastViewedBudget;
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private final ExpenseList expenseList;
     private final BudgetList budgetList;
@@ -53,6 +55,22 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new ExpenseList(), new BudgetList(), new UserPrefs());
+    }
+
+    public void setViewState(String state) {
+        viewState = state;
+    }
+
+    public String getViewState() {
+        return viewState;
+    }
+
+    public void setLastViewedBudget(Budget budget) {
+        lastViewedBudget = budget;
+    }
+
+    public Budget getLastViewedBudget() {
+        return lastViewedBudget;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -155,21 +173,6 @@ public class ModelManager implements Model {
     public ObservableList<Expense> getFilteredExpenseList() {
         return filteredExpenses;
     }
-
-//    @Override
-//    public ObservableList<Expense> getFilteredFullExpenseList() {
-//        ArrayList<Expense> list = new ArrayList<>();
-//        for (Expense expense : this.expenseList.getExpenseList()) {
-//            list.add(expense);
-//        }
-//        for (Budget budget : this.budgetList.getBudgetList()) {
-//            for (Expense expense : budget.getExpenseList().getExpenseList()) {
-//                list.add(expense);
-//            }
-//        }
-//        Collections.sort(list);
-//        return FXCollections.observableList(list);
-//    }
 
     @Override
     public void updateFilteredExpenseList(Predicate<Expense> predicate) {
