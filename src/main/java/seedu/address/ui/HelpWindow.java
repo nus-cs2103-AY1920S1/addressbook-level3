@@ -1,3 +1,4 @@
+//@@author LeonardTay748
 package seedu.address.ui;
 
 import java.util.logging.Logger;
@@ -8,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
-//@@author LeonardTay748
 /**
  * Controller for a help page
  */
