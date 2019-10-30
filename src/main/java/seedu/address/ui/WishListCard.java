@@ -62,7 +62,7 @@ public class WishListCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EntryCard)) {
+        if (!(other instanceof WishListCard)) {
             return false;
         }
 

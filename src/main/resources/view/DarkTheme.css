@@ -152,6 +152,11 @@
      -fx-border-top-width: 1px;
 }
 
+.side-panel {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-width: 5px;
+}
+
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 30%);
 }

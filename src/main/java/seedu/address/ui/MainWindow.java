@@ -19,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.PanelName;
 
 /**
@@ -68,6 +69,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private VBox remindersPlaceHolder;
+
+    @FXML
+    private VBox autoExpensesPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -147,6 +151,9 @@ public class MainWindow extends UiPart<Stage> {
         // TODO: add wish reminders to the panel as well
         ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredExpenseReminderList());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+
+        AutoExpensesPanel autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
+        autoExpensesPlaceHolder.getChildren().add(autoExpensesPanel.getRoot());
     }
 
     /**

@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.ExpenseReminder;
@@ -37,6 +38,8 @@ public interface Logic {
     ObservableList<Entry> getFilteredEntryList();
 
     ObservableList<Entry> getFilteredExpenseAndIncomeList();
+
+    ObservableList<AutoExpense> getFilteredAutoExpenseList();
 
     ObservableList<Wish> getFilteredWishList();
 
