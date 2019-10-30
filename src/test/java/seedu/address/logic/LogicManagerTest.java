@@ -32,7 +32,6 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonEventBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
