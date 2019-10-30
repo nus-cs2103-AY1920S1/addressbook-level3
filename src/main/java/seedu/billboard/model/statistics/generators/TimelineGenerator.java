@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import seedu.billboard.commons.core.date.DateInterval;
@@ -26,6 +27,14 @@ public class TimelineGenerator implements StatisticsGenerator<ExpenseTimeline> {
     @Override
     public ExpenseTimeline generate(List<? extends Expense> expenses) {
         return generate(expenses, DateInterval.MONTH);
+    }
+
+    /**
+     * Generates an {@code ExpenseTimeline} asynchronously using a default date interval of a month.
+     */
+    @Override
+    public CompletableFuture<ExpenseTimeline> generateAsync(List<? extends Expense> expenses) {
+        return CompletableFuture.supplyAsync(() -> generate(expenses));
     }
 
     /**
@@ -52,6 +61,16 @@ public class TimelineGenerator implements StatisticsGenerator<ExpenseTimeline> {
 
         return new FilledExpenseTimeline(interval, timelineIntervals,
                 getAggregateExpensesFromSorted(timelineIntervals, sortedExpenses));
+    }
+
+    /**
+     * Generates an {@code ExpenseTimeline} asynchronously based on the input expenses and the specified date interval.
+     * @param expenses Input expenses.
+     * @param interval Specified date interval.
+     * @return A {@code CompletableFuture} wrapping the representation of the expenses as a timeline.
+     */
+    public CompletableFuture<ExpenseTimeline> generateAsync(List<? extends Expense> expenses, DateInterval interval) {
+        return CompletableFuture.supplyAsync(() -> generate(expenses, interval));
     }
 
     /**

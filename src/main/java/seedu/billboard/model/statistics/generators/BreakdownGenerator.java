@@ -3,6 +3,7 @@ package seedu.billboard.model.statistics.generators;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,6 +24,11 @@ public class BreakdownGenerator implements StatisticsGenerator<ExpenseBreakdown>
                 .collect(HashMap::new, this::combineMapAndExpense, this::combineMapOfLists);
 
         return new FilledExpenseBreakdown(breakdown);
+    }
+
+    @Override
+    public CompletableFuture<ExpenseBreakdown> generateAsync(List<? extends Expense> expenses) {
+        return CompletableFuture.supplyAsync(() -> generate(expenses));
     }
 
     /**

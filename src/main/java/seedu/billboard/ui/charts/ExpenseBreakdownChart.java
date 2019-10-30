@@ -2,6 +2,7 @@ package seedu.billboard.ui.charts;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -49,19 +50,22 @@ public class ExpenseBreakdownChart extends ExpenseChart {
      * timeline accordingly.
      */
     private void initChart() {
-        ExpenseBreakdown expenseBreakdown = breakdownGenerator.generate(expenses);
-        dataList.setAll(breakdownValuesToList(expenseBreakdown.getTagBreakdownValues()));
-        pieChart.setData(dataList);
+        CompletableFuture<ExpenseBreakdown> expenseBreakdownFuture = breakdownGenerator.generateAsync(expenses);
+        expenseBreakdownFuture.thenAccept(expenseBreakdown -> {
+            dataList.setAll(breakdownValuesToList(expenseBreakdown.getTagBreakdownValues()));
+            pieChart.setData(dataList);
+        });
 
         expenses.addListener((ListChangeListener<Expense>) c ->
-                onDataChange(breakdownGenerator.generate(c.getList())));
+                onDataChange(breakdownGenerator.generateAsync(c.getList())));
     }
 
     /**
      * Helper method called when the displayed list of expenses change.
      */
-    private void onDataChange(ExpenseBreakdown newData) {
-        dataList.setAll(breakdownValuesToList(newData.getTagBreakdownValues()));
+    private void onDataChange(CompletableFuture<ExpenseBreakdown> newDataFuture) {
+        newDataFuture.thenAccept(newData ->
+                dataList.setAll(breakdownValuesToList(newData.getTagBreakdownValues())));
     }
 
     /**

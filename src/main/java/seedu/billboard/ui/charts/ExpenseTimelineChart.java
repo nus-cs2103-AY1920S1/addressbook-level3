@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import javafx.collections.ListChangeListener;
@@ -82,23 +83,28 @@ public class ExpenseTimelineChart extends ExpenseChart {
      * timeline accordingly.
      */
     private void initChart() {
-        ExpenseTimeline expenseTimeline = timelineGenerator.generate(expenses, interval.getValue());
+        CompletableFuture<ExpenseTimeline> expenseTimelineFuture =
+                timelineGenerator.generateAsync(expenses, interval.getValue());
 
-        series.getData().setAll(mapToData(expenseTimeline.getTimelineValues(), expenseTimeline.getDateInterval()));
-        timelineChart.getData().add(series);
+        expenseTimelineFuture.thenAccept(expenseTimeline -> {
+            series.getData().setAll(mapToData(expenseTimeline.getTimelineValues(), expenseTimeline.getDateInterval()));
+            timelineChart.getData().add(series);
+        });
 
         expenses.addListener((ListChangeListener<Expense>) c ->
-                onDataChange(timelineGenerator.generate(c.getList(), interval.getValue())));
+                onDataChange(timelineGenerator.generateAsync(c.getList(), interval.getValue())));
     }
 
 
     /**
      * Helper method called when the displayed list of expenses change.
      */
-    private void onDataChange(ExpenseTimeline newData) {
-        List<Pair<DateRange, Amount>> timeline = newData.getTimelineValues();
-        List<XYChart.Data<String, BigDecimal>> data = mapToData(timeline, newData.getDateInterval());
-        series.getData().setAll(data);
+    private void onDataChange(CompletableFuture<ExpenseTimeline> newDataFuture) {
+        newDataFuture.thenAccept(newData -> {
+            List<Pair<DateRange, Amount>> timeline = newData.getTimelineValues();
+            List<XYChart.Data<String, BigDecimal>> data = mapToData(timeline, newData.getDateInterval());
+            series.getData().setAll(data);
+        });
     }
 
     /**
