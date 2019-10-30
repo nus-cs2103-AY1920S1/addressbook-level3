@@ -1,11 +1,7 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -18,8 +14,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.book.Book;
-import seedu.address.model.loan.Loan;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -152,16 +146,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void updateBorrowerPanel() {
         assert logic.isServeMode() : "Not in serve mode";
-        ArrayList<Loan> loanList = new ArrayList<>();
-        logic.getServingBorrower()
-                .getCurrentLoanList()
-                .forEach(loan -> loanList.add(loan));
-        ArrayList<Book> bookList = (ArrayList<Book>) loanList.stream()
-                .map(loan -> loan.getBookSerialNumber())
-                .map(sn -> logic.getBook(sn))
-                .collect(Collectors.toList());
-        ObservableList<Book> observableBookList = FXCollections.observableArrayList(bookList);
-        borrowerPanel.setBorrower(logic.getServingBorrower(), observableBookList);
+        borrowerPanel.setBorrower(logic.getServingBorrower(), logic.getServingBorrowerBookList());
     }
 
     /**

@@ -59,12 +59,12 @@ public class RenewCommand extends Command {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
 
-        List<Book> lastShownList = model.getFilteredBookList();
-        if (index.getZeroBased() >= lastShownList.size()) {
+        List<Book> lastShownBorrowerBooksList = model.getBorrowerBooks();
+        if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {
             throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
 
-        Book bookToBeRenewed = lastShownList.get(index.getZeroBased()); // TODO change to second list index
+        Book bookToBeRenewed = lastShownBorrowerBooksList.get(index.getZeroBased());
         if (!bookToBeRenewed.isCurrentlyLoanedOut()) {
             throw new CommandException(String.format(MESSAGE_BOOK_NOT_ON_LOAN, bookToBeRenewed));
         }
