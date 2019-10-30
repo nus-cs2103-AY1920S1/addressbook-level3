@@ -1,5 +1,6 @@
 package seedu.address.cashier.storage;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -14,8 +15,6 @@ import seedu.address.cashier.util.InventoryList;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
-
-
 
 public class StorageManagerTest {
     //private File iFile;
