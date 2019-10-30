@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-        </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-            <padding>
-                <Insets bottom="5" left="15" right="5" top="5" />
-            </padding>
-            <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label fx:id="id" styleClass="cell_big_label">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Label fx:id="dateLabel" styleClass="cell_big_label" text="\$date" />
-            </HBox>
-<!--            <Label fx:id="eventId" styleClass="cell_small_label" text="\$eventId" />-->
-            <Label fx:id="eventsLabel" styleClass="cell_small_label" text="\$eventdetails" />
-        </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
-    </GridPane>
-</HBox>
+
+<VBox prefHeight="310.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox style="-fx-background-color: #1d1d1d;">
+         <children>
+            <Region prefHeight="26.0" prefWidth="20.0" stylesheets="@DarkTheme.css" />
+                <Label fx:id="dateLabel" style="-fx-background-color: #1d1d1d;" styleClass="cell_big_label" text="\$date" textFill="#e8e2e2" />
+         </children>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
+      </HBox>
+      <ListView fx:id="eventListView" />
+   </children>
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+</VBox>
