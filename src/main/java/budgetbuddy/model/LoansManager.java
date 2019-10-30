@@ -34,6 +34,11 @@ public class LoansManager {
     private final ObservableList<Debtor> debtors = FXCollections.observableArrayList();
     private final ObservableList<Debtor> unmodifiableDebtors =
             FXCollections.unmodifiableObservableList(debtors);
+
+    /**
+     * The filtered list wraps the observable {@code internalList}.
+     * It changes with the filters used with {@code LoanListCommand}, leaving {@code internalList} unchanged.
+     */
     private final FilteredList<Loan> filteredLoans = new FilteredList<Loan>(internalUnmodifiableList);
 
     private Comparator<Loan> sorter;
