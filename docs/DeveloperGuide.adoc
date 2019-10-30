@@ -158,8 +158,13 @@ image::viewHistorySequenceDiagram.png[]
 
 ==== Implementation
 
-The following sequence diagram shows how the toggle panel command works:
+The `toggle` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic`
+if the user wants to toggle a specified panel. If so, it toggles the `isVisible` and `isManaged` properties of the place
+holder for that panel.
 
+
+The following sequence diagram shows how the toggle panel command works:
+    
 image::ToggleSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
@@ -173,6 +178,11 @@ image::ToggleActivityDiagram.png[]
 Pros: Easy to implement.
 
 Cons: Might not be as OOP as other designs.
+
+=== ListFont Command
+
+
+=== ChangeFontCommand
 
 === Reminders
 

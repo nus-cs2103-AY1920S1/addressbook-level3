@@ -49,7 +49,7 @@ destroy TogglePanelCommand
 LogicManager --> MainWindow : commandResult
 deactivate LogicManager
 
-alt isTogglePanel()
+alt isTogglePanel
 
 MainWindow -> CommandResult : getPanelName()
 activate CommandResult
@@ -57,9 +57,23 @@ activate CommandResult
 CommandResult --> MainWindow : wishlist
 deactivate CommandResult
 
-MainWindow -> MainWindow : togglePanel(wishlist)
+MainWindow -[#Gray]> MainWindow : handleTogglePanel(panelNameString)
+activate MainWindow #Gray
 
-MainWindow -> MainWindow : toggleEntireSidePanelIfNecessary()
+MainWindow -[#DarkSalmon]> MainWindow : togglePanel(wishlist)
+activate MainWindow #DarkSalmon
+
+MainWindow -[#DarkSalmon]> MainWindow
+deactivate MainWindow
+
+MainWindow -[#DarkBlue]> MainWindow : toggleEntireSidePanelIfNecessary()
+activate MainWindow #Blue
+
+MainWindow -[#DarkBlue]> MainWindow
+deactivate MainWindow
+
+MainWindow -[#Gray]> MainWindow
+deactivate MainWindow
 
 end
 
