@@ -719,6 +719,24 @@ system is as followed: +
 
 `register n/NAME p/PHONE_NUMBER e/EMAIL`
 
+Given below is an activity diagram of a borrower being registered into the Borrower Records of the library.
+
+.Activity Diagram for registering a borrower
+image:RegisterBorrowerActivityDiagram.png[width=270]
+{nbsp} +
+
+Given below is a class diagram of a book.
+
+.Class Diagram for `Borrower`
+image::BorrowerClassDiagram.png[width=400]
+{nbsp} +
+
+Given below is the object diagram of a newly registered borrower.
+
+.Object Diagram for `Borrower`
+image::BorrowerObjectDiagram.png[width=300]
+{nbsp} +
+
 ==== Design Considerations
 ===== Aspect: Generating a unique borrower ID
 Every time a new borrower is being registered, the system will automatically generate a borrower ID for the borrower
