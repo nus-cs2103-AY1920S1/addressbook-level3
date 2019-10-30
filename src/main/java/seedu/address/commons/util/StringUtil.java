@@ -31,14 +31,45 @@ public class StringUtil {
         requireNonNull(word);
 
         String preppedWord = word.trim();
-        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
-
-        String preppedSentence = sentence;
-        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+        String[] wordsInPreppedSentence = getPreppedSentence(sentence, preppedWord);
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains {@code str}.
+     *   Ignores case, as long as word in sentence matches partially the given string.
+     *   <br>examples:<pre>
+     *       containsPartialWordIgnoreCase("ABc def", "abc") == true
+     *       containsPartialWordIgnoreCase("ABc def", "DEF") == true
+     *       containsPartialWordIgnoreCase("ABc def", "AB") == true
+     *       </pre>
+     * @param sentence cannot be null
+     * @param str cannot be null, cannot be empty, must be a single str
+     */
+    public static boolean containsPartialWordIgnoreCase(String sentence, String str) {
+        requireNonNull(sentence);
+        requireNonNull(str);
+
+        String preppedWord = str.trim().toLowerCase();
+        String[] wordsInPreppedSentence = getPreppedSentence(sentence, preppedWord);
+
+        for (int i = 0; i < wordsInPreppedSentence.length; i++) {
+            wordsInPreppedSentence[i] = wordsInPreppedSentence[i].toLowerCase();
+        }
+
+        return Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(word -> word.contains(preppedWord));
+    }
+
+    private static String[] getPreppedSentence(String sentence, String preppedWord) {
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single str");
+
+        String preppedSentence = sentence;
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+        return wordsInPreppedSentence;
     }
 
     /**
@@ -59,23 +90,29 @@ public class StringUtil {
 
         String preppedWord = word.trim();
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
+        for (int i = 0; i < wordsInPreppedSentence.length; i++) {
+            wordsInPreppedSentence[i] = wordsInPreppedSentence[i].replaceAll("[^A-Za-z0-9]", "");
+        }
+
         if (Arrays.stream(wordsInPreppedSentence).anyMatch(preppedWord::equalsIgnoreCase)) {
             return true;
         } else if (allowTypo) {
+            for (int i = 0; i < wordsInPreppedSentence.length; i++) {
+                if (wordsInPreppedSentence[i].contains(preppedWord)) {
+                    return true;
+                }
+            }
+
             String firstLetter = Character.toString(preppedWord.charAt(0)).toLowerCase();
             String lastLetter = Character.toString(preppedWord.charAt(preppedWord.length() - 1)).toLowerCase();
 
-            for (int i = 0; i < wordsInPreppedSentence.length; i++) {
-                wordsInPreppedSentence[i] = wordsInPreppedSentence[i].replaceAll("[^A-Za-z0-9]", "");
-            }
-
             if (Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(text -> text.startsWith(firstLetter) && text.endsWith(lastLetter))) {
+                .anyMatch(text -> text.toLowerCase().startsWith(firstLetter)
+                        && text.toLowerCase().endsWith(lastLetter))) {
                 return true;
             }
         }

@@ -30,13 +30,11 @@ Modulo is a desktop application helping National University of Singapore (NUS) s
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will show a list of commands which _Modulo_ supports.
-.  Some example commands you can try:
+.  Type the command in the command box and press kbd:[Enter] to execute it.
 
-* `add CS2100 Assignment 1 t\21 August 2019 #High-Priority` : adds a task with description `CS2100 Assignment 1` to the _Modulo_.
+* `add <title>CS2109 Assignment <day>tuesday <desc>Submit code through LumiNUS <deadline>21-10-2019 <time>13:00`: adds a to-do task to _Modulo_
 * `add CS2103 1920S1`: adds module `CS2103` to academic year and semester `1920S1`
-* `add [qns] _What can one catch that is not thrown?_ [type] _normal_ [ans] _A cold_ [cat] CS2131`: adds a new quiz question to category `CS2131`
+* `add <qns> What can one catch that is not thrown? <type> normal <ans> A cold <cat> CS2131`: adds a new quiz question to category `CS2131`
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -47,10 +45,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will show a list of commands which
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add <n>NAME`, `NAME` is a parameter which can be used as `add <n>John Doe`.
+* Items in square brackets are optional e.g `<n>NAME [<t>TAG]` can be used as `<n>John Doe <t>friend` or as `<n>John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[<t>TAG]...` can be used as `{nbsp}` (i.e. 0 times), `<t>friend`, `<t>friend <t>family` etc.
+* Parameters can be in any order e.g. if the command specifies `<n>NAME <p>PHONE_NUMBER`, `<p>PHONE_NUMBER <n>NAME` is also acceptable.
 ====
 
 === Common commands
@@ -66,9 +64,10 @@ Homepage, in this case, is the Calendar section.
 Format: home
 
 ==== Switch to another feature’s tab
+There are 4 features in _Modulo_: Calendar, Cap (i.e. Modules), Quiz and Finance. +
 
 Format: `switch FEATURE_NAME`
-Example: `switch module`
+Example: `switch quiz`
 
 ==== Exiting the program
 
@@ -225,7 +224,7 @@ Prevent unauthorised access to your grades.
 
 To enter the Quiz section please enter the command: `switch quiz`
 
-==== Add the details of the quiz questions:
+==== Add the details of the quiz question:
 Users can add new quiz questions with the details in it. The details of the question should
 be added with the following requirements.
 
@@ -237,47 +236,37 @@ The keyword instructions of the question include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *The details instructions after the keyword of the question:* +
-- *`<qns>` are required. The word limit is 200.*
-- *`<ans>` are required. The word limit is 1500.* +
-- *`<cat>` are optional. The word limit is 10.* +
+- *`<qns>` are required. The word limit is 200 and minimum 3 letters.* +
+- *`<ans>` are required. The word limit is 125.* +
+- *`<cat>` are required. The word limit is 50.* +
 - *`<type>` are optional. The format after this command should only be: `high`, `normal`, `low`.* +
-- *`<tag>` are optional. To add numerous tags, please include <tag> keyword to differentiate one tag from another.* +
+- *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
 
 Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_category_ *<type>* _your_priority_
 *<tag>* _your_tag_`
 
-*Example 1:* +
-*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Tomorrow_ *<type>* _high_ *<tag>* _lecture_ *<tag>* _tutorial_
+*Example 1*: +
+*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Tomorrow_ *<cat>* _CS2131_ *<type>* _high_ *<tag>* _lecture_ *<tag>* _tutorial_
 
-*Example 2:* +
+*Example 2*: +
 *add <qns>* _What can one catch that is not thrown?_ *<type>* _normal_ *<ans>* _A cold_ *<cat>* CS2131
 
-*Remark (please avoid this):* +
+- *Remark (please avoid this):* +
 *add <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
-
-- *Modulo will detect the question as:* +
-_What is <qns>always comi<qns>ng, but never arrives?_ +
-
-- *Modulo will detect the answer as:* +
- _Tom<ans>orrow_ +
 {empty} +
 
-==== Delete module from record:
+==== Delete question from record:
 Delete a specific quiz question from the group questions.
 
 Format: `delete *[NUMBER]*` +
 Usage: *[NUMBER]* is the index/row from that category that you want to delete. +
 
 Example 1: +
-*delete* 1
+*delete* 1 +
 {empty} +
 
-==== Edit details of a module : `edit`
+==== Edit details of a question : `edit`
 Specify which question you want to edit and modify it from the question list.
-
-Usage: +
-- *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. For the question that is uncategorized category, put `uncategorized`. +
-- *[NUMBER]* is the index/row from that category that you want to edit. +
 
 The details/instructions of the new questions include: +
 - `<qns>` Indicate that the next several phrases will be the name of the question. +
@@ -287,43 +276,114 @@ The details/instructions of the new questions include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *Note that at least one of the following must be modified and replaced:* +
-- *`<qns>` word limit is 200.*
-- *`<ans>` word limit is 1500.* +
-- *`<cat>` word limit is 10.* +
+- *`<qns>` word limit is 200.* +
+- *`<ans>` word limit is 125.* +
+- *`<cat>` word limit is 50.* +
 - *`<type>` format after this command should only be: `high`, `normal`, `low`.* +
-- *`<tag>` are optional. To add numerous tags, please include <tag> keyword to differentiate one tag from another.* +
+- *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
 
-Format: `*edit *[CATEGORY] [NUMBER] [qns]* _your_new_question_ *[ans]* _your_new_answer_ *[cat]* _your_new_category_
-*[type]* _your_new_priority_ *<tag>* _your_tag_` +
+Format: `*edit [CATEGORY], [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
+*<type>* _your_new_priority_ *<tag>* _your_tag_` +
+
+Usage: +
+- *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. +
+- *[NUMBER]* is the index/row from that category that you want to edit. +
 
 Example 1: +
-*edit CS2103 1 [qns]* _How many mammals are there in the universe?_ *[type]* low +
+*edit CS2131, 1 <qns>* _How many mammals are there in the universe?_ *<type>* low +
 
-Remark: +
-*edit CS2103 1 [qns]* _What is [qns]always comi[qns]ng, but never arrives?_ *[ans]* _Tom[ans]orrow_ +
+- Remark (Please avoid this): +
+*edit CS2131, 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
+{empty} +
 
-Modulo will detect the new question as: _What is [qns]always comi[qns]ng, but never arrives?_ and the answer as: _Tom[ans]orrow_ +
+==== List all the questions
+To list all the questions.
+
+Format: `list` +
 {empty} +
 
 ==== Find the quiz questions with keyword:
 Find the quiz questions from the list of questions.
 
-Format: `find [KEYWORDS]` +
-Format: `cancel`
+Format: `find [INSTRUCTION] <key>[KEYWORDS]` +
 
-==== Sort based on priority:
-Sorting based on priority will help users to identify which questions are deemed to be important
-to them for each category. Default: sort by time.
+The [KEYWORDS] is the list of keywords that I want to search.
 
-Format: `sort priority *[PRIORITY_TYPE]*` +
-Usage: *[PRIORITY_TYPE]* accepts keyword `high`, `normal`, `low` only +
-Example: *sort* priority high +
+The expected details/instructions for [INSTRUCTION] keyword are:  +
+- `question` Indicate that I want to include the name of the question in my search. +
+- `answer` Indicate that I want to include the answer to the question in my search. +
+- `category` Indicate that I want to include the category of the question in my search. +
+- `type` Indicate that I want to include the priority/importance level of the question in my search. +
+- `tag` Indicate that I want to include the customized tag of the question in my search.
+
+*Note:*
+
+- To search for everything, leave the [INSTRUCTION] field blank.
+
+- To include multiple instructions to be searchable or to search for multiple keywords, you can split it with a comma `,`
+
+- To enable friendlier syntax [KEYWORDS] when searching your desired questions, add `-i` after your find command.
+
+Example 1: find <key> CS2131, lecture +
+Explanation: search for _CS2131_ and _lecture_ keyword from the whole question
+
+Example 2: find category, answer <key> Tomorrow +
+Explanation: search from the category and answer portion of each question that matches keyword _Tomorrow_
+
+Example 3: find -i answer <key> Tomrrow +
+Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_
+{empty} +
+
+==== Details of a selected question:
+Show the details of a selected question.
+
+Format: `detail [INDEX]` +
+Usage: *[INDEX]* is the index/row from the question that you want to see. +
+Example: detail 1 +
+{empty} +
+
+==== Add Comment of a question:
+Users can add a comment/explanation of a particular questions.
+
+Format: `comment [INDEX] <val> _your_comment_ +
+Usage: *[INDEX]* is the index/row from the question that you want to comment. +
+Example: comment 1 <val> The explanation is in pg 194 textbook. +
+{empty} +
+
+==== Hide answer of a question:
+Users can hide all question answers when they want to revise or for other purposes. It also
+provide the user the hint of the answer. By default the answer is shown.
+
+Format: `showAnswer [yes/no]` +
+Example: showAnswer no +
 {empty} +
 
 ==== Undo:
 Undo some of the previous action.
 
 Format: `undo` +
+{empty} +
+
+==== Redo:
+Redo some of the previous action.
+
+Format: `redo` +
+{empty} +
+
+==== Help:
+Format : `help` +
+{empty} +
+
+==== Clear all data:
+To remove all of the current data in quiz book.
+
+Format: `clear` +
+{empty} +
+
+==== Exit application:
+To exit application (Modulo).
+
+Format: `exit` +
 {empty} +
 
 === Finances
@@ -334,80 +394,96 @@ All amounts are taken to be in SGD and recorded as if with dollar signs and nume
 
 If dates are to be specified, only dates of format `DD-MM-YYYY` will be recognised.
 
+Note that category names should be without whitespaces (e.g. `catFood`, *not* `cat food`).
+
 ==== Add an expenditure: `spend`
-Record down an entry of spending. By default, the date of spending will be set to the day the entry was added. Otherwise, this can be specified through an optional parameter. Other details regarding the expenditure can also be included.
+
+Record down an entry of spending with relevant information associated with it. Place of spending should also be specified.
 
 Format: `*spend* <amt>AMOUNT <day>TRANSACTION_DATE <item>DESCRIPTION <met>TRANSACTION_METHOD <place>PLACE [<cat>CATEGORY]...` +
 e.g. `spend <amt>2.80 <day>15-10-2019 <item>Yong Tau Foo <met>Cash <place>Frontier`
 
 ==== Add an income: `income`
 
-Record down an entry of incoming money. Source of income can also be specified.
+Record down an entry of incoming money. Source of income should be specified.
 
 Format: `*income* <amt>AMOUNT <day>TRANSACTION_DATE <item>DESCRIPTION <met>TRANSACTION_METHOD <from>SOURCE_OF_INCOME [<cat>CATEGORY]...` +
 e.g. `income <amt>300 <day>09-08-2019 <item>GST Voucher <met>Bank credit <from>Govt`
 
-==== Add category: `add cat` [To be implemented]
-Add a new category to list of exisiting categories. Note that category name is not case-sensitive.
-
-Format: `*add cat* NEW_CATEGORY` +
-e.g. `add cat Hobby`
-
 ==== Add an entry of borrowed money: `borrow`
-Record down an entry of money borrowed from someone but not yet repaid. By default, the date the money was borrowed is set to the day the entry was recorded.
 
-Format: `*borrow* <amt>AMOUNT <day>DATE_BORROWED <item>DESCRIPTION <met>TRANSACTION_METHOD <from>PERSON_BORROWED_FROM <deadline>DATE_TO_RETURN_BY [<cat>CATEGORY]...` +
-e.g. `borrow <amt>2 <day>09-08-2019 <item>Dilys egg tarts <met>Cash <from>Classmate <deadline>31-12-2019`
+Record down an entry of money borrowed from someone but not yet repaid.
+
+Format: `*borrow* <amt>AMOUNT <day>DATE_BORROWED <item>DESCRIPTION <met>TRANSACTION_METHOD <from>PERSON_BORROWED_FROM [<cat>CATEGORY]...` +
+
+e.g. `borrow <amt>2 <day>09-08-2019 <item>Dilys egg tarts <met>Cash <from>Classmate`
 
 ==== Add an entry of lent money: `lend`
-Record down an entry of money lent to someone.
 
-Format: `*lend*  <amt>AMOUNT <day>DATE_LENT <item>DESCRIPTION <met>TRANSACTION_METHOD <to>PERSON_LENT_TO <deadline>DATE_TO_REMIND [<cat>CATEGORY]...` +
-e.g. `lend <amt>1 <day>08-08-2019 <item>HL Choco milk <met>Cash <to>Brother <deadline>12-12-2019`
+Record down an entry of money lent to someone but not yet repaid.
 
-==== List out finances: `list` [To be implemented]
-List out all entries in recorded down. By default, all entries will be ordered chronologically, according to the day the entry is linked to (e.g. the day of spending etc). Entries are indexed chronologically as well.
+Format: `*lend* <amt>AMOUNT <day>DATE_LENT <item>DESCRIPTION <met>TRANSACTION_METHOD <to>PERSON_LENT_TO [<cat>CATEGORY]...` +
+e.g. `lend <amt>1 <day>08-08-2019 <item>HL Choco milk <met>Cash <to>Brother `
 
-To sort or filter, and do more advance searches through the list, additional parameters can be specified.
+==== Mark a Borrow or Lend entry as repaid: `repaid`
 
-Attributes that can be *sorted by* are: `day`, `amt` +
-Attributes that can *filtered by* are: `spend`, `income`, `borrow`, `lend`
+Indicate that borrowed money or money lent has been returned. Note that index of log entry in list has to be of type 'borrow' or 'lend' to be successfully marked as repaid, all other log entries (i.e. 'spend', 'income') will be considered invalid. +
+Once the log entry has been marked as repaid, it cannot be undone.
 
-Format: `*list* [<sort>SORT_TYPE(s)] [<filter>FILTER_TYPE(s)]`[<find>KEYWORD(S)] [<cat> CATEGORY(s)] +
-e.g. `list <filter>spend <cat>food`
+Format: `*repaid* INDEX` +
+e.g. `repaid 3`
 
-==== List out categories [To be implemented]
-List out available categories.
+==== List out finances: `list`
 
-Format: `*list cat*`
+List out all entries in recorded down. All entries will be ordered chronologically, with the latest entry at the top (i.e. indexed 1).
 
-==== Edit an entry: `edit` [To be implemented]
-Edit an entry previously entered by index of entry in listed listed out by `list`. Note that the newly-entered information will overwrite the details at the attribute. For example, if there were categories `food` and `hobby` linked to the entry at index 5 of the list, command `edit 5 cat\pet` will delete the previous two categories and replace them with a single category `pet.`
+Format: `*list*`
 
-Format: `*edit* INDEX [amt\NEW_AMOUNT] [item\NEW_DESCRIPTION] [cat\NEW_CATEGORY] [place\NEW_PLACE] [met\NEW_METHOD]` +
-e.g. `edit 2 amt\5.1`
+==== Edit an entry: `edit`
 
-==== Delete entry/entries: `delete` [To be implemented]
-Delete an entry or multiple entries by their index in the list. Note: the indices do not have to be ordered.
+Edit an entry previously entered by index of entry in listed listed out by `list`. Index provided should be valid, within range of the list and positive. There is not need to re-enter all details of the log entry to edit it - just specify the field to be edited. Any irrelevant fields to the log entry (e.g. 'Borrow' entries do not have a `<place>` field) will be ignored. +
 
-Format: `*delete* INDEX [MORE_INDEXES]` +
-e.g. `delete 5 4 1`
+Note that the newly-entered information will overwrite the details at the attribute. For example, if there were categories `food` and `hobby` linked to the entry at index 5 of the list, command `edit 5 <cat>pet` will delete the previous two categories and replace them with a single category `pet.` +
 
-==== Show summary of finances: `stats` [To be implemented]
-Shows an overview of the state of expenses and incomes.
+Repaid status and date repaid for 'Borrow' and 'Lend' entries cannot be edited.
 
-Format: `*stats*`
+Format: `*edit* INDEX [<amt>AMOUNT] [<day>DAY] [<item>DESCRIPTION] [<met>TRANSACTION_METHOD] [<cat>CATEGORY ]` +
+* Additional field available for 'Spend' entries: `[<place>PLACE]` +
+* Additional field available for 'Income' and 'Borrow' entries: `[<from>SOURCE/PERSON_BORROWED_FROM]` +
+* Additonal field available for 'Lend' entries: `[<to>PERSON_LENT_TO]` +
+e.g. `edit 1 <day>12-02-2019 <cat>Gift`
 
-==== Set a budget: `budget` [To be implemented]
-Set a budget, which by default is for the current month. This can be further specified for a specified time period (i.e. duration) or category of spending. A reminder is shown when this budget is about to be exceeded or has exceeded.
+==== Delete entry/entries: `delete`
 
-Format: `*budget* <amt>AMOUNT [<dur>NUM_DAYS] [<cat>CATEGORY]` +
-e.g. `budget <amt>30 <dur>7 <cat>food`
+Delete an entry by its index in the list.
 
-==== Export summary of finances: `export` [To be implemented]
-Exports a file and saves it to hard disk.
+Format: `*delete* INDEX` +
+e.g. `delete 5`
 
-Format: `*export*`
+==== Search and filter list of log entries: `find`
+
+Search through the list of log entries by keyword. This will search through every entry's item description, place (for 'Spend' entries), transaction method, source of income (for 'Income' entries), person borrowed from (for 'Borrow' entries) and person lent to (for 'Lend' entries). Note that only item description will allow for partial word matching (i.e. `cook` in `cookie` is valid), the rest will search for a full word match. This search is case-insensitive.
+
+Filter the list of log entries by their log entry type (i.e. spend, income, borrow, lend).
+
+At least one field has to be specified.
+
+To return to the default full list of log entries, use the `list` command.
+
+Format: `*find* [<type> spend/income/borrow/lend] [<keyword> KEYWORD [MORE_KEYWORDS]...] [<cat> CATEGORY_NAME [MORE_CATEGORY_NAMES]...]` +
+E.g. `find <type>lend`
+
+==== Show statistical summaries of finances: `stats`
+
+Shows an overview of the state of expenses and incomes. Log entries can be grouped by a specified attribute with either the frequency or total amount of each group shown in a graphical summary. These attributes include log entries of the same month, type, transaction method, category or place.
+
+Both `<groupby>` and `<summarise>` have to be present. Any combination of `ATTRIBUTE` and `STAT` should work.
+
+Format: `*stats* <groupby>ATTRIBUTE <summarise>STAT` +
+Possible `ATTRIBUTES` are: `month`, `entrytype`, `met`, `cat`, `place` (only shows `Spend` entries) +
+Possible `STATS` are: `freq` and `amt` +
+E.g. `stats <amt> freq <summarise> entrytype`
+
 
 === Saving the data
 

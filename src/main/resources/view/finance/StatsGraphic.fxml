@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.chart.PieChart?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.VBox?>
+<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
+           xmlns:fx="http://javafx.com/fxml/1">
+  <PieChart fx:id="pieChart" layoutX="10" layoutY="110" />
+  <VBox fx:id="barChartPlaceholder">
+      <BarChart fx:id="barChart">
+          <xAxis>
+              <CategoryAxis side="BOTTOM" fx:id="xLabel" />
+          </xAxis>
+          <yAxis>
+              <NumberAxis side="LEFT" fx:id="yLabel" />
+      </yAxis>
+      </BarChart>
+  </VBox>
+  <Label fx:id="graphicsNullLabel" styleClass="cell_small_label" text="\$graphicsNullLabel" />
+</StackPane>

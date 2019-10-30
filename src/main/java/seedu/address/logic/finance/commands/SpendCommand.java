@@ -20,7 +20,7 @@ public class SpendCommand extends Command {
 
     public static final String COMMAND_WORD = "spend";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of expenditure to the finance log. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of expenditure to the finance log. \n"
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DAY + "TRANSACTION_DATE "

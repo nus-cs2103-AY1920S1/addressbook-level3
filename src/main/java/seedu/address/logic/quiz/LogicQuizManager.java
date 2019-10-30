@@ -40,12 +40,12 @@ public class LogicQuizManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        //Parse user input from String to a Command
+        // Parse user input from String to a Command
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            //We can deduce that the previous line of code modifies model in some way
+            // We can deduce that the previous line of code modifies model in some way
             // since it's being stored here.
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {

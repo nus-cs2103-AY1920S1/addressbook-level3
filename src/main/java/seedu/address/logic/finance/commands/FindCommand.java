@@ -1,29 +1,45 @@
 package seedu.address.logic.finance.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_KEYWORD;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TYPE;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.logentry.DescriptionContainsKeywordsPredicate;
-
+import seedu.address.model.finance.logentry.LogEntryContainsCategoriesPredicate;
+import seedu.address.model.finance.logentry.LogEntryContainsKeywordsPredicate;
+import seedu.address.model.finance.logentry.LogEntryMatchesAmountPredicate;
+import seedu.address.model.finance.logentry.LogEntryMatchesLogEntryTypesPredicate;
+import seedu.address.model.finance.logentry.LogEntryMatchesPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all log entries in finance log with fields containing any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds all log entries whose description contain any of "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers. "
+            + "Filtering by entry type (Spend, Income, Borrow, Lend) is also possible. "
+            + "At least one field must be specified.\n"
+            + "Parameters: " + PREFIX_TYPE + " spend/income/borrow/lend "
+            + PREFIX_KEYWORD + "KEYWORD [MORE_KEYWORDS]... "
+            + PREFIX_CATEGORY + "CATEGORY_NAME [MORE_CATEGORY_NAMES]\n"
+            + "Example: " + COMMAND_WORD + "<filter> borrow";
 
-    private final DescriptionContainsKeywordsPredicate predicate;
+    private final LogEntryMatchesPredicate predicate;
 
-    public FindCommand(DescriptionContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public FindCommand(LogEntryMatchesAmountPredicate amountPredicate,
+                       LogEntryMatchesLogEntryTypesPredicate logEntryTypesPredicate,
+                       LogEntryContainsKeywordsPredicate keywordsPredicate,
+                       LogEntryContainsCategoriesPredicate categoriesPredicate) {
+        this.predicate = new LogEntryMatchesPredicate(
+                amountPredicate, logEntryTypesPredicate,
+                keywordsPredicate, categoriesPredicate);
     }
 
     @Override

@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyFinanceLog <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
+Class FinanceLog
+Class GraphicsData
+Class Model
+Class ModelFinanceManager
+Class ReadOnlyFinanceLog
+Class UserPrefs
+
+Package LogEntry {
+Abstract Class LogEntry
+Class BorrowLogEntry
+Class IncomeLogEntry
+Class LendLogEntry
+Class SpendLogEntry
+Class LogEntryList
+}
+
+Package Attributes {
+Class Amount
+Class Category
+Class Description
+Class Person
+Class Place
+Class RepaidDate
+Class TransactionDate
+Class TransactionMethod
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+FinanceLog .up.|> ReadOnlyFinanceLog
+ModelFinanceManager -[hidden]right-> ReadOnlyFinanceLog
+
+
+ModelFinanceManager .up.|> Model
+Model .right.> ObservableList
+GraphicsData .left.> ObservableList
+ModelFinanceManager o--> "1" FinanceLog
+ModelFinanceManager o-right-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+FinanceLog *--> "1" LogEntryList
+LogEntryList o--> "*" LogEntry
+BorrowLogEntry -up-|> LogEntry
+IncomeLogEntry -right-|> LogEntry
+LendLogEntry -right-|> LogEntry
+BorrowLogEntry -right-|> LogEntry
+SpendLogEntry -right-|> LogEntry
+LogEntry *--> "*" Category
+LogEntry --> "1" Amount
+LogEntry --> "1" Description
+LogEntry --> "1" TransactionDate
+LogEntry --> "1" TransactionMethod
+SpendLogEntry --> "1" Place
+BorrowLogEntry --> "1" Person
+LendLogEntry --> "1" Person
+IncomeLogEntry --> "1" Person
+BorrowLogEntry --> "0..1" RepaidDate
+LendLogEntry --> "0..1" RepaidDate
+
+LogEntryList -[hidden]down-> LogEntry
+
+LendLogEntry -[hidden]left-> BorrowLogEntry
+BorrowLogEntry -[hidden]left-> IncomeLogEntry
+IncomeLogEntry -[hidden]right-> SpendLogEntry
+
+Person -[hidden]right-> Category
+RepaidDate -[hidden]right-> Category
+TransactionMethod -[hidden]right-> Category
+TransactionDate -[hidden]right-> Category
+Amount -[hidden]right-> Category
+
+ModelFinanceManager -down->"1" LogEntry : filtered list
+@enduml
