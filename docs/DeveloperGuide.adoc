@@ -231,7 +231,7 @@ To prevent abuse (e.g. adding a dummy account and editing/deleting other account
 * Only Admins are allowed to edit or add tags (via both AddCommand and UpdateCommand).
 
 [NOTE]
-Non-admins can still edit their own account details via the `UpdateCcommand`. Refer to user guide for more info.
+Non-admins can still edit their own account details via the `UpdateCommand`. Refer to user guide for more info.
 
 Additional access restrictions:
 
