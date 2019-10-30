@@ -22,7 +22,7 @@ import seedu.address.model.loan.LoanIdGenerator;
 /**
  * Loans a Book with the given Serial Number to a Borrower.
  */
-public class LoanCommand extends Command {
+public class LoanCommand extends Command implements ReversibleCommand {
     public static final String COMMAND_WORD = "loan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loans a book to a borrower.\n"
@@ -33,6 +33,9 @@ public class LoanCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nloaned to\nBorrower: %2$s";
 
     private final SerialNumber toLoan;
+    private final boolean isUndoRedo;
+    private Command undoCommand;
+    private Command redoCommand;
 
     /**
      * Creates an LoanCommand to loan the specified {@code Book} to the Borrower currently served.
@@ -42,6 +45,19 @@ public class LoanCommand extends Command {
     public LoanCommand(SerialNumber bookSn) {
         requireNonNull(bookSn);
         this.toLoan = bookSn;
+        this.isUndoRedo = false;
+    }
+
+    /**
+     * Creates an LoanCommand to loan the specified {@code Book} to the Borrower currently served.
+     *
+     * @param bookSn Serial number of Book to be loaned.
+     * @param isUndoRedo used to check whether the LoanCommand is an undo/redo command.
+     */
+    public LoanCommand(SerialNumber bookSn, boolean isUndoRedo) {
+        requireNonNull(bookSn);
+        this.toLoan = bookSn;
+        this.isUndoRedo = isUndoRedo;
     }
 
     /**
@@ -80,6 +96,9 @@ public class LoanCommand extends Command {
         model.addLoan(loan); // add Loan object to LoanRecords in model
         model.servingBorrowerNewLoan(loan); // add Loan object to Borrower's currentLoanList
 
+        undoCommand = new UnloanCommand(updatedLoanedOutBook, bookToBeLoaned, loan);
+        redoCommand = new LoanCommand(toLoan, true);
+
         try {
             LoanSlipUtil.mountLoan(loan, updatedLoanedOutBook, servingBorrower);
         } catch (LoanSlipException e) {
@@ -87,6 +106,21 @@ public class LoanCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedLoanedOutBook, servingBorrower));
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
     }
 
     @Override
@@ -100,6 +134,7 @@ public class LoanCommand extends Command {
         }
 
         LoanCommand otherLoanCommand = (LoanCommand) o;
-        return this.toLoan.equals(otherLoanCommand.toLoan);
+        return this.toLoan.equals(otherLoanCommand.toLoan)
+                && this.isUndoRedo == otherLoanCommand.isUndoRedo;
     }
 }

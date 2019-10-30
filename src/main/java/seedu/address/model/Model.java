@@ -105,11 +105,20 @@ public interface Model {
 
     void setLoanRecordsFilePath(Path loanRecordsFilePath);
 
-    /** Returns the LoanRecords*/
+    /**
+     * Returns the LoanRecords.
+     */
     ReadOnlyLoanRecords getLoanRecords();
 
-    /** Adds a new Loan to LoanRecords */
+    /**
+     * Adds a new Loan to LoanRecords.
+     */
     void addLoan(Loan loan);
+
+    /**
+     * Removes a Loan from LoanRecords.
+     */
+    void removeLoan(Loan loan);
 
     void updateLoan(Loan existingLoan, Loan returnedLoan);
 
@@ -156,6 +165,8 @@ public interface Model {
     void setServingBorrower(Borrower borrower);
 
     void servingBorrowerNewLoan(Loan newLoan);
+
+    void servingBorrowerRemoveLoan(Loan removeLoan);
 
     void servingBorrowerReturnLoan(Loan loanToBeReturned, Loan returnedLoan);
 

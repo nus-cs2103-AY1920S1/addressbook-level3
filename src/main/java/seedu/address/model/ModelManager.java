@@ -154,6 +154,11 @@ public class ModelManager implements Model {
         loanRecords.addLoan(loan);
     }
 
+    public void removeLoan(Loan loan) {
+        requireNonNull(loan);
+        loanRecords.removeLoan(loan);
+    }
+
     /**
      * Replaces an existing {@code Loan} object in LoanRecords with an edited one.
      *
@@ -389,6 +394,26 @@ public class ModelManager implements Model {
         borrowerRecords.setBorrower(serving, loanAddedBorrower);
 
         setServingBorrower(loanAddedBorrower);
+    }
+
+    /**
+     * Removes a {@code Loan} object from a new copy of servingBorrower and its currentLoanList.
+     * This method is called only when in Serve mode.
+     *
+     * @param removeLoan {@code Loan} object to be removed.
+     */
+    @Override
+    public void servingBorrowerRemoveLoan(Loan removeLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+        Borrower loanRemovedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getRemovedCurrentLoanList(removeLoan), serving.getReturnedLoanList());
+        borrowerRecords.setBorrower(serving, loanRemovedBorrower);
+
+        setServingBorrower(loanRemovedBorrower);
     }
 
     /**
