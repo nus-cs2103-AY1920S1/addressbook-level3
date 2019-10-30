@@ -1,0 +1,167 @@
+= *Ze Yuan - Project Portfolio for $aveNUS*
+:site-section: AboutUs
+:icons: font
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Overview
+
+$aveNUS is a command line interface (CLI) financial planning application that my team and I designed for
+CS2103T (Software Engineering) module in School of Computing, National University of Singapore (NUS).
+
+In this project, we morphed the sample address book application into $aveNUS, an application that allows NUS students
+to track their financial spending with regards to food purchases. Additionally, the application provides them with
+the best food recommendations within their current budget as well as a savings feature to track their savings.
+
+My main role was to implement the Wallet-Tracking Feature as well as the Purchase-Tracking Feature. The following sections
+illustrate these enhancements in more detail, as well as the relevant documentation I have added to
+the user and developer guides in relation to these enhancements.
+
+The table below provides a quick summary of the symbols and formatting used in this portfolio.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | Command that can be typed into the command box
+ifndef::env-github[]
+a| icon:check[role="green", size="2x"] | Success execution of command
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be useful
+a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know
+a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointers to take note
+endif::[]
+|===
+
+== Summary of contributions
+
+This section provides a summary of the contributions that I have made to the team project.
+
+=== Major enhancement: Budget-Tracking Feature
+
+I have implemented a Budget-Tracking feature to $aveNUS.
+
+==== What it does
+
+The Budget-Tracking feature allows users to manage their budget for food expenditure.
+
+Firstly, users are able to set their budget using the `budget` command by specifying their budget amount and budget duration.
+Following which, users can use the `buy` command to purchase food items which would deduct the corresponding price amount from the wallet.
+Lastly, users are able to use the `topup` command to update the budget amount,
+if for example, they got an allowance from their parents and wishes to add that to their food budget
+
+The user is updated with regards to the amount as well as the duration left for their current budget through the graphical user interface(GUI).
+Budget-related information is also used in the application's recommendation system to suggest appropriate food items within a user's budget.
+
+==== Justification
+
+Our application's main target audience are NUS students, who often may have a limited budget when it comes to food expenditure.
+
+==== Highlights
+
+While implementing this feature, I had to implement new models such as `Wallet`, `RemainingBudget`, `DaysToExpire`, which serves to store the user's budget-related information in a structured manner.
+An additional `Money` class was also added to allow for the changes to budget amount to be made without a loss of precision.
+Commands such as `budget`, `topup` have also been implemented to update the aforementioned models.
+
+Storage functionality for the user's budget was also implemented. This means that the user's budget-related information
+are conveniently saved into their hard disk and persist even after the application is closed and restarted.
+
+Furthermore, using JavaFX's `Properties` and `Binding` application programming interface (API), a user's budget-related information is accurately and updated on a timely basis on the GUI.
+
+=== Major enhancement: Purchase-Tracking Feature
+
+I have added a Purchase-Tracking feature to $aveNUS.
+
+==== What it does
+
+The Purchase-Tracking feature stores a user's purchase history, thereby allowing users to keep track of the food purchases they have made.
+
+Whenever a user uses the `buy` command to purchase a food item, an entry with the purchased food item and time of purchase is added to the purchase history.
+The GUI is then re-rendered to show the most updated purchase history.
+
+Information of a user's purchase history is also used in the application's recommendation system to avoid suggesting food items bought recently to encourage user's to try different types of food.
+
+==== Justification
+
+Users may which to check their purchase history in order to remind themselves of their past food expenditure.
+Using this information, users will be able to plan their future food expenditure better.
+
+==== Highlights
+
+While implementing this feature, I had to implement new models such as `Purchase`, `TimeOfPurchase` which serves to store a user's purchase in a structured manner.
+The `buy` command have also been implemented to allow users to add purchases.
+
+Storage functionality for the user's purchase history was also implemented.
+This means that the user's purchase history is conveniently saved into their hard disk and persist even after the application is closed and restarted.
+
+Furthermore, additional user interface(UI) classes such as `ReadOnlyPurchaseHistory` and `PurchaseHistoryList` ensure that a user's purchase history is accurately and updated on a timely basis on the GUI.
+
+=== Minor Enhancement: Command History Tracking and Retrieval
+
+==== What it does
+
+Stores user's previously entered commands in a `CommandHistory` model, thereby allowing users to use arrow keys to scroll through their command history.
+
+With focus on the Command Line, pressing the Up Arrow will recall the previous command.
+Correspondingly, the Down Arrow would recall the next command you typed.
+
+==== Justification
+
+As our application is a predominantly Command-Line application, I realised that this would be an extremely useful feature both to users and developers alike.
+
+As a user, having this feature would allow them to be able to redo a command multiple times without re-entering the entire command again.
+For example, if a user wishes buy more than one of the first food item in the displayed list, they would be able to enter `buy 1` once and repeat the command again using the Up Arrow.
+
+As a developer, this feature allows for more convenient debugging as developers would not have to re-enter entire commands in order to test changes.
+
+==== Highlights
+
+`CommandHistory` is implemented as a Singleton class despite decreasing its testability.
+This is to prevent additional instantiation since every application should only have one command history.
+
+Also, the list of commands in `CommandHistory` is implemented similar to a queue.
+It has a maximum length of 10 and when commands that are added when the list is full, the new command would replace the oldest command in the command history list.
+
+=== Other contributions
+
+* Project Management:
+
+** Added user stories as issues on GitHub
+
+** Reviewed pull requests by team members [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/105[#105],
+https://github.com/AY1920S1-CS2103T-F13-2/main/pull/82[#82]]
+
+** Opened issues when bugs were found [Issue https://github.com/AY1920S1-CS2103T-F13-2/main/issues/101[#101],
+https://github.com/AY1920S1-CS2103T-F13-2/main/issues/166[#166]]
+
+** Fixed bugs after they were found [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/167[#167]]
+
+* Documentation:
+
+** Updated About Us page
+
+*** Improved the styling for developer's portfolio avatar [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/73[#73]]
+
+** Updated the User Guide and Developer Guide
+
+*** Replace references to the main repository with references to our team's fork [PR
+https://github.com/AY1920S1-CS2103T-F13-2/main/pull/170[#170]]
+
+** Community:
+
+*** Reviewed the Developer Guide of other teams [Examples:
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/64#pullrequestreview-297271633[#1],
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/9#pullrequestreview-306987365[#2]]
+
+== Contributions to the User Guide
+
+This section shows the contributions that I have made to the Budget-Tracking and Purchase-Tracking feature of the User Guide.
+
+include::../UserGuide.adoc[tag=budgeting]
+
+include::../UserGuide.adoc[tag=purchasing]
+
+== Contributions to the Developer Guide
+
+This section shows the additions that I have made to the Budget-Tracking and Purchase-Tracking feature feature of the Developer Guide.
+
+include::../DeveloperGuide.adoc[tag=budgeting]
+
+include::../DeveloperGuide.adoc[tag=purchasing]

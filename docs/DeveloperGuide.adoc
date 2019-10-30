@@ -327,6 +327,7 @@ The following activity diagram below summarizes how the save command works
 .Activity diagram for a sample save command
 image::SaveActivityDiagram.png[align="center", width="400"]
 
+//tag::budgeting[]
 === Budget Tracking feature
 
 The Budget Tracking feature allows users to manage their budget for food expenditure.
@@ -336,6 +337,9 @@ Budget information is also used in the application's recommendation system to su
 ==== Classes for Budget Tracking feature in Model
 
 The Budget Tracking feature was implemented with the following classes.
+
+.Wallet-related class diagram in Model component.
+image::WalletClassDiagram.png[width=400, align="center"]
 
 ===== Wallet
 
@@ -350,8 +354,9 @@ The Budget Tracking feature was implemented with the following classes.
 It contains an `ObservableValue` which allows the UI to track of the amount of money left in the current budget after changes are made to it.
 The maximum budget amount has been set to 1 million dollars.
 
-Also, in order to avoid possible loss of precision errors, calculations regarding the budget amount is done using Java's `BigDecimal` class instead of `Double`.
 ****
+[NOTE]
+Also, in order to avoid possible loss of precision errors, a `Money` class is used. This design decision is discussed below.
 
 ===== DaysToExpire
 
@@ -362,20 +367,49 @@ The maximum budget duration has been set to 1 year (365 days).
 
 When a `DaysToExpire` object is instantiated, it stores the system time as a field.
 The budget duration is correspondingly updated based on the difference between this saved time and the actual system time.
-Due to development constraints, we have decided to only update the budget duration every time the application is started up instead of constantly monitoring the actual time to update this property.
 ****
 
-.Wallet-related class diagram in Model component.
-image::WalletClassDiagram.png[width=400]
+[NOTE]
+Due to development constraints, we have decided to only update the budget duration every time the application is started up instead of constantly monitoring the actual time to update this property.
+
+==== Design considerations for Budget-related models
+
+Below are some design considerations when implementing Budget-related models.
+
+.Design considerations of the for `RemainingBudget` model
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Creating a `Money` class which makes use of Java's `BigDecimal` class to store budget amount
+
+* Pros:
+** Avoid precision loss when adding or subtracting from the budget amount
+** `Money` class serves as a reusable class to store money amounts and can be used in other parts of the application such as in the Savings feature
+
+* Cons:
+** Increased coupling due to the additional classes used.
+
+a|Making use of Java's primitive `double` to store budget amount
+
+* Pros:
+** Easier implementation
+** Decreases the number of dependencies of `RemainingBudget`
+** Can make use of inbuild `DoubleProperty` to display to GUI
+
+* Cons:
+** Loss of precision when adding or subtracting from the budget amount
+|===
+
+We chose alternative 1 mainly due to the fact that the loss of precision is extremely apparent to the user.
+From our testing, after the user buys 3 or 4 items, the precision error adds up resulting in a difference of 1 cent between the expected and actual budget amount.
+This may confuse the user and is a bug that we wish to avoid.
 
 ==== Setting a Budget
 
 A budget can be set using the `budget` command which takes a budget amount, and an optional budget duration.
 
 For example, `budget 100 10` will set the user's budget, with $100.00 for 10 days.
-
-The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
-which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
 
 The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `buy 1` command is shown below.
 
@@ -385,8 +419,11 @@ image::BudgetSequenceDiagram.png[]
 The following activity diagram below summarizes how `budget` commands works
 
 .Activity diagram for a `budget` command
-image::BudgetActivityDiagram.png[]
 
+image::BudgetActivityDiagram.png[align="center"]
+//end::budgeting[]
+
+//tag::purchasing[]
 === Purchase Tracking feature
 
 The Purchase Tracking feature allows users to monitor their food expenditure by keeping track of their purchase history.
@@ -437,9 +474,6 @@ The user may want to buy a food item and record the purchase. This can be done w
 
 After the users enters a `buy` command, for example, `buy 1` which buys the first item in the displayed list.
 
-The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
-which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
-
 The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `buy 1` command is shown below.
 
 .Sequence diagram for `buy 1` command
@@ -448,7 +482,9 @@ image::BuySequenceDiagram.png[]
 The following activity diagram below summarizes how `buy` commands works
 
 .Activity diagram for a `buy` command
-image::BuyActivityDiagram.png[]
+
+image::BuyActivityDiagram.png[width = "300", align="center"]
+//end::purchasing[]
 
 //tag::recommendations[]
 === Recommendation feature

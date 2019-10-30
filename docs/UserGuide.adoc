@@ -312,6 +312,7 @@ Sorts the food items based on their default ordering, where it is based on ascen
 ****
 //end::sorting[]
 
+//tag::budgeting[]
 === Budgeting
 
 ==== Sets budget for a number of days: `budget`
@@ -323,18 +324,6 @@ of DAYS. DAYS must be a positive integer. AMOUNT must be a positive integer or d
 *Example*: `budget 100.00 10`
 ****
 
-==== Buy a food item: `buy`
-Allows users to log a food expense into the application.
-****
-*Format*: `buy FOOD_INDEX` +
-*Example*: `buy 1`
-****
-
-[IMPORTANT]
-Make sure you have enough money in your wallet for the purchase.
-
-[NOTE]
-If the purchase was successful, you should be able to see the update in your purchase history immediately.
 
 ==== Top up money into wallet: `topup`
 Allows users to top up the money into their wallet.
@@ -345,7 +334,7 @@ Allows users to top up the money into their wallet.
 
 [NOTE]
 If the top up was successful, you should be able to see the update in your wallet immediately.
-
+//end::budgeting[]
 
 ==== Saves money into savings account: `save`
 Allows users to log an amount of money to save in his savings account from user's wallet.
@@ -390,6 +379,23 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 [NOTE]
 If you click the "Savings" tab on the right panel, you will be able to view your savings history.
 Also the amount withdrawn is added into your wallet.
+
+//tag::purchasing[]
+=== Purchasing
+
+==== Buy a food item: `buy`
+Allows users to log a food expense into the application.
+****
+*Format*: `buy FOOD_INDEX` +
+*Example*: `buy 1`
+****
+
+[IMPORTANT]
+Make sure you have enough money in your wallet for the purchase.
+
+[NOTE]
+If the purchase was successful, you should be able to see the update in your purchase history immediately.
+//end::purchasing[]
 
 //tag::recommendations[]
 === Recommendations
