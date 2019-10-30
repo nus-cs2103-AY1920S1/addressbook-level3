@@ -21,4 +21,9 @@ public class FinanceCliSyntax {
     public static final Prefix PREFIX_TYPE = new Prefix("<type>");
     public static final Prefix PREFIX_KEYWORD = new Prefix("<keyword>");
 
+    /* For stats command */
+    public static final Prefix PREFIX_GROUP_BY = new Prefix("<groupby>");
+    public static final Prefix PREFIX_SUMMARISE = new Prefix("<summarise>");
+    public static final Prefix PREFIX_BETWEEN = new Prefix("<between>");
+
 }

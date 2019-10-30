@@ -1,12 +1,18 @@
 package seedu.address.ui.finance;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.PieChart.Data;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.finance.logentry.LogEntry;
+import javafx.scene.layout.VBox;
+import seedu.address.model.finance.GraphicsData;
 
 /**
  * Panel showing statistical graphs.
@@ -17,14 +23,54 @@ public class StatsGraphic extends UiPart<Region> {
 
     @FXML
     private PieChart pieChart;
+    @FXML
+    private VBox barChartPlaceholder;
+    @FXML
+    private BarChart<String, Number> barChart;
+    @FXML
+    private CategoryAxis xLabel;
+    @FXML
+    private NumberAxis yLabel;
+    @FXML
+    private Label graphicsNullLabel;
 
-    public StatsGraphic(ObservableList<LogEntry> logEntries) {
+    public StatsGraphic(GraphicsData gData) {
         super(FXML);
-        ObservableList<Data> result = FXCollections.observableArrayList();
-        result.add(new PieChart.Data("A", 3));
-        result.add(new PieChart.Data("B", 10));
-        result.add(new PieChart.Data("C", 7));
-        pieChart.setData(result);
+        String graphicsType = gData.getGraphicType();
+
+        // Pie chart
+        pieChart.setData(gData.getPieChartData());
         pieChart.setLabelsVisible(true);
+        //@@author jewelsea
+        //Reused from https://stackoverflow.com/questions/35479375/display-
+        // additional-values-in-pie-chart to add values beside label name
+        pieChart.getData()
+                .forEach(data -> data.nameProperty().bind(
+                            Bindings.concat(data.getName(), ": ", data.pieValueProperty())
+                    ));
+
+        // Bar chart
+        xLabel.setLabel("Group");
+        yLabel.setLabel("Total Amount");
+        ArrayList<XYChart.Series> barSeriesList = gData.getBarChartData();
+        for (XYChart.Series series : barSeriesList) {
+            barChart.getData().addAll(series);
+        }
+
+        // No graphic
+        graphicsNullLabel.setText("No statistics to show.");
+
+        // Set appropriate graphic visible
+        pieChart.setVisible(false);
+        barChartPlaceholder.setVisible(false);
+        graphicsNullLabel.setVisible(false);
+
+        if (graphicsType.equalsIgnoreCase("pie")) {
+            pieChart.setVisible(true);
+        } else if (graphicsType.equalsIgnoreCase("bar")) {
+            barChartPlaceholder.setVisible(true);
+        } else {
+            graphicsNullLabel.setVisible(true);
+        }
     }
 }

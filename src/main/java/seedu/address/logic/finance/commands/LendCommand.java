@@ -19,7 +19,7 @@ public class LendCommand extends Command {
 
     public static final String COMMAND_WORD = "lend";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of lending to the finance log. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of lending to the finance log. \n"
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DAY + "DATE_LENT "

@@ -7,6 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.finance.commands.CommandResult;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
+import seedu.address.model.finance.GraphicsData;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.logentry.LogEntry;
 
@@ -32,6 +33,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of log entries */
     ObservableList<LogEntry> getFilteredLogEntryList();
+
+    /** Returns a {@code GraphicsData} object */
+    GraphicsData getGraphicsData();
 
     /**
      * Returns the user prefs' finance log file path.

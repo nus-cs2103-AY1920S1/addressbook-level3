@@ -83,4 +83,6 @@
     -fx-font-size: 11;
 }
 
-
+#pieChart .label {
+    -fx-text-fill: black;
+}

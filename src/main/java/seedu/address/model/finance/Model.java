@@ -52,6 +52,9 @@ public interface Model {
     /** Returns the FinanceLog */
     ReadOnlyFinanceLog getFinanceLog();
 
+    /** Set the {@code GraphicsData} object to view. */
+    void setGraphicsData(GraphicsData gData);
+
     /**
      * Returns true if an entry with the same identity as {@code LogEntry} exists in the finance log.
      */
@@ -82,6 +85,8 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered list of log entries */
     ObservableList<LogEntry> getFilteredLogEntryList();
+
+    GraphicsData getGraphicsData();
 
     /**
      * Updates the filter of the filtered list of log entries to filter by the given {@code predicate}.

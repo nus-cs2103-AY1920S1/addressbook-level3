@@ -33,7 +33,6 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] amounts = null;
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            //amounts = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
             amounts = argMultimap.getValue(PREFIX_AMOUNT).get().trim().split("\\s+");
         }
 

@@ -115,7 +115,7 @@ public class MainWindow extends UiPart<Stage> {
         logEntryListPanel = new LogEntryListPanel(logic.getFilteredLogEntryList());
         logEntryListPanelPlaceholder.getChildren().add(logEntryListPanel.getRoot());
 
-        statsGraphic = new StatsGraphic(logic.getFilteredLogEntryList());
+        statsGraphic = new StatsGraphic(logic.getGraphicsData());
         statsGraphicPlaceholder.getChildren().add(statsGraphic.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -160,6 +160,9 @@ public class MainWindow extends UiPart<Stage> {
      * Switch to view of statistical summaries.
      */
     public void showStats() {
+        // Update stats view
+        statsGraphic = new StatsGraphic(logic.getGraphicsData());
+        statsGraphicPlaceholder.getChildren().add(statsGraphic.getRoot());
         logEntryListPanelPlaceholder.setVisible(false);
         statsGraphicPlaceholder.setVisible(true);
     }

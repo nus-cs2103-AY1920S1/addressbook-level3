@@ -17,7 +17,7 @@ import seedu.address.model.finance.logentry.LogEntry;
  * Jackson-friendly version of {@link LogEntry}.
  */
 
-//@@author tohcejasmine-reused
+//@@author jbarrueta-reused
 //Reused from https://stackoverflow.com/questions/30362446/deserialize-json-with-jackson-into
 // -polymorphic-types-a-complete-example-is-giv/30386694#30386694 with minor modifications
 // To save polymorphic log entries

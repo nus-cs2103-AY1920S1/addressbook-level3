@@ -25,14 +25,14 @@ public class TransactionDate {
      * @param transactionDate A valid transaction date.
      */
     public TransactionDate(String transactionDate) {
-        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");;
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
         requireNonNull(transactionDate);
         checkArgument(isValidTransactionDate(transactionDate), MESSAGE_CONSTRAINTS);
         value = transactionDate;
     }
 
     public TransactionDate() {
-        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");;
+        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
         value = validFormat.format(new Date());
     }
 

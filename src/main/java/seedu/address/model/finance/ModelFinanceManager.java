@@ -13,7 +13,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.finance.logentry.LogEntry;
 
-
 /**
  * Represents the in-memory model of the finance log data.
  */
@@ -23,6 +22,7 @@ public class ModelFinanceManager implements Model {
     private final FinanceLog financeLog;
     private final UserPrefs userPrefs;
     private final FilteredList<LogEntry> filteredLogEntries;
+    private GraphicsData graphicsData;
 
     /**
      * Initializes a ModelManager with the given financeLog and userPrefs.
@@ -36,6 +36,7 @@ public class ModelFinanceManager implements Model {
         this.financeLog = new FinanceLog(financeLog);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredLogEntries = new FilteredList<>(this.financeLog.getLogEntryList());
+        graphicsData = new GraphicsData();
     }
 
     public ModelFinanceManager() {
@@ -75,6 +76,12 @@ public class ModelFinanceManager implements Model {
     public void setFinanceLogFilePath(Path financeLogFilePath) {
         requireNonNull(financeLogFilePath);
         userPrefs.setFinanceLogFilePath(financeLogFilePath);
+    }
+
+    @Override
+    public void setGraphicsData(GraphicsData gData) {
+        requireNonNull(gData);
+        this.graphicsData = gData;
     }
 
     //=========== FinanceLog ================================================================================
@@ -126,6 +133,14 @@ public class ModelFinanceManager implements Model {
     @Override
     public ObservableList<LogEntry> getFilteredLogEntryList() {
         return filteredLogEntries;
+    }
+
+    /**
+     * Returns an a {@code GraphicsData} object
+     */
+    @Override
+    public GraphicsData getGraphicsData() {
+        return graphicsData;
     }
 
     @Override

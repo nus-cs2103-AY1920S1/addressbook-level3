@@ -19,7 +19,7 @@ public class BorrowCommand extends Command {
 
     public static final String COMMAND_WORD = "borrow";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of borrowing to the finance log. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of borrowing to the finance log. \n"
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DAY + "DATE_BORROWED "
