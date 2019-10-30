@@ -11,7 +11,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTI
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
@@ -23,7 +23,8 @@ import seedu.address.transaction.model.transaction.Transaction;
 
 class EditCommandTest {
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private Model personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private GetPersonByNameOnlyModel personModel =
+            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     void execute_allFieldsSpecifiedUnfilteredList_success() {

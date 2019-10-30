@@ -49,4 +49,6 @@ public interface Logic {
      * @param transaction Transaction to be added.
      */
     void addTransaction(Transaction transaction);
+
+    void updateTransactionFromReimbursement() throws IOException;
 }

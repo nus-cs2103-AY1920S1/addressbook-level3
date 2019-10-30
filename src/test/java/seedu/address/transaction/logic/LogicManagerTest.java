@@ -22,12 +22,9 @@ import seedu.address.transaction.storage.StorageManager;
 
 class LogicManagerTest {
     private File file;
-    private File rFile;
     private Model model;
-    private seedu.address.person.model.Model personModel;
+    private seedu.address.person.model.GetPersonByNameOnlyModel personModel;
     private Storage storage;
-    private seedu.address.reimbursement.storage.Storage reimbursementStorage;
-    private seedu.address.reimbursement.model.Model reimbursementModel;
     private Logic logic;
 
     LogicManagerTest() throws Exception {
@@ -38,16 +35,9 @@ class LogicManagerTest {
             personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
             file = File.createTempFile("testing", "tempTransaction.txt");
             storage = new StorageManager(file, personModel);
-            rFile = File.createTempFile("testing", "tempReimbursement.txt");
             model.getTransactionList();
-            reimbursementStorage =
-                    new seedu.address.reimbursement.storage.StorageManager(rFile);
-            reimbursementModel =
-                    new seedu.address.reimbursement.model.ModelManager(
-                            reimbursementStorage.getReimbursementFromFile(model.getTransactionList()));
             logic =
-                    new LogicManager(model, storage, personModel, reimbursementModel,
-                            reimbursementStorage);
+                    new LogicManager(model, storage, personModel);
         } catch (IOException e) {
             throw new AssertionError("This method should not throw an exception.");
         }
@@ -73,6 +63,27 @@ class LogicManagerTest {
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredList().delete(0));
     }
+
+    @Test
+    public void addTransaction_success() {
+        Model model = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+        Logic logic = new LogicManager(model, storage, personModel);
+        logic.addTransaction(TypicalTransactions.DANIEL_TRANSACTION_9);
+        model.getTransactionList().add(TypicalTransactions.DANIEL_TRANSACTION_9);
+        assertEquals(logic.getTransactionList(), model.getTransactionList());
+    }
+
+    @Test
+    public void setTransaction_success() {
+        Model model = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+        Logic logic = new LogicManager(model, storage, personModel);
+        logic.setTransaction(TypicalTransactions.BENSON_TRANSACTION_2,
+                TypicalTransactions.DANIEL_TRANSACTION_9);
+        model.getTransactionList().set(2, TypicalTransactions.DANIEL_TRANSACTION_9);
+        assertEquals(logic.getTransactionList(), model.getTransactionList());
+
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>

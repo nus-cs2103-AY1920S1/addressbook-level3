@@ -18,13 +18,11 @@ import seedu.address.testutil.TypicalReimbursements;
 public class LogicManagerTest {
 
     private File file;
-    private File tFile;
 
     private seedu.address.reimbursement.model.Model reimbursementModel;
     private seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
     private seedu.address.person.model.Model personModel;
     private seedu.address.transaction.model.Model transactionModel;
-    private seedu.address.transaction.storage.Storage transactionStorage;
 
     private TypicalReimbursements typicalReimbursements = new TypicalReimbursements();
 
@@ -38,14 +36,10 @@ public class LogicManagerTest {
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             file = File.createTempFile("testingLogic", "tempReimbursement.txt");
             reimbursementStorage = new StorageManager(file);
-            tFile = File.createTempFile("testingLogic", "tempTransaction.txt");
-            transactionStorage =
-                    new seedu.address.transaction.storage.StorageManager(tFile, personModel);
             transactionModel =
                     new seedu.address.transaction.model.ModelManager(typicalReimbursements.getTypicalTransactions());
             logic =
-                    new LogicManager(reimbursementModel, reimbursementStorage, transactionModel, transactionStorage,
-                            personModel);
+                    new LogicManager(reimbursementModel, reimbursementStorage, personModel);
         } catch (IOException e) {
             throw new AssertionError("This method should not throw an exception.");
         }
@@ -63,7 +57,7 @@ public class LogicManagerTest {
 
         transactionModel.addTransaction(typicalReimbursements.getBobTransaction13());
         try {
-            logic.updateReimbursementFromTransaction();
+            logic.updateReimbursementFromTransaction(transactionModel.getTransactionList());
         } catch (IOException e) {
             fail();
         }

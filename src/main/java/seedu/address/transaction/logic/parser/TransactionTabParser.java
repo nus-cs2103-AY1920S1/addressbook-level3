@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.logic.commands.AddCommand;
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.transaction.logic.commands.BackCommand;
 import seedu.address.transaction.logic.commands.Command;
 import seedu.address.transaction.logic.commands.DeleteCommand;
@@ -41,7 +41,7 @@ public class TransactionTabParser {
      * @throws NotANumberException if the user input does not conform the expected format for delete.
      * @throws NoSuchSortException if the user input does not conform the expected format for sort.
      * */
-    public Command parseCommand(String userInput, Model personModel)
+    public Command parseCommand(String userInput, GetPersonByNameOnlyModel personModel)
             throws ParseException, NoSuchPersonException, NotANumberException, NoSuchSortException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {

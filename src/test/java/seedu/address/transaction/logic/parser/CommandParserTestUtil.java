@@ -2,7 +2,7 @@ package seedu.address.transaction.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.transaction.logic.commands.Command;
 
 /**
@@ -14,9 +14,10 @@ public class CommandParserTestUtil {
      * equals to {@code expectedCommand}.
      */
     public static void assertCommandParseWithPersonModelSuccess(CommandParserWithPersonModel parser, String userInput,
-                                                                Command expectedCommand, Model personModel) {
+                                                                Command expectedCommand,
+                                                                GetPersonByNameOnlyModel personModel) {
         try {
-            Command command = parser.parse(userInput, personModel);
+            Command command = parser.parse(userInput, (GetPersonByNameOnlyModel) personModel);
             assertEquals(expectedCommand, command);
         } catch (Exception pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
@@ -28,9 +29,10 @@ public class CommandParserTestUtil {
      * equals to {@code expectedMessage}.
      */
     public static void assertCommandParseWithPersonModelFailure(CommandParserWithPersonModel parser, String userInput,
-                                                                String expectedMessage, Model personModel) {
+                                                                String expectedMessage,
+                                                                GetPersonByNameOnlyModel personModel) {
         try {
-            parser.parse(userInput, personModel);
+            parser.parse(userInput, (GetPersonByNameOnlyModel) personModel);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (Exception pe) {
             assertEquals(expectedMessage, pe.getMessage());

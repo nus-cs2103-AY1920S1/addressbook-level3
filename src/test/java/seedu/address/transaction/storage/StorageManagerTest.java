@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.TransactionList;
@@ -19,7 +19,8 @@ class StorageManagerTest {
     public StorageManagerTest() {
         try {
             File file = File.createTempFile("testing", "tempTransaction.txt");
-            Model model = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+            GetPersonByNameOnlyModel model =
+                    new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             storageManager = new StorageManager(file, model);
         } catch (IOException e) {
             throw new AssertionError("This constructor should not throw an exception.");

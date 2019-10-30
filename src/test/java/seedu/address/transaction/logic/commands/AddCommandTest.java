@@ -52,7 +52,7 @@ class AddCommandTest {
         showTransactionsOfPerson(model, TypicalPersons.ALICE.getName().toString());
         Transaction transaction = new TransactionBuilder(TypicalPersons.AMY).build();
         AddCommand addCommand = new AddCommand(transaction);
-        seedu.address.person.model.Model personModel =
+        seedu.address.person.model.GetPersonByNameOnlyModel personModel =
                 new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.ALICE.getName().toString());

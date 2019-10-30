@@ -60,7 +60,8 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model transactionModel,
                                             CommandResult expectedCommandResult,
-                                            Model expectedModel, seedu.address.person.model.Model personModel) {
+                                            Model expectedModel,
+                                            seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         try {
             CommandResult result = command.execute(transactionModel, personModel);
             System.out.println("inside test util:" + expectedCommandResult.getFeedbackToUser());
@@ -76,12 +77,14 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to
-     * {@link #assertCommandSuccess(Command, Model, CommandResult, Model, seedu.address.person.model.Model)}
+     * {@link #assertCommandSuccess(Command, Model, CommandResult, Model,
+     * seedu.address.person.model.GetPersonByNameOnlyModel)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model transactionModel,
                                             String expectedMessage,
-                                            Model expectedModel, seedu.address.person.model.Model personModel) {
+                                            Model expectedModel,
+                                            seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, transactionModel, expectedCommandResult, expectedModel, personModel);
     }
@@ -93,7 +96,7 @@ public class CommandTestUtil {
      * - the transaction list, filtered transaction list in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
-                                            seedu.address.person.model.Model personModel) {
+                                            seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         TransactionList transactionList = actualModel.getTransactionList();

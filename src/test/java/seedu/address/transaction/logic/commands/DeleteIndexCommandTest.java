@@ -2,6 +2,7 @@ package seedu.address.transaction.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -23,8 +24,15 @@ import seedu.address.transaction.ui.TransactionMessages;
 class DeleteIndexCommandTest {
 
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private seedu.address.person.model.Model personModel =
+    private seedu.address.person.model.GetPersonByNameOnlyModel personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void execute_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DeleteIndexCommand(1)
+                .execute(null, null));
+    }
+
     @Test
     //this uses model stub
     void execute_validIndexUnfilteredList_successful() {
