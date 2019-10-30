@@ -13,6 +13,9 @@ import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 
+/**
+ * UI component that is displayed when the command to view records is issued.
+ */
 public class RecordsPanel extends UiPart<Region> {
 
     private static final String FXML = "RecordsPanel.fxml";
@@ -37,6 +40,9 @@ public class RecordsPanel extends UiPart<Region> {
         populateRecords();
     }
 
+    /**
+     * Fills up the RecordsPanel for each athlete with a record under this event.
+     */
     public void populateRecords() {
         HashMap<Person, List<Record>> hm = event.getRecords();
         hm.forEach((person, recordList) -> {
