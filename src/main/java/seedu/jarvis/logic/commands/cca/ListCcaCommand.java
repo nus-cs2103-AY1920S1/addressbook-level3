@@ -10,7 +10,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all Ccas in the Cca Tracker to the user.
  */
 public class ListCcaCommand extends Command {
 

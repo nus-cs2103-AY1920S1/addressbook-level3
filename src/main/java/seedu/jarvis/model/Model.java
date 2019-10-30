@@ -21,9 +21,9 @@ import seedu.jarvis.model.viewstatus.ViewType;
 public interface Model extends AddressModel, UserPrefsModel, HistoryModel, FinanceTrackerModel,
         CcaTrackerModel, PlannerModel, CoursePlannerModel {
 
-    public ViewStatus getViewStatus();
+    ViewStatus getViewStatus();
 
-    public void setViewStatus(ViewType viewType);
+    void setViewStatus(ViewType viewType);
 }
 
 

@@ -132,7 +132,7 @@ public class PurchaseListTest {
 
     @Test
     public void totalSpending_normalInput_addedCorrectly() {
-        assertEquals(15.0, purchaseList.totalSpending());
+        assertEquals(15.0, purchaseList.getTotalSpending());
     }
 
     private static class PurchaseStub extends Purchase {

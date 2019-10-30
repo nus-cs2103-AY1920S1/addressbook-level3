@@ -168,4 +168,15 @@ public interface FinanceTrackerModel {
      */
     void listSpending();
 
+    /**
+     * Calculates total expenditure by user for this month.
+     */
+    double calculateTotalSpending();
+
+    /**
+     * Calculates remaining available amount by user.
+     */
+    double calculateRemainingAmount();
+
+
 }
