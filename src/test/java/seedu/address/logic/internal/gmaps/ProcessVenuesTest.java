@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.TimeBookInvalidState;
@@ -16,6 +17,9 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.model.gmaps.Location;
 import seedu.address.websocket.Cache;
 
+/**
+ * This class is used to test the ProcessVenuesTest class
+ */
 class ProcessVenuesTest {
     private ProcessVenues processVenues;
     @BeforeEach
@@ -50,6 +54,7 @@ class ProcessVenuesTest {
         assertTrue(newProcessVenues.getValidLocationList().contains(lt17));
     }
 
+    @Disabled
     @Test
     void imageSanityCheck() {
         processVenues.process();
