@@ -1,24 +1,17 @@
 package seedu.address.model.util;
 
-import org.assertj.core.internal.bytebuddy.asm.Advice;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.events.AppointmentBook;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.parameters.Address;
-import seedu.address.model.person.parameters.Email;
-import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PatientReferenceId;
-import seedu.address.model.person.parameters.Phone;
 import seedu.address.model.person.parameters.StaffReferenceId;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -46,10 +39,10 @@ public class SampleAppointmentDataUtil {
         for (int i = 0; i < count; i++) {
             int j = i % 10;
             if (j == 0 && i > 0) {
-               for (int c = 0; c < 10; c++) {
-                   listOfStartTimes[c] = DateTime.plusOneDay(listOfStartTimes[c]);
-                   listOfEndTimes[c] = DateTime.plusOneDay(listOfStartTimes[c]);
-               }
+                for (int c = 0; c < 10; c++) {
+                    listOfStartTimes[c] = DateTime.plusOneDay(listOfStartTimes[c]);
+                    listOfEndTimes[c] = DateTime.plusOneDay(listOfStartTimes[c]);
+                }
             }
             if (i % 10 == 0) {
                 listOfEvents[i] = new Event(new PatientReferenceId("001A"),
@@ -140,16 +133,6 @@ public class SampleAppointmentDataUtil {
             }
         }
         return listOfEvents;
-        /*return new Event[] {
-                new Event(new PatientReferenceId("001A"),
-                        new Timing(toDateTime("20/01/20 1200"), toDateTime("20/01/20 1230")), new Status()),
-                new Event(new PatientReferenceId("002B"),
-                        new Timing(toDateTime("20/01/20 1200"), toDateTime("20/01/20 1230")), new Status()),
-                new Event(new PatientReferenceId("003C"),
-                        new Timing(toDateTime("20/01/20 1300"), toDateTime("20/01/20 1430")), new Status()),
-                new Event(new PatientReferenceId("004D"),
-                        new Timing(toDateTime("20/01/20 1300"), toDateTime("20/01/20 1330")), new Status())
-        };*/
     }
 
     public static ReadOnlyAppointmentBook getSampleAppointmentBook() {
