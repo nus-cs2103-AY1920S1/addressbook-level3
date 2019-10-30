@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package seedu.revision.ui.bar;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -8,6 +8,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import seedu.revision.ui.UiPart;
 
 /**
  * Shows a bar to the user to indicate current progress through quiz.

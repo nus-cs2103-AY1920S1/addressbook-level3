@@ -17,6 +17,7 @@ public class McqInputCommand extends Command {
     public static final String MESSAGE_USAGE = "Input can only be A, B, C, or D (case insensitive)";
     private final String mcqInput;
     private final Answerable currentAnswerable;
+    private String result;
 
 
     public McqInputCommand(String mcqInput, Answerable currentAnswerable) {
@@ -43,12 +44,15 @@ public class McqInputCommand extends Command {
         case "d":
             selectedAnswer = currentAnswerable.getCombinedAnswerList().get(3);
             break;
+        case "timer up":
+            result = "wrong";
+            return new CommandResult(result, false, false);
         default:
             selectedAnswer = null;
         }
 
         requireNonNull(selectedAnswer);
-        String result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
+         result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
 
         return new CommandResult(result, false, false);
     }

@@ -10,7 +10,7 @@
 
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" percentWidth="80.0"/>
-        <ColumnConstraints hgrow="ALWAYS"  percentWidth="20.0"/>
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="20.0"/>
     </columnConstraints>
 
     <rowConstraints>
@@ -18,17 +18,17 @@
     </rowConstraints>
 
     <children>
-        <StackPane fx:id="pane" GridPane.columnIndex="0" GridPane.rowIndex="0">
-            <ProgressBar fx:id="bar" />
+        <StackPane fx:id="pane1" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <ProgressBar fx:id="bar"/>
         </StackPane>
 
-        <Label fx:id="timer" text="\$timer" wrapText="true"
-                GridPane.columnIndex="1" GridPane.rowIndex="0" >
-            <padding>
-                <Insets left="10" />
-            </padding>
-        </Label>
-
+        <StackPane fx:id="pane2" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Label fx:id="timerLabel" text="\$timerLabel">
+                <padding>
+                    <Insets left="10"/>
+                </padding>
+            </Label>
+        </StackPane>
     </children>
 
 </GridPane>

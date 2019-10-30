@@ -25,6 +25,9 @@ import seedu.revision.ui.answerables.AnswerableListPanel;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
 import seedu.revision.ui.answers.TfAnswersGridPane;
+import seedu.revision.ui.bar.ProgressIndicatorBar;
+import seedu.revision.ui.bar.ScoreProgressAndTimerGridPane;
+import seedu.revision.ui.bar.Timer;
 
 
 /**
@@ -41,14 +44,17 @@ public class StartQuizWindow extends Window {
     private AnswersGridPane answersGridPane;
     private CommandBox commandBox;
     private ProgressIndicatorBar progressIndicatorBar;
+    private Timer timer;
     private ScoreProgressAndTimerGridPane progressAndTimerGridPane;
 
     private Answerable currentAnswerable;
     private Iterator<Answerable> answerableIterator;
     private int score = 0;
 
-    private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(this, "currentProgressIndex",
-            0);
+    private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
+            this, "currentProgressIndex", 0);
+
+
 
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(primaryStage, mainLogic, quizLogic);
@@ -91,7 +97,8 @@ public class StartQuizWindow extends Window {
 
         progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex, filteredAnswerableList.size(),
                 "%.0f/" + filteredAnswerableList.size());
-        progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, 20);
+        timer = new Timer(10, this::executeCommand);
+        progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
         scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
     }
 
