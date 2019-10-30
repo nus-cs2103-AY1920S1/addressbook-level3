@@ -13,6 +13,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.planner.tasks.Task;
 
 /**
  * API of the Logic component
@@ -61,6 +62,16 @@ public interface Logic {
      * Returns a view of the inversely executed commands.
      */
     ObservableList<Command> getInverselyExecutedCommandsList();
+
+    // Planner =============================================================
+
+    /**
+     * Returns an unmodifiable view of the filtered list of tasks
+     */
+    ObservableList<Task> getFilteredTaskList();
+
+    //TODO jdocs
+    ObservableList<Task> getUnfilteredTaskList();
 
     // Course Planner ====================================================================
 

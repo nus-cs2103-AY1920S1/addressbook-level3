@@ -7,6 +7,7 @@ import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.enums.TaskType;
 import seedu.jarvis.storage.planner.JsonAdaptedTask;
 import seedu.jarvis.storage.planner.JsonAdaptedTodo;
 
@@ -36,6 +37,15 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "Todo: " + this.taskDes + attributesString();
+    }
+
+    /**
+     * Retrieves the {@code TaskType} of the task
+     * @return {@TaskType} of the task
+     */
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.Todo;
     }
 
     /**

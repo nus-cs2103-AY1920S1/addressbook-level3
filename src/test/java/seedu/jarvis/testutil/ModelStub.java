@@ -425,6 +425,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public ObservableList<Task> getUnfilteredTaskList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void markTaskAsDone(Index i) {
         throw new AssertionError("This method should not be called.");
     }

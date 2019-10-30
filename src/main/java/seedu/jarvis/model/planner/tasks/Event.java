@@ -8,6 +8,7 @@ import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.enums.TaskType;
 import seedu.jarvis.storage.planner.JsonAdaptedEvent;
 import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
@@ -83,5 +84,14 @@ public class Event extends Task {
         return "Event: " + this.taskDes + " from " + this.start + " to " + this.end
                 + attributesString();
 
+    }
+
+    /**
+     * Retrieves the {@code TaskType} of the task
+     * @return {@TaskType} of the task
+     */
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.Event;
     }
 }

@@ -2,6 +2,7 @@ package seedu.jarvis.model.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
@@ -23,7 +24,8 @@ public class Planner {
      */
     public Planner() {
         this.taskList = new TaskList();
-        filteredTaskList = new FilteredList<>(getTasks(), PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        filteredTaskList = new FilteredList<>(FXCollections.observableList(getTasks()),
+                                                PlannerModel.PREDICATE_SHOW_ALL_TASKS);
     }
 
     /**
@@ -50,8 +52,8 @@ public class Planner {
      *
      * @return the task list.
      */
-    public ObservableList<Task> getTasks() {
-        return FXCollections.observableList(taskList.getTasks());
+    public ArrayList<Task> getTasks() {
+        return taskList.getTasks();
     }
 
     /**
@@ -69,6 +71,7 @@ public class Planner {
      * @param task {@code Task} to be added
      */
     public void addTask(int zeroBasedIndex, Task task) {
+
         taskList.add(zeroBasedIndex, task);
     }
 
@@ -156,7 +159,8 @@ public class Planner {
      */
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
-        filteredTaskList.addAll(taskList.getTasks());
+        filteredTaskList = new FilteredList<>(FXCollections.observableList(getTasks()),
+                PlannerModel.PREDICATE_SHOW_ALL_TASKS);
         filteredTaskList.setPredicate(predicate);
 
     }
@@ -165,8 +169,14 @@ public class Planner {
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
      * of {@code Planner}
      */
+    //TODO test
     public ObservableList<Task> getFilteredTaskList() {
         return filteredTaskList;
+    }
+
+    //TODO jdocs and test
+    public ObservableList<Task> getUnfilteredTaskList() {
+        return FXCollections.observableList(getTasks());
     }
 
     /**

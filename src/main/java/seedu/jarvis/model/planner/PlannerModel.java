@@ -98,6 +98,9 @@ public interface PlannerModel {
      */
     ObservableList<Task> getFilteredTaskList();
 
+    //TODO jdocs
+    ObservableList<Task> getUnfilteredTaskList();
+
     /**
      * Marks a {@code Task} at the specified {@code Index} as done
      * @param i {@code Index} of the {@code Task} to be marked as done
