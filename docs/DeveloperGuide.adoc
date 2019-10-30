@@ -357,7 +357,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |terminate a recurring expense |
 
-|`* * ` |user |create a recurring expense |don't have to input recurring expenses every time
+|`* *` |user |create a recurring expense |don't have to input recurring expenses every time
 
 |`* *` |user |retrieve list of all recurring expenses |view all my recurring expenses
 
@@ -370,6 +370,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 4.+| *Budgeting*
 
 |`* * *` |user |set a budget for a period |track my expenses according to the budget amount
+
+|`* * *` |user |delete a budget |remove a budget that is not needed anymore
+
+|`* * *` |user |edit a budget |change my budget details
+
+|`* * *` |user |view a list of my budgets |see what budgets i have already set
 
 |`* * *` |user |view a budget |know my expenses and how much I have left to spend in the budget
 
