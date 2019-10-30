@@ -289,16 +289,31 @@ public class ParserUtil {
         }
     }
 
-    /** Parses a {@code String tabType} into an {@code TabType}.
+    /** Parses a {@code String tabTypeString} into an {@code TabType}.
      *
-     * @throws ParseException if the given {@code string tabType} is invalid.
+     * @throws ParseException if the given {@code string tabTypeString} is invalid.
      */
-    public static TabType parseTabType(String tabType) throws ParseException {
+    public static TabType parseTabType(String tabTypeString) throws ParseException {
+        TabType tabType;
+
+        // Check if valid string
         try {
-            return TabType.valueOf(tabType.toUpperCase());
-        } catch (IllegalArgumentException e) {
+            tabType = TabType.valueOf(tabTypeString.toUpperCase());
+        } catch (IllegalArgumentException ire) {
+            // Try if the index is valid
+        }
+
+        // Check if valid index
+        try {
+            Index tabTypeIndex = Index.fromOneBased(Integer.parseInt(tabTypeString));
+            tabType = TabType.values()[tabTypeIndex.getZeroBased()];
+        } catch (NumberFormatException ne) {
+            throw new ParseException(ne.toString());
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new ParseException(e.toString());
         }
+
+        return tabType;
     }
 
     /** Parses a {@code String tabIndex} into an {@code Index}.
@@ -313,16 +328,31 @@ public class ParserUtil {
         }
     }
 
-    /** Parses a {@code String modelType} into an {@code ModelType}.
+    /** Parses a {@code String modelTypeString} into an {@code ModelType}.
      *
-     * @throws ParseException if the given {@code string modelType} is invalid.
+     * @throws ParseException if the given {@code string modelTypString} is invalid.
      */
-    public static ModelType parseModelType(String modelType) throws ParseException {
+    public static ModelType parseModelType(String modelTypeString) throws ParseException {
+        ModelType modelType;
+
+        // Check if valid string
         try {
-            return ModelType.valueOf(modelType.toUpperCase());
-        } catch (IllegalArgumentException e) {
+            modelType = ModelType.valueOf(modelTypeString.toUpperCase());
+        } catch (IllegalArgumentException ire) {
+            // Try if the index is valid
+        }
+
+        // Check if valid index
+        try {
+            Index modelTypeIndex = Index.fromOneBased(Integer.parseInt(modelTypeString));
+            modelType = ModelType.values()[modelTypeIndex.getZeroBased()];
+        } catch (NumberFormatException ne) {
+            throw new ParseException(ne.toString());
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new ParseException(e.toString());
         }
+
+        return modelType;
     }
 
     /** Parses a {@code String modelIndex} into an {@code ModelIndex}.
