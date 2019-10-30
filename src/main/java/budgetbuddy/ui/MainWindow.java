@@ -10,6 +10,7 @@ import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.ui.tab.AccountTab;
 import budgetbuddy.ui.tab.LoanSplitTab;
 import budgetbuddy.ui.tab.LoanTab;
 import budgetbuddy.ui.tab.PanelTab;
@@ -120,6 +121,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
 
         // instantiate all tabs
+        AccountTab accountTab = new AccountTab(logic.getAccountList());
+        tabMap.put(CommandCategory.ACCOUNT, accountTab);
+
         RuleTab ruleTab = new RuleTab(logic.getRuleList());
         tabMap.put(CommandCategory.RULE, ruleTab);
 
@@ -129,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
         LoanSplitTab loanSplitTab = new LoanSplitTab(logic.getSortedDebtorList());
         tabMap.put(CommandCategory.LOAN_SPLIT, loanSplitTab);
 
-        OutputDisplay outputDisplay = new OutputDisplay(ruleTab, loanTab, loanSplitTab);
+        OutputDisplay outputDisplay = new OutputDisplay(accountTab, ruleTab, loanTab, loanSplitTab);
         outputDisplayPlaceholder.getChildren().add(outputDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
