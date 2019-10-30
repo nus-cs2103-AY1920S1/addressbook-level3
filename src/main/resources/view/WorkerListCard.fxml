@@ -53,7 +53,7 @@
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Employment Status:" />
                </children>
                <HBox.margin>
-                  <Insets right="30.0" />
+                  <Insets right="20.0" />
                </HBox.margin>
             </VBox>
             <VBox>

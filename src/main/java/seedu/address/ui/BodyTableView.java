@@ -95,6 +95,7 @@ public class BodyTableView extends UiPart<Region> {
         fridgeId.setCellFactory(tableColumn -> new FridgeIdTableCell());
         fridgeId.prefWidthProperty().bind(bodyTableView.widthProperty().multiply(COLUMN_WIDTH_FRIDGE_ID));
         fridgeId.setStyle("-fx-padding: 0 15 0 0");
+        fridgeId.setResizable(false);
         return fridgeId;
     }
 
@@ -118,6 +119,7 @@ public class BodyTableView extends UiPart<Region> {
         bodyStatus.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getBodyStatus().get()));
         bodyStatus.setCellFactory(tableColumn -> new BodyStatusTableCell());
         bodyStatus.prefWidthProperty().bind(bodyTableView.widthProperty().multiply(COLUMN_WIDTH_BODY_STATUS));
+        bodyStatus.setResizable(false);
         return bodyStatus;
     }
 
@@ -128,6 +130,7 @@ public class BodyTableView extends UiPart<Region> {
             .multiply(columnWidth));
         col.setCellValueFactory(value);
         col.setCellFactory(tablecell -> new TableCellForStrings());
+        col.setResizable(false);
         return col;
     }
 
