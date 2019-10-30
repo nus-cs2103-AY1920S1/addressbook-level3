@@ -20,7 +20,7 @@ public class BudgetCard extends UiPart<Region> {
 
     private static final String FXML = "BudgetCard.fxml";
     private static final String CURRENCY_SYMBOL = "$";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
