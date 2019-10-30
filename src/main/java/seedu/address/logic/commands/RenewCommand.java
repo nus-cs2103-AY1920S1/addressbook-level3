@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_BOOK_NOT_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER;
-import static seedu.address.commons.core.UserSettings.DEFAULT_MAX_RENEW_COUNT;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -76,9 +75,7 @@ public class RenewCommand extends Command {
             throw new CommandException(String.format(MESSAGE_NOT_LOANED_BY_BORROWER, servingBorrower, bookToBeRenewed));
         }
 
-        // TODO take from userSettings in model instead
-        // TODO test this
-        if (loanToBeRenewed.getRenewCount() >= DEFAULT_MAX_RENEW_COUNT) {
+        if (loanToBeRenewed.getRenewCount() >= model.getUserSettings().getMaxRenews()) {
             throw new CommandException(String.format(MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE, bookToBeRenewed));
         }
 

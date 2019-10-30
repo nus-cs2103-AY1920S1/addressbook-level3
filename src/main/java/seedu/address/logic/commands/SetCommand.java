@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FINE_INCREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_RENEWS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEW_PERIOD;
 
 import java.util.Optional;
@@ -13,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.usersettings.FineIncrement;
 import seedu.address.model.usersettings.LoanPeriod;
+import seedu.address.model.usersettings.MaxRenews;
 import seedu.address.model.usersettings.RenewPeriod;
 
 /**
@@ -26,8 +28,9 @@ public class SetCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) \n"
             + "[" + PREFIX_LOAN_PERIOD + "LOAN_PERIOD] "
-            + "[" + PREFIX_RENEW_PERIOD + "RENEW_PERIOD] \n"
+            + "[" + PREFIX_RENEW_PERIOD + "RENEW_PERIOD]\n"
             + "[" + PREFIX_FINE_INCREMENT + "FINE_INCREMENT]\n"
+            + "[" + PREFIX_MAX_RENEWS + "MAX_RENEWS]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_LOAN_PERIOD + "14 "
             + PREFIX_RENEW_PERIOD + "14 ";
@@ -79,9 +82,11 @@ public class SetCommand extends Command {
         FineIncrement fineIncrement = setUserSettingsDescriptor.getFineIncrement()
                 .orElse(new FineIncrement(userSettingsToEdit.getFineIncrement()));
 
+        MaxRenews maxRenews = setUserSettingsDescriptor.getMaxRenews()
+                .orElse(new MaxRenews(userSettingsToEdit.getMaxRenews()));
 
         return new UserSettings(loanPeriod.getLoanPeriod(), renewPeriod.getRenewPeriod(),
-                fineIncrement.getFineIncrement());
+                fineIncrement.getFineIncrement(), maxRenews.getMaxRenews());
     }
 
     @Override
@@ -109,6 +114,7 @@ public class SetCommand extends Command {
         private LoanPeriod loanPeriod;
         private RenewPeriod renewPeriod;
         private FineIncrement fineIncrement;
+        private MaxRenews maxRenews;
 
         public SetUserSettingsDescriptor() {}
 
@@ -119,6 +125,7 @@ public class SetCommand extends Command {
             setLoanPeriod(toCopy.loanPeriod);
             setRenewPeriod(toCopy.renewPeriod);
             setFineIncrement(toCopy.fineIncrement);
+            setMaxRenews(toCopy.maxRenews);
         }
 
         /**
@@ -152,6 +159,13 @@ public class SetCommand extends Command {
             return Optional.ofNullable(fineIncrement);
         }
 
+        public void setMaxRenews(MaxRenews maxRenews) {
+            this.maxRenews = maxRenews;
+        }
+
+        public Optional<MaxRenews> getMaxRenews() {
+            return Optional.ofNullable(maxRenews);
+        }
 
         @Override
         public boolean equals(Object other) {
@@ -170,7 +184,8 @@ public class SetCommand extends Command {
 
             return getLoanPeriod().equals(e.getLoanPeriod())
                     && getRenewPeriod().equals(e.getRenewPeriod())
-                    && getFineIncrement().equals(e.getFineIncrement());
+                    && getFineIncrement().equals(e.getFineIncrement())
+                    && getMaxRenews().equals(e.getMaxRenews());
         }
     }
 }

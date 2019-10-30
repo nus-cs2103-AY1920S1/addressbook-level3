@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_OUTSTANDING_FINE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CENT_AMOUNT;
@@ -75,7 +77,7 @@ class PayCommandTest {
     }
 
     @Test
-    public void execute_noOutstnadingFines_paymentUnsuccessful() {
+    public void execute_noOutstandingFines_paymentUnsuccessful() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
         borrowerRecords.addBorrower(IDA);
 
@@ -92,5 +94,27 @@ class PayCommandTest {
         }
         String expectedMessage = MESSAGE_NO_OUTSTANDING_FINE;
         assertEquals(actualMessage, expectedMessage);
+    }
+
+    @Test
+    public void equals() {
+        PayCommand payCommand1 = new PayCommand(VALID_CENT_AMOUNT);
+        PayCommand payCommand2 = new PayCommand(VALID_CENT_AMOUNT);
+        PayCommand payCommand3 = new PayCommand(VALID_CENT_AMOUNT + 10);
+
+        // same object -> returns true
+        assertTrue(payCommand1.equals(payCommand1));
+
+        // same values -> returns true
+        assertTrue(payCommand1.equals(payCommand2));
+
+        // different values -> returns false
+        assertFalse(payCommand1.equals(payCommand3));
+
+        // null -> returns false
+        assertFalse(payCommand1.equals(null));
+
+        // different type -> returns false
+        assertFalse(payCommand1.equals(1));
     }
 }

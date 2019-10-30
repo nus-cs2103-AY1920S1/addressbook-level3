@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_IS_OVERDUE;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_NOT_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
@@ -188,6 +189,35 @@ class RenewCommandTest {
     }
 
     @Test
+    public void execute_maxRenewsMet_renewUnsuccessful() {
+        LoanRecords loanRecords = new LoanRecords();
+        Loan maxRenewedLoan = new LoanBuilder(LOAN_7).withRenewCount(3).build();
+        loanRecords.addLoan(maxRenewedLoan);
+
+        Catalog catalog = new Catalog();
+        Book maxRenewedBook = new BookBuilder(BOOK_7_ON_LOAN).withLoan(maxRenewedLoan).build();
+        catalog.addBook(maxRenewedBook);
+
+        BorrowerRecords borrowerRecords = new BorrowerRecords();
+        Borrower borrower = new BorrowerBuilder(IDA).withCurrentLoan(maxRenewedLoan).build();
+        borrowerRecords.addBorrower(borrower);
+
+        Model model = new ModelManager(catalog, loanRecords, borrowerRecords, new UserPrefs());
+        model.setServingBorrower(borrower);
+
+        RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_BOOK);
+
+        String actualMessage;
+        try {
+            actualMessage = renewCommand.execute(model).getFeedbackToUser();
+        } catch (CommandException e) {
+            actualMessage = e.getMessage();
+        }
+        String expectedMessage = String.format(MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE, maxRenewedBook);
+        assertEquals(actualMessage, expectedMessage);
+    }
+
+    @Test
     public void execute_bookOverdue_renewUnsuccessful() {
         LoanRecords loanRecords = new LoanRecords();
         Loan overdueLoan = new LoanBuilder(LOAN_7).withStartDate("2000-10-10")
@@ -201,10 +231,9 @@ class RenewCommandTest {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
         Borrower borrower = new BorrowerBuilder(IDA).withCurrentLoan(overdueLoan).build();
         borrowerRecords.addBorrower(borrower);
-        BorrowerId servingBorrowerId = borrower.getBorrowerId();
 
         Model model = new ModelManager(catalog, loanRecords, borrowerRecords, new UserPrefs());
-        model.setServingBorrower(servingBorrowerId);
+        model.setServingBorrower(borrower);
 
         RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_BOOK);
 

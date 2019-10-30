@@ -91,6 +91,8 @@ public class CommandTestUtil {
     public static final String VALID_RENEW_PERIOD_2 = "7";
     public static final String VALID_FINE_INCREMENT_1 = "30";
     public static final String VALID_FINE_INCREMENT_2 = "40";
+    public static final String VALID_MAX_RENEWS_1 = "2";
+    public static final String VALID_MAX_RENEWS_2 = "3";
 
     public static final String INVALID_LOAN_PERIOD_DESC = " " + PREFIX_LOAN_PERIOD + "7a"; // 'a' not allowed
     public static final String INVALID_RENEW_PERIOD_DESC = " " + PREFIX_RENEW_PERIOD + "7b"; // 'a' not allowed
@@ -114,11 +116,13 @@ public class CommandTestUtil {
                 .withLoanPeriod(VALID_LOAN_PERIOD_1)
                 .withRenewPeriod(VALID_RENEW_PERIOD_1)
                 .withFineIncrement(VALID_FINE_INCREMENT_1)
+                .withMaxRenews(VALID_MAX_RENEWS_1)
                 .build();
         DESC_USER_SETTINGS_2 = new SetUserSettingsDescriptorBuilder()
                 .withLoanPeriod(VALID_LOAN_PERIOD_2)
                 .withRenewPeriod(VALID_RENEW_PERIOD_2)
                 .withFineIncrement(VALID_FINE_INCREMENT_2)
+                .withMaxRenews(VALID_MAX_RENEWS_2)
                 .build();
     }
 

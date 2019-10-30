@@ -67,4 +67,40 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(),
                 new CommandResult("feedback", false, false, false, true).hashCode());
     }
+
+    @Test
+    public void isShowHelp() {
+        CommandResult commandResult1 = new CommandResult("feedback");
+        assertFalse(commandResult1.isShowHelp());
+
+        CommandResult commandResult2 = new CommandResult("feedback", true, false, false, false);
+        assertTrue(commandResult2.isShowHelp());
+    }
+
+    @Test
+    public void isExit() {
+        CommandResult commandResult1 = new CommandResult("feedback");
+        assertFalse(commandResult1.isExit());
+
+        CommandResult commandResult2 = new CommandResult("feedback", false, true, false, false);
+        assertTrue(commandResult2.isExit());
+    }
+
+    @Test
+    public void isServe() {
+        CommandResult commandResult1 = new CommandResult("feedback");
+        assertFalse(commandResult1.isServe());
+
+        CommandResult commandResult2 = new CommandResult("feedback", false, false, true, false);
+        assertTrue(commandResult2.isServe());
+    }
+
+    @Test
+    public void isDone() {
+        CommandResult commandResult1 = new CommandResult("feedback");
+        assertFalse(commandResult1.isDone());
+
+        CommandResult commandResult2 = new CommandResult("feedback", false, false, false, true);
+        assertTrue(commandResult2.isDone());
+    }
 }
