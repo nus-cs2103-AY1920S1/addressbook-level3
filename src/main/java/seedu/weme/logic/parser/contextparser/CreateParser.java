@@ -6,8 +6,10 @@ import java.util.regex.Matcher;
 
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.createcommand.AbortCreationCommand;
+import seedu.weme.logic.commands.createcommand.CreateCommand;
 import seedu.weme.logic.commands.createcommand.TextAddCommand;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
+import seedu.weme.logic.parser.commandparser.createcommandparser.CreateCommandParser;
 import seedu.weme.logic.parser.commandparser.createcommandparser.TextAddCommandParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
@@ -40,6 +42,9 @@ public class CreateParser extends WemeParser {
 
         case AbortCreationCommand.COMMAND_WORD:
             return new AbortCreationCommand();
+
+        case CreateCommand.COMMAND_WORD:
+            return new CreateCommandParser().parse(arguments);
 
         default:
             return super.parseCommand(userInput);

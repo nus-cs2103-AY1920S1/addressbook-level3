@@ -26,8 +26,7 @@ public class ImageUtil {
      */
     public static Meme copyMeme(Meme toCopy, Path memeLocation) throws IOException {
         Path originalPath = toCopy.getImagePath().getFilePath();
-        Path newPath = getNewImagePath(originalPath, memeLocation);
-        FileUtil.copy(originalPath, newPath);
+        Path newPath = copyImageFile(originalPath, memeLocation);
         return new Meme(new ImagePath(newPath.toString()), toCopy.getDescription(), toCopy.getTags());
     }
 
@@ -41,20 +40,34 @@ public class ImageUtil {
      */
     public static Template copyTemplate(Template toCopy, Path templateLocation) throws IOException {
         Path originalPath = toCopy.getImagePath().getFilePath();
-        Path newPath = getNewImagePath(originalPath, templateLocation);
-        FileUtil.copy(originalPath, newPath);
+        Path newPath = copyImageFile(originalPath, templateLocation);
         return new Template(toCopy.getName(), new ImagePath(newPath.toString()));
+    }
+
+    /**
+     * Copies the image file {@code originalPath} to {@code destinationDir}, with a new file name that will be
+     * generated using {@link ImageUtil#getNewImagePath(Path, String)}
+     *
+     * @param originalPath   the path of the original image file
+     * @param destinationDir the destination directory
+     * @return the new {@code Path} of the copied image
+     * @throws IOException if an error occurred during IO
+     */
+    private static Path copyImageFile(Path originalPath, Path destinationDir) throws IOException {
+        String extension = FileUtil.getExtension(originalPath).orElse("");
+        Path newPath = getNewImagePath(destinationDir, extension);
+        FileUtil.copy(originalPath, newPath);
+        return newPath;
     }
 
     /**
      * Generates a random image path in the destination directory.
      *
-     * @param originalPath original Path of the image
      * @param destination destination directory
+     * @param extension file extension of the image
      * @return the Path for the image to be copied to
      */
-    public static Path getNewImagePath(Path originalPath, Path destination) {
-        String extension = FileUtil.getExtension(originalPath).orElse("");
+    public static Path getNewImagePath(Path destination, String extension) {
         Path newPath;
         do {
             newPath = destination.resolve(FileUtil.generateUuidString() + "." + extension);
