@@ -15,6 +15,7 @@ This application has a GUI created with JavaFX. It is written in Java, and has r
 Here is a screenshot of our project:
 
 image::Ui.png[KeyboardFlashCards]
+_Figure 1. The graphical user interface of **KeyboardFlashCards**_
 
 == Summary of contributions
 
