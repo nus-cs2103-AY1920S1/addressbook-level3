@@ -7,9 +7,6 @@ import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 import java.util.HashMap;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.index.Index;
@@ -29,6 +26,9 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.StorageStub;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 class DeleteAnnotationAllCommandTest {
 
