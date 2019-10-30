@@ -106,7 +106,7 @@ public class CommandTestUtil {
 
         Dish dish = model.getFilteredDishList().get(targetIndex.getZeroBased());
         final String[] splitName = dish.getName().fullName.split("\\s+");
-        model.updateFilteredDishList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.setDishFilterPredicate(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredDishList().size());
     }

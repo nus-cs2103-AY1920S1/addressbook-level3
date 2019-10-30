@@ -16,7 +16,7 @@ public class SuggestCommand extends Command {
     public CommandResult execute(Model model) {
 
         int remain = model.getRemainingCalories();
-        model.updateFilteredDishList(dish -> dish.getCalories().getValue() <= remain);
+        model.setDishFilterPredicate(null);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

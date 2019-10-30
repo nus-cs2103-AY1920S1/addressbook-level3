@@ -6,12 +6,15 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.DoubleExpression;
+import javafx.beans.binding.ObjectExpression;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.commons.util.CollectionUtil;
+import calofit.commons.util.ObservableUtil;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.Name;
@@ -32,6 +35,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Dish> filteredDishes;
     private final CalorieBudget budget;
+    private ObjectExpression<Predicate<Dish>> suggestedDishFilter;
 
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
@@ -47,6 +51,10 @@ public class ModelManager implements Model {
         this.mealLog = new MealLog(mealLog);
         this.filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
         this.budget = new CalorieBudget();
+        DoubleExpression remainingCalories = budget.currentBudget().subtract(this.mealLog.getTodayCalories());
+        suggestedDishFilter = ObservableUtil.mapToObject(remainingCalories,
+            remain -> dish -> dish.getCalories().getValue() <= remain);
+        filteredDishes.predicateProperty().bind(suggestedDishFilter);
     }
 
     public ModelManager() {
@@ -134,7 +142,7 @@ public class ModelManager implements Model {
     @Override
     public void addDish(Dish dish) {
         dishDatabase.addDish(dish);
-        updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
+        setDishFilterPredicate(PREDICATE_SHOW_DEFAULT);
     }
 
     @Override
@@ -156,9 +164,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredDishList(Predicate<Dish> predicate) {
-        requireNonNull(predicate);
-        filteredDishes.setPredicate(predicate);
+    public void setDishFilterPredicate(Predicate<Dish> predicate) {
+        if (filteredDishes.predicateProperty().isBound()) {
+            filteredDishes.predicateProperty().unbind();
+        }
+
+        if (predicate == null) {
+            filteredDishes.predicateProperty().bind(suggestedDishFilter);
+        } else {
+            filteredDishes.setPredicate(predicate);
+        }
     }
 
     @Override

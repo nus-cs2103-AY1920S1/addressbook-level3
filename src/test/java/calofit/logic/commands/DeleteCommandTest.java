@@ -109,7 +109,7 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoDish(Model model) {
-        model.updateFilteredDishList(p -> false);
+        model.setDishFilterPredicate(p -> false);
 
         assertTrue(model.getFilteredDishList().isEmpty());
     }
