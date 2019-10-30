@@ -7,9 +7,11 @@ import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 
 /**
@@ -26,6 +28,8 @@ public class AllItemsPanel extends UiPart<VBox> {
 
     @FXML
     private TreeView<String> tree;
+    @FXML
+    private TreeCell<String> cell;
 
     public AllItemsPanel(ObservableList<XpireItem> xpireItemList, ObservableList<Item> replenishList) {
         super(FXML);
@@ -42,6 +46,30 @@ public class AllItemsPanel extends UiPart<VBox> {
         update();
          */
         displayItems(xpireItemList, replenishList);
+        tree.setCellFactory(tree -> {
+            TreeCell<String> cell = new TreeCell<String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty) ;
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(item);
+                    }
+                }
+            };
+            cell.setOnMouseClicked(event -> {
+                if (! cell.isEmpty()) {
+                    TreeItem<String> treeItem = cell.getTreeItem();
+                    if (treeItem.isExpanded()) {
+                        treeItem.setExpanded(false);
+                    } else {
+                        treeItem.setExpanded(true);
+                    }
+                }
+            });
+            return cell ;
+        });
     }
 
     /**
