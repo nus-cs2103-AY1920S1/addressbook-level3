@@ -355,10 +355,13 @@ public class StudyPlan implements Cloneable {
      */
     public void updateAllCompletedTags() {
         for (Semester semester : semesters) {
+            if (semester.getSemesterName().compareTo(currentSemester) >= 0) {
+                removeCompletedTags(semester);
+            }
+        }
+        for (Semester semester : semesters) {
             if (semester.getSemesterName().compareTo(currentSemester) < 0) {
                 addCompletedTags(semester);
-            } else {
-                removeCompletedTags(semester);
             }
         }
     }
