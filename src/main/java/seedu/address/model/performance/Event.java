@@ -74,41 +74,6 @@ public class Event {
     }
 
     /**
-     * Retrieves a list of Calendar-compatible records for the Calendar.
-     * @param date of Calendar-compatible records.
-     */
-    public List<CalendarCompatibleRecord> getCalendarCompatibleRecords(AthletickDate date) {
-        List<CalendarCompatibleRecord> ccrList = new ArrayList<>();
-        records.forEach((person, recordList) -> {
-            String timing = "";
-            for (Record record : recordList) {
-                if (record.getDate().equals(date)) {
-                    timing = record.getTiming().toString();
-                    CalendarCompatibleRecord ccr = new CalendarCompatibleRecord(person, timing);
-                    ccrList.add(ccr);
-                }
-            }
-        });
-        return ccrList;
-    }
-
-    /**
-     * Checks if this event has a recorded performance on the given date.
-     */
-    public boolean hasPerformanceOn(AthletickDate date) {
-        AtomicBoolean answer = new AtomicBoolean(false);
-        records.forEach((person, recordList) -> {
-            for (Record record : recordList) {
-                if (record.getDate().equals(date)) {
-                    answer.set(true);
-                    break;
-                }
-            }
-        });
-        return answer.get();
-    }
-
-    /**
      * Adds a player's performance to this event.
      */
     public void addPerformance(Person athlete, Record record) {
@@ -145,6 +110,66 @@ public class Event {
 
         Event otherEvent = (Event) other;
         return otherEvent.getName().equals(name);
+    }
+
+    //// Analysis helper functions
+
+    public List<Record> getAthleteRecords(Person athlete) {
+        List<Record> athleteRecords = records.get(athlete);
+        assert(!athleteRecords.isEmpty());
+        return athleteRecords;
+    }
+
+    /**
+     * Retrieves the athlete's fastest timing for this event.
+     */
+    public double getPersonalBest(Person athlete) {
+        double personalBest = Double.MAX_VALUE;
+        for (Record record : getAthleteRecords(athlete)) {
+            double timing = record.getTiming().getValue();
+            if (timing < personalBest) {
+                personalBest = timing;
+            }
+        }
+        assert(personalBest < Double.MAX_VALUE);
+        return personalBest;
+    }
+
+    //// Calendar helper functions
+
+    /**
+     * Retrieves a list of Calendar-compatible records for the Calendar.
+     * @param date of Calendar-compatible records.
+     */
+    public List<CalendarCompatibleRecord> getCalendarCompatibleRecords(AthletickDate date) {
+        List<CalendarCompatibleRecord> ccrList = new ArrayList<>();
+        records.forEach((person, recordList) -> {
+            String timing = "";
+            for (Record record : recordList) {
+                if (record.getDate().equals(date)) {
+                    timing = record.getTiming().toString();
+                    CalendarCompatibleRecord ccr = new CalendarCompatibleRecord(person, timing);
+                    ccrList.add(ccr);
+                }
+            }
+        });
+        return ccrList;
+    }
+
+    /**
+     * Checks if this event has a recorded performance on the given date.
+     */
+    public boolean hasPerformanceOn(AthletickDate date) {
+        AtomicBoolean answer = new AtomicBoolean(false);
+        records.forEach((person, recordList) -> {
+            for (Record record : recordList) {
+                if (record.getDate().equals(date)) {
+                    answer.set(true);
+                    break;
+                }
+            }
+        });
+        return answer.get();
     }
 
 }
