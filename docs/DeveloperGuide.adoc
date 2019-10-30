@@ -383,9 +383,13 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 The calendar feature works along with a scheduler. Calendar stores internally a `calendarEntries` list and a `pastReminders` list.
 Calendar entries consists of reminders and events. Past reminders list is dynamically determined by time and all reminders in this
 list is shown to the user. The scheduler acts as a wrapper for the Java ScheduledExecutorService, which updates past reminder list at specific time.
+See the class diagram below for calendar related classes.
+
+image:CalendarClassDiagram.png[width=75%]
 
 The following activity diagram shows how event command and scheduler works:
-image:CalendarActivityDiagram.png[]
+
+image:CalendarActivityDiagram.png[width=90%]
 
 It implements the following operations:
 

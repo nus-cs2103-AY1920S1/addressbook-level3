@@ -17,10 +17,6 @@ import sugarmummy.recmfood.predicates.FoodTypeIsWantedPredicate;
  */
 public class RecmFoodCommand extends Command {
 
-    private static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "There is no match in the current database :( "
-            + "Try adding more new foods or reducing some filters~";
-    private static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
-
     public static final char FLAG_SIGNAL = '-';
     public static final String COMMAND_WORD = "recmf";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets a list of food recommendations."
@@ -32,7 +28,9 @@ public class RecmFoodCommand extends Command {
             + "-s: snack recommendations\n"
             + "-m: meal recommendations\n"
             + "Usage:" + COMMAND_WORD + "[-FLAG]... [fn/FOOD_NAME]";
-
+    private static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "There is no match in the current database :( "
+            + "Try adding more new foods or reducing some filters~";
+    private static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
     private final FoodTypeIsWantedPredicate typePredicate;
     private final Predicate<Food> namePredicate;
 

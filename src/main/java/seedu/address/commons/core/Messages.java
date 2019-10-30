@@ -17,7 +17,8 @@ public class Messages {
     public static final String MESSAGE_SUBARGUMENT_INDEX_OUT_OF_BOUNDS = "Oops! The index / indices provided in the "
             + "sub-arguments is/are out of bounds.";
     public static final String MESSAGE_INCONSISTENT_SUBARGUMENT_INDEX = "Oops! the use of index / indices provided in "
-            + "the sub-arguments is/are inconsistent. (i.e. some prefixes of the same type have no indices while " + "others do)";
+            + "the sub-arguments is/are inconsistent. (i.e. some prefixes of the same type have no indices while "
+            + "others do)";
     public static final String MESSAGE_INVALID_PARAMETER = "Please enter correct input for %2$s!\n%1$s";
     public static final String MESSAGE_ARGUMENTS_MUST_BE_EMPTY = "Oops! This command cannot have any arguments.";
 
@@ -43,4 +44,12 @@ public class Messages {
             + "does not appear to match any known settings. Scroll to view usage details. \n%1$s";
     public static final String MESSAGE_INVALID_BACKGROUND_REPEAT = "Oops! The background repeat settings you entered "
             + "does not appear to match any known settings. Scroll to view usage details. \n%1$s";
+
+    public static final String MESSAGE_ACHIEVEMENTS_ATTAINED_AND_LOST = "You have attained new achievement(s) and "
+            + "lost one / some too! Key in the \'achvm\' command to view your updated list of achievements. :)";
+    public static final String MESSAGE_ACHIEVEMENTS_ATTAINED = "You have attained new achievement(s)! Key in "
+            + "the \'achvm\' command to view your updated list of achievements. :)";
+    public static final String MESSAGE_ACHIEVEMENTS_LOST = "Oh no, you have lost one / some achievement(s) :( Key in "
+            + "the \'achvm\' command to view your updated list of achievements.";
+
 }

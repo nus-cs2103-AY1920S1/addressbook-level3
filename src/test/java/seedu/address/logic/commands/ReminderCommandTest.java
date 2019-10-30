@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.achievements.Achievement;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
@@ -397,6 +399,29 @@ class ReminderCommandTest {
         public List<String> getMotivationalQuotesList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        //=========== Achievements =============================================================
+
+        @Override
+        public Map<RecordType, List<Achievement>> getAchievementsMap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean newAchievementsHaveBeenAttained() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean existingAchievementsHaveBeenLost() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetNewAchievementsState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

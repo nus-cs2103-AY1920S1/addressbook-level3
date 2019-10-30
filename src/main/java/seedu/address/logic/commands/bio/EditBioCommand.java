@@ -210,7 +210,7 @@ public class EditBioCommand extends Command {
             return new CommandResult(changedDifferences.size() == 0
                     ? MESSAGE_NO_CHANGE
                     : String.format(MESSAGE_EDIT_USER_SUCCESS,
-                    String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())));
+                            String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())));
         } else {
             throw new CommandException(MESSAGE_BIOGRAPHY_DOES_NOT_EXIST);
         }

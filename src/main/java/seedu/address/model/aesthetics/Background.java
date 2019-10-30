@@ -159,22 +159,22 @@ public class Background {
             boolean sameBackgroundColour = this.backgroundColour == null
                     ? otherBackground.backgroundColour == null
                     : otherBackground.backgroundColour != null
-                    && this.backgroundColour.equals(otherBackground.backgroundColour);
+                            && this.backgroundColour.equals(otherBackground.backgroundColour);
 
             boolean sameBackgroundPicPath = this.backgroundPicPath == null
                     ? otherBackground.backgroundPicPath == null
                     : otherBackground.backgroundPicPath != null
-                    && this.backgroundPicPath.equals(otherBackground.backgroundPicPath);
+                            && this.backgroundPicPath.equals(otherBackground.backgroundPicPath);
 
             if (sameBackgroundPicPath && sameBackgroundColour) {
                 boolean sameBackgroundSize = this.bgSize == null
                         ? otherBackground.bgSize == null
                         : otherBackground.bgSize != null
-                        && this.bgSize.equals(otherBackground.bgSize);
+                                && this.bgSize.equals(otherBackground.bgSize);
                 boolean sameBackgroundRepeat = this.bgRepeat == null
                         ? otherBackground.bgRepeat == null
                         : otherBackground.bgRepeat != null
-                        && this.bgRepeat.equals(otherBackground.bgRepeat);
+                                && this.bgRepeat.equals(otherBackground.bgRepeat);
                 return sameBackgroundSize && sameBackgroundRepeat;
             } else {
                 return false;

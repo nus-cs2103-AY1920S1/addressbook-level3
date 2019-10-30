@@ -35,8 +35,8 @@ public class Colour {
         this.colour = (colourName != null)
                 ? colourName.toString().toLowerCase()
                 : isHexaDecimal(colour)
-                ? colour.toUpperCase()
-                : colour.toLowerCase();
+                        ? colour.toUpperCase()
+                        : colour.toLowerCase();
     }
 
     /**

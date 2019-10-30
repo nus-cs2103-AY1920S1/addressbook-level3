@@ -21,7 +21,7 @@ class FoodNameContainsKeywordsPredicateTest {
             new FoodNameContainsKeywordsPredicate(Arrays.asList("Chicken", "Broccoli"));
 
     @Test
-    void test_FoodsWithWantedName_returnsTrue() {
+    void test_foodsWithWantedName_returnsTrue() {
         assertTrue(predicateWithNormalList.test(CHICKEN));
         assertTrue(predicateWithNormalList.test(BROCCOLI));
     }

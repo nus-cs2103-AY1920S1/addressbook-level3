@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.DateTime;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Event;
 import seedu.address.model.calendar.Reminder;
+import seedu.address.model.time.DateTime;
 
 /**
  * Jackson-friendly version of {@link Event}.

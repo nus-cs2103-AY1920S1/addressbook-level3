@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.DateTime;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Concentration;
@@ -12,6 +11,7 @@ import seedu.address.model.record.Height;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.Weight;
+import seedu.address.model.time.DateTime;
 
 /**
  * Represents Jackson-friendly version of {@link Record}.
@@ -46,7 +46,7 @@ class JsonAdaptedRecord {
      */
     public JsonAdaptedRecord(Record source) {
         if (source.getClass() == BloodSugar.class) {
-            recordType = "BloodSugar";
+            recordType = "Bmi";
             dateTime = source.getDateTime().toString();
             concentration = ((BloodSugar) source).getConcentration().toString();
         } else if (source.getClass() == Bmi.class) {
@@ -77,7 +77,7 @@ class JsonAdaptedRecord {
                     RecordType.class.getSimpleName()));
         }
 
-        if (recordType.equals("BloodSugar")) {
+        if (recordType.equals("Bmi")) {
 
             if (concentration == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

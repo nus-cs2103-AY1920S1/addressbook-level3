@@ -77,7 +77,6 @@ public class SugarMummyParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            requireEmptyArguments(arguments);
             return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:

@@ -3,12 +3,14 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.achievements.Achievement;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
@@ -346,6 +348,29 @@ public interface Model {
     /**
      * Returns an unmodifiable list of motivational quotes stored in this program.
      */
-    public List<String> getMotivationalQuotesList();
+    List<String> getMotivationalQuotesList();
+
+    //=========== Achievements =============================================================
+
+    /**
+     * Returns an unmodifiable map of achievements stored in this program.
+     */
+    Map<RecordType, List<Achievement>> getAchievementsMap();
+
+    /**
+     * Returns whether or not new achievements have been attained after a modification to the user's list of records.
+     */
+    public boolean newAchievementsHaveBeenAttained();
+
+    /**
+     * Returns whether or not existing achievements have been lost after a modification to the user's list of records.
+     */
+    public boolean existingAchievementsHaveBeenLost();
+
+    /**
+     * Resets whether there are modification to the user's list of records to false.
+     */
+    public void resetNewAchievementsState();
+
 
 }

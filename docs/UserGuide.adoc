@@ -60,10 +60,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `reminder d/DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `reminder d/medicine`.
+* Items in square brackets are optional e.g `d/DESCRIPTION [r/REPETITION]` can be used as `d/medicine r/daily` or as `d/medicine`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `d/description dt/2020-01-20 12:00`, `dt/2020-01-20 12:00 d/description` is also acceptable.
 ====
 
 === DATA LOG
@@ -101,44 +101,46 @@ The index refers to the index number shown in the displayed entries list
 
 ==== Add a reminder: `reminder`
 
-Format: `reminder DESCRIPTION t/TIME [t/TIME]... [rp/repetition] [v/venue] [p/people]`
+Format: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
 
-Add a reminder at a specific time with possible detail information of other time, repetition, venue(e.g. hospital) ,people(e.g. doctor) and sound.
+Add a reminder at a specific time starting from a date. There is no repetition by default, user can specify a daily or weekly or no repetition optionally.
 
 ==== Add an event: `event`
 
-Format: `event TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD]  [v/venue] [p/people]`
+Format: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME]  [td/TIME_DURATION]`
 
 Add an event with starting time and optional ending time.
-Set a reminder some time before the event with possible detail information of venue(e.g. hospital) ,people(e.g. doctor) and sound.
+Optionally set a reminder some time before the event.
 
-==== Add a task: `task`
+==== View calendar entries: `calendar`
 
-Format: `task TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD] [tg/TARGET]`
+Format: `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
 
-Add a task with starting time and optional ending time.
-Set a reminder some time before the task begins and a target for the task.
+View calendar entries in a month or in a week or on a day.
+`ymw` accepts a date also but it will include all days in the same week as the given date and week starts from Monday.
+(If more than one of the arguments are present, then it accepts the one with the smallest time unit. e.g. if `ymw` and `ymd` are
+both typed in, then it only shows entries on the given date if the date is valid.)
 
-==== Snooze reminder: `snooze`
+==== Snooze reminder: `snooze` `[coming in v2.0]`
 
 Format: `snooze [tp/TIME_PERIOD]`
 
 Silence the current reminder and activate it after a time period.
 
-==== Complete a task: `complete`
+==== Complete a task: `complete` `[coming in v2.0]`
 
 Format: `complete [INDEX]... [t/TIME]`
 
 Mark all the reminders before now as completed if no argument provided.
 Otherwise, mark only those tasks with indices provided or before the specific time as completed.
 
-==== Set time zone: `timezone`
+==== Set time zone: `timezone` `[coming in v2.0]`
 
 Format: `timezone tz/TIME_ZONE [t/TIME] [t/TIME_END]`
 
 Set the time zone of the application permanently or in any time interval(e.g. For travelling).
 
-==== Search for entries in calendar: `search`
+==== Search for entries in calendar: `search` `[coming in v2.0]`
 
 Format: `search [KEYWORD] [t/TIME] [t/END_TIME] [tp/TYPE] [v/VENUE] [p/PEOPLE]`
 
@@ -363,8 +365,8 @@ E.g. `average a/weekly r/bloodsugar n/3`
 . *Bio*: `bio`
 . *Bg*: `bg p/PATH`
 E.g. `bg p//Users/Bob/Pictures/bg.jpg`
-. *Complete*: `complete [INDEX]... [t/TIME]`
-E.g. `complete t/today`
+. *Calendar* `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
+E.g. `calendar ymd/2019-12-24`
 . *Dailymsg*: `dailymsg`
 . *Delete*: `delete INDEX`
 E.g. `delete 2`
@@ -372,8 +374,8 @@ E.g. `delete 2`
 E.g. `edit 1 v/15 t/now`
 . *Export*: `export [d/START_DATE]`
 E.g `export d/01.09.2019`
-. *Event*: `event TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD]  [v/venue] [p/people]`
-E.g. `event appointment t/1400 20/12/2019 v/NUH p/Dr Lim`
+. *Event*: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
+E.g. `event d/appointment dt/2019-12-14 16:00 td/01:00`
 . *Edit bio*: `edit [n/NAME] [nric/NRIC] [g/GENDER] [dob/DATE_OF_BIRTH] [p/CONTACT_NUMBER] [e/EMERGENCY_CONTACT]
 [m/MEDICAL_CONDITION] [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
 E.g. `edit g/Male dp//Users/Bob/Pictures/dp.jpg`
@@ -392,11 +394,9 @@ E.g. `search tp/event v/NUH`
 . *Snooze*: `snooze [tp/TIME_PERIOD]`
 E.g `snooze 30min`
 . *Summary*: `summary r/RECORD_TYPE [d/START_DATE]`
+. *Reminder*: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
+E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 E.g `summary r/bloodsugar d/01.09.2019`
-. *Task*: `task TITLE [DESCRIPTION] t/TIME [t/END_TIME] [tp/TIME_PERIOD] [tg/TARGET]`
-E.g `task Running running for 40 minutes t/15:00 tp/10 min tg/200 calories`
-. *Timezone*: `timezone tz/TIME_ZONE [t/TIME] [t/TIME_END]`
-E.g `timezone tz/GMT+8`
 
 == FAQ
 

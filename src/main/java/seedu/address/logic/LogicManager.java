@@ -21,12 +21,14 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.achievements.Achievement;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
@@ -208,6 +210,29 @@ public class LogicManager implements Logic {
     public List<String> getMotivationalQuotesList() {
         return model.getMotivationalQuotesList();
     }
+
+    //=========== Achievements =============================================================
+
+    @Override
+    public Map<RecordType, List<Achievement>> getAchievementsMap() {
+        return model.getAchievementsMap();
+    }
+
+    @Override
+    public boolean newAchievementsHaveBeenAttained() {
+        return model.newAchievementsHaveBeenAttained();
+    }
+
+    @Override
+    public boolean existingAchievementsHaveBeenLost() {
+        return model.existingAchievementsHaveBeenLost();
+    }
+
+    @Override
+    public void resetNewAchievementsState() {
+        model.resetNewAchievementsState();
+    }
+
 
 
 }

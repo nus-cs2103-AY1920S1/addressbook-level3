@@ -27,12 +27,12 @@ public class SampleUserDataUtil {
     public static User[] getSampleUsers() {
         return new User[]{
             new User(new Name("Alex Yeoh"), new DisplayPicPath(""),
-                new ProfileDesc("Sometimes I pretend I'm a carrot."),
-                new Nric("S1234567A"), new Gender("Male"), new DateOfBirth("21/12/1900"),
-                getContactNumberList("91234567"), getEmergencyContactList("81234567"),
-                getMedicalConditionList("Type II Diabetes"),
-                new Address("Blk 123 #01-123 Example Road S(123456)"), getGoalList("test"),
-                new OtherBioInfo("dislikes potatoes"))};
+                    new ProfileDesc("Sometimes I pretend I'm a carrot."),
+                    new Nric("S1234567A"), new Gender("Male"), new DateOfBirth("21/12/1900"),
+                    getContactNumberList("91234567"), getEmergencyContactList("81234567"),
+                    getMedicalConditionList("Type II Diabetes"),
+                    new Address("Blk 123 #01-123 Example Road S(123456)"), getGoalList("test"),
+                    new OtherBioInfo("dislikes potatoes"))};
     }
 
     public static ReadOnlyUserList getSampleUserList() {
@@ -48,8 +48,8 @@ public class SampleUserDataUtil {
      */
     public static List<Phone> getContactNumberList(String... strings) {
         return Arrays.stream(strings)
-            .map(Phone::new)
-            .collect(Collectors.toList());
+                .map(Phone::new)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -57,8 +57,8 @@ public class SampleUserDataUtil {
      */
     public static List<Phone> getEmergencyContactList(String... strings) {
         return Arrays.stream(strings)
-            .map(Phone::new)
-            .collect(Collectors.toList());
+                .map(Phone::new)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -66,8 +66,8 @@ public class SampleUserDataUtil {
      */
     public static List<MedicalCondition> getMedicalConditionList(String... strings) {
         return Arrays.stream(strings)
-            .map(MedicalCondition::new)
-            .collect(Collectors.toList());
+                .map(MedicalCondition::new)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -75,8 +75,8 @@ public class SampleUserDataUtil {
      */
     public static List<Goal> getGoalList(String... strings) {
         return Arrays.stream(strings)
-            .map(Goal::new)
-            .collect(Collectors.toList());
+                .map(Goal::new)
+                .collect(Collectors.toList());
     }
 
 }

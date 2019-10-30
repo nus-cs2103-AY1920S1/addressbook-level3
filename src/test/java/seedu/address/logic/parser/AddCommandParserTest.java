@@ -9,12 +9,12 @@ import java.time.Month;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.DateTime;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.Weight;
+import seedu.address.model.time.DateTime;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -118,7 +118,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
 
-        //        assertParseFailure(parser, " rt/BLOODSUGAR con/-1.23 dt/hello", BloodSugar.MESSAGE_CONSTRAINTS);
+        //        assertParseFailure(parser, " rt/BLOODSUGAR con/-1.23 dt/hello", Bmi.MESSAGE_CONSTRAINTS);
         //
         //        assertParseFailure(parser, " rt/BMI h/-1 w/-1 dt/hello", Bmi.MESSAGE_CONSTRAINTS);
 

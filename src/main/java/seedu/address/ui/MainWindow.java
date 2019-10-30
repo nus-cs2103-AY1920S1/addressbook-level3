@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_ATTAINED;
+import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_ATTAINED_AND_LOST;
+import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_LOST;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
 
@@ -29,9 +32,9 @@ import seedu.address.logic.commands.CalendarCommandResult;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.YearMonth;
 import seedu.address.model.aesthetics.Background;
-import seedu.address.model.calendar.YearMonthDay;
+import seedu.address.model.time.YearMonth;
+import seedu.address.model.time.YearMonthDay;
 import sugarmummy.recmfood.exception.FoodNotSuitableException;
 
 /**
@@ -97,6 +100,7 @@ public class MainWindow extends UiPart<Stage> {
         setFontColour(logic.getGuiSettings());
         setBackground(logic.getGuiSettings());
         styleManager.setFontFamily("Futura");
+
     }
 
     /**
@@ -171,9 +175,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void displayInvalidReferences(ResultDisplay resultDisplay) {
         List<Map<String, String>> listOfFieldsContainingInvalidReferences = logic
-            .getListOfFieldsContainingInvalidReferences();
+                .getListOfFieldsContainingInvalidReferences();
         Map<String, String> guiFieldsContainingInvalidReferences =
-            logic.getGuiSettings().getFieldsContainingInvalidReferences();
+                logic.getGuiSettings().getFieldsContainingInvalidReferences();
 
         StringBuilder sb = new StringBuilder();
 
@@ -200,10 +204,10 @@ public class MainWindow extends UiPart<Stage> {
         if (!logic.getFilteredUserList().isEmpty()) {
             String name = logic.getFilteredUserList().get(0).getName().toString();
             resultDisplay.appendFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
-                + "assist you today?");
+                    + "assist you today?");
         } else {
             resultDisplay.appendFeedbackToUser("Hello there! How are you feeling, and how can SugarMummy "
-                + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
+                    + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
         }
     }
 
@@ -216,9 +220,9 @@ public class MainWindow extends UiPart<Stage> {
     private void showInitialBackground(StackPane mainDisplayPanePlaceholder, String imagePath) {
 
         mainDisplayPanePlaceholder.setStyle("-fx-background-image: url('" + imagePath + "'); "
-            + "-fx-background-position: center center; "
-            + "-fx-background-repeat: no-repeat;"
-            + "-fx-background-size: contain;");
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: no-repeat;"
+                + "-fx-background-size: contain;");
     }
 
     /**
@@ -337,12 +341,12 @@ public class MainWindow extends UiPart<Stage> {
                 return;
             }
             newPaneIsToBeCreated = ((displayPaneType == DisplayPaneType.COLOUR
-                || displayPaneType == DisplayPaneType.BACKGROUND)
-                && paneToDisplay == DisplayPaneType.BIO) || newPaneIsToBeCreated;
+                    || displayPaneType == DisplayPaneType.BACKGROUND)
+                    && paneToDisplay == DisplayPaneType.BIO) || newPaneIsToBeCreated;
             mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
+                    .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
         }
     }
 
@@ -363,8 +367,8 @@ public class MainWindow extends UiPart<Stage> {
             mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated,
-                    yearMonth, yearMonthDay, isShowingWeek).getRoot()));
+                    .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated,
+                            yearMonth, yearMonthDay, isShowingWeek).getRoot()));
         }
     }
 
@@ -378,11 +382,33 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour(), logic.getBackground());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour(), logic.getBackground());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
         styleManager.resetStyleSheets();
+    }
+
+    /**
+     * Returns an achievement notification to indicate change in user's achievement list if any.
+     */
+    private String getAchievementsNotification() {
+        if (logic.newAchievementsHaveBeenAttained()
+                && logic.existingAchievementsHaveBeenLost()) {
+            logic.resetNewAchievementsState();
+            return MESSAGE_ACHIEVEMENTS_ATTAINED_AND_LOST;
+        } else if (logic.newAchievementsHaveBeenAttained()) {
+            logic.resetNewAchievementsState();
+            return MESSAGE_ACHIEVEMENTS_ATTAINED;
+        } else if (logic.existingAchievementsHaveBeenLost()) {
+            logic.resetNewAchievementsState();
+            return MESSAGE_ACHIEVEMENTS_LOST;
+        } else {
+            assert !logic.newAchievementsHaveBeenAttained()
+                    && !logic.existingAchievementsHaveBeenLost() : "There should no longer be new achievements at this "
+                    + "point but this was not as such.";
+            return "";
+        }
     }
 
     /**
@@ -394,6 +420,8 @@ public class MainWindow extends UiPart<Stage> {
         try {
 
             CommandResult commandResult = logic.execute(commandText);
+
+            String achievementsNotification = "\n" + getAchievementsNotification();
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
@@ -409,16 +437,16 @@ public class MainWindow extends UiPart<Stage> {
                     if (commandResult.isCalendar()) {
                         CalendarCommandResult calendarCommandResult = (CalendarCommandResult) commandResult;
                         switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated(),
-                            calendarCommandResult.getYearMonth(), calendarCommandResult.getYearMonthDay(),
-                            calendarCommandResult.isShowingWeek());
+                                calendarCommandResult.getYearMonth(), calendarCommandResult.getYearMonthDay(),
+                                calendarCommandResult.isShowingWeek());
                     } else {
                         switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated());
                     }
-                    logger.info("Result: " + commandResult.getFeedbackToUser());
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                    logger.info("Result: " + commandResult.getFeedbackToUser() + achievementsNotification);
+                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser() + achievementsNotification);
                 } catch (NullPointerException e) {
                     String feedbackToUser = commandResult.getFeedbackToUser() + "\n" + MESSAGE_CANNOT_LOAD_WINDOW;
-                    resultDisplay.setFeedbackToUser(feedbackToUser);
+                    resultDisplay.setFeedbackToUser(feedbackToUser + achievementsNotification);
                     return new CommandResult(feedbackToUser);
                 }
             }

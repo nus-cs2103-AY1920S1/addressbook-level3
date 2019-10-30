@@ -1,14 +1,11 @@
-package seedu.address.model;
+package seedu.address.model.calendar;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.calendar.CalendarEntry;
-import seedu.address.model.calendar.Reminder;
-import seedu.address.model.calendar.Scheduler;
-import seedu.address.model.calendar.UniqueCalendarEntryList;
+import seedu.address.model.ReadOnlyCalendar;
 
 /**
  * Wraps all data at the calendar level Duplicates are not allowed
