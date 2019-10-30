@@ -11,9 +11,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+
+import java.util.Optional;
 
 /**
  * Adds a person to the address book.
@@ -45,7 +48,7 @@ public class AddContactCommand extends AddCommand {
     private final Contact toAdd;
 
     /**
-     * Creates an AddContactCommand to add the specified {@Contact}
+     * Creates an AddContactCommand to add the specified {@code contact}.
      */
     public AddContactCommand(Contact contact) {
         requireNonNull(contact);
@@ -80,7 +83,22 @@ public class AddContactCommand extends AddCommand {
         } else {
             model.addContactAtIndex(index, toAdd);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiFocus.CONTACT);
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, toAdd),
+                new ResultInformation(toAdd, findIndexOfContact(model, toAdd)),
+                UiFocus.CONTACT);
+    }
+
+    /**
+     * Returns the index of contact in the model.
+     * Precondition: the {@code contact} must have been added before this.
+     */
+    private Index findIndexOfContact(Model model, Contact contact) {
+        Optional<Index> indexOfContact = model.getContactIndex(contact);
+        if (indexOfContact.isEmpty()) {
+            throw new AssertionError("Contact should have been added.");
+        }
+        return indexOfContact.get();
     }
 
     @Override

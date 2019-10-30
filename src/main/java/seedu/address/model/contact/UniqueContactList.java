@@ -40,6 +40,19 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
+     * Returns the Index of the accommodation to find. Else returns empty optional.
+     */
+    public Optional<Index> indexOf(Contact toFind) {
+        requireNonNull(toFind);
+        int indexOfToFind = internalList.indexOf(toFind);
+        if (indexOfToFind == -1) {
+            return Optional.empty();
+        } else {
+            return Optional.of(Index.fromZeroBased(indexOfToFind));
+        }
+    }
+
+    /**
      * Returns true if the list contains a contact with the same number as the given argument.
      */
     public boolean containsPhone(Phone toCheck) {

@@ -284,6 +284,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Optional<Index> getAccommodationIndex(Accommodation accommodation) {
+        return accommodations.findAccommodationIndex(accommodation);
+    }
+
+    @Override
     public boolean hasAccommodation(Accommodation accommodation) {
         requireNonNull(accommodation);
         return accommodations.hasAccommodation(accommodation);
@@ -324,6 +329,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyActivity getActivities() {
         return activities;
+    }
+
+    @Override
+    public Optional<Index> getActivityIndex(Activity activity) {
+        return activities.findActivityIndex(activity);
     }
 
     @Override
@@ -373,6 +383,11 @@ public class ModelManager implements Model {
     public boolean hasContact(Contact contact) {
         requireNonNull(contact);
         return contacts.hasContact(contact);
+    }
+
+    @Override
+    public Optional<Index> getContactIndex(Contact contact) {
+        return contacts.findContactIndex(contact);
     }
 
     @Override

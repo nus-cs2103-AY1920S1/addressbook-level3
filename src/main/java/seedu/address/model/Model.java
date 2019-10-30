@@ -103,6 +103,11 @@ public interface Model {
     ReadOnlyAccommodation getAccommodations();
 
     /**
+     * Returns the index of the accommodation if found. Else returns -1.
+     */
+    Optional<Index> getAccommodationIndex(Accommodation accommodation);
+
+    /**
      * Returns true if an accommodation with the same identity as {@code accommodation} exists in the
      * AccommodationManager.
      */
@@ -159,6 +164,11 @@ public interface Model {
     ReadOnlyActivity getActivities();
 
     /**
+     * Returns the index of the activity if found. Else returns -1.
+     */
+    Optional<Index> getActivityIndex(Activity activity);
+
+    /**
      * Returns true if a activity with the same identity as {@code activity} exists in the ActivityManager.
      */
     boolean hasActivity(Activity activity);
@@ -212,6 +222,11 @@ public interface Model {
      * Returns the ContactManager
      */
     ReadOnlyContact getContacts();
+
+    /**
+     * Returns the index of the contact if found. Else returns index of -1.
+     */
+    Optional<Index> getContactIndex(Contact contact);
 
     /**
      * Returns true if a contacts with the same identity as {@code contacts} exists in the contact list.
