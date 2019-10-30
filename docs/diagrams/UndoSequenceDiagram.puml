@@ -10,7 +10,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedMemeBook" as VersionedMemeBook MODEL_COLOR
+participant ":VersionedWeme" as VersionedWeme MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
@@ -31,15 +31,15 @@ deactivate WemeParser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoMemeBook()
+UndoCommand -> Model : undoWeme()
 activate Model
 
-Model -> VersionedMemeBook : undo()
-activate VersionedMemeBook
+Model -> VersionedWeme : undo()
+activate VersionedWeme
 
-VersionedMemeBook -> VersionedMemeBook :resetData(ReadOnlyMemeBook)
-VersionedMemeBook --> Model :
-deactivate VersionedMemeBook
+VersionedWeme -> VersionedWeme :resetData(ReadOnlyWeme)
+VersionedWeme --> Model :
+deactivate VersionedWeme
 
 Model --> UndoCommand
 deactivate Model

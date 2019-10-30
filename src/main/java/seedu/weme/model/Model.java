@@ -108,13 +108,13 @@ public interface Model {
 
     /**
      * Stages the given meme for export.
-     * The meme must exist in the meme book.
+     * The meme must exist in Weme.
      */
     void stageMeme(Meme meme);
 
     /**
      * Unstages the given meme for export.
-     * The meme must exist in the meme book.
+     * The meme must exist in Weme.
      */
     void unstageMeme(Meme meme);
 
