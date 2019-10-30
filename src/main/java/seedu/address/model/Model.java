@@ -188,6 +188,11 @@ public interface Model {
      */
     boolean isEventClash(Name name, Event event) throws PersonNotFoundException;
 
+    /**
+     * Gets the user information.
+     */
+    Person getUser();
+
     //=========== Group Accessors =============================================================
 
     /**
@@ -316,9 +321,10 @@ public interface Model {
     void updateSidePanelDisplay(SidePanelDisplayType type);
 
     /**
-     * Gets the user information.
+     * Gets the current state of the schedule window display
      */
-    Person getUser();
+    ScheduleWindowDisplayType getState();
+
     //=========== Suggesters =============================================================
 
     /**

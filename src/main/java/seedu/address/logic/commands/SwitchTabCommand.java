@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 
 /**
@@ -10,6 +10,7 @@ import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 public class SwitchTabCommand extends Command {
     public static final String COMMAND_WORD = "switch-tab";
     public static final String MESSAGE_SUCCESS = "Tabs switched!";
+    public static final String MESSAGE_FAILURE = "No tabs to switch";
     public static final String MESSAGE_USAGE = "Switch tab command does not take in any other arguments!";
 
     public SwitchTabCommand() {
@@ -17,12 +18,18 @@ public class SwitchTabCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        ScheduleWindowDisplay nextDetailDisplay = new ScheduleWindowDisplay();
-        if (model.getSidePanelDisplay() == null) {
+
+        ScheduleWindowDisplayType state = model.getState();
+        if (state == ScheduleWindowDisplayType.HOME) {
             model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
+            CommandResult commandResult =
+                    new CommandResult(MESSAGE_SUCCESS, false, false, false);
+            commandResult.setIsSwitchTabs(true);
+            return commandResult;
+        } else {
+            return new CommandResult(MESSAGE_FAILURE, false, false, false);
         }
-        model.updateScheduleWindowDisplay(nextDetailDisplay);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false);
+
     }
 
     @Override

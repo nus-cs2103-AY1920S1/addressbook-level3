@@ -28,7 +28,7 @@ public class EditGroupCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " "
             + PREFIX_EDIT + "GROUP_NAME" + " "
             + "[" + PREFIX_REMARK + "REMARK]" + " "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]"  + " "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]" + " "
             + "\n" + "Note: At least on field must be edited";
 
     public static final String MESSAGE_SUCCESS = "Edit Group success: %s edited";

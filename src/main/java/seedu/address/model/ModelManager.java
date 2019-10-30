@@ -208,6 +208,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person getUser() {
+        return personList.getUser();
+    }
+
+    @Override
     public Person addPerson(PersonDescriptor personDescriptor) throws DuplicatePersonException {
         Person isAdded = this.personList.addPerson(personDescriptor);
         return isAdded;
@@ -427,14 +432,12 @@ public class ModelManager implements Model {
         displayModelManager.updateSidePanelDisplay(type, timeBook);
     }
 
-    @Override
-    public Person getUser() {
-        return personList.getUser();
-    }
-
-
     public void initialiseDefaultWindowDisplay() {
         displayModelManager.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME, timeBook);
+    }
+
+    public ScheduleWindowDisplayType getState() {
+        return displayModelManager.getState();
     }
 
     //=========== Suggesters =============================================================

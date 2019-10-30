@@ -425,4 +425,8 @@ public class DisplayModelManager {
 
         return new FreeSchedule(freeSchedule);
     }
+
+    public ScheduleWindowDisplayType getState() {
+        return scheduleWindowDisplay.getScheduleWindowDisplayType();
+    }
 }

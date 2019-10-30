@@ -331,7 +331,7 @@ public class MainWindow extends UiPart<Stage> {
                         scheduleViewManager.getColors()).getRoot(), SidePanelDisplayType.GROUP);
                 break;
             case DEFAULT:
-                handleTabSwitch();
+                // do nothing
                 break;
             case HOME:
                 handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
@@ -359,6 +359,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isScroll()) {
                 handleScroll();
+            }
+
+            if (commandResult.isSwitchTabs()) {
+                handleTabSwitch();
             }
 
             if (commandResult.isPopUp()) {

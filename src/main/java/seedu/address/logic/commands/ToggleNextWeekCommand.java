@@ -14,6 +14,7 @@ public class ToggleNextWeekCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Showing subsequent weeks' schedule! You can only view schedules up "
             + "to 4 weeks ahead.";
     public static final String MESSAGE_USAGE = "To view next week's schedule, type nw!";
+    public static final String MESSAGE_FAILURE = "Nothing to toggle";
 
     public ToggleNextWeekCommand() {
 
@@ -21,8 +22,16 @@ public class ToggleNextWeekCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.updateScheduleWindowDisplay(new ScheduleWindowDisplay(ScheduleWindowDisplayType.NONE));
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, true);
+
+        ScheduleWindowDisplayType status = model.getState();
+        if (status == ScheduleWindowDisplayType.PERSON
+                || status == ScheduleWindowDisplayType.GROUP
+                || status == ScheduleWindowDisplayType.NONE) {
+            model.updateScheduleWindowDisplay(new ScheduleWindowDisplay(ScheduleWindowDisplayType.NONE));
+            return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, true);
+        } else {
+            return new CommandResult(MESSAGE_FAILURE, false, false);
+        }
     }
 
     @Override
