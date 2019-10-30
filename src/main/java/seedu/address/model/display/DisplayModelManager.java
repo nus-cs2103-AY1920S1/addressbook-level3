@@ -36,12 +36,15 @@ import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.person.schedule.Timeslot;
 import seedu.address.model.person.schedule.Venue;
 
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 /**
  * Handler for all display models.
  */
 public class DisplayModelManager {
 
     private static final int DAYS_OF_A_WEEK = 7;
+    private static final int FREE_TIMESLOT_TRHESHOLD = 15;
 
     private GmapsModelManager gmapsModelManager;
 
@@ -359,26 +362,29 @@ public class DisplayModelManager {
                 } else {
                     if (newFreeStartTime != null) {
 
-                        ArrayList<String> temp = new ArrayList<>(lastVenues);
-                        for (int arr = 0; arr < temp.size(); arr++) {
-                            if (temp.get(arr) == null) {
-                                temp.remove(arr);
-                                arr--;
+                        if(newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
+                            ArrayList<String> temp = new ArrayList<>(lastVenues);
+                            for (int arr = 0; arr < temp.size(); arr++) {
+                                if (temp.get(arr) == null) {
+                                    temp.remove(arr);
+                                    arr--;
+                                }
                             }
+
+                            ClosestCommonLocationData closestCommonLocationData =
+                                    gmapsModelManager.closestLocationData(temp);
+
+                            freeSchedule.get(DayOfWeek.of(i))
+                                    .add(new FreeTimeslot(
+                                            idCounter,
+                                            new ArrayList<>(lastVenues),
+                                            closestCommonLocationData,
+                                            newFreeStartTime,
+                                            currentTime));
+
+                            idCounter++;
                         }
 
-                        ClosestCommonLocationData closestCommonLocationData =
-                                gmapsModelManager.closestLocationData(temp);
-
-                        freeSchedule.get(DayOfWeek.of(i))
-                                .add(new FreeTimeslot(
-                                        idCounter,
-                                        new ArrayList<>(lastVenues),
-                                        closestCommonLocationData,
-                                        newFreeStartTime,
-                                        currentTime));
-
-                        idCounter++;
                         newFreeStartTime = null;
                     }
                     lastVenues = new ArrayList<>(currentLastVenues);
@@ -388,24 +394,27 @@ public class DisplayModelManager {
                 if (currentTime.equals(endTime)) {
                     if (!isClash) {
 
-                        ArrayList<String> temp = new ArrayList<>(lastVenues);
-                        for (int arr = 0; arr < temp.size(); arr++) {
-                            if (temp.get(arr) == null) {
-                                temp.remove(arr);
-                                arr--;
+                        if(newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
+                            ArrayList<String> temp = new ArrayList<>(lastVenues);
+                            for (int arr = 0; arr < temp.size(); arr++) {
+                                if (temp.get(arr) == null) {
+                                    temp.remove(arr);
+                                    arr--;
+                                }
                             }
-                        }
-                        ClosestCommonLocationData closestCommonLocationData =
-                                gmapsModelManager.closestLocationData(temp);
+                            ClosestCommonLocationData closestCommonLocationData =
+                                    gmapsModelManager.closestLocationData(temp);
 
-                        freeSchedule.get(DayOfWeek.of(i))
-                                .add(new FreeTimeslot(
-                                        idCounter,
-                                        new ArrayList<>(lastVenues),
-                                        closestCommonLocationData,
-                                        newFreeStartTime,
-                                        currentTime));
-                        idCounter++;
+                            freeSchedule.get(DayOfWeek.of(i))
+                                    .add(new FreeTimeslot(
+                                            idCounter,
+                                            new ArrayList<>(lastVenues),
+                                            closestCommonLocationData,
+                                            newFreeStartTime,
+                                            currentTime));
+                            idCounter++;
+                        }
+
                     }
                     break;
                 }
