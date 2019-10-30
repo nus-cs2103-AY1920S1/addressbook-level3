@@ -841,15 +841,15 @@ Different user displays. There are three tabs: dashboard, online view
 ****
 [#imgId-dashboard]
 .Mark's Dashboard Tab View
-image::ui-screenshots/uimockup1_dashboard.png[@Dashboard Tab View, 600, 400]
+image::ui-screenshots/Ui_DashboardTab.png[@Dashboard Tab View, 600, 400]
 
 [#imgId-online]
 .Mark's Online Tab View
-image::ui-screenshots/uimockup1_online.png[@Online Tab View, 600, 400]
+image::ui-screenshots/Ui_OnlineTab.png[@Online Tab View, 600, 400]
 
 [#imgId-offline]
 .Mark's Offline Tab View
-image::ui-screenshots/uimockup1_offline.png[@Offline Tab View, 600, 400]
+image::ui-screenshots/Ui_OfflineTab.png[@Offline Tab View, 600, 400]
 ****
 
 _{ more coming soon }_
