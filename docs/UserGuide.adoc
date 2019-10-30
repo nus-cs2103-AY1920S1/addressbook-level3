@@ -307,6 +307,7 @@ There is no need to save data manually. It is also possible to save
 Mark data with a different file name using the command `*export*`
 (see <<exporting-bookmarks>>).
 
+// tag::exportcommand[]
 [[exporting-bookmarks]]
 === Exporting bookmarks: *`export`*
 
@@ -331,6 +332,7 @@ Example:
 Exports all bookmark manager data to a file named `mark/data/bookmarks/myBookmarks.json`
 (assuming `mark.jar` is stored in the folder `mark`). The content of `myBookmarks.json`
 is identical to the current content of `mark.json`.
+// end::exportcommand[]
 
 === Importing bookmarks: *`import`*
 
@@ -358,6 +360,7 @@ Example:
 Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
 file `mark/data/bookmarks/myBookmarks.json`.
 
+// tag::autotagcommand[]
 [[Autotag-Command]]
 === Creating an automatic tag: *`autotag`*
 
@@ -411,6 +414,7 @@ containing `luminus.nus.edu.sg` that are not in the folder `Miscellaneous`.
  Creates an autotag that adds the tag `Quiz` to all bookmarks that are either in
  the folder `NUS` or in the folder `Module`, and that do not contain any of the
 keywords `github` or `stackoverflow` in their URLs.
+// end::autotagcommand[]
 
 === Deleting automatic tags: *`autotag-delete`*
 
