@@ -199,15 +199,5 @@ public class InventoryListTest {
         assertEquals(0, list.size());
     }
 
-
-    /*@Test
-    public void unmodifiableList_exception() {
-        transactionList.setAsUnmodifiable();
-        assertThrows(UnsupportedOperationException.class, () -> transactionList.delete(1));
-        assertThrows(UnsupportedOperationException.class, () ->
-                transactionList.set(1, TypicalTransactions.ELLE_TRANSACTION_6));
-        assertThrows(UnsupportedOperationException.class, () ->
-                transactionList.add(TypicalTransactions.FIONA_TRANSACTION_8));
-    }*/
 }
 
