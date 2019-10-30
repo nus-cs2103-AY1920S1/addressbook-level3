@@ -99,7 +99,7 @@ public class MassApprove extends Approve {
                                         hasModule = true;
                                     }
                                 }
-                                if (hasModule == false) {
+                                if (!hasModule) {
                                     throw new CommandException(MESSAGE_MISSING_MODULE);
                                 }
 

@@ -113,7 +113,7 @@ public class ApproveCommand extends Approve {
                         hasModule = true;
                     }
                 }
-                if (hasModule == false) {
+                if (!hasModule) {
                     throw new CommandException(MESSAGE_MISSING_MODULE);
                 }
 
@@ -165,7 +165,6 @@ public class ApproveCommand extends Approve {
                 model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
                 feedback = MESSAGE_REMOVE_MOD_SUCCESS;
                 target = studentToEditId;
-                change = editedModule.getModuleCode();
 
             } else {
 
@@ -250,14 +249,14 @@ public class ApproveCommand extends Approve {
             model.setAppeal(appealToApprove, approvedAppeal);
             model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
             return new CommandResult(
-                    generateSuccessMessage(approvedAppeal, feedback, target, change));
+                    generateSuccessMessage(approvedAppeal, feedback, target));
         } else {
             return new CommandResult(MESSAGE_APPEAL_ALREADY_APPROVED);
         }
 
     }
 
-    private String generateSuccessMessage(Appeal appealToApprove, String feedback, String target, String change) {
+    private String generateSuccessMessage(Appeal appealToApprove, String feedback, String target) {
         return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, target);
     }
 
