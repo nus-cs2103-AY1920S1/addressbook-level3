@@ -16,7 +16,7 @@ import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCom
 import static seedu.address.cashier.ui.CashierMessages.INDEX_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INVALID_EDITCOMMAND_FORMAT;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
-import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_CASHIER;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_TO_EDIT_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_POSITIVE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -102,15 +102,15 @@ public class EditCommandParserTest {
 
         // invalid description of non-existing item
         assertCommandParserFailure(parser, INVALID_DESCRIPTION_1 + DESC_QUANTITY_1,
-                NO_SUCH_ITEM_CASHIER, model, personModel);
+                NO_SUCH_ITEM_TO_EDIT_CASHIER, model, personModel);
 
         // invalid description of item not available for sale
         assertCommandParserFailure(parser, INVALID_DESCRIPTION_2 + DESC_QUANTITY_1,
-                NO_SUCH_ITEM_CASHIER, model, personModel);
+                NO_SUCH_ITEM_TO_EDIT_CASHIER, model, personModel);
 
         //invalid quantity and description
         assertCommandParserFailure(parser, INVALID_DESCRIPTION_1 + INVALID_QUANTITY_1,
-                NO_SUCH_ITEM_CASHIER, model, personModel);
+                NO_SUCH_ITEM_TO_EDIT_CASHIER, model, personModel);
 
         //invalid quantity and index
         assertCommandParserFailure(parser, INVALID_INDEX_1 + INVALID_QUANTITY_1,

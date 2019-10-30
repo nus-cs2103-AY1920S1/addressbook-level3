@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
-import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
+import seedu.address.inventory.util.InventoryList;
 
 /**
  * Represents a Cashier tab's Model stub.
@@ -48,7 +48,6 @@ public class InventoryModelStubAcceptingItemAdded extends CashierModelStub {
     public InventoryList getInventoryList() {
         return new InventoryList(itemsAdded);
     }
-
 }
 
 

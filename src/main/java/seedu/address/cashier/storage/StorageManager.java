@@ -1,36 +1,58 @@
 package seedu.address.cashier.storage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.util.InventoryList;
+import seedu.address.inventory.logic.Logic;
 import seedu.address.inventory.model.Item;
-import seedu.address.person.model.person.Person;
+
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
+
 
 /**
  * Manages storage of Inventory List and Transaction List data in local storage.
  */
 public class StorageManager implements Storage {
 
-    private final File iFile;
+    /*private final File iFile;
     private final File tFile;
-    private final seedu.address.person.model.Model personModel;
+    private final seedu.address.person.model.Model personModel;*/
 
-    public StorageManager(File iFile, File tFile, seedu.address.person.model.Model personModel) {
+    private Logic inventoryLogic;
+    private seedu.address.transaction.logic.Logic transactionLogic;
+    //private InventoryList inventoryList;
+    //private TransactionList transactionList;
+
+    public StorageManager(Logic inventoryLogic, seedu.address.transaction.logic.Logic transactionLogic)
+            throws Exception {
+        this.inventoryLogic = inventoryLogic;
+        this.transactionLogic = transactionLogic;
+    }
+
+    /*public StorageManager(File iFile, File tFile, seedu.address.person.model.Model personModel) {
         this.iFile = iFile;
         this.tFile = tFile;
         this.personModel = personModel;
-    }
+    }*/
 
     public InventoryList getInventoryList() throws Exception {
-        ArrayList<Item> itemArrayList = new ArrayList<>();
+        ArrayList<Item> list = inventoryLogic.getInventoryListInArrayList();
+        return new InventoryList(list);
+
+        /*seedu.address.inventory.util.InventoryList iList = inventoryLogic.getInventoryList();
+        System.out.println("up: " + iList.size());
+        System.out.println("inside list 1");
+        //seedu.address.inventory.util.InventoryList iList = inventoryLogic.getInventoryList();
+        System.out.println(inventoryLogic.getInventoryListInArrayList().size());
+        ArrayList<Item> arr = iList.getInventoryListInArrayList();
+        this.inventoryList = new InventoryList(arr);
+        //InventoryList inventoryList = new InventoryList(list);
+        return inventoryList;*/
+
+
+
+        /*ArrayList<Item> itemArrayList = new ArrayList<>();
         iFile.getAbsoluteFile().getParentFile().mkdirs();
         iFile.createNewFile();
         BufferedReader bfr = new BufferedReader(new FileReader(iFile));
@@ -39,15 +61,28 @@ public class StorageManager implements Storage {
             Item i = this.readInInventoryFileLine(line);
             itemArrayList.add(i);
         }
-        return new InventoryList(itemArrayList);
+        return new InventoryList(itemArrayList);*/
     }
 
+
+    /*@Override
+    public InventoryList getInventoryList(seedu.address.inventory.util.InventoryList inventoryList) {
+
+        ArrayList<Item> list = inventoryList.getInventoryListInArrayList();
+        System.out.println("iniside storage: " + list.size());
+        this.inventoryList = new InventoryList(list);
+        System.out.println("size:   " + inventoryList.size());
+        return this.inventoryList;
+    } */
+
+
+    //return inventoryList;
     /**
      * Reads in a single text file line and parses it to create the {@code Item} object.
      * @param line each line of text in the data file
      * @return the item created.
      */
-    public Item readInInventoryFileLine(String line) {
+    /*public Item readInInventoryFileLine(String line) {
         String[] stringArr = line.split(" [|] ");
         Item i = null;
         if (stringArr.length == 5) {
@@ -59,41 +94,40 @@ public class StorageManager implements Storage {
                     Integer.parseInt(stringArr[0]));
         }
         return i;
-    }
+    }*/
 
     /**
      * Writes the inventory list to the data file.
      * @param inventoryList the list to be written to file
-     * @throws IOException if the input is invalid
-     * @throws NoSuchIndexException if the index input is invalid
+     * @throws Exception if the input is invalid
      */
-    public void writeToInventoryFile(InventoryList inventoryList) throws IOException, NoSuchIndexException {
-        FileWriter fw = new FileWriter(this.iFile);
-        String textFileMsg = "";
-        for (int i = 0; i < inventoryList.size(); i++) {
-            if (i == 0) {
-                textFileMsg = textFileMsg + (i + 1) + inventoryList.getItemByIndex(i).toWriteIntoFile();
-            } else {
-                textFileMsg = textFileMsg + System.lineSeparator() + (i + 1)
-                        + inventoryList.getItemByIndex(i).toWriteIntoFile();
-            }
-        }
-        fw.write(textFileMsg);
-        fw.close();
+    public void writeToInventoryFile(InventoryList inventoryList) throws Exception {
+        ArrayList<Item> list = inventoryList.getiArrayList();
+        seedu.address.inventory.util.InventoryList inventoryList1 =
+                new seedu.address.inventory.util.InventoryList(list);
+        System.out.println("inside writing");
+        inventoryLogic.resetAndWriteIntoInventoryFile(inventoryList1);
     }
 
     public TransactionList getTransactionList() throws Exception {
-        ArrayList<Transaction> transactionArrayList = new ArrayList<>();
-        tFile.getAbsoluteFile().getParentFile().mkdirs();
-        tFile.createNewFile();
-        BufferedReader bfr = new BufferedReader(new FileReader(tFile));
-        String line = null;
-        while ((line = bfr.readLine()) != null) {
-            Transaction t = this.readInTransactionFileLine(line, personModel);
-            transactionArrayList.add(t);
-        }
-        return new TransactionList(transactionArrayList);
+        return transactionLogic.getTransactionList();
     }
+    /*ArrayList<Transaction> transactionArrayList = new ArrayList<>();
+    tFile.getAbsoluteFile().getParentFile().mkdirs();
+    tFile.createNewFile();
+    BufferedReader bfr = new BufferedReader(new FileReader(tFile));
+    String line = null;
+    while ((line = bfr.readLine()) != null) {
+        Transaction t = this.readInTransactionFileLine(line, personModel);
+        transactionArrayList.add(t);
+    }
+    return new TransactionList(transactionArrayList);*/
+
+    /*
+    public TransactionList getTransactionList(TransactionList list) throws Exception {
+        return list;
+    }*/
+
 
     /**
      * Reads in a single text file line and parses it to create the {@code Transaction} object.
@@ -101,7 +135,7 @@ public class StorageManager implements Storage {
      * @param personModel the model used to find person object
      * @return the transaction created.
      */
-    public Transaction readInTransactionFileLine(String line, seedu.address.person.model.Model personModel) {
+    /*public Transaction readInTransactionFileLine(String line, seedu.address.person.model.Model personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);
@@ -113,7 +147,7 @@ public class StorageManager implements Storage {
 
     private static boolean isReimbursed(String num) {
         return num.equals("1") ? true : false;
-    }
+    }*/
 
     /**
      * Appends the specified transaction to the data file.
@@ -121,17 +155,19 @@ public class StorageManager implements Storage {
      * @throws Exception if the input is invalid
      */
     public void appendToTransaction(Transaction transaction) throws Exception {
-        FileWriter fw = new FileWriter(this.tFile, true);
-        TransactionList transactionList = getTransactionList();
-        String textFileMsg = "";
+        transactionLogic.appendToTransactionFile(transaction);
+    }
+    /*FileWriter fw = new FileWriter(this.tFile, true);
+    TransactionList transactionList = getTransactionList();
+    String textFileMsg = "";
         if (transactionList.size() == 0) {
-            textFileMsg = (transactionList.size() + 1) + ". " + transaction.toWriteIntoFile();
-        } else {
-            textFileMsg = System.lineSeparator() + (transactionList.size() + 1) + ". "
-                    + transaction.toWriteIntoFile();
-        }
+        textFileMsg = (transactionList.size() + 1) + ". " + transaction.toWriteIntoFile();
+    } else {
+        textFileMsg = System.lineSeparator() + (transactionList.size() + 1) + ". "
+                + transaction.toWriteIntoFile();
+    }
         fw.write(textFileMsg);
         fw.close();
-    }
+    }*/
 
 }
