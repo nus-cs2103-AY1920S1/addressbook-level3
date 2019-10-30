@@ -7,6 +7,8 @@ import java.util.Comparator;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -17,6 +19,10 @@ import seedu.address.logic.commands.allocate.DeallocateCommand;
 import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
+import seedu.address.ui.ErrorWindow;
+import seedu.address.ui.FetchEventWindow;
+import seedu.address.ui.MainWindow;
+import seedu.address.ui.UiPart;
 
 
 /**
@@ -36,6 +42,8 @@ public class EmployeeCard1 extends UiPart<Region> {
      */
 
     public final Employee employee;
+    private MainWindow mainWindow;
+    private Integer index;
     private ErrorWindow errorWindow;
 
     @FXML
@@ -52,10 +60,19 @@ public class EmployeeCard1 extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private ImageView imgBox;
 
     public EmployeeCard1(Employee employee, int displayedIndex) {
         super(FXML);
         this.employee = employee;
+        if (employee.getEmployeeGender().gender.equals("male")) {
+            Image image = new Image("/images/maleEmployee.png");
+            imgBox.setImage(image);
+        } else {
+            Image image = new Image("/images/femaleEmployee.png");
+            imgBox.setImage(image);
+        }
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName);
         phone.setText("Totally Paid : $" + employee.getEmployeePay().value);
@@ -72,16 +89,35 @@ public class EmployeeCard1 extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
         phone.setText("Totally Paid : $" + employee.getEmployeePay().value);
-        address.setText("Total Salary $: " + employee.getEmployeeTotalsalary().value);
-        email.setText("Pending to Pay $: " + employee.getEmployeePendingPay().value);
+        address.setText("Total Salary : $" + employee.getEmployeeTotalsalary().value);
+        email.setText("Pending to Pay : $" + employee.getEmployeePendingPay().value);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+    }
+
+    public EmployeeCard1(Employee employee, int displayedIndex, MainWindow mainWindow) {
+        this(employee, displayedIndex);
+        this.mainWindow = mainWindow;
+        this.index = displayedIndex - 1;
+
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        mainWindow.handleEmployeeFetch(index);
+                    }
+                }
+            }
+        };
+        cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
 
     public EmployeeCard1(Employee employee, int displayedIndex, Logic logic, Event event, int eventOneBasedIndex,
-                         FetchWindow fetchWindow, boolean isAllocate) {
+                        FetchEventWindow fetchWindow, boolean isAllocate) {
         this(employee, displayedIndex, FETCH_WINDOW_FXML);
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -112,7 +148,6 @@ public class EmployeeCard1 extends UiPart<Region> {
         cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -121,12 +156,12 @@ public class EmployeeCard1 extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EmployeeCard1)) {
+        if (!(other instanceof seedu.address.ui.EmployeeCard)) {
             return false;
         }
 
         // state check
-        EmployeeCard1 card = (EmployeeCard1) other;
+        seedu.address.ui.EmployeeCard1 card = (seedu.address.ui.EmployeeCard1) other;
         return id.getText().equals(card.id.getText())
                 && employee.equals(card.employee);
     }

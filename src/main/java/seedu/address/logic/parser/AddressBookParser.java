@@ -135,9 +135,6 @@ public class AddressBookParser {
         case FindEventCommand.COMMAND_WORD:
             return new FindEventCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
         case ListEmployeeCommand.COMMAND_WORD:
             return new ListEmployeeCommand();
 
