@@ -34,7 +34,7 @@
                         <TextFlow textAlignment="CENTER" GridPane.columnIndex="2">
                             <children>
                                 <Label fx:id="budgetStart" text="\$start" />
-                                <Label fx:id="separator" text=" - " />
+                                <Label fx:id="separator" text=" to " />
                                 <Label fx:id="budgetEnd" text="\$end" />
                             </children>
                         </TextFlow>
