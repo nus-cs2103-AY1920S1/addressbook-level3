@@ -347,6 +347,21 @@ public class AddCommandTest {
         public void unregisterBorrower(Borrower toUnregister) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commitCommand(ReversibleCommand command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
