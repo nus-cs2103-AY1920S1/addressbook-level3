@@ -73,7 +73,9 @@ public class ClearEventCommand extends Command<Model> {
         might potentially lose alot of data if he were to clear a large amount of data.
 
         Maybe one other consideration to make the user confirm whether he really wants to clear all the data in
-        the event list that he has painstakingly inserted and made
+        the event list that he has painstakingly inserted and made. This will ensure that there is no accidental
+        deletion of all the events also which can turn out to be quite disastrous for the user since he does
+        not want his data to be erased but in the process done so because of a happy little accident. ~Bob Ross
 
         With the clear all function maybe there could also be a warning to tell the user that they are wiping
         out all of their information in the itinerary list and that they should be careful whether they would wish
