@@ -25,9 +25,15 @@ public class DiaryModel {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public DiaryModel() {
-        logger.fine("Initializing diarybook");
+        logger.fine("Initializing empty diarybook");
         this.diaryBook = new DiaryBook();
         filteredDiaryBook = new FilteredList<>(this.diaryBook.getDiaryEntryList());
+    }
+
+    public DiaryModel(DiaryBook input) {
+        logger.fine("Initializing diarybook from stored var");
+        this.diaryBook = input;
+        filteredDiaryBook = new FilteredList<>(input.getDiaryEntryList());
     }
 
     /**
@@ -69,6 +75,10 @@ public class DiaryModel {
     public void updateFilteredDiaryList(Predicate<DiaryEntry> predicate) {
         requireNonNull(predicate);
         filteredDiaryBook.setPredicate(predicate);
+    }
+
+    public DiaryBook getDiaryBook() {
+        return  this.diaryBook;
     }
 
     @Override
