@@ -23,6 +23,10 @@ import seedu.address.model.note.NoteFragment;
 import seedu.address.model.note.Title;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Contains utility methods used for parsing content strings in the Note classes. Parsed content is then used to
+ * create NoteFragment objects, if necessary.
+ */
 public class NoteFragmentFeatureUtil {
     /**
      * Parses a {@code Note note} into a {@code List<NoteFragment>}.

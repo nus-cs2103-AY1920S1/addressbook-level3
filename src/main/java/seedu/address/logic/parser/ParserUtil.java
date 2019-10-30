@@ -1,19 +1,10 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INCORRECT_NOTE_FRAGMENT_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_CONTENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_TAG;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -21,8 +12,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Question;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.Note;
-import seedu.address.model.note.NoteFragment;
 import seedu.address.model.note.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;

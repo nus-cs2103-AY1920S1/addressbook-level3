@@ -386,7 +386,8 @@ public class ModelManager implements Model {
             for (Note noteFrag : n.getNoteFragments()) {
                 noteFragmentIndex++;
                 if (predicate.test(noteFrag)) {
-                    taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
+                    taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". "
+                            + noteFrag.toString());
                 }
             }
             noteFragmentIndex = 0;
