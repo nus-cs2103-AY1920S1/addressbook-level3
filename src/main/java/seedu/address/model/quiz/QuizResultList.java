@@ -26,13 +26,18 @@ public class QuizResultList implements Iterable<QuizResult> {
     private final ObservableList<QuizResult> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    /**
+     * Sets the internal quiz result list in the {@code QuizResultList}.
+     * @param replacement The quiz result list to set.
+     */
     public void setQuizResults(List<QuizResult> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement);
     }
 
     /**
-     * Adds a quiz result to the result list. The result must be different from all existing ones.
+     * Adds a quiz result to the result list.
+     * @param quizResult The quiz result to add.
      */
     public void add(QuizResult quizResult) {
         requireNonNull(quizResult);
@@ -40,15 +45,12 @@ public class QuizResultList implements Iterable<QuizResult> {
     }
 
     /**
-     * Returns true if the list contains a quiz result which equals with the given argument.
+     * Returns true if the list contains a quiz result which equals the given argument.
+     * @param toCheck The the {@code quizResult} to check against.
      */
     public boolean contains(QuizResult toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
-    }
-
-    public QuizResult get(int index) {
-        return internalList.get(index);
     }
 
     /**
@@ -59,9 +61,9 @@ public class QuizResultList implements Iterable<QuizResult> {
     }
 
     /**
-     * Returns a list of subjects that exists in the quizResults list.
+     * Returns a list of subjects that exists in the quiz result list.
      * The subjects will not be duplicated.
-     * @return A unique list of subejects.
+     * @return A unique list of subjects.
      */
     public ObservableList<Subject> getUniqueSubjectList() {
         List<Subject> subjectsList = internalList.stream()
@@ -72,7 +74,7 @@ public class QuizResultList implements Iterable<QuizResult> {
     }
 
     /**
-     * Returns a list of difficulties that exists in the quizResults list.
+     * Returns a list of difficulties that exists in the quiz result list.
      * The difficulties will not be duplicated.
      * @return A unique list of difficulties.
      */
@@ -85,7 +87,9 @@ public class QuizResultList implements Iterable<QuizResult> {
     }
 
     /**
-     * Returns a list with quizResults filtered by {@code quizResultFilter}.
+     * Returns a list with quiz results filtered by {@code quizResultFilter}.
+     * @param quizResultFilter The filter to be applied to the list.
+     * @return quizResults The filtered quiz results.
      */
     public ObservableList<QuizResult> filterQuizResult(QuizResultFilter quizResultFilter)
             throws EmptyQuizResultListException {
@@ -140,6 +144,11 @@ public class QuizResultList implements Iterable<QuizResult> {
         return quizResults;
     }
 
+    /**
+     * Gets all quiz results for a specified question.
+     * @param qns The question to get quiz results of.
+     * @return quizResults The quiz results for the question.
+     */
     public ObservableList<QuizResult> getQnsReport(Question qns) {
         List<QuizResult> qnsReport = internalList;
         qnsReport = internalList
