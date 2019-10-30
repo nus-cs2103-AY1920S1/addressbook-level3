@@ -13,9 +13,9 @@ public class StatsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
     public static final String MESSAGE_USAGE = "Displays the number of GOOD, HARD & EASY FlashCards";
 
-/**
- * Should return a CommandResult with the statistics
- */
+    /**
+     * Should return a CommandResult with the statistics
+     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
