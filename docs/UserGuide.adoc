@@ -96,6 +96,7 @@ image::help.png[width="300"]
 
 Help can be accessed from the menu bar by clicking on the `Help` button.
 
+// tag::flexibledateformats[]
 === Flexible date formats
 
 Whenever a particular command requires a `DATE` field, you can choose either of the following formats.
@@ -131,6 +132,7 @@ You do not need to specify which date format you would like to use as MoneyGoWhe
 [NOTE]
 MoneyGoWhere will also automatically check whether a given date is valid.
 Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019.
+// end::flexibledateformats[]
 
 === Adding a spending : `add`
 
