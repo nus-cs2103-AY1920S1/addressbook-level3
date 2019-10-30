@@ -73,8 +73,11 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
+
     public String getPane() {
         return this.pane;
     }
+
     public String getTheme() { return this.theme; }
+
 }

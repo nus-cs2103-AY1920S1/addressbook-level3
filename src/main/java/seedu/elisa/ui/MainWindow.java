@@ -259,6 +259,11 @@ public class MainWindow extends UiPart<Stage> {
         return reminderListPanel;
     }
 
+    /**
+     * Changes the theme
+     *
+     * @param theme
+     */
     private void changeTheme(String theme) {
         System.out.print(theme);
         System.out.print(scene.getStylesheets());

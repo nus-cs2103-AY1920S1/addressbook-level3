@@ -8,9 +8,10 @@ import seedu.elisa.model.ItemModel;
  */
 public class ThemeCommand extends Command {
 
-    private String theme;
     public static final String COMMAND_WORD = "theme";
     public static final String MESSAGE_SUCCESS = "Oh you don't like the color? Lets switch it up!";
+
+    private String theme;
 
     public ThemeCommand(String theme) {
         this.theme = theme;
