@@ -71,14 +71,19 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        logger.info("initialized userPrefs");
         WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getDataFilePath());
+        logger.info("initialized wordBankListStorage");
         WordBankStatisticsListStorage wbStatsStorage =
                 new JsonWordBankStatisticsListStorage(userPrefs.getDataFilePath());
+        logger.info("initialized wbStatsStorage");
         GlobalStatisticsStorage globalStatsStorage = new JsonGlobalStatisticsStorage(userPrefs.getDataFilePath());
+        logger.info("initialized globalStatsStorage");
         AppSettingsStorage appSettingsStorage = new JsonAppSettingsStorage(userPrefs.getAppSettingsFilePath());
+        logger.info("initialized appSettingsStorage");
         storage = new StorageManager(wordBankListStorage, userPrefsStorage,
                 wbStatsStorage, globalStatsStorage, appSettingsStorage);
-
+        logger.info("initialized Storage");
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
@@ -198,7 +203,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
-
+        logger.info("Successfully completed initPrefs method");
         return initializedPrefs;
     }
 

@@ -83,6 +83,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
         if (!internalList.remove(toRemove)) {
             throw new WordBankNotFoundException();
         }
+
     }
 
     public WordBank get(Index index) {

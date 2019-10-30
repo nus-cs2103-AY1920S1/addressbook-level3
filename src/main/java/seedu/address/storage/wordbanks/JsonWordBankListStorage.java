@@ -40,8 +40,19 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * @param filePath of storage. By default, it is at data folder.
      */
     public JsonWordBankListStorage(Path filePath) throws DataConversionException, IllegalValueException {
-        initDataByDefault(filePath);
-        initWordBankList();
+        logger.info("INSIDE JsonWordBankListStorageConstructor");
+        try {
+            initDataByDefault(filePath);
+        } catch (Exception e) {
+            logger.info("Filepath is: " + filePath);
+            logger.info(e.toString() + " initDataByDefault() method");
+        }
+
+        try {
+            initWordBankList();
+        } catch (Exception e) {
+            logger.info(e.toString() + " initWordBankList() method");
+        }
     }
 
     /**
@@ -81,10 +92,10 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         }
         try {
             if (!wordBanksFilePath.toFile().exists()) {
-                Files.createDirectory(wordBanksFilePath);
+                Files.createDirectories(wordBanksFilePath);
             }
             if (!wordBanksFilePath.toFile().exists()) {
-                Files.createDirectory(wordBanksFilePath);
+                Files.createDirectories(wordBanksFilePath);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,6 +144,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             }
         }
         this.readOnlyWordBankList = new WordBankList(wordBankList);
+        System.out.println(readOnlyWordBankList + "<------------------initWordBankList");
     }
 
     /**
