@@ -18,7 +18,6 @@ import seedu.address.overview.logic.commands.Command;
 import seedu.address.overview.logic.commands.CommandResult;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.storage.Storage;
-import seedu.address.overview.storage.StorageManager;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.util.OverallCommandResult;

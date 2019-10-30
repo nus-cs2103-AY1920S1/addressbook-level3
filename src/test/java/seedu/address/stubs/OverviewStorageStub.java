@@ -1,10 +1,13 @@
 package seedu.address.stubs;
 
+import java.io.IOException;
+
 import seedu.address.overview.model.Model;
 import seedu.address.overview.storage.Storage;
 
-import java.io.*;
-
+/**
+ * Stub to test OverviewLogic.
+ */
 public class OverviewStorageStub implements Storage {
     private double[] values;
 

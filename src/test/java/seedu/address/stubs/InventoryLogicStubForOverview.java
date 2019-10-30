@@ -4,6 +4,9 @@ import seedu.address.inventory.logic.Logic;
 import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.util.InventoryList;
 
+/**
+ * Stub to test Overview statistics functions.
+ */
 public class InventoryLogicStubForOverview implements Logic {
 
     private InventoryList inventoryList;

@@ -2,8 +2,16 @@ package seedu.address.overview.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.overview.ui.OverviewMessages.*;
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_NUMBER_FORMAT;
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_NOTIFY_BUDGET_SUCCESS;
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_BUDGET_SUCCESS;
 import static seedu.address.testutil.TypicalOverview.OVERVIEW_MODEL_WITH_DATA;
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +19,11 @@ import seedu.address.overview.logic.commands.CommandResult;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.model.ModelManager;
 import seedu.address.overview.storage.Storage;
-import seedu.address.stubs.*;
+import seedu.address.stubs.InventoryLogicStubForOverview;
+import seedu.address.stubs.OverviewStorageStub;
+import seedu.address.stubs.TransactionLogicStubForOverview;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
-
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LogicManagerTest {
 
