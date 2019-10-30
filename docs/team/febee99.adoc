@@ -117,7 +117,7 @@ include::../DeveloperGuide.adoc[tag=autosort]
 include::../DeveloperGuide.adoc[tag=recommendations]
 
 
-== PROJECT: PowerPointLabs
+//== PROJECT: PowerPointLabs
 
 '''
 
