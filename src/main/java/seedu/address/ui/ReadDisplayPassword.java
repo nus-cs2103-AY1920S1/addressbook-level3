@@ -11,6 +11,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
+import seedu.address.model.password.ExpiryMode;
 import seedu.address.model.password.Password;
 
 /**
@@ -32,6 +33,10 @@ public class ReadDisplayPassword extends UiPart<Region> {
     private TextArea website;
     @FXML
     private Label lastModified;
+    @FXML
+    private Label status;
+    @FXML
+    private Label statusLabel;
 
     public ReadDisplayPassword() {
         super(FXML);
@@ -55,5 +60,22 @@ public class ReadDisplayPassword extends UiPart<Region> {
         password.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        ExpiryMode exp = password.getExpiryMode();
+        switch (exp) {
+        case EXPIRED:
+            status.setText("WARNING! Password expired. Change your password");
+            break;
+        case EXPIRING:
+            status.setText("Password expiring soon.");
+            break;
+        case HEALTHY:
+            status.setVisible(false);
+            statusLabel.setVisible(false);
+            break;
+        default:
+            status.setText("Error");
+        }
+
     }
 }

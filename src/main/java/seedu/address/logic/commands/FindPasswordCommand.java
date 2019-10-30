@@ -7,14 +7,14 @@ import seedu.address.model.Model;
 import seedu.address.model.password.DescriptionContainsKeywordsPredicate;
 
 /**
- * Finds and lists all password in address book whose description contains any of the argument keywords.
+ * Finds and lists all password in password book whose description contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindPasswordCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all passwords whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all passwords whose description contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " Gmail";

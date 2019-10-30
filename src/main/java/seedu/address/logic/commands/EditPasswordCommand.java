@@ -98,7 +98,13 @@ public class EditPasswordCommand extends Command {
                 .getUsername().orElse(passwordToEdit.getUsername());
         PasswordValue updatedPasswordValue = editPasswordDescriptor
                 .getPasswordValue().orElse(passwordToEdit.getPasswordValue());
-        PasswordModifiedAt updatedPasswordModifiedAt = new PasswordModifiedAt(new Date());
+
+        PasswordModifiedAt updatedPasswordModifiedAt;
+        if (!updatedPasswordValue.equals(passwordToEdit.getPasswordValue())) {
+            updatedPasswordModifiedAt = new PasswordModifiedAt(new Date());
+        } else {
+            updatedPasswordModifiedAt = passwordToEdit.getPasswordModifiedAt();
+        }
         Website updatedWebsite = editPasswordDescriptor.getWebsite().orElse(passwordToEdit.getWebsite());
         Set<Tag> updatedTags = editPasswordDescriptor
                 .getTags().orElse(passwordToEdit.getTags());

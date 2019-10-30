@@ -46,6 +46,7 @@ public class ReadPasswordCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX);
         }
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
+        passwordToRead.updateExpiry();
         return CommandResult.builder(MESSAGE_SUCCESS)
                 .setObject(passwordToRead)
                 .setIndex(targetIndex)

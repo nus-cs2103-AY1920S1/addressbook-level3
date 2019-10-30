@@ -5,10 +5,10 @@ import java.util.Date;
 import seedu.address.model.util.DateUtil;
 
 /**
- * Represents a Password's last modified date and time in SecureIT.
+ * Represents a Password's password value last modified date and time in SecureIT.
  */
 public class PasswordModifiedAt {
-    public static final String MESSAGE_CONSTRAINTS = "LastCreated at should be in the format of dd/MM/yyyy HHmm";
+    public static final String MESSAGE_CONSTRAINTS = "LastModified at should be in the format of dd/MM/yyyy HHmm";
     public final Date value;
 
     /**

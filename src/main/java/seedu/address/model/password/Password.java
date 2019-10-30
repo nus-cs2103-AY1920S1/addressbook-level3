@@ -3,11 +3,13 @@ package seedu.address.model.password;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.DateUtil;
 
 /**
  * Represents a Password in the password book.
@@ -22,6 +24,8 @@ public class Password {
     private final PasswordValue passwordValue;
     private final PasswordModifiedAt passwordModifiedAt;
     private final Website website;
+    private final PasswordExpireAt passwordExpireAt;
+    private ExpiryMode expiryMode;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -36,6 +40,7 @@ public class Password {
         this.passwordModifiedAt = passwordModifiedAt;
         this.website = website;
         this.tags.addAll(tags);
+        passwordExpireAt = new PasswordExpireAt(DateUtil.findPasswordExpireAt(this.passwordModifiedAt.value));
     }
 
     public Description getDescription() {
@@ -57,6 +62,14 @@ public class Password {
     public Website getWebsite() {
         return website;
     }
+
+    public ExpiryMode getExpiryMode() {
+        return expiryMode;
+    }
+
+    public PasswordExpireAt getPasswordExpireAt() {
+        return passwordExpireAt;
+    }
     /**
      * Returns the non-encrypted PasswordValue
      * @return non-encrypted PasswordValue
@@ -71,6 +84,20 @@ public class Password {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Updates the expiry mode of the password
+     */
+    public void updateExpiry() {
+        long time = DateUtil.findDaysPasswordExpireAt(new Date(), passwordExpireAt.value);
+        if (time < 0) {
+            expiryMode = ExpiryMode.EXPIRED;
+        } else if (time < 90) {
+            expiryMode = ExpiryMode.EXPIRING;
+        } else {
+            expiryMode = ExpiryMode.HEALTHY;
+        }
     }
 
     /**
