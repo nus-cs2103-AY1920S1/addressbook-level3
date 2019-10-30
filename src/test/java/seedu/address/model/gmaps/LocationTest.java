@@ -34,8 +34,14 @@ class LocationTest {
     }
 
     @Test
+    void placeId() {
+        location.setPlaceId("ChIJMW2gnpUb2jERlUYTYSaawlc");
+        assertEquals("ChIJMW2gnpUb2jERlUYTYSaawlc", location.getPlaceId());
+    }
+
+    @Test
     void testToString() {
         location.setValidLocation("NUS_LTFOO");
-        assertEquals(location.toString(), "Location: LTFOO, Google recognised location: NUS_LTFOO");
+        assertEquals(location.toString(), "Location: LTFOO, Google recognised location: NUS_LTFOO Place ID: null");
     }
 }

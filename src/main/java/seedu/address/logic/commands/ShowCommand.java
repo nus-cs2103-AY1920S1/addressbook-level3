@@ -8,7 +8,7 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Name;
@@ -21,8 +21,8 @@ public class ShowCommand<T> extends Command {
 
     public static final String COMMAND_WORD = "show";
     public static final String MESSAGE_SUCCESS = "Showing: %1$s";
-    public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the address book!";
-    public static final String MESSAGE_GROUP_NOT_FOUND = "This group does not exists in the address book!";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in TimeBook!";
+    public static final String MESSAGE_GROUP_NOT_FOUND = "This group does not exists in the TimeBook!";
     public static final String MESSAGE_USAGE = "Show command takes in a person's or group's name as argument!";
 
     private final T name;
@@ -39,6 +39,11 @@ public class ShowCommand<T> extends Command {
         if (name instanceof Name) {
             ObservableList<Person> personList = model.getObservablePersonList();
             Optional<Person> person = Optional.empty();
+
+            if (name.equals(model.getUser().getName())) {
+                person = Optional.of(model.getUser());
+            }
+
             for (Person p : personList) {
                 if (p.getName().equals((Name) name)) {
                     person = Optional.of(p);
@@ -50,7 +55,11 @@ public class ShowCommand<T> extends Command {
                 throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
             }
 
-            model.updateDetailWindowDisplay((Name) name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
+            if (person.get().equals(model.getUser())) {
+                model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            } else {
+                model.updateScheduleWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
                     false);
         } else {
@@ -67,7 +76,7 @@ public class ShowCommand<T> extends Command {
                 throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
             }
 
-            model.updateDetailWindowDisplay((GroupName) name, LocalDateTime.now(), DetailWindowDisplayType.GROUP);
+            model.updateScheduleWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
             return new CommandResult(String.format(MESSAGE_SUCCESS, group.get()), false,
                     false);
         }

@@ -29,7 +29,7 @@ class ClosestLocationCommandTest {
         String expectedResult = "Closest location found: \nFirst closest location: LT17 "
                 + "| Average travelling distance/meters 0\n"
                 + "Second closest location: LT19 | Average travelling distance/meters 11\n"
-                + "Third closest location: AS4 | Average travelling distance/meters 224\n"
+                + "Third closest location: LT8 | Average travelling distance/meters 224\n"
                 + " location you entered: LT17 LT17 LT17 ";
         assertEquals(expectedResult, closestLocationCommand.execute(model).getFeedbackToUser());
     }

@@ -10,12 +10,12 @@ import java.util.HashMap;
 import seedu.address.model.GmapsModelManager;
 import seedu.address.model.TimeBook;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
-import seedu.address.model.display.detailwindow.FreeSchedule;
-import seedu.address.model.display.detailwindow.FreeTimeslot;
 import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.schedulewindow.FreeSchedule;
+import seedu.address.model.display.schedulewindow.FreeTimeslot;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -46,7 +46,7 @@ public class DisplayModelManager {
     private LocalTime startTime;
     private LocalTime endTime;
 
-    private DetailWindowDisplay detailWindowDisplay;
+    private ScheduleWindowDisplay scheduleWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
 
     public DisplayModelManager(GmapsModelManager gmapsModelManager) {
@@ -64,33 +64,36 @@ public class DisplayModelManager {
     /**
      * Updates the detail window display.
      *
-     * @param detailWindowDisplay
+     * @param scheduleWindowDisplay
      */
-    public void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay) {
-        this.detailWindowDisplay = detailWindowDisplay;
+    public void updateScheduleWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay) {
+        this.scheduleWindowDisplay = scheduleWindowDisplay;
     }
 
     /**
      * Updates with a schedule of a person.
      *
-     * @param name     of person's schedule to be updated
-     * @param time     start time of the schedule
-     * @param type     type of schedule
+     * @param name of person's schedule to be updated
+     * @param time start time of the schedule
+     * @param type type of schedule
      * @param timeBook data
      */
-    public void updateDetailWindowDisplay(Name name, LocalDateTime time,
-                                          DetailWindowDisplayType type,
+    public void updateScheduleWindowDisplay(Name name, LocalDateTime time,
+                                          ScheduleWindowDisplayType type,
                                           TimeBook timeBook) {
 
         try {
-            ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+            HashMap<Integer, ArrayList<PersonSchedule>> personMonthSchedules = new HashMap<>();
+            for (int i = 0; i < 4; i++) {
+                ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
 
-            PersonSchedule personSchedule = generatePersonSchedule(name.toString(), time,
-                    timeBook.getPersonList().findPerson(name), Role.emptyRole());
-            personSchedules.add(personSchedule);
-
-            DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(personSchedules, type);
-            updateDetailWindowDisplay(detailWindowDisplay);
+                PersonSchedule personSchedule = generatePersonSchedule(name.toString(), time.plusDays(i * 7),
+                        timeBook.getPersonList().findPerson(name), Role.emptyRole());
+                personSchedulesForWeek.add(personSchedule);
+                personMonthSchedules.put(i, personSchedulesForWeek);
+            }
+            ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personMonthSchedules, type);
+            updateScheduleWindowDisplay(scheduleWindowDisplay);
 
         } catch (PersonNotFoundException e) {
             e.printStackTrace();
@@ -100,34 +103,38 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of the user.
      *
-     * @param time     start time of the schedule
-     * @param type     type of schedule
+     * @param time start time of the schedule
+     * @param type type of schedule
      * @param timeBook data
      */
-    public void updateDetailWindowDisplay(LocalDateTime time, DetailWindowDisplayType type, TimeBook timeBook) {
+    public void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type, TimeBook timeBook) {
         User user = timeBook.getPersonList().getUser();
 
-        ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+        HashMap<Integer, ArrayList<PersonSchedule>> personSchedules = new HashMap<>();
+        for (int i = 0; i < 4; i++) {
+            ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
 
-        PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
-                time, user, Role.emptyRole());
-        personSchedules.add(personSchedule);
+            PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
+                    time.plusDays(i * 7), user, Role.emptyRole());
+            personSchedulesForWeek.add(personSchedule);
+            personSchedules.put(i, personSchedulesForWeek);
+        }
 
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(personSchedules, type);
-        updateDetailWindowDisplay(detailWindowDisplay);
+        ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
+        updateScheduleWindowDisplay(scheduleWindowDisplay);
     }
 
     /**
      * Update with a schedule of a group.
      *
      * @param groupName of the group
-     * @param time      start time of the schedule
-     * @param type      type of schedule
-     * @param timeBook  data
+     * @param time start time of the schedule
+     * @param type type of schedule
+     * @param timeBook data
      */
-    public void updateDetailWindowDisplay(GroupName groupName,
+    public void updateScheduleWindowDisplay(GroupName groupName,
                                           LocalDateTime time,
-                                          DetailWindowDisplayType type,
+                                          ScheduleWindowDisplayType type,
                                           TimeBook timeBook) {
 
         try {
@@ -138,27 +145,36 @@ public class DisplayModelManager {
 
             ArrayList<PersonId> personIds = timeBook.getPersonToGroupMappingList()
                     .findPersonsOfGroup(group.getGroupId());
-            ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+            HashMap<Integer, ArrayList<PersonSchedule>> combinedMonthsSchedules = new HashMap<>();
+            ArrayList<FreeSchedule> freeScheduleForMonth = new ArrayList<>();
+            for (int h = 0; h < 4; h++) {
+                ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
-            User user = timeBook.getPersonList().getUser();
-            Role userRole = Role.emptyRole();
+                User user = timeBook.getPersonList().getUser();
+                Role userRole = Role.emptyRole();
 
-            personSchedules.add(generatePersonSchedule(groupName.toString(), time, user, userRole));
+                //Add user schedule.
+                personSchedules.add(generatePersonSchedule(groupName.toString(), time.plusDays(h * 7), user, userRole));
 
-            for (int i = 0; i < personIds.size(); i++) {
-                Person person = timeBook.getPersonList().findPerson(personIds.get(i));
-                Role role = timeBook.getPersonToGroupMappingList().findRole(personIds.get(i), groupId);
-                if (role == null) {
-                    role = Role.emptyRole();
+                //Add other schedules.
+                for (int i = 0; i < personIds.size(); i++) {
+                    Person person = timeBook.getPersonList().findPerson(personIds.get(i));
+                    Role role = timeBook.getPersonToGroupMappingList().findRole(personIds.get(i), groupId);
+                    if (role == null) {
+                        role = Role.emptyRole();
+                    }
+                    PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(), time.plusDays(h * 7),
+                            person, role);
+                    personSchedules.add(personSchedule);
                 }
-                PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(), time, person, role);
-                personSchedules.add(personSchedule);
-            }
 
-            FreeSchedule freeSchedule = generateFreeSchedule(personSchedules);
-            DetailWindowDisplay detailWindowDisplay =
-                    new DetailWindowDisplay(personSchedules, freeSchedule, groupDisplay, type);
-            updateDetailWindowDisplay(detailWindowDisplay);
+                FreeSchedule freeSchedule = generateFreeSchedule(personSchedules);
+                combinedMonthsSchedules.put(h, personSchedules);
+                freeScheduleForMonth.add(freeSchedule);
+            }
+            ScheduleWindowDisplay scheduleWindowDisplay =
+                    new ScheduleWindowDisplay(combinedMonthsSchedules, freeScheduleForMonth, groupDisplay, type);
+            updateScheduleWindowDisplay(scheduleWindowDisplay);
 
         } catch (GroupNotFoundException | MappingNotFoundException e) {
             e.printStackTrace();
@@ -177,7 +193,7 @@ public class DisplayModelManager {
     /**
      * Updates the side panel display of type.
      *
-     * @param type     of side panel display to be updated
+     * @param type of side panel display to be updated
      * @param timeBook data
      */
     public void updateSidePanelDisplay(SidePanelDisplayType type, TimeBook timeBook) {
@@ -206,10 +222,10 @@ public class DisplayModelManager {
     /**
      * Getter method to retrieve detail window display.
      *
-     * @return DetailWindowDisplay
+     * @return ScheduleWindowDisplay
      */
-    public DetailWindowDisplay getDetailWindowDisplay() {
-        return detailWindowDisplay;
+    public ScheduleWindowDisplay getScheduleWindowDisplay() {
+        return scheduleWindowDisplay;
     }
 
     /**
@@ -225,9 +241,9 @@ public class DisplayModelManager {
      * Generates the PersonSchedule of a Person.
      *
      * @param scheduleName name of the schedule
-     * @param now          current time
-     * @param person       of the schedule
-     * @param role         role of the person
+     * @param now current time
+     * @param person of the schedule
+     * @param role role of the person
      * @return PersonSchedule
      */
     private PersonSchedule generatePersonSchedule(String scheduleName, LocalDateTime now, Person person, Role role) {

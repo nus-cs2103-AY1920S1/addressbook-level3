@@ -1,11 +1,10 @@
 package seedu.address.model.display.detailwindow;
 
-import java.nio.file.Path;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.websocket.Cache;
 
 /**
@@ -13,7 +12,6 @@ import seedu.address.websocket.Cache;
  */
 public class ClosestCommonLocationData {
     private boolean isOk = false;
-    private String imagePath = null;
     private String firstClosest;
     private String secondClosest;
     private String thirdClosest;
@@ -23,8 +21,11 @@ public class ClosestCommonLocationData {
     private ArrayList<String> invalidLocation;
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public String getImagePath() {
-        return imagePath;
+    public BufferedImage getImage() {
+        if (firstClosest.contains("NUS_")) {
+            logger.warning(firstClosest + " must not have NUS_ prefix");
+        }
+        return Cache.loadImage("NUS_" + firstClosest);
     }
 
     public String getFirstClosest() {
@@ -59,19 +60,6 @@ public class ClosestCommonLocationData {
         return isOk;
     }
 
-    public void setImagePath(String locationName) {
-        String tempPath = Cache.imagePath(locationName);
-        if (locationName.contains("NUS_")) {
-            if (FileUtil.isFileExists(Path.of(tempPath))) {
-                imagePath = tempPath;
-            } else {
-                logger.warning(locationName + " image at path " + tempPath + " could not be found");
-            }
-        } else {
-            logger.warning(locationName + " must have NUS_ prefix");
-        }
-    }
-
     public void setFirstClosest(String firstClosest) {
         this.firstClosest = firstClosest;
     }
@@ -102,5 +90,16 @@ public class ClosestCommonLocationData {
 
     public void setOk(boolean ok) {
         isOk = ok;
+    }
+
+    /**
+     * Method to give the String representation of ClosestCommonLocationData.
+     */
+    public String toString() {
+        String result = "";
+        result += firstClosest + ": " + firstAvg + "\n";
+        result += secondClosest + ": " + secondAvg + "\n";
+        result += secondClosest + ": " + thirdAvg + "\n";
+        return result;
     }
 }

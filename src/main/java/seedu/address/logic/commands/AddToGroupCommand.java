@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
@@ -74,11 +74,11 @@ public class AddToGroupCommand extends Command {
             model.addPersonToGroupMapping(mapping);
 
             // updates main window
-            model.updateDetailWindowDisplay(group.getGroupName(),
-                    LocalDateTime.now(), DetailWindowDisplayType.GROUP);
+            model.updateScheduleWindowDisplay(group.getGroupName(),
+                    LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
             // updates side panel
-            model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
+            model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, mapping.toString()));
 

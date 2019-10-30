@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 
 /**
@@ -17,17 +17,11 @@ public class SwitchTabCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        DetailWindowDisplay nextDetailDisplay = new DetailWindowDisplay();
+        ScheduleWindowDisplay nextDetailDisplay = new ScheduleWindowDisplay();
         if (model.getSidePanelDisplay() == null) {
-            model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
+            model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
         }
-        SidePanelDisplayType previousDisplay = model.getSidePanelDisplay().getSidePanelDisplayType();
-        if (previousDisplay.equals(SidePanelDisplayType.PERSONS)) {
-            model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
-        } else {
-            model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
-        }
-        model.updateDetailWindowDisplay(nextDetailDisplay);
+        model.updateScheduleWindowDisplay(nextDetailDisplay);
         return new CommandResult(MESSAGE_SUCCESS, false, false, false);
     }
 

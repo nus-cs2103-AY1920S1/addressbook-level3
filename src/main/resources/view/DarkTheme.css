@@ -40,16 +40,22 @@
     -fx-background-color: transparent;
     -fx-pref-height: 50;
     -fx-pref-width: 153;
-    -fx-border-width: 4;
-    -fx-border-color: transparent;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 4;
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: derive(#393E46, 50%);
+    -fx-border-color: derive(#393E46, 50%);
 }
 
 .tab-pane .tab:selected {
-    -fx-border-width: 4;
-    -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: #FFFFFF;
+    -fx-background-color: #393E46;
+    -fx-border-color: #393E46;
 }
 
 .tab-pane .tab-label {
@@ -64,11 +70,13 @@
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #393E46;
+    -fx-border-width: 4;
 }
 
 .tab-pane *.tab-header-background {
     -fx-background-color: transparent;
-    -fx-effect: innershadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 0);
 }
 
 .table-view {
@@ -347,6 +355,17 @@
     -fx-padding: 8 1 8 1;
 }
 
+#calendar {
+    -fx-background-color: transparent;
+}
+
+#calendarContainer {
+    -fx-background-color: linear-gradient(to top, #222831, #312228);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: lightblue;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -357,6 +376,10 @@
     -fx-opacity: 0.85;
     -fx-border-width: 2;
     -fx-background-radius: 5;
+}
+
+#colouredTimeslot:hover {
+    -fx-opacity: 0.65;
 }
 
 #commandTypeLabel {
@@ -375,6 +398,28 @@
     -fx-text-fill: white;
 }
 
+#dateHeader {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 25;
+}
+
+#dateNumber {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+}
+
+#dateNumberSelected {
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-style: hidden hidden solid hidden;
+}
+
+#dateNumberSelected .label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+}
+
 #dayLabelContainer {
     -fx-background-color: #222831;
     -fx-border-width: 2;
@@ -386,18 +431,37 @@
 }
 
 #defaultStartViewContainer {
-    -fx-background-color: #393E46;
+    -fx-background-color: linear-gradient(to top, #393E46, #3b3946);
+}
+
+#defaultStartViewContainer #defaultTitle {
+    -fx-font-size: 35;
+    -fx-font-family: "Segoe UI";
+}
+
+#defaultStartViewContainer .label {
+    -fx-text-fill: white;
 }
 
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#freeTimeslot{
+#freeTimeslot #freeTimeslotBlock {
     -fx-background-radius: 0 !important;
     -fx-border-width: 0 !important;
     -fx-border-radius: 0 !important;
-    -fx-background-color: rgba(152,251,152, 0.5) !important;
+    -fx-background-color: rgba(152, 251, 152, 0.35) !important;
+}
+
+#freeTimeslot #freeTimeslotBlock:hover {
+    -fx-background-color: rgba(100, 200, 100, 0.35) !important;
+}
+
+#freeTimeslot .label {
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-alignment: center;
 }
 
 #groupDetailCard, #detailCard, #listHeaderContainer, #listMemberContainer {
@@ -407,6 +471,14 @@
 
 #groupDetailCard .label {
     -fx-text-fill: white;
+}
+
+#locationsViewContainer {
+    -fx-background-color: #222831;
+}
+
+#locationsViewContainer .label {
+    -fx-text-fill: #FFFFFF;
 }
 
 #listHeaders .label {
@@ -436,6 +508,10 @@
     -fx-font-size: 12;
 }
 
+#personDetailContainer {
+    -fx-background-color: #222831;
+}
+
 #personDetailContainer .label {
     -fx-text-fill: #FFFFFF;
 }
@@ -452,6 +528,10 @@
     -fx-background-radius: 0;
 }
 
+#rightBorder {
+    -fx-background-color: #222831;
+}
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -464,6 +544,11 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#timeslotContainer {
+    -fx-padding: 0 2 0 2;
+    -fx-border-width: 2;
 }
 
 #timeslotLabelContainer {
@@ -510,6 +595,27 @@
     -fx-background-color: #222831;
 }
 
+#scheduleDisplayContainer {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: lightblue !important;
+}
+
+#scheduleDisplayContainer .label {
+    -fx-font-family: Consolas;
+}
+
+#scheduleDisplayContainer #eventName {
+    -fx-font-size: 20;
+}
+
+#scheduleDisplayContainer #venue, #timing {
+    -fx-font-size: 14;
+    -fx-opacity: 0.67;
+}
+
 #suggestions-list {
     -fx-background-color: transparent;
 }
@@ -518,4 +624,26 @@
 }
 #suggestions-list .list-cell:empty {
     visibility: hidden;
+}
+
+#upcomingScheduleHeader {
+    -fx-font-family: Garamond;
+    -fx-font-size: 25;
+    -fx-border-width: 2;
+    -fx-border-color: lightblue;
+    -fx-border-style: hidden hidden dashed hidden;
+}
+
+#upcomingScheduleContainer {
+    -fx-background: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#upcomingScheduleWrapper {
+    -fx-border-color: lightblue;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: #222831;
 }

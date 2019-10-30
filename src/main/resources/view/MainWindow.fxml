@@ -15,8 +15,10 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="500" onCloseRequest="#handleExit">
+         title="TimeBook App" minWidth="450" minHeight="500" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/timebook_logo.png" />
   </icons>
@@ -37,14 +39,21 @@
           </Menu>
         </MenuBar>
 
-        <GridPane>
-          <StackPane fx:id="sideBarPlaceholder" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS"
-                       GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="2"/>
+        <GridPane VBox.vgrow="SOMETIMES">
+          <columnConstraints>
+            <ColumnConstraints percentWidth="25" />
+            <ColumnConstraints percentWidth="70" hgrow="SOMETIMES"/>
+              <ColumnConstraints percentWidth="5" hgrow="NEVER" />
+          </columnConstraints>
+          <StackPane fx:id="sideBarPlaceholder" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                     VBox.vgrow="ALWAYS" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS"/>
 
-          <StackPane fx:id="detailsViewPlaceholder" VBox.vgrow="ALWAYS"
-                      GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="3" GridPane.rowSpan="2"/>
+          <StackPane fx:id="detailsViewPlaceholder"
+                      GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+          <VBox fx:id="rightBorder" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
         </GridPane>
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+        <!-- <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" /> !-->
 
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"

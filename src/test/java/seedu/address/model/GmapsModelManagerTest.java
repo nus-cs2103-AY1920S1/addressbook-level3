@@ -31,7 +31,7 @@ class GmapsModelManagerTest {
         String result = gmapsModelManager.closestLocationDataString(locationNameList);
         String expectedResult = "\nFirst closest location: LT17 | Average travelling distance/meters 0\n"
                 + "Second closest location: LT19 | Average travelling distance/meters 11\n"
-                + "Third closest location: AS4 | Average travelling distance/meters 224\n";
+                + "Third closest location: LT8 | Average travelling distance/meters 224\n";
         assertEquals(expectedResult, result);
     }
 }
