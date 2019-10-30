@@ -34,7 +34,6 @@ public class StatisticManager implements Statistic {
                                                                                 StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
         //filter the list of orders to be only the orders within the starting and ending date.
-        //dummy data here to test, should be passing orderBook straight in
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
@@ -44,7 +43,7 @@ public class StatisticManager implements Statistic {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         // loops through the list of months, for each month, calculate the revenue for all orders in that month
-        // returns this in the format of XYChat.DaTa().
+        // returns this in the format of XYChat.Data().
         List<XYChart.Data<String, Number>> listOfMonthlyProfit =
                 listOfMonth.stream()
                         .map(month -> processProfitByMonth(listOfFilteredOrders, month))
@@ -59,7 +58,6 @@ public class StatisticManager implements Statistic {
                                                                      StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
         //filter the list of orders to be only the orders within the starting and ending date.
-        //dummy data here to test, should be passing orderBook straight in
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
@@ -85,7 +83,6 @@ public class StatisticManager implements Statistic {
                                                                                StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
         //filter the list of orders to be only the orders within the starting and ending date.
-        //dummy data here to test, should be passing orderBook straight in
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
@@ -163,7 +160,7 @@ public class StatisticManager implements Statistic {
         profitFormatter.setRoundingMode(RoundingMode.CEILING);
 
         double[] doubleProfitList =
-                StatisticManager.checkIfOrderIsPresent(orderList.stream())
+                StatisticManager.streamOfPresentOrders(orderList.stream())
                         .filter(currentOrder ->
                                DateUtil.extractMonth(currentOrder) == month.get(Calendar.MONTH)
                                         && DateUtil.extractYear(currentOrder) == month.get(Calendar.YEAR))
@@ -182,7 +179,7 @@ public class StatisticManager implements Statistic {
      */
     private static double calculateRevenueByMonth(List<Order> orderList, Calendar month) {
         double[] doubleRevenueList =
-                StatisticManager.checkIfOrderIsPresent(orderList.stream())
+                StatisticManager.streamOfPresentOrders(orderList.stream())
                 .filter(currentOrder ->
                         DateUtil.extractMonth(currentOrder) == month.get(2)
                         && DateUtil.extractYear(currentOrder) == month.get(1))
@@ -198,7 +195,7 @@ public class StatisticManager implements Statistic {
      */
     private static double calculateCostByMonth(List<Order> orderList, Calendar month) {
         double[] doubleCostList =
-                StatisticManager.checkIfOrderIsPresent(orderList.stream())
+                StatisticManager.streamOfPresentOrders(orderList.stream())
                         .filter(currentOrder ->
                                 DateUtil.extractMonth(currentOrder) == month.get(2)
                                         && DateUtil.extractYear(currentOrder) == month.get(1))
@@ -212,24 +209,24 @@ public class StatisticManager implements Statistic {
     /*-------------- helper methods ------------------*/
 
     private double getTotalRevenue(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
-        double[] completedOrderPriceArray = getDoubleOrderPriceArray(orderBook, statsPayload);
+        double[] completedOrderPriceArray = getOrderPriceArrayInDouble(orderBook, statsPayload);
         return StatUtils.sum(completedOrderPriceArray);
     }
 
     private double getTotalCost(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
-        double[] completedOrderPhoneCostList = getDoublePhoneCostArray(orderBook, statsPayload);
+        double[] completedOrderPhoneCostList = getPhoneCostArrayInDouble(orderBook, statsPayload);
         return StatUtils.sum(completedOrderPhoneCostList);
     }
 
     /*-----Methods that deal with returning double[]----*/
-    private static double[] getDoubleOrderPriceArray(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
+    private static double[] getOrderPriceArrayInDouble(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         List<Double> completedOrderPriceList = getFilteredOrderListByDate(orderBook, statsPayload)
                 .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
                 .collect(Collectors.toList());
         return completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
     }
 
-    private static double[] getDoublePhoneCostArray(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
+    private static double[] getPhoneCostArrayInDouble(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         ObservableList<Order> orderList = orderBook.getList();
         List<Double> completedOrderPhoneList = getFilteredOrderListByDate(orderBook, statsPayload)
                 .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
@@ -237,10 +234,8 @@ public class StatisticManager implements Statistic {
         return completedOrderPhoneList.stream().mapToDouble(d -> d).toArray();
     }
 
-
-
-    /*-----helper methods with regards to Stream----*/
-    private static Stream<Order> checkIfOrderIsPresent(Stream<Order> streamOrder) {
+    /*-----helper methods with regards to generating Stream----*/
+    private static Stream<Order> streamOfPresentOrders(Stream<Order> streamOrder) {
         return streamOrder.filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
                 .filter(currentOrder -> currentOrder.getSchedule().isPresent());
     }
@@ -248,7 +243,7 @@ public class StatisticManager implements Statistic {
     private static Stream<Order> getFilteredOrderListByDate(ReadOnlyDataBook<Order> orderBook,
                                                             StatsPayload statsPayload) {
         ObservableList<Order> orderList = orderBook.getList();
-        return StatisticManager.checkIfOrderIsPresent(orderList.stream())
+        return StatisticManager.streamOfPresentOrders(orderList.stream())
                 .filter(currentOrder -> statsPayload.getStartingDate().compareTo(
                         currentOrder.getSchedule().get().getCalendar()) <= 0)
                 .filter(currentOrder -> statsPayload.getEndingDate().compareTo(
