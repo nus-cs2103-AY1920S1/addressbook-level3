@@ -3,8 +3,8 @@ package seedu.deliverymans.logic.commands.restaurant;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TIME;
 
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
@@ -23,12 +23,12 @@ public class AddFoodCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PRICE + "PRICE "
-            + PREFIX_TIME + "TIME "
+            + PREFIX_QUANTITY + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Fried Chicken "
             + PREFIX_PRICE + "7.65 "
-            + PREFIX_TIME + "300 "
+            + PREFIX_QUANTITY + "43 "
             + PREFIX_TAG + "FastFood";
 
     public static final String MESSAGE_SUCCESS = "New food added: %1$s";
