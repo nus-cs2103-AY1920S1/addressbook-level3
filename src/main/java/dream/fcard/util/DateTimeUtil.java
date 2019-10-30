@@ -3,6 +3,8 @@ package dream.fcard.util;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.function.Predicate;
 
 /**
@@ -49,9 +51,15 @@ public class DateTimeUtil {
         return sb.toString();
     }
 
+    /**
+     * Returns the String representation of the given LocalDateTime object.
+     * Format: similar to "8/23/16 1:12 PM".
+     * @param localDateTime The LocalDateTime object to be represented as a String.
+     * @return The String representation of the given LocalDateTime object.
+     */
     public static String getStringFromDateTime(LocalDateTime localDateTime) {
-        // temporary
-        return localDateTime.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+        return localDateTime.format(formatter);
     }
 
     // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class
