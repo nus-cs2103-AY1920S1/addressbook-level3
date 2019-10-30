@@ -1,6 +1,5 @@
 package seedu.revision.ui;
 
-import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -8,19 +7,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-
 import javafx.stage.Stage;
 
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
-import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.util.SampleDataUtil;
 
 
@@ -32,10 +30,8 @@ public class MainWindow extends Window {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Model passedModel;
-
-    public MainWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
-        super(primaryStage, mainLogic, quizLogic);
+    public MainWindow(Stage primaryStage, MainLogic mainLogic) {
+        super(primaryStage, mainLogic);
     }
 
     /**
@@ -60,10 +56,9 @@ public class MainWindow extends Window {
      * @throws CommandException
      */
     @FXML
-    public void handleStart() throws CommandException {
-        logger.info(String.valueOf(this.mainLogic.getFilteredAnswerableList().size()));
+    public void handleStart(Mode mode) throws CommandException {
         if (this.mainLogic.getFilteredAnswerableList().size() > 0) {
-            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic(), getQuizLogic());
+            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic(), mode);
             startQuizWindow.show();
             startQuizWindow.fillInnerParts();
         } else {
@@ -71,6 +66,7 @@ public class MainWindow extends Window {
                     + "Quiz start aborted. Type 'list' to view your full list of questions again.");
         }
     }
+
     /**
      * Closes the application.
      */
@@ -87,8 +83,7 @@ public class MainWindow extends Window {
      * Opens the restore window.
      */
     @FXML
-    public void handleRestore(Model passedModel) throws IOException {
-        boolean exists;
+    public void handleRestore(Model passedModel) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning!");
         alert.setHeaderText(null);
@@ -125,7 +120,7 @@ public class MainWindow extends Window {
      * @see MainLogic#execute(String)
      */
     @Override
-    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
+    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = mainLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -138,18 +133,16 @@ public class MainWindow extends Window {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             if (commandResult.isStart()) {
-                handleStart();
+                handleStart(commandResult.getMode());
             }
 
             if (commandResult.isShowRestore()) {
-                passedModel = commandResult.getModel();
-                handleRestore(passedModel);
+                handleRestore(commandResult.getModel());
             }
 
             return commandResult;
-        } catch (CommandException | ParseException | IOException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

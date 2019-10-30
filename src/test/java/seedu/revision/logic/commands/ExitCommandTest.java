@@ -17,7 +17,8 @@ public class ExitCommandTest {
 
     @Test
     public void execute_exit_success() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        CommandResult expectedCommandResult = new CommandResult().withFeedBack(MESSAGE_EXIT_ACKNOWLEDGEMENT)
+                .withHelp(false).withExit(true).build();
         assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
     }
 }
