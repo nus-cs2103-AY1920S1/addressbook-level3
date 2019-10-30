@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.FineUtil;
 import seedu.address.model.book.Book;
 import seedu.address.model.borrower.Borrower;
 
@@ -27,6 +28,9 @@ public class BorrowerPanel extends UiPart<Region> {
     private Label id;
 
     @FXML
+    private Label fines;
+
+    @FXML
     private ListView<Book> bookListView;
 
     /** Constructor when not in Serve Mode */
@@ -34,6 +38,7 @@ public class BorrowerPanel extends UiPart<Region> {
         super(FXML);
         name.setText("");
         id.setText("");
+        fines.setText("");
     }
 
     /**
@@ -46,6 +51,7 @@ public class BorrowerPanel extends UiPart<Region> {
         requireNonNull(borrower);
         name.setText("Borrower: " + borrower.getName().toString());
         id.setText("ID: " + borrower.getBorrowerId().toString());
+        fines.setText("Fines: " + FineUtil.centsToDollarString(borrower.getOutstandingFineAmount()));
         bookListView.setItems(observableBookList);
         bookListView.setCellFactory(listView -> new BorrowerPanel.BookListViewCell());
     }
@@ -56,6 +62,7 @@ public class BorrowerPanel extends UiPart<Region> {
     public void reset() {
         name.setText("");
         id.setText("");
+        fines.setText("");
         ObservableList<Book> nullList = FXCollections.observableArrayList(new ArrayList<>());
         bookListView.setItems(nullList);
         bookListView.setCellFactory(listView -> new BorrowerPanel.BookListViewCell());
