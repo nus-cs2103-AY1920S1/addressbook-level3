@@ -401,8 +401,8 @@ public class EventManager {
 
     public Stream<Event> getEvents(EventQuery eventQuery) {
         Event placeHolderEvent = Event.getEventPlaceHolder(eventQuery);
-        Stream<Event> requiredVacations = vacationSchedule.getCollisions(eventQuery).stream();
-        Stream<Event> requiredEngagements = engagedSchedule.getCollisions(eventQuery).stream();
+        Stream<Event> requiredVacations = vacationSchedule.getCollisions(placeHolderEvent).stream();
+        Stream<Event> requiredEngagements = engagedSchedule.getCollisions(placeHolderEvent).stream();
         return Stream.concat(requiredVacations, requiredEngagements);
     }
 
