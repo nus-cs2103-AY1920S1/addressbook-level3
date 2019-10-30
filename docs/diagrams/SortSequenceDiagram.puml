@@ -4,8 +4,8 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":MatchCommandParser" as MatchCommandParser LOGIC_COLOR
-participant "s:MatchCommand" as MatchCommand LOGIC_COLOR
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant "s:SortCommand" as SortCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,56 +13,56 @@ box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
-[-> LogicManager : execute("sort/rate")
+[-> LogicManager : execute("sort rate")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("sort/rate")
+LogicManager -> AddressBookParser : parseCommand("sort rate")
 activate AddressBookParser
 
-create MatchCommandParser
-AddressBookParser -> MatchCommandParser
-activate MatchCommandParser
+create SortCommandParser
+AddressBookParser -> SortCommandParser
+activate SortCommandParser
 
-MatchCommandParser --> AddressBookParser
-deactivate MatchCommandParser
+SortCommandParser --> AddressBookParser
+deactivate SortCommandParser
 
-AddressBookParser -> MatchCommandParser : parse("rate")
-activate MatchCommandParser
+AddressBookParser -> SortCommandParser : parse("rate")
+activate SortCommandParser
 
-create MatchCommand
-MatchCommandParser -> MatchCommand
-activate MatchCommand
+create SortCommand
+SortCommandParser -> SortCommand
+activate SortCommand
 
-MatchCommand --> MatchCommandParser : s
-deactivate MatchCommand
+SortCommand --> SortCommandParser : s
+deactivate SortCommand
 
-MatchCommandParser --> AddressBookParser : s
-deactivate MatchCommandParser
+SortCommandParser --> AddressBookParser : s
+deactivate SortCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-MatchCommandParser -[hidden]-> AddressBookParser
-destroy MatchCommandParser
+SortCommandParser -[hidden]-> AddressBookParser
+destroy SortCommandParser
 
 AddressBookParser --> LogicManager : s
 deactivate AddressBookParser
 
-LogicManager -> MatchCommand : execute()
-activate MatchCommand
+LogicManager -> SortCommand : execute()
+activate SortCommand
 
-MatchCommand -> ModelManager : sortBySuccessRate()
+SortCommand -> ModelManager : sortBySuccessRate()
 activate ModelManager
 
-ModelManager --> MatchCommand
+ModelManager --> SortCommand
 deactivate ModelManager
 
 create CommandResult
-MatchCommand -> CommandResult
+SortCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> MatchCommand
+CommandResult --> SortCommand
 deactivate CommandResult
 
-MatchCommand --> LogicManager : result
-deactivate MatchCommand
+SortCommand --> LogicManager : result
+deactivate SortCommand
 
 [<--LogicManager
 deactivate LogicManager
