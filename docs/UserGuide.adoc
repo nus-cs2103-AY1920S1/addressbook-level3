@@ -111,12 +111,13 @@ Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookma
 
 Creates a new folder for organizing bookmarks into.
 
-Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER]`
+Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 
 ****
-* `FOLDER_NAME` must not already exist.
+* `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
+* `FOLDER_NAME` cannot be the name of an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
 * `PARENT_FOLDER` must be an existing folder.
-* If `PARENT_FOLDER` is not specified, `FOLDER_NAME` will have no parent and will be placed at the root.
+* If `PARENT_FOLDER` is not specified, `PARENT_FOLDER` will default to `ROOT`.
 ****
 
 Examples:
@@ -905,6 +906,7 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 * *Reminder*: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
 * *Reminder*: `*reminder delete* INDEX`
 * *Sort*: `*sort* [CRITERION]`
+* *Folder*: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 * *Expand*: `*expand* [LEVEL=1]`
 * *Collapse*: `*collapse* [LEVEL=1]`
 * *Tab*: `*tab* INDEX`
