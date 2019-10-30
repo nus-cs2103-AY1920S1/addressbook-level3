@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.problem.FindCommand;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;

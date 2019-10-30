@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_FORMAT;
@@ -14,6 +14,8 @@ import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.commons.util.JsonUtil;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.storage.JsonSerializableAlgoBase;

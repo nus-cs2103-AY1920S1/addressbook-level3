@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.task.AddTaskCommand;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;

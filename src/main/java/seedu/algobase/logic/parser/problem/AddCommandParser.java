@@ -1,4 +1,4 @@
-package seedu.algobase.logic.parser;
+package seedu.algobase.logic.parser.problem;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
@@ -14,7 +14,11 @@ import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.algobase.logic.commands.AddCommand;
+import seedu.algobase.logic.commands.problem.AddCommand;
+import seedu.algobase.logic.parser.ArgumentMultimap;
+import seedu.algobase.logic.parser.ArgumentTokenizer;
+import seedu.algobase.logic.parser.Parser;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;

@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
@@ -15,6 +15,8 @@ import java.util.Set;
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;

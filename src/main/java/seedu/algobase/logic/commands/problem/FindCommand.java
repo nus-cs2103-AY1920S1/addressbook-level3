@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.problem;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
@@ -12,6 +12,8 @@ import java.util.function.Predicate;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.FindProblemDescriptor;

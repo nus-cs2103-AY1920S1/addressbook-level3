@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.problem;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
@@ -10,6 +10,8 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Problem;

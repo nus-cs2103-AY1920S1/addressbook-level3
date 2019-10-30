@@ -1,4 +1,4 @@
-package seedu.algobase.logic.parser;
+package seedu.algobase.logic.parser.problem;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -17,8 +17,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.EditCommand;
-import seedu.algobase.logic.commands.EditCommand.EditProblemDescriptor;
+import seedu.algobase.logic.commands.problem.EditCommand;
+import seedu.algobase.logic.commands.problem.EditCommand.EditProblemDescriptor;
+import seedu.algobase.logic.parser.ArgumentMultimap;
+import seedu.algobase.logic.parser.ArgumentTokenizer;
+import seedu.algobase.logic.parser.Parser;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.tag.Tag;
 

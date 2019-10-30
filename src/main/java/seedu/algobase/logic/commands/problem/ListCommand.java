@@ -1,9 +1,11 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.problem;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PROBLEMS;
 
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelType;
 
