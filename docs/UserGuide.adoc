@@ -95,12 +95,6 @@ Registers a new patient +
 Format:  `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
  [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
 
-==== Unregisters an existing patient: `unregister` ====
-
-If user is in the patients listing screen,
-Unregisters an existing patient +
-Format:  `unregister <ENTRY_ID>`
-
 ==== Updates patients’ profiles: `update` ====
 
 If user is in the patients listing screen,
@@ -128,11 +122,6 @@ Format: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<E
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
 Format: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
 [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
-
-==== Unregisters a doctor's profile: `resign` ====
-
-If user is in the doctors listing screen, removes a doctor’s profile. +
-Format: `resigndoctor <ENTRY_ID>`
 
 ==== Marks the doctor as on-duty: `onduty` ====
 
@@ -236,13 +225,52 @@ Format: `undo`
 Redo a destructive action +
 Format: `redo`
 
-==== Creates, updates or removes an alias command: `alias` ====
+== Commands Summary ==
 
-Tags an alias name to a reserved command. More specifically,
-one of the following will happen depending on the parameters of the function.
-Please note that the user can not remap a reserved command.
-A new alias command is created if the alias does not exist.
-Remaps an existing alias command to a reserved command if the alias exist.
-If the reserved command is not specified, the alias is unregistered if it exists.
+* *Queue Management* +
+** enqueue: `enqueue <PATIENT_REFERENCE_ID>`
+** dequeue: `dequeue <QUEUE_NUMBER>`
+** next: `next <ROOM_NUMBER>`
+** break: `break <ROOM_NUMBER>`
+** resume: `resume <ROOM_NUMBER>`
 
-Format: `alias <Alias_Name> [<Reserved_Command>]`
+* *Patient Management* +
+** patient: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
+** register: `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
+ [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+** unregister: `unregister <ENTRY_ID>`
+** update: `update <ENTRY_ID> [n/<PATIENT_NAME>] [i/<PATIENT_REFERENCE_ID>] [p/<PHONE_NUM>]
+ [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+
+* *On-Duty Doctors Management* +
+** doctors: `doctors [<DOCTOR_NAME>]`
+** newdoctor: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
+** updatedoctor: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
+[i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
+** resigndoctor: `resigndoctor <ENTRY_ID>`
+** onduty: `onduty <ROOM_NUMBER>`
+** offduty: `offduty <ENTRY_ID>`
+
+* *Appointment Management* +
+** appointments: `appointments [p/<PATIENT_NAME | PATIENT_IC>] [s/<START_DATE>] [e/<END_DATE>]`
+** cancelappt: `cancelappt <ENTRY_ID>`
+** changeappt: `changeappt <ENTRY_ID> [i/<PATIENT_IC>] [s/<START_DATE_TIME>] [e/<END_DATE_TIME>]`
+** slot: `slot s/<START_DATE> e/<END_DATE>`
+** missappt: `missappt`
+** settle: `settle <ENTRY_ID>`
+** maxconcurrentappt: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
+
+* *Inventory commands (v2.0)* +
+** inventory: `inventory`
+** prescription: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
+
+* *User Accounts (v2.0)* +
+** login: `login <USER_NAME>`
+** logout: `logout`
+
+* *General Commands* +
+** help: `help`
+** exit: `exit`
+** undo: `undo`
+** redo: `redo`
+

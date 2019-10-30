@@ -7,32 +7,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import seedu.address.logic.commands.AckAppCommand;
-import seedu.address.logic.commands.AddAppCommand;
-import seedu.address.logic.commands.AddConsultationRoomCommand;
-import seedu.address.logic.commands.AppointmentsCommand;
-import seedu.address.logic.commands.BreakCommand;
-import seedu.address.logic.commands.CancelAppCommand;
-import seedu.address.logic.commands.ChangeAppCommand;
-import seedu.address.logic.commands.DequeueCommand;
-import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.MissAppCommand;
 import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.RemoveRoomCommand;
-import seedu.address.logic.commands.ResumeCommand;
-import seedu.address.logic.commands.SettleAppCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.appointments.AckAppCommand;
+import seedu.address.logic.commands.appointments.AddAppCommand;
+import seedu.address.logic.commands.appointments.AppointmentsCommand;
+import seedu.address.logic.commands.appointments.CancelAppCommand;
+import seedu.address.logic.commands.appointments.ChangeAppCommand;
+import seedu.address.logic.commands.appointments.MissAppCommand;
+import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
-import seedu.address.logic.commands.patients.UnregisterPatientCommand;
+import seedu.address.logic.commands.queue.AddConsultationRoomCommand;
+import seedu.address.logic.commands.queue.BreakCommand;
+import seedu.address.logic.commands.queue.DequeueCommand;
+import seedu.address.logic.commands.queue.EnqueueCommand;
+import seedu.address.logic.commands.queue.RemoveRoomCommand;
+import seedu.address.logic.commands.queue.ResumeCommand;
 import seedu.address.logic.commands.staff.EditStaffDetailsCommand;
 import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.commands.staff.RegisterStaffCommand;
-import seedu.address.logic.commands.staff.UnregisterStaffCommand;
 
 /**
  * Component for AutoComplete
@@ -46,12 +44,10 @@ public class AutoCompleter {
             ListPatientCommand.COMMAND_WORD,
             RegisterPatientCommand.COMMAND_WORD,
             EditPatientDetailsCommand.COMMAND_WORD,
-            UnregisterPatientCommand.COMMAND_WORD,
 
             ListStaffCommand.COMMAND_WORD,
             RegisterStaffCommand.COMMAND_WORD,
             EditStaffDetailsCommand.COMMAND_WORD,
-            UnregisterStaffCommand.COMMAND_WORD,
 
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,

@@ -22,7 +22,8 @@ public class JsonAppointmentBookStorage implements AppointmentBookStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonAppointmentBookStorage.class);
 
     @Override
-    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(Path filePath, boolean areStaffMembers)
+            throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableAppointmentBook> jsonAppointmentBook = JsonUtil.readJsonFile(
@@ -32,7 +33,7 @@ public class JsonAppointmentBookStorage implements AppointmentBookStorage {
         }
 
         try {
-            return Optional.of(jsonAppointmentBook.get().toModelType());
+            return Optional.of(jsonAppointmentBook.get().toModelType(areStaffMembers));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

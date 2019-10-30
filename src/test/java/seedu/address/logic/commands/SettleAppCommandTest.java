@@ -5,9 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
@@ -35,10 +38,10 @@ class SettleAppCommandTest {
 
     @Test
     void testEquals() {
-        Event firstEvent = new EventBuilder().withId("01A").build();
+        Event firstEvent = new EventBuilder(ALICE).build();
         Event firstSettledEvent = new EventBuilder(firstEvent).withStatus("SETTLED").build();
 
-        Event secondEvent = new EventBuilder().withId("02B").build();
+        Event secondEvent = new EventBuilder(BENSON).build();
         Event secondSettledEvent = new EventBuilder(secondEvent).withStatus("SETTLED").build();
 
         SettleAppCommand firstSettledCommand = new SettleAppCommand(firstEvent, firstSettledEvent);
