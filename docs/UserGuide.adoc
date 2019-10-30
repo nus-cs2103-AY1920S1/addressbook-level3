@@ -83,21 +83,34 @@ As the index can change depending on what filters are applied, refer to the curr
 
 This command adds an athlete to Athletick.
 
+Let's say John Doe just joined the team and you want to add him to Athletick so that you are able to track his
+attendance and performance.
+
 *What you should do*
 
 Type the athlete's particulars in the format given below.
 
-Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
+Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... [i/IMAGE]`
 
-Example: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/backstroke`
+[IMPORTANT]
+Take note that if you want to add an image of John when you are adding him to Athletick, make sure that
+the image is in the `images` folder.
+
+[IMPORTANT]
+You can include any number of tags (zero tags are also allowed) to an athlete and the addition of an image
+is optional.
+
+Example: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/backstroke i/john.png`
+
+image::beforeAdd.png[width="790"]
 
 *What you should see*
 
-image::addcommand.png[width="790"]
+image::afterAdd.png[width="790"]
 
 If successfully added, the details of the added athlete will be displayed in the result box.
 
-The athlete will be shown in team list.
+The athlete will be shown in the team list.
 
 ==== Deleting an athlete : `delete`
 
@@ -111,9 +124,11 @@ Format: `delete INDEX`
 
 Example: `delete 7`
 
-IMPORTANT: The index refers to the index number shown in the displayed person list.
+[IMPORTANT]
+The index refers to the index number shown in the displayed person list.
 
-IMPORTANT: ️The index must be a positive integer 1, 2, 3, …​
+[IMPORTANT]
+The index must be a positive integer 1, 2, 3, …​
 
 *What you should see*
 
@@ -127,17 +142,19 @@ The athlete should no longer be shown in the team list.
 
 This command edits the details of an existing athlete in Athletick.
 
-All the details of an athlete (name, phone number, email, address, tags) can be edited.
+All the details of an athlete (name, phone number, email, address, tags, image) can be edited.
 
 *What you should do*
 
 Type the edit command in the following format, using the relevant prefixes to edit the appropriate details.
 
-Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAGS]`
+Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAGS] i/[IMAGE]`
 
 In order to edit Roy Balakrishnan's name to Shawn, type in the following.
 
 Example: `edit 6 n/Shawn`
+
+image::beforeEdit.png[width="790"]
 
 [IMPORTANT]
 The index refers to the index number shown in the displayed person list.
@@ -154,9 +171,12 @@ When editing tags, the existing tags of the person will be removed i.e adding of
 [IMPORTANT]
 You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 
+[IMPORTANT]
+When editing the image, make sure that the image you are replacing with is in the `images` folder.
+
 *What you should see*
 
-image::editcommand.png[width="790"]
+image::afterEdit.png[width="790"]
 
 If successfully edited, the edited information of Roy (now Shawn) will be displayed in the result box.
 
@@ -350,7 +370,9 @@ You may use the left and right buttons to navigate to a different month. In the 
 
 ==== Viewing more details of a team member : `select`
 
-This command shows you details of a specific athlete.
+This command shows the profile of the athlete that you have selected.
+
+Let's say you want to view David's personal information.
 
 *What you should do*
 
@@ -358,16 +380,25 @@ Type in the command in the following format.
 
 Format : `select INDEX`
 
-Example : `select 1`
+Example : `select 4`
+
+image::beforeSelect.png[width="790"]
 
 *What you should see*
 
-image::select.png[width="790"]
+The message “Person selected!” will be displayed in the result box to indicate that you have selected the
+athlete.
 
-The message “person selected!” will be displayed in the result box to indicate that you have selected the
-person.
+In the feature box, the personal information of the athlete will be displayed as shown.
 
-In the feature box, all the information of the athlete will be displayed as shown.
+image::afterSelect.png[width="790"]
+
+[IMPORTANT]
+If the image of the selected athlete is not appearing as shown below, take note that the image file is not in the
+`images` folder. You may refer to *Section 4.1.1. "Adding an athlete"* on where to include the image files which are
+going to be used and *Section 4.1.3. Editing an athlete"* to understand further how to edit the image of an athlete.
+
+image::emptyImage.png[width="790"]
 
 ==== Sorting athletes alphabetically : `sort`
 
@@ -579,12 +610,29 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+*Q*: How do I add my image files to the `images` folder? +
+*A*: Make sure that the `images` folder is in the same directory as the Athletick executable jar file. If the
+`images` folder is not created, the following steps will guide you through the creating of the `images` folder and
+how to add images into the folder:
+
+* Create a folder named `images` in the same directory as your executable jar file.
+
+image::creatingFile.png[width ="790"]
+
+* Ensure that the file name is correct.
+
+image::imageFile.png[width="790"]
+
+* Add the image files that you want to use into the folder.
+
+image::addingPhotos.png[width="790"]
+
 == Command Summary
 
 [horizontal]
-Add athlete:: `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
+Add athlete:: `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... i/IMAGE`
 Delete athlete:: `delete INDEX`
-Edit athlete:: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edit athlete:: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... i/IMAGE`
 Add event:: `event EVENT_NAME`
 Record performance:: `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 Take attendance (by present):: `attendance INDEX [INDEX]...`
