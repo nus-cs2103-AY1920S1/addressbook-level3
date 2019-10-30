@@ -15,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -148,8 +150,9 @@ public class MainWindow extends UiPart<Stage> {
         combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
         assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
 
-        reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
-        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+//        reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
+//        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        createLessonTabs();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -159,6 +162,19 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    public void createLessonTabs() {
+        TabPane tabPane = new TabPane();
+        logger.info("tabpane created");
+        for (int i = 0; i < 7; i++) {
+            logger.info("creating tabs");
+            Tab tab = new Tab(String.valueOf(i + 1));
+            reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
+            reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+            tab.setContent(reminderListPanelPlaceholder);
+            tabPane.getTabs().add(tab);
+        }
     }
 
     /**
