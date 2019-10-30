@@ -52,6 +52,10 @@ A module is uniquely identified by a COURSE_PREFIX (eg. `CS` for Computer Scienc
 * Items enclosed by square brackets are optional parameters that can be passed in eg. `view OBJECT_ID [l/]` can be used as `view A0122432Z l/` or `view 230293`.
 * Any item that is followed by an ellipsis (`...`) can be used multiple times including zero eg. `[m/PARAMETER]...` can be used as, `m/CS2103` , `m/210` etc.
 * Parameters within square brackets can be supplied in any order.
+* Tags will often be used in the command to specify the targeted list for the command. Certain commands allow operations on multiple lists.
+** `a/` : prefix for the `Appeal List`
+** `m/` : prefix for the `Module List`
+** `s/` : prefix for the `Student List`
 ====
 
 === Viewing single objects: `view`
@@ -154,84 +158,96 @@ image::HistoryWindowDemo.png[width="790"]
 Command history is automatically saved to disk whenever it is updated with new inputs.
 Upon the next MAMS startup, previous command history will be loaded from disk as well.
 
+=== Find keywords: `find`
+
+Displays item(s) that contain(s) any of the keyword(s) in the specified list(s).
+
+Format: `find [a/KEYWORD...] [m/KEYWORD...] [s/KEYWORD...]`
+
+[NOTE]
+Tags can be in any sequence. User may enter multiple keywords after a tag.
+
+====
+*Searching Criteria*
+
+* In Appeal list, items that contains any of the keywords in Appeal Type, Appeal ID, Status(resolved/unresolved),
+or Modules Requested will be displayed.
+* In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description wil be displayed.
+* In Student list, items that contains any of the keywords in Student Name will be displayed.
+====
+
+[NOTE]
+Searching criteria listed above are evaluated to be the most useful ones in order to filter the lists quickly and obtain
+necessary information. Wider range of searching will be implemented in v2.0.
+
+Examples:
+
+* `find s/larry m/programming`
+
+Sample Output:
+
+image::FindDemoSingleKeyword.png[width="790"]
+
+
 === Show clashes: `clash`
-
-==== Show clashes between 2 modules
-This command checks to see if the lecture slots of 2 modules clashes, and displays the result to the user
-
-Format: `clash MODULE_CODE MODULE_CODE`
-
-Examples:
-
-* `clash cs1010 cs1020`
-
-Sample output:
-
-`Clash detected between CS1010 and CS1020: +
-Time slot: 1400-1500 +
-Event for CS1010: Lecture 1300-1500 +
-Event for CS1020: Lecture 1400-1600`
-
-* `clash ge1001 ge1002`
-
-Sample output: `No clash detected for ge1001 and ge1002`
-
-
-==== Show clashes in student timetable
-
-Shows if there are clashes in a student’s (preallocated) timetable.
-
-Format: `clash STUDENT_ID`
-
-Examples:
-
-* `clash A01234567H`
-
-Sample output:
-
-`Modules taken by student A01234567H: +
-cs1010, cs1020, cs1040, cs1050,cs1060 +
-Clash detected between CS1010 and CS1020: +
-Time slot: 1400-1500 +
-Event for CS1010: Lecture 1300-1500 +
-Event for CS1020: Lecture 1400-1600`
-
-* `clash A01234567B`
-
-Sample output:
-
-`Modules student A01234567H are taking: +
-Ge1020,ge1111,ge1030,ge1303 +
-No clash detected.`
 
 ==== Show clashes in an appeal
 
-Shows if the module a student is requesting for clashes with his/her current existing modules.
+Checks if the module a student is requesting for clashes with his/her current existing modules.
+Only appeals requesting to add or drop module will need for clash checks. If the target appeal is not of any of the two
+types, a reminder message will be shown.
 
-Format: `clash APPEAL_NUMBER`
+Format: `clash [a/INDEX]`
 
 Examples:
 
-* `clash #301935`
+* `clash a/1`
 
 Sample output:
 
-`Modules taken by student A01234567H: +
-cs1010, cs1040, cs1050,cs1060 +
-Requested module: cs1020 +
-Clash detected between CS1010 and CS1020: +
-Time slot: 1400-1500 +
-Event for CS1010: Lecture 1300-1500 +
-Event for CS1020: Lecture 1400-1600`
+image::ClashCommandInvalidAppealType.png[width="790"]
 
-* `clash #301979`
+* `clash a/3`
 
 Sample output:
 
-`Modules taken by student A01234567H: +
-GE1020,GE1111,GE1030,GE1303 +
-Requested module: cs1020 +
-No clash detected`
+image::AppealClashDetected.png[width="790"]
+
+==== Show clashes in student timetable
+
+Checks if there are clashes in a student’s (pre-allocated) timetable. This command is typically used to verify whether
+there is really a timetable clash in the student's pre-allocated timetable if the student submits an appeal to drop a
+pre-allocated module due to timetable clash.
+
+Format: `clash [s/INDEX]`
+
+Examples:
+
+* `clash s/1`
+
+Sample output:
+
+image::NoClashDetectedResponse.png[width="790"]
+
+==== Show clashes between 2 modules
+This command checks to see if the lecture slots of 2 modules clashes, and displays the result to the user.
+
+Format: `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [m/INDEX]`
+
+Examples:
+
+* `clash m/cs1010 m/cs1020`
+
+Sample output:
+
+image::NoClashDetectedResponse.png[width="790"]
+
+* `clash m/2 m/4`
+
+Sample output:
+
+image::AppealClashDetected.png[width="790"]
+
 
 === Add or remove modules `addmod` & `removemod`
 
@@ -365,17 +381,19 @@ There is no need to save manually.
 * **history**: `history [-h]`
 - eg. `history` to open the history window
 
-* **clash**: `clash [MODULE_CODE] [MODULE_CODE] `
-- e.g. `clash cs1010 cs1020`
-Shows clash details between the 2 specified modules
+* **find**: `find [a/KEYWORD...] [m/KEYWORD...] [s/KEYWORD...]`
+- e.g. `view a/cs1010 m/data algorithm`
 
-* **clash**: `clash [STUDENT_ID]`
-- e.g. `clash A01234567H`
-Shows if there are clashes in a student’s (preallocated) timetable.
+* **clash**:
+** `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [M/INDEX]`
+- e.g. `clash m/cs1010 m/cs1020` shows clash details between CS1010 and CS1020;
+Or `clash m/2 m/4` to shows clash details between the modules at indices 2 and 4 respectively.
 
-* **clash**: `clash [APPEAL_NUMBER]`
-- e.g. `clash #301935`
-Shows if the module a student is requesting for clashes with his/her current existing modules.
+** `clash [s/INDEX]`
+- e.g. `clash s/2` to shows clash details in a student’s (prea-llocated) timetable.
+
+** `clash [a/INDEX]`
+- e.g. `clash a/INDEX` to show if the module a student is requesting for clashes with his/her current existing modules.
 
 * **addmod**: `addmod STUDENT_ID MODULE_CODE`
 - e.g `addmod A0180000A CS2103`
