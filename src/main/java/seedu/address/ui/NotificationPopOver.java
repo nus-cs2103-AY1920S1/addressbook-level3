@@ -25,7 +25,7 @@ public class NotificationPopOver {
         notificationPopOver.setOpacity(0.95);
         notificationPopOver.setHeaderAlwaysVisible(true);
         notificationPopOver.setCloseButtonEnabled(false);
-        notificationPopOver.setTitle("Unclaimed Bodies");
+        notificationPopOver.setTitle("To Contact Police:");
         notificationPopOver.getRoot().getStylesheets().add(MainApp.class.getResource("/view/PopOver.css")
                 .toExternalForm());
         notificationPopOver.getRoot().getStyleClass().add("popover");
