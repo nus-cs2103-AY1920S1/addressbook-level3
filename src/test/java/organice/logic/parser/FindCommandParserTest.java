@@ -1,15 +1,14 @@
 package organice.logic.parser;
 
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static organice.logic.parser.CliSyntax.PREFIX_NAME;
 import static organice.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static organice.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import organice.logic.commands.FindCommand;
-import organice.model.person.NameContainsKeywordsPredicate;
+import organice.model.person.PersonContainsPrefixesPredicate;
 
 public class FindCommandParserTest {
 
@@ -23,12 +22,9 @@ public class FindCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
-
-        // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        FindCommand expectedFindCommand = new FindCommand(new PersonContainsPrefixesPredicate(
+                ArgumentTokenizer.tokenize("   find n/Alice Bob      ", PREFIX_NAME)));
+        assertParseSuccess(parser, FindCommand.COMMAND_WORD + " n/Alice Bob", expectedFindCommand);
     }
 
 }

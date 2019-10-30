@@ -57,4 +57,11 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ArgumentMultimap // instanceof handles nulls
+                && argMultimap.equals(((ArgumentMultimap) other).argMultimap)); // state check
+    }
 }

@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static organice.logic.parser.CliSyntax.PREFIX_NAME;
+import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
+import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
+
 import static organice.testutil.Assert.assertThrows;
 import static organice.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,8 +23,8 @@ import organice.logic.commands.FindCommand;
 import organice.logic.commands.HelpCommand;
 import organice.logic.commands.ListCommand;
 import organice.logic.parser.exceptions.ParseException;
-import organice.model.person.NameContainsKeywordsPredicate;
 import organice.model.person.Person;
+import organice.model.person.PersonContainsPrefixesPredicate;
 import organice.testutil.EditPersonDescriptorBuilder;
 import organice.testutil.PersonBuilder;
 import organice.testutil.PersonUtil;
@@ -70,10 +70,13 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        String searchParams = FindCommand.COMMAND_WORD + " n/Alice ic/S1111111A t/doctor";
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindCommand.COMMAND_WORD + " " + searchParams);
+        //TODO: Replace ArgumentTokenizer with stub
+        assertEquals(new FindCommand(new PersonContainsPrefixesPredicate(ArgumentTokenizer
+                .tokenize(FindCommand.COMMAND_WORD
+                        + " n/Alice ic/S1111111A t/doctor", PREFIX_NAME, PREFIX_NRIC, PREFIX_TYPE))), command);
     }
 
     @Test
@@ -96,6 +99,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(
+                ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 }
