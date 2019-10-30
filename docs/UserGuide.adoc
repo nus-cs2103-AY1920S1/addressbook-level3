@@ -18,10 +18,10 @@ By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-+Work is a project management tool that allows you to successfully achieve your objectives for your project. 
-It is aimed at NUS project leaders who are in charge of a small project group of less than 20 people. 
-+Work is a one-stop application to help you manage your members, meeting times, task allocations as well as personal claims for equipment purchased. 
-Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI). 
++Work is a project management tool that allows you to successfully achieve your objectives for your project.
+It is aimed at NUS project leaders who are in charge of a small project group of less than 20 people.
++Work is a one-stop application to help you manage your members, meeting times, task allocations as well as personal claims for equipment purchased.
+Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI).
 Happy working!
 
 == Quick Start
@@ -59,7 +59,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ** Example: In `add-member mn/MEMBER_NAME`, MEMBER_NAME is the input specified by the user, such as: add-member mn/Gabriel Seow
 
+<<<<<<< HEAD
 * The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below.
+=======
+* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below:
+>>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 
 ** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after tn/ and inputs the status of the task after s/ , such as: `add task t/Finish Project Draft s/undone`
 
@@ -180,12 +184,16 @@ image::ListMembers.png[width="790"]
 To remove a member from the project, and subsequently remove him from associated tasks, use the `remove-member` command in the format below. +
 Format: `remove-member mi/MEMBER_ID` +
 
+<<<<<<< HEAD
 Example: `remove-member mi/GS` will result in the following:
 
 image::RemoveMember.png[width="790"]
 
 
 As seen from above, the member 'New Member' with member ID 'NM' has been removed from the project. 
+=======
+Example: 'remove-member mi/GS'
+>>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 
 
 ==== Assign a task to a member: `assign` +
@@ -198,11 +206,16 @@ Example: `assign ti/1 mi/GS` will result in the following:
 image::AssignTask.png[width="790"]
 +
 
+<<<<<<< HEAD
 This indicates that the task TASK NAME with task id 1 has been assigned to team member 'GABRIEL SEOW' with member id 'GS'. +
+=======
+Example: 'assign ti/1 mi/GS'
+>>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 
 ==== Remove a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
 
+<<<<<<< HEAD
 Format: `fire ti/TASK_ID mi/MEMBER_ID` +
 
 Example: `fire ti/1 mi/GS` will result in the following: 
@@ -212,6 +225,9 @@ image::FireTask.png[width="790"]
 
 
 This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
+=======
+Example: 'fire ti/1 mi/GS'
+>>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 
 '''
 
@@ -220,7 +236,7 @@ This indicates that the task TASK NAME with task id 1 has been removed from its 
 ==== Add a task: `add task`
 
 To add a task to the project, use the 'add-task' command in the format below. +
-Format: `add-task [t/TASK_NAME]  [m/MEMBER_NAME]` + 
+Format: `add-task [t/TASK_NAME]  [m/MEMBER_NAME]` +
 Optional Parameters: `[s/STATUS]` `[t/TAG]`
 
 Example:
@@ -500,8 +516,8 @@ There is no need to save manually.
 
 === Command Line Autocomplete
 
-+Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. + 
-For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down and paste `add-member mn/ mi/ mt/` into your command-line automatically. 
++Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. +
+For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down and paste `add-member mn/ mi/ mt/` into your command-line automatically.
 
 ////
 

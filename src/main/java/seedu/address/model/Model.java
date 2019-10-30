@@ -1,21 +1,26 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
-import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.InvTasMapping;
-import seedu.address.model.mapping.TasMemMapping;
-import seedu.address.model.mapping.Mapping;
+
+//Remove after changing to ObservableList for Calendar
 
 /**
  * The API of the Model component.
@@ -205,25 +210,27 @@ public interface Model {
      */
     void setInventory(Inventory target, Inventory editedInventory);
 
-    void addMapping(InvMemMapping mapping);
+    void addMapping(Mapping mapping);
 
-    void addMapping(InvTasMapping mapping);
+    void deleteMapping(Mapping mapping);
 
-    void addMapping(TasMemMapping mapping);
-
-    void deleteMapping(InvMemMapping mapping);
-
-    void deleteMapping(InvTasMapping mapping);
-
-    void deleteMapping(TasMemMapping mapping);
-
-    boolean hasMapping(InvMemMapping mapping);
-
-    boolean hasMapping(InvTasMapping mapping);
-
-    boolean hasMapping(TasMemMapping mapping);
+    boolean hasMapping(Mapping mapping);
 
     ObservableList<Mapping> getFilteredMappingsList();
+
+    Statistics getStatistics();
+
+    void setStatistics(Statistics newStats);
+
+    void undo();
+
+    void redo();
+
+    void saveDashboardState();
+
+    boolean canUndo();
+
+    boolean canRedo();
 
     ObservableList<TasMemMapping> getFilteredTasMemMappingsList();
 
@@ -231,9 +238,11 @@ public interface Model {
 
     void updateFilteredMappingsList(Predicate<Mapping> predicate);
 
-    Statistics getStatistics();
+    void addCalendar(CalendarWrapper calendar);
 
-    void setStatistics(Statistics newStats);
+    boolean hasCalendar(CalendarWrapper calendar);
+
+    List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDurationggG);
 
     // Settings
 
