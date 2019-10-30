@@ -7,11 +7,11 @@ import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.ReferenceId;
-import seedu.address.model.common.Tag;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.Tag;
 
 /**
  * Stores the details to edit the person with. Each non-empty field value will replace the

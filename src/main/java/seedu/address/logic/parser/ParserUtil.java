@@ -12,7 +12,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
-import seedu.address.model.common.Tag;
 import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Timing;
 import seedu.address.model.person.parameters.Address;
@@ -20,6 +19,7 @@ import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -155,7 +155,7 @@ public class ParserUtil {
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return Tag.issueTag(trimmedTag);
     }
 
     /**

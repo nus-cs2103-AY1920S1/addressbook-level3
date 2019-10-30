@@ -19,6 +19,10 @@ import seedu.address.logic.commands.appointments.CancelAppCommand;
 import seedu.address.logic.commands.appointments.ChangeAppCommand;
 import seedu.address.logic.commands.appointments.MissAppCommand;
 import seedu.address.logic.commands.appointments.SettleAppCommand;
+import seedu.address.logic.commands.duties.AddDutyShiftCommand;
+import seedu.address.logic.commands.duties.CancelDutyShiftCommand;
+import seedu.address.logic.commands.duties.ChangeDutyShiftCommand;
+import seedu.address.logic.commands.duties.DutyShiftCommand;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
@@ -75,6 +79,11 @@ public class AutoCompleter {
             MissAppCommand.COMMAND_WORD,
             SettleAppCommand.COMMAND_WORD,
 
+            DutyShiftCommand.COMMAND_WORD,
+            AddDutyShiftCommand.COMMAND_WORD,
+            CancelDutyShiftCommand.COMMAND_WORD,
+            ChangeDutyShiftCommand.COMMAND_WORD,
+ 
             AddConsultationRoomCommand.COMMAND_WORD,
             RemoveRoomCommand.COMMAND_WORD,
 
