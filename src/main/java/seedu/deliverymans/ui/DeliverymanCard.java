@@ -8,6 +8,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
@@ -30,7 +33,9 @@ public class DeliverymanCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private Label statusTag;
+    private TextFlow statusTag;
+    @FXML
+    private Text statusText;
 
     public DeliverymanCard(Deliveryman deliveryman, int displayedIndex) {
         super(FXML);
@@ -41,7 +46,25 @@ public class DeliverymanCard extends UiPart<Region> {
         deliveryman.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        statusTag.setText(deliveryman.getStatus().getDescription());
+        String strStatus = deliveryman.getStatus().getDescription();
+        handleStatusTag(strStatus);
+    }
+
+    /**
+     * Edits the status tag according to the corresponding status as input.
+     */
+    public void handleStatusTag(String strStatus) {
+        if (strStatus.equals("AVAILABLE")) {
+            statusText = new Text("AVAILABLE");
+            statusText.setFill(Color.GREEN);
+        } else if (strStatus.equals("UNAVAILABLE")) {
+            statusText = new Text("UNAVAILABLE");
+            statusText.setFill(Color.RED);
+        } else {
+            statusText = new Text("DELIVERING");
+            statusText.setFill(Color.YELLOW);
+        }
+        statusTag.getChildren().add(statusText);
     }
 
     @Override

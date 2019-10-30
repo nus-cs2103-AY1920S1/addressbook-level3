@@ -44,7 +44,6 @@ public class SampleDataUtil {
         };
     }
 
-
     public static Customer[] getSampleCustomers() {
         return new Customer[]{
             new Customer(new Name("Alex Yeoh"), new Phone("87438807"), getTagSet("FastFood")),

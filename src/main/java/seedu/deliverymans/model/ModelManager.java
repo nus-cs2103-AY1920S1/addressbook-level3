@@ -27,6 +27,7 @@ import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -55,6 +56,7 @@ public class ModelManager implements Model {
     private final FilteredList<Deliveryman> deliveringDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Restaurant> editingRestaurant;
+    private DeliveryRecord deliveryRecordPlaceholder;
     private final UndoHistory<Data> undoHistory;
 
     private Context context;
@@ -87,6 +89,7 @@ public class ModelManager implements Model {
         availableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getAvailableDeliverymenList());
         unavailableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getUnavailableDeliverymenList());
         deliveringDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliveringDeliverymenList());
+        deliveryRecordPlaceholder = new DeliveryRecord(new Name("hey"));
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
         filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
@@ -326,6 +329,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public DeliveryRecord getDeliverymanRecord(Deliveryman deliveryman) {
+        return deliverymenDatabase.getDeliverymanRecord(deliveryman);
+    }
+
+    @Override
+    public void setToShowDeliverymanRecord(DeliveryRecord record) {
+        deliveryRecordPlaceholder = record;
+    }
+
+    @Override
     public void showAvailableDeliverymen() {
         deliverymenDatabase.resetAvailableList();
     }
@@ -457,6 +470,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Deliveryman> getUnavailableMenList() {
         return unavailableDeliverymen;
+    }
+
+    @Override
+    public DeliveryRecord getDeliverymanRecordPlaceholder() {
+        return deliveryRecordPlaceholder;
     }
 
     @Override
