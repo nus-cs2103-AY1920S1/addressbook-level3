@@ -64,7 +64,7 @@ e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` i
 
 ==== Viewing help : `help`
 
-Shows a list of available user commands. +
+Shows a quick list of user commands. A link to this User Guide is also provided for the full overview of commands. +
 Format: `help`
 
 ==== Exiting the program : `exit`
