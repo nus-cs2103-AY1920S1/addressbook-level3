@@ -5,11 +5,17 @@ package seedu.address.model.person.schedule;
  */
 public class Venue {
     private String venue;
-    private String coordinates;
 
     public Venue(String venue) {
         this.venue = venue;
-        this.coordinates = null;
+    }
+
+    private Venue() {
+        this.venue = "";
+    }
+
+    public static Venue emptyVenue() {
+        return new Venue();
     }
 
     @Override

@@ -37,9 +37,12 @@ public class Schedule {
             Event currentEvent = findEvent(event.getEventName());
             if (currentEvent != null) {
                 currentEvent.addTimeslot(event.getTimeslots());
+            } else {
+                this.events.add(event);
             }
+        } else {
+            this.events.add(event);
         }
-        this.events.add(event);
     }
 
     /**
