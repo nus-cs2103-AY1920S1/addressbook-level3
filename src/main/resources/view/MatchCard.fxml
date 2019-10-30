@@ -27,7 +27,7 @@
           </minWidth>
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-        <Label fx:id="success" styleClass="cell_big_label" text="\$success" textFill="RED">
+        <Label fx:id="success" styleClass="error" text="\$success" >
           <padding>
             <Insets bottom="1.0" left="3.0" right="3.0" top="1.0" />
           </padding>

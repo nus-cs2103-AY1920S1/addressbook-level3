@@ -77,7 +77,7 @@ public class Donor extends Person {
         if (successRate == null) {
             this.successRate = "";
         } else {
-            this.successRate = successRate.toString() + "%";
+            this.successRate = String.format("%.2f%%", successRate);
         }
     }
 

@@ -298,10 +298,27 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Retrieves the Match List
+     * Returns a copy of the match list.
      */
-    public ObservableList<Person> getMatchList() {
-        return listOfMatches;
+    public ObservableList<Person> getMatchList() throws AssertionError {
+        ObservableList<Person> listOfMatchesCopy = FXCollections.observableArrayList();
+        for (Person person : listOfMatches) {
+            if (person instanceof MatchedDonor) {
+                listOfMatchesCopy.add((MatchedDonor) person);
+            } else if (person instanceof MatchedPatient) {
+                listOfMatchesCopy.add((MatchedPatient) person);
+            } else {
+                assert true : "A Person not an instance of MatchedDonor or MatchedPatient is in the match list";
+            }
+        }
+        return listOfMatchesCopy;
+    }
+
+    /**
+     * Returns the number of {@code MatchedDonors} that matches a specific {@code Patient}.
+     */
+    public int numberOfMatches() {
+        return listOfMatches.size();
     }
 
     //=========== Sorted Person List Accessors =============================================================
