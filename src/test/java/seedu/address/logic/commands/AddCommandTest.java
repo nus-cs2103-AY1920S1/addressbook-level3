@@ -183,6 +183,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBookDeepCopy() {
             throw new AssertionError("This method should not be called.");
         }

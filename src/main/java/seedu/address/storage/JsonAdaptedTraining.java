@@ -36,7 +36,7 @@ public class JsonAdaptedTraining {
      * Converts a given {@code Training} into this class for Jackson use.
      */
     public JsonAdaptedTraining(Training training) {
-        this.date = training.getDate().toString();
+        this.date = training.getDate().getUnparsed();
         HashMap<String, Boolean> tempHash = new HashMap<>();
         HashMap<Person, Boolean> trainingAttendance = training.getTrainingAttendance();
         trainingAttendance.forEach((person, hasAttended) -> {
