@@ -31,7 +31,7 @@ to group them and see their progress over time through statistics.
 .  Copy the file to the folder you want to use as the home folder for your flashback.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui_updated.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -142,16 +142,68 @@ Edits the answer of the card with number 5 to "Mount Everest".
 Starts a quiz using a particular flashcard index. +
 Format:
 
-* `quiz INDEX`
+Format: `quiz INDEX`
 
 ****
-* start a quiz using the flashcard with given index.
+* Start a quiz using the flashcard with given index.
+* User can answer the flashcard using the `flip` command (see 3.8).
 ****
 
 Examples:
 
 * `quiz 8` : start a quiz on the flashcard number 8.
 
+=== Quiz Tag mode
+Starts a continuous quiz on a tag or a series of tags +
+Format:
+
+Format: `quiz t/TAG...`
+
+****
+* Starts a continuous quiz on all flashcards in the given tags
+* Users can continuously use the `flip` command to answer the series of flashcards (see 3.8).
+****
+
+Examples:
+
+* `quiz t/mathematics t/geography` : start a quiz on all the flashcards with tag `mathematics` and `geography`.
+
+=== Flip a flashcard
+NOTE: Only usable in quiz mode (i.e after a quiz or quiztag command)
+
+Format: `flip ANSWER`
+
+****
+* Short answer flashcards will accept any answer.
+* MCQ flashcards will only accept numbers as an answer. The number must match an index of the choices.
+****
+
+Examples:
+
+After `quiztag t/geography`, the flashcard below is shown:
+****
+What is the tallest mountain in the world?
+
+Definitions: The answer is Mount Everest.
+
+Tags: [geography]
+
+Choices:
+
+1. Mount Fuji
+2. Mount Everest
+****
+
+The user can type `flip 2` to answer the flashcard correctly.
+
+=== End quiz mode
+NOTE: Only usable in quiz mode(i.e after a quiz or quiztag command).
+
+Format: `end`
+
+****
+* Used to end a quiz if the user wants to stop the quiz without answering the flashcard
+****
 
 === Display current progress
 Shows the current progress of a set of flashcards. +
