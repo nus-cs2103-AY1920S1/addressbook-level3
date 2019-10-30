@@ -24,8 +24,8 @@ public class ReadCardCommand extends Command {
             + " : Opens and accesses the card identified by "
             + "the description used in the display list. Checks against"
             + "provided CVC as second level of security\n"
-            + "Parameters: DESCRIPTION (must be alphanumeric)"
-            + "Example: " + COMMAND_WORD + PREFIX_DESCRIPTION + "POSB Debit "
+            + "Parameters: d/DESCRIPTION v/CVC"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_DESCRIPTION + "POSB Debit "
             + PREFIX_CVC + "256";
 
     public static final String MESSAGE_SUCCESS = "%1$s";
