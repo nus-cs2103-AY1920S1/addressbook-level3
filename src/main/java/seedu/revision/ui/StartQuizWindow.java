@@ -163,7 +163,7 @@ public class StartQuizWindow extends Window {
             progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                     getSizeOfCurrentLevel(nextAnswerable),
                     "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-            timer = new Timer(5, this::executeCommand);
+            timer = new Timer(15, this::executeCommand);
             progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
             scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
         }
@@ -257,17 +257,6 @@ public class StartQuizWindow extends Window {
             previousAnswerable = currentAnswerable;
             currentAnswerable = answerableIterator.next();
 
-            if (previousAnswerable != null && answerableIterator.hasNext()) {
-                int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
-                int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
-                if (previousLevel < currentLevel) {
-                    handleNextLevel(currentAnswerable);
-                } else {
-                    currentProgressIndex.set(getCurrentProgressIndex() + 1);
-                    timer.resetTimer();
-                    questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
-                }
-            }
 
             if (currentAnswerable instanceof Mcq) {
                 answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
@@ -280,10 +269,23 @@ public class StartQuizWindow extends Window {
                 answersGridPane.updateAnswers(currentAnswerable);
                 answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
             }
+
+            currentProgressIndex.set(getCurrentProgressIndex() + 1);
             //} else if (currentAnswerable instanceof Saq) {
             //    answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
             //}
             //answersGridPane.updateAnswers(currentAnswerable);
+
+            if (previousAnswerable != null && answerableIterator.hasNext()) {
+                int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
+                int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
+                if (previousLevel < currentLevel) {
+                    handleNextLevel(currentAnswerable);
+                } else {
+                    timer.resetTimer();
+                    questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
+                }
+            }
 
 
             return commandResult;

@@ -80,6 +80,7 @@ public class Timer {
     }
 
     public void stopTimer() {
+        currentTime.set(0);
         timeline.stop();
     }
 
