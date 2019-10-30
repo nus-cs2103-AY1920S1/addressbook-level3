@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -49,7 +48,7 @@
           </padding>
         </StackPane>
 
-        <HBox>
+        <HBox VBox.vgrow="ALWAYS">
           <TabPane fx:id="tabPanePlaceHolder"  layoutX="3.0" layoutY="2.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
               <Tab text="Planner" >
@@ -76,7 +75,9 @@
           </TabPane>
           <StackPane fx:id="historyDisplayPlaceHolder" VBox.vgrow="NEVER" styleClass="pane-with-border"/>
         </HBox>
+
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+
       </VBox>
     </Scene>
   </scene>

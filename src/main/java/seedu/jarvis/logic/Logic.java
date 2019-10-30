@@ -2,6 +2,7 @@ package seedu.jarvis.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.logic.commands.Command;
@@ -11,6 +12,7 @@ import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.course.Course;
 
 /**
  * API of the Logic component
@@ -59,4 +61,16 @@ public interface Logic {
      * Returns a view of the inversely executed commands.
      */
     ObservableList<Command> getInverselyExecutedCommandsList();
+
+    // Course Planner ====================================================================
+
+    /**
+     * Returns an unmodifiable view of the unfiltered list of courses.
+     */
+    ObservableList<Course> getUnfilteredCourseList();
+
+    /**
+     * Returns the text displayed to the user in the Course Planner.
+     */
+    ObservableStringValue getCourseTextDisplay();
 }
