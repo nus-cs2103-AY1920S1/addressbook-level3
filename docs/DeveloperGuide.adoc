@@ -120,7 +120,7 @@ The diagram below shows a generalised view of the `Logic` component within the p
 
 [[fig-LogicClassDiagram]]
 .Structure of the Generalised `Logic` Component
-image::LogicClassDiagram.png[]____
+image::LogicClassDiagram.png[]
 
 An outline of how a command is processed through `Logic` is as follows:
 
@@ -143,7 +143,7 @@ Further details on the implementation of the `Parser` and `Command` can be found
 This section will show further details of the `Logic` Component of the Home and Reimbursement Tabs.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
-.Structure of `Parser` for Transaction and Reimbursement Tab.
+.Structure of `Parser` for Home (Transaction) and Reimbursement Tab.
 image::LogicForR&T.png[]
 
 [NOTE]
@@ -178,7 +178,35 @@ The parsers represented by the `ABCParser` and `DEFParser`:
 
 [[ICLogic]]
 ==== Details on `Logic` Implementation for Inventory and Cashier Tab
-To be filled in by the respective members :)
+This section will show further details of the `Logic` Component of the Inventory and Cashier Tabs.
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
+
+.Structure of `Parser` for Inventory and Cashier Tabs.
+image::ParserForInventoryCashier.png[]
+
+[NOTE]
+The `XYZTabParser` represents the `InventoryTabParser` for the Inventory Tab and `CashierTabParser` for the Cashier
+Tab.
+
+The parsers represented by the `ABCParser`:
+
+`ABCParser`:
+
+* Inventory Tab:
+** `AddCommandParser`
+** `DeleteCommandParser`
+** `EditCommandParser`
+** `SortCommandParser`
+
+* Cashier Tab:
+** `AddCommandParser`
+** `EditCommandParser`
+** `DeleteCommandParser`
+** `SetCashierCommandParser`
+** `CheckoutCommandParser`
+** `ClearCommandParser`
+
+
 
 ==== Details on `Logic` Implementation for Members Tab
 [[PLogic]]
@@ -198,7 +226,7 @@ The diagram below shows a generalised view of the `Model` component within the p
 image::ModelCD.png[]
 
 [NOTE]
-`XYZObjects` are only present in the `transaction`, `reimbursement`, `person` and `inventory` packages.
+`XYZObjects` are only present in the `transaction`, `reimbursement`, `person`, `cashier` and `inventory` packages.
 
 
 ==== Details on the `Model` Implementation for Home Tab
@@ -339,11 +367,11 @@ This update of the list of transactions is done for every command that is execut
 
 Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest list of transactions
 to generate an updated list of reimbursements for the user to view in the Reimbursement Tab. The following sequence diagram shows how
-the Reimbursement Tab is updated:
+the Reimbursement Tab is updated from the `MainWindow`:
 [[update-reimbursement]]
 .Sequence Diagram of updating the reimbursement list in Reimbursement Tab (transaction package)
 
-image::HomeUpdateReimbursement.png[]
+image::TUpdateRinMainWindow.png[]
 
 [NOTE]
 This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<UpdateTL, Sequence Diagram of updating the transaction list in Home Tab>>) when there is a command executed successfully in the Home Tab.
@@ -608,180 +636,121 @@ the Table of the UI.
 
 ==== [Proposed] Auto-Complete Feature
 
+
 === Cashier Tab
-This tab will act as a shopping cart to record sales item from the inventory that will contribute
-to the sales made.
+This tab will act as a shopping cart to add and record sales items to be sold from the inventory.
 
-Only sales items can be added to the cart. If the price of the item is zero, it is not available for sale. The
-system will prohibit the addition of such an item to the cart.
-
-Adding of a sales item to the cart will require an input of its description and quantity. An optional field for
-category is provided to guide the cashier to find the desired item.
-Before every checkout, an existing person on the `Members Tab` must be set as the cashier-in-charge.
-
-Revenue from every checkout will also be automatically inputted as
-a positive transaction in `Home tab` with the cashier being the person-in-charge. For every sales made,
-the quantity of each item will be updated accordingly in the `Inventory Tab`.
-
-This is the overall Class Diagram of this tab:
-
-.Class Diagram of Cashier Tab (cashier package)
-
-image::UMLCashierTab.png[]
+Upon every successful checkout, all the sales items sold will recorded as one transaction, which will subsequently be
+appended to the list of transactions on the `Home tab`. +
+In addition, the stock remaining in the inventory will be updated accordingly in the `Inventory tab`.
 
 ==== Add Sales Item Feature
-This feature allows the adding of sales items to the cart.
+This feature allows the addition of sales items to the cart.
 
-Only description and quantity fields are required to be inputted by the user. If the category field
-is input with other incomplete description and quantity fields, suggestions according to the specified category
-would be shown by Leo, the assistant.
+Only sales items can be added to the cart. If the price of an item is zero, it is not available for sale. The
+system will prohibit any addition of such an item to the cart.
 
-For the description field to be valid, it must match the description of an item in the inventory that is listed for
-sale. For quantity field, the quantity specified must be positive and checks will be made to ensure that there is
-sufficient stock in the inventory.
+Adding of a sales item to the cart will require an input of its description and quantity. An optional field for
+category is provided to guide the cashier to find the desired item. If the category field is input with other unspecified
+description and quantity fields, `Model` will search all the sales items in the `Inventory List`
+according to the specified category and suggestions would be shown by Leo, the assistant.
 
-The following sequence diagram shows how an add command works with the description and quantity fields present:
+If description and quantity field are both valid, the `ModelManager` will add the item into the sales list.
 
-.Sequence Diagram of Add Command (cashier package)
+The following sequence diagram shows how the `AddCommand` works and is the reference
+from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
 
-image::AddCommandCashierSeqDiag.png[]
+.Sequence Diagram of Add Command in Cashier Tab (cashier package)
 
-As shown, when the user input an invalid description or quantity field without any category field, an appropriate response
-message will be shown accordingly. If the category field is specified, suggestions according to that category
-would be shown.
-Checks will be done by the `Cashier Model` to ensure that the item specified is available for sale.
+image::AddCommandCashierSeq.png[]
 
-If description and quantity field are both valid, a response message will be shown, informing the user of the successful
-addition of the sales item.
+`AddCommandParser` will carry out multiple checks to check the validity of the inputs. `hasItemInInventory(description)`
+and `hasSufficientQuantityToAdd(description, quantity)` methods will be called to ensure the item has sufficient stock
+left in the inventory. +
+There will also be checks to ensure that the item specified is available for sale.
 
-The following activity diagram shows the steps proceeding after the user input an add command:
+[NOTE]
+After every add command, the quantity of items in the Inventory Tab will still remain the same. The remaining stock
+will only be updated after the Checkout Command.
+
+The following activity diagram shows the steps proceeding after the user input an Add Command:
 
 .Activity Diagram of Add Command (cashier package)
 
-image::AddCommandCashierActivityDiag.png[]
+image::AddCommandCashierActivity.png[]
 
-==== Edit Feature
-This feature allows the editing of the quantity of sales item that are already added to the cart.
-There are two ways to edit - by index or by description.
-
-To edit by index, it will require an input consisting of the index and quantity fields. The specified index
-should be row index of the item in the table shown on the Cashier tab.
-
-To edit by description, it will require an input consisting of the description and quantity fields. The specified
-description should match the description of an item in the table.
-
-For the index field to be valid, it must be a positive integer and be within the size of the
-table shown on the Cashier tab. For the quantity field to be valid, it must not exceed the stock
-available in the inventory.
-
-The following sequence diagram shows how an edit command works:
-
-.Sequence Diagram of Edit Command (cashier package)
-
-image::EditCommandCashierSeqDiag.png[]
-
-If the inputted field are valid, a response message will be shown, informing the user of the successful
-updating of the sales item.
-
-As shown below, if the description of the item has been input, the model will return the index of that item
-according to the specified description.
-
-The following activity diagram shows the process after the user input an edit command:
-
-.Activity Diagram of Edit Command (cashier package)
-
-image::EditCommandCashierActivityDiag.png[]
-
-==== Delete Feature
-This feature allows the deleting of the items in the table shown on the Cashier tab.
-
-To edit a specific item in the table, the only field required is the row index of the item in the table.
-
-The following sequence diagram shows how a delete command works:
-
-.Sequence Diagram of Delete Command (cashier package)
-
-image::DeleteCommandCashierSeqDiag.png[]
-
-If the index field is valid, the cashier model will delete the item from the sales list. The item will also be removed
-from the table shown. A message informing the user of successful deletion will then be shown.
-
-The following activity diagram shows the steps after the user input a delete command:
-
-.Activity Diagram of Delete Command (cashier package)
-
-image::DeleteCommandCashierActivityDiag.png[]
 
 ==== Setting the Cashier Feature
- This feature allows an existing person in the `Address Book` to be set as a cashier. The only field required is
- the name of an existing person.
+This feature allows an existing person in the `Address Book` to be set as a cashier. The only field required is
+the name of an existing person.
 
-`Members Tab` shows a list of existing members of the organisation.
-To set a cashier, the specified person must be found on the `Members Tab`.
+To set a cashier, the person's name inputted has to match an existing name in the `AddressBook` as shown on `Members Tab`.
+This means that SetCommandParser requires access to the `Model` of the person package where the `AddressBook` implementation is.
 
-The following sequence diagram shows how the command works:
+If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
+informing the user that there is no such person.
+
+The following sequence diagram shows how the SetCashierCommandParser checks for existing person:
+
+.Sequence Diagram of SetCashierCommandParser (cashier package)
+
+image::SetCashierCommandSeq1.png[]
+
+If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
+
+The following sequence diagram shows how the Set Cashier Command works and is the reference
+from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
 
 .Sequence Diagram of Set Cashier Command (cashier package)
 
-image::SetCashierCommandCashierSeqDiag.png[]
+image::SetCashierCommandSeq2.png[]
 
-If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
-informing the user that there is no such person. To input the person, the user have to add the details of the
-person under the `Members Tab`.
+If the inputted name is invalid, the user will be prompted to enter a valid name.
 
-If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
-After the cashier is set successfully, a response message will show, informing the user that the
-cashier has been set successfully.
-
-The following activity diagram shows the steps after the user input a set cashier command:
+The following activity diagram shows the steps after the user input a Set Cashier Command:
 
 .Activity Diagram of Set Cashier Command (cashier package)
 
 image::SetCashierCommandCashierActivityDiag.png[]
 
 ==== Checkout Feature
-This feature confirms all the sales items in the table as sold and records the whole cart as a
-transaction under the `Sales` category.
+This feature confirms all the sales items in the table as sold as one transaction under the `Sales` category.
 
-The `Transaction Tab` will be updated with the new transaction labelled as `Sales Items`.
+The `Home Tab` will be updated with the new transaction labelled as `Items sold`. The remaining stock of the sales items
+will also be updated on the `Inventory Tab`.
 
-The remaining stock of the sales items sold will be updated on the `Inventory Tab`.
+During the execution of the command, `getCashier()` method will be called to create a `Transaction` object. If the
+cashier is null, the command cannot proceed and Leo will prompt the user to set a cashier. +
+If the amount inputted is valid and cashier has been set, the `ModelManager` will create a new
+transaction of the sales made.
 
-The following sequence diagram shows how the checkout command works:
+[NOTE]
+After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
+
+The following sequence diagram shows how the Checkout Command is executed:
 
 .Sequence Diagram of Checkout Command (cashier package)
 
-image::CheckoutCommandCashierSeqDiag.png[]
+image::CheckoutCommandCashierSeq1.png[]
 
-As shown below, if the amount inputted is valid and the cashier has been set, the `Cashier Model` will create a new
-transaction of the sales made. The remaining stock in the inventory will also be updated accordingly.
-A clear command will then be called to clear all the sales items on the tab.
-
-The `Cashier Logic` will write the updated inventory list and newly-generated transaction to the relevant data files.
+The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
+to the respective `txt file`. +
 To update the view on the `Inventory Tab` and `Transaction Tab`, transaction will be added to the transaction model and
 `readInUpdatedList()` method of inventory model will called to read in the entire inventory data file.
 
-The following activity diagram shows the steps after the user input a checkout command:
+The following sequence diagram shows how the transaction and inventory are updated:
+
+.Sequence Diagram of how transaction and inventory get updated (cashier package)
+
+image::CheckoutCommandCashierSeq2.png[]
+
+If the amount inputted is less than the total amount of items, the user will be prompted to key in a valid value.
+
+The following activity diagram shows the steps after the user input a Checkout Command:
 
 .Activity Diagram of Checkout Command (cashier package)
 
 image::CheckoutCommandCashierActivityDiag.png[]
-
-==== Clear Feature
-This feature clears all the sales items in the table. This command is called after the cart has been checkout.
-It can also be called by the user.
-
-There is no required fields.
-
-image::ClearCommandCashierSeqDiag.png[]
-
-As shown below, after the clear command is called, the table will be emptied and the cashier will be set to null.
-
-The following activity diagram shows the steps after the user input a clear command:
-
-.Activity Diagram of Clear Command (cashier package)
-
-image::ClearCommandCashierActivityDiag.png[]
 
 === Overview Tab
 

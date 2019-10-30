@@ -20,20 +20,14 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final TransactionTabParser parser;
-    private final seedu.address.person.model.Model personModel;
-    private final seedu.address.reimbursement.model.Model reimbursementModel;
-    private final seedu.address.reimbursement.storage.Storage reimbursementStorage;
+    private final seedu.address.person.model.GetPersonByNameOnlyModel personModel;
 
     public LogicManager(Model transactionModel, Storage transactionStorage,
-                        seedu.address.person.model.Model personModel,
-                        seedu.address.reimbursement.model.Model reimbursementModel,
-                        seedu.address.reimbursement.storage.Storage reimbursementStorage) {
+                        seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         this.model = transactionModel;
         this.storage = transactionStorage;
         this.parser = new TransactionTabParser();
         this.personModel = personModel;
-        this.reimbursementModel = reimbursementModel;
-        this.reimbursementStorage = reimbursementStorage;
     }
 
     @Override
@@ -45,9 +39,6 @@ public class LogicManager implements Logic {
         CommandResult commandResult = command.execute(model, personModel);
         model.updateIndexes();
         storage.writeFile(model.getTransactionList());
-        reimbursementModel.updateReimbursementList(
-                reimbursementStorage.getReimbursementFromFile(model.getTransactionList()));
-        reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
         return commandResult;
     }
 
@@ -74,5 +65,18 @@ public class LogicManager implements Logic {
     @Override
     public void addTransaction(Transaction transaction) {
         model.addTransaction(transaction);
+    }
+
+    @Override
+    public void appendToTransactionFile(Transaction transaction) throws Exception {
+        System.out.println("appending");
+        storage.appendToTransaction(transaction);
+        System.out.println("append finish");
+    }
+
+    @Override
+    public void updateTransactionFromReimbursement() throws IOException {
+        storage.writeFile(model.getTransactionList());
+
     }
 }

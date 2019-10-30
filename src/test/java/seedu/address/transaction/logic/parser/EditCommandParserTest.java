@@ -1,6 +1,7 @@
 package seedu.address.transaction.logic.parser;
 
 import static seedu.address.person.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_CATEGORY;
@@ -28,29 +29,39 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_DAT
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.logic.commands.EditCommand;
+import seedu.address.transaction.logic.parser.exception.ParseException;
+import seedu.address.transaction.model.exception.NoSuchPersonException;
 
 class EditCommandParserTest {
-    private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private GetPersonByNameOnlyModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private EditCommandParser parser = new EditCommandParser();
+
+    @Test
+    public void parse_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new EditCommandParser().parse("dummy" , null));
+    }
 
     @Test
     public void parse_missingParts_failure() {
         // no index specified
         assertCommandParseWithPersonModelFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_EDIT_COMMAND_FORMAT,
                 personModel);
+        assertThrows(ParseException.class, () -> parser.parse(VALID_NAME_AMY, personModel));
 
         // no field specified
         assertCommandParseWithPersonModelFailure(parser, "1", MESSAGE_INVALID_EDIT_COMMAND_FORMAT,
                 personModel);
+        assertThrows(ParseException.class, () -> parser.parse("1", personModel));
 
         // no index and no field specified
         assertCommandParseWithPersonModelFailure(parser, "", MESSAGE_INVALID_EDIT_COMMAND_FORMAT, personModel);
+        assertThrows(ParseException.class, () -> parser.parse("", personModel));
     }
 
     @Test
@@ -76,8 +87,12 @@ class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertCommandParseWithPersonModelFailure(parser, "1" + DESC_NAME_AMY,
                 MESSAGE_NO_SUCH_PERSON, personModel); // invalid name
+        assertThrows(NoSuchPersonException.class, () -> parser.parse("1" + DESC_NAME_AMY, personModel));
+
         assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_DATE_1, MESSAGE_WRONG_DATE_FORMAT,
                 personModel); // invalid date
+        assertThrows(ParseException.class, () -> parser.parse("1" + INVALID_DATE_2, personModel));
+
         assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_DATE_2, MESSAGE_WRONG_DATE_FORMAT,
                 personModel); // invalid date
         assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_DATE_3, MESSAGE_WRONG_DATE_FORMAT,

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
@@ -27,9 +27,9 @@ public class StorageManager implements Storage {
 
     private final File file;
     private final Logger logger = new LogsCenter().getLogger(getClass());
-    private final seedu.address.person.model.Model personModel;
+    private final GetPersonByNameOnlyModel personModel;
 
-    public StorageManager(File file, Model personModel) {
+    public StorageManager(File file, GetPersonByNameOnlyModel personModel) {
         this.file = file;
         this.personModel = personModel;
     }
@@ -75,7 +75,7 @@ public class StorageManager implements Storage {
      * @param personModel Address Book model.
      * @return Transaction created.
      */
-    private static Transaction readInFileLine(String line, seedu.address.person.model.Model personModel) {
+    private static Transaction readInFileLine(String line, GetPersonByNameOnlyModel personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);
@@ -88,4 +88,20 @@ public class StorageManager implements Storage {
     private static boolean isReimbursed(String num) {
         return num.equals(NUM_FOR_REIMBURSED) ? true : false;
     }
+
+    @Override
+    public void appendToTransaction(Transaction transaction) throws Exception {
+        FileWriter fw = new FileWriter(this.file, true);
+        TransactionList transactionList = readTransactionList();
+        String textFileMsg = "";
+        if (transactionList.size() == 0) {
+            textFileMsg = (transactionList.size() + 1) + ". " + transaction.toWriteIntoFile();
+        } else {
+            textFileMsg = System.lineSeparator() + (transactionList.size() + 1) + ". "
+                    + transaction.toWriteIntoFile();
+        }
+        fw.write(textFileMsg);
+        fw.close();
+    }
+
 }

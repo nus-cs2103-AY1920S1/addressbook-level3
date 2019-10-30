@@ -43,6 +43,7 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws Exception {
         readInUpdatedList();
+        System.out.println("can read");
         Command command = parser.parseCommand(commandText, model, personModel);
         CommandResult commandResult = command.execute(model, personModel);
         if (command instanceof CheckoutCommand) {
@@ -66,6 +67,12 @@ public class LogicManager implements Logic {
     @Override
     public void writeInInventoryFile() throws Exception {
         storage.writeToInventoryFile(model.getInventoryList());
+        /*InventoryList inventoryList = model.getInventoryList();
+        ArrayList<Item> list = inventoryList.getiArrayList();
+        seedu.address.inventory.util.InventoryList inventoryList1 =
+                new seedu.address.inventory.util.InventoryList(list);
+        System.out.println("inside writing");
+        inventoryModel.resetAndWriteIntoInventoryFile(inventoryList1);*/
     }
 
     public InventoryList getInventoryList() {

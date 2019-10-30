@@ -24,6 +24,7 @@ import seedu.address.person.logic.commands.CommandResult;
 import seedu.address.person.logic.commands.ListCommand;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.logic.parser.exceptions.ParseException;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.ReadOnlyAddressBook;
@@ -50,7 +51,7 @@ public class LogicManagerTest {
     private seedu.address.reimbursement.logic.Logic reimbursementLogic;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws Exception {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
@@ -70,7 +71,8 @@ public class LogicManagerTest {
         seedu.address.transaction.model.Model transactionModel =
                 new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         seedu.address.transaction.storage.StorageManager transactionManager =
-                new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION), personModel);
+                new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION),
+                        (GetPersonByNameOnlyModel) personModel);
 
         //For Reimbursement Storage and Manager
         seedu.address.reimbursement.model.Model reimbursementModel =
@@ -79,28 +81,35 @@ public class LogicManagerTest {
                 new seedu.address.reimbursement.storage.StorageManager(
                         new File(FILE_PATH_REIMBURSEMENT));
 
-        //For Cashier Storage and Manager
-        seedu.address.cashier.model.ModelManager cashierModel =
-                new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
-        seedu.address.cashier.storage.StorageManager cashierManager =
-                new seedu.address.cashier.storage.StorageManager(new File(FILE_PATH_INVENTORY),
-                        new File(FILE_PATH_TRANSACTION), personModel);
-
         //For Inventory Storage and Manager
-        seedu.address.inventory.model.ModelManager inventoryModel =
+        seedu.address.inventory.model.Model inventoryModel =
                 new seedu.address.inventory.model.ModelManager(inventoryList);
         seedu.address.inventory.storage.StorageManager inventoryManager =
                 new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
 
+        seedu.address.transaction.logic.Logic transactionLogic =
+                new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager,
+                        (GetPersonByNameOnlyModel) personModel);
+        seedu.address.inventory.logic.Logic inventoryLogic =
+                new seedu.address.inventory.logic.LogicManager(
+                        (seedu.address.inventory.model.ModelManager) inventoryModel,
+                        inventoryManager);
+
+        //For Cashier Storage and Manager
+        seedu.address.cashier.model.ModelManager cashierModel =
+                new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
+        seedu.address.cashier.storage.StorageManager cashierManager =
+                new seedu.address.cashier.storage.StorageManager(inventoryLogic, transactionLogic);
+
         //All related logics
         transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel,
-                transactionManager, personModel,
-                reimbursementModel, reimbursementManager);
+                transactionManager, (GetPersonByNameOnlyModel) personModel);
         reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                        transactionModel, transactionManager, personModel);
+                        personModel);
         logic = new LogicManager(model, personManager, transactionLogic, reimbursementLogic);
     }
+
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
