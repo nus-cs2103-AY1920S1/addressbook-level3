@@ -271,6 +271,11 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     //========== Task ===================================================================
 
     @Override
+    public void setCurrentPlan(Plan plan) {
+        plans.setCurrentPlan(plan);
+    }
+
+    @Override
     public ObservableList<Task> getCurrentTaskList() {
         return plans.getUnmodifiableObservableTaskList();
     }

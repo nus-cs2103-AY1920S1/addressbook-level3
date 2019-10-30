@@ -40,6 +40,7 @@ import seedu.algobase.logic.commands.task.DeleteTaskCommand;
 import seedu.algobase.logic.commands.task.DoneTaskCommand;
 import seedu.algobase.logic.commands.task.EditTaskCommand;
 import seedu.algobase.logic.commands.task.MoveTaskCommand;
+import seedu.algobase.logic.commands.task.SetPlanCommand;
 import seedu.algobase.logic.commands.task.UndoneTaskCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.logic.parser.problem.AddCommandParser;
@@ -55,6 +56,7 @@ import seedu.algobase.logic.parser.task.DeleteTaskCommandParser;
 import seedu.algobase.logic.parser.task.DoneTaskCommandParser;
 import seedu.algobase.logic.parser.task.EditTaskCommandParser;
 import seedu.algobase.logic.parser.task.MoveTaskCommandParser;
+import seedu.algobase.logic.parser.task.SetPlanCommandParser;
 import seedu.algobase.logic.parser.task.UndoneTaskCommandParser;
 
 /**
@@ -137,6 +139,9 @@ public class AlgoBaseParser {
 
         case MoveTaskCommand.COMMAND_WORD:
             return new MoveTaskCommandParser().parse(arguments);
+
+        case SetPlanCommand.COMMAND_WORD:
+            return new SetPlanCommandParser().parse(arguments);
 
         case UndoneTaskCommand.COMMAND_WORD:
             return new UndoneTaskCommandParser().parse(arguments);

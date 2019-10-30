@@ -142,9 +142,6 @@ public class ModelManager implements Model {
         algoBase.setProblem(target, editedProblem);
     }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Problem}.
-     */
     @Override
     public ObservableList<Problem> getFilteredProblemList() {
         return sortedProblems;
@@ -227,10 +224,6 @@ public class ModelManager implements Model {
         }
     }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Tag} backed by the internal list of
-     * {@code versionedAlgoBase}
-     */
     @Override
     public ObservableList<Tag> getFilteredTagList() {
         return filteredTags;
@@ -284,10 +277,11 @@ public class ModelManager implements Model {
 
     //========== Task ===================================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
-     * {@code versionedAlgoBase}
-     */
+    @Override
+    public void setCurrentPlan(Plan plan) {
+        this.algoBase.setCurrentPlan(plan);
+    }
+
     @Override
     public ObservableList<Task> getCurrentTaskList() {
         return filteredTasks;

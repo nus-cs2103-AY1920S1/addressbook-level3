@@ -195,6 +195,11 @@ public class DefaultModelStub implements Model {
     //=========== Task ==================================================================
 
     @Override
+    public void setCurrentPlan(Plan plan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Task> getCurrentTaskList() {
         throw new AssertionError("This method should not be called.");
     }

@@ -114,6 +114,16 @@ public class PlanList implements Iterable<Plan> {
     }
 
     /**
+     * Sets the current {@code Plan}.
+     */
+    public void setCurrentPlan(Plan plan) {
+        currentPlan.set(plan.getPlanName().fullName);
+        solvedCount.set(plan.getSolvedTaskCount());
+        unsolvedCount.set(plan.getUnsolvedTaskCount());
+        internalTaskList.setAll(plan.getTaskList());
+    }
+
+    /**
      * Returns the number of solved tasks in current plan.
      */
     public IntegerProperty getCurrentSolvedCount() {
