@@ -6,7 +6,6 @@ import dukecooks.commons.core.LogsCenter;
 import dukecooks.logic.parser.health.TimestampComparator;
 import dukecooks.logic.ui.CustomRecordList;
 import dukecooks.model.health.components.Record;
-import dukecooks.model.health.components.Type;
 import dukecooks.model.health.components.util.TypeUtil;
 
 import javafx.collections.FXCollections;
@@ -29,11 +28,12 @@ import javafx.scene.layout.Region;
  * Panel containing the list of records.
  */
 public class RecordTypeListPanel extends UiPart<Region> {
-    private static final String FXML = "RecordTypeListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(RecordTypeListPanel.class);
 
-    String recordType;
-    String recordUnit;
+    private static final String FXML = "RecordTypeListPanel.fxml";
+
+    private String recordType;
+    private String recordUnit;
+    private final Logger logger = LogsCenter.getLogger(RecordTypeListPanel.class);
 
     @FXML
     private Label title;
