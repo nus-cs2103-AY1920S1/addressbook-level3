@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.statistics;
 
 import static org.junit.jupiter.api.Assertions.fail;
+
 import static seedu.address.logic.commands.statistics.GetOverviewCommand.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.statistics.GetOverviewCommand.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;

@@ -12,6 +12,9 @@ import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.FilterType;
 import seedu.address.model.quiz.QuizResultFilter;
 
+/**
+ * A utility class for helping with building QuizResultFilter objects.
+ */
 public class QuizResultFilterBuilder {
 
     private QuizResultFilter quizResultFilter;
