@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -20,8 +21,12 @@
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-
-      <FlowPane fx:id="tags" />
+         <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 3 0 0 0;">
+            <children>
+               <Circle fx:id="circleType" fill="DODGERBLUE" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <FlowPane fx:id="tags" />
+            </children>
+         </HBox>
       <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 3 0 0 0;">
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
@@ -33,7 +38,7 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-         <Label fx:id="type" style="-fx-border-color: #000000; -fx-label-padding: 3;" styleClass="cell_small_label" text="\$type">
+         <Label fx:id="type" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-label-padding: 3;" styleClass="cell_small_label" text="\$type">
                <font>
                   <Font size="14.0" />
                </font>

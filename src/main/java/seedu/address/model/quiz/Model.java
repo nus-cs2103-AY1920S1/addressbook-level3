@@ -86,6 +86,31 @@ public interface Model {
     boolean getShowAnswer();
 
     /**
+     * Returns true if the model has previous address book states to restore.
+     */
+    boolean canUndoQuizBook();
+
+    /**
+     * Returns true if the model has undone address book states to restore.
+     */
+    boolean canRedoQuizBook();
+
+    /**
+     * Restores the model's address book to its previous state.
+     */
+    void undoQuizBook();
+
+    /**
+     * Restores the model's address book to its previously undone state.
+     */
+    void redoQuizBook();
+
+    /**
+     * Saves the current address book state for undo/redo.
+     */
+    void commitQuizBook();
+
+    /**
      * Set the question to be shown to the StackPane.
      * @param question
      */
