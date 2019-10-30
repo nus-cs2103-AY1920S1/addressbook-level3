@@ -1,6 +1,7 @@
 package seedu.address.model.person.parameters;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -17,7 +18,13 @@ public class Address {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
-    public final String value;
+    public static final Address EMPTY_ADDRESS_DETAILS = new Address();
+
+    private final String value;
+
+    private Address() {
+        value = "";
+    }
 
     /**
      * Constructs an {@code Address}.

@@ -19,7 +19,7 @@ import seedu.address.model.person.parameters.Phone;
 
 /**
  * Represents a Person who can be either a patient or staff doctor.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details present are immutable.
  */
 public class Person implements Identical<Person> {
 
