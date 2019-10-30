@@ -105,6 +105,7 @@ class GraphGenerator {
         graphs.put("complete", Graph.emptyGraph());
         graphs.put("cancel", Graph.emptyGraph());
         graphs.put("list-o", Graph.emptyGraph());
+        graphs.put("clear-o", Graph.emptyGraph());
         graphs.put("edit-o", Graph.emptyGraph());
         graphs.put("copy-o", Graph.emptyGraph());
 
