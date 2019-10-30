@@ -31,12 +31,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ItemListPanel itemListPanel;
     private ResultWindow resultWindow;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-
-    private CardListPanel cardListPanel;
+    private ViewPanel viewPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -45,10 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane cardListPanelPlaceholder;
-
-    @FXML
-    private StackPane itemListPanelPlaceholder;
+    private StackPane viewPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -114,11 +109,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        // itemListPanel = new ItemListPanel(logic.getFilteredItemList());
-        // itemListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
 
-        cardListPanel = new CardListPanel(logic.getCurrentFilteredItemList());
-        cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+        viewPanel = new ViewPanel(logic.getCurrentFilteredItemList());
+        viewPanelPlaceholder.getChildren().add(viewPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -126,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, resultDisplay);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -154,16 +147,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the result window
-     */
-    @FXML
-    public void handleResult(String feedback) {
-        resultWindow.setFeedbackToUser(feedback);
-        resultWindow.show();
-        resultWindow.focus();
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -181,8 +164,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ItemListPanel getItemListPanel() {
-        return itemListPanel;
+    public ViewPanel getViewPanel() {
+        return viewPanel;
     }
 
     /**
@@ -195,10 +178,9 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            cardListPanel.displayItem(logic.getCurrentFilteredItemList());
-            cardListPanelPlaceholder.getChildren().remove(cardListPanel.getRoot());
-            cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
-            //handleResult(commandResult.getFeedbackToUser());
+            viewPanel.displayItem(logic.getCurrentFilteredItemList());
+            viewPanelPlaceholder.getChildren().remove(viewPanel.getRoot());
+            viewPanelPlaceholder.getChildren().add(viewPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -212,7 +194,6 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
-            //handleResult(e.getMessage());
             throw e;
         }
     }

@@ -18,9 +18,9 @@ import javafx.scene.layout.VBox;
 /**
  * Panel containing the list of items.
  */
-public class CardListPanel extends UiPart<AnchorPane> {
-    private static final String FXML = "CardListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(CardListPanel.class);
+public class ViewPanel extends UiPart<AnchorPane> {
+    private static final String FXML = "ViewPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ViewPanel.class);
 
     private Collection<ItemCard> oldCardList = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public class CardListPanel extends UiPart<AnchorPane> {
     @FXML
     private Label view;
 
-    public CardListPanel(ObservableList<? extends Item> xpireItemList) {
+    public ViewPanel(ObservableList<? extends Item> xpireItemList) {
         super(FXML);
         displayItem(xpireItemList);
     }
