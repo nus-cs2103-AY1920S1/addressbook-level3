@@ -278,9 +278,9 @@ exporting to document files.
 
 `search process`
 
-=== Stop test: `stop`
+=== Stop test: `end`
 
-`stop`
+`end`
 
 === Exit: `exit`
 
@@ -302,17 +302,15 @@ To view statistics:
 
 . Type `stats` and press **Enter** to execute it.
 +
-image::AddStep1.png[width="600"]
+image::StatsCommand.png[width="600"]
 
 . The result box will display the message:
 +
-_STATISTICS_
+Displays the number of GOOD, HARD & EASY FlashCards
+
+. A bar chart will also be displayed:
 +
-_Total: Good(x) Hard(x) Easy(x)_
-+
-_Completed in test: Good(x) Hard(x) Easy(x)_
-+
-image::AddStep2.png[width="600"]
+image::BarChart.png[width="600"]
 
 
 
