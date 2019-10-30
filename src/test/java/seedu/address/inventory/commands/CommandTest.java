@@ -125,7 +125,7 @@ public class CommandTest {
         ArrayList<Item> list = new ArrayList<>();
         list.add(TypicalItem.FISH_BURGER);
         list.add(TypicalItem.STORYBOOK);
-        list.add(TypicalItem.BLACK_SHIRT);
+        list.add(TypicalItem.PHONE_CASE);
 
         InventoryList inventoryList = new InventoryList(list);
         Model sortDescriptionInventoryModel = new ModelManager(inventoryList);
@@ -151,7 +151,7 @@ public class CommandTest {
         ArrayList<Item> list = new ArrayList<>();
         list.add(TypicalItem.FISH_BURGER);
         list.add(TypicalItem.STORYBOOK);
-        list.add(TypicalItem.BLACK_SHIRT);
+        list.add(TypicalItem.PHONE_CASE);
 
         InventoryList inventoryList = new InventoryList(list);
         Model sortCategoryInventoryModel = new ModelManager(inventoryList);
@@ -176,7 +176,7 @@ public class CommandTest {
         ArrayList<Item> list = new ArrayList<>();
         list.add(TypicalItem.FISH_BURGER);
         list.add(TypicalItem.STORYBOOK);
-        list.add(TypicalItem.BLACK_SHIRT);
+        list.add(TypicalItem.PHONE_CASE);
 
         //Instantiate ModelManagers for all sort commands
         InventoryList inventoryList = new InventoryList(list);
@@ -196,7 +196,7 @@ public class CommandTest {
         assertEquals(new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_QUANTITY),
                 sortQuantityCommandResult);
 
-        assertEquals(TypicalItem.BLACK_SHIRT, sortQuantityInventoryModel.getInventoryList().get(0));
+        assertEquals(TypicalItem.PHONE_CASE, sortQuantityInventoryModel.getInventoryList().get(0));
     }
 
     @Test
@@ -204,7 +204,7 @@ public class CommandTest {
         ArrayList<Item> list = new ArrayList<>();
         list.add(TypicalItem.FISH_BURGER);
         list.add(TypicalItem.STORYBOOK);
-        list.add(TypicalItem.BLACK_SHIRT);
+        list.add(TypicalItem.PHONE_CASE);
 
         //Instantiate ModelManagers for all sort commands
         InventoryList inventoryList = new InventoryList(list);
@@ -228,8 +228,8 @@ public class CommandTest {
 
     @Test
     public void equalsTest() {
-        AddCommand addCommand1 = new AddCommand(TypicalItem.BLACK_SHIRT);
-        AddCommand addCommand1Copy = new AddCommand(TypicalItem.BLACK_SHIRT);
+        AddCommand addCommand1 = new AddCommand(TypicalItem.PHONE_CASE);
+        AddCommand addCommand1Copy = new AddCommand(TypicalItem.PHONE_CASE);
         AddCommand addCommand2 = new AddCommand(TypicalItem.FISH_BURGER);
 
         DeleteCommand deleteCommand1 = new DeleteCommand(1);
