@@ -9,6 +9,7 @@ import dream.fcard.gui.controllers.cards.frontview.BasicFrontBackCard;
 import dream.fcard.gui.controllers.cards.frontview.JsCard;
 import dream.fcard.gui.controllers.cards.frontview.McqCard;
 import dream.fcard.gui.controllers.windows.MainWindow;
+import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -43,7 +44,7 @@ public class TestDisplay extends AnchorPane {
     /**
      * The deck in use for the test.
      */
-    private Deck deck;
+    private Exam exam;
     /**
      * The index of the card in the deck that is currently on display.
      */
@@ -70,6 +71,8 @@ public class TestDisplay extends AnchorPane {
         renderCurrentScore();
     };
 
+    @SuppressWarnings("unchecked")
+    private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
     /**
      * Imported Consumer: Used by TestDisplay to trigger MainWindow to re-render DeckDisplay
      */
@@ -81,7 +84,7 @@ public class TestDisplay extends AnchorPane {
     @SuppressWarnings("unchecked")
     private Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
 
-    public TestDisplay(Deck deck) {
+    public TestDisplay(Exam exam) {
         try {
             clearMessage.accept(true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays"
@@ -89,14 +92,14 @@ public class TestDisplay extends AnchorPane {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            this.deck = deck.duplicateMyself();
-            nowShowing = 0;
-            this.cardOnDisplay = deck.getCards().get(nowShowing); //show the first card - fails if no cards are present
+            //show the first card - fails if no cards are present
+            this.exam = exam;
+            this.cardOnDisplay = exam.getCurrentCard();
             seeFront();
             prevButton.setOnAction(e -> onShowPrevious());
             endSessionButton.setOnAction(e -> displayDecks.accept(true));
             nextButton.setOnAction(e -> onShowNext());
-        } catch (IOException e) {
+        } catch (IOException | IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
     }
@@ -147,25 +150,29 @@ public class TestDisplay extends AnchorPane {
      * The handler to render the previous card.
      */
     private void onShowPrevious() {
-        if (nowShowing != 0) {
-            nowShowing--;
-            cardOnDisplay = deck.getCards().get(nowShowing);
-            seeFront();
-        }
+        exam.downIndex();
+        cardOnDisplay = exam.getCurrentCard();
+        seeFront();
     }
 
     /**
      * The handler to render the next card.
      */
     private void onShowNext() {
-        if (nowShowing != deck.getCards().size() - 1) {
-            nowShowing++;
-            cardOnDisplay = deck.getCards().get(nowShowing);
+        try {
+            exam.upIndex();
+            cardOnDisplay = exam.getCurrentCard();
             seeFront();
+        } catch (IndexOutOfBoundsException e) {
+            //code for a result popup
+            displayMessage.accept("You've ran out of cards in this test!");
+            EndOfTestAlert.display("Results", "results");
+            displayDecks.accept(true);
+            clearMessage.accept(true);
         }
     }
     //sample renderer for Shawn
     private void renderCurrentScore() {
-        scoreLabel.setText(currentScore + " / " + deck.getCards().size());
+        scoreLabel.setText(currentScore + " / " + exam.getDeck().size());
     }
 }

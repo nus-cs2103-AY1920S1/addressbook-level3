@@ -1,6 +1,7 @@
 package dream.fcard.gui.controllers.displays.displayingdecks;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -8,6 +9,8 @@ import dream.fcard.gui.controllers.displays.createandeditdeck.EditDeckDisplay;
 import dream.fcard.gui.controllers.displays.test.TestDisplay;
 import dream.fcard.gui.controllers.windows.CardEditingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
+import dream.fcard.logic.exam.Exam;
+import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -86,7 +89,10 @@ public class DeckDisplay extends AnchorPane {
      */
     private void startTest() {
         //display the first card
-        TestDisplay testDisplay = new TestDisplay(deck);
+        ArrayList<FlashCard> testArrayListOfCards = deck.getSubsetForTest();
+        ExamRunner.createExam(testArrayListOfCards);
+        Exam exam = ExamRunner.getCurrentExam();
+        TestDisplay testDisplay = new TestDisplay(exam);
         swapDisplaysInMain.accept(testDisplay);
     }
 
