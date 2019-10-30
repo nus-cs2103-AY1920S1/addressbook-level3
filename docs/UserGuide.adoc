@@ -145,7 +145,7 @@ Change the Tab Panel to Customer, Phone, Order, Schedule or Archived.
 If you've made a mistake, you can simply revert to the previous command.
 
 . *Redo* +
-Opposite of undo.
+Inverse of undo.
 
 . *Copy* +
 Action of copying an entry into clipboard.
@@ -243,8 +243,8 @@ Finds customers whose fields contain any of the given keywords. +
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The search matches anywhere for name, contact number, email and tags.
-* Entries matching at least one field will be returned (i.e. `OR` search).
-** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and a customer with tag `bbb`;
+* Entries matching ALL fields will be returned (i.e. `AND` search).
+** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and with tag `bbb`;
 ****
 
 [underline]#Examples#:
@@ -254,8 +254,8 @@ Finds customers whose fields contain any of the given keywords. +
 
 image::ug-command/ug-find-c-1.png[width="800"]
 
-* Find customers with keywords `roy` `bernice` +
-. `find-c charlotte david` +
+* Find customers with keywords `charlotte` `oliveiro` +
+. `find-c charlotte oliveiro` +
 
 image::ug-command/ug-find-c-2.png[width="800"]
 
@@ -267,6 +267,13 @@ List every customer in SML. Acts as a switch customer command as well. +
 [underline]#Format#: `list-c`
 
 - `list-c`
+
+==== Clear the customers : `clear-c`
+Clears every customer in SML. +
+
+[underline]#Format#: `clear-c`
+
+- `clear-c`
 
 
 ==== Edit a customer : `edit-c`
@@ -377,8 +384,8 @@ Finds phones whose fields contain any of the given keywords. +
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The search matches anywhere for name, contact number, email and tags.
-* Entries matching at least one field will be returned (i.e. `OR` search).
-** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and a customer with tag `bbb`;
+* Entries matching ALL field will be returned (i.e. `AND` search).
+** e.g. `find-c aaa bbb` will match a phone with name `Aaah` and with tag `bbb`;
 ****
 
 [underline]#Examples#:
@@ -400,6 +407,13 @@ List every phone in SML. Acts as a switch phone command as well. +
 [underline]#Format#: `list-p`
 
 - `list-p`
+
+==== Clear the phones : `clear-p`
+Clears every phone in SML. +
+
+[underline]#Format#: `clear-p`
+
+- `clear-p`
 
 ==== Edit a phone : `edit-p`
 Edits the data fields of a phone. +
@@ -470,9 +484,9 @@ Format: `cancel-o INDEX`
 List all the orders in the list. +
 Format: `list-o`
 
-//==== Copy order field : `copy-o`
-//Copies an order field to clipboard. +
-//Format: `copy-o <field>`
+==== Copy order field : `copy-o`
+Copies an order field to clipboard. +
+Format: `copy-o <field>`
 
 //==== Duplicate an order : `duplicate-o`
 //Duplicate an order of the specified index. +
@@ -541,15 +555,81 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 * Edit the date of the schedule of the 1st order and allow it to clash with the existing schedules. +
 `edit-s 1 cd/2019.12.12 -allow`
 
-=== Utility Commands
+=== General Commands
 
 ==== Undo : `undo`
-Undo the previous command.  +
-Format: `undo`
+
+Undo the previous command. +
+Currently, the following commands are undoable and redoable. +
+
+. Add Customer
+. Edit Customer
+. Delete Customer
+. Clear Customer
+
+. Add Order
+. Edit Order
+. Complete Order
+. Cancel Order
+
+. Add Phone
+. Edit Phone
+. Delete Phone
+. Clear Phone
+
+
+[underline]#Format#: `undo`
+
+[underline]#Examples#:
+
+* Undo clear Customer Book
+. `clear-c`
+. `undo`
+
+image::ug-command/ug-undo.png[width="800"]
 
 ==== Redo : `redo`
-redo the previous command.  +
-Format: `redo`
+Redo the previous undone command. Inverse of undo.  +
+
+Currently, the following commands are undoable and redoable. +
+
+. Add Customer
+. Edit Customer
+. Delete Customer
+. Clear Customer
+
+. Add Order
+. Edit Order
+. Complete Order
+. Cancel Order
+
+. Add Phone
+. Edit Phone
+. Delete Phone
+. Clear Phone
+
+[underline]#Format#: `undo`
+
+[underline]#Examples#:
+
+* Redo clear Customer Book
+. `clear-c`
+. `undo`
+. `redo`
+
+image::ug-command/ug-redo.png[width="800"]
+
+
+=== History: `history`
+
+Views the command history of all your previous commands.
+
+[underline]#Format#: `history`
+
+[underline]#Example#:
+
+image::ug-command/ug-history.png[width="800"]
+
 
 ==== Generate stats : `generate-s`
 
@@ -566,7 +646,9 @@ The argument must match this three words perfectly.
 
 Shown below:
 
-image::images/StatsExampleDefault.png[width="600"]
+
+image::StatsExampleDefault.png[width="600"]
+
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
 Format: `generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` +
@@ -575,7 +657,7 @@ Format for date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
-image::images/StatsExampleGraph.png[width="600"]
+image::StatsExampleGraph.png[width="600"]
 
 Limitations:
 
@@ -651,6 +733,9 @@ Export any of the data in SML to PDF format.
 ** order : `cancel INDEX`
 
 * *Clear* : `clear`
+** customer : `clear-c`
+** phone : `clear-p`
+** order : `clear-o`
 
 * *Complete* +
 ** order : `complete INDEX`
@@ -665,8 +750,8 @@ Export any of the data in SML to PDF format.
 ** phone : `delete-p INDEX`
 ** schedule : `delete-s ORDER_INDEX`
 
-* *Duplicate* +
-** order : `duplicate-o INDEX`
+* *History* +
+** history : `history`
 
 * *Edit* +
 ** customer : `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
