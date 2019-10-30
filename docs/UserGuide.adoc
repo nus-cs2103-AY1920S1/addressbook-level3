@@ -118,18 +118,18 @@ at your command, the system will prompt you to answer those questions.
 
 ==== Adding Questions : `addq`
 
-Adds a question and its answer. +
+You can add a question and its answer together with the necessary fields to the app. +
 Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 
 ==== Listing all questions: `listq`
 
-Shows a list of questions. +
+You can view the list of all questions. +
 Format: `listq`
 
 
 ==== Editing a question: `editq`
 
-Edits the fields of an existing question. +
+You can edit the fields of an existing question by providing the fields you want to change. +
 Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 
 ****
@@ -141,12 +141,12 @@ Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 
 ==== Locating questions by keyword: `findq`
 
-Finds questions containing the keyword. +
+You can view the list of questions containing the keyword(s). +
 Format: `findq KEYWORD [MORE KEYWORDS]`
 
 ==== Deleting a question: `deleteq`
 
-Deletes the specific question at the specified INDEX and its answer from the list. +
+You can delete the specific question at the specified INDEX with its relevant fields from the list. +
 Format: `deleteq INDEX`
 
 ****
@@ -157,17 +157,17 @@ Format: `deleteq INDEX`
 
 ==== Filter by difficulty: `difficulty`
 
-Views the list of all questions with a specific difficulty. +
+You can view the list of all questions with a specific difficulty. +
 Format: `difficulty DIFFICULTY`
 
 ==== Filter by subject: `subject`
 
-Views the list of all questions from a specific subject. +
+You can view the list of all questions from a specific subject. +
 Format: `subject SUBJECT`
 
 ==== Clear all questions: `clearq`
 
-Delete all questions. +
+You can delete all questions from the app. +
 Format: `clearq`
 
 === Quiz mode
