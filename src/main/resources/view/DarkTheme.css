@@ -168,6 +168,19 @@
     -fx-text-fill: #010504;
 }
 
+.cell_slogan_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 11px;
+    -fx-text-fill: #010504;
+}
+
+.cell_equipment_label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+    -fx-border-width: 20;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }

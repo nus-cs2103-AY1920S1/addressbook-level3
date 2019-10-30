@@ -349,6 +349,32 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean ccaContainsProgress(Index targetIndex) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean ccaAtMaxIncrement(Index targetIndex) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void removeProgress(Cca targetCca, CcaMilestoneList toAddCcaMilestoneList) {
+        throw new AssertionError("This method should not be called.");
+
+    }
+
+    @Override
+    public boolean ccaProgressAtMinLevel(Index targetIndex) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void decreaseProgress(Index targetIndex) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public Planner getPlanner() {
         throw new AssertionError("This method should not be called.");
     }
