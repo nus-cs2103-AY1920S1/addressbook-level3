@@ -93,25 +93,21 @@ public class InviteCommand extends Command {
 
             if (person.isPresent()) {
                 personToInvite = person.get();
-                idOfPersonToInvite = personToInvite.getPrimaryKey();
-                idsToInvite.add(idOfPersonToInvite);
-                successMessage.append(String.format(MESSAGE_SUCCESS_INVITE, personToInvite.getName()) + "\n");
-                continue;
+            } else {
+                keywords = Arrays.asList(name.split(" "));
+                NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+
+                findResult = model.findPersonAll(predicate);
+                assert findResult != null : "List of people in contacts should not be null.";
+
+                if (findResult.size() != 1) {
+                    String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
+                    warningMessage.append(warning).append("\n");
+                    continue;
+                }
+                personToInvite = findResult.get(0);
             }
 
-            keywords = Arrays.asList(name.split(" "));
-            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
-
-            findResult = model.findPersonAll(predicate);
-            assert findResult != null : "List of people in contacts should not be null.";
-
-            if (findResult.size() != 1) {
-                String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
-                warningMessage.append(warning).append("\n");
-                continue;
-            }
-
-            personToInvite = findResult.get(0);
             idOfPersonToInvite = personToInvite.getPrimaryKey();
 
             if (activityToInviteTo.hasPerson(idOfPersonToInvite)) {

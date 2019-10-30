@@ -48,6 +48,8 @@ public class DisinviteCommand extends Command {
     public static final String MESSAGE_UNSUCCESSFUL_DISINVITE_HAS_EXPENSE = "Cannot disinvite \"%s\" from activity: "
             + "involved in expense(s).";
 
+    public static final String MESSAGE_PERSON_NOT_FOUND_IN_ACTIVITY = "\"%s\" is not in Activity, cannot be disinvited.";
+
     private final List<String> peopleToDisinvite;
 
     /**
@@ -95,35 +97,29 @@ public class DisinviteCommand extends Command {
 
             if (person.isPresent()) {
                 personToDisinvite = person.get();
-                idOfPersonToDisinvite = personToDisinvite.getPrimaryKey();
-                // try to disinvite him/her from the activity
-                activityToDisinviteFrom.disinvite(idOfPersonToDisinvite);
-                if (activityToDisinviteFrom.hasPerson(idOfPersonToDisinvite)) {
-                    // failed to disinvite, is currently involved in expense
-                    String warning = String.format(MESSAGE_UNSUCCESSFUL_DISINVITE_HAS_EXPENSE, name);
+            } else {
+                keywords = Arrays.asList(name.split(" "));
+                NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+
+                findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
+
+                assert findResult != null : "List of people should not be null.";
+
+                if (findResult.size() != 1) { //not in activity or duplicate
+                    String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
                     warningMessage.append(warning).append("\n");
-                } else { // successfully disinvited, not involved in any expense
-                    String success = String.format(MESSAGE_SUCCESS_DISINVITE, name);
-                    successMessage.append(success).append("\n");
+                    continue;
                 }
-                continue;
+                personToDisinvite = findResult.get(0);
             }
 
-            keywords = Arrays.asList(name.split(" "));
-            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+            idOfPersonToDisinvite = personToDisinvite.getPrimaryKey(); // id of person in the activity
 
-            findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
-
-            assert findResult != null : "List of people should not be null.";
-
-            if (findResult.size() != 1) { //not in activity or duplicate
-                String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
+            if (!activityToDisinviteFrom.hasPerson(idOfPersonToDisinvite)) {
+                String warning = String.format(MESSAGE_PERSON_NOT_FOUND_IN_ACTIVITY, name);
                 warningMessage.append(warning).append("\n");
                 continue;
             }
-
-            personToDisinvite = findResult.get(0);
-            idOfPersonToDisinvite = personToDisinvite.getPrimaryKey(); // id of person in the activity
 
             if (idsToRemove.contains(idOfPersonToDisinvite)) { // repeated entry
                 continue;
