@@ -33,6 +33,7 @@ public class AssignPolicyCommand extends Command {
     public static final String MESSAGE_ASSIGN_POLICY_SUCCESS = "Assigned Policy: %1$s to Person: %2$s";
     public static final String MESSAGE_ALREADY_ASSIGNED = "Person: %1$s already has the Policy: %2$s.";
     public static final String MESSAGE_POLICY_NOT_FOUND = "Policy: %1$s not found in the list of policies.";
+    public static final String MESSAGE_INELIGIBLE_POLICY = "Person: %1$s is not eligible for Policy: %2$s.";
 
     private final PolicyName policyName;
     private final Index personIndex;
@@ -69,10 +70,17 @@ public class AssignPolicyCommand extends Command {
             throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED, person.getName(), policy.getName()));
         }
 
-        Policy copyPolicy = new PolicyBuilder(policy).build();
-        Person assignedPerson = new PersonBuilder(person).addPolicies(copyPolicy).build();
+        Person assignedPerson;
 
-        model.setPerson(person, assignedPerson);
+        if (policy.isEligible(person)) {
+            Policy copyPolicy = new PolicyBuilder(policy).build();
+            assignedPerson = new PersonBuilder(person).addPolicies(copyPolicy).build();
+
+            model.setPerson(person, assignedPerson);
+        } else {
+            throw new CommandException(String.format(MESSAGE_INELIGIBLE_POLICY, person.getName(), policy.getName()));
+        }
+
         // to maintain the model's state for undo/redo
         model.saveAddressBookState();
         return new CommandResult(String.format(MESSAGE_ASSIGN_POLICY_SUCCESS,
