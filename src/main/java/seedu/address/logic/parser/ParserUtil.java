@@ -191,10 +191,10 @@ public class ParserUtil {
     public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if (!Description.isValidDescription(description)) {
+        if (!Description.isValidDescription(trimmedDescription)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Description(description);
+        return new Description(trimmedDescription);
     }
 
     /**
@@ -205,11 +205,11 @@ public class ParserUtil {
      */
     public static Amount parseAmount(String amount) throws ParseException {
         requireNonNull(amount);
-        String trimmedDescription = amount.trim();
-        if (!Amount.isValidAmount(amount)) {
+        String trimmedAmount = amount.trim();
+        if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-        return new Amount(amount);
+        return new Amount(trimmedAmount);
     }
 
     /**
@@ -221,10 +221,10 @@ public class ParserUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!Date.isValidDate(date)) {
+        if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Date(date);
+        return new Date(trimmedDate);
     }
 
     /**

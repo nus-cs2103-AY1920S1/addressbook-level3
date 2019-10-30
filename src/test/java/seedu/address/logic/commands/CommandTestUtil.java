@@ -63,11 +63,11 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_SHIRTSALES = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_SHIRTSALES;
     public static final String DESCRIPTION_DESC_FUNDRAISING = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_FUNDRAISING;
     public static final String AMOUNT_DESC_LOGISTICS = " " + PREFIX_CASH + VALID_AMOUNT_LOGISTICS;
-    public static final String AMOUNT_DESC_SHIRTSALES = " " + PREFIX_CASH + VALID_DESCRIPTION_SHIRTSALES;
+    public static final String AMOUNT_DESC_SHIRTSALES = " " + PREFIX_CASH + VALID_AMOUNT_SHIRTSALES;
     public static final String AMOUNT_DESC_FUNDRAISING = " " + PREFIX_CASH + VALID_DESCRIPTION_FUNDRAISING;
     public static final String DATE_DESC_LOGISTICS = " " + PREFIX_DATE + VALID_DATE_LOGISTICS;
-    public static final String DATE_DESC_SHIRTSALES = " " + PREFIX_DATE + VALID_DESCRIPTION_SHIRTSALES;
-    public static final String DATE_DESC_FUNDRAISING = " " + PREFIX_DATE + VALID_DESCRIPTION_FUNDRAISING;
+    public static final String DATE_DESC_SHIRTSALES = " " + PREFIX_DATE + VALID_DATE_SHIRTSALES;
+    public static final String DATE_DESC_FUNDRAISING = " " + PREFIX_DATE + VALID_DATE_FUNDRAISING;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

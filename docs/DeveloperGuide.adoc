@@ -242,7 +242,9 @@ The `add_income` command allows for users to register new `Income` objects into 
 
 The format for the `add_income` command is as follows:
 
+....
 `add_income d/<description> c/<cash amount> date/<date> n/<name> p/<phone number>`
+....
 
 ==== Adding an Income
 
@@ -295,6 +297,35 @@ The delete income feature is facilitated by the `DeleteIncomeCommandParser` and 
 
 The delete income command is part of the logic component of our application. It interacts with the model and storage components of our application.
 
+*Overview*
+
+The `DeleteIncomeCommandParser` implements `Parser` with the following operation:
+
+* `DeleteIncomeCommandParser#parse()` - This operation will take in a `int` input from the user which will delete the income entry at the index which has entered.
+Any invalid format of the command will be prompted by the command parser.
+
+*Current Implementation*
+
+The delete income feature is executed by the `DeleteIncomeCommand`. Currently, the deletion of any income entry is done based on the `INDEX` of the income entry.
+
+During the design of our delete function, we considered between two alternatives.
+
+.Delete function alternatives
+[options="header,footer"]
+|=======================
+| Design Consideration | Pros and Cons
+| Deletion by Index (Current Choice)   | *Pros* : Since each income has a unique index, any deletion by the index is less prone to bugs and easier to implement.
+
+                                        *Cons* : User will have to scroll the income list for the income entry and look for its index which can be inconvenient.
+
+| Deletion by Income description     | *Pros* : It may be more intuitive for users to delete an income through the description of the income.
+                                        *Cons* : Incomes of different entries can have similar description. The user would eventually still have to look through the income list.
+|=======================
+
+We have decided to opt for the first option primarily because it reduces the number of potential bugs and the complexities involved when taking into account the different cases and scenarios upon using deletion by income description.
+
+
+
 ==== Editing an Income
 
 This feature allows the user to edit any attribute of the income entries. There are a total of five attributes for each entry, the description of the income, the amount of money received, the date it was received, the name of the person / organisation the user
@@ -303,6 +334,29 @@ received the money from and the contact number. The user can edit at least one a
 The edit income feature is facilitated by the `EditIncomeCommandParser` and the `EditIncomeCommand`.
 
 The edit command is part of the logic component of our application. It interacts with the model component of our software architecture.
+
+*Overview*
+
+The `EditIncomeCommandParser` implements `Parser` with the following operation:
+
+* `EditIncomeCommandParser#parse()` - This operation will take in an `int` input and one to five `String` input(s) from the user that will alter the attributes of current income entries based on the prefixes 'd/', 'c/', 'date/', 'n/', 'p'. The `String`
+value after the individual prefixes will alter the respective attribute it corresponds to: 'd/' for `Description`, 'c/' for `Amount`, 'date/' for `Date`, 'n/' for `Name` and 'p/' for `Phone`. A validation check will be imposed upon editing of each object. Any checks that fails
+the validation would prompt the user on the failed component.
+
+*Current Implementation*
+
+Here is an example of a step-by-step process on how the edit command alters an attribute of the homework entry. For each step, you may follow the activity diagram at the end of this section to better understand the flow of events within FinSec when an edit_income command is entered.
+
+*Step 1 :* The user launches the application and nagivates to the income page. There is a list of existing income entries in FinSec.
+
+*Step 2 :* The user then wishes to alter the income description of the second entry in the income list to "Fundraising". He then types `edit_income 2 d/Fundraising` into the Command Line Interface(CLI) and executes it.
+
+*Step 3 :* The FinSecParser (refer to logic) then reads in these attributes that have been entered and proceeds to alter the attributes of the income entry in the given index. Each attribute will be validated.
+
+*Step 4 :* The FinSecParser then creates a new EditIncomeCommand based on the input of the user. When the EditIncomeCommand is executed, it interacts with the Model architecture by calling the setIncome method. The setIncome method replaces the current income entry with the new income entry containing all the desired attributes. The income entry is now updated.
+
+//enter activity diagram for edit income
+
 
 === Shortcut feature
 // end::dataencryption[]

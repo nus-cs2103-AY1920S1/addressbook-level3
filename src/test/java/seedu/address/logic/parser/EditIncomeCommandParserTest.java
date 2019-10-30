@@ -117,7 +117,7 @@ public class EditIncomeCommandParserTest {
                 .withPhone(VALID_PHONE_BOB).build();
         EditIncomeCommand expectedCommand = new EditIncomeCommand(targetIndex, descriptor);
 
-        //assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
@@ -129,14 +129,14 @@ public class EditIncomeCommandParserTest {
                 .withDate(VALID_DATE_FUNDRAISING).build();
         EditIncomeCommand expectedCommand = new EditIncomeCommand(targetIndex, descriptor);
 
-        //assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_oneFieldSpecified_success() {
 
         // description
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_FUNDRAISING;
         EditIncomeDescriptor descriptor = new EditIncomeDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_FUNDRAISING).build();
@@ -147,13 +147,13 @@ public class EditIncomeCommandParserTest {
         userInput = targetIndex.getOneBased() + AMOUNT_DESC_SHIRTSALES;
         descriptor = new EditIncomeDescriptorBuilder().withAmount(VALID_AMOUNT_SHIRTSALES).build();
         expectedCommand = new EditIncomeCommand(targetIndex, descriptor);
-        //assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // date
         userInput = targetIndex.getOneBased() + DATE_DESC_FUNDRAISING;
         descriptor = new EditIncomeDescriptorBuilder().withDate(VALID_DATE_FUNDRAISING).build();
         expectedCommand = new EditIncomeCommand(targetIndex, descriptor);
-        //assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // name
         userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
@@ -189,7 +189,7 @@ public class EditIncomeCommandParserTest {
                 .build();
         EditIncomeCommand expectedCommand = new EditIncomeCommand(targetIndex, descriptor);
 
-        //assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
