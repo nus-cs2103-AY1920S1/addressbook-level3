@@ -6,6 +6,7 @@ skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
+Interface Form <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
@@ -15,6 +16,9 @@ Class PersonListPanel #4287f5
 Class PatientCard #f75539
 Class DonorCard #f75539
 Class DoctorCard #f75539
+Class DoctorForm #f75539
+Class DonorForm #f75539
+Class PatientForm #f75539
 Class NumberOfMatchesCard #f75539
 Class MatchCard #f75539
 Class StatusBarFooter #4287f5
@@ -45,6 +49,9 @@ PersonListPanel --> DonorCard
 PersonListPanel -down-> DoctorCard
 PersonListPanel -down-> NumberOfMatchesCard
 PersonListPanel -down-> MatchCard
+PersonListPanel -down-> DoctorForm
+PersonListPanel -down-> DonorForm
+PersonListPanel -down-> PatientForm
 
 MainWindow -left-|> UiPart
 
@@ -55,6 +62,12 @@ PatientCard --|> UiPart
 DoctorCard --|> UiPart
 DonorCard --|> UiPart
 MatchCard --|> UiPart
+DoctorForm --|> UiPart
+DonorForm --|> UiPart
+PatientForm --|> UiPart
+DoctorForm --|> Form
+DonorForm --|> Form
+PatientForm --|> Form
 NumberOfMatchesCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
@@ -62,6 +75,9 @@ HelpWindow -down-|> UiPart
 PatientCard .right.> Model
 DonorCard .down.> Model
 DoctorCard .down.> Model
+DoctorForm .down.> Model
+DonorForm .down.> Model
+PatientForm .down.> Model
 NumberOfMatchesCard .down.> Model
 MatchCard ..> Model
 UiManager -right-> Logic
