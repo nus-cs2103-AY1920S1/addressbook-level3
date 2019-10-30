@@ -389,9 +389,7 @@ A pop up box will appear, with a link to the user guide on Athletick.
 ==== Undoing a previous command : `undo`
 
 This command restores Athletick to the state before the previous command was executed.
-
 Let’s say you have accidentally deleted an athlete’s contact (Mohamad Ali) from your list.
-
 Instead of having to re-enter Mohamad Ali’s contact information all over again,
 you can easily restore all of Mohamad Ali’s details by `undo`-ing the `delete` command that you have just entered.
 
