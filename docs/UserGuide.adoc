@@ -75,9 +75,10 @@ SML allows you to save time by:
 
 SML generates real-time sales charts for you:
 
-* Revenue
-* Profit
-* Cost
+
+* Total Revenue (monthly)
+* Total Profit (monthly)
+* Total Cost (monthly)
 
 === Glossary
 
@@ -500,6 +501,9 @@ redo the previous command.  +
 Format: `redo`
 
 ==== Generate stats : `generate-s`
+
+`v1.4` only allows statistics on orders marked as `Completed` and calculates the three type of
+statistics as shown below.
 
 Accepts two types of input: Without date input and with date input +
 
