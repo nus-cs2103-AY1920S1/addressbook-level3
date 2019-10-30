@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
-
 import organice.logic.commands.exceptions.CommandException;
-
 import organice.model.AddressBook;
 import organice.model.ModelStub;
 import organice.model.ReadOnlyAddressBook;
@@ -20,7 +18,6 @@ import organice.model.person.Doctor;
 import organice.model.person.Donor;
 import organice.model.person.Patient;
 import organice.model.person.Person;
-import organice.model.person.exceptions.PersonNotFoundException;
 import organice.testutil.DoctorBuilder;
 import organice.testutil.DonorBuilder;
 import organice.testutil.PatientBuilder;
