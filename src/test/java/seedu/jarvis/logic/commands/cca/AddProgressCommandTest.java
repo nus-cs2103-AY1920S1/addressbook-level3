@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.cca.TypicalCcaMilestones.GRADE_ONE;
 import static seedu.jarvis.testutil.cca.TypicalCcaMilestones.TIGER;
@@ -20,6 +21,8 @@ import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaList;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.cca.CcaBuilder;
 
@@ -96,6 +99,7 @@ public class AddProgressCommandTest {
     private class ModelStubAcceptingCcaAdded extends ModelStub {
         private final CcaList ccaList = new CcaList();
         private final CcaTracker ccaTracker = new CcaTracker(ccaList);
+        private final ViewStatus viewStatus = new ViewStatus(LIST_CCA);
 
         @Override
         public boolean containsCca(Cca cca) {
@@ -132,6 +136,12 @@ public class AddProgressCommandTest {
         @Override
         public void updateFilteredCcaList(Predicate<Cca> predicate) {
             ccaTracker.updateFilteredCcaList(predicate);
+        }
+
+        @Override
+        public void setViewStatus(ViewType viewType) {
+            requireNonNull(viewType);
+            viewStatus.setViewType(viewType);
         }
     }
 }

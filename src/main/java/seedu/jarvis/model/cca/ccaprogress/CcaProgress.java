@@ -5,6 +5,7 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.cca.exceptions.CcaProgressNotSetException;
 import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 
@@ -64,9 +65,17 @@ public class CcaProgress {
         }
 
         int ccaCurrentProgressInt = ccaCurrentProgress.getCurrentProgress();
-        double ccaProgressPercentage = ccaCurrentProgressInt / ccaMilestoneList.size();
-
+        double ccaProgressPercentage = (double) ccaCurrentProgressInt / ccaMilestoneList.size();
         return ccaProgressPercentage;
+    }
+
+    /**
+     * Gets the current {@code CcaMilestone}.
+     */
+    public CcaMilestone getCurrentCcaMilestone() {
+        Index ccaMilestoneIndex = Index.fromOneBased(ccaCurrentProgress.getCurrentProgress());
+        CcaMilestone ccaMilestone = ccaMilestoneList.getCcaMilestone(ccaMilestoneIndex);
+        return ccaMilestone;
     }
 
     /**
@@ -75,11 +84,7 @@ public class CcaProgress {
      * @return true of the {@code CcaMilestoneList} is empty.
      */
     public boolean ccaMilestoneListIsEmpty() {
-        if (ccaMilestoneList.size() == 0) {
-            return true;
-        }
-
-        return false;
+        return ccaMilestoneList.isEmpty();
     }
 
     /**
@@ -93,14 +98,10 @@ public class CcaProgress {
     }
 
     /**
-     * Checks if the Cca progress is at max.
+     * Returns true if the {@code CcaCurrentProgress} is at max.
      */
     public boolean progressAtMax() {
-        if (ccaCurrentProgress.getCurrentProgress() == ccaMilestoneList.size()) {
-            return true;
-        }
-
-        return false;
+        return ccaCurrentProgress.getCurrentProgress() == ccaMilestoneList.size();
     }
 
     /**

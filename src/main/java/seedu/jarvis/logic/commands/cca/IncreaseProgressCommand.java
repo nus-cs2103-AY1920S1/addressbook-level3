@@ -1,6 +1,8 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
@@ -27,7 +29,7 @@ public class IncreaseProgressCommand extends Command {
     public static final String MESSAGE_CCA_PROGRESS_NOT_YET_SET = "A progress does not yet exists in this cca.";
     public static final String MESSAGE_INCREMENT_AT_MAX = "Cca progress at maximum.";
     public static final String MESSAGE_INCREMENT_AT_MIN = "Cca progress at minimum.";
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
     private final Index targetIndex;
 
@@ -62,8 +64,10 @@ public class IncreaseProgressCommand extends Command {
         }
 
         model.increaseProgress(targetIndex);
-
-        return new CommandResult(String.format(MESSAGE_INCREMENT_PROGRESS_SUCCESS, targetIndex.getOneBased()));
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
+        return new CommandResult(String.format(MESSAGE_INCREMENT_PROGRESS_SUCCESS, targetIndex.getOneBased()),
+                true);
     }
 
     @Override

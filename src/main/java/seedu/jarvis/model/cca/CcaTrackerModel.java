@@ -7,7 +7,6 @@ import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 
-
 /**
  * The API of the CcaTrackerModel component
  *

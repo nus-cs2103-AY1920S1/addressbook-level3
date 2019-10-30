@@ -27,7 +27,6 @@ public class CcaListView extends View<AnchorPane> {
     public void fillPage() {
         ccaListView.setItems(model.getFilteredCcaList());
         ccaListView.setCellFactory(listView -> new CcaListViewCell());
-
     }
 
     /**

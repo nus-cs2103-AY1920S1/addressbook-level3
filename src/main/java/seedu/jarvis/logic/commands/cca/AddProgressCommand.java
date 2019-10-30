@@ -1,8 +1,9 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVELS;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
+import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
@@ -23,11 +24,9 @@ public class AddProgressCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a progress tracker to a cca. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_PROGRESS_LEVELS + "PROGRESS LEVELS "
             + "[" + PREFIX_PROGRESS_LEVEL_NAMES + "PROGRESS LEVEL NAME]...\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
-            + PREFIX_PROGRESS_LEVELS + "3 "
             + PREFIX_PROGRESS_LEVEL_NAMES + "bronze standard "
             + PREFIX_PROGRESS_LEVEL_NAMES + "silver standard "
             + PREFIX_PROGRESS_LEVEL_NAMES + "gold standard "
@@ -40,7 +39,7 @@ public class AddProgressCommand extends Command {
     public static final String MESSAGE_INVERSE_PROGRESS_NOT_FOUND = "Progress already deleted for Cca at index: %1$s";
     public static final String MESSAGE_INVERSE_CCA_NOT_FOUND = "Cca at index: %1$s not found";
 
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
 
     private final Index targetIndex;
@@ -52,7 +51,7 @@ public class AddProgressCommand extends Command {
      * Creates a {@code AddProgressCommand}, sets targetIndex to the {@code Index} and sets toAddCcaMilestoneList to the
      * {@code CcaProgress} ccaProgress of the {@code Cca} at the targetIndex.
      *
-     * @param targetIndex of the {@code Cca} to be deleted.
+     * @param targetIndex of the {@code Cca} to be added.
      */
     public AddProgressCommand(Index targetIndex, CcaMilestoneList ccaMilestoneList) {
         this.targetIndex = targetIndex;
@@ -86,8 +85,10 @@ public class AddProgressCommand extends Command {
         targetCca = model.getCca(targetIndex);
 
         model.addProgress(targetCca, toAddCcaMilestoneList);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()), true);
     }
 
     @Override

@@ -4,6 +4,8 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.model.cca.exceptions.CcaProgressAlreadySetException;
@@ -62,6 +64,27 @@ public class Cca {
     }
 
     /**
+     * Gets the current progress percentage of the Cca.
+     */
+    public double getCcaProgressPercentage() throws MaxProgressNotSetException {
+        return ccaProgress.getCcaProgressPercentage();
+    }
+
+    /**
+     * Gets the current {@code CcaMilestone}.
+     */
+    public CcaMilestone getCurrentCcaMilestone() {
+        return ccaProgress.getCurrentCcaMilestone();
+    }
+
+    /**
+     * Gets the backing equipment list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Equipment> getFilteredEquipmentList() {
+        return equipmentList.asUnmodifiableObservableList();
+    }
+
+    /**
      * Returns true if the cca progresslist is empty.
      *
      * @return true if the cca progresslist is empty.
@@ -99,13 +122,6 @@ public class Cca {
      */
     public boolean progressAtMaxIncrement() {
         return ccaProgress.progressAtMax();
-    }
-
-    /**
-     * Gets the current progress percentage of the Cca.
-     */
-    public double getCcaProgressPercentage() throws MaxProgressNotSetException {
-        return ccaProgress.getCcaProgressPercentage();
     }
 
     /**

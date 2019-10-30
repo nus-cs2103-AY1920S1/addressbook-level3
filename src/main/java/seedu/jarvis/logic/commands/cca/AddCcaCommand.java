@@ -37,7 +37,7 @@ public class AddCcaCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Cca: %1$s";
     public static final String MESSAGE_INVERSE_CCA_NOT_FOUND = "Cca already deleted: %1$s";
 
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
     private final Cca toAddCca;
 

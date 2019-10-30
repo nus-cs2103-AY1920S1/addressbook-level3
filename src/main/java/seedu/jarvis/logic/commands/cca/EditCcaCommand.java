@@ -5,6 +5,7 @@ import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
 import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import java.util.Optional;
 
@@ -51,7 +52,7 @@ public class EditCcaCommand extends Command {
     public static final String MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA =
             "There is a conflict in reverting edits made to cca as there is an existing cca with similar details";
 
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
     private final Index targetIndex;
     private final EditCcaDescriptor editCcaDescriptor;
@@ -122,8 +123,10 @@ public class EditCcaCommand extends Command {
         editedCca = createdEditedCca;
 
         model.updateCca(originalCca, createdEditedCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_CCA_SUCCESS, editedCca));
+        return new CommandResult(String.format(MESSAGE_EDIT_CCA_SUCCESS, editedCca), true);
     }
 
     /**

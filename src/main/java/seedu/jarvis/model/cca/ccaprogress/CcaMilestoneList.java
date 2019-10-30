@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.cca.exceptions.CcaMilestoneNotFoundException;
 import seedu.jarvis.model.cca.exceptions.DuplicateCcaMilestoneException;
 
@@ -23,6 +24,14 @@ public class CcaMilestoneList implements Iterable<CcaMilestone> {
     private final ObservableList<CcaMilestone> internalList = FXCollections.observableArrayList();
     private final ObservableList<CcaMilestone> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    /**
+     * Gets the {@code CcaMilestone} at the specified index.
+     */
+    public CcaMilestone getCcaMilestone(Index index) {
+        requireNonNull(index);
+        return internalList.get(index.getZeroBased());
+    }
 
     /**
      * Return the number of milestones in the CcaMilestoneList as an int.
@@ -122,6 +131,13 @@ public class CcaMilestoneList implements Iterable<CcaMilestone> {
         return internalUnmodifiableList;
     }
 
+    /**
+     * Returns true if there are no {@code Milestones} in the list.
+     */
+    public boolean isEmpty() {
+        return internalList.size() == 0;
+    }
+
     @Override
     public Iterator<CcaMilestone> iterator() {
         return internalList.iterator();
@@ -137,6 +153,17 @@ public class CcaMilestoneList implements Iterable<CcaMilestone> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the milestones in the milestone list: ");
+        for (CcaMilestone ccaMilestone : internalList) {
+            sb.append(ccaMilestone);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     /**

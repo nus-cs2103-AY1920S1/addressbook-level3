@@ -10,9 +10,9 @@ import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
  */
 public class CcaCurrentProgress {
 
-    private static final String MESSAGE_CONSTRAINTS = "Current progress cannot be negative.";
+    private static final String MESSAGE_CONSTRAINTS = "Current progress cannot be smaller than 1.";
 
-    private int currentProgress = 0;
+    private int currentProgress = 1;
 
     /**
      * Default constructor used.
@@ -22,7 +22,7 @@ public class CcaCurrentProgress {
     }
 
     public void setCurrentProgress(int currentProgress) {
-        checkArgument(numberIsPositive(currentProgress), MESSAGE_CONSTRAINTS);
+        checkArgument(numberIsLargerThanZero(currentProgress), MESSAGE_CONSTRAINTS);
         this.currentProgress = currentProgress;
     }
 
@@ -41,51 +41,28 @@ public class CcaCurrentProgress {
      * Decreases the current progress by 1.
      */
     public void decreaseProgress() {
-        if (lessThanOne(currentProgress)) {
+        if (progressAtMin()) {
             throw new CcaProgressAtZeroException();
         }
         currentProgress--;
     }
 
-    /**
-     * Returns true of the progress is at 0.
-     */
-    public boolean progressAtMin() {
-        if (currentProgress == 0) {
-            return true;
-        }
-
-        return false;
-    }
 
     //// util methods
 
     /**
-     * Method to check whether a number is negative.
-     *
-     * @param num
-     * @return a boolean.
+     * Returns true of the progress is at 1.
      */
-    public boolean numberIsPositive(int num) {
-        requireNonNull(num);
-        if (num >= 0) {
-            return true;
-        }
-        return false;
+    public boolean progressAtMin() {
+        return currentProgress == 1;
     }
 
     /**
-     * Method to check whether a number is less than one.
-     *
-     * @param num
-     * @return a boolean.
+     * Returns true if a number is larger than 0.
      */
-    public boolean lessThanOne(int num) {
+    public boolean numberIsLargerThanZero(int num) {
         requireNonNull(num);
-        if (num < 1) {
-            return true;
-        }
-        return false;
+        return num > 0;
     }
 
     @Override

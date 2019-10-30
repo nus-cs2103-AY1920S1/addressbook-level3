@@ -2,6 +2,7 @@ package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import java.util.Objects;
 
@@ -30,7 +31,7 @@ public class DeleteCcaCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New Cca added: %1$s";
     public static final String MESSAGE_INVERSE_CCA_TO_ADD_ALREADY_EXIST = "Cca already added: %1$s";
 
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
     private final Index targetIndex;
 
@@ -73,8 +74,10 @@ public class DeleteCcaCommand extends Command {
 
         deletedCca = model.getCca(targetIndex);
         model.removeCca(deletedCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        model.setViewStatus(LIST_CCA);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_CCA_SUCCESS, deletedCca));
+        return new CommandResult(String.format(MESSAGE_DELETE_CCA_SUCCESS, deletedCca), true);
     }
 
     @Override
