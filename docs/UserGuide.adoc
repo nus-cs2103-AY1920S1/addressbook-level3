@@ -16,7 +16,7 @@ endif::[]
 
 By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
-== Introduction
+== Welcome to AddMin+
 
 *AddMin+* is an all in one administration desktop application, that is specially designed for any other events management
 start-up company with limited manpower and resources. These companies would usually only be able to afford to hire
@@ -223,7 +223,7 @@ Returns the 2rd employee from the event list
 
 Fetches an event by displaying a pop-up window with full details of the event.
 [%hardbreaks]
-For GUI features, kindly refer to <<GUI Guide for event fetch and allocation commands>>.
+For GUI features, kindly refer to <<GUI Guide for Event Fetch and Allocation Commands>>.
 
 Format: `fetch_ev EVENT_INDEX`
 
@@ -240,7 +240,7 @@ Returns the 2rd event from the event list
 
 Automatically chooses and allocates employees that meet the requirements to events.
 [%hardbreaks]
-For GUI feature, kindly refer to <<GUI Guide for event fetch and allocation commands>>.
+For GUI feature, kindly refer to <<GUI Guide for Event Fetch and Allocation Commands>>.
 
 Format: `allocate EVENT_INDEX [n/NUMBER] [t/TAG]...`
 
@@ -327,7 +327,6 @@ Sets the 2nd Event from the Event List a time period of 10am-10pm on the date 18
 Step 1. For `fetch_ev`, simply *double-click the event* in the list as shown in the figure below:
 
 image::beforefetch.png[width="600"]
-
 Step 2: After successfully fetching the event, the following *Fetch Window* should show:
 
 image::afterfetch.png[width="600"]
@@ -336,7 +335,6 @@ Step 3: To perform a `allocate` command without number/filter specification, cli
 as shown in the *Fetch Window* in step 2. The two lists will be updated again as shown in the following figure:
 
 image::afterallocate.png[width="600"]
-
 Step 4: To perform a `free` command, click the *free* button as shown in the *Fetch Window* in step 2.
 The two lists will be updated as shown in the following figure. Now, if you are interested to allocate a particular
 employee to an event, continue to step 5.
@@ -377,21 +375,6 @@ Examples:
 * `list_em` +
 `pay 2 f/20082019 t/20102019` +
 Generates the payslip of employee 2 from the 20th August - 20th October.
-
-==== Generate Event Contract: `contract [coming in v2.0]`
-
-Generates a contract that can be handed to the company's client. The contract will contains details of the event such as the location, budget, and date
-
-Format: `contract n/EVENT_ID`
-
-****
-* EVENT_ID is a unique 3-digit number that acts as a serial key to identify events.
-****
-
-Examples:
-
-* `contract n/005` +
-Generates the contract for Event_ID 005.
 
 //tag::Schedule[]
 === Schedule
@@ -514,57 +497,89 @@ Format: `clear`
 AddMin+ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-
-
 == FAQ
+
+
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+== Upcoming Features in v2.0
+* Allows user to set profile picture of employee using online links +
+** In v2.0, you can use links to profile pictures on your favourite social media as `Avatar` for your contacts
+
+* Allows user to import personal information of employees from *Microsoft Office Apps* +
+** In v2.0, you can import employee information from other applications, so manual input for first-time users is no
+longer necessary.
+
+* Generate Employee Payslip
+
+* Generate Event Contract
+** Generates a contract that can be handed to the company's client. The contract will contains details of the event
+such as the location, budget, and date.
+
+
+
 == Command Summary
 
-* *Help* : `help`
-* *Search* : `search`
-* *List Both Employees and Event* : `list`
-* *List Employees* : `list_em`
-* *List Events* : `list_ev`
-* *Add Employee*: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
-* *Add Event*: `add_ev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music` +
-e.g. `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
-* *Edit Employee*: `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `edit_em 1 no/91234567 e/johndoe@example.com`
-* *Edit Event*: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...` +
-e.g. `edit_ev 2 n/Concert t/`
-* *Find Employee*: `find_em KEYWORD [MORE_KEYWORDS]` +
-e.g. `find_em John`
-* *Find Event*: `find_ev KEYWORD [MORE_KEYWORDS]` +
-e.g. `find_ev Music`
-* *Delete Employee*: `delete_em EMPLOYEE_INDEX` +
-e.g. `delete_em 2`
-* *Delete Event*: `delete_ev EVENT_INDEX` +
-e.g. `delete_ev 1`
-* *Fetch Employee*: `fetch_em EMPLOYEE_INDEX` +
-e.g. `fetch_em 2`
-* *Fetch Event*: `fetch_ev EVENT_INDEX` +
-e.g. `fetch_ev 2`
-* *Allocate Employees (Auto)*: `allocate EVENT_INDEX [t/TAGS]...` +
-e.g. `allocate 1 n/2 t/female`
-* *Allocate Employees (Manual)*: `allocate EVENT_INDEX [n/EMPLOYEE_INDEX]...` +
-e.g. `allocatem 1 n/2 `
-* *Deallocate ALL Employees*: `free EVENT_INDEX` +
-e.g. `free 2 `
-* *Set DateTime to Event*: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME` +
-e.g. `set_ev_dt 2 on/18/10/2019 time/1000-2000`
-* *Generate Employee Payslip [coming in v2.0]*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +
-e.g. `pay 2 f/20082019 t/20102019`
-* *Generate Event Contract [coming in v2.0]*: `contract n/EVENT_ID` +
-e.g. `contract n/005`
-* *View Schedule for specific date*: `view_schedule on/DDMMYYYY` +
-e.g. `view_schedule on/02/12/2019`
-* *Display Entire Schedule*: `display_schedule` +
-e.g. `display_schedule`
-* *Generate Statistics [coming in v2.0]*: `stats_g` +
-e.g. `stats_g`
-* *Clear* : `clear`
-* *Exit* : `exit`
+
+[cols="3*^"]
+|===
+| *COMMAND* | *FORMAT* | *EXAMPLE*
+| *Add Employee*
+
+| `add_em n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+|`add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
+
+| *Add Event* |`add_ev n/NAME at/VENUE m/MANPOWER NEEDED on/START DATE till/END DATE[t/TAG]…`
+| `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
+
+| *Edit Employee*| `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+| `edit_em 1 no/91234567 e/johndoe@example.com`
+| *Edit Event* | `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
+| `edit_ev 2 n/Concert`
+
+| *Find Employee/Event* | `find_em KEYWORD [MORE_KEYWORDS]`
+
+`find_ev KEYWORD [MORE_KEYWORDS]`  | `find_em John`
+
+`find_ev Music`
+| *Delete Employee/Event* | `delete_em EMPLOYEE_INDEX`
+
+`delete_ev EVENT_INDEX` |`delete_em 2`
+
+`delete_ev 2`
+| *Fetch Employee/Event* | `fetch_em EMPLOYEE_INDEX`
+
+`fetch_ev EVENT_INDEX`| `fetch_em 2`
+
+`fetch_ev 2`
+
+| *List Employee/Event/Both* | `list_em`
+
+`list_ev`
+
+`list`| `list_em`
+
+`list_ev`
+
+`list`
+
+| *Allocate a specified number of Employees with Filter requirements to an Event*
+| `allocate EVENT_INDEX [t/FILTER TAGS]...`
+| `allocate 1 n/2 t/female`
+| *Allocate one specified Employee to an Event*| `allocate EVENT_INDEX [n/EMPLOYEE_INDEX]`
+| `allocatem 1 n/2`
+| *Deallocate ALL Employees from an Event*| `free EVENT_INDEX` | `free 2`
+| *Set DateTime to an Event*| `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME`
+| `set_ev_dt 2 on/18/10/2019 time/1000-2000`
+
+| *View Schedule for specific date*| `view_schedule on/DDMMYYYY` | `view_schedule on/02/12/2019`
+| *Display Entire Schedule*| `display_schedule` | `display_schedule`
+| *Generate Statistics [coming in v2.0]* | `stats_g` | `stats_g`
+| *Generate Pay [coming in v2.0]* | `pay` | `pay 1...`
+| *Clear* | `clear` | `clear`
+| *Help* | `help`| `help`
+| *Exit* | `exit`| `exit`
+
+|===
