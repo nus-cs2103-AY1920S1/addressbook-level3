@@ -26,7 +26,7 @@ public class MonthHeader extends UiPart<Region> {
 
     private String formatMonth(MonthOfYear monthOfYear) {
         String month = monthOfYear.toString();
-        String formattedMonthStr = month.substring(0, 3);
+        String formattedMonthStr = month.substring(0, MONTH_STR_LENGTH);
         return formattedMonthStr;
     }
 }

@@ -66,9 +66,9 @@ public class Calendar {
     // todo: update response message to indicate that the view has also been updated
 
     public boolean isAvailable(EventQuery eventQuery) {
-        events.isAvailable(eventQuery);
+        boolean isAvailable = events.isAvailable(eventQuery);
         updateMonthView(eventQuery);
-        return true;
+        return isAvailable;
     }
 
     public String suggest(EventQuery eventQuery) {

@@ -30,8 +30,10 @@ public class ViewOnlyDay {
             break;
         case SCHOOL_BREAK:
             hasSchoolBreak = true;
+            break;
         case TRIP:
             hasTrip = true;
+            break;
         }
     }
 

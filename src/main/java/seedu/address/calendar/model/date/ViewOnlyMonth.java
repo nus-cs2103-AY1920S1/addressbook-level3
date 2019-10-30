@@ -42,14 +42,18 @@ public class ViewOnlyMonth {
                 .map(ViewOnlyDay::fromDay)
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        Stream<Event> relevantEvents = eventManager.getEvents(eventQuery);
-        relevantEvents.forEach(event -> addEventToDays(days, event, eventQuery));
+        Date firstDateOfMonth = DateUtil.getFirstDateInMonth(startMonth, startYear);
+        Date lastDateOfMonth = DateUtil.getLastDateInMonth(startMonth, startYear);
+        EventQuery monthQuery = new EventQuery(firstDateOfMonth, lastDateOfMonth);
+
+        Stream<Event> relevantEvents = eventManager.getEvents(monthQuery);
+        relevantEvents.forEach(event -> addEventToDays(days, event, monthQuery));
         return new ViewOnlyMonth(startMonth, startYear, days);
     }
 
     private static void addEventToDays(List<ViewOnlyDay> days, Event event, EventQuery eventQuery) {
         boolean isEventStartWithinMonth = !eventQuery.isStartsAfter(event.getStart());
-        boolean isEventEndWithinMonth = !event.isEndsAfter(eventQuery.getStart());
+        boolean isEventEndWithinMonth = !event.isEndsAfter(eventQuery.getEnd());
 
         int startDayOfMonth;
         int endDayOfMonth;
@@ -61,8 +65,11 @@ public class ViewOnlyMonth {
         } else if (isEventEndWithinMonth) {
             startDayOfMonth = 1; // every month starts on the first
             endDayOfMonth = event.getEnd().getDay().getDayOfMonth();
-        } else {
+        } else if (isEventStartWithinMonth) {
             startDayOfMonth = event.getStart().getDay().getDayOfMonth();
+            endDayOfMonth = days.size();
+        } else {
+            startDayOfMonth = 1;
             endDayOfMonth = days.size();
         }
 
