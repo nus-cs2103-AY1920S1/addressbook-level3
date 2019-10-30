@@ -22,6 +22,13 @@ create LineChartPanel
 MainWindow -> LineChartPanel : LineChartPanel(bodyList)
 activate LineChartPanel
 
+LineChartPanel --> MainWindow : lineChartPanel
+deactivate LineChartPanel
+
+MainWindow -> LineChartPanel : getLineChart()
+activate LineChartPanel
+
+activate LineChartPanel
 
 LineChartPanel -> LineChartPanel: makeLineChart()
 
@@ -33,15 +40,6 @@ LineChartPanel -> LineChartPanel: initialiseLineChart()
 LineChartPanel -> LineChartPanel: updateSeries()
 
 LineChartPanel -> LineChartPanel: updateUponChange()
-
-
-
-LineChartPanel --> MainWindow : lineChartPanel
-deactivate LineChartPanel
-deactivate LineChartPanel
-
-MainWindow -> LineChartPanel : getLineChart()
-activate LineChartPanel
 
 LineChartPanel --> MainWindow : lineChart
 deactivate LineChartPanel
