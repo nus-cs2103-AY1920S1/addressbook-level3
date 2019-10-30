@@ -53,8 +53,7 @@ public class DeallocateCommand extends Command {
      * A private method for manual allocation used primarily for GUI purposes.
      */
     private CommandResult internalManualAllocateById(Model model) {
-        model.updateFilteredEmployeeList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        List<Employee> lastShownList = model.getFilteredEmployeeList();
+        List<Employee> lastShownList = model.getFullListEmployees();
         List<Event> lastShownEventList = model.getFilteredEventList();
         Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
         Employee personToDelete = lastShownList.stream()
