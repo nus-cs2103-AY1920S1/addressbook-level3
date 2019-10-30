@@ -395,7 +395,7 @@ image::CommitActivityDiagram.png[]
 // tag::notification[]
 === Notification System
 ==== Class Architecture
-INSERT: Class Diagram of Notification System
+image::NotificationClassDiagram.png[]
 
 The Notification System is facilitated by the  `NotificationManager`, which is found in the Logic component. Other constituent classes of the Notification System can be found in the Logic and UI components, depending on their functionality. These classes and their functionalities are listed below:
 
