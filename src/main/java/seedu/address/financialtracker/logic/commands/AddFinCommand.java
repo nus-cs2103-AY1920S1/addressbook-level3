@@ -15,9 +15,9 @@ public class AddFinCommand extends Command<Model> {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the financial tracker.\n"
-            + "e.g. add a/[amount] d/[description t/[type of expenditure] " +
+            + "e.g. add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE " +
             "(Remember to select where you at currently!)\n"
-            + "You can also specify date and time with date/[date] and time/[time]";
+            + "You can also specify date and time with [date/DATE] and [time/TIME]";
     public static final String MESSAGE_SUCCESS = "Expense added";
 
     private final Expense expense;
@@ -34,5 +34,12 @@ public class AddFinCommand extends Command<Model> {
     public CommandResult execute(Model model) throws CommandException {
         model.addExpense(expense);
         return new CommandResult(MESSAGE_SUCCESS, false, false);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddFinCommand // instanceof handles nulls
+                && expense.equals(((AddFinCommand) other).expense));
     }
 }
