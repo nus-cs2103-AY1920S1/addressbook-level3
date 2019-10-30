@@ -116,7 +116,6 @@ public class EventManager {
     }
 
     private List<String> getCollisionsAsStr(Event event) {
-        // todo: limit the number of collisions shown
         return engagedSchedule.getCollisions(event)
                 .stream()
                 .map(Object::toString)

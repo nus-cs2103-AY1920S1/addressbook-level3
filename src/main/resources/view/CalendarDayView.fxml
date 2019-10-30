@@ -10,10 +10,10 @@
       <Label fx:id="dayOfMonth" styleClass="day-of-viewOnlyMonth" text="Label" />
       <HBox fx:id="eventLabels" alignment="CENTER" prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
          <children>
-            <Circle fx:id="commitment" fill="#e94057" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <Circle fx:id="trip" fill="#f27121" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <Circle fx:id="schoolBreak" fill="#91c3f2" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <Circle fx:id="holiday" fill="#a770ef" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fx:id="commitment" fill="#ca5fa6" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fx:id="trip" fill="#f36886" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fx:id="schoolBreak" fill="#fa8282" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fx:id="holiday" fill="#ffaf65" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
          </children></HBox>
    </children>
 </VBox>
