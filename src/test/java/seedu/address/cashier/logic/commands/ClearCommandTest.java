@@ -15,7 +15,7 @@ import seedu.address.testutil.ItemBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalItem;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 public class ClearCommandTest {
 

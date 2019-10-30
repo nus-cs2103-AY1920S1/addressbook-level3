@@ -8,7 +8,7 @@ import seedu.address.reimbursement.logic.commands.CommandResult;
 import seedu.address.reimbursement.logic.parser.ReimbursementTabParser;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.ReimbursementList;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
 
 /**
  * Implements the logic for Reimbursements.

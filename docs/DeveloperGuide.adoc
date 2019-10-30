@@ -21,9 +21,11 @@ By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
+This section will illustrate and detail the overall design of the software for treasurerPro.
 
 [[Design-Architecture]]
 === Architecture
+This section illustrates the overall architecture of the software for treasurerPro.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -34,14 +36,14 @@ The *_Architecture Diagram_* given above depicts the high-level design of treasu
 The `.xml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 You may use link:draw.io[draw.io] to edit the diagrams.
 
-treasurerPro is divided primarily into 6 packages:
+treasurerPro is divided primarily into 6 packages which contain implementation for each tab in the UI:
 
-. Transactions
-. Members
-. Reimbursement
-. Inventory
-. Cashier
-. Overview
+. transaction package: Home Tab
+. person package: Members Tab
+. reimbursement package: Reimbursements Tab
+. inventory package: Inventory Tab
+. cashier package: Cashier Tab
+. overview package: Overview Tab
 
 Each package uses either TXT or JSON based storage. Within the package, they share a similar structure,
 consisting of the following components:
@@ -112,13 +114,13 @@ The `UI` component:
 * Updates itself with modified data whenever changes are made by the user.
 
 [[Design-Logic]]
-=== `Logic` component
+=== Logic component
 This section will show the structures of the `Logic` Component of the different tabs.
-The diagram below shows a generalised view of the `Logic` component within each package.
+The diagram below shows a generalised view of the `Logic` component within the packages.
 
 [[fig-LogicClassDiagram]]
-.Structure of the `Logic` Component
-image::LogicClassDiagram.png[]
+.Structure of the Generalised `Logic` Component
+image::LogicClassDiagram.png[]____
 
 An outline of how a command is processed through `Logic` is as follows:
 
@@ -127,6 +129,7 @@ An outline of how a command is processed through `Logic` is as follows:
 . The command execution can affect the `Model` (e.g. adding a person, transaction).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` (not depicted).
 
+[[GeneralLogicSD]]
 A general sequence diagram depicting the above outline is shown below:
 
 .Sequence Diagram for execution within `Logic`.
@@ -136,7 +139,7 @@ Further details on the implementation of the `Parser` and `Command` can be found
 <<ICLogic, Section 2.3.2. Inventory and Cashier Tab>> and <<PLogic, Section 2.3.3. Members Tab>> below.
 
 [[RTLogic]]
-==== Home and Reimbursement Tab
+==== Details on `Logic` Implementation for Home and Reimbursement Tab
 This section will show further details of the `Logic` Component of the Home and Reimbursement Tabs.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
@@ -174,9 +177,10 @@ The parsers represented by the `ABCParser` and `DEFParser`:
 
 
 [[ICLogic]]
-==== Inventory and Cashier Tab
+==== Details on `Logic` Implementation for Inventory and Cashier Tab
 To be filled in by the respective members :)
 
+==== Details on `Logic` Implementation for Members Tab
 [[PLogic]]
 This section will show further details of the `Logic` Component of the Members Tab.
 This is integrated from the existing `AddressBook`.
@@ -187,38 +191,103 @@ image::LogicForAB.png[]
 
 [[Design-Model]]
 === Model component
+This section will show the structures of the `Model` Component of the different tabs.
+The diagram below shows a generalised view of the `Model` component within the packages.
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
+.Structure of the Generalised `Model` Component
+image::ModelCD.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+[NOTE]
+`XYZObjects` are only present in the `transaction`, `reimbursement`, `person` and `inventory` packages.
 
-The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+==== Details on the `Model` Implementation for Home Tab
+* stores a `TransactionList` object that represents the list of all transactions data
+* stores a `Predicate<Transaction>` object to filter the list of all transactions
+* stores another `TransactionList` object that represents the filtered list of transactions according to the predicate
+
+*API for transaction package* : link:{repoURL}/src/main/java/seedu/address/transaction/model/Model.java[`Model.java`]
+
+==== Details on the `Model` Implementation for Reimbursements Tab
+To be filled in :)
+
+*API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/model/Model.java[`Model.java`]
+
+==== Details on the `Model` Implementation for Members Tab
+* stores a `UserPref` object that represents the user's preferences for `person` package.
+* stores the Address Book data for `person` package.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
-This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
-An example of how such a model may look like is given below. +
+*API for person package* : link:{repoURL}/src/main/java/seedu/address/person/model/Model.java[`Model.java`]
 
-image:BetterModelClassDiagram.png[]
+==== Details on the `Model` Implementation for Inventory Tab
+To be filled in :)
+
+*API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/model/Model.java[`Model.java`]
+
+==== Details on the `Model` Implementation for Cashier Tab
+To be filled in :)
+
+*API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/model/Model.java[`Model.java`]
+
+==== Details on the `Model` Implementation for Overview Tab
+To be filled in :)
+
+*API for overview package* : link:{repoURL}/src/main/java/seedu/address/overview/model/Model.java[`Model.java`]
+
+//[NOTE]
+//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
+//This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+//An example of how such a model may look like is given below. +
+
+//image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+This section will show the structures of the `Storage` Component of the different tabs.
+The diagram below shows a generalised view of the `Storage` component within the person package.
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+.Structure of the Storage Component for Members tab in person package
+image::ABStorageCD.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+The following diagram shows a generalised view of the `Storage` component within the other packages for transaction,
+reimbursement, inventory, cashier and overview.
 
-The `Storage` component,
+.Structure of the Storage Component for Home, Reimbursements, Inventory, Cashier and Overview Tab
+image::StorageCD.png[]
 
+==== Details on the `Storage` Implementation for Home Tab
+* can save a `TransactionList` object in text format and read it back
+
+*API for transaction package* : link:{repoURL}/src/main/java/seedu/address/transaction/storage/Storage.java[`Storage.java`]
+
+==== Details on the `Storage` Implementation for Reimbursements Tab
+* can save a `ReimbursementList` object in text format
+* can take in a `TransactionList` object and read text file to get a `ReimbursementList` object
+
+*API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/storage/Storage.java[`Storage.java`]
+
+==== Details on the `Storage` Implementation for Members Tab
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Address Book data in json format and read it back
+
+*API for person package* : link:{repoURL}/src/main/java/seedu/address/person/storage/Storage.java[`Storage.java`]
+
+==== Details on the `Storage` Implementation for Inventory Tab
+To be filled in :)
+
+*API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/storage/Storage.java[`Storage.java`]
+
+==== Details on the `Storage` Implementation for Cashier Tab
+To be filled in :)
+
+*API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/storage/Storage.java[`Storage.java`]
+
+==== Details on the `Storage` Implementation for Overview Tab
+To be filled in :)
+
+*API for overview package* : link:{repoURL}/src/main/java/seedu/address/overview/storage/Storage.java[`Storage.java`]
 
 [[Design-Commons]]
 === Common classes
@@ -241,7 +310,7 @@ a transaction with positive amount in this tab with the person being the cashier
 a spending with a negative amount will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
 
 ==== Add Command feature
-This command requires access to the `Model` of the
+This feature requires access to the `Model` of the
 person package which the `AddressBook` implementation is contained in. All fields in the transactions are compulsory
 to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
 has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
@@ -251,7 +320,6 @@ The following sequence diagram shows how the `AddCommand` works and is the refer
 .Sequence Diagram of Add Command in Home Tab (transaction package)
 
 image::HomeAddCommandSD.png[]
-
 
 In addition, the `resetPredicate()` method from `ModelManager` is called in the `AddCommand`. Thus, the UI table will immediately shows the full
 transaction list regardless of the list shown at the start of the activity diagram. If the prior command was a Find Command,
@@ -295,7 +363,7 @@ Since the reimbursement tab tabulates the amount to be reimbursed to a person, i
 amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
 
 ==== Delete Command Feature
-The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 2 types of deletion, by
+This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.
 
@@ -309,14 +377,15 @@ In addition, the `resetPredicate()` method in `ModelManager` is not called in th
 filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
 a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
 To view the full transaction list, the user would be required to input the
-Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown at <<BackCommandSD, 3.1.3 BackCommand>>
+Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
+ following section <<BackCommandSD, 3.1.3 BackCommand>>
 
 ==== Back Command Feature
-
+[[BackCommandSD]]
 The `BackCommand` is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
 but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
-[[BackCommandSD]]
+
 .Sequence Diagram of Back Command in Home Tab (transaction package)
 
 image::HomeTabBackCommandSequenceDiagram.png[]
@@ -325,7 +394,6 @@ After this, the list of transactions and reimbursement tab is updated as shown i
 respectively.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
-
 The following activity diagram shows the steps needed to delete a new transaction:
 
 .Activity Diagram of Delete Command in Home Tab (transaction package)
@@ -359,14 +427,13 @@ When a successful deletion is done, a response message is shown as well.
 This tab will help to keep track of the contact details of members in the club or society for the treasurer.
 
 ==== Delete Command Feature
-The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for deletion by
+This feature allows for deletion by
 the index shown in the `Members Tab`. This tab integrates the existing `AddressBook`.
-
 The following sequence diagram shows how the delete command works:
 
 .Sequence Diagram of Delete Command in Member Tab (transaction package)
 
-image::DeleteSequenceDiagram.png[]
+image::MembersDeleteSD.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 

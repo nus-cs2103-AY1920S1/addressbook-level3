@@ -14,7 +14,6 @@ import seedu.address.reimbursement.model.ModelManager;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.reimbursement.storage.StorageManager;
 import seedu.address.testutil.TypicalReimbursements;
-import seedu.address.testutil.TypicalTransactions;
 
 public class LogicManagerTest {
 
@@ -27,12 +26,15 @@ public class LogicManagerTest {
     private seedu.address.transaction.model.Model transactionModel;
     private seedu.address.transaction.storage.Storage transactionStorage;
 
+    private TypicalReimbursements typicalReimbursements = new TypicalReimbursements();
+
     private Logic logic;
 
     public LogicManagerTest() {
-        try {
+        typicalReimbursements.resetReimbursements();
 
-            reimbursementModel = new ModelManager(TypicalReimbursements.getTypicalReimbursements());
+        try {
+            reimbursementModel = new ModelManager(typicalReimbursements.getTypicalReimbursements());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             file = File.createTempFile("testingLogic", "tempReimbursement.txt");
             reimbursementStorage = new StorageManager(file);
@@ -40,7 +42,7 @@ public class LogicManagerTest {
             transactionStorage =
                     new seedu.address.transaction.storage.StorageManager(tFile, personModel);
             transactionModel =
-                    new seedu.address.transaction.model.ModelManager(TypicalReimbursements.getTypicalTransactions());
+                    new seedu.address.transaction.model.ModelManager(typicalReimbursements.getTypicalTransactions());
             logic =
                     new LogicManager(reimbursementModel, reimbursementStorage, transactionModel, transactionStorage,
                             personModel);
@@ -59,7 +61,7 @@ public class LogicManagerTest {
 
         assertEquals(reimbursementModel.getReimbursementList(), logic.getFilteredList());
 
-        transactionModel.addTransaction(TypicalTransactions.BOB_TRANSACTION_13);
+        transactionModel.addTransaction(typicalReimbursements.getBobTransaction13());
         try {
             logic.updateReimbursementFromTransaction();
         } catch (IOException e) {

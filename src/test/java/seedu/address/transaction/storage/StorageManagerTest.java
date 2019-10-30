@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
 
 class StorageManagerTest {
     private StorageManager storageManager;

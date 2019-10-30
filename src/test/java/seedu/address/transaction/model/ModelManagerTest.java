@@ -15,17 +15,28 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 
 class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
     public void constructor() {
-
         assertEquals(new TransactionList(), new TransactionList(modelManager.getTransactionList().getTarrList()));
+    }
+
+    @Test
+    public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new ModelManager(null));
+    }
+
+    @Test
+    public void addTransaction_nullInput_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.addTransaction(null));
     }
 
     @Test

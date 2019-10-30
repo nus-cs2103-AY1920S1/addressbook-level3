@@ -1,9 +1,13 @@
 package seedu.address.ui.logic;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.ui.commands.CommandResult;
 import seedu.address.ui.logic.exception.ParseException;
 
@@ -19,6 +23,7 @@ public class LogicManager implements Logic {
     public static final String INVENTORY_TAB = "inventory";
     public static final String CASHIER_TAB = "cashier";
     public static final String OVERVIEW_TAB = "overview";
+    private final Logger logger = new LogsCenter().getLogger(getClass());
 
     @FXML
     private TabPane tabPane;
@@ -31,7 +36,7 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws ParseException {
         String command = commandText.split(" ")[0];
         String param;
-
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
         if (command.equals(COMMAND_WORD_NAVIGATION)) {
             try {
                 param = commandText.split(" ")[1];

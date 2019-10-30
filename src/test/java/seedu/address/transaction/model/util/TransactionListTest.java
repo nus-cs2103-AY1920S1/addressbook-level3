@@ -1,4 +1,4 @@
-package seedu.address.transaction.util;
+package seedu.address.transaction.model.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -8,6 +8,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.TypicalTransactions;
+import seedu.address.transaction.model.TransactionList;
 
 class TransactionListTest {
     private final TransactionList transactionList = new TransactionList();

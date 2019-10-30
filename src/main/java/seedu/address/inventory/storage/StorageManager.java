@@ -20,7 +20,7 @@ public class StorageManager implements Storage {
         this.file = file;
     }
 
-    public InventoryList getInventoryList() throws Exception {
+    public InventoryList getInventoryList() throws IOException {
         ArrayList<Item> inventoryArrayList = new ArrayList<>();
         //File f = new File(filepath);
         file.getAbsoluteFile().getParentFile().mkdirs();
