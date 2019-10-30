@@ -26,6 +26,7 @@ import seedu.address.model.module.NusModsShareLink;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -113,6 +114,8 @@ public class AddNusModsCommand extends Command {
             } catch (PersonNotFoundException e) {
                 return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
             } catch (EventClashException e) {
+                return new CommandResult(MESSAGE_EVENTS_CLASH);
+            } catch (DuplicateEventException e) {
                 return new CommandResult(MESSAGE_EVENTS_CLASH);
             }
         }

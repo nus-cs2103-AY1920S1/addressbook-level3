@@ -15,6 +15,7 @@ import static seedu.address.testutil.personutil.TypicalPersonDescriptor.BENSON;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
@@ -113,7 +114,7 @@ public class PersonTest {
     }
 
     @Test
-    void addEvent() throws EventClashException {
+    void addEvent() throws EventClashException, DuplicateEventException {
         alice.addEvent(TypicalEvents.generateTypicalEvent1());
         Schedule schedule = alice.getSchedule();
         assertNotNull(schedule);

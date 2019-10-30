@@ -21,10 +21,10 @@ public class FreeSchedule {
     }
 
     public FreeTimeslot getFreeTimeslot(int id) {
-        for(int i = 1; i <= 7; i ++) {
+        for (int i = 1; i <= 7; i++) {
             ArrayList<FreeTimeslot> freeTimeslots = freeSchedule.get(DayOfWeek.of(i));
-            for(int j = 0; j < freeTimeslots.size(); j++) {
-                if(id == freeTimeslots.get(j).getId()) {
+            for (int j = 0; j < freeTimeslots.size(); j++) {
+                if (id == freeTimeslots.get(j).getId()) {
                     return freeTimeslots.get(j);
                 }
             }

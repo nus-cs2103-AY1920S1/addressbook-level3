@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.display.detailwindow.PersonSchedule;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
@@ -50,7 +51,7 @@ public class ScheduleStub {
                 timeslot4, timeslot5)));
         try {
             schedule.addEvent(monday1pmTo3pm);
-        } catch (EventClashException e) {
+        } catch (EventClashException | DuplicateEventException e) {
             return null;
         }
         p.setSchedule(schedule);

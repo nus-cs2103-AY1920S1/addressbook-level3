@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.testutil.personutil.PersonBuilder;
 import seedu.address.testutil.scheduleutil.TypicalEvents;
@@ -26,7 +27,7 @@ class ScheduleTest {
     }
 
     @Test
-    void addEvent() throws EventClashException {
+    void addEvent() throws EventClashException, DuplicateEventException {
         Schedule schedule = TypicalSchedule.generateEmptySchedule(alice.getPersonId());
         schedule.addEvent(TypicalEvents.generateTypicalEvent1());
 
@@ -35,7 +36,7 @@ class ScheduleTest {
     }
 
     @Test
-    void getEvents() throws EventClashException {
+    void getEvents() throws EventClashException, DuplicateEventException {
         Schedule schedule = TypicalSchedule.generateEmptySchedule(alice.getPersonId());
         schedule.addEvent(TypicalEvents.generateTypicalEvent2());
 
