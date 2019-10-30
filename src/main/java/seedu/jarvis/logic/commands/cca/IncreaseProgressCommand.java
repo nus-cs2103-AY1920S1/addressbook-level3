@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
+import java.util.Optional;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -35,8 +37,20 @@ public class IncreaseProgressCommand extends Command {
     private final Index targetIndex;
     private Cca targetCca;
 
-    public IncreaseProgressCommand(Index targetIndex) {
+    /**
+     * Constructs a {@code IncreaseProgressCommand} to increase the progress of the cca at the given {@code Index}.
+     *
+     * @param targetIndex {@code Index} of the cca.
+     * @param targetCca {@code Cca} that is updated.
+     */
+    public IncreaseProgressCommand(Index targetIndex, Cca targetCca) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
+        this.targetCca = targetCca;
+    }
+
+    public IncreaseProgressCommand(Index targetIndex) {
+        this(targetIndex, null);
     }
 
     @Override
@@ -57,8 +71,8 @@ public class IncreaseProgressCommand extends Command {
      *
      * @return Target {@code Cca}.
      */
-    public Cca getTargetCca() {
-        return targetCca;
+    public Optional<Cca> getTargetCca() {
+        return Optional.ofNullable(targetCca);
     }
 
     @Override
