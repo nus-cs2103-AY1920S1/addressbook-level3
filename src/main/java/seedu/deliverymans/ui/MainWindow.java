@@ -19,6 +19,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -131,8 +132,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        // orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-        // listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -205,6 +206,11 @@ public class MainWindow extends UiPart<Stage> {
             customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
             listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
             break;
+        case CUSTOMERLIST:
+            Customer customer = logic.getCustomerOrders();
+            orderListPanel = new OrderListPanel(customer.getOrders());
+            statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
+            break;
         case DELIVERYMEN:
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
@@ -259,7 +265,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Context nextContext = commandResult.getContext();
-
             if (nextContext != null && nextContext != currentContext) {
                 changeContext(nextContext);
             }

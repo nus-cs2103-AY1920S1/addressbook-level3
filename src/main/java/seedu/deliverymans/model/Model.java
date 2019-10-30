@@ -9,6 +9,7 @@ import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
@@ -76,6 +77,25 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    //=========== Customer Database / Filepath methods =============================================================
+    /**
+     * Returns the user prefs' customer database file path.
+     */
+    Path getCustomerDatabaseFilePath();
+
+    /**
+     * Sets the user prefs' customer database file path.
+     */
+    void setCustomerDatabaseFilePath(Path customerDatabaseFilePath);
+
+    /**
+     * Replaces customer database data with the data in {@code customerDatabase}.
+     */
+    void setCustomerDatabase(ReadOnlyCustomerDatabase customerDatabase);
+
+    /** Returns the CustomerDatabase */
+    ReadOnlyCustomerDatabase getCustomerDatabase();
 
     //=========== Deliverymen Database / Filepath methods =============================================================
 
@@ -225,8 +245,12 @@ public interface Model {
      */
     void setCustomer(Customer target, Customer editedCustomer);
 
+    void setCustomerOrders(Customer customer);
+
     /** Returns an unmodifiable view of the filtered customer list */
     ObservableList<Customer> getFilteredCustomerList();
+
+    Customer getCustomerOrders();
 
     /**
      * Updates the filter of the filtered customer list to filter by the given {@code predicate}.

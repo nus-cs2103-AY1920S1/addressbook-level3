@@ -16,7 +16,7 @@ import seedu.deliverymans.model.order.Order;
 
 public class OrderCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "OrderListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -59,7 +59,7 @@ public class OrderCard extends UiPart<Region> {
         Map<Name, Integer> foodList = order.getFood();
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Name, Integer> entry : foodList.entrySet()) {
-            sb.append(String.format("Food:%s\tQuantity:%d", entry.getKey().fullName, entry.getValue()));
+            sb.append(String.format("Food: %s\tQuantity: %d", entry.getKey().fullName, entry.getValue())).append("\n");
         }
         food.setText(sb.toString());
     }
