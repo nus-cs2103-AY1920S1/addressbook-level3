@@ -59,7 +59,7 @@ public class EventCard extends UiPart<Region> {
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
-                        mainWindow.handleFetch(index);
+                        mainWindow.handleEventFetch(index);
                     }
                 }
             }

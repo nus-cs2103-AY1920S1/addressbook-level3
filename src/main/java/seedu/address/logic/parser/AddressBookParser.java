@@ -14,6 +14,7 @@ import seedu.address.logic.commands.employee.AddCommand;
 import seedu.address.logic.commands.employee.ClearCommand;
 import seedu.address.logic.commands.employee.DeleteCommand;
 import seedu.address.logic.commands.employee.EditCommand;
+import seedu.address.logic.commands.employee.FetchEmployeeCommand;
 import seedu.address.logic.commands.employee.FindCommand;
 import seedu.address.logic.commands.employee.ListCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
@@ -37,6 +38,7 @@ import seedu.address.logic.parser.allocate.ManualAllocateCommandParser;
 import seedu.address.logic.parser.employee.AddCommandParser;
 import seedu.address.logic.parser.employee.DeleteCommandParser;
 import seedu.address.logic.parser.employee.EditCommandParser;
+import seedu.address.logic.parser.employee.FetchEmployeeCommandParser;
 import seedu.address.logic.parser.employee.FindCommandParser;
 import seedu.address.logic.parser.event.AddEventCommandParser;
 import seedu.address.logic.parser.event.AssignDateCommandParser;
@@ -100,6 +102,9 @@ public class AddressBookParser {
 
         case FetchEventCommand.COMMAND_WORD:
             return new FetchEventCommandParser().parse(arguments);
+
+        case FetchEmployeeCommand.COMMAND_WORD:
+            return new FetchEmployeeCommandParser().parse(arguments);
 
         case DeallocateCommand.COMMAND_WORD:
             return new DeallocateCommandParser().parse(arguments);

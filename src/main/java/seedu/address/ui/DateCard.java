@@ -42,7 +42,7 @@ public class DateCard extends UiPart<Region> {
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                mainWindow.handleFetch(index);
+                mainWindow.handleEventFetch(index);
             }
         };
         cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);

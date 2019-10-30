@@ -65,13 +65,14 @@ public class CommandResult {
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
+     * Uniquely called for Fetch Commands
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Integer fetch) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Integer fetch, String type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.fetch = fetch;
         this.exit = exit;
-        this.type = "";
+        this.type = type;
         this.uiInfo = "";
     }
 

@@ -38,6 +38,8 @@ public class EmployeeCard extends UiPart<Region> {
      */
 
     public final Employee employee;
+    private MainWindow mainWindow;
+    private Integer index;
     private ErrorWindow errorWindow;
 
     @FXML
@@ -88,11 +90,30 @@ public class EmployeeCard extends UiPart<Region> {
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+    }
+
+    public EmployeeCard(Employee employee, int displayedIndex, MainWindow mainWindow) {
+        this(employee, displayedIndex);
+        this.mainWindow = mainWindow;
+        this.index = displayedIndex - 1;
+
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        mainWindow.handleEmployeeFetch(index);
+                    }
+                }
+            }
+        };
+        cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
 
     public EmployeeCard(Employee employee, int displayedIndex, Logic logic, Event event, int eventOneBasedIndex,
-                         FetchWindow fetchWindow, boolean isAllocate) {
+                         FetchEventWindow fetchWindow, boolean isAllocate) {
         this(employee, displayedIndex, FETCH_WINDOW_FXML);
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -122,7 +143,6 @@ public class EmployeeCard extends UiPart<Region> {
         };
         cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
-
 
     @Override
     public boolean equals(Object other) {
