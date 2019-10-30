@@ -32,8 +32,8 @@ public class SendMailCommand extends Command {
             + PREFIX_SUBJECT + "SUBJECT "
             + PREFIX_MESSAGE + "EMAIL BODY \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_RECIPIENT + "bob@gmail.com"
-            + PREFIX_SUBJECT + "sending email"
+            + PREFIX_RECIPIENT + "bob@gmail.com "
+            + PREFIX_SUBJECT + "sending email "
             + PREFIX_MESSAGE + "Hello World!";
 
     private String recipient;

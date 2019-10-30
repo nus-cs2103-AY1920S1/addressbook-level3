@@ -59,7 +59,7 @@ Format: `addProject n/PROJECT_TITLE s/PROJECT_DESCRIPTION`
 
 Example:
 
-* `addProject n/CS2103 project s/Software engeering project`
+* `addProject n/CS2103 project s/Software engineering project`
 
 ==== 2. Add a person: `add`
 
@@ -140,6 +140,10 @@ Example:
 
 Adds a new project meeting to the current working project.  +
 Format: `Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]`
+
+Example:
+
+* `addProjectMeeting c/29/09/2019 1900 s/milestone discussion`
 
 === Editing
 
@@ -264,25 +268,19 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 For every project, you can add meetings to it, and below you will be able to find more useful commands
 associated with this functionality.
 
-==== 1. Store meeting minutes: `attach`
-
-* Upload text file that contains the meeting minute for a specific meeting.
-
-* Format: `attach [mt/MEETING_INDEX] [dl/DEADLINE] [ta/TASKS] [t/TAG]…​`
-
-==== 2. Generate meeting timing: `generate` [Checkout]
+==== 1. Generate meeting timing: `generate` [Checkout]
 
 Generates a meeting time for which everyone is available.
 
 * Prerequisite: Timetables have been assigned to the members with the command addTimetable
 
-Format: `generate d/DURATION r/TIMERANGE
+Format: `generate d/DURATION r/TIMERANGE`
 
 Example:
 
 * `generate d/2 r/MONDAY 0900 MON`
 
-==== 3. Send reminder: `sendReminder`
+==== 2. Send reminder: `sendReminder`
 
 Sends a reminder to all members of the current working project. +
 Format: `sendReminder`
@@ -291,8 +289,8 @@ Format: `sendReminder`
 Tired of switching between applications? We got you covered, below you will find some commands which support sending
 emails right here within the application.
 
-==== 1. Sign in to your account: `singIn`
-Sings in to the your email account. +
+==== 1. Sign in to your account: `signIn`
+Signs in to the your email account. +
 Format: `signIn [ac/ACCOUNT_EMAIL_ADDRESS] [pa/PASSWORD]`
 
 ==== 2. Log out from your account: `logOut`
@@ -317,9 +315,9 @@ All commands in this section follow this set of index/order pairing, where appli
 
 . Alphabetical order
 . Increasing order of time
-. Whether tasks are done.
-. Whether tasks are done and then by increasing order of time.
-. Increasing price.
+. Whether tasks are done
+. Whether tasks are done and then by increasing order of time
+. Increasing price
 ****
 
 ==== 1. Sort tasks: `sortTask`

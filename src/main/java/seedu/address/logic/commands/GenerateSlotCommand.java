@@ -25,7 +25,7 @@ public class GenerateSlotCommand extends Command {
             + "[r/TIMERANGE (DAY TIME DAY TIME)]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DURATION + "2 "
-            + "[" + PREFIX_TIMERANGE + "MONDAY 0800 MONDAY 1700]";
+            + PREFIX_TIMERANGE + "MONDAY 0800 MONDAY 1700";
     public static final String MESSAGE_NOT_CHECKED_OUT = "A project must be checked out first before running this command";
     public static final String MESSAGE_UNKNOWN_ERROR = "Unknown error occured in generation algorithm. Please contact the dev team to report on this bug";
     private int durationInHours;

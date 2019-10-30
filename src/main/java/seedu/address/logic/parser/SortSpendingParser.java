@@ -7,7 +7,7 @@ import seedu.address.logic.commands.SortSpendingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new SortTaskCommand object
+ * Parses input arguments and creates a new SortSpendingCommand object
  */
 public class SortSpendingParser implements Parser<SortSpendingCommand> {
 
