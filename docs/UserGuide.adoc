@@ -608,7 +608,7 @@ The argument must match this three words perfectly.
 
 Shown below:
 
-image::docs/images/StatsExampleDefault.png[width="600"]
+image::StatsExampleDefault.png[width="600"]
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
 Format: `generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` +
@@ -617,7 +617,7 @@ Format for date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
-image::docs/images/StatsExampleGraph.png[width="600"]
+image::StatsExampleGraph.png[width="600"]
 
 Limitations:
 
