@@ -7,12 +7,17 @@ import java.util.regex.Matcher;
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateAddCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateArchiveCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateArchivesCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateDeleteCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateUnarchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUseCommand;
 import seedu.weme.logic.parser.commandparser.templatecommandparser.TemplateAddCommandParser;
+import seedu.weme.logic.parser.commandparser.templatecommandparser.TemplateArchiveCommandParser;
 import seedu.weme.logic.parser.commandparser.templatecommandparser.TemplateDeleteCommandParser;
 import seedu.weme.logic.parser.commandparser.templatecommandparser.TemplateEditCommandParser;
+import seedu.weme.logic.parser.commandparser.templatecommandparser.TemplateUnarchiveCommandParser;
 import seedu.weme.logic.parser.commandparser.templatecommandparser.TemplateUseCommandParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
@@ -50,6 +55,15 @@ public class TemplateParser extends WemeParser {
 
         case TemplateUseCommand.COMMAND_WORD:
             return new TemplateUseCommandParser().parse(arguments);
+
+        case TemplateArchivesCommand.COMMAND_WORD:
+            return new TemplateArchivesCommand();
+
+        case TemplateArchiveCommand.COMMAND_WORD:
+            return new TemplateArchiveCommandParser().parse(arguments);
+
+        case TemplateUnarchiveCommand.COMMAND_WORD:
+            return new TemplateUnarchiveCommandParser().parse(arguments);
 
         default:
             return super.parseCommand(userInput);

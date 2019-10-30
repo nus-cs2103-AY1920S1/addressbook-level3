@@ -33,20 +33,20 @@ public class JsonAdaptedMemeTest {
 
     @Test
     public void toModelType_nullPath_throwsIllegalValueException() {
-        JsonAdaptedMeme meme = new JsonAdaptedMeme(null, VALID_DESCRIPTION, VALID_TAGS);
+        JsonAdaptedMeme meme = new JsonAdaptedMeme(null, VALID_DESCRIPTION, VALID_TAGS, false);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ImagePath.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, meme::toModelType);
     }
 
     @Test
     public void toModelType_invalidPath_throwsIllegalValueException() {
-        JsonAdaptedMeme meme = new JsonAdaptedMeme(INVALID_URL, VALID_DESCRIPTION, VALID_TAGS);
+        JsonAdaptedMeme meme = new JsonAdaptedMeme(INVALID_URL, VALID_DESCRIPTION, VALID_TAGS, false);
         assertThrows(IllegalValueException.class, meme::toModelType);
     }
 
     @Test
     public void toModelType_nullDescription_throwsIllegalValueException() {
-        JsonAdaptedMeme meme = new JsonAdaptedMeme(VALID_URL, null, VALID_TAGS);
+        JsonAdaptedMeme meme = new JsonAdaptedMeme(VALID_URL, null, VALID_TAGS, false);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, meme::toModelType);
     }
@@ -56,7 +56,7 @@ public class JsonAdaptedMemeTest {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedMeme meme =
-                new JsonAdaptedMeme(VALID_URL, VALID_DESCRIPTION, invalidTags);
+                new JsonAdaptedMeme(VALID_URL, VALID_DESCRIPTION, invalidTags, false);
         assertThrows(IllegalValueException.class, meme::toModelType);
     }
 

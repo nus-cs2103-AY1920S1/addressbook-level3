@@ -3,7 +3,6 @@ package seedu.weme.logic.commands.memecommand;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
-import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_MEMES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -79,7 +78,6 @@ public class MemeEditCommand extends Command {
         model.addMemeToRecord(editedMeme);
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
         model.commitWeme(result.getFeedbackToUser());
-        model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
 
         return result;
     }
@@ -94,8 +92,9 @@ public class MemeEditCommand extends Command {
         ImagePath updatedPath = editMemeDescriptor.getFilePath().orElse(memeToEdit.getImagePath());
         Description updatedDescription = editMemeDescriptor.getDescription().orElse(memeToEdit.getDescription());
         Set<Tag> updatedTags = editMemeDescriptor.getTags().orElse(memeToEdit.getTags());
+        boolean isArchived = memeToEdit.isArchived();
 
-        return new Meme(updatedPath, updatedDescription, updatedTags);
+        return new Meme(updatedPath, updatedDescription, updatedTags, isArchived);
     }
 
     @Override

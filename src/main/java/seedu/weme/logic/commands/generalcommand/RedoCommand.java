@@ -1,7 +1,6 @@
 package seedu.weme.logic.commands.generalcommand;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_MEMES;
 
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
@@ -27,7 +26,6 @@ public class RedoCommand extends Command {
         }
 
         String feedback = model.redoWeme();
-        model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
         return new CommandResult(String.format(MESSAGE_SUCCESS, feedback));
     }
 }

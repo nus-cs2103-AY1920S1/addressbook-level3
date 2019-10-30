@@ -1,6 +1,7 @@
 {
   "memes": [ {
     "description": "4th street",
-    "filePath": "Hello world."
+    "filePath": "Hello world.",
+    "isArchived": false
   } ]
 }

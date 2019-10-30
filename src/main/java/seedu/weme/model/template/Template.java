@@ -4,27 +4,34 @@ import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.weme.model.Archivable;
 import seedu.weme.model.imagePath.ImagePath;
 
 /**
  * Represents a meme template in Weme.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Template {
+public class Template implements Archivable {
 
     // Identity fields
     private final Name name;
 
     // Data fields
     private final ImagePath imagePath;
+    private final boolean isArchived;
 
     /**
      * Every field must be present and not null.
      */
-    public Template(Name name, ImagePath imagePath) {
+    public Template(Name name, ImagePath imagePath, boolean isArchived) {
         requireAllNonNull(imagePath, name);
         this.name = name;
         this.imagePath = imagePath;
+        this.isArchived = isArchived;
+    }
+
+    public Template(Name name, ImagePath imagePath) {
+        this(name, imagePath, false);
     }
 
     public Name getName() {
@@ -33,6 +40,10 @@ public class Template {
 
     public ImagePath getImagePath() {
         return imagePath;
+    }
+
+    public boolean isArchived() {
+        return isArchived;
     }
 
     /**

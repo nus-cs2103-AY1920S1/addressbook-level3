@@ -3,7 +3,7 @@ package seedu.weme.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_MEMES;
+import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_UNARCHIVED_MEMES;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.TypicalMemes.DOGE;
 import static seedu.weme.testutil.TypicalMemes.JOKER;
@@ -121,7 +121,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentWeme, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
+        modelManager.updateFilteredMemeList(PREDICATE_SHOW_ALL_UNARCHIVED_MEMES);
 
         // different filteredList -> returns false
         String[] keywords = JOKER.getImagePath().toString().split("\\s+");

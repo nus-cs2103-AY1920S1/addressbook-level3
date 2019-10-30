@@ -3,7 +3,6 @@ package seedu.weme.logic.commands.templatecommand;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_NAME;
-import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class TemplateEditCommand extends Command {
         }
 
         Template templateToEdit = lastShownList.get(index.getZeroBased());
-        Template editedTemplate = new Template(name, templateToEdit.getImagePath());
+        Template editedTemplate = new Template(name, templateToEdit.getImagePath(), templateToEdit.isArchived());
 
         if (!templateToEdit.isSameTemplate(editedTemplate) && model.hasTemplate(editedTemplate)) {
             throw new CommandException(MESSAGE_DUPLICATE_TEMPLATE);
@@ -66,7 +65,6 @@ public class TemplateEditCommand extends Command {
         model.setTemplate(templateToEdit, editedTemplate);
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));
         model.commitWeme(result.getFeedbackToUser());
-        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
 
         return result;
     }

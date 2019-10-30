@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.weme.model.Archivable;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.tag.Tag;
 
@@ -14,7 +15,7 @@ import seedu.weme.model.tag.Tag;
  * Represents a Meme in Weme.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Meme {
+public class Meme implements Archivable {
 
     // Identity fields
     private final ImagePath imagePath;
@@ -22,23 +23,31 @@ public class Meme {
     // Data fields
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
+    private final boolean isArchived;
 
     /**
      * Every field must be present and not null.
      */
-    public Meme(ImagePath imagePath, Description description, Set<Tag> tags) {
+    public Meme(ImagePath imagePath, Description description, Set<Tag> tags, boolean isArchived) {
         requireAllNonNull(imagePath, description, tags);
         this.imagePath = imagePath;
         this.description = description;
         this.tags.addAll(tags);
+        this.isArchived = isArchived;
+    }
+
+    /**
+     * Overloaded Constructor for unarchived memes.
+     */
+    public Meme(ImagePath imagePath, Description description, Set<Tag> tags) {
+        this(imagePath, description, tags, false);
     }
 
     /**
      * Overloaded Constructor used to generate imported memes.
      */
-    public Meme(ImagePath path) {
-        this.imagePath = path;
-        this.description = new Description("");
+    public Meme(ImagePath imagePath) {
+        this(imagePath, new Description(""), new HashSet<>(), false);
     }
 
     public Description getDescription() {
@@ -55,6 +64,10 @@ public class Meme {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public boolean isArchived() {
+        return isArchived;
     }
 
     /**
@@ -87,13 +100,14 @@ public class Meme {
         Meme otherMeme = (Meme) other;
         return otherMeme.getImagePath().equals(getImagePath())
                 && otherMeme.getDescription().equals(getDescription())
-                && otherMeme.getTags().equals(getTags());
+                && otherMeme.getTags().equals(getTags())
+                && otherMeme.isArchived() == isArchived();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(imagePath, description, tags);
+        return Objects.hash(imagePath, description, tags, isArchived);
     }
 
     @Override

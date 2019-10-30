@@ -20,10 +20,14 @@ import seedu.weme.model.template.Template;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Meme> PREDICATE_SHOW_ALL_MEMES = unused -> true;
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
+    /** {@code Predicate} that evaluates to true if unarchived */
+    Predicate<Meme> PREDICATE_SHOW_ALL_UNARCHIVED_MEMES = meme -> !meme.isArchived();
+    /** {@code Predicate} that evaluate to true if unarchived */
+    Predicate<Template> PREDICATE_SHOW_ALL_UNARCHIVED_TEMPLATES = template -> !template.isArchived();
+    /** {@code Predicate} that evaluate to true if archived */
+    Predicate<Meme> PREDICATE_SHOW_ALL_ARCHIVED_MEMES = meme -> meme.isArchived();
+    /** {@code Predicate} that evaluate to true if archived */
+    Predicate<Template> PREDICATE_SHOW_ALL_ARCHIVED_TEMPLATES = template -> template.isArchived();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
