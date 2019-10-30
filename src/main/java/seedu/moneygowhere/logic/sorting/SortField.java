@@ -47,4 +47,9 @@ public class SortField {
                 && (attribute.equals(((SortField) other).attribute))
                 && (order.equals(((SortField) other).order)));
     }
+
+    @Override
+    public String toString() {
+        return getAttribute() + " (" + getOrder() + ")";
+    }
 }

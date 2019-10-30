@@ -16,7 +16,9 @@ import seedu.moneygowhere.model.spending.Spending;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Spending> PREDICATE_SHOW_ALL_SPENDINGS = unused -> true;
 
     /**
@@ -54,7 +56,9 @@ public interface Model {
      */
     void setSpendingBook(ReadOnlySpendingBook spendingBook);
 
-    /** Returns the SpendingBook */
+    /**
+     * Returns the SpendingBook
+     */
     ReadOnlySpendingBook getSpendingBook();
 
     /**
@@ -82,17 +86,21 @@ public interface Model {
      */
     void setSpending(Spending target, Spending editedSpending);
 
-    /** Returns an unmodifiable view of the filtered Spending list */
+    /**
+     * Returns an unmodifiable view of the filtered Spending list
+     */
     ObservableList<Spending> getFilteredSpendingList();
 
     /**
      * Updates the filter of the filtered Spending list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredSpendingList(Predicate<Spending> predicate);
 
     /**
      * Updates the comparator of the sorted Spending list to filter by the given {@code comparator}.
+     *
      * @throws NullPointerException if {@code comparator} is null.
      */
     void updateSortedSpendingList(Comparator<Spending> comparator);
@@ -124,7 +132,19 @@ public interface Model {
      */
     boolean hasReminder(Reminder reminder);
 
-    /** Returns an unmodifiable view of the filtered Spending list */
+    /**
+     * Returns an unmodifiable view of the filtered Spending list
+     */
+    ObservableList<Spending> getStatsList();
+
+    /**
+     * Updates the statsPredicate
+     */
+    void updateStatsPredicate(Predicate<Spending> statsPredicate);
+
+    /**
+     * Returns an unmodifiable view of the filtered Spending list
+     */
     List<Reminder> getReminderList();
 
     /**
@@ -142,3 +162,4 @@ public interface Model {
      */
     void setCurrencyInUse(Currency currency);
 }
+

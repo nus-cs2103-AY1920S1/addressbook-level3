@@ -194,6 +194,17 @@ class AddReminderCommandTest {
         public void setCurrencyInUse(Currency currency) {
             throw new AssertionError("This method should not be called.");
         }
+        };
+
+        @Override
+        public ObservableList<Spending> getStatsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateStatsPredicate(Predicate<Spending> statsPredicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

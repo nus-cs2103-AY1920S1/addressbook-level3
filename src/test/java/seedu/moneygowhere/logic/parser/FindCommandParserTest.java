@@ -27,9 +27,12 @@ import seedu.moneygowhere.model.spending.Cost;
 import seedu.moneygowhere.model.spending.CostInRangePredicate;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.DateInRangePredicate;
+import seedu.moneygowhere.model.spending.Name;
 import seedu.moneygowhere.model.spending.NameContainsKeywordsPredicate;
+import seedu.moneygowhere.model.spending.Remark;
 import seedu.moneygowhere.model.spending.RemarkContainsKeywordsPredicate;
 import seedu.moneygowhere.model.spending.Spending;
+import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.model.tag.TagPredicate;
 
 public class FindCommandParserTest {
@@ -88,16 +91,25 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_invalidArgs_failure() {
-        // invalid date
+        // empty date
         assertParseFailure(parser, INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS);
 
+        // empty name
+        assertParseFailure(parser, " " + PREFIX_NAME, Name.MESSAGE_CONSTRAINTS);
+
+        // empty remark
+        assertParseFailure(parser, " " + PREFIX_REMARK, Remark.MESSAGE_CONSTRAINTS);
+
+        // empty tag
+        assertParseFailure(parser, " " + PREFIX_TAG, Tag.MESSAGE_CONSTRAINTS);
+
         // one Date only
-        assertParseFailure(parser, " " + PREFIX_DATE + "1/1/2019", Date.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_DATE + "1/1/2019", FindCommandParser.DATE_RANGE_MESSAGE_CONSTRAINTS);
 
         // one Cost only
-        assertParseFailure(parser, " " + PREFIX_COST + "1.00", Cost.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_COST + "1.00", FindCommandParser.COST_RANGE_MESSAGE_CONSTRAINTS);
 
         // Cost max > min
-        assertParseFailure(parser, " " + PREFIX_COST + "2.00-1.00", Cost.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_COST + "2.00-1.00", FindCommandParser.COST_RANGE_MESSAGE_CONSTRAINTS);
     }
 }

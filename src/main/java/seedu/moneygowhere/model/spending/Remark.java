@@ -7,6 +7,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class Remark implements Comparable<Remark> {
 
+    public static final String MESSAGE_CONSTRAINTS = "Remark should not be blank";
+
     public final String value;
 
     public Remark(String remark) {

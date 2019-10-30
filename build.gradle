@@ -154,4 +154,12 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
+task precommit {
+    dependsOn 'checkstyleMain'
+    dependsOn 'checkstyleTest'
+    dependsOn 'test'
+    tasks.findByName('checkstyleTest').mustRunAfter 'checkstyleMain'
+    tasks.findByName('test').mustRunAfter 'checkstyleTest'
+}
+
 defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'

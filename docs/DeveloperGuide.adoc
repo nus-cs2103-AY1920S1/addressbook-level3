@@ -293,19 +293,30 @@ The following steps explain the activity diagram:
 
 ==== Design Considerations
 
+Listed in the table below are the design considerations for the `find` command.
+
+.Design considerations for `find` command
 [width="90%", cols="1,2,2", options="header",]
 |===
-|Aspect |Alternative 1 |Alternative 2
+|Aspect |Alternative 1 (current choice) |Alternative 2
 
 |How find is executed
 |Save all predicates to a list +
-Pros: Easy to implement +
-Cons: All fields require a predicate
-|Search the underlying list directly without using a predicate +
-Pros: Able to manipulate object easily +
-Cons: Poor abstraction
+Pros: +
+Easy to implement +
+Obeys Open-Closed Principle (OCP) +
 
+Cons: +
+All fields require a predicate
+|Search the underlying list directly without using a predicate +
+Pros: +
+Able to manipulate object easily +
+  +
+Cons: +
+Poor abstraction
 |===
+
+Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles.
 
 [[Implementation-Sort]]
 === Sort feature
@@ -359,9 +370,10 @@ The following steps explain the activity diagram:
 
 ==== Design Considerations
 
+.Design considerations for `sort` command
 [width="90%", cols="1,2,2", options="header",]
 |===
-|Aspect |Alternative 1 |Alternative 2
+|Aspect |Alternative 1 (current choice) |Alternative 2
 
 |How sort is executed
 |Set a new comparator +
@@ -378,8 +390,9 @@ Cons: Minor structure changes
 |Create sorted list from filtered list +
 Pros: Able to test large sorting side effects +
 Cons: Large code structure changes
-
 |===
+
+Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. Manipulating the internal elements of the list directly is dangerous and can cause unintended side effects.
 
 // tag::reminder[]
 === Reminder feature
@@ -500,65 +513,131 @@ The implementation of the Statistics feature can be split into 2 phases, prepara
 ===== Preparation
 
 During the preparation phase, the program parses the command for Statistics and prepares to open a new Statistics Window.
-The following sequence diagram shows how `stats d/01/01/2019 d/07/01/2019` works during the preparation phase.
+The following sequence diagram shows how `stats` command works during the preparation phase.
 
 .Sequence Diagram demonstrating the preparation stage of Statistics feature
 image::StatsSequenceDiagram.png[]
 
 NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-1. User executes `stats d/01/01/2019 d/07/01/2019` to generate statistics for spending within `01/01/2019` and `07/01/2019`.
+1. User first enters the command `stats d/01/01/2019 d/07/01/2019`.
 
-2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/01/01/2019 d/07/01/2019` to StatsCommandParser.
+2. `SpendingBookParser` will parse and identify the command as a `StatsCommand` and pass on the argument to `StatsCommandParser`.
 
-3. StatsCommandParser will check whether the date range parameters provided are valid.
-
-4. `StatsCommand#execute()` is executed, returning a message which tells the user that the Stats Window will be opened and set a boolean `isShowStats` = true to indicate that a new window to display the statistics will be opened.
+3. If no arguments were provided by the user, `StatsCommand#StatsCommand()` is called to create a StatsCommand with no parameters.
+Otherwise, `StatsCommandParser` will verify whether the arguments provided were valid.
+.. If they are valid, `StatsCommand#StatsCommand(DATE_START, DATE_END)` is called to create a `StatsCommand` with the specified parameters.
+.. Else, a `ParseException` will be thrown and an error message will be shown to the user.
+4. `StatsCommand` is returned to `LogicManager` which then calls `StatsCommand#execute()`, which updates the `statsPredicate` in `Model`.
 
 ===== Execution
 
 In the execution phase, the program processes and retrieves the data to be displayed and finally displaying it.
 
-There are 2 types of data that the program require, `statsMessage` for displaying the statistics in text and `statsData` for displaying the data in a piechart.
-Below is the UML sequence diagram and a step-by-step explanation for the retrieval of `statsData`. `statsMessage` is retrieved in the same manner.
+Below is the UML sequence diagram and a step-by-step explanation.
 
-.Sequence Diagram of Execution Phase showing retrieving of `statsData`
+.Sequence Diagram demonstrating the execution stage of Statistics feature
 image::StatsDataSequenceDiagram.png[]
 
 
 NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 
-1. Upon checking that the boolean `isShowStats` = true, the MainWindow calls `LogicManager#getStatsData()`.
+1. Upon checking that the boolean `isShowStats` = true, the `MainWindow` calls `LogicManager#getStatsData()`.
 
-2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/01/01/2019 d/07/01/2019` to StatsCommandParser.
+2. `LogicManager` then gets the filtered list by calling `Model#getStatsList`, which returns an unmodifiable `ObservableList`, containing only spending within the specified date range.
 
-3. StatsCommandParser will check whether the date range parameters provided are valid.
+3. `LogicManager#getStatsData()` then processes the spending and organise the data into a `LinkedHashMap<String, Double>` where the key value pairs represents tag and cost respectively.
 
-4. `StatsCommand#getStatsData()` is executed. Spending with date range within `01/01/2019` and `07/01/2019` is filtered.
-The filtering is done through a predicate parameter which checks through the dates of the spending in the application.
-
-5. Finally, the `statsData` will be displayed on the Ui through `StatsWindow#loadData()` call.
+4. Finally, the `statsData` is returned to the `MainWindow`. The data will be displayed on the Ui through `StatsWindow#loadData(statsData)` call.
 
 ==== Design Considerations
 
-===== How to pass statistics data parameters from Logic to UI
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 (Current choice) |Alternative 2 (Planned for future releases)
 
-====== Alternative 1 (current choice): UI gets all data and parameters from Logic, which gets data from Model.
+|How to handle statistics data and parameters
+|Data and each parameter is handled as separate objects +
+Pros: Easy to implement +
+Cons: Need to call multiple methods to get parameters
+|Create Statistics object which contains data and all the parameters +
+Pros: More scalable. Less method calls to get parameters +
+Cons: None.
 
-Pros: Easy to implement. Aligned with architecture.
+|===
 
-Cons: A lot of method calls.
+=== Graph feature
+==== Current Implementation
+For the current `graph` feature, there are 2 main commands that the user can execute.
 
-====== Alternative 2: Pass data and parameters through event
+1. `graph` - generates graph for all spending
+2. `graph d/DATE_START d/DATE_END` - generates graph for spending within a date range
 
-Pros: Less method calls. Easier to read.
+The `GraphCommandParser` differentiates these 2 commands based on whether a valid date range is provided as illustrated in the diagram below.
 
-Cons: Not in alignment with architecture. Need to consider application startup when there are no events posted.
+.Activity Diagram showing behaviour of GraphCommandParser
+image::GraphActivityDiagram.png[width="600"]
 
-Alternative 1 was chosen due to the ease of implementation.
-As the current statistics feature does not require a large amount of data, the number of method calls is not too large.
-Alternative 2 requires a change in the architecture which may result in higher complexity.
+The implementation of the Graph feature can be split into 2 phases, preparation and execution. Given below is an explanation of how the Graph mechanism behaves at each phase.
+
+===== Preparation
+
+During the preparation phase, the program parses the command for Graph and prepares to open a new Graph Window.
+The following sequence diagram shows how `graph` command works during the preparation phase.
+
+.Sequence Diagram demonstrating the preparation stage of Graph feature
+image::GraphSequenceDiagram.png[]
+
+NOTE: The lifeline for `GraphCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+1. User first enters the command `graph d/01/01/2019 d/07/01/2019`.
+
+2. `SpendingBookParser` will parse and identify the command as a `GraphCommand` and pass on the argument to `GraphCommandParser`.
+
+3. If no arguments were provided by the user, `GraphCommand#GraphCommand()` is called to create a GraphCommand with no parameters.
+Otherwise, `GraphCommandParser` will verify whether the arguments provided were valid.
+.. If they are valid, `GraphCommand#GraphCommand(DATE_START, DATE_END)` is called to create a `GraphCommand` with the specified parameters.
+.. Else, a `ParseException` will be thrown and an error message will be shown to the user.
+4. `GraphCommand` is returned to `LogicManager` which then calls `GraphCommand#execute()`, which updates the `statsPredicate` in `Model`.
+
+===== Execution
+
+In the execution phase, the program processes and retrieves the data to be displayed and finally displaying it.
+
+Below is the UML sequence diagram and a step-by-step explanation.
+
+.Sequence Diagram demonstrating the execution stage of Graph feature
+image::GraphDataSequenceDiagram.png[]
+
+
+NOTE: The lifeline for `GraphCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+1. Upon checking that the boolean `isShowGraph` = true, the `MainWindow` calls `LogicManager#getGraphData()`.
+
+2. `LogicManager` then gets the filtered list by calling `Model#getStatsList`, which returns an unmodifiable `ObservableList`, containing only spending within the specified date range.
+
+3. `LogicManager#getGraphData()` then processes the spending and organise the data into a `LinkedHashMap<String, Double>` where the key value pairs represents date and cost respectively.
+
+4. Finally, the `graphData` is returned to the `MainWindow`. The data will be displayed on the Ui through `GraphWindow#loadData(graphData)` call.
+
+==== Design Considerations
+
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 (Current choice) |Alternative 2 (Planned for future releases)
+
+|How to handle graph data and parameters
+|Data and each parameter is handled as separate objects +
+Pros: Easy to implement +
+Cons: Need to call multiple methods to get parameters
+|Create Graph object which contains data and all the parameters +
+Pros: More scalable. Less method calls to get parameters +
+Cons: None.
+
+|===
+
 
 === Budget Feature
 The `Budget` component has two core features:
@@ -811,7 +890,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC02 Update a spending
+=== UC02 Edit a spending
 
 *MSS*
 
@@ -865,29 +944,40 @@ Use case resumes at step 2.
 
 '''
 [discrete]
-=== UC04 Find a spending
+=== UC04 List all spending
+
+*MSS*
+
+1.  User requests to list all spending.
+2.  MoneyGoWhere shows list of spending in the default order of date in descending order, followed by cost in descending order and name in ascending order.
++
+Use case ends.
+
+'''
+[discrete]
+=== UC05 Find a spending
 
 *MSS*
 
 1.  User requests to find all occurrences of entered keywords, optionally within the spending name, a cost range, date range, remark and tag in a spending.
-2.  MoneyGoWhere returns any spending found with the keywords contained within its cost range, date range, remark and tag specified.
+2.  MoneyGoWhere shows spending found with the keywords contained within its cost range, date range, remark and tag specified.
 +
 Use case ends.
 
 '''
 [discrete]
-=== UC05 Sort displayed spending
+=== UC06 Sort displayed spending
 
 *MSS*
 
 1.  User requests to sort based on optionally provided fields such as spending name, cost range, date range or remark, in ascending or descending order.
-2.  MoneyGoWhere returns spending entries using the given order.
+2.  MoneyGoWhere displays current spending entries with the given order.
 +
 Use case ends.
 
 '''
 [discrete]
-=== UC06 Set a monthly budget
+=== UC07 Set a monthly budget
 
 *MSS*
 
@@ -909,7 +999,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC07 Generate statistics
+=== UC08 Generate statistics
 
 *MSS*
 
@@ -931,7 +1021,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC08 List all tags
+=== UC09 List all tags
 
 *MSS*
 
@@ -943,7 +1033,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC09 Add a reminder
+=== UC10 Add a reminder
 
 *MSS*
 
@@ -955,7 +1045,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC10 Delete a reminder
+=== UC11 Delete a reminder
 
 *MSS*
 
@@ -981,7 +1071,7 @@ Use case resumes at step 2.
 
 '''
 [discrete]
-=== UC11 Import external data from a CSV file
+=== UC12 Import external data from a CSV file
 
 *MSS*
 
@@ -1003,7 +1093,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC12 Export data to a CSV file
+=== UC13 Export data to a CSV file
 
 *MSS*
 
@@ -1025,7 +1115,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC13 Undo a command
+=== UC14 Undo a command
 
 *MSS*
 
@@ -1047,7 +1137,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC14 Redo a command
+=== UC15 Redo a command
 
 *MSS*
 
@@ -1069,7 +1159,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC15 Graphing the data
+=== UC16 Graphing the data
 
 *MSS*
 
@@ -1092,7 +1182,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC16 Clear all spending
+=== UC17 Clear all spending
 
 *MSS*
 

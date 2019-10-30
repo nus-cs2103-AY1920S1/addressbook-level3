@@ -1,11 +1,12 @@
 package seedu.moneygowhere.ui;
 
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -18,8 +19,6 @@ import seedu.moneygowhere.logic.commands.CommandResult;
 import seedu.moneygowhere.logic.commands.HelpCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
-import seedu.moneygowhere.model.spending.Date;
-import seedu.moneygowhere.model.tag.Tag;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -37,8 +36,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private SpendingListPanel spendingListPanel;
     private ResultDisplay resultDisplay;
-    private GraphWindow graphWindow;
-    private StatsWindow statsWindow;
+
+    private GraphPanel graphPanel;
+    private StatsPanel statsPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -55,6 +55,13 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+
+    private TabPane tabPanePlaceholder;
+
+    private Tab graphTab;
+    private Tab statsTab;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -66,10 +73,6 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-
-        graphWindow = new GraphWindow();
-        statsWindow = new StatsWindow();
-
 
     }
 
@@ -127,6 +130,17 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, this::getPrevCommand, this::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        graphTab = new Tab("Graph");
+        graphPanel = new GraphPanel(logic.getGraphData());
+        graphTab.setContent(graphPanel.getRoot());
+
+        statsTab = new Tab("Statistics");
+        statsPanel = new StatsPanel(logic.getStatsData());
+        statsTab.setContent(statsPanel.getRoot());
+
+        tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);
+
     }
 
     /**
@@ -146,32 +160,10 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay.setFeedbackToUser(HelpCommand.SHOWING_HELP_MESSAGE);
     }
 
-    /**
-     * Opens the graph window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleGraph() {
-        if (!graphWindow.isShowing()) {
-            graphWindow.show();
-        } else {
-            graphWindow.focus();
-        }
-    }
-
-    /**
-     * Opens the stats window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleStats() {
-        if (!statsWindow.isShowing()) {
-            statsWindow.show();
-        } else {
-            statsWindow.focus();
-        }
-    }
-
     void show() {
         primaryStage.show();
+        primaryStage.setMaximized(true);
+        primaryStage.setResizable(false);
     }
 
     /**
@@ -182,8 +174,6 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        graphWindow.hide();
-        statsWindow.hide();
         primaryStage.hide();
     }
 
@@ -206,18 +196,16 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             if (commandResult.isShowGraph()) {
-                Map<Date, Double> statsData = logic.getGraphData(commandText);
-                graphWindow.loadData(statsData);
-                handleGraph();
+                graphPanel = new GraphPanel(logic.getGraphData());
+                graphTab.setContent(graphPanel.getRoot());
+                tabPanePlaceholder.getSelectionModel().select(graphTab);
             }
 
             if (commandResult.isShowStats()) {
-                String statsMessage = logic.getStatsMessage(commandText);
-                Map<Tag, Double> statsData = logic.getStatsData(commandText);
-                statsWindow.loadData(statsData, statsMessage);
-                handleStats();
+                statsPanel = new StatsPanel(logic.getStatsData());
+                statsTab.setContent(statsPanel.getRoot());
+                tabPanePlaceholder.getSelectionModel().select(graphTab);
             }
 
             return commandResult;
@@ -244,5 +232,4 @@ public class MainWindow extends UiPart<Stage> {
     private String getNextCommand() {
         return logic.getNextCommand();
     }
-
 }

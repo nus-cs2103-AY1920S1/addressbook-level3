@@ -6,7 +6,9 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.moneygowhere.logic.parser.ParserUtil.DATE_INVALID_TOO_FAR;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -40,6 +42,12 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+
+        if (date.dateValue.isAfter(LocalDate.now())
+                && date.dateValue.getYear() - LocalDate.now().getYear() > ParserUtil.DATE_TOO_FAR_RANGE) {
+            throw new ParseException(DATE_INVALID_TOO_FAR);
+        }
+
         Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
         Cost cost = ParserUtil.parseCost(argMultimap.getValue(PREFIX_COST).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

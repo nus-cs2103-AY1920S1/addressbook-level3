@@ -48,6 +48,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_SPENDING_SUCCESS = "Edited Spending: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_INVALID_SPENDING_INDEX = "Spending index is invalid. "
+            + "It must be a nonzero integer value.";
 
     private final Index index;
     private final EditSpendingDescriptor editSpendingDescriptor;

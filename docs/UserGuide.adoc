@@ -45,6 +45,8 @@ Useful information for a deeper understanding of the command.
 
 == Quick Start
 
+These steps will guide you in installing MoneyGoWhere on your computer.
+
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MoneyGoWhere.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for MoneyGoWhere.
@@ -137,7 +139,10 @@ Adds a spending to the list when the user incurs a new spending. Key information
 Format: `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
 [NOTE]
-A spending can have any number of tags (including 0).
+A spending can have any number of tags (including 0). Each tag is also limited to 64 characters.
+
+[NOTE]
+If a spending date is in the future, it can only be up to 5 years from now.
 
 Examples:
 
@@ -151,14 +156,16 @@ Examples:
 
 Updates a spending in the specified index in the list. +
 
-Format: `update i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
+Format: `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
 ****
 * Edits the spending at the specified `INDEX`. The index refers to the index number shown in the displayed spending list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the spending will be removed i.e adding of tags is not cumulative.
+* Tags can have up to 64 characters.
 * You can remove all the spending's tags by typing `t/` without specifying any tags after it.
+* If a spending date is in the future, it can only be up to 5 years from now.
 ****
 
 Examples:
@@ -196,7 +203,7 @@ Displays a list of all spending and their information such as name, date, cost, 
 Format: `list`
 
 [NOTE]
-List is sorted by descending order of date, followed by descending order of cost.
+List is sorted by descending order of date, followed by descending order of cost and lastly, by ascending order of name.
 
 [NOTE]
 This command is implicitly invoked upon application start up, and can be used to reset the view after find or sort.
@@ -296,17 +303,8 @@ Returns the current monthly budget. +
 Format: `showbudget`
 
 === Generating statistics : `stats`
-Returns an overview of the spending which enables the user to analyze what they have spent their money on.
-
-As shown in Figure 3, data include:
-
-* Total cost spent
-* Budget set
-* Budget remaining
-* Status (Safe/Deficit)
-* A list of cost and percentage of total cost spent on each tag.
-The list is sorted in descending order based on cost. The tag with the highest cost incurred will be at the top.
-* A pie chart summarising the list of cost and percentage of total cost spent on each tag.
+Returns an overview of the spending in the form of a pie chart, with each sector representing a tag as shown in Figure 3.
+Each sector is labelled with the name and total expenditure for the tag, allowing you to better analyze your spending habits.
 
 Format: `stats d/DATE_START d/DATE_END`
 
@@ -336,7 +334,8 @@ Generates statistics for all spending.
 
 
 === Graphing the data : `graph`
-Shows the cost spent in the form of a line graph as seen in Figure 4.
+Shows a graph of total cost spent in a day against date in the form of a line graph as seen in Figure 4.
+This allows users to view trends in their spending over a specified period of time.
 
 Format: `graph d/DATE_START d/DATE_END`
 
@@ -481,8 +480,8 @@ Listed below is a summary of all available commands.
 | *Help* | `help` +
 | *Add* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
-| *Update* | `update i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
-e.g. `edit i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
+| *Edit* | `edit i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
+e.g. `edit 1 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
 | *List* | `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
