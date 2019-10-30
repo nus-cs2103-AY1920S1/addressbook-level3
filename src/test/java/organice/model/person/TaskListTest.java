@@ -1,23 +1,21 @@
 package organice.model.person;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static organice.testutil.Assert.assertThrows;
-
-import java.util.Arrays;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import organice.logic.commands.AddCommand;
-import organice.logic.commands.AddCommandTest;
-import organice.logic.commands.CommandResult;
-import organice.testutil.PersonBuilder;
 
 class TaskListTest {
-    TaskList taskList = new TaskList("tasklist");
-    Task one = new Task("one");
-    Task two = new Task("two");
-    Task three = new Task("three");
-    Task four = new Task("four");
+    private TaskList taskList = new TaskList("tasklist");
 
+    private Task one = new Task("one");
+    private Task two = new Task("two");
+    private Task three = new Task("three");
+    private Task four = new Task("four");
+
+    /**
+     * Check if TaskList is adding Task correctly
+     */
     public void add() {
         taskList.add(one);
         taskList.add(two);
@@ -34,7 +32,7 @@ class TaskListTest {
         assertEquals(three, taskList.get(2));
         assertEquals(four, taskList.get(3));
 
-        assertTrue(taskList.size()==4);
+        assertTrue(taskList.size() == 4);
     }
     @Test
     void size() {
@@ -42,7 +40,7 @@ class TaskListTest {
         taskList.add(two);
         taskList.add(three);
 
-        assertEquals(taskList.size(),3);
+        assertEquals(taskList.size(), 3);
     }
 
     @Test
