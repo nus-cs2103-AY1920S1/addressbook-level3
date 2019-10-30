@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
 import dream.fcard.logic.stats.Session;
@@ -22,7 +23,7 @@ public class StatisticsWindow extends VBox {
     @FXML
     private Label sessionsThisWeek;
     @FXML
-    private ListView<Session> sessionsListView;
+    private TableView<Session> sessionsTableView;
 
     /** Creates a new instance of StatisticsWindow. */
     public StatisticsWindow() {
@@ -38,6 +39,7 @@ public class StatisticsWindow extends VBox {
         }
 
         displayStats();
+        displaySessionsTableView();
     }
 
     private void displayStats() {
@@ -50,5 +52,12 @@ public class StatisticsWindow extends VBox {
         // retrieve and display list of sessions
         //ArrayList<Session> sessionsList = Stats.getLoginSessions().getSessionArrayList(); // todo: fix
         //sessionsListView.setItems(FXCollections.observableArrayList(sessionsList));
+    }
+
+    private void displaySessionsTableView() {
+        ArrayList<Session> sessionsList = Stats.getLoginSessions().getSessionArrayList(); // todo: fix
+        sessionsTableView.setItems(FXCollections.observableArrayList(sessionsList));
+        sessionsTableView.setPlaceholder(new Label("There are no recorded sessions yet!"));
+
     }
 }

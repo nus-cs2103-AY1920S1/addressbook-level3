@@ -19,19 +19,19 @@ public class Session implements Serializable {
     private LocalDateTime sessionStart;
 
     /** The start time of the session, as a String for rendering in the GUI. */
-    //private StringProperty sessionStartProperty;
+    private String sessionStartString;
 
     /** The end time of the session, in the user's local time zone. */
     private LocalDateTime sessionEnd;
 
     /** The start time of the session, as a String for rendering in the GUI. */
-    //private StringProperty sessionEndProperty;
+    private String sessionEndString;
 
     /** The duration of the session, as a Duration object. */
     private Duration duration;
 
     /** The duration of the session, as a String for rendering in the GUI. */
-    //private StringProperty durationProperty;
+    private String durationString;
 
     private int score = -1; // optional, default is -1
 
@@ -44,8 +44,9 @@ public class Session implements Serializable {
 
     /** Sets the session's start time to the present. */
     private void startSession() {
+        // todo: add tests for String properties
         this.sessionStart = LocalDateTime.now();
-        //this.sessionStartProperty.setValue(DateTimeUtil.getStringFromDateTime(this.sessionStart));
+        this.sessionStartString = DateTimeUtil.getStringFromDateTime(this.sessionStart);
     }
 
     /**
@@ -54,19 +55,29 @@ public class Session implements Serializable {
      */
     public void endSession() {
         this.sessionEnd = LocalDateTime.now();
-        //this.sessionEndProperty.setValue(DateTimeUtil.getStringFromDateTime(this.sessionEnd));
+        this.sessionEndString = DateTimeUtil.getStringFromDateTime(this.sessionEnd);
         this.setDuration();
-        //this.durationProperty.setValue(DateTimeUtil.getStringFromDuration(this.duration));
+        this.durationString = DateTimeUtil.getStringFromDuration(this.duration);
     }
 
-    /** Gets the start time of this session. */
+    /** Gets the start time of this session, as a LocalDateTime object. */
     public LocalDateTime getSessionStart() {
         return this.sessionStart;
     }
 
-    /** Gets the end time of this session. */
+    /** Gets the start time of this session, as a String. */
+    public String getSessionStartString() {
+        return this.sessionStartString;
+    }
+
+    /** Gets the end time of this session, as a LocalDateTimeObject. */
     public LocalDateTime getSessionEnd() {
         return this.sessionEnd;
+    }
+
+    /** Gets the end time of this session, as a String. */
+    public String getSessionEndString() {
+        return this.sessionEndString;
     }
 
     /** Calculates and sets the duration of this session. */
@@ -79,6 +90,11 @@ public class Session implements Serializable {
     /** Gets the duration of this session, as a Duration object. */
     public Duration getDuration() {
         return this.duration;
+    }
+
+    /** Gets the duration of this session, as a String. */
+    public String getDurationString() {
+        return this.durationString;
     }
 
     /** Sets the score of this session. */
