@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import java.time.Period;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
