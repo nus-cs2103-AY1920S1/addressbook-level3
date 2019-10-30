@@ -39,7 +39,7 @@ public class AddCommand extends Command {
             + PREFIX_TISSUE_TYPE + "TISSUE TYPE "
             + PREFIX_ORGAN + "ORGAN "
             + PREFIX_DOCTOR_IN_CHARGE + "DOCTOR IN CHARGE "
-        + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "patient "
             + PREFIX_NRIC + "S1234568R "
             + PREFIX_NAME + "John Doe "
