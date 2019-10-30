@@ -26,7 +26,7 @@ public class Stats implements Serializable {
     /** Returns the Stats object pertaining to this user. */
     public static Stats getUserStats() {
         if (userStats == null) {
-            System.out.println("No userStats found!");
+            System.out.println("Creating a new Stats object...");
             userStats = new Stats();
         }
         return userStats;
