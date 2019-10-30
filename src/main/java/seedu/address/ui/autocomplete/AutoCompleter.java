@@ -83,7 +83,7 @@ public class AutoCompleter {
             AddDutyShiftCommand.COMMAND_WORD,
             CancelDutyShiftCommand.COMMAND_WORD,
             ChangeDutyShiftCommand.COMMAND_WORD,
- 
+
             AddConsultationRoomCommand.COMMAND_WORD,
             RemoveRoomCommand.COMMAND_WORD,
 
