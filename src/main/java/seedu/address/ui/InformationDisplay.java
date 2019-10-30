@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -57,7 +58,7 @@ public class InformationDisplay extends UiPart<Region> {
         address.setPrefWidth(150);
         address.setWrapText(true);
         email.setText(this.person.getEmail().value);
-        photo.setImage(this.person.getPhoto().photo);
+        photo.setImage(new Image(this.person.getPhoto().filePath));
         photo.setPreserveRatio(true);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
