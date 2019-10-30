@@ -4,6 +4,7 @@ import seedu.address.inventory.logic.commands.SortCategoryCommand;
 import seedu.address.inventory.logic.commands.SortCommand;
 import seedu.address.inventory.logic.commands.SortDescriptionCommand;
 import seedu.address.inventory.logic.commands.SortQuantityCommand;
+import seedu.address.inventory.logic.commands.SortResetCommand;
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.ui.InventoryMessages;
 
@@ -25,8 +26,8 @@ public class SortCommandParser {
             return new SortDescriptionCommand();
         } else if (argsArr[1].equals("category")) {
             return new SortCategoryCommand();
-        /*} else if (argsArr[1].equals("reset")) {
-            return new SortResetCommand(); */
+        } else if (argsArr[1].equals("reset")) {
+            return new SortResetCommand();
         } else {
             throw new NoSuchSortException(InventoryMessages.MESSAGE_NO_SUCH_SORT_COMMAND);
         }

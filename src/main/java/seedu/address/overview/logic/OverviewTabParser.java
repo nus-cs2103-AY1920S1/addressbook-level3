@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import seedu.address.overview.logic.commands.Command;
 import seedu.address.overview.logic.commands.NotifyCommand;
 import seedu.address.overview.logic.commands.SetCommand;
-import seedu.address.overview.logic.exception.ParseException;
+import seedu.address.overview.logic.commands.exception.ParseException;
 import seedu.address.overview.ui.OverviewMessages;
 
 /**

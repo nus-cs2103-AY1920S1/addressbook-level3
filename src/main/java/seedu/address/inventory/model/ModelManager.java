@@ -1,5 +1,7 @@
 package seedu.address.inventory.model;
 
+import java.util.ArrayList;
+
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.storage.StorageManager;
@@ -25,8 +27,14 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
     public InventoryList getInventoryList() {
         return this.inventoryList;
+    }
+
+    @Override
+    public ArrayList<Item> getInventoryListInArrayList() {
+        return this.inventoryList.getInventoryListInArrayList();
     }
 
     @Override
@@ -83,17 +91,16 @@ public class ModelManager implements Model {
      */
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
     /**
      * Updates the index of the items.
-     * @throws NoSuchIndexException if the index is invalid
      */
-    public void updateIndexes() throws NoSuchIndexException {
+    public void updateIndexes() {
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.get(i);
             item.setId(i + 1);
@@ -112,6 +119,10 @@ public class ModelManager implements Model {
         inventoryList.sortByQuantity();
     }
 
+    public void sortReset() {
+        inventoryList.sortReset();
+    }
+
     /**
      * Updates the recent inventory list from the data file.
      */
@@ -122,4 +133,13 @@ public class ModelManager implements Model {
             this.inventoryList = new InventoryList();
         }
     }
+
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ModelManager // instanceof handles nulls
+                && inventoryList.equals(((ModelManager) other).getInventoryList()));
+    }
+
 }

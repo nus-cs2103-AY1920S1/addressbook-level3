@@ -17,7 +17,7 @@ import seedu.address.util.Prefix;
 /**
  * Parser for find command.
  */
-public class FindCommandParser implements GeneralParser<FindCommand> {
+public class FindCommandParser implements CommandParserWithPersonModel<FindCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }

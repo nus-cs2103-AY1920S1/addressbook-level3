@@ -1,18 +1,22 @@
 package seedu.address.cashier.model;
 
+import static seedu.address.cashier.ui.CashierMessages.NO_ITEM_TO_CHECKOUT;
+import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.NoItemToCheckoutException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
-import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Represents the in-memory model of the sales list data.
@@ -24,38 +28,24 @@ public class ModelManager implements Model {
     private static ArrayList<Item> salesList = new ArrayList<Item>();
     private Person cashier = null;
     private InventoryList inventoryList;
-    private StorageManager storage;
+    //private StorageManager storage;
     private TransactionList transactionList;
+    private Transaction checkoutTransaction;
 
     /**
-     * Initializes a ModelManager with the given inventory list.
+     * Initializes a ModelManager with the given inventory list and transaction list.
      */
-    public ModelManager(InventoryList inventoryList) {
+    public ModelManager(InventoryList inventoryList, TransactionList transactionList) {
+        System.out.println("got initialise");
+        System.out.println(inventoryList.size());
+        System.out.println(transactionList.size());
         this.inventoryList = inventoryList;
-    }
-
-    /**
-     * Initializes a ModelManager with the given transaction list.
-     */
-    public ModelManager(TransactionList transactionList) {
         this.transactionList = transactionList;
     }
 
-    /**
-     * Initializes a ModelManager with the given storage manager.
-     */
-    public ModelManager(StorageManager storage) {
-        this.storage = storage;
-        try {
-            this.inventoryList = storage.getInventoryList();
-        } catch (Exception e) {
-            this.inventoryList = new InventoryList();
-        }
-        try {
-            this.transactionList = storage.getTransactionList();
-        } catch (Exception e) {
-            this.transactionList = new TransactionList();
-        }
+    public ModelManager() {
+        this.inventoryList = new InventoryList();
+        this.transactionList = new TransactionList();
     }
 
     /**
@@ -76,16 +66,17 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Updates the inventory list from the data file.
+     * Updates the inventory and transaction list.
+     *
+     * @param inventoryList of the current inventory
+     * @param transactionList of the current transaction
      */
     @Override
-    public void readInUpdatedList() {
-        try {
-            this.inventoryList = storage.getInventoryList();
-        } catch (Exception e) {
-            this.inventoryList = new InventoryList();
-        }
+    public void getUpdatedLists(InventoryList inventoryList, TransactionList transactionList) {
+        this.inventoryList = inventoryList;
+        this.transactionList = transactionList;
     }
+
 
     /**
      * Returns true if the quantity keyed in is less than or equals to the quantity available in inventory.
@@ -219,12 +210,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setItem(int i, Item editedItem) throws Exception {
-        inventoryList.set(i, editedItem);
-    }
-
-    @Override
-    public void writeInInventoryFile() throws Exception {
-        storage.writeFileToInventory(inventoryList);
+        salesList.set(i, editedItem);
     }
 
     /**
@@ -273,7 +259,7 @@ public class ModelManager implements Model {
         for (Item i : salesList) {
             total += (i.getPrice() * i.getQuantity());
         }
-        return total;
+        return Double.parseDouble(DECIMAL_FORMAT.format(total));
     }
 
     /**
@@ -291,6 +277,14 @@ public class ModelManager implements Model {
     @Override
     public void clearSalesList() {
         this.salesList = new ArrayList<Item>();
+    }
+
+    /**
+     * Resets the cashier to null.
+     */
+    @Override
+    public void resetCashier() {
+        this.cashier = null;
     }
 
     /**
@@ -312,7 +306,7 @@ public class ModelManager implements Model {
      */
     @Override
     public double getSubtotal(Item i) {
-        return Double.parseDouble(Item.DECIMAL_FORMAT.format(i.getPrice() * i.getQuantity()));
+        return Double.parseDouble(DECIMAL_FORMAT.format(i.getPrice() * i.getQuantity()));
     }
 
     /**
@@ -334,7 +328,6 @@ public class ModelManager implements Model {
      */
     @Override
     public ArrayList<String> getDescriptionByCategory(String category) {
-        readInUpdatedList();
         return inventoryList.getAllSalesDescriptionByCategory(category);
     }
 
@@ -347,27 +340,69 @@ public class ModelManager implements Model {
      */
     @Override
     public ArrayList<String> getRecommendedItems(String description) throws NoSuchIndexException {
-        readInUpdatedList();
         ArrayList<String> recommendedItems = new ArrayList<>();
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.getItemByIndex(i);
-            if (item.getDescription().startsWith(description)) {
+            if (!item.isSellable()) {
+                continue;
+            }
+            if (item.getDescription().toLowerCase().startsWith(description.toLowerCase())) {
                 recommendedItems.add(item.getDescription());
                 continue;
             }
             if (description.length() >= 3
-                    && ((item.getDescription().contains(description)) || description.contains(item.getDescription()))) {
+                    && ((item.getDescription().toLowerCase().contains(description.toLowerCase()))
+                    || description.toLowerCase().contains(item.getDescription().toLowerCase()))) {
                 recommendedItems.add(item.getDescription());
                 continue;
             }
-            if (item.getDescription().endsWith(description)) {
-                recommendedItems.add(item.getDescription());
-                continue;
+            if (description.length() >= 3) {
+                char[] arr = description.toCharArray();
+                ArrayList<String> combinations = getCombination(arr, arr.length);
+                for (int j = 0; j < combinations.size(); j++) {
+                    if (combinations.get(j).toLowerCase().contains(item.getDescription().toLowerCase())
+                            || item.getDescription().toLowerCase().contains(combinations.get(j))) {
+                        recommendedItems.add(item.getDescription());
+                        continue;
+                    }
+                }
             }
         }
-        return recommendedItems;
+        ArrayList<String> newList = recommendedItems.stream()
+                .distinct()
+                .collect(Collectors
+                        .toCollection(ArrayList::new));
+        return newList;
     }
 
+    /**
+     * Returns all subsets of the given character array that are of at least length 3.
+     *
+     * @param arr the character array
+     * @param n the length of the character array
+     * @return all subsets of the given character array that are longer than 3 characters
+     */
+    public ArrayList<String> getCombination(char[] arr, int n) {
+        ArrayList<String> result = new ArrayList<>();
+        for (int len = 1; len <= n; len++) {
+            String word = "";
+            for (int i = 0; i <= n - len; i++) {
+                //  Print characters from current starting point to current ending point
+                int j = i + len - 1;
+                for (int k = i; k <= j; k++) {
+                    word += String.valueOf(arr[k]);
+                }
+                //if (word.length() >= 3) {
+                result.add(word);
+                //}
+            }
+        }
+        return result.stream()
+                .filter(str -> str.length() >= 3)
+                .collect(Collectors
+                        .toCollection(ArrayList::new));
+        //return result;
+    }
 
     /**
      * Creates a new {@code Transaction} and append it to the data file.
@@ -375,18 +410,29 @@ public class ModelManager implements Model {
      *
      * @param amount to paid by customer
      * @param person cashier who is in-charge
-     * @param transactionModel the transaction model being used
      * @return the new transaction made from the sales
      * @throws Exception if the user input is invalid
      */
     @Override
-    public Transaction checkoutAsTransaction(double amount, Person person,
-                                             seedu.address.transaction.model.Model transactionModel) throws Exception {
+    public Transaction checkoutAsTransaction(double amount, Person person) throws NoItemToCheckoutException {
+        if (salesList.size() <= 0) {
+            throw new NoItemToCheckoutException(NO_ITEM_TO_CHECKOUT);
+        }
         Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
-                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, transactionModel.getTransactionList().size(), false);
-        storage.appendToTransaction(transaction);
-        transactionModel.addTransaction(transaction);
+                SALES_DESCRIPTION, SALES_CATEGORY, amount, person, this.transactionList.size(), false);
+        checkoutTransaction = transaction;
         return transaction;
+    }
+
+    /**
+     * Returns the checkout transaction.
+     *
+     * @return the checkout transaction
+     *
+     */
+    @Override
+    public Transaction getCheckoutTransaction() {
+        return checkoutTransaction;
     }
 
     @Override
@@ -404,9 +450,31 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return inventoryList.equals(other.getInventoryList())
-                && salesList.equals(other.getSalesList());
+                && transactionList.equals(other.getTransactionList())
+                && this.equalsSalesList(other.getSalesList());
     }
 
+    /**
+     * Compares the sales list with another list of items to check if all the elements of both list are equal.
+     *
+     * @param list the other list to compare against
+     * @return true if both list are exactly the same. Else, return false
+     */
+    public boolean equalsSalesList(ArrayList<Item> list) {
+        boolean result = true;
+        if (list.size() != this.getSalesList().size()) {
+            return false;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            if (result && this.getSalesList().get(i).equals(list.get(i))) {
+                continue;
+            } else {
+                result = false;
+                return false;
+            }
+        }
+        return result;
+    }
 
 }
 

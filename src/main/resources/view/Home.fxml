@@ -9,9 +9,9 @@
           <TableView fx:id="tableView" prefHeight="532.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
                   <TableColumn fx:id="idCol" prefWidth="44.0" text="ID" />
-                  <TableColumn fx:id="dateCol" prefWidth="93.60003662109375" text="Date/Time" />
-                  <TableColumn fx:id="descriptionCol" prefWidth="200.0" text="Description" />
-                  <TableColumn fx:id="categoryCol" prefWidth="124.0" text="Category" />
+                  <TableColumn fx:id="dateCol" prefWidth="104.00000381469727" text="Date/Time" />
+                  <TableColumn fx:id="descriptionCol" prefWidth="198.3999481201172" text="Description" />
+                  <TableColumn fx:id="categoryCol" prefWidth="116.800048828125" text="Category" />
                   <TableColumn fx:id="amountCol" prefWidth="79.20001220703125" text="Amount" />
                   <TableColumn fx:id="personCol" minWidth="0.0" prefWidth="120.0" text="Person" />
               </columns>

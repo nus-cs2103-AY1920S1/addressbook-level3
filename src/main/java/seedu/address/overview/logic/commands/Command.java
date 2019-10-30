@@ -1,7 +1,7 @@
 package seedu.address.overview.logic.commands;
 
+import seedu.address.overview.logic.commands.exception.InvalidValueException;
 import seedu.address.overview.model.Model;
-import seedu.address.person.logic.commands.exceptions.CommandException;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -13,7 +13,7 @@ public abstract class Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
+     * @throws InvalidValueException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(Model model) throws InvalidValueException;
 }

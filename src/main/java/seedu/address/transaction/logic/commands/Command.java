@@ -10,7 +10,6 @@ import seedu.address.transaction.model.exception.NoSuchPersonException;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
-
     /**
      * Executes the command and returns the result message.
      *
@@ -20,6 +19,6 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      * @throws NoSuchPersonException If an error occurs when a Person is not in the data base.
      */
-    public abstract CommandResult execute(Model model, seedu.address.person.model.Model personModel)
+    public abstract CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException;
 }

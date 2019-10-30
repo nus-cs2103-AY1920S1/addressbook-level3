@@ -2,24 +2,32 @@ package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.logic.parser.AddCommandParser.arePrefixesPresent;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_TO_EDIT_CASHIER;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_INDEX;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
+import java.util.logging.Logger;
+
 import seedu.address.cashier.logic.commands.EditCommand;
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
-import seedu.address.cashier.logic.commands.exception.NotANumberException;
 import seedu.address.cashier.logic.commands.exception.NegativeQuantityException;
+import seedu.address.cashier.logic.commands.exception.NotANumberException;
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.model.Model;
+import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditCommandParser {
+public class EditCommandParser implements Parser {
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -27,9 +35,9 @@ public class EditCommandParser {
      * @throws NotANumberException if the user input is not a number
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static EditCommand parse(String args, Model modelManager)
+    public EditCommand parse(String args, Model modelManager, seedu.address.person.model.Model personModel)
             throws NotANumberException, ParseException, NoSuchItemException,
-            InsufficientAmountException, NegativeQuantityException {
+            InsufficientAmountException, NegativeQuantityException, NoSuchIndexException {
         int index;
         int quantity;
         ArgumentMultimap argMultimap;
@@ -48,6 +56,14 @@ public class EditCommandParser {
             } catch (Exception e) {
                 throw new NotANumberException(CashierMessages.INDEX_NOT_A_NUMBER);
             }
+
+            try {
+                modelManager.findItemByIndex(index);
+                logger.info("The item do not exist.");
+            } catch (IndexOutOfBoundsException e) {
+                throw new NoSuchIndexException(NO_SUCH_INDEX_CASHIER);
+            }
+
         } else {
             argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_QUANTITY);
 
@@ -57,7 +73,11 @@ public class EditCommandParser {
             }
             String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
 
-            index = modelManager.findIndexByDescription(description) + 1;
+            try {
+                index = modelManager.findIndexByDescription(description) + 1;
+            } catch (NoSuchItemException e) {
+                throw new NoSuchItemException(NO_SUCH_ITEM_TO_EDIT_CASHIER);
+            }
         }
 
         String quantityString = argMultimap.getValue(PREFIX_QUANTITY).get();

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.util.Description;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Reimbursement class. Stores data of the reimbursement to be made.
@@ -38,6 +38,7 @@ public class Reimbursement {
      */
     public Reimbursement(Transaction trans) {
         requireNonNull(trans);
+        assert trans.getAmount() < 0 : "Transaction amount should be negative";
         list = new ArrayList<>();
         list.add(trans);
         amount = trans.getAmount();
@@ -51,6 +52,10 @@ public class Reimbursement {
         return person;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     public ArrayList<Transaction> getList() {
         return list;
     }
@@ -61,10 +66,6 @@ public class Reimbursement {
 
     public LocalDate getDeadline() {
         return deadline;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     /**
@@ -171,10 +172,9 @@ public class Reimbursement {
     public String toString() {
         String msg = "";
         if (deadline == null) {
-            msg = person.getName().toString() + " $" + amount + System.lineSeparator()
-                    + description.toString();
+            msg = toStringNoDeadline();
         } else {
-            msg = person.getName().toString() + " $" + amount
+            msg = person.getName().toString() + " $" + amount + System.lineSeparator()
                     + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
                     + description.toString();
         }

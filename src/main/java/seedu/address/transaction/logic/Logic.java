@@ -3,8 +3,8 @@ package seedu.address.transaction.logic;
 import java.io.IOException;
 
 import seedu.address.transaction.logic.commands.CommandResult;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * API of the Logic component
@@ -49,4 +49,14 @@ public interface Logic {
      * @param transaction Transaction to be added.
      */
     void addTransaction(Transaction transaction);
+
+
+    /**
+     * Appends a transaction to the storage.
+     * @param transaction Transaction to be appended.
+     */
+    public void appendToTransactionFile(Transaction transaction) throws Exception;
+
+    void updateTransactionFromReimbursement() throws IOException;
+
 }

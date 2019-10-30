@@ -7,17 +7,17 @@ import seedu.address.transaction.logic.commands.Command;
 import seedu.address.transaction.logic.commands.CommandResult;
 import seedu.address.transaction.logic.parser.TransactionTabParser;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Represents a home tab's Logic stub.
  */
 public class TransactionLogicStub implements Logic {
     private Model model;
-    private seedu.address.person.model.Model personModel;
+    private seedu.address.person.model.GetPersonByNameOnlyModel personModel;
 
-    public TransactionLogicStub(Model model, seedu.address.person.model.Model personModel) {
+    public TransactionLogicStub(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         this.model = model;
         this.personModel = personModel;
     }
@@ -37,7 +37,7 @@ public class TransactionLogicStub implements Logic {
 
     @Override
     public void setTransaction(Transaction transaction, Transaction newTransaction) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -52,6 +52,15 @@ public class TransactionLogicStub implements Logic {
 
     @Override
     public void addTransaction(Transaction transaction) {
+        throw new AssertionError("This method should not be called.");
+    }
 
+    @Override
+    public void appendToTransactionFile(Transaction transaction) throws Exception {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    public void updateTransactionFromReimbursement() throws IOException {
+        throw new AssertionError("This method should not be called.");
     }
 }

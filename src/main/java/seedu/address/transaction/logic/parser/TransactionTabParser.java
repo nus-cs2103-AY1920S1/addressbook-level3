@@ -1,15 +1,16 @@
 package seedu.address.transaction.logic.parser;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.logic.commands.AddCommand;
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.transaction.logic.commands.BackCommand;
 import seedu.address.transaction.logic.commands.Command;
 import seedu.address.transaction.logic.commands.DeleteCommand;
 import seedu.address.transaction.logic.commands.EditCommand;
-import seedu.address.transaction.logic.commands.ExitCommand;
 import seedu.address.transaction.logic.commands.FindCommand;
 import seedu.address.transaction.logic.commands.SortCommand;
 import seedu.address.transaction.logic.commands.exception.NoSuchSortException;
@@ -27,6 +28,7 @@ public class TransactionTabParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses user input into command for execution.
@@ -39,10 +41,12 @@ public class TransactionTabParser {
      * @throws NotANumberException if the user input does not conform the expected format for delete.
      * @throws NoSuchSortException if the user input does not conform the expected format for sort.
      * */
-    public Command parseCommand(String userInput, Model personModel)
+    public Command parseCommand(String userInput, GetPersonByNameOnlyModel personModel)
             throws ParseException, NoSuchPersonException, NotANumberException, NoSuchSortException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
+            logger.info("The user input does not have the correct command format that can be parsed by"
+                    + " Transaction Tab Parser.");
             throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
         }
 
@@ -65,13 +69,11 @@ public class TransactionTabParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
         case BackCommand.COMMAND_WORD:
             return new BackCommand();
 
         default:
+            logger.info("There is no command word found in input (Transaction Tab Parser)");
             throw new ParseException(TransactionMessages.MESSAGE_NO_SUCH_COMMAND);
 
         }
