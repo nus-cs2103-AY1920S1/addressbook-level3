@@ -36,13 +36,13 @@ Additional useful information for this section.
 This section shows a summary of contributions I have made for the project.
 
 * *Major enhancement*: I implemented the *statistics feature*.
-** What it does: It allows the user view their spending in the form of a pie-chart which organises the user's expenditure based on tags.
+** What it does: It allows the user to view their spending in the form of a pie-chart which organises the user's expenditure based on tags.
 ** Justification: This feature enhances the product significantly as it enables users to view their spending in the form of figures which is easier to read than text.
 It allows them to be more informed of their spending habits as they will be more aware of what they have spent their money on.
 ** Highlights: This enhancement required an in-depth understanding of the software architecture as it involves multiple components of the application.
 
 * *Minor enhancement*: I implemented the *graph feature*.
-** What it does: It allows the user view their spending in the form of a graph based on a date range provided.
+** What it does: It allows the user to view their spending in the form of a graph based on a date range provided.
 ** Justification: This enables the user to easily track their spending by providing an overview of their spending within a specified date range.
 ** Highlights: This enhancement also required an in-depth understanding of the software architecture as it involves multple components of the application.
 
@@ -51,10 +51,9 @@ It allows them to be more informed of their spending habits as they will be more
 
 ** Project management:
 *** Helped track issues on the team repository using labels, milestones and project card.
-*** Managed jar release `v1.2.1`  on GitHub
 
 ** Enhancements to existing features:
-*** Refactored and modified existing class `Cost` to `Address` to fit the needs of our application.
+*** Refactored and modified existing class `Address` to `Cost` to fit the needs of our application.
 (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/61)[#61],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/67[#67],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/71[#71])
@@ -100,4 +99,6 @@ include::../UserGuide.adoc[tag=graph]
 Given below are sections on the implementation of the Statistics feature and Graph feature I have worked on.
 
 include::../DeveloperGuide.adoc[tag=statistics]
+include::../DeveloperGuide.adoc[tag=graph]
+
 

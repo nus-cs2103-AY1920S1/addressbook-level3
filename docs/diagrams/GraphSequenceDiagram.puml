@@ -62,14 +62,14 @@ Model --> GraphCommand
 deactivate Model
 
 create CommandResult
-StatsCommand -> CommandResult
+GraphCommand -> CommandResult
 activate CommandResult
 
 CommandResult --> GraphCommand
 deactivate CommandResult
 
-StatsCommand --> LogicManager : MESSAGE_SUCCESS, isShowGraph = true
-deactivate StatsCommand
+GraphCommand --> LogicManager : MESSAGE_SUCCESS, isShowGraph = true
+deactivate GraphCommand
 
 [<--LogicManager
 deactivate LogicManager
