@@ -19,47 +19,44 @@ By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
 == Introduction
 
-*AddMin+* is an all in one administration desktop application, that is specially designed for any other events management
-start-up company with limited manpower and resources. These companies would usually only be able to afford to hire
-one admin staff to handle both the management of events and employees and this can be tough.
+*AddMin+* is an all in one administration desktop application, that is specially designed for any other events management start-up company with limited manpower and resources.
+These companies would usually only be able to afford to hire one admin staff to handle both the management of events and employees and this can be tough.
 The Admin+ Team understands the struggles that start-ups faces on a daily basis, and we are here to help!
 
-*AddMin+* is specially designed to ease the workload of the admin and allow
-him/her to effectively handle the administrative tasks of the company by providing the following functions: event
-creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events
-and providing an overview of all the data via statistics. The purpose of this user guide is show the user how they can
-use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using
-our app.
+*AddMin+* is specially designed to ease the workload of the admin and allow him/her to effectively handle the administrative tasks of the company by providing the following functions: event creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events and providing an overview of all the data via statistics.
+The purpose of this user guide is show the user how they can use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using our app.
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `AddMin+.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for AddMin+
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+. Ensure you have Java `11` or above installed in your Computer.
+. Download the latest `AddMin+.jar` link:{repoURL}/releases[here].
+. Copy the file to the folder you want to use as the home folder for AddMin+
+. Double-click the file to start the app.
+The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Click on the specific tab you want. For now, we have `Main` and `Schedule`.
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+. Click on the specific tab you want.
+For now, we have `Main` and `Schedule`.
+. Type the command in the command box and press kbd:[Enter] to execute it. +
 * e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+. Some example commands you can try:
 
 * *`list`* : lists all contacts
 * **`add`**`n/John Doe no/98765432 p/Event Coordinator e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Employee List.
 * **`delete`**`3` : deletes the 3rd Employee shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+. Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
 ====
-The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower, Event, and General. The commands
-that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands.
-For new users, do refer to the subsections under Section 3 for the specific command and how to use them. For more advanced
-users, you could refer to <<Command Summary>>.
+The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower, Event, and General.
+The commands that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands.
+For new users, do refer to the subsections under Section 3 for the specific command and how to use them.
+For more advanced users, you could refer to <<Command Summary>>.
 
 *Command Format*
 
@@ -78,7 +75,6 @@ Opens a help guide, a list of all commands for the user as a reference to.
 
 Format: `help`
 
-
 ==== Viewing help : `exit`
 
 Exits and shuts down the program
@@ -86,13 +82,16 @@ Exits and shuts down the program
 Format: `exit`
 
 === Entity Management
+
 AddMin+ contains two main entities - Employees and Events with similar commands, especially in Create, Read, Update and Delete (CRUD) operations.
 
 ==== List : `list_em | list_ev`
 
-Employee: Shows the list of all employees on the company’s roster. Full details are truncated.
+Employee: Shows the list of all employees on the company’s roster.
+Full details are truncated.
 
-Event: Shows the list of all events on the company’s calendar. Full details are truncated.
+Event: Shows the list of all events on the company’s calendar.
+Full details are truncated.
 
 Employee Format: `list_em`
 
@@ -132,7 +131,9 @@ Employee Format: `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDR
 Event Format Format: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
 
 ****
-* Edits the entity at the specified `INDEX`. The index refers to the index number shown in the displayed entity list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the entity at the specified `INDEX`.
+The index refers to the index number shown in the displayed entity list.
+The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the entity will be removed i.e adding of tags is not cumulative.
@@ -152,7 +153,6 @@ Event Edit Examples:
 Edits the start date of the 1st event to be on the 16th September, 2019.
 * `edit_ev 2 n/Concert t/` +
 Edits the name of the 2nd event to be `Concert` and clears all existing tags.
-
 
 ==== Find: `find_em | find_ev`
 
@@ -222,6 +222,7 @@ Returns the 2rd employee from the event list
 ==== Fetch Full Details of an Event: `fetch_ev`
 
 Fetches an event by displaying a pop-up window with full details of the event.
+
 [%hardbreaks]
 For GUI features, kindly refer to <<GUI Guide for event fetch and allocation commands>>.
 
@@ -231,6 +232,7 @@ Format: `fetch_ev EVENT_INDEX`
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * The `EVENT_INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
+
 Examples:
 
 * `fetch_ev 2` +
@@ -239,6 +241,7 @@ Returns the 2rd event from the event list
 ==== Automated allocation of Employees to Events: `allocate`
 
 Automatically chooses and allocates employees that meet the requirements to events.
+
 [%hardbreaks]
 For GUI feature, kindly refer to <<GUI Guide for event fetch and allocation commands>>.
 
@@ -263,7 +266,6 @@ Examples:
 Allocates available employees to the 1st event.
 * `allocate 2 n/3 t/female` +
 Allocates 3 employees who are tagged as 'female' to the 2nd event.
-
 
 ==== Manually allocation of Employees to Events: `allocatem`
 
@@ -305,7 +307,8 @@ Frees all employees allocated the 1st event on the event list.
 Sets a Date-Time mapping to an specific Event.
 
 [NOTE]
-Events are initialized without any schedule, other than their stated start and end date with a default time of 8-6pm. Hence, the mapping _declares_ the schedule for the dates that the event is being held.
+Events are initialized without any schedule, other than their stated start and end date with a default time of 8-6pm.
+Hence, the mapping _declares_ the schedule for the dates that the event is being held.
 
 [TIP]
 Fields in [] are optional. +
@@ -349,7 +352,8 @@ Deletes the mapping on 18th October from the 2nd Event on the Event list.
 
 ==== Clear all DateTime Mappings from an Event: `clear_ev_dt`
 
-Clears all date-time mappings for a specific event. As a side effect, all manpower allocated to the event will be deallocated.
+Clears all date-time mappings for a specific event.
+As a side effect, all manpower allocated to the event will be deallocated.
 
 Format: `clear_ev_dt EVENT_INDEX `
 
@@ -377,29 +381,24 @@ Step 2: After successfully fetching the event, the following *Fetch Window* shou
 
 image::afterfetch.png[width="600"]
 
-Step 3: To perform a `allocate` command without number/filter specification, click the *allocate* button
-as shown in the *Fetch Window* in step 2. The two lists will be updated again as shown in the following figure:
+Step 3: To perform a `allocate` command without number/filter specification, click the *allocate* button as shown in the *Fetch Window* in step 2. The two lists will be updated again as shown in the following figure:
 
 image::afterallocate.png[width="600"]
 
-Step 4: To perform a `free` command, click the *free* button as shown in the *Fetch Window* in step 2.
-The two lists will be updated as shown in the following figure. Now, if you are interested to allocate a particular
-employee to an event, continue to step 5.
+Step 4: To perform a `free` command, click the *free* button as shown in the *Fetch Window* in step 2. The two lists will be updated as shown in the following figure.
+Now, if you are interested to allocate a particular employee to an event, continue to step 5.
 
 image::afterfree.png[width="600"]
 
-Step 5: To *allocate* a particular employee to an event, double-click the employee card on the left list. Notice the employee to allocate
-has moved to the list on the right as shown in the figure below:
+Step 5: To *allocate* a particular employee to an event, double-click the employee card on the left list.
+Notice the employee to allocate has moved to the list on the right as shown in the figure below:
 
 image::afterallocatem.png[width="600"]
 
-Step 6: Finally, to *free* a particular employee to an event, double-click the employee card on the right
-as shown in the figure above in step 5:
-
+Step 6: Finally, to *free* a particular employee to an event, double-click the employee card on the right as shown in the figure above in step 5:
 
 [NOTE]
-If the GUI features are not working as intended, kindly use the command line interface to execute the command
-instead.
+If the GUI features are not working as intended, kindly use the command line interface to execute the command instead.
 
 //end::calvin2[]
 
@@ -412,7 +411,8 @@ Generates the payslip for an employee for a stated time period
 Format: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY`
 
 ****
-* EMPLOYEE_NUMBER is the number of the employee on the displayed list. It must be a valid number.
+* EMPLOYEE_NUMBER is the number of the employee on the displayed list.
+It must be a valid number.
 * f/ and t/ represents "from" and "to", both DateTime periods.
 * If the employee did not work during the time period stated, the payslip would not be generated.
 ****
@@ -425,7 +425,8 @@ Generates the payslip of employee 2 from the 20th August - 20th October.
 
 ==== Generate Event Contract: `contract [coming in v2.0]`
 
-Generates a contract that can be handed to the company's client. The contract will contains details of the event such as the location, budget, and date
+Generates a contract that can be handed to the company's client.
+The contract will contains details of the event such as the location, budget, and date
 
 Format: `contract n/EVENT_ID`
 
@@ -438,39 +439,130 @@ Examples:
 * `contract n/005` +
 Generates the contract for Event_ID 005.
 
+//tag::Schedule[]
 === Schedule
+
+Welcome to Schedule!
+Wondering how to display and see what events you have on a specific Date or Month, or do you want to have an overview of all the dates where you have an event?
+Then you are at the right place!
+
+To get things started, all Schedule-related commands occurs in the Schedule Tab as seen from the figure below!
+You could either click on the Schedule Tab or just simply type in any Schedule-related commands and AddMin+ will bring you there.
+
+._User Interface (UI) of the Schedule Feature_
+image::ScheduleUiDetailed.png[]
+
 ==== Display Schedule for a specific date
-Displays the events for the specific date
+
+Lets say you want to check if you have any events on a specific date.
+Instead of looking through the list of events you have, you could simply use the `display_schedule_date` command to do it!
 
 Format: `display_schedule_date on/dd/MM/yyyy`
 
 Examples:
-* `display_schedule on/02/12/2019`
+`display_schedule_date on/02/12/2019`
 
 ****
 * on/ represents the date in dd/MM/yyyy that the user wants to display
 ****
 
+**To display schedule for a specific date (20/11/2019):**
+
+**Step 1**.
+Either type `display_schedule_date on/20/11/2019` into the command box or click on the specific date from the date picker.
+
+image::ScheduleUiStep1.png[]
+
+**Step 2**.
+The result box will display a message which inform you how many events are being listed.
+In this case the message displayed is "1 events listed!"
+
+image::ScheduleUiStep2.png[]
+
+**Step 3**.
+In the event list you will be able to see all the events that are on the specified date.
+In this case the only event that is on 20/11/2019 is "Talk by DEF Company".
+
+image::ScheduleUiStep3.png[]
+
+[TIP]
+The event list will be empty and not display anything if there is no event on the specified date.
+
 ==== Display Schedule for a specific Month and Year
-Displays the events for the Month and Year
+
+Now if you would want to see all the events you have on a specific month and year.
+Instead of looking through the list of events you have, you could simply use the `display_schedule` command to do it!
 
 Format: `display_schedule for/MM/yyyy`
-
-Examples:
-* `display_schedule for/12/2019`
 
 ****
 * for/ represents the month and year in MM/yyyy that the user wants to display
 ****
 
 ==== Generate Entire Schedule
+
 Generate a new list which shows all the dates that has an event as well as all the events that are on that corresponding date.
+
+**To display schedule for a specific Month and Year (11/2019):**
+
+**Step 1**.
+Either type `display_schedule for/11/2019` into the command box or click on the month year picker buttons to navigate to the specific month and year.
+
+image::ScheduleUiMonthStep1.png[]
+
+**Step 2**.
+The result box will display a message which inform you how many events are being listed.
+In this case the message displayed is "2 events listed!"
+
+image::ScheduleUiMonthStep2.png[]
+
+**Step 3**.
+In the event list you will be able to see all the events that are on the specified month, year.
+In this case there is 2 event that is on 11/2019 which is "Talk by DEF Company" and "Birthday Party".
+
+image::ScheduleUiMonthStep3.png[]
+
+[TIP]
+The event list will be empty and not display anything if there is no event on the specified month, year.
+
+==== Generate Entire Schedule
+
+Want to have an overview of all the dates that has an event?
+Use the `generate_schedule` command to do so.
+The `generate_schedule` command looks through the entire list of events and generates a new list of all the dates which has an event and also display all the events that happens on that date.
+>>>>>>> e097b68b5332ff2472d74fdfa6fea5d9526b153e
 
 Format: `generate_schedule`
 
+[TIP]
+The `generate_schedule` command opens a new window to display the new list of information.
+
+**To display the entire schedule:**
+
+**Step 1**.
+Either type `generate_schedule` into the command box or click on the generate schedule button to display the entire schedule.
+
+image::ScheduleUiGenerateStep1.png[]
+
+**Step 2**.
+The result box will display the message "Schedule Generated".
+
+image::ScheduleUiGenerateStep2.png[]
+
+**Step 3**.
+A new window will open, displaying all the dates and events that is happening on those specific dates.
+
+image::ScheduleUiGenerateStep3.png[]
+
+[TIP]
+The generated list will be empty and not display anything if there is no event in the current event list.
+
+//end::Schedule[]
+
 === Miscellaneous
 
-==== Generate Statistics: `stats_g`
+==== Generate Statistics: `stats_g [coming in v2.0]`
+
 Displays a set of statistics, Number of events, Number of employee etc
 
 Format: `stats_g`
@@ -485,7 +577,6 @@ Format: `clear`
 
 AddMin+ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
 
 == FAQ
 
@@ -526,15 +617,19 @@ e.g. `allocatem 1 n/2 `
 e.g. `free 2 `
 * *Set DateTime to Event*: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME` +
 e.g. `set_ev_dt 2 on/18/10/2019 time/1000-2000`
-* *Generate Employee Payslip*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +
+* *Delete DateTime from Event*: `delete_ev_dt EVENT_INDEX on/EVENT_DATE` +
+e.g. `delete_ev_dt 2 on/18/10/2019`
+* *Clear DateTime from Event*: `clear_ev_dt EVENT_INDEX` +
+e.g. `clear_ev_dt 2`
+* *Generate Employee Payslip [coming in v2.0]*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +
 e.g. `pay 2 f/20082019 t/20102019`
-* *Generate Event Contract*: `contract n/EVENT_ID` +
+* *Generate Event Contract [coming in v2.0]*: `contract n/EVENT_ID` +
 e.g. `contract n/005`
 * *View Schedule for specific date*: `view_schedule on/DDMMYYYY` +
 e.g. `view_schedule on/02/12/2019`
 * *Display Entire Schedule*: `display_schedule` +
 e.g. `display_schedule`
-* *Generate Statistics*: `stats_g` +
+* *Generate Statistics [coming in v2.0]*: `stats_g` +
 e.g. `stats_g`
 * *Clear* : `clear`
 * *Exit* : `exit`
