@@ -5,7 +5,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,22 +52,28 @@ public class DeleteTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Plan> lastShownPlanList = model.getFilteredPlanList();
 
+        List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (deleteTaskDescriptor.planIndex.getZeroBased() >= lastShownPlanList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PLAN_DISPLAYED_INDEX);
+        }
+        Plan planToUpdate = lastShownPlanList.get(deleteTaskDescriptor.planIndex.getZeroBased());
+
+        List<Task> taskList = planToUpdate.getTaskList();
+        int taskIndex = deleteTaskDescriptor.taskIndex.getZeroBased();
+        if (taskIndex >= taskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        Plan planToUpdate = lastShownPlanList.get(deleteTaskDescriptor.planIndex.getZeroBased());
-        List<Task> taskList = new ArrayList<>(planToUpdate.getTasks());
-        Task task = taskList.get(deleteTaskDescriptor.taskIndex.getZeroBased());
-        taskList.remove(deleteTaskDescriptor.taskIndex.getZeroBased());
+        Task task = taskList.get(taskIndex);
+        taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
+
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+
         return new CommandResult(
-            String.format(MESSAGE_DELETE_TASK_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_DELETE_TASK_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override
