@@ -49,7 +49,7 @@
                 <VBox fx:id="deckScrollPane" spacing="10.0" HBox.hgrow="NEVER">
                     <children>
                         <Label text="Your Decks" />
-                  <ScrollPane VBox.vgrow="ALWAYS">
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                      <content>
                          <ListView fx:id="deckList" minHeight="-Infinity" minWidth="-Infinity" prefWidth="180.0" />
                      </content>

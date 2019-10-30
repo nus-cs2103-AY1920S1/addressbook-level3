@@ -11,7 +11,7 @@
       <Label styleClass="window-title" text="Create a new deck" />
       <HBox spacing="10.0">
          <children>
-              <Label fx:id="deckName" alignment="CENTER" text="Name of deck:" textAlignment="CENTER" />
+              <Label fx:id="deckName" alignment="CENTER" text="Name of deck:" />
               <TextField fx:id="deckNameInput" prefHeight="25.0" prefWidth="171.0" />
          </children>
       </HBox>
@@ -19,7 +19,7 @@
         <Label fx:id="deckSize" text="0 cards" />
       <HBox spacing="10.0">
          <children>
-              <Button fx:id="onSaveDeck" mnemonicParsing="false" text="Save Deck" />
+              <Button fx:id="onSaveDeck" mnemonicParsing="false" text="Save deck" />
             <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
          </children>
       </HBox>
