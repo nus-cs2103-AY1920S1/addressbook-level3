@@ -12,6 +12,7 @@ public enum Context {
     DELIVERYMENSTATUS,
     EDITING,
     ORDER;
+    DELIVERYMANRECORD;
 
     public String toLowerCaseString() {
         return name().toLowerCase();
