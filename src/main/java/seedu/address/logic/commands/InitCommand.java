@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.field.Name;
@@ -55,7 +56,10 @@ public class InitCommand extends UndoableCommand {
         model.setItineraryName(this.name);
         model.setItineraryStartDate(this.startDate);
         String dateInString = this.startDate.format(ParserUtil.DATE_FORMATTER_1);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, name, dateInString));
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, name, dateInString),
+                new UiFocus[] {UiFocus.AGENDA}
+        );
     }
 
     @Override

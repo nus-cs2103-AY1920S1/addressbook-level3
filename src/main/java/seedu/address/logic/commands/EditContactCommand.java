@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.util.CommandUtil.findIndexOfContact;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -19,6 +20,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.ResultInformation;
+import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -89,6 +92,7 @@ public class EditContactCommand extends EditCommand {
         }
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
+        Index contactToEditIndex = findIndexOfContact(model, contactToEdit);
         Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor);
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
@@ -97,7 +101,23 @@ public class EditContactCommand extends EditCommand {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact));
+        Index editedContactIndex = findIndexOfContact(model, editedContact);
+        return new CommandResult(
+                String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact),
+                new ResultInformation[] {
+                        new ResultInformation(
+                                contactToEdit,
+                                contactToEditIndex,
+                                "Edited Contact from:"
+                        ),
+                        new ResultInformation(
+                                editedContact,
+                                editedContactIndex,
+                                "To:"
+                        )
+                },
+                new UiFocus[] {UiFocus.CONTACT, UiFocus.INFO}
+        );
     }
 
     /**

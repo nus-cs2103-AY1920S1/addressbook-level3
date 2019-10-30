@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.util.CommandUtil.findIndexOfAccommodation;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -15,8 +16,6 @@ import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
-
-import java.util.Optional;
 
 /**
  * Adds an accommodation to the itinerary.
@@ -80,13 +79,16 @@ public class AddAccommodationCommand extends AddCommand {
                 Accommodation linkedAccommodation = new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
                         toAdd.getTags());
                 model.addAccommodation(linkedAccommodation);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
-                        new ResultInformation(
-                                linkedAccommodation,
-                                findIndexOfAccommodation(model, linkedAccommodation),
-                                String.format(MESSAGE_SUCCESS, "")
-                        ),
-                        UiFocus.ACCOMMODATION, UiFocus.INFO
+                return new CommandResult(
+                        String.format(MESSAGE_SUCCESS, linkedAccommodation),
+                        new ResultInformation[]{
+                                new ResultInformation(
+                                        linkedAccommodation,
+                                        findIndexOfAccommodation(model, linkedAccommodation),
+                                        String.format(MESSAGE_SUCCESS, "")
+                                )
+                        },
+                        new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
                 );
             } else {
                 if (index == null) {
@@ -102,25 +104,17 @@ public class AddAccommodationCommand extends AddCommand {
                 model.addAccommodationAtIndex(index, toAdd);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
-                new ResultInformation(
-                        toAdd,
-                        findIndexOfAccommodation(model, toAdd),
-                        String.format(MESSAGE_SUCCESS, "")
-                ),
-                UiFocus.ACCOMMODATION, UiFocus.INFO);
-    }
-
-    /**
-     * Returns the index of accommodation in the model.
-     * Precondition: the {@code accommodation} must have been added before this.
-     */
-    private Index findIndexOfAccommodation(Model model, Accommodation accommodation) {
-        Optional<Index> indexOfAccommodation = model.getAccommodationIndex(accommodation);
-        if (indexOfAccommodation.isEmpty()) {
-            throw new AssertionError("Accommodation should have been added.");
-        }
-        return indexOfAccommodation.get();
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, toAdd),
+                new ResultInformation[]{
+                        new ResultInformation(
+                                toAdd,
+                                findIndexOfAccommodation(model, toAdd),
+                                String.format(MESSAGE_SUCCESS, "")
+                        )
+                },
+                new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
+        );
     }
 
     @Override

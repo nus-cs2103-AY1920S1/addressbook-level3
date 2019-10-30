@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.util.CommandUtil.findIndexOfActivity;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -19,6 +20,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.ResultInformation;
+import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
@@ -86,6 +89,7 @@ public class EditActivityCommand extends EditCommand {
         }
 
         Activity activityToEdit = lastShownList.get(index.getZeroBased());
+        Index activityToEditIndex = findIndexOfActivity(model, activityToEdit);
         Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
 
         if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(editedActivity)) {
@@ -94,7 +98,23 @@ public class EditActivityCommand extends EditCommand {
 
         model.setActivity(activityToEdit, editedActivity);
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
-        return new CommandResult(String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity));
+        Index editedActivityIndex = findIndexOfActivity(model, editedActivity);
+        return new CommandResult(
+                String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity),
+                new ResultInformation[] {
+                        new ResultInformation(
+                                activityToEdit,
+                                activityToEditIndex,
+                                "Edited Activity from:"
+                        ),
+                        new ResultInformation(
+                                editedActivity,
+                                editedActivityIndex,
+                                "To:"
+                        )
+                },
+                new UiFocus[] { UiFocus.ACTIVITY, UiFocus.INFO }
+        );
     }
 
     /**

@@ -20,6 +20,6 @@ public class ListDayCommand extends ListCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
-        return new CommandResult(MESSAGE_SUCCESS, UiFocus.AGENDA);
+        return new CommandResult(MESSAGE_SUCCESS, new UiFocus[] {UiFocus.AGENDA});
     }
 }

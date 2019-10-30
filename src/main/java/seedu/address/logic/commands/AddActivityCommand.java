@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.util.CommandUtil.findIndexOfActivity;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -15,8 +16,6 @@ import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.itineraryitem.activity.Activity;
-
-import java.util.Optional;
 
 /**
  * Adds an activity to the itinerary.
@@ -82,13 +81,16 @@ public class AddActivityCommand extends AddCommand {
                         toAdd.getTags(), toAdd.getDuration(), toAdd.getPriority());
                 model.addActivity(linkedActivity);
                 return new CommandResult(
-                        String.format(MESSAGE_SUCCESS, toAdd),
-                        new ResultInformation(
-                                linkedActivity,
-                                findIndexOfActivity(model, linkedActivity),
-                                String.format(MESSAGE_SUCCESS, "")
-                        ),
-                        UiFocus.ACTIVITY, UiFocus.INFO);
+                        String.format(MESSAGE_SUCCESS, linkedActivity),
+                        new ResultInformation[]{
+                                new ResultInformation(
+                                        linkedActivity,
+                                        findIndexOfActivity(model, linkedActivity),
+                                        String.format(MESSAGE_SUCCESS, "")
+                                )
+                        },
+                        new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
+                );
             } else {
                 if (index == null) {
                     model.addActivity(toAdd);
@@ -105,21 +107,18 @@ public class AddActivityCommand extends AddCommand {
         }
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, toAdd),
-                new ResultInformation(toAdd, findIndexOfActivity(model, toAdd), String.format(MESSAGE_SUCCESS, "")),
-                UiFocus.ACTIVITY, UiFocus.INFO);
+                new ResultInformation[]{
+                        new ResultInformation(
+                                toAdd,
+                                findIndexOfActivity(model, toAdd),
+                                String.format(MESSAGE_SUCCESS, "")
+                        )
+                },
+                new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
+        );
     }
 
-    /**
-     * Returns the index of activity in the model.
-     * Precondition: the {@code activity} must have been added before this.
-     */
-    private Index findIndexOfActivity(Model model, Activity activity) {
-        Optional<Index> indexOfActivity = model.getActivityIndex(activity);
-        if (indexOfActivity.isEmpty()) {
-            throw new AssertionError("Activity should have been added.");
-        }
-        return indexOfActivity.get();
-    }
+
 
     @Override
     public boolean equals(Object other) {

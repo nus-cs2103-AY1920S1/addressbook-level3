@@ -145,35 +145,37 @@ public class CentralDisplay extends UiPart<Region> {
     }
 
 
-    public void changeInfo(ResultInformation resultInformation) {
+    public void changeInfo(ResultInformation[] resultInformation) {
         infoList.getItems().clear();
-        resultInformation.getAccommodation().ifPresent(accommodation ->
-                changeAccommodationInfo(accommodation, resultInformation.getIndex(), resultInformation.getDescription())
-        );
-        resultInformation.getActivity().ifPresent(activity ->
-                changeActivityInfo(activity, resultInformation.getIndex(), resultInformation.getDescription())
-        );
-        resultInformation.getContact().ifPresent(contact ->
-                changeContactInfo(contact, resultInformation.getIndex(), resultInformation.getDescription())
-        );
+        for (ResultInformation i : resultInformation) {
+            i.getAccommodation().ifPresent(accommodation ->
+                    addAccommodationInfo(accommodation, i.getIndex(), i.getDescription())
+            );
+            i.getActivity().ifPresent(activity ->
+                    addActivityInfo(activity, i.getIndex(), i.getDescription())
+            );
+            i.getContact().ifPresent(contact ->
+                    addContactInfo(contact, i.getIndex(), i.getDescription())
+            );
+        }
     }
 
-    private void changeAccommodationInfo(Accommodation accommodation, Index displayedIndex, String description) {
+    private void addAccommodationInfo(Accommodation accommodation, Index displayedIndex, String description) {
         infoList.getItems().add(
                 new AccommodationCardFull(accommodation, displayedIndex.getOneBased(), description).getRoot());
     }
 
-    private void changeContactInfo(Contact contact, Index displayedIndex, String description) {
+    private void addContactInfo(Contact contact, Index displayedIndex, String description) {
         infoList.getItems().add(
                 new ContactCardFull(contact, displayedIndex.getOneBased(), description).getRoot());
     }
 
-    private void changeActivityInfo(Activity activity, Index displayedIndex, String description) {
+    private void addActivityInfo(Activity activity, Index displayedIndex, String description) {
         infoList.getItems().add(
                 new ActivityCardFull(activity, displayedIndex.getOneBased(), description).getRoot());
     }
 
-    public void changeFocus(UiFocus ...uiFocus) {
+    public void changeFocus(UiFocus[] uiFocus) {
         for (UiFocus u : uiFocus) {
             switch (u) {
             case AGENDA:

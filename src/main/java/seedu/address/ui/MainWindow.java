@@ -93,7 +93,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getItinerary().getStartDateProperty()
         );
         centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
-        centralDisplay.changeFocus(UiFocus.ACTIVITY);
+        centralDisplay.changeFocus(new UiFocus[]{UiFocus.ACTIVITY});
         centralDisplay.getRoot().prefHeightProperty().bind(centralDisplayPlaceholder.heightProperty());
         centralDisplay.getRoot().prefWidthProperty().bind(centralDisplayPlaceholder.widthProperty());
     }
@@ -174,14 +174,14 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Updates the UI and changes the focus to the relevant tab.
      */
-    private void applyUiFocusChange(UiFocus ...uiFocus) {
+    private void applyUiFocusChange(UiFocus[] uiFocus) {
         centralDisplay.changeFocus(uiFocus);
     }
 
     /**
      * Updates the UI and changes the focus to the relevant tab.
      */
-    private void applyInfoChange(ResultInformation resultInformation) {
+    private void applyInfoChange(ResultInformation[] resultInformation) {
         centralDisplay.changeInfo(resultInformation);
     }
 }

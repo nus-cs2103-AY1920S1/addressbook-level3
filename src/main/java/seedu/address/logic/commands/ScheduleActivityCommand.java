@@ -88,8 +88,10 @@ public class ScheduleActivityCommand extends ScheduleCommand {
 
         model.setDays(editedDays);
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
-        return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()),
-                UiFocus.AGENDA);
+        return new CommandResult(
+                String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()),
+                new UiFocus[] {UiFocus.AGENDA}
+        );
     }
 
     private Day createScheduledActivityDay(Day dayToEdit, ActivityWithTime toAdd) throws CommandException {
