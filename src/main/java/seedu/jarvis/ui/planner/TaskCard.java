@@ -7,6 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.jarvis.model.planner.enums.TaskType;
+import seedu.jarvis.model.planner.tasks.Deadline;
+import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.ui.UiPart;
 
@@ -25,6 +28,8 @@ public class TaskCard extends UiPart<Region> {
     private Label taskDes;
     @FXML
     private Label taskType;
+    @FXML
+    private Label date;
     @FXML
     private Label id;
     @FXML
@@ -58,6 +63,17 @@ public class TaskCard extends UiPart<Region> {
         } else {
             frequency.setText("");
         }
+
+        if (task.getTaskType() == TaskType.TODO) {
+            date.setText("");
+        } else if (task.getTaskType() == TaskType.DEADLINE) {
+            date.setText("Due: " + ((Deadline) task).getDueDate());
+        } else if (task.getTaskType() == TaskType.EVENT) {
+            Event e = (Event) task;
+            date.setText("From: " + e.getStartDate() + " to: " + e.getEndDate());
+        }
+
+
     }
 
     @Override

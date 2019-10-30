@@ -92,6 +92,6 @@ public class Event extends Task {
      */
     @Override
     public TaskType getTaskType() {
-        return TaskType.Event;
+        return TaskType.EVENT;
     }
 }

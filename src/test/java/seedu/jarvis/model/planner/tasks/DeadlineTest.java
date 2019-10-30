@@ -152,7 +152,7 @@ class DeadlineTest {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
 
-        TaskType expected = TaskType.Deadline;
+        TaskType expected = TaskType.DEADLINE;
         assertEquals(expected, d.getTaskType());
     }
 }

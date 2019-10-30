@@ -184,7 +184,7 @@ class EventTest {
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
         Event e = new Event("borrow book", start, end);
 
-        TaskType expected = TaskType.Event;
+        TaskType expected = TaskType.EVENT;
         assertEquals(expected, e.getTaskType());
     }
 
