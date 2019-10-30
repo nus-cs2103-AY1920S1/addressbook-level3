@@ -1,11 +1,15 @@
-package seedu.algobase.logic.parser;
+package seedu.algobase.logic.parser.problem;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SORTING_METHOD;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SORTING_ORDER;
 import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 
-import seedu.algobase.logic.commands.SortCommand;
+import seedu.algobase.logic.commands.problem.SortCommand;
+import seedu.algobase.logic.parser.ArgumentMultimap;
+import seedu.algobase.logic.parser.ArgumentTokenizer;
+import seedu.algobase.logic.parser.Parser;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**

@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
@@ -13,6 +13,8 @@ import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;
@@ -53,26 +55,27 @@ public class EditTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Plan> lastShownPlanList = model.getFilteredPlanList();
 
+        List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (editTaskDescriptor.planIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
         Plan planToUpdate = lastShownPlanList.get(editTaskDescriptor.planIndex.getZeroBased());
-        List<Task> taskList = planToUpdate.getTaskList();
 
-        if (editTaskDescriptor.taskIndex.getZeroBased() >= taskList.size()) {
+        List<Task> taskList = planToUpdate.getTaskList();
+        int taskIndex = editTaskDescriptor.taskIndex.getZeroBased();
+        if (taskIndex >= taskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        Task taskToUpdate = taskList.get(editTaskDescriptor.taskIndex.getZeroBased());
-        taskList.remove(editTaskDescriptor.taskIndex.getZeroBased());
+        Task taskToUpdate = taskList.get(taskIndex);
+        taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
         taskSet.add(Task.updateDueDate(taskToUpdate, editTaskDescriptor.targetDate));
+
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+
         return new CommandResult(
             String.format(MESSAGE_EDIT_TASK_SUCCESS,
                 taskToUpdate.getProblem().getName(),

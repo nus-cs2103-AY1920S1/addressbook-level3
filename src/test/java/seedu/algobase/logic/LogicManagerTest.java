@@ -19,10 +19,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.commands.CommandResult;
-import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.problem.AddCommand;
+import seedu.algobase.logic.commands.problem.ListCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;

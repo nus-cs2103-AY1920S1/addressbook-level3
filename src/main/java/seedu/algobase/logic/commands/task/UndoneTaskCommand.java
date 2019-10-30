@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
@@ -11,6 +11,8 @@ import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;
@@ -49,31 +51,30 @@ public class UndoneTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Plan> lastShownPlanList = model.getFilteredPlanList();
 
+        List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (undoneTaskDescriptor.planIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
         Plan planToUpdate = lastShownPlanList.get(undoneTaskDescriptor.planIndex.getZeroBased());
-        List<Task> taskList = planToUpdate.getTaskList();
 
-        if (undoneTaskDescriptor.taskIndex.getZeroBased() >= taskList.size()) {
+        List<Task> taskList = planToUpdate.getTaskList();
+        int taskIndex = undoneTaskDescriptor.taskIndex.getZeroBased();
+        if (taskIndex >= taskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        Task taskToUpdate = taskList.get(undoneTaskDescriptor.taskIndex.getZeroBased());
-
+        Task taskToUpdate = taskList.get(taskIndex);
         if (!taskToUpdate.getIsSolved()) {
             throw new CommandException(Messages.MESSAGE_TASK_NOT_YET_DONE);
         }
-
-        taskList.remove(undoneTaskDescriptor.taskIndex.getZeroBased());
+        taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
         taskSet.add(Task.updateStatus(taskToUpdate, false));
+
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+
         return new CommandResult(
             String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToUpdate.getProblem().getName(), updatedPlan.getPlanName()));
     }

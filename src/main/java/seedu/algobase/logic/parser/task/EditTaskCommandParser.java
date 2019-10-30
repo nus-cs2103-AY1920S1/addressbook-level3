@@ -1,4 +1,4 @@
-package seedu.algobase.logic.parser;
+package seedu.algobase.logic.parser.task;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
@@ -8,7 +8,11 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 import java.time.LocalDate;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.EditTaskCommand;
+import seedu.algobase.logic.commands.task.EditTaskCommand;
+import seedu.algobase.logic.parser.ArgumentMultimap;
+import seedu.algobase.logic.parser.ArgumentTokenizer;
+import seedu.algobase.logic.parser.Parser;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**

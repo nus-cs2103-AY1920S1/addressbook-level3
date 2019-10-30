@@ -7,8 +7,8 @@ import static seedu.algobase.logic.parser.CommandParserTestUtil.assertParseSucce
 
 import org.junit.jupiter.api.Test;
 
-import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.commands.HelpCommand;
+import seedu.algobase.logic.commands.problem.AddCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 class HelpCommandParserTest {

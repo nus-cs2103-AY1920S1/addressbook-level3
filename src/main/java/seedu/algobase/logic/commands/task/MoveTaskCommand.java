@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_FROM;
@@ -6,13 +6,14 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_TO;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;
@@ -54,33 +55,37 @@ public class MoveTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Plan> lastShownPlanList = model.getFilteredPlanList();
 
+        List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (moveTaskDescriptor.planFromIndex.getZeroBased() >= lastShownPlanList.size()
             || moveTaskDescriptor.planToIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
         Plan planFrom = lastShownPlanList.get(moveTaskDescriptor.planFromIndex.getZeroBased());
-        List<Task> taskListFrom = new ArrayList<>(planFrom.getTasks());
-        Task taskToMove = taskListFrom.get(moveTaskDescriptor.taskIndex.getZeroBased());
-        taskListFrom.remove(moveTaskDescriptor.taskIndex.getZeroBased());
-        Set<Task> taskSetFrom = new HashSet<>(taskListFrom);
-        Plan updatedPlanFrom = Plan.updateTasks(planFrom, taskSetFrom);
-
         Plan planTo = lastShownPlanList.get(moveTaskDescriptor.planToIndex.getZeroBased());
-        List<Task> taskListTo = new ArrayList<>(planTo.getTasks());
+
+        List<Task> taskListFrom = planFrom.getTaskList();
+        List<Task> taskListTo = planTo.getTaskList();
+        int taskIndex = moveTaskDescriptor.taskIndex.getZeroBased();
+        if (taskIndex >= taskListFrom.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+        Task taskToMove = taskListFrom.get(taskIndex);
+        taskListFrom.remove(taskIndex);
+        Set<Task> taskSetFrom = new HashSet<>(taskListFrom);
         Set<Task> taskSetTo = new HashSet<>(taskListTo);
         if (taskSetTo.contains(taskToMove)) {
-            return new CommandResult(
+            throw new CommandException(
                 String.format(MESSAGE_DUPLICATE_TASK, taskToMove.getProblem().getName(), planTo.getPlanName()));
         }
         taskSetTo.add(taskToMove);
-        Plan updatedPlanTo = Plan.updateTasks(planTo, taskSetTo);
 
+        Plan updatedPlanFrom = Plan.updateTasks(planFrom, taskSetFrom);
+        Plan updatedPlanTo = Plan.updateTasks(planTo, taskSetTo);
         model.setPlan(planFrom, updatedPlanFrom);
         model.setPlan(planTo, updatedPlanTo);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+
         return new CommandResult(
             String.format(MESSAGE_MOVE_TASK_SUCCESS,
                 taskToMove.getProblem().getName(),
