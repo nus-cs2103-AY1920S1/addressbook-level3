@@ -32,8 +32,6 @@ public class ReadDisplayPassword extends UiPart<Region> {
     private TextArea website;
     @FXML
     private Label lastModified;
-    @FXML
-    private Label lastAccessed;
 
     public ReadDisplayPassword() {
         super(FXML);
@@ -49,7 +47,7 @@ public class ReadDisplayPassword extends UiPart<Region> {
      */
     public void setFeedbackToUser(Password password, Index index) {
         requireNonNull(password);
-        description.setText(password.getDescription().value);
+        description.setText(index.getOneBased() + ". " + password.getDescription().value);
         username.setText(password.getUsername().value);
         passwordValue.setText(password.getPasswordValue().toString());
         lastModified.setText(password.getPasswordModifiedAt().toString());

@@ -20,11 +20,16 @@ public class ReadPasswordCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + " : Opens and accesses the password identified by "
             + "the index number used in the display list. \n"
-            + "Parameters: INDEX (must be positive integer)"
-            + "Some example ...";
+            + "Parameters: INDEX (must be positive integer)";
 
-    public static final String MESSAGE_SUCCESS = "Results are shown on the right panel."
-            + "Use copy command to copy password | username | website";
+    public static final String MESSAGE_SUCCESS = "Results are shown on the right panel. "
+            + "Use Copy command to copy password | username | website. \n"
+            + CopyPasswordCommand.COMMAND_WORD + "/" + CopyPasswordCommand.COMMAND_WORD1
+            + " [" + CopyPasswordValueCommand.COMMAND_WORD + "/" + CopyPasswordValueCommand.COMMAND_WORD1
+            + "] / [" + CopyWebsiteCommand.COMMAND_WORD + "/" + CopyWebsiteCommand.COMMAND_WORD1
+            + "] / [" + CopyUsernameCommand.COMMAND_WORD + "/" + CopyUsernameCommand.COMMAND_WORD1
+            + "]" + " INDEX \n"
+            + "Example: " + CopyPasswordCommand.COMMAND_WORD1 + " " + CopyPasswordValueCommand.COMMAND_WORD1 + " 1";
 
     private final Index targetIndex;
 

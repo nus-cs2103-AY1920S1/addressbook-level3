@@ -11,8 +11,6 @@ import seedu.address.logic.commands.CopyPasswordCommand;
 import seedu.address.logic.commands.CopyPasswordValueCommand;
 import seedu.address.logic.commands.CopyUsernameCommand;
 import seedu.address.logic.commands.CopyWebsiteCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ReadPasswordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -34,7 +32,7 @@ public class CopyPasswordCommandParser implements Parser<CopyPasswordCommand> {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CopyPasswordCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -57,7 +55,7 @@ public class CopyPasswordCommandParser implements Parser<CopyPasswordCommand> {
             }
         } catch (ParseException e) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadPasswordCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CopyPasswordCommand.MESSAGE_USAGE));
         }
     }
 }

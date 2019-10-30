@@ -8,10 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Website {
     public static final String MESSAGE_CONSTRAINTS =
-            "Website blah";
+            "Website is optional and could be blank. NIL will be used instead.";
     //TODO: Finish this
-    //private static final String VALIDATION_REGEX =
-    // "^(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$";
+
     private static final String VALIDATION_REGEX = ".*";
 
     public final String value;

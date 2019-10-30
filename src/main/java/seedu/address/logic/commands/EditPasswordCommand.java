@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBSITE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 
 import java.util.Collections;
@@ -40,8 +41,8 @@ public class EditPasswordCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_USERNAME + "USER] "
             + "[" + PREFIX_PASSWORDVALUE + "PASSWORD] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: Hello World";
+            + "[" + PREFIX_WEBSITE + "WEBSITE] "
+            + "[" + PREFIX_TAG + "TAG]...\n";
 
     public static final String MESSAGE_EDIT_PASSWORD_SUCCESS = "Edited Password: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
