@@ -14,7 +14,7 @@ import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
-import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.*;
 
 /**
  * A utility class to help with the building of Incident objects.
@@ -30,6 +30,10 @@ public class IncidentBuilder {
             new Email("alexyeoh@example.com"), getTagSet("friends"),
             new Username("user1"),
             new Password("pass123"));
+    public static final Vehicle DEFAULT_VEHICLE =
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("ABC1234D"),
+                    new District(9), new Availability("AVAILABLE"));
+
 
     private Person operator;
     private Status status;
@@ -38,6 +42,7 @@ public class IncidentBuilder {
     private Description desc;
     private CallerNumber caller;
     private IncidentId id;
+    private Vehicle vehicle;
 
     public IncidentBuilder() {
         district = new District(Integer.parseInt(DEFAULT_DISTRICT));
@@ -47,6 +52,7 @@ public class IncidentBuilder {
         id = new IncidentId(DEFAULT_ID);
         operator = DEFAULT_PERSON;
         status = Status.COMPLETE_DRAFT;
+        vehicle = DEFAULT_VEHICLE;
     }
 
     /**
@@ -102,6 +108,6 @@ public class IncidentBuilder {
 
 
     public Incident build() {
-        return new Incident(operator, district, dateTime, id, caller, desc, status);
+        return new Incident(operator, district, dateTime, id, caller, desc, status, vehicle);
     }
 }

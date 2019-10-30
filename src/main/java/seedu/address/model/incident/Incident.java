@@ -128,22 +128,6 @@ public class Incident {
         this.vehicle = vehicle;
     }
 
-    /**
-     * Constructor for generating an incident draft with all fields filled.
-     * Vehicle should have already been attached to incident when draft first created.
-     * // TODO add vehicle field
-     */
-    public Incident(Person operator, District district, IncidentDateTime incidentDateTime, IncidentId incidentId,
-                    CallerNumber callerNumber, Description description, Status status) {
-        this.operator = operator;
-        this.district = district;
-        this.incidentDateTime = incidentDateTime;
-        this.id = incidentId;
-        this.callerNumber = callerNumber;
-        this.description = description;
-        this.status = status;
-    }
-
     public Vehicle getVehicle() {
         return this.vehicle; // should never be null
     }
