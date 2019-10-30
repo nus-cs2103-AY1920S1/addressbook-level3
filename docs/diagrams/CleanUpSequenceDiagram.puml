@@ -1,0 +1,70 @@
+@startuml
+scale 1.5
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":VersionedWeme" as VersionedWeme MODEL_COLOR
+end box
+
+activate MainWindow
+MainWindow -> MainWindow : handleExit()
+activate MainWindow
+
+par
+MainWindow -> LogicManager : cleanUp()
+activate LogicManager
+
+par
+LogicManager -> Model : cleanMemeStorage()
+activate Model
+Model -> VersionedWeme : getMemeList()
+activate VersionedWeme
+VersionedWeme --> Model : memes
+deactivate VersionedWeme
+
+loop each meme
+Model ->] : getImagePath().getFilePath().toFile()
+Model <-- : file
+end
+Model -> Model : getMemeImagePath()
+activate Model
+return path
+loop each file in Files.list(path)
+alt !filesToKeep.contains(file)
+Model ->] : File.delete()
+Model <--
+end
+end
+
+
+Model --> LogicManager
+deactivate Model
+
+else
+LogicManager -> Model : cleanTemplateStorage()
+activate Model
+Model --> LogicManager
+deactivate Model
+
+else
+LogicManager --> MainWindow
+deactivate LogicManager
+end
+else
+MainWindow --> MainWindow
+deactivate MainWindow
+[<-- MainWindow
+deactivate MainWindow
+end
+
+
+@enduml

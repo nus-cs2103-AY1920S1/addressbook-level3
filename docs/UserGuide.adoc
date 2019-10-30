@@ -78,6 +78,14 @@ Example: `redo`
 * Import Tab: `import`
 ***
 
+***
+Undo and Redo only supports commands that modify data in Weme. This means that commands that alter the UI (such as `find` and `list`), as well as commands that modify the staging / import list (such as `load`, `stage`) are not undoable.
+* Meme Tab: `add`, `edit`, `delete`, `clear`, `like`
+* Template Tab: `add`, `edit`, `delete`, `use`
+* Create Tab: `add`, `abort`
+* Import Tab: `import`
+***
+
 ==== Exit : `exit`
 Exits Weme. +
 Format: `exit`
@@ -325,7 +333,7 @@ e.g. `p/home/pictures/p1.jpeg d/My favorite meme n/sad sponge bob t/spongebob t/
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and import the data using the <<Import/Export>> feature
+*A*: Download the jar in the other computer and copy the entire data folder over.
 
 == Command Summary
 
