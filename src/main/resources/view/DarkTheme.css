@@ -398,6 +398,10 @@
     -fx-text-fill: white;
 }
 
+#commandTextField:focused {
+    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+}
+
 #dateHeader {
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 25;
