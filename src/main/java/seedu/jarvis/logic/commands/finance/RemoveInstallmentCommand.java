@@ -28,7 +28,7 @@ public class RemoveInstallmentCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New person added: %1$s";
     public static final String MESSAGE_INVERSE_INSTALLMENT_TO_ADD_ALREADY_EXIST = "Person already added: %1$s";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
 

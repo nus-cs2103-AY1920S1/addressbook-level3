@@ -31,7 +31,7 @@ public class SetMonthlyLimitCommand extends Command {
 
     public static final String MESSAGE_INVERSE_SUCCESS_RESET = "Monthly limit has been reset";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private MonthlyLimit originalLimit;
     private final MonthlyLimit toSet;

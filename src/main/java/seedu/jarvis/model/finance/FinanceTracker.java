@@ -331,8 +331,8 @@ public class FinanceTracker {
      * Calculates total expenditure by user for this month.
      */
     public double calculateTotalSpending() {
-        double totalAmount = purchaseList.getTotalSpending() +
-                installmentList.getTotalMoneySpentOnInstallments();
+        double totalAmount = purchaseList.getTotalSpending()
+                + installmentList.getTotalMoneySpentOnInstallments();
         return totalAmount;
     }
 

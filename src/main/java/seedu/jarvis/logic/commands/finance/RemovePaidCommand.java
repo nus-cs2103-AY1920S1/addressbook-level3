@@ -28,7 +28,7 @@ public class RemovePaidCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New purchase added: %1$s";
     public static final String MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST = "Purchase already added: %1$s";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
 

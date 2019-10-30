@@ -42,7 +42,7 @@ public class EditInstallmentCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_REVERSE = "Reversed editing on installment: %1$s";
     public static final String MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND = "Installment already deleted: %1$s";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Index index;
     private final EditInstallmentDescriptor editInstallmentDescriptor;

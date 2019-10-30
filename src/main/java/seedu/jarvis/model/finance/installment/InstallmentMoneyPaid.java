@@ -1,17 +1,15 @@
 package seedu.jarvis.model.finance.installment;
 
-import java.text.DecimalFormat;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
+
+import java.text.DecimalFormat;
 
 /**
  * Represents the description of an installment in the finance tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
 public class InstallmentMoneyPaid {
-
-    private static DecimalFormat df2 = new DecimalFormat("#.00");
 
     public static final String MESSAGE_CONSTRAINTS =
             "Subscription fee of installments should Names should only contain alphanumeric characters and spaces, "
@@ -21,6 +19,8 @@ public class InstallmentMoneyPaid {
             "Money spent cannot be equal to or less than 0.";
 
     public static final String VALIDATION_REGEX = "[0-9]{1,13}(\\.[0-9]*)?";
+
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
 
     public final double installmentMoneyPaid;
 
