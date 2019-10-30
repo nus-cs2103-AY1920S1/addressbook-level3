@@ -5,6 +5,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.CoreSentence;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.ie.NumberNormalizer;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,6 +39,12 @@ public class AnswerChecker {
 
         for (CoreLabel coreLabel : coreLabelList) {
             coreLabel.setOriginalText(coreLabel.lemma());
+            String pos = coreLabel.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+            if (pos.equals("CD")) {
+                Number num = NumberNormalizer.wordToNumber(coreLabel.originalText());
+                coreLabel.setOriginalText(num.toString());
+            }
+
             keywords.add(coreLabel.originalText());
         }
 
@@ -49,7 +56,7 @@ public class AnswerChecker {
         pipeline.annotate(coreDocument);
 
         List<CoreSentence> sentences = coreDocument.sentences();
-
+        
         return sentences.get(0).sentiment();
     }
 
@@ -61,8 +68,10 @@ public class AnswerChecker {
             String userInputSentiment = analyseAnswerForSentiment(userInput);
             String correctAnswerSentiment = analyseAnswerForSentiment(correctAnswer);
 
-            if (userInputSentiment.equals(correctAnswerSentiment)) {
-                return true;
+            if (!correctAnswerSentiment.equals("Negative")) {
+                if (!userInputSentiment.equals("Negative")) {
+                    return true;
+                }
             }
         }
 
