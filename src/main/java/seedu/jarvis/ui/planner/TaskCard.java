@@ -39,12 +39,18 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         taskDes.setText(task.getTaskDes());
-        priority.setText(task.getPriority().toString());
-        frequency.setText(task.getFrequency().toString());
         status.setText(task.getStatus().toString());
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        if (task.getPriority() != null) {
+            priority.setText(task.getPriority().toString());
+        }
+
+        if (task.getFrequency() != null) {
+            frequency.setText(task.getFrequency().toString());
+        }
     }
 
     @Override
