@@ -366,15 +366,15 @@ public class SwitchOperation {
         try {
             addressBookOptional = storage.readCapLog();
             if (!addressBookOptional.isPresent()) {
-                System.out.println("Data file not found. Will be starting with a sample AddressBook");
+                System.out.println("Data file not found. Will be starting with a sample CapLog");
             }
             initialData = addressBookOptional
                     .orElseGet(seedu.address.model.cap.util.SampleDataUtil::getSampleCapLog);
         } catch (DataConversionException e) {
-            System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
+            System.out.println("Data file not in the correct format. Will be starting with an empty CapLog");
             initialData = new seedu.address.model.cap.CapLog();
         } catch (IOException e) {
-            System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
+            System.out.println("Problem while reading from the file. Will be starting with an empty CapLog");
             initialData = new CapLog();
         }
 

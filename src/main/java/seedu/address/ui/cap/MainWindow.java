@@ -46,9 +46,6 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane semesterListPanelPlaceholder;
-
-    @FXML
     private StackPane moduleListPanelPlaceholder;
 
     @FXML
@@ -120,9 +117,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        semesterListPanel = new SemesterListPanel(logic.getFilteredSemesterList());
-        semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
-
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
@@ -206,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
             setGraphDisplay();
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | IllegalArgumentException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

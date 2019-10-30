@@ -49,7 +49,6 @@ public class FacultyTest {
         assertTrue(Faculty.isValidFaculty("integrative sciences and engineering"));
         assertTrue(Faculty.isValidFaculty("music"));
         assertTrue(Faculty.isValidFaculty("law"));
-        assertTrue(Faculty.isValidFaculty("public policy"));
         assertTrue(Faculty.isValidFaculty("science"));
     }
 }
