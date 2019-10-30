@@ -144,7 +144,7 @@ Change the Tab Panel to Customer, Phone, Order, Schedule or Archived.
 If you've made a mistake, you can simply revert to the previous command.
 
 . *Redo* +
-Opposite of undo.
+Inverse of undo.
 
 . *Copy* +
 Action of copying an entry into clipboard.
@@ -266,6 +266,13 @@ List every customer in SML. Acts as a switch customer command as well. +
 [underline]#Format#: `list-c`
 
 - `list-c`
+
+==== Clear the customers : `clear-c`
+Clears every customer in SML. +
+
+[underline]#Format#: `clear-c`
+
+- `clear-c`
 
 
 ==== Edit a customer : `edit-c`
@@ -400,6 +407,13 @@ List every phone in SML. Acts as a switch phone command as well. +
 
 - `list-p`
 
+==== Clear the phones : `clear-p`
+Clears every phone in SML. +
+
+[underline]#Format#: `clear-p`
+
+- `clear-p`
+
 ==== Edit a phone : `edit-p`
 Edits the data fields of a phone. +
 [underline]#Format#: `edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
@@ -469,9 +483,9 @@ Format: `cancel-o INDEX`
 List all the orders in the list. +
 Format: `list-o`
 
-//==== Copy order field : `copy-o`
-//Copies an order field to clipboard. +
-//Format: `copy-o <field>`
+==== Copy order field : `copy-o`
+Copies an order field to clipboard. +
+Format: `copy-o <field>`
 
 //==== Duplicate an order : `duplicate-o`
 //Duplicate an order of the specified index. +
@@ -540,15 +554,47 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 * Edit the date of the schedule of the 1st order and allow it to clash with the existing schedules. +
 `edit-s 1 cd/2019.12.12 -allow`
 
-=== Utility Commands
+=== General Commands
 
 ==== Undo : `undo`
-Undo the previous command.  +
-Format: `undo`
+
+Undo the previous command. All commands except switch, find, list and history commands are undoable. +
+
+[underline]#Format#: `undo`
+
+[underline]#Examples#:
+
+* Undo clear Customer Book
+. `clear-c`
+. `undo`
+
+image::ug-command/ug-undo.png[width="800"]
 
 ==== Redo : `redo`
-redo the previous command.  +
-Format: `redo`
+Redo the previous undone command. Inverse of undo. All commands except switch, find, list and history commands are undoable. +
+
+[underline]#Format#: `undo`
+
+[underline]#Examples#:
+
+* Redo clear Customer Book
+. `clear-c`
+. `undo`
+. `redo`
+
+image::ug-command/ug-redo.png[width="800"]
+
+
+=== History: `history`
+
+Views the command history of all your previous commands.
+
+[underline]#Format#: `history`
+
+[underline]#Example#:
+
+image::ug-command/ug-history.png[width="800"]
+
 
 ==== Generate stats : `generate-s`
 
@@ -647,6 +693,9 @@ Export any of the data in SML to PDF format.
 ** order : `cancel INDEX`
 
 * *Clear* : `clear`
+** customer : `clear-c`
+** phone : `clear-p`
+** order : `clear-o`
 
 * *Complete* +
 ** order : `complete INDEX`
