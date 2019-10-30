@@ -34,6 +34,7 @@ import seedu.address.logic.commands.ExpandPolicyCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.FindTagPeopleCommand;
+import seedu.address.logic.commands.FindTagPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListBinCommand;
@@ -191,6 +192,9 @@ public class AddressBookParser {
 
             case FindTagPeopleCommand.COMMAND_WORD:
                 return new FindTagPeopleCommandParser().parse(arguments);
+
+            case FindTagPolicyCommand.COMMAND_WORD:
+                return new FindTagPolicyCommandParser().parse(arguments);
 
             case ListPeopleCommand.COMMAND_WORD:
                 return new ListPeopleCommand();
