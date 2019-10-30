@@ -3,6 +3,7 @@ package seedu.algobase.logic.commands.problem;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PROBLEMS;
 
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.model.Model;
@@ -21,7 +22,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "All problems listed.";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
         model.getGuiState().getTabManager().setDisplayTabPaneIndex(ModelType.PROBLEM.getDisplayTabPaneIndex());

@@ -12,6 +12,7 @@ import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -53,7 +54,7 @@ public class CopyTaskCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         List<Plan> lastShownPlanList = model.getFilteredPlanList();

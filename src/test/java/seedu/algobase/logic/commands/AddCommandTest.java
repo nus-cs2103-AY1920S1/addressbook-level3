@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.problem.AddCommand;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ReadOnlyAlgoBase;
@@ -18,6 +19,10 @@ import seedu.algobase.model.tag.Tag;
 import seedu.algobase.testutil.ProblemBuilder;
 
 class AddCommandTest {
+
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+    private CommandHistory commandHistory = new CommandHistory();
+
     @Test
     public void constructor_nullProblem_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
@@ -28,7 +33,7 @@ class AddCommandTest {
         ModelStubAcceptingProblemAdded modelStub = new ModelStubAcceptingProblemAdded();
         Problem validProblem = new ProblemBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validProblem).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validProblem).execute(modelStub, commandHistory);
 
         assertEquals(
             String.format(AddCommand.MESSAGE_SUCCESS, validProblem.getName()),

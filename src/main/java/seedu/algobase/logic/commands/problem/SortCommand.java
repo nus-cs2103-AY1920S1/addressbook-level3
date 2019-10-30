@@ -7,6 +7,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SORTING_ORDER;
 
 import java.util.Comparator;
 
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -29,7 +30,12 @@ public class SortCommand extends Command {
         bySource;
 
         public static final String MESSAGE_CONSTRAINTS = "Sorting method should be one of \"name\", "
-            + "\"author\", \"weblink\", \"difficulty\" or \"source\"";
+                + "\"author\", \"weblink\", \"difficulty\" or \"source\"";
+        public static final String KEYWORD_NAME = "name";
+        public static final String KEYWORD_AUTHOR = "author";
+        public static final String KEYWORD_WEBLINK = "weblink";
+        public static final String KEYWORD_DIFFICULTY = "difficulty";
+        public static final String KEYWORD_SOURCE = "source";
     }
 
     /**
@@ -40,6 +46,8 @@ public class SortCommand extends Command {
         descend;
 
         public static final String MESSAGE_CONSTRAINTS = "Sorting order should be either \"ascend\" or \"descend\"";
+        public static final String KEYWORD_ASCEND = "ascend";
+        public static final String KEYWORD_DESCEND = "descend";
     }
 
     public static final String COMMAND_WORD = "sort";
@@ -124,13 +132,10 @@ public class SortCommand extends Command {
 
     /**
      * Executes the command and returns the result message.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         switch (this.method) {
         case byName:

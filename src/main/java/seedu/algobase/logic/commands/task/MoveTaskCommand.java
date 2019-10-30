@@ -12,6 +12,7 @@ import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -53,12 +54,12 @@ public class MoveTaskCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (moveTaskDescriptor.planFromIndex.getZeroBased() >= lastShownPlanList.size()
-            || moveTaskDescriptor.planToIndex.getZeroBased() >= lastShownPlanList.size()) {
+                || moveTaskDescriptor.planToIndex.getZeroBased() >= lastShownPlanList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         Plan planFrom = lastShownPlanList.get(moveTaskDescriptor.planFromIndex.getZeroBased());
@@ -76,7 +77,7 @@ public class MoveTaskCommand extends Command {
         Set<Task> taskSetTo = new HashSet<>(taskListTo);
         if (taskSetTo.contains(taskToMove)) {
             throw new CommandException(
-                String.format(MESSAGE_DUPLICATE_TASK, taskToMove.getProblem().getName(), planTo.getPlanName()));
+                    String.format(MESSAGE_DUPLICATE_TASK, taskToMove.getProblem().getName(), planTo.getPlanName()));
         }
         if (!planTo.checkWithinDateRange(taskToMove.getTargetDate())) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
@@ -90,11 +91,11 @@ public class MoveTaskCommand extends Command {
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
 
         return new CommandResult(
-            String.format(MESSAGE_MOVE_TASK_SUCCESS,
-                taskToMove.getProblem().getName(),
-                updatedPlanFrom.getPlanName(),
-                updatedPlanTo.getPlanName()
-            )
+                String.format(MESSAGE_MOVE_TASK_SUCCESS,
+                        taskToMove.getProblem().getName(),
+                        updatedPlanFrom.getPlanName(),
+                        updatedPlanTo.getPlanName()
+                )
         );
     }
 
@@ -122,10 +123,10 @@ public class MoveTaskCommand extends Command {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                || (other instanceof MoveTaskDescriptor // instanceof handles nulls
-                && taskIndex.equals(((MoveTaskDescriptor) other).taskIndex)
-                && planFromIndex.equals(((MoveTaskDescriptor) other).planFromIndex)
-                && planToIndex.equals(((MoveTaskDescriptor) other).planToIndex));
+                    || (other instanceof MoveTaskDescriptor // instanceof handles nulls
+                    && taskIndex.equals(((MoveTaskDescriptor) other).taskIndex)
+                    && planFromIndex.equals(((MoveTaskDescriptor) other).planFromIndex)
+                    && planToIndex.equals(((MoveTaskDescriptor) other).planToIndex));
         }
     }
 }

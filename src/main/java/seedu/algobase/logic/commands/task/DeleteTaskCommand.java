@@ -11,6 +11,7 @@ import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -49,7 +50,7 @@ public class DeleteTaskCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
@@ -72,7 +73,7 @@ public class DeleteTaskCommand extends Command {
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
 
         return new CommandResult(
-            String.format(MESSAGE_DELETE_TASK_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_DELETE_TASK_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override

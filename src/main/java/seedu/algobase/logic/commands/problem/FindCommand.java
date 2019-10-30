@@ -11,6 +11,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.function.Predicate;
 
 import seedu.algobase.commons.core.Messages;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.model.Model;
@@ -35,9 +36,10 @@ public class FindCommand extends Command {
             + "[" + PREFIX_DIFFICULTY + "LOWER_BOUND-UPPER_BOUND] "
             + "[" + PREFIX_TAG + "TAG]\n"
             + "Example:\n"
-            + COMMAND_WORD
-            + PREFIX_AUTHOR + " Tung Kam Chuen";
-    public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
+            + COMMAND_WORD + " "
+            + PREFIX_AUTHOR + "Tung Kam Chuen";
+    public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.\n"
+            + MESSAGE_USAGE;
 
     private final Predicate<Problem> predicate;
     private final FindProblemDescriptor descriptor;
@@ -50,7 +52,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredProblemList(predicate);
         return new CommandResult(

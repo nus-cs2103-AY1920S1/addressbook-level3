@@ -18,8 +18,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_DIFFICULTY_RANGE = "Invalid difficulty range! \n%1$s";
     public static final String MESSAGE_INVALID_KEYWORD_FORMAT = "Invalid keyword format! \n%1$s";
     public static final String MESSAGE_INVALID_NAME_FORMAT = "Invalid name format! \n%1$s";
-    public static final String MESSAGE_INVALID_REWIND_NUMBER = "Invalid rewind number! (Is it larger than the "
-        + "number of all successfully executed commands in this launch of AlgoBase?)";
     public static final String MESSAGE_INVALID_TASK_DATE = "Due date of task does not lie inside date range of plan.";
     public static final String MESSAGE_TASK_ALREADY_DONE = "Task [%1$s] already marked as done.";
     public static final String MESSAGE_TASK_NOT_YET_DONE = "Task [%1$s] not yet marked as done.";

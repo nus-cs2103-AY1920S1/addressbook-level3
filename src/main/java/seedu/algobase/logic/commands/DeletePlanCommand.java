@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;
@@ -34,7 +35,7 @@ public class DeletePlanCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Plan> lastShownList = model.getFilteredPlanList();
 

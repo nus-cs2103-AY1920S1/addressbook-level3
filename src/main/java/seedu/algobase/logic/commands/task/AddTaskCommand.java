@@ -13,6 +13,7 @@ import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -57,7 +58,7 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
@@ -89,7 +90,7 @@ public class AddTaskCommand extends Command {
         Set<Task> taskSet = new HashSet<>(planToUpdate.getTasks());
         if (taskSet.contains(task)) {
             throw new CommandException(
-                String.format(MESSAGE_DUPLICATE_TASK, task.getProblem().getName(), planToUpdate.getPlanName()));
+                    String.format(MESSAGE_DUPLICATE_TASK, task.getProblem().getName(), planToUpdate.getPlanName()));
         }
         taskSet.add(task);
 
@@ -97,7 +98,7 @@ public class AddTaskCommand extends Command {
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
         return new CommandResult(
-            String.format(MESSAGE_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override
@@ -124,10 +125,10 @@ public class AddTaskCommand extends Command {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                || (other instanceof AddTaskDescriptor // instanceof handles nulls
-                && planIndex.equals(((AddTaskDescriptor) other).planIndex)
-                && problemIndex.equals(((AddTaskDescriptor) other).problemIndex)
-                && targetDate.equals(((AddTaskDescriptor) other).targetDate));
+                    || (other instanceof AddTaskDescriptor // instanceof handles nulls
+                    && planIndex.equals(((AddTaskDescriptor) other).planIndex)
+                    && problemIndex.equals(((AddTaskDescriptor) other).problemIndex)
+                    && targetDate.equals(((AddTaskDescriptor) other).targetDate));
         }
     }
 }

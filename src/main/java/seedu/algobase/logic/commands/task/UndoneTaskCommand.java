@@ -11,6 +11,7 @@ import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -49,7 +50,7 @@ public class UndoneTaskCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
@@ -76,7 +77,8 @@ public class UndoneTaskCommand extends Command {
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
 
         return new CommandResult(
-            String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToUpdate.getProblem().getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToUpdate.getProblem().getName(),
+                        updatedPlan.getPlanName()));
     }
 
     @Override
@@ -101,9 +103,9 @@ public class UndoneTaskCommand extends Command {
         @Override
         public boolean equals(Object other) {
             return other == this // short circuit if same object
-                || (other instanceof UndoneTaskDescriptor // instanceof handles nulls
-                && planIndex.equals(((UndoneTaskDescriptor) other).planIndex)
-                && taskIndex.equals(((UndoneTaskDescriptor) other).taskIndex));
+                    || (other instanceof UndoneTaskDescriptor // instanceof handles nulls
+                    && planIndex.equals(((UndoneTaskDescriptor) other).planIndex)
+                    && taskIndex.equals(((UndoneTaskDescriptor) other).taskIndex));
         }
     }
 }

@@ -24,7 +24,6 @@ import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.commands.ListTagCommand;
 import seedu.algobase.logic.commands.OpenTabCommand;
-import seedu.algobase.logic.commands.RewindCommand;
 import seedu.algobase.logic.commands.SwitchTabCommand;
 import seedu.algobase.logic.commands.problem.AddCommand;
 import seedu.algobase.logic.commands.problem.DeleteCommand;
@@ -58,7 +57,6 @@ import seedu.algobase.logic.parser.task.EditTaskCommandParser;
 import seedu.algobase.logic.parser.task.MoveTaskCommandParser;
 import seedu.algobase.logic.parser.task.SetPlanCommandParser;
 import seedu.algobase.logic.parser.task.UndoneTaskCommandParser;
-
 /**
  * Parses user input.
  */
@@ -168,10 +166,6 @@ public class AlgoBaseParser {
 
         case DeleteFindRuleCommand.COMMAND_WORD:
             return new DeleteFindRuleParser().parse(arguments);
-
-        // Rewind
-        case RewindCommand.COMMAND_WORD:
-            return new RewindCommandParser().parse(arguments);
 
         // Storage
         case ExportCommand.COMMAND_WORD:

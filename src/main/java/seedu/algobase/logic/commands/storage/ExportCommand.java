@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import seedu.algobase.commons.util.FileUtil;
 import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.commons.util.JsonUtil;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -45,7 +46,7 @@ public class ExportCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         Path filePath = Paths.get(path, "algobase.json");
         try {

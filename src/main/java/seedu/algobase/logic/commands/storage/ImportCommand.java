@@ -13,6 +13,7 @@ import seedu.algobase.commons.exceptions.DataConversionException;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.commons.util.JsonUtil;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -47,13 +48,13 @@ public class ImportCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         Path filePath = Paths.get(path);
 
         try {
             Optional<JsonSerializableAlgoBase> jsonAlgoBase = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAlgoBase.class);
+                    filePath, JsonSerializableAlgoBase.class);
             model.setAlgoBase(jsonAlgoBase.get().toModelType());
         } catch (DataConversionException | IllegalValueException | NoSuchElementException e) {
             return new CommandResult("Invalid data.");
