@@ -8,6 +8,7 @@ import java.util.List;
 import dukecooks.commons.util.CollectionUtil;
 import dukecooks.model.mealplan.exceptions.DuplicateMealPlanException;
 import dukecooks.model.mealplan.exceptions.MealPlanNotFoundException;
+import dukecooks.model.recipe.components.UniqueRecipeList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -82,6 +83,11 @@ public class UniqueMealPlanList implements Iterable<MealPlan> {
         if (!internalList.remove(toRemove)) {
             throw new MealPlanNotFoundException();
         }
+    }
+
+    public void setMealPlans(UniqueMealPlanList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
     }
 
     /**

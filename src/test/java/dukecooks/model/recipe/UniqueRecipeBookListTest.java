@@ -20,7 +20,7 @@ import dukecooks.model.recipe.exceptions.RecipeNotFoundException;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.recipe.RecipeBuilder;
 
-public class UniqueMealPlanBookListTest {
+public class UniqueRecipeBookListTest {
 
     private final UniqueRecipeList uniqueRecipeList = new UniqueRecipeList();
 
