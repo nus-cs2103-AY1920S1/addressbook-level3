@@ -24,7 +24,7 @@ import seedu.address.logic.cap.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "WindowCap.fxml";
+    private static final String FXML = "CapWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -35,6 +35,9 @@ public class MainWindow extends UiPart<Stage> {
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private SemesterListPanel semesterListPanel;
+    private InformationPanel informationPanel;
+    private CapPieChart pieChartDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -43,10 +46,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane gradeListPanelPlaceholder;
+    private StackPane semesterListPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    private StackPane capPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane pieChartDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -108,13 +120,21 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        semesterListPanel = new SemesterListPanel(logic.getFilteredSemesterList());
+        semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
-        gradeListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+
+        informationPanel = new InformationPanel();
+        capPanelPlaceholder.getChildren().add(informationPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        setGraphDisplay();
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCapLogFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -161,10 +181,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ModuleListPanel getModuleListPanel() {
-        return moduleListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -184,11 +200,21 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            informationPanel.setCapToUser(logic.getFilteredCapInformation());
+            informationPanel.setMcToUser(logic.getFilteredMcInformation());
+
+            setGraphDisplay();
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void setGraphDisplay() {
+        pieChartDisplay = new CapPieChart(logic.getFilteredGradeCounts());
+        pieChartDisplayPlaceholder.getChildren().add((pieChartDisplay.getRoot()));
     }
 }

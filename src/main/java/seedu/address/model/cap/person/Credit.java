@@ -30,4 +30,8 @@ public class Credit {
                 && this.credit == credit); // state check
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(credit);
+    }
 }

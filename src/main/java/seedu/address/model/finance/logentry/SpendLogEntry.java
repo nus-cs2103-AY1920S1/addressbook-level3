@@ -2,12 +2,15 @@ package seedu.address.model.finance.logentry;
 
 import java.util.Set;
 
+import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
 
 /**
- * Represents an entry in the finance log.
+ * Represents an entry of spending (outflow) in the finance log.
  * Guarantees: details are present and not null, field values are validated, mutable.
  */
 public class SpendLogEntry extends LogEntry {

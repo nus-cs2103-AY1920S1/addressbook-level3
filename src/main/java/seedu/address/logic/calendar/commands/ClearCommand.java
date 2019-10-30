@@ -6,7 +6,7 @@ import seedu.address.model.calendar.CalendarAddressBook;
 import seedu.address.model.calendar.CalendarModel;
 
 /**
- * Clears the address book.
+ * Clears all data from Modulo's calendar.
  */
 public class ClearCommand extends Command {
 

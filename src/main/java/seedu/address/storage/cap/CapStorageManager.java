@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.cap.ReadOnlyModulo;
+import seedu.address.model.cap.CapUserPrefs;
+import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.ReadOnlyUserPrefs;
-import seedu.address.model.cap.UserPrefs;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -35,7 +35,7 @@ public class CapStorageManager implements Storage {
     }
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+    public Optional<CapUserPrefs> readUserPrefs() throws DataConversionException, IOException {
         return userPrefsStorage.readUserPrefs();
     }
 
@@ -48,30 +48,30 @@ public class CapStorageManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return capStorage.getAddressBookFilePath();
+    public Path getCapLogFilePath() {
+        return capStorage.getCapLogFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyModulo> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(capStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyCapLog> readCapLog() throws DataConversionException, IOException {
+        return readCapLog(capStorage.getCapLogFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyModulo> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCapLog> readCapLog(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return capStorage.readAddressBook(filePath);
+        return capStorage.readCapLog(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyModulo addressBook) throws IOException {
-        saveAddressBook(addressBook, capStorage.getAddressBookFilePath());
+    public void saveCapLog(ReadOnlyCapLog addressBook) throws IOException {
+        saveCapLog(addressBook, capStorage.getCapLogFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyModulo addressBook, Path filePath) throws IOException {
+    public void saveCapLog(ReadOnlyCapLog addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        capStorage.saveAddressBook(addressBook, filePath);
+        capStorage.saveCapLog(addressBook, filePath);
     }
 
 }

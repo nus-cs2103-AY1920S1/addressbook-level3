@@ -51,6 +51,14 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Adds a person to the list.
+     * The person must not already exist in the list.
+     */
+    public ObservableList<Module> getInternalList() {
+        return internalList;
+    }
+
+    /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
@@ -79,11 +87,6 @@ public class UniqueModuleList implements Iterable<Module> {
         if (!internalList.remove(toRemove)) {
             throw new ModuleNotFoundException();
         }
-    }
-
-    public void setModules(UniqueModuleList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
     }
 
     /**
@@ -121,6 +124,14 @@ public class UniqueModuleList implements Iterable<Module> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    public int size() {
+        return internalList.size();
+    }
+
+    public Module get(int position) {
+        return internalList.get(position);
     }
 
     /**

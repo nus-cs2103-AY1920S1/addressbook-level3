@@ -16,7 +16,7 @@ import seedu.address.model.calendar.task.Task;
  */
 public class PersonCard extends UiPart<Region> {
 
-    private static final String FXML = "CalendarListCard.fxml";
+    private static final String FXML = "ToDoTaskListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -36,28 +36,25 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
     private Label deadline;
     @FXML
     private Label address;
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane calendartags;
 
     public PersonCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getTaskTitle().fullName);
-        phone.setText(task.getTaskDay().value);
         deadline.setText(task.getTaskDeadline().getValue());
         address.setText(task.getTaskTime().value);
         email.setText(task.getTaskDescription().value);
         task.getTaskTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> calendartags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

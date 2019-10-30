@@ -5,15 +5,15 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
-Interface Model <<Interface>>
+Interface ReadOnlyCalendarAddressBook <<Interface>>
+Interface CalendarModel <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
-Class Model
-Class ModelManager
-Class UserPrefs
-Class ReadOnlyUserPrefs
+Class CalendarAddressBook
+Class ReadOnlyCalendarAddressBook
+Class CalendarModel
+Class CalendarModelManager
+Class CalendarUserPrefs
+Class ReadOnlyCalendarUserPrefs
 
 Package Task {
 Class Task
@@ -23,6 +23,8 @@ Class TaskTitle
 Class TaskDay
 Class TaskDeadline
 Class UniqueTaskList
+Class ToDoTask
+Class ModuleTask
 }
 
 Package Tag {
@@ -31,17 +33,17 @@ Class Tag
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
+HiddenOutside ..> CalendarModel
 
-AddressBook .up.|> ReadOnlyAddressBook
+CalendarAddressBook .up.|> ReadOnlyCalendarAddressBook
 
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+CalendarModelManager .up.|> CalendarModel
+CalendarModel .right.> ObservableList
+CalendarModelManager o--> "1" CalendarAddressBook
+CalendarModelManager o-left-> "1" CalendarUserPrefs
+CalendarUserPrefs .up.|> ReadOnlyCalendarUserPrefs
 
-AddressBook *--> "1" UniqueTaskList
+CalendarAddressBook *--> "1" UniqueTaskList
 UniqueTaskList o--> "*" Task
 Task *--> TaskTitle
 Task *--> TaskDay
@@ -55,5 +57,8 @@ TaskDay -[hidden]right-> TaskPlace
 TaskPlace -[hidden]right-> TaskDescription
 TaskDescription -[hidden]right-> TaskDeadline
 
-ModelManager -->"1" Task : filtered list
+ToDoTask -right-|> Task
+ModuleTask -left-|> Task
+
+CalendarModelManager -->"1" Task : filtered list
 @enduml

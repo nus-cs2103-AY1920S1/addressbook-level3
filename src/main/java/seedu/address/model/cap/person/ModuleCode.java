@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ModuleCode {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "ModuleCode should only contain alphanumeric characters, there "
+                + "should not be spaces and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -28,7 +29,7 @@ public class ModuleCode {
     public ModuleCode(String code) {
         requireNonNull(code);
         checkArgument(isValidName(code), MESSAGE_CONSTRAINTS);
-        moduleCode = code;
+        moduleCode = code.toUpperCase();
     }
 
     /**
@@ -44,6 +45,10 @@ public class ModuleCode {
         return moduleCode;
     }
 
+    public String getModuleCode() {
+        return moduleCode;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -56,4 +61,26 @@ public class ModuleCode {
         return moduleCode.hashCode();
     }
 
+    /**
+     * Returns true if a given string is a valid phone number.
+     */
+    public static boolean isValidModuleCode(String test) {
+        try {
+            String code = test.substring(0, 2).toLowerCase();
+            switch (code) {
+            case "cs":
+            case "ec":
+            case "ac":
+            case "fn":
+            case "fi":
+            case "ar":
+            case "me":
+                return true;
+            default:
+                return false;
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            return false;
+        }
+    }
 }

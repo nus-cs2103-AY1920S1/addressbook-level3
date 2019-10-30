@@ -3,11 +3,13 @@ package seedu.address.logic.cap;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart.Data;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.ReadOnlyModulo;
+import seedu.address.model.cap.ReadOnlyCapLog;
+import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
 
 /**
@@ -26,17 +28,19 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.cap#getCapLog()
      */
-    ReadOnlyModulo getAddressBook();
+    ReadOnlyCapLog getCapLog();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Module> getFilteredModuleList();
 
+    ObservableList<Semester> getFilteredSemesterList();
+
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getCapLogFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -47,4 +51,10 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    double getFilteredCapInformation();
+
+    double getFilteredMcInformation();
+
+    ObservableList<Data> getFilteredGradeCounts();
 }

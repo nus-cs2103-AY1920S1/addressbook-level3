@@ -1,5 +1,6 @@
 package seedu.address.model.cap.person;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -11,6 +12,7 @@ import seedu.address.model.common.Module;
  */
 public class NameContainsKeywordsPredicate implements Predicate<Module> {
     private final List<String> keywords;
+    private ArrayList<Module> matchedModules;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
@@ -18,8 +20,13 @@ public class NameContainsKeywordsPredicate implements Predicate<Module> {
 
     @Override
     public boolean test(Module module) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getModuleCode().moduleCode, keyword));
+        boolean isModuleCodeMatch = keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getModuleCode().getModuleCode(),
+                        keyword));
+        boolean isTitleMatch = keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getTitle().getTitle(),
+                        keyword));
+        return isModuleCodeMatch || isTitleMatch;
     }
 
     @Override

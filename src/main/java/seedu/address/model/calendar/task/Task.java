@@ -13,7 +13,7 @@ import seedu.address.model.calendar.tag.TaskTag;
  * Represents a Task in the CalendarAddressbook.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Task {
+public abstract class Task {
 
     // Identity fields
     private final TaskTitle taskTitle;
@@ -21,17 +21,17 @@ public class Task {
     private final TaskDescription taskDescription;
 
     // Data fields
+    private final boolean isPersistent;
     private final TaskDeadline taskDeadline;
     private final TaskTime taskTime;
     private final Set<TaskTag> taskTags = new HashSet<>();
-
-
+    private final int week;
 
     /**
      * Every field must be present and not null.
      */
     public Task(TaskTitle taskTitle, TaskDay taskDay, TaskDescription taskDescription, TaskDeadline taskDeadline,
-                TaskTime taskTime, Set<TaskTag> taskTags) {
+                TaskTime taskTime, Set<TaskTag> taskTags, int week, boolean isPersistent) {
         this.taskDeadline = taskDeadline;
         requireAllNonNull(taskTitle, taskDay);
         // requireAllNonNull(taskTitle, taskDay, taskDescription, taskTime, taskTags);
@@ -40,6 +40,8 @@ public class Task {
         this.taskDescription = taskDescription;
         this.taskTime = taskTime;
         this.taskTags.addAll(taskTags);
+        this.week = week;
+        this.isPersistent = isPersistent;
     }
 
     public TaskTitle getTaskTitle() {
@@ -70,6 +72,14 @@ public class Task {
         return Collections.unmodifiableSet(taskTags);
     }
 
+    public int getWeek() {
+        return week;
+    }
+
+    public boolean isPersistent() {
+        return isPersistent;
+    }
+
     /**
      * Returns true if both task of the same taskTitle have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -81,9 +91,9 @@ public class Task {
 
         return otherTask != null
                 && otherTask.getTaskTitle().equals(getTaskTitle())
+                && otherTask.getWeek() == getWeek()
                 && (otherTask.getTaskDay().equals(getTaskDay())
-                && otherTask.getTaskDeadline().equals(getTaskDeadline())
-                || otherTask.getTaskDescription().equals(getTaskDescription()));
+                && otherTask.getTaskDeadline().equals(getTaskDeadline()));
     }
 
     /**
@@ -103,6 +113,7 @@ public class Task {
         Task otherTask = (Task) other;
         return otherTask.getTaskTitle().equals(getTaskTitle())
                 && otherTask.getTaskDay().equals(getTaskDay())
+                && otherTask.getWeek() == getWeek()
                 && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 && otherTask.getTaskDescription().equals(getTaskDescription())
                 && otherTask.getTaskTime().equals(getTaskTime())

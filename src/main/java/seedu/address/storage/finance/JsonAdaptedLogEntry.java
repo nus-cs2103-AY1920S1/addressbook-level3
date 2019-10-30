@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.logentry.LogEntry;
@@ -13,6 +16,20 @@ import seedu.address.model.finance.logentry.LogEntry;
 /**
  * Jackson-friendly version of {@link LogEntry}.
  */
+
+//@@author tohcejasmine-reused
+//Reused from https://stackoverflow.com/questions/30362446/deserialize-json-with-jackson-into
+// -polymorphic-types-a-complete-example-is-giv/30386694#30386694 with minor modifications
+// To save polymorphic log entries
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = JsonAdaptedSpendLogEntry.class, name = "AdaptedSpendLogEntry"),
+        @JsonSubTypes.Type(value = JsonAdaptedIncomeLogEntry.class, name = "AdaptedIncomeLogEntry"),
+        @JsonSubTypes.Type(value = JsonAdaptedBorrowLogEntry.class, name = "AdaptedBorrowLogEntry"),
+        @JsonSubTypes.Type(value = JsonAdaptedLendLogEntry.class, name = "AdaptedLendLogEntry") }
+)
+//@@author
 abstract class JsonAdaptedLogEntry {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Log entry's %s field is missing!";

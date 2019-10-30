@@ -13,7 +13,7 @@ import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.task.Task;
 
 /**
- * Adds a task to the address book.
+ * Adds a <code>ToDoTask</code> to Modulo's calendar.
  */
 public class AddCommand extends Command {
 

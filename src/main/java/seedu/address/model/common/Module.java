@@ -7,7 +7,9 @@ import java.util.Objects;
 import seedu.address.model.cap.person.Credit;
 import seedu.address.model.cap.person.Description;
 import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.person.Semester;
 import seedu.address.model.cap.person.Title;
 
 /**
@@ -16,12 +18,14 @@ import seedu.address.model.cap.person.Title;
 public class Module {
     private ModuleCode moduleCode;
     private Title title;
+    private Semester semester;
     private Description description;
     private Credit credit;
     private Faculty faculty;
     private boolean isSu;
     private String preclusion;
     private String prerequisite;
+    private Grade grade;
 
     /**
      *  Constructs a {@code Module}.
@@ -32,21 +36,25 @@ public class Module {
      * @param faculty The faculty the module is held at.
      * @param isSu Satisfactory and unsatisfactory option for grade
      */
-    public Module(ModuleCode moduleCode, Title title, Description description, Credit credit, Faculty faculty,
-                  boolean isSu, String preclusion, String prerequisite) {
+    public Module(ModuleCode moduleCode, Title title, Semester semester, Description description,
+                  Credit credit, Faculty faculty,
+                  boolean isSu, String preclusion, String prerequisite, Grade grade) {
         requireNonNull(moduleCode);
         requireNonNull(title);
+        requireNonNull(semester);
         requireNonNull(credit);
         requireNonNull(faculty);
         requireNonNull(isSu);
         this.moduleCode = moduleCode;
         this.title = title;
+        this.semester = semester;
         this.description = description;
         this.credit = credit;
         this.faculty = faculty;
         this.isSu = isSu;
         this.preclusion = preclusion;
         this.prerequisite = prerequisite;
+        this.grade = grade;
     }
 
     /**
@@ -56,10 +64,12 @@ public class Module {
      * @param description
      * @param credit
      * @param faculty
+     * @param grade
      */
-    public Module(ModuleCode moduleCode, Title title, Description description, Credit credit, Faculty faculty) {
-        this(moduleCode, title, description, credit,
-                faculty, true, "None", "None");
+    public Module(ModuleCode moduleCode, Title title, Semester semester, Description description, Credit credit,
+        Faculty faculty, Grade grade) {
+            this(moduleCode, title, semester, description, credit,
+                faculty, true, "None", "None", grade);
     }
 
     public ModuleCode getModuleCode() {
@@ -68,6 +78,10 @@ public class Module {
 
     public Title getTitle() {
         return title;
+    }
+
+    public Semester getSemester() {
+        return semester;
     }
 
     public Credit getCredit() {
@@ -80,6 +94,10 @@ public class Module {
 
     public Description getDescription() {
         return description;
+    }
+
+    public Grade getGrade() {
+        return grade;
     }
 
     /**
@@ -111,13 +129,14 @@ public class Module {
         return otherModule.getModuleCode().equals(getModuleCode())
                 && otherModule.getTitle().equals(getTitle())
                 && otherModule.getCredit() == (getCredit())
-                && otherModule.getFaculty().equals(getFaculty());
+                && otherModule.getFaculty().equals(getFaculty())
+                && otherModule.getGrade().equals(getGrade());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, title, credit, faculty);
+        return Objects.hash(moduleCode, title, credit, faculty, grade);
     }
 
     @Override
@@ -126,11 +145,14 @@ public class Module {
         builder.append(getModuleCode())
                 .append(" Title: ")
                 .append(getTitle())
+                .append(" Semester: ")
+                .append(getSemester())
                 .append(" Credit: ")
                 .append(getCredit())
                 .append(" Faculty: ")
-                .append(getFaculty());
+                .append(getFaculty())
+                .append(" Grade: ")
+                .append(getGrade());
         return builder.toString();
     }
-
 }

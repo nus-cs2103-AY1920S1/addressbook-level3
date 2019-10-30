@@ -11,7 +11,7 @@ import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.task.Task;
 
 /**
- * Deletes a task identified using it's displayed index from the address book.
+ * Deletes a <code>Task</code> identified using it's displayed index from Modulo's calendar.
  */
 public class DeleteCommand extends Command {
 
@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
         List<Task> lastShownList = calendarModel.getFilteredTaskList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         }
 
         Task taskToDelete = lastShownList.get(targetIndex.getZeroBased());

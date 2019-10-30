@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.cap.ReadOnlyModulo;
+import seedu.address.model.cap.ReadOnlyCapLog;
 
 
 /**
@@ -28,32 +28,32 @@ public class JsonCapStorage implements CapStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getCapLogFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyModulo> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyCapLog> readCapLog() throws DataConversionException {
+        return readCapLog(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readCapLog()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyModulo> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyCapLog> readCapLog(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableCapLog> jsonCapLog = JsonUtil.readJsonFile(
+                filePath, JsonSerializableCapLog.class);
+        if (!jsonCapLog.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonCapLog.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,21 +61,21 @@ public class JsonCapStorage implements CapStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyModulo addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveCapLog(ReadOnlyCapLog capLog) throws IOException {
+        saveCapLog(capLog, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyModulo)}.
+     * Similar to {@link #saveCapLog(ReadOnlyCapLog)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyModulo addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveCapLog(ReadOnlyCapLog capLog, Path filePath) throws IOException {
+        requireNonNull(capLog);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCapLog(capLog), filePath);
     }
 
 }

@@ -84,4 +84,8 @@ public interface CalendarModel {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
+
+    void switchSortType(String sortType);
+
+    void updateLists();
 }

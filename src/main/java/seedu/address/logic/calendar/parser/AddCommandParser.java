@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.calendar.commands.AddCommand;
+import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 import seedu.address.model.calendar.tag.TaskTag;
 import seedu.address.model.calendar.task.Task;
@@ -20,6 +21,7 @@ import seedu.address.model.calendar.task.TaskDeadline;
 import seedu.address.model.calendar.task.TaskDescription;
 import seedu.address.model.calendar.task.TaskTime;
 import seedu.address.model.calendar.task.TaskTitle;
+import seedu.address.model.calendar.task.ToDoTask;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -36,20 +38,21 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TASKTITLE, PREFIX_TASKDAY, PREFIX_TASKDESCRIPTION,
                         PREFIX_TASKDEADLINE, PREFIX_TASKTIME, PREFIX_TASKTAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TASKTITLE, PREFIX_TASKTIME, PREFIX_TASKDAY,
-                PREFIX_TASKDESCRIPTION) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASKTITLE, PREFIX_TASKTIME, PREFIX_TASKDAY)
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         TaskTitle taskTitle = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TASKTITLE).get());
-        TaskDay taskDay = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TASKDAY).get());
+        TaskDay taskDay = ParserUtil.parseDay(argMultimap.getValue(PREFIX_TASKDAY).get());
         TaskDescription taskDescription =
                 ParserUtil.parseDescription(argMultimap.getValue(PREFIX_TASKDESCRIPTION).get());
-        TaskTime taskTime = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_TASKTIME).get());
+        TaskTime taskTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TASKTIME).get());
         TaskDeadline taskDeadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TASKDEADLINE).get());
         Set<TaskTag> taskTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASKTAG));
 
-        Task task = new Task(taskTitle, taskDay, taskDescription, taskDeadline, taskTime, taskTagList);
+        Task task = new ToDoTask(taskTitle, taskDay, taskDescription, taskDeadline, taskTime, taskTagList,
+            GoCommand.getCurrentWeek());
 
         return new AddCommand(task);
     }

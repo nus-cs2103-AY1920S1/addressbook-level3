@@ -9,6 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.model.calendar.task.Task;
 
 
@@ -20,6 +21,7 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     private final ObservableList<Task> mainTaskList;
+    private ObservableList<Task> weekTaskList;
 
     @FXML
     private ListView<Task> mondayListView;
@@ -41,21 +43,22 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
 
         this.mainTaskList = taskList;
+        weekTaskList = taskList.filtered(task -> task.getWeek() == GoCommand.getCurrentWeek() || task.isPersistent());
 
         FilteredList<Task> mondayTaskList =
-            taskList.filtered(task -> task.getTaskDay().toString().equals("monday"));
+            weekTaskList.filtered(task -> task.getTaskDay().toString().equals("monday"));
         FilteredList<Task> tuesdayTaskList =
-            taskList.filtered(task -> task.getTaskDay().toString().equals("tuesday"));
+            weekTaskList.filtered(task -> task.getTaskDay().toString().equals("tuesday"));
         FilteredList<Task> wednesdayTaskList =
-            taskList.filtered(task -> task.getTaskDay().toString().equals("wednesday"));
+            weekTaskList.filtered(task -> task.getTaskDay().toString().equals("wednesday"));
         FilteredList<Task> thursdayTaskList =
-            taskList.filtered(task -> task.getTaskDay().toString().equals("thursday"));
+            weekTaskList.filtered(task -> task.getTaskDay().toString().equals("thursday"));
         FilteredList<Task> fridayTaskList =
-            taskList.filtered(task -> task.getTaskDay().toString().equals("friday"));
+            weekTaskList.filtered(task -> task.getTaskDay().toString().equals("friday"));
         FilteredList<Task> saturdayTaskList =
-            taskList.filtered(task -> task.getTaskDay().toString().equals("saturday"));
+            weekTaskList.filtered(task -> task.getTaskDay().toString().equals("saturday"));
         FilteredList<Task> sundayTaskList =
-            taskList.filtered(task -> task.getTaskDay().toString().equals("sunday"));
+            weekTaskList.filtered(task -> task.getTaskDay().toString().equals("sunday"));
 
         mondayListView.setItems(mondayTaskList);
         tuesdayListView.setItems(tuesdayTaskList);
@@ -85,13 +88,16 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                for (int i = 0; i < mainTaskList.size(); i++) {
-                    if (mainTaskList.get(i).equals(task)) {
-                        setGraphic(new PersonCard(task, i + 1).getRoot());
+                for (int i = 0; i < weekTaskList.size(); i++) {
+                    if (weekTaskList.get(i).equals(task)) {
+                        if (task.isPersistent()) {
+                            setGraphic(new ModuleTaskCard(task, i + 1).getRoot());
+                        } else {
+                            setGraphic(new PersonCard(task, i + 1).getRoot());
+                        }
                         break;
                     }
                 }
-                // setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
             }
         }
     }
