@@ -17,13 +17,25 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** QR code of the current list should be shown to the user. */
+    private final boolean showQr;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    private CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showQr) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.showQr = showQr;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields,
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, false);
     }
 
     /**
@@ -31,7 +43,15 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields,
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean showQr) {
+        this(feedbackToUser, false, false, true);
     }
 
     public String getFeedbackToUser() {
@@ -46,6 +66,10 @@ public class CommandResult {
         return this.exit;
     }
 
+    public boolean isShowQr() {
+        return this.showQr;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -56,13 +80,14 @@ public class CommandResult {
             CommandResult other = (CommandResult) obj;
             return this.feedbackToUser.equals(other.feedbackToUser)
                     && this.showHelp == other.showHelp
-                    && this.exit == other.exit;
+                    && this.exit == other.exit
+                    && this.showQr == other.showQr;
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.feedbackToUser, this.showHelp, this.exit);
+        return Objects.hash(this.feedbackToUser, this.showHelp, this.exit, this.showQr);
     }
 
 }
