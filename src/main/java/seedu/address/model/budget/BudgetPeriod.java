@@ -15,7 +15,7 @@ public enum BudgetPeriod {
     private final String label;
     private final Period period;
 
-    private BudgetPeriod(String label, Period period) {
+    BudgetPeriod(String label, Period period) {
         this.label = label;
         this.period = period;
     }

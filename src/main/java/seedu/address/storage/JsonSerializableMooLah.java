@@ -65,7 +65,7 @@ class JsonSerializableMooLah {
     public MooLah toModelType() throws IllegalValueException, DataInconsistencyException {
         MooLah mooLah = new MooLah();
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
-            Budget budget = jsonAdaptedBudget.toModelType();
+            Budget budget = jsonAdaptedBudget.toModelType(expenses);
             boolean isDefaultBudget = budget.isSameBudget(Budget.createDefaultBudget());
             if (!isDefaultBudget) {
                 if (mooLah.hasBudget(budget)) {

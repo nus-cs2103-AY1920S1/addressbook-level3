@@ -2,6 +2,7 @@ package seedu.address.model.budget;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,6 @@ public class Budget {
     private final BudgetWindow window;
     private ObservableList<Expense> expenses;
     private boolean isPrimary;
-    private Percentage proportionUsed;
 
     //Constructor for user, four fields.
     public Budget(Description description, Price amount, Timestamp startDate, BudgetPeriod period) {
@@ -38,25 +38,15 @@ public class Budget {
         this.amount = amount;
         this.window = new BudgetWindow(startDate, period);
         this.expenses = FXCollections.observableArrayList();
-        this.proportionUsed = calculateProportionUsed();
     }
 
-    //Constructor for system, with expenses.
+    //Constructor for system.
     public Budget(Description description, Price amount, Timestamp startDate, BudgetPeriod period,
-                  ObservableList<Expense> expenses) {
+                  ObservableList<Expense> expenses, boolean isPrimary) {
         this(description, amount, startDate, period);
-        requireAllNonNull(expenses);
+        requireAllNonNull(expenses, isPrimary);
         this.expenses = expenses;
-        this.proportionUsed = calculateProportionUsed();
-    }
-
-    //Constructor for system, all fields.
-    public Budget(Description description, Price amount, Timestamp startDate, Timestamp endDate, BudgetPeriod period,
-                  ObservableList<Expense> expenses, boolean isPrimary, Percentage proportionUsed) {
-        this(description, amount, startDate, period, expenses);
-        requireAllNonNull(endDate, isPrimary, proportionUsed);
         this.isPrimary = isPrimary;
-        this.proportionUsed = proportionUsed;
     }
 
     public Description getDescription() {
@@ -83,10 +73,6 @@ public class Budget {
         return expenses;
     }
 
-    public Percentage getProportionUsed() {
-        return proportionUsed;
-    }
-
     /**
      * Dummy.
      * @return Dummy.
@@ -107,8 +93,7 @@ public class Budget {
      */
     public static Budget deepCopy(Budget other) {
         Budget budget = new Budget(other.description, other.amount, other.getStartDate(),
-                other.getEndDate(), other.getPeriod(), other.expenses, other.isPrimary,
-                other.proportionUsed);
+                other.getPeriod(), other.expenses, other.isPrimary);
         return budget;
     }
 
@@ -160,12 +145,12 @@ public class Budget {
         }
     }
 
-    public ObservableList<Expense> getCurrentPeriodExpenses() {
-        ObservableList<Expense> currentPeriodExpenses = FXCollections.observableArrayList();
+    public List<Expense> getCurrentPeriodExpenses() {
+        List<Expense> currentPeriodExpenses = new ArrayList<>();
         if (expenses != null) {
-            expenses.stream().forEach(expense -> {
-                if (withinCurrentPeriod(expense)) {
-                    currentPeriodExpenses.add(expense);
+            expenses.stream().forEach(e -> {
+                if (withinCurrentPeriod(e)) {
+                    currentPeriodExpenses.add(e);
                 }
             });
         }
@@ -195,12 +180,8 @@ public class Budget {
         return Percentage.calculate(calculateExpenseSum(), amount.getAsDouble());
     }
 
-    public void updateProportionUsed() {
-        proportionUsed = calculateProportionUsed();
-    }
-
     public boolean isNear() {
-        return getProportionUsed().reach(IS_NEAR_THRESHOLD);
+        return calculateProportionUsed().reach(IS_NEAR_THRESHOLD);
     }
 
     /**
@@ -220,10 +201,6 @@ public class Budget {
 
     public void setToNotPrimary() {
         isPrimary = false;
-    }
-
-    public void setIsPrimary(boolean status) {
-        isPrimary = status;
     }
 
     /**
@@ -254,14 +231,13 @@ public class Budget {
                 && otherBudget.amount.equals(amount)
                 && otherBudget.window.equals(window)
                 && otherBudget.expenses.equals(expenses)
-                && otherBudget.isPrimary == isPrimary
-                && otherBudget.proportionUsed.equals(proportionUsed);
+                && otherBudget.isPrimary == isPrimary;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, amount, window, expenses, isPrimary, proportionUsed);
+        return Objects.hash(description, amount, window, expenses, isPrimary);
     }
 
     @Override

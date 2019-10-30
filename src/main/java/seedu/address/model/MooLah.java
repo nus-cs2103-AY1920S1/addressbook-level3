@@ -127,12 +127,12 @@ public class MooLah implements ReadOnlyMooLah {
             Budget primaryBudget = budgets.getPrimaryBudget();
             p.setBudget(primaryBudget);
             primaryBudget.addExpense(p);
-            primaryBudget.updateProportionUsed();
+            //primaryBudget.updateProportionUsed();
         } else {
             Budget budget = budgets.getBudgetWithName(p.getBudgetName());
             if (budget != null) {
                 budget.addExpense(p);
-                budget.updateProportionUsed();
+                //budget.updateProportionUsed();
             }
         }
         expenses.add(p);

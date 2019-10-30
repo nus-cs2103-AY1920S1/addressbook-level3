@@ -136,7 +136,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         }
         Budget copy = Budget.deepCopy(getPrimaryBudget());
         copy.normalize(pastDate);
-        copy.updateProportionUsed();
+        //copy.updateProportionUsed();
         setBudget(getPrimaryBudget(), copy);
     }
 
