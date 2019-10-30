@@ -6,12 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
-import seedu.address.model.person.parameters.PatientReferenceId;
-import seedu.address.model.person.parameters.PersonReferenceId;
 
 /**
  * Jackson-friendly version of {@link Event}.
@@ -53,13 +52,15 @@ class JsonAdaptedEvent {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted event.
      */
-    public Event toModelType() throws IllegalValueException {
+    public Event toModelType(boolean isStaff) throws IllegalValueException {
 
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    PatientReferenceId.class.getSimpleName()));
+                    ReferenceId.class.getSimpleName()));
         }
-        final PersonReferenceId patientReferenceId = ParserUtil.parsePatientReferenceId(id);
+        final ReferenceId modelReferenceId = isStaff
+                ? ParserUtil.parseStaffReferenceId(id)
+                : ParserUtil.parsePatientReferenceId(id);
 
         if (startTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Start Date"));
@@ -91,6 +92,6 @@ class JsonAdaptedEvent {
         }
 
         final Status eventStatus = new Status(status);
-        return new Event(patientReferenceId, eventTiming, eventStatus);
+        return new Event(modelReferenceId, eventTiming, eventStatus);
     }
 }

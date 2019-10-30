@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.events.AppointmentBook;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.DateTime;
@@ -19,6 +20,28 @@ import seedu.address.model.person.parameters.StaffReferenceId;
 public class SampleAppointmentDataUtil {
     private static DateTime toDateTime(String dateTime) {
         return DateTime.tryParseSimpleDateFormat(dateTime);
+    }
+
+    /**
+     * Parses the {@refId} as a patient's {@code ReferenceId}.
+     */
+    private static ReferenceId patientRefId(String refId) {
+        try {
+            return PersonReferenceId.parsePatientReferenceId(refId);
+        } catch (ParseException ex) {
+            throw new AssertionError("Error should be thrown from sample test data: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Parses the {@refId} as a staff's {@code ReferenceId}.
+     */
+    private static ReferenceId staffRefId(String refId) {
+        try {
+            return PersonReferenceId.parseStaffReferenceId(refId);
+        } catch (ParseException ex) {
+            throw new AssertionError("Error should be thrown from sample test data: " + ex.getMessage());
+        }
     }
 
     public static Event[] getSampleAppointments() {

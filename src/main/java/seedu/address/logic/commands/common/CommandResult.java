@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.logic.commands.AddAppCommand;
-import seedu.address.logic.commands.CancelAppCommand;
+import seedu.address.logic.commands.appointments.AddAppCommand;
+import seedu.address.logic.commands.appointments.CancelAppCommand;
 import seedu.address.model.events.Event;
 
 /**
