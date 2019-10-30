@@ -15,9 +15,10 @@ public class UnregisterCommand extends Command implements ReversibleCommand {
 
     public static final String COMMAND_WORD = "unregister";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unregisters a borrower from the library record "
-            + "identified by the \n" + "borrower ID. \n"
-            + "Parameters: BORROWER_ID (Must be a valid borrower ID) \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unregisters a borrower from the library "
+            + "record identified by the borrower ID. \n"
+            + "Parameters: BORROWER_ID (Must be a valid \n"
+            + "borrower ID) \n"
             + "Example: " + COMMAND_WORD + " id/K0001";
 
     public static final String MESSAGE_SUCCESS = "Borrower unregistered: %1$s";

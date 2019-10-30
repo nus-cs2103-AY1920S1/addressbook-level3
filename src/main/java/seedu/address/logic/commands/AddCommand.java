@@ -18,12 +18,12 @@ public class AddCommand extends Command implements ReversibleCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a book to the catalog. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a book to the catalog. \n\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_AUTHOR + "AUTHOR  \n"
             + "[ " + PREFIX_SERIAL_NUMBER + "SERIAL_NUMBER] "
-            + "[" + PREFIX_GENRE + "GENRE]...\n"
+            + "[" + PREFIX_GENRE + "GENRE]...\n\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Harry Potter "
             + PREFIX_SERIAL_NUMBER + "B0001 "
