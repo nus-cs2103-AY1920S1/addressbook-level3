@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.displays.JsFileUploader;
-import dream.fcard.gui.controllers.displays.McqOptionsSetter;
-import dream.fcard.gui.controllers.displays.TestCaseUploader;
+import dream.fcard.gui.controllers.displays.createandeditdeck.javacard.TestCaseUploader;
+import dream.fcard.gui.controllers.displays.createandeditdeck.jscard.JsFileUploader;
+import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptionsSetter;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;

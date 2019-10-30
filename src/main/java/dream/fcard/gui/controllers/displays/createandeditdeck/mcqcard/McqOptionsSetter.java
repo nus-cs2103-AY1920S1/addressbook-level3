@@ -1,4 +1,4 @@
-package dream.fcard.gui.controllers.displays;
+package dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard;
 
 import java.io.IOException;
 import java.util.ArrayList;

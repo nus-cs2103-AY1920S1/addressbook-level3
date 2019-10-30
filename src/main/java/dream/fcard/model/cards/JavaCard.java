@@ -12,6 +12,7 @@ public class JavaCard extends FlashCard {
 
     private String question;
     private ArrayList<TestCase> testCases;
+    private String attempt;
 
     public JavaCard(String question, ArrayList<TestCase> testCases) {
         this.testCases = testCases;
@@ -44,13 +45,8 @@ public class JavaCard extends FlashCard {
         //irrelevant
     }
 
-    //@Override
-    //public boolean hasChoices() {
-    //    return false;
-    //}
-    //
-    //@Override
-    //public int compareTo(FlashCard card) {
-    //    return 0;
-    //}
+    @Override
+    public FlashCard duplicate() {
+        return new JavaCard(question, testCases);
+    }
 }

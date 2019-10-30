@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <fx:root id="Content" fx:id="deckDisplay" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="633.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -14,5 +15,6 @@
                 <Button fx:id="nextButton" alignment="CENTER" mnemonicParsing="false" text="Next" />
             </buttons>
         </ButtonBar>
+      <Label fx:id="scoreLabel" alignment="CENTER" layoutX="80.0" layoutY="373.0" prefHeight="17.0" prefWidth="60.0" text="15/20" />
     </children>
 </fx:root>

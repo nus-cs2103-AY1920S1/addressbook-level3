@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
             prefWidth="620.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="dream.fcard.gui.components.JsEditorController">
+            fx:controller="dream.fcard.gui.controllers.jsjava.JsEditorController">
     <children>
         <ButtonBar layoutX="4.0" layoutY="466.0" prefHeight="33.0" prefWidth="611.0">
             <buttons>

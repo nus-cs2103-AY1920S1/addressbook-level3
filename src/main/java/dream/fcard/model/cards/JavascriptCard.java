@@ -14,6 +14,8 @@ public class JavascriptCard extends FlashCard {
 
     protected String front; //question
     protected String back;
+    protected Statistics stats;
+    protected String attempt;
 
 
     /**
@@ -54,6 +56,11 @@ public class JavascriptCard extends FlashCard {
         obj.put(Schema.FRONT_FIELD, front);
         obj.put(Schema.BACK_FIELD, back);
         return new JsonValue(obj);
+    }
+
+    @Override
+    public FlashCard duplicate() {
+        return new JavascriptCard(front, back, 0);
     }
 
     /**
@@ -99,14 +106,19 @@ public class JavascriptCard extends FlashCard {
         return back;
     }
 
-    ///**
-    // * Returns boolean value false.
-    // * Since no choices exist in this class.
-    // *
-    // * @return Boolean value false.
-    // */
-    //@Override
-    //public boolean hasChoices() {
-    //    return false;
-    //}
+    /**
+     * Return the user's attempted code.
+     * @return code attempt
+     */
+    public String getAttempt() {
+        return attempt;
+    }
+
+    /**
+     * Store the user's attempted code.
+     * @param attempt code attempt
+     */
+    public void setAttempt(String attempt) {
+        this.attempt = attempt;
+    }
 }

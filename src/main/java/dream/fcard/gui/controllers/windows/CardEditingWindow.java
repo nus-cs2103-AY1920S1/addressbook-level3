@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.displays.McqOptionsSetter;
+import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptionsSetter;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -134,12 +132,7 @@ public class CardEditingWindow extends AnchorPane {
             String front = questionField.getText();
             String back = Integer.toString(mcqOptionsSetter.getIndexOfRightAnswer()); //already 1-indexed
             ArrayList<String> choices = mcqOptionsSetter.getChoices();
-            try {
-                return new MultipleChoiceCard(front, back, choices);
-            } catch (DuplicateInChoicesException | IndexNotFoundException e) {
-                displayMessage.accept("You have duplicate options!");
-                return null;
-            }
+            return new MultipleChoiceCard(front, back, choices);
         } else if (cardType.equals("Front-back")) {
             // validation - non-empty fields
             if (questionField.getText().isBlank()) {

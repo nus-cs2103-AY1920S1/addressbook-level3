@@ -1,9 +1,11 @@
-package dream.fcard.gui.controllers.displays;
+package dream.fcard.gui.controllers.displays.displayingdecks;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import dream.fcard.gui.controllers.displays.createandeditdeck.EditDeckDisplay;
+import dream.fcard.gui.controllers.displays.test.TestDisplay;
 import dream.fcard.gui.controllers.windows.CardEditingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;

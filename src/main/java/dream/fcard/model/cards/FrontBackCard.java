@@ -55,6 +55,11 @@ public class FrontBackCard extends FlashCard {
         return new JsonValue(obj);
     }
 
+    @Override
+    public FlashCard duplicate() {
+        return new FrontBackCard(front, back, 0);
+    }
+
     /**
      * @param in String input by user.
      * @return Boolean value, if correct return true, else return false.

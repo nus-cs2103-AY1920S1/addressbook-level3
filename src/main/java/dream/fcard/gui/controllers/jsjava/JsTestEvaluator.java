@@ -1,4 +1,4 @@
-package dream.fcard.gui.components;
+package dream.fcard.gui.controllers.jsjava;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -22,7 +22,7 @@ public class JsTestEvaluator {
     @FXML
     private TextArea consoleOutput;
 
-    private Consumer<Pair<Integer, Pair<Integer, Integer>>> returnCode;
+    private Consumer<Pair<String, Pair<Integer, Integer>>> returnCode;
     private JsTestCaseRunner runner;
     private JavascriptCard card;
     /**
@@ -37,7 +37,7 @@ public class JsTestEvaluator {
         consoleOutput.setText(runner.getConsoleDisplay());
     }
 
-    public void setCodeReturner(Consumer<Pair<Integer, Pair<Integer, Integer>>> returnResult) {
+    public void setCodeReturner(Consumer<Pair<String, Pair<Integer, Integer>>> returnResult) {
         this.returnCode = returnResult;
     }
     public void setCard(JavascriptCard c) {

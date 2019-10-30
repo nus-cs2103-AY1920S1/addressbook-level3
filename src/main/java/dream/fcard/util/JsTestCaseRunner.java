@@ -29,7 +29,7 @@ public class JsTestCaseRunner {
      *
      * @return (TotalTestCases, ( TotalCorrect, TotalWrong)) in a Pair object.
      */
-    public Pair<Integer, Pair<Integer, Integer>> testCode() {
+    public Pair<String, Pair<Integer, Integer>> testCode() {
         String finalCode = processjs(userAttempt, expectedOutput);
         String output = JavascriptRunner.evaluateString(finalCode);
         consoleDisplay = output;
@@ -37,10 +37,9 @@ public class JsTestCaseRunner {
                 .replaceAll("fail", "")
                 .strip();
         Scanner sc = new Scanner(output);
-        int total = sc.nextInt();
         int correct = sc.nextInt();
         int wrong = sc.nextInt();
-        return new Pair<>(total, new Pair<>(correct, wrong));
+        return new Pair<>(userAttempt, new Pair<>(correct, wrong));
     }
 
     /**
@@ -54,7 +53,6 @@ public class JsTestCaseRunner {
         StringBuilder sb = new StringBuilder();
         sb.append("var correct = 0;\n"
                 + "var wrong = 0;\n"
-                + "var total = 0;\n"
                 + "\n"
                 + "function assert(actual, expected) {\n"
                 + "    if (actual == expected) {\n"
@@ -68,7 +66,7 @@ public class JsTestCaseRunner {
                 + "}\n");
         sb.append(userInput).append("\n");
         sb.append(expectedOutput).append("\n");
-        sb.append("print(total, correct, wrong);\n");
+        sb.append("print(correct, wrong);\n");
         return sb.toString();
     }
 

@@ -1,4 +1,4 @@
-package dream.fcard.gui.controllers.displays;
+package dream.fcard.gui.controllers.displays.createandeditdeck.jscard;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package dream.fcard.gui.controllers.cards;
+package dream.fcard.gui.controllers.cards.frontview;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,22 +36,24 @@ public class McqCard extends AnchorPane {
     @SuppressWarnings("unchecked")
     private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
 
-    public McqCard(MultipleChoiceCard mcqCard, Consumer<Integer> seeBackOfMcqCard, int preselectedOption) {
-        //if preselectedOption is -1, it means that the user has not done this card before in this session.
+    public McqCard(MultipleChoiceCard mcqCard, Consumer<Boolean> seeBackOfMcqCard) {
+        //if userAttempt in the card is -1, it means that the user has not done this card before in this session.
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Cards/Front/MCQCard.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
+                    .getResource("/view/Cards/Front/MCQCard.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             questionLabel.setText(mcqCard.getFront());
-            populateOptions(mcqCard, preselectedOption);
+            populateOptions(mcqCard);
             seeBackButton.setOnAction(e -> {
                 if (toggleGroup.getSelectedToggle() == null) {
                     displayMessage.accept("You need to select an option!");
                 } else {
                     RadioButton chosen = (RadioButton) toggleGroup.getSelectedToggle();
                     int selectedAnswer = toggleGroup.getToggles().indexOf(chosen) + 1;
-                    seeBackOfMcqCard.accept(selectedAnswer);
+                    mcqCard.setUserAttempt(selectedAnswer);
+                    seeBackOfMcqCard.accept(true);
                 }
             });
         } catch (IOException e) {
@@ -62,10 +64,9 @@ public class McqCard extends AnchorPane {
     /**
      * Used by TestDisplay to render all the options onto the card.
      * @param mcqCard the multiple choice card.
-     * @param preselectedOption the user's previous selection or -1.
      */
-    private void populateOptions(MultipleChoiceCard mcqCard, int preselectedOption) {
-        if (preselectedOption == -1) { //shuffle and deselect all choices
+    private void populateOptions(MultipleChoiceCard mcqCard) {
+        if (mcqCard.getUserAttempt() == -1) { //shuffle and deselect all choices
             ArrayList<String> shuffledChoices = mcqCard.getShuffledChoices();
             shuffledChoices.forEach(option -> {
                 RadioButton radioButton = new RadioButton(option);
@@ -75,7 +76,7 @@ public class McqCard extends AnchorPane {
         } else {
             //do not shuffle and select the preselected option
             ArrayList<String> previousArrangementOfChoices = mcqCard.getDisplayChoices();
-            int selectedIndex = preselectedOption - 1; // preselectedOption is 1-based
+            int selectedIndex = mcqCard.getUserAttempt() - 1; // userAttempt is 1-based
             for (int i = 0; i < previousArrangementOfChoices.size(); i++) {
                 RadioButton radioButton = new RadioButton(previousArrangementOfChoices.get(i));
                 radioButton.setToggleGroup(toggleGroup);

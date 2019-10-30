@@ -1,4 +1,4 @@
-package dream.fcard.gui.controllers.cards;
+package dream.fcard.gui.controllers.cards.frontview;
 
 import java.io.IOException;
 import java.util.function.Consumer;

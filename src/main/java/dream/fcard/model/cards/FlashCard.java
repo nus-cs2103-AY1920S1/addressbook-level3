@@ -98,7 +98,6 @@ public abstract class FlashCard implements JsonInterface {
      */
     //public abstract boolean hasChoices();
 
-    //public Statistics getStatistics() {
-    //    return cardStats;
-    //}
+    public abstract FlashCard duplicate();
+
 }

@@ -15,4 +15,13 @@ public abstract class Statistics {
         this.createdDate = LocalDateTime.now();
     }
 
+    /**
+     * @return The Statistics of a card or deck in the GUI.
+     */
+    public Node showStats() {
+        //Further implementation needed.
+
+        return null;
+    }
+
 }

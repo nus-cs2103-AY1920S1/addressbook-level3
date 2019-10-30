@@ -1,4 +1,4 @@
-package dream.fcard.gui.controllers.displays;
+package dream.fcard.gui.controllers.displays.displayingdecks;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -42,7 +42,7 @@ public class CardTitle extends HBox {
         }
     }
 
-    void disableDelete() {
+    public void disableDelete() {
         deleteButton.setDisable(true);
     }
 }

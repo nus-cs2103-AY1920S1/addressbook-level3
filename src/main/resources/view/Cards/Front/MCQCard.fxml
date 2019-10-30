@@ -9,7 +9,7 @@
 
 <fx:root id="cardholder" prefHeight="334.0" prefWidth="274.0" style="-fx-background-color: #e3e3e3;" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="questionLabel" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="98.0" prefWidth="243.0" text="Question goes here" textAlignment="CENTER" />
+        <Label fx:id="questionLabel" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="98.0" prefWidth="243.0" text="Question goes here" textAlignment="CENTER" wrapText="true" />
         <Button fx:id="seeBackButton" layoutX="104.0" layoutY="282.0" mnemonicParsing="false" text="See Back" />
         <ScrollPane fx:id="choiceScrollPane" layoutX="22.0" layoutY="112.0" prefHeight="154.0" prefWidth="228.0">
          <content>
