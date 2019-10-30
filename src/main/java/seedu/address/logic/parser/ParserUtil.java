@@ -14,10 +14,12 @@ import java.util.stream.Collectors;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.PanelName;
+import seedu.address.model.person.Period;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.reminders.Reminder;
@@ -155,6 +157,24 @@ public class ParserUtil {
     public static Frequency parseFrequency(String stringFreq) {
         requireNonNull(stringFreq);
         return Frequency.parse(stringFreq);
+    }
+
+    /**
+     * Parses a time in String to ArrayList.
+     * @param period the time as a String.
+     * @return the specified time as Date.
+     */
+    public static Period parsePeriods(String period) throws ParseException {
+        requireNonNull(period);
+        String trimmedPeriod = period.trim();
+
+        long duration;
+        char interval;
+
+        duration = Long.parseLong(period.substring(0, period.length() - 1));
+        interval = period.charAt(period.length() - 1);
+
+        return new Period(duration, interval);
     }
 
     /**

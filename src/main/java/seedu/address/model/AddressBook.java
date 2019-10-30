@@ -128,6 +128,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+
+    public void updateBudgets() {
+        budgets.updateBudgets();
+    }
+
+
     /**
      * When Wishes and WishReminders are read from list, new instances are created.
      * As such editing a wish after loading a file may result in EntrySpecificCondition not updating wish accordingly.
