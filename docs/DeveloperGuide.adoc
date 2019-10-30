@@ -435,6 +435,7 @@ separately under 1 mode, using different commands.
 
 ==== Implementation
 * **Model**:
+
 In addition to the `filteredRestaurantList` that contains all the restaurants in the restaurant database,
 `ModelManager` now contains a `editingRestaurantList`, which contains and allows access to the restaurant
 currently under EditMode. Upon calling of `editmode INDEX` command, the restaurant
@@ -444,31 +445,46 @@ will create a new restaurant with the edited attributes and replace the restaura
 with the new edited restaurant.
 
 * **Logic**:
+
 The `Logic` for EditMode is facilitated by `Context` enum type, which contains the following constants:
-`GLOBAL`, `CUSTOMER`, `RESTAURANT`, `DELIVERYMEN` and `EDITING`.
-A different `Parser` will parse the `userInput` based on the current `Context`.
+`GLOBAL`, `CUSTOMER`, `RESTAURANT`, `DELIVERYMEN` and `EDITING`. It determines the `Context` the application is in,
+as well as the commands the user can access.
 
-`userInput` will always be parsed by the universal parser first. If command word in userinput matches
-none of the universal commands, then the context specific parser will parse it based on the context
-universal parser is in, either EDITING or RESTAURANT. The reason why universal parser always parses
-userinput first is because
-the universal commands are supposed to be accessible in all context.
+It is contained inside `UniversalParser` as an attribute. When the user inputs the command,
+`userInput` will always be parsed by `UniversalParser` first, regardless of the current `Context`.
+The reason for this is to check for universal commands, which are accessible in all `Context`.
+Subsequently, if the command word in `userInput` matches none of the universal commands, then `UniversalParser`
+will create a context specific `Parser` based on the current `Context` it is in, which takes over and parses the
+`userInput`. Any context switching command will then change the `Context` in `UniversalParser`.
 
-The `switch` command will change the current context to `Restaurant`, while
-the `editmode` command will change the current context to `Editing`,
-the `exitedit` command will exit the `Editing` context and return to the `Restaurant` context.
-and commands for EditMode can only be accessed / unlocked if under `Editing` Context.
+The following class diagram shows the structure of the `UniversalParser`:
+
+NOTE: Insert PNG for ParserClassDiagram.puml
+
+//The `editModeCommand` is only accessible if current `Context` in `UniversalParser` is `Context.RESTAURANT`.
+//The `switch` command will change the current context to `Restaurant`, while
+//the `editmode` command will change the current context to `Editing`,
+//the `exitedit` command will exit the `Editing` context and return to the `Restaurant` context.
+//and commands for EditMode can only be accessed / unlocked if under `Editing` Context.
+
+The following activity diagram summarises what happens when the user enters the command to enter EditMode:
+
+NOTE: Insert PNG for ParserActivityDiagram.puml
 
 * **UI**:
 
-Current context will be passed to `MainWindow` in the Ui package by the command result returned by the command.
+Commands that change the `Context`, and hence the UI, will pass the new `Context` to `MainWindow` in the Ui package
+via the `CommandResult` returned by the command.
+When `MainWindow` receives this , it will do the changes to the Ui accordingly via the function call
+`MainWindow#changeDisplay()`.
 
-Changes to the UI for EditMode is made accordingly if under `Editing` Context.
-An extra StackPane showing the restaurant under EditMode will be displayed,
-while the StackPane displaying the list of Restaurants originally will be filled with the
-restaurant's Food menu instead.
-Once `Editing` context is exited, the stackpane will be hidden, and the list of restaurants will be shown
-again
+`editModeCommand` changes the `Context` to `Context.EDITING`. `MainWindow` will then display an extra `StackPane`
+showing the restaurant under EditMode, while the `StackPane` displaying the list of Restaurants
+originally will be filled with the restaurant's `Food` menu instead.
+Once `exitEditCommand` is called, `Editing` context is exited, the stackpane will be hidden,
+and the list of restaurants will be shown again.
+
+The following sequence diagram summarises how the `editModeCommand` changes the Ui:
 
 NOTE: Insert PNG for MainWindowSequenceDiagram.puml
 
