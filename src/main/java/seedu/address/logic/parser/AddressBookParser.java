@@ -93,17 +93,17 @@ public class AddressBookParser {
             return new FilterCommandParser().parse(arguments);
 
         case GenReportCommand.COMMAND_WORD:
-            return new GenReportCommandParser().parse(arguments);  
-            
+            return new GenReportCommandParser().parse(arguments);
+
         case GenReportsCommand.COMMAND_WORD:
             return new GenReportsCommand();
 
         case GenReportSummaryCommand.COMMAND_WORD:
             return new GenReportSummaryCommand();
-            
+
         case ShowNotificationsCommand.COMMAND_WORD:
             return new ShowNotificationsCommand();
-            
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
