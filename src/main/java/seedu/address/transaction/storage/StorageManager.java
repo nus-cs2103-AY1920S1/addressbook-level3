@@ -27,7 +27,7 @@ public class StorageManager implements Storage {
 
     private final File file;
     private final Logger logger = new LogsCenter().getLogger(getClass());
-    private final seedu.address.person.model.GetPersonByNameOnlyModel personModel;
+    private final GetPersonByNameOnlyModel personModel;
 
     public StorageManager(File file, GetPersonByNameOnlyModel personModel) {
         this.file = file;

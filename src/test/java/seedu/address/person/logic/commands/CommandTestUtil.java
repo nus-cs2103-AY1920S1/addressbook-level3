@@ -96,7 +96,8 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
                                             Model expectedModel) {
         try {
-            TransactionList transactionList = TypicalTransactions.getTransactionListWithReimbursementNeeded();
+            TypicalTransactions typicalTransactions = new TypicalTransactions();
+            TransactionList transactionList = typicalTransactions.getTransactionListWithReimbursementNeeded();
             ReimbursementList reimbursementList = TYPICAL_REIMBURSEMENTS.getTypicalReimbursements();
 
             //all related ModelManagers
@@ -153,7 +154,8 @@ public class CommandTestUtil {
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
-        TransactionList transactionList = TypicalTransactions.getTransactionListWithReimbursementNeeded();
+        TypicalTransactions typicalTransactions = new TypicalTransactions();
+        TransactionList transactionList = typicalTransactions.getTransactionListWithReimbursementNeeded();
         ReimbursementList reimbursementList = TYPICAL_REIMBURSEMENTS.getTypicalReimbursements();
 
         Path userPrefPath = Paths.get("data/test/userPrefs.txt");
@@ -218,7 +220,8 @@ public class CommandTestUtil {
                                                                 Model expectedModel,
                                                                 seedu.address.transaction.model.Model expectedTModel) {
         try {
-            TransactionList transactionList = TypicalTransactions.getTransactionListWithReimbursementNeeded();
+            TypicalTransactions typicalTransactions = new TypicalTransactions();
+            TransactionList transactionList = typicalTransactions.getTransactionListWithReimbursementNeeded();
             ReimbursementList reimbursementList = TYPICAL_REIMBURSEMENTS.getTypicalReimbursements();
 
             //all related ModelManagers

@@ -50,9 +50,36 @@ public class EditCommandParser implements CommandParserWithPersonModel {
                 PREFIX_PERSON)) {
             throw new ParseException(MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
         }
-
-        EditCommand.EditTransactionDescriptor editTransactionDescriptor =
-                constructDescriptor(argMultimap, personModel);
+        EditCommand.EditTransactionDescriptor editTransactionDescriptor = new EditCommand.EditTransactionDescriptor();
+        if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
+            editTransactionDescriptor.setDate(argMultimap.getValue(PREFIX_DATETIME).get());
+            try {
+                LocalDate.parse(argMultimap.getValue(PREFIX_DATETIME).get(), DATE_TIME_FORMATTER);
+            } catch (Exception e) {
+                throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
+            }
+        }
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            editTransactionDescriptor.setDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        }
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editTransactionDescriptor.setCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+        }
+        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
+            try {
+                editTransactionDescriptor.setAmount(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()));
+            } catch (NumberFormatException e) {
+                throw new ParseException(TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT);
+            }
+        }
+        if (argMultimap.getValue(PREFIX_PERSON).isPresent()) {
+            try {
+                personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+            } catch (PersonNotFoundException e) {
+                throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
+            }
+            editTransactionDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());
+        }
         return new EditCommand(index, editTransactionDescriptor);
     }
 
@@ -64,7 +91,15 @@ public class EditCommandParser implements CommandParserWithPersonModel {
         return Stream.of(prefixes).anyMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 
-    private EditCommand.EditTransactionDescriptor constructDescriptor(ArgumentMultimap argMultimap,
+    /**
+     * Constructs a {@code EditCommand.EditTransactionDescriptor} based on the {@ArgumentMultimap}
+     * @param argMultimap ArgumentMultimap
+     * @param personModel GetPersonByNameOnlyModel
+     * @return EditTransactionDescriptor
+     * @throws ParseException If wrong user input format
+     * @throws NoSuchPersonException If the inputted person is not in the personModel
+     */
+    /*private EditCommand.EditTransactionDescriptor constructDescriptor(ArgumentMultimap argMultimap,
                                                                       GetPersonByNameOnlyModel personModel)
             throws ParseException, NoSuchPersonException {
         EditCommand.EditTransactionDescriptor editTransactionDescriptor = new EditCommand.EditTransactionDescriptor();
@@ -98,5 +133,5 @@ public class EditCommandParser implements CommandParserWithPersonModel {
             editTransactionDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());
         }
         return editTransactionDescriptor;
-    }
+    }*/
 }

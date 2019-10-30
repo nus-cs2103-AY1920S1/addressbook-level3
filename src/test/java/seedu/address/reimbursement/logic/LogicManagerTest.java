@@ -18,7 +18,6 @@ import seedu.address.testutil.TypicalReimbursements;
 public class LogicManagerTest {
 
     private File file;
-    private File tFile;
 
     private seedu.address.reimbursement.model.Model reimbursementModel;
     private seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
@@ -37,7 +36,6 @@ public class LogicManagerTest {
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             file = File.createTempFile("testingLogic", "tempReimbursement.txt");
             reimbursementStorage = new StorageManager(file);
-            tFile = File.createTempFile("testingLogic", "tempTransaction.txt");
             transactionModel =
                     new seedu.address.transaction.model.ModelManager(typicalReimbursements.getTypicalTransactions());
             logic =
