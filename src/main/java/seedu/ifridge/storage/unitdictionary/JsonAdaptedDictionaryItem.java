@@ -1,7 +1,8 @@
 package seedu.ifridge.storage.unitdictionary;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.ifridge.commons.exceptions.IllegalValueException;
 import seedu.ifridge.model.tag.Tag;
 
@@ -17,23 +18,14 @@ class JsonAdaptedDictionaryItem {
      * Constructs a {@code JsonAdaptedDictionaryItem} with the given {@code name} and {@code unitType}.
      */
     @JsonCreator
-    public JsonAdaptedDictionaryItem(String name, String unitType) {
+    public JsonAdaptedDictionaryItem(@JsonProperty("name") String name, @JsonProperty("unitType") String unitType) {
         this.name = name;
         this.unitType = unitType;
     }
 
-    @JsonValue
-    public String getName() {
-        return name;
-    }
-
-    @JsonValue
-    public String getUnitType() {
-        return unitType;
-    }
-
     /**
-     * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
+     * Converts this Jackson-friendly adapted dictionaryItem object into string array to be inserted into the model's
+     * dictionary map.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */

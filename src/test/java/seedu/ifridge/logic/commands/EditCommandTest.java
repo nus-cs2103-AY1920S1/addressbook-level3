@@ -6,8 +6,11 @@ import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
 
+import java.util.HashMap;
+
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ModelManager;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.UserPrefs;
 
 /**
@@ -16,7 +19,8 @@ import seedu.ifridge.model.UserPrefs;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
+            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
+            new UnitDictionary(new HashMap<String, String>()));
 
     /*@Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

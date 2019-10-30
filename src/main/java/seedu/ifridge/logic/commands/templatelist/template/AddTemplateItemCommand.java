@@ -16,6 +16,7 @@ import seedu.ifridge.model.Model;
 import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 
 /**
  * Adds a template item to the specified template.
@@ -35,6 +36,8 @@ public class AddTemplateItemCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New food item added into template: %1$s";
     public static final String MESSAGE_DUPLICATE_FOOD = "This food item already exists in the template list";
+    public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
+            + "with the same name";
 
     private final TemplateItem toAdd;
     private final Index index;
@@ -64,8 +67,12 @@ public class AddTemplateItemCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_FOOD);
         }
 
-        UnitDictionary unitDictionary = model.getUnitDictionary(toAdd);
-        unitDictionary.checkUnitDictionary(toAdd, model);
+        UnitDictionary unitDictionary = model.getUnitDictionary();
+        try {
+            unitDictionary.checkUnitDictionary(toAdd, model);
+        } catch (InvalidUnitException e) {
+            throw new CommandException(MESSAGE_INCORRECT_UNIT);
+        }
 
         editedTemplate.add(toAdd);
 

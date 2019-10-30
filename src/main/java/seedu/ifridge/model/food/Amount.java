@@ -23,7 +23,7 @@ public class Amount {
     public static final String UNIT_KILOGRAM = "kg";
     public static final String UNIT_GRAM = "g";
     public static final String UNIT_OUNCE = "oz";
-    public static final String UNIT_LITRE = "l";
+    public static final String UNIT_LITRE = "L";
     public static final String UNIT_MILLILITRE = "ml";
     public static final String UNIT_QUANTITY = "units";
     public static final String UNIT = "(lbs?|g|kg|oz?|L|ml|units?)+";

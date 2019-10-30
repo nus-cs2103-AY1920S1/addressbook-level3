@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.ifridge.commons.core.Config;
 import seedu.ifridge.commons.core.LogsCenter;
@@ -17,7 +18,23 @@ import seedu.ifridge.commons.util.ConfigUtil;
 import seedu.ifridge.commons.util.StringUtil;
 import seedu.ifridge.logic.Logic;
 import seedu.ifridge.logic.LogicManager;
-import seedu.ifridge.model.*;
+import seedu.ifridge.model.GroceryList;
+import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ModelManager;
+import seedu.ifridge.model.ReadOnlyGroceryList;
+import seedu.ifridge.model.ReadOnlyShoppingList;
+import seedu.ifridge.model.ReadOnlyTemplateList;
+import seedu.ifridge.model.ReadOnlyUserPrefs;
+import seedu.ifridge.model.ShoppingList;
+import seedu.ifridge.model.TemplateList;
+import seedu.ifridge.model.UnitDictionary;
+import seedu.ifridge.model.UserPrefs;
+import seedu.ifridge.model.WasteList;
+import seedu.ifridge.model.food.Amount;
+import seedu.ifridge.model.food.Food;
+import seedu.ifridge.model.food.Name;
+import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.food.exceptions.InvalidDictionaryException;
 import seedu.ifridge.model.util.SampleDataUtil;
 import seedu.ifridge.model.waste.WasteMonth;
 import seedu.ifridge.storage.GroceryListStorage;
@@ -130,6 +147,8 @@ public class MainApp extends Application {
 
         initialWasteArchiveData = initModelManagerWaste(storage);
         initialTemplateListData = initModelManagerTemplateList(storage);
+        initialUnitDictionaryData = initModelManagerUnitDictionary(storage, initialGroceryListData,
+                initialTemplateListData, initialShoppingListData);
 
         return new ModelManager(initialGroceryListData, userPrefs, initialTemplateListData, initialWasteArchiveData,
                 initialShoppingListData, initialBoughtListData, initialUnitDictionaryData);
@@ -163,19 +182,73 @@ public class MainApp extends Application {
     }
 
     /**
-     * This method checks through the initial grocerylist, templatelist, shoppinglist to generate a new unit dictionary
+     * Checks through the initial grocerylist, templatelist, shoppinglist to generate a new unit dictionary
      * if the unit dictionary is empty. If the units of the items in the grocerylist, templatelist, shoppinglist is
      * incorrect, it will throw an error.
-     * @param groceryList
-     * @param templateList
-     * @param shoppingList
+     * @param groceryList the list of grocery items to be added into model
+     * @param templateList the list of template items and templates to be added into model
+     * @param shoppingList the list of shopping items to be added into model
      * @return
      */
     private UnitDictionary generateNewUnitDictionary(ReadOnlyGroceryList groceryList,
                                                                ReadOnlyTemplateList templateList,
                                                                ReadOnlyShoppingList shoppingList) {
-        HashMap<String, String> dictionaryMap = new HashMap<String, String>();
+
+        HashMap<String, String> mapToBeCreated = new HashMap<>();
+        mapToBeCreated = updateMapWithTemplateItems(mapToBeCreated, templateList);
+        mapToBeCreated = updateMapWithGroceryItems(mapToBeCreated, groceryList);
+        mapToBeCreated = updateMapWithShoppingItems(mapToBeCreated, shoppingList);
+
+        return new UnitDictionary(mapToBeCreated);
     }
+
+    /**
+     * Updates the dictionary map with the names and unitTypes in the template list
+     * @param mapToBeCreated map to be edited
+     * @param templateList list of templates
+     * @return edited map to be entered into the UnitDictionary
+     */
+    private HashMap<String, String> updateMapWithTemplateItems(HashMap<String, String> mapToBeCreated,
+                                                               ReadOnlyTemplateList templateList) {
+
+        ObservableList<UniqueTemplateItems> templates = templateList.getTemplateList();
+
+        for (int i = 0; i < templates.size(); i++) {
+            UniqueTemplateItems listN = templates.get(i);
+            for (int j = 0; j < listN.getSize(); j++) {
+                Food foodItem = listN.get(j);
+                Name name = foodItem.getName();
+                Amount amount = foodItem.getAmount();
+
+                String nameInUpperCase = name.toString().toUpperCase();
+                String unitType = amount.getUnitType(amount);
+                String setType = mapToBeCreated.get(nameInUpperCase);
+
+                if (setType != null && !setType.equals(unitType)) {
+                    throw new InvalidDictionaryException();
+                } else if (setType == null) {
+                    mapToBeCreated.put(nameInUpperCase, unitType);
+                } else {
+                    continue;
+                }
+            }
+
+        }
+        return mapToBeCreated;
+    }
+
+    private HashMap<String, String> updateMapWithGroceryItems(HashMap<String, String> mapToBeCreated,
+                                                                     ReadOnlyGroceryList groceryList) {
+        //Method to be written
+        return mapToBeCreated;
+    }
+
+    private HashMap<String, String> updateMapWithShoppingItems(HashMap<String, String> mapToBeCreated,
+                                                                      ReadOnlyShoppingList shoppingList) {
+        //Method to be written
+        return mapToBeCreated;
+    }
+
 
     /**
      * Returns the initial template list.
@@ -200,9 +273,9 @@ public class MainApp extends Application {
         return initialTemplateListData;
     }
 
-        /**
-         * Returns the initial waste list archive.
-         */
+    /**
+     * Returns the initial waste list archive.
+     */
     private TreeMap<WasteMonth, WasteList> initModelManagerWaste(Storage storage) {
 
         Optional<TreeMap<WasteMonth, WasteList>> wasteListOptional;

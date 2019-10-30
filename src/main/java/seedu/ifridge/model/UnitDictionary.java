@@ -1,15 +1,12 @@
 package seedu.ifridge.model;
 
-import seedu.ifridge.model.Model;
+import java.util.HashMap;
 
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.Name;
-import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 import seedu.ifridge.model.food.exceptions.InvalidDictionaryException;
-
-
-import java.util.HashMap;
+import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 
 /**
  * A unit dictionary.
@@ -22,24 +19,33 @@ public class UnitDictionary {
         this.unitDictionary = unitDictionary;
     }
 
-    public void checkUnitDictionary(Food foodItem, Model model) {
+    /**
+     * Checks the unit dictionary to see that the unit type of the food item being added or edited does not conflict
+     * with other unit types of food items in the groceryList, templateList, shoppingList with the same name.
+     * Comparing of names is non-case-sensitive.
+     * @param foodItem item to be checked
+     * @param model model to be checked against
+     * @throws InvalidUnitException unitType conflicts with other food items with the same name
+     * @throws InvalidDictionaryException unitDictionary is missing information and is invalid
+     */
+    public void checkUnitDictionary(Food foodItem, Model model)
+            throws InvalidUnitException, InvalidDictionaryException {
 
         Name inputName = foodItem.getName();
-        String savedName = inputName.toString().toUpperCase(); //For case-insensitive referencing
+        //For case-insensitive referencing
+        String savedName = inputName.toString().toUpperCase();
         Amount inputAmt = foodItem.getAmount();
         String inputUnitType = inputAmt.getUnitType(inputAmt);
 
         if (inAnyList(foodItem, model)) {
             String setUnitType = unitDictionary.get(savedName);
-            assert(setUnitType, null);
             if (setUnitType == null) {
                 throw new InvalidDictionaryException();
             }
             if (!inputUnitType.equals(setUnitType)) {
                 throw new InvalidUnitException();
             }
-        }
-        else {
+        } else {
             unitDictionary.put(savedName, inputUnitType);
         }
     }
@@ -61,6 +67,8 @@ public class UnitDictionary {
         return false;
     }
 
-    public HashMap<String, String> getUnitDictionary() { return this.unitDictionary; }
+    public HashMap<String, String> getUnitDictionary() {
+        return this.unitDictionary;
+    }
 
 }

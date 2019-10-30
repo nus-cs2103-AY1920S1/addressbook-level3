@@ -6,7 +6,6 @@ import static seedu.ifridge.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Predicate;
@@ -87,8 +86,8 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new GroceryList(), new UserPrefs(), new TemplateList(),
-                new TreeMap<WasteMonth, WasteList>(), new ShoppingList(), new GroceryList());
+        this(new GroceryList(), new UserPrefs(), new TemplateList(), new TreeMap<WasteMonth, WasteList>(),
+                new ShoppingList(), new GroceryList(), new UnitDictionary(new HashMap<String, String>()));
     }
 
     //=========== UserPrefs ==================================================================================

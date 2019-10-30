@@ -1,23 +1,29 @@
 package seedu.ifridge.storage.unitdictionary;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.ifridge.commons.exceptions.IllegalValueException;
 import seedu.ifridge.model.UnitDictionary;
-
-import java.util.*;
 
 /**
  * An Immutable waste archive that is serializable to JSON format.
  */
-@JsonRootName(value = "unitdictionary")
+@JsonRootName(value = "unitDictionary")
 public class JsonSerializableUnitDictionary {
+
     public static final String MESSAGE_DUPLICATE_ITEMS = "Dictionary contains duplicate items(s).";
+
     private final List<JsonAdaptedDictionaryItem> unitDictionary = new ArrayList<>();
 
     @JsonCreator
-    public JsonSerializableUnitDictionary(@JsonProperty("unitdictionary")
+    public JsonSerializableUnitDictionary(@JsonProperty("unitDictionary")
                                                       List<JsonAdaptedDictionaryItem> unitDictionary) {
         this.unitDictionary.addAll(unitDictionary);
     }

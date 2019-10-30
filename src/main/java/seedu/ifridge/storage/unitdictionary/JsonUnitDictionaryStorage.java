@@ -1,5 +1,12 @@
 package seedu.ifridge.storage.unitdictionary;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import seedu.ifridge.commons.core.LogsCenter;
 import seedu.ifridge.commons.exceptions.DataConversionException;
 import seedu.ifridge.commons.exceptions.IllegalValueException;
@@ -7,13 +14,7 @@ import seedu.ifridge.commons.util.FileUtil;
 import seedu.ifridge.commons.util.JsonUtil;
 import seedu.ifridge.model.UnitDictionary;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * A class to access UnitDictionary data stored as a json file on the hard disk.

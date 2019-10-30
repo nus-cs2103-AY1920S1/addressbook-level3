@@ -6,10 +6,13 @@ import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ModelManager;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.UserPrefs;
 
 /**
@@ -22,7 +25,8 @@ public class AddCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
-                getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
+                getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
+                new UnitDictionary(new HashMap<String, String>()));
     }
 
     /*@Test

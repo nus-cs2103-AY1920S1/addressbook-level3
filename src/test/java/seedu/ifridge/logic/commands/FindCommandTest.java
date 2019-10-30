@@ -7,9 +7,11 @@ import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ModelManager;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.UserPrefs;
 import seedu.ifridge.model.food.NameContainsKeywordsPredicate;
 
@@ -18,9 +20,11 @@ import seedu.ifridge.model.food.NameContainsKeywordsPredicate;
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
+            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
+            new UnitDictionary(new HashMap<String, String>()));
     private Model expectedModel = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
+            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
+            new UnitDictionary(new HashMap<String, String>()));
 
     /*@Test
     public void equals() {
