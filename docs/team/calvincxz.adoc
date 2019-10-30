@@ -3,6 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+
 == PROJECT: AddMin+
 
 ---
@@ -18,26 +19,33 @@ and email employees directly without opening an email application.
 This is what our project looks like:
 
 ._The graphical user interface for AddMin+._
-image::listview.png[]
+image::beforefetch.png[]
 
 My role was to design and write the codes for the fetch and allocate features. The following sections
 illustrate these enhancements in more detail, as well as the relevant documentation
 I have added to the user and developer guides in relation to these enhancements.
 
+<<<
+
 == Summary of contributions
 
-* *Major enhancement*: added *automated allocation of employees to event commands* with *GUI feature*
-** What it does: allows the user to allocate employees to an event with certain filter requirements.
+* *Major enhancement*: added features to allow association of employees with events which includes
+*automated/manual allocation of employees to event commands* and a *deallocate command*, as well as the
+viewing of changes the users made via the *fetch event* command. All related commands have *GUI features* implemented.
 
-** Justification: This feature improves the product significantly because a user can now associate employees
-with events. The GUI feature further provides convenience for users.
+** What it does: allows the user to check for availability of employees and allocate them to an event with
+certain filter requirements. The algorithm ensures that employees cannot be allocated to events with
+conflicting time periods.
+
+** Justification: This feature improves the product significantly because a user can now allocate employees
+to events, which is a key component for events management companies that our app is targeting.
+The GUI features further provide convenience for users.
 ** Highlights: This enhancement affects existing commands and commands to be added in future.
 It required an in-depth analysis of design alternatives. The implementation too was challenging as it
-required significant changes to both `Event` and `Employee` classes.
+required the knowledge of both `Event` and `Employee` classes.
 
-* *Minor enhancement*: added a *fetch_ev* command that allows the user to view more details about a specified event.
-The GUI feature allows users to simply double-click an event to execute this command. This GUI enhancement is complementary
-to the *automated allocation* feature previously mentioned.
+* *Minor enhancement*: added command history to allow user to view previous commands using up/down
+arrow keys.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -48,14 +56,14 @@ to the *automated allocation* feature previously mentioned.
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated GUI to show both employee and event list
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 
+<<<
+<<<
 
 == Contributions to the User Guide
 
@@ -74,6 +82,7 @@ include::../UserGuide.adoc[tag=calvin2]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=storage]
 include::../DeveloperGuide.adoc[tag=calvin]
 
 

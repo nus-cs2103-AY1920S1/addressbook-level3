@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 /**
  * Represents the Date of an Event in AddMin+. Events can span a time period of multiple days (dates).
  */
-public class EventDate {
+public class EventDate implements Comparable<EventDate> {
     public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format dd/MM/yyyy";
     public static final String MESSAGE_CONSTRAINTS_MONTH = "Input Year Month should be MM/yyyy";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -79,4 +79,8 @@ public class EventDate {
         return date.hashCode();
     }
 
+    @Override
+    public int compareTo(EventDate otherEventDate) {
+        return getDate().compareTo(otherEventDate.getDate());
+    }
 }

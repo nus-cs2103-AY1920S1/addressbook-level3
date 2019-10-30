@@ -5,49 +5,65 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 
-<HBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox HBox.hgrow="ALWAYS">
+      <HBox prefHeight="568.0" prefWidth="814.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox VBox.vgrow="ALWAYS">
+            <VBox HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="dateLabel" text="\$Date" />
-                  <Region prefHeight="18.0" prefWidth="118.0" />
-                  <Label fx:id="monthLabel" prefHeight="18.0" prefWidth="300.0" text="\$Month" />
-                  <Region prefHeight="18.0" prefWidth="65.0" />
-                  <Label fx:id="monthLabel1" text="Generate Schedule Overview" />
+                  <AnchorPane>
+                     <children>
+                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="180.0" prefWidth="180.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="103.19998168945312" minWidth="5.0" prefWidth="5.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="110.0" prefWidth="110.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="190.0" prefWidth="190.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="80.0" prefWidth="80.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="109.2000732421875" minWidth="5.0" prefWidth="5.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="170.0" prefWidth="170.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" text="\$Date" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <DatePicker fx:id="datePicker" onAction="#handlePickDate" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </DatePicker>
+                              <Label fx:id="monthLabel" alignment="CENTER" contentDisplay="CENTER" text="\$Month" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPrevClickButton" text="Previous" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Label fx:id="currentMonthYear" alignment="CENTER" contentDisplay="CENTER" text="\$currentMonthYear" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Label>
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onNextClickButton" text="Next" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Button fx:id="generateButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#generateSchedule" text="Generate Schedule" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Label fx:id="monthLabel1" alignment="CENTER" contentDisplay="CENTER" text="Generate Schedule" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <ListView fx:id="eventScheduleListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@DarkTheme.css" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
-            <HBox VBox.vgrow="ALWAYS">
-               <children>
-                  <DatePicker fx:id="datePicker" onAction="#handlePickDate" prefHeight="12.0" prefWidth="174.0">
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding>
-                  </DatePicker>
-                  <Region prefHeight="30.0" prefWidth="66.0" />
-                  <Button mnemonicParsing="false" onAction="#onPrevClickButton" text="Previous" />
-                  <Label fx:id="currentMonthYear" alignment="CENTER" contentDisplay="CENTER" text="\$currentMonthYear">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </Label>
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onNextClickButton" text="Next" />
-                  <Region prefHeight="30.0" prefWidth="67.0" />
-                  <Button fx:id="generateButton" mnemonicParsing="false" onAction="#generateSchedule" text="Generate Schedule" />
-               </children>
-            </HBox>
-            <HBox VBox.vgrow="ALWAYS">
-               <children>
-                  <ListView fx:id="eventScheduleListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@DarkTheme.css" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
-</HBox>
+</AnchorPane>

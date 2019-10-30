@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MANPOWER_TO_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.List;
@@ -79,8 +78,8 @@ public class AutoAllocateCommand extends Command {
      * @param eventToAllocate the specified event to allocate employees
      */
     private List<Employee> createAvailableEmployeeListForEvent(Model model, Event eventToAllocate) {
-        List<Employee> employeeList = model.getFilteredEmployeeList();
-        List<Event> eventList = model.getFilteredEventList();
+        List<Employee> employeeList = model.getFullListEmployees();
+        List<Event> eventList = model.getFullListEvents();
         List<Employee> availableEmployeeList = employeeList.stream()
                 .filter(employee -> eventToAllocate.isAvailableForEvent(employee, eventList))
                 .filter(employee -> employee.getTags().containsAll(tagList))
@@ -104,7 +103,6 @@ public class AutoAllocateCommand extends Command {
         requireNonNull(model);
         List<Event> lastShownEventList = model.getFilteredEventList();
 
-
         if (eventIndex.getOneBased() > lastShownEventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
@@ -124,7 +122,6 @@ public class AutoAllocateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_MANPOWER_COUNT_EXCEEDED);
         }
 
-        model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
         List<Employee> availableEmployeeList = createAvailableEmployeeListForEvent(model, eventToAllocate);
 
         if (availableEmployeeList.size() < manpowerCountToAdd) {

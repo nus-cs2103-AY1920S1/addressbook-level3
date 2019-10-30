@@ -37,7 +37,8 @@ public class MainWindow extends UiPart<Stage> {
     private ListPanel listPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private FetchWindow fetchWindow;
+    private FetchEventWindow fetchEventWindow;
+    private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
     private ScheduleBox scheduleBox;
     private Finance finance;
@@ -91,6 +92,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -172,17 +174,33 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the fetch window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleFetch(Integer index) {
-        if (fetchWindow != null) {
-            fetchWindow.hide();
+    public void handleEventFetch(Integer index) {
+        if (fetchEventWindow != null) {
+            fetchEventWindow.hide();
         }
-        fetchWindow = new FetchWindow(logic, index);
-        //fetchWindow.getRoot().setScene();
-        fetchWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
-        if (!fetchWindow.isShowing()) {
-            fetchWindow.show();
+        fetchEventWindow = new FetchEventWindow(logic, index);
+        fetchEventWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
+        if (!fetchEventWindow.isShowing()) {
+            fetchEventWindow.show();
         } else {
-            fetchWindow.focus();
+            fetchEventWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the FetchEmployeeWindow or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleEmployeeFetch(Integer index) {
+        if (fetchEmployeeWindow != null) {
+            fetchEmployeeWindow.hide();
+        }
+        fetchEmployeeWindow = new FetchEmployeeWindow(logic, index);
+        fetchEmployeeWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
+        if (!fetchEmployeeWindow.isShowing()) {
+            fetchEmployeeWindow.show();
+        } else {
+            fetchEmployeeWindow.focus();
         }
     }
 
@@ -195,7 +213,6 @@ public class MainWindow extends UiPart<Stage> {
             dateWindow.hide();
         }
         dateWindow = new DateWindow(logic);
-        //fetchWindow.getRoot().setScene();
         dateWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
         if (!dateWindow.isShowing()) {
             dateWindow.show();
@@ -216,13 +233,12 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        if (fetchWindow != null) {
-            fetchWindow.hide();
+        if (fetchEventWindow != null) {
+            fetchEventWindow.hide();
         }
         helpWindow.hide();
         primaryStage.hide();
     }
-
 
 
     public seedu.address.ui.ListPanel getListPanel() {
@@ -249,8 +265,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             if (commandResult.getFetch() != null) {
-                handleFetch(commandResult.getFetch());
-                //listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
+                if (commandResult.getType().equals("employee")) {
+                    handleEmployeeFetch(commandResult.getFetch());
+                }
+                if (commandResult.getType().equals("event")) {
+                    handleEventFetch(commandResult.getFetch());
+                }
             }
 
             if (commandResult.getType().equals("Generate")) {

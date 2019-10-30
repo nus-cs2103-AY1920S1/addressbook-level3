@@ -3,7 +3,10 @@ package seedu.address.model.event;
 import static seedu.address.logic.parser.ParserUtil.parseDate;
 import static seedu.address.logic.parser.ParserUtil.parseTimePeriod;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.parser.ParserUtil;
@@ -66,6 +69,15 @@ public class EventDateTimeMap {
 
     public Map<EventDate, EventDayTime> getDateTimeMap() {
         return dateTimeMap;
+    }
+
+    /**
+     * Returns a List of EventDates that are currently mapped
+     */
+    public List<EventDate> getDateMappedList() {
+        List<EventDate> uniqueEventDates = new ArrayList<>(dateTimeMap.keySet());
+        Collections.sort(uniqueEventDates);
+        return uniqueEventDates;
     }
 
     /**

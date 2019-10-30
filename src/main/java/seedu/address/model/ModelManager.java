@@ -30,7 +30,8 @@ public class ModelManager implements Model {
     private final EventBook eventBook;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Event> filteredScheduledEvents;
-    private ObservableList<DistinctDate> distinctDatesList;
+    private ObservableList<DistinctDate> employeeDistinctDateList;
+    private ObservableList<DistinctDate> eventDistinctDatesList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -48,7 +49,10 @@ public class ModelManager implements Model {
         filteredEmployees = new FilteredList<>(this.addressBook.getEmployeeList());
         filteredEvents = new FilteredList<>(this.eventBook.getEventList());
         filteredScheduledEvents = new FilteredList<>(this.eventBook.getEventList());
-        distinctDatesList = FXCollections.observableList(DistinctDatesProcessor.generateDistinctDateList(this));
+        employeeDistinctDateList = FXCollections
+                .observableList(DistinctDatesProcessor.generateAllDistinctDateList(this));
+        eventDistinctDatesList = FXCollections
+                .observableList(DistinctDatesProcessor.generateAllDistinctDateList(this));
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
@@ -118,6 +122,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Employee> getFullListEmployees() {
+        return addressBook.getEmployeeList();
+    }
+
+    @Override
     public boolean hasEmployee(Employee employee) {
         requireNonNull(employee);
         return addressBook.hasEmployee(employee);
@@ -151,6 +160,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyEventBook getEventBook() {
         return eventBook;
+    }
+
+    @Override
+    public ObservableList<Event> getFullListEvents() {
+        return eventBook.getEventList();
     }
 
     @Override
@@ -213,6 +227,7 @@ public class ModelManager implements Model {
     }
 
     //=========== Filtered Scheduled Event List Accessors =============================================================
+
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
      * {@code versionedEventBook}
@@ -229,17 +244,31 @@ public class ModelManager implements Model {
     }
 
     //=========== Distinct Dates List Accessors =============================================================
+
     /**
-     * Returns an unmodifiable view of the list of {@code DistinctDates} which will be generated upon command call.
+     * Returns an unmodifiable view of the list of {@code DistinctDates} for Employees
      */
     @Override
-    public ObservableList<DistinctDate> getDistinctDatesList() {
-        return distinctDatesList;
+    public ObservableList<DistinctDate> getEmployeeDistinctDatesList() {
+        return employeeDistinctDateList;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code DistinctDates} for Events
+     */
+    @Override
+    public ObservableList<DistinctDate> getEventDistinctDatesList() {
+        return eventDistinctDatesList;
     }
 
     @Override
-    public void updateDistinctDatesList(List<DistinctDate> distinctDates) {
-        distinctDatesList = FXCollections.observableList(distinctDates);
+    public void updateEmployeeDistinctDateList(List<DistinctDate> list) {
+        employeeDistinctDateList = FXCollections.observableList(list);
+    }
+
+    @Override
+    public void updateEventDistinctDatesList(List<DistinctDate> distinctDates) {
+        eventDistinctDatesList = FXCollections.observableList(distinctDates);
     }
 
     @Override

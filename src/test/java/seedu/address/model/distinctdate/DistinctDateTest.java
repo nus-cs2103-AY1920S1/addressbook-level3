@@ -29,16 +29,16 @@ class DistinctDateTest {
     private final Event eventTest = new Event(name, venue,
             manpowerNeeded, startDate, endDate, tags);
     private final List<Event> eventListTest = new ArrayList<Event>(Arrays.asList(eventTest));
-    private final LocalDate dateTest = LocalDate.of(2019, 10, 20);
+    private final EventDate dateTest = new EventDate(LocalDate.of(2019, 10, 20));
+
     private final DistinctDate distinctDateTest = new DistinctDate(dateTest, eventListTest);
 
     @Test
     public void isSameDistinctDate() {
         //same DistinctDate object --> Return true;
         assertTrue(distinctDateTest.isSameDate(distinctDateTest));
-
-        DistinctDate newDistinctDateTest = new DistinctDate(LocalDate.of(2019, 10, 21),
-                eventListTest);
+        EventDate newEventDate = new EventDate(LocalDate.of(2019, 10, 21));
+        DistinctDate newDistinctDateTest = new DistinctDate(newEventDate, eventListTest);
 
         assertFalse(distinctDateTest.isSameDate(newDistinctDateTest));
     }

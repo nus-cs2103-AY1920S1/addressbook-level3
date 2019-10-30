@@ -1,15 +1,17 @@
 package seedu.address.logic.processor;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.Model;
 import seedu.address.model.distinctdate.DistinctDate;
+import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
 
 /**
  * Contains utility methods used for processing DistinctDates.
@@ -17,16 +19,47 @@ import seedu.address.model.event.Event;
 public class DistinctDatesProcessor {
 
     /**
+     * Generates all DistinctDates from the given EventList.
+     */
+    public static List<DistinctDate> generateAllDistinctDateList(Model model) {
+        List<Event> fullEventList = model.getFullListEvents();
+        return generateDistinctDateList(fullEventList);
+    }
+
+    /**
+     * Generate all DistinctDates from Events that are allocated to an Employee.
+     */
+    public static List<DistinctDate> generateEmployeesDistinctDateList(Model model, Employee employee) {
+        List<Event> eventList = model.getFullListEvents();
+        return generateEmployeesDistinctDateList(eventList, employee);
+    }
+
+    /**
+     * Generate all DistinctDates from Events that are allocated to an Employee. Overloaded Method.
+     *
+     * @param eventList Unfiltered EventList
+     */
+    public static List<DistinctDate> generateEmployeesDistinctDateList(List<Event> eventList, Employee employee) {
+        List<Event> filteredEventList = eventList.stream()
+                .filter(event -> event.employeeIsAllocated(employee))
+                .collect(Collectors.toList());
+
+        return generateDistinctDateList(filteredEventList);
+    }
+
+    /**
      * Generates a list of DistinctDate objects based on the input eventlist from model.
-     * @param model to retrieve event objects from the eventlist for processing
+     *
+     * @param eventList List of Events to process
      * @return a list of DistinctDate objects
      */
-    public static List<DistinctDate> generateDistinctDateList(Model model) {
+    public static List<DistinctDate> generateDistinctDateList(List<Event> eventList) {
         List<DistinctDate> distinctDateList = new ArrayList<>();
-        List<LocalDate> dates = generateDateList(model);
+        List<EventDate> dates = generateDateList(eventList); //Unique and Sorted
+
         for (int i = 0; i < dates.size(); i++) {
-            LocalDate currentDate = dates.get(i);
-            List<Event> events = generateListOfEventForDate(currentDate, model);
+            EventDate currentDate = dates.get(i);
+            List<Event> events = generateListOfEventForDate(currentDate, eventList);
             DistinctDate date = new DistinctDate(currentDate, events);
             distinctDateList.add(date);
         }
@@ -34,39 +67,33 @@ public class DistinctDatesProcessor {
     }
 
     /**
-     * Generates a list of Event objects based on the a LocalDate object from an Event.
-     * @param date a LocalDate object which have been identified to be Distinct.
-     * @param model to retrieve event objects from the eventlist for processing
-     * @return a list of Event objects that contains the specific LocalDate
+     * Generates a list of Event objects that falls on a given EventDate object.
+     *
+     * @param date   a EventDate object which have been identified to be Distinct.
+     * @param events List of Events to filter through
+     * @return a list of Event objects that contains the specific EventDate
      */
-    public static List<Event> generateListOfEventForDate(LocalDate date, Model model) {
-        List<Event> eventsOnSpecificDate = new ArrayList<>();
-        List<Event> events = model.getEventBook().getEventList();
-        for (int i = 0; i < events.size(); i++) {
-            Event currentEvent = events.get(i);
-            if (currentEvent.getListOfEventDates().contains(date)) {
-                eventsOnSpecificDate.add(currentEvent);
-            }
-        }
-        return eventsOnSpecificDate;
+    public static List<Event> generateListOfEventForDate(EventDate date, List<Event> events) {
+        return events.stream()
+                .filter(event -> event.getListOfEventDates().contains(date))
+                .collect(Collectors.toList());
     }
 
     /**
-     * Generates a list of distinct Date based on the eventlist in model.
-     * @param model uses model to retrieve eventlist
-     * @return a list of distinct dates in LocalDate format
+     * Generates a unique, sorted list of mapped EventDates from the given list of events
+     *
+     * @param eventList given List of Events
+     * @return a list of distinct dates in EventDate format
      */
-    public static List<LocalDate> generateDateList(Model model) {
-        Set<LocalDate> datesSet = new HashSet<>();
-        List<Event> events = model.getEventBook().getEventList();
-        for (int i = 0; i < events.size(); i++) {
-            Event currentEvent = events.get(i);
+    public static List<EventDate> generateDateList(List<Event> eventList) {
+        Set<EventDate> datesSet = new HashSet<>();
+
+        for (int i = 0; i < eventList.size(); i++) {
+            Event currentEvent = eventList.get(i);
             datesSet.addAll(currentEvent.getListOfEventDates());
         }
-        List<LocalDate> datesList = new ArrayList<>();
-        for (LocalDate date : datesSet) {
-            datesList.add(date);
-        }
+
+        List<EventDate> datesList = new ArrayList<>(datesSet);
         Collections.sort(datesList);
         return datesList;
     }

@@ -19,14 +19,13 @@ public class FetchEventCommand extends Command {
     public static final String COMMAND_WORD = "fetch_ev";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the details of the event identified "
-            + "by the index number used in the displayed event list. \n"
+            + "by the index number used in the displayed employee list \n"
             + "Parameters: INDEX (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_SUCCESS = "fetched Event: %1$s";
+    public static final String MESSAGE_SUCCESS = "Fetched Event: %1$s";
 
     private final Index index;
-
 
     /**
      * @param index of the event in the filtered event list to fetch
@@ -45,8 +44,8 @@ public class FetchEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
         Event eventToFetch = lastShownList.get(index.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch), false,
-                false, index.getZeroBased());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch.getName()), false,
+                false, index.getZeroBased(), "event");
     }
 
     @Override
