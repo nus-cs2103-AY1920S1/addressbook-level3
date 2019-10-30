@@ -22,6 +22,7 @@ public class JsonSerializableRecords {
     private Set<String> descriptionRecords = new HashSet<>();
     private Set<String> tagRecords = new HashSet<>();
     private Set<String> nameRecords = new HashSet<>();
+    private Set<String> colorRecords = new HashSet<>();
 
     /**
      * Constructs a {@code JsonSerializableRecords} with the given records details.
@@ -30,12 +31,14 @@ public class JsonSerializableRecords {
     public JsonSerializableRecords(@JsonProperty("pathRecords") Set<String> pathRecords,
                                     @JsonProperty("descriptionRecords") Set<String> descriptionRecords,
                                     @JsonProperty("tagRecords") Set<String> tagRecords,
-                                    @JsonProperty("nameRecords") Set<String> nameRecords) {
+                                    @JsonProperty("nameRecords") Set<String> nameRecords,
+                                   @JsonProperty("colorRecords") Set<String> colorRecords) {
 
         this.pathRecords.addAll(pathRecords);
         this.descriptionRecords.addAll(descriptionRecords);
         this.tagRecords.addAll(tagRecords);
         this.nameRecords.addAll(nameRecords);
+        this.colorRecords.addAll(colorRecords);
     }
 
     /**
@@ -46,6 +49,7 @@ public class JsonSerializableRecords {
         descriptionRecords.addAll(records.getDescriptions());
         tagRecords.addAll(records.getTags());
         nameRecords.addAll(records.getNames());
+        colorRecords.addAll(records.getColors());
     }
 
     /**
@@ -58,12 +62,14 @@ public class JsonSerializableRecords {
         Set<String> descriptionRecords = new HashSet<>();
         Set<String> tagRecords = new HashSet<>();
         Set<String> nameRecords = new HashSet<>();
+        Set<String> colorRecords = new HashSet<>();
 
         pathRecords.addAll(this.pathRecords);
         descriptionRecords.addAll(this.descriptionRecords);
         tagRecords.addAll(this.tagRecords);
         nameRecords.addAll(this.nameRecords);
-        return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords);
+        colorRecords.addAll(this.colorRecords);
+        return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords, colorRecords);
     }
 
 }

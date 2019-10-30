@@ -26,6 +26,7 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
 
 /**
@@ -379,10 +380,26 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addMemeToRecord(Meme meme) {
+    public Set<String> getColorRecords() {
+        return versionedWeme.getColors();
+    }
+
+    @Override
+    public void addMemeToRecords(Meme meme) {
         versionedWeme.addPath(meme.getImagePath());
         versionedWeme.addDescription(meme.getDescription());
         versionedWeme.addTags(meme.getTags());
+    }
+
+    @Override
+    public void addTemplateToRecords(Template template) {
+        versionedWeme.addPath(template.getImagePath());
+        versionedWeme.addName(template.getName());
+    }
+
+    @Override
+    public void addMemeTextToRecords(MemeText memeText) {
+        versionedWeme.addColor(memeText.getColor());
     }
 
     @Override

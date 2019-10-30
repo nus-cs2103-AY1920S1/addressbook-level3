@@ -14,6 +14,7 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
 
 /**
@@ -319,9 +320,24 @@ public interface Model {
     Set<String> getNameRecords();
 
     /**
+     * Returns all past records of colors.
+     */
+    Set<String> getColorRecords();
+
+    /**
      * Add information of a meme to the records.
      */
-    void addMemeToRecord(Meme meme);
+    void addMemeToRecords(Meme meme);
+
+    /**
+     * Add information of a template to the records.
+     */
+    void addTemplateToRecords(Template template);
+
+    /**
+     * Add information of a meme text to the records.
+     */
+    void addMemeTextToRecords(MemeText memeText);
 
     /**
      * Returns the count of a tag in the current meme list.

@@ -30,6 +30,7 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.MemeText;
 import seedu.weme.model.template.Template;
 import seedu.weme.testutil.MemeBuilder;
 import seedu.weme.testutil.TestUtil;
@@ -377,7 +378,22 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void addMemeToRecord(Meme meme) {
+        public Set<String> getColorRecords() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void addMemeToRecords(Meme meme) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void addTemplateToRecords(Template template) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void addMemeTextToRecords(MemeText memeText) {
             throw new AssertionError("This method should not be called");
         }
     }
@@ -439,7 +455,13 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void addMemeToRecord(Meme meme) {}
+        public void addMemeToRecords(Meme meme) {}
+
+        @Override
+        public void addTemplateToRecords(Template template) {}
+
+        @Override
+        public void addMemeTextToRecords(MemeText memeText) {}
 
     }
 

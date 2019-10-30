@@ -2,6 +2,7 @@ package seedu.weme.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -345,6 +346,10 @@ public class Weme implements ReadOnlyWeme {
         return records.getNames();
     }
 
+    public Set<String> getColors() {
+        return records.getColors();
+    }
+
     public void addPath(ImagePath path) {
         records.addPath(path);
     }
@@ -359,6 +364,10 @@ public class Weme implements ReadOnlyWeme {
 
     public void addName(Name name) {
         records.addName(name);
+    }
+
+    public void addColor(Color color) {
+        records.addColor(color);
     }
 
     @Override

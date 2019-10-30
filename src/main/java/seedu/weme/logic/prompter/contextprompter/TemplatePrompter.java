@@ -13,9 +13,11 @@ import java.util.regex.Matcher;
 import seedu.weme.logic.commands.templatecommand.TemplateAddCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateDeleteCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateUseCommand;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateAddCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateDeleteCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateEditCommandPrompter;
+import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateUseCommandPrompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
@@ -48,6 +50,9 @@ public class TemplatePrompter extends WemePrompter {
 
         case TemplateEditCommand.COMMAND_WORD:
             return new TemplateEditCommandPrompter().prompt(model, userInput);
+
+        case TemplateUseCommand.COMMAND_WORD:
+            return new TemplateUseCommandPrompter().prompt(model, userInput);
 
         default:
             if (arguments.isBlank()) {

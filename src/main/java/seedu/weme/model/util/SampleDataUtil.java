@@ -112,7 +112,15 @@ public class SampleDataUtil {
                 "Gangnam Style",
                 "TheDress")
                 .collect(Collectors.toSet());
-        return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords);
+        Set<String> colorRecords = Stream.of(
+                "black",
+                "white",
+                "red",
+                "yellow",
+                "blue",
+                "green")
+                .collect(Collectors.toSet());
+        return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords, colorRecords);
     }
 
     /**

@@ -63,6 +63,7 @@ public class TemplateEditCommand extends Command {
         }
 
         model.setTemplate(templateToEdit, editedTemplate);
+        model.addTemplateToRecords(editedTemplate);
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));
         model.commitWeme(result.getFeedbackToUser());
 
