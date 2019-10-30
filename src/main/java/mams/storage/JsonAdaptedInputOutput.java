@@ -44,7 +44,8 @@ class JsonAdaptedInputOutput {
      */
     public InputOutput toLogicType() throws IllegalValueException {
 
-        if (input == null || input.isBlank()) {
+        // it is possible to have a blank space user input, but MAMS will never give a blank-space output.
+        if (input == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     INPUT_PROPERTY_NAME));
         }

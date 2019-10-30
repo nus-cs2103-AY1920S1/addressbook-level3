@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":ListPointer" as ListPointer UI_COLOR
+end box
+
+-> CommandBox : handleCommandEntered()
+activate CommandBox
+
+CommandBox -> CommandBox : reinitializeHistoryPointer()
+activate CommandBox
+
+create ListPointer
+CommandBox -> ListPointer : ListPointer(commandHistory)
+activate ListPointer
+
+ListPointer --> CommandBox
+deactivate ListPointer
+deactivate CommandBox
+
+<-- CommandBox
+deactivate CommandBox
+
+-> CommandBox: handleKeyPress(key)
+activate CommandBox
+
+alt key.UP
+    CommandBox -> CommandBox: getPreviousInput()
+    activate CommandBox
+    CommandBox -> ListPointer : previous()
+    activate ListPointer
+    ListPointer -> CommandBox: prevInputOutput
+    deactivate ListPointer
+    deactivate CommandBox
+    CommandBox -> CommandBox: replaceText(prevInput)
+    activate CommandBox
+    deactivate CommandBox
+else key.DOWN
+    CommandBox -> CommandBox: getNextInput()
+    activate CommandBox
+    CommandBox -> ListPointer : next()
+    activate ListPointer
+    ListPointer -> CommandBox: nextInputOutput
+    deactivate ListPointer
+    deactivate CommandBox
+    CommandBox -> CommandBox: replaceText(nextInput)
+    activate CommandBox
+    deactivate CommandBox
+
+else else
+
+end
+
+<-- CommandBox: replaced text in text field
+deactivate CommandBox
+
+@enduml

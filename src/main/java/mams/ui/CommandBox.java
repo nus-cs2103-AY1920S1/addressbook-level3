@@ -46,11 +46,11 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandEntered() {
         try {
             commandExecutor.execute(commandTextField.getText());
-            initHistory();
+            reinitializeHistoryPointer();
             commandHistoryPointer.next();
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
-            initHistory();
+            reinitializeHistoryPointer();
             setStyleToIndicateCommandFailure();
         }
     }
@@ -108,10 +108,10 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Initializes the history snapshot.
      */
-    private void initHistory() {
+    private void reinitializeHistoryPointer() {
         commandHistoryPointer = new ListPointer<InputOutput>(commandHistory);
-        // add an empty string to represent the most-recent end of historySnapshot, to be shown to
-        // the user if she tries to navigate past the most-recent end of the historySnapshot.
+        // add an empty string to represent the most-recent end of the defensive list in ListPointer, to be shown to
+        // the user if he/she tries to navigate past the most-recent end.
         commandHistoryPointer.add(new InputOutput("", ""));
     }
 

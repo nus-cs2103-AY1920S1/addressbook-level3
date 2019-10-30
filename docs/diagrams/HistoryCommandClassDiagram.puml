@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+class MainWindow UI_COLOR
+class HistoryWindow UI_COLOR
+class TextArea UI_COLOR
+
+CommandResult -left[hidden]------> ObservableList
+TextArea -right[hidden]----> ObservableList
+
+MainWindow -RIGHT-> Logic : "gets history flags from >"
+
+Logic <|.down. LogicManager
+LogicManager -left-> "1" CommandHistory: "updates >"
+LogicManager .right.> HistoryCommand: "executes >"
+HistoryCommand .down.> CommandResult : "produces >"
+LogicManager .right.> CommandResult: "gets \nresults \nfrom >"
+CommandHistory *-down-> "1" ObservableList
+
+HistoryWindow <-down- MainWindow: "sets\nflags <"
+HistoryWindow -down-> TextArea
+HistoryWindow .down.> ObservableList: "updates\ntextArea\nusing >"
+
+
+@enduml
