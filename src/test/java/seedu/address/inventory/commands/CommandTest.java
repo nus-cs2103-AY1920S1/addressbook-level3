@@ -29,6 +29,46 @@ import seedu.address.testutil.TypicalItem;
 
 public class CommandTest {
 
+    private Item getItemOfLowestQuantity(InventoryList inventoryList) {
+        int quantity = Integer.MAX_VALUE;
+        Item result = null;
+        for (int i = 0; i < inventoryList.size(); i++) {
+            if (inventoryList.get(i).getQuantity() < quantity) {
+                result = inventoryList.get(i);
+                quantity = result.getQuantity();
+            }
+        }
+        return result;
+    }
+
+    private Item getItemOfLowestDescriptionLexicographicalValue(InventoryList inventoryList) {
+        if (inventoryList.size() == 1) {
+            return inventoryList.get(0);
+        }
+        Item result = inventoryList.get(0);
+        for (int i = 1; i < inventoryList.size(); i++) {
+            Item nextItem = inventoryList.get(i);
+            if (nextItem.getDescription().compareTo(result.getDescription()) <= 0) {
+                result = nextItem;
+            }
+        }
+        return result;
+    }
+
+    private Item getItemOfLowestCategoryLexicographicalValue(InventoryList inventoryList) {
+        if (inventoryList.size() == 1) {
+            return inventoryList.get(0);
+        }
+        Item result = inventoryList.get(0);
+        for (int i = 1; i < inventoryList.size(); i++) {
+            Item nextItem = inventoryList.get(i);
+            if (nextItem.getCategory().compareTo(result.getCategory()) <= 0) {
+                result = nextItem;
+            }
+        }
+        return result;
+    }
+
     @Test
     public void execute_addCommandTest_successful() {
         Model inventoryModel = new ModelManager(new InventoryList());
@@ -67,7 +107,7 @@ public class CommandTest {
                 commandResult);
     }
 
-    /*@Test
+    @Test
     public void execute_editCommandTest_successful() {
         //create a new InventoryList that only contains TypicalItem.FISH_BURGER
         ArrayList<Item> fishBurgerList = new ArrayList<>();
@@ -97,7 +137,7 @@ public class CommandTest {
         //compares the String CommandResult given to the expected CommandResult
         assertEquals(new CommandResult(String.format(InventoryMessages.MESSAGE_EDITED_ITEM, TypicalItem.FISH_BURGER,
                 expectedItem)), commandResult);
-    }*/
+    }
 
     @Test
     public void execute_editCommandTestUnsuccessful() {
@@ -125,7 +165,7 @@ public class CommandTest {
         ArrayList<Item> list = new ArrayList<>();
         list.add(TypicalItem.FISH_BURGER);
         list.add(TypicalItem.STORYBOOK);
-        list.add(TypicalItem.BLACK_SHIRT);
+        list.add(TypicalItem.PHONE_CASE);
 
         InventoryList inventoryList = new InventoryList(list);
         Model sortDescriptionInventoryModel = new ModelManager(inventoryList);
@@ -143,7 +183,8 @@ public class CommandTest {
         assertEquals(new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_DESCRIPTION),
                 sortDescriptionCommandResult);
 
-        assertEquals(TypicalItem.FISH_BURGER, sortDescriptionInventoryModel.getInventoryList().get(0));
+        assertEquals(getItemOfLowestDescriptionLexicographicalValue(inventoryList),
+                sortDescriptionInventoryModel.getInventoryList().get(0));
     }
 
     @Test
@@ -151,7 +192,7 @@ public class CommandTest {
         ArrayList<Item> list = new ArrayList<>();
         list.add(TypicalItem.FISH_BURGER);
         list.add(TypicalItem.STORYBOOK);
-        list.add(TypicalItem.BLACK_SHIRT);
+        list.add(TypicalItem.PHONE_CASE);
 
         InventoryList inventoryList = new InventoryList(list);
         Model sortCategoryInventoryModel = new ModelManager(inventoryList);
@@ -168,7 +209,8 @@ public class CommandTest {
         assertEquals(new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_CATEGORY),
                 sortCategoryCommandResult);
 
-        assertEquals(TypicalItem.STORYBOOK, sortCategoryInventoryModel.getInventoryList().get(0));
+        assertEquals(getItemOfLowestCategoryLexicographicalValue(inventoryList),
+                sortCategoryInventoryModel.getInventoryList().get(0));
     }
 
     @Test
@@ -176,7 +218,7 @@ public class CommandTest {
         ArrayList<Item> list = new ArrayList<>();
         list.add(TypicalItem.FISH_BURGER);
         list.add(TypicalItem.STORYBOOK);
-        list.add(TypicalItem.BLACK_SHIRT);
+        list.add(TypicalItem.PHONE_CASE);
 
         //Instantiate ModelManagers for all sort commands
         InventoryList inventoryList = new InventoryList(list);
@@ -196,7 +238,7 @@ public class CommandTest {
         assertEquals(new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_QUANTITY),
                 sortQuantityCommandResult);
 
-        //assertEquals(TypicalItem.BLACK_SHIRT, sortQuantityInventoryModel.getInventoryList().get(0));
+        assertEquals(getItemOfLowestQuantity(inventoryList), sortQuantityInventoryModel.getInventoryList().get(0));
     }
 
     @Test
@@ -204,7 +246,7 @@ public class CommandTest {
         ArrayList<Item> list = new ArrayList<>();
         list.add(TypicalItem.FISH_BURGER);
         list.add(TypicalItem.STORYBOOK);
-        list.add(TypicalItem.BLACK_SHIRT);
+        list.add(TypicalItem.PHONE_CASE);
 
         //Instantiate ModelManagers for all sort commands
         InventoryList inventoryList = new InventoryList(list);
@@ -228,8 +270,8 @@ public class CommandTest {
 
     @Test
     public void equalsTest() {
-        AddCommand addCommand1 = new AddCommand(TypicalItem.BLACK_SHIRT);
-        AddCommand addCommand1Copy = new AddCommand(TypicalItem.BLACK_SHIRT);
+        AddCommand addCommand1 = new AddCommand(TypicalItem.PHONE_CASE);
+        AddCommand addCommand1Copy = new AddCommand(TypicalItem.PHONE_CASE);
         AddCommand addCommand2 = new AddCommand(TypicalItem.FISH_BURGER);
 
         DeleteCommand deleteCommand1 = new DeleteCommand(1);

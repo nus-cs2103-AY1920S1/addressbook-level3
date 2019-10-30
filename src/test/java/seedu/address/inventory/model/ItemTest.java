@@ -5,23 +5,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.TypicalItem;
+import seedu.address.testutil.ItemBuilder;
 
 public class ItemTest {
     @Test
     public void isSameItemTest() {
-        Item fishBurger1 = TypicalItem.FISH_BURGER;
-        Item fishBurger1Copy = TypicalItem.FISH_BURGER;
-        Item fishBurger2 = TypicalItem.FISH_BURGER;
-        fishBurger2.setPrice(2.0);
-        Item fishBurger3 = TypicalItem.FISH_BURGER;
-        fishBurger3.setId(4);
-        Item notFishBurger = TypicalItem.BURGER_AND_CHIPS;
+        Item item = new ItemBuilder().withDescription("Test Item").withCategory("test").withQuantity(5)
+                .withCost(3.0).withPrice(10.0).withId("2").build();
+        Item itemCopy = new ItemBuilder().withDescription("Test Item").withCategory("test").withQuantity(5)
+                .withCost(3.0).withPrice(10.0).withId("2").build();
+        Item item2 = item;
+        item2.setPrice(2.0);
+        Item item3 = item;
+        item3.setId(4);
+        Item item4 = new ItemBuilder().withDescription("Different Test Item").withCategory("test").withQuantity(5)
+                .withCost(3.0).withPrice(10.0).withId("2").build();
 
-        assertTrue(fishBurger1.isSameItem(fishBurger1Copy));
+        //It is considered the same item if description and category
+        assertTrue(item.isSameItem(itemCopy));
         //It is considered the same item even if the price and ID are different
-        assertTrue(fishBurger1.isSameItem(fishBurger2));
-        assertTrue(fishBurger1.isSameItem(fishBurger3));
-        assertFalse(fishBurger1.isSameItem(notFishBurger));
+        assertTrue(item.isSameItem(item2));
+        assertTrue(item.isSameItem(item3));
+        assertFalse(item.isSameItem(item4));
     }
 }
