@@ -7,7 +7,6 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetPeriod;
-import seedu.address.model.budget.Percentage;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
@@ -31,7 +30,6 @@ public class BudgetBuilder {
     private BudgetPeriod period;
     private ObservableList<Expense> expenses;
     private boolean isPrimary;
-    private Percentage proportionUsed;
 
     public BudgetBuilder() {
         try {
@@ -42,7 +40,6 @@ public class BudgetBuilder {
             period = ParserUtil.parsePeriod(DEFAULT_PERIOD);
             endDate = startDate.plus(period.getPeriod());
             isPrimary = false;
-            proportionUsed = new Percentage(0);
         } catch (ParseException e) {
             //shouldn't have an exception
         }
@@ -59,7 +56,6 @@ public class BudgetBuilder {
         endDate = budgetToCopy.getEndDate();
         period = budgetToCopy.getPeriod();
         isPrimary = budgetToCopy.isPrimary();
-        proportionUsed = budgetToCopy.getProportionUsed();
     }
 
     /**
@@ -115,14 +111,6 @@ public class BudgetBuilder {
     }
 
     /**
-     * Sets the {@code PercentageUsed} of the {@code Budget} that we are building.
-     */
-    public BudgetBuilder withProportionUsed(Percentage proportionUsed) {
-        this.proportionUsed = proportionUsed;
-        return this;
-    }
-
-    /**
      * Sets the {@code IsPrimary Flag} of the {@code Budget} that we are building.
      */
     public BudgetBuilder withIsPrimary(boolean isPrimary) {
@@ -131,7 +119,7 @@ public class BudgetBuilder {
     }
 
     public Budget build() {
-        return new Budget(description, amount, startDate, endDate, period, expenses, isPrimary, proportionUsed);
+        return new Budget(description, amount, startDate, period, expenses, isPrimary);
     }
 
 }

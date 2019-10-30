@@ -109,11 +109,6 @@ public class BudgetTest {
                 .withPeriod("year").build();
         assertTrue(SCHOOL.isSameBudget(editedSchool));
 
-        // different proportion used -> return true
-        editedSchool = new BudgetBuilder(SCHOOL)
-                .withProportionUsed(new Percentage(90)).build();
-        assertTrue(SCHOOL.isSameBudget(editedSchool));
-
         // different expense list -> return true
         ObservableList<Expense> expenses = FXCollections.observableArrayList();
         expenses.add(ANNIVERSARY);
@@ -121,7 +116,7 @@ public class BudgetTest {
                 .withExpenses(expenses).build();
         assertTrue(SCHOOL.isSameBudget(editedSchool));
 
-        //different amount, start date, end date, period, primary status, proportion used, expense list
+        //different amount, start date, end date, period, primary status, expense list
         // -> returns true
         editedSchool = new BudgetBuilder(SCHOOL)
                 .withAmount("400")
@@ -129,7 +124,6 @@ public class BudgetTest {
                 .withEndDate("15-10-2020")
                 .withPeriod("year")
                 .withIsPrimary(false)
-                .withProportionUsed(new Percentage(90))
                 .withExpenses(expenses).build();
         assertTrue(SCHOOL.isSameBudget(editedSchool));
     }
@@ -177,11 +171,6 @@ public class BudgetTest {
         // different primary status -> returns false
         editedSchool = new BudgetBuilder(SCHOOL)
                 .withIsPrimary(false).build();
-        assertFalse(SCHOOL.equals(editedSchool));
-
-        // different proportion used -> returns false
-        editedSchool = new BudgetBuilder(SCHOOL)
-                .withProportionUsed(new Percentage(90)).build();
         assertFalse(SCHOOL.equals(editedSchool));
 
         // different expense list -> returns false
