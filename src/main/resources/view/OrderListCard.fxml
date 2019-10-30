@@ -9,8 +9,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.text.TextFlow?>
-<?import javafx.scene.text.Text?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -27,13 +25,15 @@
                         <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                <Label fx:id="orderName" text="\$first" styleClass="cell_big_label"/>
             </HBox>
             <FlowPane fx:id="tags"/>
-            <TextFlow fx:id="statusTag" style="-fx-font-weight: bold">
-                <Text fx:id="statusText" styleClass="menu-bar" />
-            </TextFlow>
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
+            <Label fx:id="customer" styleClass="cell_small_label" text="\$customer"/>
+            <Label fx:id="restaurant" styleClass="cell_small_label" text="\$restaurant"/>
+            <Label fx:id="deliveryman" styleClass="cell_small_label" text="\$deliveryman"/>
+            <Label fx:id="deliveryStatus" styleClass="cell_small_label" text="\$deliveryStatus"/>
+            <Label fx:id="food" styleClass="cell_small_label" text="\$food"/>
+
         </VBox>
     </GridPane>
 </HBox>

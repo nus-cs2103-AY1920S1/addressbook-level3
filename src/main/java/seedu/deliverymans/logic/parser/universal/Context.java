@@ -6,10 +6,13 @@ package seedu.deliverymans.logic.parser.universal;
 public enum Context {
     GLOBAL,
     CUSTOMER,
+    CUSTOMERLIST,
     DELIVERYMEN,
     RESTAURANT,
     DELIVERYMENSTATUS,
-    EDITING;
+    EDITING,
+    ORDER,
+    DELIVERYMANRECORD;
 
     public String toLowerCaseString() {
         return name().toLowerCase();

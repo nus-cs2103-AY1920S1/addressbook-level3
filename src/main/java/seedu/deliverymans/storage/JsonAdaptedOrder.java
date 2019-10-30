@@ -16,7 +16,7 @@ import seedu.deliverymans.model.order.Order;
 /**
  * Jackson-friendly version of {@link Order}.
  */
-class JsonAdaptedOrder {
+public class JsonAdaptedOrder {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
 

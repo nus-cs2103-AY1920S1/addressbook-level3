@@ -18,6 +18,9 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -47,6 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private StatisticsDisplay statisticsDisplay;
     private HelpWindow helpWindow;
+    private DeliverymanRecordCard deliverymanRecordCard;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -127,8 +131,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        // orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-        // listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -138,6 +142,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getAvailableDeliverymenList(),
+                logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
     }
 
     /**
@@ -187,47 +194,58 @@ public class MainWindow extends UiPart<Stage> {
 
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
+
+
         if (statisticsPlaceholder.getChildren().size() > 0) {
             statisticsPlaceholder.getChildren().remove(0);
         }
 
         switch (context) {
-            case CUSTOMER:
-                customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
-                listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
-                break;
-            case DELIVERYMEN:
-                deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
-                listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-                availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getFilteredStatusList());
-                statisticsPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
-                break;
-            case RESTAURANT:
-                restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
-                listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
-                break;
-            case DELIVERYMENSTATUS:
-                availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getUnavailableDeliverymenList());
-                listPanelPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
-                unavailableDeliverymenListPanel = new UnavailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
-                statisticsPlaceholder.getChildren().add(unavailableDeliverymenListPanel.getRoot());
-                break;
-            case EDITING:
-                Restaurant editing = logic.getEditingRestaurantList().get(0);
-                editingRestaurantPlaceholder.setPrefHeight(125.0);
-                editingRestaurantPlaceholder.setMinHeight(125.0);
-                restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
-                editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
-                foodListPanel = new FoodListPanel(editing.getMenu());
-                listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+        case CUSTOMER:
+            customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+            listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+            break;
+        case CUSTOMERLIST:
+            Customer customer = logic.getCustomerOrders();
+            orderListPanel = new OrderListPanel(customer.getOrders());
+            statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
+            break;
+        case DELIVERYMEN:
+            deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
+            listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
+            break;
+        case DELIVERYMENSTATUS:
+            deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
+            listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
+            statisticsPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
+            break;
+        case DELIVERYMANRECORD:
+            DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
+            deliverymanRecordCard = new DeliverymanRecordCard(record);
+            statisticsDisplay = new StatisticsDisplay();
+            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+            statisticsDisplay.setFeedbackToUser(record.toString());
+            break;
+        case RESTAURANT:
+            restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
+            listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+            break;
+        case EDITING:
+            Restaurant editing = logic.getEditingRestaurantList().get(0);
+            editingRestaurantPlaceholder.setPrefHeight(125.0);
+            editingRestaurantPlaceholder.setMinHeight(125.0);
+            restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
+            editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+            foodListPanel = new FoodListPanel(editing.getMenu());
+            listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-                //statisticsDisplay = new StatisticsDisplay();
-                //statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-                //statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS\nWORK IN PROGRESS");
-                break;
-            default:
-                orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-                listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+            //statisticsDisplay = new StatisticsDisplay();
+            //statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+            //statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS\nWORK IN PROGRESS");
+            break;
+        default:
+            orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
         }
     }
 
@@ -246,7 +264,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Context nextContext = commandResult.getContext();
-
             if (nextContext != null && nextContext != currentContext) {
                 changeContext(nextContext);
             }
@@ -266,4 +283,5 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
 }

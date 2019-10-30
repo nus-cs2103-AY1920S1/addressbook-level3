@@ -15,6 +15,7 @@ import seedu.deliverymans.logic.commands.universal.DeleteOrderCommand;
 import seedu.deliverymans.logic.commands.universal.EditOrderCommand;
 import seedu.deliverymans.logic.commands.universal.ExitCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
+import seedu.deliverymans.logic.commands.universal.ListOrderCommand;
 import seedu.deliverymans.logic.commands.universal.RedoCommand;
 import seedu.deliverymans.logic.commands.universal.SummaryCommand;
 import seedu.deliverymans.logic.commands.universal.UndoCommand;
@@ -58,6 +59,9 @@ public class UniversalParser {
         case EditOrderCommand.COMMAND_WORD:
             return new EditOrderCommandParser().parse(arguments);
 
+        case ListOrderCommand.COMMAND_WORD:
+            return new ListOrderCommand();
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -81,7 +85,7 @@ public class UniversalParser {
                 throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
             }
             nextContext = Context.CUSTOMER;
-            checkContext(nextContext);
+            //checkContext(nextContext);
             currentContext = nextContext;
             return new ContextCommand(nextContext);
 
@@ -90,7 +94,7 @@ public class UniversalParser {
                 throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
             }
             nextContext = Context.DELIVERYMEN;
-            checkContext(nextContext);
+            //checkContext(nextContext);
             currentContext = nextContext;
             return new ContextCommand(nextContext);
 
@@ -99,7 +103,7 @@ public class UniversalParser {
                 throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
             }
             nextContext = Context.RESTAURANT;
-            checkContext(nextContext);
+            //checkContext(nextContext);
             currentContext = nextContext;
             return new ContextCommand(nextContext);
 

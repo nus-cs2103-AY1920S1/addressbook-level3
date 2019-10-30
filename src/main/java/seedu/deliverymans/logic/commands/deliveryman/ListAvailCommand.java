@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 
 /**
@@ -15,18 +16,17 @@ public class ListAvailCommand extends Command {
     public static final String COMMAND_WORD = "lista";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Lists all the deliverymen who are currently available.\n"
+            + ": Lists all the deliverymen who are currently available on the right panel.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all currently available deliverymen.\n"
-            + "After any new changes made, use same command again to refresh an accurate list.";
+    public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all currently available deliverymen.\n";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         model.showAvailableDeliverymen();
-        return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS);
+        return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS, Context.DELIVERYMENSTATUS);
     }
 
     @Override

@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.deliveryman.deliverymanstatistics.RecordIndex;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 
 /**
@@ -23,9 +24,9 @@ public class Deliveryman {
     private final Phone phone;
 
     // Data fields
-    private final DeliveryRecord deliveryHistory;
     private final Set<Tag> tags = new HashSet<>();
     private StatusTag status;
+    private RecordIndex recordIndex;
 
     /**
      * Every field must be present and not null.
@@ -36,7 +37,6 @@ public class Deliveryman {
         this.phone = phone;
         this.tags.addAll(tags);
         status = new StatusTag("UNAVAILABLE"); // editing field will affect status
-        deliveryHistory = null;
     }
 
     public Deliveryman(Name name, Phone phone, Set<Tag> tags, StatusTag status) {
@@ -45,7 +45,6 @@ public class Deliveryman {
         this.phone = phone;
         this.tags.addAll(tags);
         this.status = status; // editing other fields will affect status
-        deliveryHistory = null;
     }
 
     /**
@@ -66,6 +65,14 @@ public class Deliveryman {
 
     public StatusTag getStatus() {
         return status;
+    }
+
+    public RecordIndex getRecordId() {
+        return recordIndex;
+    }
+
+    public void setRecordId(RecordIndex recordIndex) {
+        this.recordIndex = recordIndex;
     }
 
     public void setStatusTo(StatusTag status) {
@@ -110,7 +117,6 @@ public class Deliveryman {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, phone, tags);
     }
 
