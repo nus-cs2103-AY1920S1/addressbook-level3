@@ -45,34 +45,34 @@ public class SampleAppointmentDataUtil {
                 }
             }
             if (i % 10 == 0) {
-                listOfEvents[i] = new Event(new PatientReferenceId("001A"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "1A")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 1) {
-                listOfEvents[i] = new Event(new PatientReferenceId("002B"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "2B")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 2) {
-                listOfEvents[i] = new Event(new PatientReferenceId("003C"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "3C")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 3) {
-                listOfEvents[i] = new Event(new PatientReferenceId("004D"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "4D")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 4) {
-                listOfEvents[i] = new Event(new PatientReferenceId("005E"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "5E")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 5) {
-                listOfEvents[i] = new Event(new PatientReferenceId("006F"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "6F")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 6) {
-                listOfEvents[i] = new Event(new PatientReferenceId("007G"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "7G")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 7) {
-                listOfEvents[i] = new Event(new PatientReferenceId("008H"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "8H")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 8) {
-                listOfEvents[i] = new Event(new PatientReferenceId("009I"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "9I")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 9) {
-                listOfEvents[i] = new Event(new PatientReferenceId("000J"),
+                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "0J")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             }
         }
