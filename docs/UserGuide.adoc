@@ -413,9 +413,9 @@ Format and Example: +
 === Notification System
 Horo will post notifications to your system tray to remind you that an event is starting or that a task is due.
 
-Take note that Horo can only post reminders as long as the applilcation is open. To tell if Horo is running, check that the appropriate icon appears in the system tray
+Take note that Horo can only post reminders as long as the application is open. To tell if Horo is running, check that the appropriate icon appears in the system tray
 
-.Horo Tray Icon
+.Horo tray icon
 image::HoroIconScreenShot.png[]
 
 {empty} +
@@ -423,13 +423,13 @@ Also take note that notifications are switched on by default upon launch. This s
 
 You can tell if notifications are switched on by mousing over the icon in the system tray.
 
-.Horo Tray Icon Mouse Over
+.Mousing over the Horo tray icon
 image::IconMouseOverScreenShot.png[]
 
 ==== Notification Popups
 When Horo posts a notification, it should appear at the bottom-right side of the screen, where the system tray should be.
 
-.Notification Pop Up
+.A Popup Notification
 image::PopUpScreenShot.png[]
 
 ==== Switch notifications on
@@ -441,12 +441,13 @@ Format: +
 {empty} +
 1. If you would like to switch notifications on, type the command *`notif_on`* into the command box and press kbd:[Enter] to execute it. +
 
-.Notification On in Command Box
+.`notif_on` command in the Command Box
 image::NotificationOnCommandBoxScreenShot.png[]
 
 {empty} +
 2. An in-app popup should appear, displaying “Notifications switched on”. The log view should also record this action. +
-.Notification On FeedBack
+
+.Feedback for the `notif_on` command
 image::NotificationOnFeedbackScreenShot.png[]
 
 ==== Switch notifications off
@@ -458,13 +459,13 @@ Format: +
 {empty} +
 1. If you would like to switch notifications off, type the command *`notif_off`* into the command box and press kbd:[Enter] to execute it. +
 
-.Notification Off in Command Box
+.`notif_off` command in the Command Box
 image::NotificationOffCommandBoxScreenShot.png[]
 
 {empty} +
 2. An in-app popup should appear, displaying “Notifications switched off”. The log view should also record this action. +
 
-.Notification Off FeedBack
+.Feedback for the `notif_off` command
 image::NotificationOffFeedbackScreenShot.png[]
 
 === Undo-Redo
