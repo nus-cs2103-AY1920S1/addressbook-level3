@@ -88,8 +88,7 @@ public abstract class MultiLoanCommand extends Command {
             }
         }
 
-        targetLoanIndices = targetLoanIndices.stream().distinct().collect(Collectors.toList());
-        return targetLoanIndices;
+        return targetLoanIndices.stream().distinct().collect(Collectors.toList());
     }
 
 
