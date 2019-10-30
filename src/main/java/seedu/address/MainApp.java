@@ -68,20 +68,6 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        ReadOnlyAddressBook initialPatientAddressData;
-        try {
-            Optional<ReadOnlyAddressBook> addressBookOptional = storage.readPatientAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialPatientAddressData = addressBookOptional.orElseGet(SamplePersonDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialPatientAddressData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialPatientAddressData = new AddressBook();
-        }
 
         ReadOnlyAddressBook initialStaffAddressData;
         try {
@@ -96,6 +82,21 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty StaffRegistry");
             initialStaffAddressData = new AddressBook();
+        }
+
+        ReadOnlyAddressBook initialPatientAddressData;
+        try {
+            Optional<ReadOnlyAddressBook> addressBookOptional = storage.readPatientAddressBook();
+            if (!addressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            initialPatientAddressData = addressBookOptional.orElseGet(SamplePersonDataUtil::getSampleAddressBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialPatientAddressData = new AddressBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initialPatientAddressData = new AddressBook();
         }
 
         ReadOnlyAppointmentBook initialAppointmentData;
