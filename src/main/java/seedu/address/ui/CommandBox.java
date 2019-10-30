@@ -58,7 +58,7 @@ public class CommandBox extends UiPart<Region> {
                 // For the add command
                 , "add", "add title/", "add title/ date/ time/ l/ d/"
                 // For the edit, done and delete command
-                , "delete", "delete [index]", "edit", "edit [index]", "done", "done [index]"
+                , "delete", "delete ", "edit", "edit ", "done", "done "
                 // For the sort event
                 , "sort", "sort by/", "by/", "title", "location", "completion", "priority", "chronological"
                 // For the search event
