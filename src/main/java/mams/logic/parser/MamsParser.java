@@ -13,6 +13,7 @@ import mams.logic.commands.FindCommand;
 import mams.logic.commands.HelpCommand;
 import mams.logic.commands.HistoryCommand;
 import mams.logic.commands.ListCommand;
+import mams.logic.commands.RedoCommand;
 import mams.logic.commands.RemoveModCommand;
 import mams.logic.commands.ResolveCommand;
 import mams.logic.commands.SaveCommand;
@@ -88,7 +89,10 @@ public class MamsParser {
         case StoreCommand.COMMAND_UNDO:
             return new UndoCommand();
 
-        case SaveCommand.COMMAND_STORE:
+        case StoreCommand.COMMAND_REDO:
+            return new RedoCommand();
+
+        case SaveCommand.COMMAND_BACKUP:
             return new SaveCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:

@@ -83,7 +83,7 @@ class JsonSerializableMams {
         for (JsonAdaptedAppeal jsonAdaptedAppeal: appeals) {
             Appeal appeal = jsonAdaptedAppeal.toModelType();
             if (mams.hasAppeal((appeal))) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENT);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_APPEALS);
             }
             mams.addAppeal(appeal);
         }

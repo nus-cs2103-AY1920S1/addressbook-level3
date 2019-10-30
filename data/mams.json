@@ -1,7 +1,7 @@
 {
   "students" : [ {
     "name" : "Celina Conyers  ",
-    "credits" : "21",
+    "credits" : "20",
     "prevMods" : "CS1010, CS1020",
     "matricId" : "A0180000",
     "tagged" : [ "CS1231", "CS2030", "CS2040" ]
@@ -301,7 +301,7 @@
     "tagged" : [ "CS2030", "CS2309", "CS2106" ]
   } ],
   "modules" : [ {
-    "quota" : "100",
+    "quota" : "50",
     "tagged" : [ ],
     "moduleCode" : "CS1010",
     "moduleName" : "Programming Methodology",
@@ -309,7 +309,7 @@
     "lecturerName" : "Tung Kum Hoe Anthony",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "120",
+    "quota" : "80",
     "tagged" : [ "A0180040", "A0180041", "A0180020", "A0180042", "A0180000", "A0180011", "A0180022", "A0180023", "A0180034", "A0180045", "A0180001", "A0180012", "A0180002", "A0180003", "A0180037", "A0180018", "A0180019" ],
     "moduleCode" : "CS1231",
     "moduleName" : "Discrete Structures",
@@ -317,7 +317,7 @@
     "lecturerName" : "Terence Sim",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "120",
+    "quota" : "60",
     "tagged" : [ "A0180020", "A0180010", "A0180032", "A0180043", "A0180012", "A0180024", "A0180035", "A0180046", "A0180026", "A0180006", "A0180008" ],
     "moduleCode" : "CS1020",
     "moduleName" : "Data Structures and Algorithms Is",
@@ -325,7 +325,7 @@
     "lecturerName" : "Tan Sun Teck",
     "timeSlot" : "21,20,57,58,59"
   }, {
-    "quota" : "420",
+    "quota" : "40",
     "tagged" : [ "A0180033", "A0180015", "A0180026", "A0180048", "A0180027", "A0180049", "A0180028", "A0180039" ],
     "moduleCode" : "CS2309",
     "moduleName" : "CS Research Methodology",
@@ -333,7 +333,7 @@
     "lecturerName" : "Wynne Hsu",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "840",
+    "quota" : "50",
     "tagged" : [ "A0180040", "A0180030", "A0180042", "A0180010", "A0180043", "A0180022", "A0180001", "A0180037", "A0180005", "A0180049", "A0180029" ],
     "moduleCode" : "CS2106",
     "moduleName" : "Introduction to Operating Systems",
@@ -341,7 +341,7 @@
     "lecturerName" : "ANG RAY YAN",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "240",
+    "quota" : "50",
     "tagged" : [ "A0180030", "A0180041", "A0180031", "A0180043", "A0180000", "A0180011", "A0180012", "A0180002", "A0180013", "A0180024", "A0180035", "A0180015", "A0180005", "A0180017", "A0180018", "A0180029", "A0180019", "A0180009" ],
     "moduleCode" : "CS2040",
     "moduleName" : "Data Structures and Algorithms",
@@ -349,7 +349,7 @@
     "lecturerName" : "Chong Ket Fah",
     "timeSlot" : "40,41,10,11,12"
   }, {
-    "quota" : "120",
+    "quota" : "50",
     "tagged" : [ "A0180040", "A0180030", "A0180022", "A0180045", "A0180003", "A0180014", "A0180004", "A0180048", "A0180017", "A0180008", "A0180009" ],
     "moduleCode" : "CS2220",
     "moduleName" : "Introduction to Computational Biology",
@@ -357,7 +357,7 @@
     "lecturerName" : "Limsoon Wong",
     "timeSlot" : "30,31,32,33"
   }, {
-    "quota" : "666",
+    "quota" : "50",
     "tagged" : [ ],
     "moduleCode" : "CS2100",
     "moduleName" : "Computer Organisation",
@@ -365,7 +365,7 @@
     "lecturerName" : "LI ZHAOYING",
     "timeSlot" : "32,33,12,13"
   }, {
-    "quota" : "720",
+    "quota" : "40",
     "tagged" : [ "A0180041", "A0180020", "A0180031", "A0180021", "A0180032", "A0180044", "A0180001", "A0180002", "A0180035", "A0180025", "A0180036", "A0180016", "A0180027", "A0180038", "A0180039", "A0180007" ],
     "moduleCode" : "CS2105",
     "moduleName" : "Introduction to Computer Networks",
@@ -373,7 +373,7 @@
     "lecturerName" : "Zhou Lifeng",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "120",
+    "quota" : "50",
     "tagged" : [ "A0180031", "A0180010", "A0180021", "A0180032", "A0180000", "A0180033", "A0180023", "A0180013", "A0180003", "A0180036", "A0180047", "A0180004", "A0180049", "A0180028", "A0180009" ],
     "moduleCode" : "CS2030",
     "moduleName" : "Programming Methodology II",
@@ -381,7 +381,7 @@
     "lecturerName" : "LEE LIAK GHEE",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "111",
+    "quota" : "40",
     "tagged" : [ "A0180042", "A0180021", "A0180044", "A0180001", "A0180046", "A0180014", "A0180047", "A0180026", "A0180005", "A0180016", "A0180006", "A0180028", "A0180039", "A0180019" ],
     "moduleCode" : "CS2101",
     "moduleName" : "Effective Communication for Computing Professionals",
@@ -394,7 +394,7 @@
     "appealType" : "Increase workload",
     "studentId" : "A0180000",
     "academicYear" : "AY2019",
-    "studentWorkload" : 28,
+    "studentWorkload" : 20,
     "appealDescription" : "I want to increase my workload so I can graduate on time",
     "previousModule" : "",
     "newModule" : "",
@@ -408,7 +408,7 @@
     "appealType" : "Drop module",
     "studentId" : "A0180001",
     "academicYear" : "AY2019",
-    "studentWorkload" : 28,
+    "studentWorkload" : 0,
     "appealDescription" : "I don't think I can cope with the workload",
     "previousModule" : "",
     "newModule" : "",
@@ -422,7 +422,7 @@
     "appealType" : "Drop module",
     "studentId" : "A0180002",
     "academicYear" : "AY2019",
-    "studentWorkload" : 28,
+    "studentWorkload" : 0,
     "appealDescription" : "I cannot cope with the workload",
     "previousModule" : "",
     "newModule" : "",
@@ -436,7 +436,7 @@
     "appealType" : "Add module",
     "studentId" : "A0180003",
     "academicYear" : "AY2020",
-    "studentWorkload" : 20,
+    "studentWorkload" : 0,
     "appealDescription" : "I want to take another module",
     "previousModule" : "",
     "newModule" : "",
@@ -464,7 +464,7 @@
     "appealType" : "Add module",
     "studentId" : "A0180005",
     "academicYear" : "AY2019",
-    "studentWorkload" : 20,
+    "studentWorkload" : 0,
     "appealDescription" : "I want to graduate earlier",
     "previousModule" : "",
     "newModule" : "",
@@ -478,7 +478,7 @@
     "appealType" : "Add module",
     "studentId" : "A0180006",
     "academicYear" : "AY2019",
-    "studentWorkload" : 20,
+    "studentWorkload" : 0,
     "appealDescription" : "I wish to take this module to clear my prerequisite",
     "previousModule" : "",
     "newModule" : "",

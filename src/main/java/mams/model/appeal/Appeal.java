@@ -77,7 +77,7 @@ public class Appeal {
                   String remark) {
 
         CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear,
-                studentWorkload, appealDescription);
+                appealDescription);
         this.appealId = appealId;
         this.appealType = appealType;
         this.studentId = studentId;
@@ -128,7 +128,7 @@ public class Appeal {
                   String remark) {
 
         CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear,
-                studentWorkload, appealDescription);
+                 appealDescription);
         this.appealId = appealId;
         this.appealType = appealType;
         this.studentId = studentId;
