@@ -36,6 +36,10 @@ public class SuggestingCommandBox extends CommandBox {
         setupPopup();
         setupHistoryNavigation();
         setupCommandTextField();
+
+        UiUtil.onSceneReady(commandTextField, scene -> {
+            commandTextField.requestFocus();
+        });
     }
 
     private void setupPopup() {
