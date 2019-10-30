@@ -35,6 +35,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label status;
+    @FXML
     private Label targetDate;
     @FXML
     private Label author;
@@ -57,9 +59,12 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         id.setWrapText(true);
         id.setTextAlignment(TextAlignment.JUSTIFY);
-        name.setText(task.getName().fullName + task.getStatusIcon());
+        name.setText(task.getName().fullName);
         name.setWrapText(true);
         name.setTextAlignment(TextAlignment.JUSTIFY);
+        name.setStyle(task.getIsSolved() ? "-fx-text-fill: #96b946;" : "-fx-text-fill: #ff6973;");
+        status.setText(task.getStatusIcon());
+        status.setStyle(task.getIsSolved() ? "-fx-text-fill: #96b946;" : "-fx-text-fill: #ff6973;");
         targetDate.setText(task.getTargetDate().format(ParserUtil.FORMATTER));
         targetDate.setWrapText(true);
         targetDate.setTextAlignment(TextAlignment.JUSTIFY);

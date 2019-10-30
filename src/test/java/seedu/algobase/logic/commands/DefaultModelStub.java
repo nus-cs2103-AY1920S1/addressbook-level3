@@ -53,7 +53,7 @@ public class DefaultModelStub implements Model {
     }
 
     @Override
-    public void setAlgoBaseFilePath(Path addressBookFilePath) {
+    public void setAlgoBaseFilePath(Path algobaseFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -193,6 +193,11 @@ public class DefaultModelStub implements Model {
     }
 
     //=========== Task ==================================================================
+
+    @Override
+    public void setCurrentPlan(Plan plan) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public ObservableList<Task> getCurrentTaskList() {

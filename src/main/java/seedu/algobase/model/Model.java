@@ -208,6 +208,11 @@ public interface Model {
     //=========== Task ==================================================================
 
     /**
+     * Sets the current {@code Plan}.
+     */
+    void setCurrentPlan(Plan plan);
+
+    /**
      * Returns an unmodifiable view of the filtered Plan list
      */
     ObservableList<Task> getCurrentTaskList();

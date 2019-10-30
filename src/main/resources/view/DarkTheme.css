@@ -387,3 +387,17 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.default-color0.chart-pie { -fx-pie-color: #96b946; }
+.default-color1.chart-pie { -fx-pie-color: #ff6973; }
+
+.chart-pie-label-line {
+    -fx-stroke: #FFFFFF;
+    -fx-fill: #FFFFFF;
+}
+
+.chart-pie-label {
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 1em;
+}
+

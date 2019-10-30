@@ -3,8 +3,11 @@ package seedu.algobase.model.plan;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -71,6 +74,14 @@ public class Plan {
     }
 
     /**
+     * Check whether a given date lies inside its own date range.
+     * @return result.
+     */
+    public boolean checkWithinDateRange(LocalDate date) {
+        return date.compareTo(this.getStartDate()) > 0 && date.compareTo(this.getEndDate()) < 0;
+    }
+
+    /**
      * Returns number of solved tasks within plan.
      * @return number of solved tasks.
      */
@@ -112,6 +123,15 @@ public class Plan {
      */
     public Set<Task> getTasks() {
         return Collections.unmodifiableSet(tasks);
+    }
+
+    /**
+     * Returns a list of all tasks, sorted by name.
+     */
+    public List<Task> getTaskList() {
+        List<Task> taskList = new ArrayList<>(this.getTasks());
+        taskList.sort(Comparator.comparing(Task::getName));
+        return taskList;
     }
 
     /**

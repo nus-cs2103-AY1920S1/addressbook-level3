@@ -2,7 +2,7 @@ package seedu.algobase.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.algobase.logic.commands.SortCommand.MESSAGE_SUCCESS;
+import static seedu.algobase.logic.commands.problem.SortCommand.MESSAGE_SUCCESS;
 import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
 
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.problem.SortCommand;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
