@@ -37,7 +37,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setModelManagerFromBlank_correctInput_success() {
+    public void setTargetFromBlank_correctInput_success() {
         Model model = new ModelManager(BLANK_OVERVIEW_MODEL);
 
         model.setBudgetTarget(500);
@@ -52,7 +52,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setModelManagerFromExisting_correctInput_success() {
+    public void setTargetFromExisting_correctInput_success() {
 
         Model model = new ModelManager(OVERVIEW_MODEL_WITH_DATA);
 
@@ -64,6 +64,37 @@ public class ModelManagerTest {
 
         model.setSalesTarget(5);
         assertEquals(5.0, model.getSalesTarget());
+
+    }
+
+    @Test
+    public void setThresholdFromBlank_correctInput_success() {
+        Model model = new ModelManager(BLANK_OVERVIEW_MODEL);
+
+        model.setBudgetThreshold(80);
+        assertEquals(80.0, model.getBudgetThreshold());
+
+        model.setExpenseThreshold(90);
+        assertEquals(90.0, model.getExpenseThreshold());
+
+        model.setSalesThreshold(100);
+        assertEquals(100.0, model.getSalesThreshold());
+
+    }
+
+    @Test
+    public void setThresholdFromExisting_correctInput_success() {
+
+        Model model = new ModelManager(OVERVIEW_MODEL_WITH_DATA);
+
+        model.setBudgetThreshold(80);
+        assertEquals(80.0, model.getBudgetThreshold());
+
+        model.setExpenseThreshold(90);
+        assertEquals(90.0, model.getExpenseThreshold());
+
+        model.setSalesThreshold(100);
+        assertEquals(100.0, model.getSalesThreshold());
 
     }
 
