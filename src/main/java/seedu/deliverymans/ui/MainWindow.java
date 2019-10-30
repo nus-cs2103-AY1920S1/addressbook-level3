@@ -30,13 +30,12 @@ import seedu.deliverymans.model.restaurant.Restaurant;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static Context currentContext = Context.GLOBAL;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
-
-    private Context currentContext;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -79,7 +78,6 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.currentContext = null;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -290,6 +288,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    public static Context getContext() {
+        return currentContext;
     }
 
 }

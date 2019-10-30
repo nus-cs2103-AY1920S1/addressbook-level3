@@ -52,10 +52,10 @@ public class OrderCard extends UiPart<Region> {
         this.order = order;
         id.setText(displayedIndex + ". ");
         orderName.setText(order.getOrderName().fullName);
-        customer.setText(order.getCustomer().fullName);
-        restaurant.setText(order.getRestaurant().fullName);
-        deliveryman.setText(order.getDeliveryman().fullName);
-        deliveryStatus.setText(String.valueOf(order.isCompleted()));
+        customer.setText("Customer: " + order.getCustomer().fullName);
+        restaurant.setText("Restaurant: " + order.getRestaurant().fullName);
+        deliveryman.setText("Deliveryman: " + order.getDeliveryman().fullName);
+        deliveryStatus.setText("Delivery completed: " + order.isCompleted());
         Map<Name, Integer> foodList = order.getFood();
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Name, Integer> entry : foodList.entrySet()) {

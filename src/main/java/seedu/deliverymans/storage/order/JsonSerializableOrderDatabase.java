@@ -1,4 +1,4 @@
-package seedu.deliverymans.storage;
+package seedu.deliverymans.storage.order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import seedu.deliverymans.model.order.Order;
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "orderdatabase")
-class JsonSerializableOrderDatabase {
+public class JsonSerializableOrderDatabase {
 
     public static final String MESSAGE_DUPLICATE_ORDER = "Orders list contains duplicate order(s).";
 
