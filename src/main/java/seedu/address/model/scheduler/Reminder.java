@@ -21,7 +21,7 @@ public class Reminder implements Runnable {
         return details;
     }
     public void run() {
-        System.out.println(lesson);
+
     }
 
     /**

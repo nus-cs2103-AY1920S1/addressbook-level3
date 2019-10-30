@@ -149,7 +149,7 @@ public class ParserUtil {
     public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
+        if (!Phone.isValidParentPhone(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
@@ -273,6 +273,10 @@ public class ParserUtil {
         try {
             date = sdf.parse(trimmedTime);
             calendar.setTime(date);
+            Calendar currCalendar = Calendar.getInstance();
+            if (calendar.compareTo(currCalendar) < 0) {
+                throw new ParseException(Time.MESSAGE_TIME_CONSTRAINT);
+            }
         } catch (java.text.ParseException e) {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }

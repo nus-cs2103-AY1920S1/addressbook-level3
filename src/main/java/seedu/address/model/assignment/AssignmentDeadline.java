@@ -1,6 +1,7 @@
 package seedu.address.model.assignment;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,8 +27,27 @@ public class AssignmentDeadline {
      */
     public AssignmentDeadline(String assignmentDeadline) {
         requireNonNull(assignmentDeadline);
+        checkArgument(isValidAssignmentDeadline(assignmentDeadline), MESSAGE_CONSTRAINTS);
         this.assignmentDeadline = assignmentDeadline;
         this.assignmentDeadlineCalendar = setAssignmentDeadlineCalendar();
+    }
+
+    public Calendar getAssignmentDeadlineCalendar() {
+        return this.assignmentDeadlineCalendar;
+    }
+
+    /**
+     * Returns true if a given string is a valid assignment deadline.
+     */
+    public static boolean isValidAssignmentDeadline(String test) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(test);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
     private Calendar setAssignmentDeadlineCalendar() {
