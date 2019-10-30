@@ -38,6 +38,12 @@ public class UniqueAnalyser implements Analyser {
         this.results = results;
     }
 
+    /**
+     * Creates a hashmap of password String to the Password objects.
+     *
+     * @param accountList is the list of passwords in the password book.
+     * @return the hashmap of unique passwords to password objects.
+     */
     HashMap<String, ArrayList<Password>> initHash(List<Password> accountList) {
         HashMap<String, ArrayList<Password>> passwordToAccounts = new HashMap<>();
         for (Password acc : accountList) {

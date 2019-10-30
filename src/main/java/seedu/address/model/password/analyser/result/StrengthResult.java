@@ -1,8 +1,8 @@
 package seedu.address.model.password.analyser.result;
 
-import seedu.address.model.password.Password;
-
 import java.util.Objects;
+
+import seedu.address.model.password.Password;
 
 /**
  * Represents a result produced from strength analyser.
@@ -48,15 +48,21 @@ public class StrengthResult extends Result {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         StrengthResult that = (StrengthResult) o;
-        return hasMinimumLength == that.hasMinimumLength &&
-                hasLower == that.hasLower &&
-                hasUpper == that.hasUpper &&
-                hasNum == that.hasNum &&
-                hasSpecial == that.hasSpecial;
+        return hasMinimumLength == that.hasMinimumLength
+                && hasLower == that.hasLower
+                && hasUpper == that.hasUpper
+                && hasNum == that.hasNum
+                && hasSpecial == that.hasSpecial;
     }
 
     @Override

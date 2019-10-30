@@ -15,11 +15,12 @@ public class SequenceAnalyser implements Analyser {
 
     private static final String MESSAGE_HEADER = "Analysing passwords for common sequences :\n";
 
+    private ArrayList<SequenceResult> results;
+
     public ArrayList<SequenceResult> getResults() {
         return results;
     }
 
-    private ArrayList<SequenceResult> results;
 
     @Override
     public void analyse(List<Password> passwordList) {
@@ -65,7 +66,7 @@ public class SequenceAnalyser implements Analyser {
                 next = characters[end];
             }
             if (seq.length() >= 3) {
-                matches.add(new SequenceMatch(start, end-1, seq.toString()));
+                matches.add(new SequenceMatch(start, end - 1, seq.toString()));
             }
             start = end;
         }
@@ -94,7 +95,7 @@ public class SequenceAnalyser implements Analyser {
                 next = characters[end];
             }
             if (seq.length() >= 3) {
-                matches.add(new SequenceMatch(start, end-1, seq.toString()));
+                matches.add(new SequenceMatch(start, end - 1, seq.toString()));
             }
             start = end;
         }

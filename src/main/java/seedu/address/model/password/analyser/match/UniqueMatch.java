@@ -2,21 +2,11 @@ package seedu.address.model.password.analyser.match;
 
 import seedu.address.model.password.Password;
 
-import java.util.Objects;
-
 /**
  * Represents a {@code match} which was found  by {@code UniqueAnalyser}.
  */
 public class UniqueMatch extends BaseMatch {
     private Password password;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UniqueMatch that = (UniqueMatch) o;
-        return password.equals(that.password);
-    }
 
     /**
      * Constructs a {@code UniqueMatch}
@@ -35,4 +25,17 @@ public class UniqueMatch extends BaseMatch {
     public String toString() {
         return super.toString() + "Type : Unique Match\n" + "Account : " + this.password;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UniqueMatch that = (UniqueMatch) o;
+        return password.equals(that.password);
+    }
+
 }

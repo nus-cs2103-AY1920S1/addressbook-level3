@@ -1,8 +1,8 @@
 package seedu.address.model.password.analyser.match;
 
-import seedu.address.model.password.Password;
-
 import java.util.Objects;
+
+import seedu.address.model.password.Password;
 
 /**
  * Represents a {@code match} which was found by {@code SimilarityAnalyser}.
@@ -40,11 +40,15 @@ public class SimilarityMatch extends BaseMatch implements Comparable<SimilarityM
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SimilarityMatch that = (SimilarityMatch) o;
-        return Double.compare(that.similarity, similarity) == 0 &&
-                Objects.equals(password, that.password);
+        return Double.compare(that.similarity, similarity) == 0
+                && Objects.equals(password, that.password);
     }
 
     @Override

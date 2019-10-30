@@ -135,8 +135,12 @@ public class SimilarityAnalyser implements Analyser {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SimilarityAnalyser that = (SimilarityAnalyser) o;
         return results.equals(that.results);
     }

@@ -1,18 +1,20 @@
 package seedu.address.model.password.analyser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.password.analyser.match.SimilarityMatch;
-import seedu.address.model.password.analyser.result.SimilarityResult;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 class SimilarityAnalyserTest {
     @Test
@@ -65,7 +67,7 @@ class SimilarityAnalyserTest {
         expectedMatches.add(new SimilarityMatch(0, 7, "password123", p3, 0.7272727272727273));
         expectedMatches.add(new SimilarityMatch(0, 7, "password123", p4, 0.8));
 
-        for ( int i = 0 ; i < expectedMatches.size(); i++) {
+        for (int i = 0; i < expectedMatches.size(); i++) {
             assertEquals(actualMatches.get(i), expectedMatches.get(i));
         }
     }

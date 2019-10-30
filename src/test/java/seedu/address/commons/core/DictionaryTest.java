@@ -1,13 +1,14 @@
 package seedu.address.commons.core;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.exceptions.DictionaryException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.exceptions.DictionaryException;
 
 class DictionaryTest {
 
@@ -24,7 +25,6 @@ class DictionaryTest {
         test.put("123123", 11);
 
         try {
-            // Test the fixture
             for (Map.Entry<String, Integer> entry : test.entrySet()) {
                 String value = entry.getKey();
                 Integer expected = entry.getValue();

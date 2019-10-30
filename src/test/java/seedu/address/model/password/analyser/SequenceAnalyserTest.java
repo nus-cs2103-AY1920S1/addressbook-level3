@@ -1,17 +1,18 @@
 package seedu.address.model.password.analyser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.password.analyser.match.SequenceMatch;
 import seedu.address.model.password.analyser.result.SequenceResult;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 class SequenceAnalyserTest {
 
@@ -29,7 +30,7 @@ class SequenceAnalyserTest {
 
         ArrayList<SequenceMatch> expectedMatches = new ArrayList<>();
         expectedMatches.add(new SequenceMatch(0, 2, "123"));
-        expectedMatches.add(new SequenceMatch(7,9,"456"));
+        expectedMatches.add(new SequenceMatch(7, 9, "456"));
         expectedMatches.add(new SequenceMatch(14, 19, "123456"));
         SequenceResult expected = new SequenceResult(p, "failed", expectedMatches);
 
@@ -51,7 +52,7 @@ class SequenceAnalyserTest {
 
         ArrayList<SequenceMatch> expectedMatches = new ArrayList<>();
         expectedMatches.add(new SequenceMatch(0, 2, "321"));
-        expectedMatches.add(new SequenceMatch(7,9,"654"));
+        expectedMatches.add(new SequenceMatch(7, 9, "654"));
         expectedMatches.add(new SequenceMatch(14, 19, "654321"));
         SequenceResult expected = new SequenceResult(p, "failed", expectedMatches);
 
@@ -71,7 +72,7 @@ class SequenceAnalyserTest {
 
         ArrayList<SequenceMatch> expectedMatches = new ArrayList<>();
         expectedMatches.add(new SequenceMatch(0, 2, "ABC"));
-        expectedMatches.add(new SequenceMatch(7,9,"XYZ"));
+        expectedMatches.add(new SequenceMatch(7, 9, "XYZ"));
         expectedMatches.add(new SequenceMatch(14, 16, "ABC"));
         expectedMatches.add(new SequenceMatch(17, 19, "XYZ"));
 
@@ -93,7 +94,7 @@ class SequenceAnalyserTest {
 
         ArrayList<SequenceMatch> expectedMatches = new ArrayList<>();
         expectedMatches.add(new SequenceMatch(0, 2, "CBA"));
-        expectedMatches.add(new SequenceMatch(7,9,"ZYX"));
+        expectedMatches.add(new SequenceMatch(7, 9, "ZYX"));
         expectedMatches.add(new SequenceMatch(14, 16, "CBA"));
         expectedMatches.add(new SequenceMatch(17, 19, "ZYX"));
         SequenceResult expected = new SequenceResult(p, "failed", expectedMatches);

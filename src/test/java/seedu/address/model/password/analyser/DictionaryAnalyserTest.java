@@ -1,6 +1,13 @@
 package seedu.address.model.password.analyser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.Dictionary;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.model.password.Description;
@@ -8,12 +15,6 @@ import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.password.analyser.match.DictionaryMatch;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 class DictionaryAnalyserTest {
 
@@ -26,16 +27,14 @@ class DictionaryAnalyserTest {
             DictionaryAnalyser a = new DictionaryAnalyser(d);
             List<DictionaryMatch> actualMatches = a.getAllMatches(p1.getPasswordValue().value);
             System.out.println(actualMatches.toString());
-            
             List<DictionaryMatch> expectedMatches = new ArrayList<>();
-            expectedMatches.add(new DictionaryMatch(0,5,"qwerty", 4));
-            expectedMatches.add(new DictionaryMatch(0,4,"qwert", 420));
-            expectedMatches.add(new DictionaryMatch(0,3,"qwer", 2322));
-            expectedMatches.add(new DictionaryMatch(1,4,"wert", 7620));
-            expectedMatches.add(new DictionaryMatch(1,5,"werty", 8340));
-            expectedMatches.add(new DictionaryMatch(2,5,"erty", 53112));
-            
-            for (int i = 0 ; i < expectedMatches.size(); i++) {
+            expectedMatches.add(new DictionaryMatch(0, 5, "qwerty", 4));
+            expectedMatches.add(new DictionaryMatch(0, 4, "qwert", 420));
+            expectedMatches.add(new DictionaryMatch(0, 3, "qwer", 2322));
+            expectedMatches.add(new DictionaryMatch(1, 4, "wert", 7620));
+            expectedMatches.add(new DictionaryMatch(1, 5, "werty", 8340));
+            expectedMatches.add(new DictionaryMatch(2, 5, "erty", 53112));
+            for (int i = 0; i < expectedMatches.size(); i++) {
                 assertEquals(actualMatches.get(i), expectedMatches.get(i));
             }
         } catch (DictionaryException e) {
@@ -56,14 +55,14 @@ class DictionaryAnalyserTest {
             System.out.println(actualMatches.toString());
 
             List<DictionaryMatch> expectedMatches = new ArrayList<>();
-            expectedMatches.add(new DictionaryMatch(0,5,"qwerty", 4));
-            expectedMatches.add(new DictionaryMatch(0,4,"qwert", 420));
-            expectedMatches.add(new DictionaryMatch(0,3,"qwer", 2322));
-            expectedMatches.add(new DictionaryMatch(1,4,"wert", 7620));
-            expectedMatches.add(new DictionaryMatch(1,5,"werty", 8340));
-            expectedMatches.add(new DictionaryMatch(2,5,"erty", 53112));
+            expectedMatches.add(new DictionaryMatch(0, 5, "qwerty", 4));
+            expectedMatches.add(new DictionaryMatch(0, 4, "qwert", 420));
+            expectedMatches.add(new DictionaryMatch(0, 3, "qwer", 2322));
+            expectedMatches.add(new DictionaryMatch(1, 4, "wert", 7620));
+            expectedMatches.add(new DictionaryMatch(1, 5, "werty", 8340));
+            expectedMatches.add(new DictionaryMatch(2, 5, "erty", 53112));
 
-            for (int i = 0 ; i < expectedMatches.size(); i++) {
+            for (int i = 0; i < expectedMatches.size(); i++) {
                 assertEquals(actualMatches.get(i), expectedMatches.get(i));
             }
         } catch (DictionaryException e) {

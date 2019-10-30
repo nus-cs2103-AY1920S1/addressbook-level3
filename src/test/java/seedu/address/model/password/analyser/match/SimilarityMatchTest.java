@@ -1,13 +1,15 @@
 package seedu.address.model.password.analyser.match;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 class SimilarityMatchTest {
 

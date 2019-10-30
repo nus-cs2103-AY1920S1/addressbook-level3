@@ -1,19 +1,20 @@
 package seedu.address.model.password.analyser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.password.Description;
-import seedu.address.model.password.Password;
-import seedu.address.model.password.PasswordValue;
-import seedu.address.model.password.Username;
-import seedu.address.model.password.analyser.match.UniqueMatch;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.password.Description;
+import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordValue;
+import seedu.address.model.password.Username;
+import seedu.address.model.password.analyser.match.UniqueMatch;
 
 class UniqueAnalyserTest {
 
@@ -40,7 +41,8 @@ class UniqueAnalyserTest {
         list.add(p4);
 
         HashMap<String, ArrayList<Password>> expectedPasswordToAccounts = a.initHash(list);
-        List<UniqueMatch> actualMatches = a.getAllMatches(p1, expectedPasswordToAccounts.get(p1.getPasswordValue().value));
+        List<UniqueMatch> actualMatches = a.getAllMatches(p1,
+                expectedPasswordToAccounts.get(p1.getPasswordValue().value));
         assertTrue(actualMatches.isEmpty());
     }
 
@@ -67,14 +69,15 @@ class UniqueAnalyserTest {
         list.add(p4);
 
         HashMap<String, ArrayList<Password>> expectedPasswordToAccounts = a.initHash(list);
-        List<UniqueMatch> actualMatches = a.getAllMatches(p1, expectedPasswordToAccounts.get(p1.getPasswordValue().value));
+        List<UniqueMatch> actualMatches = a.getAllMatches(p1,
+                expectedPasswordToAccounts.get(p1.getPasswordValue().value));
 
         List<UniqueMatch> expectedMatches = new ArrayList<>();
         expectedMatches.add(new UniqueMatch(0, 7, "password", p2));
         expectedMatches.add(new UniqueMatch(0, 7, "password", p3));
         expectedMatches.add(new UniqueMatch(0, 7, "password", p4));
 
-        for (int i = 0 ; i < expectedMatches.size() ; i++) {
+        for (int i = 0; i < expectedMatches.size(); i++) {
             assertEquals(expectedMatches.get(i), actualMatches.get(i));
         }
 

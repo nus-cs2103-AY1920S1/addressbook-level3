@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class BaseMatchTest {
     @Test
     public void testConstructor() {
-        BaseMatch instance = new BaseMatchImpl( 0, 5, "dummy");
+        BaseMatch instance = new BaseMatchImpl(0, 5, "dummy");
         String token = instance.getToken();
         int start = instance.getStartIndex();
         int end = instance.getEndIndex();

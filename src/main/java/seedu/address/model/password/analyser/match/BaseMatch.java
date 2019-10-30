@@ -28,7 +28,7 @@ public abstract class BaseMatch implements Match {
         this.endIndex = endIndex;
     }
 
-    protected Boolean isValidMatch(int startIndex, int endIndex, String token){
+    protected Boolean isValidMatch(int startIndex, int endIndex, String token) {
         return startIndex < endIndex && token != "";
     }
 

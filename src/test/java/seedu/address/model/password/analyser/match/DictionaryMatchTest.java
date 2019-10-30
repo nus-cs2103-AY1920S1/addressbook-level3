@@ -1,9 +1,8 @@
 package seedu.address.model.password.analyser.match;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.core.Dictionary;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class DictionaryMatchTest {
 

@@ -1,7 +1,6 @@
 package seedu.address.model.password.analyser.result;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import seedu.address.model.password.Password;
 
@@ -66,8 +65,9 @@ public abstract class Result {
      */
     @Override
     public String toString() {
-        return String.format("%-30s %-10s %-30s %-10s %-30s %-10s %-30s", this.password.getDescription() , ":" , this.password.getUsername() , ":"
-                , this.password.getPasswordValue() , ":" , getDescription()) + "\n";
+        return String.format("%-30s %-10s %-30s %-10s %-30s %-10s %-30s", this.password.getDescription(),
+                ":", this.password.getUsername(), ":",
+                this.password.getPasswordValue() , ":" , getDescription()) + "\n";
     }
 
 }
