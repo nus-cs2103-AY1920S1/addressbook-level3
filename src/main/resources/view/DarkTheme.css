@@ -464,66 +464,41 @@
     -fx-border-color: black;
 }
 
-#customLineChart {
+#lineChartCustom {
     -fx-min-height: 300;
     -fx-legend-visible: false;
 }
 
-/*
-#vBox {
-    -fx-background-color: white !important;
-    -fx-background: white !important;
-    -fx-text-fill: black !important;
+#lineChartCustom .chart-title, .axis-label {
+    -fx-text-fill: black;
 }
 
-#lineChartScrollPane {
-    -fx-background-color: white !important;
-    -fx-background: white !important;
-    -fx-text-fill: black !important;
+#lineChartDescription {
+    -fx-text-fill: black;
 }
 
-#lineChart {
-    -fx-background-color: white !important;
-    -fx-text-fill: black !important;
+#lineChartScrollPane .scroll-bar {
+    -fx-background-color: black;
 }
 
-#lineChart .chart {
-    -fx-background-color: white !important;
-    -fx-text-fill: black !important;
+#lineChartScrollPane .scroll-bar .thumb {
+    -fx-background-color: white;
+    -fx-background-insets: 3;
 }
 
-#lineChart .chart-content {
-    -fx-background-color: white !important;
-    -fx-text-fill: black !important;
+#lineChartScrollPane .scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: white;
+    -fx-padding: 0 0 0 0;
 }
 
-#lineChart .chart-title {
-    -fx-background-color: white !important;
-    -fx-text-fill: black !important;
+#lineChartScrollPane .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
 }
 
-#lineChart .axis-label {
-    -fx-background-color: white !important;
-    -fx-text-fill: black !important;
+#lineChartScrollPane .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
 }
 
-#lineChart .chart-plot-background {
-    -fx-background-color: white !important;
-    -fx-text-fill: black !important;
+#lineChartScrollPane .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
 }
-
-#lineChart .chart-vertical-grid-lines {
-    -fx-background-color: white !important;
-    -fx-text-fill: black !important;
-}
-
-#lineChart .chart-horizontal-grid-lines {
-    -fx-background-color: white !important;
-    -fx-text-fill: black !important;
-}
-
-#lineChart .chart-alternative-row-fill {
-    -fx-background-color: white !important;
-    -fx-text-fill: black !important;
-}
-*/
