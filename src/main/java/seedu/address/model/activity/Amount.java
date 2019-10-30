@@ -8,7 +8,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
-            "The amount of money spent can only be a positive number";
+            "The amount of money spent can only be a positive number from 0.01 to 1000000, "
+            + "specified up to 2 decimal places";
 
     public final double value;
 
@@ -26,7 +27,7 @@ public class Amount {
      * Returns true if the given amount is a valid amount.
      */
     public static boolean isValidAmount(double test) {
-        return test > 0;
+        return test > 0 && test <= 1000000 && test * 100 == (int) (test * 100);
     }
 
     @Override
