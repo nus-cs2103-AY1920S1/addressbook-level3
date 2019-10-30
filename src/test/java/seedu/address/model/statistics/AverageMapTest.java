@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import seedu.address.model.DateTime;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Concentration;
@@ -20,6 +19,7 @@ import seedu.address.model.record.Height;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.Weight;
+import seedu.address.model.time.DateTime;
 
 public class AverageMapTest {
     private static final ObservableList<Record> recordList = FXCollections.observableArrayList(Arrays.asList(

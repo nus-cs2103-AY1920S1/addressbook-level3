@@ -21,7 +21,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.DateTime;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
@@ -44,6 +43,7 @@ import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.record.Weight;
 import seedu.address.model.statistics.AverageMap;
 import seedu.address.model.statistics.AverageType;
+import seedu.address.model.time.DateTime;
 import sugarmummy.recmfood.model.Food;
 import sugarmummy.recmfood.model.UniqueFoodList;
 
