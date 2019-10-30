@@ -36,7 +36,7 @@ This guide is a explains how you can use *TimeBook* to the fullest extent to ass
 You can find the steps needed to start scheduling group activities with your friends or loved ones in the quick start and general
 *lifecycle* usage of our application. If you happen to stumble upon some difficulties, our *Frequently Asked Questions* (FAQ) is
 here to address that. If you are an experienced *Command Line Interface (CLI)* user, you can hope right into using the application by
-looking at our *Command Summary*. Otherwise, take a look at the *Unexperienced CLI user* section to obtain more information on how
+looking at our *Command Summary*. Otherwise, take a look at the *Inexperienced CLI user* section to obtain more information on how
 to use our application.
 
 We have used the following symbols to help you better understand our application usage. (For now we have not picked our symbols yet.)
@@ -44,9 +44,9 @@ We have used the following symbols to help you better understand our application
 [width="80%",cols="^3, ^10",options="header"]
 |====
 | Symbol | What it means
-| impt | Important information that you may want to note.
-| tips | Shortcuts or hacks that would improve your experience using this application.
-| warn | Warning! Be careful if you encounter this symbol.
+| image:./icons/important.png[] | Important information that you may want to note.
+| image:./icons/lightbulb.png[] | Shortcuts or hacks that would improve your experience using this application.
+| image:./icons/warning.png[] | Warning! Be careful if you encounter this symbol.
 |====
 
 == Quick Start
@@ -56,7 +56,7 @@ We have used the following symbols to help you better understand our application
 .  Copy the file to the folder you want to use as the home folder for your TimeBook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::startupwindow.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -71,13 +71,45 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
-== Unexperienced CLI user
+== Inexperienced CLI user
 
 Unlike most applications, where you use your mouse to interact with the application such as scrolling and clicking, our application
 mostly use the *Command Line Interface*. Most of the time, you would be interacting with the application through typing commands in the
 command box of the application.
 
 You can play around with the commands in <<Command Summary>> to get yourself warmed up.
+
+== GUI Components
+
+In this section, you will learn more about the different components of our application. Here is an overview of
+all of the components in our application:
+
+image::guiComponents.png[]
+
+=== MenuBar
+You may use the menu bar to access file or exit the application.
+
+image::menuBar.png[]
+
+=== Schedule Display
+The schedule display is the main component that you will be looking at to look schedules of yours or others!
+
+image::scheduleDisplay.png[]
+
+=== Tabs
+Tabs will contain your contacts and your groups. You can use it to see all your existing contacts and groups!
+
+image::tabs.png[]
+
+=== Result Display Box
+This box shows you whether your command executed is successful or unsuccessful. If you encounter an error message here, look at our errors meaning section to see what is the cause of error.
+
+image::resultDisplayBox.png[]
+
+=== Command Box
+Type your commands here to execute them!
+
+image::commandBox.png[]
 
 === Suggestions Autocomplete
 
@@ -92,7 +124,7 @@ If you meant to type the `addevent` command, you can immediately select it by pr
 image::command-suggestions/user-guide-example-step2.png[width=50%]
 
 *****
-tip: You can type an abbreviated version of the command as long as the letters are in order! For example, instead of typing `addtogroup`, try `atg`.
+image:./icons/lightbulb.png[] You can type an abbreviated version of the command as long as the letters are in order! For example, instead of typing `addtogroup`, try `atg`.
 *****
 
 Remember how TimeBook can also suggest relevant values? Let's try that by specifying a person's name using the `n/` parameter like so:
@@ -132,6 +164,10 @@ The following sections will explain all the commands we have in TimeBook and wha
 ====
 
 === Navigation
+
+==== Home: `home`
+You can return back to the home page to see your upcoming schedule.
+Format: `home`
 
 ==== Switch tabs: `switch-tab`
 You can switch the tab of *Person* and *Group* using this command.
@@ -206,7 +242,8 @@ Format: `findperson n/NAME`
 ****
 
 ==== Show person: `show`
-Shows details of a person. +
+Want to arrange a private meeting with someone in TimeBook? You can see the schedule of this person up to 4 weeks in advance using
+the `show` command. +
 Format: `show n/NAME`
 
 ****
@@ -215,12 +252,18 @@ Format: `show n/NAME`
 
 Examples:
 
-* Type `show n/Tim` in the command line as shown below: +
+* Type `show n/Bobby` in the command line as shown below: +
 
 image::showpersoncommand.png[]
 Hit the kbd:[Enter] key and you should see details of the person! You should see a window similar to the one below.
 
 image::showpersonresult.png[]
+
+*****
+image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the schedule view without touching your mouse!
+
+image:./icons/lightbulb.png[] You can use the command `nw` see next week's schedule! You may see this person's schedule up to 4 weeks in advance.
+*****
 
 ==== Listing all persons: `list`
 
@@ -319,11 +362,11 @@ Format: `findgroup g/GROUP_NAME`
 ****
 * Only the group name is searched.
 * Only full words will be matched
-* Shows the group in the tabs panel.
+* Finds the group in the tabs panel.
 ****
 
 ==== Show group: `show`
-Shows the details of a group. +
+Want to schedule your next group meeting? You can view a group's schedule up to 4 weeks in advance. +
 Format: `show g/GROUP_NAME`
 
 ****
@@ -332,7 +375,7 @@ Format: `show g/GROUP_NAME`
 
 Examples:
 
-* Type `show g/Team1` in the command line as shown below +
+* Type `show g/CS2103` in the command line as shown below +
 
 image::showgroupcommand.png[]
 
@@ -341,7 +384,10 @@ Hit the kbd:[Enter] key and you should see the details of this group in a simila
 image::showgroupresult.png[]
 
 *****
-tip: You can use the command `n` to help you navigate through the schedule view without touching your mouse!
+image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the schedule view without touching your mouse!
+
+image:./icons/lightbulb.png[] You can use the command `nw` to help you show next week's schedule!
+
 *****
 
 ==== Add Person to Group: `addtogroup`
@@ -375,7 +421,8 @@ Examples:
 
 This feature is currently work in progress!
 
-Exports a visualisation representation of the schedule (timetable) of a group or person(s) to a PNG file+
+Want to share your group's schedule with your friends? This command exports a visualisation representation of the
+schedule (timetable) of a group or person(s) to a PNG file! +
 Format:
 
 * `export-vr [n/NAME]` +
@@ -488,6 +535,12 @@ Examples:
 
 Clears all entries from the TimeBook. +
 Format: `clear`
+
+==== Upcoming schedule list.
+
+Unsure of what is your next event for the day? TimeBook's home page has a list that keeps track of your upcoming
+events for the day and would automatically tick off events that have past!
+Format: `home`
 
 === Saving the data
 

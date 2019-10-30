@@ -54,7 +54,7 @@ public class PopupCommand extends Command {
             Optional<FreeTimeslot> freeTimeslot =
                     model.getScheduleWindowDisplay().getFreeSchedule().get(0).getFreeTimeslot(id);
 
-            //System.out.println("TEST: " + freeTimeslot.get().getClosestCommonLocationData().toString());
+            System.out.println("TEST: " + freeTimeslot.get().toString());
 
             ClosestCommonLocationData commonLocationData = freeTimeslot.get().getClosestCommonLocationData();
 
