@@ -98,7 +98,7 @@ public class RecordListPanel extends UiPart<Region> {
     void handleSwitch(String type) {
         switch (type) {
         case "all":
-            showPanels(false, true);
+            showPanels(true, true);
             break;
         default:
             throw new AssertionError("Something's Wrong! Invalid Health Record page type!");

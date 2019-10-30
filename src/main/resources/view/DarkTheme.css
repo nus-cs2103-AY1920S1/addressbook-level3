@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: #f8f8f8;
-    background-color: #f8f8f8; /* Used in the default.html file */
+    background-color: white; /* Used in the default.html file */
 }
 
 .label {
@@ -90,13 +90,14 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: white;
+    -fx-background-color: transparent;
 }
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:even {
@@ -316,6 +317,99 @@
 
 #title {
     -fx-font-size: 25px;
+}
+
+#pageInputPanel #pageHeader {
+    -fx-font-size: 36px;
+}
+
+#pageInputPanel #pageSubHeader {
+    -fx-font-size: 20px;
+}
+
+#pageInputPanel .text-field {
+    -fx-prompt-text-fill: grey;
+    -fx-font-size: 12px;
+}
+
+#pageInputPanel #errorMessage {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+}
+
+#pageInputPanel #confirmButton {
+    -fx-background-color: #81c784;
+    -fx-border-radius: 5;
+    -fx-text-fill: black;
+}
+
+#pageInputPanel #cancelButton {
+    -fx-background-color: #ff5252;
+    -fx-border-radius: 5;
+    -fx-text-fill: black ;
+}
+
+#diaryHeader {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
+}
+
+#pageViewPanel #diaryHeaderContainer {
+    -fx-background-color: #ffe0b2;
+}
+
+#pageCardPane {
+    -fx-border-radius: 5;
+    -fx-border-color: black;
+    -fx-background-color: #eeeeee;
+}
+
+.pageCard .title {
+    -fx-font-size: 20px;
+}
+
+.pageCard .description {
+    -fx-font-size: 14px;
+}
+#pageListView {
+    -fx-background-insets: 0;
+    -fx-padding: 0 0 0 0;
+    -fx-background-color: white;
+}
+
+#pageListView .list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: #ded7d7;
+    -fx-border-width: 1;
+    -fx-border-radius: 2;
+}
+
+
+#pageListView .list-cell:filled:even {
+    -fx-background-color: #f8f8f8;
+}
+
+#pageListView .list-cell:filled:odd {
+    -fx-background-color: #f8f8f8;
+}
+
+#pageListView .list-cell:filled:selected {
+    -fx-background-color: #f8f8f8;
+}
+
+#pageListView .list-cell .label {
+    -fx-text-fill: black;
+}
+
+#pageTitle {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-background-color: #fbe9e7;
+}
+
+#pageDescription {
+    -fx-font-size: 14;
 }
 
 #commandTypeLabel {

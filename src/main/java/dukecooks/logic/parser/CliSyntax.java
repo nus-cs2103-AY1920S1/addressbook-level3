@@ -56,8 +56,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_HEIGHT = new Prefix("h/");
     public static final Prefix PREFIX_MEDICALHISTORY = new Prefix("m/");
 
-    /* Prefix definitions */
+    /* Diary Records */
     public static final Prefix PREFIX_DIARY_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_PAGE_NUMBER = new Prefix("num/");
+    public static final Prefix PREFIX_PAGE_DESCRIPTION = new Prefix("desc/");
     public static final Prefix PREFIX_PAGE_TITLE = new Prefix("t/");
+
+    /* Common */
+    public static final Prefix PREFIX_IMAGE = new Prefix("i/");
 }

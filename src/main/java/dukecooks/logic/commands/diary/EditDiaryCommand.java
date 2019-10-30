@@ -22,7 +22,7 @@ import dukecooks.model.diary.components.DiaryName;
  */
 public class EditDiaryCommand extends EditCommand {
 
-    public static final String VARIANT_WORD = "page";
+    public static final String VARIANT_WORD = "diary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the diary identified "
             + "by the index number used in the displayed diary list. "
