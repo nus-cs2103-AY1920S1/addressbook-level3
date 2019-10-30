@@ -39,19 +39,15 @@ public class JsonAdaptedInputOutputTest {
     }
 
     @Test
-    public void toLogicType_emptyInput_throwsIllegalValueException() {
-        JsonAdaptedInputOutput inputOutput =
-                new JsonAdaptedInputOutput(EMPTY_STRING, VALID_COMMAND_OUTPUT_1);
-        assertThrows(IllegalValueException.class, MISSING_INPUT, inputOutput::toLogicType);
-    }
-
-    @Test
     public void toLogicType_nullOutput_throwsIllegalValueException() {
         JsonAdaptedInputOutput inputOutput =
                 new JsonAdaptedInputOutput(VALID_COMMAND_1, null);
         assertThrows(IllegalValueException.class, MISSING_OUTPUT, inputOutput::toLogicType);
     }
 
+    /**
+     * it is possible to have a blank space user input, but MAMS will never give a blank-space output.
+     */
     @Test
     public void toLogicType_emptyOutput_throwsIllegalValueException() {
         JsonAdaptedInputOutput inputOutput =
