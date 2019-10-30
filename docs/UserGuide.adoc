@@ -191,7 +191,8 @@ Example: Let's say I have to exit the calendar page -
 
 ``exit``
 
-
+[NOTE]
+Note: Both Goto Command and Exit Command are implemented in every features  respectively to provide you a smooth navigating experience!
 
 == Calendar
 
