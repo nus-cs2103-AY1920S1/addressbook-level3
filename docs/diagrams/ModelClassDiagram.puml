@@ -27,6 +27,11 @@ Class UniquePersonList
 Package Tag {
 Class Tag
 }
+
+Package GmapsModelManager{
+Class LocationGraph
+}
+
 }
 
 Class HiddenOutside #FFFFFF
