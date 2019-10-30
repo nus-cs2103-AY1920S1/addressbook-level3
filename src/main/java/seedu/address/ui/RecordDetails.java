@@ -45,6 +45,8 @@ public class RecordDetails extends UiPart<Region> {
             double timing = record.getTiming().getValue();
             series.getData().add(new XYChart.Data(date, timing));
         }
+        series.setName(name + "'s Progress");
+        lineChart.getData().addAll(series);
     }
 
 }

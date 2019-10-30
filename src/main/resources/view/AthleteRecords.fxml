@@ -18,6 +18,6 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <VBox fx:id="athleteStatBox" prefHeight="200.0" prefWidth="100.0" />
+      <VBox fx:id="athleteStatBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>
