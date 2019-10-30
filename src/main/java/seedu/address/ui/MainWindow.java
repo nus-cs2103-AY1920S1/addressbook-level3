@@ -40,7 +40,11 @@ public class MainWindow extends UiPart<Stage> {
     private FetchWindow fetchWindow;
     private DateWindow dateWindow;
     private ScheduleBox scheduleBox;
+    private Finance finance;
     private SingleSelectionModel<Tab> selectionModel;
+
+    @FXML
+    private StackPane financePlaceholder;
 
     @FXML
     private StackPane schedulePlaceholder;
@@ -133,6 +137,9 @@ public class MainWindow extends UiPart<Stage> {
 
         scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
         schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
+
+        finance = new Finance(logic.getFilteredEmployeeList(), logic, this);
+        financePlaceholder.getChildren().add(finance.getRoot());
 
         selectionModel = tabPanePlaceholder.getSelectionModel();
     }
@@ -255,6 +262,14 @@ public class MainWindow extends UiPart<Stage> {
                 scheduleBox.setLabelText(commandResult.getUiChange());
             }
             if (!commandResult.getType().equals("Schedule")) {
+                selectionModel.select(0);
+            }
+
+            if (commandResult.getType().equals("Finance")) {
+                selectionModel.select(1);
+                scheduleBox.setLabelText(commandResult.getUiChange());
+            }
+            if (!commandResult.getType().equals("Finance")) {
                 selectionModel.select(0);
             }
 
