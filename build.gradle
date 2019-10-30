@@ -197,3 +197,7 @@ task copyStylesheets(type: Copy) {
 asciidoctor.dependsOn copyStylesheets
 
 defaultTasks 'hooks', 'clean', 'test', 'coverage', 'asciidoctor'
+
+run {
+    enableAssertions = true
+}
