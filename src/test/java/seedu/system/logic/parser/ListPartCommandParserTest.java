@@ -1,0 +1,41 @@
+package seedu.system.logic.parser;
+
+import static seedu.system.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.system.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.system.logic.commands.insession.ListPartCommand;
+import seedu.system.logic.parser.insession.ListPartCommandParser;
+import seedu.system.model.person.Name;
+
+public class ListPartCommandParserTest {
+
+    private ListPartCommandParser parser = new ListPartCommandParser();
+
+    @Test
+    public void constructor_nullName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Name(null));
+    }
+
+
+    // @Test
+    public void parse_emptyArg_returnListPartCommand() {
+        assertParseSuccess(parser, "", new ListPartCommand());
+    }
+
+    /*
+    @Test
+    public void parse_validArgs_returnsListPartCommand() {
+        String userInput = "Test of Strength 2019";
+        ListPartCommand expectedListPartCommand = new ListPartCommand(new Name(userInput));
+        assertParseSuccess(parser, userInput, expectedListPartCommand);
+    }
+
+    @Test
+    public void parse_invalidCompetitionAsArgs() {
+        String userInput = "naijfbgaf";
+        assertParseFailure(parser, userInput, MESSAGE_COMPETITION_NOT_FOUND + userInput);
+    }
+     */
+}
