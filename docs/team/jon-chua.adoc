@@ -1,10 +1,8 @@
-= Jon Chua - Project Portfolio
+= *Jon Chua - Project Portfolio for $aveNUS*
 :site-section: AboutUs
 :icons: font
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
-== *CS2103T Project: $aveNUS*
 
 == Overview
 
