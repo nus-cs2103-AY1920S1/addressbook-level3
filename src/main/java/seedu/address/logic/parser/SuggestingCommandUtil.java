@@ -28,6 +28,7 @@ import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
@@ -56,6 +57,7 @@ public class SuggestingCommandUtil {
             FindPersonCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
             ListCommand.COMMAND_WORD,
+            PopupCommand.COMMAND_WORD,
             ScheduleCommand.COMMAND_WORD,
             ShowCommand.COMMAND_WORD,
             ShowNusModCommand.COMMAND_WORD
