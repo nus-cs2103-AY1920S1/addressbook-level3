@@ -2,7 +2,6 @@ package seedu.moneygowhere.ui;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
@@ -11,14 +10,12 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import seedu.moneygowhere.commons.core.LogsCenter;
 
 /**
  *  An UI component that displays spending in a line graph.
  */
 public class GraphChart extends UiPart<Region> {
 
-    private static final Logger logger = LogsCenter.getLogger(GraphChart.class);
     private static final String FXML = "GraphChart.fxml";
 
     @FXML

@@ -38,8 +38,8 @@ public class ReminderCard extends UiPart<Region> {
         super(FXML);
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
-        switch(reminder.getDueDateDescription()) {
 
+        switch(reminder.getDueDateDescription()) {
         case "Today":
             deadline.setTextFill(Color.ORANGE);
             deadline.setText("Due " + reminder.getDueDateDescription());
