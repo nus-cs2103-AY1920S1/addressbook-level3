@@ -67,4 +67,58 @@ public class ModelManagerTest {
 
     }
 
+    @Test
+    public void checkNotifications_fromBlankModel_success() {
+        Model model = new ModelManager(BLANK_OVERVIEW_MODEL);
+
+        assertEquals(true, model.checkBudgetNotif());
+        assertEquals(true, model.checkExpenseNotif());
+        assertEquals(true, model.checkSalesNotif());
+    }
+
+    @Test
+    public void checkNotifications_fromModelWithData_success() {
+        Model model = new ModelManager(OVERVIEW_MODEL_WITH_DATA);
+
+        assertEquals(true, model.checkBudgetNotif());
+        assertEquals(true, model.checkExpenseNotif());
+        assertEquals(true, model.checkSalesNotif());
+    }
+
+    @Test
+    public void setNotifications_fromBlankModel_success() {
+        Model model = new ModelManager(BLANK_OVERVIEW_MODEL);
+
+        assertEquals(true, model.checkBudgetNotif());
+        assertEquals(true, model.checkExpenseNotif());
+        assertEquals(true, model.checkSalesNotif());
+
+        model.setBudgetNotif(false);
+        model.setExpenseNotif(false);
+        model.setSalesNotif(false);
+
+        assertEquals(false, model.checkBudgetNotif());
+        assertEquals(false, model.checkExpenseNotif());
+        assertEquals(false, model.checkSalesNotif());
+
+    }
+
+    @Test
+    public void setNotifications_fromModelWithData_success() {
+        Model model = new ModelManager(OVERVIEW_MODEL_WITH_DATA);
+
+        assertEquals(true, model.checkBudgetNotif());
+        assertEquals(true, model.checkExpenseNotif());
+        assertEquals(true, model.checkSalesNotif());
+
+        model.setBudgetNotif(false);
+        model.setExpenseNotif(false);
+        model.setSalesNotif(false);
+
+        assertEquals(false, model.checkBudgetNotif());
+        assertEquals(false, model.checkExpenseNotif());
+        assertEquals(false, model.checkSalesNotif());
+
+    }
+
 }

@@ -1,5 +1,6 @@
 package seedu.address.overview.logic.commands;
 
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_NOTIFY_AMOUNT;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_NOTIFY_SALES_SUCCESS;
 
 import seedu.address.overview.logic.commands.exception.InvalidValueException;
@@ -22,10 +23,21 @@ public class NotifySalesCommand extends NotifyCommand {
     public CommandResult execute(Model model) throws InvalidValueException {
 
         if (amount < 0 || amount > 100) {
-            throw new InvalidValueException("The value set must be a percentage between 0 and 100.");
+            throw new InvalidValueException(MESSAGE_INVALID_NOTIFY_AMOUNT);
         }
 
         model.setSalesThreshold(amount);
         return new CommandResult(String.format(MESSAGE_NOTIFY_SALES_SUCCESS, Double.toString(amount)));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof NotifySalesCommand) {
+            NotifySalesCommand nsc = (NotifySalesCommand) o;
+            if (this.amount == nsc.amount) {
+                return true;
+            }
+        }
+        return false;
     }
 }
