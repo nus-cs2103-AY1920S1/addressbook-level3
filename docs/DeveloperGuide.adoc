@@ -314,7 +314,7 @@ AddressBook parser was able to correctly parse most file paths, there were a few
 ** Cons: Greatly inconveniences the user; extra work must be done to restore the input to the original file path
 * **Alternative 4 (current choice):** Overhaul the AddressBook parser to use `>` rather than `/` as a delimiter
 ** Pros: Provides the user with the most power and convenience
-** Cons: Might possibly break existing functional and test code; may require an additional button press from the user (`Shift`) in order to type `>` 
+** Cons: Might possibly break existing functional and test code; may require an additional button press from the user (`Shift`) in order to type `>`
 // end::flashcardexport[]
 
 //@@author keiteo
