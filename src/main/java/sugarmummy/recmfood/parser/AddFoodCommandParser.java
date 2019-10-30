@@ -55,17 +55,17 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddFoodCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_FOOD,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_FOOD_NAME,
                 CliSyntax.PREFIX_FOOD_TYPE, CliSyntax.PREFIX_CALORIE,
                 CliSyntax.PREFIX_GI, CliSyntax.PREFIX_SUGAR, CliSyntax.PREFIX_FAT);
 
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_FOOD, CliSyntax.PREFIX_FOOD_TYPE,
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_FOOD_NAME, CliSyntax.PREFIX_FOOD_TYPE,
                 CliSyntax.PREFIX_CALORIE, CliSyntax.PREFIX_GI, CliSyntax.PREFIX_SUGAR,
                 CliSyntax.PREFIX_FAT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFoodCommand.MESSAGE_USAGE));
         }
 
-        FoodName name = ParserUtil.parseFoodName(argMultimap.getValue(CliSyntax.PREFIX_FOOD).get());
+        FoodName name = ParserUtil.parseFoodName(argMultimap.getValue(CliSyntax.PREFIX_FOOD_NAME).get());
         FoodType foodType = FoodType.getFrom(argMultimap.getValue(CliSyntax.PREFIX_FOOD_TYPE).get());
 
         Calorie calorie = ParserUtil.parseCalorieValue(argMultimap.getValue(CliSyntax.PREFIX_CALORIE).get());

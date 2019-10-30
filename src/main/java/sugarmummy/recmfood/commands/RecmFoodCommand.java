@@ -10,15 +10,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.FoodTypeIsWantedPredicate;
+import sugarmummy.recmfood.predicates.FoodTypeIsWantedPredicate;
 
 /**
  * Recommends suitable food or meals for diabetic patients.
  */
 public class RecmFoodCommand extends Command {
 
+    public static final char FLAG_SIGNAL = '-';
     public static final String COMMAND_WORD = "recmf";
-    public static final String FLAG_SIGNAL = "-";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets a list of food recommendations."
             + "Recommendations can be filtered by keywords and flags:\n"
             + "-nsv: breakfast recommendations\n"
@@ -28,20 +28,25 @@ public class RecmFoodCommand extends Command {
             + "-s: snack recommendations\n"
             + "-m: meal recommendations\n"
             + "Usage:" + COMMAND_WORD + "[-FLAG]... [fn/FOOD_NAME]";
-
+    private static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "There is no match in the current database :( "
+            + "Try adding more new foods or reducing some filters~";
+    private static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
     private final FoodTypeIsWantedPredicate typePredicate;
     private final Predicate<Food> namePredicate;
 
-    public RecmFoodCommand(FoodTypeIsWantedPredicate typePredicate, Predicate<Food> namePredicate) {
+    public RecmFoodCommand(FoodTypeIsWantedPredicate typePredicate, Predicate<Food> foodNamePredicate) {
         this.typePredicate = typePredicate;
-        this.namePredicate = namePredicate;
+        this.namePredicate = foodNamePredicate;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredFoodList(food -> typePredicate.test(food) && namePredicate.test(food));
-        return new CommandResult("Hope you like what I've found for you~");
+        if (model.getFilterFoodList().size() == 0) {
+            return new CommandResult(MESSAGE_RESPONSE_EMPTY_FOOD_LIST);
+        }
+        return new CommandResult(MESSAGE_RESPONSE_NORMAL_LIST);
     }
 
     @Override
