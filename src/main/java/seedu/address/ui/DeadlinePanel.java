@@ -30,6 +30,9 @@ public class DeadlinePanel extends UiPart<Region> {
         this.deadline = deadline;
         id.setText(displayedIndex + ". ");
         task.setText(deadline.getTask().toString());
+        //TODO: use date to colour code each deadline
+        //LocalDate today = LocalDate.now();
+        //deadline.getDueDate();
         dueDate.setText("Due Date: " + deadline.getDueDate().toString());
     }
 
