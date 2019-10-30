@@ -6,6 +6,7 @@ import com.typee.commons.core.Messages;
 import com.typee.logic.commands.CalendarCommand;
 import com.typee.logic.commands.CalendarDateDisplayEngagementsCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
+import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.parser.exceptions.ParseException;
 
 /**
@@ -32,6 +33,8 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
             return prepareCalendarDateDisplayEngagementsCommand(individualArgs);
         case CalendarNextMonthCommand.COMMAND_WORD:
             return prepareCalendarNextMonthCommand(individualArgs);
+        case CalendarPreviousMonthCommand.COMMAND_WORD:
+            return prepareCalendarPreviousMonthCommand(individualArgs);
         default:
             throw new ParseException("Invalid calendar command.\n");
         }
@@ -64,6 +67,20 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
             throw new ParseException(CalendarNextMonthCommand.INVALID_COMMAND_FORMAT);
         }
         return new CalendarNextMonthCommand();
+    }
+
+    /**
+     * Prepares a {@code CalendarPreviousMonthCommand}.
+     * @param individualArgs The specified arguments.
+     * @return A {@code CalendarPreviousMonthCommand}.
+     * @throws ParseException If the specified arguments are invalid.
+     */
+    private CalendarPreviousMonthCommand prepareCalendarPreviousMonthCommand(
+            String[] individualArgs) throws ParseException {
+        if (individualArgs.length != 1) {
+            throw new ParseException(CalendarPreviousMonthCommand.INVALID_COMMAND_FORMAT);
+        }
+        return new CalendarPreviousMonthCommand();
     }
 
 }
