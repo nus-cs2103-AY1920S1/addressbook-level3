@@ -39,10 +39,12 @@ public class CopyWebsiteCommand extends CopyPasswordCommand {
         }
 
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
+        passwordToRead.updateExpiry();
         ClipboardUtil.copyToClipboard(passwordToRead.getWebsite().value, null);
         return CommandResult.builder(MESSAGE_SUCCESS)
                 .setObject(passwordToRead)
                 .setIndex(targetIndex)
+                .read()
                 .build();
     }
 }

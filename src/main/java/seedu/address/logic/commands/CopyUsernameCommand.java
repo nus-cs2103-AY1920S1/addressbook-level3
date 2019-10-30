@@ -38,9 +38,11 @@ public class CopyUsernameCommand extends CopyPasswordCommand {
         }
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
         ClipboardUtil.copyToClipboard(passwordToRead.getUsername().value, null);
+        passwordToRead.updateExpiry();
         return CommandResult.builder(MESSAGE_SUCCESS)
                 .setObject(passwordToRead)
                 .setIndex(targetIndex)
+                .read()
                 .build();
     }
 

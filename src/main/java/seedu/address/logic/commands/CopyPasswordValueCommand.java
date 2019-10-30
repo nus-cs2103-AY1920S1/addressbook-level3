@@ -39,9 +39,11 @@ public class CopyPasswordValueCommand extends CopyPasswordCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX);
         }
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
+        passwordToRead.updateExpiry();
         ClipboardUtil.copyToClipboard(passwordToRead.getNonEncryptedPasswordValue(), null);
         return CommandResult.builder(MESSAGE_SUCCESS)
                 .setObject(passwordToRead)
+                .read()
                 .setIndex(targetIndex)
                 .build();
     }
