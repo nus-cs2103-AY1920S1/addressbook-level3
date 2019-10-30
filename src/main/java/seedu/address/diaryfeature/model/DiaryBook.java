@@ -15,12 +15,19 @@ public class DiaryBook {
 
     public DiaryBook() {
         entries = new DiaryEntryList();
-        if (entries.isEmpty()) {
-            entries.loadSampleData();
-        }
+       // if (entries.isEmpty()) {
+        //    entries.loadSampleData();
+      //  }
         //This is a current, temp version
         //to ensure that my diary list has something
         //when we start
+    }
+
+    public DiaryBook loadData(DiaryEntry[] myEntries) {
+        for(DiaryEntry curr: myEntries) {
+            entries.addDiaryEntry(curr);
+        }
+        return this;
     }
 
     /**
