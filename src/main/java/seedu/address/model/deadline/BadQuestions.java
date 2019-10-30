@@ -1,12 +1,16 @@
 package seedu.address.model.deadline;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
-import seedu.address.model.KeyboardFlashCards;
+import com.google.gson.Gson;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Question;
+import seedu.address.storage.JsonBadDeadlines;
 
 /**
  * BadQuestions class.
@@ -16,14 +20,27 @@ import seedu.address.model.flashcard.Question;
  */
 public class BadQuestions {
 
-    private HashMap<DueDate, Question> badQuestions = new HashMap<DueDate, Question>();
+    private HashMap<String, String> internalMap = new HashMap<String, String>();
+    private JsonBadDeadlines jsonBadDeadlines;
 
     public BadQuestions() {
-        //HashMap<DueDate, Question> badQuestions = new HashMap<DueDate, Question>();
+//        internalMap = new HashMap<String, String>();
+    }
+
+    public HashMap<String, String> getBadQuestionsList() {
+        return internalMap;
+    }
+
+    public void setBadQuestionsList(HashMap<String, String> map) {
+        internalMap = map;
     }
 
     public void addBadQuestion(DueDate d, Question q) {
-        badQuestions.put(d, q);
+        internalMap.put(d.toString(), q.toString());
+    }
+
+    public void loadBadQuestions() throws FileNotFoundException {
+        internalMap = jsonBadDeadlines.loadJsonBadDeadlines();
     }
 
     public static DueDate getBadDeadline() {
@@ -38,5 +55,26 @@ public class BadQuestions {
         Task task = new Task("Bad Questions");
         Deadline deadline = new Deadline(task, getBadDeadline());
         model.addDeadline(deadline);
+    }
+
+    /**
+     * Save as json.
+     */
+    public void saveAsJson(BadQuestions badQuestions) {
+        Gson gson = new Gson();
+
+        // convert java object to JSON format,
+        // and returned as JSON formatted string
+        String json = gson.toJson(badQuestions.getBadQuestionsList());
+        try {
+            //write converted json data to a file
+            //TODO: fix load and save json, json save replace file instead of appending
+            FileWriter writer = new FileWriter("data/BadDeadlines.json", true);
+            writer.write(json);
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

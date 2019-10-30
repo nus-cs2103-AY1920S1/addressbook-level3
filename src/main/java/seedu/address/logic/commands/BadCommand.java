@@ -13,9 +13,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deadline.BadQuestions;
 import seedu.address.model.deadline.Deadline;
+import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;
+import seedu.address.model.deadline.exceptions.DuplicateDeadlineException;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
+import seedu.address.storage.JsonBadDeadlines;
 
 
 /**
@@ -27,14 +30,18 @@ public class BadCommand extends Command {
     public static final String COMMAND_WORD = "bad";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets a specific flashCard identified by the index number used in the displayed flashCard list.\n"
+            + ": Sets a specific flashCard identified by the\n "
+            + "index number used in the displayed flashCard list.\n"
             + "as a 'Bad' flashcard that will require re-test.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Flashcard has been added into Deadlines!";
+    public static final String DUPLICATE_DEADLINE = "Flashcard has been added into an existing deadline!";
 
     private final Index index;
+
+//    private static JsonBadDeadlines jsonBadDeadlines;
 
     public BadCommand(Index index) {
         requireNonNull(index);
@@ -50,11 +57,26 @@ public class BadCommand extends Command {
         }
 
         FlashCard badFlashcard = lastShownList.get(index.getZeroBased());
-        Question q = badFlashcard.getQuestion();
+
         Task task = new Task("To Do: Bad Questions");
+        DueDate d = BadQuestions.getBadDeadline();
+        Deadline deadline = new Deadline(task, d);
+
         //TODO: add questions and due date into filtered bad flashcards list
-        Deadline deadline = new Deadline(task, BadQuestions.getBadDeadline());
-        model.addDeadline(deadline);
+        Question q = badFlashcard.getQuestion();
+
+        BadQuestions badQuestions = new BadQuestions();
+
+        badQuestions.addBadQuestion(d, q);
+
+        badQuestions.saveAsJson(badQuestions);
+
+        try {
+            model.addDeadline(deadline);
+        } catch (DuplicateDeadlineException e) {
+            return new CommandResult(DUPLICATE_DEADLINE);
+        }
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -6,6 +6,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.deadline.Deadline;
 
+import java.time.LocalDate;
+
 //@@author dalsontws
 /**
  * An UI component that displays information of a {@code FlashCard}.
@@ -30,6 +32,9 @@ public class DeadlinePanel extends UiPart<Region> {
         this.deadline = deadline;
         id.setText(displayedIndex + ". ");
         task.setText(deadline.getTask().toString());
+        LocalDate today = LocalDate.now();
+        deadline.getDueDate();
+
         dueDate.setText("Due Date: " + deadline.getDueDate().toString());
     }
 
