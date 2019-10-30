@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBSITE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,12 +17,12 @@ import seedu.address.model.password.Password;
 public class AddPasswordCommand extends Command {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a password to the password book. "
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_USERNAME + "USERNAME "
             + PREFIX_PASSWORDVALUE + "PASSWORD "
-            + PREFIX_TAG + "TAG "
-            + "Some example ...";
+            + PREFIX_WEBSITE + "<WEBSITE> "
+            + PREFIX_TAG + "<TAG> ";
 
     public static final String MESSAGE_SUCCESS = "New password added: %1$s";
     public static final String MESSAGE_DUPLICATE_PASSWORD = "This password already exists in the password book";

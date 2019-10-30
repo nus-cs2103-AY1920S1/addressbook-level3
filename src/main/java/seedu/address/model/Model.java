@@ -9,6 +9,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileStatus;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.SortByCond;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 
@@ -253,6 +254,10 @@ public interface Model {
     public Path getNoteBookFilePath();
 
     public void setNoteBookFilePath(Path noteBookFilePath);
+
+    public void sortNoteBook();
+
+    public void editNoteSortByCond(SortByCond sortByCond);
 
     ObservableList<Password> getFilteredPasswordList();
 

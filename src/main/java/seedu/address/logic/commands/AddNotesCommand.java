@@ -48,6 +48,7 @@ public class AddNotesCommand extends Command {
         }
 
         model.addNote(toAdd);
+        model.sortNoteBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

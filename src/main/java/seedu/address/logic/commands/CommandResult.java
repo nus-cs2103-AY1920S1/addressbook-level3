@@ -53,11 +53,6 @@ public class CommandResult {
         this.index = index;
     }
 
-    public CommandResult(String feedbackToUser, Object object, Index index) {
-        this(feedbackToUser, false, false, false,
-                null, true, object, index);
-    }
-
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
@@ -65,6 +60,89 @@ public class CommandResult {
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false,
                 null);
+    }
+
+    public static Builder builder(String feedbackToUser) {
+        return new Builder(feedbackToUser);
+    }
+
+    /**
+     * Represents a CommandResult constructor builder.
+     */
+    public static class Builder {
+
+        private String feedbackToUser;
+
+        /** Help information should be shown to the user. */
+        private boolean showHelp;
+
+        /** The application should exit. */
+        private boolean exit;
+
+        private boolean isGoTo;
+        private boolean read;
+        private Mode modeToGoTo;
+        private Object object;
+        private Index index;
+
+        public Builder (String feedbackToUser) {
+            this.feedbackToUser = feedbackToUser;
+        }
+
+        /**
+         * Toggles showHelp boolean to true.
+         * @return builder with showHelp as true.
+         */
+        public Builder showHelp() {
+            this.showHelp = true;
+            return this;
+        }
+
+        /**
+         * Toggles exit boolean to true.
+         * @return builder with exit as true.
+         */
+        public Builder exit() {
+            this.exit = true;
+            return this;
+        }
+
+        /**
+         * Toggles isGoTo boolean to true.
+         * @return builder with isGoTo as true.
+         */
+        public Builder isGoTo() {
+            this.isGoTo = true;
+            return this;
+        }
+
+        /**
+         * Toggles read boolean to true.
+         * @return builder with read as true.
+         */
+        public Builder read() {
+            this.read = true;
+            return this;
+        }
+
+        public Builder setMode(Mode mode) {
+            this.modeToGoTo = mode;
+            return this;
+        }
+
+        public Builder setObject(Object object) {
+            this.object = object;
+            return this;
+        }
+
+        public Builder setIndex(Index index) {
+            this.index = index;
+            return this;
+        }
+
+        public CommandResult build() {
+            return new CommandResult(feedbackToUser, showHelp, exit, isGoTo, modeToGoTo, read, object, index);
+        }
     }
 
     public Object getObject() {

@@ -3,6 +3,7 @@ package seedu.address.model.note;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -21,7 +22,9 @@ public class Note {
     private final Title title;
     private final Description description;
     private final Content content;
-
+    private final DateModified dateModified;
+    private final DateAdded dateAdded;
+    private final NumOfAccess numOfAccess;
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
@@ -33,7 +36,46 @@ public class Note {
         this.title = title;
         this.description = description;
         this.content = content;
+        this.dateModified = new DateModified(new Date());
+        this.dateAdded = new DateAdded(new Date());
+        this.numOfAccess = new NumOfAccess(0);
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Overloaded constructor with DateModified and NumOfAccess parameters.
+     * Every field must be present and not null.
+     */
+    public Note(Title title, Description description, Set<Tag> tags, Content content,
+                DateModified dateModified, DateAdded dateAdded, NumOfAccess numOfAccess) {
+        requireAllNonNull(title, tags);
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.dateModified = dateModified;
+        this.dateAdded = dateAdded;
+        this.numOfAccess = numOfAccess;
+        this.tags.addAll(tags);
+    }
+
+    public NumOfAccess updateNumOfAccess() {
+        return numOfAccess.update();
+    }
+
+    public NumOfAccess getNumOfAccess() {
+        return numOfAccess;
+    }
+
+    public DateModified updateDateModified() {
+        return dateModified.update();
+    }
+
+    public DateAdded getDateAdded() {
+        return dateAdded;
+    }
+
+    public DateModified getDateModified() {
+        return dateModified;
     }
 
     public Title getTitle() {

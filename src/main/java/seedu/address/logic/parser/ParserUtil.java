@@ -19,9 +19,11 @@ import seedu.address.model.card.ExpiryDate;
 import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
 import seedu.address.model.note.Content;
+import seedu.address.model.note.SortByCond;
 import seedu.address.model.note.Title;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
+import seedu.address.model.password.Website;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -262,11 +264,25 @@ public class ParserUtil {
         requireNonNull(content);
         String trimmedContent = content.trim();
         if (!Content.isValidContent(trimmedContent)) {
-            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Content.MESSAGE_CONSTRAINTS);
         }
         return new Content(trimmedContent);
     }
 
+    /**
+     * Parses a {@code String sortByCond} into a {@Code SortByCond}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortByCond} is invalid.
+     */
+    public static SortByCond parseSortByCond(String sortByCond) throws ParseException {
+        requireNonNull(sortByCond);
+        String trimmedSortByCond = sortByCond.trim();
+        if (!SortByCond.isValidSortByCond(trimmedSortByCond)) {
+            throw new ParseException(SortByCond.MESSAGE_CONSTRAINTS);
+        }
+        return new SortByCond(trimmedSortByCond);
+    }
     /**
      * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
@@ -311,6 +327,21 @@ public class ParserUtil {
             throw new ParseException(PasswordValue.MESSAGE_CONSTRAINTS);
         }
         return new PasswordValue(trimmedPasswordValue);
+    }
+
+    /**
+     * Parses a {@code String website} into a {@code Website}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Website} is invalid.
+     */
+    public static Website parseWebsite(String website) throws ParseException {
+        requireNonNull(website);
+        String trimmedWebsite = website.trim();
+        if (!Website.isValidWebsite(trimmedWebsite)) {
+            throw new ParseException(Website.MESSAGE_CONSTRAINTS);
+        }
+        return new Website(trimmedWebsite);
     }
 
     /**

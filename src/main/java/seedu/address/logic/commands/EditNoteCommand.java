@@ -18,8 +18,11 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.note.Content;
+import seedu.address.model.note.DateAdded;
+import seedu.address.model.note.DateModified;
 import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NumOfAccess;
 import seedu.address.model.note.Title;
 import seedu.address.model.tag.Tag;
 
@@ -78,13 +81,14 @@ public class EditNoteCommand extends Command {
         }
 
         model.setNote(noteToEdit, editedNote);
+        model.sortNoteBook();
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
         return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Note} with the details of {@code noteToEdit}
+     * edited with {@code editNoteDescriptor}.
      */
     private static Note createEditedNote(Note noteToEdit, EditNoteDescriptor editNoteDescriptor) {
         assert noteToEdit != null;
@@ -92,9 +96,13 @@ public class EditNoteCommand extends Command {
         Title updatedTitle = editNoteDescriptor.getTitle().orElse(noteToEdit.getTitle());
         Description updatedDescription = editNoteDescriptor.getDescription().orElse(noteToEdit.getDescription());
         Content updatedContent = editNoteDescriptor.getContent().orElse(noteToEdit.getContent());
+        DateModified updatedDateModified = noteToEdit.updateDateModified();
+        DateAdded dateAdded = noteToEdit.getDateAdded();
+        NumOfAccess numOfAccess = noteToEdit.getNumOfAccess();
         Set<Tag> updatedTags = editNoteDescriptor.getTags().orElse(noteToEdit.getTags());
 
-        return new Note(updatedTitle, updatedDescription, updatedTags, updatedContent);
+        return new Note(updatedTitle, updatedDescription, updatedTags, updatedContent,
+                updatedDateModified, dateAdded, numOfAccess);
     }
 
     @Override

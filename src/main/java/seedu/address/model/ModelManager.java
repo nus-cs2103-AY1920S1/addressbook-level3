@@ -15,6 +15,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileStatus;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.SortByCond;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 
@@ -406,6 +407,13 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Note> getFilteredNoteList() {
         return filteredNotes;
+    }
+
+    public void sortNoteBook() {
+        noteBook.sortNotes();
+    }
+    public void editNoteSortByCond(SortByCond sortByCond) {
+        noteBook.setSortByCond(sortByCond);
     }
 
     @Override

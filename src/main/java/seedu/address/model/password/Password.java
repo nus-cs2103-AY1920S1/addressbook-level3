@@ -3,11 +3,13 @@ package seedu.address.model.password;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.DateUtil;
 
 /**
  * Represents a Password in the password book.
@@ -20,17 +22,25 @@ public class Password {
     // Data fields
     private final Username username;
     private final PasswordValue passwordValue;
+    private final PasswordModifiedAt passwordModifiedAt;
+    private final Website website;
+    private final PasswordExpireAt passwordExpireAt;
+    private ExpiryMode expiryMode;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Password(Description description, Username username, PasswordValue passwordValue, Set<Tag> tags) {
-        requireAllNonNull(description, username, passwordValue);
+    public Password(Description description, Username username, PasswordValue passwordValue,
+                    PasswordModifiedAt passwordModifiedAt, Website website, Set<Tag> tags) {
+        requireAllNonNull(description, username, passwordValue, passwordModifiedAt);
         this.description = description;
         this.username = username;
         this.passwordValue = passwordValue;
+        this.passwordModifiedAt = passwordModifiedAt;
+        this.website = website;
         this.tags.addAll(tags);
+        passwordExpireAt = new PasswordExpireAt(DateUtil.findPasswordExpireAt(this.passwordModifiedAt.value));
     }
 
     public Description getDescription() {
@@ -45,6 +55,21 @@ public class Password {
         return passwordValue;
     }
 
+    public PasswordModifiedAt getPasswordModifiedAt() {
+        return passwordModifiedAt;
+    }
+
+    public Website getWebsite() {
+        return website;
+    }
+
+    public ExpiryMode getExpiryMode() {
+        return expiryMode;
+    }
+
+    public PasswordExpireAt getPasswordExpireAt() {
+        return passwordExpireAt;
+    }
     /**
      * Returns the non-encrypted PasswordValue
      * @return non-encrypted PasswordValue
@@ -62,6 +87,20 @@ public class Password {
     }
 
     /**
+     * Updates the expiry mode of the password
+     */
+    public void updateExpiry() {
+        long time = DateUtil.findDaysPasswordExpireAt(new Date(), passwordExpireAt.value);
+        if (time < 0) {
+            expiryMode = ExpiryMode.EXPIRED;
+        } else if (time < 90) {
+            expiryMode = ExpiryMode.EXPIRING;
+        } else {
+            expiryMode = ExpiryMode.HEALTHY;
+        }
+    }
+
+    /**
      * Returns the non-encrypted Password
      * @return non-encrypted Password
      */
@@ -72,7 +111,9 @@ public class Password {
                 .append(" Username: ")
                 .append(getUsername())
                 .append(" Password: ")
-                .append(getNonEncryptedPasswordValue());
+                .append(getNonEncryptedPasswordValue())
+                .append(" Modified at: ")
+                .append(getPasswordModifiedAt());
 
         return builder.toString();
     }
@@ -129,6 +170,6 @@ public class Password {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, username, passwordValue, tags);
+        return Objects.hash(description, username, passwordValue, passwordModifiedAt, website, tags);
     }
 }

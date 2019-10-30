@@ -1,14 +1,23 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.DateAdded;
+import seedu.address.model.note.DateModified;
+import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NumOfAccess;
+import seedu.address.model.note.Title;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -35,18 +44,44 @@ public class ReadNoteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Note> lastShownList = model.getFilteredNoteList();
-
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
         }
-
         Note noteToRead = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult("Note opened on the right panel.", noteToRead, targetIndex);
+        Note updatedNote = createEditedNote(noteToRead);
+        //TODO: assert here to ensure updated note is different from any other note in the list
+        model.setNote(noteToRead, updatedNote);
+        model.sortNoteBook();
+        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        return CommandResult.builder("Note opened on the right panel.")
+                .setObject(noteToRead)
+                .setIndex(targetIndex)
+                .read()
+                .build();
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadNoteCommand // instanceof handles nulls
                 && targetIndex.equals(((ReadNoteCommand) other).targetIndex)); // state check
     }
+
+    /**
+     * Creates and returns a {@code Note} with the details of {@code noteToEdit}
+     */
+    private static Note createEditedNote(Note noteToEdit) {
+        assert noteToEdit != null;
+        Title updatedTitle = noteToEdit.getTitle();
+        Description updatedDescription = noteToEdit.getDescription();
+        Content updatedContent = noteToEdit.getContent();
+        DateModified updatedDateModified = noteToEdit.getDateModified();
+        DateAdded dateAdded = noteToEdit.getDateAdded();
+        Set<Tag> updatedTags = noteToEdit.getTags();
+        NumOfAccess numOfAccess = noteToEdit.updateNumOfAccess();
+        return new Note(updatedTitle, updatedDescription, updatedTags, updatedContent,
+                updatedDateModified, dateAdded, numOfAccess);
+    }
 }
+
+

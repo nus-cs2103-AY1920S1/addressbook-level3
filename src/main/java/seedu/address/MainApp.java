@@ -30,6 +30,7 @@ import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataCardUtil;
+import seedu.address.model.util.SampleDataNotesUtil;
 import seedu.address.model.util.SampleDataPasswordUtil;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -172,7 +173,7 @@ public class MainApp extends Application {
             if (!noteBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialNoteData = noteBookOptional.orElseGet(SampleDataUtil::getSampleNoteBook);
+            initialNoteData = noteBookOptional.orElseGet(SampleDataNotesUtil::getSampleNoteBook);
         } catch (DataConversionException e) {
             logger.warning(e + "");
             logger.warning("Data file not in the correct format. Will be starting with an empty file");

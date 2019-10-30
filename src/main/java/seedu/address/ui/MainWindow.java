@@ -20,6 +20,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.card.Card;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.report.AnalysisReport;
@@ -43,10 +44,11 @@ public class MainWindow extends UiPart<Stage> {
     private CardListPanel cardListPanel;
     private NoteListPanel noteListPanel;
     private PasswordListPanel passwordListPanel;
-    private ResultDisplay resultDisplay;
-    private ReadDisplayPassword readDisplayPassword;
     private HelpWindow helpWindow;
+    private ReadDisplayPassword readDisplayPassword;
     private ReadDisplayNote readDisplayNote;
+    private ReadDisplayCard readDisplayCard;
+    private ResultDisplay resultDisplay;
     private ExpiryDisplay expiryDisplay;
     private ReadDisplayPasswordReport readDisplayPasswordReport;
 
@@ -224,6 +226,11 @@ public class MainWindow extends UiPart<Stage> {
             readListPanelPlaceholder.getChildren().add(readDisplayPasswordReport.getRoot());
             //readListPanelPlaceholder.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.80));
             readDisplayPasswordReport.setFeedbackToUser(object.toString());
+        } else if (object instanceof Card) {
+            readDisplayCard = new ReadDisplayCard();
+            readDisplayCard.setLogic(logic);
+            readListPanelPlaceholder.getChildren().add(readDisplayCard.getRoot());
+            readDisplayCard.setFeedbackToUser((Card) object);
         }
     }
 

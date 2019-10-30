@@ -26,7 +26,7 @@ public class AddCardCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "POSB Debit "
-            + PREFIX_CARDNUMBER + "2723201212034958 "
+            + PREFIX_CARDNUMBER + "5283201212034958 "
             + PREFIX_CVC + "876 "
             + PREFIX_EXPIRYDATE + "12/25 "
             + PREFIX_TAG + "use for groceries";

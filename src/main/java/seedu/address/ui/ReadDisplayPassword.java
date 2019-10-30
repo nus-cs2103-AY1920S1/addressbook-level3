@@ -11,6 +11,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
+import seedu.address.model.password.ExpiryMode;
 import seedu.address.model.password.Password;
 
 /**
@@ -33,7 +34,9 @@ public class ReadDisplayPassword extends UiPart<Region> {
     @FXML
     private Label lastModified;
     @FXML
-    private Label lastAccessed;
+    private Label status;
+    @FXML
+    private Label statusLabel;
 
     public ReadDisplayPassword() {
         super(FXML);
@@ -49,11 +52,30 @@ public class ReadDisplayPassword extends UiPart<Region> {
      */
     public void setFeedbackToUser(Password password, Index index) {
         requireNonNull(password);
-        description.setText(password.getDescription().value);
+        description.setText(index.getOneBased() + ". " + password.getDescription().value);
         username.setText(password.getUsername().value);
         passwordValue.setText(password.getPasswordValue().toString());
+        lastModified.setText(password.getPasswordModifiedAt().toString());
+        website.setText(password.getWebsite().value);
         password.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        ExpiryMode exp = password.getExpiryMode();
+        switch (exp) {
+        case EXPIRED:
+            status.setText("WARNING! Password expired. Change your password");
+            break;
+        case EXPIRING:
+            status.setText("Password expiring soon.");
+            break;
+        case HEALTHY:
+            status.setVisible(false);
+            statusLabel.setVisible(false);
+            break;
+        default:
+            status.setText("Error");
+        }
+
     }
 }

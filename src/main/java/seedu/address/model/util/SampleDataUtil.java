@@ -5,13 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.NoteBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyNoteBook;
-import seedu.address.model.note.Content;
-import seedu.address.model.note.Description;
-import seedu.address.model.note.Note;
-import seedu.address.model.note.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -46,14 +40,6 @@ public class SampleDataUtil {
         };
     }
 
-    public static Note[] getSampleNotes() {
-        return new Note[]{
-            new Note(new Title("Sample Note"), new Description("Sample Description"),
-                getTagSet("SampleTag"), new Content("Sample Content"))
-        };
-    }
-
-
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -62,13 +48,6 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
-    public static ReadOnlyNoteBook getSampleNoteBook() {
-        NoteBook sampleAb = new NoteBook();
-        for (Note sampleNote : getSampleNotes()) {
-            sampleAb.addNote(sampleNote);
-        }
-        return sampleAb;
-    }
 
     /**
      * Returns a tag set containing the list of strings given.

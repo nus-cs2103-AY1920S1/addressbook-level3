@@ -17,8 +17,7 @@ public class DeletePasswordCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + "Deletes a password identified by the index number from the existing password book"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Some example ...";
+            + "Parameters: INDEX (must be a positive integer)\n";
     public static final String MESSAGE_SUCCESS = "Deleted Password: %1$s";
 
     private final Index targetIndex;

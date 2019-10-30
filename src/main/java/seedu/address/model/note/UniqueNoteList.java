@@ -98,6 +98,9 @@ public class UniqueNoteList implements Iterable<Note> {
         internalList.setAll(notes);
     }
 
+    public void sortNotes(SortByCond sortByCond) {
+        internalList.sort(sortByCond.getSortComparator());
+    }
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
