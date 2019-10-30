@@ -29,6 +29,6 @@ public class CalendarCommand extends Command {
         primaryStage.setY(0);
         primaryStage.setScene(new Scene(new FullCalendarView(YearMonth.now()).getView()));
         primaryStage.show();
-        return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, false, false, false);
     }
 }

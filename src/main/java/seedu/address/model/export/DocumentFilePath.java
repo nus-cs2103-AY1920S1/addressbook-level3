@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 /**
  * Represents the path to a document from its immediate parent directory.
- * Guarantees: immutable; is valid as declared in {@link #isValidDocumentFilePath(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class DocumentFilePath {
 
@@ -30,14 +30,14 @@ public class DocumentFilePath {
      */
     public DocumentFilePath(String documentFilePath) {
         requireNonNull(documentFilePath);
-        checkArgument(isValidDocumentFilePath(documentFilePath), MESSAGE_CONSTRAINTS);
+        checkArgument(isValid(documentFilePath), MESSAGE_CONSTRAINTS);
         path = Paths.get(documentFilePath);
     }
 
     /**
      * Returns true if a given string is a valid document file path.
      */
-    public static boolean isValidDocumentFilePath(String test) {
+    public static boolean isValid(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

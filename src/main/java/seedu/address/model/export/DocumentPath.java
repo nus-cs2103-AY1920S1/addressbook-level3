@@ -6,14 +6,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+
+import seedu.address.model.flashcard.FlashCard;
 
 /**
  * Represents the full path to a document, including parent directories.
- * Guarantees: immutable; is valid as declared in {@link #isValidDocumentPath(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
-public class DocumentPath {
+public class DocumentPath extends ExportPath {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Document path may only consist of alphanumeric characters, spaces, and the following characters:\n"
@@ -38,7 +42,7 @@ public class DocumentPath {
      */
     public DocumentPath(String documentPath) {
         requireNonNull(documentPath);
-        checkArgument(isValidDocumentPath(documentPath), MESSAGE_CONSTRAINTS);
+        checkArgument(isValid(documentPath), MESSAGE_CONSTRAINTS);
         this.directoryPath = extractDirectoryPath(documentPath);
         this.documentFilePath = extractDocumentFilePath(documentPath);
     }
@@ -46,7 +50,7 @@ public class DocumentPath {
     /**
      * Returns true if a given string is a valid document path.
      */
-    public static boolean isValidDocumentPath(String test) {
+    public static boolean isValid(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -88,6 +92,7 @@ public class DocumentPath {
         );
     }
 
+    @Override
     public Path getPath() {
         Path dirPath = directoryPath.getPath();
         Path docFilePath = documentFilePath.getPath();
@@ -100,11 +105,23 @@ public class DocumentPath {
         return directoryPath.toString() + File.separator + documentFilePath.toString();
     }
 
+    @Override
+    public void export(List<FlashCard> list) throws IOException {
+        try {
+            DocumentExportUtil.exportFlashCardsToDocument(
+                    list, this
+            );
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+
     /**
      * Converts this DocumentPath into a String representing its absolute path
      *
      * @return String representing the absolute path of this DocumentPath
      */
+    @Override
     public String toAbsolutePathString() {
         return this
                 .getPath()

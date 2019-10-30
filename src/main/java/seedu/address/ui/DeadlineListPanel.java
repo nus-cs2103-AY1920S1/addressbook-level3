@@ -28,7 +28,7 @@ public class DeadlineListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code FlashCard} using a {@code FlashCardPanel}.
+     * Custom {@code ListCell} that displays the graphics of a {@code FlashCard} using a {@code DeadlinePanel}.
      */
     class DeadlineListViewCell extends ListCell<Deadline> {
         @Override

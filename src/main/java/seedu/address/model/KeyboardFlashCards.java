@@ -92,7 +92,7 @@ public class KeyboardFlashCards implements ReadOnlyKeyboardFlashCards {
      * Adds a flashCard to the address book.
      * The flashCard must not already exist in the address book.
      */
-    public void addFlashcard (FlashCard c) {
+    public void addFlashcard(FlashCard c) {
         flashCards.add(c);
         //update the categoryList
         addCategory(c.getCategories());

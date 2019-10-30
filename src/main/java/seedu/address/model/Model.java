@@ -100,7 +100,7 @@ public interface Model {
      * returns the Statistics.
      * type 0,1 & 2 to edit number of Good, Hard & Easy qns completed during the test.
      */
-    int[] getStats();
+    int[] getTestStats();
 
     /**
      * Adds the given flashCard.

@@ -156,7 +156,7 @@ public class ModelManager implements Model {
     }
 
 
-    public int[] getStats() {
+    public int[] getTestStats() {
         return keyboardFlashCards.getStats();
     }
 

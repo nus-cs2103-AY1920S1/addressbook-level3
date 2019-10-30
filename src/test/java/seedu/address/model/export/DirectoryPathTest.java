@@ -39,7 +39,9 @@ public class DirectoryPathTest {
             "C:\\Users\\User\\Desktop\\",
             "~/Desktop/",
             "../",
-            "..\\"
+            "..\\",
+            "/",
+            "\\"
         };
 
         for (String validDirectoryPathString : validDirectoryPathStrings) {
