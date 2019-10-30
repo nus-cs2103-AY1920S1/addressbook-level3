@@ -47,7 +47,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`workers`* : switches to the workers tab
 * **`add -w`**`/name John Doe /dob 17-05-1980` :
 adds a worker named John Doe (with his date of birth) to the management system.
-* **`delete -w`**`2` : deletes the worker with worker ID W000002
+* **`delete -w`**`2` : deletes the worker with worker ID W00002
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -243,8 +243,11 @@ add -f
 
 [[update]]
 ==== Updating an entity: `update`
-This command allows you to update the attributes of an entity.
+This command allows you to update the attributes of a body or worker.
 You have to indicate the entity type you want to update with a flag, as described in <<Features>>.
+[TIP]
+`-f` is not a valid flag for this command. Fridges will be automatically updated when bodies are assigned or removed.
+
 You can specify one or more attributes to change, but at least one valid attribute must be provided.
 
 Format: `update -flag /id id (/attributeName attributeValue ...)`
@@ -258,54 +261,41 @@ the list of valid attributes and their command prefixes can be found below:
 | Body
 
 a|
-[source,java]
-Name (/name)
-Sex (/sex)
-NRIC (/nric)
-Date of Birth (/dob)
-Date of Death (/dod)
-Date of Admission (/doa)
-Status (/status)
-Religion (/religion)
-Name of Next-of-Kin (/nameNOK)
-Relationship (/relationship)
-Phone Number of Next-of-Kin (/phoneNOK)
-Cause of Death (/cod)
-Details (/details)
-Organs For Donation (/organsForDonation)
-Fridge ID (/fridgeId)
-
----
+Name `/name` +
+Sex `/sex` +
+NRIC `/nric` +
+Date of Birth `/dob` +
+Date of Death `/dod` +
+Date of Admission `/doa` +
+Status `/status` +
+Religion `/religion` +
+Name of Next-of-Kin `/nameNOK` +
+Relationship `/relationship` +
+Phone Number of Next-of-Kin `/phoneNOK` +
+Cause of Death `/cod` +
+Details `/details` +
+Organs For Donation `/organsForDonation` +
+Fridge ID `/fridgeId` +
 
 | Worker
 a|
-[source,java]
-Phone Number (/phoneNo)
-Sex (/sex)
-Date of Birth (/dob)
-Date Joined (/dateJoined)
-Designation (/designation)
-Employment Status (/status)
-
-
----
-| Fridge
-a|
-[source,java]
-Fridge Status (/status)
-Body ID (/id)
-
-[TIP]
-Make sure your dates are in the format DD/MM/YYYY!
+Phone Number `/phoneNo` +
+Sex `/sex` +
+Date of Birth `/dob` +
+Date Joined `/dateJoined` +
+Designation `/designation` +
+Employment Status `/status` +
+Photo `/photo`
 
 |===
-
+[TIP]
+Make sure you key in dates in the format DD/MM/YYYY.
 
 Example: +
 Imagine that someone (Jane Doe) just got promoted! You have to change her designation in Mortago.
 
 Instead of typing out all the irrelevant attributes a Worker has, you just have to input her ID number
-and her new designation.
+and her new designation. You see that her ID number is W00001.
 
 |===
 
@@ -314,7 +304,7 @@ and her new designation.
 |
 `update -w /id 1 /designation Senior Autopsy Technician`
 
-| Status of worker 1 changed
+| Designation of Jane Doe changed to Senior Autopsy Technician.
 
 |===
 
@@ -493,8 +483,7 @@ Only commands that change Mortago's data can be undone. For example, `add`, `upd
 [TIP]
 You can `undo` a `clear` command, but note that you cannot redo any past undone commands after that.
 [TIP]
-Other events that occur due to a command will also be undone if the command is undone. For example, if an `add` command
-automatically generates an `alert`, the `alert` will be removed if `add` was undone.
+Automated commands can be undone after they are executed as well.
 
 
 Example: +
@@ -504,7 +493,7 @@ To undo:
 
 1. Type `undo` or `u` into the command box.
 2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Undid deleting this entity: <Text>" and John Doe is now back in the list of bodies.
+3. Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now back in the list of bodies.
 
 
 ==== Redoing a command: `redo`
@@ -526,7 +515,7 @@ To redo:
 
 1. Type `redo` or `r` into the command box.
 2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Deleted this entity: <Text>" and John Doe is now absent from the list of bodies.
+3. Notice that the result box displays "Deleted this entity: <long descriptor of the body>" and John Doe is now absent from the list of bodies.
 
 // end::undoredo[]
 
@@ -742,6 +731,8 @@ Lists emergency help hotlines.
 
 == Glossary
 *Attribute* : In Mortago, an attribute is the property of a body, fridge or worker. +
+
+*Automated Command* : In Mortago, an automated command is a command that is not explicitly inputted by the user.
 
 *Body* : a corpse +
 

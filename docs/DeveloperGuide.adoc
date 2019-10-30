@@ -238,22 +238,26 @@ before each test to reset the `HashMaps`.
 
 // tag::undoredo[]
 === Undo/Redo feature
-The undo/redo feature allows the user to undo a previous command that they have made, or redo a command they have undone.
+The undo/redo feature allows you to undo a command that you have made or redo a command you have undone.
 
 ==== Implementation
 
-The core of undo/redo is placed in the undo/redo history of `ModelManager`. Its mechanism uses the Command design pattern,
-allowing each individual command to be undone/redone without knowing the specific command type.
-Classes related to undo/redo and their relationships are shown below.
+You can find the core of undo/redo in the undo/redo history of `ModelManager`.
+The history stores `UndoableCommands`, and an `UndoCommand` or `RedoCommand` will `undo()` or `redo()` commands in the history.
+The design of `UndoableCommand` uses the Command pattern, a common design pattern often used in software engineering.
+It allows each individual command to be undone/redone at a high-level without needing the specific command type to be known.
+Classes related to undo/redo and their relationships are shown in Figure 11.
 
 .Class Diagram Showing Classes Used by Undo/Redo
 image::UndoClassDiagram.png[]
 
-Firstly, there are two instances of `CommandHistory`, stored internally as `commandHistory` and `undoHistory` in `ModelManager`.
-The former instance stores previously executed commands while the latter stores previously undone commands.
-`CommandHistory` wraps a `Deque<UndoableCommand>`. Its functions imposes a `MAX_SIZE` which determines how many commands can be stored in the command history.
+===== Storing executed and undone commands
 
-In `ModelManager`, four key operations regarding `CommandHistory` are implemented:
+To start off, you will find two instances of `CommandHistory` in `ModelManager`. They are  stored internally as `commandHistory` and `undoHistory`.
+`commandHistory` stores previously executed commands while `undoHistory` stores previously undone commands.
+`CommandHistory` wraps a `Deque<UndoableCommand>`. Its methods imposes a `MAX_SIZE` which determines how many commands can be stored in the command history.
+
+In `ModelManager`, four key operations to access and modify `CommandHistory` are implemented:
 
 * `ModelManager#addExecutedCommand(UndoableCommand command)` -- Adds a command that was executed to the start of `commandHistory`.
 * `ModelManager#getExecutedCommand()` -- Removes the last command that was executed and added to `commandHistory` and returns it.
@@ -263,15 +267,17 @@ In `ModelManager`, four key operations regarding `CommandHistory` are implemente
 In the `Model` interface implemented by `ModelManager`, these four operations are respectively exposed as
 `Model#addExecutedCommand(UndoableCommand command)`, `Model#getExecutedCommand()`, `Model#addUndoneCommand(UndoableCommand command)`, and `Model#getUndoneCommand()`.
 
-
+===== Command pattern
 Next, the `UndoableCommand` stored in the `Model` is actually a normal `Command` that changes program state.
 The `UndoableCommand` class is an abstract class that extends the abstract `Command` class, as shown in Figure 11. Commands like `AddCommand` or `UpdateCommand` extends `UndoableCommand` instead of `Command`.
+Commands that don't change the user-visible program state, like `find`, can still inherit directly from `Command`.
 
-A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
+Here is where the Command pattern comes in. A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
 ``UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
+
+===== Defensive programming
 When an `UndoableCommand` is executed or undone, it is added to the `commandHistory` or `undoHistory` of ModelManager` respectively.
 Therefore, an `UndoableCommand` should not be undone before it was executed or redone before it was undone.
-
 To defend against improper undoing or redoing, an `UndoableCommand` will not be added to a CommandHistory list unless it has been executed or undone before.
 Additionally, `UndoableCommand` contains a small inner class, the enumeration `UndoableCommandState` which allows an `UndoableCommand` to have its state set to any value in the enumeration.
 The values are as shown below.
@@ -304,7 +310,8 @@ Lastly, undo/redo is initiated when user input creates an `UndoCommand` or `Redo
 executed or undone command from the `CommandHistory` in `ModelManager`. As the retrieved command is an instance of `UndoableCommand`, an attempt will be made to execute `UndoableCommand#undo(Model model)` or `UndoableComman#redo(Model model)`.
 If it is successful, undo/redo is succesful. Otherwise, an error message is shown.
 
-This is the mechanism of undo/redo, from start to end. Below is an example of a usage scenario that illustrates how undo/redo works.
+This is the mechanism of undo/redo, from start to end.
+Below is an example of a usage scenario to help you visualise how undo/redo works.
 
 The sequence diagram below shows how an undo command works to undo a `ClearCommand`:
 
@@ -318,12 +325,13 @@ The following activity diagram shows what happens when a user executes a new `Un
 .Activity Diagram Showing the Execution Control Flow of a Command
 image::CommandProcessActivityDiagram.png[]
 
-==== Design Considerations
+==== Design considerations
 
-When designing the undo/redo feature, scalability and speed were the key considerations. After analysing the pros and cons of
-each option, it was decided that using the Command design pattern was the best option.
+When designing the undo/redo feature, scalability and speed were the key considerations.
+There was also an extra layer of difficulty as Mortago has automated commands that are both time-based and user-triggered.
+After the analysis described below, the Command pattern was thought to be the best solution.
 
-===== Aspect: How undo & redo executes
+===== Aspect: Designing the mechanism
 
 * **Alternative 1 (current choice):** Individual command knows how to undo/redo by itself.
 ** Pros:
@@ -340,6 +348,11 @@ each option, it was decided that using the Command design pattern was the best o
 ** Cons:
     *** Likely to use a lot of memory.
     *** Slower for big programs.
+
+===== Aspect: Handling automated commands
+* ** Alternative 1 : Allow automated commands to be undone
+
+* ** Alterative 2 : Do not undo the automated command
 
 ===== Aspect: Storing executed/undone commands
 
