@@ -12,6 +12,7 @@ import seedu.deliverymans.logic.commands.deliveryman.AssignCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeleteCommand;
 import seedu.deliverymans.logic.commands.deliveryman.EditCommand;
 import seedu.deliverymans.logic.commands.deliveryman.EnterRecordCommand;
+import seedu.deliverymans.logic.commands.deliveryman.GetStatisticsCommand;
 import seedu.deliverymans.logic.commands.deliveryman.ListAvailCommand;
 import seedu.deliverymans.logic.commands.deliveryman.ListStatusCommand;
 import seedu.deliverymans.logic.commands.deliveryman.StatusSwitchCommand;
@@ -56,6 +57,9 @@ public class DeliverymanParser {
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case GetStatisticsCommand.COMMAND_WORD:
+            return new GetStatisticsCommand();
 
         case ListStatusCommand.COMMAND_WORD:
             return new ListStatusCommand();

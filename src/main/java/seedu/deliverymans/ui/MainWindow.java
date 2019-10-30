@@ -42,8 +42,8 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private CustomerListPanel customerListPanel;
     private DeliverymanListPanel deliverymanListPanel;
-    private AvailableDeliverymenListPanel availableDeliverymenListPanel;
-    private UnavailableDeliverymenListPanel unavailableDeliverymenListPanel;
+    private DeliverymenStatusListPanel deliverymenStatusListPanel;
+    private DeliverymenStatusStatisticsPanel deliverymenStatusStatisticsPanel;
     private RestaurantListPanel restaurantListPanel;
     private OrderListPanel orderListPanel;
     private FoodListPanel foodListPanel;
@@ -144,7 +144,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getAvailableDeliverymenList(),
+        deliverymenStatusListPanel = new DeliverymenStatusListPanel(logic.getAvailableDeliverymenList(),
                 logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
     }
 
@@ -218,7 +218,12 @@ public class MainWindow extends UiPart<Stage> {
         case DELIVERYMENSTATUS:
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-            statisticsPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
+            statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
+            break;
+        case DELIVERYMENSTATISTICS:
+            deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
+                    logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
+            statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
             break;
         case DELIVERYMANRECORD:
             DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
