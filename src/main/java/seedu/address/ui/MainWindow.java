@@ -98,6 +98,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -132,6 +133,8 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         projectListPanel = new ProjectListPanel(logic.getFilteredProjectList());
         projectListPanelPlaceholder.getChildren().add(projectListPanel.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -187,23 +190,32 @@ public class MainWindow extends UiPart<Stage> {
      * Display the previous Ui.
      */
     private void handleBack() throws CommandException, IllegalValueException {
+        State temp = currentState;
+        if (currentState == State.PROJECT_LIST) {
+            throw new CommandException("Oops can't go back any further!");
+        }
         UiEvent event = logic.getPreviousEvent();
-        if (event.getState() == State.PROJECT_LIST) {
+        if (!event.getProjectIndex().isEmpty()) {
+            logic.setWorkingProject(logic.getFilteredProjectList().get(event.getProjectIndex().get()));
+        }
+        changeUiDisplay(event.getState());
+        switch (event.getState()) {
+        case PROJECT_LIST:
             if (!logic.getWorkingProject().isEmpty()) {
                 logic.removeWorkingProject();
             }
-            currentState = State.PROJECT_LIST;
-            changeUiDisplay(State.PROJECT_LIST);
-            resultDisplay.setFeedbackToUser("You've checked out of the project!");
-        } else if (event.getState() == State.PROJECT_OVERVIEW) {
-            logic.setWorkingProject(logic.getFilteredProjectList().get(event.getProjectIndex().get()));
-            currentState = State.PROJECT_OVERVIEW;
+            logger.severe(currentState + "");
+            if (temp != State.ADDRESS_BOOK) {
+                resultDisplay.setFeedbackToUser("You've checked out of the project!");
+            }
+            break;
+
+        case PROJECT_OVERVIEW:
             resultDisplay.setFeedbackToUser(String.format(MESSAGE_CHECKOUT_SUCCESS, logic.getFilteredProjectList().get(event.getProjectIndex().get()).toString()));
-            changeUiDisplay(currentState);
-        } else {
-            logic.setWorkingProject(logic.getFilteredProjectList().get(event.getProjectIndex().get()));
-            currentState = event.getState();
-            changeUiDisplay(currentState);
+            break;
+
+        default:
+            assert false : "Unrecognised previous state";
         }
     }
 
@@ -221,10 +233,13 @@ public class MainWindow extends UiPart<Stage> {
             // Only change Ui if certain command demands it
             if (commandResult.changeNeeded()) {
                 State nextState = stateOf(commandWord);
-                int projectIndex = logic.getFilteredProjectList().indexOf(logic.getWorkingProject().get());
-                logic.addUiEvent(new UiEvent(nextState, Optional.of(projectIndex)));
+                if (logic.getWorkingProject().isEmpty()) {
+                    logic.addUiEvent(new UiEvent(nextState, Optional.empty()));
+                } else {
+                    int projectIndex = logic.getFilteredProjectList().indexOf(logic.getWorkingProject().get());
+                    logic.addUiEvent(new UiEvent(nextState, Optional.of(projectIndex)));
+                }
                 changeUiDisplay(nextState);
-                currentState = nextState;
             } else {
                 // if not needed refresh current page unless is back command
                 if (!commandWord.equals("back")) {
@@ -256,13 +271,11 @@ public class MainWindow extends UiPart<Stage> {
     private void changeUiDisplay(State nextState) {
         switch (nextState) {
         case ADDRESS_BOOK:
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic);
             projectListPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
             currentState = nextState;
             break;
 
         case PROJECT_LIST:
-            projectListPanel = new ProjectListPanel(logic.getFilteredProjectList());
             projectListPanelPlaceholder.getChildren().setAll(projectListPanel.getRoot());
             currentState = nextState;
             break;

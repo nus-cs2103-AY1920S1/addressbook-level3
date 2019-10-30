@@ -13,7 +13,6 @@ public class BackCommand extends Command {
     public static final String COMMAND_WORD = "back";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": go back to the previous display "
             + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_CANT_GO_BACK = "Oops can't go back any further!";
 
     public BackCommand() {
     }
@@ -21,9 +20,6 @@ public class BackCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.getWorkingProject().isEmpty()) {
-            throw new CommandException(MESSAGE_CANT_GO_BACK);
-        }
         return new CommandResult("", COMMAND_WORD);
     }
 }
