@@ -38,7 +38,7 @@ public class UpdateGradesCommand extends Command {
             + "Example: " + COMMAND_WORD
             + PREFIX_ASSIGNMENT + "1 "
             + PREFIX_MARKS + "20 34 56 87\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_ASSIGNMENT + "1 "
             + PREFIX_STUDENT + "2 "
             + PREFIX_MARKS + "60";

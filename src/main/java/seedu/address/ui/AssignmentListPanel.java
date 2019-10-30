@@ -15,7 +15,7 @@ import seedu.address.model.assignment.Assignment;
  */
 public class AssignmentListPanel extends UiPart<Region> {
     private static final String FXML = "AssignmentListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(AssignmentListPanel.class);
 
     @FXML
     private ListView<Assignment> assignmentListView;
