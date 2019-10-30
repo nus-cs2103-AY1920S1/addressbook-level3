@@ -49,12 +49,13 @@ public class EditCommand extends Command {
             + PREFIX_QUESTION + "How many mammals are there in the universe? "
             + PREFIX_TYPE + "low";
 
+    public static final String MESSAGE_STRING_LIMIT_EXCEEDED = "String limit exceeded";
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
     public static final String CATEGORY_MISMATCH = "Wrong category mention with the desired question.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the modulo quiz.";
     public static final String MESSAGE_INVALID_EDIT_COMMAND = "Invalid category, question index or instruction.\n"
-            + "Format: edit [CATEGORY] [INDEX] [QUESTION_INSTRUCTION]";
+            + "Format: edit [CATEGORY], [INDEX] [QUESTION_INSTRUCTION]";
 
     private final Index index;
     private final String category;
@@ -105,7 +106,7 @@ public class EditCommand extends Command {
      * edited with {@code editQuestionDescriptor}.
      */
     private static Question createEditedQuestion(Question questionToEdit,
-                                                 EditQuestionDescriptor editQuestionDescriptor) {
+                                             EditQuestionDescriptor editQuestionDescriptor) throws CommandException {
         assert questionToEdit != null;
 
         Name updatedName = editQuestionDescriptor.getName().orElse(questionToEdit.getName());
@@ -114,6 +115,11 @@ public class EditCommand extends Command {
         Category updatedCategory = editQuestionDescriptor.getCategory().orElse(questionToEdit.getCategory());
         Type updatedType = editQuestionDescriptor.getType().orElse(questionToEdit.getType());
         Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(questionToEdit.getTags());
+
+        if (updatedName.fullName.length() > 200 || updatedAnswer.value.length() > 125
+                || updatedCategory.value.length() > 50) {
+            throw new CommandException(String.format(MESSAGE_STRING_LIMIT_EXCEEDED));
+        }
 
         return new Question(updatedName, commentedQuestion, updatedAnswer, updatedCategory, updatedType, updatedTags);
     }

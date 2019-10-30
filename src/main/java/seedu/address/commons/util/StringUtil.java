@@ -70,6 +70,12 @@ public class StringUtil {
         if (Arrays.stream(wordsInPreppedSentence).anyMatch(preppedWord::equalsIgnoreCase)) {
             return true;
         } else if (allowTypo) {
+            for (int i = 0; i < wordsInPreppedSentence.length; i++) {
+                if (wordsInPreppedSentence[i].contains(preppedWord)) {
+                    return true;
+                }
+            }
+
             String firstLetter = Character.toString(preppedWord.charAt(0)).toLowerCase();
             String lastLetter = Character.toString(preppedWord.charAt(preppedWord.length() - 1)).toLowerCase();
 
