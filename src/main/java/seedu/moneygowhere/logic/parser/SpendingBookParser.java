@@ -86,7 +86,7 @@ public class SpendingBookParser {
             return new ExchangeRateCommand();
 
         case CurrencyCommand.COMMAND_WORD:
-            return new CurrencyCommand();
+            return new CurrencyCommandParser().parse(arguments);
 
         case StatsCommand.COMMAND_WORD:
             return new StatsCommandParser().parse(arguments);

@@ -17,7 +17,9 @@ public class CurrencyDataUtil {
             new Currency("USD", "$", 0.73),
             new Currency("EUR", "€", 0.66),
             new Currency("MYR", "RM", 3.07),
-            new Currency("INR", "₹", 51.92)
+            new Currency("INR", "₹", 51.92),
+            new Currency("IDR", "Rp", 10304.01),
+            new Currency("MMK", "K", 1119.53)
         };
     }
 

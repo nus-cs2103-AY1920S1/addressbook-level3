@@ -16,6 +16,7 @@ import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.sorting.SpendingComparator;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
@@ -133,6 +134,23 @@ public class ModelManager implements Model {
     @Override
     public Budget getBudget() {
         return spendingBook.getBudget();
+    }
+
+    //=========== Currency functions =====================================================================
+
+    @Override
+    public ObservableList<Currency> getCurrencies() {
+        return spendingBook.getCurrencies();
+    }
+
+    @Override
+    public Currency getCurrencyInUse() {
+        return spendingBook.getCurrencyInUse();
+    }
+
+    @Override
+    public void setCurrencyInUse(Currency currency) {
+        spendingBook.setCurrencyInUse(currency);
     }
 
     //=========== Reminder related functions =====================================================================

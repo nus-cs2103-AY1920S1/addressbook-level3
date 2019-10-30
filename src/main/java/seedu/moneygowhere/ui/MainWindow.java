@@ -115,7 +115,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        spendingListPanel = new SpendingListPanel(logic.getFilteredSpendingList());
+        spendingListPanel = new SpendingListPanel(logic.getFilteredSpendingList(),
+                logic.getSpendingBook());
         spendingListPanelPlaceholder.getChildren().add(spendingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

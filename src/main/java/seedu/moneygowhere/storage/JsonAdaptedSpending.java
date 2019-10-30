@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.moneygowhere.commons.exceptions.IllegalValueException;
-import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.spending.Cost;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Name;
@@ -29,7 +28,6 @@ class JsonAdaptedSpending {
     private final String date;
     private final String remark;
     private final String cost;
-    private final String currency;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -44,7 +42,6 @@ class JsonAdaptedSpending {
         this.date = date;
         this.remark = remark;
         this.cost = cost;
-        this.currency = currency;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -59,7 +56,6 @@ class JsonAdaptedSpending {
         date = source.getDate().value;
         remark = source.getRemark().value;
         cost = source.getCost().value;
-        currency = source.getCurrency();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -106,13 +102,8 @@ class JsonAdaptedSpending {
         }
         final Cost modelCost = new Cost(cost);
 
-        if (currency == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Currency.class.getSimpleName()));
-        }
-
         final Set<Tag> modelTags = new HashSet<>(spendingTags);
 
-        return new Spending(modelName, modelDate, modelRemark, modelCost, currency, modelTags);
+        return new Spending(modelName, modelDate, modelRemark, modelCost, modelTags);
     }
 }

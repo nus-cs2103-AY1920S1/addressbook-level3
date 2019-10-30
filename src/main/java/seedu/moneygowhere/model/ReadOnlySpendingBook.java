@@ -1,8 +1,8 @@
 package seedu.moneygowhere.model;
 
 import java.util.List;
-import java.util.Set;
 
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.currency.Currency;
@@ -32,10 +32,16 @@ public interface ReadOnlySpendingBook {
     /**
      * Returns available currencies.
      */
-    Set<Currency> getCurrencies();
+    ObservableList<Currency> getCurrencies();
 
     /**
      * Returns the currency being used.
      */
     Currency getCurrencyInUse();
+
+    /**
+     * Registers a currency changed listener.
+     * @param currencyChangeListener Currency changed listener
+     */
+    void registerCurrencyChangedListener(ChangeListener<Currency> currencyChangeListener);
 }

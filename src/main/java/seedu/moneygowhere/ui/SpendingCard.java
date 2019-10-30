@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.moneygowhere.commons.util.DateUtil;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
@@ -42,13 +43,17 @@ public class SpendingCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public SpendingCard(Spending spending, int displayedIndex) {
+    public SpendingCard(Spending spending, Currency currency, int displayedIndex) {
         super(FXML);
         this.spending = spending;
         id.setText(displayedIndex + ". ");
         name.setText(spending.getName().fullName);
         date.setText(DateUtil.prettyFormatDate(spending.getDate().value));
-        cost.setText("$" + spending.getCost().value);
+
+        double newRate = currency.rate * Double.parseDouble(spending.getCost().value);
+        String formattedCost = String.format("%s%.2f", currency.symbol, newRate);
+        cost.setText(formattedCost);
+
         remark.setText(spending.getRemark().value);
         spending.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

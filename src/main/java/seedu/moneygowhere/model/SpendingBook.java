@@ -3,16 +3,16 @@ package seedu.moneygowhere.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.currency.Currency;
+import seedu.moneygowhere.model.currency.UniqueCurrencyList;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.spending.SpendingList;
@@ -26,8 +26,8 @@ public class SpendingBook implements ReadOnlySpendingBook {
     private final SpendingList spendings;
     private final Budget budget;
     private List<Reminder> reminders;
-    private Set<Currency> currencies;
-    private Currency currencyInUse;
+    private UniqueCurrencyList currencies;
+    private ObjectProperty<Currency> currencyInUse;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -40,9 +40,11 @@ public class SpendingBook implements ReadOnlySpendingBook {
         spendings = new SpendingList();
         budget = new Budget(0);
         reminders = new ArrayList<>();
-        currencies = new LinkedHashSet<>();
-        currencies.addAll(Arrays.asList(CurrencyDataUtil.getSampleCurrencies()));
-        currencyInUse = CurrencyDataUtil.getDefaultCurrency();
+        currencies = new UniqueCurrencyList();
+        for (Currency currency : CurrencyDataUtil.getSampleCurrencies()) {
+            currencies.add(currency);
+        }
+        currencyInUse = new SimpleObjectProperty<>(CurrencyDataUtil.getDefaultCurrency());
     }
 
     public SpendingBook() {}
@@ -155,17 +157,16 @@ public class SpendingBook implements ReadOnlySpendingBook {
     /**
      * Replaces the contents of the Currency list with {@code currencies}.
      */
-    public void setCurrencies(Set<Currency> currencies) {
+    public void setCurrencies(List<Currency> currencies) {
         requireNonNull(currencies);
-        this.currencies.clear();
-        this.currencies.addAll(currencies);
+        this.currencies.setCurrencies(currencies);
     }
 
     /**
      * Sets the currency in use. It must be present in {@code currencies}.
      */
     public void setCurrencyInUse(Currency currency) {
-        this.currencyInUse = currency;
+        this.currencyInUse.setValue(currency);
     }
 
     /**
@@ -224,13 +225,23 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     @Override
-    public Set<Currency> getCurrencies() {
-        return Collections.unmodifiableSet(currencies);
+    public ObservableList<Currency> getCurrencies() {
+        return currencies.asUnmodifiableObservableList();
     }
 
     @Override
     public Currency getCurrencyInUse() {
-        return currencyInUse;
+        return currencyInUse.getValue();
+    }
+
+    /**
+     * Registers a currency changed listener.
+     * @param currencyChangeListener Currency changed listener
+     */
+    @Override
+    public void registerCurrencyChangedListener(ChangeListener<Currency> currencyChangeListener) {
+        requireNonNull(currencyChangeListener);
+        currencyInUse.addListener(currencyChangeListener);
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class Currency implements Comparable<Currency> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Currency is limited to 3 letters";
+    public static final String MESSAGE_CONSTRAINTS = "Currency must be 3 letters";
     public static final String VALIDATION_REGEX = "\\p{Upper}{3}+";
 
     public final String name;
@@ -54,6 +54,19 @@ public class Currency implements Comparable<Currency> {
     @Override
     public int compareTo(Currency o) {
         return name.compareTo(o.name);
+    }
+
+    /**
+     * Returns true if both spending of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two spending.
+     */
+    public boolean isSameCurrency(Currency otherCurrency) {
+        if (otherCurrency == this) {
+            return true;
+        }
+
+        return otherCurrency != null
+                && otherCurrency.name.equals(name);
     }
 
     /**
