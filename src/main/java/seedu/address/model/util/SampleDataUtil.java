@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.Classroom;
+import seedu.address.model.Notebook;
 import seedu.address.model.ReadOnlyClassroom;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentDeadline;
@@ -47,14 +48,18 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyClassroom getSampleClassroom() {
-        Classroom sampleAb = new Classroom();
+        Classroom sampleClassroom = new Classroom();
         for (Student sampleStudent : getSampleStudents()) {
-            sampleAb.addStudent(sampleStudent);
+            sampleClassroom.addStudent(sampleStudent);
         }
-        for (Assignment sampleAssignment : getSampleAssignments()) {
-            sampleAb.addAssignment(sampleAssignment);
-        }
-        return sampleAb;
+        return sampleClassroom;
+    }
+
+    public static Notebook getSampleNotebook() {
+        Notebook sampleNotebook = new Notebook();
+        sampleNotebook.addClassroom(new Classroom());
+        sampleNotebook.setClassroom(getSampleClassroom());
+        return sampleNotebook;
     }
 
     public static Assignment[] getSampleAssignments() {

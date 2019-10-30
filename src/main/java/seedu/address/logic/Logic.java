@@ -7,6 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Notebook;
 import seedu.address.model.ReadOnlyClassroom;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
@@ -32,6 +33,7 @@ public interface Logic {
      */
     ReadOnlyClassroom getClassroom();
 
+    Notebook getNotebook();
     /** Returns an unmodifiable view of the filtered list of students */
     ObservableList<Student> getFilteredStudentList();
 
@@ -43,9 +45,9 @@ public interface Logic {
     ObservableList<Lesson> getFilteredLessonList();
 
     /**
-     * Returns the user prefs' classroom file path.
+     * Returns the user prefs' notebook file path.
      */
-    Path getClassroomFilePath();
+    Path getNotebookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
