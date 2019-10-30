@@ -16,5 +16,10 @@
             <Insets left="20.0" />
          </padding>
        </Label>
+        <Label fx:id="fines" prefHeight="60.0" styleClass="result-display" text="ID:">
+            <padding>
+                <Insets left="20.0" />
+            </padding>
+        </Label>
     <ListView fx:id="bookListView" VBox.vgrow="ALWAYS" />
 </VBox>
