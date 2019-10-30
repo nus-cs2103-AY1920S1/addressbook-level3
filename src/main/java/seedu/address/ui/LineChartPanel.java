@@ -308,15 +308,15 @@ public class LineChartPanel extends UiPart<Region> {
         setWindowSize(newTimeFrame);
     }
 
-    public static void setTimeFrame(String newTimeFrame) {
+    private static void setTimeFrame(String newTimeFrame) {
         timeFrame = newTimeFrame;
     }
 
-    public static void setDate(Date newDate) {
+    private static void setDate(Date newDate) {
         date = newDate;
     }
 
-    public static void setWindowSize(String timeFrame) {
+    private static void setWindowSize(String timeFrame) {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         switch (timeFrame) {
         case "default":
