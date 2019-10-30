@@ -73,7 +73,7 @@ public class LineChartPanel extends UiPart<Region> {
      * Makes the line chart from scratch.
      * @throws ParseException if the date supplied by user is non-parsable.
      */
-    public void makeLineChart() throws ParseException {
+    private void makeLineChart() throws ParseException {
         initialiseTreeMap();
         initialiseLineChart();
         updateSeries();
