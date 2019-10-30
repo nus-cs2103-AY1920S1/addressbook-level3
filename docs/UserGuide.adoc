@@ -237,7 +237,7 @@ The keyword instructions of the question include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *The details instructions after the keyword of the question:* +
-- *`<qns>` are required. The word limit is 200. Minimum 3 letters.*
+- *`<qns>` are required. The word limit is 200 and minimum 3 letters.* +
 - *`<ans>` are required. The word limit is 125.* +
 - *`<cat>` are required. The word limit is 50.* +
 - *`<type>` are optional. The format after this command should only be: `high`, `normal`, `low`.* +
@@ -252,14 +252,8 @@ Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_categor
 *Example 2*: +
 *add <qns>* _What can one catch that is not thrown?_ *<type>* _normal_ *<ans>* _A cold_ *<cat>* CS2131
 
-*Remark (please avoid this):* +
+- *Remark (please avoid this):* +
 *add <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
-
-- *Modulo will detect the question as:* +
-_What is <qns>always comi<qns>ng, but never arrives?_ +
-
-- *Modulo will detect the answer as:* +
- _Tom<ans>orrow_ +
 {empty} +
 
 ==== Delete question from record:
@@ -275,13 +269,6 @@ Example 1: +
 ==== Edit details of a question : `edit`
 Specify which question you want to edit and modify it from the question list.
 
-Format: `*edit [CATEGORY], [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
-*<type>* _your_new_priority_ *<tag>* _your_tag_` +
-
-Usage: +
-- *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. +
-- *[NUMBER]* is the index/row from that category that you want to edit. +
-
 The details/instructions of the new questions include: +
 - `<qns>` Indicate that the next several phrases will be the name of the question. +
 - `<ans>` Indicate that the next several phrases will be the answer to the question. +
@@ -290,19 +277,24 @@ The details/instructions of the new questions include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *Note that at least one of the following must be modified and replaced:* +
-- *`<qns>` word limit is 200.*
+- *`<qns>` word limit is 200.* +
 - *`<ans>` word limit is 125.* +
 - *`<cat>` word limit is 50.* +
 - *`<type>` format after this command should only be: `high`, `normal`, `low`.* +
 - *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
 
+Format: `*edit [CATEGORY], [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
+*<type>* _your_new_priority_ *<tag>* _your_tag_` +
+
+Usage: +
+- *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. +
+- *[NUMBER]* is the index/row from that category that you want to edit. +
+
 Example 1: +
-*edit CS2103 1 <qns>* _How many mammals are there in the universe?_ *<type>* low +
+*edit CS2131, 1 <qns>* _How many mammals are there in the universe?_ *<type>* low +
 
-Remark (Please avoid this): +
-*edit CS2103 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
-
-- Modulo will detect the new question as: _What is <qns>always comi<qns>ng, but never arrives?_ and the answer as: _Tom<ans>orrow_ +
+- Remark (Please avoid this): +
+*edit CS2131, 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
 {empty} +
 
 ==== List all the questions
@@ -333,14 +325,14 @@ The expected details/instructions for [INSTRUCTION] keyword are:  +
 
 - To enable friendlier syntax [KEYWORDS] when searching your desired questions, add `-i` after your find command.
 
-Example 1 (search for _CS2131_ and _lecture_ keyword from the whole question): +
-find <key> CS2131, lecture
+Example 1: find <key> CS2131, lecture +
+Explanation: search for _CS2131_ and _lecture_ keyword from the whole question
 
-Example 2 (search from the category and answer portion of each question that matches keyword _Tomorrow_): +
-find category, answer <key> Tomorrow
+Example 2: find category, answer <key> Tomorrow +
+Explanation: search from the category and answer portion of each question that matches keyword _Tomorrow_
 
-Example 3 (search from the answer portion of each question that matches keyword that is similar to _Tomrrow_): +
-find -i answer <key> Tomrrow +
+Example 3: find -i answer <key> Tomrrow +
+Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_
 {empty} +
 
 ==== Details of a selected question:
@@ -363,7 +355,7 @@ Example: comment 1 <val> The explanation is in pg 194 textbook. +
 Users can hide all question answers when they want to revise or for other purposes. It also
 provide the user the hint of the answer. By default the answer is shown.
 
-Format: `showAnswer [yes/no]
+Format: `showAnswer [yes/no]` +
 Example: showAnswer no +
 {empty} +
 

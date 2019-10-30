@@ -13,6 +13,7 @@ public class Messages {
     public static final String MESSAGE_QUESTIONS_LISTED_OVERVIEW = "%1$d questions listed!";
     public static final String MESSAGE_LOG_ENTRIES_LISTED_OVERVIEW = "%1$d log entries listed!";
     public static final String MESSAGE_STATE_CHANGE = "Application switched";
+    public static final String MESSAGE_SWITCH_INVALID = "Switch parameter only accepts quiz, finance, calendar and cap";
 
     //////////CAP///////////////
     public static final String MESSAGE_INVALID_MODULE_DISPLAYED_INDEX = "The Module index provided is invalid";
