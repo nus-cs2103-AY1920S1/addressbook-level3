@@ -6,27 +6,19 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
-import organice.commons.core.GuiSettings;
 import organice.logic.commands.exceptions.CommandException;
 import organice.model.AddressBook;
-import organice.model.Model;
+import organice.model.ModelStub;
 import organice.model.ReadOnlyAddressBook;
-import organice.model.ReadOnlyUserPrefs;
 import organice.model.person.Doctor;
 import organice.model.person.Donor;
-import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Person;
-import organice.model.person.exceptions.PersonNotFoundException;
 import organice.testutil.DoctorBuilder;
 import organice.testutil.DonorBuilder;
 import organice.testutil.PatientBuilder;
@@ -147,151 +139,6 @@ public class AddCommandTest {
 
         // different person type -> return false
         assertFalse(addAliceCommand.equals(addAlicePatientCommand));
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasDoctor(Nric doctor) {
-            return true;
-        }
-
-        @Override
-        public boolean hasPatient(Nric patientNric) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Patient getPatient(Nric patientNric) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Donor getDonor(Nric donorNric) throws PersonNotFoundException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Nric personNric) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasDonor(Nric donor) {
-            return false;
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getMatchList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public SortedList<Person> getSortList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortByPriority() throws CommandException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortBySuccessRate() throws CommandException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortByOrganExpiryDate() throws CommandException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void matchDonors(Patient patient) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void matchAllPatients() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeMatches() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**
