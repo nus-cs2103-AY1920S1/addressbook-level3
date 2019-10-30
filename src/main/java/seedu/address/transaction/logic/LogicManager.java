@@ -68,6 +68,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void appendToTransactionFile(Transaction transaction) throws Exception {
+        storage.appendToTransaction(transaction);
+    }
+
+    @Override
     public void updateTransactionStorage() throws IOException {
         storage.writeFile(model.getTransactionList());
     }

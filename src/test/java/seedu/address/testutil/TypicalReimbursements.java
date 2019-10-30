@@ -12,6 +12,7 @@ import seedu.address.transaction.model.transaction.Transaction;
  * A utility class containing a list of {@code Reimbursements} objects to be used in tests.
  */
 public class TypicalReimbursements {
+
     private Reimbursement aliceReimbursement20;
     private Reimbursement aliceReimbursement30;
     private Reimbursement elleReimbursement100;
