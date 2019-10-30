@@ -240,9 +240,7 @@ public class MainApp extends Application {
         try {
             logger.info("Creating new question bank.");
             // Copy default questions
-            QuestionBank qb = SampleDataUtil.getSampleQuestionBank();
             Path defaultQuestions = Paths.get("questionBank.json");
-            QuestionBankStorage.saveQuestionBank(qb, defaultQuestions);
             FileUtil.createIfMissing(questionBankFilePath);
             Files.copy(defaultQuestions, questionBankFilePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {

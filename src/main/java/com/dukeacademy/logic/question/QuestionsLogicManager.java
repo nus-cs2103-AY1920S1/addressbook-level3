@@ -15,8 +15,11 @@ import com.dukeacademy.model.util.SampleDataUtil;
 import com.dukeacademy.storage.question.QuestionBankStorage;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
+import javax.swing.event.ChangeListener;
 
 /**
  * Logic class to handle all CRUD operations regarding questions in the application.
@@ -52,7 +55,7 @@ public class QuestionsLogicManager implements QuestionsLogic {
 
     @Override
     public ObservableList<Question> getFilteredQuestionsList() {
-        return FXCollections.unmodifiableObservableList(this.filteredList);
+        return this.filteredList;
     }
 
     @Override

@@ -47,7 +47,7 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
      * Custom {@code EvaluationListViewCell} that displays the graphics of a {@code TestCaseResult} using a
      * {@code ProgramEvaluationCard}.
      */
-    class EvaluationListViewCell extends ListCell<TestCaseResult> {
+    private static class EvaluationListViewCell extends ListCell<TestCaseResult> {
         @Override
         protected void updateItem(TestCaseResult testCaseResult, boolean empty) {
             super.updateItem(testCaseResult, empty);
