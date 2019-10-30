@@ -6,7 +6,6 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
 import seedu.jarvis.model.viewstatus.ViewType;
 
