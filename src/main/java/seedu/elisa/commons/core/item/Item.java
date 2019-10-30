@@ -287,7 +287,11 @@ public class Item {
      * @return true if it is auto reschedule, false otherwise.
      */
     public boolean hasAutoReschedule() {
-        return getEvent().get().hasAutoReschedule();
+        if (getEvent().isPresent()) {
+            return getEvent().get().hasAutoReschedule();
+        } else {
+            return false;
+        }
     }
 
     /**
