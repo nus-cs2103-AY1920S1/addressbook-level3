@@ -56,6 +56,7 @@ public class AddCommand extends Command {
         }
 
         model.addExpense(toAdd);
+        model.setViewState("default expenselist");
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

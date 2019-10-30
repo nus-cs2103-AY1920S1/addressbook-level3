@@ -87,6 +87,11 @@ public class Budget {
         recalculateAmountLeft();
     }
 
+    public void deleteExpenseInBudget(Expense expense) {
+        expenseList.removeExpense(expense);
+        recalculateAmountLeft();
+    }
+
     public boolean budgetHasExpense(Expense expense) {
         return expenseList.hasExpense(expense);
     }
@@ -110,7 +115,7 @@ public class Budget {
         for (Expense expense : expenseList.getExpenseList()) {
             amountLeft -= expense.getAmount().getValue();
         }
-        this.amountLeft = new Amount("" + amountLeft);
+        this.amountLeft = new Amount(String.format("%.2f", amountLeft));
     }
 
     /**

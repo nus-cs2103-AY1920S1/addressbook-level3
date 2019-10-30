@@ -65,6 +65,7 @@ public class AddBudgetCommand extends Command {
         }
 
         model.addBudget(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.setViewState("budgetlist");
+        return new CommandResult(null, model.getFilteredBudgetList(), String.format(MESSAGE_SUCCESS, toAdd));
     }
 }
