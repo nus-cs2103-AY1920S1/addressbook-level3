@@ -9,12 +9,16 @@ Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
-Class CommandBox
+Class HelpWindow #4287f5
+Class ResultDisplay #4287f5
+Class PersonListPanel #4287f5
+Class PatientCard #f75539
+Class DonorCard #f75539
+Class DoctorCard #f75539
+Class NumberOfMatchesCard #f75539
+Class MatchCard #f75539
+Class StatusBarFooter #4287f5
+Class CommandBox #4287f5
 }
 
 package Model <<Rectangle>> {
@@ -36,18 +40,30 @@ MainWindow *-down-> ResultDisplay
 MainWindow *-down-> PersonListPanel
 MainWindow *-down-> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+PersonListPanel -down-> PatientCard
+PersonListPanel --> DonorCard
+PersonListPanel -down-> DoctorCard
+PersonListPanel -down-> NumberOfMatchesCard
+PersonListPanel -down-> MatchCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+PatientCard --|> UiPart
+DoctorCard --|> UiPart
+DonorCard --|> UiPart
+MatchCard --|> UiPart
+NumberOfMatchesCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
+PatientCard .right.> Model
+DonorCard .down.> Model
+DoctorCard .down.> Model
+NumberOfMatchesCard .down.> Model
+MatchCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
