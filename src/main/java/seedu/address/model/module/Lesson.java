@@ -38,7 +38,7 @@ public class Lesson {
     public String toString() {
         String result = "ClassNo: " + lessonNo + " "
                 + "Weeks: " + weeks + " "
-                + "LessonType: " + lessonType + " "
+                + "LessonType: " + lessonType.lessonType() + " "
                 + "Day: " + day.getDisplayName(TextStyle.FULL, Locale.getDefault()) + " "
                 + "Start: " + startTime + " "
                 + "End: " + endTime + " "
@@ -73,6 +73,10 @@ public class Lesson {
 
     public Venue getVenue() {
         return venue;
+    }
+
+    public String getLessonTypeAndNoString() {
+        return lessonType.abbreviation() + ":" + lessonNo;
     }
 
     @Override

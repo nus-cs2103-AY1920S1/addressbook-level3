@@ -50,7 +50,7 @@ class CacheTest {
     @Test
     void loadModuleList() {
         ModuleList moduleList = Cache.loadModuleList().get();
-        assertEquals(moduleList.toString(), "AY2019/2020 CS2103T Software Engineering\n");
+        assertTrue(moduleList.toString().contains("AY2019/2020 CS2103T Software Engineering\n"));
     }
 
     @Test
@@ -83,5 +83,11 @@ class CacheTest {
     @Disabled
     void saveToJson() {
         Cache.saveToJson("key", "value", placesJsonPath);
+    }
+
+    @Disabled
+    public void imagePath() {
+        String expectedPath = CacheFileNames.GMAPS_IMAGE_DIR + "NUS_foo.png";
+        assertEquals(expectedPath, Cache.imagePath("NUS_foo"));
     }
 }

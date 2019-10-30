@@ -36,6 +36,7 @@ import seedu.address.model.module.Title;
 import seedu.address.model.module.Venue;
 import seedu.address.model.module.Weeks;
 import seedu.address.model.module.WeeksType;
+import seedu.address.model.module.exceptions.LessonTypeNotFoundException;
 import seedu.address.model.module.exceptions.SemesterNoNotFoundException;
 
 /**
@@ -173,7 +174,13 @@ public class NusModsParser {
 
         Weeks weeks = parseWeeks(obj.get("weeks"));
 
-        LessonType lessonType = new LessonType(obj.get("lessonType").toString());
+        LessonType lessonType;
+        try {
+            lessonType = LessonType.findLessonType(obj.get("lessonType").toString());
+        } catch (LessonTypeNotFoundException e) {
+            throw new ParseException("Lesson type not found: " + obj.toString());
+        }
+
         DayOfWeek day = getDayOfWeek(obj.get("day").toString());
         Venue venue = new Venue(obj.get("venue").toString());
         try {

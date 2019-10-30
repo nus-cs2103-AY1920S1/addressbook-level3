@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.websocket.Cache;
 
 /**
  * Data for closest common location
@@ -59,7 +60,7 @@ public class ClosestCommonLocationData {
     }
 
     public void setImagePath(String locationName) {
-        String tempPath = FileUtil.imagePath(locationName);
+        String tempPath = Cache.imagePath(locationName);
         if (locationName.contains("NUS_")) {
             if (FileUtil.isFileExists(Path.of(tempPath))) {
                 imagePath = tempPath;

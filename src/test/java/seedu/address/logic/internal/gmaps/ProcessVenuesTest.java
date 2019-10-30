@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.gmaps.Location;
+import seedu.address.websocket.Cache;
 
 class ProcessVenuesTest {
     private ProcessVenues processVenues;
@@ -51,7 +52,7 @@ class ProcessVenuesTest {
         ArrayList<String> validLocationList = processVenues.getValidLocationList();
         for (int i = 0; i < validLocationList.size(); i++) {
             String currValidLocation = validLocationList.get(i);
-            String path = FileUtil.imagePath(currValidLocation);
+            String path = Cache.imagePath(currValidLocation);
             assertTrue(FileUtil.isFileExists(Path.of(path)));
         }
     }

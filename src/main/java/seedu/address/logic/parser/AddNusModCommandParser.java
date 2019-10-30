@@ -2,17 +2,18 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACAD_YEAR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSON_NOS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSON_TYPE_AND_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
-import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.LessonNo;
+import seedu.address.model.module.LessonType;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.person.Name;
 
@@ -38,10 +39,10 @@ public class AddNusModCommandParser implements Parser<AddNusModCommand> {
     @Override
     public AddNusModCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MODULE_CODE, PREFIX_LESSON_NOS,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MODULE_CODE, PREFIX_LESSON_TYPE_AND_NUM,
                         PREFIX_ACAD_YEAR, PREFIX_SEMESTER);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MODULE_CODE, PREFIX_LESSON_NOS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MODULE_CODE, PREFIX_LESSON_TYPE_AND_NUM)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNusModCommand.MESSAGE_USAGE));
         }
@@ -49,9 +50,9 @@ public class AddNusModCommandParser implements Parser<AddNusModCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
+        Map<LessonType, LessonNo> lessonTypeNumMap;
+        lessonTypeNumMap = ParserUtil.parseLessonTypeNumMap(argMultimap.getValue(PREFIX_LESSON_TYPE_AND_NUM).get());
 
-        List<LessonNo> lessonNos = ParserUtil.parseLessonNos(argMultimap.getValue(PREFIX_LESSON_NOS).get());
-
-        return new AddNusModCommand(name, moduleCode, lessonNos);
+        return new AddNusModCommand(name, moduleCode, lessonTypeNumMap);
     }
 }
