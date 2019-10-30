@@ -119,22 +119,22 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the algobase, filtered problem list and selected problem in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistroy,
                                             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AlgoBase expectedAddressBook = new AlgoBase(actualModel.getAlgoBase());
+        AlgoBase expectedAlgoBase = new AlgoBase(actualModel.getAlgoBase());
         List<Problem> expectedFilteredList = new ArrayList<>(actualModel.getFilteredProblemList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, actualCommandHistroy));
-        assertEquals(expectedAddressBook, actualModel.getAlgoBase());
+        assertEquals(expectedAlgoBase, actualModel.getAlgoBase());
         assertEquals(expectedFilteredList, actualModel.getFilteredProblemList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s algobase.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredProblemList().size());
