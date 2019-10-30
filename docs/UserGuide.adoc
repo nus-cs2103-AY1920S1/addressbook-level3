@@ -281,7 +281,7 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Removing a file : `remove`
 
-Removes an encrypted file from the file list, as specified by the displayed index number.
+Removes an encrypted file record as specified by the displayed index number.
 
 Please note that only the file record within SecureIT is removed. The actual file is not deleted from the file system.
 
@@ -447,7 +447,7 @@ SecureIT data are saved in the hard disk automatically after any command that ch
 There is no need to save manually.
 
 == CheatSheet of commands
-Password
+*Password*
 
 Accessing Password directory: `goto password`
 
@@ -460,20 +460,28 @@ Accessing Password directory: `goto password`
 - `analyse`: Analyses all passwords currently stored and produces a security summary report.
 - `analyse strong/<index>`: Analyses in detail a specified password based on the user specified index.
 
-Card +
+*Card*
+
 Accessing Card directory: `goto card`
 
 - `add d/<description> c/<cardNumber> e/<expiry> v/<cvc>`: Adds a credit/debit card to the app.
 - `delete <description>`: Deletes a card as specified by the user.
 
-File +
+*File*
+
 Accessing File directory: `goto file`
 
-- `encrypt FILEPATH`: Encrypts a local file as specified by the user.
-- `decrypt INDEX`: Decrypts a local file as specified by the user.
-- `find <FILENAME>`: Finds an encrypted file as specified by the user.
+- `encrypt <FILEPATH> [t/<TAG>]...`: Encrypts a local file as specified by its file path.
+- `decrypt <INDEX>`: Decrypts a local file as specified by the displayed index number.
+- `add <FILENAME> [t/<TAG>]...`: Adds an encrypted file as specified by its file path.
+- `remove <INDEX>`: Removes an encrypted file record as specified by the displayed index number.
+- `rename <INDEX> <TARGET_FILENAME>`: Renames an encrypted file as specified by its index number.
+- `move <INDEX> <TARGET_DIRECTORY>`: Moves an encrypted file as specified by its index number.
+- `find <KEYWORDS>...`: Finds matching encrypted files as specified by the search keywords.
+- `list`: Lists all encrypted files managed by SecureIT.
 
-Note +
+*Note*
+
 Accessing Note directory: `goto note`
 
 - `read <index>`: Reads a note in the app.
