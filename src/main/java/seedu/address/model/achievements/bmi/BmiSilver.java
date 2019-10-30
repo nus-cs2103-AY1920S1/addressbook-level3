@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.SILVER;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * BMI Achievement of silver level.
+ */
 public class BmiSilver extends Achievement implements Bmi {
 
     private static final String TITLE = "Mass Index Lead Warrior";

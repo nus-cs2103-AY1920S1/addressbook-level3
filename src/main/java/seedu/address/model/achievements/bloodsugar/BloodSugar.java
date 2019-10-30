@@ -6,6 +6,9 @@ import static seedu.address.model.record.RecordType.BLOODSUGAR;
 import seedu.address.model.achievements.DurationUnit;
 import seedu.address.model.record.RecordType;
 
+/**
+ * Achievement of type bloodsugar.
+ */
 public interface BloodSugar {
 
     static final RecordType RECORD_TYPE = BLOODSUGAR;
@@ -14,5 +17,8 @@ public interface BloodSugar {
     static final String CONSTRAINT_UNITS = "mmol/L";
     static final DurationUnit DURATION_UNITS = DAY;
 
+    /**
+     * Returns the type of record of this achievement;
+     */
     public RecordType getRecordType();
 }

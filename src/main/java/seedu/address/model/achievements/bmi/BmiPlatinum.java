@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.PLATINUM;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * BMI Achievement of platinum level.
+ */
 public class BmiPlatinum extends Achievement implements Bmi {
 
     private static final String TITLE = "Chief Guardian of Mass and Space-Time Continuum";

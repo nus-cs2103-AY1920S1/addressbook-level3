@@ -6,6 +6,9 @@ import static seedu.address.model.record.RecordType.BMI;
 import seedu.address.model.achievements.DurationUnit;
 import seedu.address.model.record.RecordType;
 
+/**
+ * Achievement of type BMI.
+ */
 public interface Bmi {
 
     static final RecordType RECORD_TYPE = BMI;
@@ -14,6 +17,9 @@ public interface Bmi {
     static final String CONSTRAINT_UNITS = "";
     static final DurationUnit DURATION_UNITS = DAY;
 
+    /**
+     * Returns the type of record of this achievement;
+     */
     public RecordType getRecordType();
 
 }

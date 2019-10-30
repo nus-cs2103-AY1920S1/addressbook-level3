@@ -20,7 +20,9 @@ import seedu.address.model.achievements.bmi.BmiPlatinum;
 import seedu.address.model.achievements.bmi.BmiSilver;
 import seedu.address.model.record.RecordType;
 
-
+/**
+ * Class containing a predefined map of achievements that maps record types to respective achievement lists.
+ */
 public class AchievementsMap {
 
     private static final List<Achievement> BLOOD_SUGAR_ACHIEVEMENTS_LIST = Collections.unmodifiableList(List.of(

@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.DIAMOND;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * BMI Achievement of diamond level.
+ */
 public class BmiDiamond extends Achievement implements Bmi {
 
     private static final String TITLE = "Prime Governor of the Masses, Slayer of Cross-Dimensional Obesity";

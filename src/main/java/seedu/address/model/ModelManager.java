@@ -458,9 +458,7 @@ public class ModelManager implements Model {
     //=========== Achievements =============================================================
 
 
-    /**
-     * Generates the list of achievements stored in this program and returns changes in states of achievements, if any.
-     */
+    @Override
     public Set<AchievementState> getNewAchievementStates() {
         Set<AchievementState> newStatesSet = (new AchievementStateProcessor(this)).getNewAchievementStates();
         getAchievementsMap().forEach((recordType, achievementsList) -> {
@@ -470,9 +468,7 @@ public class ModelManager implements Model {
         return newStatesSet;
     }
 
-    /**
-     * Returns an unmodifiable list of achievements stored in this program.
-     */
+    @Override
     public Map<RecordType, List<Achievement>> getAchievementsMap() {
         return achievementsMap;
     }

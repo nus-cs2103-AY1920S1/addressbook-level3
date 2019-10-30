@@ -6,6 +6,9 @@ import static seedu.address.model.achievements.AchievementState.YET_TO_ACHIEVE;
 
 import seedu.address.model.record.RecordType;
 
+/**
+ * Class that represents an achievement earned by a user of this program.
+ */
 public abstract class Achievement {
 
     private RecordType recordType;
@@ -21,11 +24,18 @@ public abstract class Achievement {
         this.achievementLevel = achievementLevel;
         this.achievementState = YET_TO_ACHIEVE;
     }
-    
+
+    /**
+     * Sets the state of the achievement to the given achievement state.
+     * @param achievementState Achievement state for this achievement to be set to.
+     */
     public void setAchievementState(AchievementState achievementState) {
         this.achievementState = achievementState;
     }
 
+    /**
+     * Returns the name of the image file representing this achievement.
+     */
     public String getImageName() {
         return title + "_" + achievementState;
     }
@@ -50,14 +60,23 @@ public abstract class Achievement {
         return achievementState;
     }
 
+    /**
+     * Returns whether or not this achievement is currently achieved.
+     */
     public boolean isAchieved() {
         return achievementState == ACHIEVED;
     }
 
+    /**
+     * Returns whether or not this achievement has previously been achieved but no longer so.
+     */
     public boolean isPreviouslyAchieved() {
         return achievementState == PREVIOUSLY_ACHIEVED;
     }
 
+    /**
+     * Returns whether or not this achievement is yet to be achieved.
+     */
     public boolean isYetToBeAchieved() {
         return achievementState == YET_TO_ACHIEVE;
     }

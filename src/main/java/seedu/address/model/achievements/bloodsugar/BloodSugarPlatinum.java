@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.PLATINUM;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * Bloodsugar Achievement of platinum level.
+ */
 public class BloodSugarPlatinum extends Achievement implements BloodSugar {
 
     private static final String TITLE = "Sugar Elemental Mage";

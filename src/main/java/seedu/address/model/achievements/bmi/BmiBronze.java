@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.BRONZE;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * BMI Achievement of bronze level.
+ */
 public class BmiBronze extends Achievement implements Bmi {
 
     private static final String TITLE = "Mass Index Novice";

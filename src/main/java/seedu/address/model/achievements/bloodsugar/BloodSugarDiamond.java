@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.DIAMOND;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * Bloodsugar Achievement of diamond level.
+ */
 public class BloodSugarDiamond extends Achievement implements BloodSugar {
 
     private static final String TITLE = "Grand Sorcerer Supreme of the Sugar Arts";

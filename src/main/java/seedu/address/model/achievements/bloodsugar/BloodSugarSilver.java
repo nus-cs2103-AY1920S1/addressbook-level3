@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.SILVER;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * Bloodsugar Achievement of silver level.
+ */
 public class BloodSugarSilver extends Achievement implements BloodSugar {
 
     private static final String TITLE = "Sugar Manipulation Master";

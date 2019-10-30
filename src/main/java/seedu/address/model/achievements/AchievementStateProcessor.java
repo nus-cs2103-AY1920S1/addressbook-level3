@@ -4,6 +4,7 @@ import static seedu.address.model.achievements.AchievementState.ACHIEVED;
 import static seedu.address.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
 import static seedu.address.model.achievements.DurationUnit.MONTH;
 import static seedu.address.model.achievements.DurationUnit.WEEK;
+import static seedu.address.model.achievements.DurationUnit.YEAR;
 import static seedu.address.model.statistics.AverageType.DAILY;
 
 import java.time.LocalDate;
@@ -24,6 +25,11 @@ import seedu.address.model.record.RecordType;
  * Class that processes the changes made to the list of achievements stored in this program, if any.
  */
 public class AchievementStateProcessor {
+
+    private static final int DAY_IN_DAYS = 1;
+    private static final int WEEK_IN_DAYS = 7;
+    private static final int MONTH_IN_DAYS = 30;
+    private static final int YEAR_IN_DAYS = 365;
 
     private Model model;
     private Map<RecordType, Map<LocalDate, Double>> averageRecordMap;
@@ -127,8 +133,13 @@ public class AchievementStateProcessor {
      * @return  Duration in number of days required to potentially meet the given achievement.
      */
     private int getDaysToIterate(Achievement achievement) {
-        return (int) achievement.getDurationValue() * (achievement.getDurationUnits() == WEEK ? 7 :
-                achievement.getDurationUnits() == MONTH ? 30 : 1);
+        return (int) achievement.getDurationValue() * (achievement.getDurationUnits() == WEEK
+                ? WEEK_IN_DAYS
+                : achievement.getDurationUnits() == MONTH
+                        ? MONTH_IN_DAYS
+                        : achievement.getDurationUnits() == YEAR
+                                ? YEAR_IN_DAYS
+                                : DAY_IN_DAYS);
     }
 
     /**

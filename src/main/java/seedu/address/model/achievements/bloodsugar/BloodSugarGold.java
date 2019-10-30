@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.GOLD;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * Bloodsugar Achievement of gold level.
+ */
 public class BloodSugarGold extends Achievement implements BloodSugar {
 
     private static final String TITLE = "Sugar Legendary Whisperer";

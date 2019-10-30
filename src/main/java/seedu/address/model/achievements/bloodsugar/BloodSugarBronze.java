@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.BRONZE;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * Bloodsugar Achievement of bronze level.
+ */
 public class BloodSugarBronze extends Achievement implements BloodSugar {
 
     private static final String TITLE = "Sugar Control Apprentice";

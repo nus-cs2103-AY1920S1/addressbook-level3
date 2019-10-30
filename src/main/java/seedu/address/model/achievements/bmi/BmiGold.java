@@ -5,6 +5,9 @@ import static seedu.address.model.achievements.AchievementLevel.GOLD;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
 
+/**
+ * BMI Achievement of gold level.
+ */
 public class BmiGold extends Achievement implements Bmi {
 
     private static final String TITLE = "Mass Index Elder of Newtonian Physics";
