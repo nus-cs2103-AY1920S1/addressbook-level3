@@ -1,7 +1,10 @@
 package seedu.ifridge.model.waste;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import seedu.ifridge.model.ReadOnlyWasteList;
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.UniqueWasteList;
@@ -11,10 +14,9 @@ import seedu.ifridge.model.food.UniqueWasteList;
  */
 public class WasteStatistic {
 
-    public static final float WEIGHTS_CURRENT_MONTH = 0.4f;
-    public static final float WEIGHTS_PREVIOUS_ONE_MONTH = 0.3f;
-    public static final float WEIGHTS_PREVIOUS_TWO_MONTH = 0.2f;
-    public static final float WEIGHTS_PREVIOUS_THREE_MONTH = 0.1f;
+    private static final float[] WEIGHTS_FOUR_MONTHS = {0.5f, 0.3f, 0.15f, 0.05f};
+    private static final float[] WEIGHTS_THREE_MONTHS = {0.6f, 0.35f, 0.15f};
+    private static final float[] WEIGHTS_TWO_MONTHS = {0.8f, 0.2f};
 
     private float totalWeight;
     private float totalVolume;
@@ -41,52 +43,94 @@ public class WasteStatistic {
         return new WasteStatistic(weight, volume, quantity);
     }
 
-    /**
-     * Predicts this month's current wastage statistic and returns a WasteStatistic object
-     *
-     * @param thisMonth WasteStatistic for the current month
-     * @param previousOneMonth WasteStatistic for the previous month
-     * @param previousTwoMonth WasteStatistic for the month which was two months before now
-     * @param previousThreeMonth WasteStatistic for the month which was three months before now
-     * @return The weighted waste statistics
-     */
-    public static WasteStatistic getPredictedWasteStatistic(WasteStatistic thisMonth,
-                                                            WasteStatistic previousOneMonth,
-                                                            WasteStatistic previousTwoMonth,
-                                                            WasteStatistic previousThreeMonth) {
-        float weight = thisMonth.getTotalWeight();
-        float volume = thisMonth.getTotalVolume();
-        float quantity = thisMonth.getTotalQuantity();
+    public static WasteStatistic getWeightedStatistics(ReadOnlyWasteList currentWasteList,
+                                                       List<ReadOnlyWasteList> pastWasteLists) {
 
-        LocalDate today = LocalDate.now();
-        int daysPassed = today.getDayOfMonth();
-        int daysInMonth = today.lengthOfMonth();
-        float scalingFactor = daysInMonth / daysPassed;
+        List<WasteStatistic> wasteStatistics = new ArrayList<>();
+        WasteStatistic currentWastage = getWasteStatistic(currentWasteList.getIterableWasteList());
+        WasteStatistic interpolatedCurrentWastage = interpolateCurrentWasteStatistic(currentWastage);
+        wasteStatistics.add(interpolatedCurrentWastage);
+        for (ReadOnlyWasteList wasteList : pastWasteLists) {
+            wasteStatistics.add(getWasteStatistic(wasteList.getIterableWasteList()));
+        }
 
-        WasteStatistic currentMonth = new WasteStatistic(weight * scalingFactor,
-                volume * scalingFactor, quantity * scalingFactor);
-        return getWeightedStatistics(currentMonth, previousOneMonth,
-                previousTwoMonth, previousThreeMonth);
+        int numMonths = pastWasteLists.size() + 1;
+        switch (numMonths) {
+        case 1:
+            return interpolatedCurrentWastage;
+        case 2:
+            return predictUsingTwoMonths(wasteStatistics);
+        case 3:
+            return predictUsingThreeMonths(wasteStatistics);
+        default:
+            return predictUsingFourMonths(wasteStatistics);
+        }
     }
 
-    public static WasteStatistic getWeightedStatistics(WasteStatistic currentMonth, WasteStatistic previousOneMonth,
-                                                 WasteStatistic previousTwoMonth, WasteStatistic previousThreeMonth) {
-        float weightedWeight = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalWeight()
-                + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalWeight()
-                + WEIGHTS_PREVIOUS_TWO_MONTH * previousTwoMonth.getTotalWeight()
-                + WEIGHTS_PREVIOUS_THREE_MONTH * previousThreeMonth.getTotalWeight();
+    /**
+     * Predicts the food wastage using 2 months' worth of data.
+     * @param wasteStatistics The list of WasteStatistics of the 2 months
+     */
+    private static WasteStatistic predictUsingTwoMonths(List<WasteStatistic> wasteStatistics) {
+        float weightedWeight = 0.0f;
+        float weightedVolume = 0.0f;
+        float weightedQuantity = 0.0f;
+        for (int i = 0; i < 2; i++) {
+            weightedWeight += WEIGHTS_TWO_MONTHS[i] * wasteStatistics.get(i).getTotalWeight();
+            weightedVolume += WEIGHTS_TWO_MONTHS[i] * wasteStatistics.get(i).getTotalVolume();
+            weightedQuantity += WEIGHTS_TWO_MONTHS[i] * wasteStatistics.get(i).getTotalQuantity();
+        }
+        return new WasteStatistic(weightedWeight, weightedVolume, weightedQuantity);
+    }
 
-        float weightedVolume = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalVolume()
-                + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalVolume()
-                + WEIGHTS_PREVIOUS_TWO_MONTH * previousTwoMonth.getTotalVolume()
-                + WEIGHTS_PREVIOUS_THREE_MONTH * previousThreeMonth.getTotalVolume();
+    /**
+     * Predicts the food wastage using 3 months' worth of data.
+     * @param wasteStatistics The list of WasteStatistics of the 3 months
+     */
+    private static WasteStatistic predictUsingThreeMonths(List<WasteStatistic> wasteStatistics) {
+        float weightedWeight = 0.0f;
+        float weightedVolume = 0.0f;
+        float weightedQuantity = 0.0f;
+        for (int i = 0; i < 3; i++) {
+            weightedWeight += WEIGHTS_THREE_MONTHS[i] * wasteStatistics.get(i).getTotalWeight();
+            weightedVolume += WEIGHTS_THREE_MONTHS[i] * wasteStatistics.get(i).getTotalVolume();
+            weightedQuantity += WEIGHTS_THREE_MONTHS[i] * wasteStatistics.get(i).getTotalQuantity();
+        }
+        return new WasteStatistic(weightedWeight, weightedVolume, weightedQuantity);
+    }
 
-        float weightedUnit = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalQuantity()
-                + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalQuantity()
-                + WEIGHTS_PREVIOUS_TWO_MONTH * previousTwoMonth.getTotalQuantity()
-                + WEIGHTS_PREVIOUS_THREE_MONTH * previousThreeMonth.getTotalQuantity();
+    /**
+     * Predicts the food wastage using 4 months' worth of data.
+     * @param wasteStatistics The list of WasteStatistics of the 4 months
+     */
+    private static WasteStatistic predictUsingFourMonths(List<WasteStatistic> wasteStatistics) {
+        float weightedWeight = 0.0f;
+        float weightedVolume = 0.0f;
+        float weightedQuantity = 0.0f;
+        for (int i = 0; i < 4; i++) {
+            weightedWeight += WEIGHTS_FOUR_MONTHS[i] * wasteStatistics.get(i).getTotalWeight();
+            weightedVolume += WEIGHTS_FOUR_MONTHS[i] * wasteStatistics.get(i).getTotalVolume();
+            weightedQuantity += WEIGHTS_FOUR_MONTHS[i] * wasteStatistics.get(i).getTotalQuantity();
+        }
+        return new WasteStatistic(weightedWeight, weightedVolume, weightedQuantity);
+    }
 
-        return new WasteStatistic(weightedWeight, weightedVolume, weightedUnit);
+    /**
+     * Interpolates the current month's waste statistic by scaling.
+     */
+    private static WasteStatistic interpolateCurrentWasteStatistic(WasteStatistic thisMonthStatistics) {
+        float weight = thisMonthStatistics.getTotalWeight();
+        float volume = thisMonthStatistics.getTotalVolume();
+        float quantity = thisMonthStatistics.getTotalQuantity();
+
+        LocalDate today = LocalDate.now();
+        float daysPassed = (float) today.getDayOfMonth();
+        float daysInMonth = (float) today.lengthOfMonth();
+        float scalingFactor = daysInMonth / daysPassed;
+
+        WasteStatistic interpolatedStatistic = new WasteStatistic(weight * scalingFactor,
+                volume * scalingFactor, quantity * scalingFactor);
+        return interpolatedStatistic;
     }
 
     public float getTotalWeight() {
