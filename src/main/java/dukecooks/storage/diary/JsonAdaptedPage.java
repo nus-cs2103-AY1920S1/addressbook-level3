@@ -1,10 +1,12 @@
 package dukecooks.storage.diary;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.model.Image;
 import dukecooks.model.diary.components.Page;
+import dukecooks.model.diary.components.PageDescription;
 import dukecooks.model.diary.components.Title;
 
 /**
@@ -13,13 +15,19 @@ import dukecooks.model.diary.components.Title;
 class JsonAdaptedPage {
 
     private final String pageTitle;
+    private final String pageDescription;
+    private final String imageFilePath;
 
     /**
-     * Constructs a {@code JsonAdaptedPage} with the given {@code pageTitle}.
+     * Constructs a {@code JsonAdaptedPage} with the given {@code pageTitle} and {@code pageDescription}.
      */
     @JsonCreator
-    public JsonAdaptedPage(String pageTitle) {
+    public JsonAdaptedPage(@JsonProperty("pageTitle") String pageTitle,
+                           @JsonProperty("pageDescription") String pageDescription,
+                           @JsonProperty("imageFilePath") String imageFilePath) {
         this.pageTitle = pageTitle;
+        this.pageDescription = pageDescription;
+        this.imageFilePath = imageFilePath;
     }
 
     /**
@@ -27,11 +35,8 @@ class JsonAdaptedPage {
      */
     public JsonAdaptedPage(Page source) {
         pageTitle = source.getTitle().toString();
-    }
-
-    @JsonValue
-    public String getPageTitle() {
-        return pageTitle;
+        pageDescription = source.getDescription().toString();
+        imageFilePath = source.getImage().getFilePath();
     }
 
     /**
@@ -43,7 +48,16 @@ class JsonAdaptedPage {
         if (!Title.isValidTitle(pageTitle)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
-        return new Page(new Title(pageTitle));
+
+        if (!PageDescription.isValidPageDescription(pageDescription)) {
+            throw new IllegalValueException(PageDescription.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!Image.isValidImage(imageFilePath)) {
+            throw new IllegalValueException(Image.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Page(new Title(pageTitle), new PageDescription(pageDescription), new Image(imageFilePath));
     }
 
 }
