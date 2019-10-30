@@ -11,7 +11,6 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 
 
 /**
@@ -46,11 +45,18 @@ public class AllItemsPanel extends UiPart<VBox> {
         update();
          */
         displayItems(xpireItemList, replenishList);
+        setClick();
+    }
+
+    /**
+     * Toggle expanded property of tree cell on click.
+     */
+    private void setClick() {
         tree.setCellFactory(tree -> {
             TreeCell<String> cell = new TreeCell<String>() {
                 @Override
                 public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty) ;
+                    super.updateItem(item, empty);
                     if (empty) {
                         setText(null);
                     } else {
@@ -59,7 +65,7 @@ public class AllItemsPanel extends UiPart<VBox> {
                 }
             };
             cell.setOnMouseClicked(event -> {
-                if (! cell.isEmpty()) {
+                if (!cell.isEmpty()) {
                     TreeItem<String> treeItem = cell.getTreeItem();
                     if (treeItem.isExpanded()) {
                         treeItem.setExpanded(false);
@@ -68,7 +74,7 @@ public class AllItemsPanel extends UiPart<VBox> {
                     }
                 }
             });
-            return cell ;
+            return cell;
         });
     }
 
