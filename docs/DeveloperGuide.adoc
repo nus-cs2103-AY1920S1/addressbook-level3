@@ -428,7 +428,8 @@ every `Module` instead of just the one in the `StudyPlan`.
 
 The reading of modules information is facilitated by `ModulesInfo`, which contains a list of `ModuleInfo` objects.
 
-All information regarding our modules are initially stored in json format, within the file `data/modules_cs.json`.
+All information regarding our modules are initially stored in json format, within the file
+`src/main/resources/modules_cs.json`.
 Information in a `ModuleInfo` object includes:
 
 - `code`: Module code
@@ -468,6 +469,10 @@ of every `Module` and updates them in the GUI. Modules that do not have their pr
 with a red tag beside it.
 
 image::VerificationRefreshSequenceDiagram.png[]
+
+The following activity diagram shows how the verification works for each module:
+
+image::VerificationActivityDiagram.png[]
 
 ==== Design Considerations
 
