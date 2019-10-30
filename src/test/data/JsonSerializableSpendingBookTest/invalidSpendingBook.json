@@ -1,5 +1,8 @@
 {
-  "budget": "asdf",
+  "budget": {
+    "value": "asdf",
+    "sum": "asdf"
+  },
   "currency" : "SGD",
   "currencies" : [ {
     "name" : "EUR",

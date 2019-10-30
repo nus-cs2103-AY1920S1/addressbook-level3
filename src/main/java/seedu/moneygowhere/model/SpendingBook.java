@@ -10,6 +10,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
+import seedu.moneygowhere.commons.util.DateUtil;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.currency.UniqueCurrencyList;
@@ -77,6 +78,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
         setCurrencyInUse(newData.getCurrencyInUse());
         setSpendings(newData.getSpendingList());
         setBudget(newData.getBudget());
+        budget.update(DateUtil.getTodayDate());
         setReminders(newData.getReminderList());
     }
 
@@ -96,6 +98,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
      */
     public void addSpending(Spending p) {
         spendings.add(p);
+        budget.addSpending(p);
     }
 
     /**
@@ -106,7 +109,8 @@ public class SpendingBook implements ReadOnlySpendingBook {
      */
     public void setSpending(Spending target, Spending editedSpending) {
         requireNonNull(editedSpending);
-
+        budget.deleteSpending(target);
+        budget.addSpending(target);
         spendings.setSpending(target, editedSpending);
     }
 
@@ -116,6 +120,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
      */
     public void removeSpending(Spending key) {
         spendings.remove(key);
+        budget.deleteSpending(key);
     }
 
     //// Reminder-level operations
@@ -200,11 +205,19 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     /**
-     * Replaces the value of budget in the MoneyGoWhere list with {@code budget}.
+     * Replaces the {@code Budget} in the MoneyGoWhere.
      */
     public void setBudget(Budget budget) {
-        this.budget.setValue(budget.getValue());
+        this.budget.setBudget(budget);
     }
+
+    /**
+     * Resets the Budget sum to 0.
+     */
+    public void clearBudgetSum() {
+        budget.clearBudgetSum();
+    }
+
 
     //// util methods
 

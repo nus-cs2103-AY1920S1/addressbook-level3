@@ -161,6 +161,11 @@ class AddReminderCommandTest {
         }
 
         @Override
+        public void clearBudgetSum() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
         }

@@ -1,6 +1,10 @@
 {
   "_comment": "MoneyGoWhere save file which contains the same Spending values as in TypicalSpendings#getTypicalSpendingBook()",
-  "budget": "10000",
+  "budget": {
+    "value" : "10000",
+    "sum": "772.50",
+    "month": "10/2019"
+  },
   "currency" : "SGD",
   "currencies" : [ {
     "name" : "EUR",

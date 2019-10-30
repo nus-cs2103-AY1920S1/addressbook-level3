@@ -116,6 +116,11 @@ public interface Model {
     Budget getBudget();
 
     /**
+     * reset's the budget sum to 0.
+     */
+    void clearBudgetSum();
+
+    /**
      * Adds the given Reminder.
      * {@code Reminder} must not NULL.
      */

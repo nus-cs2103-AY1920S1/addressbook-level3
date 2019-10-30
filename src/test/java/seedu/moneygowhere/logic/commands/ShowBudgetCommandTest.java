@@ -18,7 +18,7 @@ class ShowBudgetCommandTest {
     public void execute_displayBudget_success() {
         ShowBudgetCommand showBudgetCommand = new ShowBudgetCommand();
 
-        String expectedMessage = showBudgetCommand.MESSAGE_SUCCESS + model.getBudget().toString();
+        String expectedMessage = showBudgetCommand.MESSAGE_SUCCESS + model.getBudget().getBudgetMessage();
         Model expectedModel = new ModelManager(new SpendingBook(model.getSpendingBook()), new UserPrefs());
 
         assertCommandSuccess(showBudgetCommand, model , expectedMessage, expectedModel);
