@@ -139,10 +139,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public SemesterListPanel getSemesterListPanel() {
-        return semesterListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *

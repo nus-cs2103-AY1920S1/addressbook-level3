@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 import java.util.logging.Logger;
 
@@ -45,6 +47,7 @@ public class SemesterCard extends UiPart<Region> {
 
     public SemesterCard(Semester semester) {
         super(FXML);
+        requireNonNull(semester);
         this.semester = semester;
         name.setText(semester.getSemesterName().name());
         totalMcCount.setText("(" + semester.getMcCount() + ")");

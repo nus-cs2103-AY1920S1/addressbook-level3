@@ -20,15 +20,17 @@ import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
+import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
+import seedu.address.logic.commands.datamanagement.SortStudyPlansByPriorityTagCommand;
 import seedu.address.logic.commands.datamanagement.TagModuleCommand;
+import seedu.address.logic.commands.datamanagement.TagStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.ViewAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewDefaultTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
-import seedu.address.logic.commands.storage.ClearCommand;
 import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DeleteCommand;
@@ -107,9 +109,11 @@ public class Autocomplete extends TextField {
             keywordMenu.hide();
         } else {
             String input = getText();
+            input = input.trim();
             String[] inputArray = input.split(" ");
             if (inputArray.length == 1) {
-                completeInput(inputArray[0], commandKeywords, "");
+                completeInput(inputArray[0], commandKeywords, getText().substring(0, getText().lastIndexOf(" "))
+                        + " ");
             } else if (inputArray[0].equals(HelpCommand.COMMAND_WORD)) {
                 // The Help command uses commands as arguments.
                 completeInput(inputArray[inputArray.length - 1], commandKeywords, HelpCommand.COMMAND_WORD + " ");
@@ -164,7 +168,6 @@ public class Autocomplete extends TextField {
         commandKeywords.add(NameUeFromSemesterCommand.COMMAND_WORD);
         commandKeywords.add(SetCurrentSemesterCommand.COMMAND_WORD);
         commandKeywords.add(FindModuleCommand.COMMAND_WORD);
-        commandKeywords.add(ClearCommand.COMMAND_WORD);
         commandKeywords.add(CommitStudyPlanCommand.COMMAND_WORD);
         commandKeywords.add(CreateStudyPlanCommand.COMMAND_WORD);
         commandKeywords.add(DeleteCommand.COMMAND_WORD);
@@ -184,6 +187,9 @@ public class Autocomplete extends TextField {
         commandKeywords.add(ActivateStudyPlanCommand.COMMAND_WORD);
         commandKeywords.add(ListAllStudyPlansCommand.COMMAND_WORD);
         commandKeywords.add(HelpCommand.COMMAND_WORD);
+        commandKeywords.add(TagStudyPlanCommand.COMMAND_WORD);
+        commandKeywords.add(RemoveTagFromStudyPlanCommand.COMMAND_WORD);
+        commandKeywords.add(SortStudyPlansByPriorityTagCommand.COMMAND_WORD);
     }
 
     /**

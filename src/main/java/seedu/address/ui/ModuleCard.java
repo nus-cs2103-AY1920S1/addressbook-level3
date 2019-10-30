@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -39,6 +41,7 @@ public class ModuleCard extends UiPart<Region> {
 
     public ModuleCard(Module module) {
         super(FXML);
+        requireNonNull(module);
         this.module = module;
         name.setText(module.getModuleCode().value + " " + module.getName().fullName);
         mcCount.setText(Integer.toString(module.getMcCount()));

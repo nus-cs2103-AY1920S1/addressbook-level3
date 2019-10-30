@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
@@ -28,6 +30,8 @@ public class CommandBox extends UiPart<Region> {
 
     public CommandBox(CommandExecutor commandExecutor, ReadOnlyModulePlanner modulePlanner) {
         super(FXML);
+        requireNonNull(commandExecutor);
+        requireNonNull(modulePlanner);
         this.commandExecutor = commandExecutor;
         autocomplete = new Autocomplete(modulePlanner);
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
