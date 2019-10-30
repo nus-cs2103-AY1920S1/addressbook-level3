@@ -326,9 +326,8 @@ public class MainWindow extends UiPart<Stage> {
      * Switch to health page.
      */
     @FXML
-    private void switchHealth() {
-        event = Event.getInstance();
-        event.set("health", "all");
+    private void switchHealth() throws CommandException, ParseException {
+        logic.execute("list health");
         resultDisplay.setFeedbackToUser("");
     }
 

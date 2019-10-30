@@ -15,6 +15,7 @@ import dukecooks.logic.commands.health.ListHealthCommand;
 import dukecooks.logic.commands.mealplan.ListMealPlanCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.logic.parser.health.ListRecordCommandParser;
 
 /**
  * Parses input arguments and creates a new AddRecipeCommand object
@@ -58,7 +59,7 @@ public class ListCommandParser implements Parser<ListCommand> {
             return new ListMealPlanCommand();
 
         case ListHealthCommand.VARIANT_WORD:
-            return new ListHealthCommand();
+            return new ListRecordCommandParser().parse(arguments);
 
         case ListExerciseCommand.VARIANT_WORD:
             return new ListExerciseCommand();
