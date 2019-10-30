@@ -39,8 +39,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
-    private String style;
-
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -84,9 +82,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        /*this.style = "-fx-background-color: white";
-        window.setStyle(this.style);*/
     }
 
     public Stage getPrimaryStage() {
@@ -266,8 +261,8 @@ public class MainWindow extends UiPart<Stage> {
      * Changes font in the application to the specified font.
      */
     private void handleChangeFont(String font) {
-        this.style = "-fx-font-family: " + font;
-        window.setStyle(this.style);
+        String style = "-fx-font-family: " + font;
+        window.setStyle(style);
     }
 
     public EntryListPanel getEntryListPanel() {

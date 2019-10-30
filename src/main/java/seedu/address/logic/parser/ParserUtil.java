@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -18,20 +19,22 @@ import seedu.address.model.person.PanelName;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.Frequency;
 import seedu.address.ui.FontManager;
 import seedu.address.ui.FontName;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *Parser
+ * classes.
  */
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * and trailing whitespaces will be trimmed. if the specified index is invalid
+     * (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -42,8 +45,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -58,6 +61,7 @@ public class ParserUtil {
 
     /**
      * Parses a stringAmt into an Amount.
+     *
      * @param stringAmt the amount as a String.
      * @return an Amount.
      */
@@ -68,9 +72,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a time in String to Time.
-     * @param date the time as a String.
-     * @return the specified time as Time.
+     * Parses a date in String to Date.
+     *
+     * @param date the date as a String.
+     * @return the specified date as Date.
      */
     public static Date parseDate(String date) {
         requireNonNull(date);
@@ -78,7 +83,19 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a time in {@code Optional}
+     *
+     * @param time the time as a String.
+     * @return the specified time as Time.
+     */
+    public static Date parseTime(Optional<String> time) {
+        requireNonNull(time);
+        return time.isPresent() ? new Date(time.get()) : Date.now();
+    }
+
+    /**
      * Parses a time in String to ArrayList.
+     *
      * @param period the time as a String.
      * @return the specified time as Date.
      */
@@ -96,8 +113,21 @@ public class ParserUtil {
         }
         return listOfPeriods;
     }
+
+    /**
+     * Parses a frequency from String to Frequency.
+     *
+     * @param stringFreq the frequency as a String.
+     * @return the specified frequency as Frequency.
+     */
+    public static Frequency parseFrequency(String stringFreq) {
+        requireNonNull(stringFreq);
+        return Frequency.parse(stringFreq);
+    }
+
     /**
      * Parses a type of sorting in String to SortType.
+     *
      * @param type the time as a String.
      * @return the specified time as SortType.
      */
@@ -108,6 +138,7 @@ public class ParserUtil {
 
     /**
      * Parses a type of sequencesorting in String to SortSequence.
+     *
      * @param sequence the sequence of sorting as a String.
      * @return the specified time as SortSequence.
      */
@@ -116,10 +147,9 @@ public class ParserUtil {
         return new SortSequence(sequence);
     }
 
-
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
