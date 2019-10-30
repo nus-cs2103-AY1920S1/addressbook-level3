@@ -96,7 +96,9 @@ public class Reminder {
         final StringBuilder builder = new StringBuilder();
         builder.append(getNote())
                 .append(" Time: ")
-                .append(getFormattedTime());
+                .append(getFormattedTime())
+                .append(" URL: ")
+                .append(getUrl());
         return builder.toString();
     }
 
