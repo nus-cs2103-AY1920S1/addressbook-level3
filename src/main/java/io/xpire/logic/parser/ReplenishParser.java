@@ -49,21 +49,33 @@ public class ReplenishParser implements Parser {
         switch (commandWord) {
 
         case ClearCommand.COMMAND_WORD:
+            //fallthrough
+        case ClearCommand.COMMAND_SHORTHAND:
             return new ClearCommand("replenish");
 
         case SearchCommand.COMMAND_WORD:
+            //fallthrough
+        case SearchCommand.COMMAND_SHORTHAND:
             return new SearchCommandParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
+            //fallthrough
+        case ViewCommand.COMMAND_SHORTHAND:
             return new ViewCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
+            //fallthrough
+        case ExitCommand.COMMAND_SHORTHAND:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            //fallthrough
+        case HelpCommand.COMMAND_SHORTHAND:
             return new HelpCommand();
 
         case ShiftToMainCommand.COMMAND_WORD:
+            //fallthrough
+        case ShiftToMainCommand.COMMAND_SHORTHAND:
             return new ShiftToMainCommandParser().parse(arguments);
 
         default:
