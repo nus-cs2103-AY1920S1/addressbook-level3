@@ -14,7 +14,7 @@ Package CcaTracker {
     Class Equipment
     Class CcaProgress
     Class CcaCurrentProgress
-    Class CcaProgressList
+    Class CcaMilestoneList
     Class CcaMilestone
 }
 
@@ -26,7 +26,7 @@ Cca *--> "1" EquipmentList
 EquipmentList o--> "*" Equipment
 Cca *--> "1" CcaProgress
 CcaProgress *--> "1" CcaCurrentProgress
-CcaProgress *--> "1" CcaProgressList
-CcaProgressList *--> "*" CcaMilestone
+CcaProgress *--> "1" CcaMilestoneList
+CcaMilestoneList *--> "*" CcaMilestone
 
 @enduml
