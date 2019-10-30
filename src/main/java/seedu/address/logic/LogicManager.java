@@ -12,6 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddCriteriaCommand;
 import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.AddPolicyTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
@@ -20,12 +21,15 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteCriteriaCommand;
 import seedu.address.logic.commands.DeletePolicyCommand;
 import seedu.address.logic.commands.DeletePolicyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
+import seedu.address.logic.commands.EligiblePeopleCommand;
+import seedu.address.logic.commands.EligiblePoliciesCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExpandPersonCommand;
 import seedu.address.logic.commands.ExpandPolicyCommand;
@@ -75,15 +79,17 @@ public class LogicManager implements Logic {
      */
     //todo : update command words
     public void initialiseCommandsInParserUtil() {
-        ParserUtil.addCommands(AddCommand.COMMAND_WORD, AddPolicyCommand.COMMAND_WORD, AddPolicyTagCommand.COMMAND_WORD,
-            AddTagCommand.COMMAND_WORD, AssignPolicyCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
-            DeleteCommand.COMMAND_WORD, DeletePolicyCommand.COMMAND_WORD, DeletePolicyTagCommand.COMMAND_WORD,
+        ParserUtil.addCommands(AddCommand.COMMAND_WORD, AddCriteriaCommand.COMMAND_WORD,
+            AddPolicyCommand.COMMAND_WORD, AddPolicyTagCommand.COMMAND_WORD, AddTagCommand.COMMAND_WORD,
+            AssignPolicyCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
+            DeleteCriteriaCommand.COMMAND_WORD, DeletePolicyCommand.COMMAND_WORD, DeletePolicyTagCommand.COMMAND_WORD,
             DeleteTagCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, EditPolicyCommand.COMMAND_WORD,
-            ExitCommand.COMMAND_WORD, ExpandPolicyCommand.COMMAND_WORD, ExpandPersonCommand.COMMAND_WORD,
-            FindCommand.COMMAND_WORD, FindPolicyCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD,
-            HistoryCommand.COMMAND_WORD, ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD,
-            SuggestionSwitchCommand.COMMAND_WORD, UnassignPolicyCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD,
-            DisplayCommand.COMMAND_WORD, ListBinCommand.COMMAND_WORD, RestoreCommand.COMMAND_WORD);
+            EligiblePeopleCommand.COMMAND_WORD, EligiblePoliciesCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
+            ExpandPolicyCommand.COMMAND_WORD, ExpandPersonCommand.COMMAND_WORD, FindCommand.COMMAND_WORD,
+            FindPolicyCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD,
+            ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD, SuggestionSwitchCommand.COMMAND_WORD,
+            UnassignPolicyCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, DisplayCommand.COMMAND_WORD,
+            ListBinCommand.COMMAND_WORD, RestoreCommand.COMMAND_WORD);
     }
 
     @Override
