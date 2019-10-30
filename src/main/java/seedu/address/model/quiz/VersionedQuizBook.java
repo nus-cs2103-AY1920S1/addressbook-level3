@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedQuizBook extends AddressQuizBook {
 
-    private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<ReadOnlyAddressBook> quizBookStateList;
     private int currentStatePointer;
 
     public VersionedQuizBook(ReadOnlyAddressBook initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new AddressQuizBook(initialState));
+        quizBookStateList = new ArrayList<>();
+        quizBookStateList.add(new AddressQuizBook(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,48 +25,48 @@ public class VersionedQuizBook extends AddressQuizBook {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new AddressQuizBook(this));
+        quizBookStateList.add(new AddressQuizBook(this));
         currentStatePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        quizBookStateList.subList(currentStatePointer + 1, quizBookStateList.size()).clear();
     }
 
     /**
-     * Restores the address book to its previous state.
+     * Restores the quiz book to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(quizBookStateList.get(currentStatePointer));
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the quiz book to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(quizBookStateList.get(currentStatePointer));
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to undo.
+     * Returns true if {@code undo()} has quiz book states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to redo.
+     * Returns true if {@code redo()} has quiz book states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < quizBookStateList.size() - 1;
     }
 
     @Override
@@ -81,12 +81,12 @@ public class VersionedQuizBook extends AddressQuizBook {
             return false;
         }
 
-        VersionedQuizBook otherVersionedAddressBook = (VersionedQuizBook) other;
+        VersionedQuizBook otherVersionedQuizBook = (VersionedQuizBook) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedQuizBook)
+                && quizBookStateList.equals(otherVersionedQuizBook.quizBookStateList)
+                && currentStatePointer == otherVersionedQuizBook.currentStatePointer;
     }
 
     /**
@@ -94,7 +94,7 @@ public class VersionedQuizBook extends AddressQuizBook {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of quizBookState list, unable to undo.");
         }
     }
 
@@ -103,7 +103,7 @@ public class VersionedQuizBook extends AddressQuizBook {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of quizBookState list, unable to redo.");
         }
     }
 }

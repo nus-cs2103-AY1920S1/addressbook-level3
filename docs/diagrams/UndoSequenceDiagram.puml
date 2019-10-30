@@ -2,52 +2,52 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":LogicQuizManager" as LogicQuizManager LOGIC_COLOR
+participant ":QuizBookParser" as QuizBookParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":VersionedQuizBook" as VersionedQuizBook MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
-activate LogicManager
+[-> LogicQuizManager : execute(undo)
+activate LogicQuizManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicQuizManager -> QuizBookParser : parseCommand(undo)
+activate QuizBookParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+QuizBookParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> QuizBookParser
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+QuizBookParser --> LogicQuizManager : u
+deactivate QuizBookParser
 
-LogicManager -> UndoCommand : execute()
+LogicQuizManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> Model : undoQuizBook()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+Model -> VersionedQuizBook : undo()
+activate VersionedQuizBook
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+VersionedQuizBook -> VersionedQuizBook :resetData(ReadOnlyQuizBook)
+VersionedQuizBook --> Model :
+deactivate VersionedQuizBook
 
 Model --> UndoCommand
 deactivate Model
 
-UndoCommand --> LogicManager : result
+UndoCommand --> LogicQuizManager : result
 deactivate UndoCommand
-UndoCommand -[hidden]-> LogicManager : result
+UndoCommand -[hidden]-> LogicQuizManager : result
 destroy UndoCommand
 
-[<--LogicManager
-deactivate LogicManager
+[<--LogicQuizManager
+deactivate LogicQuizManager
 @enduml
