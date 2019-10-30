@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Classroom;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.Notebook;
-import seedu.address.model.assignment.Assignment;
-import seedu.address.model.student.Student;
+import seedu.address.model.ReadOnlyNotebook;
 
 /**
  * An Immutable Notebook that is serializable to JSON format.
@@ -37,7 +36,7 @@ class JsonSerializableNotebook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableNotebook}.
      */
-    public JsonSerializableNotebook(Notebook source) {
+    public JsonSerializableNotebook(ReadOnlyNotebook source) {
         classrooms.addAll(source.getClassroomList().stream()
                                   .map(JsonSerializableClassroom::new).collect(Collectors.toList()));
 

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
@@ -57,10 +58,15 @@ public interface Model {
     void setClassroom(ReadOnlyClassroom classroom);
 
     /** Returns the Classroom */
-    ReadOnlyClassroom getClassroom();
+    ReadOnlyClassroom getCurrentClassroom();
+
+    /**
+     * Replaces notebook data with the data in {@code notebook}.
+     */
+    void setNotebook(ReadOnlyNotebook notebook);
 
     /** Returns the Notebook */
-    Notebook getNotebook();
+    ReadOnlyNotebook getNotebook();
 
     /**
      * Returns true if a student with the same identity as {@code student} exists in the classroom.
@@ -107,13 +113,13 @@ public interface Model {
 
     void updateFilteredLessonList(Predicate<Lesson> predicate);
 
-    ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate);
+    //ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate);
 
-    ReadOnlyClassroom undo();
+    ReadOnlyNotebook undo();
 
     boolean canUndo();
 
-    ReadOnlyClassroom redo();
+    ReadOnlyNotebook redo();
 
     boolean canRedo();
 

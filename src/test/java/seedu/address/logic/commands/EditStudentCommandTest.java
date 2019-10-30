@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditStudentCommand.EditStudentDescriptor;
-import seedu.address.model.Classroom;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -43,7 +43,7 @@ public class EditStudentCommandTest {
 
         String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
-        Model expectedModel = new ModelManager(new Classroom(model.getClassroom()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Classroom(model.getCurrentClassroom()), new UserPrefs());
         expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent);
 
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
@@ -64,7 +64,7 @@ public class EditStudentCommandTest {
 
         String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
-        Model expectedModel = new ModelManager(new Classroom(model.getClassroom()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Classroom(model.getCurrentClassroom()), new UserPrefs());
         expectedModel.setStudent(lastStudent, editedStudent);
 
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
@@ -78,7 +78,7 @@ public class EditStudentCommandTest {
 
         String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
-        Model expectedModel = new ModelManager(new Classroom(model.getClassroom()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Classroom(model.getCurrentClassroom()), new UserPrefs());
 
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
@@ -94,7 +94,7 @@ public class EditStudentCommandTest {
 
         String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
-        Model expectedModel = new ModelManager(new Classroom(model.getClassroom()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Classroom(model.getCurrentClassroom()), new UserPrefs());
         expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent);
 
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
@@ -114,7 +114,7 @@ public class EditStudentCommandTest {
         showStudentAtIndex(model, INDEX_FIRST_STUDENT);
 
         // edit student in filtered list into a duplicate in classroom
-        Student studentInList = model.getClassroom().getStudentList().get(INDEX_SECOND_STUDENT.getZeroBased());
+        Student studentInList = model.getCurrentClassroom().getStudentList().get(INDEX_SECOND_STUDENT.getZeroBased());
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT,
                 new EditStudentDescriptorBuilder(studentInList).build());
 
@@ -140,7 +140,7 @@ public class EditStudentCommandTest {
         showStudentAtIndex(model, INDEX_FIRST_STUDENT);
         Index outOfBoundIndex = INDEX_SECOND_STUDENT;
         // ensures that outOfBoundIndex is still in bounds of classroom list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getClassroom().getStudentList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getCurrentClassroom().getStudentList().size());
 
         EditStudentCommand editStudentCommand = new EditStudentCommand(outOfBoundIndex,
                 new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build());

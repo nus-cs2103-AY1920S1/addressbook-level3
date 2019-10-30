@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.Classroom;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.Model;
 
 /**

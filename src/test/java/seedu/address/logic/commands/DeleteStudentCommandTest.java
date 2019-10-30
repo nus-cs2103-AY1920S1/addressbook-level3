@@ -33,7 +33,7 @@ public class DeleteStudentCommandTest {
 
         String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getClassroom(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getCurrentClassroom(), new UserPrefs());
         expectedModel.deleteStudent(studentToDelete);
 
         assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
@@ -70,7 +70,7 @@ public class DeleteStudentCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_STUDENT;
         // ensures that outOfBoundIndex is still in bounds of classroom list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getClassroom().getStudentList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getCurrentClassroom().getStudentList().size());
 
         DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(outOfBoundIndex);
 

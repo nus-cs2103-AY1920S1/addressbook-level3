@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.classroom;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
@@ -32,7 +32,5 @@ public interface ReadOnlyClassroom {
      * returns unmodifiable view of assignment list
      */
     ObservableList<Assignment> getAssignmentList();
-
-
 
 }

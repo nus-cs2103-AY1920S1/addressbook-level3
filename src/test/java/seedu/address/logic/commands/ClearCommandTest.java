@@ -5,7 +5,7 @@ import static seedu.address.testutil.TypicalStudents.getTypicalClassroom;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Classroom;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

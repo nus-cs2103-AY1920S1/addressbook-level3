@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.Classroom;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;

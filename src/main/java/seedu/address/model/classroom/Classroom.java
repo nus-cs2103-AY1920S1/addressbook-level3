@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.classroom;
 
 import static java.util.Objects.requireNonNull;
 
@@ -9,8 +9,6 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.UniqueAssignmentList;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
-import seedu.address.model.scheduler.Reminder;
-import seedu.address.model.scheduler.UniqueReminderList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
@@ -23,6 +21,7 @@ public class Classroom implements ReadOnlyClassroom {
     private String classroomName = "default";
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
+    //private final UniqueLessonList lessons;
     private boolean isDisplayStudents = true;
 
 
@@ -36,6 +35,7 @@ public class Classroom implements ReadOnlyClassroom {
     {
         students = new UniqueStudentList();
         assignments = new UniqueAssignmentList();
+        //lessons = new UniqueLessonList();
     }
 
     public Classroom() {}
@@ -189,6 +189,25 @@ public class Classroom implements ReadOnlyClassroom {
         return assignments.asUnmodifiableObservableList();
     }
 
+    /*
+    @Override
+    public ObservableList<Lesson> getLessonList() {
+        return lessons.asUnmodifiableObservableList();
+    }
+    */
+
+    /**
+     * Returns true if both classrooms of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two classrooms.
+     */
+    public boolean isSameClassroom(Classroom otherClassroom) {
+        if (otherClassroom == this) {
+            return true;
+        }
+
+        return otherClassroom != null
+                && otherClassroom.getClassroomName().equals(getClassroomName());
+    }
 
 
     @Override

@@ -4,19 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.*;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.logging.Filter;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
+import seedu.address.model.classroom.UniqueClassroomList;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.scheduler.Reminder;
@@ -26,53 +26,66 @@ import seedu.address.model.student.Student;
 /**
  * Represents the in-memory model of the classroom data.
  */
-public class Notebook {
+public class Notebook implements ReadOnlyNotebook {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private String currentClassroom;
-    private Caretaker caretaker;
+    private Classroom currentClassroom;
+    //private Caretaker caretaker;
+    private final UniqueClassroomList classrooms;
     private final UniqueLessonList lessons;
     private final UniqueReminderList reminders;
-    private FilteredList<Student> filteredStudents;
-    private FilteredList<Assignment> filteredAssignments;
-    private FilteredList<Lesson> filteredLessons;
-    private FilteredList<Reminder> filteredReminders;
-    private LinkedHashMap<String, Classroom> classrooms;
+    //private FilteredList<Student> filteredStudents;
+    //private FilteredList<Assignment> filteredAssignments;
+    //private FilteredList<Lesson> filteredLessons;
+    //private FilteredList<Reminder> filteredReminders;
+    //private LinkedHashMap<String, Classroom> classrooms;
 
     {
-        this.classrooms = new LinkedHashMap<>();
-        Classroom newClassroom = new Classroom();
-        classrooms.put(newClassroom.getClassroomName(),newClassroom);
-        setCurrentClassroom(newClassroom.getClassroomName());
-        this.caretaker = new Caretaker(new Memento(currentClassroom()), this.currentClassroom());
+        //this.classrooms = new LinkedHashMap<>();
+        //Classroom newClassroom = new Classroom();
+        //classrooms.put(newClassroom.getClassroomName(),newClassroom);
+        //setCurrentClassroom(newClassroom.getClassroomName());
+        //this.caretaker = new Caretaker(new Memento(currentClassroom()), this.currentClassroom());
         lessons = new UniqueLessonList();
         reminders = new UniqueReminderList();
-        filteredStudents = new FilteredList<>(getStudentList());
-        filteredAssignments = new FilteredList<>(getAssignmentList());
-        filteredLessons = new FilteredList<>(getLessonList());
-        filteredReminders = new FilteredList<>(getReminderList());
+        classrooms = new UniqueClassroomList();
+        //filteredStudents = new FilteredList<>(getStudentList());
+        //filteredAssignments = new FilteredList<>(getAssignmentList());
+        //filteredLessons = new FilteredList<>(getLessonList());
+        //filteredReminders = new FilteredList<>(getReminderList());
     }
 
-    public Notebook() {}
-
-    public Notebook(Notebook toBeCopied) {
-        this();
-        resetData(toBeCopied);
+    public Notebook() {
+        /*
         if (classrooms.isEmpty()) {
             Classroom newClassroom = new Classroom();
-            setCurrentClassroom(newClassroom.getClassroomName());
-            this.caretaker = new Caretaker(new Memento(currentClassroom()), currentClassroom());
+            classrooms.add(newClassroom);
+            setCurrentClassroom(newClassroom);
         } else {
             Classroom firstClassroom = getClassroomList().get(0);
-            setCurrentClassroom(firstClassroom.getClassroomName());
-            this.caretaker = new Caretaker(new Memento(currentClassroom()), currentClassroom());
+            setCurrentClassroom(firstClassroom);
         }
-
+         */
     }
+
+    public Notebook(ReadOnlyNotebook toBeCopied) {
+        this();
+        resetData(toBeCopied);
+
+        if (classrooms.isEmpty()) {
+            Classroom newClassroom = new Classroom();
+            setCurrentClassroom(newClassroom);
+        } else {
+            Classroom firstClassroom = getClassroomList().get(0);
+            setCurrentClassroom(firstClassroom);
+        }
+    }
+
     public Classroom currentClassroom() {
         return classrooms.get(currentClassroom);
     }
-    public void resetData(Notebook newData) {
+
+    public void resetData(ReadOnlyNotebook newData) {
         requireNonNull(newData);
         setClassrooms(newData.getClassroomList());
         setLessons(newData.getLessonList());
@@ -80,15 +93,13 @@ public class Notebook {
 
     //=========== Notebook ================================================================================
     public void setClassrooms(List<Classroom> classrooms) {
-        for (Classroom classroom: classrooms) {
-            this.classrooms.put(classroom.getClassroomName(), classroom);
-        }
+        this.classrooms.setClassrooms(classrooms);
     }
 
-    public void setCurrentClassroom(String classroomName) {
-        requireNonNull(classroomName);
-        if (hasClassroom(classroomName)) {
-            this.currentClassroom = classrooms.get(classroomName).getClassroomName();
+    public void setCurrentClassroom(Classroom classroom) {
+        requireNonNull(classroom);
+        if (hasClassroom(classroom)) {
+            this.currentClassroom = classrooms.get(classroom);
         }
     }
 
@@ -98,24 +109,27 @@ public class Notebook {
 
     public boolean hasClassroom(Classroom classroom) {
         requireNonNull(classroom);
-        return classrooms.containsValue(classroom);
+        return classrooms.contains(classroom);
     }
 
+    /*
     public boolean hasClassroom(String classroomName) {
         requireNonNull(classroomName);
-        return classrooms.containsKey(classroomName);
+        return classrooms.contains(classroomName);
     }
+    */
+
 
     public void addClassroom(Classroom classroom) {
         if (classrooms.isEmpty()) {
-            classrooms.put(classroom.getClassroomName(), classroom);
-            setCurrentClassroom(classroom.getClassroomName());
+            classrooms.add(classroom);
+            setCurrentClassroom(classroom);
         } else {
-            classrooms.put(classroom.getClassroomName(), classroom);
+            classrooms.add(classroom);
         }
     }
 
-    public ReadOnlyClassroom getClassroom() {
+    public ReadOnlyClassroom getCurrentClassroom() {
         return currentClassroom();
     }
 
@@ -177,6 +191,8 @@ public class Notebook {
         currentClassroom().displayAssignments();
     }
 
+
+
     /**
      * Adds a lessons to the classroom.
      * The lesson must not already exist in the classroom.
@@ -184,6 +200,7 @@ public class Notebook {
     public void addLesson(Lesson p) {
         lessons.add(p);
     }
+
     /**
      * Returns true if a lesson with the same identity as {@code lesson} exists in the classroom.
      */
@@ -200,6 +217,7 @@ public class Notebook {
         lessons.remove(key);
     }
 
+
     /**
      * Replaces the given lesson {@code target} in the list with {@code editedLesson}.
      * {@code target} must exist in the classroom.
@@ -208,9 +226,9 @@ public class Notebook {
      */
     public void setLesson(Lesson target, Lesson editedLesson) {
         requireNonNull(editedLesson);
-
         lessons.setLesson(target, editedLesson);
     }
+
 
     /**
      * Replaces the contents of the lesson list with {@code lessons}.
@@ -224,25 +242,14 @@ public class Notebook {
     //=========== Filtered Student List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Classroom} backed by the internal list of
      * {@code Caretaker}
      */
-    public ObservableList<Student> getFilteredStudentList() {
-        return filteredStudents;
+    public ObservableList<Classroom> getClassroomList() {
+        return classrooms.asUnmodifiableObservableList();
     }
 
-    public ObservableList<Assignment> getFilteredAssignmentList() {
-        return filteredAssignments;
-    }
-
-    public ObservableList<Lesson> getFilteredLessonList() {
-        return filteredLessons;
-    }
-
-    public ObservableList getFilteredReminderList() {
-        return filteredReminders;
-    }
-
+    /*
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
@@ -257,6 +264,7 @@ public class Notebook {
         requireNonNull(predicate);
         filteredLessons.setPredicate(predicate);
     }
+    */
 
     public ObservableList<Student> getStudentList() {
         return currentClassroom().getStudentList();
@@ -266,10 +274,13 @@ public class Notebook {
         return currentClassroom().getAssignmentList();
     }
 
+    /*
     public List<Classroom> getClassroomList() {
         ArrayList<Classroom> classroomList = new ArrayList<Classroom>(classrooms.values());
+        ObservableList<Classroom>
         return classroomList;
     }
+     */
 
     public ObservableList<Reminder> getReminderList() {
         return reminders.asUnmodifiableObservableList();
@@ -278,9 +289,12 @@ public class Notebook {
     public ObservableList<Lesson> getLessonList() {
         return lessons.asUnmodifiableObservableList();
     }
+
+
     //=========== Undo and Redo Operations =============================================================
 
-    public ReadOnlyClassroom undo() {
+    /*
+    public ReadOnlyNotebook undo() {
         return caretaker.undo();
     }
 
@@ -302,6 +316,8 @@ public class Notebook {
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
     }
+    */
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

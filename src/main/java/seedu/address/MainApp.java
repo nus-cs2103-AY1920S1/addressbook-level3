@@ -16,16 +16,13 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.Classroom;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Notebook;
-import seedu.address.model.ReadOnlyClassroom;
+import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.ClassroomStorage;
-import seedu.address.storage.JsonClassroomStorage;
 import seedu.address.storage.JsonNotebookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.NotebookStorage;
@@ -78,8 +75,8 @@ public class MainApp extends Application {
      * or an empty classroom will be used instead if errors occur when reading {@code storage}'s classroom.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<Notebook> notebookOptional;
-        Notebook initialData;
+        Optional<ReadOnlyNotebook> notebookOptional;
+        ReadOnlyNotebook initialData;
         try {
             notebookOptional = storage.readNotebook();
             if (!notebookOptional.isPresent()) {

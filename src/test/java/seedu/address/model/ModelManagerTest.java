@@ -15,6 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.student.NameContainsKeywordsPredicate;
 import seedu.address.testutil.ClassroomBuilder;
 
@@ -26,7 +27,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new Classroom(), new Classroom(modelManager.getClassroom()));
+        assertEquals(new Classroom(), new Classroom(modelManager.getCurrentClassroom()));
     }
 
     @Test

@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
@@ -24,17 +25,27 @@ public class ModelManager implements Model {
 
     private final Notebook notebook;
     private final UserPrefs userPrefs;
+    private final Caretaker caretaker;
+    private final FilteredList<Student> filteredStudents;
+    //private FilteredList<Reminder> filteredReminders;
+    private final FilteredList<Assignment> filteredAssignments;
+    private final FilteredList<Lesson> filteredLessons;
 
     /**
      * Initializes a ModelManager with the given notebook and userPrefs.
      */
-    public ModelManager(Notebook notebook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyNotebook notebook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(notebook, userPrefs);
 
         logger.fine("Initializing with notebook: " + notebook + " and user prefs " + userPrefs);
-        this.notebook = new Notebook();
+        this.notebook = new Notebook(notebook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.caretaker = new Caretaker(new Memento(notebook), this.notebook);
+
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+        filteredLessons = new FilteredList<>(notebook.getLessonList());
     }
 
     public ModelManager() {
@@ -76,10 +87,6 @@ public class ModelManager implements Model {
         userPrefs.setNotebookFilePath(notebookFilePath);
     }
 
-    @Override
-    public Notebook getNotebook() {
-        return this.notebook;
-    }
 
     //=========== Classroom ================================================================================
 
@@ -89,8 +96,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyClassroom getClassroom() {
-        return notebook.getClassroom();
+    public ReadOnlyClassroom getCurrentClassroom() {
+        return notebook.getCurrentClassroom();
+    }
+
+    //=========== Notebook ================================================================================
+
+    @Override
+    public void setNotebook(ReadOnlyNotebook notebook) {
+        this.notebook.resetData(notebook);
+    }
+
+    @Override
+    public ReadOnlyNotebook getNotebook() {
+        return notebook;
     }
 
     @Override
@@ -186,40 +205,42 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Student> getFilteredStudentList() {
-        return notebook.getFilteredStudentList();
+        return filteredStudents;
     }
 
     @Override
     public ObservableList<Assignment> getFilteredAssignmentList() {
-        return notebook.getFilteredAssignmentList();
+        return filteredAssignments;
     }
 
     @Override
     public ObservableList<Lesson> getFilteredLessonList() {
-        return notebook.getFilteredLessonList();
+        return filteredLessons;
     }
 
+    /*
     @Override
     public ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate) {
-        return notebook.getFilteredReminderList();
+        return notebook.getCurrentClassroom().getFilteredReminderList();
     }
+    */
 
     @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
-        notebook.updateFilteredStudentList(predicate);
+        filteredStudents.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
         requireNonNull(predicate);
-        notebook.updateFilteredAssignmentList(predicate);
+        filteredAssignments.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredLessonList(Predicate<Lesson> predicate) {
         requireNonNull(predicate);
-        notebook.updateFilteredLessonList(predicate);
+        filteredLessons.setPredicate(predicate);
     }
 
 
@@ -228,28 +249,28 @@ public class ModelManager implements Model {
     //=========== Undo and Redo Operations =============================================================
 
     @Override
-    public ReadOnlyClassroom undo() {
-        return notebook.undo();
+    public ReadOnlyNotebook undo() {
+        return caretaker.undo();
     }
 
     @Override
     public boolean canUndo() {
-        return notebook.canUndo();
+        return caretaker.canUndo();
     }
 
     @Override
-    public ReadOnlyClassroom redo() {
-        return notebook.redo();
+    public ReadOnlyNotebook redo() {
+        return caretaker.redo();
     }
 
     @Override
     public boolean canRedo() {
-        return notebook.canRedo();
+        return caretaker.canRedo();
     }
 
     @Override
     public void saveState() {
-        notebook.saveState();
+        caretaker.saveState();
     }
 
     @Override

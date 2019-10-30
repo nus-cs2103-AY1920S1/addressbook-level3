@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Classroom;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyClassroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentDeadline;
@@ -135,7 +135,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ReadOnlyClassroom getClassroom() {
+        public ReadOnlyClassroom getCurrentClassroom() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -303,7 +303,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ReadOnlyClassroom getClassroom() {
+        public ReadOnlyClassroom getCurrentClassroom() {
             return new Classroom();
         }
 

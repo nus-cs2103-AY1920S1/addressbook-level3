@@ -4,9 +4,10 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.Classroom;
+import seedu.address.model.ReadOnlyNotebook;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.Notebook;
-import seedu.address.model.ReadOnlyClassroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentName;
@@ -47,18 +48,21 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyClassroom getSampleClassroom() {
+    public static Classroom getSampleClassroom() {
         Classroom sampleClassroom = new Classroom();
         for (Student sampleStudent : getSampleStudents()) {
             sampleClassroom.addStudent(sampleStudent);
         }
+        for (Assignment sampleAssignment : getSampleAssignments()) {
+            sampleClassroom.addAssignment(sampleAssignment);
+        }
         return sampleClassroom;
     }
 
-    public static Notebook getSampleNotebook() {
+    public static ReadOnlyNotebook getSampleNotebook() {
         Notebook sampleNotebook = new Notebook();
-        sampleNotebook.addClassroom(new Classroom());
-        sampleNotebook.setClassroom(getSampleClassroom());
+        //sampleNotebook.addClassroom(new Classroom("testing"));
+        sampleNotebook.addClassroom(getSampleClassroom());
         return sampleNotebook;
     }
 

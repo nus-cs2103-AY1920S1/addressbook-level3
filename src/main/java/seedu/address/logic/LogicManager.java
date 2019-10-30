@@ -14,7 +14,8 @@ import seedu.address.logic.parser.ClassroomParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.Notebook;
-import seedu.address.model.ReadOnlyClassroom;
+import seedu.address.model.ReadOnlyNotebook;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
@@ -56,11 +57,11 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyClassroom getClassroom() {
-        return model.getClassroom();
+        return model.getCurrentClassroom();
     }
 
     @Override
-    public Notebook getNotebook() {
+    public ReadOnlyNotebook getNotebook() {
         return this.model.getNotebook();
     }
 

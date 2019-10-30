@@ -23,7 +23,7 @@ public class ListStudentCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalClassroom(), new UserPrefs());
-        expectedModel = new ModelManager(model.getClassroom(), new UserPrefs());
+        expectedModel = new ModelManager(model.getCurrentClassroom(), new UserPrefs());
     }
 
     @Test
