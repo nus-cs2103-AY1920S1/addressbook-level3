@@ -1,16 +1,11 @@
 package dukecooks.ui;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import dukecooks.commons.core.LogsCenter;
-import dukecooks.logic.parser.health.TimestampComparator;
+import dukecooks.logic.ui.CustomRecordList;
 import dukecooks.model.health.components.Record;
-import dukecooks.model.health.components.util.TypeUtil;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,20 +46,6 @@ public class RecordListPanel extends UiPart<Region> {
     }
 
     /**
-     * Filters records to show only the most recent record for each health data type.
-     */
-    ObservableList<Record> filterSummary(ObservableList<Record> recordList) {
-        List<Record> result = TypeUtil.TYPE_LIST.entrySet().stream()
-                 .map(x -> recordList.stream()
-                        .filter(c -> c.getType().type.equals(x.getKey()))
-                        .max(new TimestampComparator())
-                        .orElse(null))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        return FXCollections.observableArrayList(result);
-    }
-
-    /**
      * Initialises FlowPane Config.
      * Gives the overview of health records recorded by user
      */
@@ -74,7 +55,7 @@ public class RecordListPanel extends UiPart<Region> {
         flowPaneView.setPadding(new Insets(10, 10, 10, 10));
 
         var ref = new Object() {
-            private ObservableList<Record> summaryList = filterSummary(recordList);
+            private ObservableList<Record> summaryList = CustomRecordList.filterSummary(recordList);
         };
 
         // Creates a RecordCard for each Record and adds to FlowPane
@@ -87,7 +68,7 @@ public class RecordListPanel extends UiPart<Region> {
         recordList.addListener((ListChangeListener<Record>) c -> {
             flowPaneView.getChildren().clear();
             //update summary list
-            ref.summaryList = filterSummary(recordList);
+            ref.summaryList = CustomRecordList.filterSummary(recordList);
             int x = 0;
             for (Record r: ref.summaryList) {
                 flowPaneView.getChildren().add(new RecordCard(r, x).getRoot());

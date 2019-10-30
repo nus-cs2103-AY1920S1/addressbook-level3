@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.function.Predicate;
 
 import dukecooks.commons.core.Event;
+import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.ListCommand;
 import dukecooks.model.Model;
@@ -16,8 +17,6 @@ import dukecooks.model.health.components.Record;
 public class ListHealthByTypeCommand extends ListCommand {
 
     public static final String VARIANT_WORD = "health";
-
-    public static final String MESSAGE_SUCCESS = "Listed records";
 
     private static Event event;
 
@@ -35,6 +34,14 @@ public class ListHealthByTypeCommand extends ListCommand {
         event = Event.getInstance();
         event.set("health", "type");
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(
+                String.format(Messages.MESSAGE_RECORDS_LISTED_OVERVIEW, model.getFilteredRecordList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListHealthByTypeCommand // instanceof handles nulls
+                && predicate.equals(((ListHealthByTypeCommand) other).predicate)); // state check
     }
 }

@@ -1,14 +1,12 @@
 package dukecooks.ui;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import dukecooks.commons.core.LogsCenter;
-import dukecooks.logic.parser.DateParser;
 import dukecooks.logic.parser.health.TimestampComparator;
+import dukecooks.logic.ui.CustomRecordList;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.health.components.util.TypeUtil;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -18,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -45,7 +44,16 @@ public class RecordTypeListPanel extends UiPart<Region> {
     private NumberAxis yAxis;
 
     @FXML
+    private CategoryAxis xBarAxis;
+
+    @FXML
+    private NumberAxis yBarAxis;
+
+    @FXML
     private LineChart<String, Integer> lineGraph;
+
+    @FXML
+    private StackedBarChart<String, Integer> barGraph;
 
     public RecordTypeListPanel(ObservableList<Record> recordList) {
         super(FXML);
@@ -54,37 +62,52 @@ public class RecordTypeListPanel extends UiPart<Region> {
         sideView.setCellFactory(listView -> new RecordListViewCell());
 
         initializeLineGraph(recordList);
+        initializeBarGraph(recordList);
+
+        chooseGraph(recordList);
     }
 
     /**
-     * Filters records to show only the past 30 days records.
-     * If there is more than 1 record made in a day, graph will show the latest record for that day.
+     * Shows one of the graph and hides the other.
      */
-    ObservableList<Record> filterRecords(ObservableList<Record> recordList) {
-        List<Record> result = recordList.stream()
-                .filter(x -> DateParser.getCurrentDayDiff(x.getTimestamp().getDate()) < 31)
-                .collect(Collectors.groupingBy(r -> r.getTimestamp().getDate(),
-                                Collectors.maxBy(new TimestampComparator())))
-                .values().stream()
-                .map(Optional::get)
-                .sorted(new TimestampComparator())
-                .collect(Collectors.toList());
-        return FXCollections.observableArrayList(result);
+    void showGraph(boolean isShowLineGraph, boolean isShowBarGraph) {
+        lineGraph.setVisible(isShowLineGraph);
+        lineGraph.setManaged(isShowLineGraph);
+        barGraph.setVisible(isShowBarGraph);
+        barGraph.setManaged(isShowBarGraph);
     }
 
     /**
-     * Updates the line graph in the component with orders over the past 31 days. It does this by calling
-     * the pollLastEntry method from a balanced binary search tree
+     * Decides which graph is more suitable based on the health type that user is viewing.
+     */
+    void chooseGraph(ObservableList<Record> recordList) {
+        String recordType = recordList.get(0).getType().type;
+        String type = TypeUtil.TYPE_BEHAVIOUR.get(recordType);
+
+        switch (type) {
+        case TypeUtil.BEHAVIOUR_LATEST:
+            showGraph(true, false);
+            break;
+        case TypeUtil.BEHAVIOUR_SUM:
+            showGraph(false, true);
+            break;
+        default:
+            throw new AssertionError("Something's Wrong! Invalid Record Type to show Graph!");
+        }
+    }
+
+    /**
+     * Updates the line graph in the component with orders over the past 30 days.
      */
     public void initializeLineGraph(ObservableList<Record> recordList) {
-        String unit = recordList.get(1).getType().unit;
+        String unit = recordList.get(0).getType().unit;
         xAxis.setLabel("Date");
         yAxis.setLabel("Value (" + unit + ")");
         lineGraph.setAnimated(false);
         lineGraph.setLegendVisible(false);
 
         var ref = new Object() {
-            private ObservableList<Record> records = filterRecords(recordList);
+            private ObservableList<Record> records = CustomRecordList.filterRecordsByLatest(recordList);
         };
 
         lineGraph.getData().clear();
@@ -92,11 +115,11 @@ public class RecordTypeListPanel extends UiPart<Region> {
 
         //add listener for new record changes
         recordList.addListener((ListChangeListener<Record>) c -> {
-            ref.records = filterRecords(recordList);
+            ref.records = CustomRecordList.filterRecordsByLatest(recordList);
             lineGraph.getData().clear();
             setUpLineGraph(ref.records);
-            }
-        );
+            chooseGraph(recordList);
+        });
     }
 
     public void setUpLineGraph(ObservableList<Record> record) {
@@ -108,6 +131,43 @@ public class RecordTypeListPanel extends UiPart<Region> {
         }
         XYChart.Series series = new XYChart.Series(data);
         lineGraph.getData().add(series);
+    }
+
+    /**
+     * Updates the bar graph in the component with orders over the past 30 days.
+     */
+    public void initializeBarGraph(ObservableList<Record> recordList) {
+        String unit = recordList.get(0).getType().unit;
+        xBarAxis.setLabel("Date");
+        yBarAxis.setLabel("Value (" + unit + ")");
+        barGraph.setAnimated(false);
+        barGraph.setLegendVisible(false);
+
+        var ref = new Object() {
+            private ObservableList<Record> records = CustomRecordList.filterRecordsBySum(recordList);
+        };
+
+        barGraph.getData().clear();
+        setUpBarGraph(ref.records);
+
+        //add listener for new record changes
+        recordList.addListener((ListChangeListener<Record>) c -> {
+            ref.records = CustomRecordList.filterRecordsBySum(recordList);
+            barGraph.getData().clear();
+            setUpBarGraph(ref.records);
+            chooseGraph(recordList);
+        });
+    }
+
+    public void setUpBarGraph(ObservableList<Record> record) {
+        title.setText(record.get(0).getType().type);
+        ObservableList<XYChart.Data<String, Integer>> data =
+                FXCollections.<XYChart.Data<String, Integer>>observableArrayList();
+        for (Record r: record) {
+            data.add(new XYChart.Data<>(r.getTimestamp().getDate(), r.getValue().value));
+        }
+        XYChart.Series series = new XYChart.Series(data);
+        barGraph.getData().add(series);
     }
 
     /**

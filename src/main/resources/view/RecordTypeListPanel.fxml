@@ -4,11 +4,12 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -20,14 +21,26 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <LineChart fx:id="lineGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" fx:id="xAxis" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="yAxis" side="LEFT" />
-        </yAxis>
-      </LineChart>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <children>
+            <StackedBarChart fx:id="barGraph" HBox.hgrow="ALWAYS">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" fx:id="xBarAxis" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yBarAxis" side="LEFT" />
+              </yAxis>
+            </StackedBarChart>
+            <LineChart fx:id="lineGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yAxis" side="LEFT" />
+              </yAxis>
+            </LineChart>
+         </children>
+      </HBox>
       <Label text="All Records">
          <font>
             <Font name="System Bold" size="14.0" />

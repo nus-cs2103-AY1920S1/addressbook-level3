@@ -3,7 +3,6 @@ package dukecooks.logic.commands.health;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_TYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_VALUE;
-import static dukecooks.model.Model.PREDICATE_SHOW_ALL_RECORDS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -74,7 +73,6 @@ public class EditRecordCommand extends EditCommand {
         }
 
         model.setRecord(recordToEdit, editedRecord);
-        model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
         return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord));
     }
 
