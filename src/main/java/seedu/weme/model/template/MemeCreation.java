@@ -1,5 +1,8 @@
 package seedu.weme.model.template;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -14,6 +17,7 @@ import javax.imageio.ImageIO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.weme.commons.exceptions.IllegalValueException;
+import seedu.weme.model.template.exceptions.MemeTextNotFoundException;
 import seedu.weme.model.util.ImageUtil;
 
 /**
@@ -50,10 +54,42 @@ public class MemeCreation {
      * @throws IllegalValueException if the text added will exceed image boundary
      */
     public void addText(MemeText text) throws IllegalValueException {
+        requireNonNull(text);
         if (!isWithinImageBoundary(getTextBoundary(text))) {
             throw new IllegalValueException("Text exceeds image boundary");
         }
         textList.add(text);
+    }
+
+    /**
+     * Replaces a meme text in the list with a new meme text.
+     *
+     * @param target      the {@code MemeText} to replace
+     * @param replacement the {@code MemeText} to use as replacement
+     * @throws IllegalValueException if the new text will exceed image boundary
+     */
+    public void setText(MemeText target, MemeText replacement) throws IllegalValueException {
+        requireAllNonNull(target, replacement);
+        int index = textList.indexOf(target);
+        if (index == -1) {
+            throw new MemeTextNotFoundException();
+        }
+
+        if (!isWithinImageBoundary(getTextBoundary(replacement))) {
+            throw new IllegalValueException("Text exceeds image boundary");
+        }
+        textList.set(index, replacement);
+    }
+
+    /**
+     * Removes the meme text from the list.
+     * The meme text must exist in the list.
+     */
+    public void remove(MemeText toRemove) {
+        requireNonNull(toRemove);
+        if (!textList.remove(toRemove)) {
+            throw new MemeTextNotFoundException();
+        }
     }
 
     public ObservableList<MemeText> getMemeTextList() {
@@ -96,6 +132,9 @@ public class MemeCreation {
         clear();
     }
 
+    /**
+     * Clears this creation session
+     */
     private void clear() {
         textList.clear();
         if (initialImage != null) {

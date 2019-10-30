@@ -117,22 +117,28 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code x} and {@code y} into a {@code Coorinates} and returns it.
+     * Parses {@code x} and {@code y} into a {@code Coordinates} and returns it.
      * @throws ParseException if x or y is not between 0 to 1
      */
     public static Coordinates parseCoordinates(String x, String y) throws ParseException {
-        float xVal;
-        float yVal;
+        return new Coordinates(parseCoordinate(x), parseCoordinate(y));
+    }
+
+    /**
+     * Parses {@code coordinate} into a float suitable for use as a coordinate for {@code Coordinates} and returns it.
+     * @throws ParseException if coordinate is not between 0 to 1
+     */
+    public static float parseCoordinate(String coordinate) throws ParseException {
+        float val;
         try {
-            xVal = Float.parseFloat(x);
-            yVal = Float.parseFloat(y);
+            val = Float.parseFloat(coordinate);
         } catch (NumberFormatException nfe) {
             throw new ParseException(MESSAGE_INVALID_COORDINATES);
         }
-        if (xVal < 0 || xVal > 1 || yVal < 0 || yVal > 1) {
+        if (val < 0 || val > 1) {
             throw new ParseException(MESSAGE_INVALID_COORDINATES);
         }
-        return new Coordinates(xVal, yVal);
+        return val;
     }
 
     /**

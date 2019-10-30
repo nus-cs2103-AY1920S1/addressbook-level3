@@ -26,6 +26,11 @@ public class MemeText {
         this.size = size;
     }
 
+    public MemeText(String value, Coordinates coordinates,
+                    MemeTextColor color, MemeTextStyle style, MemeTextSize size) {
+        this(value, coordinates, color, Set.of(style), size);
+    }
+
     public String getText() {
         return text;
     }
@@ -46,12 +51,29 @@ public class MemeText {
         return color.getColor();
     }
 
+    public MemeTextColor getMemeTextColor() {
+        return color;
+    }
+
     public int getStyle() {
         return style.getStyle();
     }
 
+    public MemeTextStyle getMemeTextStyle() {
+        return style;
+    }
+
     public int getSize() {
         return size.getSize();
+    }
+
+    public MemeTextSize getMemeTextSize() {
+        return size;
+    }
+
+    @Override
+    public String toString() {
+        return text + " " + coordinates.toString();
     }
 
     @Override
