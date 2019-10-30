@@ -33,7 +33,7 @@ import seedu.address.model.util.Frequency;
  */
 public class EditAutoExpenseCommand extends Command {
 
-    public static final String COMMAND_WORD = "editAutoExpense";
+    public static final String COMMAND_WORD = "editAutoExp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Expense identified "
             + "by the index number used in the displayed Expenses list. "
