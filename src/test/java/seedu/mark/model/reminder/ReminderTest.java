@@ -7,7 +7,6 @@ import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_OPEN;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_READ;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_OPEN;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_READ;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_BOB;
 import static seedu.mark.testutil.TypicalReminders.OPEN;
 import static seedu.mark.testutil.TypicalReminders.READ;
