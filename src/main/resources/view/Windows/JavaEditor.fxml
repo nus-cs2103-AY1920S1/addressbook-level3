@@ -17,4 +17,3 @@
         <TextArea fx:id="textEditor" layoutX="-4.0" layoutY="-1.0" prefHeight="350.0" prefWidth="620.0"/>
     </children>
 </AnchorPane>
-

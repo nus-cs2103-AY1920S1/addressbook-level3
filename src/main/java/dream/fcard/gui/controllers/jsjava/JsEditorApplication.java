@@ -42,4 +42,5 @@ public class JsEditorApplication extends Application {
     private String boilerPlate() {
         return "//use print() to print text";
     }
+
 }

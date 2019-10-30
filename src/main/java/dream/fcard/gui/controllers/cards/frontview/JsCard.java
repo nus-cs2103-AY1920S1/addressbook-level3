@@ -67,12 +67,14 @@ public class JsCard extends AnchorPane {
      */
     void receiveResult(Pair<String, Pair<Integer, Integer>> result) {
         card.setAttempt(result.fst());
+        String front = card.getFront().replaceAll(" Passed!", "")
+            .replaceAll(" Failed", "");
         if (result.snd().snd().equals(0)) {
-            card.editFront(questionTextLabel.getText() + "Passed!");
-            questionTextLabel.setText(questionTextLabel.getText() + "Passed!");
+            card.editFront(front + " Passed!");
+            questionTextLabel.setText(front + " Passed!");
         } else {
-            card.editFront(questionTextLabel.getText() + "Failed.");
-            questionTextLabel.setText(questionTextLabel.getText() + "Failed.");
+            card.editFront(front + " Failed.");
+            questionTextLabel.setText(front + " Failed.");
         }
     }
 }

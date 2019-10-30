@@ -6,7 +6,7 @@ import dream.fcard.util.code.JavascriptRunner;
 import dream.fcard.util.datastructures.Pair;
 
 /**
- * This class takes in a JS file, an ArrayList of test cases, and runs the input against each test case.
+ * This class takes in a Java file, an ArrayList of test cases, and runs the input against each test case.
  */
 public class JsTestCaseRunner {
     private String expectedOutput;
@@ -36,6 +36,7 @@ public class JsTestCaseRunner {
         output = output.replaceAll("pass", "")
                 .replaceAll("fail", "")
                 .strip();
+        System.out.println(output);
         Scanner sc = new Scanner(output);
         int correct = sc.nextInt();
         int wrong = sc.nextInt();
@@ -49,7 +50,7 @@ public class JsTestCaseRunner {
      * @param expectedOutput the user's assertions.
      * @return the final piece of code that the evaluator can use to score the user.
      */
-    private String processjs(String userInput, String expectedOutput) {
+    private static String processjs(String userInput, String expectedOutput) {
         StringBuilder sb = new StringBuilder();
         sb.append("var correct = 0;\n"
                 + "var wrong = 0;\n"
@@ -62,7 +63,6 @@ public class JsTestCaseRunner {
                 + "        wrong++;\n"
                 + "        print('fail');\n"
                 + "    }\n"
-                + "    total++;\n"
                 + "}\n");
         sb.append(userInput).append("\n");
         sb.append(expectedOutput).append("\n");

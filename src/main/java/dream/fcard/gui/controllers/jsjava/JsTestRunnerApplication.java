@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * The application window for the popup window that connects to a Javascript Card.
+ * A popup window that allows the user to enter JS code for the flashcard in the test.
  */
 public class JsTestRunnerApplication extends Application {
 
@@ -47,6 +47,7 @@ public class JsTestRunnerApplication extends Application {
         }
 
     }
+
 
     /**
      * The boilerplate JavaScript code for the user when the editor is first loaded.

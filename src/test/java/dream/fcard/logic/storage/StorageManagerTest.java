@@ -12,12 +12,11 @@ import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.FileReadWrite;
 
 public class StorageManagerTest {
     @Test
-    void readWriteDecksTest() throws DuplicateInChoicesException, IndexNotFoundException {
+    void readWriteDecksTest() throws DuplicateInChoicesException {
         FlashCard d1c1 = new FrontBackCard("What year did NASA go to the moon?", "1969");
         FlashCard d2c1 = new MultipleChoiceCard(
                 "A baby puffin is called a what?", "1",

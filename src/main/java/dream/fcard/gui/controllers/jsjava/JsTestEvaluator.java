@@ -11,8 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 /**
- * Controller for the JsTestRunnerApplication that connects to a JS card. It will send the result of the user's attempt
- * back to the evaluate function.
+ * A controller for JsTestRunnerApplication.
  */
 public class JsTestEvaluator {
     @FXML
