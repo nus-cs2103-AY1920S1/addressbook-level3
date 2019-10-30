@@ -1,7 +1,19 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.*;
-
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddCriteriaCommand;
+import seedu.address.logic.commands.AddPolicyCommand;
+import seedu.address.logic.commands.AddPolicyTagCommand;
+import seedu.address.logic.commands.AddTagCommand;
+import seedu.address.logic.commands.AssignPolicyCommand;
+import seedu.address.logic.commands.DeleteCriteriaCommand;
+import seedu.address.logic.commands.DeletePolicyTagCommand;
+import seedu.address.logic.commands.DeleteTagCommand;
+import seedu.address.logic.commands.DisplayCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditPolicyCommand;
+import seedu.address.logic.commands.SuggestionSwitchCommand;
+import seedu.address.logic.commands.UnassignPolicyCommand;
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
