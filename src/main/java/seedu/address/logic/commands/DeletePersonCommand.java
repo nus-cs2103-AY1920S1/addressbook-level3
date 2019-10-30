@@ -6,9 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+
+import java.time.LocalDateTime;
 
 /**
  * Deletes a person.
@@ -37,7 +40,7 @@ public class DeletePersonCommand extends Command {
             model.deletePerson(name);
 
             // update main window display
-            model.updateScheduleWindowDisplay(new ScheduleWindowDisplay());
+            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
