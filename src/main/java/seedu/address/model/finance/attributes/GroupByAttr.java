@@ -14,10 +14,9 @@ import java.util.Arrays;
 public class GroupByAttr {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Attributes to group by are only: \"entrytype\", \"met\", \"cat\", \"place\" and \"month\".";
+            "Attributes to group by are only: \"entrytype\", \"met\", \"cat\", \"place\" and \"month\"";
 
     public final String attr;
-
 
     /**
      * Constructs a {@code GroupByAttr}.
@@ -36,9 +35,8 @@ public class GroupByAttr {
     public static boolean isValidGroupByAttr(String test) {
         ArrayList<String> attrList = new ArrayList<>(
                 Arrays.asList("entrytype", "met", "cat", "place", "month"));
-        return attrList.stream().anyMatch(test::contains);
+        return attrList.stream().anyMatch(test.toLowerCase()::contains);
     }
-
 
     @Override
     public String toString() {
