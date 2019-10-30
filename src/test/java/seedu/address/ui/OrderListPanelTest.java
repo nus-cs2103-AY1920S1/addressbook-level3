@@ -1,8 +1,10 @@
 package seedu.address.ui;
 
 import static java.time.Duration.ofMillis;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrders;
+import static seedu.address.ui.GuiTestAssert.assertCardDisplaysOrder;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -10,6 +12,7 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
+import guitests.guihandles.cards.OrderCardHandle;
 import guitests.guihandles.panels.OrderListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -39,7 +42,7 @@ public class OrderListPanelTest extends GuiUnitTest {
     private final SimpleObjectProperty<Order> selectedOrder = new SimpleObjectProperty<>();
     private OrderListPanelHandle orderListPanelHandle;
 
-    /*
+
     @Test
     public void display() {
         initUi(TYPICAL_ORDERS);
@@ -47,14 +50,13 @@ public class OrderListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_ORDERS.size(); i++) {
             orderListPanelHandle.navigateToCard(TYPICAL_ORDERS.get(i));
             Order expectedOrder = TYPICAL_ORDERS.get(i);
-            System.out.println(expectedOrder);
             OrderCardHandle actualCard = orderListPanelHandle.getOrderCardHandle(i);
 
             assertCardDisplaysOrder(expectedOrder, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
-    */
+
 
 
     /**
