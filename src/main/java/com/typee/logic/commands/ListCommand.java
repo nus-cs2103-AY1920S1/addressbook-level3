@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import com.typee.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the engagement list to the user.
  */
 public class ListCommand extends Command {
 
