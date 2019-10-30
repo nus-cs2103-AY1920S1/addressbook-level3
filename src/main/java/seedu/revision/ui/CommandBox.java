@@ -14,8 +14,6 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
-import java.io.IOException;
-
 /**
  * The UI component that is responsible for receiving user command inputs.
  */

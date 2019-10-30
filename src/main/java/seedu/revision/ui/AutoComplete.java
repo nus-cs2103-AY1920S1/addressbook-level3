@@ -1,14 +1,26 @@
 package seedu.revision.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import seedu.revision.logic.commands.main.*;
-// taking main.* here because i need all the command usage.
+import seedu.revision.logic.commands.main.AddCommand;
+import seedu.revision.logic.commands.main.ClearCommand;
+import seedu.revision.logic.commands.main.DeleteCommand;
+import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.commands.main.ExitCommand;
+import seedu.revision.logic.commands.main.FindCommand;
+import seedu.revision.logic.commands.main.HelpCommand;
+import seedu.revision.logic.commands.main.ListCommand;
+import seedu.revision.logic.commands.main.RestoreCommand;
+import seedu.revision.logic.commands.main.StartQuizCommand;
 
-import java.util.*;
 
 /**
  * This class is a TextField which implements an "autocomplete" functionality.
@@ -83,11 +95,11 @@ public class AutoComplete extends TextField {
                 input + Character.MAX_VALUE));
 
         if (searchResult.size() >= 1) {
-        populateMenu(searchResult);
-        if (!keywordMenu.isShowing()) {
-            keywordMenu.show(AutoComplete.this, Side.BOTTOM, 20, 0);
-        }
-        keywordMenu.getSkin().getNode().lookup(".menu-item").requestFocus();
+            populateMenu(searchResult);
+            if (!keywordMenu.isShowing()) {
+                keywordMenu.show(AutoComplete.this, Side.BOTTOM, 20, 0);
+            }
+            keywordMenu.getSkin().getNode().lookup(".menu-item").requestFocus();
         } else {
             keywordMenu.hide();
         }
