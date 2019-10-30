@@ -217,35 +217,137 @@ Format: `delete <description>`
 Example: `delete VisaPOSB`
 
 === File
-Accessing file directory : `goto file`
+
+SecureIT has a file manager which helps you keep secret files that you do not wish others to see. Using your master password, SecureIT convert your files into encrypted code which other apps cannot understand.
+
+To access the file manager, simply enter `goto file` in the command box.
 
 ==== Encrypting a file : `encrypt`
 
-Encrypts a local file as specified by the user.
+Encrypts a local file as specified by its file path. The file's content is converted into encrypted code which other apps cannot understand. Encrypted files have the prefix `[LOCKED]` in their file names.
 
-Format: `encrypt <FILEPATH>`
+As you encrypt the file, you may tag the file at the same time for easy reference later on.
 
-Example: `encrypt ~/Desktop/Secret File.png`
+Format: `encrypt <FILEPATH> [t/<TAG>]...`
+
+Example: `encrypt ~/Desktop/Secret File.png t/Image`
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The `encrypt` command only alters the file content but does not set up additional access rights. In other words, it keeps your information secret but does not keep your files safe from malicious alteration or deletion.
+* If you wish to prevent alternation or deletion of files, please set up additional access rights using your operating system. SecureIT is not responsible for any data loss resulting from lack of access right settings.
+====
 
 ==== Decrypting a file : `decrypt`
 
-Decrypts a local file as specified by the user.
+Decrypts a local file as specified by the displayed index number.
 
 Format: `decrypt <INDEX>`
 
-Example: `decrypt 1` (This command decrypts the first file in the file list.)
+Example: `decrypt 1` (This command decrypts the first file in the displayed file list.)
 
-==== Finding a file: `find`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
-Finds an encrypted file as specified by the user.
+* If you notice that the file decryption fails, it may be because you have renamed the file or moved the file to another location without using SecureIT (for example, using your operating system directly).
+* In that case, use `remove` command to remove the file from the list first, and then use `add` command to add the renamed/moved file. Please refer to the `remove` and `add` command sections for detailed instructions.
+====
 
-Format: `find <FILENAME>`
+==== Adding an encrypted file : `add`
 
-Example: `find Secret File`
-****
-* The search is case insensitive. e.g `secret file` will match `Secret File`
-* Only the file name is searched.
-****
+Adds an encrypted file as specified by its file path. The file must be encrypted by SecureIT previously.
+
+As you add the file, you may tag the file at the same time for easy reference later on.
+
+Format: `add <FILENAME> [t/<TAG>]...`
+
+Example: `add ~/Desktop/[LOCKED] Secret File.png t/Image`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* The file name does not have to contain the prefix `[LOCKED]`. SecureIT can recognise the file and automatically prepend the prefix.
+====
+
+==== Removing a file : `remove`
+
+Removes an encrypted file from the file list, as specified by the displayed index number.
+
+Please note that only the file record within SecureIT is removed. The actual file is not deleted from the file system.
+
+Format: `remove <INDEX>`
+
+Example: `remove 1`
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The "encrypted at" and "last edited at" timestamps are stored within SecureIT and will be discarded if you remove the record from SecureIT. They are not recoverable even if you add the file back using `add` command.
+====
+
+==== Renaming an encrypted file : `rename`
+
+Renames an encrypted file as specified by its index number. The prefix `[LOCKED]` is retained.
+
+Format: `rename <INDEX> <TARGET_FILENAME>`
+
+Example: `rename 1 Secret File.txt`
+
+==== Moving an encrypted file : `move`
+
+Moves an encrypted file as specified by its index number.
+
+Format: `move <INDEX> <TARGET_DIRECTORY>`
+
+Example: `move 1 ~/Documents/Secret File.png`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* It is recommended to rename and move files using SecureIT to better manage your files.
+* If you have renamed or moved your files without using SecureIT (for example, using the operating system directly), you have to use `remove` command to remove the file from the list first, and then use `add` command to add the renamed/moved file.
+====
+
+==== Finding encrypted files : `find`
+
+Finds matching encrypted files as specified by the search keywords.
+
+To return from search results, use `list` command.
+
+Format: `find <KEYWORDS>...`
+
+Examples: `find Secret File`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* The search is case insensitive. e.g `secret file` will match `Secret File`.
+* Both the file name and the file path are searched. Hence, you can look for files with certain types (e.g. `find .png .jpg`) or files inside certain directories (e.g. `find /Desktop`).
+====
+
+==== Listing all files : `list`
+
+Lists all encrypted files managed by SecureIT.
+
+Format: `list`
 
 ===  Note
 Accessing note directory : `goto note`
@@ -254,7 +356,7 @@ Accessing note directory : `goto note`
 
 Adds a note to the app.
 
-Format: `add <title> <description> <tag> <content> `
+Format: `add <title> <description> <tag> <content>`
 
 Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
 
