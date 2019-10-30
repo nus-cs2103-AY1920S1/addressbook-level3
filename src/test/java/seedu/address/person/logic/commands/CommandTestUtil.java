@@ -77,6 +77,8 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final TypicalReimbursements TYPICAL_REIMBURSEMENTS = new TypicalReimbursements();
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -95,7 +97,7 @@ public class CommandTestUtil {
                                             Model expectedModel) {
         try {
             TransactionList transactionList = TypicalTransactions.getTransactionListWithReimbursementNeeded();
-            ReimbursementList reimbursementList = TypicalReimbursements.getTypicalReimbursements();
+            ReimbursementList reimbursementList = TYPICAL_REIMBURSEMENTS.getTypicalReimbursements();
 
             //all related ModelManagers
             seedu.address.transaction.model.Model transactionModel =
@@ -152,7 +154,7 @@ public class CommandTestUtil {
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         TransactionList transactionList = TypicalTransactions.getTransactionListWithReimbursementNeeded();
-        ReimbursementList reimbursementList = TypicalReimbursements.getTypicalReimbursements();
+        ReimbursementList reimbursementList = TYPICAL_REIMBURSEMENTS.getTypicalReimbursements();
 
         Path userPrefPath = Paths.get("data/test/userPrefs.txt");
         Path addressPath = Paths.get("data/test/address.txt");
@@ -217,7 +219,7 @@ public class CommandTestUtil {
                                                                 seedu.address.transaction.model.Model expectedTModel) {
         try {
             TransactionList transactionList = TypicalTransactions.getTransactionListWithReimbursementNeeded();
-            ReimbursementList reimbursementList = TypicalReimbursements.getTypicalReimbursements();
+            ReimbursementList reimbursementList = TYPICAL_REIMBURSEMENTS.getTypicalReimbursements();
 
             //all related ModelManagers
             seedu.address.transaction.model.Model transactionModel =

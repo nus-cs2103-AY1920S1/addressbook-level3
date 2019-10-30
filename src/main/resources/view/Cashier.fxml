@@ -34,7 +34,7 @@
                   <Insets />
                </GridPane.margin>
             </TableView>
-            <Label styleClass="label-bright" text="Total amount:" GridPane.rowIndex="1">
+            <Label styleClass="label-bright-solid" text="Total amount:" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="350.0" />
                </GridPane.margin>
@@ -46,7 +46,7 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
             </Label>
-            <Label styleClass="label-bright" stylesheets="@DarkTheme.css" text="Cashier:" GridPane.rowIndex="1">
+            <Label styleClass="label-bright-solid" stylesheets="@DarkTheme.css" text="Cashier:" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -54,7 +54,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="cashierLabel" styleClass="label-bright" stylesheets="@DarkTheme.css" text="Label" GridPane.rowIndex="1">
+            <Label fx:id="cashierLabel" prefHeight="17.0" prefWidth="173.0" styleClass="label-bright-solid" stylesheets="@DarkTheme.css" text="Label" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="100.0" top="2.0" />
                </GridPane.margin>
@@ -62,7 +62,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="totalAmountLabel" styleClass="label-bright" text="Label" GridPane.rowIndex="1">
+            <Label fx:id="totalAmountLabel" prefHeight="17.0" prefWidth="160.0" styleClass="label-bright-solid" text="Label" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="480.0" />
                </GridPane.margin>

@@ -14,11 +14,18 @@ import seedu.address.testutil.ReimbursementBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalDeadlines;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.testutil.TypicalTransactions;
+import seedu.address.testutil.TypicalReimbursements;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
 
+
 public class ReimbursementListTest {
+    private TypicalReimbursements typicalReimbursements = new TypicalReimbursements();
+
+    public ReimbursementListTest() {
+        typicalReimbursements.resetReimbursements();
+    }
+
     @Test
     public void constructor_empty_success() {
         ReimbursementList reimbursementList = new ReimbursementList();
@@ -28,9 +35,9 @@ public class ReimbursementListTest {
     @Test
     public void constructor_transactionList_success() {
         TransactionList transList = new TransactionList();
-        transList.add(TypicalTransactions.ALICE_TRANSACTION_10);
-        transList.add(TypicalTransactions.ALICE_TRANSACTION_12);
-        transList.add(TypicalTransactions.ELLE_TRANSACTION_11);
+        transList.add(typicalReimbursements.getAliceTransaction10());
+        transList.add(typicalReimbursements.getAliceTransaction12());
+        transList.add(typicalReimbursements.getElleTransaction11());
         ReimbursementList list = new ReimbursementList(transList);
 
         assertEquals(-50, list.get(0).getAmount());

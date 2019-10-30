@@ -15,10 +15,15 @@ import seedu.address.testutil.ReimbursementBuilder;
 import seedu.address.testutil.TypicalDeadlines;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalReimbursements;
-import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.transaction.Transaction;
 
 public class ReimbursementTest {
+
+    private TypicalReimbursements typicalReimbursements = new TypicalReimbursements();
+
+    public ReimbursementTest() {
+        typicalReimbursements.resetReimbursements();
+    }
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -32,7 +37,7 @@ public class ReimbursementTest {
         assertEquals(person, reimbursement.getPerson());
 
         ArrayList<Transaction> list = new ArrayList<>();
-        Transaction transaction = TypicalTransactions.ALICE_TRANSACTION_10;
+        Transaction transaction = typicalReimbursements.getAliceTransaction10();
         list.add(transaction);
         assertEquals(list, reimbursement.getList());
 
@@ -60,9 +65,9 @@ public class ReimbursementTest {
 
     @Test
     public void comparePerson() {
-        Reimbursement reimbursementAlice20 = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
-        Reimbursement reimbursementElle = TypicalReimbursements.ELLE_REIMBURSEMENT_100;
-        Reimbursement reimbursementAlice30 = TypicalReimbursements.ALICE_REIMBURSEMENT_30;
+        Reimbursement reimbursementAlice20 = typicalReimbursements.getAliceReimbursement20();
+        Reimbursement reimbursementElle = typicalReimbursements.getElleReimbursement100();
+        Reimbursement reimbursementAlice30 = typicalReimbursements.getAliceReimbursement30();
 
         assertTrue(reimbursementAlice20.comparePerson(reimbursementAlice30));
         assertFalse(reimbursementAlice20.comparePerson(reimbursementElle));
@@ -90,7 +95,7 @@ public class ReimbursementTest {
         assertEquals(TypicalPersons.ALICE.getName().toString(), reimbursement.getPersonCol());
 
         reimbursement.setDescriptionCol();
-        assertEquals("1. " + TypicalTransactions.ALICE_TRANSACTION_10.getDescription(),
+        assertEquals("1. " + typicalReimbursements.getAliceTransaction10().getDescription(),
                 reimbursement.getDescriptionCol());
 
         reimbursement.setDeadlineCol();
@@ -99,8 +104,8 @@ public class ReimbursementTest {
 
     @Test
     public void reimbursementToString() {
-        Reimbursement reimbursementAlice = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
-        Reimbursement reimbursementElle = TypicalReimbursements.ELLE_REIMBURSEMENT_100;
+        Reimbursement reimbursementAlice = typicalReimbursements.getAliceReimbursement20();
+        Reimbursement reimbursementElle = typicalReimbursements.getElleReimbursement100();
 
         String strFromToString = "Alice Pauline $-20.0" + System.lineSeparator()
                 + "02-Dec-2019" + System.lineSeparator()

@@ -7,6 +7,8 @@ import seedu.address.inventory.logic.commands.AddCommand;
 import seedu.address.inventory.logic.commands.Command;
 import seedu.address.inventory.logic.commands.EditCommand;
 import seedu.address.inventory.logic.commands.SortCommand;
+import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
+import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.transaction.logic.commands.DeleteIndexCommand;
@@ -25,9 +27,12 @@ public class InventoryTabParser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
-     * @throws Exception if the user input does not conform to the expected format.
-     * */
-    public Command parseCommand(String userInput, int inventoryListSize) throws Exception {
+     * @throws ParseException if the user input does not conform to the expected format.
+     * @throws NotANumberException if the user input is a String when a number is expected.
+     * @throws NoSuchSortException if the user input is a SortCommand that does not sort by the existing categories.
+     */
+    public Command parseCommand(String userInput, int inventoryListSize) throws ParseException, NotANumberException,
+            NoSuchSortException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(InventoryMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
@@ -39,7 +44,6 @@ public class InventoryTabParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments, inventoryListSize);
-
 
         case DeleteIndexCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

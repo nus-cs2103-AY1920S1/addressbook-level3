@@ -121,8 +121,9 @@ public class MainApp extends Application {
                 cashierStorage.getTransactionList());
 
         //For Overview Storage and Model
-        overviewStorage = new seedu.address.overview.storage.StorageManager("data/overviewInformation.txt");
-        overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage);
+        overviewStorage = new seedu.address.overview.storage.StorageManager(
+                new File("data/overviewInformation.txt"));
+        overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage.readFromFile());
 
         //All logic
         transactionLogic = new
@@ -132,8 +133,7 @@ public class MainApp extends Application {
                 seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage, model);
 
         inventoryLogic = new
-                seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage,
-                inventoryModel, inventoryStorage);
+                seedu.address.inventory.logic.LogicManager(inventoryModel, inventoryStorage);
 
         cashierLogic = new seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model,
                 transactionModel, inventoryModel);

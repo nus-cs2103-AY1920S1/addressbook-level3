@@ -1,9 +1,7 @@
 package seedu.address.overview.model;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
-import seedu.address.overview.storage.Storage;
 import seedu.address.person.commons.core.LogsCenter;
 
 /**
@@ -12,82 +10,80 @@ import seedu.address.person.commons.core.LogsCenter;
 public class ModelManager implements Model {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Optional<Double> budgetTarget;
-    private Optional<Double> expenseTarget;
-    private Optional<Double> salesTarget;
+    private double budgetTarget;
+    private double expenseTarget;
+    private double salesTarget;
 
-    private Optional<Double> budgetThreshold;
-    private Optional<Double> salesThreshold;
-    private Optional<Double> expenseThreshold;
+    private double budgetThreshold;
+    private double salesThreshold;
+    private double expenseThreshold;
 
     private boolean isNotifiedBudget = true;
     private boolean isNotifiedExpense = true;
     private boolean isNotifiedSales = true;
 
-    public ModelManager(Storage storage) {
-        double[] values = storage.readFromFile();
-
-        budgetTarget = Optional.ofNullable(values[0]);
-        expenseTarget = Optional.ofNullable(values[1]);
-        salesTarget = Optional.ofNullable(values[2]);
-        budgetThreshold = Optional.ofNullable(values[3]);
-        expenseThreshold = Optional.ofNullable(values[4]);
-        salesThreshold = Optional.ofNullable(values[5]);
+    public ModelManager(double[] values) {
+        budgetTarget = values[0];
+        expenseTarget = values[1];
+        salesTarget = values[2];
+        budgetThreshold = values[3];
+        expenseThreshold = values[4];
+        salesThreshold = values[5];
     }
 
     public double getBudgetTarget () {
-        return this.budgetTarget.get();
+        return this.budgetTarget;
     }
 
     public void setBudgetTarget(double budgetTarget) {
         this.isNotifiedBudget = true;
-        this.budgetTarget = Optional.of(budgetTarget);
+        this.budgetTarget = budgetTarget;
     }
 
     public double getExpenseTarget() {
-        return this.expenseTarget.get();
+        return this.expenseTarget;
     }
 
     public void setExpenseTarget(double expenseTarget) {
         this.isNotifiedExpense = true;
-        this.expenseTarget = Optional.of(expenseTarget);
+        this.expenseTarget = expenseTarget;
     }
 
     public double getSalesTarget() {
-        return this.salesTarget.get();
+        return this.salesTarget;
     }
 
     public void setSalesTarget(double salesTarget) {
         this.isNotifiedSales = true;
-        this.salesTarget = Optional.of(salesTarget);
+        this.salesTarget = salesTarget;
     }
 
     public double getBudgetThreshold() {
-        return budgetThreshold.get();
+        return budgetThreshold;
     }
 
     public void setBudgetThreshold(double budgetThreshold) {
         this.isNotifiedBudget = true;
-        this.budgetThreshold = Optional.of(budgetThreshold);
+        this.budgetThreshold = budgetThreshold;
     }
 
     public double getExpenseThreshold() {
-        return expenseThreshold.get();
+        return expenseThreshold;
     }
 
     public void setExpenseThreshold(double expenseThreshold) {
         this.isNotifiedExpense = true;
-        this.expenseThreshold = Optional.of(expenseThreshold);
+        this.expenseThreshold = expenseThreshold;
     }
 
 
     public double getSalesThreshold() {
-        return salesThreshold.get();
+        return salesThreshold;
     }
 
     public void setSalesThreshold(double salesThreshold) {
         this.isNotifiedSales = true;
-        this.salesThreshold = Optional.of(salesThreshold);
+        this.salesThreshold = salesThreshold;
     }
 
     public boolean checkBudgetNotif() {
