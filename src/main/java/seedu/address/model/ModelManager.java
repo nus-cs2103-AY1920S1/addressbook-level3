@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.id.IdManager;
@@ -19,6 +18,7 @@ import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskList;
 import seedu.address.model.task.TaskManager;
 import seedu.address.storage.CentralManager;
 
@@ -72,8 +72,8 @@ public class ModelManager implements Model {
 
         //temp
         //to pass addressbook test case
-        this.addressBook = null;
-        filteredPersons = null;
+        this.addressBook = new AddressBook();
+        filteredPersons = new FilteredList<>(addressBook.getPersonList());
 
         this.userPrefs = new UserPrefs(userPrefs);
 
@@ -162,6 +162,18 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    // =========== CentralManager ============================================================================
+
+    /**
+     * Resets the {@link CentralManager} to a empty state. All data will be removed.
+     */
+    public void resetCentralManager() {
+        this.taskManager.setTaskList(new TaskList());
+        this.customerManager.setPersons(new CustomerManager().getPersonList());
+        this.driverManager.setPersons(new DriverManager().getPersonList());
+        this.idManager.resetIdManager();
     }
 
     // =========== Task Manager ===============================================================================
@@ -342,7 +354,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return customerManager.equals(other.getCustomerManager())
+                && driverManager.equals(other.getDriverManager())
+                && taskManager.equals(other.getTaskManager())
+                && addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }

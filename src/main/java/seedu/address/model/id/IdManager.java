@@ -72,6 +72,28 @@ public class IdManager {
         lastDriverId++;
     }
 
+    /**
+     * Resets all the last id counters for all managers to zero.
+     */
+    public void resetIdManager() {
+        setLastTaskId(0);
+        setLastDriverId(0);
+        setLastCustomerId(0);
+    }
+
+    /**
+     * Checks if unique id is valid.
+     * Unique id has to be more than or equal to zero.
+     */
+    public static boolean isValidId(String id) {
+        try {
+            int tempInt = Integer.parseInt(id);
+            return (tempInt >= 0);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

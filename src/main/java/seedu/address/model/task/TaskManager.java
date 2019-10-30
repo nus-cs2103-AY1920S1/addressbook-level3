@@ -49,6 +49,10 @@ public class TaskManager {
         return tasks.hasTask(taskId);
     }
 
+    public void setTaskList(TaskList taskList) {
+        tasks.setTaskList(taskList.getList());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -62,5 +66,4 @@ public class TaskManager {
         TaskManager otherObject = (TaskManager) o;
         return getList().equals(otherObject.getList());
     }
-
 }

@@ -115,6 +115,10 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    // central manager
+
+    void resetCentralManager();
+
     // task manager
 
     void addTask(Task task);

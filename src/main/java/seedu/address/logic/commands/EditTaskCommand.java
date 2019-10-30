@@ -113,10 +113,13 @@ public class EditTaskCommand extends Command {
      */
     private static void freeDriverIfDateIsChanged(Task taskToEdit, Task editedTask) {
         if (taskToEdit.getDate() != editedTask.getDate() && taskToEdit.getDriver().isPresent()) {
+            //remove the driver from the original task
             Driver driver = taskToEdit.getDriver().get();
             boolean isDeleteSuccess = driver.deleteFromSchedule(taskToEdit.getEventTime().get());
             assert isDeleteSuccess;
-            editedTask.setStatus(TaskStatus.INCOMPLETE);
+
+            //remove driver and eventTime from the editedTask.
+            editedTask.setDriverAndEventTime(Optional.empty(), Optional.empty());
         }
     }
 
@@ -153,8 +156,6 @@ public class EditTaskCommand extends Command {
 
         //use the original driver and eventTime, no changes made to them.
         editedTask.setDriverAndEventTime(taskToEdit.getDriver(), taskToEdit.getEventTime());
-
-        editedTask.setStatus(taskToEdit.getStatus());
 
         return editedTask;
     }

@@ -26,7 +26,7 @@ public class AddTaskCommand extends Command {
             + "[" + PREFIX_DATETIME + "DATETIME] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_GOODS + "20 boxes of utensils "
-            + PREFIX_CUSTOMER + "41 "
+            + PREFIX_CUSTOMER + "1 "
             + PREFIX_DATETIME + "18/12/2019";
     public static final String MESSAGE_SUCCESS = "New task added: %s";
     public static final String MESSAGE_DUPLICATE_TASK = "Task is already exists in the task list.";

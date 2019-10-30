@@ -112,7 +112,7 @@ public class Task {
             setStatus(TaskStatus.ON_GOING);
         }
 
-        if (driver.isEmpty()) {
+        if (driver.isEmpty() && getStatus().equals(TaskStatus.ON_GOING)) {
             setStatus(TaskStatus.INCOMPLETE);
         }
 
