@@ -314,7 +314,7 @@ which states that objects should not navigate internal structures of other objec
 //start::DeXun[]
 === Setting Date & Time to Events
 ==== Implementation
-The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects, which represents a single day by itself. Our implementation of `Event` does not assume that the event will be occurring consecutively from the start to the end date, and requires the user to manually assign each specific date with the time period that the Event is in process. 
+The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects, which represents a single day by itself. Our implementation of `Event` does not assume that the event will be occurring consecutively from the start to the end date, and requires the user to manually assign each specific date with the time period that the Event is in process.
 
 [NOTE]
 In our implementation, when the Event is instantiated, a mapping of the start and end date of the period 0800-1800 is automatically created.
@@ -322,7 +322,7 @@ In our implementation, when the Event is instantiated, a mapping of the start an
 To achieve this functionality, there exists an `EventDayTime` object that encapsulates the period of the day. It has two class attributes - both of which are `LocalTime` objects to represent the start and end time.
 
 Each Event contains an `EventDateTimeMap` object that maps an `EventDate` object to an `EventDayTime` object using a HashMap implementation.
-This mapping is added through the `EventAssignDate` command. 
+This mapping is added through the `EventAssignDate` command.
 
 It requires the use of the following objects/methods from the `event` package.
 * `EventContainsKeyDatePredicate` - Check whether the stated date exists within the range of the Event's Start and End Date.
@@ -330,7 +330,7 @@ It requires the use of the following objects/methods from the `event` package.
 * `EventDate#datesUntil` - Returns a Stream of `EventDates` from the Start to End Date. Used to auto-set a DateTime mapping for all dates.
 
 [NOTE]
-To improve user productivity and effectiveness, omitting the target date from the command text will automatically create the mapping for the all dates, start and end inclusive. 
+To improve user productivity and effectiveness, omitting the target date from the command text will automatically create the mapping for the all dates, start and end inclusive.
 
 Given below is an example usage scenario of the program functionality when a user attempts to assign a Date & Time to an already existent Event.
 
@@ -364,13 +364,13 @@ image::SettingEventDateActivityDiagram.png[SettingEvent,295,607]
 |Feature      |Alternative 1 | Alternative 2
 |Storage of DateTimeMap
 
-| Stores the DateTimeMap in an string format that is saved in a field of an `Event` in `eventbook.json`. + 
+| Stores the DateTimeMap in an string format that is saved in a field of an `Event` in `eventbook.json`. +
 
 **Pros:** Simplicity in implementation and easier reference as it is loaded and saved to the same JSON file.
 
 **Cons:** Performance issues as it needs to update the entire event object although only one attribute is updated
 
-**Decision:** 
+**Decision:**
 Alternative 2 would make sense if our app is utilizing a DBMS and it would be a best practice to separate the information.
 However, as we are constrained with not utilizing a DBMS, **Alternative 1** is logically simpler, shorter, and more efficent solution from a software engineering standpoint as it limits the amount of repeated code that we would have written to support another sotrage unit.
 
