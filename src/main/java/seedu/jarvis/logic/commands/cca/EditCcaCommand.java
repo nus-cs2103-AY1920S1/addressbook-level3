@@ -22,6 +22,9 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Edits the details of an existing cca in the address book.
@@ -204,6 +207,17 @@ public class EditCcaCommand extends Command {
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
 
         return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedEditCcaCommand(this);
     }
 
     /**

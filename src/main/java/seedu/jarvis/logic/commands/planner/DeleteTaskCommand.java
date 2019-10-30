@@ -13,6 +13,9 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDeleteTaskCommand;
 
 /**
  * Deletes a task from JARVIS
@@ -136,6 +139,17 @@ public class DeleteTaskCommand extends Command {
         model.addTask(targetIndex.getZeroBased(), deletedTask);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedTask));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedDeleteTaskCommand(this);
     }
 
     @Override

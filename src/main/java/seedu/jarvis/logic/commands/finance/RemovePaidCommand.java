@@ -13,6 +13,9 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.finance.purchase.Purchase;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.finance.JsonAdaptedRemovePaidCommand;
 
 /**
  * Deletes an existing purchase identified using its displayed index in the finance tracker.
@@ -129,6 +132,17 @@ public class RemovePaidCommand extends Command {
         model.addPurchase(targetIndex.getZeroBased(), deletedPurchase);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedPurchase));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedRemovePaidCommand(this);
     }
 
     @Override

@@ -12,6 +12,9 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.finance.JsonAdaptedRemoveInstallmentCommand;
 
 /**
  * Deletes an existing purchase identified using its displayed index in the finance tracker.
@@ -134,6 +137,17 @@ public class RemoveInstallmentCommand extends Command {
         model.addInstallment(targetIndex.getZeroBased(), deletedInstallment);
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedInstallment));
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedRemoveInstallmentCommand(this);
     }
 
     @Override

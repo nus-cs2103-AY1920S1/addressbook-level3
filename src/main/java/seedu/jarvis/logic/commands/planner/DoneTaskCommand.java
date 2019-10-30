@@ -13,6 +13,9 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
+import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDoneTaskCommand;
 
 /**
  * Updates a {@code Task} from incomplete to complete
@@ -131,6 +134,17 @@ public class DoneTaskCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_UNDONE, undone));
 
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedDoneTaskCommand(this);
     }
 
     @Override

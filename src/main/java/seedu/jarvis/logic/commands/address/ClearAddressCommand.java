@@ -11,6 +11,9 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
+import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressCommand;
+import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Clears the address book.
@@ -99,6 +102,17 @@ public class ClearAddressCommand extends Command {
 
         clearedPersons.forEach(model::addPerson);
         return new CommandResult(MESSAGE_INVERSE_SUCCESS_RESTORE);
+    }
+
+    /**
+     * Gets a {@code JsonAdaptedCommand} from a {@code Command} for local storage purposes.
+     *
+     * @return {@code JsonAdaptedCommand}.
+     * @throws InvalidCommandToJsonException If command should not be adapted to JSON format.
+     */
+    @Override
+    public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        return new JsonAdaptedClearAddressCommand(this);
     }
 
     /**

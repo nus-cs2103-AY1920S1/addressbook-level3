@@ -109,6 +109,16 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    @Override
+    public ObservableList<Command> getExecutedCommandsList() {
+        return model.getExecutedCommandsList();
+    }
+
+    @Override
+    public ObservableList<Command> getInverselyExecutedCommandsList() {
+        return model.getInverselyExecutedCommandsList();
+    }
+
     // Course Planner ====================================================================
 
     @Override
