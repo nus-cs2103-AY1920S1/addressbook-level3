@@ -28,6 +28,7 @@
                 <Label fx:id="taskDes" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <Label fx:id="taskType" styleClass="cell_small_label" text="\$taskType" />
+            <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
             <FlowPane fx:id="tags" />
             <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
             <Label fx:id="frequency" styleClass="cell_small_label" text="\$frequency" />
