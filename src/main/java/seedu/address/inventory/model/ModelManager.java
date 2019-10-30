@@ -5,6 +5,8 @@ import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.util.InventoryList;
 
+import java.io.IOException;
+
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -20,7 +22,7 @@ public class ModelManager implements Model {
         this.storage = storage;
         try {
             this.inventoryList = storage.getInventoryList();
-        } catch (Exception e) {
+        } catch (IOException e) {
             this.inventoryList = new InventoryList();
         }
     }
@@ -40,12 +42,8 @@ public class ModelManager implements Model {
     @Override
     public boolean hasItemInInventory(Item item) {
         for (int i = 0; i < inventoryList.size(); i++) {
-            try {
-                if (inventoryList.getItemByIndex(i).isSameItem(item)) {
+            if (inventoryList.get(i).isSameItem(item)) {
                     return true;
-                }
-            } catch (Exception e) {
-                return false;
             }
         }
         return false;

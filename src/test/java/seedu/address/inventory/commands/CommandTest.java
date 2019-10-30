@@ -196,7 +196,7 @@ public class CommandTest {
         assertEquals(new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_QUANTITY),
                 sortQuantityCommandResult);
 
-        assertEquals(TypicalItem.BLACK_SHIRT, sortQuantityInventoryModel.getInventoryList().get(0));
+        assertEquals(TypicalItem.FISH_BURGER, sortQuantityInventoryModel.getInventoryList().get(0));
     }
 
     @Test
