@@ -30,6 +30,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_BOOL = "Boolean options should be spelt either true or false.";
 
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
+    protected static final String MESSAGE_INVALID_TIME_FORMAT =
+            "Invalid time format! Please use the following format: " + DATE_FORMATTER;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
 
     /**
@@ -167,7 +169,7 @@ public class ParserUtil {
         try {
             getTime = LocalDateTime.parse(trimmedTime, formatter);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Invalid time format! Please use the following format: " + DATE_FORMATTER);
+            throw new ParseException(MESSAGE_INVALID_TIME_FORMAT);
         }
 
         return getTime;

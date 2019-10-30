@@ -22,6 +22,7 @@ public class ReminderAssociation {
     };
     //TODO: One bookmark may has multiple reminder in next version.
     private ObservableMap<Bookmark, Reminder> association = FXCollections.observableHashMap();
+    private ObservableMap<Reminder, Bookmark> reminderMap = FXCollections.observableHashMap();
 
     /**
      * Sets the reminder association with the given association.
@@ -29,7 +30,20 @@ public class ReminderAssociation {
      * @param association the given association.
      */
     public void setAssociation(ObservableMap<Bookmark, Reminder> association) {
-        this.association = association;
+        this.association.clear();
+        this.reminderMap.clear();
+        for (Bookmark bookmark : association.keySet()) {
+            this.association.put(bookmark, association.get(bookmark));
+            this.reminderMap.put(association.get(bookmark), bookmark);
+        }
+    }
+
+    /**
+     * Gets the reminder association.
+     *
+     */
+    public ObservableMap<Bookmark, Reminder> getAssociation() {
+        return association;
     }
 
     /**
@@ -46,6 +60,7 @@ public class ReminderAssociation {
         }
 
         association.put(bookmark, reminder);
+        reminderMap.put(reminder, bookmark);
     }
 
     /**
@@ -55,7 +70,11 @@ public class ReminderAssociation {
      */
     public void deleteReminder(Reminder reminder) {
         requireAllNonNull(reminder);
-        Bookmark bookmark = reminder.getBookmark();
+        if (!reminderMap.containsKey(reminder)) {
+            throw new ReminderNotFoundException();
+        }
+
+        Bookmark bookmark = reminderMap.get(reminder);
 
         if (!association.containsKey(bookmark)) {
             throw new BookmarkContainNoReminderException();
@@ -64,6 +83,7 @@ public class ReminderAssociation {
         if (!association.remove(bookmark, reminder)) {
             throw new ReminderNotFoundException();
         }
+        reminderMap.remove(reminder);
     }
 
     /**
@@ -72,7 +92,11 @@ public class ReminderAssociation {
      */
     public void setReminder(Reminder targetReminder, Reminder editedReminder) {
         requireAllNonNull(targetReminder, editedReminder);
-        Bookmark bookmark = targetReminder.getBookmark();
+        if (!reminderMap.containsKey(targetReminder)) {
+            throw new ReminderNotFoundException();
+        }
+
+        Bookmark bookmark = reminderMap.get(targetReminder);
 
         if (!association.containsKey(bookmark)) {
             throw new BookmarkContainNoReminderException();
@@ -80,6 +104,37 @@ public class ReminderAssociation {
 
         if (!association.replace(bookmark, targetReminder, editedReminder)) {
             throw new ReminderNotFoundException();
+        }
+        reminderMap.remove(targetReminder);
+        reminderMap.put(editedReminder, bookmark);
+    }
+
+    /**
+     * Delete a specified bookmark.
+     *
+     * @param bookmark the bookmark to delete.
+     */
+    public void removeBookmark(Bookmark bookmark) {
+        if (association.containsKey(bookmark)) {
+            Reminder reminder = association.get(bookmark);
+            association.remove(bookmark);
+            reminderMap.remove(reminder);
+        }
+    }
+
+    /**
+     * Edit a specified bookmark.
+     *
+     * @param targetBookmark the bookmark to be edited.
+     * @param newBookmark the edited bookmark.
+     */
+    public void editBookmark(Bookmark targetBookmark, Bookmark newBookmark) {
+        if (association.containsKey(targetBookmark)) {
+            Reminder reminder = association.get(targetBookmark);
+            Reminder newReminder =
+                    new Reminder(newBookmark.getUrl(), reminder.getRemindTime(), reminder.getNote());
+            deleteReminder(reminder);
+            addReminder(newBookmark, newReminder);
         }
     }
 
@@ -90,8 +145,10 @@ public class ReminderAssociation {
      */
     public ObservableList<Reminder> getReminderList() {
         ObservableList<Reminder> reminderList = FXCollections.observableArrayList();
-        reminderList.addAll(association.values());
-        reminderList.sort(comparator);
+        if (!association.isEmpty()) {
+            reminderList.addAll(association.values());
+            reminderList.sort(comparator);
+        }
         return reminderList;
     }
 

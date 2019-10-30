@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.mark.model.autotag.AutotagController;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 import seedu.mark.model.reminder.ReminderAssociation;
 
 /**
@@ -21,5 +22,8 @@ public interface ReadOnlyMark {
 
     ReminderAssociation getReminderAssociation();
 
+    ObservableList<Reminder> getReminderList();
+
     AutotagController getAutotagController();
+
 }

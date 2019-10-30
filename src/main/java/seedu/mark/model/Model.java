@@ -230,6 +230,11 @@ public interface Model {
     ObservableList<Reminder> getReminders();
 
     /**
+     * Sets the reminders in Mark.
+     */
+    void setReminders();
+
+    /**
      * Returns a view of the annotated document.
      */
     ObservableList<Paragraph> getObservableDocument();

@@ -20,6 +20,7 @@ import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 import seedu.mark.storage.Storage;
 
 /**
@@ -104,6 +105,11 @@ public class LogicManager implements Logic {
     @Override
     public void updateDocument(OfflineDocument doc) {
         model.updateDocument(doc);
+    }
+
+    @Override
+    public ObservableList<Reminder> getReminderList() {
+        return model.getMark().getReminderList();
     }
 
     @Override

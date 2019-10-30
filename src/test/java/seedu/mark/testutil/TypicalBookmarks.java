@@ -8,6 +8,8 @@ import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_BOB;
+import static seedu.mark.testutil.TypicalReminders.OPEN;
+import static seedu.mark.testutil.TypicalReminders.READ;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +21,7 @@ import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.ReminderAssociation;
 
 /**
  * A utility class containing a list of {@code Bookmark} objects to be used in tests.
@@ -71,6 +74,7 @@ public class TypicalBookmarks {
             mark.addBookmark(bookmark);
         }
         mark.setFolderStructure(getTypicalFolderStructure());
+        mark.setReminderAssociation(getTypicalReminderAssociation());
         return mark;
     }
 
@@ -83,4 +87,12 @@ public class TypicalBookmarks {
     public static List<Bookmark> getTypicalBookmarks() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
+    public static ReminderAssociation getTypicalReminderAssociation() {
+        ReminderAssociation association = new ReminderAssociation();
+        association.addReminder(ALICE, OPEN);
+        association.addReminder(BENSON, READ);
+        return association;
+    }
+
 }
