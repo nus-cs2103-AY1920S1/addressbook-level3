@@ -3,7 +3,17 @@ package seedu.address.itinerary.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.itinerary.commands.*;
+import seedu.address.itinerary.commands.AddEventCommand;
+import seedu.address.itinerary.commands.ClearEventCommand;
+import seedu.address.itinerary.commands.DeleteEventCommand;
+import seedu.address.itinerary.commands.DoneEventCommand;
+import seedu.address.itinerary.commands.EditCommand;
+import seedu.address.itinerary.commands.GreetCommand;
+import seedu.address.itinerary.commands.HelpCommand;
+import seedu.address.itinerary.commands.HistoryCommand;
+import seedu.address.itinerary.commands.ListCommand;
+import seedu.address.itinerary.commands.SearchCommand;
+import seedu.address.itinerary.commands.SortCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;

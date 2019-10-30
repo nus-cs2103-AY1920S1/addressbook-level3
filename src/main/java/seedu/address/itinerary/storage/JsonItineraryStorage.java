@@ -2,6 +2,7 @@ package seedu.address.itinerary.storage;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
@@ -11,8 +12,12 @@ import seedu.address.itinerary.model.ReadOnlyItinerary;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class JsonItineraryStorage implements ItineraryStorage {
+
+    private static final Logger logger = LogsCenter.getLogger(JsonItineraryStorage.class);
+
     private Path filePath;
 
     public JsonItineraryStorage(Path filePath) {
@@ -31,6 +36,7 @@ public class JsonItineraryStorage implements ItineraryStorage {
         try {
             return Optional.of(jsonAddressBook.get().toModelType());
         } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
     }

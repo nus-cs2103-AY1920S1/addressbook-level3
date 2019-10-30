@@ -54,7 +54,7 @@ public class CommandBox extends UiPart<Region> {
         String[] possibleSuggestions = {
                 // For basic command
                 "greet", "summary", "goto", "goto calendar", "goto financial_tracker", "goto diary",
-                "goto main", "goto achievements", "exit", "list", "help", "history", "wish"
+                "goto main", "goto achievements", "exit", "list", "help", "history", "clear"
                 // For the add command
                 , "add", "add title/", "add title/ date/ time/ l/ d/"
                 // For the edit, done and delete command

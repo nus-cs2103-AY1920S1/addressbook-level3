@@ -12,10 +12,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -114,6 +116,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
      * Fills up all the placeholders of this window.
      */
     private void fillInnerParts() {
+
         eventPanel = new EventPanel(model.getSortedEventList());
         eventPlaceHolder.getChildren().add(eventPanel.getRoot());
 
@@ -124,7 +127,16 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         tagDropdown = new TagDropdown();
-        commandBoxPlaceholder.getChildren().add(tagDropdown.getRoot());
+
+        // ------------- defining HBox layout --------------
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(commandBox.getRoot(), tagDropdown.getRoot());
+        hBox.setSpacing(10);
+        HBox.setHgrow(commandBox.getRoot(), Priority.ALWAYS);
+        // ------------- defining HBox layout --------------
+
+        commandBoxPlaceholder.getChildren().add(hBox);
+
     }
 
     /**
@@ -181,6 +193,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
             //update tagging dropDown menu
             tagDropdown.updateDropdownText();
             Command command = itineraryParser.parseCommand(commandText);

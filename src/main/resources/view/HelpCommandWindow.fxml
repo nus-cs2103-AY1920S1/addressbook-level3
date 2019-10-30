@@ -195,8 +195,9 @@
                                              </ToolBar>
                                              <ToolBar prefHeight="68.0" prefWidth="496.0">
                                                 <items>
-                                                   <Label text="Wish: Wish for the perfect event. Based on various conditions given. " />
-                                                   <Button fx:id="wishCommand" mnemonicParsing="false" onAction="#copyWish" text="Copy" />
+                                                   <Label text="Wish: Wish for the perfect event. Coming in v2.0!" />
+                                                   <Region prefHeight="20.0" prefWidth="127.0" />
+                                                   <Button fx:id="wishCommand" mnemonicParsing="false" onAction="#handleWish" text=":)" />
                                                 </items>
                                              </ToolBar>
                                           </children>
