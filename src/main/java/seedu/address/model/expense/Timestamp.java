@@ -36,6 +36,9 @@ public class Timestamp implements Comparable<Timestamp> {
     public static final String MESSAGE_CONSTRAINTS_DATE =
             "Timestamps must be in the format dd-MM[-yyyy]";
 
+    public static final Timestamp EARLIEST_TIMESTAMP = new Timestamp(
+            LocalDateTime.of(2000, 1, 1, 0, 0));
+
     private static final DateTimeFormatter FORMATTER_WITH_YEAR =
             DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
 

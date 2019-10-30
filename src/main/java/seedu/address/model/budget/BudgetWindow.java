@@ -1,10 +1,8 @@
 package seedu.address.model.budget;
 
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.expense.Timestamp;
 
 /**
@@ -13,9 +11,9 @@ import seedu.address.model.expense.Timestamp;
 public class BudgetWindow {
     private Timestamp startDate;
     private Timestamp endDate;
-    private final Period period;
+    private final BudgetPeriod period;
 
-    public BudgetWindow(Timestamp startDate, Period period) {
+    public BudgetWindow(Timestamp startDate, BudgetPeriod period) {
         this.startDate = startDate.toStartOfDay();
         this.period = period;
         this.endDate = calculateEndDate();
@@ -29,7 +27,7 @@ public class BudgetWindow {
         return endDate;
     }
 
-    public Period getPeriod() {
+    public BudgetPeriod getPeriod() {
         return period;
     }
 
@@ -57,57 +55,49 @@ public class BudgetWindow {
      */
     public void normalize(Timestamp rawAnchor) {
         LocalDateTime anchor = rawAnchor.toStartOfDay().fullTimestamp;
+        LocalDateTime normalized;
 
-        if (period.getMonths() == 1) {
-
-            int specifiedDayOfMonth = startDate.getDayOfMonth();
-            int currentDayOfMonth = anchor.getDayOfMonth();
-            LocalDateTime normalized;
-            if (currentDayOfMonth >= specifiedDayOfMonth) {
-                normalized = anchor.withDayOfMonth(specifiedDayOfMonth);
-            } else {
-                normalized = anchor.minusMonths(1).withDayOfMonth(specifiedDayOfMonth);
-            }
-            startDate = new Timestamp(normalized);
-            endDate = calculateEndDate();
-
-        } else if (period.getYears() == 1) {
-
-            int specifiedDayOfYear = startDate.getDayOfYear();
-            int currentDayOfYear = anchor.getDayOfYear();
-            LocalDateTime normalized;
-            if (currentDayOfYear >= specifiedDayOfYear) {
-                normalized = anchor.withMonth(startDate.getMonthValue())
-                        .withDayOfMonth(startDate.getDayOfMonth());
-            } else {
-                normalized = anchor.minusYears(1)
-                        .withMonth(startDate.getMonthValue())
-                        .withDayOfMonth(startDate.getDayOfMonth());
-            }
-            startDate = new Timestamp(normalized);
-            endDate = calculateEndDate();
-
-        } else if (period.getDays() == 1) {
-
-            startDate = new Timestamp(anchor);
-            endDate = calculateEndDate();
-
-        } else if (period.getDays() == 7) {
-
+        switch(period) {
+        case DAY:
+            normalized = anchor;
+            break;
+        case WEEK:
             long daysDiff = ChronoUnit.DAYS.between(startDate.getDate(), anchor.toLocalDate());
             long offset = daysDiff % 7;
-            startDate = new Timestamp(anchor.toLocalDate().minusDays(offset).atStartOfDay());
-            endDate = calculateEndDate();
+            normalized = anchor.toLocalDate().minusDays(offset).atStartOfDay();
+            break;
+        case MONTH:
+            int specifiedDayOfMonth = startDate.getDayOfMonth();
+            int currentDayOfMonth = anchor.getDayOfMonth();
+            normalized = currentDayOfMonth >= specifiedDayOfMonth
+                    ? anchor.withDayOfMonth(specifiedDayOfMonth)
+                    : anchor.minusMonths(1).withDayOfMonth(specifiedDayOfMonth);
+            break;
+        case YEAR:
+            int specifiedDayOfYear = startDate.getDayOfYear();
+            int currentDayOfYear = anchor.getDayOfYear();
+            normalized = currentDayOfYear >= specifiedDayOfYear
+                    ? anchor.withMonth(startDate.getMonthValue())
+                    .withDayOfMonth(startDate.getDayOfMonth())
+                    : anchor.minusYears(1)
+                    .withMonth(startDate.getMonthValue())
+                    .withDayOfMonth(startDate.getDayOfMonth());
+            break;
+        default:
+            normalized = anchor;
 
         }
+
+        startDate = new Timestamp(normalized);
+        endDate = calculateEndDate();
     }
 
     /**
      * Calculates proper end date based on given start date and period.
      */
     private Timestamp calculateEndDate() {
-        Timestamp endDate = startDate.plus(period);
-        if (period.getMonths() == 1 && endDate.getDayOfMonth() < startDate.getDayOfMonth()) {
+        Timestamp endDate = startDate.plus(period.getPeriod());
+        if (period == BudgetPeriod.DAY && endDate.getDayOfMonth() < startDate.getDayOfMonth()) {
             endDate.plusDays(1);
         }
         return endDate.minusDays(1).toEndOfDay();
@@ -133,7 +123,8 @@ public class BudgetWindow {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Period: ")
-                .append(ParserUtil.formatPeriod(period))
+                //.append(ParserUtil.formatPeriod(period))
+                .append(period)
                 .append(" Start date: ")
                 .append(startDate)
                 .append(" End date: ")

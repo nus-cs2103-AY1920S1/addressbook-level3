@@ -14,7 +14,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.alias.AliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.DeleteBudgetCommand;
+import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.EditBudgetCommand;
+import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.ListBudgetCommand;
 import seedu.address.logic.commands.budget.PastPeriodCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
@@ -71,12 +73,16 @@ public class MooLahParser {
             return new AddBudgetCommandParser().parse(arguments);
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+        case EditExpenseFromBudgetCommand.COMMAND_WORD:
+            return new EditExpenseFromBudgetCommandParser().parse(arguments);
         case EditEventCommand.COMMAND_WORD:
             return new EditEventCommandParser().parse(arguments);
         case EditBudgetCommand.COMMAND_WORD:
             return new EditBudgetCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+        case DeleteExpenseFromBudgetCommand.COMMAND_WORD:
+            return new DeleteExpenseFromBudgetCommandParser().parse(arguments);
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
         case ClearCommand.COMMAND_WORD:

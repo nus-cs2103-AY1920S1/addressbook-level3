@@ -2,13 +2,14 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.Period;
 import java.util.Optional;
 
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.budget.BudgetPeriod;
+import seedu.address.model.budget.Percentage;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
@@ -114,35 +115,51 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String period} into a {@code Period}.
+     * Dummy.
+     * @param percentage
+     * @return
+     * @throws ParseException
+     */
+    public static Percentage parsePercentage(String percentage) throws ParseException {
+        requireNonNull(percentage);
+        String trimmedPercentage = percentage.trim();
+        String proportionString = trimmedPercentage.substring(0, percentage.length() - 1);
+        try {
+            int proportion = Integer.parseInt(proportionString);
+            if (!Percentage.isValidPercentage(proportion)) {
+                throw new ParseException(Percentage.MESSAGE_CONSTRAINTS);
+            }
+            return new Percentage(proportion);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Percentage.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses {@code String period} into a {@code BudgetPeriod}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code period} is invalid.
      */
-    public static Period parsePeriod(String period) throws ParseException {
+    public static BudgetPeriod parsePeriod(String period) throws ParseException {
         String trimmedPeriod = period.trim();
         switch (trimmedPeriod) {
         case "day":
-            return Period.ofDays(1);
+            return BudgetPeriod.DAY;
         case "week":
-            return Period.ofWeeks(1);
+            return BudgetPeriod.WEEK;
         case "month":
-            return Period.ofMonths(1);
+            return BudgetPeriod.MONTH;
         case "year":
-            return Period.ofYears(1);
+            return BudgetPeriod.YEAR;
         case "infinity":
-            return Period.ofYears(999);
+            return BudgetPeriod.INFINITY;
         default:
             throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
         }
     }
 
-    /**
-     * Dummy.
-     * @param period
-     * @return dummy.
-     */
-
+    /*
     public static String formatPeriod(Period period) {
         String periodString = period.toString();
         switch (periodString) {
@@ -150,6 +167,7 @@ public class ParserUtil {
             return "day";
         case "P7D":
             //fallthrough
+        case "P1W":
         case "P1W":
             return "week";
         case "P1M":
@@ -162,4 +180,6 @@ public class ParserUtil {
             return periodString;
         }
     }
+
+     */
 }

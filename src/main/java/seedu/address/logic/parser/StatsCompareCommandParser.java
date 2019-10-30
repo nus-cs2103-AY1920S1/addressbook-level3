@@ -38,7 +38,7 @@ public class StatsCompareCommandParser implements Parser<StatsCompareCommand> {
 
         Timestamp startDate1 = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_FIRST_START_DATE).get());
         Timestamp startDate2 = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_SECOND_START_DATE).get());
-        Period period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).get());
+        Period period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).get()).getPeriod();
 
         return new StatsCompareCommand(startDate1, startDate2, period);
     }

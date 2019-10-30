@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Collections;
 import java.util.List;
@@ -212,10 +213,14 @@ public class MainWindow extends UiPart<Stage> {
                 List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY));
         commandBox.enableSyntaxHighlightingForCommand("alias",
                 List.of(PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT));
-        commandBox.enableSyntaxHighlightingForCommand("budget",
+        commandBox.enableSyntaxHighlightingForCommand("addbudget",
                 List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD));
-        commandBox.enableSyntaxHighlightingForCommand("switch",
+        commandBox.enableSyntaxHighlightingForCommand("switchbudget",
                 List.of(PREFIX_DESCRIPTION));
+        commandBox.enableSyntaxHighlightingForCommand("pastperiod",
+                List.of(PREFIX_TIMESTAMP));
+        commandBox.enableSyntaxHighlightingForCommand("event",
+                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP));
         commandBox.enableSyntaxHighlightingForCommand("statscompare",
                 List.of(PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE, PREFIX_PERIOD));
         commandBox.enableSyntaxHighlightingForCommand("undo",
@@ -228,11 +233,15 @@ public class MainWindow extends UiPart<Stage> {
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("deletebudget",
                 Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("deletefrombudget",
+                Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("list",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("delete",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("edit",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("editfrombudget",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("editbudget",
                 Collections.emptyList());

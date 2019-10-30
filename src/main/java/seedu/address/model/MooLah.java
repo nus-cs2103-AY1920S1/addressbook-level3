@@ -123,13 +123,8 @@ public class MooLah implements ReadOnlyMooLah {
      * The expense must not already exist in the MooLah.
      */
     public void addExpense(Expense p) {
-        //if (budgets.isEmpty()) {
-        //  Budget defaultBudget = Budget.createDefaultBudget();
-        // defaultBudget.setPrimary();
-        // budgets.add(defaultBudget);
-        //}
-        Budget primaryBudget = budgets.getPrimaryBudget();
         if (p.getBudgetName() == null) {
+            Budget primaryBudget = budgets.getPrimaryBudget();
             p.setBudget(primaryBudget);
             primaryBudget.addExpense(p);
             primaryBudget.updateProportionUsed();
@@ -165,7 +160,7 @@ public class MooLah implements ReadOnlyMooLah {
     public void removeExpense(Expense key) {
         expenses.remove(key);
         for (Budget budget : budgets) {
-            budget.removeIdentical(key);
+            budget.removeExpense(key);
         }
     }
 

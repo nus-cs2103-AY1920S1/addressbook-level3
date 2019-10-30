@@ -56,7 +56,7 @@ public class BudgetTest {
         expenses.add(ANNIVERSARY);
         Budget editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
-        editedSchool.removeIdentical(ANNIVERSARY);
+        editedSchool.removeExpense(ANNIVERSARY);
         assertFalse(editedSchool.getExpenses().contains(ANNIVERSARY));
     }
 

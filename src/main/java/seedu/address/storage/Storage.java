@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.DataInconsistencyException;
 import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -24,7 +25,7 @@ public interface Storage extends MooLahStorage, UserPrefsStorage {
     Path getMooLahFilePath();
 
     @Override
-    Optional<ReadOnlyMooLah> readMooLah() throws DataConversionException, IOException;
+    Optional<ReadOnlyMooLah> readMooLah() throws DataConversionException, IOException, DataInconsistencyException;
 
     @Override
     void saveMooLah(ReadOnlyMooLah mooLah) throws IOException;
