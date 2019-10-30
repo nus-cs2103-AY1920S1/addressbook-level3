@@ -915,7 +915,7 @@ displayed in the document).
 * *Exit*: `*exit*`
 * *Export*: `*export* FILENAME`
 * *Import*: `*import* FILENAME`
-* *Autotag*: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
+* *Autotag (add)*: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
 [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
 * *Autotag (delete)*: `*autotag-delete* TAG_NAME`
 * *Cache*: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
