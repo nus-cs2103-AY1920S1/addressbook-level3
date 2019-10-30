@@ -18,7 +18,7 @@ public class PurchaseTest {
     @Test
     public void test_timeOfPurchase() {
         LocalDateTime time = testPurchase.getTimeOfPurchaseInLocalDateTime();
-        LocalDateTime accurateTime = testPurchase.getTimeOfPurchase().getTimeOfPurchaseInLocalDateTime();
+        LocalDateTime accurateTime = testPurchase.getTimeOfPurchase().getTimeStampInLocalDateTime();
         assertEquals(time, accurateTime);
     }
 
