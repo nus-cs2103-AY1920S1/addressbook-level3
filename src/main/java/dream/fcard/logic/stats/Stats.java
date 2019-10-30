@@ -2,7 +2,6 @@
 package dream.fcard.logic.stats;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Represents the user's statistics.
@@ -12,7 +11,7 @@ public class Stats implements Serializable {
     private static Stats userStats;
 
     /** List of Sessions the user has engaged in to date. */
-    private static ArrayList<Session> loginSessions;
+    private static SessionList loginSessions;
 
     /** Current Session the user is engaging in, if the application is open. */
     private static Session currentSession;
@@ -20,17 +19,22 @@ public class Stats implements Serializable {
     /** Constructs a new instance of Stats with no stored data. */
     public Stats() {
         System.out.println("New Stats object created");
-        loginSessions = new ArrayList<>();
+        loginSessions = new SessionList();
         System.out.println("New loginSessions created");
     }
 
-    /** Returns the Statistics object pertaining to this user. */
+    /** Returns the Stats object pertaining to this user. */
     public static Stats getUserStats() {
         if (userStats == null) {
             System.out.println("No userStats found!");
             userStats = new Stats();
         }
         return userStats;
+    }
+
+    /** Sets userStats to the pre-defined Stats object. */
+    public static void setUserStats(Stats stats) {
+        userStats = stats;
     }
 
     /**
@@ -43,10 +47,14 @@ public class Stats implements Serializable {
         return new Stats();
     }
 
+    public static void setSessionList(SessionList sessionList) {
+        loginSessions = sessionList;
+    }
+
     /** Returns the number of login sessions. */
-    //public int getNumberOfLoginSessions() {
-    //    return loginSessions.numberOfSessions();
-    //}
+    public int getNumberOfLoginSessions() {
+        return loginSessions.numberOfSessions();
+    }
 
     // todo: calculate number of sessions in past week, past month etc. should this generate a list?
     // todo: possibly compare past week to previous week etc.
@@ -72,7 +80,7 @@ public class Stats implements Serializable {
             getUserStats(); // temporary
 
             currentSession.endSession();
-            loginSessions.add(currentSession);
+            loginSessions.addSession(currentSession);
 
             // reset currentSession to null since this is terminated
             currentSession = null;
@@ -86,9 +94,9 @@ public class Stats implements Serializable {
     }
 
     /** Gets the list of login sessions. */
-    //public static SessionList getLoginSessions() {
-    //    return loginSessions;
-    //}
+    public static SessionList getLoginSessions() {
+        return loginSessions;
+    }
 
     /** Gets the current session. */
     public static Session getCurrentSession() {

@@ -2,10 +2,13 @@
 package dream.fcard.logic.storage;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.Stats;
 
 /**
@@ -68,8 +71,8 @@ public class StatsStorageManager {
     //    return null;
     //}
 
-    /** Save Stats file to disk. */
-    public static void saveStats() {
+    /** Save loginSessions in userStats to disk. */
+    public static void saveLoginSessions() {
 
         // check that the stats directory exists
         hasDirectory();
@@ -81,12 +84,39 @@ public class StatsStorageManager {
             FileOutputStream fos = new FileOutputStream(statsPath);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            oos.writeObject(Stats.getUserStats());
+            oos.writeObject(Stats.getLoginSessions());
 
             oos.close();
             fos.close();
 
             System.out.println("Statistics saved to: " + statsPath);
+        } catch (Exception e) {
+            // temporary haxx
+            e.printStackTrace();
+        }
+    }
+
+    /** Load loginSessions from disk. */
+    public static void loadLoginSessions() {
+        Stats.getUserStats(); // create new Stats object
+
+        // if directory does not exist, or file does not exist, no need to load from file
+        if (!hasDirectory() || !hasFile()) {
+            return;
+        }
+
+        try {
+            SessionList sessionList;
+            FileInputStream fis = new FileInputStream(statsPath);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            sessionList = (SessionList) ois.readObject();
+
+            ois.close();
+            fis.close();
+
+            System.out.println("Statistics imported from: " + statsPath);
+            Stats.setSessionList(sessionList);
         } catch (Exception e) {
             // temporary haxx
             e.printStackTrace();
