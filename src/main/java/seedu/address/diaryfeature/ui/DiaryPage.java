@@ -2,6 +2,8 @@ package seedu.address.diaryfeature.ui;
 
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -130,13 +132,31 @@ public class DiaryPage extends UiPart<Region> implements Page {
         }
     }
 
+    /**
+     * Quit after letting user read the ByeResponse.
+     *
+     */
+
+    public void exit() {
+
+    }
+
 
     /**
      * Closes the application.
      */
     @FXML
     private void handleExit() {
-        this.diaryScene.getWindow().hide();
+        TimerTask myDelay = new TimerTask() {
+            @Override
+            public void run() {
+                System.exit(0);
+                diaryScene.getWindow().hide();
+
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(myDelay,350);
     }
 
     @Override
