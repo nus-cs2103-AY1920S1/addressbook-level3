@@ -1,19 +1,24 @@
 package seedu.address.model.group;
 
+import seedu.address.model.mapping.Role;
+
 /**
  * A group.
  */
 public class Group {
     private static Integer counter = 0;
     private final GroupId groupId;
+
     private GroupName groupName;
     private GroupDescription groupDescription;
     private GroupRemark groupRemark;
+    private Role userRole;
 
     public Group(GroupDescriptor groupDescriptor) {
         this.groupName = groupDescriptor.getGroupName();
         this.groupRemark = groupDescriptor.getGroupRemark();
         this.groupDescription = groupDescriptor.getGroupDescription();
+        this.userRole = groupDescriptor.getUserRole();
         this.groupId = new GroupId(counter);
         counter += 1;
     }
@@ -21,12 +26,14 @@ public class Group {
     public Group(GroupId groupId,
                  GroupName groupName,
                  GroupDescription groupDescription,
-                 GroupRemark groupRemark) {
+                 GroupRemark groupRemark,
+                 Role userRole) {
 
         this.groupId = groupId;
         this.groupName = groupName;
         this.groupDescription = groupDescription;
         this.groupRemark = groupRemark;
+        this.userRole = userRole;
     }
 
     public static void setCounter(int i) {
@@ -139,5 +146,11 @@ public class Group {
         return this.groupId;
     }
 
+    public Role getUserRole() {
+        return userRole;
+    }
 
+    public void setUserRole(Role userRole) {
+        this.userRole = userRole;
+    }
 }

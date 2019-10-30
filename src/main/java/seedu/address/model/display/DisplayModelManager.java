@@ -157,7 +157,7 @@ public class DisplayModelManager {
                 ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
                 User user = timeBook.getPersonList().getUser();
-                Role userRole = Role.emptyRole();
+                Role userRole = group.getUserRole();
 
                 //Add user schedule.
                 personSchedules.add(generatePersonSchedule(groupName.toString(),

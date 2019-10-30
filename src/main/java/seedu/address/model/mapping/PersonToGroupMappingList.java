@@ -29,7 +29,7 @@ public class PersonToGroupMappingList {
             PersonToGroupMapping mapping =
                     findPersonToGroupMapping(currentMapping.getPersonId(), currentMapping.getGroupId());
 
-            if(mapping.getRole().equals(currentMapping.getRole())) {
+            if (mapping.getRole().equals(currentMapping.getRole())) {
                 throw new DuplicateMappingException();
             } else {
                 mapping.setRole(currentMapping.getRole());
