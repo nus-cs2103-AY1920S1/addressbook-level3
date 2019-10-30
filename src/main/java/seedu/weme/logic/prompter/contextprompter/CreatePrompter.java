@@ -4,31 +4,31 @@ import static seedu.weme.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
 import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
-import static seedu.weme.logic.prompter.util.PrompterUtil.EXPORT_COMMANDS;
+import static seedu.weme.logic.prompter.util.PrompterUtil.CREATE_COMMANDS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.GENERAL_COMMANDS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.promptCommandWord;
 
 import java.util.regex.Matcher;
 
-import seedu.weme.logic.commands.exportcommand.ExportCommand;
-import seedu.weme.logic.commands.exportcommand.UnstageCommand;
-import seedu.weme.logic.prompter.commandprompter.exportcommandpropmter.ExportCommandPrompter;
-import seedu.weme.logic.prompter.commandprompter.exportcommandpropmter.UnstageCommandPrompter;
+import seedu.weme.logic.commands.createcommand.AbortCreationCommand;
+import seedu.weme.logic.commands.createcommand.CreateCommand;
+import seedu.weme.logic.commands.createcommand.TextAddCommand;
+import seedu.weme.logic.prompter.commandprompter.createcommandprompter.TextAddCommandPrompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
 
 /**
- * Prompt command arguments in the export context.
+ * Prompt command arguments in the create context.
  */
-public class ExportPrompter extends WemePrompter {
+public class CreatePrompter extends WemePrompter {
 
     @Override
     public CommandPrompt promptCommand(Model model, String userInput) throws PromptException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new CommandPrompt(EXPORT_COMMANDS.stream().sorted().reduce((x, y) -> x + '\n' + y).orElse(""),
-                    EXPORT_COMMANDS.stream().sorted().findFirst().orElse(""));
+            return new CommandPrompt(CREATE_COMMANDS.stream().sorted().reduce((x, y) -> x + '\n' + y).orElse(""),
+                    CREATE_COMMANDS.stream().sorted().findFirst().orElse(""));
         }
 
         final String commandWord = matcher.group(COMMAND_WORD);
@@ -38,15 +38,16 @@ public class ExportPrompter extends WemePrompter {
         }
 
         switch (commandWord) {
-        case UnstageCommand.COMMAND_WORD:
-            return new UnstageCommandPrompter().prompt(model, userInput);
+        case TextAddCommand.COMMAND_WORD:
+            return new TextAddCommandPrompter().prompt(model, userInput);
 
-        case ExportCommand.COMMAND_WORD:
-            return new ExportCommandPrompter().prompt(model, userInput);
+        case AbortCreationCommand.COMMAND_WORD:
+        case CreateCommand.COMMAND_WORD:
+            return new CommandPrompt(userInput);
 
         default:
             if (arguments.isBlank()) {
-                return promptCommandWord(EXPORT_COMMANDS, commandWord);
+                return promptCommandWord(CREATE_COMMANDS, commandWord);
             } else {
                 throw new PromptException(MESSAGE_UNKNOWN_COMMAND);
             }

@@ -59,6 +59,7 @@ public class TextAddCommand extends Command {
         MemeCreation session = model.getMemeCreation();
         try {
             session.addText(text);
+            model.addMemeTextToRecords(text);
         } catch (IllegalValueException e) {
             throw new CommandException(MESSAGE_TEXT_EXCEEDS_IMAGE_BOUNDARY, e);
         }

@@ -2,6 +2,7 @@ package seedu.weme.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,27 +19,31 @@ public class RecordsManager implements Records {
     private Set<String> descriptionRecords;
     private Set<String> tagRecords;
     private Set<String> nameRecords;
+    private Set<String> colorRecords;
 
     public RecordsManager() {
         this.pathRecords = new HashSet<>();
         this.descriptionRecords = new HashSet<>();
         this.tagRecords = new HashSet<>();
         this.nameRecords = new HashSet<>();
+        this.colorRecords = new HashSet<>();
     }
 
     public RecordsManager(Set<String> pathRecords,
                           Set<String> descriptionRecords,
                           Set<String> tagRecords,
-                          Set<String> nameRecords) {
+                          Set<String> nameRecords,
+                          Set<String> colorRecords) {
         this();
         this.pathRecords.addAll(pathRecords);
         this.descriptionRecords.addAll(descriptionRecords);
         this.tagRecords.addAll(tagRecords);
         this.nameRecords.addAll(nameRecords);
+        this.colorRecords.addAll(colorRecords);
     }
 
     public RecordsManager(Records records) {
-        this(records.getPaths(), records.getDescriptions(), records.getTags(), records.getNames());
+        this(records.getPaths(), records.getDescriptions(), records.getTags(), records.getNames(), records.getColors());
     }
 
     @Override
@@ -59,6 +64,11 @@ public class RecordsManager implements Records {
     @Override
     public Set<String> getNames() {
         return new HashSet<>(nameRecords);
+    }
+
+    @Override
+    public Set<String> getColors() {
+        return new HashSet<>(colorRecords);
     }
 
     @Override
@@ -85,6 +95,11 @@ public class RecordsManager implements Records {
         nameRecords.add(name.toString());
     }
 
+    @Override
+    public void addColor(Color color) {
+        colorRecords.add(color.toString());
+    }
+
     /**
      * Resets the existing records of this {@code RecordsManager} with {@code newRecords}.
      */
@@ -96,11 +111,13 @@ public class RecordsManager implements Records {
         descriptionRecords.clear();
         tagRecords.clear();
         nameRecords.clear();
+        colorRecords.clear();
 
         pathRecords.addAll(records.getPaths());
         descriptionRecords.addAll(records.getDescriptions());
         tagRecords.addAll(records.getTags());
         nameRecords.addAll(records.getNames());
+        colorRecords.addAll(records.getColors());
     }
 
     @Override
@@ -121,6 +138,10 @@ public class RecordsManager implements Records {
         sb.append("All names: \n");
         for (String name: nameRecords) {
             sb.append(name + "\n");
+        }
+        sb.append("All colors: \n");
+        for (String color: colorRecords) {
+            sb.append(color + "\n");
         }
         return sb.toString();
     }

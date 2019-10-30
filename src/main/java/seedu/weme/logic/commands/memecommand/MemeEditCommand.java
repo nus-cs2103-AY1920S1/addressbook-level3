@@ -75,7 +75,7 @@ public class MemeEditCommand extends Command {
         }
 
         model.setMeme(memeToEdit, editedMeme);
-        model.addMemeToRecord(editedMeme);
+        model.addMemeToRecords(editedMeme);
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
         model.commitWeme(result.getFeedbackToUser());
 

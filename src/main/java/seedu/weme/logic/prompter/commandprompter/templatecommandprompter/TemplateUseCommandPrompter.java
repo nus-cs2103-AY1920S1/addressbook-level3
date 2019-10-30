@@ -1,6 +1,6 @@
 package seedu.weme.logic.prompter.commandprompter.templatecommandprompter;
 
-import static seedu.weme.logic.commands.templatecommand.TemplateDeleteCommand.COMMAND_WORD;
+import static seedu.weme.logic.commands.templatecommand.TemplateUseCommand.COMMAND_WORD;
 import static seedu.weme.logic.prompter.util.PrompterUtil.COMMAND_DELIMITER;
 import static seedu.weme.logic.prompter.util.PrompterUtil.MAX_RESULTS_DISPLAY;
 import static seedu.weme.logic.prompter.util.PrompterUtil.NO_LISTED_TEMPLATE;
@@ -14,9 +14,9 @@ import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
 
 /**
- * Prompt arguments for TemplateDeleteCommand.
+ * Prompt arguments for TemplateUseCommand.
  */
-public class TemplateDeleteCommandPrompter implements Prompter {
+public class TemplateUseCommandPrompter implements Prompter {
     private static final String PREAMBLE = COMMAND_WORD + COMMAND_DELIMITER;
 
     @Override

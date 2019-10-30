@@ -1,10 +1,16 @@
 package seedu.weme.logic.prompter.util;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_COLOR_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_NAME_STRING;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_SIZE_STRING;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_STYLE_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG_STRING;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_X_COORDINATE_STRING;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_Y_COORDINATE_STRING;
+import static seedu.weme.model.ModelContext.CONTEXT_CREATE;
 import static seedu.weme.model.ModelContext.CONTEXT_EXPORT;
 import static seedu.weme.model.ModelContext.CONTEXT_IMPORT;
 import static seedu.weme.model.ModelContext.CONTEXT_MEMES;
@@ -19,6 +25,9 @@ import java.util.stream.Stream;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
+import seedu.weme.logic.commands.createcommand.AbortCreationCommand;
+import seedu.weme.logic.commands.createcommand.CreateCommand;
+import seedu.weme.logic.commands.createcommand.TextAddCommand;
 import seedu.weme.logic.commands.exportcommand.ExportCommand;
 import seedu.weme.logic.commands.exportcommand.UnstageCommand;
 import seedu.weme.logic.commands.generalcommand.ExitCommand;
@@ -39,6 +48,8 @@ import seedu.weme.logic.commands.memecommand.MemeStageCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateAddCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateDeleteCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateUseCommand;
+import seedu.weme.logic.prompter.contextprompter.CreatePrompter;
 import seedu.weme.logic.prompter.contextprompter.ExportPrompter;
 import seedu.weme.logic.prompter.contextprompter.ImportPrompter;
 import seedu.weme.logic.prompter.contextprompter.MemePrompter;
@@ -71,6 +82,7 @@ public class PrompterUtil {
     public static final Set<String> CONTEXTS = Set.of(
             CONTEXT_MEMES.getContextName(),
             CONTEXT_TEMPLATES.getContextName(),
+            CONTEXT_CREATE.getContextName(),
             CONTEXT_STATISTICS.getContextName(),
             CONTEXT_EXPORT.getContextName(),
             CONTEXT_IMPORT.getContextName(),
@@ -101,7 +113,16 @@ public class PrompterUtil {
             .concat(Stream.of(
                     TemplateAddCommand.COMMAND_WORD,
                     TemplateDeleteCommand.COMMAND_WORD,
-                    TemplateEditCommand.COMMAND_WORD
+                    TemplateEditCommand.COMMAND_WORD,
+                    TemplateUseCommand.COMMAND_WORD
+            ), GENERAL_COMMANDS.stream())
+            .collect(Collectors.toSet());
+
+    public static final Set<String> CREATE_COMMANDS = Stream
+            .concat(Stream.of(
+                    AbortCreationCommand.COMMAND_WORD,
+                    CreateCommand.COMMAND_WORD,
+                    TextAddCommand.COMMAND_WORD
             ), GENERAL_COMMANDS.stream())
             .collect(Collectors.toSet());
 
@@ -123,8 +144,17 @@ public class PrompterUtil {
 
     public static final Set<String> PREFERENCES_COMMANDS = new HashSet<>(GENERAL_COMMANDS);
 
+    public static final String X_COORDINATE_PROMPT = "0.2\n0.4\n0.6\n0.8";
+    public static final String X_COORDINATE_AUTO_COMPLETION = "0.2";
+    public static final String Y_COORDINATE_PROMPT = "0.2\n0.4\n0.6\n0.8";
+    public static final String Y_COORDINATE_AUTO_COMPLETION = "0.2";
+
+    public static final Set<String> STYLES = Set.of("plain", "bold", "italic");
+    public static final Set<String> SIZES = Set.of("1", "2", "3", "4", "5", "6");
+
     public static final WemePrompter MEME_PROMPTER = new MemePrompter();
     public static final WemePrompter TEMPLATE_PROMPTER = new TemplatePrompter();
+    public static final WemePrompter CREATE_PROMPTER = new CreatePrompter();
     public static final WemePrompter STATISTICS_PROMPTER = new StatisticsPrompter();
     public static final WemePrompter EXPORT_PROMPTER = new ExportPrompter();
     public static final WemePrompter IMPORT_PROMPTER = new ImportPrompter();
@@ -141,6 +171,8 @@ public class PrompterUtil {
             return MEME_PROMPTER;
         case CONTEXT_TEMPLATES:
             return TEMPLATE_PROMPTER;
+        case CONTEXT_CREATE:
+            return CREATE_PROMPTER;
         case CONTEXT_EXPORT:
             return EXPORT_PROMPTER;
         case CONTEXT_IMPORT:
@@ -258,6 +290,25 @@ public class PrompterUtil {
             Set<String> nameRecords = model.getNameRecords();
             return new CommandPrompt(findSimilarStrings(nameRecords, lastArgumentValue),
                     inputWithoutLastArgument + findMostSimilarString(nameRecords, lastArgumentValue));
+
+        case PREFIX_X_COORDINATE_STRING:
+            return new CommandPrompt(X_COORDINATE_PROMPT, inputWithoutLastArgument + X_COORDINATE_AUTO_COMPLETION);
+
+        case PREFIX_Y_COORDINATE_STRING:
+            return new CommandPrompt(Y_COORDINATE_PROMPT, inputWithoutLastArgument + Y_COORDINATE_AUTO_COMPLETION);
+
+        case PREFIX_COLOR_STRING:
+            Set<String> colorRecords = model.getColorRecords();
+            return new CommandPrompt(findSimilarStrings(colorRecords, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(colorRecords, lastArgumentValue));
+
+        case PREFIX_STYLE_STRING:
+            return new CommandPrompt(findSimilarStrings(STYLES, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(STYLES, lastArgumentValue));
+
+        case PREFIX_SIZE_STRING:
+            return new CommandPrompt(findSimilarStrings(SIZES, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(SIZES, lastArgumentValue));
 
         default:
             throw new PromptException(MESSAGE_INVALID_COMMAND_FORMAT);
