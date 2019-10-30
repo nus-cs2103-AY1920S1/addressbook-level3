@@ -148,6 +148,10 @@ public class InfoCommandTest {
         expectedCommandResult =
                 new CommandResult(InfoCommand.SORT_INFO, false, false, false);
         assertCommandSuccess(new InfoCommand("sort"), model, expectedCommandResult, expectedModel);
+
+        expectedCommandResult =
+                new CommandResult(InfoCommand.VIEW_SORT_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("viewsort"), model, expectedCommandResult, expectedModel);
     }
 
     @Test
