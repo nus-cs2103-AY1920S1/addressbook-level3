@@ -21,13 +21,13 @@ import seedu.address.model.employee.Employee;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add_em";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a employee to the AddMin+. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_GENDER + "GENDER"
-            + PREFIX_POSITION + "POSITION"
+            + PREFIX_GENDER + "GENDER "
+            + PREFIX_POSITION + "POSITION "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
