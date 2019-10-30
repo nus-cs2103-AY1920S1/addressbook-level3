@@ -1588,6 +1588,103 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+[discrete]
+=== Use case: Make notes (UC14)
+
+*MSS*
+
+1.  Teacher requests to make a note.
+2.  Teacher enters specifications of the note.
+3.  NJoy saves the item and displays the new record.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Njoy detects missing or invalid specifications.
+** 2a1. NJoy shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit notes (UC15)
+
+*MSS*
+
+1.  Teacher requests to edit a note.
+2.  Teacher enters specifications of the edited note.
+3.  NJoy saves the item and displays the new record.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. NJoy detects missing or invalid specifications.
+** 2a1. NJoy shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete notes (UC16)
+
+*MSS*
+
+1.  Teacher requests to delete a note.
+2.  Teacher enters specifications of the note to delete.
+3.  NJoy removes the item and displays the new record.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. NJoy detects invalid specifications.
+** 2a1. NJoy shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: List notes (UC17)
+
+*MSS*
+
+1.  Teacher requests to list notes to view.
+2.  NJoy displays the list of notes record.
++
+Use case ends.
+
+[discrete]
+=== Use case: Generate Statistics (UC18)
+
+*MSS*
+
+1.  Teacher requests to generate statistics report.
+2.  Teacher enters specifications of the data file.
+3.  NJoy reads the data file and generates statistics to show.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. NJoy detects invalid specifications of the data file or request.
+** 2a1. NJoy shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Save Statistics Report (UC19)
+
+*MSS*
+
+1.  Teacher pass:[generates a statistics report (UC18)].
+2.  Teacher goes to the directory where report is saved.
+3.  Teacher sees the saved statistics report.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
