@@ -10,7 +10,11 @@ import seedu.address.model.flashcard.FlashCard;
 
 /**
  * Abstract class from which all export paths inherit. A subclass of this would store the path to
- * a file, to which the {@code export} command would write.
+ * an export file.
+ *
+ * Please note: the word "export" is used in the capacity of a noun, and not a verb. This is not "the
+ * path that we export to", but rather "the path of one of our exports". As such, this same class is
+ * used by both the {@code export} and {@code import} commands.
  */
 public abstract class ExportPath {
     public abstract Path getPath();
