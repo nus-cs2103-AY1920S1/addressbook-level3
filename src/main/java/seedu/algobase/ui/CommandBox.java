@@ -66,6 +66,8 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    //@@author le0tan-reused
+    //Reused from addresbook-level-4
     /**
      * Handles the key press event, {@code keyEvent}.
      */
@@ -122,6 +124,7 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setText(text);
         commandTextField.positionCaret(commandTextField.getText().length());
     }
+    //@@author
 
     /**
      * Sets the command box style to use the default style.

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+//@@author le0tan-reused
+//Reused from addresbook-level-4
 /**
  * Has a cursor that points to an element in the list, and is able to iterate through the list.
  * This is different from {@code ListIterator}, which has a cursor that points in between elements.
@@ -109,3 +111,4 @@ public class ListElementPointer {
         return list.equals(iterator.list) && index == iterator.index;
     }
 }
+//@@author
