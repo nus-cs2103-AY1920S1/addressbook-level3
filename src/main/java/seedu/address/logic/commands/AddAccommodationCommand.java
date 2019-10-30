@@ -82,7 +82,8 @@ public class AddAccommodationCommand extends AddCommand {
                 model.addAccommodation(linkedAccommodation);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
                         new ResultInformation(linkedAccommodation, findIndexOfAccommodation(model, linkedAccommodation)),
-                        UiFocus.ACCOMMODATION);
+                        UiFocus.ACCOMMODATION, UiFocus.INFO
+                );
             } else {
                 if (index == null) {
                     model.addAccommodation(toAdd);

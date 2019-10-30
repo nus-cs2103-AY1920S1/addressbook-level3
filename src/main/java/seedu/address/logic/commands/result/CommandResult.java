@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.result;
 
+import javax.xml.transform.Result;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -77,6 +79,9 @@ public class CommandResult {
         return nonNulls;
     }
 
+    public Optional<ResultInformation> getInformationToUser() {
+        return Optional.ofNullable(resultInformation);
+    }
 
     public String getFeedbackToUser() {
         return feedbackToUser;

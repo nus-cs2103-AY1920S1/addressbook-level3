@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.day.ActivityWithTime;
@@ -70,15 +71,11 @@ public class CentralDisplay extends UiPart<Region> {
         // initialising agenda
         Agenda agenda = new Agenda() {
             @Override
-            /**
-             * Return the path to the CSS file so things are setup right
-             */
             public String getUserAgentStylesheet()
             {
                 return Agenda.class.getResource("/view/" + Agenda.class.getSimpleName() + ".css")
                         .toExternalForm();
             }
-
             @Override
             public Skin<?> createDefaultSkin() {
                 return new AgendaWeekSkin(this) {
@@ -148,6 +145,24 @@ public class CentralDisplay extends UiPart<Region> {
                 return lLocalDates;
             }
         });
+    }
+
+    public void changeInfo(ResultInformation resultInformation) {
+//        resultInformation.getAccommodation().ifPresent(accommodation -> {
+//
+//        });
+//        resultInformation.getAccommodation().ifPresent(accommodation -> {
+//
+//        });
+        resultInformation.getContact().ifPresent(contact -> changeContactInfo(contact, resultInformation.getIndex()));
+    }
+
+//    private void changeAccommodationInfo(Accommodation accommodation, Index displayedIndex) {
+//        infoTab.setContent(new );
+//    }
+
+    private void changeContactInfo(Contact contact, Index displayedIndex) {
+        infoTab.setContent(new ContactCardFull(contact, displayedIndex.getOneBased()).getRoot());
     }
 
     public void changeFocus(UiFocus ...uiFocus) {

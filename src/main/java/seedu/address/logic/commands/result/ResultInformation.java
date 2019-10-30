@@ -9,6 +9,9 @@ import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents the information to display to user after command execution.
+ */
 public class ResultInformation {
     private final Contact contact;
     private final Activity activity;
@@ -17,6 +20,7 @@ public class ResultInformation {
 
     public ResultInformation(Contact contact, Activity activity, Accommodation accommodation, Index displayedIndex) {
         this.displayedIndex = requireNonNull(displayedIndex);
+        onlyOneNonNull(contact, activity, accommodation);
         this.contact = contact;
         this.activity = activity;
         this.accommodation = accommodation;
@@ -48,5 +52,22 @@ public class ResultInformation {
 
     public Index getIndex() {
         return this.displayedIndex;
+    }
+
+    /**
+     * Throws an AssertionError if there is no one and only one non-null object.
+     */
+    private void onlyOneNonNull(Object ...obj) throws AssertionError {
+        int nonNullCounter = 0;
+        for (Object o : obj) {
+            if (!(o == null)) {
+                nonNullCounter++;
+            }
+        }
+        if (nonNullCounter > 1) {
+            throw new AssertionError("There is more than 1 non-null object.");
+        } else if (nonNullCounter < 1) {
+            throw new AssertionError("The objects are all null.");
+        }
     }
 }

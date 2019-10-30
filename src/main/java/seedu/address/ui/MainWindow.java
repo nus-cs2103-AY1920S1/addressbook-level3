@@ -13,6 +13,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.events.exceptions.EventException;
+import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -159,6 +160,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+            commandResult.getInformationToUser().ifPresent(this::applyInfoChange);
             commandResult.getUiFocus().ifPresent(this::applyUiFocusChange);
 
             return commandResult;
@@ -174,5 +176,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void applyUiFocusChange(UiFocus ...uiFocus) {
         centralDisplay.changeFocus(uiFocus);
+    }
+
+    /**
+     * Updates the UI and changes the focus to the relevant tab.
+     */
+    private void applyInfoChange(ResultInformation resultInformation) {
+        centralDisplay.changeInfo(resultInformation);
     }
 }

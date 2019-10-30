@@ -86,7 +86,8 @@ public class AddContactCommand extends AddCommand {
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, toAdd),
                 new ResultInformation(toAdd, findIndexOfContact(model, toAdd)),
-                UiFocus.CONTACT);
+                UiFocus.CONTACT, UiFocus.INFO
+        );
     }
 
     /**
