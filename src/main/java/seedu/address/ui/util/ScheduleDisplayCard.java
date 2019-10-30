@@ -37,9 +37,9 @@ public class ScheduleDisplayCard extends UiPart<Region> {
 
         if (timeslot.getEndTime().isBefore(LocalTime.now())) {
             //This event has passed.
-            eventName.setStyle("-fx-opacity: 0.5;");
-            venue.setStyle("-fx-opacity: 0.5;");
-            timing.setStyle("-fx-opacity: 0.5;");
+            eventName.setStyle("-fx-opacity: 0.3;");
+            venue.setStyle("-fx-opacity: 0.3;");
+            timing.setStyle("-fx-opacity: 0.3;");
         }
     }
 }
