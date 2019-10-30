@@ -20,9 +20,11 @@ import org.junit.jupiter.api.Test;
 import seedu.moneygowhere.logic.commands.AddCommand;
 import seedu.moneygowhere.logic.commands.BudgetCommand;
 import seedu.moneygowhere.logic.commands.ClearCommand;
+import seedu.moneygowhere.logic.commands.CurrencyCommand;
 import seedu.moneygowhere.logic.commands.DeleteCommand;
 import seedu.moneygowhere.logic.commands.EditCommand;
 import seedu.moneygowhere.logic.commands.EditCommand.EditSpendingDescriptor;
+import seedu.moneygowhere.logic.commands.ExchangeRateCommand;
 import seedu.moneygowhere.logic.commands.ExitCommand;
 import seedu.moneygowhere.logic.commands.FindCommand;
 import seedu.moneygowhere.logic.commands.GraphCommand;
@@ -122,6 +124,19 @@ public class SpendingBookParserTest {
     public void parseCommand_sort() throws Exception {
         String command = SortCommand.COMMAND_WORD + " " + PREFIX_DATE + "ASC";
         assertTrue(parser.parseCommand(command) instanceof SortCommand);
+    }
+
+    @Test
+    public void parseCommand_exchangeRate() throws Exception {
+        assertTrue(parser.parseCommand(ExchangeRateCommand.COMMAND_WORD) instanceof ExchangeRateCommand);
+        assertTrue(parser.parseCommand(ExchangeRateCommand.COMMAND_WORD + " 3") instanceof ExchangeRateCommand);
+    }
+
+    @Test
+    public void parseCommand_currency() throws Exception {
+        assertTrue(parser.parseCommand(CurrencyCommand.COMMAND_WORD) instanceof CurrencyCommand);
+        assertEquals(parser.parseCommand(CurrencyCommand.COMMAND_WORD + " SGD"),
+                new CurrencyCommand("SGD"));
     }
 
     @Test

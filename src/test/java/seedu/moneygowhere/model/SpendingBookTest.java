@@ -15,14 +15,18 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
+import seedu.moneygowhere.model.util.CurrencyDataUtil;
 import seedu.moneygowhere.testutil.SpendingBuilder;
 
-public class AddressBookTest {
+public class SpendingBookTest {
 
     private final SpendingBook addressBook = new SpendingBook();
 
@@ -104,6 +108,10 @@ public class AddressBookTest {
         private final ObservableList<Spending> spendings = FXCollections.observableArrayList();
         private final ObservableList<Reminder> reminders = FXCollections.observableArrayList();
         private final Budget budget = new Budget(0);
+        private final ObservableList<Currency> currencies =
+                FXCollections.observableArrayList(CurrencyDataUtil.getSampleCurrencies());
+        private ObjectProperty<Currency> currencyInUse;
+
         SpendingBookStub(Collection<Spending> spendings) {
             this.spendings.setAll(spendings);
         }
@@ -116,6 +124,21 @@ public class AddressBookTest {
         @Override
         public ObservableList<Reminder> getReminderList() {
             return reminders;
+        }
+
+        @Override
+        public ObservableList<Currency> getCurrencies() {
+            return currencies;
+        }
+
+        @Override
+        public Currency getCurrencyInUse() {
+            return currencyInUse.getValue();
+        }
+
+        @Override
+        public void registerCurrencyChangedListener(ChangeListener<Currency> currencyChangeListener) {
+            currencyInUse.addListener(currencyChangeListener);
         }
 
         @Override
