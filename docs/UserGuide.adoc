@@ -11,7 +11,7 @@
 :toclevels: 3
 :experimental:
 ifdef::env-github[]
-:tip-caption: :💡
+:tip-caption: 💡
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T13-2/main
@@ -351,6 +351,7 @@ Format: `find (flag) (keyword)...`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+|===
 
 Format: `find -FLAG [keyword...]`
 
@@ -368,28 +369,16 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 
 ==== Deleting a person : `delete`
 
-You can delete a body, worker or fridge entry, using its id number. +
+You can delete a body, worker or fridge entry, using its Identification Number. +
+
 Format: `delete -flag  id`
 
 |===
-| :bulb: a|
-When you delete a body, its associated notifications will also be deleted.
-
-If a fridge is occupied by a body, you cannot delete it.
-
-You only need to specify the number portion of the ID, without leading zeroes. Mortago will automatically convert it
-in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a body, worker or fridge entry respectively.
+| :bulb: a| When you delete a body, its associated notifications will also be deleted. If a fridge is occupied by a body, you cannot delete it.
 |===
 
-****
-* Deletes the body, worker or fridge entry with t
-he specified identification number.
 
-* The identification number is automatically generated when an entity is created and is in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
-body, worker or fridge entry respectively.
-X represents any digit.
-* You only need to specify the number portion of the ID, without leading zeroes.
-****
+* Deletes the body, worker or fridge entry with the specified identification number.
 
 Examples:
 
