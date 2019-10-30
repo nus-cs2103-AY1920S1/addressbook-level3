@@ -33,7 +33,7 @@ public class StorageManagerTest {
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(getTempFilePath("rl"));
         JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(getTempFilePath("el"), getTempFilePath("rl"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage,
-            jsonRecordListStorage, jsonCalendarStorage);
+                jsonRecordListStorage, jsonCalendarStorage);
     }
 
     private Path getTempFilePath(String fileName) {

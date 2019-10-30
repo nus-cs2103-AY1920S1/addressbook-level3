@@ -18,11 +18,11 @@ public class TypicalEvents {
     public static final LocalTime TIME_MORN = LocalTime.of(7, 45);
     public static final LocalTime TIME_EVEN = LocalTime.of(19, 0);
     public static final Reminder AUTO_REMINDER = new Reminder(new Description("description"),
-        new DateTime(DATE_FEB10, TIME_EVEN), Repetition.Once);
+            new DateTime(DATE_FEB10, TIME_EVEN), Repetition.Once);
 
     public static final Event APPOINTMENT = new EventBuilder().build();
     public static final Event MEETING = new EventBuilder().withDescription("Team meeting")
-        .withDateTime(DATE_MAR22, TIME_MORN).build();
+            .withDateTime(DATE_MAR22, TIME_MORN).build();
 
     private TypicalEvents() {
     } // prevents instantiation

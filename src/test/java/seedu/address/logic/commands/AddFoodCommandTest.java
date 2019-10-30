@@ -40,6 +40,7 @@ import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageType;
 import seedu.address.testutil.FoodBuilder;
+import sugarmummy.recmfood.commands.AddFoodCommand;
 import sugarmummy.recmfood.model.Food;
 import sugarmummy.recmfood.model.UniqueFoodList;
 
@@ -70,7 +71,7 @@ class AddFoodCommandTest {
         AddFoodCommandTest.ModelStub modelStub = new AddFoodCommandTest.ModelStubWithFood(validFood);
 
         assertThrows(CommandException.class, AddFoodCommand.MESSAGE_DUPLICATE_FOOD, () ->
-            addFoodCommand.execute(modelStub));
+                addFoodCommand.execute(modelStub));
     }
 
     @Test

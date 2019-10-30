@@ -112,7 +112,7 @@ public class MainDisplayPane {
      * @param newPaneSupplier A Supplier object containing the UiPart to be returned if a mapping for it does not exist
      *                        yet.
      * @return A UiPart representing the Main Display Pane observed by the user, and is simply the existing part of the
-     * same type if it already exists in the mapping of this MainDisplayPane object.
+     *         same type if it already exists in the mapping of this MainDisplayPane object.
      */
     private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,
                                          Supplier<UiPart<Region>> newPaneSupplier) {
