@@ -316,7 +316,7 @@ Hence, the mapping _declares_ the schedule for the dates that the event is being
 Fields in [] are optional. +
 If `EVENT_DATE` is not stated, then all dates inclusive of the start to end date will be filled with the stated `EVENT_DAYTIME`
 
-Format: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME`
+Format: `set_ev_dt EVENT_INDEX [on/EVENT_DATE] time/EVENT_DAYTIME`
 
 ****
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
@@ -592,7 +592,7 @@ e.g. `allocate 1 n/2 t/female`
 e.g. `allocatem 1 n/2 `
 * *Deallocate ALL Employees*: `free EVENT_INDEX` +
 e.g. `free 2 `
-* *Set DateTime to Event*: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME` +
+* *Set DateTime to Event*: `set_ev_dt EVENT_INDEX [on/EVENT_DATE] time/EVENT_DAYTIME` +
 e.g. `set_ev_dt 2 on/18/10/2019 time/1000-2000`
 * *Delete DateTime from Event*: `delete_ev_dt EVENT_INDEX on/EVENT_DATE` +
 e.g. `delete_ev_dt 2 on/18/10/2019`
