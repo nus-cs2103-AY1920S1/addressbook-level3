@@ -676,7 +676,7 @@ Sort all the bookmarks based on the order they were added.
 
 Expands the folder hierarchy by the specified number of levels.
 
-Format: `*expand* [LEVEL]`
+Format: `*expand* [LEVEL=1]`
 
 ****
 * `LEVEL` should be a positive integer.
@@ -693,7 +693,7 @@ Expands the folder hierarchy by 3 levels.
 
 Collapses the folder hierarchy by the specified number of levels.
 
-Format: `*collapse* [LEVEL = 1]`
+Format: `*collapse* [LEVEL=1]`
 
 ****
 * `LEVEL` should be a positive integer.

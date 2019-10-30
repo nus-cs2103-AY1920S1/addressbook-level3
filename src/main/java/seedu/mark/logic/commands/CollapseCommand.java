@@ -20,7 +20,7 @@ public class CollapseCommand extends Command {
             + "Parameters: [LEVELS] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT = "Collapsing folders by %1$d level(s)";
+    public static final String MESSAGE_COLLAPSE_FOLDER_ACKNOWLEDGEMENT = "Collapsing folders by %1$d level(s)";
 
     private final int levelsToCollapse;
 
@@ -33,7 +33,7 @@ public class CollapseCommand extends Command {
         requireAllNonNull(model, storage);
 
         return new ExpandCommandResult(
-                String.format(MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, levelsToCollapse), -levelsToCollapse);
+                String.format(MESSAGE_COLLAPSE_FOLDER_ACKNOWLEDGEMENT, levelsToCollapse), -levelsToCollapse);
     }
 
     @Override
