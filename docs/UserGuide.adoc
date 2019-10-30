@@ -368,7 +368,7 @@ e.g.  `bad 2`
 * Show Calendar of Deadlines - `calendar`
 * Clear all the flashcard - `clear` +
 e.g. `clear`
-* Edit an existing flashcard - ` edit [INDEX] {fields wanted to edit}…​` +
+* Edit an existing flashcard - `edit [INDEX] {fields wanted to edit}…​` +
 e.g.  `edit 2 c>CS2103`
 * Add a new Deadline - `deadline t>[TASK] d>[DUE DATE]` +
 e.g.  `deadline t>Math Test d>01/10/2019`
