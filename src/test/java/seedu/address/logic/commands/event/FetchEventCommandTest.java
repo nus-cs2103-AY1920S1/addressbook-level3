@@ -35,7 +35,7 @@ class FetchEventCommandTest {
     public void execute_validIndex_success() {
         FetchEventCommand fetchCommand = new FetchEventCommand(INDEX_FIRST_EVENT);
         Event eventToFetch = initialEventData.getEventList().get(0);
-        String expectedMessage = String.format(FetchEventCommand.MESSAGE_SUCCESS, eventToFetch);
+        String expectedMessage = String.format(FetchEventCommand.MESSAGE_SUCCESS, eventToFetch.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new EventBook(model.getEventBook()), new UserPrefs());

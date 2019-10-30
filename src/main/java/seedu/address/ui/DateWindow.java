@@ -19,20 +19,20 @@ import seedu.address.model.distinctdate.DistinctDate;
  */
 public class DateWindow extends UiPart<Stage> {
 
-    private static final Logger logger = LogsCenter.getLogger(FetchWindow.class);
+    private static final Logger logger = LogsCenter.getLogger(FetchEventWindow.class);
     private static final String FXML = "DateWindow.fxml";
 
     @FXML
     private ListView<DistinctDate> dateListView;
 
     /**
-     * Creates a new FetchWindow.
+     * Creates a new DateWindow.
      *
-     * @param root Stage to use as the root of the FetchWindow.
+     * @param root Stage to use as the root of the DateWindow.
      */
     public DateWindow(Stage root, Logic logic) {
         super(FXML, root);
-        ObservableList<DistinctDate> dateList = logic.getDistinctDateList();
+        ObservableList<DistinctDate> dateList = logic.getEventDistinctDateList();
         dateListView.setItems(dateList);
         dateListView.setCellFactory(listView -> new DateListViewCell());
     }
