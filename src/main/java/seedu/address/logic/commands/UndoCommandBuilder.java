@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.Map;
 
+import seedu.address.logic.UndoRedoManager;
 import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
 import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
-import seedu.address.model.undo.UndoRedoManager;
 
 /**
  * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.
