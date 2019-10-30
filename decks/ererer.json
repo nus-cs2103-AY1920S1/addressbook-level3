@@ -1,13 +1,9 @@
 {
     "cards": [
         {
-            "back": "2",
-            "front": "erer",
-            "type": "multiple-choice",
-            "choices": [
-                "ererer",
-                "erer"
-            ]
+            "back": "wegwiengwpignpe",
+            "front": "guwoguwlig",
+            "type": "front-back"
         }
     ],
     "name": "ererer"

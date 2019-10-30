@@ -10,7 +10,7 @@
          prefWidth="550.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label layoutX="22.0" layoutY="22.0" text="Add Card"/>
+        <Label layoutX="22.0" layoutY="22.0" text="Edit Card"/>
         <TextField fx:id="questionField" layoutX="22.0" layoutY="136.0"/>
         <Label layoutX="22.0" layoutY="107.0" text="Type your question"/>
         <VBox fx:id="answerContainer" layoutX="22.0" layoutY="196.0" prefHeight="94.0" prefWidth="502.0"/>

@@ -46,6 +46,8 @@ public class MainWindow extends VBox {
     @FXML
     private MenuItem quit;
     @FXML
+    private MenuItem statistics;
+    @FXML
     private Label messageLabel;
     @FXML
     private TextField commandLine;
@@ -90,6 +92,7 @@ public class MainWindow extends VBox {
         });
         javaEditor.setOnAction(e -> openEditor(true));
         jsEditor.setOnAction(e -> openEditor(false));
+        statistics.setOnAction(e -> openStatistics());
         render();
     }
 
@@ -204,4 +207,12 @@ public class MainWindow extends VBox {
 
     }
 
+    /**
+     * Opens a new window to show the user's statistics.
+     */
+    @FXML
+    public void openStatistics() {
+        // todo
+        System.out.println("Open statistics window");
+    }
 }

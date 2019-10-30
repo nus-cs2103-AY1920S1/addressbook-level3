@@ -24,6 +24,8 @@ import javafx.scene.layout.VBox;
 /**
  * A window that looks like CardCreatingWindow but which opens in DeckDisplay for the user to quickly edit a card.
  */
+// todo: suggestion - instead of opening within DeckDisplay, do the same as CardCreatingWindow, so
+// that the "Save Deck" and "Cancel" buttons appear too
 public class CardEditingWindow extends AnchorPane {
     @FXML
     private TextField questionField;
