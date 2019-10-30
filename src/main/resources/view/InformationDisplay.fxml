@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="informationBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="390.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="informationBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="title" maxWidth="1.7976931348623157E308" prefHeight="39.0" style="-fx-background-color: #30336B;" text="Profile" textFill="WHITE">
          <font>
@@ -23,16 +23,19 @@
       </Label>
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <children>
-            <VBox fx:id="imageHolder" maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+            <VBox fx:id="imageHolder" fillWidth="false" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="photo" fitHeight="164.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                  <ImageView fx:id="photo" fitHeight="164.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></ImageView>
-                  <FlowPane fx:id="tags" prefWrapLength="0.0" />
+                  <FlowPane fx:id="tags" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWrapLength="0.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="16.0" />
+                     </VBox.margin></FlowPane>
                </children>
             </VBox>
-            <VBox HBox.hgrow="ALWAYS">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="secondaryTitle" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="12.0" style="-fx-background-color: #30336B;" text="Personal Information" textAlignment="CENTER" textFill="WHITE">
                      <VBox.margin>
@@ -44,7 +47,7 @@
                      <padding>
                         <Insets bottom="4.0" top="4.0" />
                      </padding></Label>
-                  <GridPane fx:id="informationBlock" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="225.0" vgap="10.0">
+                  <GridPane fx:id="informationBlock" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="10.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.99996617106285" minWidth="10.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
@@ -58,7 +61,7 @@
                         <RowConstraints maxHeight="316.97392209837284" minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Name:">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Name:">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -68,7 +71,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Phone:" GridPane.rowIndex="1">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Phone:" GridPane.rowIndex="1">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -78,7 +81,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Email:" GridPane.rowIndex="3">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Email:" GridPane.rowIndex="3">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -88,7 +91,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Address:" GridPane.rowIndex="2">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Address:" GridPane.rowIndex="2">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -98,17 +101,17 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Attendance Rate" GridPane.rowIndex="4">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Attendance Rate" GridPane.rowIndex="4">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="attendanceRate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$attendanceRate" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <Label fx:id="attendanceRate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$attendanceRate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Performance" GridPane.rowIndex="5">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Performance" GridPane.rowIndex="5">
                            <font>
                               <Font size="15.0" />
                            </font>
