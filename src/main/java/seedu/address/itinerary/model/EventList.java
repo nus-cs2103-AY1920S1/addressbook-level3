@@ -20,8 +20,8 @@ public class EventList {
         events.add(event);
     }
 
-    public void deleteEvent(int index) {
-        events.remove(index - 1);
+    public void deleteEvent(Event event) {
+        events.remove(event);
     }
 
     public int getSize() {
@@ -49,7 +49,13 @@ public class EventList {
     }
 
     public boolean contains(Event editedEvent) {
-        return events.contains(editedEvent);
+        for (int i = 0; i < events.size(); i++ ) {
+            Event currEvent = events.get(i);
+            if (currEvent.isSameEvent(editedEvent)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setEvent(Event eventToEdit, Event editedEvent) throws ItineraryException {
@@ -65,5 +71,9 @@ public class EventList {
         }
 
         events.set(index, editedEvent);
+    }
+
+    public void clear() {
+        events.clear();
     }
 }

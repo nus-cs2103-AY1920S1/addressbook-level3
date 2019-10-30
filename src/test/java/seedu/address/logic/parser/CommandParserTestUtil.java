@@ -10,6 +10,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CommandParserTestUtil {
 
+    // Itinerary ArgumentTokenizerTest class would also have had applied the similar test cases over here.
+
     /**
      * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
      * equals to {@code expectedCommand}.

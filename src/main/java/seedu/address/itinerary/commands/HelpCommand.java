@@ -3,13 +3,14 @@ package seedu.address.itinerary.commands;
 import javafx.fxml.FXML;
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.ui.HelpCommandWindow;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Opens up a window with the commands available for itinerary.
  */
-public class HelpCommand extends Command {
+public class HelpCommand extends Command<Model> {
     public static final String COMMAND_WORD = "help";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Opens up a window which showcase all"
             + " the commands for itinerary.";

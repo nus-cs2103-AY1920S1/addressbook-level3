@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 public class ArgumentTokenizerTest {
 
+    // Itinerary ArgumentTokenizerTest class would also have had applied the similar test cases over here.
+
     private final Prefix unknownPrefix = new Prefix("--u");
     private final Prefix pSlash = new Prefix("p/");
     private final Prefix dashT = new Prefix("-t");

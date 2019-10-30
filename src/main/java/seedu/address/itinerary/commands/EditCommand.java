@@ -8,9 +8,16 @@ import java.util.Optional;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.itinerary.model.event.*;
+import seedu.address.itinerary.model.event.Date;
+import seedu.address.itinerary.model.event.Description;
+import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.model.event.Location;
+import seedu.address.itinerary.model.event.Tag;
+import seedu.address.itinerary.model.event.Time;
+import seedu.address.itinerary.model.event.Title;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
 import seedu.address.itinerary.model.Model;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.itinerary.parser.CliSyntax;
@@ -19,7 +26,7 @@ import seedu.address.itinerary.parser.CliSyntax;
  * Edits the details of an existing event in the itinerary.
  */
 @SuppressWarnings("MalformedFormatString")
-public class EditCommand extends Command {
+public class EditCommand extends Command<Model> {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
@@ -57,7 +64,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> lastShownList = model.getFilteredEventList();
+        List<Event> lastShownList = model.getSortedEventList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

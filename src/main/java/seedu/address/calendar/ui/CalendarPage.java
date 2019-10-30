@@ -52,7 +52,11 @@ public class CalendarPage extends UiPart<Scene> implements Page {
 
         try {
             Optional<ReadOnlyCalendar> calendarOptional = calendarStorage.readCalendar();
-            calendar.updateCalendar(calendarStorage.readCalendar().get());
+            if (calendarOptional.isPresent()) {
+                calendar.updateCalendar(calendarOptional.get());
+            } else {
+                System.out.println("oof");
+            }
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty Calendar");
             // todo: what to do about data? JUST OVERWRITE

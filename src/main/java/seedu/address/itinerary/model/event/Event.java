@@ -74,8 +74,11 @@ public class Event {
 
         return otherEvent != null
                 && (otherEvent.getTitle().equals(getTitle())
-                || otherEvent.getDate().equals(getDate())
-                || otherEvent.getTime().equals(getTime()));
+                && otherEvent.getDate().equals(getDate())
+                && otherEvent.getLocation().equals(getLocation())
+                && otherEvent.getDesc().equals(getDesc())
+                && otherEvent.getTag().equals(getTag())
+                && otherEvent.getTime().equals(getTime()));
     }
 
     /**

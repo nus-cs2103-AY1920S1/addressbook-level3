@@ -5,6 +5,7 @@ import static seedu.address.itinerary.parser.CliSyntax.*;
 
 import seedu.address.itinerary.commands.SearchCommand;
 import seedu.address.itinerary.ui.TagDropdown;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

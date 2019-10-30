@@ -1,5 +1,8 @@
 package seedu.address.itinerary.ui;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -15,14 +18,24 @@ import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.itinerary.model.Itinerary;
 import seedu.address.itinerary.model.Model;
-import seedu.address.itinerary.commands.Command;
+import seedu.address.itinerary.model.ReadOnlyItinerary;
 import seedu.address.itinerary.parser.ItineraryParser;
-import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.itinerary.storage.ItineraryStorage;
+import seedu.address.itinerary.storage.JsonItineraryStorage;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.*;
+import seedu.address.ui.CodeWindow;
+import seedu.address.ui.CommandBox;
+import seedu.address.ui.HelpWindow;
+import seedu.address.ui.Page;
+import seedu.address.ui.PageType;
+import seedu.address.ui.ResultDisplay;
+import seedu.address.ui.UiPart;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -75,6 +88,25 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         this.primaryStage = primaryStage;
         this.itineraryParser = new ItineraryParser();
         this.model = new Model();
+
+        Itinerary itinerary = new Itinerary();
+        ItineraryStorage itineraryStorage = new JsonItineraryStorage(Paths.get("data" , "itinerary.json"));
+
+        try {
+            Optional<ReadOnlyItinerary> itineraryOptional = itineraryStorage.readItinerary();
+            if (itineraryOptional.isPresent()) {
+                itinerary.updateItinerary(itineraryOptional.get());
+            } else {
+                System.out.println("There is no file to read from!");
+            }
+        } catch (DataConversionException e) {
+            System.out.println("Data file not in the correct format. Will be starting with an empty Itinerary");
+            // todo: what to do about data? JUST OVERWRITE
+        } catch (IOException e) {
+            System.out.println("Problem while reading from the file. Will be starting with an empty Itinerary");
+            // todo: what to do about data? JUST OVERWRITE
+        }
+
         fillInnerParts();
     }
 
@@ -82,7 +114,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
      * Fills up all the placeholders of this window.
      */
     private void fillInnerParts() {
-        eventPanel = new EventPanel(model.getFilteredEventList());
+        eventPanel = new EventPanel(model.getSortedEventList());
         eventPlaceHolder.getChildren().add(eventPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -146,8 +178,6 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     /**
      * Executes the command and returns the result.
-     *
-     * @see AddressBookLogic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {

@@ -11,6 +11,7 @@ import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 import seedu.address.commons.core.index.Index;
 import seedu.address.itinerary.commands.EditCommand;
 import seedu.address.itinerary.ui.TagDropdown;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.commons.core.Messages;
 

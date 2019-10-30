@@ -4,8 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.itinerary.commands.*;
-
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.GoToParser;
 import seedu.address.commons.core.Messages;
 
 /**
@@ -38,8 +41,8 @@ public class ItineraryParser {
         case GreetCommand.COMMAND_WORD:
             return new GreetCommand();
 
-        case SummaryCommand.COMMAND_WORD:
-            return new SummaryCommand();
+        case ClearEventCommand.COMMAND_WORD:
+            return new ClearEventCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

@@ -24,7 +24,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private static final String HELP_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
     private static final String HELP_MESSAGE = "For more information check out our user guide here: \n" + HELP_URL;
     private static final String GREET_MESSAGE = "greet";
-    private static final String SUMMARY_MESSAGE = "summary";
+    private static final String SUMMARY_MESSAGE = "clear";
     private static final String HELP = "help";
     private static final String GOTO_MESSAGE = "goto [page]";
     private static final String EXIT_MESSAGE = "exit";
@@ -34,8 +34,8 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private static final String DONE_MESSAGE = "done [index]";
     private static final String LIST_MESSAGE = "list";
     private static final String SORT_MESSAGE = "sort by/[title | location | chronological | completion | priority]";
-    private static final String REDO_MESSAGE = "redo";
-    private static final String UNDO_MESSAGE = "undo";
+    private static final String HISTORY_MESSAGE = "history";
+    private static final String UNDO_MESSAGE = "This command box supports auto-completion!";
     private static final String SEARCH_MESSAGE = "search by/[title | date | time | location] [keyword]";
     private static final String WISH_MESSAGE = "wish by/[activity | time] [details]";
     private static final String INSTA_URL = "https://www.instagram.com/zhaoming_boiboi/";
@@ -306,7 +306,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private void copyRedo() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
-        url.putString(REDO_MESSAGE);
+        url.putString(HISTORY_MESSAGE);
         clipboard.setContent(url);
     }
 

@@ -13,7 +13,7 @@ public class Tag {
      * The first character of the country must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = ".*";
+    public static final String VALIDATION_REGEX = "(.{0,20})";
     public final String tag;
 
     public Tag(String tag) {

@@ -30,8 +30,8 @@ public class Model {
         this.itinerary.addEvent(event);
     }
 
-    public void deleteEvent(int index) {
-        this.itinerary.deleteEvent(index);
+    public void deleteEvent(Event event) {
+        this.itinerary.deleteEvent(event);
     }
 
     public void setEvent(Event eventToEdit, Event editedEvent) throws ItineraryException {
@@ -48,7 +48,7 @@ public class Model {
      * Returns an unmodifiable view of the list of {@code Expense}
      * @return
      */
-    public SortedList<Event> getFilteredEventList() {
+    public SortedList<Event> getSortedEventList() {
         return sortedEvents;
     }
 
@@ -91,5 +91,16 @@ public class Model {
 
         itinerary.addAction(commandText);
         itinerary.resetPointer();
+    }
+
+    public void clearEvent() {
+        itinerary.clear();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Model // instanceof handles nulls
+                && sortedEvents.equals(((Model) other).sortedEvents));
     }
 }
