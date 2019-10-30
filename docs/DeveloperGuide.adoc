@@ -190,7 +190,6 @@ the user is prompted to shift the item to the replenish list by typing the reple
 //** Pros:
 //** Cons:
 
-
 // tag:autosort[]
 === Auto-sorting of items by name then date
 ==== Implementation
