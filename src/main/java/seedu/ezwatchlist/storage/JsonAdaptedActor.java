@@ -20,7 +20,6 @@ class JsonAdaptedActor {
     public JsonAdaptedActor(String actorName) {
         this.actorName = actorName;
     }
-
     /**
      * Converts a given {@code Actor} into this class for Jackson use.
      */
@@ -44,5 +43,6 @@ class JsonAdaptedActor {
         }
         return new Actor(actorName);
     }
+
 
 }

@@ -25,7 +25,6 @@ import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
 import seedu.ezwatchlist.model.show.Episode;
-import seedu.ezwatchlist.model.show.Genres;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
@@ -185,9 +184,10 @@ public class ApiMainUtil {
      * @param tvShowToAdd the show to be modified.
      */
     private static void setGenres(List<Genre> genres, Show tvShowToAdd) {
-        ArrayList<String> genreList = new ArrayList<>();
-        genres.forEach(x -> genreList.add(x.getName()));
-        tvShowToAdd.setGenres(new Genres(genreList));
+        ArrayList<seedu.ezwatchlist.model.show.Genre> genreList = new ArrayList<>();
+        genres.forEach(x -> genreList.add(new seedu.ezwatchlist.model.show.Genre(x.getName())));
+        Set<seedu.ezwatchlist.model.show.Genre> genreSet = new HashSet<>(genreList);
+        tvShowToAdd.addGenres(genreSet);
     }
 
     /**

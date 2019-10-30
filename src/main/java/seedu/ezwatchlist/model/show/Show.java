@@ -27,7 +27,7 @@ public abstract class Show {
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
     private Poster poster;
-    private Genres genres;
+    private final Set<Genre> genres = new HashSet<>();
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
@@ -97,6 +97,18 @@ public abstract class Show {
      */
     public Set<Actor> getActors() {
         return Collections.unmodifiableSet(actors);
+    }
+
+    /**
+     * Returns an immutable genre set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Genre> getGenres() {
+        return Collections.unmodifiableSet(genres);
+    }
+
+    public void addGenres(Set<Genre> genres) {
+        this.genres.addAll(genres);
     }
 
     /**
@@ -199,13 +211,5 @@ public abstract class Show {
                 .append(" Actors: ");
         getActors().forEach(builder::append);
         return builder.toString();
-    }
-
-    public Genres getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Genres genres) {
-        this.genres = genres;
     }
 }

@@ -13,6 +13,7 @@ import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Poster;
@@ -39,7 +40,7 @@ public class JsonAdaptedTvShow {
     private final int numOfEpisodesWatched;
     private final int totalNumOfEpisodes;
     private final List<JsonAdaptedTvSeason> tvSeasons = new ArrayList<>();
-    private final JsonAdaptedGenres genres = new JsonAdaptedGenres(new ArrayList<>());
+    private final List<JsonAdaptedGenre> genres = new ArrayList<>();
     /**
      * Constructs a {@code JsonAdaptedShows} with the given show details.
      */
@@ -55,7 +56,7 @@ public class JsonAdaptedTvShow {
                              @JsonProperty("numOfEpisodesWatched") int numOfEpisodesWatched,
                              @JsonProperty("totalNumOfEpisodes") int totalNumOfEpisodes,
                              @JsonProperty("tvSeasons") List<JsonAdaptedTvSeason> tvSeasons,
-                             @JsonProperty("genres") List<String> genres) {
+                             @JsonProperty("genres") List<JsonAdaptedGenre> genres) {
         this.name = name;
         this.type = type;
         this.dateOfRelease = dateOfRelease;
@@ -71,7 +72,9 @@ public class JsonAdaptedTvShow {
         if (tvSeasons != null) {
             this.tvSeasons.addAll(tvSeasons);
         }
-        this.genres.addAll(genres);
+        if (genres != null) {
+            this.genres.addAll(genres);
+        }
     }
 
     /**
@@ -84,16 +87,18 @@ public class JsonAdaptedTvShow {
         isWatched = source.isWatched().value;
         description = source.getDescription().fullDescription;
         runningTime = source.getRunningTime().value;
-        if (actors != null) {
-            this.actors.addAll(actors);
-        }
+        actors.addAll(source.getActors().stream()
+                .map(JsonAdaptedActor::new)
+                .collect(Collectors.toList()));
         poster = source.getPoster().getImagePath();
+        genres.addAll(source.getGenres().stream()
+                .map(JsonAdaptedGenre::new)
+                .collect(Collectors.toList()));
         numOfEpisodesWatched = source.getNumOfEpisodesWatched();
         totalNumOfEpisodes = source.getTotalNumOfEpisodes();
         tvSeasons.addAll(source.getTvSeasons().stream()
                 .map(JsonAdaptedTvSeason::new)
                 .collect(Collectors.toList()));
-        genres.addAll(source.getGenres().getGenres());
     }
 
     /**
@@ -110,6 +115,11 @@ public class JsonAdaptedTvShow {
         final List<TvSeason> showSeasons = new ArrayList<>();
         for (JsonAdaptedTvSeason season : tvSeasons) {
             showSeasons.add(season.toModelType());
+        }
+
+        final List<Genre> showGenres = new ArrayList<>();
+        for (JsonAdaptedGenre genre : genres) {
+            showGenres.add(genre.toModelType());
         }
 
         if (!Name.isValidName(name)) {
@@ -143,10 +153,6 @@ public class JsonAdaptedTvShow {
         if (runningTime < 0) {
             throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
         }
-        if (runningTime == 0) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
-        }
         if (!RunningTime.isValidRunningTime(runningTime)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
@@ -154,13 +160,16 @@ public class JsonAdaptedTvShow {
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
 
+        final Set<Genre> modelGenres = new HashSet<>(showGenres);
+
         Show show = new TvShow(modelName, modelDescription, modelIsWatched,
                 modelDateOfRelease, modelRunningTime, modelActors,
                 numOfEpisodesWatched, totalNumOfEpisodes, showSeasons);
 
         show.setType(type);
         show.setPoster(new Poster(poster));
-        show.setGenres(genres.toModelType());
+        show.addGenres(modelGenres);
+
         return show;
     }
 }

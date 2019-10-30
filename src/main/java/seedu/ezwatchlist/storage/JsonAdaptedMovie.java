@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +13,7 @@ import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
@@ -34,7 +36,7 @@ public class JsonAdaptedMovie {
     private final int runningTime;
     private final String poster;
     private final List<JsonAdaptedActor> actors = new ArrayList<>();
-    private final JsonAdaptedGenres genres = new JsonAdaptedGenres(new ArrayList<>());
+    private final List<JsonAdaptedGenre> genres = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedMovie} with the given show details.
@@ -48,7 +50,7 @@ public class JsonAdaptedMovie {
                              @JsonProperty("runningTime") int runningTime,
                              @JsonProperty("actors") List<JsonAdaptedActor> actors,
                              @JsonProperty("poster") String poster,
-                             @JsonProperty("genres") List<String> genres) {
+                             @JsonProperty("genres") List<JsonAdaptedGenre> genres) {
         this.name = name;
         this.type = type;
         this.dateOfRelease = dateOfRelease;
@@ -59,7 +61,9 @@ public class JsonAdaptedMovie {
             this.actors.addAll(actors);
         }
         this.poster = poster;
-        this.genres.addAll(genres);
+        if (genres != null) {
+            this.genres.addAll(genres);
+        }
     }
 
     /**
@@ -72,11 +76,13 @@ public class JsonAdaptedMovie {
         isWatched = source.isWatched().value;
         description = source.getDescription().fullDescription;
         runningTime = source.getRunningTime().value;
-        if (actors != null) {
-            this.actors.addAll(actors);
-        }
+        actors.addAll(source.getActors().stream()
+                .map(JsonAdaptedActor::new)
+                .collect(Collectors.toList()));
         poster = source.getPoster().getImagePath();
-        genres.addAll(source.getGenres().getGenres());
+        genres.addAll(source.getGenres().stream()
+                .map(JsonAdaptedGenre::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -88,6 +94,11 @@ public class JsonAdaptedMovie {
         final List<Actor> showActors = new ArrayList<>();
         for (JsonAdaptedActor actor : actors) {
             showActors.add(actor.toModelType());
+        }
+
+        final List<Genre> showGenres = new ArrayList<>();
+        for (JsonAdaptedGenre genre : genres) {
+            showGenres.add(genre.toModelType());
         }
 
         if (!Name.isValidName(name)) {
@@ -121,10 +132,6 @@ public class JsonAdaptedMovie {
         if (runningTime < 0) {
             throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
         }
-        if (runningTime == 0) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
-        }
         if (!RunningTime.isValidRunningTime(runningTime)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
@@ -132,12 +139,15 @@ public class JsonAdaptedMovie {
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
 
+        final Set<Genre> modelGenres = new HashSet<>(showGenres);
+
         Show show = new Movie(modelName, modelDescription, modelIsWatched,
                 modelDateOfRelease, modelRunningTime, modelActors);
 
         show.setType(type);
         show.setPoster(new Poster(poster));
-        show.setGenres(genres.toModelType());
+        show.addGenres(modelGenres);
+
         return show;
     }
 }
