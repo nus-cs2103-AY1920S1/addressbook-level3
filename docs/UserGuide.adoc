@@ -60,10 +60,10 @@ https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655
 
 .Dark Mode display for $aveNUS
 
-image::Darkmode.png[width="790"]
+image::DarkMode.png[width="800"]
 
 .Light Mode display for $aveNUS. Note that the panels are at the same locations as in Figure 3.
-image::LightMode.png[width-"790"]
+image::LightMode.png[width-"800"]
 
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
