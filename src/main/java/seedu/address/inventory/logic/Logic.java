@@ -1,9 +1,6 @@
 package seedu.address.inventory.logic;
 
-import java.util.ArrayList;
-
 import seedu.address.inventory.logic.commands.CommandResult;
-import seedu.address.inventory.model.Item;
 import seedu.address.inventory.util.InventoryList;
 
 /**
@@ -24,12 +21,4 @@ public interface Logic {
      * @return Inventory List in the model manager.
      */
     InventoryList getInventoryList();
-
-    /**
-     * Returns the inventory list in the form of array list.
-     * @return the inventory list in the form of array list.
-     */
-    ArrayList<Item> getInventoryListInArrayList() throws Exception;
-
-    void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws Exception;
 }

@@ -92,13 +92,8 @@ public class InventoryList {
         return iList.get(i);
     }
 
-
-    public ArrayList<Item> getInventoryListInArrayList() {
-        return this.iList;
-
     public void sortReset() {
         Collections.sort(iList, new ResetSort());
-
     }
 
     /**
@@ -140,7 +135,6 @@ public class InventoryList {
         }
     }
 
-
     /**
      * Comparator to compare by trueId in Item.
      */
@@ -168,5 +162,4 @@ public class InventoryList {
                 || (other instanceof InventoryList // instanceof handles nulls
                 && iList.equals(((InventoryList) other).getiList()));
     }
-
 }

@@ -85,7 +85,7 @@ public class CashierModelStubAcceptingItemAdded extends CashierModelStub {
 
     @Override
     public InventoryList getInventoryList() {
-        return new InventoryList(this.inventoryModelStub.getItemsAdded());
+        return this.inventoryModelStub.getInventoryList();
     }
 
     @Override
