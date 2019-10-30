@@ -3,54 +3,49 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.mapping.PersonToGroupMapping;
-import seedu.address.model.mapping.Role;
-import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
- * Adds a person into a group.
+ * Deletes a person from a group.
  */
-public class AddToGroupCommand extends Command {
-    public static final String COMMAND_WORD = "addtogroup";
+public class DeleteFromGroupCommand extends Command {
+
+    public static final String COMMAND_WORD = "deletefromgroup";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " "
             + PREFIX_NAME + "NAME" + " "
-            + PREFIX_GROUPNAME + "GROUP_NAME" + " "
-            + "[" + PREFIX_REMARK + "ROLE]";
+            + PREFIX_GROUPNAME + "GROUP_NAME";
 
-    public static final String MESSAGE_SUCCESS = "Add to group success: %s";
-    public static final String MESSAGE_FAILURE = "Unable to add person to group: %s";
+    public static final String MESSAGE_SUCCESS = "%s is removed from %s";
+    public static final String MESSAGE_FAILURE = "Unable to delete mapping: %s";
 
-    public static final String MESSAGE_DUPLICATE = "Duplicate Mapping";
     public static final String MESSAGE_PERSON_NOT_FOUND = "Unable to find person";
     public static final String MESSAGE_GROUP_NOT_FOUND = "Unable to find group";
+    public static final String MESSAGE_MAPPING_NOT_FOUND = "Unable to find mapping";
+
 
     private final Name name;
     private final GroupName groupName;
-    private final Role role;
 
-    public AddToGroupCommand(Name name, GroupName groupName, Role role) {
+    public DeleteFromGroupCommand(Name name, GroupName groupName) {
         requireNonNull(name);
         requireNonNull(groupName);
-        requireNonNull(role);
 
         this.name = name;
         this.groupName = groupName;
-        this.role = role;
     }
 
     @Override
@@ -70,38 +65,24 @@ public class AddToGroupCommand extends Command {
             return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND));
         }
 
-        PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId(), role);
+        PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId());
 
         try {
+            model.deletePersonToGroupMapping(mapping);
 
-            model.addPersonToGroupMapping(mapping);
-
-            // updates main window
             model.updateScheduleWindowDisplay(group.getGroupName(),
                     LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
-            // updates side panel
-            model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
-
-            return new CommandResult(String.format(MESSAGE_SUCCESS, mapping.toString()));
-
-        } catch (DuplicateMappingException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE));
+        } catch (MappingNotFoundException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_MAPPING_NOT_FOUND));
         }
 
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                person.getName().toString(), group.getGroupName().toString()));
     }
 
     @Override
     public boolean equals(Command command) {
-        if (command == null) {
-            return false;
-        } else if (!(command instanceof AddToGroupCommand)) {
-            return false;
-        } else if (((AddToGroupCommand) command).name.equals(this.name)
-                && ((AddToGroupCommand) command).groupName.equals(this.groupName)) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 }

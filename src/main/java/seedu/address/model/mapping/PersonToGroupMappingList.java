@@ -22,14 +22,20 @@ public class PersonToGroupMappingList {
     /**
      * Adds a mapping to the list of mappings, will not add when a duplicate is found.
      *
-     * @param map mapping to be added
+     * @param currentMapping mapping to be added
      */
-    public void addPersonToGroupMapping(PersonToGroupMapping map) throws DuplicateMappingException {
+    public void addPersonToGroupMapping(PersonToGroupMapping currentMapping) throws DuplicateMappingException {
         try {
-            findPersonToGroupMapping(map.getPersonId(), map.getGroupId());
-            throw new DuplicateMappingException();
+            PersonToGroupMapping mapping =
+                    findPersonToGroupMapping(currentMapping.getPersonId(), currentMapping.getGroupId());
+
+            if(mapping.getRole().equals(currentMapping.getRole())) {
+                throw new DuplicateMappingException();
+            } else {
+                mapping.setRole(currentMapping.getRole());
+            }
         } catch (MappingNotFoundException e) {
-            this.mappings.add(map);
+            this.mappings.add(currentMapping);
         }
 
     }
