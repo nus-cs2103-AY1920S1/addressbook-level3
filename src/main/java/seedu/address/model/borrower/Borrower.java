@@ -175,11 +175,11 @@ public class Borrower {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append(", Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
+                .append(", Email: ")
                 .append(getEmail())
-                .append(" Borrower Id: ")
+                .append(", Borrower ID: ")
                 .append(getBorrowerId());
         return builder.toString();
     }

@@ -21,7 +21,7 @@ public class ServeCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_BORROWER_ID + "K0001 ";
 
-    public static final String MESSAGE_SUCCESS = "Currently serving borrower: %1$s\n";
+    public static final String MESSAGE_SUCCESS = "Currently serving Borrower: %1$s\n";
 
     private BorrowerId borrowerId;
 

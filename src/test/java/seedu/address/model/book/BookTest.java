@@ -134,11 +134,10 @@ public class BookTest {
         StringBuilder genres = new StringBuilder();
         book1.getGenres().forEach(genre -> genres.append(genre + " "));
         String stringRep = book1.getTitle()
-                + " Serial Number: " + book1.getSerialNumber()
-                + " Author: " + book1.getAuthor()
-                + " Genres: " + genres.toString();
+                + ", Serial Number: " + book1.getSerialNumber()
+                + ", Author: " + book1.getAuthor()
+                + ", Genres: " + genres.toString();
 
-        String temp = book1.toString();
         assertTrue(book1.toString().equals(stringRep));
     }
 }

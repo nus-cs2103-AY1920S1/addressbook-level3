@@ -38,13 +38,11 @@
          <RowConstraints />
       </rowConstraints>
   </GridPane>
-   <Pane maxWidth="100.0" minHeight="105.0" minWidth="100.0" prefHeight="105.0" prefWidth="100.0">
+   <Pane maxWidth="100.0" minHeight="105.0" minWidth="120.0" prefHeight="105.0" prefWidth="120.0">
       <children>
-         <Label fx:id="loanStatus" layoutY="41.0" text="Loaned">
-            <font>
-               <Font size="19.0" />
-            </font>
-         </Label>
+          <Label fx:id="loanStatus" layoutY="41.0" text="" />
+          <Label fx:id="dueDate" layoutY="62.0" text="" styleClass="cell_small_label" />
+          <Label fx:id="renewCount" layoutY="78.0" text="" styleClass="cell_small_label" />
       </children>
    </Pane>
 </HBox>
