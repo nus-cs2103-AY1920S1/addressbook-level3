@@ -58,7 +58,7 @@ public class FlipCommand extends Command {
      * @return An updated answer if the flashcard is a MCQ one, if not it returns the original answer.
      * @throws CommandException If the choice index is invalid.
      */
-    public Answer updateAnswer(Flashcard flashcard) throws CommandException {
+    private Answer updateAnswer(Flashcard flashcard) throws CommandException {
         if (!flashcard.isMcq()) {
             return answer;
         } else {
@@ -72,7 +72,15 @@ public class FlipCommand extends Command {
         }
     }
 
-    public String buildResultString(Answer updatedAnswer, boolean isCorrect, Flashcard quizCard, Quiz quiz) {
+    /**
+     * Builds the result string based on whether the answer is correct and checks if there's a next card.
+     * @param updatedAnswer Parsed answer.
+     * @param isCorrect If the answer was correct.
+     * @param quizCard Card currently being quizzed.
+     * @param quiz Quiz object containing all quizable cards.
+     * @return Resultant string for CommandResult
+     */
+    private String buildResultString(Answer updatedAnswer, boolean isCorrect, Flashcard quizCard, Quiz quiz) {
         final StringBuilder builder = new StringBuilder();
         builder.append("Your answer: ").append(updatedAnswer.toString());
         if (isCorrect) {
@@ -85,7 +93,7 @@ public class FlipCommand extends Command {
         if (!quiz.isEmpty()) {
             builder.append("This is your next card:\n").append(quiz.quizCard());
         } else {
-            FlashcardListParser.isQuizMode = false;
+            FlashcardListParser.setQuizMode(false);
             builder.append("This quiz has ended.");
         }
 

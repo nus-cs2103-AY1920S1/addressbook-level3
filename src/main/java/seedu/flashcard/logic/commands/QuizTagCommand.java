@@ -6,12 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
-import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
-import seedu.flashcard.logic.parser.ParserUtil;
-import seedu.flashcard.logic.parser.QuizCommandParser;
-import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.tag.Tag;

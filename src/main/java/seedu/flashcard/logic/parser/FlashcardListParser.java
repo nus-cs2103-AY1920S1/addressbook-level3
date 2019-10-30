@@ -31,12 +31,12 @@ import seedu.flashcard.logic.parser.exceptions.ParseException;
  */
 public class FlashcardListParser {
 
+    private static boolean quizMode = false;
+
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    public static boolean isQuizMode = false;
 
     /**
      * Parses the original user input and calls corresponding commands or sub-parsers.
@@ -53,7 +53,7 @@ public class FlashcardListParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        if (isQuizMode) {
+        if (quizMode) {
             return parseQuizMode(commandWord, arguments);
         }
 
@@ -90,11 +90,11 @@ public class FlashcardListParser {
             return new DeleteTagCommandParser().parse(arguments);
 
         case QuizCommand.COMMAND_WORD:
-            isQuizMode = true;
+            quizMode = true;
             return new QuizCommandParser().parse(arguments);
 
         case QuizTagCommand.COMMAND_WORD:
-            isQuizMode = true;
+            quizMode = true;
             return new QuizTagCommandParser().parse(arguments);
 
         case FlipCommand.COMMAND_WORD:
@@ -111,16 +111,23 @@ public class FlashcardListParser {
         }
     }
 
+    /**
+     * Parses corresponding commands that are triggered in quiz mode.
+     * @param commandWord String representing the command.
+     * @param arguments Arguments of the command.
+     * @return Command based on user input.
+     * @throws ParseException when the user input is unrecognised.
+     */
     public Command parseQuizMode(String commandWord, String arguments) throws ParseException {
 
         switch (commandWord) {
 
         case EndCommand.COMMAND_WORD:
-            isQuizMode = false;
+            quizMode = false;
             return new EndCommand();
 
         case ExitCommand.COMMAND_WORD:
-            isQuizMode = false;
+            quizMode = false;
             return new ExitCommand();
 
         case FlipCommand.COMMAND_WORD:
@@ -129,6 +136,22 @@ public class FlashcardListParser {
         default:
             throw new ParseException(MESSAGE_QUIZ_UNSUPPORTED_COMMAND);
         }
+    }
+
+    /**
+     * Getter for quiz mode boolean.
+     * @return True if logic is currently in quiz mode.
+     */
+    public boolean isQuizMode() {
+        return quizMode;
+    }
+
+    /**
+     * Setter for quiz mode boolean.
+     * @param quizMode Sets quiz mode boolean to quizMode.
+     */
+    public static void setQuizMode(boolean quizMode) {
+        FlashcardListParser.quizMode = quizMode;
     }
 
 }
