@@ -374,11 +374,11 @@ This update of the list of transactions is done for every command that is execut
 
 Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest list of transactions
 to generate an updated list of reimbursements for the user to view in the Reimbursement Tab. The following sequence diagram shows how
-the Reimbursement Tab is updated:
+the Reimbursement Tab is updated from the `MainWindow`:
 [[update-reimbursement]]
 .Sequence Diagram of updating the reimbursement list in Reimbursement Tab (transaction package)
 
-image::HomeUpdateReimbursement.png[]
+image::TUpdateRinMainWindow.png[]
 
 [NOTE]
 This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<UpdateTL, Sequence Diagram of updating the transaction list in Home Tab>>) when there is a command executed successfully in the Home Tab.

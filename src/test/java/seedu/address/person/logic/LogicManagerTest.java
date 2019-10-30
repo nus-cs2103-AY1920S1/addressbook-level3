@@ -24,6 +24,7 @@ import seedu.address.person.logic.commands.CommandResult;
 import seedu.address.person.logic.commands.ListCommand;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.logic.parser.exceptions.ParseException;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.ReadOnlyAddressBook;
@@ -70,7 +71,8 @@ public class LogicManagerTest {
         seedu.address.transaction.model.Model transactionModel =
                 new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
         seedu.address.transaction.storage.StorageManager transactionManager =
-                new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION), personModel);
+                new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION),
+                        (GetPersonByNameOnlyModel) personModel);
 
         //For Reimbursement Storage and Manager
         seedu.address.reimbursement.model.Model reimbursementModel =
@@ -101,11 +103,10 @@ public class LogicManagerTest {
 
         //All related logics
         transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel,
-                transactionManager, personModel,
-                reimbursementModel, reimbursementManager);
+                transactionManager, (GetPersonByNameOnlyModel) personModel);
         reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                        transactionModel, transactionManager, personModel);
+                        personModel);
         logic = new LogicManager(model, personManager, transactionLogic, reimbursementLogic);
     }
     @Test

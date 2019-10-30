@@ -18,6 +18,7 @@ import seedu.address.person.commons.util.StringUtil;
 import seedu.address.person.logic.Logic;
 import seedu.address.person.logic.LogicManager;
 import seedu.address.person.model.AddressBook;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.ReadOnlyAddressBook;
@@ -93,8 +94,10 @@ public class MainApp extends Application {
         model = initModelManager(storage, userPrefs);
 
         //For Transaction Storage and Model
+        GetPersonByNameOnlyModel getPersonByNameOnlyModel = (GetPersonByNameOnlyModel) model;
         transactionStorage =
-                new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION), model);
+                new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION),
+                        getPersonByNameOnlyModel);
         transactionModel = initTransactionModelManager(transactionStorage);
 
         //For Reimbursement Storage and Model
@@ -126,15 +129,14 @@ public class MainApp extends Application {
         //cashierStorage.getInventoryList(),
 
         //For Overview Storage and Model
-        overviewStorage = new seedu.address.overview.storage.StorageManager("data/overviewInformation.txt");
+        overviewStorage = new seedu.address.overview.storage.StorageManager(
+                new File("data/overviewInformation.txt"));
         overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage.readFromFile());
 
         //All logic
 
         reimbursementLogic = new
-                seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage,
-                transactionModel, transactionStorage, model);
-
+                seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage, model);
 
         cashierLogic = new seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model,
                 transactionModel, inventoryModel);

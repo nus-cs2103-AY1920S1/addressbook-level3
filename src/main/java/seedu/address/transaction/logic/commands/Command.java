@@ -19,6 +19,6 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      * @throws NoSuchPersonException If an error occurs when a Person is not in the data base.
      */
-    public abstract CommandResult execute(Model model, seedu.address.person.model.Model personModel)
+    public abstract CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException;
 }

@@ -21,7 +21,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
+    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         requireNonNull(model);
         requireNonNull(personModel);
         model.updatePredicate(this.predicate);

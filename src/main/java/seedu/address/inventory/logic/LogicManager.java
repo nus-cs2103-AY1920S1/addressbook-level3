@@ -25,7 +25,6 @@ public class LogicManager implements Logic {
                         seedu.address.inventory.storage.StorageManager inventoryStorage) {
         //this.cashierManager = cashierManager;
         //this.cashierStorage = cashierStorage;
-
         parser = new InventoryTabParser();
 
         this.inventoryModel = inventoryModel;
@@ -34,8 +33,7 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws Exception {
-        Command command = parser.parseCommand(commandText,
-                inventoryModel.getInventoryList().size());
+        Command command = parser.parseCommand(commandText, inventoryModel.getInventoryList().size());
         CommandResult commandResult = command.execute(inventoryModel);
         inventoryModel.updateIndexes();
         inventoryStorage.writeFile(inventoryModel.getInventoryList());

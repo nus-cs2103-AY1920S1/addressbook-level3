@@ -28,4 +28,16 @@ public interface Model {
 
     InventoryList getInventoryList();
 
+    void sortByQuantity();
+
+    void sortByDescription();
+
+    void sortByCategory();
+
+    void sortReset();
+
+    //InventoryList getInventoryList();
+
+    boolean equals(Object obj);
+
 }

@@ -57,6 +57,19 @@ public class TypicalTransactions {
     public static final Transaction DANIEL_TRANSACTION_9 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(9).withAmount(44.0).build();
 
+    private Transaction aliceTransaction10 = new TransactionBuilder(TypicalPersons.ALICE)
+                .withId(10)
+                .withAmount(-20.0)
+                .withDate("14-Feb-2019")
+                .build();
+    private Transaction elleTransaction11 = new TransactionBuilder(TypicalPersons.ELLE)
+                .withId(11)
+                .withAmount(-100)
+                .withDescription("food")
+                .withDate("12-Jun-2019")
+                .build();
+
+
     /**
      * Returns an {@code TransactionList} with all the typical transactions.
      */
@@ -70,14 +83,12 @@ public class TypicalTransactions {
                 FIONA_TRANSACTION_8));
     }
 
-    public static TransactionList getTransactionListWithReimbursementNeeded() {
+    public TransactionList getTransactionListWithReimbursementNeeded() {
         return new TransactionList(getTransactionsWithReimbursements());
     }
 
-    public static ArrayList<Transaction> getTransactionsWithReimbursements() {
-        return new ArrayList<>();
-        //        return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION_10, ELLE_TRANSACTION_11,
-        //                ALICE_TRANSACTION_12, BOB_TRANSACTION_13));
+    public ArrayList<Transaction> getTransactionsWithReimbursements() {
+        return new ArrayList<>(Arrays.asList(aliceTransaction10, elleTransaction11));
     }
 
     public static TransactionList getAmountSortedTransactionList() {
