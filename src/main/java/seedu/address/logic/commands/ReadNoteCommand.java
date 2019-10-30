@@ -53,7 +53,10 @@ public class ReadNoteCommand extends Command {
         model.setNote(noteToRead, updatedNote);
         model.sortNoteBook();
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
-        return new CommandResult("Note opened on the right panel.", noteToRead, targetIndex);
+        return CommandResult.builder("Note opened on the right panel.")
+                .setObject(noteToRead)
+                .setIndex(targetIndex)
+                .build();
     }
 
     @Override
