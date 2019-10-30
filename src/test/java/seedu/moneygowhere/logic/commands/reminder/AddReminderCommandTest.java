@@ -194,7 +194,6 @@ class AddReminderCommandTest {
         public void setCurrencyInUse(Currency currency) {
             throw new AssertionError("This method should not be called.");
         }
-        };
 
         @Override
         public ObservableList<Spending> getStatsList() {
