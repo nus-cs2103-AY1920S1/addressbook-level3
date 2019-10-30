@@ -1,5 +1,9 @@
 package seedu.mark.storage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,10 +11,6 @@ import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * JSON friendly version of {@link Reminder}.
@@ -71,7 +71,8 @@ public class JsonAdaptedReminder {
         final Url modelUrl = new Url(url);
 
         if (time == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDateTime.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDateTime.class.getSimpleName()));
         }
 
         final LocalDateTime modelTime = getModelTime(time);
