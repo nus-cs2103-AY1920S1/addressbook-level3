@@ -54,6 +54,7 @@ class MainWindow extends UiPart<Stage> {
     private CodeResultPanel codeResultPanel;
     private ProblemStatementPanel problemStatementPanel;
     private HomePage homePage;
+    private QuestionsPage questionsPage;
 
     @FXML
     private StackPane problemStatementPlaceholder;
@@ -87,6 +88,9 @@ class MainWindow extends UiPart<Stage> {
 
     @FXML
     private AnchorPane homePagePlaceholder;
+
+    @FXML
+    private AnchorPane questionsPagePlaceHolder;
 
     /**
      * Instantiates a new Main window.
@@ -183,6 +187,8 @@ class MainWindow extends UiPart<Stage> {
         homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
         homePagePlaceholder.getChildren().add(homePage.getRoot());
 
+        questionsPage = new QuestionsPage(questionsLogic.getFilteredQuestionsList());
+        questionsPagePlaceHolder.getChildren().add(questionsPage.getRoot());
 //        updateProgramEvaluationPanel();
 //
 //        homePage = new HomePage(questionsLogic.getFilteredQuestionsList());

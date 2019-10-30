@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            style="-fx-background-color: #7d2277;">
+
+    <padding>
+        <Insets left="45.0" right="45.0"/>
+    </padding>
+
+    <GridPane AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+
+        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS">
+            <StackPane fx:id="questionListPanelPlaceholder" VBox.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"/>
+        </VBox>
+
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <StackPane fx:id="problemStatementDisplayPlaceholder" VBox.vgrow="ALWAYS"/>
+        </VBox>
+
+        <rowConstraints>
+            <RowConstraints vgrow="ALWAYS" percentHeight="100"/>
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
+        </columnConstraints>
+
+    </GridPane>
+
+</AnchorPane>

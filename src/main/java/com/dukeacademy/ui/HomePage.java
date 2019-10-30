@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -295,6 +296,7 @@ public class HomePage extends UiPart<Region> {
             }
         }
         attemptingListView.setPrefWidth(300);
+        VBox.setVgrow(attemptingListView, Priority.ALWAYS);
         attempting.getChildren().add(attemptingListView);
     }
 
@@ -311,6 +313,7 @@ public class HomePage extends UiPart<Region> {
             }
         }
         bookmarkedListView.setPrefWidth(300);
+        VBox.setVgrow(bookmarkedListView, Priority.ALWAYS);
         bookmarked.getChildren().add(bookmarkedListView);
     }
 

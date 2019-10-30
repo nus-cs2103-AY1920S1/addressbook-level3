@@ -34,7 +34,7 @@
                 </MenuBar>
 
                 <!-- Command box and command results display -->
-                <HBox spacing="15.0" style="-fx-border-color: #ff1e00;" VBox.vgrow="NEVER">
+                <HBox spacing="15.0" VBox.vgrow="NEVER">
                     <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity"
                                minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="258.0"
                                style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
@@ -54,6 +54,10 @@
                 <TabPane VBox.vgrow="ALWAYS">
                     <Tab text="Home">
                         <AnchorPane fx:id="homePagePlaceholder"/>
+                    </Tab>
+
+                    <Tab text="Questions">
+                        <AnchorPane fx:id="questionsPagePlaceHolder"/>
                     </Tab>
                 </TabPane>
                 <!--                <HBox style="-fx-border-color: #ff1e00;" VBox.vgrow="ALWAYS">-->
