@@ -132,6 +132,11 @@ Examples:
 * `reminder John’s Birthday -r 2019-09-19T14:00 -t friend`
 * `reminder John's Birthday -r 3.day.later`
 
+=== Snoozing a reminder: `snooze`
+
+Snoozes a reminder.
+Format:
+
 === Show the specified category : `show`
 
 Shows the specified category by switching the view to the given list. +

@@ -7,6 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.effect.GaussianBlur;
@@ -29,6 +30,7 @@ import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.DownCommandResult;
 import seedu.elisa.logic.commands.OpenCommandResult;
 import seedu.elisa.logic.commands.PriorityCommand;
+import seedu.elisa.logic.commands.ThemeCommandResult;
 import seedu.elisa.logic.commands.UpCommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
@@ -68,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private String reminderAlarmUrl = getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString();
     private AudioClip reminderAlarm = new AudioClip(reminderAlarmUrl);
+
+    @FXML
+    private Scene scene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -376,6 +381,29 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Changes the theme
+     *
+     * @param theme
+     */
+    private void changeTheme(String theme) {
+        System.out.print(theme);
+        System.out.print(scene.getStylesheets());
+        scene.getStylesheets().remove(0);
+        scene.getStylesheets().remove(0);
+        switch(theme.trim()) {
+        case "white":
+            scene.getStylesheets().add("view/WhiteTheme.css");
+            scene.getStylesheets().add("view/Extensions.css");
+            break;
+        case "black":
+            scene.getStylesheets().add("view/DarkTheme.css");
+            scene.getStylesheets().add("view/Extensions.css");
+            break;
+        default:
+        }
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.elisa.logic.Logic#execute(String)
@@ -409,9 +437,13 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             }
 
+            if (commandResult instanceof ThemeCommandResult) {
+                changeTheme(commandResult.getTheme());
+                return commandResult;
+            }
+
             if (commandResult instanceof OpenCommandResult) {
                 commandResult = executeOpen(commandResult);
-
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
             }

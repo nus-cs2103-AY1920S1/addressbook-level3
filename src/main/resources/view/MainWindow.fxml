@@ -19,14 +19,14 @@
         <Image url="@/images/ElisaImageWithoutWords.png" />
     </icons>
     <scene>
-        <Scene>
+        <Scene fx:id="scene">
             <stylesheets>
                 <URL value="@DarkTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
 
-            <AnchorPane prefHeight="600.0" prefWidth="900.0">
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="pane-with-border">
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" styleClass="pane-with-border" AnchorPane.topAnchor="0.0">
                     <children>
                         <Pane maxHeight="110.0" maxWidth="300.0" minHeight="110.0" minWidth="300.0" prefHeight="110.0" prefWidth="300.0" styleClass="pane-with-border" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <padding>
@@ -55,7 +55,7 @@
                                 </Text>
                             </children>
                         </Pane>
-                        <StackPane fx:id="resultDisplayPlaceholder" layoutY="110.0" maxWidth="300.0" minHeight="440.0" minWidth="300.0" prefWidth="300.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+                        <StackPane fx:id="resultDisplayPlaceholder" layoutY="110.0" maxWidth="300.0" minHeight="440.0" minWidth="300.0" prefWidth="300.0" styleClass="result-display" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                             <padding>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
@@ -71,7 +71,7 @@
                     <children>
                         <StackPane styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <TabPane fx:id="viewsPlaceholder" style="-fx-background-color: #383838;" stylesheets="@tabpane.css" tabClosingPolicy="UNAVAILABLE">
+                                <TabPane fx:id="viewsPlaceholder" styleClass="tab-pane" tabClosingPolicy="UNAVAILABLE">
                                     <tabs>
                                         <Tab fx:id="T" text="(T)ask">
                                             <content>
