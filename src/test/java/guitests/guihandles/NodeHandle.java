@@ -8,6 +8,7 @@ import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
 
+//@@ author
 /**
  * Provides access to a node in a JavaFx application for GUI testing purposes.
  */
@@ -42,3 +43,4 @@ public abstract class NodeHandle<T extends Node> {
         guiRobot.clickOn(rootNode);
     }
 }
+//@@ author

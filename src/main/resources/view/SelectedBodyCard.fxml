@@ -48,7 +48,7 @@
             <children>
                <AnchorPane prefWidth="260.0">
                   <children>
-                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Admission:">
+                     <Text fill="WHITE" layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Admission:">
                         <font>
                            <Font name="System Bold" size="12.0" />
                         </font></Text>
@@ -57,7 +57,7 @@
                </AnchorPane>
                <AnchorPane prefWidth="260.0">
                   <children>
-                     <Text layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Death:">
+                     <Text fill="WHITE" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Death:">
                         <font>
                            <Font name="System Bold" size="12.0" />
                         </font></Text>
@@ -66,7 +66,7 @@
                </AnchorPane>
                <AnchorPane prefWidth="260.0">
                   <children>
-                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Birth:">
+                     <Text fill="WHITE" layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Birth:">
                         <font>
                            <Font name="System Bold" size="12.0" />
                         </font></Text>
@@ -96,11 +96,11 @@
                <Insets top="25.0" />
             </VBox.margin>
          </VBox>
-         <AnchorPane prefHeight="58.0" prefWidth="237.0">
+         <AnchorPane prefWidth="237.0">
             <children>
                <HBox alignment="CENTER" layoutX="-35.0" layoutY="12.0">
                   <children>
-                  <Label fx:id="NOK" alignment="CENTER" contentDisplay="RIGHT" text="N.O.K." />
+                  <Label fx:id="NOK" alignment="CENTER" contentDisplay="RIGHT" text="Next of Kin" />
                      <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="160.0">
                         <children>
                            <Label fx:id="selectedBodyNokName" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Name" />

@@ -1,0 +1,41 @@
+{
+  "persons" : [ ],
+  "bodies" : [ {
+    "bodyIdNum" : "1",
+    "dateOfAdmission" : "22/10/2019",
+    "bodyStatus" : "ARRIVED",
+    "name" : "Lauii Echeveria",
+    "sex" : "MALE",
+    "nric" : "S1224567A",
+    "religion" : "CHRISTIANITY",
+    "causeOfDeath" : "NECROSIS",
+    "fridgeId" : null,
+    "dateOfBirth" : "02/09/1982",
+    "dateOfDeath" : "01/06/1971",
+    "nextOfKin" : "Ben Chachki",
+    "relationship" : "Father",
+    "kinPhoneNumber" : "87120919",
+    "organsForDonation" : [ ],
+    "details" : "note"
+  }, {
+    "bodyIdNum" : "2",
+    "dateOfAdmission" : "27/10/2019",
+    "bodyStatus" : "ARRIVED",
+    "name" : "Mossy Humilis",
+    "sex" : "FEMALE",
+    "nric" : "S8765432A",
+    "religion" : "Non-religious",
+    "causeOfDeath" : "Heart Attack",
+    "fridgeId" : null,
+    "dateOfBirth" : "12/12/2012",
+    "dateOfDeath" : "23/01/2018",
+    "nextOfKin" : "Jane Doe",
+    "relationship" : "Mother",
+    "kinPhoneNumber" : "81234568",
+    "organsForDonation" : ["Liver", "Cornea", "Kidney"],
+    "details" : "note"
+  } ],
+  "workers" : [ ],
+  "fridges" : [ ],
+  "notifs" : [ ]
+}

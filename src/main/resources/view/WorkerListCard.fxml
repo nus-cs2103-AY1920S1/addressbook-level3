@@ -2,36 +2,76 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <HBox id="workerCardPane" fx:id="workerCardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <padding>
-        <Insets bottom="5" left="15" right="5" top="5" />
-      </padding>
-      <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+ <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+   <padding>
+     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+      <HBox fx:id="workerImptInfo" alignment="CENTER_LEFT" prefHeight="80.0" spacing="5" VBox.vgrow="ALWAYS">
+         <children>
+            <StackPane fx:id="displayPhotoPlaceholder" maxWidth="40.0" prefHeight="150.0" prefWidth="40.0">
+               <children>
+                  <ImageView fx:id="displayPhoto" fitHeight="40.0" fitWidth="40.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
+               </children>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </StackPane>
+            <VBox alignment="CENTER_LEFT">
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label fx:id="id" styleClass="cell_big_label">
+                           <minWidth>
+                              <Region fx:constant="USE_PREF_SIZE" />
+                           </minWidth>
+                        </Label>
+                    <Label fx:id="name" styleClass="cell_big_label" text="\$name" wrapText="true" />
+                     </children>
+                  </HBox>
+               <Label fx:id="workerId" styleClass="cell_small_label" text="\$workerId" />
+                  <Label fx:id="designation" styleClass="cell_small_label" text="\$designation" wrapText="true" />
+               </children>
+            </VBox>
+         </children>
       </HBox>
-      <Label fx:id="workerId" styleClass="cell_small_label" text="\$workerId" />
-      <Label fx:id="dateJoined" styleClass="cell_small_label" text="\$dateJoined" />
-    </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
-  </GridPane>
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <VBox fx:id="workerLessImptInfoHeaders">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sex: " />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Joined:" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth:" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Employment Status:" />
+               </children>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label fx:id="sex" styleClass="cell_big_label" text="\$sex" />
+                  <Label fx:id="phoneNumber" styleClass="cell_small_label" text="\$phoneNumber" />
+               <Label fx:id="dateJoined" styleClass="cell_small_label" text="\$dateJoined" />
+                  <Label fx:id="dateOfBirth" styleClass="cell_small_label" text="\$dateOfBirth" />
+                  <Label fx:id="employmentStatus" styleClass="cell_small_label" text="\$employmentStatus" wrapText="true" />
+               </children>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+ </VBox>
+   <padding>
+      <Insets left="5.0" />
+   </padding>
 </HBox>

@@ -36,6 +36,7 @@ public class TypicalBodies {
             .withNextOfKin("Ben Joseph")
             .withRelationship("Husband")
             .withKinPhoneNumber("87120909")
+            .withDetails("polly")
             .build();
 
     public static final Body BOB = new BodyBuilder()
@@ -53,19 +54,60 @@ public class TypicalBodies {
             .withNextOfKin("Ben Chachki")
             .withRelationship("Father")
             .withKinPhoneNumber("87120919")
+            .withDetails("")
+            .build();
+
+    public static final Body LAUII = new BodyBuilder()
+            .withDateOfAdmission("22/10/2019")
+            .withName("Lauii Echeveria")
+            .withSex("MALE")
+            .withNric("S1224567A")
+            .withReligion("CHRISTIANITY")
+            .withCauseOfDeath("NECROSIS")
+            .withOrgansForDonation("")
+            .withStatus("ARRIVED")
+            .withFridgeId("2")
+            .withDateOfBirth("02/09/1982")
+            .withDateOfDeath("01/06/1971")
+            .withNextOfKin("Ben Chachki")
+            .withRelationship("Father")
+            .withKinPhoneNumber("87120919")
+            .build(1);
+
+    public static final Body MOSSY = new BodyBuilder()
+            .withDateOfAdmission("27/10/2019")
+            .withName("Mossy Humilis")
+            .withSex("FEMALE")
+            .withStatus("ARRIVED")
+            .withDateOfDeath("23/01/2018")
+            .withStatus("ARRIVED")
+            .build(2);
+
+    public static final Body CHARLES = new BodyBuilder()
+            .withDateOfAdmission("01/01/1991")
+            .withName("Charles Chachki")
+            .withNextOfKin("John Chachki")
+            .withRelationship("Father")
+            .withKinPhoneNumber("87120919")
             .build();
 
     // Manually added - Bodies's details found in {@code CommandTestUtil}
     public static final Body JOHN = new BodyBuilder().withName(VALID_NAME_JOHN).withSex(VALID_SEX_JOHN)
-            .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JOHN).withDateOfDeath(VALID_DATE_OF_DEATH_JOHN).build();
+            .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JOHN).withDateOfDeath(VALID_DATE_OF_DEATH_JOHN)
+            .withDetails("").build();
     public static final Body JANE = new BodyBuilder().withName(VALID_NAME_JANE).withSex(VALID_SEX_JANE)
-            .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JANE).withDateOfDeath(VALID_DATE_OF_DEATH_JANE).build();
+            .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JANE).withDateOfDeath(VALID_DATE_OF_DEATH_JANE)
+            .withDetails("").build();
 
     private TypicalBodies() {
     } // prevents instantiation
 
 
+    public static List<Body> getTypicalStoredBodies() {
+        return new ArrayList<>(Arrays.asList(LAUII, MOSSY));
+    }
+
     public static List<Body> getTypicalBodies() {
-        return new ArrayList<>(Arrays.asList(ALICE, BOB));
+        return new ArrayList<>(Arrays.asList(ALICE, BOB, CHARLES));
     }
 }

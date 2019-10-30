@@ -10,6 +10,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.model.entity.body.Body;
 
+//@@ author shaoyi1997
 /**
  * An UI component that displays information of a {@code Body}.
  */
@@ -135,3 +136,4 @@ public class BodyCardSelected extends UiPart<Region> {
                 && body.equals(card.body);
     }
 }
+//@@ author

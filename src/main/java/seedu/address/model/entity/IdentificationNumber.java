@@ -82,7 +82,7 @@ public class IdentificationNumber {
     }
 
     public static IdentificationNumber generateNewFridgeId(Fridge fridge, int id) {
-        return new IdentificationNumber(fridge);
+        return new IdentificationNumber(fridge, id);
     }
 
     public static IdentificationNumber customGenerateId(String typeOfEntity, int idNum) {
@@ -189,6 +189,17 @@ public class IdentificationNumber {
             return;
         }
     }
+
+    //@@author ambervoong
+    /**
+     * Adds a mapping of the given Entity to this IdentificationNumber's numerical id number
+     * in UniqueIdentificationNumberMaps.
+     * @param entity
+     */
+    public void addMapping(Entity entity) {
+        uniqueIds.addEntity(entity, idNum);
+    }
+    //@@author
 
     public Entity getMapping() {
         return uniqueIds.getMapping(typeOfEntity, idNum);

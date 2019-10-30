@@ -42,7 +42,6 @@ public class LineChartPanel extends UiPart<Region> {
     final SimpleDateFormat axisDateFormat = new SimpleDateFormat("EE, d/MM/yy");
     final SimpleDateFormat axisDateFormat2 = new SimpleDateFormat("d/MM/yy");
     final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d/MM/yyyy");
-
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
     final NumberAxis yAxis = new NumberAxis();
     final AreaChart<String, Number> lineChart = new AreaChart<>(xAxis, yAxis);

@@ -66,7 +66,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                     PREFIX_EMPLOYMENT_STATUS);
             break;
         case "b":
-            areAnyPrefixesPresent = areAnyPrefixesPresent(argMultimap, PREFIX_NAME,
+            areAnyPrefixesPresent = areAnyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_STATUS,
                     PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_NRIC,
                     PREFIX_CAUSE_OF_DEATH, PREFIX_RELATIONSHIP, PREFIX_RELIGION, PREFIX_NAME_NOK,
                     PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION, PREFIX_FRIDGE_ID);

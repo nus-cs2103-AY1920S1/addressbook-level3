@@ -17,6 +17,12 @@ public interface UpdateEntityDescriptor {
     /**
      * Changes the entity's fields according to the descriptor to the updated values in the UpdateEntityDescriptor
      * object if they are present. Uses the existing values in the entity otherwise.
+     * Guarantees: the given entity exists.
      */
     Entity apply(Entity entity);
+
+    /**
+     * Changes all of the entity's fields according to the descriptor, even for null fields.
+     */
+    Entity applyOriginal(Entity entity);
 }

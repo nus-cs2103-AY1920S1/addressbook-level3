@@ -25,6 +25,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.entity.body.BodyNameContainsKeywordsPredicate;
 import seedu.address.model.entity.worker.WorkerNameContainsKeywordsPredicate;
 
+// @@author dalisc
+
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
@@ -106,6 +108,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicateList, BODY_FLAG);
         expectedModel.updateFilteredBodyList(predicate);
         assertCommandSuccess(command, model, expectedResult, expectedModel);
+        System.out.println(model.getFilteredBodyList());
         assertEquals(Arrays.asList(ALICE, BOB), model.getFilteredBodyList());
     }
 

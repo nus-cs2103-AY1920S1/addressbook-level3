@@ -203,7 +203,7 @@ public class MainApp extends Application {
                     Body body = notif.getBody();
                     body.setBodyStatus(CONTACT_POLICE);
                     UpdateCommand up = new UpdateCommand(notif.getBody().getIdNum(), new UpdateBodyDescriptor(body));
-                    up.setUpdateFromNotif(true);
+                    //up.setUpdateFromNotif(true);
                     up.execute(model);
                     storage.saveAddressBook(model.getAddressBook());
                 } else {

@@ -9,7 +9,8 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 
@@ -45,7 +46,8 @@ public class SampleDataTest extends AddressBookSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Person[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+        UniqueIdentificationNumberMaps.clearAllEntries(); // to ensure getSampleWorkers() start at id=1
+        Worker[] expectedList = SampleDataUtil.getSampleWorkers();
+        assertListMatching(getWorkerListPanel(), expectedList);
     }
 }
