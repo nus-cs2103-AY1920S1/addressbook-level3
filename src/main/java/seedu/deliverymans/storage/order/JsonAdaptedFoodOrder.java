@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.order.Order;
@@ -24,7 +25,7 @@ public class JsonAdaptedFoodOrder {
      */
     @JsonCreator
     public JsonAdaptedFoodOrder(@JsonProperty("name") String foodName,
-                           @JsonProperty("price") String quantity) {
+                                @JsonProperty("price") String quantity) {
         this.foodName = foodName;
         this.quantity = quantity;
     }
@@ -38,6 +39,11 @@ public class JsonAdaptedFoodOrder {
         quantity = entry.getValue().toString();
     }
 
+    /**
+     * Converts this Jackson-friendly adapted order object into the model's {@code Order} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted order.
+     */
     public Map.Entry<Name, Integer> toModelType() throws IllegalValueException {
         if (foodName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));

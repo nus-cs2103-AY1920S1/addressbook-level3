@@ -9,7 +9,6 @@ import javafx.scene.layout.Region;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.trie.TrieManager;
 
 /**
@@ -53,7 +52,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleKeyPressed() {
         LinkedList<String> temp = trieManager.getAutoCompleteResults(commandTextField.getText(),
-                MainWindow.currentContext);
+                MainWindow.getContext());
         temp.sort(String::compareToIgnoreCase);
         if (!temp.isEmpty()) {
             for (String s : temp) {

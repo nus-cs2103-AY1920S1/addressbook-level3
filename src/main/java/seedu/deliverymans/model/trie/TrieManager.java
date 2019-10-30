@@ -32,6 +32,9 @@ import seedu.deliverymans.logic.commands.universal.SummaryCommand;
 import seedu.deliverymans.logic.commands.universal.UndoCommand;
 import seedu.deliverymans.logic.parser.universal.Context;
 
+/**
+ * TO fill
+ */
 public class TrieManager {
     private final Trie universalTrie;
     private final Trie customerTrie;
@@ -49,6 +52,9 @@ public class TrieManager {
         addRestaurantCommands();
     }
 
+    /**
+     * TO fill
+     */
     private void addCustomerCommands() {
         customerTrie.insert(AddCommand.COMMAND_WORD);
         customerTrie.insert(DeleteCommand.COMMAND_WORD);
@@ -58,6 +64,9 @@ public class TrieManager {
         customerTrie.insert(SortCommand.COMMAND_WORD);
     }
 
+    /**
+     * TO fill
+     */
     private void addDeliverymanCommands() {
         deliverymanTrie.insert(AssignCommand.COMMAND_WORD);
         deliverymanTrie.insert(ListAvailCommand.COMMAND_WORD);
@@ -65,6 +74,9 @@ public class TrieManager {
         deliverymanTrie.insert(StatusSwitchCommand.COMMAND_WORD);
     }
 
+    /**
+     * TO fill
+     */
     private void addRestaurantCommands() {
         restaurantTrie.insert(AddFoodCommand.COMMAND_WORD);
         restaurantTrie.insert(AddRatingCommand.COMMAND_WORD);
@@ -76,6 +88,9 @@ public class TrieManager {
         restaurantTrie.insert(ExitEditCommand.COMMAND_WORD);
     }
 
+    /**
+     * TO fill
+     */
     private void addUniversalCommands() {
         insertCommandToAllTries(AddOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(DeleteOrderCommand.COMMAND_WORD);
@@ -87,6 +102,9 @@ public class TrieManager {
         insertCommandToAllTries(UndoCommand.COMMAND_WORD);
     }
 
+    /**
+     * TO fill
+     */
     private void insertCommandToAllTries(String command) {
         universalTrie.insert(command);
         customerTrie.insert(command);
@@ -94,6 +112,9 @@ public class TrieManager {
         restaurantTrie.insert(command);
     }
 
+    /**
+     * TO fill
+     */
     public LinkedList<String> getAutoCompleteResults(String input, Context context) {
         switch (context) {
         case CUSTOMER:
