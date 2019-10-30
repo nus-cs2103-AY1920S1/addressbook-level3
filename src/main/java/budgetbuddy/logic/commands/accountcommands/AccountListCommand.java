@@ -18,20 +18,15 @@ public class AccountListCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all accounts.\n";
 
-    public static final String MESSAGE_SUCCESS = "Listed accounts.";
+    public static final String MESSAGE_SUCCESS = "Accounts listed.";
 
     @Override
     public CommandResult execute(Model model) {
         requireAllNonNull(model, model.getAccountsManager());
+        model.getAccountsManager().resetFilteredAccountList();
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("Current Accounts:");
-        for (int i = 0; i < model.getAccountsManager().getAccounts().size(); i++) {
-            builder.append("\n");
-            Account account = model.getAccountsManager().getAccounts().get(i);
-            builder.append(i + 1).append(". ").append(account.getName().toString()).append("\n");
-        }
+        String resultMessage = MESSAGE_SUCCESS;
 
-        return new CommandResult(builder.toString(), CommandCategory.ACCOUNT);
+        return new CommandResult(resultMessage, CommandCategory.ACCOUNT);
     }
 }

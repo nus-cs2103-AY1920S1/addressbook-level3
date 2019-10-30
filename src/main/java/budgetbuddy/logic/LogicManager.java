@@ -63,7 +63,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Account> getAccountList() {
-        return model.getAccountsManager().getAccounts();
+        return model.getAccountsManager().getFilteredAccountList();
     }
 
     @Override
