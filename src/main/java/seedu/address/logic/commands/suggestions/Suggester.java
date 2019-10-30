@@ -11,15 +11,20 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.commands.AddNusModsCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditGroupCommand;
 import seedu.address.logic.commands.EditPersonCommand;
+import seedu.address.logic.commands.EditUserCommand;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.FindPersonCommand;
+import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
@@ -38,15 +43,20 @@ public abstract class Suggester {
     static final Map<String, Class<? extends Suggester>> SUGGESTER_MAP = Map.ofEntries(
             Map.entry(AddEventCommand.COMMAND_WORD, AddEventCommandSuggester.class),
             Map.entry(AddGroupCommand.COMMAND_WORD, AddGroupCommandSuggester.class),
+            Map.entry(AddNusModCommand.COMMAND_WORD, AddNusModCommandSuggester.class),
             Map.entry(AddNusModsCommand.COMMAND_WORD, AddNusModsCommandSuggester.class),
             Map.entry(AddPersonCommand.COMMAND_WORD, AddPersonCommandSuggester.class),
             Map.entry(AddToGroupCommand.COMMAND_WORD, AddToGroupCommandSuggester.class),
+            Map.entry(DeleteEventCommand.COMMAND_WORD, DeleteEventCommandSuggester.class),
             Map.entry(DeleteGroupCommand.COMMAND_WORD, DeleteGroupCommandSuggester.class),
             Map.entry(DeletePersonCommand.COMMAND_WORD, DeletePersonCommandSuggester.class),
             Map.entry(EditGroupCommand.COMMAND_WORD, EditGroupCommandSuggester.class),
             Map.entry(EditPersonCommand.COMMAND_WORD, EditPersonCommandSuggester.class),
+            Map.entry(EditUserCommand.COMMAND_WORD, EditUserCommandSuggester.class),
+            Map.entry(ExportCommand.COMMAND_WORD, ExportCommandSuggester.class),
             Map.entry(FindGroupCommand.COMMAND_WORD, GroupNameSuggester.class),
             Map.entry(FindPersonCommand.COMMAND_WORD, FindPersonCommandSuggester.class),
+            Map.entry(PopupCommand.COMMAND_WORD, GroupNameSuggester.class),
             Map.entry(ScheduleCommand.COMMAND_WORD, GroupNameSuggester.class),
             Map.entry(ShowCommand.COMMAND_WORD, ShowCommandSuggester.class),
             Map.entry(ShowNusModCommand.COMMAND_WORD, ShowNusModCommandSuggester.class)

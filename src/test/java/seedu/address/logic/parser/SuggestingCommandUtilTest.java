@@ -117,4 +117,12 @@ public class SuggestingCommandUtilTest {
         assertFalse(predicate.test(passingMatch));
     }
 
+    @Test
+    void createFuzzyMatcher_dashCharacter_success() {
+        final String sequence = "tsg";
+        final String passingMatch = "test-string";
+        final Predicate<String> predicate = SuggestingCommandUtil.createFuzzyMatcher(sequence);
+
+        assertTrue(predicate.test(passingMatch));
+    }
 }
