@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="660.0" minWidth="900" onCloseRequest="#handleExit" title="Dukemon" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="660.0" minWidth="1310.0" onCloseRequest="#handleExit" title="Dukemon" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -22,7 +22,7 @@
       <VBox>
             <HBox VBox.vgrow="NEVER">
                <children>
-              <MenuBar fx:id="menuBar" prefHeight="35.0" HBox.hgrow="ALWAYS" >
+              <MenuBar fx:id="menuBar" prefHeight="35.0" HBox.hgrow="ALWAYS">
                 <Menu mnemonicParsing="false" text="File">
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                 </Menu>
@@ -30,8 +30,7 @@
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                 </Menu>
               </MenuBar>
-                    <AnchorPane fx:id="timerDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
-                                minWidth="500" prefHeight="35.0" HBox.hgrow="NEVER">
+                    <AnchorPane fx:id="timerDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="500" prefHeight="35.0" HBox.hgrow="NEVER">
 
                     </AnchorPane>
                </children>
