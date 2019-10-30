@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F13-4/main.git
 
-By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `NUS`
+By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -27,7 +27,7 @@ EzWatchList is for those who *prefer to use a desktop app for managing movies an
 .  Copy the file to the folder you want to use as the home folder for your watchlist.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::RealUI.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -58,7 +58,7 @@ The watchlist is the default page that is opened upon start-up of ezwatchlist. I
 * Progress bar showing number of episodes watched (For TV series)
 * Checkbox to indicate if the show has been watched
 
-image::watchlist_page.png[width="790"]
+image::RealUI.png[width="790"]
 
 
 ==== Watched List
@@ -95,9 +95,9 @@ image::details_page.png[width="790"]
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/MOVIE_NAME`, `MOVIE_NAME` is a parameter which can be used as `add n/The Angry Birds Movie 2`.
-* Items in square brackets are optional e.g `n/MOVIE_NAME [t/TAG]` can be used as `n/The Angry Birds Movie 2 t/Oscar-worthy` or as `n/The Angry Birds Movie`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Oscar-worthy`, `t/Tear-jerking t/Good for kids` etc.
-* Parameters can be in any order e.g. if the command specifies `n/MOVIE_NAME t/TAG`, `t/TAG n/MOVIE_NAME` is also acceptable.
+* Items in square brackets are optional e.g `n/MOVIE_NAME [a/ACTOR]` can be used as `n/The Angry Birds Movie 2 a/Johnny Depp or as `n/The Angry Birds Movie`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[a/ACTOR]...` can be used as `{nbsp}` (i.e. 0 times), `a/Leonardo DiCaprio a/Robert Downey, Jr. a/Johnny Depp` etc.
+* Parameters can be in any order e.g. if the command specifies `n/MOVIE_NAME a/ACTOR`, `a/MOVIE n/MOVIE_NAME` is also acceptable.
 ====
 
 ==== Viewing help : `help`
@@ -107,15 +107,34 @@ Format: `help`
 ==== Adding a show: `add`
 
 Adds a show to the watchlist +
-Format: `add n/MOVIE_NAME [t/TAG]...`
 
+Format: `add n/MOVIE_NAME t/TYPE d/DATE_OF_RELEASE w/WATCHED r/RUNNING_TIME s/DESCRIPTION [a/ACTOR_NAME]`
 [TIP]
-A show can have any number of tags (including 0)
+A show can have any number of actors (including 0)
 
 Examples:
 
-* `add n/Titanic t/Romance t/Drama`
-* `add n/The Angry Birds Movie 2`
+* `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
+* `add n/Joker t/movie d/3 OCTOBER 2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
+
+==== Adding a show from search result page: `add`
+
+Adds a show from search result page after user has already search for show +
+
+Format: `add INDEX`
+
+[TIP]
+This add command can only be used if user has already search for show using the search online command.
+
+Examples:
+
+* `add 2`
+
+==== Clear the WatchList: `clear`
+
+
+Clear the WatchList +
+Format: `clear`
 
 ==== Mark as watched : `watch`
 
@@ -125,42 +144,42 @@ Format: `watch INDEX`
 ==== Editing a show's details : `edit`
 
 Edits an existing show in the list +
-Format: `edit INDEX [n/NAME] [t/TAG]...`
+Format: `edit INDEX [n/MOVIE_NAME] [t/TYPE] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...`
 
 ****
 * Edits the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the show will be removed i.e adding of tags is not cumulative.
-* You can remove all the show's tags by typing `t/` without specifying any tags after it.
+* When editing actors, the existing actors of the show will be removed i.e adding of actors is not cumulative.
+* You can remove all the show's actors by typing `a/` without specifying any actors after it.
 ****
 
 Examples:
 
-* `edit 1 n/Titanic t/Favourites` +
-Edits the name and tag of the 1st show in the list to be `Titanic` and `Favourites` respectively.
-* `edit 2 t/` +
-Clears all existing tags of the 2nd show in the list.
+* `edit 1 n/Batman a/Joaquin Phoenix` +
+Edits the name and actor name of the 1st show in the list to be `Titanic` and `Joaquin Phoenix` respectively.
+* `edit 2 a/` +
+Clears all existing actors of the 2nd show in the list.
 
 ==== Search for a show by name: `search`
 
-Finds shows whose names contain any of the given keywords. +
-Format: `search KEYWORD [MORE_KEYWORDS]`
+Finds shows whose names contain any of the given keywords from the watchlist, watched list and online. +
+Format: `search n/KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Shows matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `search Angry` +
+* `search n/Angry` +
 Returns `The Angry Birds Movie 2`
-* `search John Angry` +
-Returns any person having names `John` or `Angry`
+* `search n/John Angry` +
+Returns any actor having names `John` or `Angry`
 
 // tag::delete[]
 ==== Deleting a show : `delete`
@@ -217,14 +236,19 @@ All typing in the application will be spell-checked and corrected for you to hel
 
 == Command Summary
 
-* *Add* `add n/MOVIE_NAME [t/TAG]...` +
-e.g. `add n/John Wick t/action t/puppies`
+* *Add* `add n/MOVIE_NAME t/TYPE d/DATE_OF_RELEASE w/WATCHED r/RUNNING_TIME s/DESCRIPTION [a/ACTOR_NAME]` +
+e.g. `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
+* *Add from search result page* `add INDEX` +
+e.g. `add 1`
+* *CLEAR* `clear`
 * *Watch* : `watch INDEX`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/MOVIE_NAME] [t/TAG]...` +
-e.g. `edit 2 n/John Wick t/favourite movie`
+* *Edit* : `edit INDEX [n/MOVIE_NAME] [t/TYPE] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...` +
+e.g. `edit 2 n/John Wick a/Johnny Depp`
 * *Search* : `search KEYWORD [MORE_KEYWORDS]` +
 e.g. `search John`
+* *Search (ONLINE)* `search n/MOVIE_NAME` +
+e.g. `search n/Harry potter`
 * *Exit* : `exit`
 * *Help* : `help`

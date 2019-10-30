@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F13-4/main.git
 
-By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `NUS`
+By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -122,7 +122,7 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Ezwatchlist data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -152,6 +152,111 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::markaswatched[]
+=== [Feature] Mark/unmark as watched feature
+==== Implementation
+The mark/unmark as watched mechanism is facilitated by `WatchCommand`.
+It extends `Command` and uses the `WatchCommandParser` to process the command entered by the user.
+
+Given below is an example usage scenario and how the mark/unmark as watched mechanism works at each step.
+
+Step 1. The user launches the application, and executes `watch 1` command to mark the first show in the watch list as watched.
+
+Step 2. Entering the command calls `WatchListParser#parseCommand()`, which in turn returns a new `WatchCommandParser` and the `WatchCommandParser#parse()` command is called.
+
+Step 3. A new `WatchCommand` is created, with the index of the show to be marked being parsed as a field of the `WatchCommand`.
+
+Step 4. The `WatchCommand#execute()` method is called, referencing the current `model`, and the show that is in the current `FilteredShowList` is referenced based off the current `model`.
+
+[NOTE]
+If the `index` is out of bounds, a new `CommandException` is thrown.
+
+Step 5. A copy of the show is created, with its `isWatched` field being switched to `true`.
+
+[NOTE]
+The un-marking of a show as watched is similar, except that the `isWatched` field will be set to `false`.
+
+Step 6. The show in the current show list is updated to the newly created copy with the updated watched status, and a `CommandResult` with the new watched status of the show is created.
+
+The following sequence diagram shows how the watch operation works:
+
+image::WatchSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How mark/unmark shows as watched executes
+
+* **Current choice:** Works in a similar way to the `edit` command, referencing the index of the show, and creating a new show with the changed `isWatched` field.
+** Pros: Easy to implement.
+
+===== Aspect: Command word for the mark/unmark shows as watched function
+
+* **Alternative 1 (current choice):** The same keyword, `watch` is used.
+** Pros: Easy for the user to remember a single word, simpler to implement since only one command will be required.
+** Cons: Does not make logical sense to `watch` an already watched show.
+* **Alternative 2:** Use `watch` and `unwatch` keywords.
+** Pros: Logical keywords are being used.
+** Cons: The same logic will be repeated twice, albeit different command names.
+// end::markaswatched[]
+
+// tag::statistics[]
+=== [Proposed] Statistics feature
+==== Proposed Implementation
+
+The statistics feature is facilitated by `Statistics` object. It extends `Ezwatchlist` with a summary of the users' personal
+preferences and footprint including the most watched genre, shows that you might have forgotten to watch, and the
+recommendations generated for you. It is stored internally as an `Statistics` object containing a `ModelManager`.
+Additionally, it implements the following operations:
+
+* `Statistics#getFavouriteGenre()` -- Gives the genre that appears the most number of times in the list of watched shows.
+* `Statistics#getForgotten()` -- Gives the 3 shows that were added the earliest but have not been watched.
+* `Statistics#getRecommendation()` -- Gives 3 recommendations according to the watched shows.
+
+Given below is a usage scenario of a user checking his/her statistics page.
+
+Step 1. The user launches the application. The Statistics object will be initialized with ModelManager
+containing the current watchlist and watched list. Behind the scenes, the 3 statistics will be calculated and the
+statistics panel will be populated with the result.
+
+Step 2. The user clicks on the statistic button and sees the content.
+
+This is the sequence diagram of `getFavouriteGenre()`.
+
+image::getFavouriteGenre.png[]
+
+This is the sequence diagram of `getForgotten()`.
+
+image::getForgotten.png[]
+
+This is the sequence diagram of `getRecommendation()`.
+
+image::getRecommendation.png[]
+
+The following activity diagram summarizes the workflow of Statistics:
+
+image::activityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How Statistics stores the watchlist and watched list
+
+* **Alternative 1 (current choice):** Saves the whole ModelManager as a field.
+** Pros: Easy to implement and make use of.
+** Cons: More dependency on ModelManager.
+* **Alternative 2:** Saves the watchlist and watched list as fields respectively.
+** Pros: Less dependency on ModelManager.
+** Cons: Less potential functionality and the lists might not be up-to-date.
+
+===== Aspect: When the results are calculated
+
+* **Alternative 1 (current choice):** Calculate when the application starts and update when there are changes.
+** Pros: It appears more responsive in terms of navigating around the application.
+** Cons: Need to constantly recalculate and update the results.
+* **Alternative 2:** Calculate when the user navigate to Statistics panel.
+** Pros: Less calculation needed.
+** Cons: Appear less responsive.
+// end::statistics[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -257,10 +362,198 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+=== Online Data
+
+We are using https://www.themoviedb.org/documentation/api[The Movie Database (TMDB)] to retrieve information on movies and tv shows.
+
+==== Implementation
+
+All interactions with the third party library are facilitated by the interface `ApiInterface`. Methods in `ApiInterface` are the main
+way the application retrieves any online information from the database.
+
+*Methods in ApiInterface*
+
+* `getMovieByName` : The method will return a list of movies in the database based on the name of the movie given
+* `getTvShowByName` : The method will return a list of tv shows in the database based on the name of the tv show given
+* `isConnected` : Checks if the application is connected online to the database
+
+`ApiMain` is an implementation of `ApiInterface` and is done by using a https://github.com/holgerbrandl/themoviedbapi[java wrapper] for the TMDB api implemented by Holger Brandl.
+Allowing us to retrieve information in the java code.
+
+Given below is an example of how the application might want to retrieve movie information through `ApiInterface`.
+
+Step 1. First an instance of a class implementing `ApiInterface` has to be created for the methods to be called. When `ApiMain` is instantiated the class api
+key's is used to create a call to the TMDB API. All information retrieved must go through the class's api call.
+
+Step 2. The method getMovieByName("Name Of Movie") is called and the api call searches the for the movie in the database with the name given.
+A list of wrapped movies is given back, which is then read and used to create new instances of our application's `Show` model with information wrapped in classes such as
+`Name`, `Description`, and `Actor`.
+
+Step 3. To retrieve an image from the database, a image url is downloaded to the computer. The class `ImageRetrieval` does this. An
+`ImageRetrieval` instance is created by the method for each image, and is downloaded to a root folder determined by `ImageRetrieval#defaultDirectory()`.
+
+Step 4. A poster class is then created with the image path, to be used to load images in the application.
+
+Step 5. With the list of movies returned, the application is given access to online information in a readable format.
+
+[NOTE]
+At any point the application might fail due to the application not being connected to the internet. If that occurs a
+`OnlineConnectionException` is thrown for the application to handle.
+
+The relationship between all the classes are shown in the following class diagram:
+image:ApiClassDiagram.png[]
+
+==== Design Considerations
+
+===== Why this implementation was chosen
+
+* **All API interactions would be in the API package and go through ApiInterface. **
+** Pros:
+- The application wouldn't have to seek access to the database on their own. The interface should provide all the functionality needed.
+- Follows the Single Responsibility Principle (SRP) that a module in the program should be encapsulated and have one repsponsibility.
+
+===== Aspect: Image retrieval implementation
+
+* ** Alternative 1 (current choice):** Download the image into the computer then access it locally on the computer.
+** Pros:
+*** Easier to keep track of images.
+*** All images are retrieved the same way making it easier to implement showing the images.
+** Cons:
+*** All images shown are currently downloaded without being deleted, hence the amount of images downloaded can get unwieldy quickly, increasing
+amount of memory used.
+* **Alternative 2:** Parse the online url to the application for them to access the image online when needed.
+** Pros:
+*** No need for the images to be downloaded allows less memory to be used by the application.
+** Cons:
+*** Everytime the image is viewed, the application has to retrieve it from online making it more intensive on the network.
+*** If the internet connection fails, the image can no longer be viewed.
+//end::ImageRetrieval[]
+
 [[Implementation-Configuration]]
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+[[Implementation]]
+=== [Feature] Search feature
+==== Implementation
+The `searchCommand` extends `Command` and uses `SearchCommandParser` to process the command entered by the user.
+
+Given below is an example usage scenario and how the search mechanism behaves at each step.
+
+Step 1. The user launches the application and executes `search n/Joker` command to search for a show with the name "Joker".
+
+Step 2. Entering the command calls SearchCommandParser#parse().
+
+Step 3. A new `SearchCommand` is created, with the list containing the name of the show to be searched as a field of `SearchCommand`.
+
+Step 4. The `SearchCommand#execute()` method is called, referencing the current model.
+
+Step 5. The `SearchCommand#searchByName()` method is called, referencing the current model.
+
+Step 6. The `SearchCommand#addShowFromWatchListIfSameNameAs()` method is called, referencing the current model and name of search to be searched from the list of names.
+
+Step 7. The `Model#getShowIfHasName()` method is called and any show with the name to be searched is added to the `filteredShowList`.
+
+Step 8. The `SearchCommand#addShowToSearchResult()` method is called and shows from the `filteredShowList` is added to the `searchResult`.
+
+Step 9. The `SearchCommand#addShowFromOnlineIfSameNameAs()` method is also called, referencing the name of show to be searched from the list of names.
+
+[NOTE]
+If the user is not connected online, a new `OnlineConnectionException` is thrown.
+
+Step 10. The `SearchCommand#addOnlineMovieSearchedByNameToResults()` method is called, referencing the name of show to be searched.
+
+
+//The following sequence diagram shows how the search operation works:
+
+//image::SearchSequenceDiagram.png[]
+
+//_Figure 1: Sequence Diagram for `SearchCommand`_
+
+The following activity diagram summarises the workflow of Search:
+
+image::SearchActivityDiagram.png[]
+
+_Figure 2: Activity Diagram of `SearchCommand`_
+
+In Figure 2, the user first launches the app. After the user input a search command, the program runs and shows the list of shows found in the search page.
+
+==== Design Considerations
+
+===== Aspect: How `SearchCommand` takes in the information to be searched for
+** Current choice: Takes in a hash map from `SearchCommandParser` and gets the list of information to be searched for.
+*** Pros: Easy to implement and make use of.
+*** Cons: Certain list might be redundant as there might have no information in them.
+
+===== Aspect: How Search searches for the shows
+** Current choice: Checks if the user choose to search by name, actor or both, then filter them accordingly.
+*** Pros: Easy to implement and make use of.
+*** Cons: User has to input either a name or actor to be searched.
+*** Cons: Logic is repetitive when searching based on actor or name.
+
+=== [Feature] Add feature
+==== Implementation
+The `AddCommand` extends `Command` and uses `AddCommandParser` to process the command entered by the user.
+
+There are two different ways of using add feature and both have different outcome.
+
+1. Adding show in the WatchList.
+2. Adding show found from online search.
+
+Given below is an example usage of scenario 1 and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application and executes `add n/Joker...` command to add a show in the WatchList with the name "Joker".
+
+Step 2. Entering the command calls AddCommandParser#parse().
+
+Step 3. A new `AddCommand` is created, with the show to be added in AddCommand.
+
+Step 4. The `AddCommand#execute()` method is called, referencing the current model and add the show given by user to the `filteredShowList` found in model.
+
+
+The following activity diagram summarises the workflow of Add:
+
+image::AddActivityDiagram.png[]
+
+_Figure 3: Activity Diagram of `AddCommand`_
+
+In Figure 3, the user first launches the app. After the user input a add command, the program runs and add the show input by user into WatchList.
+
+==== Design Considerations
+
+===== Aspect: How `AddCommand` executes
+** Current choice: Create a show object and add it to a `filteredShowList` found in ModelManager.
+*** Pros: Easy to implement and make use of.
+*** Cons: May have performance issues in terms of memory usage.
+
+
+Given below is an example usage of scenario 2 and how the add mechanism behaves at each step.
+
+Step 1. The user uses the search(Online) command and executes `add INDEX` command to add a show from search result page of INDEX in the WatchList.
+
+Step 2. Entering the command calls AddCommandParser#parse().
+
+Step 3. A new `AddCommand` is created, with the show to be added in AddCommand.
+
+Step 4. The `AddCommand#execute()` method is called, referencing the current model and add the show given by user to the `searchList` of INDEX found in model.
+
+
+The following activity diagram summarises the workflow of Add:
+
+image::AddActivityDiagram2.png[]
+
+_Figure 4: Activity Diagram of `AddCommand`_
+
+In Figure 4, User input search(online) command. User then input `add INDEX` command. Show of INDEX found in search result page is added to WatchList.
+
+==== Design Considerations
+
+===== Aspect: How `AddCommand` executes
+** Current choice: Retrieve the show object found in `searchList` of INDEX from ModelManager and add it to `filteredShowList`.
+*** Pros: Easy to implement and make use of.
+*** Cons: May have performance issues in terms of memory usage.
+
 
 == Documentation
 
@@ -502,7 +795,7 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
+
 
 [appendix]
 == Non Functional Requirements

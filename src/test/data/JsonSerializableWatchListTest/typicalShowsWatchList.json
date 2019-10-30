@@ -1,0 +1,38 @@
+{
+  "_comment": "WatchList save file which contains the same Show values as in TypicalShows#getTypicalWatchList()",
+  "shows" : [
+    {
+    "name" : "Joker",
+    "dateOfRelease" : "4 October 2019",
+    "description" : "Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise heprojects in a futile attempt to feel like he's part of the world around him. Isolated, bullied and disregarded by society, Fleck begins a slow descent into madness as he transforms into the criminal mastermind known as the Joker.",
+    "runningTime" : 122,
+    "actors" : ["Joaquin Phoenix"],
+    "type" : "Movie",
+    "isWatched" : false
+  }, {
+    "name" : "Avenger Endgame",
+    "dateOfRelease" : "24 April 2019",
+    "description" : "Adrift in space with no food or water, Tony Stark sends a message to Pepper Potts as his oxygen supplynstarts to dwindle. Meanwhile, the remaining Avengers -- Thor, Black Widow, Captain America and Bruce Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos -- the evil demigod who decimated the planet and the universe.",
+    "runningTime" : 182,
+    "actors" : ["Chris Hemsworth"],
+    "type" : "Movie",
+    "isWatched" : false
+  }, {
+    "name" : "Fight Club",
+    "dateOfRelease" : "4 Nov 1999",
+    "description" : "A depressed man (Edward Norton) suffering from insomnia meets a strange soap salesman named Tyler Durden (Brad Pitt) and soon finds himself living in his squalid house after his perfect apartment is destroyed. The two bored men form an underground club with strict rules and fight other men who are fed up with their mundane lives. Their perfect partnership frays when Marla (Helena Bonham Carter), a fellow support group crasher, attracts Tyler's attention.",
+    "runningTime": 151,
+    "actors" : [ ],
+    "type" : "Movie",
+    "isWatched" : false
+  }, {
+    "name" : "God Father 2",
+    "dateOfRelease" : "12 December 1974",
+    "description" : "The compelling sequel to The Godfather, contrasting the life of Corleone father and son. Traces the problems of Michael Corleone (Al Pacino) in 1958 and that of a young immigrant Vito Corleone (Robert De Niro) in 1917's Hell's Kitchen. Michael survives many misfortunes and Vito is introduced to a life of crime.",
+    "runningTime" : 202,
+    "actors" : ["Al Pacino"],
+    "type" : "Movie",
+    "isWatched" : false
+  }]
+
+    }
