@@ -17,6 +17,8 @@ import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.event.DeleteEventCommand;
+import seedu.address.logic.commands.event.EditEventCommand;
 import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.commands.expense.ClearCommand;
@@ -45,6 +47,7 @@ public class AliasMappings implements Serializable {
     private static final List<String> RESERVED_COMMAND_WORDS = List.of(
             // event
             AddEventCommand.COMMAND_WORD, ListEventsCommand.COMMAND_WORD,
+            DeleteEventCommand.COMMAND_WORD, EditEventCommand.COMMAND_WORD,
             //expense
             AddExpenseCommand.COMMAND_WORD, DeleteExpenseCommand.COMMAND_WORD,
             ListExpenseCommand.COMMAND_WORD, FindExpenseCommand.COMMAND_WORD,

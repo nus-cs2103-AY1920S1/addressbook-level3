@@ -39,6 +39,8 @@ import seedu.address.logic.commands.alias.ListAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.event.DeleteEventCommand;
+import seedu.address.logic.commands.event.EditEventCommand;
 import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.expense.AddExpenseCommand;
@@ -57,6 +59,7 @@ import seedu.address.logic.parser.AddBudgetCommandParser;
 import seedu.address.logic.parser.AddEventCommandParser;
 import seedu.address.logic.parser.AddExpenseCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
+import seedu.address.logic.parser.EditEventCommandParser;
 import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
@@ -208,7 +211,8 @@ public class MainWindow extends UiPart<Stage> {
                 new ExpenseListPanel(logic.getFilteredExpenseList(), true));
         singlePanelView.setPanel(BudgetListPanel.PANEL_NAME,
                 new BudgetListPanel(logic.getFilteredBudgetList()));
-        singlePanelView.setPanel(EventListPanel.PANEL_NAME, new PlaceholderPanel());
+        singlePanelView.setPanel(EventListPanel.PANEL_NAME,
+                new EventListPanel(logic.getFilteredEventList(), true));
         singlePanelView.setPanel(PanelName.STATISTICS_PANEL, new PlaceholderPanel());
 
         // startup panel = expense list panel
@@ -266,6 +270,16 @@ public class MainWindow extends UiPart<Stage> {
                 AddEventCommand.COMMAND_WORD,
                 AddEventCommandParser.REQUIRED_PREFIXES,
                 AddEventCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                EditEventCommand.COMMAND_WORD,
+                EditEventCommandParser.REQUIRED_PREFIXES,
+                EditEventCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                DeleteEventCommand.COMMAND_WORD,
+                Collections.emptyList(),
+                Collections.emptyList());
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ListEventsCommand.COMMAND_WORD,
@@ -407,6 +421,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.ADD);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.DELETE);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.LIST);
+        commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.EDIT);
         if (panelName.equals(BudgetPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
@@ -425,11 +440,10 @@ public class MainWindow extends UiPart<Stage> {
                     GenericCommandWord.DELETE,
                     AddExpenseCommandParser.REQUIRED_PREFIXES,
                     AddExpenseCommandParser.OPTIONAL_PREFIXES);
-        } else if (panelName.equals(BudgetListPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                    GenericCommandWord.ADD,
-                    AddBudgetCommandParser.REQUIRED_PREFIXES,
-                    AddBudgetCommandParser.OPTIONAL_PREFIXES);
+                    GenericCommandWord.EDIT,
+                    AddExpenseCommandParser.REQUIRED_PREFIXES,
+                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
         } else if (panelName.equals(EventListPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
@@ -437,8 +451,21 @@ public class MainWindow extends UiPart<Stage> {
                     AddEventCommandParser.OPTIONAL_PREFIXES);
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.LIST,
-                    Collections.emptyList(),
-                    Collections.emptyList());
+                    AddEventCommandParser.REQUIRED_PREFIXES,
+                    AddEventCommandParser.OPTIONAL_PREFIXES);
+            commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                    GenericCommandWord.DELETE,
+                    AddEventCommandParser.REQUIRED_PREFIXES,
+                    AddEventCommandParser.OPTIONAL_PREFIXES);
+            commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                    GenericCommandWord.EDIT,
+                    AddExpenseCommandParser.REQUIRED_PREFIXES,
+                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
+        } else if (panelName.equals(BudgetListPanel.PANEL_NAME)) {
+            commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                    GenericCommandWord.ADD,
+                    AddBudgetCommandParser.REQUIRED_PREFIXES,
+                    AddBudgetCommandParser.OPTIONAL_PREFIXES);
         } else if (panelName.equals(AliasPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
