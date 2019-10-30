@@ -3,6 +3,7 @@ package seedu.address.itinerary.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.itinerary.model.event.Event;
@@ -50,8 +51,8 @@ public class Itinerary {
         eventList.addEvent(event);
     }
 
-    void deleteEvent(int index) {
-        eventList.deleteEvent(index);
+    void deleteEvent(Event event) {
+        eventList.deleteEvent(event);
     }
 
     void doneEvent(Event target, Event doneEvent) {
@@ -72,5 +73,17 @@ public class Itinerary {
         requireNonNull(editedEvent);
 
         eventList.setEvent(eventToEdit, editedEvent);
+    }
+
+    public void updateItinerary(ReadOnlyItinerary readOnlyItinerary) {
+        eventList.clear();
+        List<Event> eventList = readOnlyItinerary.getEventList();
+        for (Event event : eventList) {
+            eventList.add(event);
+        }
+    }
+
+    public void clear() {
+        eventList.clear();
     }
 }

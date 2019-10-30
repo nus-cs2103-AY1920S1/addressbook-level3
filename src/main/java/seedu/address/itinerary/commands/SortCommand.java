@@ -4,13 +4,14 @@ import javafx.collections.transformation.SortedList;
 
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.model.event.Event;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * sort the event list in the itinerary based on the condition given.
  */
-public class SortCommand extends Command {
+public class SortCommand extends Command<Model> {
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": "
             + "Sort based on the following format: sort by/[title | location | chronological "
@@ -31,7 +32,7 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        SortedList<Event> sortedEvents = model.getFilteredEventList();
+        SortedList<Event> sortedEvents = model.getSortedEventList();
 
         switch(type) {
         case "title":
