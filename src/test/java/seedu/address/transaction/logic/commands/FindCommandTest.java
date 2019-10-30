@@ -24,7 +24,7 @@ import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPr
 class FindCommandTest {
     private Model model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
     private Model expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private seedu.address.person.model.Model personModel = new
+    private seedu.address.person.model.GetPersonByNameOnlyModel personModel = new
             seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
