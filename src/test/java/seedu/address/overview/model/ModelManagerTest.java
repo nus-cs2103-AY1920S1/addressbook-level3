@@ -75,10 +75,10 @@ public class ModelManagerTest {
         assertEquals(80.0, model.getBudgetThreshold());
 
         model.setExpenseThreshold(90);
-        assertEquals(50.0, model.getExpenseThreshold());
+        assertEquals(90.0, model.getExpenseThreshold());
 
         model.setSalesThreshold(100);
-        assertEquals(5.0, model.getSalesThreshold());
+        assertEquals(100.0, model.getSalesThreshold());
 
     }
 
@@ -91,10 +91,10 @@ public class ModelManagerTest {
         assertEquals(80.0, model.getBudgetThreshold());
 
         model.setExpenseThreshold(90);
-        assertEquals(50.0, model.getExpenseThreshold());
+        assertEquals(90.0, model.getExpenseThreshold());
 
         model.setSalesThreshold(100);
-        assertEquals(5.0, model.getSalesThreshold());
+        assertEquals(100.0, model.getSalesThreshold());
 
     }
 
