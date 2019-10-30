@@ -63,16 +63,16 @@ public class CustomProperty {
      * Retrieves the full name of the {@code CustomProperty} instance.
      */
     public String getFullName() {
-        return this.fullName;
+        return fullName;
     }
 
     /**
-     * Retrieves the prefix of the {@code CustomProperty} instance.
+     * Returns the prefix of the {@code CustomProperty} instance.
      *
      * @return a {@code Prefix} object that represents the prefix of the instance
      */
     public Prefix getPrefix() {
-        return this.prefix;
+        return new Prefix(prefix.toString());
     }
 
     /**

@@ -3,16 +3,15 @@ package seedu.exercise.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.ENDDATE;
+import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.END_DATE;
 import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.RATING;
 import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.REMARK;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -34,13 +33,13 @@ class JsonPropertyBookStorageTest {
 
     private java.util.Optional<PropertyBook> readPropertyBook(String filePath) throws Exception {
         return new JsonPropertyBookStorage(Paths.get(filePath))
-                .readPropertyBook(addToTestDataPathIfNotNull(filePath));
+            .readPropertyBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String fileInTestDataFolder) {
         return fileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(fileInTestDataFolder)
-                : null;
+            ? TEST_DATA_FOLDER.resolve(fileInTestDataFolder)
+            : null;
     }
 
     @Test
@@ -63,10 +62,10 @@ class JsonPropertyBookStorageTest {
         Path filePath = testFolder.resolve("TempPropertyBook.json");
         JsonPropertyBookStorage jsonPropertyBookStorage = new JsonPropertyBookStorage(filePath);
 
-        List<CustomProperty> customProperties = new ArrayList<>();
+        Set<CustomProperty> customProperties = new HashSet<>();
         customProperties.add(RATING);
-        PropertyBook original = new PropertyBook(new HashSet<>(), new HashSet<>(), new ArrayList<>());
-        original.setCustomProperties(customProperties);
+        PropertyBook original = new PropertyBook(new HashSet<>());
+        original.addCustomProperties(customProperties);
 
         // Save in new file and read back
         jsonPropertyBookStorage.savePropertyBook(original, filePath);
@@ -76,14 +75,14 @@ class JsonPropertyBookStorageTest {
         // Modify data, overwrite exiting file, and read back
         customProperties.remove(RATING);
         customProperties.add(REMARK);
-        original.setCustomProperties(customProperties);
+        original.addCustomProperties(customProperties);
         jsonPropertyBookStorage.savePropertyBook(original, filePath);
         retrieved = jsonPropertyBookStorage.readPropertyBook(filePath).get();
         assertEquals(original, retrieved);
 
         // Save and read without specifying file path
-        customProperties.add(ENDDATE);
-        original.setCustomProperties(customProperties);
+        customProperties.add(END_DATE);
+        original.addCustomProperties(customProperties);
         jsonPropertyBookStorage.savePropertyBook(original); // file path not specified
         retrieved = jsonPropertyBookStorage.readPropertyBook().get(); // file path not specified
         assertEquals(original, retrieved);
@@ -97,7 +96,7 @@ class JsonPropertyBookStorageTest {
 
     @Test
     public void savePropertyBook_nullFilePath_throwsNullPointerException() {
-        PropertyBook propertyBook = new PropertyBook(new HashSet<>(), new HashSet<>(), new ArrayList<>());
+        PropertyBook propertyBook = new PropertyBook(new HashSet<>());
         assertThrows(NullPointerException.class, () -> savePropertyBook(propertyBook, null));
     }
 
@@ -107,7 +106,7 @@ class JsonPropertyBookStorageTest {
     private void savePropertyBook(PropertyBook propertyBook, String filePath) {
         try {
             new JsonPropertyBookStorage(Paths.get(filePath))
-                    .savePropertyBook(propertyBook, addToTestDataPathIfNotNull(filePath));
+                .savePropertyBook(propertyBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

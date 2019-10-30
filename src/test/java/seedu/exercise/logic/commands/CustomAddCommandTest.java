@@ -17,6 +17,7 @@ import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.RATING
 import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.REMARK;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.commands.exceptions.CommandException;
@@ -31,6 +32,11 @@ class CustomAddCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
+
+    @BeforeEach
+    public void reset() {
+        getDefaultPropertyBook().clearCustomProperties();
+    }
 
     @Test
     public void execute_customCommandCreated_success() {

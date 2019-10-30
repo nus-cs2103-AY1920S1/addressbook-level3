@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Stream;
 
@@ -65,7 +66,7 @@ public class ArgumentMultimap {
      * Modifying the returned map will not affect the underlying data structure of the ArgumentMultimap.
      */
     public Map<String, String> getAllCustomProperties() {
-        List<CustomProperty> currentCustomProperties = getCustomProperties();
+        Set<CustomProperty> currentCustomProperties = getCustomProperties();
         Map<String, String> customPropertiesMap = new TreeMap<>();
         for (CustomProperty property : currentCustomProperties) {
             Prefix currentPrefix = property.getPrefix();

@@ -122,12 +122,15 @@ class CustomCommandParserTest {
         //non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_PREFIX_REMOVE_CUSTOM_PROPERTY + VALID_FULL_NAME_RATING,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, CustomCommand.MESSAGE_USAGE));
+
         //prefix for custom name
         assertParseFailure(parser, VALID_PREFIX_REMOVE_CUSTOM_PROPERTY + VALID_FULL_NAME_RATING
             + PREFIX_NAME_DESC_RATING, String.format(MESSAGE_INVALID_COMMAND_FORMAT, CustomCommand.MESSAGE_USAGE));
+
         //prefix for full name
         assertParseFailure(parser, VALID_PREFIX_REMOVE_CUSTOM_PROPERTY + VALID_FULL_NAME_RATING
             + FULL_NAME_DESC_RATING, String.format(MESSAGE_INVALID_COMMAND_FORMAT, CustomCommand.MESSAGE_USAGE));
+
         //prefix for parameter type
         assertParseFailure(parser, VALID_PREFIX_REMOVE_CUSTOM_PROPERTY + VALID_FULL_NAME_RATING
             + PARAMETER_TYPE_DESC_RATING,

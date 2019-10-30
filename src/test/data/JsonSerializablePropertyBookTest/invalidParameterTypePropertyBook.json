@@ -2,15 +2,14 @@
   "customProperties" : [ {
     "prefixName" : "r",
     "fullName" : "Rating",
-    "parameterType" : "Number"
+    "parameterType" : "酷"
   }, {
-    "prefixName" : "b",
-    "fullName" : "Remark",
+    "prefixName" : "e",
+    "fullName" : "Equipment",
     "parameterType" : "Text"
   }, {
-    "prefixName" : "c",
-    "fullName" : "End Date",
+    "prefixName" : "f",
+    "fullName" : "Time",
     "parameterType" : "Date"
   } ]
 }
-

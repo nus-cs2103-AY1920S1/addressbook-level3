@@ -99,12 +99,12 @@ public class MainApp extends Application {
      * or an empty exercise book will be used instead if errors occur when reading {@code storage}'s exercise book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        PropertyBook initialPropertyBook = getInitialPropertyBook(storage);
         ReadOnlyResourceBook<Exercise> initialData = readExerciseData(storage, storage.getExerciseBookFilePath());
         ReadOnlyResourceBook<Regime> initialRegimeData = readRegimeData(storage, storage.getRegimeBookFilePath());
         ReadOnlyResourceBook<Exercise> initialDatabase =
             readExerciseData(storage, storage.getExerciseDatabaseFilePath());
         ReadOnlyResourceBook<Schedule> initialScheduleData = readScheduleData(storage);
-        PropertyBook initialPropertyBook = getInitialPropertyBook(storage);
 
         return new ModelManager(initialData, initialRegimeData,
             initialDatabase, initialScheduleData, userPrefs, initialPropertyBook);

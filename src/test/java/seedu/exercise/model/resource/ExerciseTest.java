@@ -8,9 +8,9 @@ import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.VALID_BASKETBALL_STRING_WITH_CUSTOM_PROPERTY;
 import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_REMARK;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_NAME_BASKETBALL;
-import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_RATING;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_REMARK;
 import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.BASKETBALL;
@@ -109,12 +109,11 @@ public class ExerciseTest {
     @Test
     public void toString_nonEmptyCustomProperties_returnsCorrectString() {
         Map<String, String> testCustomProperty = new HashMap<>();
-        testCustomProperty.put(VALID_PREFIX_NAME_RATING, VALID_PREFIX_NAME_REMARK);
+        testCustomProperty.put(VALID_FULL_NAME_REMARK, VALID_PREFIX_NAME_REMARK);
         Exercise typicalExercise = BASKETBALL;
         Exercise testWithCustomProperty = new Exercise(typicalExercise.getName(), typicalExercise.getDate(),
-                typicalExercise.getCalories(), typicalExercise.getQuantity(), typicalExercise.getUnit(),
-                typicalExercise.getMuscles(), testCustomProperty);
-
+            typicalExercise.getCalories(), typicalExercise.getQuantity(), typicalExercise.getUnit(),
+            typicalExercise.getMuscles(), testCustomProperty);
 
         assertEquals(VALID_BASKETBALL_STRING_WITH_CUSTOM_PROPERTY, testWithCustomProperty.toString());
     }

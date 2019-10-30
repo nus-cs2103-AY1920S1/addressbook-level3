@@ -118,6 +118,8 @@ public class CommonTestData {
     public static final Prefix P_SLASH = new Prefix("p/");
     public static final Prefix DASH_T = new Prefix("-t");
     public static final Prefix HAT_Q = new Prefix("^Q");
+    public static final Prefix NUMBER_SLASH = new Prefix("34/");
+    public static final Prefix PUNCTUATION_SLASH = new Prefix("?!/");
 
     //=======================For being used to attach to front of commands=============================
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -177,7 +179,7 @@ public class CommonTestData {
             .build();
 
     //=======================For valid custom properties=============================
-    public static final String VALID_PREFIX_NAME_RATING = "a";
+    public static final String VALID_PREFIX_NAME_RATING = "r";
     public static final String PREFIX_NAME_DESC_RATING = " " + PREFIX_CUSTOM_NAME + VALID_PREFIX_NAME_RATING;
     public static final String VALID_PREFIX_NAME_REMARK = "b";
     public static final String PREFIX_NAME_DESC_REMARK = " " + PREFIX_CUSTOM_NAME + VALID_PREFIX_NAME_REMARK;
@@ -187,7 +189,7 @@ public class CommonTestData {
     public static final String FULL_NAME_DESC_RATING = " " + PREFIX_FULL_NAME + VALID_FULL_NAME_RATING;
     public static final String VALID_FULL_NAME_REMARK = "Remark";
     public static final String FULL_NAME_DESC_REMARK = " " + PREFIX_FULL_NAME + VALID_FULL_NAME_REMARK;
-    public static final String VALID_FULL_NAME_END_DATE = "End date";
+    public static final String VALID_FULL_NAME_END_DATE = "End Date";
     public static final String FULL_NAME_DESC_END_DATE = " " + PREFIX_FULL_NAME + VALID_FULL_NAME_END_DATE;
     public static final String VALID_PARAMETER_TYPE_RATING = "Number";
     public static final String PARAMETER_TYPE_DESC_RATING = " "
@@ -204,9 +206,9 @@ public class CommonTestData {
     public static final String VALID_VALUE_REMARK = "hi";
     public static final String DESC_PREFIX_WITH_VALUE_REMARK = " " + VALID_PREFIX_NAME_REMARK + '/'
             + VALID_VALUE_REMARK;
-    public static final String VALID_VALUE_ENDDATE = "24/12/2019";
-    public static final String DESC_PREFIX_WITH_VALUE_ENDDATE = " " + VALID_PREFIX_NAME_END_DATE + '/'
-            + VALID_VALUE_ENDDATE;
+    public static final String VALID_VALUE_END_DATE = "24/12/2019";
+    public static final String DESC_PREFIX_WITH_VALUE_END_DATE = " " + VALID_PREFIX_NAME_END_DATE + '/'
+            + VALID_VALUE_END_DATE;
     public static final String VALID_PREFIX_REMOVE_CUSTOM_PROPERTY = " " + PREFIX_REMOVE_CUSTOM;
 
     //=======================For invalid custom properties=============================
@@ -256,7 +258,7 @@ public class CommonTestData {
                     + "["
                     + VALID_MUSCLE_BASKETBALL
                     + "] "
-                    + VALID_PREFIX_NAME_RATING
+                    + VALID_FULL_NAME_REMARK
                     + ": "
                     + VALID_PREFIX_NAME_REMARK;
 

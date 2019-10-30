@@ -109,6 +109,7 @@ public class Exercise extends Resource {
         List<String> propertiesList = mapToStringList(customProperties);
         return FXCollections.observableList(propertiesList);
     }
+
     /**
      * Returns true if both exercises of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two exercises.
@@ -200,4 +201,6 @@ public class Exercise extends Resource {
             getCustomPropertiesMap().forEach((x, y) -> builder.append(x + ": " + y + " "));
         }
     }
+
+
 }

@@ -29,12 +29,13 @@ public class AddExerciseCommandTest {
     @Test
     public void execute_exerciseAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExerciseAdded modelStub = new ModelStubAcceptingExerciseAdded();
-        Exercise validPerson = new ExerciseBuilder().build();
+        Exercise validExercise = new ExerciseBuilder().build();
 
-        CommandResult commandResult = new AddExerciseCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddExerciseCommand(validExercise).execute(modelStub);
 
-        assertEquals(String.format(AddExerciseCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.exercisesAdded);
+        assertEquals(String.format(AddExerciseCommand.MESSAGE_SUCCESS, validExercise),
+            commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validExercise), modelStub.exercisesAdded);
     }
 
     @Test
@@ -118,7 +119,7 @@ public class AddExerciseCommandTest {
             ReadOnlyResourceBook<Exercise> exercises = getExerciseBookData();
             Statistic outdatedStatistic = getStatistic();
             StatsFactory statsFactory = new StatsFactory(exercises, outdatedStatistic.getChart(),
-                    outdatedStatistic.getCategory(), outdatedStatistic.getStartDate(), outdatedStatistic.getEndDate());
+                outdatedStatistic.getCategory(), outdatedStatistic.getStartDate(), outdatedStatistic.getEndDate());
             Statistic statistic = statsFactory.generateStatistic();
             this.statistic.resetData(statistic);
         }

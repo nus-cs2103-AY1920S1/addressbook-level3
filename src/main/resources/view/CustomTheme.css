@@ -451,19 +451,19 @@
 
 .infoPanel_name {
     -fx-font-size: 32;
-    -fx-font-style: bold;
+    -fx-font-weight: bold;
     -fx-text-fill: black;
 }
 
 .infoPanel_properties {
     -fx-font-size: 24;
-    -fx-font-style: bold;
+    -fx-font-weight: bold;
     -fx-text-fill: black;
 }
 
 .infoPanel_customProperties_label {
     -fx-font-size: 18;
-    -fx-font-style: bold;
+    -fx-font-weight: bold;
     -fx-text-fill: black;
 }
 
@@ -475,7 +475,7 @@
 
 .customProperties_cell {
     -fx-font-size: 18;
-    -fx-font-style: bold;
+    -fx-font-weight: bold;
     -fx-text-fill: black;
 }
 

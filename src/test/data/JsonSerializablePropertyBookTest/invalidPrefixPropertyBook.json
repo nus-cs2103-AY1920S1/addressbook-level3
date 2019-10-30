@@ -1,5 +1,15 @@
 {
-  "prefixNames" : [ "n", "m", "u", "d", "c", "!" ],
-  "fullNames" : [ "Quantity", "Muscle", "Unit", "Date", "Calories", "Name" ],
-  "customProperties" : [ ]
+  "customProperties" : [ {
+    "prefixName" : "r",
+    "fullName" : "Rating",
+    "parameterType" : "Number"
+  }, {
+    "prefixName" : "34567892",
+    "fullName" : "Equipment",
+    "parameterType" : "Text"
+  }, {
+    "prefixName" : "f",
+    "fullName" : "Time",
+    "parameterType" : "Date"
+  } ]
 }

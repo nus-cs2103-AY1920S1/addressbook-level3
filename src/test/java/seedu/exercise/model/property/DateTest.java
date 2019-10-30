@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.testutil.Assert.assertThrows;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE_2;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ public class DateTest {
 
     @Test
     public void isEndDateAfterStartDate_invalidDateString_returnsFalse() {
-        assertFalse(Date.isEndDateAfterStartDate(CommonTestData.INVALID_DATE_ALPHABETS, CommonTestData.VALID_DATE));
+        assertFalse(Date.isEndDateAfterStartDate(CommonTestData.INVALID_DATE_ALPHABETS, VALID_DATE));
     }
 
     @Test
@@ -87,8 +89,8 @@ public class DateTest {
 
     @Test
     public void hashCode_variousScenarios_success() {
-        Date date = new Date(CommonTestData.VALID_DATE);
-        Date other = new Date(CommonTestData.VALID_DATE_2);
+        Date date = new Date(VALID_DATE);
+        Date other = new Date(VALID_DATE_2);
 
         // different date -> different hashcode
         assertNotEquals(date.hashCode(), other.hashCode());
@@ -97,7 +99,7 @@ public class DateTest {
         assertEquals(date.hashCode(), date.hashCode());
 
         // same date -> same hashcode
-        other = new Date(CommonTestData.VALID_DATE);
+        other = new Date(VALID_DATE);
         assertEquals(date.hashCode(), other.hashCode());
     }
 
@@ -154,5 +156,26 @@ public class DateTest {
     private void assertPrettyPrintCorrectNumberOfDaysFromCurrent(int x, String expectedMessage) {
         String dateString = getDateStringNumberOfDaysFromNow(x);
         assertEquals(expectedMessage, Date.prettyPrint(dateString));
+    }
+
+    @Test
+    public void toStringTest() {
+        Date originalDate = new Date(VALID_DATE);
+        assertEquals(VALID_DATE, originalDate.toString());
+    }
+
+    @Test
+    public void equals() {
+        Date twelveDecember = new Date(VALID_DATE);
+        assertTrue(twelveDecember.equals(new Date(VALID_DATE)));
+
+        Date thirteenDecember = new Date(VALID_DATE_2);
+        assertFalse(twelveDecember.equals(thirteenDecember));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        Date twelveDecember = new Date(VALID_DATE);
+        assertEquals(twelveDecember.hashCode(), new Date(VALID_DATE).hashCode());
     }
 }

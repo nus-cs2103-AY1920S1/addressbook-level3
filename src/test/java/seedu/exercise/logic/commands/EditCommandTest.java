@@ -15,6 +15,7 @@ import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExe
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_SECOND;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.core.Messages;
@@ -36,6 +37,11 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
         new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
+
+    @BeforeEach
+    public void reset() {
+        getDefaultPropertyBook().clearCustomProperties();
+    }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

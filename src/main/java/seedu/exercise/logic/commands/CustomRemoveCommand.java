@@ -32,7 +32,7 @@ public class CustomRemoveCommand extends CustomCommand {
 
     public static final String MESSAGE_SUCCESS = "Custom property removed: %1$s";
     public static final String MESSAGE_FULL_NAME_NOT_FOUND = "This full name is not used by an "
-        + "existing property";
+        + "existing custom property";
 
     private final String toRemove;
 
@@ -45,7 +45,7 @@ public class CustomRemoveCommand extends CustomCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.isFullNameUsed(toRemove)) {
+        if (!model.isFullNameUsedByCustomProperty(toRemove)) {
             throw new CommandException(MESSAGE_FULL_NAME_NOT_FOUND);
         }
 
@@ -69,7 +69,7 @@ public class CustomRemoveCommand extends CustomCommand {
      */
     private Map<String, String> updateCustomProperties(Map<String, String> oldPropertiesMap) {
         Map<String, String> updatedMap = new TreeMap<>();
-        List<CustomProperty> newCustomProperties = getCustomProperties();
+        Set<CustomProperty> newCustomProperties = getCustomProperties();
         for (CustomProperty customProperty : newCustomProperties) {
             String propertyName = customProperty.getFullName();
             if (oldPropertiesMap.containsKey(propertyName)) {

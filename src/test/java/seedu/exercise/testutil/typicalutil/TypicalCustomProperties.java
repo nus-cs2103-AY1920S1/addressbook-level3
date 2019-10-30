@@ -23,7 +23,7 @@ public class TypicalCustomProperties {
             .withFullName("Priority").withParameterType("Number").build();
     public static final CustomProperty INSTRUCTIONS = new CustomPropertyBuilder().withPrefix("e")
             .withFullName("Instructions").withParameterType("Text").build();
-    public static final CustomProperty EXPECTEDRECOVERY = new CustomPropertyBuilder().withPrefix("f")
+    public static final CustomProperty EXPECTED_RECOVERY = new CustomPropertyBuilder().withPrefix("f")
             .withFullName("Recovery").withParameterType("Date").build();
 
     // Manually added - Custom Property's details found in {@code CommandTestUtil}
@@ -31,7 +31,7 @@ public class TypicalCustomProperties {
             .withFullName(VALID_FULL_NAME_RATING).withParameterType(VALID_PARAMETER_TYPE_RATING).build();
     public static final CustomProperty REMARK = new CustomPropertyBuilder().withPrefix(VALID_PREFIX_NAME_REMARK)
             .withFullName(VALID_FULL_NAME_REMARK).withParameterType(VALID_PARAMETER_TYPE_REMARK).build();
-    public static final CustomProperty ENDDATE = new CustomPropertyBuilder().withPrefix(VALID_PREFIX_NAME_END_DATE)
+    public static final CustomProperty END_DATE = new CustomPropertyBuilder().withPrefix(VALID_PREFIX_NAME_END_DATE)
             .withFullName(VALID_FULL_NAME_END_DATE).withParameterType(VALID_PARAMETER_TYPE_END_DATE).build();
 
 }

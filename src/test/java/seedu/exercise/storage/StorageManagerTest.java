@@ -2,15 +2,15 @@ package seedu.exercise.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.RATING;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.getTypicalRegimeBook;
 import static seedu.exercise.testutil.typicalutil.TypicalSchedule.getTypicalScheduleBook;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -135,10 +135,11 @@ public class StorageManagerTest {
 
     @Test
     public void propertyBookReadSave() throws Exception {
-        List<CustomProperty> customProperties = new ArrayList<>();
+        getDefaultPropertyBook().clearCustomProperties();
+        Set<CustomProperty> customProperties = new HashSet<>();
         customProperties.add(RATING);
-        PropertyBook original = new PropertyBook(new HashSet<>(), new HashSet<>(), new ArrayList<>());
-        original.setCustomProperties(customProperties);
+        PropertyBook original = new PropertyBook(new HashSet<>());
+        original.addCustomProperties(customProperties);
         storageManager.savePropertyBook(original);
         PropertyBook retrieved = storageManager.readPropertyBook().get();
         assertEquals(original, retrieved);

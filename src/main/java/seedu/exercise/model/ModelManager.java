@@ -338,6 +338,10 @@ public class ModelManager implements Model {
         return propertyBook.isFullNameUsed(fullName);
     }
 
+    public boolean isFullNameUsedByCustomProperty(String fullName) {
+        return propertyBook.isFullNameUsedByCustomProperty(fullName);
+    }
+
     public void addCustomProperty(CustomProperty customProperty) {
         propertyBook.addCustomProperty(customProperty);
     }
@@ -395,7 +399,7 @@ public class ModelManager implements Model {
         ReadOnlyResourceBook<Exercise> exercises = getExerciseBookData();
         Statistic outdatedStatistic = getStatistic();
         StatsFactory statsFactory = new StatsFactory(exercises, outdatedStatistic.getChart(),
-                outdatedStatistic.getCategory(), outdatedStatistic.getStartDate(), outdatedStatistic.getEndDate());
+            outdatedStatistic.getCategory(), outdatedStatistic.getStartDate(), outdatedStatistic.getEndDate());
         Statistic statistic = statsFactory.generateStatistic();
         this.statistic.resetData(statistic);
     }
@@ -466,4 +470,5 @@ public class ModelManager implements Model {
     private void addCombinedRegime(Regime regime) {
         regimeBook.addResource(regime);
     }
+
 }

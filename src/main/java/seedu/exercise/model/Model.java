@@ -252,6 +252,11 @@ public interface Model {
     boolean isFullNameUsed(String fullName);
 
     /**
+     * Returns true if {@code fullName} is used by a custom property.
+     */
+    boolean isFullNameUsedByCustomProperty(String fullName);
+
+    /**
      * Adds the given {@code customProperty} into the PropertyBook.
      */
     void addCustomProperty(CustomProperty customProperty);
