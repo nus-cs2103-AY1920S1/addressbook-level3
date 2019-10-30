@@ -1,4 +1,10 @@
 {
+  "currency" : "",
+  "currencies" : [ {
+    "name" : "Not a currency",
+    "symbol" : "?",
+    "rate" : 999.0
+  } ],
   "spendings": [ {
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "date": "1/1/2019",

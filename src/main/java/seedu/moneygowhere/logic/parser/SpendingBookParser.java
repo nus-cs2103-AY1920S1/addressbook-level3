@@ -10,8 +10,10 @@ import seedu.moneygowhere.logic.commands.AddCommand;
 import seedu.moneygowhere.logic.commands.BudgetCommand;
 import seedu.moneygowhere.logic.commands.ClearCommand;
 import seedu.moneygowhere.logic.commands.Command;
+import seedu.moneygowhere.logic.commands.CurrencyCommand;
 import seedu.moneygowhere.logic.commands.DeleteCommand;
 import seedu.moneygowhere.logic.commands.EditCommand;
+import seedu.moneygowhere.logic.commands.ExchangeRateCommand;
 import seedu.moneygowhere.logic.commands.ExitCommand;
 import seedu.moneygowhere.logic.commands.FindCommand;
 import seedu.moneygowhere.logic.commands.GraphCommand;
@@ -79,6 +81,12 @@ public class SpendingBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ExchangeRateCommand.COMMAND_WORD:
+            return new ExchangeRateCommand();
+
+        case CurrencyCommand.COMMAND_WORD:
+            return new CurrencyCommandParser().parse(arguments);
 
         case StatsCommand.COMMAND_WORD:
             return new StatsCommandParser().parse(arguments);

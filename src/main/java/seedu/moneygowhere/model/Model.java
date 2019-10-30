@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
@@ -147,5 +148,20 @@ public interface Model {
      * Updates the statsPredicate
      */
     void updateStatsPredicate(Predicate<Spending> statsPredicate);
+
+    /**
+     * Gets the current currency in use.
+     */
+    Currency getCurrencyInUse();
+
+    /**
+     * Gets the currency list.
+     */
+    ObservableList<Currency> getCurrencies();
+
+    /**
+     * Sets the currency in use.
+     */
+    void setCurrencyInUse(Currency currency);
 }
 

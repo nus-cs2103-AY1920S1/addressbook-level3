@@ -8,6 +8,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.moneygowhere.commons.core.LogsCenter;
+import seedu.moneygowhere.model.ReadOnlySpendingBook;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
@@ -17,11 +19,25 @@ public class SpendingListPanel extends UiPart<Region> {
     private static final String FXML = "SpendingListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(SpendingListPanel.class);
 
+    private Currency currency;
+
     @FXML
     private ListView<Spending> spendingListView;
 
-    public SpendingListPanel(ObservableList<Spending> spendingList) {
+    public SpendingListPanel(ObservableList<Spending> spendingList, ReadOnlySpendingBook spendingBook) {
         super(FXML);
+
+        this.currency = spendingBook.getCurrencyInUse();
+        spendingBook.registerCurrencyChangedListener(((observable, oldValue, newValue) -> {
+            this.currency = newValue;
+
+            ObservableList<Spending> spendingObservableList = spendingListView.getItems();
+
+            // Trigger a refresh on all items. Refresh() only refreshes the current visible items.
+            spendingListView.setItems(null);
+            spendingListView.setItems(spendingObservableList);
+        }));
+
         spendingListView.setItems(spendingList);
         spendingListView.setCellFactory(listView -> new SpendingListViewCell());
     }
@@ -38,7 +54,7 @@ public class SpendingListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new SpendingCard(spending, getIndex() + 1).getRoot());
+                setGraphic(new SpendingCard(spending, currency, getIndex() + 1).getRoot());
             }
         }
     }
