@@ -245,7 +245,7 @@ prefixes like `t>` and `d>`
 ** Cons: Difficult to implement.
 // end::deadline[]
 
-//@@ author LeowWB
+//@@author LeowWB
 // tag::flashcardexport[]
 === Exporting of FlashCards
 ==== Implementation
@@ -296,6 +296,25 @@ image::ExportActivityDiagram.png[width=320,height=480]
 * **Alternative 2:** Export to a `.txt` file
 ** Pros: Is easier to implement; the Java standard libraries already have the ability to write to text files
 ** Cons: Might give rise to inconvenience in printing, as most text editors (e.g. Notepad, Vim, Gedit) do not have built-in printing functionality
+
+===== Aspect: Parsing of file path from user input
+
+Background: the original AddressBook application, from which KeyboardFlashCards was morphed, delimited its command arguments using slash-containing flags
+(e.g. `c/CATEGORY`). This had the potential to cause problems due to the nature of file paths, which likewise contain slashes. While the existing
+AddressBook parser was able to correctly parse most file paths, there were a few degenerate cases that gave rise to errors.
+
+* **Alternative 1:** Read file path as-is, using the existing AddressBook parser
+** Pros: Does not require further code changes
+** Cons: Means that errors are likely to occur given repeated use
+* **Alternative 2:** Disallow user from selecting file path - instead, always export to a specific directory
+** Pros: Is somewhat easy to implement
+** Cons: Requires user to navigate to the specified directory to obtain the file; requires a means of finding alternatives if the default directory does not exist
+* **Alternative 3:** Ask user to replace slashes in file path with another character
+** Pros: Is very easy to implement
+** Cons: Greatly inconveniences the user; extra work must be done to restore the input to the original file path
+* **Alternative 4 (current choice):** Overhaul the AddressBook parser to use `>` rather than `/` as a delimiter
+** Pros: Provides the user with the most power and convenience
+** Cons: Might possibly break existing functional and test code; may require an additional button press from the user (`Shift`) in order to type `>`
 // end::flashcardexport[]
 
 //@@author keiteo
@@ -332,6 +351,38 @@ as a `LinkedList` implementation.
 ** Cons: There will be potential coupling by using `Queue` instead of `List` interface.
 
 // end::dataencryption[]
+
+//@@author LeonardTay748
+// tag::statistics[]
+=== Statistics Feature
+The statistics feature allows users to view the overall statistics (i.e. number of good, hard and easy flashcards in application and those completed in test mode)
+
+==== Implementation
+This feature is supported by the following classes:
+
+* `StatsCommand` -- Carries the message to be displayed to the user.
+* `RatingContainsKeywordPredicate` -- To generate a predicate for good, hard and easy ratings.
+* `Model` -- To provide a list of FlashCards given a rating predicate and the statistics from test mode
+
+The following sequence diagram shows how the `stats` operation works:
+
+image::StatisticsSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes the `stats` command:
+
+image::StatisticsActivityDiagram.png[]
+
+==== Design Considerations
+Aspect: Methods to collect statistics
+
+* **Alternative 1 (Current choice):** Collect total number of good/hard/easy flashcards using predicates and those completed in test mode using the model.
+** Pros: This is easy to implement.
+** Cons: This requires extra lines of code to combine all the statistics.
+* **Alternative 2:** Collect all statistics using the model.
+** Pros: This allows the collection of all statistics with minimal methods involved.
+** Cons: This requires constant updating of the model when new FlashCards are added, removed or edited.
+
+// end::statistics[]
 
 //@@author
 === Logging

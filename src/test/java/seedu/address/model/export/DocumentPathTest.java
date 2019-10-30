@@ -19,7 +19,8 @@ public class DocumentPathTest {
             "cheatsheet。docx",
             "cheatsheetdotdocx",
             "cheat|sheet.docx",
-            "*cheatsheet*.docx"
+            "*cheatsheet*.docx",
+            ""
         };
 
         for (String invalidDocumentPathString : invalidDocumentPathStrings) {

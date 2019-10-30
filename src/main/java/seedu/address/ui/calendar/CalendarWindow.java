@@ -29,7 +29,10 @@ public class CalendarWindow extends UiPart<Stage> {
         super(FXML, primaryStage);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fullCalendar.fxml"));
         primaryStage.setTitle("KeyboardFlashCards Calendar");
-        primaryStage.setScene(new Scene(loader.load()));
+        Scene scene = new Scene(loader.load());
+        //scene.getStylesheets().add("view/DarkTheme.css");
+        primaryStage.setScene(scene);
+
         // Get the controller and add the calendar view to it
         calendarPane.getChildren().add(new FullCalendarView(YearMonth.now()).getView());
         primaryStage.show();

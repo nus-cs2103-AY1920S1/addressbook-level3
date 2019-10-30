@@ -97,6 +97,7 @@
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
+    -fx-background-radius:30;
 }
 
 .list-cell:filled:even {
@@ -155,7 +156,7 @@
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: white !important;
 }
 
 .status-bar .label {
@@ -329,13 +330,13 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #flashCardListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
+    -fx-background-radius: 20;
 }
 
 #categories {
@@ -347,9 +348,17 @@
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
+    -fx-border-radius: 40;
+    -fx-background-radius: 30;
     -fx-font-size: 13;
+}
+
+#resulttext {
+    -fx-fill: white;
+}
+
+#deadlinetext {
+    -fx-fill:white;
 }
 
 #rating {
