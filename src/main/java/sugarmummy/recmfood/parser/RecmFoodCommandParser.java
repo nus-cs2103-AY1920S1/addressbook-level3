@@ -12,9 +12,9 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.commands.RecmFoodCommand;
-import sugarmummy.recmfood.model.FoodNameContainsKeywordsPredicate;
+import sugarmummy.recmfood.predicates.FoodNameContainsKeywordsPredicate;
 import sugarmummy.recmfood.model.FoodType;
-import sugarmummy.recmfood.model.FoodTypeIsWantedPredicate;
+import sugarmummy.recmfood.predicates.FoodTypeIsWantedPredicate;
 
 /**
  * Parses input arguments and creates a new RecmFoodCommand object

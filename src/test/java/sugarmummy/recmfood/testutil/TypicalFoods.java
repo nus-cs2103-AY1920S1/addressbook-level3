@@ -1,9 +1,10 @@
-package seedu.address.testutil;
+package sugarmummy.recmfood.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.testutil.FoodBuilder;
 import sugarmummy.recmfood.model.Food;
 
 /**

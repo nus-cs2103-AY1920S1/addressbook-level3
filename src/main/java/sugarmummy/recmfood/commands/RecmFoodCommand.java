@@ -10,7 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.FoodTypeIsWantedPredicate;
+import sugarmummy.recmfood.predicates.FoodTypeIsWantedPredicate;
 
 /**
  * Recommends suitable food or meals for diabetic patients.
