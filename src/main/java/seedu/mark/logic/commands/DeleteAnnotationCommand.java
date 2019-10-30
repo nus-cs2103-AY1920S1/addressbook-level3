@@ -5,16 +5,10 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARAGRAPH;
 
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.exceptions.CommandException;
-import seedu.mark.logic.commands.results.CommandResult;
-import seedu.mark.logic.commands.results.OfflineCommandResult;
-import seedu.mark.model.Model;
 import seedu.mark.model.annotation.ParagraphIdentifier;
-import seedu.mark.storage.Storage;
 
 /**
  * Deletes a whole or part of an {@code Annotation} from a {@code Paragraph}.
- * By default, the {@code Highlight} and {@code AnnotationNote} of the {@code Annotation} is retained.
  */
 public abstract class DeleteAnnotationCommand extends AnnotationCommand {
 

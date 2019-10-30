@@ -63,7 +63,7 @@ public class EditAnnotationCommand extends AnnotationCommand {
 
     /**
      * Executes the {@code EditAnnotationCommand} and returns an {@code OfflineCommandResult}.
-     
+     *
      * @throws CommandException if bookmark index, cache, pid(s) are invalid, original paragraph has no annotation
      *          or target paragraph is phantom.
      */
@@ -74,7 +74,8 @@ public class EditAnnotationCommand extends AnnotationCommand {
         OfflineDocument docOriginal = getRequiredDoc(model);
         OfflineDocument doc = docOriginal.copy();
 
-        Paragraph originalP, newP = null;
+        Paragraph originalP;
+        Paragraph newP = null;
 
         if (newPid != null && newPid.isStray()) {
             throw new CommandException(MESSAGE_TARGET_NO_PHANTOM);

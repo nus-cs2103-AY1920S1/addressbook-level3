@@ -19,8 +19,8 @@ import seedu.mark.model.bookmark.CachedCopy;
  */
 public abstract class AnnotationCommand extends Command {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Paragraph identifiers should coincide with the paragraph labels on the left of each paragraph (e.g. 'P3').";
+    public static final String MESSAGE_CONSTRAINTS = "Paragraph identifiers should coincide with the paragraph labels"
+            + " on the left of each paragraph (e.g. 'P3').";
     public static final String MESSAGE_NO_CACHE_AVAILABLE = "No offline copy is available to annotate.\n"
             //+ "A cache has been created for you. Kindly press Enter to confirm to add the annotation to this cache."
             + "Download a cache using the " + CacheCommand.COMMAND_WORD + " command to start annotating.";

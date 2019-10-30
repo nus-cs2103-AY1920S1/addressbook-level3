@@ -7,9 +7,11 @@ import seedu.mark.logic.commands.results.OfflineCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.storage.Storage;
 
+/**
+ * Deletes all annotations and resets the offline document to a clean slate.
+ */
 public class DeleteAnnotationClearAllCommand extends DeleteAnnotationCommand {
 
     public static final String MESSAGE_SUCCESS = "All annotations are successfully cleared!";

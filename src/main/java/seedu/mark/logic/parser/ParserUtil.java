@@ -11,7 +11,6 @@ import java.util.Set;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
-import seedu.mark.logic.commands.AddAnnotationCommand;
 import seedu.mark.logic.commands.AnnotationCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.annotation.ParagraphIdentifier;

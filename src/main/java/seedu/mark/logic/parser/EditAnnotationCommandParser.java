@@ -38,7 +38,8 @@ public class EditAnnotationCommandParser implements Parser<EditAnnotationCommand
         }
 
         if (!argMultimap.getValue(PREFIX_PARAGRAPH).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAnnotationCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAnnotationCommand.MESSAGE_USAGE));
         }
         ParagraphIdentifier pid = ParserUtil.parseParagraphIdentifier(argMultimap.getValue(PREFIX_PARAGRAPH).get());
 

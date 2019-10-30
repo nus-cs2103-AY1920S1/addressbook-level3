@@ -204,6 +204,9 @@ public class OfflineDocument {
         this.paragraphs.put(p.getId(), p);
     }
 
+    /**
+     * Returns a copy of this {@code OfflineDocument}.
+     */
     public OfflineDocument copy() {
         return new OfflineDocument(
                 new ArrayList<>(paragraphs.values()).stream().map(Paragraph::copy).collect(Collectors.toList()),
