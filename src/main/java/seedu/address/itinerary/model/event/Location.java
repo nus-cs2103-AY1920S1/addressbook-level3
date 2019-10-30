@@ -6,9 +6,9 @@ package seedu.address.itinerary.model.event;
 public class Location {
     public static final String MESSAGE_CONSTRAINTS =
             "We all know that you love typing on the CLI but the location of an event "
-            + "should not contain any special characters and should be less than 100 characters.";
+            + "should be less than 20 characters.";
 
-    public static final String VALIDATION_REGEX = "(.{0,100})";
+    public static final String VALIDATION_REGEX = "(.{0,20})";
     public final String location;
 
     public Location(String location) {

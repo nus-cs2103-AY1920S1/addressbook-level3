@@ -10,15 +10,22 @@ import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.itinerary.model.event.*;
 import seedu.address.itinerary.model.Model;
+import seedu.address.itinerary.model.event.Date;
+import seedu.address.itinerary.model.event.Description;
+import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.model.event.Location;
+import seedu.address.itinerary.model.event.Tag;
+import seedu.address.itinerary.model.event.Time;
+import seedu.address.itinerary.model.event.Title;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Search and list events from the itinerary based on conditions.
  */
-public class SearchCommand extends Command {
+public class SearchCommand extends Command<Model> {
     public static final String COMMAND_WORD = "search";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": TravEzy helps you to search and give you a life.\n"
             + "Returns a new list which reflects all the events that matches.\n"

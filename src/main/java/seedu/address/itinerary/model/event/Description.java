@@ -6,7 +6,7 @@ package seedu.address.itinerary.model.event;
 public class Description {
     public static final String MESSAGE_CONSTRAINTS =
             "We all know that you love typing on the CLI but the description of an event "
-            + "should not contain any special characters and should be less than 50 characters.";
+            + "should be less than 50 characters.";
 
     /*
      * The first character of the description must not be a whitespace,
