@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 
 import io.xpire.commons.core.LogsCenter;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -28,23 +29,30 @@ public class CardListPanel extends UiPart<AnchorPane> {
     @FXML
     private Label view;
 
-    public CardListPanel(ObservableList<Item> itemList) {
+    public CardListPanel(ObservableList<? extends Item> xpireItemList) {
         super(FXML);
-        displayItem(itemList);
+        displayItem(xpireItemList);
     }
 
     /**
-     * Renders items in the {@Code itemList}.
+     * Renders items in the {@Code xpireItemList}.
      */
-    void displayItem(ObservableList<Item> itemList) {
+    void displayItem(ObservableList<? extends Item> itemList) {
         card.getChildren().clear();
-        Collection<ItemCard> cardList = IntStream.range(0, itemList.size())
-                .mapToObj(i -> new ItemCard(itemList.get(i), i + 1))
-                .collect(Collectors.toList());
+        Collection<ItemCard> cardList;
+        if (!itemList.isEmpty() && itemList.get(0) instanceof XpireItem) {
+            ObservableList<XpireItem> xpireItemList = (ObservableList<XpireItem>) itemList;
+            cardList = IntStream.range(0, xpireItemList.size())
+                                .mapToObj(i -> new ItemCard(xpireItemList.get(i), i + 1))
+                                .collect(Collectors.toList());
+        } else {
+            cardList = IntStream.range(0, itemList.size())
+                                .mapToObj(i -> new ItemCard(itemList.get(i), i + 1))
+                                .collect(Collectors.toList());
+        }
         for (ItemCard itemCard : cardList) {
             card.getChildren().add(itemCard.getRoot());
         }
         oldCardList = cardList;
     }
-
 }

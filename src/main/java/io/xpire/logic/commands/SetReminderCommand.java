@@ -11,33 +11,32 @@ import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
-import io.xpire.model.item.Item;
 import io.xpire.model.item.ReminderThreshold;
+import io.xpire.model.item.XpireItem;
 
 /**
- * Changes the reminder threshold for an item identified with its displayed index.
+ * Changes the reminder threshold for an xpireItem identified with its displayed index.
  */
 
 public class SetReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "set reminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the reminder threshold of the item "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the reminder threshold of the xpireItem "
             + "identified with its displayed index. "
             + "Existing threshold will be overwritten by the input.\n"
             + "Format: set reminder|<index>|<threshold> (both index and threshold must be positive numbers)\n"
             + "Example: " + COMMAND_WORD + "|1|7";
-
     public static final String MESSAGE_SUCCESS_SET = "Reminder for item %d has been set to %s day(s)"
             + " before expiry date";
     public static final String MESSAGE_SUCCESS_RESET = "Disabled reminder for item %d";
 
     private final Index index;
     private final ReminderThreshold threshold;
-    private Item item = null;
+    private XpireItem item = null;
 
     /**
-     * @param index Index of the item in the list.
+     * @param index Index of the xpireItem in the list.
      * @param threshold New threshold.
      */
     public SetReminderCommand(Index index, ReminderThreshold threshold) {
@@ -50,29 +49,25 @@ public class SetReminderCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Item> lastShownList = model.getFilteredItemList();
+        List<XpireItem> lastShownList = model.getFilteredXpireItemList();
 
         if (this.index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        Item itemToSetReminder = lastShownList.get(this.index.getZeroBased());
-        Item editedItem = itemToSetReminder;
-        this.item = editedItem;
-        editedItem.setReminderThreshold(this.threshold);
+        XpireItem xpireItemToSetReminder = lastShownList.get(this.index.getZeroBased());
 
-
-        if (itemToSetReminder.isExpired()) {
+        if (xpireItemToSetReminder.isExpired()) {
             throw new CommandException(MESSAGE_THRESHOLD_ITEM_EXPIRED);
         }
 
-        String daysLeft = itemToSetReminder.getExpiryDate().getStatus();
-        ReminderThreshold finalThreshold = getValidThreshold(itemToSetReminder);
-        itemToSetReminder.setReminderThreshold(finalThreshold);
-
-        model.setItem(itemToSetReminder, itemToSetReminder);
+        String daysLeft = xpireItemToSetReminder.getExpiryDate().getStatus();
+        ReminderThreshold finalThreshold = getValidThreshold(xpireItemToSetReminder);
+        xpireItemToSetReminder.setReminderThreshold(finalThreshold);
+        this.item = xpireItemToSetReminder;
+        model.setItem(xpireItemToSetReminder, xpireItemToSetReminder);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
-        if (isThresholdExceeded(itemToSetReminder)) {
+        if (isThresholdExceeded(xpireItemToSetReminder)) {
             return new CommandResult(String.format(MESSAGE_REMINDER_THRESHOLD_EXCEEDED, daysLeft));
         } else {
             return new CommandResult(this.threshold.getValue() > 0
@@ -81,12 +76,12 @@ public class SetReminderCommand extends Command {
         }
     }
 
-    private boolean isThresholdExceeded(Item item) {
+    private boolean isThresholdExceeded(XpireItem item) {
         return !ReminderThreshold.isValidReminderThreshold(
                 this.threshold.toString(), item.getExpiryDate());
     }
 
-    private ReminderThreshold getValidThreshold(Item item) {
+    private ReminderThreshold getValidThreshold(XpireItem item) {
         if (isThresholdExceeded(item)) {
             return new ReminderThreshold(item.getExpiryDate().getStatus());
         } else {

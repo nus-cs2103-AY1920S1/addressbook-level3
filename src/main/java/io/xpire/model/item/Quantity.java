@@ -7,7 +7,7 @@ import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.parser.exceptions.ParseException;
 
 /**
- * Represents the quantity of an item.
+ * Represents the quantity of an xpireItem.
  * Users are only allowed to key in positive integers.
  * Internally, there can be quantity of value 0.
  * Guarantees: immutable and valid in {@link #isValidInputQuantity(String test)}.

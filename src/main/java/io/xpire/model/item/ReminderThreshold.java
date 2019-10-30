@@ -7,7 +7,7 @@ import io.xpire.commons.util.StringUtil;
 
 
 /**
- * Represents an Item's reminder threshold.
+ * Represents an XpireItem's reminder threshold.
  * Guarantees: immutable; is valid as declared in {@link #isValidReminderThreshold(String)}.
  */
 public class ReminderThreshold {

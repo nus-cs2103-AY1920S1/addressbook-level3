@@ -88,15 +88,15 @@ public class QuantityTest {
 
         Quantity testQuantity = new Quantity("3");
 
-        //quantityToDeduct is greater than item quantity -> throws exception
+        //quantityToDeduct is greater than xpireItem quantity -> throws exception
         assertThrows(ParseException.class, ()-> testQuantity.deductQuantity(new Quantity("4")));
 
-        //quantityToDeduct is equal to item quantity -> returns 0 for quantity
+        //quantityToDeduct is equal to xpireItem quantity -> returns 0 for quantity
         Quantity toDeduct = new Quantity("3");
         Quantity expectedQuantity = new Quantity("0", true);
         assertTrue(expectedQuantity.equals(testQuantity.deductQuantity(toDeduct)));
 
-        //quantityToDeduct is less than item quantity -> returns a valid quantity
+        //quantityToDeduct is less than xpireItem quantity -> returns a valid quantity
         toDeduct = new Quantity("1");
         expectedQuantity = new Quantity("2");
         assertTrue(expectedQuantity.equals(testQuantity.deductQuantity(toDeduct)));

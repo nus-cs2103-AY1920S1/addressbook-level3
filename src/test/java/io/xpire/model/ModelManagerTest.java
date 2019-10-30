@@ -13,8 +13,10 @@ import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.core.GuiSettings;
 import io.xpire.model.item.ContainsKeywordsPredicate;
+import io.xpire.model.item.Item;
 import io.xpire.testutil.Assert;
 import io.xpire.testutil.ExpiryDateTrackerBuilder;
+import io.xpire.testutil.ReplenishListBuilder;
 import io.xpire.testutil.TypicalItems;
 
 public class ModelManagerTest {
@@ -36,14 +38,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setXpireFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setListFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setXpireFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setListFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,14 +63,14 @@ public class ModelManagerTest {
 
     @Test
     public void setExpiryDateTrackerFilePath_nullPath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setXpireFilePath(null));
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.setListFilePath(null));
     }
 
     @Test
     public void setExpiryDateTrackerFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setXpireFilePath(path);
-        assertEquals(path, modelManager.getXpireFilePath());
+        modelManager.setListFilePath(path);
+        assertEquals(path, modelManager.getListFilePath());
     }
 
     @Test
@@ -90,19 +92,27 @@ public class ModelManagerTest {
     @Test
     public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager
-                .getFilteredItemList().remove(0));
+                .getFilteredXpireItemList().remove(0));
     }
 
     @Test
     public void equals() {
+
         Xpire xpire = new ExpiryDateTrackerBuilder()
                 .withItem(TypicalItems.KIWI).withItem(TypicalItems.BANANA).build();
-        Xpire differentAddressBook = new Xpire();
+        ReplenishList replenishList = new ReplenishListBuilder()
+                .withItem(TypicalItems.BAGEL).withItem(TypicalItems.CHOCOLATE).build();
+        ReadOnlyListView<? extends Item>[] lists = new ReadOnlyListView[]{xpire, replenishList};
+
+        Xpire differentXpire = new Xpire();
+        ReplenishList differentReplenishList = new ReplenishList();
+        ReadOnlyListView<? extends Item>[] differentLists = new ReadOnlyListView[]{differentXpire,
+            differentReplenishList};
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(xpire, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(xpire, userPrefs);
+        modelManager = new ModelManager(lists, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(lists, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -115,19 +125,19 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentLists, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = TypicalItems.KIWI.getName().toString().split("\\s+");
         modelManager.updateFilteredItemList(new ContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(xpire, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(lists, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setXpireFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(xpire, differentUserPrefs)));
+        differentUserPrefs.setListFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(lists, differentUserPrefs)));
     }
 }

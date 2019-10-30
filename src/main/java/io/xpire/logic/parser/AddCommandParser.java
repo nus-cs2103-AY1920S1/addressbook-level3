@@ -5,9 +5,9 @@ import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import io.xpire.logic.commands.AddCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ExpiryDate;
-import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
+import io.xpire.model.item.XpireItem;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -24,16 +24,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!areArgumentsPresent(arguments)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        Item item;
+        XpireItem xpireItem;
         Name name = ParserUtil.parseName(arguments[0]);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(arguments[1]);
         if (hasQuantity(arguments)) {
             Quantity quantity = ParserUtil.parseQuantity(arguments[2]);
-            item = new Item(name, expiryDate, quantity);
+            xpireItem = new XpireItem(name, expiryDate, quantity);
         } else {
-            item = new Item(name, expiryDate);
+            xpireItem = new XpireItem(name, expiryDate);
         }
-        return new AddCommand(item);
+        return new AddCommand(xpireItem);
     }
 
     private static boolean areArgumentsPresent(String...arguments) {

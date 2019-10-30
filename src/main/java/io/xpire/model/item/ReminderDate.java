@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import io.xpire.commons.util.DateUtil;
 
 /**
- * Represents an Item's reminder date in the expiry date tracker.
+ * Represents an XpireItem's reminder date in the expiry date tracker.
  */
 public class ReminderDate {
 

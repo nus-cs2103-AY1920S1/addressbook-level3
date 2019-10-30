@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path xpireFilePath = Paths.get("data" , "xpire.json");
+    private Path replenishFilePath = Paths.get("data" , "xpire.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +36,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setXpireFilePath(newUserPrefs.getXpireFilePath());
+        setListFilePath(newUserPrefs.getListFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,14 +48,26 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getXpireFilePath() {
+    @Override
+    public Path getListFilePath() {
         return this.xpireFilePath;
     }
 
-    public void setXpireFilePath(Path expiryDateTrackerFilePath) {
+    public void setListFilePath(Path expiryDateTrackerFilePath) {
         requireNonNull(expiryDateTrackerFilePath);
         this.xpireFilePath = expiryDateTrackerFilePath;
     }
+
+    @Override
+    public Path getReplenishFilePath() {
+        return this.replenishFilePath;
+    }
+
+    public void setReplenishFilePath(Path replenishListFilePath) {
+        requireNonNull(replenishListFilePath);
+        this.replenishFilePath = replenishListFilePath;
+    }
+
 
     @Override
     public boolean equals(Object obj) {

@@ -5,14 +5,15 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import io.xpire.commons.exceptions.DataConversionException;
+import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.ReadOnlyUserPrefs;
-import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.UserPrefs;
+import io.xpire.model.item.Item;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends XpireStorage, UserPrefsStorage {
+public interface Storage extends ListStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +22,12 @@ public interface Storage extends XpireStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getXpireFilePath();
+    Path getListFilePath();
 
     @Override
-    Optional<ReadOnlyXpire> readXpire() throws DataConversionException, IOException;
+    Optional<ReadOnlyListView<? extends Item>>[] readList() throws DataConversionException, IOException;
 
     @Override
-    void saveXpire(ReadOnlyXpire xpire) throws IOException;
+    void saveList(ReadOnlyListView<? extends Item>[] lists) throws IOException;
 
 }

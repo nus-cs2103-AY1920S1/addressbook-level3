@@ -1,7 +1,7 @@
 package io.xpire.testutil;
 
 import io.xpire.model.Xpire;
-import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
 
 /**
  * A utility class to help with building ExpiryDateTracker objects.
@@ -17,10 +17,10 @@ public class ExpiryDateTrackerBuilder {
     }
 
     /**
-     * Adds a new {@code Item} to the {@code ExpiryDateTracker} that we are building.
+     * Adds a new {@code XpireItem} to the {@code ExpiryDateTracker} that we are building.
      */
-    public ExpiryDateTrackerBuilder withItem(Item item) {
-        xpire.addItem(item);
+    public ExpiryDateTrackerBuilder withItem(XpireItem xpireItem) {
+        xpire.addItem(xpireItem);
         return this;
     }
 

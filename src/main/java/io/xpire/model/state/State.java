@@ -1,11 +1,10 @@
 package io.xpire.model.state;
 
-import java.util.List;
-
 import io.xpire.model.Model;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.Xpire;
-import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
+import javafx.collections.ObservableList;
 
 /**
  * State that stores the previous model's Xpire, UserPrefs and the FilteredList.
@@ -14,7 +13,7 @@ public class State {
 
     private Xpire xpire;
     private UserPrefs userPrefs;
-    private List<Item> filteredList;
+    private ObservableList<XpireItem> filteredList;
 
     public State(Model model) {
         this.xpire = new Xpire(model.getXpire());

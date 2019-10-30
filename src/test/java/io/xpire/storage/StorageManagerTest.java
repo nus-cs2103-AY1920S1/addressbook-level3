@@ -10,9 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import io.xpire.commons.core.GuiSettings;
-import io.xpire.model.ReadOnlyXpire;
+import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.Xpire;
+import io.xpire.model.item.Item;
 import io.xpire.testutil.TypicalItems;
 
 public class StorageManagerTest {
@@ -24,7 +25,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonXpireStorage addressBookStorage = new JsonXpireStorage(getTempFilePath("ab"));
+        JsonListStorage addressBookStorage = new JsonListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -54,15 +55,16 @@ public class StorageManagerTest {
          * {@link JsonXpireStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonXpireStorageTest} class.
          */
-        Xpire original = TypicalItems.getTypicalExpiryDateTracker();
-        storageManager.saveXpire(original);
-        ReadOnlyXpire retrieved = storageManager.readXpire().get();
-        assertEquals(original.getItemList(), new Xpire(retrieved).getItemList());
+        ReadOnlyListView<? extends Item>[] original = TypicalItems.getTypicalLists();
+        storageManager.saveList(original);
+        ReadOnlyListView<? extends Item> retrieved = storageManager.readList()[0].get();
+        Xpire retrievedXpire = (Xpire) retrieved;
+        assertEquals(retrieved.getItemList(), new Xpire(retrieved).getItemList());
     }
 
     @Test
     public void getExpiryDateTrackerFilePath() {
-        assertNotNull(storageManager.getXpireFilePath());
+        assertNotNull(storageManager.getListFilePath());
     }
 
 }

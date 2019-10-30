@@ -6,7 +6,7 @@ import static io.xpire.logic.commands.SetReminderCommand.MESSAGE_SUCCESS_RESET;
 import static io.xpire.logic.commands.SetReminderCommand.MESSAGE_SUCCESS_SET;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
-import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
+import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,7 +31,7 @@ public class SetReminderCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
+        model = new ModelManager(getTypicalLists(), new UserPrefs());
     }
 
     @Test
@@ -53,13 +53,13 @@ public class SetReminderCommandTest {
         // null -> returns false
         assertFalse(setFirstCommand.equals(null));
 
-        // different item -> returns false
+        // different xpireItem -> returns false
         assertFalse(setFirstCommand.equals(setSecondCommand));
     }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredXpireItemList().size() + 1);
         ReminderThreshold validThreshold = new ReminderThreshold("2");
         SetReminderCommand setReminderCommand = new SetReminderCommand(outOfBoundIndex, validThreshold);
 

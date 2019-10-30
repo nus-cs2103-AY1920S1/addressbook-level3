@@ -5,6 +5,7 @@ import java.util.Optional;
 import io.xpire.commons.util.DateUtil;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.ReminderDate;
+import io.xpire.model.item.XpireItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -13,7 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 /**
- * An UI component that displays information of a {@code Item}.
+ * An UI component that displays information of a {@code XpireItem}.
  */
 public class ItemCard extends UiPart<Region> {
 
@@ -26,7 +27,8 @@ public class ItemCard extends UiPart<Region> {
      *
      */
 
-    public final Item item;
+    private XpireItem xpireItem;
+    private Item replenishItem;
 
     @FXML
     private HBox cardPane;
@@ -49,9 +51,9 @@ public class ItemCard extends UiPart<Region> {
     @FXML
     private StackPane days;
 
-    public ItemCard(Item item, int displayedIndex) {
+    public ItemCard(XpireItem item, int displayedIndex) {
         super(FXML);
-        this.item = item;
+        this.xpireItem = item;
         this.id.setText(displayedIndex + ". ");
         this.name.setText(item.getName().toString());
         this.expiryDate.setText("Expiry date: " + item.getExpiryDate().toString());
@@ -63,7 +65,7 @@ public class ItemCard extends UiPart<Region> {
         } else {
             this.reminder.setVisible(false);
         }
-        this.item.getTags()
+        this.xpireItem.getTags()
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
 
         this.status.setText(item.getExpiryDate().getStatus());
@@ -72,12 +74,26 @@ public class ItemCard extends UiPart<Region> {
         this.setColor();
     }
 
+    public ItemCard(Item replenishItem, int displayedIndex) {
+        super(FXML);
+        this.replenishItem = replenishItem;
+        this.id.setText(displayedIndex + ". ");
+        this.name.setText(replenishItem.getName().toString());
+        this.expiryDate.setVisible(false);
+        this.quantity.setVisible(false);
+        this.reminder.setVisible(false);
+        this.status.setVisible(false);
+        this.replenishItem.getTags()
+                .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
+        box.setOnMouseClicked(e -> box.requestFocus());
+    }
+
     private void setColor() {
-        long remainingDays = Long.parseLong(item.getExpiryDate().getStatus());
-        int reminderThreshold = item.getReminderThreshold().getValue();
-        if (item.isExpired()) {
+        long remainingDays = Long.parseLong(xpireItem.getExpiryDate().getStatus());
+        int reminderThreshold = xpireItem.getReminderThreshold().getValue();
+        if (xpireItem.isExpired()) {
             days.getStyleClass().add("expired");
-        } else if (item.hasReminderThreshold() && remainingDays <= reminderThreshold) {
+        } else if (xpireItem.hasReminderThreshold() && remainingDays < reminderThreshold) {
             days.getStyleClass().add("remind");
         } else {
             days.getStyleClass().add("healthy");
@@ -99,6 +115,6 @@ public class ItemCard extends UiPart<Region> {
         // state check
         ItemCard card = (ItemCard) other;
         return id.getText().equals(card.id.getText())
-                && item.equals(card.item);
+                && xpireItem.equals(card.xpireItem);
     }
 }

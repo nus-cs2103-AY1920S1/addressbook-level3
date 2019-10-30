@@ -32,8 +32,8 @@ public class SearchCommand extends Command {
         requireNonNull(model);
         model.updateFilteredItemList(this.predicate);
         StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW,
-                model.getFilteredItemList().size()));
-        if (model.getFilteredItemList().size() == 0) {
+                model.getCurrentFilteredItemList().size()));
+        if (model.getCurrentFilteredItemList().size() == 0) {
             predicate.getKeywords().forEach(s -> {
                 if (s.startsWith("#")) {
                     sb.append(StringUtil.findSimilarItemTags(s, model.getAllItemTags()));

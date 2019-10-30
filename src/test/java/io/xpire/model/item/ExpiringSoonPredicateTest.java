@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.util.DateUtil;
-import io.xpire.testutil.ItemBuilder;
+import io.xpire.testutil.XpireItemBuilder;
 
 public class ExpiringSoonPredicateTest {
 
@@ -36,7 +36,7 @@ public class ExpiringSoonPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different item -> returns false
+        // different xpireItem -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
@@ -48,11 +48,11 @@ public class ExpiringSoonPredicateTest {
 
         // Within the days
         String expiryDate1 = DateUtil.convertDateToString(currentDate.plusDays(5), DATE_FORMAT);
-        assertTrue(predicate.test(new ItemBuilder().withExpiryDate(expiryDate1).build()));
+        assertTrue(predicate.test(new XpireItemBuilder().withExpiryDate(expiryDate1).build()));
 
         // On the day
         String expiryDate2 = DateUtil.convertDateToString(currentDate.plusDays(10), DATE_FORMAT);
-        assertTrue(predicate.test(new ItemBuilder().withExpiryDate(expiryDate2).build()));
+        assertTrue(predicate.test(new XpireItemBuilder().withExpiryDate(expiryDate2).build()));
 
     }
 
@@ -64,6 +64,6 @@ public class ExpiringSoonPredicateTest {
 
         // Not within the days
         String expiryDate = DateUtil.convertDateToString(currentDate.plusDays(20), DATE_FORMAT);
-        assertFalse(predicate.test(new ItemBuilder().withExpiryDate(expiryDate).build()));
+        assertFalse(predicate.test(new XpireItemBuilder().withExpiryDate(expiryDate).build()));
     }
 }

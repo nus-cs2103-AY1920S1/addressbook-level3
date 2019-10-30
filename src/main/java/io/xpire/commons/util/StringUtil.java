@@ -227,7 +227,7 @@ public class StringUtil {
     }
 
     /**
-     * Returns all similar item names to the search keyword specified.
+     * Returns all similar xpireItem names to the search keyword specified.
      * @param word The keyword specified to find similar items for.
      * @param allNames The set that contains all names to compare the word to.
      * @return The string which contains all similar names.

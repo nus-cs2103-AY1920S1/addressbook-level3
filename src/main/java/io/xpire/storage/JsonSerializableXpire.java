@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import io.xpire.commons.exceptions.IllegalValueException;
-import io.xpire.model.ReadOnlyXpire;
+import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.Xpire;
-import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
 
 /**
  * An Immutable Xpire that is serializable to JSON format.
@@ -21,23 +21,25 @@ class JsonSerializableXpire {
 
     public static final String MESSAGE_DUPLICATE_ITEM = "Items list contains duplicate item(s).";
 
-    private final List<JsonAdaptedItem> items = new ArrayList<>();
+    private final List<JsonAdaptedXpireItem> items = new ArrayList<>();
+
 
     /**
      * Constructs a {@code JsonSerializableXpire} with the given items.
      */
     @JsonCreator
-    public JsonSerializableXpire(@JsonProperty("items") List<JsonAdaptedItem> items) {
+    public JsonSerializableXpire(@JsonProperty("items") List<JsonAdaptedXpireItem> items) {
         this.items.addAll(items);
     }
 
+
     /**
-     * Converts a given {@code ReadOnlyXpire} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyListView} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableXpire}.
      */
-    public JsonSerializableXpire(ReadOnlyXpire source) {
-        items.addAll(source.getItemList().stream().map(JsonAdaptedItem::new).collect(Collectors.toList()));
+    public JsonSerializableXpire(ReadOnlyListView<XpireItem> source) {
+        items.addAll(source.getItemList().stream().map(JsonAdaptedXpireItem::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +49,12 @@ class JsonSerializableXpire {
      */
     public Xpire toModelType() throws IllegalValueException {
         Xpire xpire = new Xpire();
-        for (JsonAdaptedItem jsonAdaptedItem : items) {
-            Item item = jsonAdaptedItem.toModelType();
-            if (xpire.hasItem(item)) {
+        for (JsonAdaptedXpireItem jsonAdaptedXpireItem : items) {
+            XpireItem xpireItem = jsonAdaptedXpireItem.toModelType();
+            if (xpire.hasItem(xpireItem)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
             }
-            xpire.addItem(item);
+            xpire.addItem(xpireItem);
         }
         return xpire;
     }
