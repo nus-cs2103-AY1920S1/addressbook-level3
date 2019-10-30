@@ -27,11 +27,15 @@ import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
+import seedu.address.logic.commands.ScrollCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
+import seedu.address.logic.commands.SwitchTabCommand;
+import seedu.address.logic.commands.ToggleNextWeekCommand;
 
 /**
  * Contains utility methods used for suggesting user commands in the *SuggestingCommandBox classes.
@@ -56,11 +60,15 @@ public class SuggestingCommandUtil {
             FindGroupCommand.COMMAND_WORD,
             FindPersonCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
+            HomeCommand.COMMAND_WORD,
             ListCommand.COMMAND_WORD,
             PopupCommand.COMMAND_WORD,
             ScheduleCommand.COMMAND_WORD,
+            ScrollCommand.COMMAND_WORD,
             ShowCommand.COMMAND_WORD,
-            ShowNusModCommand.COMMAND_WORD
+            ShowNusModCommand.COMMAND_WORD,
+            SwitchTabCommand.COMMAND_WORD,
+            ToggleNextWeekCommand.COMMAND_WORD
     );
     private static ObservableList<String> readOnlyCommandWords = FXCollections.unmodifiableObservableList(commandWords);
 
