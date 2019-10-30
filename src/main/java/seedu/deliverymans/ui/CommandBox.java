@@ -54,6 +54,7 @@ public class CommandBox extends UiPart<Region> {
     private void handleKeyPressed() {
         LinkedList<String> temp = trieManager.getAutoCompleteResults(commandTextField.getText(),
                 MainWindow.currentContext);
+        temp.sort(String::compareToIgnoreCase);
         if (!temp.isEmpty()) {
             for (String s : temp) {
                 System.out.println(s);
