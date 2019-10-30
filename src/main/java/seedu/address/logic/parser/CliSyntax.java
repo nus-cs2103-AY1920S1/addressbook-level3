@@ -45,7 +45,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_YEAR_MONTH_WEEK = new Prefix("ymw/");
 
     // Food Prefixes
-    public static final Prefix PREFIX_FOOD = new Prefix("fn/");
+    public static final Prefix PREFIX_FOOD_NAME = new Prefix("fn/");
     public static final Prefix PREFIX_FOOD_TYPE = new Prefix("ft/");
     public static final Prefix PREFIX_CALORIE = new Prefix("ca/");
     public static final Prefix PREFIX_GI = new Prefix("gi/");

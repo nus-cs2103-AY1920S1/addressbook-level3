@@ -22,6 +22,11 @@ public class FoodNameContainsKeywordsPredicate implements Predicate<Food> {
     @Override
     public boolean test(Food food) {
         requireNonNull(food);
+
+        //Shows the full food list if no keyword is specified.
+        if (keywords.size() == 0) {
+            return true;
+        }
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(food.getFoodName().toString(), keyword));
     }

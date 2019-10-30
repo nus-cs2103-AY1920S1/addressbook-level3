@@ -45,25 +45,6 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
     }
 
     /**
-     * Replaces the food {@code target} in the list with {@code editedFood}. {@code target} must exist in the list. The
-     * food identity of {@code editedFood} must not be the same as another existing food in the list.
-     */
-    public void setFood(Food target, Food editedFood) {
-        requireAllNonNull(target, editedFood);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new FoodNotFoundException();
-        }
-
-        if (!target.isSameFood(editedFood) && contains(editedFood)) {
-            throw new DuplicateFoodException();
-        }
-
-        internalList.set(index, editedFood);
-    }
-
-    /**
      * Removes the equivalent food from the list. The food must exist in the list.
      */
     public void remove(Food toRemove) {

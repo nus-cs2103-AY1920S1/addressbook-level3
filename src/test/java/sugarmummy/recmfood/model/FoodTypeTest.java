@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 class FoodTypeTest {
 
     @Test
-    void getFrom_allValidTypes_success() throws ParseException {
+    void getFrom_allValidTypes_returnsFoodType() throws ParseException {
         assertEquals(FoodType.NON_STARCHY_VEGETABLE, FoodType.getFrom("nsv"));
         assertEquals(FoodType.STARCHY_VEGETABLE, FoodType.getFrom("sv"));
         assertEquals(FoodType.FRUIT, FoodType.getFrom("f"));
@@ -26,7 +26,7 @@ class FoodTypeTest {
     }
 
     @Test
-    void getFrom_mismatchTypes_fail() throws ParseException {
+    void getFrom_mismatchTypes() throws ParseException {
         assertNotEquals(FoodType.NON_STARCHY_VEGETABLE, FoodType.getFrom("sv"));
         assertNotEquals(FoodType.STARCHY_VEGETABLE, FoodType.getFrom("p"));
 

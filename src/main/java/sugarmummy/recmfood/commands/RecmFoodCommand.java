@@ -17,8 +17,12 @@ import sugarmummy.recmfood.predicates.FoodTypeIsWantedPredicate;
  */
 public class RecmFoodCommand extends Command {
 
+    private static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "There is no match in the current database :( "
+            + "Try adding more new foods or reducing some filters~";
+    private static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
+
+    public static final char FLAG_SIGNAL = '-';
     public static final String COMMAND_WORD = "recmf";
-    public static final String FLAG_SIGNAL = "-";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets a list of food recommendations."
             + "Recommendations can be filtered by keywords and flags:\n"
             + "-nsv: breakfast recommendations\n"
@@ -32,16 +36,19 @@ public class RecmFoodCommand extends Command {
     private final FoodTypeIsWantedPredicate typePredicate;
     private final Predicate<Food> namePredicate;
 
-    public RecmFoodCommand(FoodTypeIsWantedPredicate typePredicate, Predicate<Food> namePredicate) {
+    public RecmFoodCommand(FoodTypeIsWantedPredicate typePredicate, Predicate<Food> foodNamePredicate) {
         this.typePredicate = typePredicate;
-        this.namePredicate = namePredicate;
+        this.namePredicate = foodNamePredicate;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredFoodList(food -> typePredicate.test(food) && namePredicate.test(food));
-        return new CommandResult("Hope you like what I've found for you~");
+        if (model.getFilterFoodList().size() == 0) {
+            return new CommandResult(MESSAGE_RESPONSE_EMPTY_FOOD_LIST);
+        }
+        return new CommandResult(MESSAGE_RESPONSE_NORMAL_LIST);
     }
 
     @Override
