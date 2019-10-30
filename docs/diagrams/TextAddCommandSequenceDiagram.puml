@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":MemeCreationPanel" as MemeCreationPanel UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CreateParser" as CreateParser LOGIC_COLOR
+participant "c:TextAddCommand" as TextAddCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":MemeCreation" as MemeCreation MODEL_COLOR
+end box
+
+activate MainWindow
+MainWindow -> LogicManager : execute(add text "test")
+activate LogicManager
+
+LogicManager -> CreateParser : parseCommand(add text "test")
+activate CreateParser
+
+create TextAddCommand
+CreateParser -> TextAddCommand
+activate TextAddCommand
+
+TextAddCommand --> CreateParser
+deactivate TextAddCommand
+
+CreateParser --> LogicManager : c
+deactivate CreateParser
+
+LogicManager -> TextAddCommand : execute()
+activate TextAddCommand
+
+TextAddCommand -> MemeCreation : addText("test")
+activate MemeCreation
+MemeCreation -> MemeCreation : addText("test")
+MemeCreation -> TextAddCommand
+deactivate MemeCreation
+TextAddCommand -> LogicManager
+deactivate TextAddCommand
+
+LogicManager -> MainWindow : r
+deactivate LogicManager
+
+MainWindow -> MemeCreationPanel : updateImage()
+activate MemeCreationPanel
+MemeCreationPanel -> MemeCreation : render()
+MemeCreation -> MemeCreationPanel : image
+MemeCreationPanel -> MemeCreationPanel : display()
+MemeCreationPanel -> MainWindow
+deactivate MemeCreationPanel
+
+deactivate MainWindow
+@enduml
