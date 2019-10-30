@@ -42,12 +42,17 @@ public class Fridge implements Entity {
     }
 
     //@@author ambervoong
+    /**
+     * Creates a new Fridge object. If the fridge wasStored, no ID is set when constructing the Fridge.
+     * If the fridge was not stored before, a default ID is given.
+     * This ID is not added to the UniqueIdentificationNumberMaps.
+     * @param wasStored boolean indicating if the fridge was previously stored.
+     */
     private Fridge(boolean wasStored) {
         if (!wasStored) {
             fridgeIdNum = IdentificationNumber.customGenerateId("F", 1);
         }
     }
-    //@@author
 
     /**
      * Generates a new Fridge with a custom ID. Only used for creating a Fridge from storage.
@@ -84,8 +89,11 @@ public class Fridge implements Entity {
         this.body = Optional.ofNullable(body);
         if (body == null) {
             setFridgeStatus(FridgeStatus.UNOCCUPIED);
+            setBodyId(0);
+
         } else {
             setFridgeStatus(FridgeStatus.OCCUPIED);
+            setBodyId(body.getIdNum().getIdNum());
         }
     }
 

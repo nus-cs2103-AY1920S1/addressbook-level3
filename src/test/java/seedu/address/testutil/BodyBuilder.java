@@ -39,6 +39,7 @@ public class BodyBuilder {
     public static final String DEFAULT_NEXT_OF_KIN = "Jane Doe";
     public static final String DEFAULT_RELATIONSHIP = "Mother";
     public static final String DEFAULT_KIN_PHONE = "81234568";
+    public static final String DEFAULT_DETAILS = "note";
 
     private Name name;
     private Sex sex;
@@ -59,6 +60,8 @@ public class BodyBuilder {
     private String relationship;
     private PhoneNumber kinPhoneNumber;
 
+    private String details;
+
 
     public BodyBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -73,6 +76,7 @@ public class BodyBuilder {
         nextOfKin = new Name(DEFAULT_NEXT_OF_KIN);
         relationship = DEFAULT_RELATIONSHIP;
         kinPhoneNumber = new PhoneNumber(DEFAULT_KIN_PHONE);
+        details = DEFAULT_DETAILS;
 
         try {
             dateOfBirth = ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH);
@@ -102,6 +106,8 @@ public class BodyBuilder {
         dateOfDeath = bodyToCopy.getDateOfDeath().orElse(null);
         dateOfBirth = bodyToCopy.getDateOfBirth().orElse(null);
         dateOfAdmission = bodyToCopy.getDateOfAdmission();
+
+        details = bodyToCopy.getDetails().orElse(null);
     }
 
     /**
@@ -254,13 +260,23 @@ public class BodyBuilder {
     }
 
     /**
+     * Sets the details of the {@code Body} that we are building.
+     * @param details of the body
+     * @return BodyBuilder
+     */
+    public BodyBuilder withDetails(String details) {
+        this.details = ParserUtil.parseStringFields(details);
+        return this;
+    }
+
+    /**
      * Creates a Body object using the parameters currently in this BodyBuilder object.
-     * @return
+     * @return the created Body
      */
     public Body build() {
         return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
                 organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
-                kinPhoneNumber);
+                kinPhoneNumber, details);
     }
 
     /**
@@ -268,8 +284,21 @@ public class BodyBuilder {
      * @return
      */
     public Body build(int id) {
-        return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
-                organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
-                kinPhoneNumber);
+        Body body = Body.generateNewStoredBody(id, dateOfAdmission);
+        body.setName(name);
+        body.setSex(sex);
+        body.setNric(nric);
+        body.setReligion(religion);
+        body.setCauseOfDeath(causeOfDeath);
+        body.setOrgansForDonation(organsForDonation);
+        body.setBodyStatus(bodyStatus);
+        body.setFridgeId(fridgeId);
+        body.setDateOfBirth(dateOfBirth);
+        body.setDateOfDeath(dateOfDeath);
+        body.setNextOfKin(nextOfKin);
+        body.setRelationship(relationship);
+        body.setKinPhoneNumber(kinPhoneNumber);
+        body.setDetails(details);
+        return body;
     }
 }

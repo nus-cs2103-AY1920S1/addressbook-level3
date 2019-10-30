@@ -87,6 +87,7 @@ public class AddCommand extends UndoableCommand {
     private final Entity toAdd;
 
     private NotifCommand notifCommand;
+    private Fridge fridge;
 
     /**
      * Creates an AddCommand to add the specified {@code Body}, {@code Worker} or {@code Fridge}.
@@ -108,17 +109,28 @@ public class AddCommand extends UndoableCommand {
         model.addEntity(toAdd);
 
         if (toAdd instanceof Body) {
+            Body body = (Body) toAdd;
+
+            //@@author ambervoong
+            if (getCommandState().equals(UndoableCommandState.REDOABLE)) {
+                toAdd.getIdNum().addMapping(toAdd); // Add mapping again since this is not a new Body.
+                notifCommand.addNotif(model);
+            } else {
+                NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
+                this.notifCommand = notifCommand;
+                notifCommand.execute(model);
+            }
+            //@@author
             SelectCommand selectCommand = new SelectCommand(toAdd.getIdNum().getIdNum());
             selectCommand.execute(model);
-            Body body = (Body) toAdd;
-            NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
-            this.notifCommand = notifCommand;
-            notifCommand.execute(model);
+
+
             Optional<IdentificationNumber> fridgeId = body.getFridgeId();
             if (!fridgeId.equals(Optional.empty())) {
                 List<Fridge> fridgeList = model.getFilteredFridgeList();
                 for (Fridge fridge : fridgeList) {
                     if (fridge.getIdNum().equals(fridgeId.get())) {
+                        this.fridge = fridge;
                         fridge.setBody(body);
                     }
                 }
@@ -141,7 +153,12 @@ public class AddCommand extends UndoableCommand {
         }
         try {
             model.deleteEntity(toAdd);
-            notifCommand.removeNotif(model);
+            if (notifCommand != null) {
+                notifCommand.removeNotif(model);
+            }
+            if (fridge != null) {
+                fridge.setBody(null);
+            }
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }

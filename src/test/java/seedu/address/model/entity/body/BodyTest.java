@@ -199,6 +199,12 @@ class BodyTest {
         ALICE.setFridgeId(null);
     }
 
+    @Test
+    void getSetDetails() {
+        ALICE.setDetails("note");
+        assertEquals("note", ALICE.getDetails().get());
+    }
+
     // Stub Classes
     /**
      * A Name stub that just stores the name it is given.

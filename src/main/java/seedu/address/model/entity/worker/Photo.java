@@ -67,6 +67,16 @@ public class Photo {
         return "file://" + Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
     }
 
+    //@@author ambervoong
+    /**
+     * Returns the file path of the copied photo in the data directory.
+     * Intended for {@code JsonAdaptedWorker} to retrieve the photo.
+     */
+    public String getStoragePathToDataDirectory() {
+        return Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
+    }
+    //@@author
+
     /**
      * Returns true if the photo from {@code pathToPhoto} is a valid photo.
      * Valid photo extensions are jpeg, jpg and png.

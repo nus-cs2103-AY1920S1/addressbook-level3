@@ -33,6 +33,9 @@ public class UniqueIdentificationNumberMaps {
     //@@author ambervoong
     /**
      * Adds the {@code entity} to the respective map with the given ID.
+     * Guarantees: the entity is not null
+     * @param entity entity to be added
+     * @param id ID number the entity will be assigned
      */
     public static void addEntity(Entity entity, int id) {
         assert(entity != null);
@@ -66,9 +69,10 @@ public class UniqueIdentificationNumberMaps {
     //@@author ambervoong
     /**
      * Adds the {@code Worker} into the Map at the given ID.
+     * @param worker the worker to be added
+     * @param id the id the worker will be assigned to
      */
     private static void putWorker(Worker worker, int id) {
-        Set<Integer> keys = uniqueWorkerMap.keySet();
         if (uniqueWorkerMap.get(id) == null) {
             uniqueWorkerMap.put(id, worker);
         }
