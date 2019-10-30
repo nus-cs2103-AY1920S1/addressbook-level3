@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
+import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
@@ -38,6 +39,7 @@ public class ModelManager implements Model {
     private final Catalog catalog;
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
+    private final CommandHistory commandHistory;
 
     private Optional<Borrower> servingBorrower;
 
@@ -63,6 +65,8 @@ public class ModelManager implements Model {
         // testing
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
+
+        this.commandHistory = new CommandHistory();
 
         this.servingBorrower = Optional.empty();
     }
@@ -573,6 +577,24 @@ public class ModelManager implements Model {
     @Override
     public void unregisterBorrower(Borrower toUnregister) {
         borrowerRecords.removeBorrower(toUnregister);
+    }
+
+
+    //=========== CommandHistory ===============================================================================
+
+    @Override
+    public void commitCommand(ReversibleCommand command) {
+        commandHistory.commit(command);
+    }
+
+    @Override
+    public void undoCommand() {
+        commandHistory.undo(this);
+    }
+
+    @Override
+    public void redoCommand() {
+        commandHistory.redo(this);
     }
 
 }

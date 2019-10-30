@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
+import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
@@ -189,4 +190,12 @@ public interface Model {
     boolean hasDuplicatedBorrower(Borrower editedBorrower);
 
     void unregisterBorrower(Borrower toUnregister);
+
+    //=========== CommandHistory ===============================================================================
+
+    void commitCommand(ReversibleCommand command);
+
+    void undoCommand();
+
+    void redoCommand();
 }

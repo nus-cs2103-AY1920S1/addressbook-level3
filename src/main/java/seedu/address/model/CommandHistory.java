@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -40,11 +41,15 @@ public class CommandHistory {
      *
      * @param model which the command is executed on.
      */
-    public void undo(Model model) throws CommandException {
+    public void undo(Model model) {
         if (!canUndo()) {
             throw new NoUndoableCommandException();
         }
-        commandHistoryList.get(currentCommandPointer).getUndoCommand().execute(model);
+        try {
+            commandHistoryList.get(currentCommandPointer).getUndoCommand().execute(model);
+        } catch (CommandException e) {
+            assert false;
+        }
         currentCommandPointer--;
     }
 
@@ -53,12 +58,16 @@ public class CommandHistory {
      *
      * @param model which the command is executed on.
      */
-    public void redo(Model model) throws CommandException {
+    public void redo(Model model) {
         if (!canRedo()) {
             throw new NoRedoableCommandException();
         }
         currentCommandPointer++;
-        commandHistoryList.get(currentCommandPointer).getUndoCommand().execute(model);
+        try {
+            commandHistoryList.get(currentCommandPointer).getUndoCommand().execute(model);
+        } catch (CommandException e) {
+            assert false;
+        }
     }
 
     /**
