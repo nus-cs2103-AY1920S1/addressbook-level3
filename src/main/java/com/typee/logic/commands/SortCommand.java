@@ -9,7 +9,7 @@ import com.typee.model.engagement.Engagement;
 import com.typee.model.util.EngagementComparator;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all engagements in the engagement list to the user.
  */
 public class SortCommand extends Command {
 

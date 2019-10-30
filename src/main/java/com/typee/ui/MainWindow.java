@@ -133,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() throws DataConversionException {
         lblWindowTitle.setText("Engagement Window");
-        engagementListPanel = new EngagementListPanel(logic.getSortedEngagementList());
+        engagementListPanel = new EngagementListPanel(logic.getFilteredEngagementList());
         mainWindow.getChildren().add(engagementListPanel.getRoot());
 
         //adding tab panel holder
@@ -262,7 +262,7 @@ public class MainWindow extends UiPart<Stage> {
             tabToReturn.setController(new ReportWindow(logic.getSortedEngagementList()));
             break;
         case "Engagement":
-            tabToReturn.setController(new EngagementListPanel(logic.getSortedEngagementList()));
+            tabToReturn.setController(new EngagementListPanel(logic.getFilteredEngagementList()));
             break;
         default:
             break;

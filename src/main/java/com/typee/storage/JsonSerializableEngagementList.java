@@ -42,7 +42,7 @@ class JsonSerializableEngagementList {
     }
 
     /**
-     * Converts this address book into the model's {@code EngagementList} object.
+     * Converts this engagement list into the model's {@code EngagementList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
