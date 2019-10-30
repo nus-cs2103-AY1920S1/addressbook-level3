@@ -3,6 +3,7 @@ package seedu.address.stubs;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
+import seedu.address.inventory.util.InventoryList;
 
 /**
  * Represents a Inventory tab's Model stub.
@@ -42,6 +43,31 @@ public class InventoryModelStub implements Model {
     @Override
     public void readInUpdatedList() {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortByQuantity() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortByDescription() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortByCategory() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortReset() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public InventoryList getInventoryList() {
+        return null;
     }
 }
 

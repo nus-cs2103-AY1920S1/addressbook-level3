@@ -9,19 +9,12 @@ import seedu.address.inventory.util.InventoryList;
  * Manages the logic behind the inventory tab.
  */
 public class LogicManager implements Logic {
-    private final seedu.address.cashier.model.ModelManager cashierManager;
-    private final seedu.address.cashier.storage.StorageManager cashierStorage;
     private InventoryTabParser parser;
     private final seedu.address.inventory.model.ModelManager inventoryModel;
     private final seedu.address.inventory.storage.Storage inventoryStorage;
 
-    public LogicManager(seedu.address.cashier.model.ModelManager cashierManager,
-                        seedu.address.cashier.storage.StorageManager cashierStorage,
-                        seedu.address.inventory.model.ModelManager inventoryModel,
+    public LogicManager(seedu.address.inventory.model.ModelManager inventoryModel,
                         seedu.address.inventory.storage.StorageManager inventoryStorage) {
-        this.cashierManager = cashierManager;
-        this.cashierStorage = cashierStorage;
-
         parser = new InventoryTabParser();
 
         this.inventoryModel = inventoryModel;
@@ -30,8 +23,7 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws Exception {
-        Command command = parser.parseCommand(commandText,
-                inventoryModel.getInventoryList().size());
+        Command command = parser.parseCommand(commandText, inventoryModel.getInventoryList().size());
         CommandResult commandResult = command.execute(inventoryModel);
         inventoryModel.updateIndexes();
         inventoryStorage.writeFile(inventoryModel.getInventoryList());
