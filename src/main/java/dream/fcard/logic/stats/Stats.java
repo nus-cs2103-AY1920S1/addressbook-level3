@@ -52,7 +52,7 @@ public class Stats implements Serializable {
     }
 
     /** Returns the number of login sessions. */
-    public int getNumberOfLoginSessions() {
+    public static int getNumberOfLoginSessions() {
         return loginSessions.numberOfSessions();
     }
 

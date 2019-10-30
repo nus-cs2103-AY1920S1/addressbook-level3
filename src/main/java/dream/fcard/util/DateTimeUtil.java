@@ -49,5 +49,10 @@ public class DateTimeUtil {
         return sb.toString();
     }
 
+    public static String getStringFromDateTime(LocalDateTime localDateTime) {
+        // temporary
+        return localDateTime.toString();
+    }
+
     // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class
 }

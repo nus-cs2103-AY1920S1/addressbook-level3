@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  styleClass="main-content-window" stylesheets="@../defaultStyles.css"
-  type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400" minWidth="600" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="windowTitle" styleClass="window-title" text="My Statistics" />
       <Label fx:id="totalSessions" text="Total sessions:" />
-      <Label fx:id="sessionsThisWeek" text="Sessions this week:" />
+      <ScrollPane fx:id="sessionsScrollPane" VBox.vgrow="ALWAYS" />
+<!--      <Label fx:id="sessionsThisWeek" text="Sessions this week:" />-->
    </children>
 </fx:root>

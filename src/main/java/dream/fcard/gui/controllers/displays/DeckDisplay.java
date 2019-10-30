@@ -145,7 +145,5 @@ public class DeckDisplay extends VBox {
         CardEditingWindow window = new CardEditingWindow(cardToEdit, onSave, onCancel);
         questionList.getChildren().clear();
         questionList.getChildren().add(window);
-
     }
-
 }

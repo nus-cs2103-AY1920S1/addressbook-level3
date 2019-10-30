@@ -3,6 +3,7 @@ package dream.fcard.logic.stats;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import javafx.beans.property.StringProperty;
 
 import dream.fcard.util.DateTimeUtil;
 
@@ -17,11 +18,20 @@ public class Session implements Serializable {
     /** The start time of the session, in the user's local time zone. */
     private LocalDateTime sessionStart;
 
+    /** The start time of the session, as a String for rendering in the GUI. */
+    //private StringProperty sessionStartProperty;
+
     /** The end time of the session, in the user's local time zone. */
     private LocalDateTime sessionEnd;
 
+    /** The start time of the session, as a String for rendering in the GUI. */
+    //private StringProperty sessionEndProperty;
+
     /** The duration of the session, as a Duration object. */
     private Duration duration;
+
+    /** The duration of the session, as a String for rendering in the GUI. */
+    //private StringProperty durationProperty;
 
     private int score = -1; // optional, default is -1
 
@@ -35,6 +45,7 @@ public class Session implements Serializable {
     /** Sets the session's start time to the present. */
     private void startSession() {
         this.sessionStart = LocalDateTime.now();
+        //this.sessionStartProperty.setValue(DateTimeUtil.getStringFromDateTime(this.sessionStart));
     }
 
     /**
@@ -43,7 +54,9 @@ public class Session implements Serializable {
      */
     public void endSession() {
         this.sessionEnd = LocalDateTime.now();
+        //this.sessionEndProperty.setValue(DateTimeUtil.getStringFromDateTime(this.sessionEnd));
         this.setDuration();
+        //this.durationProperty.setValue(DateTimeUtil.getStringFromDuration(this.duration));
     }
 
     /** Gets the start time of this session. */
