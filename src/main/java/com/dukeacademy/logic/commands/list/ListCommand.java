@@ -34,8 +34,8 @@ public class ListCommand implements Command {
         this.questionsLogic.filterQuestionsList(allQuestions);
         logger.info("Listing all questions...");
         String feedback = "List all questions...";
-        return new CommandResult(feedback, false, false, false, false, false,
-                false, false);
+        return new CommandResult(feedback, false, false, false, false
+        );
     }
 }
 

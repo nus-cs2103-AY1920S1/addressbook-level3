@@ -17,7 +17,7 @@ public class MockCommand implements Command {
 
     public static CommandResult getExpectedCommandResult() {
         return new CommandResult("AbCdEfG1315r!", false, false, false,
-                false, false, false, false);
+                false);
     }
 
     @Override

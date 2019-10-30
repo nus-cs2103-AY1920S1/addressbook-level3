@@ -51,7 +51,7 @@ public class ExitCommand implements Command {
         }
 
         return new CommandResult("Exiting application...", false,
-            true, false, false, false, false, false);
+            true, false, false);
     }
 
     private void saveQuestion(Question oldQuestion, Question newQuestion) {

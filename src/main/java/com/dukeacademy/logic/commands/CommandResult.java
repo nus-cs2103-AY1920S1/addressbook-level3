@@ -22,32 +22,20 @@ public class CommandResult {
 
     private final boolean view;
 
-    private final boolean bookmark;
-
-    private final boolean attempt;
-
-    private final boolean submit;
-
     /**
      * Constructs a {@code CommandResult} with the specified fields.
-     *
-     * @param feedbackToUser the feedback to user
+     *  @param feedbackToUser the feedback to user
      * @param showHelp       the show help
      * @param exit           the exit
      * @param home           the home
      * @param view           the view
-     * @param bookmark       the bookmark
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean home, boolean view,
-                         boolean bookmark, boolean attempt, boolean submit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean home, boolean view) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.home = home;
         this.view = view;
-        this.bookmark = bookmark;
-        this.attempt = attempt;
-        this.submit = submit;
     }
 
     /**
@@ -57,8 +45,8 @@ public class CommandResult {
      * @param feedbackToUser the feedback to user
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false,
-                false, false);
+        this(feedbackToUser, false, false, false, false
+        );
     }
 
     /**
@@ -106,33 +94,6 @@ public class CommandResult {
         return view;
     }
 
-    /**
-     * Is bookmark boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isBookmark() {
-        return bookmark;
-    }
-
-    /**
-     * Is attempt boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isAttempt() {
-        return attempt;
-    }
-
-    /**
-     * Is submit boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isSubmit() {
-        return submit;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -148,10 +109,7 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && view == otherCommandResult.view
-                && bookmark == otherCommandResult.bookmark
-                && attempt == otherCommandResult.attempt
-                && submit == otherCommandResult.submit;
+                && view == otherCommandResult.view;
     }
 
     @Override
