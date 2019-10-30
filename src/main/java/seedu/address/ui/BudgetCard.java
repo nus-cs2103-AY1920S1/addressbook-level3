@@ -44,9 +44,8 @@ public class BudgetCard extends UiPart<Region> {
         this.budget = budget;
         id.setText(displayedIndex + ". ");
 
-        String type = budget.getType().toLowerCase();
-        String descWithType = budget.getDesc().fullDesc;
-        desc.setText(descWithType);
+        String fullDesc = budget.getDesc().fullDesc;
+        desc.setText(fullDesc);
         date.setText(budget.getDate().toString());
         spent.setText("spent: $" + budget.getSpent().value);
 
