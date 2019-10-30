@@ -6,6 +6,7 @@ import dukecooks.commons.core.LogsCenter;
 import dukecooks.logic.parser.health.TimestampComparator;
 import dukecooks.logic.ui.CustomRecordList;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.health.components.Type;
 import dukecooks.model.health.components.util.TypeUtil;
 
 import javafx.collections.FXCollections;
@@ -30,6 +31,9 @@ import javafx.scene.layout.Region;
 public class RecordTypeListPanel extends UiPart<Region> {
     private static final String FXML = "RecordTypeListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(RecordTypeListPanel.class);
+
+    String recordType;
+    String recordUnit;
 
     @FXML
     private Label title;
@@ -57,6 +61,8 @@ public class RecordTypeListPanel extends UiPart<Region> {
 
     public RecordTypeListPanel(ObservableList<Record> recordList) {
         super(FXML);
+        recordType = TypeUtil.TYPE_CALORIES;
+        recordUnit = TypeUtil.UNIT_CALORIES;
 
         sideView.setItems(recordList.sorted(new TimestampComparator()));
         sideView.setCellFactory(listView -> new RecordListViewCell());
@@ -64,7 +70,8 @@ public class RecordTypeListPanel extends UiPart<Region> {
         initializeLineGraph(recordList);
         initializeBarGraph(recordList);
 
-        chooseGraph(recordList);
+        chooseGraph(recordType);
+        title.setText(recordType);
     }
 
     /**
@@ -80,8 +87,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
     /**
      * Decides which graph is more suitable based on the health type that user is viewing.
      */
-    void chooseGraph(ObservableList<Record> recordList) {
-        String recordType = recordList.get(0).getType().type;
+    void chooseGraph(String recordType) {
         String type = TypeUtil.TYPE_BEHAVIOUR.get(recordType);
 
         switch (type) {
@@ -96,13 +102,22 @@ public class RecordTypeListPanel extends UiPart<Region> {
         }
     }
 
+    String getRecordType(ObservableList<Record> recordList) {
+        return recordList.isEmpty() ? TypeUtil.TYPE_CALORIES
+                : recordList.get(0).getType().type;
+    }
+
+    String getRecordUnit(ObservableList<Record> recordList) {
+        return recordList.isEmpty() ? TypeUtil.UNIT_CALORIES
+                : recordList.get(0).getType().unit;
+    }
+
     /**
      * Updates the line graph in the component with orders over the past 30 days.
      */
     public void initializeLineGraph(ObservableList<Record> recordList) {
-        String unit = recordList.get(0).getType().unit;
         xAxis.setLabel("Date");
-        yAxis.setLabel("Value (" + unit + ")");
+        yAxis.setLabel("Value (" + recordUnit + ")");
         lineGraph.setAnimated(false);
         lineGraph.setLegendVisible(false);
 
@@ -118,12 +133,13 @@ public class RecordTypeListPanel extends UiPart<Region> {
             ref.records = CustomRecordList.filterRecordsByLatest(recordList);
             lineGraph.getData().clear();
             setUpLineGraph(ref.records);
-            chooseGraph(recordList);
+            chooseGraph(getRecordType(recordList));
         });
     }
 
     public void setUpLineGraph(ObservableList<Record> record) {
-        title.setText(record.get(0).getType().type);
+        title.setText(getRecordType(record));
+        yAxis.setLabel("Value (" + getRecordUnit(record) + ")");
         ObservableList<XYChart.Data<String, Integer>> data =
                 FXCollections.<XYChart.Data<String, Integer>>observableArrayList();
         for (Record r: record) {
@@ -137,9 +153,8 @@ public class RecordTypeListPanel extends UiPart<Region> {
      * Updates the bar graph in the component with orders over the past 30 days.
      */
     public void initializeBarGraph(ObservableList<Record> recordList) {
-        String unit = recordList.get(0).getType().unit;
         xBarAxis.setLabel("Date");
-        yBarAxis.setLabel("Value (" + unit + ")");
+        yBarAxis.setLabel("Value (" + recordUnit + ")");
         barGraph.setAnimated(false);
         barGraph.setLegendVisible(false);
 
@@ -155,12 +170,13 @@ public class RecordTypeListPanel extends UiPart<Region> {
             ref.records = CustomRecordList.filterRecordsBySum(recordList);
             barGraph.getData().clear();
             setUpBarGraph(ref.records);
-            chooseGraph(recordList);
+            chooseGraph(getRecordType(recordList));
         });
     }
 
     public void setUpBarGraph(ObservableList<Record> record) {
-        title.setText(record.get(0).getType().type);
+        title.setText(getRecordType(record));
+        yBarAxis.setLabel("Value (" + getRecordUnit(record) + ")");
         ObservableList<XYChart.Data<String, Integer>> data =
                 FXCollections.<XYChart.Data<String, Integer>>observableArrayList();
         for (Record r: record) {
