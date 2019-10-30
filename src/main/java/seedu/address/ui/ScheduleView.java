@@ -348,6 +348,11 @@ public class ScheduleView extends UiPart<Region> {
             return result;
         }
 
+        /**
+         * Method to create a free time slot block with an id.
+         * @param text The id to be set in the block.
+         * @return StackPane.
+         */
         private StackPane makeFreeTimeslot(String text) {
             StackPane freeTimeslot = new StackPane();
             Label label = new Label(text);

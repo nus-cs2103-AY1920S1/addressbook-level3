@@ -24,7 +24,7 @@ public class FreeSchedule {
     /**
      * Method to retrieve FreeTimeslot object from Free Schedule.
      * @param id Identifier used to identify free time.
-     * @return Optional<FreeTimeslot>.
+     * @return Optional FreeTimeslot.
      */
     public Optional<FreeTimeslot> getFreeTimeslot(int id) {
         Optional<FreeTimeslot> freeTimeslot = Optional.empty();

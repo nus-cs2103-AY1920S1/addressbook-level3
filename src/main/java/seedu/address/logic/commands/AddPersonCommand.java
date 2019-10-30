@@ -44,12 +44,12 @@ public class AddPersonCommand extends Command {
         try {
             Person addedPerson = model.addPerson(personDescriptor);
 
-                // update main window
-                model.updateScheduleWindowDisplay(addedPerson.getName(), LocalDateTime.now(),
-                        ScheduleWindowDisplayType.PERSON);
+            // update main window
+            model.updateScheduleWindowDisplay(addedPerson.getName(), LocalDateTime.now(),
+                    ScheduleWindowDisplayType.PERSON);
 
-                // update side panel
-                model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
+            // update side panel
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, addedPerson.getName().toString()));
 

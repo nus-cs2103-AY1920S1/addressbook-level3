@@ -37,11 +37,11 @@ public class DeleteGroupCommand extends Command {
 
             model.deleteGroup(groupName);
 
-                // update main window display
-                model.updateScheduleWindowDisplay(new ScheduleWindowDisplay());
+            // update main window display
+            model.updateScheduleWindowDisplay(new ScheduleWindowDisplay());
 
-                // update side panel display
-                model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
+            // update side panel display
+            model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString()));
 

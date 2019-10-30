@@ -73,12 +73,12 @@ public class AddToGroupCommand extends Command {
 
             model.addPersonToGroupMapping(mapping);
 
-                // updates main window
-                model.updateScheduleWindowDisplay(group.getGroupName(),
-                        LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+            // updates main window
+            model.updateScheduleWindowDisplay(group.getGroupName(),
+                    LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
-                // updates side panel
-                model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
+            // updates side panel
+            model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, mapping.toString()));
 

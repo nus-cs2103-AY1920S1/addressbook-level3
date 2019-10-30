@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.FindGroupCommand;
 import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.GroupName;

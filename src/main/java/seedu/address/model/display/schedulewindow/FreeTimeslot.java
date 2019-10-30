@@ -1,10 +1,10 @@
 package seedu.address.model.display.schedulewindow;
 
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-
 import java.time.LocalTime;
 
 import java.util.ArrayList;
+
+import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 
 /**
  * A Free Timeslot class that represents the free time of the group schedule and the previous locations of the members.
