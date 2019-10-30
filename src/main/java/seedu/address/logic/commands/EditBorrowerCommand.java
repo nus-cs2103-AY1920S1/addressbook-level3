@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BORROWER;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -59,6 +60,10 @@ public class EditBorrowerCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.isServeMode()) {
+            throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
+        }
 
         Borrower borrowerToEdit = model.getServingBorrower();
         Borrower editedBorrower = createEditedBorrower(borrowerToEdit, editBorrowerDescriptor);

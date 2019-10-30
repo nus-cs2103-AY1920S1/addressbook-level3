@@ -84,8 +84,8 @@ Format: `help`
 ==== Locating books by title: `find`
 
 Shows all relevant books found. +
-Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue]/[-loaned]/[-available] }` +
-Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue]/[-loaned]/[-available] [-rated] [-popular] [-new] }` ** - Coming in v2.0**
+Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available] }` +
+Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available] [-rated] [-popular] [-new] }` ** - Coming in v2.0**
 
 ****
 * The search is case insensitive. e.g `harry` will match `Harry`
