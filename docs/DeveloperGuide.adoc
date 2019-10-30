@@ -1283,6 +1283,16 @@ from one another
 
 |`* * *` |teacher |find a student by name |locate details of students without having to go through the entire list
 
+|`* * *` |teacher |add a student | deal with possible changes
+
+|`* * *` |teacher |keep notes |have reminders for pending tasks
+
+|`* * *` |teacher |prioritize my notes |see the notes that are urgent to me
+
+|`* * *`  [Epic] |teacher |generate score statistics |easily view class performance and identify weaker students
+
+|`* * *` |teacher |print my statistics reports |keep a log of individual student performance over the year
+
 |`* *` |student |view the teacher's schedule |request for consultations in appropriate slots
 
 |`* *` |student |view my past results |track my progress and check for updates
@@ -1292,6 +1302,8 @@ when the teacher is free
 
 |`*` |teacher |have an editable timetable |view my timetable and let students request for consultations at
 appropriate slots when I am free
+
+
 
 |=======================================================================
 
