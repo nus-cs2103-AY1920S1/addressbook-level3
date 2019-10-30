@@ -12,8 +12,6 @@ public class PanelName {
     public static final PanelName CURRENT = new PanelName("Current Page");
 
     // temporary
-    public static final PanelName ALIASES_PANEL = new PanelName("Aliases");
-    public static final PanelName EVENTS_PANEL = new PanelName("Events");
     public static final PanelName STATISTICS_PANEL = new PanelName("Statistics");
 
     public static final String MESSAGE_NAME_FORMAT = "\"%s\" is not a valid panel name. \n"

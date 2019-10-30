@@ -390,7 +390,7 @@ public class MainWindow extends UiPart<Stage> {
                     GenericCommandWord.ADD,
                     AddBudgetCommandParser.REQUIRED_PREFIXES,
                     AddBudgetCommandParser.OPTIONAL_PREFIXES);
-        } else if (panelName.equals(PanelName.EVENTS_PANEL)) {
+        } else if (panelName.equals(EventListPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
                     AddEventCommandParser.REQUIRED_PREFIXES,
