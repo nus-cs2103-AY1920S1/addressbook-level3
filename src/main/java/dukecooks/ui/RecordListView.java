@@ -30,8 +30,6 @@ public class RecordListView extends UiPart<Region> {
     @FXML
     private Label timestamp;
     @FXML
-    private Label type;
-    @FXML
     private Label value;
 
     public RecordListView(Record record, int displayedIndex) {
@@ -39,7 +37,6 @@ public class RecordListView extends UiPart<Region> {
         this.record = record;
         id.setText(displayedIndex + ". ");
         timestamp.setText(record.getTimestamp().timestamp);
-        type.setText(record.getType().type);
         value.setText(record.getValue().value + record.getType().unit);
     }
 

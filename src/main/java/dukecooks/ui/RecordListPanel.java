@@ -1,10 +1,16 @@
 package dukecooks.ui;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import dukecooks.commons.core.LogsCenter;
+import dukecooks.logic.parser.health.TimestampComparator;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.health.components.util.TypeUtil;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +20,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 /**
  * Panel containing the list of records.
@@ -21,6 +28,8 @@ import javafx.scene.layout.Region;
 public class RecordListPanel extends UiPart<Region> {
     private static final String FXML = "RecordListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(RecordListPanel.class);
+
+    private RecordTypeListPanel recordTypeDisplay;
 
     @FXML
     private Label title;
@@ -31,10 +40,28 @@ public class RecordListPanel extends UiPart<Region> {
     @FXML
     private FlowPane flowPaneView;
 
+    @FXML
+    private VBox recordTypeView;
+
     public RecordListPanel(ObservableList<Record> recordList) {
         super(FXML);
         initializeFlowPaneView(recordList);
         initializeSidePanel(recordList);
+        initializeReviewTypeView(recordList);
+    }
+
+    /**
+     * Filters records to show only the most recent record for each health data type.
+     */
+    ObservableList<Record> filterSummary(ObservableList<Record> recordList) {
+        List<Record> result = TypeUtil.TYPE_LIST.entrySet().stream()
+                 .map(x -> recordList.stream()
+                        .filter(c -> c.getType().type.equals(x.getKey()))
+                        .max(new TimestampComparator())
+                        .orElse(null))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        return FXCollections.observableArrayList(result);
     }
 
     /**
@@ -42,21 +69,27 @@ public class RecordListPanel extends UiPart<Region> {
      * Gives the overview of health records recorded by user
      */
     void initializeFlowPaneView(ObservableList<Record> recordList) {
-        flowPaneView.setHgap(5);
-        flowPaneView.setVgap(5);
+        flowPaneView.setHgap(30);
+        flowPaneView.setVgap(25);
         flowPaneView.setPadding(new Insets(10, 10, 10, 10));
+
+        var ref = new Object() {
+            private ObservableList<Record> summaryList = filterSummary(recordList);
+        };
 
         // Creates a RecordCard for each Record and adds to FlowPane
         int i = 0;
-        for (Record record : recordList) {
+        for (Record record : ref.summaryList) {
             flowPaneView.getChildren().add(new RecordCard(record, i).getRoot());
             i++;
         }
         //add listener for new record changes
         recordList.addListener((ListChangeListener<Record>) c -> {
             flowPaneView.getChildren().clear();
+            //update summary list
+            ref.summaryList = filterSummary(recordList);
             int x = 0;
-            for (Record r: recordList) {
+            for (Record r: ref.summaryList) {
                 flowPaneView.getChildren().add(new RecordCard(r, x).getRoot());
                 x++;
             }
@@ -73,23 +106,34 @@ public class RecordListPanel extends UiPart<Region> {
         sideView.setCellFactory(listView -> new RecordListViewCell());
     }
 
+    void initializeReviewTypeView(ObservableList<Record> recordList) {
+        recordTypeDisplay = new RecordTypeListPanel(recordList);
+        recordTypeView.getChildren().add(recordTypeDisplay.getRoot());
+    }
+
     /**
      * Hide all inner components within Health Record Panel.
      */
     private void hidePanels() {
         sideView.setVisible(false);
         flowPaneView.setVisible(false);
+        recordTypeView.setVisible(false);
     }
 
     /**
      * Display inner components within Health Record Panel.
      * Make use of boolean variables to decide which components to show/hide.
      */
-    private void showPanels(boolean isShowSideView, boolean isShowCardView) {
+    private void showPanels(boolean isShowMainHeader, boolean isShowSideView, boolean isShowCardView,
+                            boolean isShowRecordTypeView) {
+        title.setVisible(isShowMainHeader);
+        title.setManaged(isShowMainHeader);
         sideView.setVisible(isShowSideView);
         sideView.setManaged(isShowSideView);
         flowPaneView.setVisible(isShowCardView);
         flowPaneView.setManaged(isShowCardView);
+        recordTypeView.setVisible(isShowRecordTypeView);
+        recordTypeView.setManaged(isShowRecordTypeView);
     }
 
     /**
@@ -99,8 +143,13 @@ public class RecordListPanel extends UiPart<Region> {
     void handleSwitch(String type) {
         switch (type) {
         case "all":
-            showPanels(false, true);
+            showPanels(true, false, true, false);
             break;
+
+        case "type":
+            showPanels(false, false, false, true);
+            break;
+
         default:
             throw new AssertionError("Something's Wrong! Invalid Health Record page type!");
         }
