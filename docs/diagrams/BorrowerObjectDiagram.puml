@@ -1,0 +1,44 @@
+@startuml
+!include style.puml
+show members
+left to right direction
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ObjectAttributeFontSize 12
+
+object "__:Borrower__" as Borrower {
+}
+
+object "__borrowerId:BorrowerId__" as BorrowerId {
+    value = "K0001"
+}
+
+object "__name:Name__" as Name {
+    name = "Alice Tan"
+}
+
+object "__phone:Phone" as Phone {
+    value = "62226111"
+}
+
+object "__email:Email__" as Email {
+    value = "alice@mail.com"
+}
+
+object "__:currentLoanList:LoanList__" as Loan1 {
+
+}
+
+object "__:returnedLoanList:LoanList__" as Loan2 {
+
+}
+
+
+Borrower --> BorrowerId
+Borrower --> Name
+Borrower --> Phone
+Borrower --> Email
+Borrower --> Loan1
+Borrower --> Loan2
+@enduml
