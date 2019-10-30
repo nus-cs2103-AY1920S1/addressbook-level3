@@ -78,7 +78,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasSpending_spendingWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addSpending(APPLE);
         Spending editedAlice = new SpendingBuilder(APPLE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
