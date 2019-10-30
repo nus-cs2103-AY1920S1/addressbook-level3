@@ -6,6 +6,8 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NUM_OF_EPISODES;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NUM_OF_SEASONS;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
@@ -22,6 +24,7 @@ import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
+import seedu.ezwatchlist.testutil.WatchShowDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -42,6 +45,8 @@ public class CommandTestUtil {
     public static final int VALID_RUNNING_TIME_BOB_THE_BUILDER = 10;
     public static final String VALID_ACTOR_ANNABELLE = "Annabelle Wallis";
     public static final String VALID_ACTOR_BOB_THE_BUILDER = "Rob Rackstraw";
+    public static final int VALID_NUM_OF_EPISODES_BOB_THE_BUILDER = 3;
+    public static final int VALID_NUM_OF_SEASONS_BOB_THE_BUILDER = 1;
 
     public static final String NAME_DESC_ANNABELLE = " " + PREFIX_NAME + VALID_NAME_ANNABELLE;
     public static final String NAME_DESC_BOB_THE_BUILDER = " " + PREFIX_NAME + VALID_NAME_BOB_THE_BUILDER;
@@ -59,6 +64,10 @@ public class CommandTestUtil {
             " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB_THE_BUILDER;
     public static final String ACTOR_DESC_ANNABELLE = " " + PREFIX_TYPE + VALID_ACTOR_ANNABELLE;
     public static final String ACTOR_DESC_BOB_THE_BUILDER = " " + PREFIX_TYPE + VALID_ACTOR_BOB_THE_BUILDER;
+    public static final String EPISODES_DESC_BOB_THE_BUILDER =
+            " " + PREFIX_NUM_OF_EPISODES + VALID_NUM_OF_EPISODES_BOB_THE_BUILDER;
+    public static final String SEASONS_DESC_BOB_THE_BUILDER =
+            " " + PREFIX_NUM_OF_SEASONS + VALID_NUM_OF_SEASONS_BOB_THE_BUILDER;
 
     public static final String INVALID_TYPE_DESC =
             " " + PREFIX_TYPE + "TV show"; // types can only be "movie" or "tv"
@@ -75,12 +84,28 @@ public class CommandTestUtil {
     public static final EditCommand.EditShowDescriptor DESC_ANNABELLE;
     public static final EditCommand.EditShowDescriptor DESC_BOB_THE_BUILDER;
 
+    public static final WatchCommand.WatchShowDescriptor WATCH_DESC_ANNABELLE;
+    public static final WatchCommand.WatchShowDescriptor WATCH_DESC_BOB_THE_BUILDER;
+
     static {
         DESC_ANNABELLE = new EditShowDescriptorBuilder().withName(VALID_NAME_ANNABELLE).withType(VALID_TYPE_ANNABELLE)
                 .withDescription(VALID_DESCRIPTION_ANNABELLE).withIsWatched(VALID_WATCHED_ANNABELLE)
                 .withDateOfRelease(VALID_DATE_ANNABELLE)
                 .withRunningTime(VALID_RUNNING_TIME_ANNABELLE).withActors(VALID_ACTOR_ANNABELLE).build();
         DESC_BOB_THE_BUILDER = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER)
+                .withType(VALID_TYPE_BOB_THE_BUILDER)
+                .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER).withIsWatched(VALID_WATCHED_BOB_THE_BUILDER)
+                .withDateOfRelease(VALID_DATE_BOB_THE_BUILDER)
+                .withRunningTime(VALID_RUNNING_TIME_BOB_THE_BUILDER).withActors(VALID_ACTOR_BOB_THE_BUILDER).build();
+    }
+
+    static {
+        WATCH_DESC_ANNABELLE = new WatchShowDescriptorBuilder().withName(VALID_NAME_ANNABELLE)
+                .withType(VALID_TYPE_ANNABELLE)
+                .withDescription(VALID_DESCRIPTION_ANNABELLE).withIsWatched(VALID_WATCHED_ANNABELLE)
+                .withDateOfRelease(VALID_DATE_ANNABELLE)
+                .withRunningTime(VALID_RUNNING_TIME_ANNABELLE).withActors(VALID_ACTOR_ANNABELLE).build();
+        WATCH_DESC_BOB_THE_BUILDER = new WatchShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER)
                 .withType(VALID_TYPE_BOB_THE_BUILDER)
                 .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER).withIsWatched(VALID_WATCHED_BOB_THE_BUILDER)
                 .withDateOfRelease(VALID_DATE_BOB_THE_BUILDER)
