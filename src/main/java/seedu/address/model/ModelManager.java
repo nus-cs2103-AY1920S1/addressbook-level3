@@ -237,6 +237,7 @@ public class ModelManager implements Model {
         return flashCardTestModel.getCurrentFlashCard();
     }
 
+    /** Hides the list of flashcards during test mode. */
     private void hideFlashCardList() {
         updateFilteredFlashCardList(pred -> false);
     }

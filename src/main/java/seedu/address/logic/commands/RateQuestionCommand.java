@@ -31,7 +31,7 @@ public class RateQuestionCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         updateModelStatistics(model);
-        updateFlashCardRating(model.getCurrentTestFlashCard(), model);
+        updateFlashCardRating(model);
 
         if (!model.hasTestFlashCard()) {
             keyboardFlashCardsParser.endTestMode();
@@ -68,7 +68,8 @@ public class RateQuestionCommand extends Command {
         }
     }
 
-    private void updateFlashCardRating(FlashCard flashCardToUpdate, Model model) {
+    private void updateFlashCardRating(Model model) {
+        FlashCard flashCardToUpdate = model.getCurrentTestFlashCard();
         assert flashCardToUpdate != null;
         model.setFlashCard(flashCardToUpdate, createUpdatedFlashCard(flashCardToUpdate));
     }
