@@ -18,9 +18,11 @@ By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-+Work is a project management tool that allows NUS project leaders in charge of a small group (less than 20 people) to successfully achieve their objectives for their project.
-+Work is a one-stop application to help the leader manage their members, meeting times, task allocation as well as personal claims for any equipment purchased.
-+Work is perfect for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Happy working!
++Work is a project management tool that allows you to successfully achieve your objectives for your project. 
+It is aimed at NUS project leaders who are in charge of a small project group of less than 20 people. 
++Work is a one-stop application to help you manage your members, meeting times, task allocations as well as personal claims for equipment purchased. 
+Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI). 
+Happy working!
 
 == Quick Start
 
@@ -121,6 +123,7 @@ image::Settings.png[width=790]
 +
 
 ==== View help: `help` +
+<<<<<<< HEAD
 This command displays a list of possible commands that you can execute +
 
 Format: `help` +
@@ -129,6 +132,11 @@ Calling the `help` command will bring you to the following page:
 +
 image::Help.png[width=790]
 +
+=======
+Displays a list of possible commands for the user +
+You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
+Format: `help`
+>>>>>>> f9ce79b07f30daa6b563fe0437870a3216d6bc43
 
 '''
 
@@ -211,9 +219,9 @@ This indicates that the task TASK NAME with task id 1 has been removed from its 
 
 ==== Add a task: `add task`
 
-Adds a task into project dashboard
-
-Format: `add-task [t/TASK_NAME]  [m/MEMBER_NAME]`
+To add a task to the project, use the 'add-task' command in the format below. +
+Format: `add-task [t/TASK_NAME]  [m/MEMBER_NAME]` + 
+Optional Parameters: `[s/STATUS]` `[t/TAG]`
 
 Example:
 
@@ -226,7 +234,7 @@ Updates task status to ‘Doing’
 
 Format: `doing-task [ti/TASK_ID]`
 
-Example:
+Example: `doing-task ti/1`
 
 * `doing-task ti/3` +
 Marks the status of task 3 as doing
@@ -489,6 +497,11 @@ Format: `exit`
 
 Project data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Command Line Autocomplete
+
++Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. + 
+For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down and paste `add-member mn/ mi/ mt/` into your command-line automatically. 
 
 ////
 
