@@ -94,11 +94,6 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.split_pane_indiv {
-    -fx-background-color: #3c3e3f;
-}
-
-
 
 .list-view {
     -fx-background-insets: 0;
@@ -116,9 +111,15 @@
     -fx-background-color: #3c3e3f;
 }
 
+.list-cell:filled:even {
+    -fx-background-color: #3c3e3f;
+}
+
 .list-cell:filled:odd {
     -fx-background-color: #515658;
 }
+
+
 
 .list-cell:filled:selected {
     -fx-background-color: #424d5f;

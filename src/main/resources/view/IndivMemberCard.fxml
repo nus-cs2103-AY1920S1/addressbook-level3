@@ -14,12 +14,12 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.SplitPane?>
-<HBox id="indivCardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" styleClass="indiv_member" GridPane.columnIndex="0">
+        <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
@@ -44,13 +44,12 @@
                 </padding>
             </FlowPane>
             <VBox maxHeight="50.0" HBox.hgrow="ALWAYS">
-                <SplitPane fx:id="split_pane_indiv" styleClass="split_pane_indiv">
+                <SplitPane  styleClass="split_pane_indiv">
                         <ImageView fx:id="imageView" layoutX="20" layoutY="20" />
                     <VBox>
                         <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Tasks Assigned" />
                         <Text fx:id="listTasks" styleClass="tasks_text"/>
                     </VBox>
-
                 </SplitPane>
             </VBox>
         </VBox>
