@@ -172,9 +172,9 @@ add -b +
 (/status status) +
 (/nric nricNumber) +
 (/religion religion) +
-(/nameNOK nameOfNextOfKin) +
+(/NOKname nameOfNextOfKin) +
 (/relationship relationshipOfNextOfKin) +
-(/phoneNOK phoneOfNextOfKin) +
+(/NOKphone phoneOfNextOfKin) +
 (/cod causeOfDeath) +
 (/organsForDonation organsForDonation) +
 (/fridgeId fridgeId)
@@ -237,8 +237,13 @@ add -b
 | Body added
 
 a|
-[source,java]
+```
 add -f
+```
+{nbsp} +
+
+
+
 | Fridge added
 
 |===
@@ -292,9 +297,9 @@ Date of Death `/dod` +
 Date of Admission `/doa` +
 Status `/status` +
 Religion `/religion` +
-Name of Next-of-Kin `/nameNOK` +
+Name of Next-of-Kin `/NOKname` +
 Relationship `/relationship` +
-Phone Number of Next-of-Kin `/phoneNOK` +
+Phone Number of Next-of-Kin `/NOKphone` +
 Cause of Death `/cod` +
 Details `/details` +
 Organs For Donation `/organsForDonation` +
@@ -324,8 +329,7 @@ and her new designation. You see that her ID number is W00001.
 
 | Command | Expected Output
 
-|
-`update -w /id 1 /designation Senior Autopsy Technician`
+| `update -w /id 1 /designation Senior Autopsy Technician`
 
 | Designation of Jane Doe changed to Senior Autopsy Technician.
 
@@ -394,19 +398,6 @@ Format: `clear`
 
 // end::clear[]
 
-// tag::view[]
-
-====  Selecting a body: `select`
-
-You can select a body and view its full details by entering a select command.
-
-Format: `select id`
-
-Example: `select 1` +
-View a body with the ID B00000001.
-
-// end::view[]
-
 // tag::list[]
 
 ==== List all entries: `list`
@@ -425,6 +416,19 @@ Example: `list -b` +
 Lists all bodies currently in Mortago.
 
 // end::list[]
+
+// tag::select[]
+
+====  Selecting a body: `select`
+
+You can select a body and view its full details by entering a select command.
+
+Format: `select id`
+
+Example: `select 1` +
+View a body with the ID B00000001.
+
+// end::select[]
 
 === General
 
