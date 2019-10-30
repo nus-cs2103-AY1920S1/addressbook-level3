@@ -85,15 +85,16 @@ class GraphGenerator {
         graphs.put("edit-p", null);
         graphs.put("edit-o", null);
         graphs.put("edit-s", null);
-        graphs.put("switch-c", null);
-        graphs.put("switch-p", null);
-        graphs.put("switch-o", null);
-        graphs.put("switch-s", null);
-        graphs.put("list", null);
-        graphs.put("cancel", null);
-        graphs.put("exit", null);
-        graphs.put("help", null);
         graphs.put("generate-s", generateStatisticsGraph());
+        graphs.put("switch-c", Graph.emptyGraph());
+        graphs.put("switch-p", Graph.emptyGraph());
+        graphs.put("switch-o", Graph.emptyGraph());
+        graphs.put("switch-s", Graph.emptyGraph());
+        graphs.put("list", Graph.emptyGraph());
+        graphs.put("cancel", null);
+        graphs.put("exit", Graph.emptyGraph());
+        graphs.put("help", Graph.emptyGraph());
+
     }
 
     private Optional<Graph> getGraph(String commandWord) {
@@ -112,16 +113,11 @@ class GraphGenerator {
         } else { // there is at least one space, suggesting command word is present
             String commandWord = input.substring(0, firstSpace);
             Optional<Graph> graph = getGraph(commandWord);
-            if (graph.isPresent()) {
+            if (graph.isPresent()) { // command word is supported
                 String args = input.substring(firstSpace);
-                AutoCompleteResult result = graph.get().process(args);
-                if (args.endsWith(" ")) {
-                    return new AutoCompleteResult(result.getValues(), "");
-                } else {
-                    return result;
-                }
-            } else {
-                return new AutoCompleteResult(new TreeSet<>(), input);
+                return graph.get().process(args);
+            } else { // command word not supported, return empty set
+                return new AutoCompleteResult(Collections.emptySortedSet(), input);
             }
         }
     }

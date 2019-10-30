@@ -2,6 +2,8 @@ package seedu.address.logic;
 
 import seedu.address.logic.parser.Prefix;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.SortedSet;
@@ -24,6 +26,10 @@ class Graph {
         this.edges = edges;
     }
 
+    static Graph emptyGraph() {
+        return new Graph(Node.emptyNode(), Collections.emptyList());
+    }
+
     AutoCompleteResult process(String input) {
         String stringToCompare = input;
         Node<?> currentNode = startingNode;
@@ -40,14 +46,21 @@ class Graph {
         if (input.endsWith("/")) { // fill with possible arguments
             values.addAll(currentNode.getValues());
         } else { // fill with possible prefixes
-            for (Edge edge : edges) {
-                if (edge.getSource().equals(currentNode)) {
-                    values.add(edge.getWeight().toString());
-                }
-            }
+            List<Prefix> prefixes = getPrefixes(currentNode);
+            prefixes.forEach(prefix -> values.add(prefix.toString()));
             stringToCompare = stringToCompare.substring(stringToCompare.lastIndexOf(" ") + 1);
         }
         return new AutoCompleteResult(values, stringToCompare);
+    }
+
+    private List<Prefix> getPrefixes(Node<?> node) {
+        List<Prefix> prefixes = new ArrayList<>();
+        for (Edge edge : edges) {
+            if (edge.getSource().equals(node)) {
+                prefixes.add(edge.getWeight());
+            }
+        }
+        return prefixes;
     }
 
     private Optional<Node<?>> traverse(Node<?> currentNode, Prefix prefix) {
