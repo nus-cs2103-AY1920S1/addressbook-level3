@@ -5,6 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import seedu.address.commons.util.StringUtil;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Represents a Cards's number in the card book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCardNumber(String)}
@@ -12,9 +15,10 @@ import seedu.address.commons.util.StringUtil;
 public class CardNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Card numbers should only contain 16 numeric characters, and it should not be blank";
+            "Card numbers should only contain 16 numeric characters, and it should not be blank\n"
+            + "It should be in the format ";
 
-    public static final String VALIDATION_REGEX = "\\d{4}-?\\d{4}-?\\d{4}-?\\d{4}";
+    public static final String VALIDATION_REGEX = "(\\d{4})-?(\\d{4})-?(\\d{4})-?(\\d{4})";
 
     public final String value;
 
@@ -26,7 +30,7 @@ public class CardNumber {
     public CardNumber(String cardNumber) {
         requireNonNull(cardNumber);
         checkArgument(isValidCardNumber(cardNumber), MESSAGE_CONSTRAINTS);
-        this.value = cardNumber;
+        this.value = reformatCardNumber(cardNumber);
     }
 
     /**
@@ -34,6 +38,22 @@ public class CardNumber {
      */
     public static boolean isValidCardNumber(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    private static String reformatCardNumber(String cardNumber) {
+        Pattern p = Pattern.compile(VALIDATION_REGEX);
+        Matcher m = p.matcher(cardNumber);
+        if (m.find()) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i <= 4; i++) {
+                sb.append(m.group(i));
+                if (i < 4) {
+                    sb.append("-");
+                }
+            }
+            return sb.toString();
+        }
+        return null;
     }
 
     public String getEncryptedCardNumber() {
