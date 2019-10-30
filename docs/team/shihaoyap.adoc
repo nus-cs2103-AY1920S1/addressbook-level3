@@ -202,8 +202,6 @@ The generated list will be empty and not display anything if there is no event i
 
 include::../UserGuide.adoc[tag=Schedule]
 
-include::../UserGuide.adoc[tag=dataencryption]
-
 == Contributions to the Developer Guide
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
