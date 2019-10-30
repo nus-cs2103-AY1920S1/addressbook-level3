@@ -362,6 +362,49 @@ This section will explain the reason for having some aspects.
 ** Pros: Able to implement more specific methods for the ProcessingList.
 ** Cons: More methods and test cases needed and it is harder to implement.
 
+=== Finding feature
+This section explains the implementation of the find persons by attributes feature.
+
+==== Current Implementation
+// mebee put more? idk
+The find feature is facilitated by the following classes: `FindCommand` `PersonContainsPrefixesPredicate`. +
+
+===== FindCommand
+
+`FindCommand` extends `Command` with a `predicate` that is used to determine whether a given `person` should be
+displayed. It implements `Command#execute(Model model)` which replaces the `predicate` of the current
+`model.filteredPersons` with the input predicate of `FindCommand`, which triggers an update *INSERT JAVAFX STUFF. +
+
+TODO
+
+===== PersonContainsPrefixesPredicate
+
+TODO
+
+===== Execution Behaviour
+// dis statement not rly tru tho since we b explainin more than jus de executerar method
+The behaviour of `FindCommand` is consistent with that of other commands as described in <<Design-Logic>>. Therefore,
+this section will gloss over higher-level details and instead zoom-in to the behaviour of `FindCommand#execute`.
+
+Given below is an example usage scenario and the behaviour of `#execute` at each step. +
+
+Step 1: The user inputs a find command, e.g. `find n/Alice Carl Elle t/doctor donor`. It is parsed by
+`FindCommandParser` and used to create an `ArgumentMultimap`: `argMultimap`.
+
+Step 2: `argMultimap` is used to initialize a `PersonContainsPrefixesPredicate` object: `predicate`.
+
+Step 3: `predicate` is used to initialize a `FindCommand` object. `#execute` is then called on it.
+
+Step 4: `#execute` calls the `#updateFilteredPersonList` of the current `Model` which causes it's
+`FilteredList<Person>`: `filteredPersons` to automatically remove `persons` that fail `predicate#test`.
+
+The following sequence diagram illustrates steps x to y: +
+
+__insertar diagrama de secuencia__
+
+==== Design Considerations
+
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
