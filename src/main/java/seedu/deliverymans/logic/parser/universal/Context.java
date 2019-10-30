@@ -8,11 +8,12 @@ public enum Context {
     CUSTOMER,
     CUSTOMERLIST,
     DELIVERYMEN,
-    RESTAURANT,
     DELIVERYMENSTATUS,
+    DELIVERYMENSTATISTICS,
+    DELIVERYMANRECORD,
+    RESTAURANT,
     EDITING,
-    ORDER,
-    DELIVERYMANRECORD;
+    ORDER;
 
     public String toLowerCaseString() {
         return name().toLowerCase();

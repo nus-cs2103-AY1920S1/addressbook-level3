@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.chart.PieChart?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="totalDeliverymenLabel" />
+    <Label fx:id="availableDeliverymenLabel" />
+    <Label fx:id="unavailableDeliverymenLabel" />
+    <Label fx:id="deliveringDeliverymenLabel" />
+    <PieChart fx:id="statusStatisticsPieChart" />
+
+</VBox>

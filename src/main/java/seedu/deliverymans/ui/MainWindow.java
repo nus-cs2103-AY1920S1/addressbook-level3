@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private CustomerListPanel customerListPanel;
     private DeliverymanListPanel deliverymanListPanel;
     private DeliverymenStatusListPanel deliverymenStatusListPanel;
+    private DeliverymenStatusStatisticsPanel deliverymenStatusStatisticsPanel;
     private RestaurantListPanel restaurantListPanel;
     private OrderListPanel orderListPanel;
     private FoodListPanel foodListPanel;
@@ -218,6 +219,11 @@ public class MainWindow extends UiPart<Stage> {
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
+            break;
+        case DELIVERYMENSTATISTICS:
+            deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
+                    logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
+            statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
             break;
         case DELIVERYMANRECORD:
             DeliveryRecord record = new DeliveryRecord(new Name("Charles"));

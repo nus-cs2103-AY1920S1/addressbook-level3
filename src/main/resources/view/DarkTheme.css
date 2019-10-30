@@ -365,3 +365,40 @@
     -fx-text-fill: olive;
     -fx-font-size: 25;
 }
+
+#totalDeliverymenLabel {
+    -fx-font-size: 25;
+    -fx-border-radius: 2;
+    -fx-border-style: solid;
+    -fx-text-fill: black;
+    -fx-background-color: orange ;
+}
+
+#availableDeliverymenLabel {
+    -fx-font-size: 20;
+    -fx-border-radius: 2;
+    -fx-border-style: dashed;
+    -fx-text-fill: green;
+}
+
+#unavailableDeliverymenLabel {
+    -fx-border-radius: 2;
+    -fx-font-size: 20;
+    -fx-border-style: dashed;
+    -fx-border-style: white;
+    -fx-text-fill: red;
+}
+
+#deliveringDeliverymenLabel {
+    -fx-font-size: 20;
+    -fx-border-style: inset;
+    -fx-border-style: dashed;
+    -fx-text-fill: yellow;
+}
+
+#color0 {
+    -fx-pie-color: green; }
+#color1 {
+    -fx-pie-color: red; }
+#color2 {
+    -fx-pie-color: yellow; }
