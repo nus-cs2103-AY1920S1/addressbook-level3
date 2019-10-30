@@ -38,7 +38,6 @@ public class ModelManager implements Model {
     private final ObservableList<Paragraph> annotatedDocument;
     private final SimpleObjectProperty<Bookmark> bookmarkToDisplayCache = new SimpleObjectProperty<>();
 
-    private OfflineDocument currentOfflineDoc;
 
     /**
      * Initializes a ModelManager with the given mark and userPrefs.
@@ -275,13 +274,8 @@ public class ModelManager implements Model {
             return pid1.compareTo(pid2);
         }
         ));
-        currentOfflineDoc = doc;
     }
 
-    @Override
-    public void updateCurrentAnnotation() {
-        updateDocument(currentOfflineDoc);
-    }
 
     //=========== Reminder =================================================================================
 

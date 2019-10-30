@@ -47,7 +47,7 @@ public class AnnotationTest {
 
     @Test
     public void toString_checkCorrectFormat() {
-        assertEquals("yellow :: " + AnnotationNote.SAMPLE_NOTE.toString(),
+        assertEquals("yellow highlight with note \"" + AnnotationNote.SAMPLE_NOTE.toString() + "\"",
                 new Annotation(Highlight.YELLOW, AnnotationNote.SAMPLE_NOTE).toString());
     }
 

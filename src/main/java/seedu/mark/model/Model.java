@@ -247,11 +247,6 @@ public interface Model {
     void updateDocument(OfflineDocument doc);
 
     /**
-     * Updates the view of document based on current document in model.
-     */
-    void updateCurrentAnnotation();
-
-    /**
      * Updates the specified bookmark to be the one to display its cache
      */
     void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache);

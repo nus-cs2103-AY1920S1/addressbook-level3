@@ -165,6 +165,11 @@ class AddAnnotationCommandTest {
         }
 
         @Override
+        public OfflineDocument copy() {
+            return this;
+        }
+
+        @Override
         public List<Paragraph> getCollection() {
             assert false : "this method should not be called.";
             return null;

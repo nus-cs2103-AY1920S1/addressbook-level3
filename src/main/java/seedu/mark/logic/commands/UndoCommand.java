@@ -41,7 +41,6 @@ public class UndoCommand extends Command {
 
         String record = model.undoMark(steps);
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
-        model.updateCurrentAnnotation();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, record));
     }

@@ -131,6 +131,11 @@ class DeleteAnnotationAllCommandTest {
         }
 
         @Override
+        public OfflineDocument copy() {
+            return this;
+        }
+
+        @Override
         public void addAnnotation(ParagraphIdentifier pid, Annotation an) {
             //phantom add annotation for AddAnnotationCommand to call
         }
