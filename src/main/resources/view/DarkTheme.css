@@ -10,6 +10,13 @@
     -fx-opacity: 0.9;
 }
 
+.label-dashboard {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #c1c1c1;
+    -fx-opacity: 0.9;
+}
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";

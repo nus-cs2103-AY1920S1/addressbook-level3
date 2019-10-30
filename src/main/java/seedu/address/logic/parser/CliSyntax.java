@@ -22,4 +22,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_INVENTORY_PRICE = new Prefix("p/");
     public static final Prefix PREFIX_INVENTORY_INDEX = new Prefix("ii/");
 
+    /*Prefix definitions for inventory*/
+    public static final Prefix PREFIX_FILE_PATH = new Prefix("fp/");
 }

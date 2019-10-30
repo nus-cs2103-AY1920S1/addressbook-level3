@@ -1,13 +1,13 @@
 package seedu.address.ui.views;
 
 import java.util.logging.Logger;
-
+import java.util.stream.Stream;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
@@ -18,25 +18,22 @@ import seedu.address.ui.UiPart;
  */
 public class SettingsView extends UiPart<Region> {
     private static final String FXML = "SettingsWindow.fxml";
+    private static final String LABEL_UNHIGHLIGHTED = "label-unhighlighted";
+    private static final String LABEL_HIGHLIGHTED = "label-highlighted";
+
     private final Logger logger = LogsCenter.getLogger(SettingsView.class);
 
-    private final String THEME_LABEL = "THEME";
-    private final String CLOCK_LABEL = "CLOCK-FORMAT";
+    private Theme theme;
+    private ClockFormat clockFormat;
 
-    @FXML
-    private VBox vBox;
     @FXML
     private AnchorPane themeSetting;
     @FXML
     private AnchorPane clockSetting;
     @FXML
-    private Label themeLabel;
-    @FXML
     private Label themeLabelDark;
     @FXML
     private Label themeLabelLight;
-    @FXML
-    private Label clockLabel;
     @FXML
     private Label clockLabelTwentyFour;
     @FXML
@@ -44,12 +41,51 @@ public class SettingsView extends UiPart<Region> {
 
     public SettingsView(Theme theme, ClockFormat clockFormat) {
         super(FXML);
-        themeLabel.setText(THEME_LABEL);
-        themeLabelDark.setText("DARK");
+        handleTheme();
+        handleClock();
+        this.theme = theme;
+        this.clockFormat = clockFormat;
+        updateHighlights();
+    }
+
+    private void handleTheme() {
         themeLabelLight.setText("LIGHT");
-        clockLabel.setText(CLOCK_LABEL);
+        themeLabelDark.setText("DARK");
+    }
+
+    private void handleClock() {
         clockLabelTwelve.setText("12HR");
         clockLabelTwentyFour.setText("24HR");
+    }
+
+    /**
+     * Highlights the chosen option.
+     *
+     * @param option the option that is chosen
+     */
+    private void highlightChoice(AnchorPane setting, String option) {
+        setting.getChildren().forEach(child -> unhighlightLabel((Label) child));
+        Stream<Node> nodeStream = setting.getChildren().stream();
+        nodeStream.filter(child -> ((Label) child).getText().equals(option))
+                .forEach(child -> highlightLabel((Label) child));
+    }
+
+    private void highlightLabel(Label label) {
+        label.getStyleClass().clear();
+        label.getStyleClass().add(LABEL_HIGHLIGHTED);
+    }
+
+    private void unhighlightLabel(Label label) {
+        label.getStyleClass().clear();
+        label.getStyleClass().add(LABEL_UNHIGHLIGHTED);
+    }
+
+    /**
+     * Updates the panel to match the current state of settings.
+     */
+    public void updateHighlights() {
+        highlightChoice(themeSetting, theme.toString());
+        highlightChoice(clockSetting, clockFormat.getDisplayName());
     }
 
 }

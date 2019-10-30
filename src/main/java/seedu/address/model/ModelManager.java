@@ -6,18 +6,26 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.Stack;
+import java.util.EmptyStackException;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+//Remove after changing to ObservableList for Calendar
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
-import seedu.address.commons.util.DateTimeUtil;
+import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.Mapping;
-import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.settings.ClockFormat;
@@ -43,7 +51,8 @@ public class ModelManager implements Model {
     private final FilteredList<Mapping> filteredMappings;
     private final FilteredList<Inventory> filteredInventories;
     private Statistics stats;
-
+    private final Stack<ReadOnlyProjectDashboard> previousSaveState = new Stack<>();
+    private final Stack<ReadOnlyProjectDashboard> redoSaveState = new Stack<>();
 
     /**
      * Initialises a ModelManager with the given projectDashboard, userPrefs and userSettings.
@@ -131,11 +140,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTask(Task target) {
+        saveDashboardState();
         projectDashboard.removeTask(target);
     }
 
     @Override
     public void addTask(Task task) {
+        saveDashboardState();
         projectDashboard.addTask(task);
         updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
     }
@@ -144,6 +155,7 @@ public class ModelManager implements Model {
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
+        saveDashboardState();
         projectDashboard.setTask(target, editedTask);
     }
 
@@ -196,6 +208,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addInventory(Inventory inventory) {
+        saveDashboardState();
         projectDashboard.addInventory(inventory);
         updateFilteredInventoriesList(PREDICATE_SHOW_ALL_INVENTORIES);
     }
@@ -208,12 +221,15 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteInventory(Inventory target) {
+        saveDashboardState();
         projectDashboard.removeInventory(target);
     }
 
     @Override
     public void setInventory(Inventory target, Inventory editedInventory) {
         requireAllNonNull(target, editedInventory);
+
+        saveDashboardState();
         projectDashboard.setInventory(target, editedInventory);
     }
 
@@ -265,11 +281,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteMember(Member target) {
+        saveDashboardState();
         projectDashboard.removeMember(target);
     }
 
     @Override
     public void addMember(Member member) {
+        saveDashboardState();
         projectDashboard.addMember(member);
         updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
     }
@@ -278,6 +296,7 @@ public class ModelManager implements Model {
     public void setMember(Member target, Member editedMember) {
         requireAllNonNull(target, editedMember);
 
+        saveDashboardState();
         projectDashboard.setMember(target, editedMember);
     }
 
@@ -305,53 +324,20 @@ public class ModelManager implements Model {
     //=========== ProjectDashboard (mapping) ===============================================
 
     @Override
-    public void addMapping(InvMemMapping mapping) {
+    public void addMapping(Mapping mapping) {
+        saveDashboardState();
         projectDashboard.addMapping(mapping);
         updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
     }
 
     @Override
-    public void addMapping(InvTasMapping mapping) {
-        projectDashboard.addMapping(mapping);
-        updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
-    }
-
-    @Override
-    public void addMapping(TasMemMapping mapping) {
-        projectDashboard.addMapping(mapping);
-        updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
-    }
-
-    @Override
-    public void deleteMapping(InvMemMapping mapping) {
+    public void deleteMapping(Mapping mapping) {
+        saveDashboardState();
         projectDashboard.removeMapping(mapping);
     }
 
     @Override
-    public void deleteMapping(InvTasMapping mapping) {
-        projectDashboard.removeMapping(mapping);
-    }
-
-    @Override
-    public void deleteMapping(TasMemMapping mapping) {
-        projectDashboard.removeMapping(mapping);
-    }
-
-
-    @Override
-    public boolean hasMapping(InvTasMapping mapping) {
-        requireNonNull(mapping);
-        return projectDashboard.hasMapping(mapping);
-    }
-
-    @Override
-    public boolean hasMapping(InvMemMapping mapping) {
-        requireNonNull(mapping);
-        return projectDashboard.hasMapping(mapping);
-    }
-
-    @Override
-    public boolean hasMapping(TasMemMapping mapping) {
+    public boolean hasMapping(Mapping mapping) {
         requireNonNull(mapping);
         return projectDashboard.hasMapping(mapping);
     }
@@ -377,7 +363,62 @@ public class ModelManager implements Model {
 
     @Override
     public void setStatistics(Statistics newStats) {
+        saveDashboardState();
         this.stats = newStats;
+    }
+
+    // ========= Calendar Commands ===========================================================================
+
+    @Override
+    public void addCalendar(CalendarWrapper calendar) {
+        requireNonNull(calendar);
+        projectDashboard.addCalendar(calendar);
+    }
+
+    @Override
+    public boolean hasCalendar(CalendarWrapper calendar) {
+        requireNonNull(calendar);
+        return projectDashboard.hasCalendar(calendar);
+    }
+
+    @Override
+    public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
+        return projectDashboard.findMeetingTime(startDate, endDate, meetingDuration);
+    }
+
+    // ========= General Commands ===========================================================================
+
+
+    //Check if ProjectDashboard cloning is deep clone or shallow clone
+    @Override
+    public void undo() {
+        ReadOnlyProjectDashboard previousDashboard = previousSaveState.pop();
+        redoSaveState.push(new ProjectDashboard(projectDashboard));
+        projectDashboard.resetData(previousDashboard);
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public boolean canUndo() {
+        return !previousSaveState.empty();
+    }
+
+    @Override
+    public void redo() {
+        saveDashboardState();
+        ReadOnlyProjectDashboard redoableDashboard = redoSaveState.pop();
+        projectDashboard.resetData(redoableDashboard);
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public boolean canRedo() {
+        return !redoSaveState.empty();
+    }
+
+    @Override
+    public void saveDashboardState() {
+        previousSaveState.push(new ProjectDashboard(projectDashboard));
     }
 
     // ========= User Settings =================================================================================

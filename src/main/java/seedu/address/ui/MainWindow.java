@@ -1,9 +1,12 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.settings.Theme;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -38,6 +42,9 @@ public class MainWindow extends UiPart<Stage> {
     // static Ui parts
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private Scene scene;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -67,6 +74,8 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        setDefaultTheme(logic.getCurrentTheme());
 
         userViewMain = new UserViewMain(logic);
 
@@ -141,6 +150,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the default theme of +Work based on {@code defaultTheme}.
+     */
+    private void setDefaultTheme(Theme defaultTheme) {
+        requireNonNull(defaultTheme);
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(defaultTheme.getThemeUrl());
+        scene.getStylesheets().add(defaultTheme.getExtensionUrl());
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -186,6 +205,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isThemeChanged()) {
+                setDefaultTheme(logic.getCurrentTheme());
             }
 
             userViewUpdate.parseUserCommand(commandText);
