@@ -65,7 +65,6 @@ public class TransactionAddCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
         RuleProcessor.executeRules(model, toAdd);
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), null);
     }
 }

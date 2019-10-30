@@ -32,10 +32,6 @@ public class Account {
         this.transactionList = transactionList;
     }
 
-    public static Account getDefaultAccount() {
-        //TODO implement getDefaultAccount which returns the default account
-        return new Account(new Name("DEFAULT"), new Description("null"), new TransactionList());
-    }
 
     public Name getName() {
         return name;

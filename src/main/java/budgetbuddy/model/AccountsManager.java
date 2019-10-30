@@ -24,7 +24,7 @@ import javafx.collections.transformation.FilteredList;
 public class AccountsManager {
 
     private static Account defaultAccount = new Account(new Name("DEFAULT"),
-            new Description(""), new TransactionList());
+            new Description("null"), new TransactionList());
 
     private final FilteredList<Account> filteredAccounts;
     private final UniqueAccountList accounts;
@@ -34,8 +34,8 @@ public class AccountsManager {
      */
     public AccountsManager() {
         this.accounts = new UniqueAccountList();
-        filteredAccounts = new FilteredList<>(this.getAccountsList(), s -> true);
         this.accounts.add(defaultAccount);
+        filteredAccounts = new FilteredList<>(this.getAccountsList(), s -> true);
     }
 
     /**
@@ -54,6 +54,13 @@ public class AccountsManager {
         return defaultAccount;
     }
 
+    /**
+     * Checks if a given account is currently the default account.
+     * @param testAccount The account to be checked
+     */
+    public boolean isDefaultAccount(Account testAccount) {
+        return testAccount.isSameAccount(defaultAccount);
+    }
 
     /**
      * Retrieves the list of accounts.
@@ -118,12 +125,17 @@ public class AccountsManager {
 
     /**
      * Adds the current Transaction to its respective Account.
-     * The transaction should have a valid account by now.
+     * The transaction should have a valid account.
+     * If the account is not found within the AccountsManager, an AccountNotFoundException is thrown.
      * @param toAdd
      */
-    public void addTransaction(Transaction toAdd) {
-        Account account = toAdd.getAccount();
-        account.addTransaction(toAdd);
+    public void addTransaction(Transaction toAdd) throws AccountNotFoundException {
+        Account transactionAccount = toAdd.getAccount();
+        Account managerAccount = transactionAccount != null
+                ? accounts.get(transactionAccount)
+                : getDefaultAccount();
+        toAdd.setAccount(managerAccount);
+        managerAccount.addTransaction(toAdd);
     }
 
     /**
