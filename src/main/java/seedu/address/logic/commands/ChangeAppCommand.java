@@ -2,7 +2,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import seedu.address.logic.commands.common.CommandResult;
@@ -21,11 +20,9 @@ public class ChangeAppCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": change the appointment date "
             + "by the index number used in the displayed patient's list.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_START + "PREFIX_EVENT "
-            + PREFIX_END + "PREFIX_EVENT \n"
+            + PREFIX_START + "PREFIX_EVENT\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_START + "01/11/19 1800 "
-            + PREFIX_END + "01/11/19 1900";
+            + PREFIX_START + "01/11/19 1800";
 
     public static final String MESSAGE_SUCCESS = "this appointmeent's timing has been changed: %1$s";
     public static final String MESSAGE_TIMING_EXIST = "please give a new valid timing for the appointment to change.";
