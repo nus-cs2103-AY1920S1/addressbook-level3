@@ -104,7 +104,7 @@ image::tabs.png[]
 === Result Display Box
 This box shows you whether your command executed is successful or unsuccessful. If you encounter an error message here, look at our errors meaning section to see what is the cause of error.
 
-image:: resultDisplayBox.png[]
+image::resultDisplayBox.png[]
 
 === Command Box
 Type your commands here to execute them!
