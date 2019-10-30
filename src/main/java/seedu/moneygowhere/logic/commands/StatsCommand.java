@@ -18,7 +18,7 @@ import seedu.moneygowhere.model.spending.Spending;
 public class StatsCommand extends Command {
 
     public static final String COMMAND_WORD = "stats";
-    public static final String MESSAGE_SUCCESS = "Successfully updated the statistics panel.\n";
+    public static String MESSAGE_SUCCESS = "Statistics for all dates\n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Updates the statistics panel.\n"
@@ -48,6 +48,7 @@ public class StatsCommand extends Command {
     public StatsCommand() {
         startDate = null;
         endDate = null;
+        MESSAGE_SUCCESS = "Statistics for all dates.\n";
     }
 
     /**
@@ -58,6 +59,7 @@ public class StatsCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
+        MESSAGE_SUCCESS = String.format("Statistics for spending between %s and %s\n", startDate, endDate);
     }
 
     @Override

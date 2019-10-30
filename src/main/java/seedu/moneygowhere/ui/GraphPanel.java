@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -21,19 +22,17 @@ public class GraphPanel extends UiPart<Region> {
     @FXML
     private StackPane panePlaceholder;
 
-    public GraphPanel(LinkedHashMap<String, Double> graphData) {
+    public GraphPanel(LinkedHashMap<String, Double> graphData, String commandResult) {
         super(FXML);
-        loadData(graphData);
+        loadData(graphData, commandResult);
     }
 
-    private void loadData(LinkedHashMap<String, Double> graphData) {
+    private void loadData(LinkedHashMap<String, Double> graphData, String commandResult) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Amount spent ($)");
         LineChart<String, Number> spendingChart = new LineChart<>(xAxis, yAxis);
-
-        spendingChart.setTitle("Graph");
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Spending");
@@ -43,6 +42,9 @@ public class GraphPanel extends UiPart<Region> {
             series.getData().add(dataToAdd);
         }
         spendingChart.getData().add(series);
+
+        spendingChart.setTitle(commandResult);
+        spendingChart.setLegendSide(Side.RIGHT);
 
         for (XYChart.Series<String, Number> s : spendingChart.getData()) {
             for (XYChart.Data<String, Number> d : s.getData()) {

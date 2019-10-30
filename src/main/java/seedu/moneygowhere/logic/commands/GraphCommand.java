@@ -19,7 +19,7 @@ public class GraphCommand extends Command {
 
     public static final String COMMAND_WORD = "graph";
 
-    public static final String MESSAGE_SUCCESS = "Successfully updated the graph panel.\n";
+    public static String MESSAGE_SUCCESS = "Graph for all dates\n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Updates the graph panel.\n"
@@ -49,6 +49,7 @@ public class GraphCommand extends Command {
     public GraphCommand() {
         startDate = null;
         endDate = null;
+        MESSAGE_SUCCESS = "Graph for all dates.\n";
     }
 
     /**
@@ -59,6 +60,7 @@ public class GraphCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
+        MESSAGE_SUCCESS = String.format("Graph for spending between %s and %s\n", startDate, endDate);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class GraphCommand extends Command {
         //To reset the spending list to default after previous commands
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
         model.updateStatsPredicate(getGraphPredicate());
-        logger.log(Level.INFO, String.format("Showing statistics from %s to %s", startDate, endDate));
+        logger.log(Level.INFO, String.format("Showing graph from %s to %s", startDate, endDate));
         return new CommandResult(MESSAGE_SUCCESS, true, false, false);
     }
 

@@ -6,9 +6,11 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 /**
  * Tab containing the spending graph.
@@ -19,12 +21,12 @@ public class StatsPanel extends UiPart<Region> {
     @FXML
     private StackPane panePlaceholder;
 
-    public StatsPanel(LinkedHashMap<String, Double> statsData) {
+    public StatsPanel(LinkedHashMap<String, Double> statsData, String commandResult) {
         super(FXML);
-        loadData(statsData);
+        loadData(statsData, commandResult);
     }
 
-    private void loadData(LinkedHashMap<String, Double> statsData) {
+    private void loadData(LinkedHashMap<String, Double> statsData, String commandResult) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         for (Map.Entry<String, Double> i : statsData.entrySet()) {
@@ -32,14 +34,13 @@ public class StatsPanel extends UiPart<Region> {
                     Math.round(i.getValue())));
         }
         PieChart pieChart = new PieChart(pieChartData);
+        Text text = new Text();
         if (pieChartData.size() == 0) {
-            pieChart.setTitle("No data to show");
-        } else {
-            pieChart.setTitle("Statistics");
+            text.setText("No data to show");
         }
+        pieChart.setTitle(commandResult);
         pieChart.setLegendVisible(false);
-
-        panePlaceholder.getChildren().add(pieChart);
+        panePlaceholder.getChildren().addAll(pieChart, text);
     }
 
 }

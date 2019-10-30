@@ -16,7 +16,9 @@ import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.Logic;
 import seedu.moneygowhere.logic.commands.CommandResult;
+import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.logic.commands.HelpCommand;
+import seedu.moneygowhere.logic.commands.StatsCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 
@@ -131,11 +133,11 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         graphTab = new Tab("Graph");
-        graphPanel = new GraphPanel(logic.getGraphData());
+        graphPanel = new GraphPanel(logic.getGraphData(), GraphCommand.MESSAGE_SUCCESS);
         graphTab.setContent(graphPanel.getRoot());
 
         statsTab = new Tab("Statistics");
-        statsPanel = new StatsPanel(logic.getStatsData());
+        statsPanel = new StatsPanel(logic.getStatsData(), StatsCommand.MESSAGE_SUCCESS);
         statsTab.setContent(statsPanel.getRoot());
 
         tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);
@@ -196,15 +198,15 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             if (commandResult.isShowGraph()) {
-                graphPanel = new GraphPanel(logic.getGraphData());
+                graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser());
                 graphTab.setContent(graphPanel.getRoot());
                 tabPanePlaceholder.getSelectionModel().select(graphTab);
             }
 
             if (commandResult.isShowStats()) {
-                statsPanel = new StatsPanel(logic.getStatsData());
+                statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser());
                 statsTab.setContent(statsPanel.getRoot());
-                tabPanePlaceholder.getSelectionModel().select(graphTab);
+                tabPanePlaceholder.getSelectionModel().select(statsTab);
             }
 
             return commandResult;
