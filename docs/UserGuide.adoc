@@ -77,7 +77,7 @@ Unlike most applications, where you use your mouse to interact with the applicat
 mostly use the *Command Line Interface*. Most of the time, you would be interacting with the application through typing commands in the
 command box of the application.
 
-You can play around with the commands in the *Command Summary* to get yourself warmed up.
+You can play around with the commands in <<Command Summary>> to get yourself warmed up.
 
 
 [[Features]]
