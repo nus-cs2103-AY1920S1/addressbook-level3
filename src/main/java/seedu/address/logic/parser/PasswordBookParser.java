@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddPasswordCommand;
 import seedu.address.logic.commands.AnalysePasswordCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CopyPasswordCommand;
 import seedu.address.logic.commands.DeletePasswordCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -57,6 +58,9 @@ public class PasswordBookParser {
             return new AnalysePasswordCommandParser().parse(arguments);
         case GeneratePasswordCommand.COMMAND_WORD:
             return new GeneratePasswordCommandParser().parse(arguments);
+        case CopyPasswordCommand.COMMAND_WORD:
+        case CopyPasswordCommand.COMMAND_WORD1:
+            return new CopyPasswordCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
