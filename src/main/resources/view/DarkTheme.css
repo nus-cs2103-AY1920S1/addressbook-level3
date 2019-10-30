@@ -358,7 +358,7 @@
     -fx-background-color: #ffe0b2;
 }
 
-.pageCard {
+#pageCardPane {
     -fx-border-radius: 5;
     -fx-border-color: black;
     -fx-background-color: beige;
@@ -388,8 +388,8 @@
 }
 
 #pageListView .list-cell:filled:selected {
-    -fx-background-color: #FFE981;
-    -fx-font-weight: bold;
+    -fx-border-color: #1e90ff;
+    -fx-border-width: 2;
 }
 
 #pageListView .list-cell .label {

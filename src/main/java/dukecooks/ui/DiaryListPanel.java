@@ -7,6 +7,7 @@ import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.Page;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -28,23 +29,33 @@ public class DiaryListPanel extends UiPart<Region> {
     @FXML
     private ListView<Page> pageListView;
 
+    @FXML
+    private Label diaryName;
 
-
+    private ObservableList<Diary> diaryList;
 
     public DiaryListPanel(ObservableList<Diary> diaryList, int targetIndex) {
         super(FXML);
+
+        this.diaryList = diaryList;
         diaryListView.setItems(diaryList);
         diaryListView.setCellFactory(listView -> new DiaryListViewCell());
-        initializePageListView(diaryList, targetIndex);
+
+        // Sets the name of the diary
+        diaryName.setText(diaryList.get(targetIndex).getDiaryName().fullName);
+        initializePageListView(targetIndex);
     }
 
     /**
      * Initialises Page ScrollPane Config
      * Gives the overview of pages in that specified diary
      */
-    void initializePageListView(ObservableList<Diary> diaryList, int targetIndex) {
+    void initializePageListView(int targetIndex) {
 
         ObservableList<Page> pageList = diaryList.get(targetIndex).getPages();
+
+        // Sets the name of the diary
+        diaryName.setText(diaryList.get(targetIndex).getDiaryName().fullName);
 
         pageListView.setItems(pageList);
         pageListView.setCellFactory(listView -> new PageListViewCell());
@@ -69,8 +80,13 @@ public class DiaryListPanel extends UiPart<Region> {
      */
     @FXML
     void handleSwitch(String type) {
-        switch (type) {
+        String[] typeArr = type.split("-", 2);
+        switch (typeArr[0]) {
         case "all":
+            showPanels(true, true);
+            break;
+        case "update":
+            initializePageListView(Integer.parseInt(typeArr[1]));
             showPanels(true, true);
             break;
         default:

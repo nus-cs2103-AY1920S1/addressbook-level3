@@ -23,7 +23,7 @@
                      <children>
                         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="658.0" prefWidth="681.0">
                            <children>
-                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="115.0" prefWidth="700.0" styleClass="diaryHeader" stylesheets="@DarkTheme.css" text="Diary Name">
+                              <Label fx:id="diaryName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="115.0" prefWidth="700.0" styleClass="diaryHeader" stylesheets="@DarkTheme.css" text="Diary Name">
                                  <padding>
                                     <Insets left="25.0" />
                                  </padding>

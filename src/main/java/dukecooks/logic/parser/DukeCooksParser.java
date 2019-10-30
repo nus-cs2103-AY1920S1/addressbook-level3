@@ -13,6 +13,7 @@ import dukecooks.logic.commands.ExitCommand;
 import dukecooks.logic.commands.FindCommand;
 import dukecooks.logic.commands.HelpCommand;
 import dukecooks.logic.commands.ListCommand;
+import dukecooks.logic.commands.ViewCommand;
 import dukecooks.logic.commands.dashboard.DoneTaskCommand;
 import dukecooks.logic.commands.stats.StatisticsCommand;
 import dukecooks.logic.parser.dashboard.DoneTaskCommandParser;
@@ -62,6 +63,9 @@ public class DukeCooksParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
+
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
