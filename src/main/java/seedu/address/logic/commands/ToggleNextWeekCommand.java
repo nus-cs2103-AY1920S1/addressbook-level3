@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 
 /**
@@ -27,7 +26,7 @@ public class ToggleNextWeekCommand extends Command {
         if (status == ScheduleWindowDisplayType.PERSON
                 || status == ScheduleWindowDisplayType.GROUP
                 || status == ScheduleWindowDisplayType.NONE) {
-            model.updateScheduleWindowDisplay(new ScheduleWindowDisplay(ScheduleWindowDisplayType.NONE));
+            //model.updateScheduleWindowDisplay(new ScheduleWindowDisplay(ScheduleWindowDisplayType.NONE));
             return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, true);
         } else {
             return new CommandResult(MESSAGE_FAILURE, false, false);
