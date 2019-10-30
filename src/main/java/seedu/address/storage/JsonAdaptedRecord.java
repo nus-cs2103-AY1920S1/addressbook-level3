@@ -46,7 +46,7 @@ class JsonAdaptedRecord {
      */
     public JsonAdaptedRecord(Record source) {
         if (source.getClass() == BloodSugar.class) {
-            recordType = "BloodSugar";
+            recordType = "Bmi";
             dateTime = source.getDateTime().toString();
             concentration = ((BloodSugar) source).getConcentration().toString();
         } else if (source.getClass() == Bmi.class) {
@@ -77,7 +77,7 @@ class JsonAdaptedRecord {
                 RecordType.class.getSimpleName()));
         }
 
-        if (recordType.equals("BloodSugar")) {
+        if (recordType.equals("Bmi")) {
 
             if (concentration == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

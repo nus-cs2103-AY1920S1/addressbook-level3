@@ -3,12 +3,14 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.achievements.Achievement;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
@@ -347,5 +349,12 @@ public interface Model {
      * Returns an unmodifiable list of motivational quotes stored in this program.
      */
     public List<String> getMotivationalQuotesList();
+
+    //=========== Achievements =============================================================
+
+    /**
+     * Returns an unmodifiable map of achievements stored in this program.
+     */
+    public Map<RecordType, List<Achievement>> getAchievementsMap();
 
 }
