@@ -46,7 +46,7 @@ public class LineChartPanel extends UiPart<Region> {
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
     final NumberAxis yAxis = new NumberAxis();
     final AreaChart<String, Number> lineChart = new AreaChart<>(xAxis, yAxis);
-    private XYChart.Series<String, Number> series = new XYChart.Series<>();
+    private XYChart.Series<String, Number> series;
     private Map<Date, Number> freqByDate = new TreeMap<>();
     private ObservableList<Body> bodyList;
 
@@ -90,7 +90,9 @@ public class LineChartPanel extends UiPart<Region> {
      */
     private void initialiseLineChart() {
         // clear old series
-        lineChart.getData().removeAll();
+        lineChart.getData().removeAll(series);
+
+        series = new XYChart.Series<>();
 
         //defining the axes
         if (timeFrame.equals("default") || timeFrame.equals("week")) {
