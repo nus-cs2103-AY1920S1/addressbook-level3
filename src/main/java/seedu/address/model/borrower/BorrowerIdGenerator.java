@@ -27,7 +27,7 @@ public class BorrowerIdGenerator {
         currentBorrowerIdIndex++;
         String padding = getPadding(currentBorrowerIdIndex);
         BorrowerId id = new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
-        while (borrowers.checkIfBorrowerIdExists(id)) {
+        while (borrowerIdExists(id)) {
             currentBorrowerIdIndex++;
             id = new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
         }
