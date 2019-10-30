@@ -251,7 +251,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
                 && spendings.equals(((SpendingBook) other).spendings)
                 && reminders.equals(((SpendingBook) other).reminders)
                 && currencies.equals(((SpendingBook) other).currencies)
-                && currencyInUse.equals(((SpendingBook) other).currencyInUse)
+                && currencyInUse.getValue().equals(((SpendingBook) other).currencyInUse.getValue())
                 && budget.equals(((SpendingBook) other).budget));
     }
 

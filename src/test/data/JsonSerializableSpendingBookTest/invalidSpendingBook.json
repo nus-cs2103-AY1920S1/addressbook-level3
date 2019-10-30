@@ -1,5 +1,35 @@
 {
   "budget": "asdf",
+  "currency" : "SGD",
+  "currencies" : [ {
+    "name" : "EUR",
+    "symbol" : "€",
+    "rate" : 0.66
+  }, {
+    "name" : "IDR",
+    "symbol" : "Rp",
+    "rate" : 10304.01
+  }, {
+    "name" : "INR",
+    "symbol" : "₹",
+    "rate" : 51.92
+  }, {
+    "name" : "MMK",
+    "symbol" : "K",
+    "rate" : 1119.53
+  }, {
+    "name" : "MYR",
+    "symbol" : "RM",
+    "rate" : 3.07
+  }, {
+    "name" : "SGD",
+    "symbol" : "$",
+    "rate" : 1.0
+  }, {
+    "name" : "USD",
+    "symbol" : "$",
+    "rate" : 0.73
+  } ],
   "spendings": [ {
     "name": "",
     "date": "1/1/2019",

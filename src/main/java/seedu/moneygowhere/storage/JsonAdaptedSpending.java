@@ -36,7 +36,6 @@ class JsonAdaptedSpending {
     @JsonCreator
     public JsonAdaptedSpending(@JsonProperty("name") String name, @JsonProperty("date") String date,
         @JsonProperty("remark") String remark, @JsonProperty("cost") String cost,
-            @JsonProperty("currency") String currency,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.date = date;

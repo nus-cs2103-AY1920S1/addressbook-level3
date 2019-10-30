@@ -22,6 +22,7 @@ import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.ReadOnlyUserPrefs;
 import seedu.moneygowhere.model.SpendingBook;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.testutil.SpendingBuilder;
@@ -175,7 +176,22 @@ public class AddCommandTest {
         @Override
         public List<Reminder> getReminderList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
+
+        @Override
+        public Currency getCurrencyInUse() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Currency> getCurrencies() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrencyInUse(Currency currency) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

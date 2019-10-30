@@ -1,4 +1,14 @@
 {
+  "currency" : "SGD",
+  "currencies" : [ {
+    "name" : "Not a currency",
+    "symbol" : "?",
+    "rate" : 999.0
+  }, {
+    "name" : "SGD",
+    "symbol" : "$",
+    "rate" : 1.0
+  } ],
   "spendings": [ {
     "name": "Valid Person",
     "date": "1/1/2019",

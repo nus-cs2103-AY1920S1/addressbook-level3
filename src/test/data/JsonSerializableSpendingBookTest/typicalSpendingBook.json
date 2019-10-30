@@ -1,6 +1,36 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "MoneyGoWhere save file which contains the same Spending values as in TypicalSpendings#getTypicalSpendingBook()",
   "budget": "10000",
+  "currency" : "SGD",
+  "currencies" : [ {
+    "name" : "EUR",
+    "symbol" : "€",
+    "rate" : 0.66
+  }, {
+    "name" : "IDR",
+    "symbol" : "Rp",
+    "rate" : 10304.01
+  }, {
+    "name" : "INR",
+    "symbol" : "₹",
+    "rate" : 51.92
+  }, {
+    "name" : "MMK",
+    "symbol" : "K",
+    "rate" : 1119.53
+  }, {
+    "name" : "MYR",
+    "symbol" : "RM",
+    "rate" : 3.07
+  }, {
+    "name" : "SGD",
+    "symbol" : "$",
+    "rate" : 1.0
+  }, {
+    "name" : "USD",
+    "symbol" : "$",
+    "rate" : 0.73
+  } ],
   "spendings" : [ {
     "name" : "Apple",
     "date" : "1/1/2019",
