@@ -53,11 +53,11 @@ public class PersonReferenceId implements ReferenceId {
         if (!PersonReferenceId.isValidId(trimmedRefId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
         }
-        ReferenceId storedRefId = UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.get(refId);
+        ReferenceId storedRefId = UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.get(trimmedRefId);
 
         if (storedRefId == null) {
-            storedRefId = new PersonReferenceId(refId, isStaff);
-            UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.put(refId, storedRefId);
+            storedRefId = new PersonReferenceId(trimmedRefId, isStaff);
+            UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.put(trimmedRefId, storedRefId);
         } else if (storedRefId.isStaffDoctor() != isStaff) {
             throw new ReferenceIdIncorrectGroupClassificationException(storedRefId);
         }

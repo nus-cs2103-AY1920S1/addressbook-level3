@@ -19,8 +19,8 @@ public class EnqueueCommandTest {
 
     @Test
     public void equals() {
-        ReferenceId alice = new PersonBuilder().withId("2322").withName("Alice").build().getReferenceId();
-        ReferenceId bob = new PersonBuilder().withId("32323").withName("Bob").build().getReferenceId();
+        ReferenceId alice = new PersonBuilder().withPatientId("2322").withName("Alice").build().getReferenceId();
+        ReferenceId bob = new PersonBuilder().withPatientId("32323").withName("Bob").build().getReferenceId();
         EnqueueCommand addAliceCommand = new EnqueueCommand(alice);
         EnqueueCommand addBobCommand = new EnqueueCommand(bob);
 

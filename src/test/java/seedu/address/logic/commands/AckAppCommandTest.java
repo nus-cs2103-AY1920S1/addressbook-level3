@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,10 +38,10 @@ class AckAppCommandTest {
 
     @Test
     void testEquals() {
-        Event firstEvent = new EventBuilder().withId("01A").build();
+        Event firstEvent = new EventBuilder(ALICE).build();
         Event firstEventAcked = new EventBuilder(firstEvent).withStatus("ACKNOWLEDGED").build();
 
-        Event secondEvent = new EventBuilder().withId("02B").build();
+        Event secondEvent = new EventBuilder(BENSON).build();
         Event secondEventAcked = new EventBuilder(secondEvent).withStatus("ACKNOWLEDGED").build();
 
         AckAppCommand firstAckCommand = new AckAppCommand(firstEvent, firstEventAcked);

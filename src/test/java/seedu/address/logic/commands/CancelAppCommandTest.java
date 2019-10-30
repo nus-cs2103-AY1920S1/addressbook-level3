@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.List;
 
@@ -38,8 +40,8 @@ class CancelAppCommandTest {
 
     @Test
     void testEquals() {
-        Event firstEvent = new EventBuilder().withId("01A").build();
-        Event secondEvent = new EventBuilder().withId("02B").build();
+        Event firstEvent = new EventBuilder(ALICE).build();
+        Event secondEvent = new EventBuilder(BENSON).build();
 
         CancelAppCommand firstCancelCommand = new CancelAppCommand(firstEvent);
         CancelAppCommand secondCancelCommand = new CancelAppCommand(secondEvent);
