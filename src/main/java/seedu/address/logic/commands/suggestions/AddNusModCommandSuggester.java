@@ -11,6 +11,9 @@ import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 
+/**
+ * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.AddNusModCommand}.
+ */
 public class AddNusModCommandSuggester extends NusModSuggester {
     public static final List<Prefix> SUPPORTED_PREFIXES = List.of(
             CliSyntax.PREFIX_NAME,
