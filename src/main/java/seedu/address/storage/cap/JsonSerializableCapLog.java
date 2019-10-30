@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.ReadOnlyCapLog;
-import seedu.address.model.cap.person.Semester;
+import seedu.address.model.common.Module;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -19,17 +19,16 @@ import seedu.address.model.cap.person.Semester;
 @JsonRootName(value = "capmodulelog")
 class JsonSerializableCapLog {
 
-    public static final String MESSAGE_DUPLICATE_MODULE = "Module list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Module list contains duplicate module(s).";
 
-    private final List<JsonAdaptedSemester> semesters = new ArrayList<>();
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableCapLog(@JsonProperty("Semester") List<JsonAdaptedSemester> semesters) {
-        this.semesters.addAll(semesters);
+    public JsonSerializableCapLog(@JsonProperty("Module") List<JsonAdaptedModule> modules) {
+        this.modules.addAll(modules);
     }
 
     /**
@@ -38,10 +37,11 @@ class JsonSerializableCapLog {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableCapLog(ReadOnlyCapLog source) {
-        semesters.addAll(source.getSemesterList()
-                .stream().map(JsonAdaptedSemester::new).collect(Collectors.toList()));
-        modules.addAll(source.getModuleList()
-                .stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
+        modules.addAll(source
+                .getModuleList()
+                .stream()
+                .map(JsonAdaptedModule::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -51,12 +51,12 @@ class JsonSerializableCapLog {
      */
     public CapLog toModelType() throws IllegalValueException {
         CapLog capLog = new CapLog();
-        for (JsonAdaptedSemester jsonAdaptedSemester : semesters) {
-            Semester semester = jsonAdaptedSemester.toModelType();
-            if (capLog.hasSemester(semester)) {
+        for (JsonAdaptedModule jsonAdaptedModule : modules) {
+            Module module = jsonAdaptedModule.toModelType();
+            if (capLog.hasModule(module)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
-            capLog.addSemester(semester);
+            capLog.addModule(module);
         }
         return capLog;
     }

@@ -27,16 +27,16 @@ class JsonAdaptedModule {
     private final String semester;
     private final String description;
     private final String faculty;
-    private final int credit;
+    private final String credit;
     private final String grade;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedModule(@JsonProperty("module_code") String moduleCode, @JsonProperty("title") String title,
+    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode, @JsonProperty("title") String title,
                              @JsonProperty("semester") String semester, @JsonProperty("description") String description,
-                             @JsonProperty("credit") int credit, @JsonProperty("faculty") String faculty,
+                             @JsonProperty("credit") String credit, @JsonProperty("faculty") String faculty,
                              @JsonProperty("grade") String grade) {
         this.moduleCode = moduleCode;
         this.title = title;
@@ -54,7 +54,7 @@ class JsonAdaptedModule {
         moduleCode = source.getModuleCode().moduleCode;
         title = source.getTitle().title;
         semester = source.getSemester().toString();
-        credit = source.getCredit().getCredit();
+        credit = String.valueOf(source.getCredit().getCredit());
         faculty = source.getFaculty().getFaculty();
         description = source.getDescription().getDescription();
         grade = source.getGrade().getGrade();
@@ -81,7 +81,7 @@ class JsonAdaptedModule {
         final Title modelTitle = new Title(title);
         final Semester modelSemester = ParserUtil.parseSemester(semester);
         final Description modelDescription = new Description(description);
-        final Credit modelCredit = new Credit(credit);
+        final Credit modelCredit = new Credit(Integer.parseInt(credit));
         final Faculty modelFaculty = new Faculty(faculty);
         final Grade modelGrade = new Grade(grade);
 
