@@ -15,6 +15,7 @@ import seedu.system.commons.core.index.Index;
 import seedu.system.commons.util.CollectionUtil;
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.logic.parser.exceptions.ParseException;
@@ -29,7 +30,7 @@ import seedu.system.model.person.Name;
 public class EditCompetitionCommand extends Command {
 
     public static final String COMMAND_WORD = "editCompetition";
-
+    public static final CommandType COMMAND_TYPE = CommandType.COMPETITION;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the competition identified "
             + "by the index number used in the displayed competition list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -83,7 +84,7 @@ public class EditCompetitionCommand extends Command {
 
         model.setCompetition(compToEdit, editedComp);
         model.updateFilteredCompetitionList(PREDICATE_SHOW_ALL_COMPETITIONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_COMPETITION_SUCCESS, editedComp));
+        return new CommandResult(String.format(MESSAGE_EDIT_COMPETITION_SUCCESS, editedComp), COMMAND_TYPE);
     }
 
     /**

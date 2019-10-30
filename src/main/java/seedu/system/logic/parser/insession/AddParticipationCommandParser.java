@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.system.logic.commands.insession.AddPartCommand;
+import seedu.system.logic.commands.insession.AddPartarticipationCommand;
 import seedu.system.logic.parser.ArgumentMultimap;
 import seedu.system.logic.parser.ArgumentTokenizer;
 import seedu.system.logic.parser.Parser;
@@ -21,24 +21,25 @@ import seedu.system.logic.parser.exceptions.ParseException;
 import seedu.system.model.person.Name;
 
 /**
- * Parses input arguments and returns an AddPartCommand.
+ * Parses input arguments and returns an AddPartarticipationCommand.
  */
-public class AddPartCommandParser implements Parser<AddPartCommand> {
+public class AddParticipationCommandParser implements Parser<AddPartarticipationCommand> {
     private List<Integer> attemptWeights = new ArrayList<>(9);
 
     /**
-     * Parses {@code args} into an AddPartCommand and returns it.
+     * Parses {@code args} into an AddPartarticipationCommand and returns it.
      *
      * @throws ParseException if {@code args} does not conform the expected format
      */
     @Override
-    public AddPartCommand parse(String args) throws ParseException {
+    public AddPartarticipationCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COMP, PREFIX_SQUAT, PREFIX_BENCH, PREFIX_DEADLIFT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COMP, PREFIX_SQUAT, PREFIX_BENCH, PREFIX_DEADLIFT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPartCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddPartarticipationCommand.MESSAGE_USAGE));
         }
 
         Name athleteName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -46,7 +47,7 @@ public class AddPartCommandParser implements Parser<AddPartCommand> {
         stringToAttemptInt(PREFIX_SQUAT, argMultimap);
         stringToAttemptInt(PREFIX_BENCH, argMultimap);
         stringToAttemptInt(PREFIX_DEADLIFT, argMultimap);
-        return new AddPartCommand(athleteName, compName, attemptWeights);
+        return new AddPartarticipationCommand(athleteName, compName, attemptWeights);
     }
 
     /**

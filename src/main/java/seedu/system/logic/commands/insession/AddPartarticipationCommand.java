@@ -13,6 +13,8 @@ import java.util.List;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
+import seedu.system.logic.commands.exceptions.OutOfSessionCommandException;
 import seedu.system.model.Model;
 import seedu.system.model.competition.Competition;
 import seedu.system.model.participation.Participation;
@@ -23,8 +25,10 @@ import seedu.system.model.person.Person;
  * Add a new Participation that is associated with a Person and a Competition,
  * and his/her 9 attempts for the competition.
  */
-public class AddPartCommand extends Command {
+public class AddPartarticipationCommand extends Command {
+
     public static final String COMMAND_WORD = "addParticipation";
+    public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
     public static final String MESSAGE_ATHLETE_NOT_FOUND = "The athlete with the given name does not exist: ";
     public static final String MESSAGE_COMPETITION_NOT_FOUND = "The competition with the given name does not exist : ";
     public static final String MESSAGE_DUPLICATE_PARTICIPATION = "This participation already exists";
@@ -41,7 +45,7 @@ public class AddPartCommand extends Command {
     private final Name competitionName;
     private final List<Integer> nineAttempts;
 
-    public AddPartCommand(Name athleteName, Name compName, List<Integer> attemptWeights) {
+    public AddPartarticipationCommand(Name athleteName, Name compName, List<Integer> attemptWeights) {
         requireNonNull(athleteName);
         requireNonNull(compName);
         requireAllNonNull(attemptWeights);
@@ -52,8 +56,13 @@ public class AddPartCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws OutOfSessionCommandException {
         requireNonNull(model);
+
+        if (!model.hasOngoingSession()) {
+            throw new OutOfSessionCommandException();
+        }
+
         Person athlete = null;
         Competition competition = null;
 
@@ -88,6 +97,6 @@ public class AddPartCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_PARTICIPATION);
         }
         model.addParticipation(toAdd);
-        return new CommandResult(athleteName + MESSAGE_SUCCESS + competitionName);
+        return new CommandResult(athleteName + MESSAGE_SUCCESS + competitionName, COMMAND_TYPE);
     }
 }

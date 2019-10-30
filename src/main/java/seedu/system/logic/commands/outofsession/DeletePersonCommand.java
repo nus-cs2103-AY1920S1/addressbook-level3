@@ -8,6 +8,7 @@ import seedu.system.commons.core.Messages;
 import seedu.system.commons.core.index.Index;
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
@@ -19,7 +20,7 @@ import seedu.system.model.person.Person;
 public class DeletePersonCommand extends Command {
 
     public static final String COMMAND_WORD = "deletePerson";
-
+    public static final CommandType COMMAND_TYPE = CommandType.PERSON;
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -48,7 +49,7 @@ public class DeletePersonCommand extends Command {
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete), COMMAND_TYPE);
     }
 
     @Override

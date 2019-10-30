@@ -14,6 +14,7 @@ import seedu.system.commons.core.index.Index;
 import seedu.system.commons.util.CollectionUtil;
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
@@ -28,7 +29,7 @@ import seedu.system.model.person.Person;
 public class EditPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "editPerson";
-
+    public static final CommandType COMMAND_TYPE = CommandType.PERSON;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -82,7 +83,7 @@ public class EditPersonCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), COMMAND_TYPE);
     }
 
     /**

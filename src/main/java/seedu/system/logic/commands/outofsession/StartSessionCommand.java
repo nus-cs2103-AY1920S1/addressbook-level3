@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
 import seedu.system.model.competition.Competition;
@@ -21,6 +22,7 @@ import seedu.system.model.session.exceptions.OngoingSessionException;
 public class StartSessionCommand extends Command {
 
     public static final String COMMAND_WORD = "session";
+    public static final CommandType COMMAND_TYPE = CommandType.GENERAL;
     public static final String MESSAGE_SUCCESS = " has started!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " Competition Name";
     public static final String MESSAGE_COMPETITION_NOT_FOUND = "The competition with the given name does not exist : ";

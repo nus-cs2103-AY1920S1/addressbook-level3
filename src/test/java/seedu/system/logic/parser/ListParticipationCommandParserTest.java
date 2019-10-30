@@ -5,13 +5,13 @@ import static seedu.system.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.system.logic.commands.insession.ListPartCommand;
-import seedu.system.logic.parser.insession.ListPartCommandParser;
+import seedu.system.logic.commands.insession.ListParticipationCommand;
+import seedu.system.logic.parser.insession.ListParticipationCommandParser;
 import seedu.system.model.person.Name;
 
-public class ListPartCommandParserTest {
+public class ListParticipationCommandParserTest {
 
-    private ListPartCommandParser parser = new ListPartCommandParser();
+    private ListParticipationCommandParser parser = new ListParticipationCommandParser();
 
     @Test
     public void constructor_nullName_throwsNullPointerException() {
@@ -21,14 +21,14 @@ public class ListPartCommandParserTest {
 
     // @Test
     public void parse_emptyArg_returnListPartCommand() {
-        assertParseSuccess(parser, "", new ListPartCommand());
+        assertParseSuccess(parser, "", new ListParticipationCommand());
     }
 
     /*
     @Test
     public void parse_validArgs_returnsListPartCommand() {
         String userInput = "Test of Strength 2019";
-        ListPartCommand expectedListPartCommand = new ListPartCommand(new Name(userInput));
+        ListParticipationCommand expectedListPartCommand = new ListParticipationCommand(new Name(userInput));
         assertParseSuccess(parser, userInput, expectedListPartCommand);
     }
 

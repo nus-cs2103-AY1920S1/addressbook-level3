@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Data;
 import seedu.system.model.Model;
@@ -14,6 +15,7 @@ import seedu.system.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final CommandType COMMAND_TYPE = CommandType.GENERAL;
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
 
 

@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.OutOfSessionCommandException;
 import seedu.system.model.Model;
 import seedu.system.model.competition.Competition;
@@ -22,6 +23,7 @@ import seedu.system.model.person.Person;
  */
 public class RankCommand extends Command {
     public static final String COMMAND_WORD = "rank";
+    public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists an athlete's position for a competition. "
             + "Parameters: "
             + PREFIX_NAME + "ATHLETE NAME "
@@ -88,7 +90,7 @@ public class RankCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, athleteName, competition.getName(), rank, totalScore,
-                threeLiftScore[0], threeLiftScore[1], threeLiftScore[2]));
+                threeLiftScore[0], threeLiftScore[1], threeLiftScore[2]), COMMAND_TYPE);
     }
 
     /**
@@ -130,11 +132,9 @@ public class RankCommand extends Command {
      *
      */
     public static class OverallScoreComparator implements Comparator<Participation> {
-
         @Override
         public int compare(Participation p1, Participation p2) {
             return p2.getTotalScore() - p1.getTotalScore();
-
         }
     }
 

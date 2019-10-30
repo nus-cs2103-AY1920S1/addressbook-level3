@@ -5,6 +5,7 @@ import static seedu.system.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
 
@@ -14,7 +15,7 @@ import seedu.system.model.Model;
 public class ListPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "listPerson";
-
+    public static final CommandType COMMAND_TYPE = CommandType.PERSON;
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
 
@@ -27,6 +28,6 @@ public class ListPersonCommand extends Command {
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, COMMAND_TYPE);
     }
 }

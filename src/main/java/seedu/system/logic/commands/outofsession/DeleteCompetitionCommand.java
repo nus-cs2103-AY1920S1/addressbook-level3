@@ -8,6 +8,7 @@ import seedu.system.commons.core.Messages;
 import seedu.system.commons.core.index.Index;
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
@@ -19,7 +20,7 @@ import seedu.system.model.competition.Competition;
 public class DeleteCompetitionCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteCompetition";
-
+    public static final CommandType COMMAND_TYPE = CommandType.COMPETITION;
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the competition identified by the index number used in the displayed competition list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -48,7 +49,7 @@ public class DeleteCompetitionCommand extends Command {
 
         Competition compToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteCompetition(compToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_COMPETITION_SUCCESS, compToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_COMPETITION_SUCCESS, compToDelete), COMMAND_TYPE);
     }
 
     @Override

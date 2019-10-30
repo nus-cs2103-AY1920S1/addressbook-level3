@@ -8,6 +8,7 @@ import static seedu.system.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
@@ -19,6 +20,7 @@ import seedu.system.model.competition.Competition;
 public class AddCompetitionCommand extends Command {
 
     public static final String COMMAND_WORD = "addCompetition";
+    public static final CommandType COMMAND_TYPE = CommandType.COMPETITION;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a competition to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "COMPETITION NAME "
@@ -57,7 +59,7 @@ public class AddCompetitionCommand extends Command {
         }
 
         model.addCompetition(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_TYPE);
     }
 
     @Override

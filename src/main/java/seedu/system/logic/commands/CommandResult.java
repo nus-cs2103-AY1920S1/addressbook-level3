@@ -17,13 +17,17 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Command type that produced the command result. */
+    private final CommandType commandType;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, CommandType commandType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.commandType = commandType;
     }
 
     /**
@@ -31,7 +35,23 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        requireNonNull(feedbackToUser);
+        this.feedbackToUser = feedbackToUser;
+        this.showHelp = false;
+        this.exit = false;
+        this.commandType = CommandType.GENERAL;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and  {@code commandType},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, CommandType commandType) {
+        requireNonNull(feedbackToUser);
+        this.feedbackToUser = feedbackToUser;
+        this.showHelp = false;
+        this.exit = false;
+        this.commandType = commandType;
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +64,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public CommandType getCommandType() {
+        return commandType;
     }
 
     @Override

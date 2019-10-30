@@ -7,9 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.system.logic.commands.Command;
-import seedu.system.logic.commands.insession.AddPartCommand;
+import seedu.system.logic.commands.insession.AddPartarticipationCommand;
 import seedu.system.logic.commands.insession.AttemptLiftedCommand;
-import seedu.system.logic.commands.insession.ListPartCommand;
+import seedu.system.logic.commands.insession.ListParticipationCommand;
 import seedu.system.logic.commands.insession.NextLifterCommand;
 import seedu.system.logic.commands.insession.RankCommand;
 import seedu.system.logic.commands.outofsession.AddCompetitionCommand;
@@ -26,9 +26,9 @@ import seedu.system.logic.commands.outofsession.ListPersonCommand;
 import seedu.system.logic.commands.outofsession.OutOfSessionHelpCommand;
 import seedu.system.logic.commands.outofsession.StartSessionCommand;
 import seedu.system.logic.parser.exceptions.ParseException;
-import seedu.system.logic.parser.insession.AddPartCommandParser;
+import seedu.system.logic.parser.insession.AddParticipationCommandParser;
 import seedu.system.logic.parser.insession.AttemptLiftedCommandParser;
-import seedu.system.logic.parser.insession.ListPartCommandParser;
+import seedu.system.logic.parser.insession.ListParticipationCommandParser;
 import seedu.system.logic.parser.insession.NewSessionCommandParser;
 import seedu.system.logic.parser.insession.RankCommandParser;
 import seedu.system.logic.parser.outofsession.AddCompetitionCommandParser;
@@ -73,8 +73,8 @@ public class SystemParser {
         case AddCompetitionCommand.COMMAND_WORD:
             return new AddCompetitionCommandParser().parse(arguments);
 
-        case AddPartCommand.COMMAND_WORD:
-            return new AddPartCommandParser().parse(arguments);
+        case AddPartarticipationCommand.COMMAND_WORD:
+            return new AddParticipationCommandParser().parse(arguments);
 
         case AttemptLiftedCommand.COMMAND_WORD:
             return new AttemptLiftedCommandParser().parse(arguments);
@@ -103,8 +103,8 @@ public class SystemParser {
         case ListCompetitionCommand.COMMAND_WORD:
             return new ListCompetitionCommand();
 
-        case ListPartCommand.COMMAND_WORD:
-            return new ListPartCommandParser().parse(arguments);
+        case ListParticipationCommand.COMMAND_WORD:
+            return new ListParticipationCommandParser().parse(arguments);
 
         case RankCommand.COMMAND_WORD:
             return new RankCommandParser().parse(arguments);

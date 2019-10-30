@@ -14,6 +14,7 @@ import seedu.system.commons.core.GuiSettings;
 import seedu.system.commons.core.LogsCenter;
 import seedu.system.logic.Logic;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.parser.exceptions.ParseException;
 
@@ -115,14 +116,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         competitionListPanel = new CompetitionListPanel(logic.getFilteredCompetitionList());
-        competitionListPanelPlaceholder.getChildren().add(competitionListPanel.getRoot());
-
         participationListPanel = new ParticipationListPanel(logic.getFilteredParticipationList());
-        participationListPanelPlaceholder.getChildren().add(participationListPanel.getRoot());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -186,6 +184,7 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            CommandType commandType = commandResult.getCommandType();
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -195,6 +194,25 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            personListPanelPlaceholder.getChildren().setAll();
+            competitionListPanelPlaceholder.getChildren().setAll();
+            participationListPanelPlaceholder.getChildren().setAll();
+
+            if (commandType == CommandType.PERSON) {
+                logger.info("Showing persons...");
+                personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            }
+
+            if (commandType == CommandType.COMPETITION) {
+                logger.info("Showing competitions...");
+                competitionListPanelPlaceholder.getChildren().add(competitionListPanel.getRoot());
+            }
+
+            if (commandType == CommandType.PARTICIPATION) {
+                logger.info("Showing participations...");
+                participationListPanelPlaceholder.getChildren().add(participationListPanel.getRoot());
             }
 
             return commandResult;

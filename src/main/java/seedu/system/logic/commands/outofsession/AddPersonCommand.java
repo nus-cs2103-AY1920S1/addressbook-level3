@@ -7,6 +7,7 @@ import static seedu.system.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
 import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
@@ -18,7 +19,7 @@ import seedu.system.model.person.Person;
 public class AddPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "addPerson";
-
+    public static final CommandType COMMAND_TYPE = CommandType.PERSON;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
         + "Parameters: "
         + PREFIX_NAME + "NAME "
@@ -55,7 +56,7 @@ public class AddPersonCommand extends Command {
         }
 
         model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_TYPE);
     }
 
     @Override

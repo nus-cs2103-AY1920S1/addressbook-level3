@@ -39,4 +39,18 @@ public class CompetitionListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Hides the panel.
+     */
+    public void hide() {
+        getRoot().setVisible(false);
+    }
+
+    /**
+     * Shows the panel.
+     */
+    public void show() {
+        getRoot().setVisible(true);
+    }
+
 }

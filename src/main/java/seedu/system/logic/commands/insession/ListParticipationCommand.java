@@ -8,6 +8,8 @@ import java.util.function.Predicate;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
+import seedu.system.logic.commands.CommandType;
+import seedu.system.logic.commands.exceptions.OutOfSessionCommandException;
 import seedu.system.model.Model;
 import seedu.system.model.competition.Competition;
 import seedu.system.model.participation.Participation;
@@ -16,10 +18,10 @@ import seedu.system.model.person.Name;
 /**
  * Lists all Participations for a specific competition.
  */
-public class ListPartCommand extends Command {
+public class ListParticipationCommand extends Command {
 
-    public static final String COMMAND_WORD = "listPart";
-
+    public static final String COMMAND_WORD = "listParticipation";
+    public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
     public static final String MESSAGE_SUCCESS_FOR_COMPETITION = "Listed participants for ";
     public static final String MESSAGE_SUCCESS_FOR_ALL = "Listed all participants";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " Competition Name";
@@ -28,16 +30,16 @@ public class ListPartCommand extends Command {
     private final Name competitionName;
 
     /**
-     * Creates a ListPartCommand which will list out all Participations
+     * Creates a ListParticipationCommand which will list out all Participations
      * participating in the specified competition.
      * @param competitionName name of competition whose participants we want to list out
      */
-    public ListPartCommand(Name competitionName) {
+    public ListParticipationCommand(Name competitionName) {
         requireNonNull(competitionName);
         this.competitionName = competitionName;
     }
 
-    public ListPartCommand() {
+    public ListParticipationCommand() {
         competitionName = null;
     }
 
@@ -48,8 +50,12 @@ public class ListPartCommand extends Command {
      * @return feedback message of the operation result for display
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws OutOfSessionCommandException {
         requireNonNull(model);
+
+        if (!model.hasOngoingSession()) {
+            throw new OutOfSessionCommandException();
+        }
 
         if (competitionName == null) { // for the command without filtering competitions
             model.updateFilteredParticipationList(PREDICATE_SHOW_ALL_PARTICIPATIONS);
@@ -72,6 +78,6 @@ public class ListPartCommand extends Command {
         Competition finalCompetition = competition;
         Predicate<Participation> filterByCompetition = p -> p.getCompetition().isSameElement(finalCompetition);
         model.updateFilteredParticipationList(filterByCompetition);
-        return new CommandResult(MESSAGE_SUCCESS_FOR_COMPETITION + competition.toString());
+        return new CommandResult(MESSAGE_SUCCESS_FOR_COMPETITION + competition.toString(), COMMAND_TYPE);
     }
 }
