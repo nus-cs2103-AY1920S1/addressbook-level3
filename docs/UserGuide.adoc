@@ -733,16 +733,12 @@ Delete the reminder of index 1.
 
 Expands the folder hierarchy by the specified number of levels.
 
-Format: `*expand* [LEVEL]`
+Format: `*expand* [LEVEL=1]`
 
 ****
-* `LEVEL` should be an integer. If it is more than zero, folder hierarchy
-will expand by `LEVEL` number of levels. If `LEVEL` is less than zero,
-folder hierarchy will collapse by the given number of levels. If `LEVEL`
-is zero, nothing happens.
-* Current level of display + `LEVEL` must be positive and less than or equal
-to the maximum number of levels.
-* If `LEVEL` is not specified, expand to the maximum number of levels.
+* `LEVEL` should be a positive integer.
+* If `LEVEL` is higher than the maximum possible level of folders to expand, it will simply expand all of them.
+* If `LEVEL` is not specified, expand by 1 level.
 ****
 
 Examples:
@@ -754,16 +750,12 @@ Expands the folder hierarchy by 3 levels.
 
 Collapses the folder hierarchy by the specified number of levels.
 
-Format: `*collapse* [LEVEL]`
+Format: `*collapse* [LEVEL=1]`
 
 ****
-* `LEVEL` should be an integer. If it is more than zero, folder hierarchy
-will collapse by `LEVEL` number of levels. If `LEVEL` is less than zero,
-folder hierarchy will expand by the given number of levels. If `LEVEL` is
-zero, nothing happens.
-* Current level of display + `LEVEL` must be positive and less than or equal
-to the maximum number of levels of the folder hierarchy.
-* If `LEVEL` is not specified, collapse to show only one level of folders.
+* `LEVEL` should be a positive integer.
+* If `LEVEL` is higher than the maximum possible level of folders to collapse, it will simply collapse all of them.
+* If `LEVEL` is not specified, collapse by 1 level.
 ****
 
 Examples:
@@ -913,6 +905,6 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 * *Reminder*: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
 * *Reminder*: `*reminder delete* INDEX`
 * *Sort*: `*sort* [CRITERION]`
-* *Expand*: `*expand* [LEVEL]`
-* *Collapse*: `*collapse* [LEVEL]`
+* *Expand*: `*expand* [LEVEL=1]`
+* *Collapse*: `*collapse* [LEVEL=1]`
 * *Tab*: `*tab* INDEX`

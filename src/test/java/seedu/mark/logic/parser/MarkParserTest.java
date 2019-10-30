@@ -25,10 +25,12 @@ import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.commands.AutotagDeleteCommand;
 import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
+import seedu.mark.logic.commands.CollapseCommand;
 import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
+import seedu.mark.logic.commands.ExpandCommand;
 import seedu.mark.logic.commands.ExportCommand;
 import seedu.mark.logic.commands.FavoriteCommand;
 import seedu.mark.logic.commands.FindCommand;
@@ -96,6 +98,12 @@ public class MarkParserTest {
     }
 
     @Test
+    public void parseCommand_collapse() throws Exception {
+        assertTrue(parser.parseCommand(CollapseCommand.COMMAND_WORD) instanceof CollapseCommand);
+        assertTrue(parser.parseCommand(CollapseCommand.COMMAND_WORD + " 3") instanceof CollapseCommand);
+    }
+
+    @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
@@ -120,6 +128,12 @@ public class MarkParserTest {
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+    }
+
+    @Test
+    public void parseCommand_expand() throws Exception {
+        assertTrue(parser.parseCommand(ExpandCommand.COMMAND_WORD) instanceof ExpandCommand);
+        assertTrue(parser.parseCommand(ExpandCommand.COMMAND_WORD + " 3") instanceof ExpandCommand);
     }
 
     @Test
