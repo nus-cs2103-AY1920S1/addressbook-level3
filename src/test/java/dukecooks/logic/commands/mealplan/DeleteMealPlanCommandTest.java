@@ -25,7 +25,8 @@ public class DeleteMealPlanCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        MealPlan mealPlanToDelete = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_RECIPE.getZeroBased());
+        MealPlan mealPlanToDelete = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_RECIPE
+                .getZeroBased());
         DeleteMealPlanCommand deleteMealPlanCommand = new DeleteMealPlanCommand(TypicalIndexes.INDEX_FIRST_RECIPE);
 
         String expectedMessage = String.format(DeleteMealPlanCommand.MESSAGE_DELETE_MEALPLAN_SUCCESS, mealPlanToDelete);
@@ -49,7 +50,8 @@ public class DeleteMealPlanCommandTest {
     public void execute_validIndexFilteredList_success() {
         CommandTestUtil.showMealPlanAtIndex(model, TypicalIndexes.INDEX_FIRST_RECIPE);
 
-        MealPlan mealPlanToDelete = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_RECIPE.getZeroBased());
+        MealPlan mealPlanToDelete = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_RECIPE
+                .getZeroBased());
         DeleteMealPlanCommand deleteMealPlanCommand = new DeleteMealPlanCommand(TypicalIndexes.INDEX_FIRST_RECIPE);
 
         String expectedMessage = String.format(DeleteMealPlanCommand.MESSAGE_DELETE_MEALPLAN_SUCCESS, mealPlanToDelete);

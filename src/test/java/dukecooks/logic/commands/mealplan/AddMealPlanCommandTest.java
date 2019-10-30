@@ -1,16 +1,13 @@
 package dukecooks.logic.commands.mealplan;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.ModelStub;
 import dukecooks.model.mealplan.MealPlanBook;
@@ -33,8 +30,8 @@ public class AddMealPlanCommandTest {
         AddMealPlanCommand addMealPlanCommand = new AddMealPlanCommand(validMealPlan);
         ModelStub modelStub = new ModelStubWithMealPlan(validMealPlan);
 
-        Assert.assertThrows(CommandException.class, AddMealPlanCommand.MESSAGE_DUPLICATE_MEALPLAN, () -> addMealPlanCommand
-                .execute(modelStub));
+        Assert.assertThrows(CommandException.class, AddMealPlanCommand.MESSAGE_DUPLICATE_MEALPLAN, ()
+            -> addMealPlanCommand.execute(modelStub));
     }
 
     @Test

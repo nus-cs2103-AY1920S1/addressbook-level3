@@ -1,15 +1,10 @@
 package dukecooks.logic.commands.mealplan;
 
-
 import static dukecooks.testutil.mealplan.TypicalMealPlans.getTypicalMealPlanBook;
-import static dukecooks.testutil.recipe.TypicalRecipes.BURGER;
-import static dukecooks.testutil.recipe.TypicalRecipes.FRIES;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
 import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +43,8 @@ public class EditMealPlanCommandTest {
 
         EditMealPlanCommand.EditMealPlanDescriptor descriptor =
                 new EditMealPlanDescriptorBuilder(model.getFilteredMealPlanList().get(0), editedMealPlan).build();
-        EditMealPlanCommand editMealPlanCommand = new EditMealPlanCommand(TypicalIndexes.INDEX_FIRST_MEALPLAN, descriptor);
+        EditMealPlanCommand editMealPlanCommand = new EditMealPlanCommand(TypicalIndexes.INDEX_FIRST_MEALPLAN,
+                descriptor);
 
         CommandTestUtil.assertCommandSuccess(editMealPlanCommand, model, expectedMessage, expectedModel);
         model.deleteRecipe(MILO);
@@ -59,7 +55,8 @@ public class EditMealPlanCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditMealPlanCommand editMealPlanCommand = new EditMealPlanCommand(TypicalIndexes.INDEX_FIRST_MEALPLAN,
                 new EditMealPlanCommand.EditMealPlanDescriptor());
-        MealPlan editedMealPlan = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_MEALPLAN.getZeroBased());
+        MealPlan editedMealPlan = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_MEALPLAN
+                .getZeroBased());
 
         String expectedMessage = String.format(EditMealPlanCommand.MESSAGE_EDIT_MEALPLAN_SUCCESS, editedMealPlan);
 
@@ -74,7 +71,8 @@ public class EditMealPlanCommandTest {
 
         MealPlan mealPlanInFilteredList = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_MEALPLAN
                 .getZeroBased());
-        MealPlan editedMealPlan = new MealPlanBuilder(mealPlanInFilteredList).withName(CommandTestUtil.VALID_NAME_BURGER)
+        MealPlan editedMealPlan = new MealPlanBuilder(mealPlanInFilteredList).withName(CommandTestUtil
+                .VALID_NAME_BURGER)
                 .build();
         EditMealPlanCommand editMealPlanCommand = new EditMealPlanCommand(TypicalIndexes.INDEX_FIRST_MEALPLAN,
                 new EditMealPlanDescriptorBuilder().withMealPlanName(CommandTestUtil.VALID_NAME_BURGER).build());
@@ -89,9 +87,12 @@ public class EditMealPlanCommandTest {
 
     @Test
     public void execute_duplicateMealPlanUnfilteredList_failure() {
-        MealPlan firstMealPlan = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_MEALPLAN.getZeroBased());
-        EditMealPlanCommand.EditMealPlanDescriptor descriptor = new EditMealPlanDescriptorBuilder(firstMealPlan).build();
-        EditMealPlanCommand editMealPlanCommand = new EditMealPlanCommand(TypicalIndexes.INDEX_SECOND_MEALPLAN, descriptor);
+        MealPlan firstMealPlan = model.getFilteredMealPlanList().get(TypicalIndexes.INDEX_FIRST_MEALPLAN
+                .getZeroBased());
+        EditMealPlanCommand.EditMealPlanDescriptor descriptor = new EditMealPlanDescriptorBuilder(firstMealPlan)
+                .build();
+        EditMealPlanCommand editMealPlanCommand = new EditMealPlanCommand(TypicalIndexes.INDEX_SECOND_MEALPLAN,
+                descriptor);
 
         CommandTestUtil.assertMealPlanCommandFailure(editMealPlanCommand, model,
                 EditMealPlanCommand.MESSAGE_DUPLICATE_MEALPLAN);
