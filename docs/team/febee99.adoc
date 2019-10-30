@@ -104,7 +104,7 @@ include::../UserGuide.adoc[tag=view]
 
 include::../UserGuide.adoc[tag=sort]
 
-include::../UserGuide.adoc[tag=table]
+include::../UserGuide.adoc[tag=tablesummary]
 
 == Contributions to the Developer Guide
 
@@ -112,13 +112,13 @@ include::../UserGuide.adoc[tag=table]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=autosort]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=recommendations]
 
 
 == PROJECT: PowerPointLabs
 
----
+'''
 
 _{Optionally, you may include other projects in your portfolio.}_
