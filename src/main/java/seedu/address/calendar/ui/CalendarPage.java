@@ -19,6 +19,7 @@ import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.Page;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.UiPart;
 
@@ -128,7 +129,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     }
 
     private void handleExit() {
-        // todo: add exit handler
+        PageManager.closeWindows();
     }
 
     /**
