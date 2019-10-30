@@ -4,10 +4,13 @@ import java.util.logging.Logger;
 
 import cs.f10.t1.nursetraverse.commons.core.GuiSettings;
 import cs.f10.t1.nursetraverse.commons.core.LogsCenter;
+import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.logic.Logic;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
+import cs.f10.t1.nursetraverse.model.HistoryRecord;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -40,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private CommandBox commandBox;
     private DataPanelsTabPaneManager dataPanelsTabPaneManager;
+    private HistoryPanel historyPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -65,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane appointmentListPanelPlaceholder;
     @FXML
     private StackPane ongoingVisitPanelPlaceholder;
+    @FXML
+    private StackPane historyPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -149,6 +155,9 @@ public class MainWindow extends UiPart<Stage> {
                 patientTabPage,
                 ongoingVisitTabPage,
                 appointmentTabPage);
+
+        historyPanel = new HistoryPanel(logic.getObservableHistoryList());
+        historyPanelPlaceholder.getChildren().add(historyPanel.getRoot());
     }
 
     /**
@@ -209,6 +218,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public DataPanelsTabPaneManager getDataPanelsTabPaneManager() {
         return dataPanelsTabPaneManager;
+    }
+
+    public HistoryPanel getHistoryPanel() {
+        return historyPanel;
     }
 
     /**
