@@ -73,7 +73,8 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException, IOException, URISyntaxException;
+        CommandResult execute(String commandText) throws CommandException, ParseException,
+                IOException, URISyntaxException;
     }
 
 }

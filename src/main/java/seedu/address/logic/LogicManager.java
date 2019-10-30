@@ -45,7 +45,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException, IOException, URISyntaxException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException,
+            IOException, URISyntaxException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -64,7 +65,8 @@ public class LogicManager implements Logic {
     /**
      * Execution method for unknown inputs from user.
      */
-    public CommandResult executeUnknownInput(String commandText) throws CommandException, IOException, URISyntaxException {
+    public CommandResult executeUnknownInput(String commandText) throws CommandException,
+            IOException, URISyntaxException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;

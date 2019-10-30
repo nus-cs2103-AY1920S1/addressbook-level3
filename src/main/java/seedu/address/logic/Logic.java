@@ -31,7 +31,8 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException, IOException, URISyntaxException;
 
-    CommandResult executeUnknownInput(String commandText) throws CommandException, ParseException, IOException, URISyntaxException;
+    CommandResult executeUnknownInput(String commandText) throws CommandException, ParseException,
+            IOException, URISyntaxException;
 
     /**
      * Returns the FinSec.

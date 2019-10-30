@@ -238,7 +238,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException, URISyntaxException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
+            IOException, URISyntaxException {
         try {
             if (unknownEntry) {
                 CommandResult commandResult = logic.executeUnknownInput(commandText);
