@@ -54,7 +54,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        mode = Mode.HOME;
+        mode = Mode.PASSWORD;
         addressBookParser = new AddressBookParser();
         fileBookParser = new FileBookParser(storage.getStoragePassword());
         cardBookParser = new CardBookParser();
