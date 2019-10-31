@@ -21,7 +21,6 @@ public class AccommodationBuilder {
 
     public static final String DEFAULT_ACCOMMODATION_PHONE = "91170081";
     public static final String DEFAULT_ACCOMMODATION_EMAIL = "sam1987@gmail.com";
-
     public static final String[] DEFAULT_ACCOMMODATION_TAGS = {"Jurong", "Cool", "Cheap"};
 
     private Name name;

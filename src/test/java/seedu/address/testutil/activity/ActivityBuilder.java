@@ -10,6 +10,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
+import seedu.address.model.field.Cost;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -29,11 +30,12 @@ public class ActivityBuilder {
     public static final String DEFAULT_CONTACT_ADDRESS = "456, Bukit Batok st 53, #03-21";
     public static final Integer DEFAULT_DURATION = 30;
     public static final Integer DEFAULT_PRIORITY = 1;
-
+    public static final String DEFAULT_COST = "1.00";
 
     private Name name;
     private Contact contact;
     private Address address;
+    private Cost cost;
     private Set<Tag> tags;
     private Duration duration;
     private Priority priority;
@@ -43,6 +45,7 @@ public class ActivityBuilder {
         contact = new Contact(new Name(DEFAULT_CONTACT_NAME), new Phone(DEFAULT_CONTACT_PHONE),
                 new Email(DEFAULT_CONTACT_EMAIL), new Address(DEFAULT_CONTACT_ADDRESS), new HashSet<>());
         address = new Address(DEFAULT_ACTIVITY_ADDRESS);
+        cost = new Cost(DEFAULT_COST);
         tags = new HashSet<>();
         duration = new Duration(DEFAULT_DURATION);
         priority = new Priority(DEFAULT_PRIORITY);
@@ -55,6 +58,7 @@ public class ActivityBuilder {
         name = activityToCopy.getName();
         address = activityToCopy.getAddress();
         contact = activityToCopy.getContact().orElse(null);
+        cost = activityToCopy.getCost().orElse(null);
         tags = new HashSet<>(activityToCopy.getTags());
         duration = activityToCopy.getDuration();
         priority = activityToCopy.getPriority();
@@ -103,8 +107,16 @@ public class ActivityBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Cost} of the {@code Activity} that we are building.
+     */
+    public ActivityBuilder withCost(String cost) {
+        this.cost = new Cost(cost);
+        return this;
+    }
+
     public Activity build() {
-        return new Activity(name, address, contact, tags, duration, priority);
+        return new Activity(name, address, contact, cost, tags, duration, priority);
     }
 
 }

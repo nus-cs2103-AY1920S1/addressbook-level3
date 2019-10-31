@@ -30,6 +30,7 @@ import seedu.address.model.activity.Priority;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
+import seedu.address.model.field.Cost;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
@@ -134,15 +135,20 @@ public class EditActivityCommand extends EditCommand {
         Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
         Address updatedAddress = editActivityDescriptor.getAddress().orElse(activityToEdit.getAddress());
         Contact updatedContact = editActivityDescriptor.getPhone().isPresent()
-                ? new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>())
+                ? new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null,
+                new HashSet<>())
                 : activityToEdit.getContact().isPresent()
-                ? activityToEdit.getContact().get()
+                    ? activityToEdit.getContact().get()
+                    : null;
+        Cost updatedCost = editActivityDescriptor.getCost().isPresent()
+                ? editActivityDescriptor.getCost().get()
                 : null;
         Set<Tag> updatedTags = editActivityDescriptor.getTags().orElse(activityToEdit.getTags());
         Duration updatedDuration = editActivityDescriptor.getDuration().orElse(activityToEdit.getDuration());
         Priority updatedPriority = editActivityDescriptor.getPriority().orElse(activityToEdit.getPriority());
 
-        return new Activity(updatedName, updatedAddress, updatedContact, updatedTags, updatedDuration, updatedPriority);
+        return new Activity(updatedName, updatedAddress, updatedContact, updatedCost, updatedTags, updatedDuration,
+                updatedPriority);
     }
 
     @Override
@@ -172,6 +178,7 @@ public class EditActivityCommand extends EditCommand {
         private Name name;
         private Address address;
         private Phone phone;
+        private Cost cost;
         private Set<Tag> tags;
         private Duration duration;
         private Priority priority;
@@ -183,13 +190,14 @@ public class EditActivityCommand extends EditCommand {
             setName(toCopy.name);
             setAddress(toCopy.address);
             setPhone(toCopy.phone);
+            setCost(toCopy.cost);
             setTags(toCopy.tags);
             setDuration(toCopy.duration);
             setPriority(toCopy.priority);
         }
 
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, address, phone, tags);
+            return CollectionUtil.isAnyNonNull(name, address, phone, tags, cost, duration, priority);
         }
 
         public void setName(Name name) {
@@ -214,6 +222,14 @@ public class EditActivityCommand extends EditCommand {
 
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
+        }
+
+        public void setCost(Cost cost) {
+            this.cost = cost;
+        }
+
+        public Optional<Cost> getCost() {
+            return Optional.ofNullable(cost);
         }
 
         public void setTags(Set<Tag> tags) {
@@ -258,6 +274,7 @@ public class EditActivityCommand extends EditCommand {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getAddress().equals(e.getAddress())
+                    && getCost().equals(e.getCost())
                     && getTags().equals(e.getTags())
                     && getDuration().equals(e.getDuration())
                     && getPriority().equals(e.getPriority());

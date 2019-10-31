@@ -7,6 +7,7 @@ import java.util.Set;
 
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.Address;
+import seedu.address.model.field.Cost;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
@@ -19,6 +20,7 @@ public class Activity implements Comparable<Activity> {
     private final Name name;
     private final Address address;
     private final Contact contact;
+    private final Cost cost;
     private Set<Tag> tags;
     private final Duration duration;
     private final Priority priority;
@@ -26,10 +28,12 @@ public class Activity implements Comparable<Activity> {
     /**
      * Every field must be present and not null.
      */
-    public Activity(Name name, Address address, Contact contact, Set<Tag> tags, Duration duration, Priority priority) {
+    public Activity(Name name, Address address, Contact contact, Cost cost, Set<Tag> tags, Duration duration,
+                    Priority priority) {
         this.name = name;
         this.address = address;
         this.contact = contact;
+        this.cost = cost;
         this.tags = tags;
         this.duration = duration;
         this.priority = priority;
@@ -45,6 +49,10 @@ public class Activity implements Comparable<Activity> {
 
     public Optional<Contact> getContact() {
         return Optional.ofNullable(contact);
+    }
+
+    public Optional<Cost> getCost() {
+        return Optional.ofNullable(cost);
     }
 
     /**
@@ -100,6 +108,7 @@ public class Activity implements Comparable<Activity> {
                 && otherActivity.getAddress().equals(getAddress())
                 && otherActivity.getTags().equals(getTags())
                 && otherActivity.getContact().equals(getContact())
+                && otherActivity.getCost().equals(getCost())
                 && otherActivity.getDuration().equals(getDuration())
                 && otherActivity.getPriority().equals(getPriority());
     }
@@ -136,6 +145,8 @@ public class Activity implements Comparable<Activity> {
                 .append(getContact().isPresent()
                         ? getContact().get()
                         : "")
+                .append(" Cost: $")
+                .append(getCost().isPresent() ? getCost().get() : 0.00)
                 .append(" Duration: ")
                 .append(getDuration())
                 .append(" Priority: ")

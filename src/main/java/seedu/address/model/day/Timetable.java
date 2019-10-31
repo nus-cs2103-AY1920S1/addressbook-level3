@@ -1,88 +1,64 @@
 package seedu.address.model.day;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.TreeSet;
+import java.util.stream.Collectors;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.Duration;
-import seedu.address.model.field.Address;
-import seedu.address.model.field.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.commons.core.index.Index;
 
 /**
  * Represents the timetable of a {@code Day}.
  * Guarantees: {@code Timetable} is filled with {@code HalfHour}.
  */
 public class Timetable {
-    private static final String MESSAGE_ACTIVITY_TIME_CONFLICT = "There is a conflict in time between activities!";
-
-    private TreeSet<ActivityWithTime> timetable;
+    private List<ActivityWithTime> timetable;
 
     public Timetable() {
-        timetable = new TreeSet<>();
+        timetable = new ArrayList<>();
     }
 
-    public Timetable(List<ActivityWithTime> activities) throws CommandException {
-        this.timetable = new TreeSet<>();
-        if (activities.size() > 0) {
-            Iterator<ActivityWithTime> activitiesIterator = activities.iterator();
-            this.timetable.add(activitiesIterator.next());
-            while (activitiesIterator.hasNext()) {
-                ActivityWithTime toAdd = activitiesIterator.next();
-                ActivityWithTime floorActivity = this.timetable.floor(toAdd);
-                ActivityWithTime ceilingActivity = this.timetable.ceiling(toAdd);
-
-                if (floorActivity == null) {
-                    // check if toAdd's endTime does not overlap with ceilingActivity's startTime
-                    if (toAdd.getEndTime().compareTo(ceilingActivity.getStartTime()) <= 0) {
-                        this.timetable.add(toAdd);
-                    } else {
-                        throw new CommandException(MESSAGE_ACTIVITY_TIME_CONFLICT);
-                    }
-                } else if (ceilingActivity == null) {
-                    // check if toAdd's startTime does not overlap with ceilingActivity's endTime
-                    if (toAdd.getStartTime().compareTo(floorActivity.getEndTime()) >= 0) {
-                        this.timetable.add(toAdd);
-                    } else {
-                        throw new CommandException(MESSAGE_ACTIVITY_TIME_CONFLICT);
-                    }
-                } else {
-                    if (toAdd.getStartTime().compareTo(floorActivity.getEndTime()) >= 0
-                            && toAdd.getEndTime().compareTo(ceilingActivity.getStartTime()) <= 0) {
-                        this.timetable.add(toAdd);
-                    } else {
-                        throw new CommandException(MESSAGE_ACTIVITY_TIME_CONFLICT);
-                    }
-                }
-            }
-        }
-    }
-
-    public Optional<ActivityWithTime> getActivityWithTimeAtTime(LocalTime time) {
-        ActivityWithTime timeToSearch = new ActivityWithTime(createEmptyActivity(), time, time);
-        ActivityWithTime floorActivity = this.timetable.floor(timeToSearch);
-        if (floorActivity == null) {
-            return Optional.empty();
-        } else if (floorActivity.getEndTime().compareTo(time) >= 0) {
-            return Optional.of(floorActivity);
-        } else {
-            return Optional.empty();
-        }
+    public Timetable(List<ActivityWithTime> activities) {
+        timetable = activities;
+        timetable.sort(ActivityWithTime::compareTo);
     }
 
     public List<ActivityWithTime> getActivitiesWithTime() {
         return new ArrayList<>(this.timetable);
     }
 
-    private Activity createEmptyActivity() {
-        return new Activity(new Name("activityStub"), new Address("addressStub"), null, new HashSet<Tag>(),
-                new Duration(30), null);
+    /**
+     * Adds an activity with time to the list.
+     */
+    public void addActivityWithTime(ActivityWithTime toAdd) {
+        this.timetable.add(toAdd);
+        timetable.sort(ActivityWithTime::compareTo);
+    }
+
+    public void removeActivityWithTime(Index toRemove) {
+        this.timetable.remove(toRemove.getZeroBased());
+    }
+
+    /**
+     * Find the next activity in the list such that there is no overlaps unless the activity is the last in the list.
+     */
+    public Optional<ActivityWithTime> findNextNoOverlap(Index index) {
+        ActivityWithTime currAct = timetable.get(index.getZeroBased());
+        for (int i = index.getZeroBased() + 1; i < timetable.size(); i++) {
+            ActivityWithTime nextAct = timetable.get(i);
+            if (!currAct.isOverlapping(nextAct)) {
+                return Optional.of(nextAct);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Finds all activities that overlaps with the current activity.
+     */
+    public List<ActivityWithTime> findAllOverlap(ActivityWithTime activity) {
+        return timetable.stream().filter(x -> x.isOverlapping(activity)
+                && activity.getStartTime().compareTo(x.getStartTime()) <= 0).collect(Collectors.toList());
     }
 
     @Override
@@ -97,25 +73,6 @@ public class Timetable {
 
         List<ActivityWithTime> otherActivities = ((Timetable) other).getActivitiesWithTime();
         List<ActivityWithTime> thisActivities = this.getActivitiesWithTime();
-        return checkIfTwoListAreEqual(thisActivities, otherActivities);
-    }
-
-    /**
-     * Compares the order and elements of two lists to determine if they are equal.
-     */
-    private boolean checkIfTwoListAreEqual(List<ActivityWithTime> list1, List<ActivityWithTime> list2) {
-        if (list1.size() != list2.size()) {
-            return false;
-        }
-        Iterator<ActivityWithTime> list1Iterator = list1.listIterator();
-        Iterator<ActivityWithTime> list2Iterator = list2.listIterator();
-        while (list1Iterator.hasNext()) {
-            ActivityWithTime list1Next = list1Iterator.next();
-            ActivityWithTime list2Next = list2Iterator.next();
-            if (!list1Next.equals(list2Next)) {
-                return false;
-            }
-        }
-        return true;
+        return thisActivities.equals(otherActivities);
     }
 }

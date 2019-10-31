@@ -17,6 +17,7 @@ import seedu.address.model.activity.Duration;
 import seedu.address.model.activity.Priority;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.Address;
+import seedu.address.model.field.Cost;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.JsonAdaptedTag;
@@ -33,6 +34,7 @@ public class JsonAdaptedActivity {
     private final String name;
     private final String address;
     private final JsonAdaptedContact contact;
+    private final String cost;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String duration;
     private final String priority;
@@ -41,15 +43,14 @@ public class JsonAdaptedActivity {
      * Constructs a {@code JsonAdaptedActivity} with the given activity details.
      */
     @JsonCreator
-    public JsonAdaptedActivity(@JsonProperty("name") String name,
-                               @JsonProperty("address") String address,
-                               @JsonProperty("contact") JsonAdaptedContact contact,
-                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                               @JsonProperty("duration") String duration,
+    public JsonAdaptedActivity(@JsonProperty("name") String name, @JsonProperty("address") String address,
+            @JsonProperty("contact") JsonAdaptedContact contact, @JsonProperty("cost") String cost,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("duration") String duration,
                                @JsonProperty("priority") String priority) {
         this.name = name;
         this.address = address;
         this.contact = contact;
+        this.cost = cost;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -64,6 +65,7 @@ public class JsonAdaptedActivity {
         name = source.getName().toString();
         address = source.getAddress().toString();
         contact = source.getContact().isPresent() ? new JsonAdaptedContact(source.getContact().get()) : null;
+        cost = source.getCost().isPresent() ? source.getCost().get().toString() : null;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -98,6 +100,8 @@ public class JsonAdaptedActivity {
 
         final Contact modelContact = (contact == null) ? null : contact.toModelType();
 
+        final Cost modelCost = cost == null ? null : new Cost(cost);
+
         final Set<Tag> modelTags = new HashSet<>(activityTags);
 
         if (duration == null) {
@@ -114,7 +118,7 @@ public class JsonAdaptedActivity {
             modelPriority = new Priority(Integer.parseInt(priority));
         }
 
-        return new Activity(modelName, modelAddress, modelContact, modelTags, modelDuration, modelPriority);
+        return new Activity(modelName, modelAddress, modelContact, modelCost, modelTags, modelDuration, modelPriority);
     }
 
 }
