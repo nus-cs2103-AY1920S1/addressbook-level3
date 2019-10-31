@@ -10,7 +10,7 @@ import seedu.address.model.task.TaskTime;
 /**
  * Jackson-friendly version of {@link TaskTime}.
  */
-public class JsonAdaptedReminderTime {
+public class JsonAdaptedReminderTime implements Comparable<JsonAdaptedReminderTime> {
     private final String fullTime;
 
     /**
@@ -40,8 +40,19 @@ public class JsonAdaptedReminderTime {
      */
     public ReminderTime toModelType() throws IllegalValueException {
         if (!ReminderTime.isValidReminderTime(fullTime)) {
-            throw new IllegalValueException(TaskTime.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(ReminderTime.MESSAGE_CONSTRAINTS);
         }
         return new ReminderTime(fullTime);
+    }
+
+    @Override
+    public int compareTo(JsonAdaptedReminderTime o) {
+        try {
+            ReminderTime thisReminderTime = this.toModelType();
+            ReminderTime otherReminderTime = o.toModelType();
+            return thisReminderTime.compareTo(otherReminderTime);
+        } catch (IllegalValueException e) {
+            return 0;
+        }
     }
 }

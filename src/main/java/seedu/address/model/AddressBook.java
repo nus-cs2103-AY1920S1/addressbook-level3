@@ -163,6 +163,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setEarnings(newData.getEarningsList());
         setCommands(newData.getCommandsList());
         setTasks(newData.getTaskList());
+        setReminder(newData.getReminderList());
 
     }
 
@@ -282,6 +283,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setReminder(Reminder reminders, Reminder editedReminder) {
         requireNonNull(editedReminder);
         reminder.setReminder(reminders, editedReminder);
+    }
+
+    /**
+     * Replaces the contents of the task list with {@code tasks}.
+     * {@code tasks} must not contain duplicate tasks.
+     */
+    public void setReminder(List<Reminder> reminders) {
+        this.reminder.setReminder(reminders);
     }
 
     /**

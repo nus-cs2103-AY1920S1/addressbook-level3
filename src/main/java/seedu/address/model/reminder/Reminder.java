@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Represents a Reminder in the calendar.
@@ -13,12 +14,12 @@ import java.util.Set;
 public class Reminder {
     // Identity fields
     private final ReminderDescription reminderDescription;
-    private final Set<ReminderTime> reminderTimeSet = new HashSet<>();
+    private final TreeSet<ReminderTime> reminderTimeSet = new TreeSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Reminder(ReminderDescription reminderDescription, Set<ReminderTime> reminderTime) {
+    public Reminder(ReminderDescription reminderDescription, TreeSet<ReminderTime> reminderTime) {
         requireAllNonNull(reminderDescription);
         this.reminderDescription = reminderDescription;
         reminderTimeSet.addAll(reminderTime);
@@ -30,8 +31,8 @@ public class Reminder {
         return reminderDescription;
     }
 
-    public Set<ReminderTime> getTime() {
-        return Collections.unmodifiableSet(reminderTimeSet);
+    public TreeSet<ReminderTime> getTime() {
+        return reminderTimeSet;
     }
 
 

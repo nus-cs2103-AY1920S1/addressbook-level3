@@ -7,11 +7,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import seedu.address.model.task.TaskTime;
+
 /**
  * Represents a Task's time in the calendar.
  * Guarantees: immutable; is valid as declared in {@link #isValidTaskTime(String)}
  */
-public class ReminderTime {
+public class ReminderTime implements Comparable<ReminderTime> {
     public static final String MESSAGE_CONSTRAINTS =
             "ReminderTime should only contain a staring time and an ending time, "
                     + "with format: dd/MM/yyyy HH:mm, dd/MM/yyyy HH:mm, "
@@ -84,5 +86,17 @@ public class ReminderTime {
                 || (other instanceof ReminderTime // instanceof handles nulls
                 && starting.equals(((ReminderTime) other).starting)
                 && ending.equals(((ReminderTime) other).ending)); // state check
+    }
+
+    @Override
+    public int compareTo(ReminderTime o) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            Date thisStarting = simpleDateFormat.parse(starting);
+            Date otherStarting = simpleDateFormat.parse(o.starting);
+            return thisStarting.compareTo(otherStarting);
+        } catch (ParseException ex) {
+            return 0;
+        }
     }
 }
