@@ -379,6 +379,16 @@ public class AddTemplateItemCommandTest {
         }
 
         @Override
+        public void sortShoppingItems() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void urgentShoppingItem(ShoppingItem toMarkAsUrgent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ShoppingItem getShoppingItem(ShoppingItem shoppingItem) {
             throw new AssertionError("This method should not be called.");
         }

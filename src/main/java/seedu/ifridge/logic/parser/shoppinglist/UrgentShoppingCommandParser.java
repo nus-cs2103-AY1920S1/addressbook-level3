@@ -3,7 +3,6 @@ package seedu.ifridge.logic.parser.shoppinglist;
 import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.ifridge.commons.core.index.Index;
-import seedu.ifridge.logic.commands.shoppinglist.DeleteShoppingCommand;
 import seedu.ifridge.logic.commands.shoppinglist.UrgentShoppingCommand;
 import seedu.ifridge.logic.parser.Parser;
 import seedu.ifridge.logic.parser.ParserUtil;

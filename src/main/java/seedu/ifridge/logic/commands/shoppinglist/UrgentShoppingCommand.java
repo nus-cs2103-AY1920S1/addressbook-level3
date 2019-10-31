@@ -4,16 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import seedu.ifridge.commons.core.Messages;
 import seedu.ifridge.commons.core.index.Index;
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
-import seedu.ifridge.model.ShoppingList;
-import seedu.ifridge.model.UrgentComparator;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
