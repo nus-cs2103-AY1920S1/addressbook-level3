@@ -39,7 +39,9 @@ public class AutoCompletePanel extends UiPart<Region> {
 
         autoCompleteWordStorage = new AutoCompleteWordStorage(patList, apptList);
         autoCompleteListHandler = new AutoCompleteListHandler();
-        autoCompleteWordListView.setItems(autoCompleteWordStorage.getOListAllObjectWord());
+        ObservableList initialList = autoCompleteWordStorage.getOListAllObjectWord();
+        autoCompleteListHandler.addDashToObjectWordList(initialList);
+        autoCompleteWordListView.setItems(initialList);
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
@@ -102,6 +104,8 @@ public class AutoCompletePanel extends UiPart<Region> {
         ObservableList<AutoCompleteWord> updatedList = autoCompleteListHandler
                 .updateList(filteredList, matchedAutoCompleteWords.size(), segments, firstSegmentParts);
 
+        // Add '-' to each object word displayed for user understanding
+        autoCompleteListHandler.addDashToObjectWordList(updatedList);
         autoCompleteWordListView.setItems(updatedList);
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }

@@ -83,4 +83,18 @@ public class AutoCompleteListHandler {
             return listToBeSuggested;
         }
     }
+
+    /**
+     * Add - for each word in object list, for user understanding in the autocomplete panel ui
+     * @param objectList list for words to add dash to
+     */
+    public void addDashToObjectWordList(ObservableList<AutoCompleteWord> objectList) {
+        if (objectList.size() != 0) {
+            if (objectList.get(0) instanceof ObjectWord) {
+                for (int i = 0; i < objectList.size(); i++) {
+                    objectList.set(i, new AutoCompleteWord(objectList.get(i).getSuggestedWord() + "-"));
+                }
+            }
+        }
+    }
 }
