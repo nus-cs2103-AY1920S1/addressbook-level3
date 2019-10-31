@@ -34,7 +34,7 @@ public class ResultPaneTest {
 
     private static final CommandResult CONTACT_COMMAND_RESULT = new CommandResultBuilder()
         .putName(RESPONSE_STRING)
-        .putViewType(ViewType.CONTACT)
+        .putViewType(ViewType.CONTACT_LIST)
         .build();
     private static final CommandResult NOTE_COMMAND_RESULT = new CommandResultBuilder()
         .putName(RESPONSE_STRING)
@@ -120,7 +120,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#noteResultView");
+        assertResultViewId(robot, "#noteListResultView");
     }
 
     @Test
@@ -129,7 +129,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#noteResultView");
+        assertResultViewId(robot, "#noteListResultView");
     }
 
     @Test
@@ -138,7 +138,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#contactResultView");
+        assertResultViewId(robot, "#contactListResultView");
     }
 
     @Test
@@ -147,7 +147,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#contactResultView");
+        assertResultViewId(robot, "#contactListResultView");
     }
 
     @Test
@@ -156,7 +156,7 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, NONE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#contactResultView");
+        assertResultViewId(robot, "#contactListResultView");
     }
 
     @Test
@@ -165,6 +165,6 @@ public class ResultPaneTest {
         sendCommandWithResult(robot, NONE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
-        assertResultViewId(robot, "#noteResultView");
+        assertResultViewId(robot, "#noteListResultView");
     }
 }

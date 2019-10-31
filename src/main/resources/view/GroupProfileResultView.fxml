@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:id="groupSingleResultView" spacing="10">
+      xmlns:fx="http://javafx.com/fxml/1" fx:id="groupProfileResultView" spacing="10">
     <padding>
         <Insets top="20" right="10" bottom="10" left="10" />
     </padding>

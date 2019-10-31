@@ -100,7 +100,7 @@ public class EditContactCommand extends ContactCommand {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact), ViewType.CONTACT);
+        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact), ViewType.CONTACT_PROFILE);
     }
 
     @Override

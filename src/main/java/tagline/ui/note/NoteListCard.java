@@ -1,4 +1,4 @@
-package tagline.ui;
+package tagline.ui.note;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -6,7 +6,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 import tagline.model.note.Note;
+import tagline.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Note}.
@@ -55,7 +57,7 @@ public class NoteListCard extends UiPart<Region> {
             card.getChildren().remove(tagBox);
         } else {
             note.getTags().stream().map(tag -> new Label(tag.toString()))
-                    .forEach(tagLabel -> tagsContainer.getChildren().add(tagLabel));
+                .forEach(tagLabel -> tagsContainer.getChildren().add(tagLabel));
         }
     }
 

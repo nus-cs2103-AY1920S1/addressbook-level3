@@ -21,6 +21,6 @@ public class ListContactCommand extends ContactCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(MESSAGE_SUCCESS, ViewType.CONTACT);
+        return new CommandResult(MESSAGE_SUCCESS, ViewType.CONTACT_LIST);
     }
 }

@@ -1,4 +1,4 @@
-package tagline.ui;
+package tagline.ui.group;
 
 import java.util.Comparator;
 
@@ -8,7 +8,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 import tagline.model.group.Group;
+import tagline.ui.UiPart;
 
 /**
  * A UI component that displays information of a {@code Group}.
@@ -54,8 +56,8 @@ public class GroupListCard extends UiPart<Region> {
             memberIdsContainer.getChildren().remove(memberIds);
         } else {
             group.getMemberIds().stream()
-                    .sorted(Comparator.comparing(id -> id.value))
-                    .forEach(id -> memberIds.getChildren().add(new Label("#" + id.value)));
+                .sorted(Comparator.comparing(id -> id.value))
+                .forEach(id -> memberIds.getChildren().add(new Label("#" + id.value)));
         }
     }
 

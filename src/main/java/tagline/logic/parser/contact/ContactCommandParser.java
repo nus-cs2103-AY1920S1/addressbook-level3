@@ -14,6 +14,7 @@ import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.FindContactCommand;
 import tagline.logic.commands.contact.ListContactCommand;
+import tagline.logic.commands.contact.ShowContactCommand;
 import tagline.logic.parser.exceptions.ParseException;
 
 /**
@@ -45,6 +46,9 @@ public class ContactCommandParser {
 
         case CreateContactCommand.COMMAND_WORD:
             return new AddContactParser().parse(arguments);
+
+        case ShowContactCommand.COMMAND_WORD:
+            return new ShowContactParser().parse(arguments);
 
         case EditContactCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

@@ -1,10 +1,11 @@
-package tagline.ui;
+package tagline.ui.contact;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import tagline.model.contact.Contact;
+import tagline.ui.UiPart;
 
 /**
  * A UI component that displays information of a {@code Contact}.

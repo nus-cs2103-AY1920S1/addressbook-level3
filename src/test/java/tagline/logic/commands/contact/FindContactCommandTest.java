@@ -29,7 +29,7 @@ import tagline.model.tag.TagBook;
  */
 public class FindContactCommandTest {
 
-    private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT_LIST;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
         new GroupBook(), new TagBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new NoteBook(),

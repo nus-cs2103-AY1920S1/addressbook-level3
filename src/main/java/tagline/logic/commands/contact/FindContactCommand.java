@@ -34,7 +34,7 @@ public class FindContactCommand extends ContactCommand {
         model.updateFilteredContactList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getFilteredContactList().size()),
-                ViewType.CONTACT);
+                ViewType.CONTACT_LIST);
     }
 
     @Override

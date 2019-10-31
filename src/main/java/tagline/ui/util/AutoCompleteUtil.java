@@ -12,6 +12,7 @@ public class AutoCompleteUtil {
         contactRoot.addChildren(
             new AutoCompleteNode("list"),
             new AutoCompleteNode("create"),
+            new AutoCompleteNode("show"),
             new AutoCompleteNode("delete"),
             new AutoCompleteNode("edit"),
             new AutoCompleteNode("find"),
@@ -43,8 +44,12 @@ public class AutoCompleteUtil {
             new AutoCompleteNode("list")
         );
 
+        AutoCompleteNode helpRoot = new AutoCompleteNode("help");
+
+        AutoCompleteNode exitRoot = new AutoCompleteNode("exit");
+
         AutoCompleteNode root = AutoCompleteNode.getRootNode();
-        root.addChildren(contactRoot, noteRoot, groupRoot, tagRoot);
+        root.addChildren(contactRoot, noteRoot, groupRoot, tagRoot, exitRoot, helpRoot);
         return root;
     }
 }

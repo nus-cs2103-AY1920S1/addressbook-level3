@@ -1,4 +1,4 @@
-package tagline.ui;
+package tagline.ui.group;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -7,13 +7,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import tagline.model.contact.Contact;
 import tagline.model.group.Group;
+import tagline.ui.ResultView;
+import tagline.ui.contact.ContactListPanel;
 
 /**
  * The UI component that displays a single group as a result.
  */
-public class GroupSingleResultView extends ResultView {
+public class GroupProfileResultView extends ResultView {
 
-    private static final String FXML = "GroupSingleResultView.fxml";
+    private static final String FXML = "GroupProfileResultView.fxml";
 
     private ContactListPanel contactListPanel;
 
@@ -26,7 +28,7 @@ public class GroupSingleResultView extends ResultView {
     @FXML
     private StackPane contactListPanelPlaceholder;
 
-    public GroupSingleResultView() {
+    public GroupProfileResultView() {
         super(FXML);
 
         description.managedProperty().bind(description.visibleProperty());
@@ -35,7 +37,7 @@ public class GroupSingleResultView extends ResultView {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts(ObservableList<Group> groupList, ObservableList<Contact> contactList) {
+    public void fillInnerParts(ObservableList<Group> groupList, ObservableList<Contact> contactList) {
         contactListPanel = new ContactListPanel(contactList);
         contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
@@ -52,7 +54,7 @@ public class GroupSingleResultView extends ResultView {
     /**
      * Updates the inner labels of this component, and hides them when empty.
      */
-    void updateLabels(Group group) {
+    public void updateLabels(Group group) {
         name.setText(group.getGroupName().value);
 
         if (group.getMemberIds().size() == 0) {

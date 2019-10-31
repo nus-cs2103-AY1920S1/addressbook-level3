@@ -21,7 +21,7 @@ public class DeleteContactCommand extends ContactCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
             + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: CONTACT_ID (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
@@ -49,7 +49,7 @@ public class DeleteContactCommand extends ContactCommand {
         // the following is to cater for the edge case when you delete a contact in ONE_GROUP view
         // forces it to change to just contact list instead of sticking to one_group
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete), ViewType.CONTACT);
+        return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete), ViewType.CONTACT_LIST);
     }
 
     @Override

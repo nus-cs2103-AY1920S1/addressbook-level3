@@ -80,7 +80,7 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
         model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
 
         return new CommandResult(MESSAGE_ADD_MEMBER_SUCCESS + GroupCommand.notFoundString(notFound),
-                ViewType.GROUP_SINGLE);
+                ViewType.GROUP_PROFILE);
     }
 
     /**

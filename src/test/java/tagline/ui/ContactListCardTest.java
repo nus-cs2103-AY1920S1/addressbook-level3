@@ -21,6 +21,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tagline.model.contact.Contact;
+import tagline.ui.contact.ContactListCard;
 
 @ExtendWith(ApplicationExtension.class)
 public class ContactListCardTest {

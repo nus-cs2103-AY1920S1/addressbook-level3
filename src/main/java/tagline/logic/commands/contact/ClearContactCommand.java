@@ -19,6 +19,6 @@ public class ClearContactCommand extends ContactCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
-        return new CommandResult(MESSAGE_SUCCESS, ViewType.CONTACT);
+        return new CommandResult(MESSAGE_SUCCESS, ViewType.CONTACT_LIST);
     }
 }

@@ -40,7 +40,7 @@
             <Separator minHeight="2.0"/>
             <Label fx:id="content" text="\$content" styleClass="cell_small_label" wrapText="true"/>
             <HBox fx:id="tagBox" spacing="5" alignment="CENTER_LEFT">
-                <Label text="Tags:" styleClass="cell_small_label" wrapText="true"/>
+                <Label text="Tags:" styleClass="cell_small_label" wrapText="true" minWidth="35"/>
                 <FlowPane fx:id="tagsContainer" vgap="5" hgap="5"/>
             </HBox>
         </VBox>

@@ -22,7 +22,7 @@ import tagline.model.tag.TagBook;
  */
 public class CreateContactCommandIntegrationTest {
 
-    private static final ViewType CREATE_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType CREATE_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT_PROFILE;
     private Model model;
 
     @BeforeEach

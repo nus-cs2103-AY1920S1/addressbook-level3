@@ -21,7 +21,7 @@ import tagline.model.tag.TagBook;
  */
 public class ListContactCommandTest {
 
-    private static final ViewType LIST_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType LIST_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT_LIST;
     private Model model;
     private Model expectedModel;
 

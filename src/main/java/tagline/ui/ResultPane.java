@@ -13,6 +13,12 @@ import tagline.model.contact.Contact;
 import tagline.model.group.Group;
 import tagline.model.note.Note;
 import tagline.model.tag.Tag;
+import tagline.ui.contact.ContactListResultView;
+import tagline.ui.contact.ContactProfileResultView;
+import tagline.ui.group.GroupListResultView;
+import tagline.ui.group.GroupProfileResultView;
+import tagline.ui.note.NoteListResultView;
+import tagline.ui.tag.TagListResultView;
 
 /**
  * The UI component that displays the command result.
@@ -93,17 +99,21 @@ public class ResultPane extends UiPart<StackPane> {
                                ObservableList<Tag> filteredTagList) {
         resultViewMap = new HashMap<>();
 
-        ContactResultView contactResultView = new ContactResultView();
-        contactResultView.fillInnerParts(filteredContactList);
-        resultViewMap.put(ViewType.CONTACT, contactResultView);
+        ContactProfileResultView contactProfileResultView = new ContactProfileResultView();
+        contactProfileResultView.fillInnerParts(filteredContactList, filteredNoteList);
+        resultViewMap.put(ViewType.CONTACT_PROFILE, contactProfileResultView);
 
-        NoteResultView noteResultView = new NoteResultView();
-        noteResultView.fillInnerParts(filteredNoteList);
-        resultViewMap.put(ViewType.NOTE, noteResultView);
+        ContactListResultView contactListResultView = new ContactListResultView();
+        contactListResultView.fillInnerParts(filteredContactList);
+        resultViewMap.put(ViewType.CONTACT_LIST, contactListResultView);
 
-        GroupSingleResultView groupSingleResultView = new GroupSingleResultView();
-        groupSingleResultView.fillInnerParts(filteredGroupList, filteredContactList);
-        resultViewMap.put(ViewType.GROUP_SINGLE, groupSingleResultView);
+        NoteListResultView noteListResultView = new NoteListResultView();
+        noteListResultView.fillInnerParts(filteredNoteList);
+        resultViewMap.put(ViewType.NOTE, noteListResultView);
+
+        GroupProfileResultView groupProfileResultView = new GroupProfileResultView();
+        groupProfileResultView.fillInnerParts(filteredGroupList, filteredContactList);
+        resultViewMap.put(ViewType.GROUP_PROFILE, groupProfileResultView);
 
         GroupListResultView groupListResultView = new GroupListResultView();
         groupListResultView.fillInnerParts(filteredGroupList);

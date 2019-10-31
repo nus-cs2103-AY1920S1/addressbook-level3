@@ -18,7 +18,7 @@ import tagline.model.tag.TagBook;
 
 public class ClearContactCommandTest {
 
-    private static final ViewType CLEAR_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType CLEAR_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT_LIST;
 
     @Test
     public void execute_emptyAddressBook_success() {

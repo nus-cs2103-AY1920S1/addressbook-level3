@@ -24,7 +24,7 @@ public class Group {
     /**
      * Every field must be present and not null.
      */
-    public Group(GroupName groupName, GroupDescription description , Set<MemberId> memberIds) {
+    public Group(GroupName groupName, GroupDescription description, Set<MemberId> memberIds) {
         requireAllNonNull(groupName, description, memberIds);
         //private final MemberModel members;
         this.groupName = groupName;
@@ -58,11 +58,12 @@ public class Group {
         }
 
         return otherGroup != null
-                && otherGroup.getGroupName().equals(getGroupName());
+            && otherGroup.getGroupName().equals(getGroupName());
     }
 
     /**
      * Returns a short version of the Group omitting Description
+     *
      * @return
      */
     public String toShortString() {
@@ -94,7 +95,7 @@ public class Group {
         if (getGroupDescription().value.length() <= 0) {
         } else {
             builder.append(" Description: ")
-                    .append(getGroupDescription());
+                .append(getGroupDescription());
         }
     }
 
@@ -114,8 +115,8 @@ public class Group {
 
         Group otherGroup = (Group) other;
         return otherGroup.getGroupName().equals(getGroupName())
-                && otherGroup.getMemberIds().equals(getMemberIds())
-                && otherGroup.getGroupDescription().equals(getGroupDescription());
+            && otherGroup.getMemberIds().equals(getMemberIds())
+            && otherGroup.getGroupDescription().equals(getGroupDescription());
     }
 
     @Override

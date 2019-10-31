@@ -62,7 +62,7 @@ public class CreateGroupCommand extends GroupCommand {
         model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
 
         return new CommandResult(MESSAGE_SUCCESS + GroupCommand.notFoundString(notFound),
-            ViewType.GROUP_SINGLE);
+            ViewType.GROUP_PROFILE);
     }
 
     @Override

@@ -448,13 +448,13 @@
     -fx-control-inner-background: #6890BC;
 }
 
-#groupSingleResultView .big_label {
+#groupProfileResultView .big_label {
     -fx-text-fill: white;
     -fx-font-size: 24px;
     -fx-font-family: "Segoe UI Semibold"
 }
 
-#groupSingleResultView .small_label {
+#groupProfileResultView .small_label {
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-family: "Segoe UI"
@@ -462,6 +462,18 @@
 
 #groupListCardPane #emptyGroupLabel {
     -fx-text-fill: #999999;
+}
+
+#contactProfileResultView .big_label {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-family: "Segoe UI Semibold"
+}
+
+#contactProfileResultView .small_label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI"
 }
 
 #tagsContainer .label {

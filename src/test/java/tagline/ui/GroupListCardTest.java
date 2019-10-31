@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testfx.util.NodeQueryUtils.hasText;
 import static tagline.testutil.group.TypicalGroups.GUARDIANS;
 import static tagline.testutil.group.TypicalGroups.WAKANDAN_ROYAL;
-import static tagline.ui.GroupListCard.EMPTY_GROUP_STRING;
+import static tagline.ui.group.GroupListCard.EMPTY_GROUP_STRING;
 
 import java.util.Collection;
 import java.util.concurrent.TimeoutException;
@@ -24,6 +24,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tagline.model.group.Group;
+import tagline.ui.group.GroupListCard;
 
 @ExtendWith(ApplicationExtension.class)
 public class GroupListCardTest {

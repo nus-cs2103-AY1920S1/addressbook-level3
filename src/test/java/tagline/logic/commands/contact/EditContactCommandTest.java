@@ -35,7 +35,7 @@ import tagline.testutil.contact.EditContactDescriptorBuilder;
  */
 public class EditContactCommandTest {
 
-    private static final ViewType EDIT_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType EDIT_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT_PROFILE;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
         new GroupBook(), new TagBook(), new UserPrefs());
 

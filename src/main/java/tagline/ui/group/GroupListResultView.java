@@ -1,9 +1,11 @@
-package tagline.ui;
+package tagline.ui.group;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
+
 import tagline.model.group.Group;
+import tagline.ui.ResultView;
 
 /**
  * The UI component that displays the group list as a result.
@@ -24,7 +26,7 @@ public class GroupListResultView extends ResultView {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts(ObservableList<Group> groupList) {
+    public void fillInnerParts(ObservableList<Group> groupList) {
         groupListPanel = new GroupListPanel(groupList);
         groupListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
     }

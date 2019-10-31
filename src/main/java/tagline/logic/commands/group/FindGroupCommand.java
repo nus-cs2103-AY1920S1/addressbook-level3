@@ -46,7 +46,7 @@ public class FindGroupCommand extends GroupCommand {
         model.updateFilteredContactList(GroupCommand.groupToContactIdPredicate(verifiedGroup));
         model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
 
-        return new CommandResult(MESSAGE_KEYWORD_SUCCESS, ViewType.GROUP_SINGLE);
+        return new CommandResult(MESSAGE_KEYWORD_SUCCESS, ViewType.GROUP_PROFILE);
     }
 
     @Override

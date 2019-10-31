@@ -1,4 +1,4 @@
-package tagline.ui;
+package tagline.ui.note;
 
 import java.util.logging.Logger;
 
@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 
 import tagline.commons.core.LogsCenter;
 import tagline.model.note.Note;
+import tagline.ui.UiPart;
 
 /**
  * Panel containing the list of notes.

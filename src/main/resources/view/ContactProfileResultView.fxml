@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" fx:id="contactProfileResultView" spacing="10">
+    <padding>
+        <Insets top="20" right="10" bottom="10" left="10" />
+    </padding>
+    <HBox>
+        <padding>
+            <Insets left="5" right="5"/>
+        </padding>
+        <Label fx:id="name" text="\$name" styleClass="big_label" wrapText="true">
+            <minWidth>
+                <!-- Ensures that the label text is never truncated -->
+                <Region fx:constant="USE_PREF_SIZE"/>
+            </minWidth>
+        </Label>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="id" text="\$id" styleClass="big_label" wrapText="true"/>
+    </HBox>
+    <HBox>
+        <Label styleClass="small_label" minWidth="90">Phone</Label>
+        <Label styleClass="small_label" minWidth="10">:  </Label>
+        <Label fx:id="phone" text="\$phone" styleClass="small_label" wrapText="true"></Label>
+    </HBox>
+    <HBox>
+        <Label styleClass="small_label" minWidth="90">Email</Label>
+        <Label styleClass="small_label" minWidth="10">:  </Label>
+        <Label fx:id="email" text="\$email" styleClass="small_label" wrapText="true"></Label>
+    </HBox>
+    <HBox>
+        <Label styleClass="small_label" minWidth="90">Address</Label>
+        <Label styleClass="small_label" minWidth="10">:  </Label>
+        <Label fx:id="address" text="\$address" styleClass="small_label" wrapText="true"></Label>
+    </HBox>
+    <HBox>
+        <Label styleClass="small_label" minWidth="90">Description</Label>
+        <Label styleClass="small_label" minWidth="10">:  </Label>
+        <Label fx:id="description" text="\$description" styleClass="small_label" wrapText="true"></Label>
+    </HBox>
+    <Separator minHeight="2.0"/>
+    <StackPane fx:id="noteListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+</VBox>
