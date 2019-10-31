@@ -90,27 +90,27 @@ E.g. 'cs2103t' will match 'CS2103T'
 
 Global commands in StudyBuddyPro, are commands that can be called regardless of which mode the user is currently in.
 
-=== Entering the various modes of StudyBuddyPro
+=== Entering the various modes of StudyBuddyPro: `switch`
 
 Upon startup, you will be prompted to enter one of the modes before you can proceed.
 
-==== Getting into Flashcard mode: `fc`
+==== Getting into Flashcard mode: `switch fc`
 
 Brings the user to the Flashcard section, regardless of where the user is.
 
-    Format: fc
+    Format: switch fc
 
-==== Getting into Notes function: `notes`
+==== Getting into Notes function: `switch notes`
 
 Brings the user to the Notes section, regardless of where the user is.
 
-    Format: notes
+    Format: switch notes
 
-==== Getting into CheatSheet function: `cs`
+==== Getting into CheatSheet function: `switch cs`
 
 Brings the user to the CheatSheet section, regardless of where the user is.
 
-    Format: cs
+    Format: switch cs
 
 === Viewing Help: `help`
 
