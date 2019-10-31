@@ -3,6 +3,7 @@ package seedu.address.testutil.model;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -201,6 +202,11 @@ public abstract class ModelStub implements Model {
 
     @Override
     public ReadOnlyNotesRecord getNotesRecord() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void sortNotesRecord(Comparator<Note> noteComparator) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -461,6 +467,11 @@ public abstract class ModelStub implements Model {
 
     @Override
     public boolean checkGroupExists(String groupId) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void exportGroup(String groupId) {
         throw new AssertionError("This method should not be called.");
     }
 }

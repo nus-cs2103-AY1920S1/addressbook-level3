@@ -2,6 +2,8 @@ package seedu.address.model.note;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -80,6 +82,16 @@ public class NotesRecord implements ReadOnlyNotesRecord {
      */
     public void removeNote(Note key) {
         notes.remove(key);
+    }
+
+    /**
+     * Sorts the notes record using the Comparator provided.
+     * @param noteComparator the Comparator for comparing Note objects.
+     */
+    public void sortNotes(Comparator<Note> noteComparator) {
+        List<Note> notesToSort = new ArrayList<>(getNotesList());
+        notesToSort.sort(noteComparator);
+        setNotes(notesToSort);
     }
 
     //// util methods

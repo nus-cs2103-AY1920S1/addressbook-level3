@@ -611,17 +611,23 @@ The data file needs to be specified in the following format to ensure that the s
 [WARNING]
 Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
 
-* *Data starts at cell A1.*
+* *Entries starts at cell A1 with the cell `Students`, regardless of whether there is score data.*
 * *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
 * *First column states the different subjects starting from the second topmost cell. (e.g column 1 of 4 cells having `Students`, `Math`, `Science` and `English`.)*
 * *All student names have unique identifiers. (e.g. two students named Jason should be identified as `Jason 1` and `Jason 2`)*
 * *All students have a corresponding score for all subjects*
 * *All scores are numeric characters (integer or decimals)*
+* *There are no gaps between rows and columns.*
+* *All cells within the row and column range have at least one non-whitespace characters.*
+* *All cells outside the row and column range are empty.*
 
 [WARNING]
 Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
 
 * *All scores should be in percentage terms. (0 ~ 100)*
+
+[NOTE]
+The general rule for the file format is to ensure all entries in the file are as compact to the top left as possible; the entries should form a rectangular shape on the top left corner of the excel sheet. The rectangle should have no empty entries while all cells outside the rectangle are empty entries.
 
 The statistics report generated uses weighted average scores across the different subjects to perform analysis. All scores carry equal weight. The statistics generated
 allow you to see some of the common descriptive statistics and their relative distributions both in terms of frequency and percentile terms.

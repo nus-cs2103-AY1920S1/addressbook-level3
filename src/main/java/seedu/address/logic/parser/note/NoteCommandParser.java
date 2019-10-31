@@ -13,6 +13,7 @@ import seedu.address.logic.commands.note.NoteDeleteCommand;
 import seedu.address.logic.commands.note.NoteEditCommand;
 import seedu.address.logic.commands.note.NoteEditCommand.EditNoteDescriptor;
 import seedu.address.logic.commands.note.NoteListCommand;
+import seedu.address.logic.commands.note.NoteSortCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.CliSyntax;
@@ -38,12 +39,14 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer
                 .tokenize(args, CliSyntax.PREFIX_NOTE, CliSyntax.PREFIX_DESCRIPTION, CliSyntax.PREFIX_LIST,
-                        CliSyntax.PREFIX_DELETE, CliSyntax.PREFIX_PRIORITY);
+                        CliSyntax.PREFIX_SORT, CliSyntax.PREFIX_DELETE, CliSyntax.PREFIX_PRIORITY);
 
         if (isEditCommand(argMultimap)) {
             return getNoteEditCommand(argMultimap);
         } else if (isListCommand(argMultimap)) {
             return getNoteListCommand();
+        } else if (isSortCommand(argMultimap)) {
+            return getNoteSortCommand();
         } else if (isDeleteCommand(argMultimap)) {
             return getNoteDeleteCommand(argMultimap);
         } else if (isAddCommand(argMultimap)) {
@@ -73,6 +76,10 @@ public class NoteCommandParser implements Parser<NoteCommand> {
 
     private static NoteListCommand getNoteListCommand() {
         return new NoteListCommand();
+    }
+
+    private static NoteSortCommand getNoteSortCommand() {
+        return new NoteSortCommand();
     }
 
     private static NoteDeleteCommand getNoteDeleteCommand(ArgumentMultimap argMultimap) throws ParseException {
@@ -121,6 +128,13 @@ public class NoteCommandParser implements Parser<NoteCommand> {
      */
     private static boolean isListCommand(ArgumentMultimap argMultimap) {
         return argMultimap.getValue(CliSyntax.PREFIX_LIST).isPresent();
+    }
+
+    /**
+     * Checks if NoteCommand is of type sort.
+     */
+    private static boolean isSortCommand(ArgumentMultimap argMultimap) {
+        return argMultimap.getValue(CliSyntax.PREFIX_SORT).isPresent();
     }
 
     /**

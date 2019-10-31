@@ -1676,7 +1676,17 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Generate Statistics (UC18)
+=== Use case: Sort notes (UC18)
+
+*MSS*
+
+1.  Teacher requests to sort the notes by priority.
+2.  NJoy displays the list of sorted notes record.
++
+Use case ends.
+
+[discrete]
+=== Use case: Generate Statistics (UC19)
 
 *MSS*
 
@@ -1695,11 +1705,11 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Save Statistics Report (UC19)
+=== Use case: Save Statistics Report (UC20)
 
 *MSS*
 
-1.  Teacher pass:[generates a statistics report (UC18)].
+1.  Teacher pass:[generates a statistics report (UC19)].
 2.  Teacher goes to the directory where report is saved.
 3.  Teacher sees the saved statistics report.
 +

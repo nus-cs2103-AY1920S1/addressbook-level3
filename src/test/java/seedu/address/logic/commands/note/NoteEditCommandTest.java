@@ -27,7 +27,7 @@ import seedu.address.testutil.note.NoteBuilder;
 
 /**
  * Contains integration tests.
- * (interaction with the Model and EditNoteDescriptor) and unit tests for NoteEditCommand.
+ * (interaction with the Model and EditNoteDescriptor) and tests for NoteEditCommand.
  * Note that this test class has some dependency on the {@code EditNoteDescriptor}.
  */
 public class NoteEditCommandTest {
@@ -96,7 +96,7 @@ public class NoteEditCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_throwsCommandException() {
+    public void execute_invalidNoteIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredNotesList().size() + 1);
         EditNoteDescriptor descriptor = new EditNoteDescriptor();
         descriptor.setDescription(Optional.of("valid description"));

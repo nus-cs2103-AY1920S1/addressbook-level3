@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
+import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -87,7 +89,7 @@ public class ExcelParser implements DataParser {
                 } else {
                     throw new ParseException(EXCEL_FILE_ILLEGAL_INPUT);
                 }
-            } catch (NullPointerException ex) {
+            } catch (NullPointerException | NoSuchElementException ex) {
                 throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
             }
         }
@@ -128,20 +130,32 @@ public class ExcelParser implements DataParser {
      * @param rowIterator iterates through a row of an excel sheet.
      * @return the list of student names
      */
-    private ArrayList<String> getStudents(Iterator<Row> rowIterator) {
+    private ArrayList<String> getStudents(Iterator<Row> rowIterator) throws ParseException {
         ArrayList<String> students = new ArrayList<>();
         if (rowIterator.hasNext()) {
             Row studentsRow = rowIterator.next();
             Iterator<Cell> studentsIterator = studentsRow.cellIterator();
-            studentsIterator.next();
+            if (studentsIterator.hasNext()) {
+                Cell dataStart = studentsIterator.next();
+                if (dataStart.getCellType() != CellType.STRING
+                        || !dataStart.getStringCellValue().trim().equals("Students")) {
+                    throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
+                }
+            } else {
+                throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
+            }
             while (studentsIterator.hasNext()) {
                 Cell studentCell = studentsIterator.next();
-                if (studentCell.getCellType() == CellType.STRING) {
+                if (studentCell.getCellType() == CellType.STRING && !studentCell.getStringCellValue().trim().isEmpty()) {
                     students.add(studentCell.getStringCellValue());
                 } else if (studentCell.getCellType() == CellType.NUMERIC) {
                     students.add(String.valueOf(studentCell.getNumericCellValue()));
+                } else {
+                    throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
                 }
             }
+        } else {
+            throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
         }
         return students;
     }
@@ -162,7 +176,7 @@ public class ExcelParser implements DataParser {
             throw new ParseException(EXCEL_FILE_NOT_FOUND);
         } catch (IOException ex) {
             throw new ParseException(EXCEL_FILE_NOT_PARSED);
-        } catch (NotOfficeXmlFileException ex) {
+        } catch (NotOfficeXmlFileException | POIXMLException ex) {
             throw new ParseException(EXCEL_FILE_TYPE_ISSUE);
         }
     }
