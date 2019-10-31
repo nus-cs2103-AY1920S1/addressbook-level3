@@ -31,9 +31,11 @@ public class EventListPanel extends UiPart<Region> {
      */
     public void onEventListChange(List<EventSource> events) {
         this.eventList.getChildren().clear();
+        int index = 1;
         for (EventSource event : events) {
-            EventCard eventCard = new EventCard(event);
+            EventCard eventCard = new EventCard(event, index);
             eventList.getChildren().add(eventCard.getRoot());
+            index++;
         }
     }
 }

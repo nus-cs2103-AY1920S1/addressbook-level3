@@ -18,7 +18,7 @@ public class CalendarViewCommand extends Command {
 
     CalendarViewCommand(CalendarViewCommandBuilder builder) {
         this.uiManager = Objects.requireNonNull(builder.getUiManager());
-        this.calendarDate = Objects.requireNonNull(builder.getCalendarDate());
+        this.calendarDate = builder.getCalendarDate();
     }
 
     public static CommandBuilder newBuilder(UiManager uiManager) {
