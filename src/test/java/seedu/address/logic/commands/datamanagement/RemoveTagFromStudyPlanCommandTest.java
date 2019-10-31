@@ -74,6 +74,20 @@ public class RemoveTagFromStudyPlanCommandTest {
     }
 
     @Test
+    public void execute_invalidStudyPlanIndex_throwsCommandException() {
+        // construct model containing one study plan
+        StudyPlan studyPlan = new StudyPlanBuilder().build();
+        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+
+        // construct command to add a priority tag to a non-existent study plan
+        RemoveTagFromStudyPlanCommand removeTagFromStudyPlanCommand =
+                new RemoveTagFromStudyPlanCommand("HIGH", 3);
+        assertThrows(CommandException.class, () -> removeTagFromStudyPlanCommand.execute(model),
+                RemoveTagFromStudyPlanCommand.MESSAGE_NO_SUCH_STUDYPLAN);
+    }
+
+    @Test
     public void equals() {
         RemoveTagFromStudyPlanCommand removeTagFromStudyPlanCommand =
                 new RemoveTagFromStudyPlanCommand("HIGH", 1);

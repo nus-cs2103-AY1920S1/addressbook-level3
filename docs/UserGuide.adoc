@@ -376,9 +376,9 @@ Examples:
 * `findmod cs1101s`
 * `findmod cs2103`
 
-==== Adding priority tags to a study plan : `tagsp`
+==== Adding priority tags to a study plan : `tagplan`
 Attaches a priority tag to the study plan. +
-Format: `tagsp PRIORITY_LEVEL STUDY_PLAN_INDEX`
+Format: `tagplan PRIORITY_LEVEL STUDY_PLAN_INDEX`
 
 ****
 List of priority levels:
@@ -390,17 +390,17 @@ List of priority levels:
 
 Examples:
 
-* `tagsp high 1`
-* `tagsp low 3`
+* `tagplan high 1`
+* `tagplan low 3`
 
-==== Removing priority tags from study plan: `removesptag`
+==== Removing priority tags from study plan: `removeplantag`
 Removes the priority tag from the study plan. +
-Format: `removesptag PRIORITY_LEVEL STUDY_PLAN_INDEX`
+Format: `removeplantag PRIORITY_LEVEL STUDY_PLAN_INDEX`
 
 Examples
 
-* `removesptag high 1`
-* `removesptag low 3`
+* `removeplantag high 1`
+* `removeplantag low 3`
 
 ==== Listing study plans by priority: `listbypriority`
 Lists all study plans in the order of their priorities. +

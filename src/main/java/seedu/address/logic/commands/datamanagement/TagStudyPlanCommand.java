@@ -1,11 +1,13 @@
 package seedu.address.logic.commands.datamanagement;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.PriorityTagType;
 
@@ -14,7 +16,7 @@ import seedu.address.model.tag.PriorityTagType;
  */
 public class TagStudyPlanCommand extends Command {
 
-    public static final String COMMAND_WORD = "tagsp";
+    public static final String COMMAND_WORD = "tagplan";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Adding a priority tag to a study plan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds a tag of the specified priority "
@@ -24,10 +26,11 @@ public class TagStudyPlanCommand extends Command {
             + "PRIORITY_TYPE "
             + "STUDY_PLAN_INDEX \n"
             + "Example: "
-            + "tagsp high 1";
+            + "tagplan high 1";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been attached to %2$s";
     public static final String MESSAGE_TAG_ALREADY_EXISTS = "%1%s already has the tag %2$s";
+    public static final String MESSAGE_NO_SUCH_STUDYPLAN = "The study plan with this index does not exists!";
 
     private String priorityLevel;
     private int index;
@@ -44,6 +47,14 @@ public class TagStudyPlanCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        try {
+            model.getStudyPlan(index);
+        } catch (StudyPlanNotFoundException e) {
+            throw new CommandException(MESSAGE_NO_SUCH_STUDYPLAN);
+        }
+
         PriorityTag priorityTag = new PriorityTag(PriorityTagType.valueOf(priorityLevel));
 
         if (model.spContainsStudyPlanTag(priorityTag.getTagName(), index)) {

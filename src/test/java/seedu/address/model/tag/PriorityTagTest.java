@@ -2,6 +2,7 @@ package seedu.address.model.tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -14,6 +15,21 @@ public class PriorityTagTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new PriorityTag(null));
+    }
+
+    @Test
+    public void isValidTagName_returnsTrue() {
+        assertTrue(PriorityTag.isValidTagName("HIGH"));
+        assertTrue(PriorityTag.isValidTagName("high"));
+        assertTrue(PriorityTag.isValidTagName("MEDIUM"));
+        assertTrue(PriorityTag.isValidTagName("LOW"));
+    }
+
+    @Test
+    public void isValidTagName_returnsFalse() {
+        assertFalse(PriorityTag.isValidTagName("IMPORTANT"));
+        assertFalse(PriorityTag.isValidTagName("PRIORITY.HIGH"));
+        assertFalse(PriorityTag.isValidTagName(""));
     }
 
     @Test
@@ -49,6 +65,8 @@ public class PriorityTagTest {
     public void isSameTag_returnsFalse() {
         assertFalse(new TagBuilder().buildPriorityHighTag()
                 .isSameTag(new TagBuilder().buildPriorityTag(PriorityTagType.LOW)));
+        assertFalse(new TagBuilder().buildPriorityHighTag()
+                .isSameTag(new TagBuilder().buildDefaultCoreTag()));
     }
 
     @Test
@@ -66,6 +84,20 @@ public class PriorityTagTest {
 
         // different type of tag
         assertFalse(tag.equals(new TagBuilder().buildTestUserTag()));
+
+        // hashcode
+        // same tag
+        assertEquals(tag.hashCode(), tag.hashCode());
+
+        // same default tag type
+        assertEquals(tag.hashCode(), (new TagBuilder().buildPriorityHighTag()).hashCode());
+
+        // different default tag type
+        assertNotEquals(tag.hashCode(), (new TagBuilder().buildPriorityTag(PriorityTagType.MEDIUM)).hashCode());
+
+        // different tag type
+        assertNotEquals(tag.hashCode(), (new TagBuilder().buildTestUserTag().hashCode()));
+
     }
 
     @Test

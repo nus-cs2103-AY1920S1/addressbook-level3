@@ -2,6 +2,7 @@ package seedu.address.model.tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -72,6 +73,19 @@ public class DefaultTagTest {
 
         // different type of tag
         assertFalse(tag.equals(new TagBuilder().buildTestUserTag()));
+
+        // hashcode
+        // same tag
+        assertEquals(tag.hashCode(), tag.hashCode());
+
+        // same default tag type
+        assertEquals(tag.hashCode(), (new TagBuilder().buildDefaultCoreTag()).hashCode());
+
+        // different default tag type
+        assertNotEquals(tag.hashCode(), (new TagBuilder().buildDefaultTag(DefaultTagType.AI_E)).hashCode());
+
+        // different tag type
+        assertNotEquals(tag.hashCode(), (new TagBuilder().buildTestUserTag().hashCode()));
     }
 
     @Test

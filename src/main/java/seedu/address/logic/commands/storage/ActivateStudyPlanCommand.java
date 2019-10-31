@@ -22,7 +22,7 @@ public class ActivateStudyPlanCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "StudyPlan %1$d activated: %2$s";
     //todo: this?
-    public static final String MESSAGE_NO_SUCH_STUDYPLAN = "The Study Plan with this index does not exists!";
+    public static final String MESSAGE_NO_SUCH_STUDYPLAN = "The study plan with this index does not exists!";
 
     private final int studyPlanIndex;
 

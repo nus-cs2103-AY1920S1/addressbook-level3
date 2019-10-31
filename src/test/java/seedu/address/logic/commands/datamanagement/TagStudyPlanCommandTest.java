@@ -96,6 +96,19 @@ public class TagStudyPlanCommandTest {
     }
 
     @Test
+    public void execute_invalidStudyPlanIndex_throwsCommandException() {
+        // construct model containing one study plan
+        StudyPlan studyPlan = new StudyPlanBuilder().build();
+        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+
+        // construct command to add a priority tag to a non-existent study plan
+        TagStudyPlanCommand tagStudyPlanCommand = new TagStudyPlanCommand("HIGH", 3);
+        assertThrows(CommandException.class, () -> tagStudyPlanCommand.execute(model),
+                TagStudyPlanCommand.MESSAGE_NO_SUCH_STUDYPLAN);
+    }
+
+    @Test
     public void equals() {
         TagStudyPlanCommand tagStudyPlanCommand = new TagStudyPlanCommand("HIGH", 1);
         TagStudyPlanCommand tagOtherStudyPlanCommand = new TagStudyPlanCommand("HIGH", 2);
