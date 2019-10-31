@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEXES;
-import static seedu.address.model.date.AthletickDate.DATE_FORMAT;
 
 import java.util.HashMap;
 import java.util.LinkedList;
