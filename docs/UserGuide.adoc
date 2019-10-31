@@ -80,7 +80,7 @@ A user cannot access commands affecting entities not displayed in their current 
 
 Account Management Interface:
 
-image::account.png[width="790"]
+image::account.png[]
 
 // end::access[]
 
@@ -92,6 +92,15 @@ Format: `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...
 
 [TIP]
 A account can have any number of tags (including 0). Only logged-in admins can add tags.
+
+****
+* Usernames must be at least 3 characters in length.
+* Usernames can only consist of alphanumeric characters and the following special characters, excluding the parentheses, (.-)
+* Usernames cannot begin or end with a non alphanumeric character.
+* Usernames and Passwords cannot be blank or contain a whitespace.
+* Passwords must be at least 6 characters in length.
+* Passwords can only contain alphanumeric characters and/or these special characters, excluding the parentheses, (!#$%&'*+/=?`{|}~^.-)
+****
 
 Examples:
 
@@ -179,7 +188,7 @@ Only admins can access the delete command. You cannot delete your own account.
 
 Examples:
 
-* `list` +
+* `list-a` +
 `delete-a 2` +
 Deletes the 2nd account in the incident Manager.
 * `find-a Agent01` +
