@@ -7,9 +7,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class AthletickDate {
 
-    public static final String DATE_FORMAT = "DDMMYYYY";
-    public static final String MESSAGE_CONSTRAINTS = "Please specify date in either MMYYYY or "
-            + "DDMMYYYY format.";
+    public static final String DATE_FORMAT_TYPE_ONE = "DDMMYYYY";
+    public static final String DATE_FORMAT_TYPE_TWO = "MMYYYY";
+    public static final String DATE_FORMAT_GENERAL = DATE_FORMAT_TYPE_ONE + " or " + DATE_FORMAT_TYPE_TWO;
+    public static final String MESSAGE_CONSTRAINTS = "Please specify date in %s format.";
     public static final String WRONG_DATE_FORMAT = "Invalid date specified.";
 
     private int day;
