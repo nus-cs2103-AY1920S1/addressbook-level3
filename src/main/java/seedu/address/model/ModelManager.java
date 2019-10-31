@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Appointment;
 
@@ -144,9 +145,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addAppointment(int type, String description, int days) {
+    public void addAppointment(int type, String description, int days) throws CommandException {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         userPrefs.addAppointment(type, description, days);
+    }
+
+    @Override
+    public void deleteAppointment(String description, int days) {
+        userPrefs.deleteAppointment(description, days);
+    }
+
+    @Override
+    public void sortAppointments() {
+        userPrefs.sortAppointments();
     }
 
     @Override
