@@ -53,7 +53,7 @@ public interface Model {
     /**
      * Replaces bank account data with the data in {@code bankAccount}.
      */
-    void setBankAccount(ReadOnlyBankAccount bankAccount);
+    void setUserState(ReadOnlyUserState bankAccount);
 
     /**
      * Returns the BankAccount

@@ -133,7 +133,7 @@ public class SetCommandTest {
         }
 
         @Override
-        public void setBankAccount(ReadOnlyBankAccount newData) {
+        public void setUserState(ReadOnlyBankAccount newData) {
             throw new AssertionError("This method should not be called.");
         }
 

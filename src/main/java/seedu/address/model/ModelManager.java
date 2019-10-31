@@ -23,7 +23,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
-    private final VersionedBankAccount versionedUserState;
+    private final VersionedUserState versionedUserState;
     private final FilteredList<BankAccountOperation> filteredTransactions;
     private final FilteredList<Budget> filteredBudgets;
     private final FilteredList<LedgerOperation> filteredLedgerOperations;
@@ -31,13 +31,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given bankAccount and userPrefs.
      */
-    public ModelManager(ReadOnlyBankAccount bankAccount, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyUserState userState, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(bankAccount, userPrefs);
+        requireAllNonNull(userState, userPrefs);
 
-        logger.fine("Initializing with bank account" + bankAccount + " and user prefs " + userPrefs);
+        logger.fine("Initializing with bank account" + userState + " and user prefs " + userPrefs);
 
-        this.versionedUserState = new VersionedBankAccount(bankAccount);
+        this.versionedUserState = new VersionedUserState(userState);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTransactions = new FilteredList<>(this.versionedUserState.getTransactionHistory());
         filteredBudgets = new FilteredList<>(this.versionedUserState.getBudgetHistory());
@@ -45,7 +45,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new BankAccount(), new UserPrefs());
+        this(new UserState(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -86,26 +86,26 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setBankAccount(ReadOnlyBankAccount bankAccount) {
-        requireNonNull(bankAccount);
-        this.versionedUserState.resetData(bankAccount);
+    public void setUserState(ReadOnlyUserState userState) {
+        requireNonNull(userState);
+        this.versionedUserState.resetData(userState);
     }
 
     @Override
     public ReadOnlyBankAccount getBankAccount() {
-        return versionedUserState;
+        return versionedUserState.getBankAccount();
     }
 
     @Override
     public boolean hasTransaction(BankAccountOperation transaction) {
         requireNonNull(transaction);
-        return versionedUserState.hasTransaction(transaction);
+        return versionedUserState.getBankAccount().hasTransaction(transaction);
     }
 
     @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
-        return versionedUserState.hasBudget(budget);
+        return versionedUserState.getBankAccount().hasBudget(budget);
     }
 
     @Override
@@ -205,7 +205,7 @@ public class ModelManager implements Model {
 
     @Override
     public void handleOperation(LedgerOperation operation) {
-        versionedUserState.addLoan(operation);
+        versionedUserState.addLedgerOperation(operation);
     }
 
     @Override
