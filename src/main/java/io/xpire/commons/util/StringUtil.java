@@ -2,6 +2,8 @@ package io.xpire.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -11,6 +13,12 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
 import io.xpire.commons.core.Messages;
 import io.xpire.model.item.Name;
 import io.xpire.model.tag.Tag;
@@ -19,6 +27,9 @@ import io.xpire.model.tag.Tag;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+
+    private static final String NUMERIC_VALIDATION_REGEX = "^[0-9]+$";
+
     /**
      * Returns true if the {@code sentence} contains the {@code phrase}.
      *   Ignores case, allows partial phrase match.
@@ -48,6 +59,14 @@ public class StringUtil {
         StringWriter sw = new StringWriter();
         t.printStackTrace(new PrintWriter(sw));
         return t.getMessage() + "\n" + sw.toString();
+    }
+
+    /**
+     * Returns true if {@code s} is numeric.
+     * @return true if {@code s} matches validation regex.
+     */
+    public static boolean isNumeric(String s) {
+        return s.matches(NUMERIC_VALIDATION_REGEX);
     }
 
     /**
@@ -239,5 +258,24 @@ public class StringUtil {
                                                     .map(x -> x.split("\\s+"))
                                                     .flatMap(Arrays::stream)
                                                     .collect(Collectors.toSet()), 1);
+    }
+
+    /**
+     * Returns the byte array representing the QR code-encoded text
+     *
+     * @param text The string to be encoded.
+     * @param length The size of the QR code
+     * @return The byte array of the QR code-encoded text
+     */
+    public static byte[] getQrCode(String text, int length) {
+        try {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, length, length);
+            ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(bitMatrix, "png", pngOutputStream);
+            return pngOutputStream.toByteArray();
+        } catch (WriterException | IOException e) {
+            return new byte[0];
+        }
     }
 }

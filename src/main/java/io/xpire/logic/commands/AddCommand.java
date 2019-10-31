@@ -14,11 +14,11 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_SHORTHAND = "a";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an xpireItem to the list.\n"
-            + "Format: add|<xpireItem name>|<expiry date>[|<quantity>]\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the tracking list.\n"
+            + "Format: add|<item name>|<expiry date>[|<quantity>]\n"
             + "Example: " + COMMAND_WORD + "|Strawberry|11/12/1999|2";
 
-    public static final String MESSAGE_SUCCESS = "New item added to tracker: %s";
+    public static final String MESSAGE_SUCCESS = "New item added to tracking list: %s";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists";
 
     private final XpireItem toAdd;

@@ -6,8 +6,8 @@ import io.xpire.model.item.sort.MethodOfSorting;
 import javafx.collections.ObservableList;
 
 /**
- *
- * @param <T>
+ *  A list of items that enforces uniqueness between its elements and does not allow nulls.
+ *  Supports list operations.
  */
 public interface SortedUniqueList<T extends Item> extends Iterable<T> {
 

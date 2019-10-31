@@ -55,14 +55,15 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete|1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete|1` command
+//TODO: Update diagram
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -71,7 +72,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiComponentClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/io/xpire/ui/Ui.java[`Ui.java`]
 
@@ -89,7 +90,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/io/xpire/logic/Logic.java[`Logic.java`]
@@ -100,45 +101,39 @@ link:{repoURL}/src/main/java/io/xpire/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete|1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `delete|1` Command
+image::LogicComponentSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelComponentClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/io/xpire/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Xpire data.
+* stores the Xpire and ReplenishList data.
 * exposes an unmodifiable `ObservableList<Item>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Xpire`, which `Item` can reference. This would allow `Xpire` to only require one `Tag` object per unique `Tag`, instead of each `Item` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageComponentClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/io/xpire/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Xpire data in json format and read it back.
+* can save the Xpire and ReplenishList data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -149,37 +144,42 @@ Classes used by multiple components are in the `io.xpire.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag:tobuylist[]
+// tag:replenishList[]
 
-=== [Proposed] Replenish List
+=== Replenish List
 ==== Implementation
 //{Explain here how the ToReplenish/ToBuy List is implemented}_
-Items are added to the replenish list by the user using the replenish command.
-When an item expires, the item is automatically tagged as "expired".
-This enables the user to search for a list of expired items by searching for the "expired" tag.
-With this, the user is able to view the list of expired items and decide which items to add to the replenish list.
-On the other hand, when an item has run out, the user is prompted to replenish the item using the replenish command.
+Items are added to the replenish list by the user using the `ShiftCommand`.
+When an item expires, the item is automatically tagged as `#Expired`.
+By searching for the `#Expired` tag using the `SearchCommand`, the user is able to retrieve a list of expired items.
 
-image::ItemManagerClassDiagram.png[]
+The sequence diagram below demonstrates how the auto-tagging mechanism occurs.
 
+.Sequence Diagram for ItemManager Class
+image::ItemManagerSequenceDiagram.png[]
+
+On the other hand, when an item has run out, an item is automatically added to the replenish list.
+This occurs when the user uses the `DeleteCommand` to
+The following sequence diagram summarises how this operation works:
+
+.Sequence Diagram when item quantity is reduced to 0 via the Delete Command
+image::AutoShiftSequenceDiagram.png[]
 //Given below is an example usage scenario and how the mechanism behaves at each step.
-
-//The following sequence diagram shows how the operation works:
 
 //The following activity diagram summarizes what happens when a user executes a new command:
 
 ==== Design Considerations
 
-===== Aspect: How item is added to the replenish list
-
-* **Alternative 1 (current choice): Once an item expires or runs out,
-the user is prompted to shift the item to the replenish list by typing the replenish command and item index.**
-** Pros: User has flexibility in deciding what to add to the replenish list.
+===== Aspect: How expired items are being handled
+* **Alternative 1 (current choice): Once an item expires,
+the item is automatically tagged as `#Expired`.**
+** Pros: Makes good use of existing `SearchCommand`, where user can search for the `#Expired` tag to view list of expired items.
 ** Cons: User has to manually type in a short command to add an item to the replenish list.
 
-* **Alternative 2: Once an item expires or runs out, item is transferred to the replenish list.**
+* **Alternative 2: Once an item expires, item is automatically transferred to the replenish list.**
 ** Pros: User need not manually key in item details to transfer it to the replenish list.
-** Cons: User may not want the item in the list and as such would expect a delete functionality for the to-replenish list.
+** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
+
 //
 //===== Aspect: Data structure to store the items
 //* **Alternative 1 (current choice):**
@@ -976,7 +976,15 @@ _{More to be added}_
 
 |Parser |Converts user input into a Command object
 
+|ReadOnlyListView |Provides an unmodifiable view of a list
+
+|ReminderThreshold |Number of days user wants to be reminded before item expiry date
+
+|ReplenishList |List that contains items that are to be replenished
+
 |SceneBuilder |Visual layout tool that allows developers to design JavaFX application user interfaces
+
+|SortedUniqueList |List of items that enforces uniqueness between elements and disallows nulls
 
 |Storage |Manages data in the expiry date tracker in local storage
 
@@ -1043,11 +1051,11 @@ _{ more test cases ... }_
 . Deleting an item while all items are listed
 
 .. Prerequisites: List all items using the `list` command. Multiple items in the list.
-.. Test case: `delete 1` +
+.. Test case: `delete|1` +
    Expected: First item is deleted from the list. Details of the deleted item shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `delete|0` +
    Expected: No item is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_

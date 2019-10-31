@@ -66,6 +66,8 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
     compile 'com.jfoenix:jfoenix:9.0.8'
+    compile 'com.google.zxing:core:3.4.0'
+    compile 'com.google.zxing:javase:3.4.0'
 }
 
 shadowJar {
