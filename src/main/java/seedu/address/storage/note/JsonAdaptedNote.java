@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.Priority;
 
@@ -13,6 +14,7 @@ import seedu.address.model.note.Priority;
 public class JsonAdaptedNote {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Note has illegal format. Please Refer to User Guide.";
+    public static final String ILLEGAL_FIELD_MESSAGE = "Database has illegal values. Please Set Up the Njoy again";
 
     private final String note;
     private final String description;
@@ -44,12 +46,16 @@ public class JsonAdaptedNote {
      * @throws IllegalValueException if there were any data constraints violated in the adapted note.
      */
     public Note toModelType() throws IllegalValueException {
-        if (note == null) {
+        if (note == null ||  priority == null || description == null ||
+                note.trim().isEmpty() || description.trim().isEmpty() || priority.trim().isEmpty()) {
             throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
         }
-        if (priority.isEmpty()) {
-            return new Note(note, description, Priority.UNMARKED);
+        Priority notePriority;
+        try {
+            notePriority = Priority.getPriority(priority);
+        } catch (ParseException ex) {
+            throw new IllegalValueException(ILLEGAL_FIELD_MESSAGE);
         }
-        return new Note(note, description, Priority.getPriority(priority));
+        return new Note(note, description, notePriority);
     }
 }

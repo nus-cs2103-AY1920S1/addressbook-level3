@@ -1,7 +1,7 @@
 package seedu.address.testutil.model;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -17,7 +17,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
@@ -261,6 +263,41 @@ public abstract class ModelStub implements Model {
     }
 
     @Override
+    public ReadOnlyVEvents getVEventRecord() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getEventExportPath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setEventExportPath(String targetExportPath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public LocalDateTime getEventScheduleTargetDateTime() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setEventScheduleTargetDateTime(LocalDateTime targetDateTime) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public EventScheduleViewMode getEventScheduleViewMode() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setEventScheduleViewMode(EventScheduleViewMode viewMode) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasVEvent(VEvent vEvent) {
         throw new AssertionError("This method should not be called.");
     }
@@ -307,11 +344,6 @@ public abstract class ModelStub implements Model {
 
     @Override
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public String saveToIcsFile(String targetDir) throws IOException {
         throw new AssertionError("This method should not be called.");
     }
 

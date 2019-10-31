@@ -34,23 +34,27 @@ public class TypicalStatistics {
     }
 
     /**
-     * Creates a HashMap data of multiple data entries for testing.
+     * Creates a size 3 HashMap data of multiple data entries for testing.
+     * Size: 3
+     * Min: 10
+     * Max: 100
+     * Median: 60
      */
     public HashMap<String, HashMap<String, Double>> populateTypicalMap() {
         HashMap<String, Double> subject = new HashMap<>();
-        subject.put("Science", 75.5);
-        subject.put("Math", 100.0);
-        subject.put("English", 80.0);
+        subject.put("Science", 50.5);
+        subject.put("Math", 60.0);
+        subject.put("English", 69.5);
 
         HashMap<String, Double> subject1 = new HashMap<>();
-        subject1.put("Science", 20.0);
+        subject1.put("Science", 100.0);
         subject1.put("Math", 100.0);
-        subject1.put("English", 50.0);
+        subject1.put("English", 100.0);
 
         HashMap<String, Double> subject2 = new HashMap<>();
-        subject2.put("Science", 50.0);
-        subject2.put("Math", 50.0);
-        subject2.put("English", 50.0);
+        subject2.put("Science", 10.0);
+        subject2.put("Math", 15.0);
+        subject2.put("English", 5.0);
 
         HashMap<String, HashMap<String, Double>> typicalMap = new HashMap<>();
         typicalMap.put("Jason", subject);
