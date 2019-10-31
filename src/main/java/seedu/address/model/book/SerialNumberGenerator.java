@@ -33,6 +33,7 @@ public class SerialNumberGenerator {
         SerialNumber sn = new SerialNumber(PREFIX + padding + currentSerialNumberIndex);
         while (catalog.checkIfSerialNumberExists(sn)) {
             currentSerialNumberIndex++;
+            padding = getPadding(currentSerialNumberIndex);
             sn = new SerialNumber(PREFIX + padding + currentSerialNumberIndex);
         }
         return sn;
