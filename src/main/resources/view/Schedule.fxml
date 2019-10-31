@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="568.0" prefWidth="814.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -34,6 +33,7 @@
                           <rowConstraints>
                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
                             <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="15.0" prefHeight="15.0" />
                           </rowConstraints>
                            <children>
                               <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" text="\$Date" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />

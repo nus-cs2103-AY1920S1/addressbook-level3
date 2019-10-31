@@ -136,6 +136,7 @@ public class FetchEmployeeWindow extends UiPart<Stage> {
                 setText(null);
             } else {
                 setGraphic(new DateCard(date, getIndex() + 1, null).getRoot());
+                setPrefHeight(26.5 + (date.getListOfEvents().size() * 100));
             }
         }
     }
