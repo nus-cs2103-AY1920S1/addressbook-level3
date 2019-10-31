@@ -114,6 +114,7 @@ Format: `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* If editing a person's date of birth results in him being ineligible for a policy/multiple policies he currently possesses, they will be unassigned from him.
 ****
 
 Examples:

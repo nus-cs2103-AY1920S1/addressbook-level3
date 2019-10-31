@@ -139,6 +139,19 @@ public class Person implements Binnable {
     }
 
     /**
+     * Returns a {@code Set<Policy>} of policies that the person owns that he is eligible for.
+     */
+    public Set<Policy> getEligiblePolicies() {
+        HashSet<Policy> eligiblePolicies = new HashSet<>();
+        for (Policy policy : policies) {
+            if (policy.isEligible(this)) {
+                eligiblePolicies.add(policy);
+            }
+        }
+        return eligiblePolicies;
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
