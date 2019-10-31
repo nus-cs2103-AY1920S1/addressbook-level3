@@ -58,6 +58,9 @@ For example, to edit the description of the delivery task (Task ID:3) : `editT 3
 * Order of parameter is can be reordered freely.
 ====
 
+=== Task Management
+
+
 === Viewing help : `help`
 
 List all available commands
@@ -155,6 +158,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 
+// tag::assign-command[]
 === Assign a task to a driver: `assign`
 
 Assign an existing task a driver with a proposed time. +
@@ -175,8 +179,10 @@ Schedule task #1 from 11 am to 12 pm, and assign it to driver #1.
 
 * `assign force t/2 d/1 at/1600-1700` +
 Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the existence of an earlier time slot.
+// end::assign-command[]
 
 
+// tag::free-command[]
 === Unschedule a task: `free`
 
 Remove the time slot and driver from a task, and free the driver from this time slot in their schedule. +
@@ -190,6 +196,7 @@ Examples:
 
 * `free t/1` +
 Remove the assigned driver and time slot from the task, and free the driver's schedule.
+// end::free-command[]
 
 
 === Exiting the program : `exit`

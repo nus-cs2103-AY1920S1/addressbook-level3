@@ -15,17 +15,19 @@ Deliveria is *optimized for those who prefer* to work with a _Command Line Inter
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added the feature to *schedule delivery tasks*, with *automatic suggestions based on the driver's existing schedule*
+** What it does: allows the user to assign a driver to a task, and schedule this task to be completed in the future, without causing time clashes with the existing tasks of the driver
+** Justification: This is a core feature of the product. By enabling this feature, we help the managers to better utilise the human resources, save time in planning the task, and deliver the orders with satisfaction
+** Highlights: The command will automatically suggest a better time slot, so as to ensure that all drivers' schedules are the most optimised. At the same time, we are giving the managers the freedom to exercise their own judgement, and override the automatic stuggestions
+** Credits: The choice of a backing data structure is inspired by a CS2040 Practical Exam question
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+** [TBC] added a feature to correct the user's spelling mistakes in a command, by suggesting the most similar command word
+** changed three existing classes to generic classes, so as to reduce 600+ lines of repetitive code
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [TBC] [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-* *Other contributions*:
+* *Other contributions*: [TBC]
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
@@ -52,9 +54,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=assign-command]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=free-command]
 
 == Contributions to the Developer Guide
 
@@ -62,9 +64,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=task-scheduling]
 
 
 == PROJECT: PowerPointLabs

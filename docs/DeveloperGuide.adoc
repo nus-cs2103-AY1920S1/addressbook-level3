@@ -152,6 +152,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
+// tag::task-scheduling[]
 === Task Scheduling
 
 ==== Design Considerations
@@ -196,6 +198,8 @@ Similarly, calling `free` command will:
 
 * Remove the existing `EventTime` from the `Driver`'s `Schedule`
 * Set the `Driver` and `EventTime` attributes to `null`
+// end::task-scheduling[]
+
 
 
 
