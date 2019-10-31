@@ -37,13 +37,13 @@ The done command was created to complement the Dashboard. The user is able to us
 
 === Enhancement 2: Adding more functionality to the `list` command
 
-The 'list' function adapted from ABS only list all the items in the list. In the case of a dashboard, this might not be adequate. As such, 2 additional functions were added to the `list` command.
+The 'list' function adapted from AB3, lists all the items in the list. In the case of a dashboard, this might not be adequate. As such, 2 additional functions were added to the `list` command.
 
 By entering `list taskcomplete` or `list taskincomplete` will display the list of task marked as complete or task that are not complete respectively.
 
 === Enhancement 3: Upgrading the Graphic User Interface (GUI)
 
-Using AB3’s GUI as a backbone, the Dashboard was created. In the GUI for the Dashboard, it displays a progress bar which shows the progress of the tasks completed. A date picker is used to allow users to have quick access to the calendar. Lastly, as a way to motivate users to complete their task, a column is created for displaying jokes. In order to view a joke, users will have to mark a number of task as done.
+Using AB3’s GUI as a backbone, the Dashboard was created. In the GUI for the Dashboard, it displays a progress bar which shows the progress of the tasks completed. A date picker is used to allow users to have quick access to the calendar. Lastly, as a way to motivate users to complete their task, a pop up window with an encouraging message is added. In order to view the message, users will have to check 5 new tasks as done.
 
 === Enhancement 4: Sorting tasks by date
 
