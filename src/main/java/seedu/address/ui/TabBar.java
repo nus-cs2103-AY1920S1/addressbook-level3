@@ -56,7 +56,6 @@ public class TabBar extends UiPart<Region> {
      * Selects the TabBar's tile using index.
      */
     public void selectTabUsingIndex(int selectedIndex) {
-        tabBar.requestFocus();
         this.selectedIndex = selectedIndex;
         ObservableList<Node> ols = tabBar.getChildren();
         ols.forEach(iv -> iv.getStyleClass().setAll("unselected-tab"));

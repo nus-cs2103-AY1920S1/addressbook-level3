@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -18,7 +17,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CommandBox extends UiPart<Region> {
 
-    public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
     private static final KeyCombination KEY_COMBINATION_CONTROL_A = new KeyCodeCombination(KeyCode.A,
             KeyCombination.CONTROL_DOWN);
@@ -33,24 +31,22 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.autoComplete = autoComplete;
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box. (NO LONGER REQUIRED)
-        // commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> handleTextChanged());
 
         // EventFilter was used as FXML callback onKeyPressed cannot consume keyEvent.
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             switch (keyEvent.getCode()) {
             case UP:
             case DOWN:
+            case ENTER:
+                autoComplete.updateSelectionKeyPressedCommandBox(keyEvent.getCode());
                 keyEvent.consume();
                 break;
             default:
-            }
-            autoComplete.updateSelectionKeyPressedCommandBox(keyEvent.getCode());
-        });
-
-        commandTextField.setOnKeyPressed(keyEvent -> {
-            if (KEY_COMBINATION_CONTROL_A.match(keyEvent)) {
-                commandTextField.selectAll();
+                if (KEY_COMBINATION_CONTROL_A.match(keyEvent)) {
+                    commandTextField.selectAll();
+                }
             }
         });
     }
@@ -63,7 +59,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandText);
         } catch (CommandException | ParseException e) {
-            //setStyleToIndicateCommandFailure();
+            //do nothing since result display handles error message
         } finally {
             commandTextField.setText("");
         }
@@ -78,33 +74,12 @@ public class CommandBox extends UiPart<Region> {
         autoComplete.updateCommandAutoComplete(commandTextField.getText());
     }
 
-    /**
-     * Sets the command box style to use the default style.
-     */
-    private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
-    }
-
-    /**
-     * Sets the command box style to indicate a failed command.
-     */
-    private void setStyleToIndicateCommandFailure() {
-        ObservableList<String> styleClass = commandTextField.getStyleClass();
-
-        if (styleClass.contains(ERROR_STYLE_CLASS)) {
-            return;
-        }
-
-        styleClass.add(ERROR_STYLE_CLASS);
-    }
-
     public void setCommandTextField(String suggestion) {
         if (suggestion == null) {
             return;
         }
         commandTextField.setText(suggestion);
-        commandTextField.positionCaret(commandTextField.getLength());
-        handleTextChanged();
+        commandTextField.positionCaret(suggestion.length());
     }
 
     /**
@@ -115,15 +90,18 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
         String curr = commandTextField.getText();
-        commandTextField.setText(curr.substring(0, curr.lastIndexOf(' ') + 1) + suggestion);
-        commandTextField.positionCaret(commandTextField.getLength());
-        handleTextChanged();
+        curr = curr.substring(0, curr.lastIndexOf(' ') + 1) + suggestion;
+        commandTextField.setText(curr);
+        commandTextField.positionCaret(curr.length());
     }
 
     /**
      * Restores focus later.
      */
     public void restoreFocusLater() {
+        if (commandTextField.getSelectedText() != "") {
+            return;
+        }
         int currPos = commandTextField.getCaretPosition();
         Platform.runLater(() -> {
             commandTextField.requestFocus();

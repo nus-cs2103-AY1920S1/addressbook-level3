@@ -294,7 +294,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             commandBoxHistory.add(commandBox.handleCommandEntered());
             break;
         default:
-            break;
         }
     }
 
