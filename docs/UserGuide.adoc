@@ -66,12 +66,12 @@ Format:
 
 `help`
 
-==== Exits the app: `bye`
+==== Exits the app: `exit`
 
 Exits the application.
 
 Format:
-`bye`
+`exit`
 
 === Manage contacts: `contact`
 
@@ -105,7 +105,7 @@ Format:
 
 `list`
 
-==== Display the profile of a person: `show` `[coming in v2.0]`
+==== Display the profile of a person: `show`
 
 Display the profile page of a contact which shows the contact details and notes tagged with the contact.
 
