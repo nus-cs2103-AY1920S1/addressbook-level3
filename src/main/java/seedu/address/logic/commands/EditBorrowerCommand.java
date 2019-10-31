@@ -71,7 +71,6 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
 
         Borrower borrowerToEdit = model.getServingBorrower();
         Borrower editedBorrower = createEditedBorrower(borrowerToEdit, editBorrowerDescriptor);
-        
         undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit));
         redoCommand = this;
 

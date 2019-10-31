@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.loan.Loan;

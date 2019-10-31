@@ -5,6 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_UNDO_COMMAND;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Undoes most recent {@code ReversibleCommand}.
+ */
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";

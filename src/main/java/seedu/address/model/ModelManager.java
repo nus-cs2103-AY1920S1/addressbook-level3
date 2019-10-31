@@ -158,6 +158,11 @@ public class ModelManager implements Model {
         loanRecords.addLoan(loan);
     }
 
+    /**
+     * Removes a <code>Loan</code> object from the loan records.
+     *
+     * @param loan <code>Loan</code> object to be removed.
+     */
     public void removeLoan(Loan loan) {
         requireNonNull(loan);
         loanRecords.removeLoan(loan);

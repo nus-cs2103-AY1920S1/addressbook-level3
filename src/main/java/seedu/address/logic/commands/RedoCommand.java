@@ -5,6 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_REDO_COMMAND;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Redoes previously undone {@code ReversibleCommand}.
+ */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the most recent undone command. \n"
