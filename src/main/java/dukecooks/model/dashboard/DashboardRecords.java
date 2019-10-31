@@ -101,6 +101,14 @@ public class DashboardRecords implements ReadOnlyDashboard {
     }
 
     /**
+     * Replaces recently completed dashboard and updates them as completed.
+     */
+
+    public void changeDashboard(List<Dashboard> l) {
+        dashboards.changeDone(l);
+    }
+
+    /**
      * Removes {@code key} from this {@code DashboardRecords}.
      * {@code key} must exist in Duke Cooks.
      */

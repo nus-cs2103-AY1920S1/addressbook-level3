@@ -293,7 +293,7 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ReadOnlyDashboard} with the data from {@code storage}'s Dashboard Records. <br>
-     * The data from the sample dashaboard will be used instead if {@code storage}'s dashboard records are not found,
+     * The data from the sample dashboard will be used instead if {@code storage}'s dashboard records are not found,
      * or an empty Dashboard Record will be used instead if errors occur when reading
      * {@code storage}'s Dashboard Records.
      */

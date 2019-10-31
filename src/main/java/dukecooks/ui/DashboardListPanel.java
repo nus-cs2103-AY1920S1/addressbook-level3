@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.model.dashboard.components.Dashboard;
-import dukecooks.model.dashboard.components.Rewards;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
@@ -24,8 +23,6 @@ public class DashboardListPanel extends UiPart<Region> {
 
     public final ObservableList<Dashboard> dashboardList;
 
-    public final Rewards rewards;
-
     private final Logger logger = LogsCenter.getLogger(DashboardListPanel.class);
 
     private double value;
@@ -39,11 +36,10 @@ public class DashboardListPanel extends UiPart<Region> {
     @FXML
     private ProgressBar progressBar;
 
-    public DashboardListPanel(ObservableList<Dashboard> dashboardList, Rewards rewards) {
+    public DashboardListPanel(ObservableList<Dashboard> dashboardList) {
         super(FXML);
         this.dashboardList = dashboardList;
         this.value = taskLeft(dashboardList);
-        this.rewards = rewards;
         dashboardListView.setItems(dashboardList);
         dashboardListView.setCellFactory(listView -> new DashboardListViewCell());
     }
@@ -56,19 +52,6 @@ public class DashboardListPanel extends UiPart<Region> {
         String s1 = Long.toString(num) + ".0";
         String s2 = Integer.toString(l.size()) + ".0";
         return Double.parseDouble(s1) / Double.parseDouble(s2);
-    }
-
-    /**
-     * Checks if 5 new tasks are done.
-     */
-    public boolean doneFive(List<Dashboard> l) {
-        l.stream().filter(i -> i.getTaskStatus().getNotDoneStatus());
-        int size = l.size();
-        if (size % 5 == 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**

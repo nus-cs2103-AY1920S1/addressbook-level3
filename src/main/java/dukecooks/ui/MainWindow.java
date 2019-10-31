@@ -9,7 +9,6 @@ import dukecooks.logic.Logic;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.dashboard.components.Rewards;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -44,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private ExerciseListPanel exerciseListPanel;
     private DiaryListPanel diaryListPanel;
     private ResultDisplay resultDisplay;
+    private RewardWindow rewardWindow;
     private HelpWindow helpWindow;
     private Event event;
 
@@ -105,6 +105,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        rewardWindow = new RewardWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -169,7 +170,7 @@ public class MainWindow extends UiPart<Stage> {
      * Initializes all Panels.
      */
     void initializePanels() {
-        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList(), new Rewards());
+        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
@@ -199,6 +200,16 @@ public class MainWindow extends UiPart<Stage> {
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
+     * Opens the reward window
+     */
+    @FXML
+    public void handleReward() {
+        if (!rewardWindow.isShowing()) {
+            rewardWindow.show();
         }
     }
 
@@ -351,6 +362,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowReward()) {
+                handleReward();
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

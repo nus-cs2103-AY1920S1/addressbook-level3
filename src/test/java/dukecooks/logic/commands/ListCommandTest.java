@@ -8,7 +8,6 @@ import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import dukecooks.logic.commands.dashboard.ListTaskCommand;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.model.Model;
@@ -39,11 +38,6 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_dashboardListIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListTaskCommand(), modelTask, ListTaskCommand.MESSAGE_SUCCESS, expectedModelTask);
-    }
-
-    @Test
     public void execute_exerciseListIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListExerciseCommand(), model, ListExerciseCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -53,5 +47,4 @@ public class ListCommandTest {
         CommandTestUtil.showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
         assertCommandSuccess(new ListRecipeCommand(), model, ListRecipeCommand.MESSAGE_SUCCESS, expectedModel);
     }
-
 }
