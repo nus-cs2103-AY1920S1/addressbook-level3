@@ -18,11 +18,16 @@ import seedu.address.model.expense.Timestamp;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Budget {
-
     public static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
     private static final Price DEFAULT_BUDGET_AMOUNT = Price.MAX_PRICE;
     private static final Timestamp DEFAULT_BUDGET_START_DATE = Timestamp.EARLIEST_TIMESTAMP;
     private static final BudgetPeriod DEFAULT_BUDGET_PERIOD = BudgetPeriod.INFINITY;
+    private static final ObservableList<Expense> DEFAULT_BUDGET_EXPENSES = FXCollections.observableArrayList();
+    private static final boolean DEFAULT_BUDGET_IS_PRIMARY = true;
+
+    public static final Budget DEFAULT_BUDGET = new Budget(DEFAULT_BUDGET_DESCRIPTION, DEFAULT_BUDGET_AMOUNT,
+            DEFAULT_BUDGET_START_DATE, DEFAULT_BUDGET_PERIOD, DEFAULT_BUDGET_EXPENSES, DEFAULT_BUDGET_IS_PRIMARY);
+
     private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
     private final Description description;
@@ -73,17 +78,8 @@ public class Budget {
         return expenses;
     }
 
-    /**
-     * Dummy.
-     * @return Dummy.
-     */
-    public static Budget createDefaultBudget() {
-        Budget defaultBudget = new Budget(DEFAULT_BUDGET_DESCRIPTION,
-                DEFAULT_BUDGET_AMOUNT,
-                DEFAULT_BUDGET_START_DATE,
-                DEFAULT_BUDGET_PERIOD);
-        defaultBudget.setToPrimary();
-        return defaultBudget;
+    public boolean isDefaultBudget() {
+        return this.description.equals(DEFAULT_BUDGET_DESCRIPTION);
     }
 
     /**

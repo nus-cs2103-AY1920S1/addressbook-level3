@@ -13,6 +13,7 @@ import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 import seedu.address.ui.budget.BudgetListPanel;
 
 /**
@@ -29,6 +30,8 @@ public class DeleteBudgetCommand extends UndoableCommand {
     public static final String MESSAGE_DELETE_BUDGET_SUCCESS = "Deleted Budget: %1$s";
 
     private final Index targetIndex;
+
+    //private final Description description;
 
     public DeleteBudgetCommand(Index targetIndex) {
         this.targetIndex = targetIndex;

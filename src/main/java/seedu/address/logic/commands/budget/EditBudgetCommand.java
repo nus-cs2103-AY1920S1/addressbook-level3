@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
+import static seedu.address.model.budget.Budget.DEFAULT_BUDGET;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +80,7 @@ public class EditBudgetCommand extends UndoableCommand {
         }
 
         Budget budgetToEdit = lastShownList.get(index.getZeroBased());
-        if (budgetToEdit.isSameBudget(Budget.createDefaultBudget())) {
+        if (budgetToEdit.isSameBudget(DEFAULT_BUDGET)) {
             throw new CommandException(MESSAGE_DEFAULT_BUDGET_UNEDITABLE);
         }
         Budget editedBudget = createEditedBudget(budgetToEdit, editBudgetDescriptor);

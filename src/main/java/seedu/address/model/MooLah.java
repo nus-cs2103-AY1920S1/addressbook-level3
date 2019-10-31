@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.budget.Budget.DEFAULT_BUDGET;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class MooLah implements ReadOnlyMooLah {
     public MooLah() {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
-        budgets.add(Budget.createDefaultBudget());
+        budgets.add(DEFAULT_BUDGET);
         events = new UniqueEventList();
     }
 
@@ -266,7 +267,7 @@ public class MooLah implements ReadOnlyMooLah {
      */
     public void addEvent(Event event) {
         if (budgets.isEmpty()) {
-            Budget defaultBudget = Budget.createDefaultBudget();
+            Budget defaultBudget = DEFAULT_BUDGET;
             defaultBudget.setToPrimary();
             budgets.add(defaultBudget);
         }

@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.model.budget.Budget.DEFAULT_BUDGET;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,7 +68,7 @@ class JsonSerializableMooLah {
         MooLah mooLah = new MooLah();
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType(expenses);
-            boolean isDefaultBudget = budget.isSameBudget(Budget.createDefaultBudget());
+            boolean isDefaultBudget = budget.isSameBudget(DEFAULT_BUDGET);
             if (!isDefaultBudget) {
                 if (mooLah.hasBudget(budget)) {
                     throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
