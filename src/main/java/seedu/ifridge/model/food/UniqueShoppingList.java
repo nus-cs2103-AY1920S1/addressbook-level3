@@ -31,7 +31,7 @@ public class UniqueShoppingList implements Iterable<ShoppingItem> {
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ShoppingItem toCheck) {
+    public boolean contains(Food toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameName);
     }

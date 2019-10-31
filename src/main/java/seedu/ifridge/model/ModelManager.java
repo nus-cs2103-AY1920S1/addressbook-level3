@@ -528,6 +528,11 @@ public class ModelManager implements Model {
         return shoppingList;
     }
 
+    @Override
+    public boolean containsShoppingItemWithName(Food foodItem) {
+        return shoppingList.containsShoppingItemWithName(foodItem);
+    }
+
     /**
      * Check if the in-memory model has the specified shopping item.
      *
