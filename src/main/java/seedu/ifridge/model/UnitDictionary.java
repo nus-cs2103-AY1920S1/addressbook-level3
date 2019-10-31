@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Food;
+import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.exceptions.InvalidDictionaryException;
 import seedu.ifridge.model.food.exceptions.InvalidUnitException;
@@ -56,7 +57,7 @@ public class UnitDictionary {
     }
 
     private boolean inGroceryList(Food foodItem, Model model) {
-        return false;
+        return model.hasGroceryItem((GroceryItem) foodItem);
     }
 
     private boolean inTemplateList(Food foodItem, Model model) {

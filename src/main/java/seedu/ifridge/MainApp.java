@@ -33,6 +33,7 @@ import seedu.ifridge.model.UserPrefs;
 import seedu.ifridge.model.WasteList;
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Food;
+import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 import seedu.ifridge.model.food.exceptions.InvalidDictionaryException;
@@ -238,9 +239,35 @@ public class MainApp extends Application {
         return mapToBeCreated;
     }
 
+    /**
+     * Updates the dictionary map with the names and unitTypes in the grocery list
+     * @param mapToBeCreated map to be edited
+     * @param groceryList list consisting of grocery items
+     * @return edited map to be entered into Unit Dictionary
+     */
     private HashMap<String, String> updateMapWithGroceryItems(HashMap<String, String> mapToBeCreated,
                                                                      ReadOnlyGroceryList groceryList) {
         //Method to be written
+        ObservableList<GroceryItem> groceryItems = groceryList.getGroceryList();
+
+        for (int i = 0; i < groceryItems.size(); i++) {
+            GroceryItem groceryItem = groceryItems.get(i);
+            Name name = groceryItem.getName();
+            Amount amount = groceryItem.getAmount();
+
+            String nameInUpperCase = name.toString().toUpperCase();
+            String unitType = Amount.getUnitType(amount);
+            String setType = mapToBeCreated.get(nameInUpperCase);
+
+            if (setType != null && !setType.equals(unitType)) {
+                throw new InvalidDictionaryException();
+            } else if (setType == null) {
+                mapToBeCreated.put(nameInUpperCase, unitType);
+            } else {
+                continue;
+            }
+        }
+
         return mapToBeCreated;
     }
 

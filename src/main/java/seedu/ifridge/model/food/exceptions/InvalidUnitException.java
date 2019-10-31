@@ -8,4 +8,8 @@ public class InvalidUnitException extends RuntimeException {
     public InvalidUnitException() {
         super("Operation would result in food items with conflicting units");
     }
+
+    public InvalidUnitException(String message) {
+        super(message);
+    }
 }

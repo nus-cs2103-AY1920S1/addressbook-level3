@@ -23,6 +23,7 @@ import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.ExpiryDate;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
+import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 import seedu.ifridge.model.tag.Tag;
 
 /**
@@ -85,7 +86,8 @@ public class EditGroceryCommand extends Command {
      * edited with {@code editPersonDescriptor}.
      */
     private static GroceryItem createdEditedGroceryItem(GroceryItem groceryItemToEdit,
-                                                        EditGroceryItemDescriptor editGroceryItemDescriptor) {
+                                                        EditGroceryItemDescriptor editGroceryItemDescriptor)
+        throws InvalidUnitException {
         assert groceryItemToEdit != null;
 
         Name updatedName = editGroceryItemDescriptor.getName().orElse(groceryItemToEdit.getName());
