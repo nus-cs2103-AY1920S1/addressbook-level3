@@ -154,6 +154,7 @@ public class Overview extends UiPart<Region> {
                 overviewLogic.getSalesTotalByMonth(currentDate)));
 
         salesBarChart.getData().add(dataSeries);
+        salesBarChart.setLegendVisible(false);
 
     }
 
@@ -172,6 +173,8 @@ public class Overview extends UiPart<Region> {
                 overviewLogic.getBudgetLeftByMonth(currentDate)));
 
         budgetBarChart.getData().add(dataSeries);
+        budgetBarChart.setLegendVisible(false);
+
     }
 
 
