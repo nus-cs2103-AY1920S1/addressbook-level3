@@ -125,9 +125,10 @@ Examples:
 
 === Setting a Budget : `set`
 
-Sets a budget for a particular category until a certain date +
-You cannot have duplicate budgets (bugets with the same `AMOUNT` and `DATE` and `CATEGORY`).
-If you attempt to do so, you will receive an erorr message: `This budget already exists in the bank account`. +
+You can set a budget for a particular category until a certain date, given it is not a duplicate.
+A duplicate budget is a budget with the same `AMOUNT` and `DATE` and `CATEGORY`. +
+If you attempt to do so, you will receive an error message: `This budget already exists in the bank account`. +
+
 Format: `set $/AMOUNT d/DATE c/CATEGORY`
 
 ****
@@ -136,10 +137,15 @@ Format: `set $/AMOUNT d/DATE c/CATEGORY`
 * `CATEGORY` accepts the CATEGORY for the budget
 ****
 
-Examples:
+Example: Let's say you want to restrict your spending for a certain category until a certain deadline.
+PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
+until the deadline. You will be able to be more self-conscious of your spending and minimise your spending by setting a budget. +
 
-* `set $/100 c/shopping`
-* `set $/50 c/food`
+To set a new budget: +
+1. Type `set` and enter the relevant details (amount, deadline, category) in the format given above. +
+2. The result box will display the message "New budget successfully set". +
+3. If the budget already exists in the budget list, the result box will display the message "This budget already exists". +
+4. Now you can see the newly set budget in the budget list.
 
 === Display View : `view`
 
