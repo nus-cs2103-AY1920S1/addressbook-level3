@@ -3,6 +3,7 @@ package seedu.algobase.model.gui;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 import javafx.beans.property.IntegerProperty;
@@ -12,7 +13,6 @@ import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
-
 
 /**
  * The main TabManager of the GUI.
@@ -80,6 +80,10 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
         detailsTabPaneIndex.setValue(indexValue);
     }
 
+    public void setDetailsTabPaneIndex(ModelType modelType, Id modelId) throws NoSuchElementException {
+        setDetailsTabPaneIndex(tabsData.indexOf(new TabData(modelType, modelId)));
+    }
+
     /**
      * Adds TabData to algobase.
      * The TabData must not already exist in the algobase.
@@ -135,6 +139,11 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
     @Override
     public Consumer<Id> addDetailsTabConsumer(ModelType modelType) {
         return (Id id) -> addDetailsTabData(new TabData(modelType, id));
+    }
+
+    @Override
+    public Consumer<Id> switchDetailsTabConsumer(ModelType modelType) {
+        return (Id id) -> setDetailsTabPaneIndex(modelType, id);
     }
 
     @Override

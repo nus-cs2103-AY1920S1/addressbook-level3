@@ -305,7 +305,7 @@ public class ParserUtil {
     private static boolean isValidTabTypeIndex(String tabType) {
         try {
             Index tabTypeIndex = ParserUtil.parseIndex(tabType);
-            TabType _tabType = TabType.values()[tabTypeIndex.getZeroBased()];
+            TabType tabTypePlaceholder = TabType.values()[tabTypeIndex.getZeroBased()];
             return true;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException | ParseException e) {
             return false;
@@ -359,7 +359,7 @@ public class ParserUtil {
     private static boolean isValidModelTypeIndex(String modelType) {
         try {
             Index modelTypeIndex = ParserUtil.parseIndex(modelType);
-            ModelType _modelType = ModelType.values()[modelTypeIndex.getZeroBased()];
+            ModelType modelTypePlaceholder = ModelType.values()[modelTypeIndex.getZeroBased()];
             return true;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException | ParseException e) {
             return false;

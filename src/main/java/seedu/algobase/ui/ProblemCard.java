@@ -17,6 +17,7 @@ import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
+import seedu.algobase.model.gui.exceptions.DuplicateTabDataException;
 import seedu.algobase.model.problem.Problem;
 
 /**
@@ -89,7 +90,10 @@ public class ProblemCard extends UiPart<Region> {
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        this.addMouseClickListener(writeOnlyTabManager.addDetailsTabConsumer(ModelType.PROBLEM));
+        this.addMouseClickListener(
+            writeOnlyTabManager.addDetailsTabConsumer(ModelType.PROBLEM),
+            writeOnlyTabManager.switchDetailsTabConsumer(ModelType.PROBLEM)
+        );
     }
 
     @Override
@@ -115,14 +119,20 @@ public class ProblemCard extends UiPart<Region> {
      *
      * @param addDetailsTabConsumer
      */
-    public void addMouseClickListener(Consumer<Id> addDetailsTabConsumer) {
+    public void addMouseClickListener(Consumer<Id> addDetailsTabConsumer, Consumer<Id> switchDetailsTabConsumer) {
         cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
-                        logger.fine("Double Clicked");
-                        addDetailsTabConsumer.accept(problem.getId());
+                        logger.info("Double Clicked on Problem card with name " + problem.getName());
+                        try {
+                            logger.info("Opening new problem tab");
+                            addDetailsTabConsumer.accept(problem.getId());
+                        } catch (DuplicateTabDataException e) {
+                            logger.info("Switching to existing problem tab");
+                            switchDetailsTabConsumer.accept(problem.getId());
+                        }
                     }
                 }
             }

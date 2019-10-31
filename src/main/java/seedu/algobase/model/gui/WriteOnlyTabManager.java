@@ -23,4 +23,6 @@ public interface WriteOnlyTabManager {
     void setDisplayTabPaneIndex(Index index) throws IndexOutOfBoundsException;
 
     void setDetailsTabPaneIndex(Index index) throws IndexOutOfBoundsException;
+
+    Consumer<Id> switchDetailsTabConsumer(ModelType modelType);
 }
