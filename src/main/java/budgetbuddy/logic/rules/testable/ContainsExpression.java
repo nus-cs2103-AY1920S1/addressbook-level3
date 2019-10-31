@@ -2,7 +2,7 @@ package budgetbuddy.logic.rules.testable;
 
 import static java.util.Objects.requireNonNull;
 
-import budgetbuddy.logic.rules.RuleProcessor;
+import budgetbuddy.logic.rules.RuleEngine;
 import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.transaction.Transaction;
@@ -24,7 +24,7 @@ public class ContainsExpression extends TestableExpression {
     @Override
     public boolean test(Transaction txn) {
         requireNonNull(txn);
-        String left = RuleProcessor.extractAttribute(attribute, txn).toString();
+        String left = RuleEngine.extractAttribute(attribute, txn).toString();
         String right = value.toString();
         return left.contains(right);
     }

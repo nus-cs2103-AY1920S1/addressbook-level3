@@ -15,16 +15,16 @@ import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
- * Represents a set category expression.
+ * Represents a remove category expression.
  */
-public class SetCategoryExpression extends PerformableExpression {
+public class RemoveCategoryExpression extends PerformableExpression {
 
     /**
-     * Constructs a SetCategoryExpression with the given value.
+     * Constructs a RemoveCategoryExpression with the given value.
      *
      * @param value the value to perform the action with.
      */
-    public SetCategoryExpression(Value value) {
+    public RemoveCategoryExpression(Value value) {
         super(value);
     }
 
@@ -36,19 +36,19 @@ public class SetCategoryExpression extends PerformableExpression {
         try {
             Set<Category> categories = new HashSet<>(txn.getCategories());
 
-            Category categoryToAdd = CommandParserUtil.parseCategory(value.toString());
-            if (categories.contains(categoryToAdd)) {
+            Category categoryToRemove = CommandParserUtil.parseCategory(value.toString());
+            if (!categories.contains(categoryToRemove)) {
                 return;
             }
 
-            categories.add(categoryToAdd);
+            categories.remove(categoryToRemove);
             Transaction updatedTransaction = new Transaction(txn.getDate(), txn.getAmount(), txn.getDirection(),
                     txn.getDescription(), categories);
 
             accountsManager.getActiveAccount().deleteTransaction(txn);
             accountsManager.getAccount(account.getName()).addTransaction(updatedTransaction);
 
-            logger.info("Rule Execution———Category added in " + updatedTransaction);
+            logger.info("Rule Execution———Category removed in " + updatedTransaction);
         } catch (ParseException e) {
             // Should not happen as value should be parsable by the time this method is called
             // but will exit without completing if it does happen.

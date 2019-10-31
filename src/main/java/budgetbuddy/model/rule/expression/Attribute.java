@@ -2,17 +2,17 @@ package budgetbuddy.model.rule.expression;
 
 import java.util.Arrays;
 
-import budgetbuddy.logic.rules.RuleProcessor;
+import budgetbuddy.logic.rules.RuleEngine;
 
 /**
  * Represents a Attribute in an PredicateExpression
  * Guarantees: immutable; is valid as declared in {@link #isValidAttribute(String)}
  */
 public enum Attribute {
-    DESCRIPTION("desc", RuleProcessor.TYPE_CATEGORY),
-    OUT_AMOUNT("outamt", RuleProcessor.TYPE_AMOUNT),
-    IN_AMOUNT("inamt", RuleProcessor.TYPE_AMOUNT),
-    DATE("date", RuleProcessor.TYPE_DATE);
+    DESCRIPTION("desc", RuleEngine.TYPE_CATEGORY),
+    OUT_AMOUNT("outamt", RuleEngine.TYPE_AMOUNT),
+    IN_AMOUNT("inamt", RuleEngine.TYPE_AMOUNT),
+    DATE("date", RuleEngine.TYPE_DATE);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Attributes should be valid and not be blank\n"

@@ -1,6 +1,7 @@
 package budgetbuddy.logic.rules.performable;
 
 import budgetbuddy.model.Model;
+import budgetbuddy.model.account.Account;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
@@ -10,5 +11,5 @@ public interface Performable {
     /**
      * Executes the action.
      */
-    void perform(Model model, Transaction txn);
+    void perform(Model model, Transaction txn, Account account);
 }

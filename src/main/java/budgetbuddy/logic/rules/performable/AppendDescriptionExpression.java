@@ -2,29 +2,26 @@ package budgetbuddy.logic.rules.performable;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
-import budgetbuddy.model.attributes.Category;
+import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
- * Represents a set category expression.
+ * Represents a append description expression.
  */
-public class SetCategoryExpression extends PerformableExpression {
+public class AppendDescriptionExpression extends PerformableExpression {
 
     /**
-     * Constructs a SetCategoryExpression with the given value.
+     * Constructs a AppendDescriptionExpression with the given value.
      *
      * @param value the value to perform the action with.
      */
-    public SetCategoryExpression(Value value) {
+    public AppendDescriptionExpression(Value value) {
         super(value);
     }
 
@@ -34,21 +31,16 @@ public class SetCategoryExpression extends PerformableExpression {
 
         AccountsManager accountsManager = model.getAccountsManager();
         try {
-            Set<Category> categories = new HashSet<>(txn.getCategories());
+            Description updatedDesc = CommandParserUtil.parseDescription(txn.getDescription().toString()
+                    + value.toString());
 
-            Category categoryToAdd = CommandParserUtil.parseCategory(value.toString());
-            if (categories.contains(categoryToAdd)) {
-                return;
-            }
-
-            categories.add(categoryToAdd);
             Transaction updatedTransaction = new Transaction(txn.getDate(), txn.getAmount(), txn.getDirection(),
-                    txn.getDescription(), categories);
+                    updatedDesc, txn.getCategories());
 
             accountsManager.getActiveAccount().deleteTransaction(txn);
             accountsManager.getAccount(account.getName()).addTransaction(updatedTransaction);
 
-            logger.info("Rule Execution———Category added in " + updatedTransaction);
+            logger.info("Rule Execution———Description updated in " + updatedTransaction);
         } catch (ParseException e) {
             // Should not happen as value should be parsable by the time this method is called
             // but will exit without completing if it does happen.

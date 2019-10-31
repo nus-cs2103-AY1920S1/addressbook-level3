@@ -21,7 +21,7 @@ import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.commands.scriptcommands.ScriptCommand;
-import budgetbuddy.logic.rules.RuleProcessor;
+import budgetbuddy.logic.rules.RuleEngine;
 import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
@@ -103,7 +103,7 @@ public class TransactionEditCommand extends ScriptCommand {
 
 
             accountsManager.getAccount(targetAccount.getName()).addTransaction(updatedTransaction);
-            RuleProcessor.executeRules(model, scriptEngine, updatedTransaction);
+            RuleEngine.executeRules(model, scriptEngine, updatedTransaction, targetAccount);
 
         } catch (TransactionNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);

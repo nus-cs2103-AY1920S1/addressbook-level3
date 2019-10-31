@@ -1,7 +1,7 @@
 package budgetbuddy.model.rule.expression;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
-import static budgetbuddy.logic.rules.RuleProcessor.isValueParsable;
+import static budgetbuddy.logic.rules.RuleEngine.isValueParsable;
 
 import java.util.Objects;
 import java.util.regex.Pattern;

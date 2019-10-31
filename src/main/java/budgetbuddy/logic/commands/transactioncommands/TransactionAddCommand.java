@@ -16,7 +16,7 @@ import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.commands.scriptcommands.ScriptCommand;
-import budgetbuddy.logic.rules.RuleProcessor;
+import budgetbuddy.logic.rules.RuleEngine;
 import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
@@ -83,7 +83,7 @@ public class TransactionAddCommand extends ScriptCommand {
         } catch (Exception e) {
             return new CommandResult(MESSAGE_FAILURE, CommandCategory.TRANSACTION);
         }
-        RuleProcessor.executeRules(model, scriptEngine, toAdd);
+        RuleEngine.executeRules(model, scriptEngine, toAdd, realToAccount);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.TRANSACTION);
     }

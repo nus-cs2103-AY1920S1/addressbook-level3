@@ -34,10 +34,9 @@ public class JsonAdaptedActionExpression implements JsonAdaptedAction {
 
     /**
      * Converts a given {@code ActionExpression} into this class for Jackson use.
-     * @param source
      */
     public JsonAdaptedActionExpression(ActionExpression source) {
-        operator = source.getOperator().toString();
+        operator = source.getOperator().getOperatorWord();
         value = source.getValue().toString();
     }
 

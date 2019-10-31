@@ -8,10 +8,16 @@ import java.util.function.Function;
 
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.logic.rules.performable.AppendDescriptionExpression;
 import budgetbuddy.logic.rules.performable.Performable;
 import budgetbuddy.logic.rules.performable.PerformableExpression;
+import budgetbuddy.logic.rules.performable.PrependDescriptionExpression;
+import budgetbuddy.logic.rules.performable.RemoveCategoryExpression;
 import budgetbuddy.logic.rules.performable.SetCategoryExpression;
-import budgetbuddy.logic.rules.performable.SetDescExpression;
+import budgetbuddy.logic.rules.performable.SetDescriptionExpression;
+import budgetbuddy.logic.rules.performable.SetInwardExpression;
+import budgetbuddy.logic.rules.performable.SetOutwardExpression;
+import budgetbuddy.logic.rules.performable.SwitchDirectionExpression;
 import budgetbuddy.logic.rules.testable.ContainsExpression;
 import budgetbuddy.logic.rules.testable.EqualToExpression;
 import budgetbuddy.logic.rules.testable.LessEqualExpression;
@@ -22,6 +28,7 @@ import budgetbuddy.logic.rules.testable.Testable;
 import budgetbuddy.logic.rules.testable.TestableExpression;
 import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RuleAction;
@@ -34,9 +41,9 @@ import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
- * Contains utility methods and constants used for processing rules.
+ * Handles the creation and processing of rules.
  */
-public class RuleProcessor {
+public class RuleEngine {
     public static final String TYPE_CATEGORY = "CATEGORY";
     public static final String TYPE_DESC = "DESC";
     public static final String TYPE_AMOUNT = "AMOUNT";
@@ -57,13 +64,19 @@ public class RuleProcessor {
         testableMap.put(Operator.MORE_THAN, MoreThanExpression::new);
 
         performableMap.put(Operator.SET_CATEGORY, SetCategoryExpression::new);
-        performableMap.put(Operator.SET_DESC, SetDescExpression::new);
+        performableMap.put(Operator.REMOVE_CATEGORY, RemoveCategoryExpression::new);
+        performableMap.put(Operator.SET_DESC, SetDescriptionExpression::new);
+        performableMap.put(Operator.APPEND_DESC, AppendDescriptionExpression::new);
+        performableMap.put(Operator.PREPEND_DESC, PrependDescriptionExpression::new);
+        performableMap.put(Operator.SET_IN, SetInwardExpression::new);
+        performableMap.put(Operator.SET_OUT, SetOutwardExpression::new);
+        performableMap.put(Operator.SWITCH_DIRECTION, SwitchDirectionExpression::new);
     }
 
     /**
      * Is a private constructor for a static-only class.
      */
-    private RuleProcessor() {}
+    private RuleEngine() {}
 
     /**
      * Returns the value of a transaction's attribute given the transaction.
@@ -118,13 +131,13 @@ public class RuleProcessor {
     /**
      * Runs all rules against transaction
      */
-    public static void executeRules(Model model, ScriptEngine scriptEngine, Transaction txn) {
-        requireAllNonNull(model, model.getRuleManager(), scriptEngine, txn);
+    public static void executeRules(Model model, ScriptEngine scriptEngine, Transaction txn, Account account) {
+        requireAllNonNull(model, model.getRuleManager(), scriptEngine, txn, account);
         for (Rule rule : model.getRuleManager().getRules()) {
             Testable testable = parseTestable(rule.getPredicate(), scriptEngine);
             if (testable.test(txn)) {
                 Performable performable = parsePerformable(rule.getAction(), scriptEngine);
-                performable.perform(model, txn);
+                performable.perform(model, txn, account);
             }
         }
     }
@@ -135,8 +148,12 @@ public class RuleProcessor {
     public static boolean isValueParsable(String typeName, Value value) {
         switch (typeName) {
         case TYPE_CATEGORY:
-            CommandParserUtil.parseCategory(value.toString());
-            break;
+            try {
+                CommandParserUtil.parseCategory(value.toString());
+                break;
+            } catch (ParseException e) {
+                return false;
+            }
         case TYPE_DESC:
             try {
                 CommandParserUtil.parseDescription(value.toString());
