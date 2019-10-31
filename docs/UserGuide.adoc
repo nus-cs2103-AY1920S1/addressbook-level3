@@ -98,6 +98,9 @@ Sorts the list of all appointments in the appointment list by the order specifie
 [TIP]
 Orders supported: `description_ascending`, `description_descending`, `start_ascending`, `start_descending`, `end_ascending`, `end_descending`, `priority_ascending`, `priority_descending`.
 
+[TIP]
+After sorting, commands that require index as an input field (e.g. `delete`) will take in index with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
+
 Format: `sort ORDER`
 
 Examples:
@@ -179,6 +182,9 @@ Format: `clear`
 === Undoing the previous command : `undo`
 Undoes the previous command, provided that it exists. +
 Format: `undo`
+
+[TIP]
+Undo supports the following commands that modify the engagement list: `add`, `edit`, `delete` and `clear`.
 
 Examples:
 
