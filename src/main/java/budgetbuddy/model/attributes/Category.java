@@ -37,7 +37,7 @@ public class Category {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof Category && category == ((Category) other).category);
+                || (other instanceof Category && category.equals(((Category) other).category));
     }
 
 }

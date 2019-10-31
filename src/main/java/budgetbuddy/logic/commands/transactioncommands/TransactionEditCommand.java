@@ -182,7 +182,7 @@ public class TransactionEditCommand extends ScriptCommand {
         private Set<Category> categories = new HashSet<>();
         private Date date;
 
-        public TransactionEditDescriptor(){};
+        public TransactionEditDescriptor() {}
 
         public TransactionEditDescriptor (TransactionEditDescriptor toCopy) {
             this.date = toCopy.date;
