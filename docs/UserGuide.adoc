@@ -882,6 +882,9 @@ Data in treasurerPro is saved automatically after executing any command. There i
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous treasurerPro folder.
 
+*Q*: Can I modify the data files myself? +
+*A*: No, any external modification to the app's data files *WILL* result in loss of all data. You have been warned.
+
 == Command Summary
 
 === Navigation
