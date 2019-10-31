@@ -7,7 +7,7 @@ import static java.util.Objects.isNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
-    public static final String DEFAULT_NAME = "na";
+    public static final String DEFAULT_NAME = "n.a.";
     public static final String MESSAGE_CONSTRAINTS =
             "Show names should only contain characters and spaces, and it should not be blank";
 

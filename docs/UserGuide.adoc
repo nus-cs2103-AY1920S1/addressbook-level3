@@ -33,8 +33,8 @@ image::RealUI.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add`**`Titanic` : adds the movie named `Titanic` to the Watchlist.
-* **`search`**`Titanic` : Searched for movie named `Titanic` in all movies
+* **`add`**`n/Titanic t/movie` : adds the `movie` named `Titanic` to the Watchlist.
+* **`search`**`n/Titanic` : Searched for movie named `Titanic` in all movies
 * **`delete`**`3` : deletes the 3rd movie shown in the current list
 * *`exit`* : exits the app
 
@@ -73,7 +73,7 @@ image::search_page.png[width="790"]
 
 ==== Statistics Page
 
-The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `3`.
+The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `4`.
 
 image::statistics_page.png[width="790"]
 
@@ -84,10 +84,9 @@ image::statistics_page.png[width="790"]
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/SHOW_NAME t/SHOW_TYPE`, `SHOW_NAME` and `SHOW_TYPE` are parameters which can be used as `add n/The Angry Birds Movie 2 t/movie`.
-* Items in square brackets are optional e.g `n/SHOW_NAME t/SHOW_TYPE [d/DESCRIPTION]` can be used as `n/The Angry Birds Movie t/movie 2 d/Oscar-worthy` or as `n/The Angry Birds Movie`.
+* Items in square brackets are optional e.g `n/SHOW_NAME t/SHOW_TYPE [d/DESCRIPTION]` can be used as `n/The Angry Birds Movie t/movie 2 d/Oscar-worthy` or as `n/The Angry Birds Movie t/movie`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[a/ACTOR]...` can be used as `{nbsp}` (i.e. 0 times), `a/Leonardo Di Carpio`, `a/Leonardo Di Carpio a/Christian Bale` etc.
 * Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
-====
 
 ==== Viewing help : `help`
 
@@ -96,8 +95,8 @@ Format: `help`
 ==== Adding a show: `add`
 
 Adds a show to the watchlist +
-Format: `add n/SHOW_NAME t/TYPE_OF_SHOW [a/ACTOR]...`
 
+Format: `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]...`
 [TIP]
 A show can have any number of actors (including 0)
 
@@ -105,6 +104,26 @@ Examples:
 
 * `add n/Titanic t/movie`
 * `add n/Friends t/tv`
+* `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
+* `add n/Joker t/movie d/3 OCTOBER 2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
+
+==== Adding a show from search result page: `add`
+
+Adds a show from search result page after user has already search for show +
+
+Format: `add INDEX`
+
+[TIP]
+This add command can only be used if user has already search for show using the search online command.
+
+Examples:
+
+* `add 2`
+
+==== Clear the WatchList: `clear`
+
+Clear the WatchList +
+Format: `clear`
 
 ==== Mark as watched : `watch`
 
@@ -134,20 +153,20 @@ Marks all episodes including the second episode of the fifth season of the third
 ==== Editing a show's details : `edit`
 
 Edits an existing show in the list +
-Format: `edit INDEX [n/NAME] [a/ACTOR]...`
+Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...`
 
 ****
 * Edits the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing actors, the existing actors of the show will be removed i.e adding of actors is not cumulative.
-* You can remove all the show's actors by typing `a/` without specifying any tags after it.
+* You can remove all the show's actors by typing `a/` without specifying any actors after it.
 ****
 
 Examples:
 
-* `edit 1 n/Titanic a/Leonardo Di Caprio` +
-Edits the name and actor of the 1st show in the list to be `Titanic` and `Leonardo Di Caprio` respectively.
+* `edit 1 n/Batman a/Joaquin Phoenix` +
+Edits the name and actor name of the 1st show in the list to be `Titanic` and `Joaquin Phoenix` respectively.
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
@@ -226,14 +245,19 @@ All typing in the application will be spell-checked and corrected for you to hel
 
 == Command Summary
 
-* *Add* `add n/SHOW_NAME t/SHOW_TYPE [a/ACTOR]...` +
-e.g. `add n/John Wick t/movie a/Keanu Reaves`
+* *Add* `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]` +
+e.g. `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
+* *Add from search result page* `add INDEX` +
+e.g. `add 1`
+* *CLEAR* `clear`
 * *Watch* : `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/SHOW_NAME] [a/ACTOR]...` +
-e.g. `edit 2 n/John Wick a/Keanu Reaves a/Michael Nyqvist`
+* *Edit* : `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...` +
+e.g. `edit 2 n/John Wick a/Johnny Depp`
 * *Search* : `search KEYWORD [MORE_KEYWORDS]` +
 e.g. `search John`
+* *Search (ONLINE)* `search n/SHOW_NAME` +
+e.g. `search n/Harry potter`
 * *Exit* : `exit`
 * *Help* : `help`

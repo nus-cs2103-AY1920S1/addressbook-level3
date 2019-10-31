@@ -15,7 +15,7 @@ public class Actor {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
-    public static final String DEFAULT_VALUE = "na";
+    public static final String DEFAULT_VALUE = "n.a.";
 
     public final String actorName;
 

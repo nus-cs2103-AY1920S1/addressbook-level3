@@ -303,6 +303,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             return commandResult;
+            //catch ParseException here to implement spellcheck
         } catch (CommandException | ParseException | OnlineConnectionException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

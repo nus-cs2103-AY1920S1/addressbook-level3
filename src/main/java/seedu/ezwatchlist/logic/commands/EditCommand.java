@@ -7,6 +7,7 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
+
 import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
 
 import java.util.ArrayList;
