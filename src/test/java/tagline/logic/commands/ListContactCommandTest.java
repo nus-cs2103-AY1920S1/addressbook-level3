@@ -15,6 +15,7 @@ import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListContactCommand.
@@ -28,9 +29,9 @@ public class ListContactCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
     }
 
     @Test

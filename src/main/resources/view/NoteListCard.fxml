@@ -39,7 +39,7 @@
             </HBox>
             <Separator minHeight="2.0"/>
             <Label fx:id="content" text="\$content" styleClass="cell_small_label" wrapText="true"/>
-            <FlowPane fx:id="tags"/>
+            <Label fx:id="tags" text="\$tags" styleClass="cell_small_label" wrapText="true"/>
         </VBox>
     </GridPane>
 </HBox>

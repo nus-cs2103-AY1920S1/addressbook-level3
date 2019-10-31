@@ -30,6 +30,7 @@ import tagline.model.note.Note;
 import tagline.model.note.NoteId;
 import tagline.model.note.NoteModel;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.Tag;
 import tagline.testutil.NoteBuilder;
 
 class CreateNoteCommandTest {
@@ -152,6 +153,16 @@ class CreateNoteCommandTest {
 
         @Override
         public Optional<Note> findNote(NoteId noteId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void tagNote(Note target, Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void untagNote(Note target, Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -353,6 +364,16 @@ class CreateNoteCommandTest {
         }
 
         @Override
+        public void tagNote(Note note, Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void untagNote(Note note, Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Note> getFilteredNoteList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -389,6 +410,11 @@ class CreateNoteCommandTest {
 
         @Override
         public void updateFilteredGroupList(Predicate<Group> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Tag createOrFindTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
 

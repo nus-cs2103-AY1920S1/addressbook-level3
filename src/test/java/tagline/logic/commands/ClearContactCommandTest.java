@@ -15,6 +15,7 @@ import tagline.model.UserPrefs;
 import tagline.model.contact.AddressBook;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 
 public class ClearContactCommandTest {
 
@@ -32,9 +33,9 @@ public class ClearContactCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearContactCommand(), model, ClearContactCommand.MESSAGE_SUCCESS,
@@ -44,9 +45,9 @@ public class ClearContactCommandTest {
     @Test
     public void execute_nonEmptyAddressBookAndNoteBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), getTypicalNoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalNoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearContactCommand(), model, ClearContactCommand.MESSAGE_SUCCESS,
@@ -57,9 +58,9 @@ public class ClearContactCommandTest {
     @Test
     public void execute_nonEmptyAddressBookAndNoteBookAndGroupBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), getTypicalNoteBook(),
-                getTypicalGroupBook(), new UserPrefs());
+                getTypicalGroupBook(), new TagBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalNoteBook(),
-                getTypicalGroupBook(), new UserPrefs());
+                getTypicalGroupBook(), new TagBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearContactCommand(), model, ClearContactCommand.MESSAGE_SUCCESS,

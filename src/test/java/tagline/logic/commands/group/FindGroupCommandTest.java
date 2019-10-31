@@ -25,6 +25,7 @@ import tagline.model.contact.AddressBook;
 import tagline.model.group.GroupName;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindGroupCommand}.
@@ -33,9 +34,9 @@ public class FindGroupCommandTest {
 
     private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.GROUP_SINGLE;
     private Model model = new ModelManager(new AddressBook(), new NoteBook(),
-        getTypicalGroupBook(), new UserPrefs());
+        getTypicalGroupBook(), new TagBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(new AddressBook(), new NoteBook(),
-        getTypicalGroupBook(), new UserPrefs());
+        getTypicalGroupBook(), new TagBook(), new UserPrefs());
 
     @Test
     public void equals() {

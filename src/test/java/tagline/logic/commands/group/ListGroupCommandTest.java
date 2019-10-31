@@ -16,6 +16,7 @@ import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListGroupCommand.
@@ -29,10 +30,10 @@ public class ListGroupCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-            getTypicalGroupBookSomeNonExistingMembers(), new UserPrefs());
+            getTypicalGroupBookSomeNonExistingMembers(), new TagBook(), new UserPrefs());
         // tests if contacts not in the TypicalAddressBook are removed as well
         expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
-            getTypicalGroupBookExistingMembers(), new UserPrefs());
+            getTypicalGroupBookExistingMembers(), new TagBook(), new UserPrefs());
     }
 
     @Test

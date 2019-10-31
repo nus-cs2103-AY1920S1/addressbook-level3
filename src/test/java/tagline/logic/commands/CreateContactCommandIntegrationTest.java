@@ -16,6 +16,7 @@ import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code CreateContactCommand}.
@@ -28,7 +29,7 @@ public class CreateContactCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
     }
 
     @Test
@@ -36,7 +37,7 @@ public class CreateContactCommandIntegrationTest {
         Contact validContact = new ContactBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.addContact(validContact);
 
         assertCommandSuccess(new CreateContactCommand(validContact), model,

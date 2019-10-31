@@ -29,6 +29,7 @@ import tagline.model.UserPrefs;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.tag.TagBook;
 import tagline.storage.JsonUserPrefsStorage;
 import tagline.storage.StorageManager;
 import tagline.storage.contact.JsonAddressBookStorage;
@@ -163,7 +164,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getNoteBook(),
-            model.getGroupBook(), new UserPrefs());
+            model.getGroupBook(), new TagBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

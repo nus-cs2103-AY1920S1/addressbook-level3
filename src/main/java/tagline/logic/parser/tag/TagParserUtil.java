@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.contact.ContactId;
 import tagline.model.tag.ContactTag;
+import tagline.model.tag.HashTag;
 import tagline.model.tag.Tag;
 
 /**
@@ -36,8 +37,13 @@ public class TagParserUtil {
         final String tagValue = matcher.group("tagValue");
 
         switch (tagKey) {
+
+        case HashTag.TAG_PREFIX:
+            return parseHashTag(tagValue);
+
         case ContactTag.TAG_PREFIX:
             return parseContactTag(tagValue);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_TAG);
         }
@@ -49,5 +55,9 @@ public class TagParserUtil {
 
     private static ContactTag parseContactTag(String arg) {
         return new ContactTag(new ContactId(arg));
+    }
+
+    private static HashTag parseHashTag(String arg) {
+        return new HashTag(arg);
     }
 }

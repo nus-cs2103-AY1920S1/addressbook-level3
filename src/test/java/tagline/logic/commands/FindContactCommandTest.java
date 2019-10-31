@@ -23,6 +23,7 @@ import tagline.model.UserPrefs;
 import tagline.model.contact.NameContainsKeywordsPredicate;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindContactCommand}.
@@ -31,9 +32,9 @@ public class FindContactCommandTest {
 
     private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-        new GroupBook(), new UserPrefs());
+        new GroupBook(), new TagBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-        new GroupBook(), new UserPrefs());
+        new GroupBook(), new TagBook(), new UserPrefs());
 
     @Test
     public void equals() {

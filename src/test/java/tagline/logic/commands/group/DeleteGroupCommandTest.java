@@ -21,6 +21,7 @@ import tagline.model.contact.AddressBook;
 import tagline.model.group.Group;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -30,7 +31,7 @@ class DeleteGroupCommandTest {
 
     private static final ViewType DELETE_GROUP_COMMAND_VIEW_TYPE = ViewType.GROUP_LIST;
     private Model model = new ModelManager(new AddressBook(), new NoteBook(),
-            getTypicalGroupBook(), new UserPrefs());
+            getTypicalGroupBook(), new TagBook(), new UserPrefs());
 
     @Test
     public void constructor_nullGroup_throwsNullPointerException() {
@@ -47,7 +48,7 @@ class DeleteGroupCommandTest {
                 groupToDelete.getGroupName().value);
 
         Model expectedModel = new ModelManager(new AddressBook(), new NoteBook(),
-                model.getGroupBook(), new UserPrefs());
+                model.getGroupBook(), new TagBook(), new UserPrefs());
         expectedModel.deleteGroup(groupToDelete);
 
         assertCommandSuccess(deleteGroupCommand, model, expectedMessage, DELETE_GROUP_COMMAND_VIEW_TYPE, expectedModel);
@@ -63,7 +64,7 @@ class DeleteGroupCommandTest {
 
         // note, Deleting a Group will only say that the GroupName has been deleted unlike other commands
         Model expectedModel = new ModelManager(new AddressBook(), new NoteBook(),
-            model.getGroupBook(), new UserPrefs());
+            model.getGroupBook(), new TagBook(), new UserPrefs());
 
         expectedModel.deleteGroup(groupToDelete);
 

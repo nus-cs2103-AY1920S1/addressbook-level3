@@ -7,12 +7,15 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import tagline.commons.core.GuiSettings;
 import tagline.model.ReadOnlyUserPrefs;
+import tagline.model.tag.Tag;
 
 /**
  * The API of the NoteModel component.
  */
 public interface NoteModel {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     /**
@@ -50,7 +53,9 @@ public interface NoteModel {
      */
     void setNoteBook(ReadOnlyNoteBook noteBook);
 
-    /** Returns the NoteBook */
+    /**
+     * Returns the NoteBook
+     */
     ReadOnlyNoteBook getNoteBook();
 
     /**
@@ -79,15 +84,29 @@ public interface NoteModel {
 
     /**
      * Finds a {@code Note} based on the {@code noteId}.
+     *
      * @return Optional object if corresponding note is found, empty otherwise
      */
-    public Optional<Note> findNote(NoteId noteId);
+    Optional<Note> findNote(NoteId noteId);
 
-    /** Returns an unmodifiable view of the filtered note list */
+    /**
+     * Tags a note.
+     */
+    void tagNote(Note note, Tag tag);
+
+    /**
+     * Untags a note.
+     */
+    void untagNote(Note note, Tag tag);
+
+    /**
+     * Returns an unmodifiable view of the filtered note list
+     */
     ObservableList<Note> getFilteredNoteList();
 
     /**
      * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNoteList(Predicate<Note> predicate);

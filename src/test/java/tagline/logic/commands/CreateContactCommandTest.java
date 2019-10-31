@@ -30,6 +30,7 @@ import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.Tag;
 
 public class CreateContactCommandTest {
 
@@ -234,6 +235,16 @@ public class CreateContactCommandTest {
         }
 
         @Override
+        public void tagNote(Note note, Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void untagNote(Note note, Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Note> getFilteredNoteList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -270,6 +281,11 @@ public class CreateContactCommandTest {
 
         @Override
         public void updateFilteredGroupList(Predicate<Group> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Tag createOrFindTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
 

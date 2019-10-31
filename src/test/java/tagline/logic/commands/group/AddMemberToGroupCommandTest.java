@@ -26,6 +26,7 @@ import tagline.model.group.Group;
 import tagline.model.group.GroupBook;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 import tagline.testutil.EditGroupDescriptorBuilder;
 import tagline.testutil.GroupBuilder;
 
@@ -37,7 +38,7 @@ public class AddMemberToGroupCommandTest {
 
     private static final ViewType ADD_MEMBER_COMMAND_VIEW_TYPE = ViewType.GROUP_SINGLE;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-        getTypicalGroupBookExistingMembers(), new UserPrefs());
+        getTypicalGroupBookExistingMembers(), new TagBook(), new UserPrefs());
 
     @Test
     public void execute_addMemberFieldsSpecified_success() {
@@ -58,7 +59,7 @@ public class AddMemberToGroupCommandTest {
         String expectedMessage = String.format(AddMemberToGroupCommand.MESSAGE_ADD_MEMBER_SUCCESS, editedGroup);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new NoteBook(), new GroupBook(model.getGroupBook()), new UserPrefs());
+                new NoteBook(), new GroupBook(model.getGroupBook()), new TagBook(), new UserPrefs());
         expectedModel.setGroup(lastGroup, editedGroup);
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
@@ -79,7 +80,7 @@ public class AddMemberToGroupCommandTest {
         String expectedMessage = String.format(AddMemberToGroupCommand.MESSAGE_ADD_MEMBER_SUCCESS, editedGroup);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new NoteBook(),
-            new GroupBook(model.getGroupBook()), new UserPrefs());
+            new GroupBook(model.getGroupBook()), new TagBook(), new UserPrefs());
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
         expectedModel.updateFilteredContactList(GroupCommand.memberIdsToContactIdPredicate(editedGroup.getMemberIds()));

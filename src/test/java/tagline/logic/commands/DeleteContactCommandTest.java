@@ -22,6 +22,7 @@ import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -31,7 +32,7 @@ public class DeleteContactCommandTest {
 
     private static final ViewType DELETE_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-        new GroupBook(), new UserPrefs());
+        new GroupBook(), new TagBook(), new UserPrefs());
 
     @Test
     public void execute_validContactId_success() {
@@ -41,7 +42,7 @@ public class DeleteContactCommandTest {
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
         assertCommandSuccess(deleteContactCommand, model, expectedMessage,
@@ -56,7 +57,7 @@ public class DeleteContactCommandTest {
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
-             new GroupBook(), new UserPrefs());
+             new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
         showNoContact(model);

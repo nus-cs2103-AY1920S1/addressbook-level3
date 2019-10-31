@@ -21,6 +21,7 @@ import tagline.model.group.GroupBook;
 import tagline.model.group.GroupName;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.note.NoteBook;
+import tagline.model.tag.TagBook;
 import tagline.testutil.GroupBuilder;
 
 /**
@@ -29,12 +30,12 @@ import tagline.testutil.GroupBuilder;
 public class GroupCommandTest {
 
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-        new GroupBook(), new UserPrefs());
+        new GroupBook(), new TagBook(), new UserPrefs());
 
     @Test
     public void findOneGroup_zeroKeywords_noGroupFound() {
         Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-            getTypicalGroupBook(), new UserPrefs());
+            getTypicalGroupBook(), new TagBook(), new UserPrefs());
 
         // empty predicate
         GroupNameEqualsKeywordPredicate predicate = prepareGroupPredicate(MYSTIC_ARTS.getGroupName().value);
@@ -44,7 +45,7 @@ public class GroupCommandTest {
     @Test
     public void findOneGroup_oneKeyword_noGroupFound() {
         Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-            getTypicalGroupBook(), new UserPrefs());
+            getTypicalGroupBook(), new TagBook(), new UserPrefs());
 
         // empty predicate
         //GroupNameEqualsKeywordPredicate predicate = prepareGroupPredicate("");
@@ -56,7 +57,7 @@ public class GroupCommandTest {
     @Test
     public void findOneGroup_keyword_groupFound() {
         Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-            getTypicalGroupBook(), new UserPrefs());
+            getTypicalGroupBook(), new TagBook(), new UserPrefs());
 
         String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 0);
         GroupNameEqualsKeywordPredicate predicate = prepareGroupPredicate("wakandan-royal-gUARd");
@@ -72,7 +73,7 @@ public class GroupCommandTest {
     public void verifyMemberIdWithModel_test() {
         //  TypicalAddressBook contains Ids 1 to 7
         Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-            new GroupBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
 
         // All GroupMembers verified and exists in ContactList
         Group testGroup = new GroupBuilder().withGroupName("BTS").withMemberIds("1", "00002").build();
@@ -81,21 +82,21 @@ public class GroupCommandTest {
 
         // Some GroupMembers not in ContactList
         model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-                new GroupBook(), new UserPrefs());
+                new GroupBook(), new TagBook(), new UserPrefs());
         Group testGroup2 = new GroupBuilder().withGroupName("BTS").withMemberIds("1", "00002", "99999").build();
         Group refGroup2 = new GroupBuilder().withGroupName("BTS").withMemberIds("1", "00002").build();
         assertTrue(refGroup2.equals(GroupCommand.verifyGroupWithModel(model, testGroup2)));
 
         // All GroupMembers not in ContactList
         model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-                new GroupBook(), new UserPrefs());
+                new GroupBook(), new TagBook(), new UserPrefs());
         Group testGroup3 = new GroupBuilder().withGroupName("BTS").withMemberIds("70", "14", "99999").build();
         Group refGroup3 = new GroupBuilder().withGroupName("BTS").build();
         assertTrue(refGroup3.equals(GroupCommand.verifyGroupWithModel(model, testGroup3)));
 
         // All GroupMembers not in ContactList
         model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
-                new GroupBook(), new UserPrefs());
+                new GroupBook(), new TagBook(), new UserPrefs());
         Group testGroup4 = new GroupBuilder().withGroupName("BTS").build();
         Group refGroup4 = new GroupBuilder().withGroupName("BTS").build();
         assertTrue(refGroup4.equals(GroupCommand.verifyGroupWithModel(model, testGroup4)));

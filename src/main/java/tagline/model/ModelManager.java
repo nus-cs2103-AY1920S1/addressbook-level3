@@ -25,6 +25,10 @@ import tagline.model.note.NoteBook;
 import tagline.model.note.NoteId;
 import tagline.model.note.NoteManager;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
+import tagline.model.tag.Tag;
+import tagline.model.tag.TagBook;
+import tagline.model.tag.TagManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -35,13 +39,14 @@ public class ModelManager implements Model {
     private final ContactManager contactManager;
     private final NoteManager noteManager;
     private final GroupManager groupManager;
+    private final TagManager tagManager;
     private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyNoteBook noteBook,
-        ReadOnlyGroupBook groupBook, ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyGroupBook groupBook, ReadOnlyTagBook tagBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -52,19 +57,20 @@ public class ModelManager implements Model {
         contactManager = new ContactManager(addressBook);
         noteManager = new NoteManager(noteBook);
         groupManager = new GroupManager(groupBook);
+        tagManager = new TagManager(tagBook);
         this.userPrefs = new UserPrefs(userPrefs);
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        this(addressBook, new NoteBook(), new GroupBook(), userPrefs);
+        this(addressBook, new NoteBook(), new GroupBook(), new TagBook(), userPrefs);
     }
 
     public ModelManager(ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
-        this(new AddressBook(), noteBook, new GroupBook(), userPrefs);
+        this(new AddressBook(), noteBook, new GroupBook(), new TagBook(), userPrefs);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new NoteBook(), new GroupBook(), new UserPrefs());
+        this(new AddressBook(), new NoteBook(), new GroupBook(), new TagBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -220,6 +226,16 @@ public class ModelManager implements Model {
         return noteManager.findNote(noteId);
     }
 
+    @Override
+    public void tagNote(Note note, Tag tag) {
+        noteManager.tagNote(note, tag);
+    }
+
+    @Override
+    public void untagNote(Note note, Tag tag) {
+        noteManager.untagNote(note, tag);
+    }
+
     //=========== Filtered Note List Accessors =============================================================
 
     /**
@@ -290,7 +306,20 @@ public class ModelManager implements Model {
         return groupManager.getFilteredGroupListWithPredicate(predicate);
     }
 
+    //=========== TagBook ====================================================================================
 
+    @Override
+    public Tag createOrFindTag(Tag tag) {
+        Optional<Tag> foundTag = tagManager.findTag(tag);
+
+        if (foundTag.isPresent()) {
+            return foundTag.get();
+        }
+
+        tagManager.addTag(tag);
+
+        return tag;
+    }
     //========================================================================================================
 
     @Override

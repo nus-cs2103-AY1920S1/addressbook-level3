@@ -70,6 +70,24 @@ public class Note {
     }
 
     /**
+     * Adds new tag. Duplicate will not be inserted.
+     *
+     * @return True if tag is successfully inserted.
+     */
+    public Boolean addTag(Tag tag) {
+        return tags.add(tag);
+    }
+
+    /**
+     * Removes a tag if it exist.
+     *
+     * @return True if tag is successfully removed.
+     */
+    public Boolean removeTag(Tag tag) {
+        return tags.remove(tag);
+    }
+
+    /**
      * Returns true if both notes have the same id.
      * This defines a weaker notion of equality between two persons.
      */
