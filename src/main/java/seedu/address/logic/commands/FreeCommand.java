@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import java.util.Objects;
 import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Driver;
@@ -18,8 +17,11 @@ import seedu.address.model.task.Task;
  */
 public class FreeCommand extends Command {
     public static final String COMMAND_WORD = "free";
-    public static final String MESSAGE_FREE_SUCCESS = "Task #%1$s is no longer assigned to %2$s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Remove a driver from a task, and set the corresponding"
+    public static final String MESSAGE_FREE_SUCCESS = "Task #%1$s is no longer assigned to %2$s.";
+    public static final String MESSAGE_TASK_NOT_ASSIGNED = "Task #%1$s is not assigned to a driver.";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Remove a driver from a task, and set the corresponding "
             + "start and end time. "
             + "\n"
             + "Parameters: "
@@ -29,15 +31,12 @@ public class FreeCommand extends Command {
             + PREFIX_DRIVER + "1 "
             + PREFIX_TASK + "3 ";
 
-    private int driverId;
     private int taskId;
 
     /**
-     * @param driverId driver's ID
-     * @param taskId   task's ID
+     * @param taskId task's ID
      */
-    public FreeCommand(int driverId, int taskId) {
-        this.driverId = driverId;
+    public FreeCommand(int taskId) {
         this.taskId = taskId;
     }
 
@@ -67,17 +66,18 @@ public class FreeCommand extends Command {
         if (!model.hasTask(taskId)) {
             throw new CommandException(Task.MESSAGE_INVALID_ID);
         }
-        if (!model.hasDriver(driverId)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
 
-        Driver driver = model.getDriver(driverId);
         Task task = model.getTask(taskId);
+        Driver driver = task.getDriver()
+                .orElseThrow(() -> new CommandException(String.format(MESSAGE_TASK_NOT_ASSIGNED, task.getId())));
 
         freeDriverFromTask(driver, task);
 
-        return new CommandResult(String.format(MESSAGE_FREE_SUCCESS, task.getId(), driver.getName().fullName));
+        // update GUI
+        model.setTask(task, task);
+        model.setDriver(driver, driver);
 
+        return new CommandResult(String.format(MESSAGE_FREE_SUCCESS, task.getId(), driver.getName().fullName));
     }
 
     @Override
@@ -89,12 +89,11 @@ public class FreeCommand extends Command {
             return false;
         }
         FreeCommand that = (FreeCommand) o;
-        return driverId == that.driverId
-                && taskId == that.taskId;
+        return taskId == that.taskId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(driverId, taskId);
+        return Objects.hash(taskId);
     }
 }

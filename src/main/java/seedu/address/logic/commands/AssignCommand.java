@@ -14,8 +14,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.EventTime;
 import seedu.address.model.Model;
 import seedu.address.model.person.Driver;
+import seedu.address.model.person.Schedule;
 import seedu.address.model.person.exceptions.SchedulingException;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -23,7 +25,8 @@ import seedu.address.model.task.Task;
 public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned #%1$d to %2$s at %3$s";
-    public static final String MESSAGE_EVENT_START_BEFORE_NOW = "The proposed time is in the past.";
+    public static final String MESSAGE_ALREADY_ASSIGNED = "This task is already scheduled.";
+    public static final String MESSAGE_PROMPT_FORCE = "Use 'assign force' to override the suggestion.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assign a driver the specified task, with a proposed "
             + "start and end time. "
             + "\n"
@@ -67,12 +70,18 @@ public class AssignCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Driver driver = model.getDriver(driverId);
         Task task = model.getTask(taskId);
+        if (task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
+                || task.getEventTime().isPresent()) {
+            throw new CommandException(MESSAGE_ALREADY_ASSIGNED);
+        }
+
+
+        Driver driver = model.getDriver(driverId);
 
         // check current time against system time
         if (eventTime.getStart().compareTo(GlobalClock.timeNow()) < 0) {
-            throw new CommandException(MESSAGE_EVENT_START_BEFORE_NOW);
+            throw new CommandException(Schedule.MESSAGE_EVENT_START_BEFORE_NOW);
         }
 
 
@@ -84,6 +93,9 @@ public class AssignCommand extends Command {
         forceAssign(driver, task, eventTime);
 
         // TODO: update GUI
+        model.setTask(task, task);
+        model.setDriver(driver, driver);
+
         return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS,
                 task.getId(), driver.getName().fullName, eventTime.toString()));
 

@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
 
+import seedu.address.logic.commands.AssignCommand;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
 
@@ -20,6 +21,7 @@ public class Schedule {
     public static final String MESSAGE_SUGGEST_TIME_FORMAT = "Suggested Time: %s";
     public static final String MESSAGE_SCHEDULE_CONFLICT = "The duration conflicts with the existing schedule.";
     public static final String MESSAGE_OUTSIDE_WORKING_HOURS = "The person does not work during the specified time.";
+    public static final String MESSAGE_EVENT_START_BEFORE_NOW = "The proposed time is in the past.";
 
     private static final String START_WORK_TIME = "0900";
     private static final String END_WORK_TIME = "1800";
@@ -49,6 +51,8 @@ public class Schedule {
                 .orElse("");
 
         String returnSuggestion = suggested.isEmpty() ? "" : "\n" + suggested;
+
+
         if (isOutsideWorkingHours(eventTime)) {
             return MESSAGE_OUTSIDE_WORKING_HOURS + returnSuggestion;
         }
@@ -57,11 +61,17 @@ public class Schedule {
             return MESSAGE_SCHEDULE_CONFLICT + returnSuggestion;
         }
 
-        return suggested;
+        if (suggested.isEmpty()) {
+            // no suggestion, the command is good
+            return suggested;
+        }
+
+        // has suggestion but dismissible
+        return suggested + "\n" + AssignCommand.MESSAGE_PROMPT_FORCE;
     }
 
     /**
-     * Blocks off the owner's schedule with the given duration.
+     * Blocks off the owner's schedule with the given duration. This action doesn't check the current time.
      *
      * @param eventTime incoming task
      */
@@ -82,7 +92,7 @@ public class Schedule {
 
     /**
      * Finds the earliest available EventTime has the same length of proposed, and fits in the schedule.
-     * This method will check against the given time.
+     * This method will check against the current time.
      *
      * @param proposed a proposed time slot
      * @param timeNow  time now
@@ -92,8 +102,8 @@ public class Schedule {
     public Optional<EventTime> findFirstAvailableSlot(EventTime proposed, LocalTime timeNow) {
         Duration length = proposed.getDuration();
 
-        // get a view of the schedule, from system time to the last EventTime that is later than the proposed time
-        EventTime lastCandidate = schedule.ceiling(proposed);
+        // get a view of the schedule, from system time to the last EventTime in the schedule
+        EventTime lastCandidate = schedule.last();
 
         // HACK: using a zero minute event time to get the tailset
         EventTime now = new EventTime(timeNow, timeNow);

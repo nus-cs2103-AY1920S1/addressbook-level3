@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.FreeCommand;
@@ -27,16 +26,13 @@ public class FreeCommandParser implements Parser<FreeCommand> {
      */
     public FreeCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DRIVER, PREFIX_TASK);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TASK);
 
         // driver and task must both be present
-        String driver = argMultimap.getValue(PREFIX_DRIVER).orElseThrow(FreeCommandParser::getWrongFormatException);
-        int driverId = ParserUtil.parseId(driver);
-
         String task = argMultimap.getValue(PREFIX_TASK).orElseThrow(FreeCommandParser::getWrongFormatException);
         int taskId = ParserUtil.parseId(task);
 
-        return new FreeCommand(driverId, taskId);
+        return new FreeCommand(taskId);
     }
 
 }
