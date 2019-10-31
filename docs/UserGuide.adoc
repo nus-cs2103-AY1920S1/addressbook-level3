@@ -57,9 +57,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Graphic User Interface
 
 // insert picture
-There are two lists shown on the Graphic User Interface(GUI), `View` and `All items`. On the left which is the `View` list, you can see items
-displayed like cards. This list shows you the current view of items. As you manipulate the items using
+There are two lists shown on the Graphic User Interface(GUI), `View` and `All items`. On the left which is the `View` list.
+This list shows you the current view of items. As you manipulate the items using
 `search`, or `check`, `View` list will change accordingly to show you only the items you want to see.
+
+// insert picture
+This is how your item will look like in the `View` list. The colour of the card changes according to
+the status of your item. +
+An expired item will be red. +
+// insert picture
+An item that is going to expire soon will be yellow. You can set when to mark an item yellow based
+on individual cases. See more information here: <<Reminder>>. +
+// insert picture
+An item that has not expired and is not going to expire soon will be green.
 
 // insert picture
 If the name or other details of the item is shortened with `...`, you can click on the card to expand it.
@@ -76,7 +86,7 @@ also be able to see a failure message and relevant suggestions in the box.
 
 // insert picture
 Finally, at the very bottom, you can find a small rounded rectangle box that says "Enter command here...". This
-is where you can type your command. Try typing `add|Banana|1/11/2020` and press kbd:[enter], there you go the first item in your tracking list!
+is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], there you go the first item in your tracking list!
 
 [[Features]]
 == Features
@@ -279,10 +289,11 @@ Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
 // end::tag[]
 
 // tag::set reminder[]
+[[Reminder]]
 ==== Setting reminder for an item: `set reminder`
 
 ===== Setting the number of days before an item's expiry date to start reminding you
-Sets a reminder threshold for your item. +
+Sets a notification for your item. +
 Format: `set reminder|<index>|<reminder threshold>`
 
 This allows the check command to quickly find the item once the reminder threshold is exceeded.
