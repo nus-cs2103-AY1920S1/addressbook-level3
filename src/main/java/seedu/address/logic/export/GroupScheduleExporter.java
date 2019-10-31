@@ -25,6 +25,10 @@ public class GroupScheduleExporter implements Exporter {
         this.groupInformation = groupInformation;
     }
 
+    /**
+     * Method to export this group's schedule to a png file.
+     * @throws IOException to be handled elsewhere.
+     */
     public void export() throws IOException {
         HBox exportContainer = new HBox();
         exportContainer.getChildren().addAll(groupInformation.getRoot(), scheduleView.getRoot());

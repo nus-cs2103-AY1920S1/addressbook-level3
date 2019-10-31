@@ -21,7 +21,7 @@ public class IndividualScheduleExporter implements Exporter {
     }
 
     /**
-     * Method to export this individual schedule to a png file.
+     * Method to export this individual's schedule to a png file.
      * @throws IOException to be handled elsewhere.
      */
     public void export() throws IOException {
