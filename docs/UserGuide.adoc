@@ -197,12 +197,13 @@ Alternatively, if no activity is currently viewed, an activity titled `Drinks` w
 
 Edits some details of the current contact or activity in view. +
 
-Format: `edit [n/NAME] [hp/PHONE] ...` for contacts OR `edit [t/ACTIVITY_TITLE] ...` for activities.
+Format: `edit INDEX [n/NAME] [hp/PHONE] ...` for contacts OR `edit [t/ACTIVITY_TITLE] ...` for activities.
 
 ****
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * Expenses cannot be edited.
+* Editing activities is not presently available (coming in v1.4)
 ****
 
 Examples:
@@ -212,7 +213,7 @@ Edits the phone number of the current contact in view to `999`. No changes are m
 * `edit t/BBQ` +
 Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
 
-=== Finding contacts or activities: `find`
+=== Finding contacts or activities (v1.4): `find`
 
 Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
 
@@ -233,7 +234,7 @@ Returns contacts (e.g. `john` and `John Doe`) and activities (e.g. `John birthda
 * `find Betsy Tim John` +
 Returns any contact or activity whose name or title contains the word `Betsy`, `Tim`, or `John`.
 
-=== Deleting a contact, activity or expense : `delete`
+=== Deleting a contact, activity or expense (v1.4) : `delete`
 
 Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action.
 
