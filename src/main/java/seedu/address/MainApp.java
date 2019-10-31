@@ -7,7 +7,6 @@ import static seedu.address.model.util.SampleDataUtil.getSampleScheduleBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -29,10 +28,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.Status;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
-//import seedu.address.model.util.SampleDataUtil;
 import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.AddressBookStorage;
