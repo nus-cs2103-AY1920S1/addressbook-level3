@@ -16,7 +16,7 @@ import seedu.ichifund.model.transaction.Category;
  * Represents a data field in an analytics report.
  * Guarantees: immutable
  */
-public class Data {
+public class Data implements Comparable<Data> {
 
     private final String description;
     private final Amount amount;
@@ -84,6 +84,11 @@ public class Data {
                 && otherData.getMonth().equals(getMonth())
                 && otherData.getDay().equals(getDay())
                 && otherData.getCategory().equals(getCategory());
+    }
+
+    @Override
+    public int compareTo(Data other) {
+        return other.getAmount().compareTo(getAmount());
     }
 
     @Override

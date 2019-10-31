@@ -25,11 +25,11 @@ import seedu.ichifund.model.transaction.Transaction;
 /**
  * Generates a report for expenditure breakdown by category.
  */
-public class BreakdownCommand extends Command {
+public class CategoryRankingCommand extends Command {
 
-    public static final String COMMAND_WORD = "breakdown";
+    public static final String COMMAND_WORD = "catrank";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays breakdown of expenditure by category for the "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays expenditure category ranking chart for the "
             + "month and/or year specified, or current month and/or year if month and/or year is unspecified."
             + "Parameters: "
             + "[" + PREFIX_MONTH + "MONTH] "
@@ -38,7 +38,7 @@ public class BreakdownCommand extends Command {
             + PREFIX_MONTH + "7 "
             + PREFIX_YEAR + "2019 ";
 
-    public static final String MESSAGE_SUCCESS = "Breakdown of expenditure by category for %1$s %2$s displayed.";
+    public static final String MESSAGE_SUCCESS = "Expenditure category ranking chart for %1$s %2$s displayed.";
 
     public static final String REPORT_DESCRIPTION = "Total expenditure on %1$s for %2$s %3$s";
 
@@ -51,7 +51,7 @@ public class BreakdownCommand extends Command {
      * @param month A month.
      * @param year A year.
      */
-    public BreakdownCommand(Optional<Month> month, Optional<Year> year) {
+    public CategoryRankingCommand(Optional<Month> month, Optional<Year> year) {
         requireNonNull(month);
         requireNonNull(year);
         this.month = month.orElseGet(Month::getCurrent);
@@ -103,7 +103,7 @@ public class BreakdownCommand extends Command {
         requireNonNull(model);
         BreakdownReport report = createBreakdownReport(month, year);
         fillBreakdownReport(model, report);
-        model.updateDataList(report.getBreakdownList());
+        model.updateDataList(report.getSortedBreakdownList());
         return new CommandResult(String.format(MESSAGE_SUCCESS, month.wordString(), year.toString()));
     }
 }

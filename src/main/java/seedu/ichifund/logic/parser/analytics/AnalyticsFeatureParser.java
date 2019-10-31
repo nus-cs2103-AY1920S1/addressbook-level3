@@ -3,8 +3,10 @@ package seedu.ichifund.logic.parser.analytics;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import seedu.ichifund.logic.commands.Command;
+
 import seedu.ichifund.logic.commands.analytics.BalanceTrendCommand;
 import seedu.ichifund.logic.commands.analytics.BreakdownCommand;
+import seedu.ichifund.logic.commands.analytics.CategoryRankingCommand;
 import seedu.ichifund.logic.commands.analytics.ExpenditureTrendCommand;
 import seedu.ichifund.logic.commands.analytics.IncomeTrendCommand;
 import seedu.ichifund.logic.parser.FeatureParser;
@@ -42,6 +44,9 @@ public class AnalyticsFeatureParser implements FeatureParser {
 
         case BreakdownCommand.COMMAND_WORD:
             return new BreakdownCommandParser().parse(arguments);
+
+        case CategoryRankingCommand.COMMAND_WORD:
+            return new CategoryRankingCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

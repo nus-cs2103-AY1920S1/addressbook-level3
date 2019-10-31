@@ -31,7 +31,7 @@ public class IncomeTrendCommand extends TrendCommand {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_YEAR + "2019 ";
 
-    public static final String MESSAGE_SUCCESS = "Monthly income trend for year %1$s displayed.";
+    public static final String MESSAGE_SUCCESS = "Monthly income trend for %1$s displayed.";
 
     public static final String REPORT_DESCRIPTION = "Total income for %1$s %2$s";
 
@@ -79,6 +79,6 @@ public class IncomeTrendCommand extends TrendCommand {
         TrendReport report = createTrendReport(year);
         fillIncomeTrendReport(model, report);
         model.updateDataList(report.getTrendList());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, year));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, year.toString()));
     }
 }
