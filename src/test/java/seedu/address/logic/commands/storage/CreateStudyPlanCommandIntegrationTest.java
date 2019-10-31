@@ -35,6 +35,7 @@ public class CreateStudyPlanCommandIntegrationTest {
         Model expectedModel = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
         expectedModel.addStudyPlan(validStudyPlan);
         expectedModel.activateStudyPlan(validStudyPlan.getIndex());
+
         expectedModel.addToHistory();
 
         CreateStudyPlanCommand command = new CreateStudyPlanCommand(validStudyPlan.getTitle().toString());

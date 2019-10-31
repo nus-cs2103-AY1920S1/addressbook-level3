@@ -51,7 +51,7 @@ or as `newplan Algo and Graphics`.
 
 ====
 
-=== Storage
+=== Storage and Version Tracking
 
 ==== Creating a new study plan: `newplan`
 Creates a new study plan with an optional title. +
@@ -82,13 +82,13 @@ Shows all commit history of the current study plan. +
 Format: `history`
 
 ==== Viewing a commit: `viewcommit`
-Shows the version of the current study plan for a particular commit.This does not discard the commits after the
-specified commit. +
+Shows the version of the current study plan for a particular commit.This does not create a new commit, nor does it
+return the study plan to a previous version. The commit will be displayed as a simplified study plan. +
 Format: `viewcommit COMMIT_NUMBER` +
 Example:
 
 * `viewcommit 1.1`
-* `This allows the user to view commit 1 of study plan 1.`
+* `This allows the user to view commit 1 of study plan 1 (which is currently active).`
 
 ==== Reverting to a commit: `revert`
 Reverts to the version of the current study plan for a particular commit. This creates a new "revert" commit and
@@ -108,7 +108,9 @@ Example:
 * `deletecommit 2.2`
 
 ==== Viewing another study plan: `viewplan`
-Shows the study plan with a given index. +
+Shows the study plan with a given index. The specified study plan will be displayed on the left panel of the GUI
+as a simplified study plan. This does not activate that study plan, so it is for viewing only. +
+
 Format: `viewplan PLAN_NUMBER` +
 Example:
 
@@ -122,30 +124,38 @@ Example:
 
 * `activate 2`
 
-==== Moving a semester to a study plan: `move`
+==== Moving a semester to a study plan: `movesem` `[coming in v2.0]`
 Moves a semester of modules to another study plan with a specified index. +
 
-[NOTE]
-This is the same command as 3.4 (`move MODULE SEM_SRC SEM_DEST`). The parser will handle the different
-command interpretation.
-
-Format: `move SEMESTER SOURCE_PLAN DESTINATION_PLAN` +
+Format: `movesem SEMESTER SOURCE_PLAN DESTINATION_PLAN` +
 Examples:
 
-* `move y2s2 1 3`
-* `move y3s1 2 1`
+* `movesem y2s2 1 3`
+* `movesem y3s1 2 1`
 
-==== Deleting a semester from a study plan: `remove`
-Deletes a semester of modules in the current active study plan, after which the semester will contain no modules. +
+==== Adding a semester: `addsem`
+Adds a _non_mainstream_semester_ (i.e. special term or Year 5 semester) to the current active study plan.
 
 [NOTE]
-This is the same command as 3.2 (`remove SEMESTER MODULE`). The parser will handle the different command
-interpretation.
+The user is not allowed to add a _mainstream_semester_. The eight default semesters will always be displayed on
+the GUI.
 
-Format: `remove SEMESTER` +
+Format: `addsem SEMESTER` +
 Example:
 
-* `remove y2s2`
+* `addsem y5s1`
+
+==== Removing a semester from a study plan: `removesem`
+Deletes all the modules in the specified semester in the current active study plan, after which that
+semester will contain no modules. If the semester to be deleted is a _mainstream semester_  (i.e. not a special term
+or a Year 5 semester), an empty semester will remain on the GUI. If the semester is a _non_mainstream semester_,
+e.g. Y1ST1, the whole semester will disappear from the current study plan. +
+
+Format: `removesem SEMESTER` +
+Examples:
+
+* `removesem y2s2`
+* `removesem y1st2`
 
 ==== Viewing description of a module: `description`
 Shows the description of a particular module, including its prerequisites. +
