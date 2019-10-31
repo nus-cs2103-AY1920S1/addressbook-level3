@@ -107,14 +107,6 @@ public class LoansManager {
     }
 
     /**
-     * Returns true if the list contains the given loan.
-     * @param toCheck The loan to check the list for.
-     */
-    public boolean containsLoan(Loan toCheck) {
-        return getLoans().contains(toCheck);
-    }
-
-    /**
      * Adds a given loan to the list.
      * @param toAdd The loan to add.
      */
