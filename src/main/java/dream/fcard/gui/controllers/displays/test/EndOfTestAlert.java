@@ -25,7 +25,7 @@ public class EndOfTestAlert {
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, closeButton);
         layout.setAlignment(Pos.CENTER);
-
+        //
         Scene scene = new Scene (layout);
         window.setScene(scene);
         window.showAndWait();
