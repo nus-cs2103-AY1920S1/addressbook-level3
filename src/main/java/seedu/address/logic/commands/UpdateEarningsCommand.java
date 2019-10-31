@@ -84,7 +84,7 @@ public class UpdateEarningsCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code earningsToEdit}
+     * Creates and returns a {@code Earnings} with the details of {@code earningsToEdit}
      * edited with {@code editEarningsDescriptor}.
      */
     private static Earnings createEditedEarnings(Earnings earningsToEdit,

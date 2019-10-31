@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RESULT;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.util.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

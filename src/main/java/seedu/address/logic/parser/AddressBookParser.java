@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEarningsCommand;
+import seedu.address.logic.commands.AssignClassCommand;
 import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -107,6 +108,7 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(LoginCommand.COMMAND_WORD, LoginCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(TotalEarningsCommand.COMMAND_WORD, TotalEarningsCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(AssignClassCommand.COMMAND_WORD, AssignClassCommand.COMMAND_WORD);
     }
 
     /**
@@ -232,6 +234,9 @@ public class AddressBookParser {
 
             case TotalEarningsCommand.COMMAND_WORD:
                 return new TotalEarningsCommand();
+
+            case AssignClassCommand.COMMAND_WORD:
+                return new AssignClassCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
