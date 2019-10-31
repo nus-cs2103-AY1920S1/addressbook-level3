@@ -15,8 +15,8 @@ import javafx.stage.Stage;
 public class GameWindow extends UiPart<Stage> {
 
     private static final String FXML = "GameWindow.fxml";
-    private static GameWindow gameInstance = null;
-    private Player player;
+    private static GameWindow gameInstance;
+    private static Player player;
 
     @FXML
     private AnchorPane gamePlay;
@@ -42,15 +42,13 @@ public class GameWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new Window with a new player.
-     */
-    private GameWindow() {
-        this(new Stage(), new Player());
-    }
-
+     * Creates a game instance in new Window with a new player if there is no existing game instance or if the current
+     * game is over.
+    */
     public static GameWindow getInstance() {
-        if (gameInstance == null) {
-            gameInstance = new GameWindow();
+        if (gameInstance == null || player.getGameOverProperty().get()) {
+            player = new Player();
+            gameInstance = new GameWindow(new Stage(), player);
         }
         return gameInstance;
     }
