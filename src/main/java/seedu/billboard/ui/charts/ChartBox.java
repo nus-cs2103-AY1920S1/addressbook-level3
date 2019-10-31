@@ -9,6 +9,7 @@ import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.statistics.generators.BreakdownGenerator;
+import seedu.billboard.model.statistics.generators.HeatMapGenerator;
 import seedu.billboard.model.statistics.generators.TimelineGenerator;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.ui.UiPart;
@@ -55,6 +56,8 @@ public class ChartBox extends UiPart<Region> {
         case BREAKDOWN:
             currentChart = new ExpenseBreakdownChart(expenses, new BreakdownGenerator());
             break;
+        case HEAT_MAP:
+            currentChart = new ExpenseHeatMapChart(expenses, new HeatMapGenerator());
         default:
             throw new UnsupportedOperationException("Chart not implemented for selected statistic");
         }
