@@ -21,20 +21,22 @@ import seedu.algobase.model.task.Task;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Plan> PREDICATE_SHOW_ALL_PLANS = unused -> true;
     Predicate<Problem> PREDICATE_SHOW_ALL_PROBLEMS = unused -> true;
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
-    Predicate<Plan> PREDICATE_SHOW_ALL_PLANS = unused -> true;
 
     //=========== UserPref ==============================================================
-    /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
-     */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     * @param userPrefs the user preference used to replace existing data
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -43,6 +45,7 @@ public interface Model {
 
     /**
      * Sets the user prefs' GUI settings.
+     * @param guiSettings the GUI settings used to replace existing data
      */
     void setGuiSettings(GuiSettings guiSettings);
 
@@ -53,6 +56,7 @@ public interface Model {
 
     /**
      * Sets the user prefs' algobase file path.
+     * @param algoBaseFilePath the file path used to replace existing data
      */
     void setAlgoBaseFilePath(Path algoBaseFilePath);
 
@@ -67,6 +71,7 @@ public interface Model {
 
     /**
      * Replaces algobase data with the data in {@code algoBase}.
+     * @param algoBase the data to be used to replace existing data
      */
     void setAlgoBase(ReadOnlyAlgoBase algoBase);
 
@@ -77,18 +82,21 @@ public interface Model {
 
     /**
      * Returns true if a Problem with the same identity as {@code Problem} exists in the algobase.
+     * @param problem the problem to be checked
      */
     boolean hasProblem(Problem problem);
 
     /**
      * Deletes the given Problem.
      * The Problem must exist in the algobase.
+     * @param problem the problem to be deleted
      */
-    void deleteProblem(Problem target);
+    void deleteProblem(Problem problem);
 
     /**
      * Adds the given Problem.
      * {@code Problem} must not already exist in the algobase.
+     * @param problem the problem to be added
      */
     void addProblem(Problem problem);
 
@@ -96,6 +104,8 @@ public interface Model {
      * Replaces the given Problem {@code target} with {@code editedProblem}.
      * {@code target} must exist in the algobase.
      * The Problem identity of {@code editedProblem} must not be the same as another existing Problem in the algobase.
+     * @param target the problem to be updated
+     * @param editedProblem the updated problem
      */
     void setProblem(Problem target, Problem editedProblem);
 
@@ -104,6 +114,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered Problem list to filter by the given {@code predicate}.
+     * @param predicate the predicate used to filter the Problem List
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredProblemList(Predicate<Problem> predicate);
@@ -115,34 +126,51 @@ public interface Model {
      */
     void updateSortedProblemList(Comparator<Problem> problemComparator);
 
+    /**
+     * Check if a problem is used in any plan.
+     * @param problem the problem to be checked
+     */
+    boolean checkIsProblemUsed(Problem problem);
+
+    /**
+     * Remove the given problem from all plans.
+     * @param problem the problem to be removed
+     */
+    void removeProblemFromAllPlans(Problem problem);
+
     //=========== Tag ===================================================================
 
     /**
      * Returns true if a Tag with the same identity as {@code Tag} exists in the algobase.
+     * @param tag the tag to be checked
      */
     boolean hasTag(Tag tag);
 
     /**
      * Deletes the given Tag.
      * The Tag must exist in the algobase.
+     * @param tag the tag to be deleted
      */
-    void deleteTag(Tag target);
+    void deleteTag(Tag tag);
 
     /**
      * Deletes the given Tag for all problems.
      * The Tag must exist in the algobase.
+     * @param tag the tag to be deleted
      */
-    void deleteTags(Tag target);
+    void deleteTags(Tag tag);
 
     /**
      * Adds the given Tag.
      * {@code Tag} must not already exist in the algobase.
+     * @param tag the tag to be added
      */
     void addTag(Tag tag);
 
     /**
      * Adds the given Tag list.
      * {@code Tag} must not already exist in the algobase.
+     * @param tags the set of tags to be added
      */
     void addTags(Set<Tag> tags);
 
@@ -150,6 +178,8 @@ public interface Model {
      * Replaces the given Tag {@code target} with {@code editedTag}.
      * {@code target} must exist in the algobase.
      * The Tag identity of {@code editedTag} must not be the same as another existing Tag in the algobase.
+     * @param target the tag to be updated
+     * @param editedTag the updated tag
      */
     void setTag(Tag target, Tag editedTag);
 
@@ -157,6 +187,8 @@ public interface Model {
      * Replaces the given Tag {@code target} with {@code editedTag} for all problems in AlgoBase.
      * {@code target} must exist in the algobase.
      * The Tag identity of {@code editedTag} must not be the same as another existing Tag in the algobase.
+     * @param target the tag to be updated
+     * @param editedTag the updated tag
      */
     void setTags(Tag target, Tag editedTag);
 
@@ -165,6 +197,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered Tag list to filter by the given {@code predicate}.
+     * @param predicate the predicate used to filter the Plan List
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTagList(Predicate<Tag> predicate);
@@ -173,18 +206,21 @@ public interface Model {
 
     /**
      * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.
+     * @param plan the plan to be checked
      */
     boolean hasPlan(Plan plan);
 
     /**
      * Deletes the given Plan.
      * The Plan must exist in the algobase.
+     * @param plan the plan to be deleted
      */
-    void deletePlan(Plan target);
+    void deletePlan(Plan plan);
 
     /**
      * Adds the given Plan.
      * {@code Plan} must not already exist in the algobase.
+     * @param plan the plan to be added
      */
     void addPlan(Plan plan);
 
@@ -192,6 +228,8 @@ public interface Model {
      * Replaces the given Plan {@code target} with {@code editedPlan}.
      * {@code target} must exist in the algobase.
      * The Plan identity of {@code editedPlan} must not be the same as another existing Plan in the algobase.
+     * @param target the plan to be updated
+     * @param editedPlan the updated plan
      */
     void setPlan(Plan target, Plan editedPlan);
 
@@ -200,6 +238,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered Plan list to filter by the given {@code predicate}.
+     * @param predicate the predicate used to filter the Plan List
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPlanList(Predicate<Plan> predicate);
@@ -207,12 +246,13 @@ public interface Model {
     //=========== Task ==================================================================
 
     /**
-     * Sets the current {@code Plan}.
+     * Sets the given {@code Plan} as the current plan in main display.
+     * @param plan the plan to be set as current plan
      */
     void setCurrentPlan(Plan plan);
 
     /**
-     * Returns an unmodifiable view of the filtered Plan list
+     * Returns an unmodifiable view of the filtered Plan list.
      */
     ObservableList<Task> getCurrentTaskList();
 

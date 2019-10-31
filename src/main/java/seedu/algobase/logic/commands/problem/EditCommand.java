@@ -96,7 +96,14 @@ public class EditCommand extends Command {
         }
 
         model.setProblem(problemToEdit, editedProblem);
-        model.addTags(editProblemDescriptor.tags);
+
+        if (editProblemDescriptor.tags != null) {
+            for (Tag tag : editProblemDescriptor.tags) {
+                if (!model.hasTag(tag)) {
+                    model.addTag(tag);
+                }
+            }
+        }
 
         model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
         return new CommandResult(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedProblem.getName()));

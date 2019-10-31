@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.logic.commands.problem.SortCommand;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
@@ -51,7 +52,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProblems = new FilteredList<>(this.algoBase.getProblemList());
         filteredTags = new FilteredList<>(this.algoBase.getTagList());
-        sortedProblems = (new SortedList<>(filteredProblems));
+        sortedProblems = new SortedList<>(filteredProblems);
+        sortedProblems.setComparator(SortCommand.PROBLEM_NAME_COMPARATOR);
         filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
         filteredTasks = new FilteredList<>(this.algoBase.getCurrentTaskList());
         filteredFindRules = new FilteredList<>(this.algoBase.getFindRules());
@@ -64,14 +66,14 @@ public class ModelManager implements Model {
     //========== UserPrefs ==============================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -160,6 +162,16 @@ public class ModelManager implements Model {
     public void updateSortedProblemList(Comparator<Problem> problemComparator) {
         requireNonNull(problemComparator);
         sortedProblems.setComparator(problemComparator);
+    }
+
+    @Override
+    public boolean checkIsProblemUsed(Problem problem) {
+        return algoBase.checkIsProblemUsed(problem);
+    }
+
+    @Override
+    public void removeProblemFromAllPlans(Problem problem) {
+        algoBase.removeProblemFromAllPlans(problem);
     }
 
     //=========== Tag ===================================================================

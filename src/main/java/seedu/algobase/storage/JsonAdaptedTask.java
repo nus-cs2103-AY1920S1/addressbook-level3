@@ -22,7 +22,7 @@ class JsonAdaptedTask {
 
     private final String id;
     private final String problemId;
-    private final String dateTime;
+    private final String dueDate;
     private final String isSolved;
 
     /**
@@ -31,11 +31,11 @@ class JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("id") String id,
                            @JsonProperty("problemId") String problemId,
-                           @JsonProperty("dateTime") String dateTime,
+                           @JsonProperty("dueDate") String dueDate,
                            @JsonProperty("isSolved") String isSolved) {
         this.id = id;
         this.problemId = problemId;
-        this.dateTime = dateTime;
+        this.dueDate = dueDate;
         this.isSolved = isSolved;
     }
 
@@ -45,7 +45,7 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(Task task) {
         id = task.getId().toString();
         problemId = task.getProblem().getId().toString();
-        dateTime = task.getTargetDate().format(ParserUtil.FORMATTER);
+        dueDate = task.getTargetDate().format(ParserUtil.FORMATTER);
         isSolved = Boolean.toString(task.getIsSolved());
     }
 
@@ -57,10 +57,10 @@ class JsonAdaptedTask {
     public Task toModelType(AlgoBase algoBase) throws IllegalValueException {
         final Id modelId = retrieveId(id);
         final Problem modelProblem = algoBase.findProblemById(retrieveId(problemId));
-        final LocalDate modelDateTime = retrieveDate(dateTime);
+        final LocalDate modelDueDate = retrieveDate(dueDate);
         final boolean modelIsSolved = retrieveIsSolved(isSolved);
 
-        return new Task(modelId, modelProblem, modelDateTime, modelIsSolved);
+        return new Task(modelId, modelProblem, modelDueDate, modelIsSolved);
     }
 
     /**
