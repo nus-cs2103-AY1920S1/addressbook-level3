@@ -58,16 +58,16 @@ public class StatisticsTest {
         assertEquals(test.getPieChartData().get(0).getPieValue(), 1);
 
         for (int i = 0; i < LocalDate.now().lengthOfMonth(); i++) {
-            assertEquals(test.getCalorieChartData().getData().get(i).getXValue(),
+            assertEquals(test.getCalorieChartSeries().getData().get(i).getXValue(),
                     String.valueOf(i + 1));
             if (i + 1 == LocalDateTime.now().getDayOfMonth()) {
-                assertEquals(test.getCalorieChartData().getData().get(i).getYValue(),
+                assertEquals(test.getCalorieChartSeries().getData().get(i).getYValue(),
                         TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
                                 + TypicalMeals.MUSHROOM_SOUP.getDish().getCalories().getValue()
                                 + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue());
 
             } else {
-                assertEquals(test.getCalorieChartData().getData().get(i).getYValue(), 0);
+                assertEquals(test.getCalorieChartSeries().getData().get(i).getYValue(), 0);
             }
         }
     }

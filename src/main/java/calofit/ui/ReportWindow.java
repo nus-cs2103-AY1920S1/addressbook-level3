@@ -126,7 +126,7 @@ public class ReportWindow extends UiPart<Stage> {
         foodChart.setData(statistics.getPieChartData());
         foodChart.setLegendVisible(false);
 
-        calorieOverTime.getData().addAll(statistics.getCalorieChartData());
+        calorieOverTime.getData().addAll(statistics.getCalorieChartSeries());
     }
 
     /**
