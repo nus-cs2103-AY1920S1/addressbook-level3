@@ -272,7 +272,7 @@ public class ApiUtil {
      * @param shows the list of Shows.
      * @return a list of movies from the Shows.
      */
-    public List<Movie> splitToMovieFromShow(List<Show> shows) {
+    public static List<Movie> splitToMovieFromShow(List<Show> shows) {
         List<Movie> movies = new LinkedList<>();
         for (Show show: shows) {
             if (show.getType().equals("movie")) {
@@ -287,7 +287,7 @@ public class ApiUtil {
      * @param shows the list of Shows.
      * @return a list of Tv Shows from the Shows.
      */
-    public List<TvShow> splitToTvShowsFromShow(List<Show> shows) {
+    public static List<TvShow> splitToTvShowsFromShow(List<Show> shows) {
         List<TvShow> tvShows = new LinkedList<>();
         for (Show show: shows) {
             if (show.getType().equals("tv")) {
