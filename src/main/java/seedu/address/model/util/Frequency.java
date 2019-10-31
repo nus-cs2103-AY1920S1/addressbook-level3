@@ -7,8 +7,8 @@ import java.time.temporal.TemporalAmount;
  * An enum containing commonly used time periods as frequency.
  */
 public enum Frequency {
-    DAILY(Period.ofDays(1)), WEEKLY(Period.ofDays(7)), FORTNIGHTLY(Period.ofDays(14)), MONTHLY(
-            Period.ofMonths(1)), QUARTERLY(Period.ofMonths(3)), ANUALLY(Period.ofYears(1));
+    DAILY(Period.ofDays(1)), WEEKLY(Period.ofDays(7)), FORTNIGHTLY(Period.ofDays(14)), MONTHLY(Period.ofMonths(1)),
+    QUARTERLY(Period.ofMonths(3)), ANUALLY(Period.ofYears(1));
 
     private final TemporalAmount period;
 
@@ -36,10 +36,15 @@ public enum Frequency {
         String sanitized = stringFreq.trim().toLowerCase();
         switch (sanitized) {
         case "daily":
+        case "every day":
+        case "everyday":
+        case "every night":
             return DAILY;
         case "fortnightly":
             return FORTNIGHTLY;
         case "monthly":
+        case "mthly":
+        case "every month":
             return MONTHLY;
         case "quarterly":
             return QUARTERLY;
@@ -47,6 +52,8 @@ public enum Frequency {
         case "anually":
             return ANUALLY;
         case "weekly":
+        case "wkly":
+        case "every week":
         default:
             return WEEKLY;
         }
