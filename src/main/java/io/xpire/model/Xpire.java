@@ -113,7 +113,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
     }
 
     /**
-     * Updates tags of item specified.
+     * Updates tags of item specified.U
      * @param item The item to update tags for.
      */
     public void updateItemTag(XpireItem item) {

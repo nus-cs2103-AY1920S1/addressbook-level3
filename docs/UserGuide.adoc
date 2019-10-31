@@ -127,7 +127,7 @@ Transfers items from main list to replenish list, or from replenish list to main
 ===== Shifting an item from the main list to the replenish list
 
 [TIP]
-Use this to transfer any items tagged `#Expired` to your replenish list.
+Use this to shift any expired items (tagged as `#Expired`  by the system) to the replenish list.
 
 
 Format: `shift|<index>`

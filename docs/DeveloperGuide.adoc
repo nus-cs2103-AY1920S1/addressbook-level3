@@ -60,9 +60,10 @@ image::LogicComponentClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete|1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete|1` command
+//TODO: Update diagram
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -100,9 +101,9 @@ link:{repoURL}/src/main/java/io/xpire/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete|1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete|1` Command
 image::LogicComponentSequenceDiagram.png[]
 
 
@@ -1015,11 +1016,11 @@ _{ more test cases ... }_
 . Deleting an item while all items are listed
 
 .. Prerequisites: List all items using the `list` command. Multiple items in the list.
-.. Test case: `delete 1` +
+.. Test case: `delete|1` +
    Expected: First item is deleted from the list. Details of the deleted item shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `delete|0` +
    Expected: No item is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
