@@ -311,7 +311,7 @@ which states that objects should not navigate internal structures of other objec
 // end::calvin[]
 // tag::test[]
 
-//start::DeXun[]
+//tag::DeXun[]
 === Setting Date & Time to Events
 ==== Implementation
 The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects, which represents a single day by itself. Our implementation of `Event` does not assume that the event will be occurring consecutively from the start to the end date, and requires the user to manually assign each specific date with the time period that the Event is in process.
@@ -350,6 +350,13 @@ Given below is an example usage scenario of the program functionality when a use
 
 [NOTE]
 If the command execution fails, a `ParseException` (from Step 2) or a `CommandException` (from Step 3) will be thrown, specifiying the reason of the error.
+
+The following sequence diagram shows how the `AssignDateCommand`  works:
+
+._Sequence Diagram for AssignDateCommand Command_
+image::SetDateTimeSequenceDiagram.png[]
+
+NOTE: The lifeline for `AssignDateCommand` ends at the destroy marker (X).
 
 The following activity diagram shows how the Setting of Date&Time to Event work:
 

@@ -158,7 +158,7 @@ public class ScheduleBox extends Tabs<AnchorPane> {
         if (text.length() > 7) {
             LocalDate currentDate = LocalDate.parse(text);
             currentMonthYear.setText(monthName[currentDate.getMonth().getValue() - 1] + "," + currentDate.getYear());
-            datePicker.getEditor().clear();
+            datePicker.setValue(currentDate);
         } else {
             YearMonth currentYearMonth = YearMonth.parse(text);
             currentMonthYear.setText(monthName[currentYearMonth.getMonth().getValue() - 1]

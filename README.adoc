@@ -12,6 +12,8 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 == AddMin+   -  All in One Administration App
+//tag::AboutAddMin+[]
+
 *AddMin+* is an all in one administration desktop application, that is specially designed for any other events management
 start-up company with limited manpower and resources. These companies would usually only be able to afford to hire
 one admin staff to handle both the management of events and employees and this can be tough.
@@ -26,6 +28,8 @@ our app.
 
 * AddMin+ is specially designed to help ease the workload by offering a one-stop platform to help deal with the various administrative needs of the company.
 * AddMin+ uses a Command Line Interface(CLI) and displays the results through a Graphical User Interface(GUI) to assist the employee in their specific needs.
+
+//end::AboutAddMin+[]
 
 == Site Map
 
