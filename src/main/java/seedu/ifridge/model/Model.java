@@ -1,7 +1,7 @@
 package seedu.ifridge.model;
 
 import java.nio.file.Path;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 
@@ -187,6 +187,22 @@ public interface Model {
 
     Name getNameTemplateToBeShown();
 
+    void commitTemplateList(UniqueTemplateItems prevTemplate, UniqueTemplateItems newTemplate, int index);
+
+    ReadOnlyTemplateList undoTemplateList();
+
+    ReadOnlyTemplateList redoTemplateList();
+
+    UniqueTemplateItems getPrevTemplate();
+
+    UniqueTemplateItems getNewTemplate();
+
+    Integer getIndex();
+
+    boolean canUndoTemplateList();
+
+    boolean canRedoTemplateList();
+
     //=========== WasteList ==================================================================================
     /**
      * Returns the user prefs' waste list file path.
@@ -222,7 +238,7 @@ public interface Model {
     /** Returns an unmodifiable view of a specific month's filtered waste list */
     ObservableList<GroceryItem> getFilteredWasteItemListByMonth(WasteMonth wasteMonth);
 
-    Set<WasteMonth> getListOfWasteMonths();
+    SortedSet<WasteMonth> getDescendingWasteMonths();
 
     boolean hasWasteMonth(WasteMonth wasteMonth);
 
@@ -286,6 +302,17 @@ public interface Model {
     void addShoppingItem(ShoppingItem toAdd);
 
     /**
+     * Marks the given shopping item as urgent
+     * @param toMarkAsUrgent
+     */
+    void urgentShoppingItem(ShoppingItem toMarkAsUrgent);
+
+    /**
+     * Sorts the items in the shopping list with the urgent items at the start.
+     */
+    void sortShoppingItems();
+
+    /**
      * Replaces the given shoppingItem {@code target} with {@code editedShoppingItem}.
      * {@code target} must exist in the shopping list.
      * The template identity of {@code editedShoppingItem} must not be the same as another existing shopping item
@@ -301,6 +328,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredShoppingList(Predicate<ShoppingItem> predicate);
+
+    void commitShoppingList();
+
+    ReadOnlyShoppingList undoShoppingList();
+
+    ReadOnlyShoppingList redoShoppingList();
+
+    boolean canUndoShoppingList();
+
+    boolean canRedoShoppingList();
 
     //=========== BoughtList ==================================================================================
     /**

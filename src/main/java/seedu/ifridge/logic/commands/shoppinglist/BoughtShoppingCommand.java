@@ -34,7 +34,7 @@ public class BoughtShoppingCommand extends Command {
             + PREFIX_EXPIRY_DATE + "30.04.2019"
             + PREFIX_AMOUNT + "2";
 
-    public static final String MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS = "Edited shopping item: %1$s";
+    public static final String MESSAGE_BOUGHT_SHOPPING_ITEM_SUCCESS = "Bought shopping item: %1$s";
     public static final String MESSAGE_NOT_PROPER = "At least one of the required fields (amount and expiry date) "
             + "are not provided.";
 
@@ -72,9 +72,12 @@ public class BoughtShoppingCommand extends Command {
         GroceryItem boughtItem = shoppingItemToMarkAsBought.getBoughtItem(amount, expiryDate);
 
         model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);
-        model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
         model.addBoughtItem(boughtItem);
-        CommandResult commandResult = new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS,
+        model.sortShoppingItems();
+        model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+        model.commitShoppingList();
+
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_BOUGHT_SHOPPING_ITEM_SUCCESS,
                 boughtShoppingItem));
         commandResult.setShoppingListCommand();
         return commandResult;

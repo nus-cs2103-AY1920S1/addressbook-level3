@@ -29,8 +29,7 @@ public class ReminderDefaultCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        IFridgeSettings prev = model.getIFridgeSettings();
-        IFridgeSettings curr = new IFridgeSettings(remDefault, prev.getSortMethod(), prev.getListDisplay());
+        IFridgeSettings curr = new IFridgeSettings(remDefault);
         model.setIFridgeSettings(curr);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, remDefault));

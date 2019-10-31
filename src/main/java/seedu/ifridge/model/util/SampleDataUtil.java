@@ -68,9 +68,9 @@ public class SampleDataUtil {
      */
     public static WasteMonth[] getSampleWasteMonths() {
         LocalDate date = LocalDate.now();
-        WasteMonth[] wasteMonths = new WasteMonth[12];
+        WasteMonth[] wasteMonths = new WasteMonth[13];
         wasteMonths[0] = new WasteMonth(date);
-        for (int i = 1; i <= 11; i++) {
+        for (int i = 1; i <= 12; i++) {
             wasteMonths[i] = new WasteMonth(date.minusMonths(i));
         }
         return wasteMonths;
@@ -160,7 +160,14 @@ public class SampleDataUtil {
             new GroceryItem(new Name("Strawberries"), new Amount("7units"),
                     new ExpiryDate("15/11/2018"), getTagSet("healthy", "fruits")),
             new GroceryItem(new Name("Milk"), new Amount("100ml"),
-                    new ExpiryDate("18/11/2018"), getTagSet())
+                    new ExpiryDate("18/11/2018"), getTagSet()),
+
+            new GroceryItem(new Name("Carrots"), new Amount("580g"),
+                    new ExpiryDate("12/10/2018"), getTagSet("staples")),
+            new GroceryItem(new Name("Lemons"), new Amount("6units"),
+                    new ExpiryDate("15/10/2018"), getTagSet("healthy", "fruits")),
+            new GroceryItem(new Name("Sprite"), new Amount("250ml"),
+                    new ExpiryDate("18/10/2018"), getTagSet())
         };
     }
 
@@ -168,7 +175,7 @@ public class SampleDataUtil {
         TreeMap<WasteMonth, WasteList> wasteArchive = new TreeMap<>();
         WasteMonth[] wasteMonths = getSampleWasteMonths();
         GroceryItem[] wasteItems = getSampleWasteItems();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i <= 12; i++) {
             WasteMonth wm = wasteMonths[i];
             WasteList wl = new WasteList(wm);
             for (int j = i * 3; j < i * 3 + 3; j++) {

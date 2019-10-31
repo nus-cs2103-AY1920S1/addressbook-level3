@@ -6,13 +6,14 @@ import static seedu.ifridge.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.commons.core.IFridgeSettings;
 import seedu.ifridge.commons.core.LogsCenter;
@@ -47,6 +48,8 @@ public class ModelManager implements Model {
     private UniqueTemplateItems shownTemplate;
     private VersionedGroceryList versionedGroceryList;
     private VersionedWasteList versionedWasteList;
+    private VersionedShoppingList versionedShoppingList;
+    private VersionedTemplateList versionedTemplateList;
     private UnitDictionary unitDictionary;
 
     /**
@@ -83,6 +86,10 @@ public class ModelManager implements Model {
         versionedGroceryList.add(groceryList);
         versionedWasteList = new VersionedWasteList(wasteList.getWasteMonth());
         versionedWasteList.add(wasteList);
+        versionedShoppingList = new VersionedShoppingList();
+        versionedShoppingList.add(shoppingList);
+        versionedTemplateList = new VersionedTemplateList();
+        versionedTemplateList.add(templateList);
     }
 
     public ModelManager() {
@@ -319,6 +326,45 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void commitTemplateList(UniqueTemplateItems prevTemplate, UniqueTemplateItems newTemplate, int index) {
+        versionedTemplateList.commit(new TemplateList(templateList), prevTemplate, newTemplate, index);
+    }
+
+    @Override
+    public ReadOnlyTemplateList undoTemplateList() {
+        return versionedTemplateList.undo();
+    }
+
+    @Override
+    public ReadOnlyTemplateList redoTemplateList() {
+        return versionedTemplateList.redo();
+    }
+
+    @Override
+    public UniqueTemplateItems getPrevTemplate() {
+        return versionedTemplateList.getPrevTemplate();
+    }
+
+    @Override
+    public UniqueTemplateItems getNewTemplate() {
+        return versionedTemplateList.getNewTemplate();
+    }
+
+    @Override
+    public Integer getIndex() {
+        return versionedTemplateList.getIndex();
+    }
+
+    @Override
+    public boolean canUndoTemplateList() {
+        return versionedTemplateList.getCurrentStatePointer() > 0;
+    }
+
+    @Override
+    public boolean canRedoTemplateList() {
+        return versionedTemplateList.getCurrentStatePointer() < versionedTemplateList.getListSize() - 1;
+    }
+
     public boolean containsTemplateItemWithName(Food foodItem) {
         return templateList.containsTemplateItemWithName(foodItem);
     }
@@ -437,8 +483,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Set<WasteMonth> getListOfWasteMonths() {
-        return WasteList.getWasteArchive().keySet();
+    public SortedSet<WasteMonth> getDescendingWasteMonths() {
+        return WasteList.getWasteArchive().descendingKeySet();
     }
 
     @Override
@@ -509,10 +555,48 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void urgentShoppingItem(ShoppingItem toMarkAsUrgent) {
+        shoppingList.urgentShoppingItem(toMarkAsUrgent);
+        updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+    }
+
+    @Override
+    public void sortShoppingItems() {
+        ObservableList<ShoppingItem> internalShoppingList = shoppingList.getShoppingList();
+        SortedList<ShoppingItem> sortedList = internalShoppingList.sorted(new UrgentComparator());
+        shoppingList.setShoppingItems(sortedList);
+    }
+
+    @Override
     public void setShoppingItem(ShoppingItem target, ShoppingItem editedShoppingItem) {
         requireAllNonNull(target, editedShoppingItem);
 
         shoppingList.setShoppingItem(target, editedShoppingItem);
+    }
+
+    @Override
+    public void commitShoppingList() {
+        versionedShoppingList.commit(new ShoppingList(shoppingList));
+    }
+
+    @Override
+    public ReadOnlyShoppingList undoShoppingList() {
+        return versionedShoppingList.undo();
+    }
+
+    @Override
+    public ReadOnlyShoppingList redoShoppingList() {
+        return versionedShoppingList.redo();
+    }
+
+    @Override
+    public boolean canUndoShoppingList() {
+        return versionedShoppingList.getCurrentStatePointer() > 0;
+    }
+
+    @Override
+    public boolean canRedoShoppingList() {
+        return versionedShoppingList.getCurrentStatePointer() < versionedShoppingList.getListSize() - 1;
     }
 
     //=========== Filtered Shopping List Accessors =============================================================
