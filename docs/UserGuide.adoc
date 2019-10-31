@@ -40,7 +40,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 
 
 * `register -id 001A -name John Doe -phone 98765432 -email johnd@example.com -address John street, block 123, #01-01` : registers a patient named `John Doe`.
-* `enqueue 001A` : enqueues patient with reference id `001A` into the queue.
+* `enqueue 001A` : enqueues patient with reference id `001A` into the queue. The patient `001A` must be registered.
 * *`exit`* : exits the app.
 
 .  Refer to <<Features>> for details of each command.
@@ -151,7 +151,7 @@ Format: `offduty <ENTRY_ID>`
 
 ==== Adds an appointment: `addappt` ====
 
-Adds a new appointment for a patient +
+Adds a new appointment for a existing patient. Timing must be valid and not conflict with doctors' duty roster.
 
 If no optional fields `[-rec REPEATEDLY]` and `[-num RECURSIVE_TIMES]` are present, only one event will be added. Otherwise repeated appointments will be added. +
 
