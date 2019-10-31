@@ -1,9 +1,13 @@
 package seedu.revision.model.quiz;
 
 import java.util.Timer;
+import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.AppUtil.checkArgument;
+
+import seedu.revision.model.answerable.Answerable;
+
 /**
  * Represents the mode of a quiz in the Revision Tool.
  * Guarantees: immutable; is valid as declared in {@link #isValidMode(String)}
@@ -20,6 +24,7 @@ public class Mode {
 
     public final String value;
     protected int time;
+    protected Predicate<Answerable> combinedPredicate;
 
     /**
      * Constructs a {@code Mode}.
@@ -43,6 +48,9 @@ public class Mode {
         return time;
     }
 
+    public Predicate<Answerable> getCombinedPredicate() {
+        return combinedPredicate;
+    }
 
     @Override
     public String toString() {
