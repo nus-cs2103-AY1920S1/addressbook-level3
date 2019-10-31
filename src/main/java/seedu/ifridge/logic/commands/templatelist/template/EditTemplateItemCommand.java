@@ -160,7 +160,7 @@ public class EditTemplateItemCommand extends Command {
         public boolean isNameFieldEdited(TemplateItem itemToEdit) {
             if (CollectionUtil.isAnyNonNull(name)) {
                 return !itemToEdit.isSameName(new Food(name, itemToEdit.getAmount()));
-            };
+            }
 
             return false;
         }

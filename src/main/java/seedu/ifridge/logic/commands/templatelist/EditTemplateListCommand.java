@@ -137,7 +137,7 @@ public class EditTemplateListCommand extends Command {
                 String nameToUpperCase = name.toString().toUpperCase();
 
                 return !nameToUpperCase.equals(templateNameToUpperCase);
-            };
+            }
 
             return false;
         }
