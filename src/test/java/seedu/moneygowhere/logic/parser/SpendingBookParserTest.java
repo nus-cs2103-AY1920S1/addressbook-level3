@@ -129,7 +129,7 @@ public class SpendingBookParserTest {
     @Test
     public void parseCommand_exchangeRate() throws Exception {
         assertTrue(parser.parseCommand(ExchangeRateCommand.COMMAND_WORD) instanceof ExchangeRateCommand);
-        assertTrue(parser.parseCommand(ExchangeRateCommand.COMMAND_WORD + " 3") instanceof ExchangeRateCommand);
+        assertTrue(parser.parseCommand(ExchangeRateCommand.COMMAND_WORD + " 5 USD") instanceof ExchangeRateCommand);
     }
 
     @Test
