@@ -379,31 +379,32 @@ User chooses the meeting time from the grid displayed from generate timings comm
 
 === Inventory Commands
 
-==== Adding an inventory: `add-inventory`
+==== Adding an inventory: `add-inv`
 
 Adds an inventory item bought or required for a specific project task.
 
-Format: `add-inventory [ti/TASK_ID] [i/ITEM_NAME] [mi/MEMBER_ID] [p/PRICE(optional)]`
+Format: `add-inv [i/ITEM_NAME] [p/PRICE(optional)] [ti/TASK_ID] [mi/MEMBER_ID]`
 
 Examples:
 
-* `add-inventory ti/2 i/Mahjong Paper mi/3 p/8.50` +
-Adds the item “Mahjong paper” for $8.50 to the inventory list. This item is tagged to task 2 and was paid for by member 3.
+* `add-inv i/Mahjong Paper p/8.50 ti/2 mi/AR` +
+Adds the item “Mahjong paper” for $8.50 to the inventory list. This item is tagged to task 2 and was paid for by member AR.
 
-* `add-inventory ti/4 i/scissors mi/1` +
-Adds the item “scissors” to the inventory list. The item is tagged to task 4 and is provided by member 1 for no cost.
+* `add-inv i/scissors ti/4 mi/GS` +
+Adds the item “scissors” to the inventory list. The item is tagged to task 4 and is provided by member GS for no cost.
 
-==== Deleting an inventory: `delete inventory`
+==== Deleting an inventory: `delete-inv`
 
 Deletes an inventory item.
 
-Format: `delete-inventory [ii/ITEM_ID]`
+Format: `delete-inv [ITEM_ID]`
 
 Examples:
 
-* `delete-inventory ii/3` +
+* `delete-inv 3` +
 Deletes the third item from the inventory list
 
+////
 ==== Generating a report of inventory by task: `generate inventory /task`
 
 Generates a PDF report containing all inventories grouped by tasks for easier sharing.
@@ -427,7 +428,7 @@ Examples:
 File explorer pops up, triggering a message to allow the user to save the pdf file in the computer.
 
 '''
-
+////
 === Statistics Commands
 
 ==== Getting statistics of members: `member-stats` +
