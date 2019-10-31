@@ -132,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        appointmentListPanel = new AppointmentListPanel(logic.getFilteredReminderList());
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
         reminderListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
     }
 

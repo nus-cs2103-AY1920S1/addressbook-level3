@@ -64,7 +64,7 @@
                     </padding>
                     <StackPane fx:id="personListPanelPlaceholder" prefWidth="178.0" VBox.vgrow="ALWAYS" />
                    </VBox>
-                  <VBox fx:id="reminderList" prefWidth="466.0" styleClass="pane-with-border" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                  <VBox fx:id="appointmentList" prefWidth="466.0" styleClass="pane-with-border" GridPane.rowIndex="1" GridPane.rowSpan="4">
                      <children>
                         <StackPane fx:id="reminderListPanelPlaceholder" prefWidth="100.0" VBox.vgrow="ALWAYS" />
                      </children>

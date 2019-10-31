@@ -41,7 +41,7 @@ public class ReminderCommand extends Command {
         requireNonNull(model);
 
         model.addAppointment(0, description, days);
-        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
+        //model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, description, days));
     }
 

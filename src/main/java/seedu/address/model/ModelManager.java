@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Appointment;
+import seedu.address.model.reminder.AppointmentList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,6 +24,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private final AppointmentList appointmentList;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Appointment> filteredAppointments;
 
@@ -38,7 +40,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredAppointments = new FilteredList<>(this.userPrefs.getAppointmentList());
+        appointmentList = new AppointmentList(this.userPrefs.getAppointmentList());
+        filteredAppointments = new FilteredList<>(appointmentList.asUnmodifiableObservableList());
     }
 
     public ModelManager() {
@@ -146,8 +149,9 @@ public class ModelManager implements Model {
 
     @Override
     public void addAppointment(int type, String description, int days) throws CommandException {
-        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        appointmentList.add(type, description, days);
         userPrefs.addAppointment(type, description, days);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
     @Override
