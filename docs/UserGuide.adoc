@@ -376,12 +376,12 @@ Creates a new meme from the current meme creation session, giving it a descripti
 
 === Export Tab
 
-==== Unstage a meme: `unstage`
+==== Unstaging a meme: `unstage`
 
-Unstages the meme from the export staging area at the specified index. +
-Format: `stage INDEX`
+Unstages the meme at the specified index from the export staging area. +
+Format: `unstage INDEX`
 
-==== Export meme: `export`
+==== Exporting memes: `export`
 
 Exports the memes in the export tab into a directory. The directory path can
 be either specified or not.
@@ -393,42 +393,42 @@ be exported to an export folder located at where the jar file is.
 
 * If path is specified, the memes will be exported to that directory.
 
-** Format: `export p/~/Users/bill/favourites/`
+** Format: `export p//Users/bill/favourites/`
 
 * The user can use a special [d] keyword to export to a default path
 configured by preferences.json.
 
 ** Format: `export p/[d]`
 
-==== Clear staging area: `clear`
+==== Clearing the staging area: `clear`
 
 Clears all memes in the export tab. +
 Format: `clear`
 
 === Import Tab
 
-==== Load memes: `load`
+==== Loading memes: `load`
 
 Loads memes from a specified directory into the import tab. +
 Format: `load p/PATH`
 
-==== Edit a meme: `edit`
+==== Editing a meme: `edit`
 
 Edits a meme from the import tab. This allows the user
 to make changes before actually importing the meme. +
 Format: `edit INDEX [d/DESCRIPTION] [t/TAG]...`
 
-==== Delete a meme: `delete`
+==== Deleting a meme: `delete`
 
 Deletes an unwanted meme from the import tab. +
 Format: `delete INDEX`
 
-==== Import memes: `import`
+==== Importing memes: `import`
 
 Imports memes from the import tab into Weme. +
 Format: `import`
 
-==== Clear loaded memes: `clear`
+==== Clearing loaded memes: `clear`
 
 Clears all the memes in the import tab. +
 Format: `clear`
