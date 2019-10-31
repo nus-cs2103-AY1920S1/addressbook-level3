@@ -1,18 +1,20 @@
 package seedu.jarvis.commons.util;
 
-import java.io.File;
+import static java.util.Objects.isNull;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 
-import java.nio.file.Files;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,7 +43,25 @@ public class CourseUtil {
      */
     private static final String REMOVE_WHITESPACE_REGEX = "\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
 
-    private static final String COURSE_FOLDER = "modinfo";
+    private static final String COURSE_FOLDER = "/modinfo";
+
+    /**
+     * Returns the course prefix of the given course code. For example:
+     * "MA1512" returns "MA".
+     * "CS3230" returns "CS".
+     *
+     * @param courseCode the course code
+     * @return a {@code String} containing the course prefix
+     */
+    private static String getCoursePrefix(String courseCode) {
+        StringBuilder prefix = new StringBuilder();
+        char[] code = courseCode.toCharArray();
+        int i = 0;
+        while (i < code.length && Character.isLetter(code[i])) {
+            prefix.append(code[i++]);
+        }
+        return prefix.toString();
+    }
 
     /**
      * Removes all spaces in a given {@code String} that are not within quotes.
@@ -63,59 +83,26 @@ public class CourseUtil {
     }
 
     /**
-     * Returns a {@code File} object pointing to the relevant course file.
+     * Returns a {@code String} object pointing to the relevant course file.
      *
      * @param courseCode of the course
-     * @return a {@code File} object
-     * @throws IOException if the file is not found
+     * @return a {@code String}
      */
-    private static File getCourseFile(String courseCode) throws CourseNotFoundException {
+    private static String getCourseJsonString(String courseCode) throws CourseNotFoundException {
         String coursePrefix = getCoursePrefix(courseCode);
         String fileName = (courseCode.contains(".json")) ? courseCode : courseCode + ".json";
 
-        // get File object to the desired file
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         String filePath = getFilePath(coursePrefix, fileName);
-        try {
-            return new File(Objects.requireNonNull(classLoader.getResource(filePath)).getFile());
-        } catch (NullPointerException e) {
-            throw new CourseNotFoundException();
-        }
-    }
+        InputStream is = CourseUtil.class.getResourceAsStream(filePath);
 
-    /**
-     * Obtains course information as a {@code json String}.
-     *
-     * @param courseCode of the course
-     * @return a {@code json String}
-     */
-    private static String getCourseJsonString(String courseCode) throws CourseNotFoundException {
-        File file = getCourseFile(courseCode);
-        StringBuilder text = new StringBuilder();
-        try (Stream<String> fileStream = Files.lines(file.toPath())) {
-            fileStream.forEach(text::append);
-        } catch (IOException e) {
+        if (isNull(is)) {
             throw new CourseNotFoundException();
+        } else {
+            String ret = new BufferedReader(new InputStreamReader(is))
+                .lines()
+                .collect(Collectors.joining("\n"));
+            return removeSpacesNotWithinQuotes(ret);
         }
-        return removeSpacesNotWithinQuotes(text.toString());
-    }
-
-    /**
-     * Returns the course prefix of the given course code. For example:
-     * "MA1512" returns "MA".
-     * "CS3230" returns "CS".
-     *
-     * @param courseCode the course code
-     * @return a {@code String} containing the course prefix
-     */
-    private static String getCoursePrefix(String courseCode) {
-        StringBuilder prefix = new StringBuilder();
-        char[] code = courseCode.toCharArray();
-        int i = 0;
-        while (i < code.length && Character.isLetter(code[i])) {
-            prefix.append(code[i++]);
-        }
-        return prefix.toString();
     }
 
     /**
@@ -124,7 +111,6 @@ public class CourseUtil {
      *
      * @param courseCode the course code
      * @return a {@code Map<String, String>} of all values
-     * @throws IOException if the file is not found
      */
     private static Map<String, String> getCourseMap(String courseCode)
             throws CourseNotFoundException {
