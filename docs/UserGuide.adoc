@@ -139,13 +139,13 @@ Lists all StudyBuddy items with matching tags in the application.
     CheatSheet: 7.
         Title: cs2100 stuff
         Tags: [cs2100]
-        Contents: [ 1. Pipelining is a process where.. ]
+        Contents: [ 1. Pipelining is a process where a processor executes multiple processes simultaneously.]
             [ 2. Question: What is 101 Binary in its Decimal form?; Answer: 5 ]
     Note: 5.
         Title: Pipelining Defition
-        Content: Pipelining is a process where..
+        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
         Tags: [cs2100]
-    Note Fragment: 3.1.
+    Note Fragment: 6-2.
         Title: About
         Content: highlighted
         Tags: [cs2100]
@@ -338,27 +338,31 @@ If there are both flashcards due for revision today and overdue flashcards:
 
 === Creating a note: `add`
 
-* Adds a note from user input with title `TITLE` and content `CONTENT`.
+* Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
+of an existing note title.
 
     Format: add t/TITLE c/CONTENT [tag/TAG]...
 
-    Example usage: add t/Pipelining Definition c/Pipelining is a process where tag/CS2100
+    Example usage: add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes
+    simultaneously. tag/CS2100
 
     Expected output:
     New note added:
         Title: Pipelining Definition
-        Content: Pipelining is a process where
+        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
         Tags: [cs2100]
 
-* More advanced usage: Intra-Note tagging of note fragments is also supported. The intra-note tagging is added at the
-same time as the note is created. Intra-note tags are added with content `INTRA_CONTENT`, at least one tag
-`INTRA_TAG`, and any number of additional tags `ADDITIONAL_INTRA_TAG`:
+* More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
+same time as the note is created.
 
-    Format (within CONTENT): /* C/INTRA_CONTENT TAG/INTRA_TAG [TAG/ADDITIONAL_INTRA_TAG]... */
+* Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
+`FRAGMENT_TAG`, and any number of additional tags `ADDITIONAL_FRAGMENT_TAG`:
 
-NOTE: The format for Intra-Note content is 'C/', not 'c/', and the format for Intra-Note tags is 'TAG/', not 'tag/'.
+    Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
 
-* In the following example, two intra-note tags are added:
+NOTE: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not 'tag/'.
+
+* In the following example, two note fragment tags are added to the same note fragment:
 
     Example usage: add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
 
@@ -424,13 +428,27 @@ Views the note of index `NOTE_INDEX`. The note is shown exactly as written, incl
 
    Expected output: a complete list of all notes currently in StudyBuddyPro
 
+    Example output:
+    Listing all notes:
+    1.
+        Title: Pipelining Definition
+        Content: Pipelining is a process where a /* C/processor TAG/mips */ executes multiple processes simultaneously.
+        Tags: [cs2100]
+    2.
+        Title: UML Diagrams
+        Content: UML Diagrams help with visualizing project structure.
+        Tags: [cs2103t]
+
+NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will not be listed along with the notes. To
+visualize specific note fragment tags, use the `filter` command (see Section 6.6).
+
 === Listing by tags: `filter`
 
 * Filters the note library by the user specified tag(s).
-* The user must specify at least one tag.
-* The user is able to specify multiple tags.
+* The user must specify at least one tag, and can specify multiple tags.
 * Notes that match at least one of the specified tags will be displayed.
-* Intra-Note tags containing at least one of the specified tags will also be displayed.
+* Note fragment tags containing at least one of the specified tags will also be displayed, even if their parent note is
+not tagged.
 
     Format: filter tag/TAG [tag/TAG]...
 
