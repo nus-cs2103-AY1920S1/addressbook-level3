@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.cheatsheet.CheatSheet;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Views a cheatsheet identified by its displayed index.
  */
 public class ViewCheatSheetCommand extends Command {
 

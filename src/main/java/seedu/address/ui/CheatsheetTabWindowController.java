@@ -9,8 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.tag.Tag;
@@ -20,13 +18,13 @@ import seedu.address.model.tag.Tag;
  */
 public class CheatsheetTabWindowController {
 
+    private static Optional<CheatSheet> currCheatSheet;
+
     @FXML
     private TextArea cheatsheetArea;
 
     @FXML
     private ListView<String> tagArea;
-
-    private static Optional<CheatSheet> currCheatSheet;
 
     public static Optional<CheatSheet> getCurrCheatSheet() {
         return currCheatSheet;
@@ -65,6 +63,10 @@ public class CheatsheetTabWindowController {
         highlightTabs(1);
     }
 
+    /**
+     * Displays only the contents for a specific tag
+     * @param tagIndex the tag index shown on the GUI
+     */
     public void showSpecificTagContents(int tagIndex) {
         int targetIndex = tagIndex + 1;
         highlightTabs(targetIndex);

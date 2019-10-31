@@ -1,12 +1,12 @@
 package seedu.address.model.cheatsheet;
 
-import seedu.address.model.tag.Tag;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a content of a Cheatsheet in the address book.
@@ -16,12 +16,11 @@ public class Content {
     public static final String MESSAGE_CONSTRAINTS = "Cheatsheet contents should not be blank. "
             + "For flashcard's components, images are not supported in the cheatsheet.";
     public static final String VALIDATION_REGEX = "\\S.*"; //"\\p{Alnum}+";
-    private static int counter = 1;
 
     public final String content;
     public final Set<Tag> tags;
 
-    public int index = 0;
+    private int index = 0;
 
     /**
      * Constructs a {@code Content}.
@@ -34,8 +33,6 @@ public class Content {
         checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
         this.content = content;
         this.tags = tags;
-
-        //this.index = counter++;
     }
 
     public Content(String question, String answer, Set<Tag> tags) {
@@ -46,8 +43,6 @@ public class Content {
         this.tags = tags;
         this.content = "Question: " + question
                 + "; Answer: " + answer;
-
-        //this.index = counter++;
     }
 
     /**
@@ -82,10 +77,6 @@ public class Content {
 
     public Set<Tag> getTags() {
         return tags;
-    }
-
-    public static void resetCounter() {
-        counter = 1;
     }
 
     public int getIndex() {

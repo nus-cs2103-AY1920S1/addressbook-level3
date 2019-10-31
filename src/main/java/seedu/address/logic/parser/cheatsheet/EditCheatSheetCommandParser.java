@@ -95,7 +95,8 @@ public class EditCheatSheetCommandParser implements Parser<EditCheatSheetCommand
      * If {@code contents} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Content>} containing zero contents.
      */
-    private Optional<Set<Content>> parseContentsForEdit(Collection<String> contents, Set<Tag> tags) throws ParseException {
+    private Optional<Set<Content>> parseContentsForEdit(Collection<String> contents, Set<Tag> tags)
+            throws ParseException {
         assert contents != null && tags != null;
 
         if (contents.isEmpty()) {

@@ -8,8 +8,6 @@ import java.util.Optional;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.cheatsheet.CheatSheet;
 
-import javax.swing.text.html.Option;
-
 /**
  * Represents the result of a command execution.
  */

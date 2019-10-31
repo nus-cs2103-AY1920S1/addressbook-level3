@@ -1,12 +1,15 @@
 package seedu.address.logic.parser.cheatsheet;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.cheatsheet.ViewSpecificCheatSheetTagCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ * Parses input arguments and creates a new ViewSpecificCheatSheetTagCommand object
+ */
 public class ViewSpecificCheatSheetTagCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the ViewFlashcardCommand

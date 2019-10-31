@@ -75,6 +75,9 @@ public class CheatSheet extends StudyBuddyItem {
         return contentList;
     }
 
+    /**
+     * Resets the contents' indexes accordingly
+     */
     public void resetContentIndexes() {
         this.resetContentIndex();
         contents.forEach(this::formatContent);
@@ -146,9 +149,9 @@ public class CheatSheet extends StudyBuddyItem {
                 .append("\n Tags: ");
         getTags().forEach(builder::append);
 
-//        builder.append(" Contents: ");
-//        resetContentIndexes();
-//        builder.append(contents);
+        //builder.append(" Contents: ");
+        //resetContentIndexes();
+        //builder.append(contents);
 
         return builder.toString();
     }

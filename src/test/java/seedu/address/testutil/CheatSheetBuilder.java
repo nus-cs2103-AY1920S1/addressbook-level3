@@ -16,6 +16,7 @@ public class CheatSheetBuilder {
 
     public static final String DEFAULT_TITLE = "cs2100 finals";
     public static final String DEFAULT_CONTENT = "110 in binary is 5 in decimal";
+    public static final String DEFAULT_CONTENT_TAG = "contentTag";
 
     private Title title;
     private Set<Content> contents;
@@ -24,7 +25,13 @@ public class CheatSheetBuilder {
     public CheatSheetBuilder() {
         title = new Title(DEFAULT_TITLE);
         Set<Content> contents = new HashSet<>();
-        contents.add(new Content(DEFAULT_CONTENT));
+
+        Tag contentTag = new Tag(DEFAULT_CONTENT_TAG);
+        HashSet<Tag> contentTagList = new HashSet<>();
+        contentTagList.add(contentTag);
+
+        contents.add(new Content(DEFAULT_CONTENT, contentTagList));
+
         this.contents = contents;
         tags = new HashSet<>();
     }
@@ -51,15 +58,6 @@ public class CheatSheetBuilder {
      */
     public CheatSheetBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Content} of the {@code CheatSheet} that we are building.
-     */
-    public CheatSheetBuilder withContent(String content) {
-        Set<Content> contents = new HashSet<>();
-        contents.add(new Content(content));
         return this;
     }
 

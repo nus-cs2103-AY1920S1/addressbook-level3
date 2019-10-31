@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.CLEAR;
 import static seedu.address.commons.core.Messages.SPECIFY_MODE;
 
+import java.util.ArrayList;
+
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -11,11 +13,6 @@ import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.cheatsheet.CheatSheet;
-import seedu.address.model.cheatsheet.UniqueCheatSheetList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Clears the address book.
@@ -26,6 +23,10 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Cleared ";
 
     private boolean isGlobal;
+
+    public ClearCommand() {
+
+    }
 
     public ClearCommand(boolean isGlobal) {
         this.isGlobal = isGlobal;

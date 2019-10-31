@@ -12,6 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.CheatsheetTabWindowController;
 
+/**
+ * Views a cheatsheet's contents by a specified tag identified by its displayed index.
+ */
 public class ViewSpecificCheatSheetTagCommand extends Command {
     public static final String COMMAND_WORD = SHOW;
 

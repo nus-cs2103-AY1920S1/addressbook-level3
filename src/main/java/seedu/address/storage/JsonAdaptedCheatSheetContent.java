@@ -1,17 +1,17 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.tag.Tag;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Content}.
@@ -28,7 +28,9 @@ class JsonAdaptedCheatSheetContent {
      * Constructs a {@code JsonAdaptedContent} with the given {@code content}.
      */
     @JsonCreator
-    public JsonAdaptedCheatSheetContent(@JsonProperty("content") String content, @JsonProperty("content_tags") List<JsonAdaptedTag> tags) {
+    public JsonAdaptedCheatSheetContent(
+            @JsonProperty("content") String content,
+            @JsonProperty("content_tags") List<JsonAdaptedTag> tags) {
         this.content = content;
         if (tags != null) {
             this.tags.addAll(tags);

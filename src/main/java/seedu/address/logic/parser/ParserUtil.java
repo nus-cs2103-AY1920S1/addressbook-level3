@@ -195,7 +195,8 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code content} is invalid.
      */
-    public static seedu.address.model.cheatsheet.Content parseCheatSheetContent(String content, Set<Tag> tags) throws ParseException {
+    public static seedu.address.model.cheatsheet.Content parseCheatSheetContent(String content, Set<Tag> tags)
+            throws ParseException {
         requireNonNull(content);
         requireNonNull(tags);
         String trimmedContent = content.trim();
@@ -208,8 +209,8 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> contents} into a {@code Set<Content>}.
      */
-    public static Set<seedu.address.model.cheatsheet.Content> parseCheatSheetContents(Collection<String> contents, Set<Tag> tags)
-            throws ParseException {
+    public static Set<seedu.address.model.cheatsheet.Content> parseCheatSheetContents(
+            Collection<String> contents, Set<Tag> tags) throws ParseException {
         requireNonNull(contents);
         final Set<seedu.address.model.cheatsheet.Content> contentSet = new HashSet<>();
         for (String contentName : contents) {

@@ -95,14 +95,17 @@ public class EditCheatSheetCommand extends Command {
         Title updatedTitle = editCheatSheetDescriptor.getTitle().orElse(cheatSheetToEdit.getTitle());
 
         Set<Content> updatedContents;
+        ArrayList<Integer> indexes = editCheatSheetDescriptor.getIndexes();
 
         if (isAdd) {
+            // new add command
             updatedContents = editCheatSheetDescriptor.getContents().orElse(cheatSheetToEdit.getContents());
+        } else if (indexes == null) {
+            // not editing contents
+            updatedContents = cheatSheetToEdit.getContents();
         } else {
-            updatedContents = updateContents(cheatSheetToEdit, editCheatSheetDescriptor.getIndexes());
-//            if (updatedContents == null || updatedContents.isEmpty()) {
-//                updatedContents = cheatSheetToEdit.getContents();
-//            }
+            // editing contents
+            updatedContents = updateContents(cheatSheetToEdit, indexes);
         }
 
         // updating tags comes after the updating of contents
@@ -111,7 +114,7 @@ public class EditCheatSheetCommand extends Command {
         if (editCheatSheetDescriptor.getTags().isEmpty()) {
             updatedTags = cheatSheetToEdit.getTags();
         } else {
-            updatedTags = editCheatSheetDescriptor.getTags().get();
+            updatedTags = updateTags(cheatSheetToEdit, editCheatSheetDescriptor.getTags().get());
 
             // remove irrelevant contents
             updatedContents = removeIrrelevantContent(updatedTags, updatedContents);
@@ -120,15 +123,46 @@ public class EditCheatSheetCommand extends Command {
         return new CheatSheet(updatedTitle, updatedContents, updatedTags);
     }
 
-    private static Set<Content> removeIrrelevantContent(Set<Tag> tags, Set<Content> contents) {
-        for (Content content: contents) {
-            Set<Tag> tagList = content.getTags();
-            if (Collections.disjoint(tags, tagList)) {
-                contents.remove(content);
+    /**
+     * Removes user specified tags from the tag list of cheatsheet.
+     * @param cheatSheetToEdit targeted cheatsheet
+     * @param tags list of tags to remove
+     * @return updated list of tags
+     */
+    private static Set<Tag> updateTags(CheatSheet cheatSheetToEdit, Set<Tag> tags) {
+        Set<Tag> tagList = new HashSet<>();
+
+        if (tags.isEmpty()) {
+            return null;
+        }
+
+        for (Tag tag: cheatSheetToEdit.getTags()) {
+            // ignores all invalid tags
+            if (!tags.contains(tag)) {
+                tagList.add(tag);
             }
         }
 
-        return contents;
+        return tagList;
+    }
+
+    /**
+     * Removes irrelevant content when its tag(s) are removed from the cheatsheet
+     * @param tags cheatsheet's tags
+     * @param contents existing contents
+     * @return relevant contents
+     */
+    private static Set<Content> removeIrrelevantContent(Set<Tag> tags, Set<Content> contents) {
+        Set<Content> contentList = new HashSet<>();
+
+        for (Content content: contents) {
+            Set<Tag> tagList = content.getTags();
+            if (!Collections.disjoint(tags, tagList)) {
+                contentList.add(content);
+            }
+        }
+
+        return contentList;
     }
 
     /**
@@ -151,7 +185,6 @@ public class EditCheatSheetCommand extends Command {
             }
         }
 
-        System.out.println(contentList);
         return contentList;
     }
 

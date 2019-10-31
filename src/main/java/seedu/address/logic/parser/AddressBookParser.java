@@ -8,10 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.LogicManager;
-
-import seedu.address.logic.commands.global.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.global.ListCommand;
 import seedu.address.logic.commands.cheatsheet.AddCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.DeleteCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
@@ -25,10 +22,11 @@ import seedu.address.logic.commands.flashcard.RemindCommand;
 import seedu.address.logic.commands.flashcard.ShowFlashcardAnswerCommand;
 import seedu.address.logic.commands.flashcard.StartTimeTrialCommand;
 import seedu.address.logic.commands.flashcard.ViewFlashcardCommand;
+import seedu.address.logic.commands.global.ClearCommand;
 import seedu.address.logic.commands.global.ExitCommand;
-//import seedu.address.logic.commands.global.GlobalTagFilterCommand;
 import seedu.address.logic.commands.global.FilterAllByTagCommand;
 import seedu.address.logic.commands.global.HelpCommand;
+import seedu.address.logic.commands.global.ListCommand;
 import seedu.address.logic.commands.global.ListTagCommand;
 import seedu.address.logic.commands.global.SwitchModeCommand;
 import seedu.address.logic.commands.note.AddNoteCommand;
