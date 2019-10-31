@@ -143,6 +143,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getIFridgeSettings().getNumberOfDays());
         personListPanelPlaceholder.getChildren().add(groceryListPanel.getRoot());
 
+        displayTemplateListPanel();
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

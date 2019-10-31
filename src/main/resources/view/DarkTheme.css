@@ -165,10 +165,10 @@
 }
 
 .template-item-display {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: black;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: gray;
     -fx-min-width: 1000;
 }
 
