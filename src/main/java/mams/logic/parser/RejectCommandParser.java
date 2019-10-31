@@ -2,7 +2,9 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static mams.logic.parser.CliSyntax.*;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
+import static mams.logic.parser.CliSyntax.PREFIX_MASS_RESOLVE;
+import static mams.logic.parser.CliSyntax.PREFIX_REASON;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,8 @@ public class RejectCommandParser implements Parser<Reject> {
      */
     public Reject parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_APPEAL, PREFIX_REASON, PREFIX_MASS_RESOLVE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args
+                , PREFIX_APPEAL, PREFIX_REASON, PREFIX_MASS_RESOLVE);
 
         Index index;
 

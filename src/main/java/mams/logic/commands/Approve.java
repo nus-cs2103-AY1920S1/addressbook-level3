@@ -15,7 +15,7 @@ public abstract class Approve extends ResolveCommand {
             + "To approve individually:\n"
             + "Parameters: KEYWORD [" + PREFIX_APPEAL + "INDEX] ["
             + PREFIX_REASON + "REASON]\n"
-            + "Example: " + COMMAND_WORD_APPROVE_APPEAL  + " " + PREFIX_APPEAL+ "1 "
+            + "Example: " + COMMAND_WORD_APPROVE_APPEAL + " " + PREFIX_APPEAL + "1 "
             + PREFIX_REASON + "module quota exceeded.\n"
             + "To approve multiple:\n"
             + "Parameters: KEYWORD [" + PREFIX_MASS_RESOLVE + "] [APPEALID] [APPEALID] ...\n"
