@@ -11,12 +11,12 @@
         <Label fx:id="deckName" alignment="CENTER" layoutX="265.0" layoutY="5.0" prefHeight="26.0" prefWidth="95.0" text="Name of deck" textAlignment="CENTER" />
         <Button fx:id="startTest" layoutX="122.0" layoutY="382.0" mnemonicParsing="false" text="Start Review" />
         <ScrollPane layoutX="32.0" layoutY="37.0" prefHeight="314.0" prefWidth="556.0">
-         <content>
-            <VBox fx:id="questionList" prefHeight="311.0" prefWidth="552.0" />
-         </content>
+            <content>
+                <VBox fx:id="questionList" prefHeight="311.0" prefWidth="552.0" />
+            </content>
         </ScrollPane>
         <Label fx:id="deckSize" alignment="CENTER" layoutX="2.0" layoutY="360.0" prefHeight="17.0" prefWidth="620.0" text="number of cards" />
-      <Button fx:id="deleteDeckButton" layoutX="417.0" layoutY="382.0" mnemonicParsing="false" text="Delete Deck" textFill="RED" underline="true" />
-      <Button fx:id="addQuestionButton" layoutX="225.0" layoutY="382.0" mnemonicParsing="false" text="Change Name/Add Question" />
+        <Button fx:id="deleteDeckButton" layoutX="417.0" layoutY="382.0" mnemonicParsing="false" text="Delete Deck" textFill="RED" underline="true" />
+        <Button fx:id="addQuestionButton" layoutX="225.0" layoutY="382.0" mnemonicParsing="false" text="Change Name/Add Question" />
     </children>
 </fx:root>
