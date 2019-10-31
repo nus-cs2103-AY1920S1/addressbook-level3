@@ -21,9 +21,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.flashcard.AnswerContainsAnyKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindAnswerCommand}.
+ * Contains integration tests (interaction with the Model) for {@code SearchAnswerCommand}.
  */
-public class FindAnswerCommandTest {
+public class SearchAnswerCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -34,14 +34,14 @@ public class FindAnswerCommandTest {
         AnswerContainsAnyKeywordsPredicate secondPredicate =
                 new AnswerContainsAnyKeywordsPredicate(Collections.singletonList("second"));
 
-        FindAnswerCommand findFirstCommand = new FindAnswerCommand(firstPredicate);
-        FindAnswerCommand findSecondCommand = new FindAnswerCommand(secondPredicate);
+        SearchAnswerCommand findFirstCommand = new SearchAnswerCommand(firstPredicate);
+        SearchAnswerCommand findSecondCommand = new SearchAnswerCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindAnswerCommand findFirstCommandCopy = new FindAnswerCommand(firstPredicate);
+        SearchAnswerCommand findFirstCommandCopy = new SearchAnswerCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -58,7 +58,7 @@ public class FindAnswerCommandTest {
     public void execute_zeroKeywords_noFlashCardFound() {
         String expectedMessage = String.format(MESSAGE_FLASHCARD_LISTED_OVERVIEW, 0);
         AnswerContainsAnyKeywordsPredicate predicate = preparePredicate(" ");
-        FindAnswerCommand command = new FindAnswerCommand(predicate);
+        SearchAnswerCommand command = new SearchAnswerCommand(predicate);
         expectedModel.updateFilteredFlashCardList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredFlashCardList());
@@ -68,7 +68,7 @@ public class FindAnswerCommandTest {
     public void execute_multipleKeywords_multipleFlashCardFound() {
         String expectedMessage = String.format(MESSAGE_FLASHCARD_LISTED_OVERVIEW, 3);
         AnswerContainsAnyKeywordsPredicate predicate = preparePredicate("transmitted other");
-        FindAnswerCommand command = new FindAnswerCommand(predicate);
+        SearchAnswerCommand command = new SearchAnswerCommand(predicate);
         expectedModel.updateFilteredFlashCardList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(STORE_AND_FORWARD, DELAY, THROUGHPUT), model.getFilteredFlashCardList());

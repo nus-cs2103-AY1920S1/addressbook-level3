@@ -21,13 +21,13 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.logic.commands.EndTestCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindAnswerCommand;
-import seedu.address.logic.commands.FindCategoryCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.FindQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListAllCommand;
+import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.logic.commands.RateQuestionCommand;
+import seedu.address.logic.commands.SearchAnswerCommand;
+import seedu.address.logic.commands.SearchCommand;
+import seedu.address.logic.commands.SearchQuestionCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
@@ -85,35 +85,35 @@ public class KeyboardFlashCardsParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new QuestionOrAnswerContainsAnyKeywordsPredicate(keywords)), command);
+        SearchCommand command = (SearchCommand) parser.parseCommand(
+                SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCommand(new QuestionOrAnswerContainsAnyKeywordsPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommand_findCategory() throws Exception {
         List<String> keywords = Arrays.asList("C", "cs2101");
-        FindCategoryCommand command = (FindCategoryCommand) parser.parseCommand(
-                FindCategoryCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCategoryCommand(new CategoryContainsAnyKeywordsPredicate(keywords)), command);
+        ListCategoryCommand command = (ListCategoryCommand) parser.parseCommand(
+                ListCategoryCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new ListCategoryCommand(new CategoryContainsAnyKeywordsPredicate(keywords)), command);
 
     }
 
     @Test
     public void parseCommand_findQuestion() throws Exception {
         List<String> keywords = Arrays.asList("what", "cs2101");
-        FindQuestionCommand command = (FindQuestionCommand) parser.parseCommand(
-            FindQuestionCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindQuestionCommand(new QuestionContainsAnyKeywordsPredicate(keywords)), command);
+        SearchQuestionCommand command = (SearchQuestionCommand) parser.parseCommand(
+            SearchQuestionCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchQuestionCommand(new QuestionContainsAnyKeywordsPredicate(keywords)), command);
 
     }
 
     @Test
     public void parseCommand_findAnswer() throws Exception {
         List<String> keywords = Arrays.asList("C", "cs2101");
-        FindAnswerCommand command = (FindAnswerCommand) parser.parseCommand(
-                FindAnswerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindAnswerCommand(new AnswerContainsAnyKeywordsPredicate(keywords)), command);
+        SearchAnswerCommand command = (SearchAnswerCommand) parser.parseCommand(
+                SearchAnswerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchAnswerCommand(new AnswerContainsAnyKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -124,8 +124,8 @@ public class KeyboardFlashCardsParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListAllCommand.COMMAND_WORD) instanceof ListAllCommand);
+        assertTrue(parser.parseCommand(ListAllCommand.COMMAND_WORD + " 3") instanceof ListAllCommand);
     }
 
     @Test

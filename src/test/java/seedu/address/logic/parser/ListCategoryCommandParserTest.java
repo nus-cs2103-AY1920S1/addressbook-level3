@@ -10,11 +10,11 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.FindCategoryCommand;
+import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 
 
-public class FindCategoryCommandParserTest {
+public class ListCategoryCommandParserTest {
 
     private FindCategoryCommandParser parser = new FindCategoryCommandParser();
 
@@ -22,18 +22,18 @@ public class FindCategoryCommandParserTest {
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        FindCategoryCommand.MESSAGE_USAGE));
+                        ListCategoryCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindCategoryCommand() {
         // no leading and trailing whitespaces
-        FindCategoryCommand expectedFindCategoryCommand =
-                new FindCategoryCommand(new CategoryContainsAnyKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCategoryCommand);
+        ListCategoryCommand expectedListCategoryCommand =
+                new ListCategoryCommand(new CategoryContainsAnyKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+        assertParseSuccess(parser, "Alice Bob", expectedListCategoryCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCategoryCommand);
+        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedListCategoryCommand);
     }
 
 }

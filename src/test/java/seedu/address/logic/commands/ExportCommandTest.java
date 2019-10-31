@@ -23,7 +23,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.export.DocumentPath;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
 public class ExportCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
