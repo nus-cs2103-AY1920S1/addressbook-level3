@@ -3,8 +3,6 @@ package tagline.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.testutil.Assert.assertThrows;
 
-import java.util.Collections;
-
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.parser.exceptions.ParseException;
@@ -48,11 +46,6 @@ public class TagParserUtilTest {
 
     @Test
     public void parseTags_collectionWithInvalidTags_throwsParseException() {
-    }
-
-    @Test
-    public void parseTags_emptyCollection_returnsEmptySet() {
-        assertTrue(TagParserUtil.parseTags(Collections.emptyList()).isEmpty());
     }
 
     @Test
