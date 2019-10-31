@@ -46,11 +46,37 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * `*view*|main` : views all items in the main list
 * `*check*|20` : views items that are going to expire within 20 days
-* `*add*|Banana|25/9/2019` : adds an item named `Banana` with expiry date `25/9/2019` to list
+* `*add*|Banana|25/9/2020` : adds an item named `Banana` with expiry date `25/9/2020` to list
 * `*delete*|3` : deletes the 3rd item shown in the current list
+* `*shift*|1|` : add the 1st item to the replenish list
 * `*exit*` : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+
+== Graphic User Interface
+
+// insert picture
+There are two lists shown on the Graphic User Interface(GUI), `View` and `All items`. On the left which is the `View` list, you can see items
+displayed like cards. This list shows you the current view of items. As you manipulate the items using
+`search`, or `check`, `View` list will change accordingly to show you only the items you want to see.
+
+// insert picture
+If the name or other details of the item is shortened with `...`, you can click on the card to expand it.
+
+//insert picture
+You can find all your items on the right, in the `All items` list. Here items are categorized into tracked items and to-buy items. You can click on the list
+name to view items in the list, or click again to collapse the list. Clicking on the item name will show you the
+expiry date of the item if it has one. The `All items` list provides you with a static view of all your items in the app in alphabetical order.
+
+// insert picture
+Below the `View` list panel, you can find a rectangle box which acts like a "feedback window". Any feedback on
+the successful execution of the command will be displayed in this box. If you type something wrongly, you will
+also be able to see a failure message and relevant suggestions in the box.
+
+// insert picture
+Finally, at the very bottom, you can find a small rounded rectangle box that says "Enter command here...". This
+is where you can type your command. Try typing `add|Banana|1/11/2020` and press kbd:[enter], there you go the first item in your tracking list!
 
 [[Features]]
 == Features
