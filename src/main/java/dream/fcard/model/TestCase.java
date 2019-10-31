@@ -1,11 +1,15 @@
 package dream.fcard.model;
 
+import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.datastructures.Pair;
+import dream.fcard.util.json.JsonInterface;
+import dream.fcard.util.json.jsontypes.JsonObject;
+import dream.fcard.util.json.jsontypes.JsonValue;
 
 /**
  * A testcase object to remember 1 input file and 1 output file. used by JavaCard.
  */
-public class TestCase {
+public class TestCase implements JsonInterface {
     private String input;
     private String expectedOutput;
 
@@ -54,5 +58,13 @@ public class TestCase {
         String in = input;
         String out = expectedOutput;
         return new TestCase(in, out);
+    }
+
+    @Override
+    public JsonValue toJson() {
+        JsonObject obj = new JsonObject();
+        obj.put(Schema.TEST_CASE_INPUT, input);
+        obj.put(Schema.TEST_CASE_OUTPUT, expectedOutput);
+        return new JsonValue(obj);
     }
 }

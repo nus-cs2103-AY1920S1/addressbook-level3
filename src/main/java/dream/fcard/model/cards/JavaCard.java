@@ -1,5 +1,11 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.logic.storage.Schema;
+import dream.fcard.util.json.JsonInterface;
+import dream.fcard.util.json.exceptions.JsonWrongValueException;
+import dream.fcard.util.json.jsontypes.JsonArray;
+import dream.fcard.util.json.jsontypes.JsonObject;
+import dream.fcard.util.json.jsontypes.JsonValue;
 import java.util.ArrayList;
 
 import dream.fcard.model.TestCase;
@@ -42,6 +48,24 @@ public class JavaCard extends FlashCard {
     @Override
     public void editBack(String newText) {
         //unused
+    }
+
+    @Override
+    public JsonValue toJson() {
+        JsonArray arr = new JsonArray();
+        for (TestCase t : testCases) {
+            try {
+                arr.add(t.toJson().getObject());
+            } catch (JsonWrongValueException e) {
+                System.out.println("ERROR IN TESTCASES : " + e.getMessage());
+            }
+        }
+
+        JsonObject obj = new JsonObject();
+        obj.put(Schema.TYPE_FIELD, Schema.JAVA_TYPE);
+        obj.put(Schema.FRONT_FIELD, question);
+        obj.put(Schema.TEST_CASES_FIELD, arr);
+        return new JsonValue(obj);
     }
 
     @Override

@@ -1,0 +1,15 @@
+{
+    "cards": [
+        {
+            "back": "dsa",
+            "front": "asd",
+            "type": "front-back"
+        },
+        {
+            "back": "ewq",
+            "front": "qwert",
+            "type": "front-back"
+        }
+    ],
+    "name": "test"
+}
