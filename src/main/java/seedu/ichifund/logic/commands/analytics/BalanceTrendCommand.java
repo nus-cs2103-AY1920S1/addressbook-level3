@@ -33,7 +33,7 @@ public class BalanceTrendCommand extends TrendCommand {
 
     public static final String MESSAGE_SUCCESS = "Monthly balance trend for year %1$s displayed.";
 
-    public static final String REPORT_DESCRIPTION = "Total balance for this month";
+    public static final String REPORT_DESCRIPTION = "Total balance %1$s %2$s";
 
     /**
      * Constructs a {@code BalanceTrendCommand}.
@@ -56,7 +56,6 @@ public class BalanceTrendCommand extends TrendCommand {
         ObservableList<Transaction> transactionList = model.getFundBook().getTransactionList();
         List<Data> monthlyBalanceList = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            Year currentYear = report.getYear();
             Month currentMonth = new Month(Integer.toString(i + 1));
             List<Amount> currentMonthExpenditureList = new ArrayList<>();
             List<Amount> currentMonthIncomeList = new ArrayList<>();
@@ -72,7 +71,8 @@ public class BalanceTrendCommand extends TrendCommand {
             Amount currentMonthExpenditure = Amount.addAll(currentMonthExpenditureList);
             Amount currentMonthIncome = Amount.addAll(currentMonthIncomeList);
             Amount currentMonthBalance = Amount.subtract(currentMonthIncome, currentMonthExpenditure);
-            Data currentData = new Data(REPORT_DESCRIPTION, currentMonthBalance, Optional.of(currentYear),
+            Data currentData = new Data(String.format(REPORT_DESCRIPTION, currentMonth.wordString(), year.toString()),
+                    currentMonthBalance, Optional.of(year),
                     Optional.of(currentMonth), Optional.empty(), Optional.empty());
             monthlyBalanceList.add(currentData);
         }

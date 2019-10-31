@@ -10,7 +10,7 @@ import seedu.ichifund.model.date.Year;
 /**
  * Represents a report for expenditure, income or balance trends, with the ability to be generated.
  */
-public class TrendReport {
+public class TrendReport extends Report {
 
     private final Year year;
     private List<Data> trend;
@@ -79,12 +79,8 @@ public class TrendReport {
         builder.append(" Year: ")
                 .append(getYear());
 
-        String[] months = new String[] { "January", "February", "March", "April", "May", "June", "July", "August",
-            "September", "October", "November", "December" };
-        for (int i = 0; i < 12; i++) {
-            builder.append(months[i])
-                    .append(": ")
-                    .append(trend.get(i));
+        for (Data data : trend) {
+            builder.append(data);
         }
 
         return builder.toString();
