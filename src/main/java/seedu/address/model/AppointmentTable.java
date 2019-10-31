@@ -9,6 +9,7 @@ import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.reminder.Appointment;
 
 
@@ -60,16 +61,37 @@ public class AppointmentTable {
     /**
      * Adds a new Appointment to VISIT
      */
-    public AppointmentTable addAppointment(int type, String description, int days) {
+    public AppointmentTable addAppointment(int type, String description, int days) throws CommandException {
         requireNonNull(type);
         requireNonNull(description);
         requireNonNull(days);
         if (type == 0) {
-            reminders.put(description, days);
+            if (antiDuplicate(reminders, description, days)) {
+                reminders.put(description, days);
+            } else {
+                throw new CommandException("Appointment already exists");
+            }
         } else {
-            followup.put(description, days);
+            if (antiDuplicate(followup, description, days)) {
+                followup.put(description, days);
+            } else {
+                throw new CommandException("Appointment already exists");
+            }
         }
         return this;
+    }
+
+    private boolean antiDuplicate(HashMap<String, Integer> check, String description, int days) {
+        for (int i = 0; i < check.size(); i++) {
+            Iterator it = check.entrySet().iterator();
+            while (it.hasNext()) {
+                HashMap.Entry pair = (HashMap.Entry) it.next();
+                if (pair.getKey().equals(description) && (int) pair.getValue() == days) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**

@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.reminder.Appointment;
 
 /**
@@ -143,7 +144,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return aliasTable.getAlias(reusable);
     }
 
-    public void addAppointment(int type, String description, int days) {
+    public void addAppointment(int type, String description, int days) throws CommandException {
         appointmentTable.addAppointment(type, description, days);
     }
 
