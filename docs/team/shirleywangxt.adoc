@@ -1,0 +1,90 @@
+= NUStudy project portfolio for Wang Xueting (ShirleyWangxt)
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+This project portfolio serves the purpose to showcase my contribution to NUStudy as our software engineering project
+and the various skills I have acquired and utilised in the process of development.
+
+=== Project Overview
+
+My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[address book application] for our Software Engineering project.
+We chose to morph it into a revision flashcard desktop application called *NUStudy*.
+This enhanced application enables NUS students to store and manage lecture notes,
+practice questions under exam conditions and plan revision tasks effectively.
+
+This is what our project looks like: (todo: graphical user interface)
+
+My role is to design and write the code for question management features. The following sections illustrate
+these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides
+in relation to these enhancements.
+
+In this portfolio `monospace` indicates command-line input (commands, parameters, etc.)
+and _italics_ mark class names.
+
+== Summary of contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+=== Enhancement added:
+==== What it does
+* I was responsible for **implementing question management features**. A question includes a question body, an answer,
+a subject and a difficulty level. I have modified the existing _Person_ model to _Question_ model, as well as
+some of its relevant fields in the original address book application.
+
+* The question management commands are modified by the original person management commands as well.
+The commands include: _AddQuestionCommand_, _EditQuestionCommand_, _DeleteQuestionCommand_, _ClearQuestionCommand_,
+_FindQuestionCommand_, _FindDifficultyCommand_, _FindSubjectCommand_, _ListQuestionCommand_.
+
+==== Justification
+It is important for students to constantly practice questions to test their understanding as well as get familiarize
+with the concepts they have learned. This question management system allows students to store questions easily.
+They are able to use this app as a question bank for them to revise. Furthermore, by defining difficulty levels for
+each question, student can have a better sense of how well they have learned from this topic or this subject in general.
+The question bank can also support other features such as quiz mode and various statistics for attempts.
+
+=== Code Contributed
+Please click this link to see a sample of my code:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ShirleyWangxt&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[link]
+
+=== Other contributions
+
+* Testing: As I am responsible for testing, I have added a significant number of test classes which increased
+coverage to a large extent.
+
+* Documentation: I modified the user guide from a draft version to the standardised formal version. I have also
+standardised the command format for most of the features.
+
+* Community:
+** Reviewed Pull Requests
+** Reported bugs and offered suggestions for other teams in the class
+
+== User guide contributions
+
+We had to update the original addressbook User Guide with instructions for the enhancements that we had added.
+The following is an excerpt from our NUStudy User Guide, showing additions that I have made for the
+question management features.
+
+'''
+
+include::../UserGuide.adoc[tag=question]
+
+include::../UserGuide.adoc[tag=v2.0]
+
+
+== Developer guide contributions
+
+The following section shows my additions to the NUStudy Developer Guide for the question management features.
+
+'''
+
+include::../DeveloperGuide.adoc[tag=questiond]
+
+'''
+
+include::../DeveloperGuide.adoc[tag=usecasew]
+
+
