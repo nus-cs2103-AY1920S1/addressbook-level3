@@ -23,6 +23,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_BG_SIZE = new Prefix("s/");
     public static final Prefix PREFIX_BG_REPEAT = new Prefix("r/");
 
+    // Stats Prefixes
+    public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
+    public static final Prefix PREFIX_COUNT = new Prefix("n/");
+
     // Record Prefixes
     public static final Prefix PREFIX_RECORDTYPE = new Prefix("rt/");
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
@@ -31,10 +35,6 @@ public class CliSyntax {
 
     public static final Prefix PREFIX_BMI_HEIGHT = new Prefix("h/");
     public static final Prefix PREFIX_BMI_WEIGHT = new Prefix("w/");
-
-    // Stats Prefixes
-    public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
-    public static final Prefix PREFIX_COUNT = new Prefix("n/");
 
     // Calendar Prefixes
     public static final Prefix PREFIX_CALENDAR_DESCRIPTION = new Prefix("d/");
@@ -45,7 +45,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_YEAR_MONTH_WEEK = new Prefix("ymw/");
 
     // Food Prefixes
-    public static final Prefix PREFIX_FOOD = new Prefix("fn/");
+    public static final Prefix PREFIX_FOOD_NAME = new Prefix("fn/");
     public static final Prefix PREFIX_FOOD_TYPE = new Prefix("ft/");
     public static final Prefix PREFIX_CALORIE = new Prefix("ca/");
     public static final Prefix PREFIX_GI = new Prefix("gi/");

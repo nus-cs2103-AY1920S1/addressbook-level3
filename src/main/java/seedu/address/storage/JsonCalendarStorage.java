@@ -12,8 +12,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.Calendar;
 import seedu.address.model.ReadOnlyCalendar;
+import seedu.address.model.calendar.Calendar;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Event;
 

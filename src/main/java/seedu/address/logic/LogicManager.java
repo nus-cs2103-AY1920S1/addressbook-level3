@@ -233,6 +233,11 @@ public class LogicManager implements Logic {
         model.resetNewAchievementsState();
     }
 
+    @Override
+    public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap) {
+        return model.currAchievementsMapIsSameAs(prevAchievementMap);
+    }
+
 
 
 }

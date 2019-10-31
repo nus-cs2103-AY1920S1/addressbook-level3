@@ -2,13 +2,13 @@ package seedu.address.model.util;
 
 import java.time.LocalDateTime;
 
-import seedu.address.model.Calendar;
-import seedu.address.model.DateTime;
+import seedu.address.model.calendar.Calendar;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Event;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.calendar.Repetition;
+import seedu.address.model.time.DateTime;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

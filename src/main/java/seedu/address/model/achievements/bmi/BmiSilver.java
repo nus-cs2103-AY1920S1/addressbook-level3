@@ -43,4 +43,11 @@ public class BmiSilver extends Achievement implements Bmi {
         return DURATION_UNITS;
     }
 
+    @Override
+    public Achievement copy() {
+        Achievement newAchievement = new BmiSilver();
+        newAchievement.setAchievementState(this.getAchievementState());
+        return newAchievement;
+    }
+
 }

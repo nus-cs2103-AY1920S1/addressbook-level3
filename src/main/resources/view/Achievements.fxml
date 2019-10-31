@@ -3,14 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
 <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="achievementsPlaceHolder" HBox.hgrow="ALWAYS"
       xmlns="http://javafx.com/javafx/8">
     <children>
         <ScrollPane fx:id="achievementsScrollPane" fitToWidth="true" pannable="false" styleClass="profile-scroll"
                     HBox.hgrow="ALWAYS">
             <content>
-                <TilePane fx:id="achievementsTilePane" hgap="10" vgap="10"/>
+                <VBox fx:id="achievementsListVBox" spacing="20"/>
             </content>
         </ScrollPane>
     </children>

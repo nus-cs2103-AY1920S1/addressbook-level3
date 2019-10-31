@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -9,14 +10,17 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
-import seedu.address.model.YearMonth;
+import seedu.address.model.achievements.Achievement;
 import seedu.address.model.bio.User;
-import seedu.address.model.calendar.YearMonthDay;
+import seedu.address.model.record.RecordType;
+import seedu.address.model.time.YearMonth;
+import seedu.address.model.time.YearMonthDay;
 import seedu.address.ui.bio.BioPane;
+import seedu.address.ui.statistics.AverageGraphPane;
 import sugarmummy.recmfood.ui.FoodFlowPanel;
 
 /**
- * A class containing enumerations, storing the possible Main Display Panes to be displayed to the user.
+ * A class that stores and processes the possible Main Display Panes to be displayed to the user.
  */
 public class MainDisplayPane {
 
@@ -42,11 +46,11 @@ public class MainDisplayPane {
         switch (displayPaneType) {
         case BIO:
             ObservableList<User> filteredUserList = logic.getFilteredUserList();
-            BioPane previousPane = (BioPane) map.get(DisplayPaneType.BIO);
-            Image previousDp = previousPane != null ? previousPane.getImg() : null;
+            BioPane previousBioPane = (BioPane) map.get(DisplayPaneType.BIO);
+            Image previousDp = previousBioPane != null ? previousBioPane.getImg() : null;
 
             if (!filteredUserList.isEmpty() && previousDp != null && filteredUserList.get(0).getDpPath().toString()
-                    .equals(previousPane.getDpPath())) {
+                    .equals(previousBioPane.getDpPath())) {
                 return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList, previousDp,
                                 logic.getFontColour(), logic.getBackground()),
                         newPaneIsToBeCreated);
@@ -56,7 +60,18 @@ public class MainDisplayPane {
                         newPaneIsToBeCreated);
             }
         case ACHVM:
-            return getMappedPane(displayPaneType, AchievementsPane::new, newPaneIsToBeCreated);
+            Map<RecordType, List<Achievement>> achievementsMap = logic.getAchievementsMap();
+            AchievementsPane previousAchievementsPane = (AchievementsPane) map.get(DisplayPaneType.ACHVM);
+            Map<RecordType, List<Achievement>> previousMap = previousAchievementsPane != null
+                    ? previousAchievementsPane.getAchievementsMap()
+                    : null;
+            if (!achievementsMap.isEmpty() && previousMap != null && logic.currAchievementsMapIsSameAs(previousMap)) {
+                return getMappedPane(displayPaneType, () -> new AchievementsPane(achievementsMap),
+                        false);
+            } else {
+                return getMappedPane(displayPaneType, () -> new AchievementsPane(achievementsMap),
+                        newPaneIsToBeCreated);
+            }
         case RECM_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()),
                     newPaneIsToBeCreated);

@@ -19,15 +19,16 @@ public class Messages {
     public static final String MESSAGE_INCONSISTENT_SUBARGUMENT_INDEX = "Oops! the use of index / indices provided in "
             + "the sub-arguments is/are inconsistent. (i.e. some prefixes of the same type have no indices while "
             + "others do)";
-    public static final String MESSAGE_INVALID_PARAMETER = "Please enter correct input for %2$s!\n%1$s";
     public static final String MESSAGE_ARGUMENTS_MUST_BE_EMPTY = "Oops! This command cannot have any arguments.";
+    public static final String MESSAGE_INVALID_PARAMETER = "Please enter correct input for %2$s!\n%1$s";
 
     //---Record---
     public static final String MESSAGE_INVALID_RECORD_DISPLAYED_INDEX = "The record index provided is invalid";
     public static final String MESSAGE_RECORDS_LISTED_OVERVIEW = "%1$d persons listed!";
 
-    //---FoodList---
-    public static final String MESSAGE_EMPTY_FOOD_LIST = "";
+    //---Statistics---
+    public static final String MESSAGE_INVALID_RECORD_TYPE = "System does not accommodate such a record type.";
+    public static final String MESSAGE_INVALID_AVERAGE_TYPE = "System does not accommodate such a average type.";
 
     //---Bio---
     public static final String MESSAGE_NO_BIO_FOUND = "It looks like you have not set your biography. :( "

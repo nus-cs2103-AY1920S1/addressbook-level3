@@ -20,9 +20,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.YearMonth;
 import seedu.address.model.calendar.CalendarEntry;
-import seedu.address.model.calendar.YearMonthDay;
+import seedu.address.model.time.YearMonth;
+import seedu.address.model.time.YearMonthDay;
 
 /**
  * Panel containing a monthly calendar and calendar entries on each day.

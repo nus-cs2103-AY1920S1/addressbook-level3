@@ -43,4 +43,11 @@ public class BmiPlatinum extends Achievement implements Bmi {
         return DURATION_UNITS;
     }
 
+    @Override
+    public Achievement copy() {
+        Achievement newAchievement = new BmiPlatinum();
+        newAchievement.setAchievementState(this.getAchievementState());
+        return newAchievement;
+    }
+
 }
