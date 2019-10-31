@@ -12,6 +12,7 @@ public class ArcadeMode extends Mode {
     public ArcadeMode() {
         super("arcade");
         this.time = 20;
+        this.combinedPredicate = NormalMode.NORMAL_MODE_PREDICATE;
     }
 
     public int getLevelTwoTime() {
