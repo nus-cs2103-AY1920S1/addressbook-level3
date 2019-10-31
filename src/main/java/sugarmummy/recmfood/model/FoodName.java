@@ -1,7 +1,7 @@
 package sugarmummy.recmfood.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the name of <code>Food</code> in the recommended food list. Guarantees: immutable; is valid as declared in

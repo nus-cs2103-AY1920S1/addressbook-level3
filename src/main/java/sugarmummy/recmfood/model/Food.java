@@ -1,6 +1,6 @@
 package sugarmummy.recmfood.model;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.sugarmummy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 

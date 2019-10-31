@@ -1,8 +1,8 @@
 package sugarmummy.recmfood.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.sugarmummy.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.sugarmummy.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.sugarmummy.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -19,25 +19,23 @@ import org.junit.jupiter.api.Test;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyCalendar;
-import seedu.address.model.ReadOnlyUserList;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.achievements.Achievement;
-import seedu.address.model.aesthetics.Background;
-import seedu.address.model.aesthetics.Colour;
-import seedu.address.model.bio.User;
-import seedu.address.model.calendar.CalendarEntry;
-import seedu.address.model.calendar.Reminder;
-import seedu.address.model.person.Person;
-import seedu.address.model.record.Record;
-import seedu.address.model.record.RecordType;
-import seedu.address.model.record.UniqueRecordList;
-import seedu.address.model.statistics.AverageType;
+import seedu.sugarmummy.commons.core.GuiSettings;
+import seedu.sugarmummy.logic.commands.CommandResult;
+import seedu.sugarmummy.logic.commands.exceptions.CommandException;
+import seedu.sugarmummy.model.Model;
+import seedu.sugarmummy.model.ReadOnlyCalendar;
+import seedu.sugarmummy.model.ReadOnlyUserList;
+import seedu.sugarmummy.model.ReadOnlyUserPrefs;
+import seedu.sugarmummy.model.achievements.Achievement;
+import seedu.sugarmummy.model.aesthetics.Background;
+import seedu.sugarmummy.model.aesthetics.Colour;
+import seedu.sugarmummy.model.bio.User;
+import seedu.sugarmummy.model.calendar.CalendarEntry;
+import seedu.sugarmummy.model.calendar.Reminder;
+import seedu.sugarmummy.model.record.Record;
+import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.model.record.UniqueRecordList;
+import seedu.sugarmummy.model.statistics.AverageType;
 import sugarmummy.recmfood.model.Food;
 import sugarmummy.recmfood.model.UniqueFoodList;
 import sugarmummy.recmfood.testutil.FoodBuilder;
@@ -117,56 +115,6 @@ class AddFoodCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

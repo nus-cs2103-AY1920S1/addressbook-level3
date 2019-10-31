@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.function.Predicate;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.ui.DisplayPaneType;
+import seedu.sugarmummy.logic.commands.Command;
+import seedu.sugarmummy.logic.commands.CommandResult;
+import seedu.sugarmummy.logic.commands.exceptions.CommandException;
+import seedu.sugarmummy.model.Model;
+import seedu.sugarmummy.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
 import sugarmummy.recmfood.predicates.FoodTypeIsWantedPredicate;
 

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
+import seedu.sugarmummy.commons.util.StringUtil;
 import sugarmummy.recmfood.model.Food;
 
 /**

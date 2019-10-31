@@ -1,7 +1,7 @@
 package sugarmummy.recmfood.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.sugarmummy.logic.parser.ArgumentMultimap;
+import seedu.sugarmummy.logic.parser.ArgumentTokenizer;
+import seedu.sugarmummy.logic.parser.Parser;
+import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.commands.RecmFoodCommand;
 import sugarmummy.recmfood.model.Flag;
 import sugarmummy.recmfood.model.FoodType;

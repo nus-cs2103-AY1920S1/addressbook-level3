@@ -1,18 +1,18 @@
 package sugarmummy.recmfood.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GI;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SUGAR;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FAT;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_GI;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SUGAR;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.ui.DisplayPaneType;
+import seedu.sugarmummy.logic.commands.Command;
+import seedu.sugarmummy.logic.commands.CommandResult;
+import seedu.sugarmummy.logic.commands.exceptions.CommandException;
+import seedu.sugarmummy.model.Model;
+import seedu.sugarmummy.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
 
 /**

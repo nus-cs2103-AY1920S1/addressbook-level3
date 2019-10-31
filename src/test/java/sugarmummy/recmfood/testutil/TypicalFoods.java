@@ -1,11 +1,11 @@
 package sugarmummy.recmfood.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GI;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SUGAR;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FAT;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_GI;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SUGAR;
 import static sugarmummy.recmfood.testutil.FoodBuilder.DEFAULT_CALORIE;
 import static sugarmummy.recmfood.testutil.FoodBuilder.DEFAULT_FAT;
 import static sugarmummy.recmfood.testutil.FoodBuilder.DEFAULT_GI;
