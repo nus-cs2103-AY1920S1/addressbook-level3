@@ -325,7 +325,7 @@ With the example command executed above, the number of sub-groups for the 5 pers
 .. Transfer money between the two such that one or both of their balances reaches zero.
 The person(s) with a balance of zero are then removed, and a record of the `debtor`, `creditor` and `amountTransferred` is stored in a `List<DebtorCreditorAmount>`.
 
-.. Repeat from step i. until the sub-group contains less than two persons.
+.. Repeat until the sub-group contains less than two persons.
 
 . After every sub-group has been processed, `List<DebtorCreditorAmount>` is used to create the final `List<Debtor>` stored in `LoansManager`.
 

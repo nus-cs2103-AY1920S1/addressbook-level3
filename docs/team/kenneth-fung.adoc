@@ -10,14 +10,44 @@
 == Overview
 
 Budget Buddy is a desktop application that allows users to track their expenses.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+The user interacts with it using a Command-Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX.
 It is written in Java, and has about 15 kLoC.
+
+== About the Project
+
+Budget Buddy has a number of features to help users track their expenses and deeply customize their experience while using the app.
+
+As an expense tracker, Budget Buddy provides the ability for users to record and categorize transactions they have made.
+Transactions can also be divided into user-created accounts, helping users to isolate transactions for specific events or holidays.
+Budget Buddy further allows the user to track loans that they owe others or are owed to them,
+helping them remember to pay back or reclaim borrowed money.
+Unbalanced group payments can also be split equally by Budget Buddy,
+and the resulting debts the user owes or is owed can be recorded as loans automatically.
+
+Budget Buddy also provides features to deeply customize the user experience.
+Users can create rules to automate many actions;
+for example, they could create a rule that adds a transaction to a specific category if said transaction exceeds a certain amount.
+As the target audience comprises of computing students,
+Budget Buddy also allows users to utilize their computing know-how to write custom scripts to manipulate the app.
+For example, users can write scripts to add huge numbers of transactions,
+or scripts to trigger alarms when their expenses have exceeded a certain limit.
+
+== My Role
+
+My role in the project was to implement all facets regarding the *loans* feature.
+Chiefly, I added the ability for the user to add, edit, view and delete loans.
+Users can also mark loans as paid or unpaid, and when viewing their list of loans they can sort or filter the list by amount, date and more.
+I was also responsible for implementing the complex algorithm necessary to split and divide an initially unbalanced group payment;
+the main challenge in this scenario was to devise an algorithm that worked for any group size and every variation of initial unbalance.
+
+Aside from the implementation of features, I also aided in the delegation of roles among the team,
+upholding the quality of project documentation, and ensuring the team remained on task.
 
 == Summary of contributions
 
-* *Major enhancement*: Added *the ability to track loans and instantly split group payments equally*
+* *Major enhancement*: Added *the ability to track loans and split unbalanced group payments equally*
 ** *What they do*: Tracking loans allows the user to track all the money that they owe/are owed to other people.
-Splitting group payments through the app allows the user to avoid messy miscalculations and over/under-pay their friends.
+Splitting group payments through the app allows the user in avoiding messy miscalculations and over/under-paying their friends.
 ** *Justification*: This feature improves the product significantly, as both lending/borrowing money and paying for large items as a group are common occurrences that affect one's expenses.
 ** *Highlights*: Implementing loan-tracking required an in-depth analysis of design alternatives, especially regarding the structure of the loan-person relationship.
 Building it on top of and mutating the original brownfield project also proved challenging.
