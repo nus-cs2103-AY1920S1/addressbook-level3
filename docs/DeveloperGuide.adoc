@@ -100,6 +100,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//tag::UI[]
 [[Design-Ui]]
 === UI component
 
@@ -118,6 +119,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Responds to the user's keyboard and mouse input.
+* Pop-up windows respond to the buttons on the menu tab.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
@@ -142,6 +144,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+//end::UI[]
 
 [[Design-Model]]
 === Model component
@@ -156,6 +159,7 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Menu data.
 * stores the Wallet data.
+* stores the Info data.
 * stores the SavingsAccount data.
 * stores the PurchaseHistory data.
 * exposes the `RemainingBudget` and `DaysToExpire` that can be 'observed' e.g. the UI can be bound to these values so that the UI automatically updates when the data in the `Wallet` change.
