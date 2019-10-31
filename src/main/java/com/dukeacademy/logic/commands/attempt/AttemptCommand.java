@@ -8,10 +8,10 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
-import com.dukeacademy.model.State.Activity;
-import com.dukeacademy.model.State.ApplicationState;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.state.Activity;
+import com.dukeacademy.model.state.ApplicationState;
 
 /**
  * Command for attempting a question. This command loads the selected question into the registered

@@ -1,8 +1,12 @@
-package com.dukeacademy.model.State;
+package com.dukeacademy.model.state;
 
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.observable.StandardObservable;
 
+/**
+ * Represents the current state of the application. The current implementation contains information about the user's
+ * current activity.
+ */
 public class ApplicationState {
     private final StandardObservable<Activity> currentActivity;
 

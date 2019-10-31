@@ -10,6 +10,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.state.ApplicationState;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 import com.dukeacademy.testutil.TypicalQuestions;
 
@@ -19,9 +20,11 @@ class ListCommandTest {
     @TempDir public Path tempFolder;
 
     private MockQuestionsLogic questionsLogic;
+    private ApplicationState applicationState;
 
     @BeforeEach void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
+        this.applicationState = new ApplicationState();
     }
 
     @Test void execute() {

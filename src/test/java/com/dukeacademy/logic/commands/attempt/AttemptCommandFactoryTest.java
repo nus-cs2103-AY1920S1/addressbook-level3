@@ -14,6 +14,7 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
+import com.dukeacademy.model.state.ApplicationState;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 
 class AttemptCommandFactoryTest {
@@ -21,10 +22,13 @@ class AttemptCommandFactoryTest {
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
+    private ApplicationState applicationState;
 
-    @BeforeEach void initializeTest() throws LogicCreationException {
+    @BeforeEach
+    void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         this.submissionLogic = new ProgramSubmissionLogicManager(tempFolder.toString());
+        this.applicationState = new ApplicationState();
     }
 
     @Test

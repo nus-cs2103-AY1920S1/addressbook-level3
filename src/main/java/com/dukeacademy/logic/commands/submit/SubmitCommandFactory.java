@@ -5,7 +5,7 @@ import com.dukeacademy.logic.commands.CommandFactory;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
-import com.dukeacademy.model.State.ApplicationState;
+import com.dukeacademy.model.state.ApplicationState;
 
 /**
  * Class to represent the necessary components for the creation of a Submit command.

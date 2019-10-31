@@ -10,10 +10,9 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
-
-import com.dukeacademy.model.State.Activity;
-import com.dukeacademy.model.State.ApplicationState;
+import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.observable.Observable;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -228,6 +227,10 @@ class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Helper method to select the correct tab based on the user's current activity.
+     * @param activity the user's current activity
+     */
     private void selectTabFromActivity(Activity activity) {
         if (activity == Activity.HOME) {
             this.tabPane.getSelectionModel().select(0);

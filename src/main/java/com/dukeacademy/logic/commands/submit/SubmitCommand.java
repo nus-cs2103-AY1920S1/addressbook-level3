@@ -9,12 +9,12 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
-import com.dukeacademy.model.State.Activity;
-import com.dukeacademy.model.State.ApplicationState;
 import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.state.Activity;
+import com.dukeacademy.model.state.ApplicationState;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
 import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 
@@ -55,7 +55,7 @@ public class SubmitCommand implements Command {
         // Save the user's program first
         logger.info("Saving user program first : " + userProgram);
         Question question = currentlyAttemptingQuestion.get();
-        Question questionWithNewProgram = question.withNewStatus(Status.ATTEMPTED).withNewUserProgram(userProgram);
+        Question questionWithNewProgram = question.withNewUserProgram(userProgram);
         this.questionsLogic.replaceQuestion(question, questionWithNewProgram);
 
         // Submit the user's program

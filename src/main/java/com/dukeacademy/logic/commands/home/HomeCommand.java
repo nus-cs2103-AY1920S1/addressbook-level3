@@ -8,10 +8,10 @@ import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
-import com.dukeacademy.model.State.Activity;
-import com.dukeacademy.model.State.ApplicationState;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.model.state.Activity;
+import com.dukeacademy.model.state.ApplicationState;
 
 /**
  * Home command used to exit the application. Any unsaved work is automatically
