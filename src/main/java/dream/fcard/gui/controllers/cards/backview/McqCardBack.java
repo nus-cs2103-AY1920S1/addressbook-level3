@@ -47,6 +47,13 @@ public class McqCardBack extends AnchorPane {
         }
     }
 
+    /**
+     * Checks if the answer that the user input is correct.
+     * Adds 1 to score if correct.
+     * @param card the card the user is viewing.
+     * @return "correct" or "wrong" accordingly
+     * @throws IndexNotFoundException //exception
+     */
     private String checkAnswer(MultipleChoiceCard card) throws IndexNotFoundException {
         boolean isCorrect = card.evaluate(Integer.toString(card.getUserAttempt()));
         if (isCorrect) {

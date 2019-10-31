@@ -1,9 +1,8 @@
 package dream.fcard.logic.exam;
 
-import dream.fcard.model.Deck;
-import dream.fcard.model.cards.FlashCard;
-
 import java.util.ArrayList;
+
+import dream.fcard.model.cards.FlashCard;
 
 /**
  * Singleton class that ensures that there is only ONE instance of exam.

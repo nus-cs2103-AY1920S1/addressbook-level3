@@ -1,9 +1,9 @@
 package dream.fcard.logic.exam;
 
+import java.util.ArrayList;
+
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
-
-import java.util.ArrayList;
 
 /**
  * Interface to define behaviour of exams.

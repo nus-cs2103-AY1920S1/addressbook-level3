@@ -1,7 +1,6 @@
 package dream.fcard.gui.controllers.displays.displayingdecks;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 

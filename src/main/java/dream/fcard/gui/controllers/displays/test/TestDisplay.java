@@ -11,10 +11,8 @@ import dream.fcard.gui.controllers.cards.frontview.McqCard;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.respond.ConsumerSchema;
-import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -73,12 +71,12 @@ public class TestDisplay extends AnchorPane {
         renderCurrentScore();
     };
 
-    private Consumer<Integer> updateMCQUserAttempt = input -> {
+    private Consumer<Integer> updateMcqUserAttempt = input -> {
         MultipleChoiceCard card = (MultipleChoiceCard) exam.getCurrentCard();
         card.setUserAttempt(input);
     };
 
-    private Consumer<String> updateJSUserAttempt = input -> {
+    private Consumer<String> updateJsUserAttempt = input -> {
         JavascriptCard card = (JavascriptCard) exam.getCurrentCard();
         card.setAttempt(input);
     };
@@ -133,7 +131,7 @@ public class TestDisplay extends AnchorPane {
             cardDisplay.getChildren().add(mcqCard);
         } else if (typeOfCard.equals("JavascriptCard")) {
             cardDisplay.getChildren().clear();
-            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateJSUserAttempt, getScore);
+            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateJsUserAttempt, getScore);
             cardDisplay.getChildren().add(jsCard);
         }
 
@@ -151,7 +149,8 @@ public class TestDisplay extends AnchorPane {
             SimpleCardBack backOfCard = new SimpleCardBack(back, seeFrontOfCurrentCard, getScore);
             cardDisplay.getChildren().add(backOfCard);
         } else if (typeOfCard.equals("MultipleChoiceCard")) {
-            McqCardBack backCard = new McqCardBack((MultipleChoiceCard) cardOnDisplay, seeFrontOfCurrentCard, getScore, updateMCQUserAttempt);
+            McqCardBack backCard = new McqCardBack((MultipleChoiceCard) cardOnDisplay,
+                    seeFrontOfCurrentCard, getScore, updateMcqUserAttempt);
             cardDisplay.getChildren().add(backCard);
         }
     }
@@ -188,6 +187,10 @@ public class TestDisplay extends AnchorPane {
         scoreLabel.setText("Current Score: " + exam.getResult());
     }
 
+    /**
+     * helper method that updates the exam deck with scores for each card.
+     * @param isCorrect boolean on whether the answer is correct.
+     */
     private void updateStatDeckWithScore(Boolean isCorrect) {
         try {
             Boolean successfulScore = exam.parseUserInputAndGrade(isCorrect);

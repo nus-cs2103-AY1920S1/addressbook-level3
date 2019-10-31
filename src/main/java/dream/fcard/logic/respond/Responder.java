@@ -8,7 +8,8 @@
 // */
 //public class Responder {
 //    /**
-//     * Takes in user input and the current state of the program. Uses the user input to decide which is the appropriate
+//     * Takes in user input and the current state of the program.
+//     * Uses the user input to decide which is the appropriate
 //     * responseFunc to call.
 //     *
 //     * @param input A String representing the user input.

@@ -63,6 +63,10 @@ public class UntimedExam implements Exam {
         return index;
     }
 
+    /**
+     * Duplicates the test deck so that stats class can use it (for Nat).
+     * @return ArrayList of Flashcards from the initial deck.
+     */
     private ArrayList<FlashCard> createTestDeck() {
         ArrayList<FlashCard> testDeckConsumer = new ArrayList<>();
         for (FlashCard card : initialDeck) {
