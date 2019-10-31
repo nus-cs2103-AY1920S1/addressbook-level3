@@ -50,6 +50,10 @@ public class AccountDeleteCommand extends Command {
         }
 
         Account accountToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if(lastShownList.size() <= 1){
+            //there is only one active account left, which should not be deleted.
+            throw new CommandException(Messages.MESSAGE_LAST_ACCOUNT_DELETION_ILLEGAL);
+        }
         accountsManager.deleteAccount(accountToDelete);
 
         return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete),
