@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_XPOS;
+import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_YPOS;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -81,11 +83,11 @@ public class PreferencesPage extends Page<AnchorPane> {
         });
         windowXPosFormItem = new TextFormItem("Window X Position: ", xPos -> {
             mainWindow.executeGuiCommand(
-                    EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_WINDOW_WIDTH + xPos);
+                    EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_WINDOW_XPOS + xPos);
         });
         windowYPosFormItem = new TextFormItem("Window Y Position: ", yPos -> {
             mainWindow.executeGuiCommand(
-                    EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_WINDOW_WIDTH + yPos);
+                    EditPrefsFieldCommand.COMMAND_WORD + " " + PREFIX_WINDOW_YPOS + yPos);
         });
         dataFilePathFormItem = new TextFormItem("Data file path: ", dataFilePath -> {
             mainWindow.executeGuiCommand(
@@ -94,10 +96,8 @@ public class PreferencesPage extends Page<AnchorPane> {
         guiLockFormItem = new CheckBoxFormItem("Lock gui settings: ", isLocked -> {
             mainWindow.executeGuiCommand(EditPrefsFieldCommand.COMMAND_WORD
                     + " " + PREFIX_GUI_LOCK
-                    + (isLocked.booleanValue() ? "t" : "f"));
+                    + (isLocked ? "t" : "f"));
         });
-
-        fillPage();
 
         formItemsPlaceholder.getChildren().addAll(
                 windowWidthFormItem.getRoot(),
