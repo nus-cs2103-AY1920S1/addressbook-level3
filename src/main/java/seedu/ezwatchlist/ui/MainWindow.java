@@ -360,7 +360,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void goToStatistics() throws NoRecommendationsException, OnlineConnectionException {
-        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(), statistics.getMovieRecommendations(), statistics.getTvShowRecommendations());
+        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(),
+                statistics.getMovieRecommendations(), statistics.getTvShowRecommendations());
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
         currentTab = STATISTICS_TAB;

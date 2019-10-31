@@ -8,7 +8,9 @@ import javafx.scene.layout.Region;
 import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.Show;
 
-
+/**
+ * An UI component that displays information of a recommended {@code Show}.
+ */
 public class RecommendationCard extends UiPart<Region> {
     private static final String FXML = "RecommendationCard.fxml";
 
@@ -27,7 +29,7 @@ public class RecommendationCard extends UiPart<Region> {
     @FXML
     private ImageView poster;
 
-    public RecommendationCard(Show show)  {
+    public RecommendationCard(Show show) {
         super(FXML);
         this.show = show;
         name.setText(show.getName().showName);
