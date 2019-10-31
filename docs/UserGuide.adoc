@@ -45,9 +45,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all expenses
-* **`add`**`d/Chicken Rice p/2.50 c/Food t/25-10` : adds an expense named `Chicken Rice` to the expense tracker.
-* **`delete`**`3` : deletes the 3rd expense shown in the current list
+* *`listexpense`* : lists all expenses
+* **`addexpense`**`d/Chicken Rice p/2.50 c/Food t/25-10` : adds an expense named `Chicken Rice` to the expense tracker.
+* **`deleteexpense`**`3` : deletes the 3rd expense shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -476,6 +476,8 @@ Tips:
 to input again.
 * Only expenses tracked under *the current budget* are shown.
 
+// tag::brian[]
+
 === Making inputs quick and easy.
 
 ==== Creating a shortcut:  `alias`
@@ -610,6 +612,8 @@ will be interpreted as:
 ----
 addexpense d/chicken duck p/3 c/food
 ----
+
+// end::brian[]
 
 === Saving the data
 Expense tracker data is saved in the hard disk automatically after any command that changes the data.
