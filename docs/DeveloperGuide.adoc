@@ -301,31 +301,81 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-=== Use Grocery Feature
-
-image::UseGrocerySequenceDiagram.png[]
-
-==== Implementations
-Refer to sequence diagram above.
-
-==== Design Considerations
-
-===== Aspect: Subtracting the values
-
-* **Alternative 1 (current choice):** Create a new grocery item and replace it with the old one.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Modify the Amount in the grocery item.
-** Pros: Will be more efficient and use less memory.
-** Cons: We must ensure that the implementation is correct.
-
-
 [[Implementation-Configuration]]
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== GroceryList Feature
+=== Use Grocery Feature
+
+==== Implementations
+The user is able to use specific item that she has. This can be done with the `glist use` command. +
+
+The sequence diagrams for interactions between the Logic and Model components when a user executes the `glist use` command is shown below.
+
+image::UseGrocerySequenceDiagram.png[]
+
+The current implementation for using a grocery item is by overwriting the existing grocery item with a new grocery item object with its amount field deducted. The rest of the fields are copied over without any other modifications.
+
+The `glist use` command is also able to support unit conversion.
+
+The following activity diagram summarises how the unit conversion is done.
+
+image::UseGroceryActivityDiagram.png[]
+
+The conversions of units are done by `Amount` class. Unit type is necessary in the implementation to allow for keeping track of different unit groups. For example, `kg`, `g`, `lbs`, and `oz` are all categorised under the unit type `Weight`.
+
+==== Design Considerations
+
+===== Aspect: Reducing the amount
+
+.Design considerations of the `glist use` command
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Create a new grocery item and replace it with the old one.
+
+* Pros:
+** Easy to implement.
+** Less bug-prone.
+
+* Cons:
+** May have performance issues in terms of memory usage.
+
+a|Modify the Amount in the grocery item.
+
+* Pros:
+** Will be more efficient and use less memory.
+
+* Cons:
+** Amount would be modifiable (not `final` anymore), thus is vulnerable to alterations.
+|===
+
+===== Aspect: Keeping track of unit type
+
+.Design considerations for the unit conversion in `glist use`
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Keeping the original unit of the item.
+
+* Pros:
+** Easy to maintain.
+
+* Cons:
+** Not very intuitive.
+
+a|Changing the original unit of item to the one input by user.
+
+* Pros:
+** Will be more intuitive to the user. e.g. After using `900ml` of a `1L` milk, it is more intuitive to show `100ml` instead of `0.1L`.
+
+* Cons:
+** Difficult to implement and maintain, due to its subjectiveness.
+** Consistency may be compromised.
+|===
 
 === WasteList Feature
 
