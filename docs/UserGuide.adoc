@@ -52,7 +52,7 @@ Refer to <<Features>> for details of each command.
 
 Format: `help`
 
-=== Switch to different windows: `tab [menu]`
+=== Switch to different windows: `tab`
 
 Switches to a different menu in the application window. +
 Format: `tab [menu_name]`
@@ -80,13 +80,28 @@ image::tab_3.png[width="800"]
 
 === Adding an appointment: `add`
 
-Adds an appointment to the appointment manager. +
-Format: `add d/DESCRIPTION`
+Adds an engagement to the system. Engagement can be in different types; `Engagement`, `Meeting` and `Interview` +
+Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY`
+
+.Enters Add Engagement Command in Command Input Text field.
+image::add_1.png[width="800"]
 
 Examples:
 
-* `add d/Meeting on Monday`
-Adds an appointment with the description `Meeting on Monday` to the appointment manager.
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High` +
+Adds an engagement with following information;
+** Engagement Type: Meeting
+** Start Time: 18/10/2019/1500
+** End Time: 18/10/2019/1800
+** Location: COM-2-B1-03
+** Attendees: John, Elijah, Sam
+** Engagement Description: CS2103T Discussion
+** Priority: High
+
+After user enters the above command, system will save the engagement information and displays the brief engagement information as a list item on the List View.
+
+.Engagement successfully saved in system storage.
+image::add_2.png[width="800"]
 
 === Listing all appointments : `list`
 
@@ -206,12 +221,16 @@ reflected in the player information panel in the game window. When the user fail
 word reaches the bottom of screen, the decrease in health points is reflected in the player information panel in the game
 window. After the health points reaches zero, `GAME OVER` is displayed.
 
-=== Generating a PDF file of engagement : `pdf i/[index] to/[receiver] from/[sender]`
+=== Generating a PDF file of engagement : `pdf`
 Pdf Command allows user to create a document of selected engagement in a given format of document template.
 Document template can be customised based on the customers's requirements, however, default document format will be in an eamil format,
 where the user can set who the user is going to send this document to inform an engagement. +
+
+Format: `pdf i/[index] to/[receiver] from/[sender]` +
+
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
 User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 to/Harry from/John` to generate the document.
+
 
 image::pdf_1.png[width="800"]
 
