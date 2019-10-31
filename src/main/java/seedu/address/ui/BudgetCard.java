@@ -63,7 +63,7 @@ public class BudgetCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EntryCard)) {
+        if (!(other instanceof BudgetCard)) {
             return false;
         }
 

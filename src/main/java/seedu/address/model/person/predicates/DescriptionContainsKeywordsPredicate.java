@@ -7,7 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Entry;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Entry's}'s {@code Description} matches any of the keywords given.
  */
 public class DescriptionContainsKeywordsPredicate implements Predicate<Entry> {
     private final List<String> keywords;

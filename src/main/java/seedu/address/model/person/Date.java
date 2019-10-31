@@ -42,18 +42,12 @@ public class Date {
     private static final DateTimeFormatter OUTPUTFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private static final DateTimeFormatter INPUTMONTHFORMATTER = new DateTimeFormatterBuilder()
-            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
-            .appendOptional(DateTimeFormatter.ofPattern("MM/yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("MM-yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("MM/yy"))
-            .appendOptional(DateTimeFormatter.ofPattern("M/yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("M-yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("M/yy"))
-            .appendOptional(DateTimeFormatter.ofPattern("yy/MM"))
+            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1).appendOptional(DateTimeFormatter.ofPattern("MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("MM-yyyy")).appendOptional(DateTimeFormatter.ofPattern("MM/yy"))
+            .appendOptional(DateTimeFormatter.ofPattern("M/yyyy")).appendOptional(DateTimeFormatter.ofPattern("M-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("M/yy")).appendOptional(DateTimeFormatter.ofPattern("yy/MM"))
             .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM"))
-            .toFormatter();
-
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM")).toFormatter();
 
     private LocalDate date;
     private String fullTime;
@@ -118,7 +112,7 @@ public class Date {
     public Date plus(Period period) {
         LocalDate newDate;
         long duration = period.getDuration();
-        switch(period.getInterval()) {
+        switch (period.getInterval()) {
         case 'd':
             newDate = date.plusDays(duration);
             break;
@@ -146,10 +140,13 @@ public class Date {
         return date.isEqual(other.date);
     }
 
+    public boolean lessThanOrEqualsToday() {
+        return this.isBefore(now()) || this.equals(now());
+    }
+
     @Override
     public String toString() {
         return fullTime;
-        //date.toString();
     }
 
     @Override

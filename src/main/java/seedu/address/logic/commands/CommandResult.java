@@ -32,6 +32,9 @@ public class CommandResult {
     private final boolean listFonts;
     private final boolean changeFont;
 
+    private boolean toShowConditionPanel = false;
+
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -100,6 +103,14 @@ public class CommandResult {
         this.changeFont = changeFont;
         this.toggleStats = false;
         this.toggleGraphics = false;
+    }
+
+    public void showConditionPanel() {
+        this.toShowConditionPanel = true;
+    }
+
+    public boolean toShowConditionPanel() {
+        return toShowConditionPanel;
     }
 
     public String getFeedbackToUser() {

@@ -152,6 +152,34 @@
      -fx-border-top-width: 1px;
 }
 
+.side-panel-placeholder {
+    -fx-background-color: White;
+}
+
+.side-panel {
+    -fx-background-color: White;
+    -fx-border-color: Grey;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+}
+
+.side-panel-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: Grey;
+}
+
+.side-panel-listview {
+    -fx-background-color: White;
+
+}
+
+.side-panel-listcard {
+    -fx-background-color: WhiteSmoke;
+    -fx-text-fill: Grey;
+
+}
+
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 30%);
 }

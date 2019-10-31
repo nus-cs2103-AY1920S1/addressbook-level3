@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -20,6 +21,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.PanelName;
+import seedu.address.ui.stats.StatisticsGraphics;
+import seedu.address.ui.stats.StatisticsWindow;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -73,6 +76,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private VBox remindersPlaceHolder;
+
+    @FXML
+    private VBox autoExpensesPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -154,10 +160,11 @@ public class MainWindow extends UiPart<Stage> {
 
         BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
-
-        // TODO: add wish reminders to the panel as well
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredExpenseReminderList());
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+
+        AutoExpensesPanel autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
+        autoExpensesPlaceHolder.getChildren().add(autoExpensesPanel.getRoot());
     }
 
     /**
@@ -224,10 +231,32 @@ public class MainWindow extends UiPart<Stage> {
         case "reminder":
             togglePlaceHolder(remindersPlaceHolder);
             break;
+        case "autoexpense":
+            togglePlaceHolder(autoExpensesPlaceHolder);
+            break;
         default:
             break;
         }
         logger.info("Toggled " + panelName + " side panel");
+    }
+
+    /**
+     * Replaces the Reminder Panel with the Conditions Panel;
+     */
+    private void showConditionPanel() {
+        remindersPlaceHolder.getChildren().clear();
+        remindersPlaceHolder.getChildren().add(new Label("Conditions"));
+        ConditionPanel conditionPanel = new ConditionPanel(logic.getFilteredConditions());
+        remindersPlaceHolder.getChildren().add(conditionPanel.getRoot());
+    }
+    /**
+     * Replaces the Conditions Panel with the Reminder Panel;
+     */
+    private void showReminderPanel() {
+        remindersPlaceHolder.getChildren().clear();
+        remindersPlaceHolder.getChildren().add(new Label("Reminders"));
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
+        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 
     /**
@@ -261,7 +290,8 @@ public class MainWindow extends UiPart<Stage> {
      * Otherwise, both of those properties are set to true.
      */
     private void toggleEntireSidePanelIfNecessary() {
-        if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()) {
+        if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()
+                && !autoExpensesPlaceHolder.isManaged()) {
             sidePanelsPlaceHolder.setManaged(false);
             sidePanelsPlaceHolder.setVisible(false);
         } else { // any one of the side panels are managed and visible
@@ -382,6 +412,14 @@ public class MainWindow extends UiPart<Stage> {
                 isStatsGraphicsWindow = !isStatsGraphicsWindow;
                 this.togglePlaceHolderForStats(true);
                 this.toggleStatsPanel();
+            }
+
+            if (commandResult.toShowConditionPanel()) {
+                showConditionPanel();
+            }
+
+            if (!(commandResult.toShowConditionPanel())) {
+                showReminderPanel();
             }
 
             return commandResult;

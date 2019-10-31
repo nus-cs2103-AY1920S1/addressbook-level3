@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -24,22 +26,38 @@ public class AutoExpense extends Entry {
         return this.ENTRY_TYPE;
     }
 
-    /**
-     * Get the next time it is supposed to but have not occurred yet.
-     *
-     * @return
-     */
     public Date getNextTime() {
         return lastTime.plus(freq);
     }
 
+    private Date getLastTime() {
+        return lastTime;
+    }
+
     /**
-     * Get the last time it created a Expense object.
+     * Generates a list of Expenses that are not yet generated.
+     * Updates internal record.
      *
+     * @return a list of Expenses.
+     */
+    public List<Expense> generateNewExpenses() {
+        List<Expense> newExpenses = new ArrayList<>();
+        while (getNextTime().lessThanOrEqualsToday()) {
+            newExpenses.add(generateNextExpense());
+        }
+        return newExpenses;
+    }
+
+    /**
+     * Side effect - updates lastTime to getNextTime.
+     *
+     * @param date
      * @return
      */
-    public Date getLastTime() {
-        return lastTime;
+    private Expense generateNextExpense() {
+        Expense expense = new Expense(getCategory(), getDesc(), getNextTime(), getAmount(), getTags());
+        lastTime = expense.getDate();
+        return expense;
     }
 
     /**

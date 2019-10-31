@@ -10,7 +10,6 @@ import seedu.address.logic.commands.AddAutoExpenseCommand;
 import seedu.address.logic.commands.AddBudgetCommand;
 import seedu.address.logic.commands.AddCategoryCommand;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddExpenseReminderCommand;
 import seedu.address.logic.commands.BudgetListCommand;
 import seedu.address.logic.commands.ChangeFontCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -19,13 +18,11 @@ import seedu.address.logic.commands.DeleteAutoExpenseCommand;
 import seedu.address.logic.commands.DeleteBudgetCommand;
 import seedu.address.logic.commands.DeleteCategoryCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteExpenseReminderCommand;
 import seedu.address.logic.commands.DeleteWishCommand;
 import seedu.address.logic.commands.EditAutoExpenseCommand;
 import seedu.address.logic.commands.EditBudgetCommand;
 import seedu.address.logic.commands.EditCategoryCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditExpenseReminderCommand;
 import seedu.address.logic.commands.EditWishCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindBudgetCommand;
@@ -44,7 +41,30 @@ import seedu.address.logic.commands.SwitchStatisticsCommand;
 import seedu.address.logic.commands.TogglePanelCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.WishListCommand;
+import seedu.address.logic.commands.conditioncommands.AddClassConditionCommand;
+import seedu.address.logic.commands.conditioncommands.AddDateConditionCommand;
+import seedu.address.logic.commands.conditioncommands.AddKeyWordsConditionCommand;
+import seedu.address.logic.commands.conditioncommands.AddQuotaConditionCommand;
+import seedu.address.logic.commands.conditioncommands.AddTagsConditionCommand;
+import seedu.address.logic.commands.conditioncommands.DeleteConditionCommand;
+import seedu.address.logic.commands.conditioncommands.ReplaceConditionCommand;
+import seedu.address.logic.commands.conditioncommands.ShowConditionListCommand;
+import seedu.address.logic.commands.remindercommands.AddConditionToReminderCommand;
+import seedu.address.logic.commands.remindercommands.AddReminderCommand;
+import seedu.address.logic.commands.remindercommands.DeleteReminderCommand;
+import seedu.address.logic.commands.remindercommands.EditReminderCommand;
+import seedu.address.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
+import seedu.address.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
+import seedu.address.logic.parser.conditioncommandparsers.AddKeyWordsConditionCommandParser;
+import seedu.address.logic.parser.conditioncommandparsers.AddQuotaConditionCommandParser;
+import seedu.address.logic.parser.conditioncommandparsers.AddTagsConditionCommandParser;
+import seedu.address.logic.parser.conditioncommandparsers.DeleteConditionCommandParser;
+import seedu.address.logic.parser.conditioncommandparsers.ReplaceConditionCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.remindercommandparsers.AddConditionToReminderCommandParser;
+import seedu.address.logic.parser.remindercommandparsers.AddReminderCommandParser;
+import seedu.address.logic.parser.remindercommandparsers.DeleteReminderCommandParser;
+import seedu.address.logic.parser.remindercommandparsers.EditReminderCommandParser;
 
 /**
  * Parses user input.
@@ -151,14 +171,41 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case AddExpenseReminderCommand.COMMAND_WORD:
-            return new AddExpenseReminderCommandParser().parse(arguments);
+        case AddReminderCommand.COMMAND_WORD:
+            return new AddReminderCommandParser().parse(arguments);
 
-        case EditExpenseReminderCommand.COMMAND_WORD:
-            return new EditExpenseReminderCommandParser().parse(arguments);
+        case EditReminderCommand.COMMAND_WORD:
+            return new EditReminderCommandParser().parse(arguments);
 
-        case DeleteExpenseReminderCommand.COMMAND_WORD:
-            return new DeleteExpenseReminderCommandParser().parse(arguments);
+        case DeleteReminderCommand.COMMAND_WORD:
+            return new DeleteReminderCommandParser().parse(arguments);
+
+        case AddConditionToReminderCommand.COMMAND_WORD:
+            return new AddConditionToReminderCommandParser().parse(arguments);
+
+        case AddClassConditionCommand.COMMAND_WORD:
+            return new AddClassConditionCommandParser().parse(arguments);
+
+        case AddDateConditionCommand.COMMAND_WORD:
+            return new AddDateConditionCommandParser().parse(arguments);
+
+        case AddKeyWordsConditionCommand.COMMAND_WORD:
+            return new AddKeyWordsConditionCommandParser().parse(arguments);
+
+        case AddQuotaConditionCommand.COMMAND_WORD:
+            return new AddQuotaConditionCommandParser().parse(arguments);
+
+        case AddTagsConditionCommand.COMMAND_WORD:
+            return new AddTagsConditionCommandParser().parse(arguments);
+
+        case DeleteConditionCommand.COMMAND_WORD:
+            return new DeleteConditionCommandParser().parse(arguments);
+
+        case ReplaceConditionCommand.COMMAND_WORD:
+            return new ReplaceConditionCommandParser().parse(arguments);
+
+        case ShowConditionListCommand.COMMAND_WORD:
+            return new ShowConditionListCommand();
 
         case AddAutoExpenseCommand.COMMAND_WORD:
             return new AddAutoExpenseCommandParser().parse(arguments);
