@@ -27,6 +27,7 @@ import seedu.address.logic.commands.ListStudentCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateGradesCommand;
+import seedu.address.logic.commands.UploadPictureCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -115,6 +116,9 @@ public class ClassroomParser {
 
         case GetStudentGradesCommand.COMMAND_WORD:
             return new GetStudentGradesCommandParser().parse(arguments);
+
+        case UploadPictureCommand.COMMAND_WORD:
+            return new UploadPictureCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
