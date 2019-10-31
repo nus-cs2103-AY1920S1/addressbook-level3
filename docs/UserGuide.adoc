@@ -329,7 +329,7 @@ for their expenditure.
 
 This command adds a deadline to a person's reimbursement.
 
-* Command: `deadline p/[name] dt/dd-mmm-yyyy`
+* Command: `deadline p/NAME dt/dd-mmm-yyyy`
 * Example: `deadline p/Alex Yeoh dt/19-Dec-2019`
 
 * Steps:
@@ -364,7 +364,7 @@ to reassign deadline to a reimbursement.
 
 This command finds the reimbursement for a specified person.
 
-* Command: `find p/[name]`
+* Command: `find p/NAME`
 * Example: `find p/Alex Yeoh`
 
 * Steps:
@@ -405,7 +405,7 @@ image::Reimbursement/ReimbursementBackCommandSuccess.png[]
 ==== Marking a Command as Done
 This command helps to mark a reimbursement as done and remove it from reimbursement list.
 
-* Command: `done p/[name]`
+* Command: `done p/NAME`
 * Example: `done p/Alex Yeoh`
 
 * Steps:
@@ -572,7 +572,7 @@ The quantity of the item must not be greater than the stock available in the Inv
 Else, Leo will display a message prompting input of a smaller quantity or another item.
 
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
-the Inventory tab or simply key in the category without any other fields. +
+the Inventory Tab or simply key in the category without any other fields. +
 Leo will display all the items in the
 specified category that are available for sale.
 
@@ -845,10 +845,24 @@ e.g. `find James Jake`
 * *List* : `list`
 
 === Reimbursement
+* *Add deadline*: `deadline p/NAME dt/dd-mmm-yyyy`
+* *Find Reimbursement by Person*: `find p/NAME`
+* *Display full list after find/add deadline*: `back`
+* *Mark as done*: `done p/NAME`
+* *Sort by amount*: `sort amount`
+* *Sort by name*: `sort name`
+* *Sort by deadline*: `sort deadline`
 
 === Inventory
 
 === Cashier
+* *Add sales item*: `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
+* *Delete sales item*: `delete INDEX`
+* *Edit by description*: `edit d/DESCRIPTION q/QUANTITY`
+* *Edit by index*: `edit i/INDEX q/QUANTITY`
+* *Set cashier-in-charge*: `cashier NAME`
+* *Checkout*: `checkout AMOUNT_PAID_BY_CUSTOMER`
+* *Clear*: `clear`
 
 === Overview
 * *Set budget goal*: `set b/ AMOUNT`
