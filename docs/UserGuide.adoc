@@ -45,6 +45,8 @@ image::Ui.PNG[width="790"]
 ====
 
 === Context: Outside Of Competition (Out-session)
+
+=== Commands related to competition
 Commands related to managing competitions outside of a competition setting shall be introduced first.
 
 ==== Adding a new competition: addCompetition
@@ -54,89 +56,100 @@ Example:
 `addCompetition n/IPF World's startDate/12/02/1995 endDate/15/02/1995`
 
 ==== Deleting an existing competition: deleteCompetition
+Deletes the competition identified by the index number, used in Competition list (shown in the GUI)
+
 Format: `deleteCompetition INDEX`
 
 Example:
 `deleteCompetition 1`
 
-==== Editing a new competition: editCompetition
-Edits the details of the competition identified by the index number, as shown in the displayed competition list. 
+==== Editing information of a competition person: `editCompetition`
+Edits the details of the competition identified by the index number, used in the Competition list (shown in the GUI). 
 Existing values will be overwritten by the input values.
-In addition to INDEX,  at least one other field must be provided to the command.
+In addition to INDEX, you must supply a value for at least one of the following fields:
+1.COMPETITION NAME
+2.START DATE OF COMPETITION
+3.END DATE OF COMPETITION
 
-Format: 
+Format: `editCompetition INDEX (must be a positive integer) [n/COMPETITION NAME] [startDate/START DATE OF COMPETITION] [endDate/END DATE OF COMPETITION]`
 
-`editCompetition INDEX (must be a positive integer) [n/COMPETITION NAME] [startDate/START DATE OF COMPETITION] [endDate/END DATE OF COMPETITION]`
-
-Example(s):
-If you choose to supply all fields:
+Examples:
+1.When all fields are supplied:
 
 * `editCompetition 1 n/IPF World's startDate/12/02/1995 endDate/15/02/1995`
 
-If you choose to supply only 1 field:
+2.When only 1 field is supplied:
 
 * `editCompetition 1 n/IPF World's`
 
-* `editCompetition 1 startDate/12/02/1995`
+* `editCompetition 1 endDate/15/02/1995`
 
-==== Getting top scorers: `score`
-Gets and displays leading athletes and their scores for individual events or for their total scores.
+==== Listing all records of current and past competitions: listCompetition
+This command has no parameters
 
-Format: `score e/EVENT t`
+Format: listCompetition
 
-Examples:
+=== Commands related to person (athlete)
+Commands related to managing persons (athletes) outside of a competition setting shall be introduced now.
 
-* to get scores for individual events only:
-  `score e/Squat`
+==== Adding a new person: `addPerson`
+Format: `addPerson n/NAME dob/DATE OF BIRTH g/GENDER`
 
-* to get total scores only
-  `score t`
+Example:
 
-==== Getting rank of an athlete: `rank`
-Gets current position of an athlete relative to other athletes for a competition.
+* `addPerson n/John Doe dob/12/02/1995 g/male`
 
-Format: `rank n/NAME comp/COMPETITION`
+==== Deleting an existing person: `deletePerson`
+Deletes the person identified by the index number, used in Person list (shown in the GUI).
 
-Examples:
-
-* `rank n/John comp/IPF 2020`
-
-==== Affiliation of an athlete: `aff`
-Gets the name of an organisation and a country, an athlete is associated with.
-
-Format: `aff n/NAME`
+Format: `deletePerson INDEX`
 
 Examples:
 
-* `aff n/John`
+* `deletePerson 1`
 
-==== Edit data of an athlete: `edit`
-Edits field(s) of information belonging to an athlete
+==== Editing information of an existing person: `editPerson`
+Edits the details of the person identified by the index number, used in the Person list (shown in the GUI). 
+Existing values will be overwritten by the input values.
+In addition to INDEX, you must supply a value for at least one of the following fields:
+1.NAME
+2.DATEOFBIRTH
+3.GENDER
 
-Format: `edit n/CURRENTNAME newN/NEWNAME bw/BODYWEIGHT wc/WEIGHTCLASS aff/AFFILIATION s/SCORE`
+Format: `editPerson INDEX (must be a positive integer) [n/NAME] [dob/DATEOFBIRTH] [g/GENDER]`
+
+Examples:
+1.When all fields are supplied:
+
+* `editPerson 1 n/John Doe dob/12/02/1995 g/MALE`
+
+2.When only 1 field is supplied:
+
+* `editPerson 1 n/John Doe`
+
+* `editPerson 1 dob/12/02/1995`
+
+==== Finding person(s): `findPerson`
+Finds all persons whose names contain any of the specified keywords (case-insensitive) and displays them as a numerically ordered list.
+
+Format: `findPerson [KEYWORD(s)]`
 
 Examples:
 
-* To edit name only:
-  `edit n/John newN/Johnny`
+* Find Alex Yeoh only:
+  `findPerson Alex`
 
-* To edit bodyweight only:
-  `edit n/John bw/100kg`
+* Find Alex Yeoh only:
+  `findPerson alex`
+  
+* Find Alex Yeoh only:
+  `findPerson yeoh`
 
-* To edit subset of fields:
-  `edit n/John newN/Johnny wc/100kg aff/Singapore`
+* Find Alex Yeoh and Bernice Yu:
+  `findPerson yeoh yu`
 
-* To edit all fields:
-  `edit n/John newN/Johnny bw/90 wc/90 aff/Singapore s/1000`
-
-==== Get top 3 athletes: `top3`
-Gets top 3 athletes (currently in 1st, 2nd and 3rd) for each weight class.
-
-Format: `top3 wc/WEIGHTCLASS`
-
-Examples:
-
-`top3 wc/100kg`
+==== Listing all existing persons: `listPerson`
+Format: `listPerson`
 
 === Competition Handling
 This feature adds/edits/lists competitions which are available on the UI.
