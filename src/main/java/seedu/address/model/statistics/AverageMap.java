@@ -1,5 +1,7 @@
 package seedu.address.model.statistics;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECORD_TYPE;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjuster;
@@ -9,14 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
 import seedu.address.model.record.Record;
@@ -50,20 +50,17 @@ public class AverageMap {
 
     /**
      * Calculates average values of a given record type based on the average type given.
+     * Pre-requisite: filteredRecord list must contain only the record type specified by average command.
      *
-     * @param recordList  list of records.
+     * @param filteredRecordList  list of records containing only the record type specified by @param recordType.
      * @param averageType the average type.
      * @param recordType  the record type.
-     * @param count
-     * @return
+     * @param count the number of most recent averages to calculate
      */
-    public void calculateAverage(ObservableList<Record> recordList,
+    public void calculateAverage(ObservableList<Record> filteredRecordList,
                                  AverageType averageType, RecordType recordType, int count) {
-        // Remove irrelevant record types
-        ObservableList<Record> filteredRecords = filterRecord(recordList, recordType);
-
         // Group records according to average type
-        Map<LocalDate, List<Record>> groupByTimeRecords = groupByAverageType(averageType, filteredRecords);
+        Map<LocalDate, List<Record>> groupByTimeRecords = groupByAverageType(averageType, filteredRecordList);
 
         // Calculate averages for each grouping in groupByTimeRecords
         Map<LocalDate, Double> averages = getAverage(recordType, groupByTimeRecords);
@@ -82,34 +79,6 @@ public class AverageMap {
         internalAverageType.setValue(averageType.toString());
 
         internalRecordType.setValue(recordType.toString());
-    }
-
-    //TODO: abstract this by using ModelManager#updateFilteredRecordList.
-
-    /**
-     * Filters list of records by the given record type.
-     *
-     * @param recordList list of records.
-     * @param recordType record type to be kept.
-     * @return returns a list containing only records of specified record type.
-     */
-    private ObservableList<Record> filterRecord(ObservableList<Record> recordList, RecordType recordType) {
-        FilteredList<Record> filteredRecords = new FilteredList<>(recordList);
-        Predicate<Record> containsRecordType;
-        switch (recordType) {
-        case BLOODSUGAR:
-            containsRecordType = ele -> ele instanceof BloodSugar;
-            break;
-        case BMI:
-            containsRecordType = ele -> ele instanceof Bmi;
-            break;
-        default:
-            // will not happen
-            assert false : "Record type is not supported.";
-            containsRecordType = null;
-        }
-        filteredRecords.setPredicate(containsRecordType);
-        return filteredRecords;
     }
 
     /**
@@ -152,9 +121,7 @@ public class AverageMap {
                             .map(record -> record.getBmi())
                             .mapToDouble(Double::doubleValue).average().getAsDouble()));
         default:
-            // will not happen
-            assert false : "Record type is not supported";
-            return null;
+            throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
 

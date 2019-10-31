@@ -1,9 +1,11 @@
-package seedu.address.ui;
+package seedu.address.ui.statistics;
 
-import static seedu.address.ui.RangeMarkerColor.COLOR_BLUE;
-import static seedu.address.ui.RangeMarkerColor.COLOR_GREEN;
-import static seedu.address.ui.RangeMarkerColor.COLOR_RED;
-import static seedu.address.ui.RangeMarkerColor.COLOR_YELLOW;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_AVERAGE_TYPE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECORD_TYPE;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_BLUE;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_GREEN;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_RED;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_YELLOW;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -22,7 +24,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
-import seedu.address.model.statistics.CustomLineChart;
 
 /**
  * Represents ui of an average graph with no legend.
@@ -39,8 +40,8 @@ public class AverageGraph {
 
     // labels used for x axis
     private static final String DAY = "day";
-    private static final String WEEK = "week";
-    private static final String MONTH = "month";
+    private static final String WEEK = "week (Date is Monday of the week)";
+    private static final String MONTH = "month (Date is first day of the month)";
 
     // Horizontal range marker for BMI
     private static final XYChart.Data<Number, Number> UNDER_WEIGHT_MARKER = new XYChart.Data<>(0, 18.5);
@@ -151,8 +152,7 @@ public class AverageGraph {
         case BLOODSUGAR:
             return BLOODSUGAR;
         default:
-            assert false : "Record type is not supported";
-            return null;
+            throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
 
@@ -166,8 +166,7 @@ public class AverageGraph {
         case BLOODSUGAR:
             return BLOODSUGAR + BLOODSUGAR_UNIT;
         default:
-            assert false : "Record type is not supported";
-            return null;
+            throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
 
@@ -189,7 +188,7 @@ public class AverageGraph {
             customLineChart.addHorizontalRangeMarker(AFTER_MEALS, COLOR_BLUE);
             break;
         default:
-            assert false : "Record type is not supported";
+            throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
 
@@ -205,8 +204,7 @@ public class AverageGraph {
         case MONTHLY:
             return MONTH;
         default:
-            assert false : "Average type is not supported.";
-            return null;
+            throw new IllegalArgumentException(MESSAGE_INVALID_AVERAGE_TYPE);
         }
     }
 

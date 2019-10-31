@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.statistics;
 
 import javafx.scene.paint.Color;
 

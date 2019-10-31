@@ -22,9 +22,12 @@ import seedu.address.model.record.Weight;
 import seedu.address.model.time.DateTime;
 
 public class AverageMapTest {
-    private static final ObservableList<Record> recordList = FXCollections.observableArrayList(Arrays.asList(
+    private final ObservableList<Record> bloodSugarRecordList = FXCollections.observableArrayList(Arrays.asList(
             new BloodSugar(new Concentration("4.0"), new DateTime("2019-01-01 00:00")),
-            new BloodSugar(new Concentration("5.0"), new DateTime("2019-01-08 00:00")),
+            new BloodSugar(new Concentration("5.0"), new DateTime("2019-01-08 00:00"))
+    ));
+
+    private final ObservableList<Record> bmiRecordList = FXCollections.observableArrayList(Arrays.asList(
             new Bmi(new Height("200.0"), new Weight("80.0"), new DateTime("2019-01-01 00:00")),
             new Bmi(new Height("200.0"), new Weight("64.0"), new DateTime("2019-01-08 00:00"))
     ));
@@ -40,7 +43,7 @@ public class AverageMapTest {
 
     @Test
     public void calculate_dailyAverageBloodSugar_success() {
-        averageMap.calculateAverage(recordList, AverageType.DAILY, RecordType.BLOODSUGAR, 5);
+        averageMap.calculateAverage(bloodSugarRecordList, AverageType.DAILY, RecordType.BLOODSUGAR, 5);
         ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
                 LocalDate.of(2019, 1, 1), 4.0,
                 LocalDate.of(2019, 1, 8), 5.0
@@ -51,7 +54,7 @@ public class AverageMapTest {
 
     @Test
     public void calculate_weeklyAverageBmi_success() {
-        averageMap.calculateAverage(recordList, AverageType.WEEKLY, RecordType.BMI, 5);
+        averageMap.calculateAverage(bmiRecordList, AverageType.WEEKLY, RecordType.BMI, 5);
         ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
                 LocalDate.of(2018, 12, 31), 20.0,
                 LocalDate.of(2019, 1, 7), 16.0
@@ -62,7 +65,7 @@ public class AverageMapTest {
 
     @Test
     public void calculate_monthlyAverageBloodSugar_success() {
-        averageMap.calculateAverage(recordList, AverageType.MONTHLY, RecordType.BLOODSUGAR, 5);
+        averageMap.calculateAverage(bloodSugarRecordList, AverageType.MONTHLY, RecordType.BLOODSUGAR, 5);
         ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
                 LocalDate.of(2019, 1, 1), 4.5
         ));
@@ -72,8 +75,8 @@ public class AverageMapTest {
 
     @Test
     public void equals() {
-        AverageMap one = new AverageMap();
-        AverageMap two = new AverageMap();
-        assertEquals(one, two);
+        AverageMap mapOne = new AverageMap();
+        AverageMap mapTwo = new AverageMap();
+        assertEquals(mapOne, mapTwo);
     }
 }

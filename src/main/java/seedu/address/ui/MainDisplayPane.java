@@ -16,6 +16,7 @@ import seedu.address.model.record.RecordType;
 import seedu.address.model.time.YearMonth;
 import seedu.address.model.time.YearMonthDay;
 import seedu.address.ui.bio.BioPane;
+import seedu.address.ui.statistics.AverageGraphPane;
 import sugarmummy.recmfood.ui.FoodFlowPanel;
 
 /**

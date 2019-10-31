@@ -1,9 +1,10 @@
-package seedu.address.ui;
+package seedu.address.ui.statistics;
 
-import static seedu.address.ui.RangeMarkerColor.COLOR_BLUE;
-import static seedu.address.ui.RangeMarkerColor.COLOR_GREEN;
-import static seedu.address.ui.RangeMarkerColor.COLOR_RED;
-import static seedu.address.ui.RangeMarkerColor.COLOR_YELLOW;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECORD_TYPE;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_BLUE;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_GREEN;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_RED;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_YELLOW;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.model.record.RecordType;
+import seedu.address.ui.UiPart;
 
 /**
  * Represents ui of a custom chart legend.
@@ -100,8 +102,7 @@ public class LegendPane extends UiPart<Region> {
             }
             break;
         default:
-            // will not happen
-            assert false : "Record type is not supported.";
+            throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
 

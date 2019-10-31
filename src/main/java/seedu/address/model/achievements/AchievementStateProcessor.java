@@ -22,6 +22,7 @@ import java.util.TreeMap;
 
 import seedu.address.model.Model;
 import seedu.address.model.record.RecordType;
+import seedu.address.model.statistics.RecordContainsRecordTypePredicate;
 
 /**
  * Class that processes the changes made to the list of achievements stored in this program, if any.
@@ -63,6 +64,7 @@ public class AchievementStateProcessor {
      */
     private void initialiseAverageRecordMap() {
         for (RecordType recordType : recordTypeSet) {
+            model.updateFilteredRecordList(new RecordContainsRecordTypePredicate(recordType));
             model.calculateAverageMap(DAILY, recordType, model.getRecordList().size());
 
             // Sort by descending date
