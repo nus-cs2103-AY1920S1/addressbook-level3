@@ -244,7 +244,7 @@ Examples:
 
 * `addnote mod/CS2103T c/Check for project submission date`
 
-==== Edit Note: `update_earnings`
+==== Edit Note: `editnote`
 
 Update Note in the list of notes. +
 Format: `editnote [index] mod/MODULE_CODE c/CONTENT`
@@ -263,6 +263,20 @@ Format: `deletenote [index]`
 Examples:
 
 * `deletenote 1`
+
+==== Find Note: `findnote`
+
+Delete Note in the list of notes. +
+Format: `findnote [KEYWORD]`
+
+Examples:
+
+* `findnote CS2103T`
+
+==== Listing all note : `listnote`
+
+List all note. +
+Format: `listnote`
 
 // end::delete[]
 
@@ -376,6 +390,9 @@ _{explain how the user can enable/disable data encryption}_
 * *Note* : +
 `addnote mod/MODULE_CODE c/CONTENT` +
 `editnote [index] mod/MODULE_CODE c/CONTENT` +
+`deletenote 1` +
+`findnote [KEYWORD]` +
+`listnote`
 * *Clear* : `clear`
 * *Exit* : `exit`
 
