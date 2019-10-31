@@ -1190,11 +1190,11 @@ Use case ends.
 
 '''
 [discrete]
-=== UC18 View exchange rate of a currency
+=== UC18 View exchange rates
 
 *MSS*
 
-1.  User requests to view exchange rate of a particular currency
+1.  User requests to view exchange rates
 2.  MoneyGoWhere shows all exchange rates available for supported currencies.
 +
 Use case ends.
@@ -1202,10 +1202,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. There is no amount and currency specified
+* 1a. There is an amount and currency specified.
 +
 [none]
-** 1a1. MoneyGoWhere shows all exchange rates.
+** 1a1. MoneyGoWhere converts the amount and currency specified to SGD.
 +
 Use case ends.
 
@@ -1216,7 +1216,7 @@ Use case ends.
 ** 1b1. MoneyGoWhere shows an error message.
 +
 Step 1b1 is repeated until the amount and currency entered is correct. +
-Use case resumes from step 1.
+Use case resumes from step 1a.
 [none]
 
 

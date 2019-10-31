@@ -318,12 +318,13 @@ Sets the currency displayed for spending entries to `USD`.
 
 // tag::exchangerates[]
 === Viewing exchange rates : `exchangerate`
-Displays the current exchange rate for a specified currency in SGD. +
+Displays current exchange rates. +
 Format: `exchangerate [AMOUNT] [CURRENCYCODE]`
 
 ****
-* If AMOUNT and CURRENCYCODE is not specified, all exchange rates are shown.
-* CURRENCYCODE can be `SGD`, `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
+* If AMOUNT and CURRENCYCODE are specified, the indicated values are converted to SGD.
+* CURRENCYCODE can be `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
+* Entering `SGD` as CURRENCYCODE will display an error since the entered value is already in SGD.
 ****
 
 Example:
@@ -331,9 +332,7 @@ Example:
 * `exchangerate` +
 Shows all exchange rates.
 * `exchangerate 5 USD` +
-Shows the exchange rate for 5 USD in SGD.
-
-
+Converts 5 USD to SGD based on current exchange rates.
 // end::exchangerates[]
 
 // tag::statistics[]
