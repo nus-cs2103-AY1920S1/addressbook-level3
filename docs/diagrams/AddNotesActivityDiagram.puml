@@ -1,0 +1,8 @@
+@startuml
+(*)  --> "User executes AddNotesCommand"
+If "input is valid"
+--> "Generate respective object
+parameters for Notes object"
+--> "Create Notes Object"
+-->(*)
+@enduml
