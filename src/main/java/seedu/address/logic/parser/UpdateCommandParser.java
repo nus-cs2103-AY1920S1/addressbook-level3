@@ -57,6 +57,12 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
         }
 
+        /* handles amount above 1billion */
+        if(argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH){
+            throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_OVERFLOW));
+        }
+
+
         return new UpdateCommand(type, index, updateTransactionDescriptor);
     }
 
