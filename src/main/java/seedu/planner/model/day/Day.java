@@ -63,7 +63,7 @@ public class Day {
      */
     public boolean hasActivity(Activity activity) {
         return timetable.getActivitiesWithTime().stream()
-                .anyMatch(x -> x.getActivity() == activity);
+                .anyMatch(x -> x.getActivity().equals(activity));
     }
 
     /**
