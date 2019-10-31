@@ -41,6 +41,5 @@ public class StartQuizCommand extends Command {
 
         return new CommandResult().withFeedBack(String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW,
                 model.getFilteredAnswerableList().size())).withStart(true).withMode(mode).build();
-
     }
 }
