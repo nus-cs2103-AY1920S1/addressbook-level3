@@ -17,8 +17,10 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_UPDATE_COMMAND;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import javafx.application.Platform;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
@@ -35,6 +37,7 @@ import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.notif.Notif;
 import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.NotifBuilder;
+import systemtests.SystemTestSetupHelper;
 
 //@@author ambervoong
 /**
@@ -44,6 +47,11 @@ import seedu.address.testutil.NotifBuilder;
 public class UpdateCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @BeforeAll
+    public static void setup() {
+        SystemTestSetupHelper.initialize(); //sets up FXToolkit
+    }
 
     @Test
     public void executeBody_allFieldsSpecifiedFilteredList_success() throws CommandException {
@@ -227,9 +235,11 @@ public class UpdateCommandTest {
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
-        assertEquals(model.getFilteredNotifList().size(), 1);
-        model.deleteEntity(body);
-        model.deleteNotif(model.getFilteredNotifList().get(0));
+        Platform.runLater(() -> {
+            assertEquals(1, model.getFilteredNotifList().size());
+            model.deleteEntity(body);
+            model.deleteNotif(model.getFilteredNotifList().get(0));
+        });
     }
     //@@author
 

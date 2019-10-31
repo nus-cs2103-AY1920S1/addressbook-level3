@@ -30,10 +30,10 @@
                 <AnchorPane maxHeight="30.0" prefWidth="1250.0" VBox.vgrow="NEVER">
                     <children>
                         <MenuBar fx:id="menuBar" layoutX="16.0" layoutY="-5.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <Menu mnemonicParsing="false" text="File">
+                            <Menu fx:id="fileButton" mnemonicParsing="false" text="File">
                                 <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                             </Menu>
-                            <Menu mnemonicParsing="false" text="Help">
+                            <Menu fx:id="helpButton" mnemonicParsing="false" text="Help">
                                 <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                             </Menu>
                         </MenuBar>

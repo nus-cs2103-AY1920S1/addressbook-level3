@@ -242,6 +242,16 @@
     -fx-background-color: black;
 }
 
+.menu-item:hover .menu-item:focused:selected .menu:focused:showing .menu:hover:showing {
+    -fx-background-color: #3a3a3a;
+}
+
+.menu-button:hover .menu-button:focused:selected .menu-button:focused:showing .menu-button:hover:showing .menu-button:showing {
+    -fx-background-color: #3a3a3a;
+}
+
+
+
 /*
  * Metro style Push Button
  * Author: Pedro Duque Vieira
@@ -287,7 +297,7 @@
 }
 
 .button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
+    -fx-background-color: #3a3a3a;
 }
 
 .dialog-pane {

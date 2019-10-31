@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -41,6 +42,7 @@ import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
 import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.TypicalPersons;
+import systemtests.SystemTestSetupHelper;
 
 //@@author arjavibahety
 /**
@@ -49,6 +51,10 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class DeleteCommandTest {
 
+    @BeforeAll
+    public static void setup() {
+        SystemTestSetupHelper.initialize(); //sets up FXToolkit
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

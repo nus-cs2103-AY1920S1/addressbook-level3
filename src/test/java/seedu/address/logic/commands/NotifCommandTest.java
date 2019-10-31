@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.entity.UniqueIdentificationNumberMaps;
+import systemtests.SystemTestSetupHelper;
 
 //@@author arjavibahety
 
@@ -29,6 +30,7 @@ public class NotifCommandTest {
     public void setup() {
         UniqueIdentificationNumberMaps.clearAllEntries();
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        SystemTestSetupHelper.initialize();
     }
 
     @Test
