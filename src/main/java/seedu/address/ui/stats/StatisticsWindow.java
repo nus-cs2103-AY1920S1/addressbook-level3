@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.stats;
 
 import java.util.logging.Logger;
 
@@ -7,13 +7,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.ui.UiPart;
 
 /**
  * Displays the Statistics of the user's activities in Table form.
  */
 public class StatisticsWindow extends UiPart<Region> {
 
-    private static final String FXML = "Statistics.fxml";
+    private static final String FXML = "/statistics/Statistics.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -37,7 +38,7 @@ public class StatisticsWindow extends UiPart<Region> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    private void fillInnerParts() {
         this.expenseStats = new StatisticsTable(logic.getListOfStatsForExpense());
         this.incomeStats = new StatisticsTable(logic.getListOfStatsForIncome());
         GridPane.setRowIndex(expenseStats.getRoot(), 0);

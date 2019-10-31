@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 public class SwitchStatisticsCommand extends Command {
 
     public static final String COMMAND_WORD = "switchStats";
-    public static final String MESSAGE_SUCCESS = ": Switched Stats.";
+    public static final String MESSAGE_SUCCESS = "Switched Stats.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
