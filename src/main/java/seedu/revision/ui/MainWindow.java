@@ -1,7 +1,6 @@
 package seedu.revision.ui;
 
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -19,7 +18,6 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
-import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.util.SampleDataUtil;
 import seedu.revision.ui.answerables.AnswerableListPanel;

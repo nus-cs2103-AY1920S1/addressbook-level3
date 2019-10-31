@@ -62,6 +62,7 @@ public class StartQuizWindow extends Window {
     private Answerable currentAnswerable;
     private Iterator<Answerable> answerableIterator;
     private int score = 0;
+    private int total = 0;
 
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
@@ -143,6 +144,7 @@ public class StartQuizWindow extends Window {
                 //  Both has access to the answerable.
                 score++;
             }
+            total++;
 
             if (commandResult.isExit()) {
                 handleExit();
@@ -238,14 +240,14 @@ public class StartQuizWindow extends Window {
     private void nextLevelHelper(Alert alert, ButtonType endButton, Answerable nextAnswerable, int nextLevel) {
         Optional<ButtonType> result = alert.showAndWait();
 
-        double totalScore = (double) Math.round(score / getCurrentProgressIndex()) * 100.00;
-        Statistics newResult = new Statistics(totalScore);
+        Statistics newResult = new Statistics(score, total);
         updateStatistics(model, newResult);
 
         if (result.get() == endButton) {
             handleExit();
         } else {
             score = 0;
+            total = 0;
             currentProgressIndex.set(0);
             progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                     getSizeOfCurrentLevel(nextAnswerable),
@@ -304,8 +306,7 @@ public class StartQuizWindow extends Window {
             endHelper(alert, endButton);
         });
 
-        double totalScore = (double) Math.round(score / getCurrentProgressIndex()) * 100.00;
-        Statistics newResult = new Statistics(totalScore);
+        Statistics newResult = new Statistics(score, total);
         updateStatistics(model, newResult);
 
         if (result.get() == tryAgainButton) {
@@ -337,6 +338,7 @@ public class StartQuizWindow extends Window {
         answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
         fillInnerParts();
         score = 0;
+        total = 0;
         currentProgressIndex.set(0);
         commandBox.getCommandTextField().requestFocus();
     }
@@ -350,6 +352,9 @@ public class StartQuizWindow extends Window {
         mainWindow = new MainWindow(getPrimaryStage(), mainLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
+
+        Statistics newResult = new Statistics(score, total);
+        updateStatistics(model, newResult);
 
         if (mode.value.equals("custom")) {
             mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."

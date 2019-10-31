@@ -36,7 +36,7 @@ public class StatsCommand extends Command {
         if (history.isEmpty()) {
             return new CommandResult().withFeedBack("You have not attempted any quizzes yet!").build();
         }
-        return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS, "\n Latest quiz results shown: \n"
+        return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS + "\n Latest quiz results shown: \n"
                 + history.get(history.size() - 1))).withStats(true).build();
     }
 }

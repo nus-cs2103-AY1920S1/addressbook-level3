@@ -29,7 +29,7 @@ import seedu.revision.model.quiz.NormalMode;
  */
 public class StartQuizCommandParser implements Parser<StartQuizCommand> {
 
-    private Predicate<Answerable> combinedPredicate = PREDICATE_SHOW_ALL_ANSWERABLE ;
+    private Predicate<Answerable> combinedPredicate = PREDICATE_SHOW_ALL_ANSWERABLE;
 
     /**
      * Parses the given {@code String} of arguments in the context of the StartQuizCommand
@@ -87,7 +87,8 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
             }
 
             if (optionalDifficultyPrefixIsPresent) {
-                Difficulty difficultyToFilter = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+                Difficulty difficultyToFilter = ParserUtil.parseDifficulty(argMultimap
+                        .getValue(PREFIX_DIFFICULTY).get());
                 DifficultyPredicate difficultyPredicate = new DifficultyPredicate(difficultyToFilter);
                 combinedPredicate = combinedPredicate.and(difficultyPredicate);
             }

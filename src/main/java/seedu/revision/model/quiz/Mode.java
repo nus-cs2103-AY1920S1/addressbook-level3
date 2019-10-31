@@ -1,9 +1,9 @@
 package seedu.revision.model.quiz;
 
-import java.util.function.Predicate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.AppUtil.checkArgument;
+
+import java.util.function.Predicate;
 
 import seedu.revision.model.answerable.Answerable;
 

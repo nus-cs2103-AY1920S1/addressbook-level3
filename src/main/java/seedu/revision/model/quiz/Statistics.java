@@ -9,26 +9,36 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
  */
 public class Statistics {
 
-    public static final String MESSAGE_CONSTRAINTS = "Statistics should only be in double";
+    public static final String MESSAGE_CONSTRAINTS = "Statistics are made up of 2 items, score and total";
 
     /*
      * The first character of the statistics must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      * 1 to 2 digits before and after the decimal point.
      */
-    public static final String VALIDATION_REGEX = "(?i)\\d{1,2}\\.\\d{1,2}";
+    public static final String VALIDATION_REGEX = "(?i)\\d+\\/\\d+";
 
-    private double totalScore;
+    private int total;
+    private int score;
+    private double result = score / total;
 
-    public Statistics(double totalScore) {
-        requireNonNull(totalScore);
-        this.totalScore = totalScore;
+    public Statistics(int score, int total) {
+        requireNonNull(score);
+        requireNonNull(total);
+        this.total = total;
+        this.score = score;
     }
 
-    public Statistics(String totalScore) {
-        requireNonNull(totalScore);
-        checkArgument(isValidStatistics(totalScore), MESSAGE_CONSTRAINTS);
-        this.totalScore = Double.parseDouble(totalScore);
+    public Statistics(String score) {
+        requireNonNull(score);
+        checkArgument(isValidStatistics(score), MESSAGE_CONSTRAINTS);
+        String[] splitStr = score.split("/", 2);
+        this.total = Integer.parseInt(splitStr[1]);
+        this.score = Integer.parseInt(splitStr[0]);
+    }
+
+    public double getResult() {
+        return result;
     }
 
     /**
@@ -38,28 +48,22 @@ public class Statistics {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public double getTotalScore() {
-        return totalScore;
-    }
-
-    public void setTotalScore(double totalScore) {
-        this.totalScore = totalScore;
-    }
 
     public String toString() {
-        return Double.toString(totalScore);
+        return String.format(score + "/" + total);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Statistics // instanceof handles nulls
-                && totalScore == (((Statistics) other).totalScore)); // state check
+                && score == (((Statistics) other).score)
+                && total == (((Statistics) other).total)); // state check
     }
 
     @Override
     public int hashCode() {
-        return Double.toString(totalScore).hashCode();
+        return String.format(score + "/" + total).hashCode();
     }
 
 }
