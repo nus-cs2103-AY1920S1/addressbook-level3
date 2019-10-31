@@ -43,6 +43,13 @@ public class Mode {
         return time;
     }
 
+    public int getLevelTwoTime() {
+        return time;
+    }
+
+    public int getLevelThreeTime() {
+        return time;
+    }
 
     @Override
     public String toString() {

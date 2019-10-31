@@ -15,6 +15,7 @@ import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
+import seedu.revision.model.quiz.ArcadeMode;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
 
@@ -156,7 +157,8 @@ public class ParserUtil {
         switch (trimmedMode) {
         case "normal":
             return new NormalMode();
-//        case "arcade":
+        case "arcade":
+            return new ArcadeMode();
 //        case "custom":
         default:
             throw new ParseException("Invalid mode found at ParserUtil");

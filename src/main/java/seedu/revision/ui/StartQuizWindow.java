@@ -126,6 +126,11 @@ public class StartQuizWindow extends Window {
                 //  Both has access to the answerable.
                 score++;
             }
+            if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
+                    && mode.value.equals("arcade")) {
+                handleEnd();
+                return new CommandResult().withFeedBack("Quiz has ended.").build();
+            }
 
             if (!answerableIterator.hasNext()) {
                 handleEnd();
@@ -242,13 +247,20 @@ public class StartQuizWindow extends Window {
     private void handleEnd() {
         currentProgressIndex.set(currentProgressIndex.get() + 1);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Congratulations!");
+        alert.setTitle("End of Quiz!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.setContentText("Quiz has ended! Your score is " + score + "\n"
-                + "Try again?\n"
-                + "Press [ENTER] to try again.\n"
-                + "Press [ESC] to return to main screen.");
+        if (mode.value.equals("arcade") && answerableIterator.hasNext()) {
+            alert.setContentText("Better luck next time! :P Your score is " + score + "\n"
+                    + "Try again?\n"
+                    + "Press [ENTER] to try again.\n"
+                    + "Press [ESC] to return to main screen.");
+        } else {
+            alert.setContentText("Quiz has ended! Your score is " + score + "\n"
+                    + "Try again?\n"
+                    + "Press [ENTER] to try again.\n"
+                    + "Press [ESC] to return to main screen.");
+        }
 
         ButtonType tryAgainButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -323,11 +335,11 @@ public class StartQuizWindow extends Window {
         case "arcade":
             switch(nextLevel) {
             case 2:
-                return new Timer(10, this::executeCommand);
+                return new Timer(mode.getLevelTwoTime(), this::executeCommand);
             case 3:
-                return new Timer(5, this::executeCommand);
+                return new Timer(mode.getLevelThreeTime(), this::executeCommand);
             default:
-                return new Timer(15, this::executeCommand);
+                return new Timer(mode.getTime(), this::executeCommand);
             }
         default:
             logger.warning("invalid mode");
