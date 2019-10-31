@@ -62,7 +62,6 @@
               <Button fx:id="b4" minWidth="130" styleClass="buttonSide" text="Note" HBox.hgrow="ALWAYS" />
             </children>
           </VBox>
-
           <VBox fx:id="objectList" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />

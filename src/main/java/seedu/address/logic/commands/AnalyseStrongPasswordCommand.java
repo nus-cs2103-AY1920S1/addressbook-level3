@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class AnalyseStrongPasswordCommand extends AnalysePasswordCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException, DictionaryException {
         requireNonNull(model);
+        model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
         List<Password> passwordList = model.getFilteredPasswordList();
         if (index.getZeroBased() >= passwordList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX);
