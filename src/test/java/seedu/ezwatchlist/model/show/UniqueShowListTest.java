@@ -40,7 +40,7 @@ public class UniqueShowListTest {
     @Test
     public void contains_showWithSameIdentityFieldsInList_returnsTrue() {
         uniqueShowList.add(AVENGERSENDGAME);
-        Show editedAlice = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).build();
+        Show editedAlice = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withType("Movie").build();
         assertTrue(uniqueShowList.contains(editedAlice));
     }
 

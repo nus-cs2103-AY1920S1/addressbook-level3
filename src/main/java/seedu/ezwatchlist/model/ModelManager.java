@@ -14,6 +14,7 @@ import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
@@ -126,6 +127,12 @@ public class ModelManager implements Model {
     public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
         requireNonNull(actorSet);
         return watchList.getShowIfHasActor(actorSet);
+    }
+
+    @Override
+    public List<Show> getShowIfIsGenre(Set<Genre> genreSet) {
+        requireNonNull(genreSet);
+        return watchList.getShowIfIsGenre(genreSet);
     }
 
     @Override

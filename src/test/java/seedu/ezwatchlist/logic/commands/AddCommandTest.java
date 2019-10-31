@@ -25,6 +25,7 @@ import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
@@ -159,6 +160,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasActor(Set<Actor> actorSet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Show> getShowIfIsGenre(Set<Genre> genreSet) {
             throw new AssertionError("This method should not be called.");
         }
 

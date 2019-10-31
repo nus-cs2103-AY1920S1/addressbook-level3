@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.UniqueShowList;
@@ -108,6 +109,16 @@ public class WatchList implements ReadOnlyWatchList {
     public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
         requireNonNull(actorSet);
         return shows.getShowIfHasActor(actorSet);
+    }
+
+    /**
+     * Returns the list of shows that has the same genre as {@code actorSet} as the current watch list.
+     * @param genreSet The set of the genres to be checked.
+     * @return The list of shows that has the same genre as {@code actorSet} as the current watch list.
+     */
+    public List<Show> getShowIfIsGenre(Set<Genre> genreSet) {
+        requireNonNull(genreSet);
+        return shows.getShowIfIsGenre(genreSet);
     }
 
     /**

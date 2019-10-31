@@ -122,6 +122,7 @@ public abstract class Show {
 
         return otherShow != null
                 && otherShow.getName().equals(getName())
+                && otherShow.getType().equals(getType())
                 && (otherShow.getDateOfRelease().equals(getDateOfRelease()) || otherShow.isWatched() == (isWatched()));
     }
 
@@ -161,6 +162,19 @@ public abstract class Show {
             Set<Actor> actorDataSet = this.getActors();
             for (Actor actorData : actorDataSet) {
                 if (actorData.getActorName().toLowerCase().contains(actorSearched.getActorName().toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean hasGenre(Show showToBeSearched) {
+        Set<Genre> genreSearchedSet = showToBeSearched.getGenres();
+        for (Genre genreSearched : genreSearchedSet) {
+            Set<Genre> genreDataSet = this.getGenres();
+            for (Genre genreData : genreDataSet) {
+                if (genreData.getGenreName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
                     return true;
                 }
             }

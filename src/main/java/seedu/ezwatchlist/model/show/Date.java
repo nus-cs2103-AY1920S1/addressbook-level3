@@ -29,7 +29,7 @@ public class Date {
      */
     public Date(String date) {
         //instead of having constraints perhaps could check if the object is null in the creation
-        if (isNull(date)) {
+        if (isNull(date) || date.equals("")) {
             date = DEFAULT_VALUE;
         }
         value = date;
