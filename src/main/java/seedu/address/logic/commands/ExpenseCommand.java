@@ -44,7 +44,8 @@ public class ExpenseCommand extends Command {
             + PREFIX_DESCRIPTION + "Bubble tea";
 
     public static final String MESSAGE_SUCCESS =
-            "Expense of %s by %s successfully created.\n\tDescription: %s\n\tPeople involved:\n%s\nWarnings:\n";
+            "Expense of %s by %s successfully created (rounded to 2 decimal places)."
+            + "\n\tDescription: %s\n\tPeople involved:\n%s\nWarnings:\n";
     public static final String WARNING_DUPLICATE_PERSON =
             "\tPerson with name %s already added to expense.\n";
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
