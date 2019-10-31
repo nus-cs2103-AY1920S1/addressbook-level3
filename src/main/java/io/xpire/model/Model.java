@@ -11,8 +11,9 @@ import io.xpire.model.item.ListToView;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
+import io.xpire.model.state.State;
 import io.xpire.model.tag.Tag;
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * The API of the Model component.
@@ -117,10 +118,10 @@ public interface Model {
     Set<Tag> getAllItemTags();
 
     /** Returns an unmodifiable view of the filtered xpireItem list. */
-    ObservableList<XpireItem> getFilteredXpireItemList();
+    FilteredList<XpireItem> getFilteredXpireItemList();
 
     /** Returns an unmodifiable view of the current item list.*/
-    ObservableList<? extends Item> getCurrentFilteredItemList();
+    FilteredList<? extends Item> getCurrentFilteredItemList();
 
     /**
      * Returns a list of all the xpire items.
@@ -146,6 +147,11 @@ public interface Model {
      * @param list that user is viewing.
      */
     void setCurrentFilteredItemList(ListToView list);
+
+    /**
+     * Sets current filtered list view to the specified list.
+     */
+    void setCurrentFilteredItemList(FilteredList<? extends Item> list);
 
     /**
      * Replaces replenish list data with the data in {@code replenishList}.
@@ -181,11 +187,15 @@ public interface Model {
      */
     void setReplenishItem(Item target, Item editedItem);
 
+    void setFilteredXpireItems(FilteredList<XpireItem> list);
+
+    void setFilteredReplenishItems(FilteredList<Item> list);
+
     Set<Tag> getAllReplenishItemTags();
 
     Set<Name> getAllReplenishItemNames();
 
-    ObservableList<Item> getFilteredReplenishItemList();
+    FilteredList<Item> getFilteredReplenishItemList();
 
     void updateFilteredReplenishItemList(Predicate<Item> predicate);
 
@@ -198,5 +208,10 @@ public interface Model {
 
     void shiftItemToReplenishList(XpireItem xpireItem);
 
+    void update(State state);
+
+    void update(ListToView listToView);
+
+    ListToView getListToView();
 
 }

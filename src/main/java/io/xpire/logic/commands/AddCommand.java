@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
+import io.xpire.model.StackManager;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.State;
 
 /**
  * Adds an xpireItem to the list.
@@ -39,8 +41,9 @@ public class AddCommand extends Command {
      * @throws CommandException if xpireItem added is a duplicate.
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StackManager stackManager) throws CommandException {
         requireNonNull(model);
+        stackManager.saveState(new State(model));
 
         if (model.hasItem(this.toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ITEM);
@@ -65,5 +68,10 @@ public class AddCommand extends Command {
     @Override
     public int hashCode() {
         return this.toAdd.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Add Command: " + this.toAdd;
     }
 }

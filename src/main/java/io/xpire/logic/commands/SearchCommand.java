@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.util.StringUtil;
 import io.xpire.model.Model;
+import io.xpire.model.StackManager;
 import io.xpire.model.item.ContainsKeywordsPredicate;
+import io.xpire.model.state.State;
 
 /**
  * Searches and displays all items whose name contains any of the argument keywords.
@@ -29,8 +31,9 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StackManager stackManager) {
         requireNonNull(model);
+        stackManager.saveState(new State(model));
         model.updateFilteredItemList(this.predicate);
         StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW,
                 model.getCurrentFilteredItemList().size()));
@@ -63,5 +66,10 @@ public class SearchCommand extends Command {
     @Override
     public int hashCode() {
         return this.predicate.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Search Command";
     }
 }

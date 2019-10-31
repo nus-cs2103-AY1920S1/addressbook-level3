@@ -2,6 +2,7 @@ package io.xpire.logic.commands;
 
 import io.xpire.commons.util.StringUtil;
 import io.xpire.model.Model;
+import io.xpire.model.StackManager;
 import io.xpire.model.item.Item;
 import javafx.collections.ObservableList;
 
@@ -21,7 +22,7 @@ public class ExportCommand extends Command {
     private static final String BORDER = "* * * * * * * * * * * * * * * * * * * * * * * * * * * *\n";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StackManager stackManager) {
         ObservableList<? extends Item> currentList = model.getCurrentFilteredItemList();
         StringBuilder formattedOutput = new StringBuilder(BORDER);
         for (int index = 1; index <= currentList.size(); index++) {

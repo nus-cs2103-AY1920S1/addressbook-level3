@@ -11,8 +11,10 @@ import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
+import io.xpire.model.StackManager;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.State;
 
 
 /**
@@ -35,6 +37,7 @@ public class SetReminderCommand extends Command {
 
     private final Index index;
     private final ReminderThreshold threshold;
+    private XpireItem item = null;
 
     /**
      * @param index Index of the xpireItem in the list.
@@ -48,15 +51,17 @@ public class SetReminderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StackManager stackManager) throws CommandException {
         requireNonNull(model);
+        stackManager.saveState(new State(model));
         List<XpireItem> lastShownList = model.getFilteredXpireItemList();
 
         if (this.index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        XpireItem xpireItemToSetReminder = lastShownList.get(this.index.getZeroBased());
+        XpireItem targetItem = lastShownList.get(this.index.getZeroBased());
+        XpireItem xpireItemToSetReminder = new XpireItem(targetItem);
 
         if (xpireItemToSetReminder.isExpired()) {
             throw new CommandException(MESSAGE_THRESHOLD_ITEM_EXPIRED);
@@ -65,8 +70,8 @@ public class SetReminderCommand extends Command {
         String daysLeft = xpireItemToSetReminder.getExpiryDate().getStatus();
         ReminderThreshold finalThreshold = getValidThreshold(daysLeft);
         xpireItemToSetReminder.setReminderThreshold(finalThreshold);
-
-        model.setItem(xpireItemToSetReminder, xpireItemToSetReminder);
+        this.item = xpireItemToSetReminder;
+        model.setItem(targetItem, xpireItemToSetReminder);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
         if (isThresholdExceeded(daysLeft)) {
             return new CommandResult(String.format(MESSAGE_REMINDER_THRESHOLD_EXCEEDED, daysLeft));
@@ -102,5 +107,10 @@ public class SetReminderCommand extends Command {
             SetReminderCommand other = (SetReminderCommand) obj;
             return this.index.equals(other.index) && this.threshold.equals(other.threshold);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SetReminder Command: " + this.item.getName() + " Set for " + this.threshold + " days";
     }
 }

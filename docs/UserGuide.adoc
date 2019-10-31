@@ -320,6 +320,8 @@ Format: `tag|<index>|<tag>[<other tags>]...`
 * The index refers to the index number shown in the list.
 * The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
 * Tags must be prefixed with a '#'.
+* Only a maximum of 5 tags allowed per item.
+* Tag lengths are restricted to 20 characters. So make use of those 20 characters wisely!
 * Tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
 ****
 
@@ -413,6 +415,19 @@ Format: `sort|date`
 //_{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+==== Undo previous command : `undo`
+Undo the previous command that you have entered in. +
+Format: `undo`
+
+[TIP]
+`undo` only works on commands that alter your items. Thus, commands such as `help` and `sort` are not undoable.
+
+==== Redo an earlier command : `redo`
+Redo an earlier command that you have entered in. +
+Format: `redo`
+
+This command works in the opposite direction as `undo`, it will redo any command that you have undid so you are able to see the changes.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -430,6 +445,12 @@ The table below summarises the common commands available for use in both lists.
 
 |*Help*
 |`help`|
+
+|*Undo*
+|`undo`|
+
+|*Redo*
+|`redo`|
 
 1.2+|*View*
 1.2+|`view\|<list>`
@@ -517,6 +538,8 @@ The commands listed below are common to both lists.
 e.g. `search|milk|tea|pearls`
 * *Clear* : `clear`
 * *Exit* : `exit`
+* *Undo* : `undo`
+* *Redo* : `redo`
 
 The commands listed below can only be used in the main list.
 
@@ -542,6 +565,8 @@ e.g. `search|milk|tea|pearls`
 * *Delete* : `delete|<index>[|<tag> or <quantity>]` +
 e.g. `delete|3`
 * *Tag* : `tag|<index>|[<tag>]...`
+* *Undo* : `undo`
+* *Redo* : `redo`
 * *Clear* : `clear`
 * *Export* : `export`
 * *Exit* : `exit`
