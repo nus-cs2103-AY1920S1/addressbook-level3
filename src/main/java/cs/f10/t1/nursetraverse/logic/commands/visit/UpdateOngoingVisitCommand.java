@@ -85,7 +85,7 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
      * Creates and returns a {@code Visit} with the details of {@code visitToUpdate}
      * edited with {@code updateVisitDescriptor}.
      */
-    private static Visit createUpdated(Visit visitToUpdate,
+    private Visit createUpdated(Visit visitToUpdate,
                                        UpdateOngoingVisitDescriptor descriptor) throws CommandException {
         CollectionUtil.requireAllNonNull(visitToUpdate, descriptor);
         assert visitToUpdate != null;

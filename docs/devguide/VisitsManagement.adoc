@@ -2,12 +2,12 @@ Visit Management has 3 sections to it: the model that models the visits, the log
 
 ==== Model
 
-How Visits, VisitTodos and VisitTasks are stored can be seen in <<Design-Model>> above. To support the feature of ongoing visits and the constraint that there can only be 1 ongoing visit at a time, a `Pair<Integer, Integer>` named `pairOfOngoingPatAndVisitIndexes` is stored in `AddressBook`. This serves multiple purposes:
+How Visits, VisitTodos and VisitTasks are stored can be seen in <<Design-Model>> above. To support the feature of ongoing visits and the constraint that there can only be 1 ongoing visit at a time, a `Pair<Integer, Integer>` named `pairOfOngoingPatAndVisitIndexes` is stored in `PatientBook`. This serves multiple purposes:
 
 * To identify the `Patient` that is currently being visited and the `Visit` that is ongoing
 * To ensure that the state is saved even if the application shuts down during an ongoing visit
 * To ensure there is no duplication of data by storing only the indexes for reference
-* Although there is a reference to the `Patient` in the `Visit` class, it is not stored in the JSON file. Thus, the `Patient` needs to be stored together with the `Visit` as a pair in `AddressBook`.
+* Although there is a reference to the `Patient` in the `Visit` class, it is not stored in the JSON file. Thus, the `Patient` needs to be stored together with the `Visit` as a pair in `PatientBook`.
 
 `Model` implements the following operations:
 
@@ -35,9 +35,9 @@ How Visits, VisitTodos and VisitTasks are stored can be seen in <<Design-Model>>
 
 ==== UI
 
-A `Patient` 's `Visit` s, `VisitTodo`  are displayed together with his details on `pat-list` and `pat-find` in a `TitledPane`.
+A `Patient` 's `Visit` s, `VisitTodo` are displayed together with his details on `pat-list` and `pat-find` in a `TitledPane`.
 
-An ongoing `Visit` is displayed in another tab named "Current Visit".
+An ongoing `Visit` is displayed in another tab named "Current Visit" using  `OngoingVisitListPanel` containing `OngoingVisitCard` which contains `VisitTaskTableView`. Likewise, in `pat-list` and `pat-find` use `FinishedVisitCard` s each containing a `VisitTaskTableView` to display the `Visit` s and `VisitTask` s.
 
 ==== UI Design Considerations
 
