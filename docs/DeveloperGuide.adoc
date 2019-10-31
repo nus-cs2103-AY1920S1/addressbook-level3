@@ -111,12 +111,18 @@ interviewee allocated to each time slots. The slot that has no interviewee will 
 
 Step 6. Once the data is populated, the MainWindow will display the schedules of each day arranged in a table format.
 
-Step 7. Once User imports a new .csv file, it will call the RefreshListener Interface. RefreshListenerManager will then take in the new titles and
+image::ScheduleViewSequenceDiagram.png[]
+
+==== UI Refresh
+
+Step 1. Once User imports a new .csv file, it will call the RefreshListener Interface. RefreshListenerManager will then take in the new titles and
 list of ObservableList of interviewee.
 
-Step 8. The RefreshListenerManager will call the MainWindow to refresh the ScheduleViewPanel.
+Step 2. The RefreshListenerManager will call the MainWindow to refresh the ScheduleViewPanel.
 
-Step 9. ScheduleViewPanel will firstly clear all the data and input the updated data from the .csv file.
+Step 3  . ScheduleViewPanel will firstly clear all the data and input the updated data from the .csv file.
+
+image::ImportUIRefreshSequenceDiagram.png[]
 
 [[Design-Logic]]
 === Logic component
@@ -233,6 +239,8 @@ An interviewee matches an interview slot if **all** the criteria below are fulfi
 **Brief Explanation of the Algorithm** +
 Include an **activity diagram** here to summarise the algorithm.
 
+The proposed implementation of this algorithm is to encapsulate the logic of the algorithm into a `Command` class under
+`Logic` component, possibly with the help of some auxiliary classes. The command is then invoked when the user key in the relevant
 
 The proposed implementation of this algorithm is to encapsulate the logic of the algorithm into a `Command` class under
 `Logic` component, possibly with the help of some auxiliary classes. The command is then invoked when the user key in the relevant

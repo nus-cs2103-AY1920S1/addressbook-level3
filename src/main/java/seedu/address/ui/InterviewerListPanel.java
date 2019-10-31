@@ -12,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Interviewer;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of interviewers.
  */
 public class InterviewerListPanel extends UiPart<Region> {
     private static final String FXML = "InterviewerListPanel.fxml";

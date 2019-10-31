@@ -15,7 +15,7 @@ import seedu.address.model.person.Interviewee;
  */
 public class IntervieweeCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "IntervieweeListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,7 +25,7 @@ public class IntervieweeCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Interviewee person;
+    public final Interviewee interviewee;
 
     @FXML
     private HBox intervieweeCardPane;
@@ -38,13 +38,13 @@ public class IntervieweeCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public IntervieweeCard(Interviewee person, int displayedIndex) {
+    public IntervieweeCard(Interviewee interviewee, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.interviewee = interviewee;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        person.getTags().stream()
+        name.setText(interviewee.getName().fullName);
+        phone.setText(interviewee.getPhone().value);
+        interviewee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -64,6 +64,7 @@ public class IntervieweeCard extends UiPart<Region> {
         // state check
         IntervieweeCard card = (IntervieweeCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && interviewee.equals(card.interviewee);
+
     }
 }

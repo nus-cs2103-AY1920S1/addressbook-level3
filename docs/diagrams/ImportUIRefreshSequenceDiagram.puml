@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T2
+participant ":Model" as Model MODEL_COLOR
+End box
+
+box UI UI_COLOR_T1
+participant ":ScheduleViewPanel" as ScheduleViewPanel UI_COLOR
+
+Model -> ScheduleViewPanel : dataImport()
+activate ScheduleViewPanel
+
+ScheduleViewPanel -> ScheduleViewPanel : clearData()
+activate ScheduleViewPanel
+deactivate ScheduleViewPanel
+
+loop number of schedule tables
+create ":ScheduleView" as ScheduleView UI_COLOR
+ScheduleViewPanel -> ScheduleView
+
+activate ScheduleView
+ScheduleView -> ScheduleView : initialise()
+ScheduleView --> ScheduleViewPanel : schedule
+deactivate ScheduleView
+end loop
+
+participant ":MainWindow" as MainWindow UI_COLOR
+ScheduleViewPanel --> MainWindow : scheduleViewPanel
+deactivate ScheduleViewPanel
+
+End box
+
+@enduml

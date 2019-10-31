@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+
+[-> MainWindow : fillInnerParts()
+activate MainWindow
+
+create ":ScheduleViewPanel" as ScheduleViewPanel UI_COLOR
+MainWindow -> ScheduleViewPanel
+activate ScheduleViewPanel
+
+create ":ScheduleView" as ScheduleView UI_COLOR
+ScheduleViewPanel -> ScheduleView
+
+loop number of schedules
+activate ScheduleView
+
+ScheduleView -> ScheduleView : initialise()
+activate ScheduleView
+deactivate ScheduleView
+ScheduleView --> ScheduleViewPanel : schedule
+deactivate ScheduleView
+end loop
+
+ScheduleViewPanel --> MainWindow : scheduleViewPanel
+deactivate ScheduleViewPanel
+
+[<--MainWindow
+end box
+
+@enduml

@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 /**
  * Panel to hold multiple schedule tables together.
  */
-public class ScheduleViewPanel extends UiPart<Region> {
+public class ScheduleViewPanel extends UiPart<Region> implements RefreshListener {
 
     private static final String FXML = "ScheduleViewPanel.fxml";
 
@@ -46,12 +46,9 @@ public class ScheduleViewPanel extends UiPart<Region> {
 
     /**
      * Fill the panel when user import data.
-     * @param titles Lists of titles for the schedules
-     * @param scheduleList Lists of observable data for TableView.
      */
-    protected void fillPanel(
-            List<List<String>> titles,
-            List<ObservableList<ObservableList<String>>> scheduleList) {
+    public void dataImported() {
+        clearData();
         for (int i = 0; i < scheduleList.size(); i++) {
             scheduleViewList.add(new ScheduleView(titles.get(i), scheduleList.get(i)));
         }
@@ -60,7 +57,7 @@ public class ScheduleViewPanel extends UiPart<Region> {
         }
     }
 
-    protected void refresh() {
+    protected void clearData() {
         this.scheduleViewList.removeAll(this.scheduleViewList);
     }
 }

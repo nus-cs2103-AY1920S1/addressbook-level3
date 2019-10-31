@@ -8,7 +8,6 @@ package UI <<Rectangle>>{
 Interface Ui <<Interface>>
 Interface RefreshListener <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
-Class RefreshListenerManager
 Class UiManager
 Class MainWindow
 Class HelpWindow
@@ -27,27 +26,26 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 HiddenOutside ..> RefreshListener
 
-RefreshListenerManager .right.|> RefreshListener
-UiManager .left.|> Ui
+
+UiManager .right.|> Ui
 UiManager -down---> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> ScheduleViewPanel
-MainWindow *-down-> StatusBarFooter
-RefreshListenerManager *-down--> ScheduleViewPanel
 
 MainWindow -left-|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 ScheduleView --|> UiPart
+ScheduleViewPanel --> ScheduleView
 ScheduleViewPanel --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+ScheduleView -.|> RefreshListener
 
 UiManager -right-> Logic
 MainWindow -left-> Logic
-RefreshListenerManager -> Logic
 
 ScheduleViewPanel-[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox

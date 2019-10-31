@@ -53,36 +53,36 @@
                 <Insets bottom="5" left="10" right="10" top="5" />
               </padding>
             </StackPane>
-            <TabPane fx:id="tabPane" minWidth="340.0" prefWidth="340.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <TabPane fx:id="tabPane" minWidth="0.0" prefWidth="600.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
               <tabs>
                 <Tab fx:id="schedulesTab" styleClass="label" text="Schedules">
                   <content>
-                    <AnchorPane fx:id="schedulesPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                    <StackPane fx:id="schedulesPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                       <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                       </stylesheets>
-                    </AnchorPane>
+                    </StackPane>
                   </content>
                 </Tab>
                 <Tab fx:id="intervieweeListTab" styleClass="label" text="Interviewees">
                   <content>
-                    <AnchorPane fx:id="intervieweeListPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                    <StackPane fx:id="intervieweeListPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                       <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                       </stylesheets>
-                    </AnchorPane>
+                    </StackPane>
                   </content>
                 </Tab>
-                <Tab fx:id="interviewerListTab" styleClass="label" text="Interviewees">
+                <Tab fx:id="interviewerListTab" styleClass="label" text="Interviewers">
                   <content>
-                    <AnchorPane fx:id="interviewerListPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                    <StackPane fx:id="interviewerListPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                       <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                       </stylesheets>
-                    </AnchorPane>
+                    </StackPane>
                   </content>
                 </Tab>
               </tabs>

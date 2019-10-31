@@ -7,28 +7,27 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Interviewee;
 
 /**
- * Panel containing the list of interviewee.
+ * Panel consisting a list of interviewees
  */
-public class IntervieweeListPanel extends UiPart<Region> {
-    private static final String FXML = "IntervieweeListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(IntervieweeListPanel.class);
+public class IntervieweeViewPanel extends UiPart<Region> {
+    private static final String FXML = "IntervieweeViewPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
     private ListView<Interviewee> intervieweeListView;
 
-    public IntervieweeListPanel(ObservableList<Interviewee> interviewees) {
+    public IntervieweeViewPanel(ObservableList<Interviewee> intervieweeList) {
         super(FXML);
-        intervieweeListView.setItems(interviewees);
+        intervieweeListView.setItems(intervieweeList);
         intervieweeListView.setCellFactory(listView -> new IntervieweeListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Interviewee} using a {@code IntervieweeCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class IntervieweeListViewCell extends ListCell<Interviewee> {
         @Override
@@ -43,5 +42,7 @@ public class IntervieweeListPanel extends UiPart<Region> {
             }
         }
     }
+
+
 
 }
