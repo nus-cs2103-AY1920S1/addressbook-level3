@@ -17,9 +17,9 @@ import seedu.address.logic.parser.FinSecParser;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    private static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w12-1.github.io/main/UserGuide.html";
-    private static TreeSet<String> defaultCommandList = new TreeSet<>(FinSecParser.getCommandList().values());
-    public String HELP_MESSAGE = "The 'help' command format is as follows: "
+    public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w12-1.github.io/main/UserGuide.html";
+    public static TreeSet<String> defaultCommandList = new TreeSet<>(FinSecParser.getCommandList().values());
+    public static final String HELP_MESSAGE = "The 'help' command format is as follows: "
             + "help cmd/COMMAND type/TYPE"
             + "\n\n"
             + "Command List: \n"
@@ -45,7 +45,7 @@ public class HelpWindow extends UiPart<Stage> {
     private Button gotoButton;
 
     @FXML
-    Label helpMessage;
+    private Label helpMessage;
 
     /**
      * Creates a new HelpWindow.
