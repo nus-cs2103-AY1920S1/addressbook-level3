@@ -13,21 +13,19 @@ import seedu.address.model.reminder.Appointment;
 
 
 /**
- * Reminder object with description and dates remaining
+ * AppointmentTable object with description and dates remaining
  */
 public class AppointmentTable {
 
     private HashMap<String, Integer> reminders;
     private HashMap<String, Integer> followup;
-    private ArrayList<Appointment> appointmentArrayList;
 
     /**
-     * Initializes new Reminder object
+     * Initializes new AppointmentTable object
      */
     public AppointmentTable() {
         reminders = new HashMap<>();
         followup = new HashMap<>();
-        appointmentArrayList = new ArrayList<>();
     }
 
     public static AppointmentTable getDefaultAppointments() {
@@ -35,8 +33,12 @@ public class AppointmentTable {
         return def;
     }
 
-    public void outputToUi() {
-        appointmentArrayList.clear();
+    /**
+     * Returns the list for view
+     * @return ObservableList of Appointment objects
+     */
+    public ObservableList<Appointment> getAppointmentList() {
+        ArrayList<Appointment> appointmentArrayList = new ArrayList<>();;
         for (int i = 0; i < reminders.size(); i++) {
             Iterator it = reminders.entrySet().iterator();
             while (it.hasNext()) {
@@ -51,10 +53,12 @@ public class AppointmentTable {
                 appointmentArrayList.add(new Appointment("[F] " + pair.getKey(), (int)pair.getValue()));
             }
         }
+
+        return FXCollections.observableArrayList(appointmentArrayList);
     }
 
     /**
-     * Adds a new Reminder to VISIT
+     * Adds a new Appointment to VISIT
      */
     public AppointmentTable addAppointment(int type, String description, int days) {
         requireNonNull(type);
@@ -69,7 +73,7 @@ public class AppointmentTable {
     }
 
     /**
-     * Decrements the days a reminder has left
+     * Decrements the days an appointment has left
      */
     public void cascadeDay(int days) {
         HashMap<String, Integer> cascadeReminders = new HashMap<>();
@@ -129,14 +133,6 @@ public class AppointmentTable {
             }
         }
         return sb.toString();
-    }
-
-    /**
-     * Example of method needed to return the list for view
-     * @return ObservableList of Reminder objects
-     */
-    public ObservableList<Appointment> getAppointmentList() {
-        return FXCollections.observableArrayList(this.appointmentArrayList);
     }
 
     @Override

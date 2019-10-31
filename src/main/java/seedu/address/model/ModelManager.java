@@ -21,7 +21,6 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private AppointmentTable appointmentTable;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Appointment> filteredAppointments;
@@ -36,10 +35,9 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.appointmentTable = new AppointmentTable();
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredAppointments = new FilteredList<>(this.appointmentTable.getAppointmentList());
+        filteredAppointments = new FilteredList<>(this.userPrefs.getAppointmentList());
     }
 
     public ModelManager() {
@@ -147,6 +145,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addAppointment(int type, String description, int days) {
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         userPrefs.addAppointment(type, description, days);
     }
 

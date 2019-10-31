@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.reminder.Appointment;
 
 /**
  * Represents User's preferences.
@@ -147,6 +149,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public String outputAppointments() {
         return appointmentTable.outputAppointments();
+    }
+
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointmentTable.getAppointmentList();
     }
 
     public LocalDate getLastUpdate() {
