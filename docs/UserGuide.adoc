@@ -748,7 +748,18 @@ Example: Edit the 3rd expense you saw on your expense list.
 
 
 === SummaryCommand
-*-> COMING IN V1.4*
+View your expenses all at once!
+
+Get summary of your financial expenses: ``summary``
+
+Generate statistics of your financial expenses in a Pie Chart form and also in a Bar Char form.
+You can now view your total spending easily!
+
+The _Command Word_ is ``summary`` without any parameter.
+
+Example:
+
+``summary``
 
 
 == Diary

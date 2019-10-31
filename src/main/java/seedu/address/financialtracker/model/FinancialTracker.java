@@ -2,6 +2,7 @@ package seedu.address.financialtracker.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 import javafx.collections.FXCollections;
@@ -77,5 +78,19 @@ public class FinancialTracker {
         requireNonNull(editedExpense);
         editedExpense.setCountry(new Country(currentCountry));
         expenseListMap.get(currentCountry).setExpense(expenseToEdit, editedExpense);
+    }
+
+    public HashMap<String, Double> getSummaryMap() {
+        HashMap<String, Double> summaryMap = new HashMap<>();
+        double total = 0;
+        for(String key : internalUnmodifiableExpenseListMap.keySet()) {
+            if(!internalUnmodifiableExpenseListMap.get(key).isEmpty()) {
+                double summary = internalUnmodifiableExpenseListMap.get(key).getSummary();
+                summaryMap.put(key, summary);
+                total += summary;
+            }
+        }
+        summaryMap.put("Total", total);
+        return summaryMap;
     }
 }
