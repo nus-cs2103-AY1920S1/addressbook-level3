@@ -13,8 +13,19 @@ public class Appointment {
     }
 
     public String getDescription() {
-        String desc = description;
-        return desc;
+        return description;
+    }
+
+    public String getDescriptionRaw() {
+        return description.substring(4);
+    }
+
+    public String getType() {
+        return description.substring(0, 3);
+    }
+
+    public int getDays() {
+        return days;
     }
 
     public String getDaysString() {

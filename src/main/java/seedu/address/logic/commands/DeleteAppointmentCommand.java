@@ -6,12 +6,18 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 import seedu.address.model.Model;
 
 /**
- * Deletes an Appointment from VISIT.
+ * Deletes a specified Appointment from VISIT.
  */
 public class DeleteAppointmentCommand extends Command {
 
+    /**
+     * Word to call the Delete Appointment Command.
+     */
     public static final String COMMAND_WORD = "removeappt";
 
+    /**
+     * Help message on usage.
+     */
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes an appointment from VISIT. "
             + "Parameters: "
@@ -20,13 +26,27 @@ public class DeleteAppointmentCommand extends Command {
             + "Two Point Hospital closed "
             + PREFIX_DAYS + "7";
 
+    /**
+     * Success message when executed.
+     */
     public static final String MESSAGE_SUCCESS = "Appointment deleted.";
 
+    /**
+     * The description of the appointment to delete.
+     * This can be the name of the patient or the description of the reminder.
+     */
     private final String description;
+
+    /**
+     * Optional number of days to specifically target the exact appointment to delete.
+     */
     private final int days;
 
     /**
-     * Creates a DeleteAppointmentCommand to delete the specified {@code Appointment}
+     * Creates a DeleteAppointmentCommand to delete the specified {@code Appointment}.
+     *
+     * @param description The description of the appointment to delete.
+     * @param days Optional number of days to specifically target the exact appointment to delete.
      */
     public DeleteAppointmentCommand(String description, int days) {
         requireNonNull(description);

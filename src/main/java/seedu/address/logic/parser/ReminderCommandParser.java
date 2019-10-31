@@ -23,6 +23,7 @@ public class ReminderCommandParser implements Parser<ReminderCommand> {
 
         String description;
         int days;
+
         try {
             description = argMultimap.getPreamble();
             if (description == null || description.trim().equals("")) {

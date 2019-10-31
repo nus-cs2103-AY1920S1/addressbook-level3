@@ -3,8 +3,9 @@ package seedu.address.model.reminder;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,46 +13,91 @@ import seedu.address.model.reminder.exceptions.AppointmentNotFoundException;
 import seedu.address.model.reminder.exceptions.DuplicateAppointmentException;
 
 /**
- * A list of Appointments that the user has created.
+ * AppointmentList facilitates the storing of Reminders and Follow-ups for UI
+ * and performs operations dealing with Appointments.
  *
- * Supports a minimal set of list operations.
- *
- * @see Appointment#isSameAppointment(Appointment)
+ * Runs in parallel with AppointmentTable, which handles JSON.
  */
 public class AppointmentList implements Iterable<Appointment> {
 
+    /**
+     * List that contains Appointment objects to be displayed.
+     */
     private ObservableList<Appointment> internalList;
+
+    /**
+     * Unmodifiable Observable List that watches the internalList.
+     */
     private ObservableList<Appointment> internalUnmodifiableList;
 
+    /**
+     * Initializes new AppointmentList object.
+     */
     public AppointmentList(ObservableList<Appointment> apptList) {
         internalList = apptList;
         internalUnmodifiableList = FXCollections.unmodifiableObservableList(internalList);
     }
-    /**
-     * Returns true if the list contains an equivalent Appointment as the given argument.
-     */
-    public boolean contains(Appointment toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameAppointment);
-    }
 
     /**
-     * Adds a Appointment to the list.
-     * The Appointment must not already exist in the list.
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public void add(int type, String description, int days) {
+    public ObservableList<Appointment> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
+    }
+
+    @Override
+    public Iterator<Appointment> iterator() {
+        return internalList.iterator();
+    }
+
+    // getDefaultAppointments equivalent unnecessary.
+
+    // getAppointmentList equivalent unnecessary.
+
+    /**
+     * Adds a new Appointment.
+     *
+     * @param type The type of appointment. 0 = Reminder, 1 = Follow-Up.
+     * @param description The description of the Appointment.
+     * @param days How many days the Appointment has remaining.
+     */
+    public void addAppointment(int type, String description, int days) {
         requireNonNull(description);
         requireNonNull(days);
-        /*
-        if (contains(toAdd)) {
-            throw new DuplicateAppointmentException();
-        }
-         */
         if (type == 1) {
             internalList.add(new Appointment("[F] " + description, days));
         } else {
             internalList.add(new Appointment("[R] " + description, days));
         }
+    }
+
+    /**
+     * Deletes an appointment from VISIT.
+     *
+     * @param description The description of the appointment to delete.
+     * @param days Optional number of days to specifically target the exact appointment to delete.
+     */
+    public void deleteAppointment(String description, int days) {
+        requireNonNull(description);
+        requireNonNull(days);
+        if (days == -1) {
+            internalList.removeIf(appointment -> appointment.getDescriptionRaw().equals(description));
+        } else {
+            internalList.removeIf(appointment -> appointment.getDescriptionRaw().equals(description)
+                    && appointment.getDays() == days);
+        }
+    }
+
+    /**
+     * Checks if the Appointment already exists.
+     *
+     * @param toCheck The Appointment to check against.
+     *
+     * @return True if there is no duplicate, false if there is a duplicate.
+     */
+    public boolean antiDuplicate(Appointment toCheck) {
+        requireNonNull(toCheck);
+        return !internalList.stream().anyMatch(toCheck::isSameAppointment);
     }
 
     /**
@@ -68,7 +114,7 @@ public class AppointmentList implements Iterable<Appointment> {
             throw new AppointmentNotFoundException();
         }
 
-        if (!target.isSameAppointment(editedAppointment) && contains(editedAppointment)) {
+        if (!target.isSameAppointment(editedAppointment) && !antiDuplicate(editedAppointment)) {
             throw new DuplicateAppointmentException();
         }
 
@@ -76,47 +122,20 @@ public class AppointmentList implements Iterable<Appointment> {
     }
 
     /**
-     * Removes the equivalent Appointment from the list.
-     * The Appointment must exist in the list.
+     * Sorts the list of appointments by days remaining, then name.
      */
-    public void remove(Appointment toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new AppointmentNotFoundException();
-        }
+    public void sortAppointments() {
+        Comparator<Appointment> compareByType = Comparator.comparing(Appointment::getType);
+        Comparator<Appointment> compareByValue = Comparator.comparing(Appointment::getDays);
+        Comparator<Appointment> compareByKey = Comparator.comparing(Appointment::getDescription);
+        Comparator<Appointment> compareByTypeThenValueThenKey = compareByType.thenComparing(compareByValue)
+                .thenComparing(compareByKey);
+        Collections.sort(internalList, compareByTypeThenValueThenKey);
     }
 
-    public void setAppointments(AppointmentList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
+    // cascadeDay equivalent unnecessary.
 
-    /**
-     * Replaces the contents of this list with {@code Appointments}.
-     * {@code Appointments} must not contain duplicate Appointments.
-     */
-    public void setAppointments(List<Appointment> appointments) {
-        requireAllNonNull(appointments);
-        if (!appointmentsAreUnique(appointments)) {
-            throw new DuplicateAppointmentException();
-        }
-
-        internalList.setAll(appointments);
-    }
-
-
-
-    /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
-     */
-    public ObservableList<Appointment> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
-    }
-
-    @Override
-    public Iterator<Appointment> iterator() {
-        return internalList.iterator();
-    }
+    // outputAppointments equivalent unnecessary.
 
     @Override
     public boolean equals(Object other) {
@@ -130,17 +149,4 @@ public class AppointmentList implements Iterable<Appointment> {
         return internalList.hashCode();
     }
 
-    /**
-     * Returns true if {@code Appointments} contains only unique Appointments.
-     */
-    private boolean appointmentsAreUnique(List<Appointment> appointments) {
-        for (int i = 0; i < appointments.size() - 1; i++) {
-            for (int j = i + 1; j < appointments.size(); j++) {
-                if (appointments.get(i).isSameAppointment(appointments.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 }
