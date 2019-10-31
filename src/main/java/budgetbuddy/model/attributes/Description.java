@@ -8,8 +8,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class Description {
 
+    public static final int MAX_LENGTH = 180;
+
     public static final String MESSAGE_CONSTRAINTS =
-            "Description should not be null.";
+            "Description should not be blank and should be no more than " + MAX_LENGTH + " characters.";
 
     private String description;
 
@@ -20,7 +22,8 @@ public class Description {
     }
 
     public static boolean isValidDescription(String description) {
-        return description != null;
+        return description != null
+                && description.length() <= MAX_LENGTH;
     }
 
     public String getDescription() {
