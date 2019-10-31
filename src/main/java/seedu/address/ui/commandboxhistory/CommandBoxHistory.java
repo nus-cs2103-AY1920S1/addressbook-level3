@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
  * Component for CommandBox's History
  */
 public class CommandBoxHistory {
-    private LinkedList<String> history = new LinkedList<>();
+    private final LinkedList<String> history = new LinkedList<>();
     private ListIterator<String> caret = history.listIterator();
 
     public String getOlder() {

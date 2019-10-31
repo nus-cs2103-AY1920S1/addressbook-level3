@@ -12,12 +12,12 @@ public class ContainsKeywordsPredicate implements Predicate<Person> {
     private final String keyword;
 
     public ContainsKeywordsPredicate(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.toUpperCase();
     }
 
     @Override
     public boolean test(Person person) {
-        return StringUtil.containsIgnoreCase(person.getName().fullName, keyword)
+        return StringUtil.containsIgnoreCase(person.getName().toString(), keyword)
                     || StringUtil.containsIgnoreCase(person.getReferenceId().toString(), keyword)
                     || StringUtil.containsIgnoreCase(person.getPhone().toString(), keyword);
     }

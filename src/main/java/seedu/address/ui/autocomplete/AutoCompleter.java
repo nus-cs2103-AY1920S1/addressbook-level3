@@ -1,6 +1,5 @@
 package seedu.address.ui.autocomplete;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -41,7 +40,16 @@ import seedu.address.logic.commands.staff.RegisterStaffCommand;
  */
 public class AutoCompleter {
     private static final Map<String, Set<String>> SUPPORTED_ARGUMENTS = Map.ofEntries(
-            Map.entry("add", Set.of("-name", "-id", "-phone", "-address"))
+            Map.entry("ackappt", Set.of("-id")),
+            Map.entry("addappt", Set.of("-id", "-rec", "-num", "-start")),
+            Map.entry("addshift", Set.of("-id", "-rec", "-num", "-start")),
+            Map.entry("appointments", Set.of("-id")),
+            Map.entry("changeappt", Set.of("-start")),
+            Map.entry("changeshift", Set.of("-start")),
+            Map.entry("edit", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email")),
+            Map.entry("newdoctor", Set.of("-id", "-name", "-phone", "-address", "-email")),
+            Map.entry("register", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email")),
+            Map.entry("updatedoctor", Set.of("-id", "-name", "-phone", "-address", "-email"))
     );
 
     private static final String[] SUPPORTED_COMMANDS = new String[]{
@@ -56,25 +64,24 @@ public class AutoCompleter {
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
 
-            UndoCommand.COMMAND_WORD,
             RedoCommand.COMMAND_WORD,
+            UndoCommand.COMMAND_WORD,
 
             EnqueueCommand.COMMAND_WORD,
             DequeueCommand.COMMAND_WORD,
 
-            AppointmentsCommand.COMMAND_WORD,
+            AckAppCommand.COMMAND_WORD,
             AddAppCommand.COMMAND_WORD,
+            AppointmentsCommand.COMMAND_WORD,
             CancelAppCommand.COMMAND_WORD,
             ChangeAppCommand.COMMAND_WORD,
+            MissAppCommand.COMMAND_WORD,
+            SettleAppCommand.COMMAND_WORD,
 
             DutyShiftCommand.COMMAND_WORD,
             AddDutyShiftCommand.COMMAND_WORD,
             CancelDutyShiftCommand.COMMAND_WORD,
             ChangeDutyShiftCommand.COMMAND_WORD,
-
-            AckAppCommand.COMMAND_WORD,
-            MissAppCommand.COMMAND_WORD,
-            SettleAppCommand.COMMAND_WORD,
 
             AddConsultationRoomCommand.COMMAND_WORD,
             RemoveRoomCommand.COMMAND_WORD,
@@ -84,7 +91,7 @@ public class AutoCompleter {
             ResumeCommand.COMMAND_WORD
     };
 
-    private Trie trie;
+    private final Trie trie;
     private String currentQuery;
 
     public AutoCompleter() {
@@ -104,9 +111,12 @@ public class AutoCompleter {
     public AutoCompleter update(String currentQuery) {
         if (currentQuery.matches("(.* )?(?<!-)\\w+\\s+$")) {
             try {
-                HashSet<String> available = new HashSet<>(SUPPORTED_ARGUMENTS.get(currentQuery.substring(0,
-                        currentQuery.indexOf(' '))));
-                available.removeAll(Arrays.asList(currentQuery.split("\\s+")));
+                Set<String> result = SUPPORTED_ARGUMENTS.get(currentQuery.substring(0, currentQuery.indexOf(' ')));
+                HashSet<String> available = new HashSet<>(result);
+                available.removeAll(List.of(currentQuery.split("\\s+")));
+                if (result.contains("-tag")) {
+                    available.add("-tag");
+                }
                 AutoCompleter autoCompleter = new AutoCompleter(available.toArray(String[]::new));
                 autoCompleter.currentQuery = currentQuery.substring(currentQuery.lastIndexOf(' ') + 1);
                 return autoCompleter;
