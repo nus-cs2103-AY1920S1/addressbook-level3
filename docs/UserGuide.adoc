@@ -799,23 +799,45 @@ will be reset.
 ** Total inventory value
 ** Total sales
 ** Remaining budget
-* The user may also set financial goals and set up notifications to notify them of the goals set.
-* At the side, the lion mascot will guide the user along to what inputs are permissible, and also offer financial advice based on the data gathered.
+* The user may also set financial goals and set up percentage thresholds to receive notifications.
+* Leo will notify the user any time their financial goals have been reached.
 ====
 
-* To set goals:
+==== Set a Financial Goal
+
+* Command:
 ** To set budget goal: `set b/AMOUNT`
 ** To set expense goal: `set e/AMOUNT`
 ** To set sales goal: `set s/AMOUNT`
 
+* Examples:
+** To set budget goal: `set b/500`
+** To set expense goal: `set e/500`
+** To set sales goal: `set s/500`
+
+[NOTE]
 The amount should be non-negative.
 
-* To notify when a certain goal has reached specific percentage of completion:
+* Steps:
+. Type the command
+
+==== Set a Notification Threshold
+
+* Command:
 ** To set budget goal notification: `notify b/PERCENTAGE`
 ** To set expense goal notification: `notify e/PERCENTAGE`
 ** To set sales goal notification: `notify s/PERCENTAGE`
 
+* Examples:
+** To set budget goal notification: `notify b/PERCENTAGE`
+** To set expense goal notification: `notify e/PERCENTAGE`
+** To set sales goal notification: `notify s/PERCENTAGE`
+
+[NOTE]
 The percentage value should be a value from 0 - 100.
+
+* Steps:
+
 
 === Saving the data
 
