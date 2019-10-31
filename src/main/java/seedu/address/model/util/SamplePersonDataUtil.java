@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReferenceId;
-import seedu.address.model.common.Tag;
 import seedu.address.model.person.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
@@ -15,6 +14,7 @@ import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -44,7 +44,7 @@ public class SamplePersonDataUtil {
     }
 
     public static Person[] getSamplePersons() {
-        int count = 1000;
+        int count = 10000;
         Person[] listOfPersons = new Person[count];
         for (int i = 0; i < count; i++) {
             if (i % 10 == 0) {
@@ -164,8 +164,8 @@ public class SamplePersonDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
+                .map(Tag::issueTag)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
 }

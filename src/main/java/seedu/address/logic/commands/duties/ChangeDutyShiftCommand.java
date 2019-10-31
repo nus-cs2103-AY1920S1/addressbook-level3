@@ -1,6 +1,7 @@
-package seedu.address.logic.commands.appointments;
+package seedu.address.logic.commands.duties;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import seedu.address.logic.commands.common.CommandResult;
@@ -11,22 +12,24 @@ import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
+
 /**
- * Chnageing the timing of the appointment.
+ * Changes the details of the duty shift.
  */
-public class ChangeAppCommand extends ReversibleCommand {
-    public static final String COMMAND_WORD = "changeappt";
+public class ChangeDutyShiftCommand extends ReversibleCommand {
+    public static final String COMMAND_WORD = "changeshift";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": change the appointment date "
-            + "by the index number used in the displayed patient's list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": changes the details of a duty shift "
+            + "by the index number used in the displayed duty roster.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_START + "PREFIX_EVENT\n"
+            + PREFIX_START + "PREFIX_EVENT "
+            + PREFIX_END + "PREFIX_EVENT \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_START + "01/11/19 1800";
+            + PREFIX_START + "01/11/19 1800 "
+            + PREFIX_END + "01/11/19 1900";
 
-    public static final String MESSAGE_SUCCESS = "this appointment's details has been changed to\n%1$s";
-    public static final String MESSAGE_TIMING_EXIST = "please give a new valid timing for the appointment to change.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the appointment book.";
+    public static final String MESSAGE_SUCCESS = "Duty shift changed to %1$s";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the duty roster";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -34,7 +37,7 @@ public class ChangeAppCommand extends ReversibleCommand {
     /**
      * Creates an ChangeAppCommand to add the specified {@code Person}
      */
-    public ChangeAppCommand(Event eventToEdit, Event editedEvent) {
+    public ChangeDutyShiftCommand(Event eventToEdit, Event editedEvent) {
         requireNonNull(eventToEdit);
         requireNonNull(editedEvent);
         this.eventToEdit = eventToEdit;
@@ -45,25 +48,25 @@ public class ChangeAppCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasExactAppointment(editedEvent)) {
+        if (model.hasExactDutyShift(editedEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
         try {
-            model.setAppointment(eventToEdit, editedEvent);
+            model.setDutyShift(eventToEdit, editedEvent);
         } catch (InvalidEventScheduleChangeException ex) {
             throw new CommandException(ex.getMessage());
         }
 
-        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(editedEvent.getPersonId()));
+        model.updateFilteredDutyShiftList(new EventContainsRefIdPredicate(editedEvent.getPersonId()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ChangeAppCommand // instanceof handles nulls
-                && editedEvent.equals(((ChangeAppCommand) other).editedEvent));
+                || (other instanceof ChangeDutyShiftCommand // instanceof handles nulls
+                && editedEvent.equals(((ChangeDutyShiftCommand) other).editedEvent));
     }
 
 }
