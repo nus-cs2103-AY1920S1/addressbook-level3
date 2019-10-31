@@ -51,7 +51,7 @@ These are the steps you should take:
 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Gui.PNG[width="790"]
 
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -363,7 +363,7 @@ This section covers commands related to the calendar feature, which serves 2 pri
 
 . Displays training and performance records entered on a specific date.
 
-==== Viewing the calendar : `view calendar`
+==== Viewing the calendar: `view calendar`
 
 This command displays the calendar for the current month.
 
@@ -373,25 +373,27 @@ Let's say that you have been entering training and performance records into **At
 
 Type `view calender` into the command box, and press kbd:[Enter] to execute it.
 
-image::calendar1.png[]
+image::calendar1.PNG[]
 
 *What you should see*
 
 The result box will display the message "Viewing your calendar".
 
-image::calendar2.png[]
+image::calendar2.PNG[]
 
 Additionally, the feature box will display the calendar for the current month (e.g. October).
 
-image::calendar3.png[]
+image::calendar3.PNG[]
 
 Header 1 displays today’s day and date.
 
 Header 2 displays the month and year you are currently viewing.
 
-image::calendar4.png[]
+image::calendar4.PNG[]
 
-You may use the left and right buttons beside header 2 to navigate to the previous or next month. In the calendar, days with training entries are marked with an orange dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.
+You may use the left and right buttons beside header 2 to navigate to the previous or next month. 
+
+With reference to the diagram above, days with training entries are marked with a green dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators. Today's date (e.g. 31 October 2019) is marked with a blue circle.
 
 ==== Navigating the calendar to a specific month: `calendar MMYYYY`
 
@@ -408,33 +410,57 @@ Type in the command `calendar` followed by the desired month and year in the for
 
 Format: `calendar MMYYYY`
 
-NOTE: `MM` provided has to be within the range `01` to `12` for the command to execute successfully
+IMPORTANT: `MM` provided has to be within the range `01` to `12` for the command to execute successfully (`0` must be included in front of single-digit numbers).
 
-Example: `view 102017`
+Example: `calendar 102017`
 
-Type `view 102017` into the command box, and press kbd:[enter] to execute it.
+Type `calendar 102017` into the command box, and press kbd:[enter] to execute it.
 
-image::calendar1.png[]
+image::calendar5.PNG[]
 
 *What you should see*
 
-The result box will display the message "Viewing your calendar".
+The result box will display the message "Viewing calendar for: October 2017".
 
-image::calendar2.png[]
+image::calendar6.PNG[]
 
-Additionally, the feature box will display the calendar for the current month (e.g. October).
+Additionally, the feature box will display the calendar for the selected month and year (e.g. October 2017).
 
-image::calendar3.png[]
+image::calendar7.PNG[]
 
-Header 1 displays today’s day and date.
+==== Viewing training / performance details for a specific date: `calendar DDMMYYYY`
 
-Header 2 displays the month and year you are currently viewing.
+This command displays the training and performance details entered on a specific date.
 
-image::calendar4.png[]
+Let's say that you have entered both training and performance records into **Athletick** on 31 October 2019, and you would like to view these records.
 
-You may use the left and right buttons beside header 2 to navigate to the previous or next month. In the calendar, days with training entries are marked with an orange dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.
+*What you should do*
 
-==== Viewing training / performance details for a specific date
+Type in the command `calendar` followed by the desired date in the format `DDMMYYYY`.
+
+Format: `calendar DDMMYYYY`
+
+IMPORTANT: `MM` provided has to be within the range `01` to `12` for the command to execute successfully (`0` must be included in front of single-digit numbers).
+
+Example: `calendar 31102019`
+
+Type `calendar 31102019` into the command box, and press kbd:[enter] to execute it.
+
+image::calendar8.png[]
+
+*What you should see*
+
+The result box will display the message "Viewing details for: 31st October 2019".
+
+image::calendar9.PNG[]
+
+Additionally, the feature box will display the training and performance details recorded on 31 October 2019.
+
+image::calendar10.PNG[]
+
+The blue vertical scrollbar on the right may be used to scroll down if the list of training and performance details is very long.
+
+image::calendar11.PNG[]
 
 === Athlete Management
 
@@ -472,25 +498,29 @@ image::emptyImage.png[width="790"]
 
 ==== Sorting athletes alphabetically : `sort`
 
-This command sorts your athletes alphabetically by their name.
+This command sorts your **Athletick** list alphabetically by the athletes' name.
 
-*What you should do*
+NOTE: The `sort` command is case-insensitive.
 
-Type in the following command and press enter.
-
-Format : `sort`
+Let's say you have just added 2 new athletes named Aaron and Bala. These new athletes are added to the bottom of the list. Now you want to sort the list to put these players in their correct positions alphabetically.
 
 IMPORTANT: This command will change your athletes’ index numbers.
 
+*What you should do*
+
+Type `sort` into the command box and press kbd:[Enter] to execute it.
+
+Format : `sort`
+
+image::sort1.PNG[]
+
 *What you should see*
 
-.Before sorting, notice that John Doe is last in the list.
-image::beforesort.png[width="790"]
+The result box will display the message "Sorted your team list in alphabetical order."
 
-.After sorting, notice than John is now between Irfan and Roy (ie. names are in alphabetical order).
-image::aftersort.png[width="790"]
+image::sort2.PNG[]
 
-The athlete list in the left sidebar should be alphabetically listed now.
+As seen in the diagram, Aaron and Bala are now in their correct positions and the indexes of all athletes in the list have been updated.
 
 ==== Filtering athletes by their tags : `filter`
 
@@ -595,27 +625,7 @@ A pop up box will appear, with a link to the user guide on Athletick.
 ==== Undoing a previous command : `undo`
 
 This command restores Athletick to the state before the previous command was executed.
-<<<<<<< HEAD
 
-IMPORTANT: Take note that the `undo` feature only applies to undoable commands.
-Undoable commands include: `add`, `delete`, `edit`, `clear`, `attendance` and `training`.
-
-IMPORTANT: The `undo` command will not be able to undo commands that cannot be undone.
-Let’s say you have executed a `list` command to list out all the athletes information in Athletick.
-If you were to execute the `undo` command now, the `undo` command will fail because `list` is not an undoable command,
-and that no doable commands were executed before this.
-
-IMPORTANT: The `undo` command reverses previous commands in reverse chronological order.
-Let’s say you have executed the `edit` command, followed by the `delete` command.
-Executing `undo` now will first reverse the `delete` command.
-Executing `undo` again will reverse the `edit` command.
-
-IMPORTANT: The `undo` command will reverse the latest command that can be undone.
-Let’s say you have executed the `delete` command, followed by the `list` command.
-Since `list` command is not an undoable command, executing `undo` now will thus reverse the `delete` command.
-
-=======
->>>>>>> e807339e4f59ac3fd67770471a2d271cd9f42b36
 Let’s say you have accidentally deleted an athlete’s contact (Mohamad Ali) from your list.
 Instead of having to re-enter Mohamad Ali’s contact information all over again,
 you can easily restore all of Mohamad Ali’s details by `undo`-ing the `delete` command that you have just entered.
