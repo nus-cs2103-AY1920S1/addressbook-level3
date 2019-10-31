@@ -16,7 +16,8 @@
     -font-dark: black;
     -font-semibold: "Droid Sans Mono";
     -progress-bar-overbudget: #ac4e47;
-    -progress-bar-nearbudget: #fda50f;
+    -progress-bar-nearbudget: #ff7142;
+    -progress-bar-halfbudget: #fda50f;
     -progress-bar-inbudget: #42b883;
     -fx-font-family: "Droid Sans Mono"
 }

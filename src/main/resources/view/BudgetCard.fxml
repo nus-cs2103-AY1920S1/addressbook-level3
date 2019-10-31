@@ -33,9 +33,9 @@
                         </Label>
                         <TextFlow textAlignment="CENTER" GridPane.columnIndex="2">
                             <children>
-                                <Label fx:id="budgetStart" text="\$start" />
-                                <Label fx:id="separator" text=" to " />
-                                <Label fx:id="budgetEnd" text="\$end" />
+                                <Label fx:id="budgetStart" />
+                                <Label fx:id="separator" />
+                                <Label fx:id="budgetEnd" />
                             </children>
                         </TextFlow>
                     </children>
@@ -49,10 +49,10 @@
                         </AnchorPane>
                         <TextFlow textAlignment="CENTER">
                             <children>
-                                <Label fx:id="budgetTotalAmount" text="\$total" />
-                                <Label fx:id="divider" text="/" />
-                                <Label fx:id="budgetAllocatedAmount" text="\$amount" />
-                        <Label fx:id="proportionUsed" text="[percentage]">
+                                <Label fx:id="budgetTotalAmount" />
+                                <Label fx:id="divider" />
+                                <Label fx:id="budgetAllocatedAmount" />
+                        <Label fx:id="proportionUsed" >
                            <padding>
                               <Insets left="3.0" />
                            </padding>

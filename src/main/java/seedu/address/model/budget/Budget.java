@@ -2,7 +2,6 @@ package seedu.address.model.budget;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,11 +17,17 @@ import seedu.address.model.expense.Timestamp;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Budget {
-
     public static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
     private static final Price DEFAULT_BUDGET_AMOUNT = Price.MAX_PRICE;
     private static final Timestamp DEFAULT_BUDGET_START_DATE = Timestamp.EARLIEST_TIMESTAMP;
     private static final BudgetPeriod DEFAULT_BUDGET_PERIOD = BudgetPeriod.INFINITY;
+    private static final ObservableList<Expense> DEFAULT_BUDGET_EXPENSES = FXCollections.observableArrayList();
+    private static final boolean DEFAULT_BUDGET_IS_PRIMARY = true;
+
+    public static final Budget DEFAULT_BUDGET = new Budget(DEFAULT_BUDGET_DESCRIPTION, DEFAULT_BUDGET_AMOUNT,
+            DEFAULT_BUDGET_START_DATE, DEFAULT_BUDGET_PERIOD, DEFAULT_BUDGET_EXPENSES, DEFAULT_BUDGET_IS_PRIMARY);
+
+    private static final Percentage IS_HALF_THRESHOLD = new Percentage(50);
     private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
     private final Description description;
@@ -47,6 +52,7 @@ public class Budget {
         requireAllNonNull(expenses, isPrimary);
         this.expenses = expenses;
         this.isPrimary = isPrimary;
+        // could be useless
     }
 
     public Description getDescription() {
@@ -73,17 +79,8 @@ public class Budget {
         return expenses;
     }
 
-    /**
-     * Dummy.
-     * @return Dummy.
-     */
-    public static Budget createDefaultBudget() {
-        Budget defaultBudget = new Budget(DEFAULT_BUDGET_DESCRIPTION,
-                DEFAULT_BUDGET_AMOUNT,
-                DEFAULT_BUDGET_START_DATE,
-                DEFAULT_BUDGET_PERIOD);
-        defaultBudget.setToPrimary();
-        return defaultBudget;
+    public boolean isDefaultBudget() {
+        return this.description.equals(DEFAULT_BUDGET_DESCRIPTION);
     }
 
     /**
@@ -92,8 +89,9 @@ public class Budget {
      * @return A deep copy of the budget, with identical attributes.
      */
     public static Budget deepCopy(Budget other) {
+        ObservableList<Expense> expensesCopy = FXCollections.observableArrayList(other.expenses);
         Budget budget = new Budget(other.description, other.amount, other.getStartDate(),
-                other.getPeriod(), other.expenses, other.isPrimary);
+                other.getPeriod(), expensesCopy, other.isPrimary);
         return budget;
     }
 
@@ -101,7 +99,9 @@ public class Budget {
      * Normalizes the budget window to the current period.
      */
     public void normalize(Timestamp anchor) {
-        window.normalize(anchor);
+        if (!isDefaultBudget()) {
+            window.normalize(anchor);
+        }
     }
 
     /**
@@ -134,6 +134,25 @@ public class Budget {
     }
 
     /**
+     * Transfer all expenses from this budget to another.
+     */
+    public void transferExpensesTo(Budget other) {
+        if (other.isSameBudget(this)) {
+            return;
+        }
+        if (other.expenses != this.expenses) {
+            for (Expense e : expenses) {
+                e.setBudget(other);
+                other.expenses.add(e);
+            }
+        } else {
+            for (Expense e : expenses) {
+                e.setBudget(other);
+            }
+        }
+    }
+
+    /**
      * Sets the specified expense in the expense list to an updated one.
      * @param target The expense to be updated.
      * @param editedExpense The edited expense.
@@ -145,8 +164,8 @@ public class Budget {
         }
     }
 
-    public List<Expense> getCurrentPeriodExpenses() {
-        List<Expense> currentPeriodExpenses = new ArrayList<>();
+    public ObservableList<Expense> getCurrentPeriodExpenses() {
+        ObservableList<Expense> currentPeriodExpenses = FXCollections.observableArrayList();
         if (expenses != null) {
             expenses.stream().forEach(e -> {
                 if (withinCurrentPeriod(e)) {
@@ -178,6 +197,10 @@ public class Budget {
 
     public Percentage calculateProportionUsed() {
         return Percentage.calculate(calculateExpenseSum(), amount.getAsDouble());
+    }
+
+    public boolean isHalf() {
+        return calculateProportionUsed().reach(IS_HALF_THRESHOLD);
     }
 
     public boolean isNear() {

@@ -9,6 +9,7 @@ public class GenericCommandWord {
     public static final String LIST = "list";
     public static final String DELETE = "delete";
     public static final String EDIT = "edit";
+    public static final String CLEAR = "clear";
 
     /**
      * Checks whether the command word is generic.
@@ -18,7 +19,8 @@ public class GenericCommandWord {
      */
     public static boolean isGeneric(String commandWord) {
         return commandWord.equals(ADD) || commandWord.equals(LIST)
-                || commandWord.equals(DELETE) || commandWord.equals(EDIT);
+                || commandWord.equals(DELETE) || commandWord.equals(EDIT)
+                || commandWord.equals(CLEAR);
     }
 
 }

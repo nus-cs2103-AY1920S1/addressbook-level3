@@ -37,13 +37,15 @@ import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.alias.DeleteAliasCommand;
 import seedu.address.logic.commands.alias.ListAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
-import seedu.address.logic.commands.budget.DeleteBudgetCommand;
+import seedu.address.logic.commands.budget.ClearBudgetsCommand;
+import seedu.address.logic.commands.budget.DeleteBudgetByIndexCommand;
+import seedu.address.logic.commands.budget.DeleteBudgetByNameCommand;
 import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
-import seedu.address.logic.commands.budget.ListBudgetCommand;
-import seedu.address.logic.commands.budget.PastPeriodCommand;
+import seedu.address.logic.commands.budget.ListBudgetsCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
+import seedu.address.logic.commands.budget.SwitchBudgetWindowCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand;
@@ -64,15 +66,16 @@ import seedu.address.logic.parser.AddAliasCommandParser;
 import seedu.address.logic.parser.AddBudgetCommandParser;
 import seedu.address.logic.parser.AddEventCommandParser;
 import seedu.address.logic.parser.AddExpenseCommandParser;
+import seedu.address.logic.parser.DeleteBudgetByNameCommandParser;
 import seedu.address.logic.parser.DeleteExpenseFromBudgetCommandParser;
 import seedu.address.logic.parser.EditBudgetCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
 import seedu.address.logic.parser.EditEventCommandParser;
 import seedu.address.logic.parser.EditExpenseFromBudgetCommandParser;
-import seedu.address.logic.parser.PastPeriodCommandParser;
 import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
+import seedu.address.logic.parser.SwitchBudgetWindowCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.budget.Budget;
@@ -100,8 +103,10 @@ import seedu.address.ui.panel.exceptions.UnmappedPanelException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MESSAGE_BUDGET_HALF = "You have spent half of your budget.";
     private static final String MESSAGE_BUDGET_NEAR = "You are close to your budget limit.";
-    private static final String MESSAGE_BUDGET_EXCEEDED = "Your budget is exceeded.";
+    private static final String MESSAGE_BUDGET_EXCEEDED = "You have exceeded your budget! "
+            + "Time to rein in your spending.";
     private static final Background BUDGET_WARNING_POPUP_BACKGROUND = new Background(
             new BackgroundFill(
                     Paint.valueOf("f57d7d"),
@@ -281,11 +286,6 @@ public class MainWindow extends UiPart<Stage> {
                 Collections.emptyList(),
                 Collections.emptyList());
 
-        commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                ClearCommand.COMMAND_WORD,
-                Collections.emptyList(),
-                Collections.emptyList());
-
         // event commands
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 AddEventCommand.COMMAND_WORD,
@@ -319,14 +319,19 @@ public class MainWindow extends UiPart<Stage> {
                 SwitchBudgetCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                ListBudgetCommand.COMMAND_WORD,
+                ListBudgetsCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                DeleteBudgetCommand.COMMAND_WORD,
+                DeleteBudgetByIndexCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                DeleteBudgetByNameCommand.COMMAND_WORD,
+                DeleteBudgetByNameCommandParser.REQUIRED_PREFIXES,
+                DeleteBudgetByNameCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 EditBudgetCommand.COMMAND_WORD,
@@ -334,9 +339,14 @@ public class MainWindow extends UiPart<Stage> {
                 EditBudgetCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                PastPeriodCommand.COMMAND_WORD,
-                PastPeriodCommandParser.REQUIRED_PREFIXES,
-                PastPeriodCommandParser.OPTIONAL_PREFIXES);
+                SwitchBudgetWindowCommand.COMMAND_WORD,
+                SwitchBudgetWindowCommandParser.REQUIRED_PREFIXES,
+                SwitchBudgetWindowCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                ClearBudgetsCommand.COMMAND_WORD,
+                Collections.emptyList(),
+                Collections.emptyList());
 
         // alias commands
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
@@ -386,6 +396,11 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ViewPanelCommand.COMMAND_WORD,
+                Collections.emptyList(),
+                Collections.emptyList());
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                ClearCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
 
@@ -464,6 +479,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.DELETE);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.LIST);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.EDIT);
+        commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.CLEAR);
         if (panelName.equals(BudgetPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
@@ -516,6 +532,10 @@ public class MainWindow extends UiPart<Stage> {
                     GenericCommandWord.ADD,
                     AddBudgetCommandParser.REQUIRED_PREFIXES,
                     AddBudgetCommandParser.OPTIONAL_PREFIXES);
+            commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                    GenericCommandWord.CLEAR,
+                    Collections.emptyList(),
+                    Collections.emptyList());
         } else if (panelName.equals(AliasPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
@@ -547,6 +567,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint("");
         primaryStage.show();
     }
 
@@ -575,6 +597,7 @@ public class MainWindow extends UiPart<Stage> {
 
         try {
             Budget primaryBudget = logic.getPrimaryBudget();
+            boolean initialIsHalf = primaryBudget.isHalf();
             boolean initialIsNear = primaryBudget.isNear();
             boolean initialIsExceeded = primaryBudget.isExceeded();
 
@@ -596,13 +619,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-
-
-
+            boolean finalIsHalf = primaryBudget.isHalf();
             boolean finalIsNear = primaryBudget.isNear();
             boolean finalIsExceeded = primaryBudget.isExceeded();
 
-            showWarningIfAny(initialIsNear, initialIsExceeded, finalIsNear, finalIsExceeded);
+            showWarningIfAny(initialIsHalf, initialIsNear, initialIsExceeded,
+                    finalIsHalf, finalIsNear, finalIsExceeded);
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -681,7 +703,7 @@ public class MainWindow extends UiPart<Stage> {
             }
         });
         popup.show(primaryStage);
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
         delay.setOnFinished(event -> popup.hide());
         delay.play();
     }
@@ -689,8 +711,9 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Determines if there is a need to show warnings, and shows the corresponding warnings.
      */
-    public void showWarningIfAny(boolean initialIsNear, boolean initialIsExceeded,
-                                 boolean finalIsNear, boolean finalIsExceeded) {
+    public void showWarningIfAny(boolean initialIsHalf, boolean initialIsNear, boolean initialIsExceeded,
+                                 boolean finalIsHalf, boolean finalIsNear, boolean finalIsExceeded) {
+
         if (!initialIsExceeded && finalIsExceeded) {
             showPopupMessage(MESSAGE_BUDGET_EXCEEDED);
             return;
@@ -698,6 +721,11 @@ public class MainWindow extends UiPart<Stage> {
 
         if (!initialIsNear && finalIsNear) {
             showPopupMessage(MESSAGE_BUDGET_NEAR);
+            return;
+        }
+
+        if (!initialIsHalf && finalIsHalf) {
+            showPopupMessage(MESSAGE_BUDGET_HALF);
         }
     }
 }

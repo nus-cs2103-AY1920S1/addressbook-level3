@@ -20,10 +20,12 @@ public class SwitchBudgetCommand extends UndoableCommand {
     public static final String COMMAND_DESCRIPTION = "Switch budget to %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches the primary budget to another budget.\n"
             + "Parameters: "
-            + PREFIX_DESCRIPTION + "DESCRIPTION ";
+            + PREFIX_DESCRIPTION + "DESCRIPTION \n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_DESCRIPTION + "Outside School";
 
     public static final String MESSAGE_SUCCESS = "Primary budget switched to: %1$s";
-    public static final String MESSAGE_BUDGET_NOT_FOUND = "This budget does not exist in the address book";
+    public static final String MESSAGE_BUDGET_NOT_FOUND = "This budget does not exist in MooLah";
     public static final String MESSAGE_BUDGET_ALREADY_PRIMARY = "This budget is already the primary budget";
 
     private final Description targetDescription;
@@ -58,10 +60,6 @@ public class SwitchBudgetCommand extends UndoableCommand {
     protected CommandResult execute(Model model) {
         requireNonNull(model);
 
-        //Budget current = model.getPrimaryBudget();
-        //Budget edited = model.getMooLah().getBudgetWithName(targetDescription);
-        //model.setBudget(current, createEditedBudget(current, false));
-        //model.setBudget(edited, createEditedBudget(edited, true));
         model.switchBudgetTo(targetDescription);
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetDescription), BudgetPanel.PANEL_NAME);
     }
@@ -72,7 +70,6 @@ public class SwitchBudgetCommand extends UndoableCommand {
                 || (other instanceof SwitchBudgetCommand // instanceof handles nulls
                 && targetDescription.equals(((SwitchBudgetCommand) other).targetDescription));
     }
-
 
     private Budget createEditedBudget(Budget budgetToEdit, boolean editedIsPrimary) {
         return new Budget(budgetToEdit.getDescription(), budgetToEdit.getAmount(), budgetToEdit.getStartDate(),

@@ -281,6 +281,22 @@ Deletes the 2nd event in the list of events, shown by `listevents`.
 
 === Let's Do Budgeting
 
+Feel a need to cut your spending? Try the awesome budgeting feature!
+It can help you cultivate better financial management habits in the following ways:
+
+* Each budget has a progress bar with a percentage, which indicates how much you have
+spent as a proportion to the limit.
+* The color of the progress bar implies the following 4 situations:
+- GREEN: Less than half of the limit.
+- YELLOW: Spent half of the limit.
+- ORANGE: Reached 90% of the limit.
+- RED: Exceeded the limit.
+* When your expenses reach 90% of the limit, it will give a warning to remind you to
+cut down on your spending.
+* When your expenses exceed the budget limit, it will give another warning. However,
+the percentage will continue to update even if it exceeds 100%, to give you a better idea
+of how much you have overspent.
+
 ==== Create a new budget : `addbudget`
 Want your expenses tracked under a recurring budget? Simple enough with this command: `addbudget`
 
@@ -363,8 +379,24 @@ Tips:
 * You can choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START DATE`
 and `PERIOD`, more than one at a time.
 
-==== Delete a budget: `deletebudget`
+==== Delete a budget (by name) : `deletebudget`
 Don't want it any more? Use `deletebudget` to say bye to your budget!
+
+The concrete format is:
+----
+deletebudget d/BUDGET_NAME
+----
+
+For example, after typing:
+
+----
+deletebudget d/school
+----
+
+The budget with the name "school" will be deleted.
+
+==== Delete a budget (by index) : `deletebudgetid`
+If budget names are too long, there's an easier way to delete them: `deletebudgetid`.
 
 The concrete format is:
 ----
@@ -377,19 +409,23 @@ Tips:
 
 * Regretted? Type `undo` to get it back ;D
 
-==== View expenses in the past: `pastperiod`
-Wanna see your archived expenses in the past? The command `pastperiod` is the time machine you need.
+==== Delete all budgets: `clearbudgets`
+Don't feel like living on budgets any more? You can clear them all, just by a simple command:
+`clearbudgets`.
+
+==== View expenses in a different period: `switchperiod`
+Wanna see your archived expenses in the past? The command `switchperiod` is the time machine you need.
 
 The concrete format is:
 ----
-pastperiod t/DATE
+switchperiod t/DATE
 ----
 
 For example, suppose you have a monthly budget "school", refreshed at the first day of each month; and
 suppose it is November now.
 After typing:
 ----
-pastperiod t/01-05
+switchperiod t/01-05
 ----
 You'll see all expenses tracked under "school" from 1 May to 31 May this year.
 
@@ -397,7 +433,7 @@ Tips:
 
 * The time machine can only travel *back* in time! That is, if the date is in the current or future period, you'll need
 to input again.
-* Only expenses tracked under *this budget* are shown.
+* Only expenses tracked under *the current budget* are shown.
 
 === Creating an alias for your favourite commands : `alias`
 Assign a full parameterized input to an alias.
@@ -697,10 +733,13 @@ e.g. `switchbudget d/outside school`
 * *List all budgets* : `listbudgets`
 * *Edit a budget* : `editbudget INDEX d/DESCRIPTION p/AMOUNT sd/START_DATE pr/PERIOD` +
 e.g. `editbudget 2 d/school expenses p/400 sd/05-10`
-* *Delete a budget* : `deletebudget INDEX` +
+* *Delete a budget (by name)* : `deletebudget INDEX` +
+e.g. `deletebudget d/school`
+* *Delete a budget (by index)* : `deletebudgetid INDEX` +
 e.g. `deletebudget 2`
-* *View expenses in the past* : `pastperiod` +
-e.g. `pastperiod t/01-05`
+* *Delete all budgets*: `clearbudgets`
+* *View expenses in a different period* : `switchperiod` +
+e.g. `switchperiod t/01-05`
 
 ---
 

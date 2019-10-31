@@ -18,8 +18,8 @@ import seedu.address.ui.budget.BudgetListPanel;
 /**
  * Deletes a budget identified using it's displayed index from the MooLah.
  */
-public class DeleteBudgetCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.BUDGET;
+public class DeleteBudgetByIndexCommand extends UndoableCommand {
+    public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.BUDGET + "id";
     public static final String COMMAND_DESCRIPTION = "Delete budget on index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the budget identified by the index number used in the displayed budget list.\n"
@@ -30,7 +30,7 @@ public class DeleteBudgetCommand extends UndoableCommand {
 
     private final Index targetIndex;
 
-    public DeleteBudgetCommand(Index targetIndex) {
+    public DeleteBudgetByIndexCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -67,8 +67,8 @@ public class DeleteBudgetCommand extends UndoableCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteBudgetCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteBudgetCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteBudgetByIndexCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteBudgetByIndexCommand) other).targetIndex)); // state check
     }
 
 }

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.budget.Budget.DEFAULT_BUDGET;
 
 import java.util.List;
 
@@ -46,7 +47,9 @@ public class MooLah implements ReadOnlyMooLah {
     public MooLah() {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
-        budgets.add(Budget.createDefaultBudget());
+        Budget db = DEFAULT_BUDGET;
+        db.setToPrimary();
+        budgets.add(db);
         events = new UniqueEventList();
     }
 
@@ -197,10 +200,6 @@ public class MooLah implements ReadOnlyMooLah {
         return budgets.hasBudgetWithName(targetDescription);
     }
 
-    public Budget getBudgetWithName(Description d) {
-        return budgets.getBudgetWithName(d);
-    }
-
     /**
      * Returns the primary budget in the MooLah.
      * @return The primary budget in the MooLah.
@@ -215,17 +214,13 @@ public class MooLah implements ReadOnlyMooLah {
      * @param targetDescription The name of the budget to be switched to.
      */
     public void switchBudgetTo(Description targetDescription) {
-        Budget targetBudget = budgets.getBudgetWithName(targetDescription);
-        budgets.setPrimary(targetBudget);
+        requireNonNull(targetDescription);
+        budgets.switchBudgetTo(targetDescription);
     }
 
     void setBudget(Budget target, Budget editedBudget) {
         requireNonNull(editedBudget);
         budgets.setBudget(target, editedBudget);
-
-        for (Expense expense : expenses) {
-            expense.setBudget(editedBudget);
-        }
     }
 
     /**
@@ -233,10 +228,12 @@ public class MooLah implements ReadOnlyMooLah {
      * {@code key} must exist in the MooLah.
      */
     public void removeBudget(Budget key) {
+        requireNonNull(key);
         budgets.remove(key);
-        for (Expense expense : expenses) {
-            expense.removeBudget();
-        }
+    }
+
+    public void clearBudgets() {
+        budgets.clearBudgets();
     }
 
     /**
@@ -245,8 +242,11 @@ public class MooLah implements ReadOnlyMooLah {
      */
     public void changePrimaryBudgetWindow(Timestamp pastDate) {
         requireNonNull(pastDate);
-
         budgets.changePrimaryBudgetWindow(pastDate);
+    }
+
+    public void deleteBudgetWithName(Description description) {
+        budgets.deleteBudgetWithName(description);
     }
 
     //=========== Event-level operations ================================================================
@@ -266,8 +266,7 @@ public class MooLah implements ReadOnlyMooLah {
      */
     public void addEvent(Event event) {
         if (budgets.isEmpty()) {
-            Budget defaultBudget = Budget.createDefaultBudget();
-            defaultBudget.setToPrimary();
+            Budget defaultBudget = DEFAULT_BUDGET;
             budgets.add(defaultBudget);
         }
         Budget primaryBudget = budgets.getPrimaryBudget();

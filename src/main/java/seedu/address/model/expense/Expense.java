@@ -82,7 +82,7 @@ public class Expense {
     }
 
     public void removeBudget() {
-        this.budgetName = new Description("default budget");
+        this.budgetName = Budget.DEFAULT_BUDGET_DESCRIPTION;
     }
 
     public boolean isWithId(String id) {

@@ -10,7 +10,7 @@ public enum BudgetPeriod {
     WEEK("week", Period.ofWeeks(1)),
     MONTH("month", Period.ofMonths(1)),
     YEAR("year", Period.ofYears(1)),
-    INFINITY("infinity", Period.ofYears(999));
+    INFINITY("infinity", Period.ofYears(100));
 
     private final String label;
     private final Period period;

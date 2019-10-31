@@ -37,9 +37,13 @@ public class BudgetCard extends UiPart<Region> {
     @FXML
     private Label budgetStart;
     @FXML
+    private Label separator;
+    @FXML
     private Label budgetEnd;
     @FXML
     private Label budgetTotalAmount;
+    @FXML
+    private Label divider;
     @FXML
     private Label budgetAllocatedAmount;
     @FXML
@@ -82,20 +86,29 @@ public class BudgetCard extends UiPart<Region> {
      * Updates the text displayed on the budget progress bar.
      */
     private void updateBudgetCardProgressBarText() {
-        updateBudgetCardTotalAmount(budget.calculateExpenseSum());
-        budgetAllocatedAmount.setText(String.format("%s%.2f", CURRENCY_SYMBOL, budget.getAmount().getAsDouble()));
-        updateBudgetProportionUsed();
+        if (!budget.isDefaultBudget()) {
+            updateBudgetCardTotalAmount(budget.calculateExpenseSum());
+            budgetAllocatedAmount.setText(String.format("%s%.2f", CURRENCY_SYMBOL, budget.getAmount().getAsDouble()));
+            updateBudgetProportionUsed();
+        }
     }
 
 
     private void updateBudgetCardTotalAmount(double totalAmount) {
         budgetTotalAmount.setText(String.format("%s%.2f", CURRENCY_SYMBOL, totalAmount));
+        divider.setText("/");
         budgetProgressBar.setProgress(totalAmount / budget.getAmount().getAsDouble());
     }
 
+    /**
+     * Updates period shown in budget card.
+     */
     private void updateBudgetCardPeriod() {
-        budgetStart.setText(budget.getStartDate().fullTimestamp.format(formatter));
-        budgetEnd.setText(budget.getEndDate().fullTimestamp.format(formatter));
+        if (!budget.isDefaultBudget()) {
+            budgetStart.setText(budget.getStartDate().fullTimestamp.format(formatter));
+            separator.setText(" to ");
+            budgetEnd.setText(budget.getEndDate().fullTimestamp.format(formatter));
+        }
     }
 
     private void updateBudgetCardDescription() {
@@ -103,7 +116,9 @@ public class BudgetCard extends UiPart<Region> {
     }
 
     private void updateBudgetProportionUsed() {
-        proportionUsed.setText("[" + budget.calculateProportionUsed().toString() + "]");
+        if (!budget.isDefaultBudget()) {
+            proportionUsed.setText("[" + budget.calculateProportionUsed().toString() + "]");
+        }
     }
 
     /**
@@ -113,10 +128,15 @@ public class BudgetCard extends UiPart<Region> {
      * stylesheet.
      */
     private void updateBudgetCardProgressBarColour() {
+        if (budget.isDefaultBudget()) {
+            return; // default budget's progress bar is not shown
+        }
         if (budget.isExceeded()) {
             budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-overbudget;");
         } else if (budget.isNear()) {
             budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-nearbudget;");
+        } else if (budget.isHalf()) {
+            budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-halfbudget;");
         } else {
             budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-inbudget;");
         }

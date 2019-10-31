@@ -12,14 +12,14 @@ import seedu.address.ui.budget.BudgetPanel;
 /**
  * Switches budget window to a period in the past.
  */
-public class PastPeriodCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "pastperiod";
+public class SwitchBudgetWindowCommand extends UndoableCommand {
+    public static final String COMMAND_WORD = "switchperiod";
     public static final String COMMAND_DESCRIPTION = "Switch budget to period %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches the budget to a past period anchored by "
             + "the specified date and displays a list of expenses under this budget during that period.\n"
             + "Parameters: "
-            + PREFIX_TIMESTAMP + "DATE "
-            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_TIMESTAMP + "DATE \n"
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_TIMESTAMP + "05-01-2019";
 
     public static final String MESSAGE_SWITCH_PERIOD_SUCCESS = "Budget window switched back to the period "
@@ -27,7 +27,7 @@ public class PastPeriodCommand extends UndoableCommand {
 
     private final Timestamp pastDate;
 
-    public PastPeriodCommand(Timestamp pastDate) {
+    public SwitchBudgetWindowCommand(Timestamp pastDate) {
         this.pastDate = pastDate;
     }
 
@@ -54,7 +54,7 @@ public class PastPeriodCommand extends UndoableCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PastPeriodCommand // instanceof handles nulls
-                && pastDate.equals(((PastPeriodCommand) other).pastDate)); // state check
+                || (other instanceof SwitchBudgetWindowCommand // instanceof handles nulls
+                && pastDate.equals(((SwitchBudgetWindowCommand) other).pastDate)); // state check
     }
 }
