@@ -57,9 +57,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ** Example: In `add-member [m/MEMBER_NAME]`, MEMBER_NAME is the input specified by the user, such as: add member m/Gabriel Seow
 
-* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below: 
+* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below:
 
-[%header,cols=2*] 
+[%header,cols=2*]
 .List of Prefixes
 |===
 |Prefix
@@ -133,7 +133,7 @@ image::Help.png[width=790]
 To add a member to the list of team members in +Work, use the command 'add-member' following the format below. +
 Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
 
-Example: `add-member mn/Gabriel Seow mi/GS mt/Programmer` will result in the following: 
+Example: `add-member mn/Gabriel Seow mi/GS mt/Programmer` will result in the following:
 +
 image::AddMember.png[width="790"]
 +
@@ -162,14 +162,14 @@ Example: 'remove-member mi/GS' will result in the following:
 +
 image::RemoveMember.png[width="790"]
 +
-This indicates that the member 'Gabriel Seow' with member ID 'GS' has been removed from the project and from associated tasks. 
+This indicates that the member 'Gabriel Seow' with member ID 'GS' has been removed from the project and from associated tasks.
 
 
 ==== Assign a task to a member: `assign` +
 To assign a task to a specific team member, use the 'assign' command in the format below. +
 Format: `assign ti/TASK_ID mi/MEMBER_ID`
 
-Example: 'assign ti/1 mi/GS' will result in the following: 
+Example: 'assign ti/1 mi/GS' will result in the following:
 +
 image::AssignTask.png[width="790"]
 +
@@ -180,7 +180,7 @@ This indicates that the task TASK NAME with task id 1 has been assigned to team 
 To remove a task from a specific team member, use the 'fire' command in the format below. +
 Format: `fire ti/TASK_ID mi/MEMBER_ID`
 
-Example: 'fire ti/1 mi/GS' will result in the following: 
+Example: 'fire ti/1 mi/GS' will result in the following:
 +
 image::FireTask.png[width="790"]
 +
@@ -373,7 +373,7 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 To get statistics relating to the members in +Work, use the statistics command following the format below. +
 Format: `member-stats` +
 
-Calling the 'member-stats' command will result in the following: 
+Calling the 'member-stats' command will result in the following:
 +
 image::MemberStats.png[width="790"]
 +
@@ -382,7 +382,7 @@ image::MemberStats.png[width="790"]
 To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
 Format: `task-stats` +
 
-Calling the 'task-stats' command will result in the following: 
+Calling the 'task-stats' command will result in the following:
 +
 image::TaskStats.png[width="790"]
 +

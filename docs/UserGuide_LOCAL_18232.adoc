@@ -57,7 +57,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ** Example: In `add-member mn/MEMBER_NAME`, MEMBER_NAME is the input specified by the user, such as: add-member mn/Gabriel Seow
 
-* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below: 
+* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below:
 
 * Parameters can be given in any order
 
@@ -111,20 +111,20 @@ Example: 'list-members'
 To remove a member from the project, and subsequently remove him from associated tasks, use the 'remove-member' command in the format below. +
 Format: `remove-member [mi/MEMBER_ID]`
 
-Example: 'remove-member mi/GS' 
+Example: 'remove-member mi/GS'
 
 
 ==== Assign a task to a member: `assign` +
 To assign a task to a specific team member, use the 'assign' command in the format below. +
 Format: `assign ti/TASK_ID mi/MEMBER_ID`
 
-Example: 'assign ti/1 mi/GS' 
+Example: 'assign ti/1 mi/GS'
 
 ==== Remove a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
 Format: `fire ti/TASK_ID mi/MEMBER_ID`
 
-Example: 'fire ti/1 mi/GS' 
+Example: 'fire ti/1 mi/GS'
 
 '''
 

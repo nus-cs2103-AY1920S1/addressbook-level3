@@ -18,3 +18,23 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+.label-highlighted {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #ff8259;
+    -fx-opacity: 1;
+}
+
+.label-unhighlighted {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.separator *.line {
+    -fx-border-color: #848484;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+}
