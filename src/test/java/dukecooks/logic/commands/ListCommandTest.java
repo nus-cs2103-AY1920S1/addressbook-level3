@@ -42,5 +42,4 @@ public class ListCommandTest {
         CommandTestUtil.showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
         assertCommandSuccess(new ListRecipeCommand(), model, ListRecipeCommand.MESSAGE_SUCCESS, expectedModel);
     }
-
 }
