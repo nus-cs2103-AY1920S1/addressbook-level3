@@ -295,7 +295,6 @@ public class MainWindow extends UiPart<Stage> {
      * @param view The {@code Page} to switch to.
      */
     private void switchContent(View<? extends Node> view, StackPane toUpdatePlaceHolder) {
-        setWindowDefaultSize(model.getGuiSettings());
         Node pageNode = view.getRoot();
 
         List<Node> currentChildren = toUpdatePlaceHolder.getChildren();
