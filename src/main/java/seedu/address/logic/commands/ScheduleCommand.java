@@ -23,6 +23,7 @@ import seedu.address.model.day.Day;
 
 /**
  * Schedules an activity to a day.
+ * @@author oscarsu97
  */
 public class ScheduleCommand extends Command {
 

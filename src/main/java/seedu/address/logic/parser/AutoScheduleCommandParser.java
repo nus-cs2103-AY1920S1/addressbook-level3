@@ -17,6 +17,7 @@ import seedu.address.model.field.Address;
 
 /**
  * Parses input arguments and creates a new AutoScheduleCommand object
+ * @@author oscarsu97
  */
 public class AutoScheduleCommandParser {
 

@@ -14,6 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents an Activity in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
+ * @@author oscarsu97
  */
 public class Activity implements Comparable<Activity> {
 

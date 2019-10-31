@@ -49,6 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Eat lunch t/Western` or as `n/Eat lunch`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Any two items enclosed within with `()` and has a `||` lying between them indicates that either one of the items has to be present.
+e.g. `(t/Dining || n/DisneyLand)` can be used as `t/Dining` or `n/DisneyLand`.
 ====
 
 === Viewing help : `help`
@@ -57,21 +59,21 @@ Displays a help page +
 Format: `help`
 
 // tag::addaccommodation[]
-=== Adding an accommodation: `add acc`
+=== Adding an accommodation: `add accomodation`
 
 Creates an accommodation to the accommodation list +
 Format: `add acc n/NAME a/ADDRESS [p/PHONE_NUMBER][e/EMAIL][t/TAGS]`
 
 Examples:
 
-* `add acc n/Hotel 81 a/Orchard /p67555312`
-* `add acc n/Mandarin Oriental a/Ang Mo Kio`
+* `add accomodation n/Hotel 81 a/Orchard /p67555312`
+* `add accomodation n/Mandarin Oriental a/Ang Mo Kio`
 
 // end::addaccommodation[]
-=== Editing an accommodation: `edit acc`
+=== Editing an accommodation: `edit accomodation`
 
 Edits an accommodation +
-Format: `edit act INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
+Format: `edit accomodation INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
 
 * Edits the accommodation with the specified INDEX. The index refers to the index number shown in the displayed accommodation list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -79,15 +81,15 @@ Format: `edit act INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
 
 Examples:
 
-* `edit acc 1 n/MBS a/Marina Bay t/Atas`
+* `edit accomodation 1 n/MBS a/Marina Bay t/Atas`
 
 Edits the name, address and tag of the 1st accommodation to be MBS, Marina Bay and Atas respectively.
 
 // tag::deleteaccommodation[]
-=== Deleting an accommodation: `delete acc`
+=== Deleting an accommodation: `delete accomodation`
 
 Delete one or more accommodation from the accommodation list +
-Format: `delete acc INDEX...`
+Format: `delete accomodation INDEX...`
 
 * Deletes the accommodation at the specified INDEX.
 * The index refers to the index number shown in the displayed accommodation list.
@@ -95,32 +97,32 @@ Format: `delete acc INDEX...`
 
 Examples:
 
-* `delete acc 2`
+* `delete accomodation 2`
 
 Deletes the 2nd accommodation in the accommodation list.
 
 // end::deleteaccommodation[]
-=== Listing all accommodation: `list acc`
+=== Listing all accommodation: `list accomodation`
 
 Displays a list view of all the accommodation +
-Format: `list acc`
+Format: `list accomodation`
 
 // tag::addactivity[]
-=== Adding an activity: `add act`
+=== Adding an activity: `add activity`
 
 Creates an activity to the activity list +
-Format: `add act n/NAME a/ADDRESS [p/PHONE_NUMBER][e/EMAIL][t/TAGS]`
+Format: `add activity n/NAME a/ADDRESS [p/PHONE_NUMBER][e/EMAIL][t/TAGS]`
 
 Examples:
 
-* `add act n/Visit Gundam Museum a/Tokyo /p67521312`
-* `add act n/Ski a/Mount Sinai`
+* `add activity n/Visit Gundam Museum a/Tokyo /p67521312`
+* `add activity n/Ski a/Mount Sinai`
 
 // end::addactivity[]
-=== Editing an activity: `edit act`
+=== Editing an activity: `edit activity`
 
 Edits an activity +
-Format: `edit act INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
+Format: `edit activity INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
 
 * Edits the activity with the specified INDEX. The index refers to the index number shown in the displayed activity list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -133,10 +135,10 @@ Examples:
 Edits the name, address and tag of the 1st activity to be Dinner, Hotel and Western respectively.
 
 // tag::deleteactivity[]
-=== Deleting an activity: `delete act`
+=== Deleting an activity: `delete activity`
 
 Delete one or more activities from the activity list +
-Format: `delete act INDEX...`
+Format: `delete activity INDEX...`
 
 * Deletes the activity at the specified INDEX.
 * The index refers to the index number shown in the displayed activity list.
@@ -144,29 +146,29 @@ Format: `delete act INDEX...`
 
 Examples:
 
-* `delete act 2`
+* `delete activity 2`
 
 Deletes the 2nd activity in the activity list.
 
 // end::deleteactivity[]
-=== Listing all activities: `list act`
+=== Listing all activities: `list activity`
 
 Displays a list view of all the activities +
-Format: `list act`
+Format: `list activity`
 
-=== Adding a contact: `add con`
+=== Adding a contact: `add contact`
 
 Creates a contact to the contact list +
-Format: `add con n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAGS]`
+Format: `add contact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 
 Examples:
 
-* `add con n/Bob p/83746658 t/false`
+* `add contact n/Bob p/83746658 t/false`
 
-=== Editing a contact: `edit con`
+=== Editing a contact: `edit contact`
 
 Edits an existing contact in the contact list +
-Format: `edit con INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/IS_EMERGENCY]`
+Format: `edit contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/IS_EMERGENCY]`
 
 * Edits the contact with the specified INDEX. The index refers to the index number shown in the displayed contact list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -175,14 +177,14 @@ Format: `edit con INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/IS_EM
 
 Examples:
 
-* `edit con 1 p/93746658 t/true`
+* `edit contact 1 p/93746658 t/true`
 
 Edits the phone number and tag of the 1st contact to be 93746658 and true respectively.
 
-=== Deleting a contact: `delete con`
+=== Deleting a contact: `delete contact`
 
 Deletes a contact from the contact list +
-Format: `delete con INDEX...`
+Format: `delete contact INDEX...`
 
 * Deletes the contact at the specified INDEX.
 * The index refers to the index number shown in the displayed contact list.
@@ -190,14 +192,14 @@ Format: `delete con INDEX...`
 
 Examples:
 
-* `delete con 3`
+* `delete contact 3`
 
 Deletes the 3rd contact in the contact list.
 
-=== Listing all contacts: `list con`
+=== Listing all contacts: `list contact`
 
 Displays a list view of all the contact list +
-Format: `list con`
+Format: `list contact`
 
 === Adds days to the schedule: `add day`
 
@@ -212,47 +214,56 @@ Adds 7 days to the back of the itinerary.
 
 === Deleting days: `delete day`
 
-Deletes DAY_NUMBER th day of the itinerary. +
-Format: `delete day DAY_NUMBER`
+Deletes day DAY_INDEX of the itinerary. +
+Format: `delete day DAY_INDEX`
 
 Examples:
 
 * `delete day 2`
 
-Deletes the day 2 from the itinery.
+Deletes day 2 from the itinerary.
 
-=== Scheduling activities to a day: `schedule`
+=== Scheduling an activity to a day: `schedule`
 
-Schedules activities to a day +
-Format: `schedule DAY_NUMBER ACTIVITY_INDEX…`
+Schedules an activity to a day +
+Format: `schedule activity ACTIVITY_INDEX st/START_TIME d/DAY_INDEX`
 
 Examples:
 
-* `schedule day 2 5 10 4 11`
+* `schedule activity 2 st/1000 d/2`
 
-Schedules activities 5, 10, 4, 11 under day 2.
+Schedules the second activity in the activity list under day 2.
 
 === Unscheduling activities from a day: `unschedule activity`
 
-Unschedule activities from a day +
-Format: `unschedule activity ACTIVITY_INDEX... DAY_NUMBER`
+Unschedules an activity from a day +
+Format: `unschedule activity ACTIVITY_INDEX d/DAY_INDEX`
 
 Examples:
 
-* `unschedule activity 5 day 1`
+* `unschedule activity 5 d/2`
 
-This remove activity 5 from day 1.
+This remove the 5th activity from the activity list from day 2.
 
-=== Unscheduling activities from a day: `unschedule time`
+=== Auto Schedule: `auto Schedule`
+Generates a list of activities for the specified days based on tags or name.
 
-Unschedule activities from a day +
-Format: `unschedule time TIME_BY_24HR_CLOCK day DAY_NUMBER`
+* Timing can be specified if there is an activity that is confirmed to do at that timing.
+
+* An `activity name` can be specified if there is an activity that has been confirmed to do.
+
+* Location for that `day` can be specified, otherwise it is assumed to be any location.
+
+* The `Day` to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
+
+Format: `autoSchedule (t/TAG || n/ACTIVITY_NAME)... [a/LOCATION_OF_ACTIVITIES] d/[DAY_INDEX]...`
 
 Examples:
 
-* `unschedule time 2300 day 1`
+* `autoSchedule t/Breakfast t/Sightseeing t/Dinner`
+* `autoSchedule t/Breakfast t/Sightseeing t/Dinner a/Kyoto d/1`
+* `autoSchedule t/Breakfast 1000 n/DisneyLand t/Dinner a/Kyoto d/1 2 3 4`
 
-This removes the activity at 2300 from day 1 of the itinerary.
 
 === List the activities in a day: `list day`
 
@@ -262,6 +273,17 @@ Format: `list day DAY_NUMBER`
 Examples:
 
 * `list day 1`
+
+=== List the activities in the activity list: `list activity`
+
+List the activities in a day +
+Format: `list activity`
+
+
+=== List the accommodations in the accommodation list: `list accommodation`
+
+List the accommodations in a day +
+Format: `list accommodation`
 
 This will list out all the activities scheduled for day 1.
 
@@ -275,12 +297,12 @@ Format: `undo`
 Redo by one action +
 Format: `redo`
 
-=== Look up history of inputs: `history`
+=== Look up history of inputs: `history`[Work in progress]
 
 Lists the inputs that have been entered +
 Format: `history`
 
-=== Saving the data: `save`
+=== Saving the data: `save`[Work in progress]
 
 Saves the state of the program. If provided with a schedule name, it will add a new file with the schedule name. Else, it will simply save it to the current save file +
 Format: `save [SCHEDULE_NAME]`
@@ -289,7 +311,7 @@ Examples:
 
 * `save japan_trip`
 
-=== Loading the data: `load`
+=== Loading the data: `load`[Work in progress]
 
 The user can load the desired schedule with the schedule name. Else, the user can add a new schedule +
 Format: `load SCHEDULE_NAME`
@@ -298,12 +320,12 @@ Examples:
 
 * `load beijing`
 
-=== Export schedule: `export`
+=== Export schedule: `export`[Work in progress]
 
 Exports the schedule into a pdf +
 Format: `export`
 
-=== Auto-correct
+=== Auto-correct[Coming in v2.0]
 
 When there is an invalid command, the input command is checked against the known command list for similarity and the user will be prompted with the closest command match
 

@@ -27,6 +27,7 @@ import seedu.address.model.tag.TagWithTime;
 
 /**
  * Generates a schedule for specified day(s).
+ * @@author oscarsu97
  */
 public class AutoScheduleCommand extends Command {
 
