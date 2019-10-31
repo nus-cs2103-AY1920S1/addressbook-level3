@@ -20,13 +20,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
  * The pane to view the questions of a deck and access deck editing functionality.
  */
-public class DeckDisplay extends VBox {
+public class DeckDisplay extends AnchorPane {
     @FXML
     private Label deckName;
     @FXML
@@ -87,7 +88,6 @@ public class DeckDisplay extends VBox {
      */
     private void startTest() {
         //display the first card
-        TestDisplay testDisplay = new TestDisplay(deck.duplicateMyself());
         ArrayList<FlashCard> testArrayListOfCards = deck.getSubsetForTest();
         ExamRunner.createExam(testArrayListOfCards);
         Exam exam = ExamRunner.getCurrentExam();
@@ -153,5 +153,7 @@ public class DeckDisplay extends VBox {
         CardEditingWindow window = new CardEditingWindow(cardToEdit, onSave, onCancel);
         questionList.getChildren().clear();
         questionList.getChildren().add(window);
+
     }
+
 }

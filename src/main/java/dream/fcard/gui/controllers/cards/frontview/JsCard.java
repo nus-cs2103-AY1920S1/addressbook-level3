@@ -86,13 +86,6 @@ public class JsCard extends AnchorPane {
         } else {
             card.editFront(front + err);
             questionTextLabel.setText(front + err);
-            card.editFront(front + " Passed!");
-            questionTextLabel.setText(front + " Passed!");
-            getScore.accept(true);
-        } else {
-            card.editFront(front + " Failed.");
-            questionTextLabel.setText(front + " Failed.");
-            getScore.accept(false);
         }
     }
 }

@@ -13,7 +13,6 @@ import dream.fcard.util.json.jsontypes.JsonValue;
 public class FrontBackCard extends FlashCard {
     protected String back;
     protected String front;
-    protected Statistics stats;
     protected int cardResult;
 
     /**
