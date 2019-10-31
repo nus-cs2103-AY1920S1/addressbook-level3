@@ -7,6 +7,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.task.TaskContainsKeywordsPredicate;
+import seedu.address.ui.UiManager;
 
 /**
  * Finds and lists all tasks in address book whose name contains any of the argument keywords.

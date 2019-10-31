@@ -12,11 +12,16 @@ import static seedu.address.testutil.TypicalTasks.CS2103T;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.task.Marking;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskTime;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -101,8 +106,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasTask_taskInAddressBook_returnsTrue() {
-        modelManager.addTask(CS2103T);
-        System.out.println(CS2103T);
+        modelManager.addTask(null);
         assertTrue(modelManager.hasTask(CS2103T));
     }
 
