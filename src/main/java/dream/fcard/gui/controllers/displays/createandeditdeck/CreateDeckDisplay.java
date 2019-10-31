@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptionsSetter;
 import dream.fcard.gui.controllers.windows.CardCreatingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
@@ -97,7 +98,7 @@ public class CreateDeckDisplay extends VBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             editingWindow = new CardCreatingWindow(incrementNumCards);
-            cardCreatingPane.setContent(editingWindow);
+            cardCreatingPane.getChildren().add(editingWindow);
             onSaveDeck.setOnAction(e -> onSaveDeck());
             cancelButton.setOnAction(e -> exitEditingMode.accept(true));
             this.deckNameInput = new TextField(deckNameInput);
