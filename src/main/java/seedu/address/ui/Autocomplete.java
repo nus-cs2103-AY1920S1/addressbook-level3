@@ -83,16 +83,7 @@ public class Autocomplete extends TextField {
             Label entryLabel = new Label(result);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             item.setOnAction(unused -> {
-                int lastIndex = getText().lastIndexOf(" ");
-                String finalText;
-                if (lastIndex < 0) {
-                    finalText = result;
-                } else {
-                    finalText = getText().substring(0, getText().lastIndexOf(" "))
-                            + " " + result;
-                }
-                setText(finalText);
-                positionCaret(finalText.length());
+                setAutocompleteText(result);
                 keywordMenu.hide();
             });
             menuItems.add(item);
@@ -112,8 +103,7 @@ public class Autocomplete extends TextField {
             input = input.trim();
             String[] inputArray = input.split(" ");
             if (inputArray.length == 1) {
-                completeInput(inputArray[0], commandKeywords, getText().substring(0, getText().lastIndexOf(" "))
-                        + " ");
+                completeInput(inputArray[0], commandKeywords, " ");
             } else if (inputArray[0].equals(HelpCommand.COMMAND_WORD)) {
                 // The Help command uses commands as arguments.
                 completeInput(inputArray[inputArray.length - 1], commandKeywords, HelpCommand.COMMAND_WORD + " ");
@@ -139,9 +129,7 @@ public class Autocomplete extends TextField {
         ArrayList<String> searchResult = new ArrayList<>(keywords.subSet(input,
                 input + Character.MAX_VALUE));
         if (searchResult.size() == 1) {
-            String finalText = currentText + searchResult.get(0);
-            setText(finalText);
-            positionCaret(finalText.length());
+            setAutocompleteText(searchResult.get(0));
         } else if (searchResult.size() > 1) {
             populateMenu(searchResult);
             if (!keywordMenu.isShowing()) {
@@ -151,10 +139,6 @@ public class Autocomplete extends TextField {
         } else {
             keywordMenu.hide();
         }
-    }
-
-    public boolean isMenuShowing() {
-        return keywordMenu.isShowing();
     }
 
     /**
@@ -211,5 +195,18 @@ public class Autocomplete extends TextField {
         tags.asUnmodifiableObservableList().addListener((ListChangeListener<Tag>) change
             -> generateArgumentKeywords());
         generateArgumentKeywords();
+    }
+
+    private void setAutocompleteText(String s) {
+        int lastIndex = getText().lastIndexOf(" ");
+        String finalText;
+        if (lastIndex < 0) {
+            finalText = s;
+        } else {
+            finalText = getText().substring(0, lastIndex)
+                    + " " + s;
+        }
+        setText(finalText);
+        positionCaret(finalText.length());
     }
 }
