@@ -22,11 +22,11 @@ import seedu.address.model.loan.LoanList;
 /**
  * Edits the details of an existing Borrower in the borrower record.
  */
-public class EditBorrowerCommand extends Command {
+public class EditBorrowerCommand extends Command implements ReversibleCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the serving borrower. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the serving borrower. \n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
@@ -41,8 +41,9 @@ public class EditBorrowerCommand extends Command {
             + "\n"
             + MESSAGE_USAGE;
 
-
     private final EditBorrowerDescriptor editBorrowerDescriptor;
+    private Command undoCommand;
+    private Command redoCommand;
 
     /**
      * @param editBorrowerDescriptor details to edit the borrower with
@@ -70,6 +71,8 @@ public class EditBorrowerCommand extends Command {
 
         Borrower borrowerToEdit = model.getServingBorrower();
         Borrower editedBorrower = createEditedBorrower(borrowerToEdit, editBorrowerDescriptor);
+        undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit));
+        redoCommand = this;
 
         if (model.hasDuplicatedBorrower(editedBorrower)) {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
@@ -78,6 +81,30 @@ public class EditBorrowerCommand extends Command {
         model.setBorrower(borrowerToEdit, editedBorrower);
         model.setServingBorrower(editedBorrower);
         return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower.toFullString()));
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
+    }
+
+    /**
+     * Returns a {@code EditBorrowerDescriptor} from {@code Borrower}.
+     *
+     */
+    private EditBorrowerDescriptor getBorrowerDescriptor(Borrower borrower) {
+        EditBorrowerDescriptor borrowerDescriptor = new EditBorrowerDescriptor();
+        borrowerDescriptor.setId(borrower.getBorrowerId());
+        borrowerDescriptor.setName(borrower.getName());
+        borrowerDescriptor.setEmail(borrower.getEmail());
+        borrowerDescriptor.setPhone(borrower.getPhone());
+
+        return borrowerDescriptor;
     }
 
     /**

@@ -20,7 +20,7 @@ import seedu.address.model.usersettings.RenewPeriod;
 /**
  * Sets the user configuration of the application.
  */
-public class SetCommand extends Command {
+public class SetCommand extends Command implements ReversibleCommand {
 
     public static final String COMMAND_WORD = "set";
 
@@ -40,17 +40,18 @@ public class SetCommand extends Command {
 
     private final SetUserSettingsDescriptor setUserSettingsDescriptor;
 
+    private Command undoCommand;
+    private Command redoCommand;
+
     /**
-     * @param setUserSettingsDescriptor details of the new user settings
+     * Creates a SetCommand to set the {@code LoanPeriod}, {@code RenewPeriod} and {@code FineIncrement}.
+     *
+     * @param setUserSettingsDescriptor details of the new user settings.
      */
     public SetCommand(SetUserSettingsDescriptor setUserSettingsDescriptor) {
         requireNonNull(setUserSettingsDescriptor);
 
         this.setUserSettingsDescriptor = new SetUserSettingsDescriptor(setUserSettingsDescriptor);
-    }
-
-    public SetUserSettingsDescriptor getSetUserSettingsDescriptor() {
-        return setUserSettingsDescriptor;
     }
 
     @Override
@@ -60,10 +61,36 @@ public class SetCommand extends Command {
         UserSettings userSettingsToEdit = model.getUserSettings();
         UserSettings editedUserSettings = createEditedUserSettings(userSettingsToEdit, setUserSettingsDescriptor);
 
+        undoCommand = new SetCommand(getSettingsDescriptor(userSettingsToEdit));
+        redoCommand = this;
+
         model.setUserSettings(editedUserSettings);
 
         return new CommandResult(String.format(MESSAGE_SET_USER_SETTINGS_SUCCESS, model.getUserSettings()));
 
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
+    }
+
+    /**
+     * Returns a {@code SetUserSettingsDescriptor} from {@code UserSettings}.
+     *
+     */
+    private SetUserSettingsDescriptor getSettingsDescriptor(UserSettings userSettings) {
+        SetUserSettingsDescriptor settingsDescriptor = new SetUserSettingsDescriptor();
+        settingsDescriptor.setLoanPeriod(new LoanPeriod(userSettings.getLoanPeriod()));
+        settingsDescriptor.setRenewPeriod(new RenewPeriod(userSettings.getRenewPeriod()));
+        settingsDescriptor.setFineIncrement(new FineIncrement(userSettings.getFineIncrement()));
+
+        return settingsDescriptor;
     }
 
     /**
@@ -89,6 +116,7 @@ public class SetCommand extends Command {
                 fineIncrement.getFineIncrement(), maxRenews.getMaxRenews());
     }
 
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -103,7 +131,7 @@ public class SetCommand extends Command {
 
         // state check
         SetCommand e = (SetCommand) other;
-        return setUserSettingsDescriptor.equals(e.getSetUserSettingsDescriptor());
+        return setUserSettingsDescriptor.equals(e.setUserSettingsDescriptor);
     }
 
     /**

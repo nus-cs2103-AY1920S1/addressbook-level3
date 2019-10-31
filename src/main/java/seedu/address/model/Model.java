@@ -7,6 +7,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReversibleCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
@@ -105,11 +108,20 @@ public interface Model {
 
     void setLoanRecordsFilePath(Path loanRecordsFilePath);
 
-    /** Returns the LoanRecords*/
+    /**
+     * Returns the LoanRecords.
+     */
     ReadOnlyLoanRecords getLoanRecords();
 
-    /** Adds a new Loan to LoanRecords */
+    /**
+     * Adds a new Loan to LoanRecords.
+     */
     void addLoan(Loan loan);
+
+    /**
+     * Removes a Loan from LoanRecords.
+     */
+    void removeLoan(Loan loan);
 
     void updateLoan(Loan existingLoan, Loan returnedLoan);
 
@@ -157,9 +169,15 @@ public interface Model {
 
     void servingBorrowerNewLoan(Loan newLoan);
 
+    void servingBorrowerRemoveLoan(Loan removeLoan);
+
     void servingBorrowerReturnLoan(Loan loanToBeReturned, Loan returnedLoan);
 
+    void servingBorrowerUnreturnLoan(Loan loanToBeUnreturned, Loan unturnedLoan);
+
     void servingBorrowerRenewLoan(Loan loanToBeRenewed, Loan renewedLoan);
+
+    void servingBorrowerUnrenewLoan(Loan loanToBeUnrenewed, Loan unrenewLoan);
 
     boolean hasBorrowerId(BorrowerId borrowerId);
 
@@ -174,4 +192,35 @@ public interface Model {
     boolean hasDuplicatedBorrower(Borrower editedBorrower);
 
     void unregisterBorrower(Borrower toUnregister);
+
+    //=========== CommandHistory ===============================================================================
+
+    /**
+     * Checks whether there is {@code Command} to undo.
+     *
+     * @return true if there is {@code Command} to undo, else false.
+     */
+    boolean canUndoCommand();
+
+    /**
+     * Checks whether there is {@code Command} to redo.
+     *
+     * @return true if there is {@code Command} to redo, else false.
+     */
+    boolean canRedoCommand();
+
+    /**
+     * Commits {@code ReversibleCommand} to the {@code CommandHistory}.
+     */
+    void commitCommand(ReversibleCommand command);
+
+    /**
+     * Undoes the most recent committed {@code ReversibleCommand}.
+     */
+    CommandResult undoCommand() throws CommandException;
+
+    /**
+     * Redoes the most recent undone {@code ReversibleCommand}.
+     */
+    CommandResult redoCommand() throws CommandException;
 }

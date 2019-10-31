@@ -13,10 +13,12 @@ import seedu.address.model.book.Book;
 /**
  * Deletes a book identified using it's displayed index from the catalog.
  */
-public class DeleteByIndexCommand extends DeleteCommand {
+public class DeleteByIndexCommand extends DeleteCommand implements ReversibleCommand {
 
 
     private final Index targetIndex;
+    private Command undoCommand;
+    private Command redoCommand;
 
     public DeleteByIndexCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -36,14 +38,29 @@ public class DeleteByIndexCommand extends DeleteCommand {
             // mark book as returned
             super.markBookAsReturned(model, bookToDelete);
         }
+
+        undoCommand = new AddCommand(bookToDelete);
+        redoCommand = new DeleteBySerialNumberCommand(bookToDelete.getSerialNumber());
+
         model.deleteBook(bookToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof DeleteByIndexCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteByIndexCommand) other).targetIndex)); // state
+                && targetIndex.equals(((DeleteByIndexCommand) other).targetIndex)); //state
     }
 }

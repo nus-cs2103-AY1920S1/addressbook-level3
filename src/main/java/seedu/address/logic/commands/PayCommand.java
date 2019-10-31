@@ -20,7 +20,8 @@ public class PayCommand extends Command {
             + ": Pays outstanding fines incurred by the borrower.\n"
             + "Command can only be used in Serve mode.\n"
             + "Parameters: " + PREFIX_DOLLAR
-            + "AMOUNT (must be a positive number with at most 2 decimal places)\n"
+            + "AMOUNT (must be a positive number \n"
+            + "with at most 2 decimal places)\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_DOLLAR + "1.20";
 
     public static final String MESSAGE_SUCCESS =

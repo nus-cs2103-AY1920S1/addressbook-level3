@@ -320,18 +320,18 @@ We need to come up with a solution to give us "B00001" in the given example.
 //end::addBook[]
 
 // tag::undo/redo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedCatalog`.
-It extends `Catalog` with an undo/redo command history, stored internally as an `commandHistoryList` and `currentCommandPointer`.
+The undo/redo mechanism is facilitated by `CommandHistory`.
+It contains a undo/redo command history, stored internally as an `commandHistoryList` and `currentCommandPointer`.
 Additionally, it implements the following operations:
 
-* `VersionedCatalog#commit()` -- Saves the current reversible command in its command history.
-* `VersionedCatalog#undo()` -- Restores the previous catalog state using its command history.
-* `VersionedCatalog#redo()` -- Restores a previously undone catalog state using its command history.
+* `CommandHistory#commit()` -- Saves the current reversible command in its command history.
+* `CommandHistory#undo()` -- Undoes the most recent reversible command.
+* `CommandHistory#redo()` -- Redoes the most recent previously undone command.
 
-These operations are exposed in the `Model` interface as `Model#commitCatalog()`, `Model#undoCatalog()` and `Model#redoCatalog()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitCommand()`, `Model#undoCommand()` and `Model#redoCommand()` respectively.
 
 The undo/redo mechanism only works for commands that implements the `ReversibleCommand` interface.
 The `ReversibleCommand` interface specifies that the commands these two operations:
@@ -339,68 +339,94 @@ The `ReversibleCommand` interface specifies that the commands these two operatio
 * `ReversibleCommand#getUndoCommand()` -- Returns a command that undo the `ReversibleCommand`.
 * `ReversibleCommand#getRedoCommand()` -- Returns a command that redo the `ReversibleCommand`.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo/redo mechanism
+behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedCatalog` will be initialized with an empty `commandHistoryList`.
+Step 1. The user launches the application for the first time.
+The `CommandHistory` will be initialized with an empty `commandHistoryList`.
 
+.Initial state of CommandHistroy
 image::UndoRedoState0.png[width=300]
 
-Step 2. The user executes `delete 5` command to delete the 5th book in the catalog. The `delete` command calls `Model#commitCatalog()`, causing the `delete 5` command to be saved in the `catalogHistoryList`, and the `currentCommandPointer` is pointed to the newly inserted command.
+Step 2. The user executes `delete 5` command to delete the 5th
+book in the catalog. The `delete` command calls `Model#commitCommand()`,
+causing the `delete 5` command to be saved in the `commandHistoryList`,
+and the `currentCommandPointer` is pointed to the newly inserted command.
 
+.State of CommandHistory after `delete 5`
 image::UndoRedoState1.png[width=300]
 
 Step 3. The user executes `add t/Animal Farm ...` to add a new book.
-The `add` command also calls `Model#commitCatalog()`, causing the add
+The `add` command also calls `Model#commitCommand()`, causing the add
 command to be saved into the `catalogHistoryList`.
 
+.State of CommandHistory after `add t/Animal Farm`
 image::UndoRedoState2.png[width=300]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitCatalog()`, so the command will not be saved into the `commandHistoryList`.
+If a command fails its execution, it will not call `Model#commitCommand()`,
+so the command will not be saved into the `commandHistoryList`.
 
-Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command.
-The `undo` command will call `Model#undoCatalog()`, which will call `ReversibleCommand#getUndoCommand()` to get the command to undo
-the add command. This undo command would then be executed, which will shift the `currentCommandPointer` once to the left,
-pointing it to the previous command,
+Step 4. The user now decides that adding the book was a mistake,
+and decides to undo that action by executing the `UndoCommand`.
+During the execution of the `UndoCommand`, `Model#undoCommand()`
+will be called. This would call `CommandHistory#undo()`, which
+will retrieve the most recent `ReversibleCommand` that was executed, which is
+the `add` command. `ReversibleCommand#getUndoCommand()` would then be called
+and the `Command` returned would be executed, undoing the add command.
+This will then shift the `currentCommandPointer` once to the left, pointing it
+to the previous `ReversibleCommand` in the `commandListHistory`.
 
+.State of CommandHistory after `undo`
 image::UndoRedoState3.png[width=300]
 
 [NOTE]
-If the `currentCommandPointer` is at index -1, pointing to no command, then there are no previous command to undo. The `undo` command uses `Model#canUndoCatalog()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentCommandPointer` is at index -1, pointing to no command,
+then there are no previous command to undo. The `undo` command uses
+`Model#canUndoCommand()` to check if this is the case. If so, it will
+return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
+.Sequence diagram for undo command
 image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X)
+but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoCatalog()`, which shifts the `currentCommandPointer` once to the right, pointing to the previously undone Command, and executes that Command.
+The `redo` command does the opposite -- it calls `Model#redoCommand()`,
+which shifts the `currentCommandPointer` once to the right, pointing to
+the previously undone Command, and executes the redo command from
+`ReversibleCommand#getRedoCommand()`.
 
 [NOTE]
 If the `currentCommandPointer` is at index `catalogHistoryList.size() - 1`,
-pointing to the latest command, then there are no undone command to execute.
-The `redo` command uses `Model#canRedoCatalog()` to check if this is the case.
+pointing to the latest command, then there are no undone command to redo.
+The `redo` command uses `Model#canRedoCommand()` to check if this is the case.
 If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `find t/Animal Farm`.
-Commands that do not modify the catalog, such as `find t/Animal Farm`,
-will usually not call `Model#commitCatalog()`,`Model#undoCatalog()` or
-`Model#redoCatalog()`. Thus, the `catalogHistoryList` remains unchanged.
+Step 5. The user then decides to execute the command `help`.
+Commands that do not modify the model, such as `help`,
+will usually not call `Model#commitCommand()`,`Model#undoCommand()` or
+`Model#redoCommand()`. Thus, the `commandHistoryList` remains unchanged.
 
+.State of CommandHistory after `help`
 image::UndoRedoState4.png[width=300]
 
-Step 6. The user executes `clear`, which calls `Model#commitCatalog()`.
+Step 6. The user executes `clear`, which calls `Model#commitCommand()`.
 Since the `currentCommandPointer` is not pointing at the end of the `commandHistoryList`,
 all commands after the `currentCommandPointer` will be purged.
 We designed it this way because it no longer makes sense to redo the
 `add t/Animal Farm ...` command. This is the behavior that most modern
 desktop applications follow.
 
+.State of CommandHistory after `clear`
 image::UndoRedoState5.png[width=300]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+.Activity diagram for committing Command
+image::CommitActivityDiagram.png[width=300]
 
 ==== Design Considerations
 
@@ -413,14 +439,22 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 
+Considering our target audience, community libraries, which may be poor. They might
+be not able to afford a large amount of data storage. As a library may contain many
+books, borrowers and loans, storing a state of application for each command can be
+memory intensive. Hence, we chose to implement Alternative 1 so as to reduce the amount
+of memory usage.
+
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use two stacks to store a list of undoable and redoable commands.
+* **Alternative 1 (current choice):** Use a list to store the commands for undo and redo.
+** Pros: Only need to maintain one data structure.
+** Cons: Harder for new developers to understand the mechanism for undo and redo.
+* **Alternative 2:** Use two stacks to store a list of undoable and redoable commands.
 ** Pros: Easy for future developers to understand as there are two separate stacks to keep track of the command to undo and redo.
 ** Cons: Additional time required to add and pop from the stack.
-* **Alternative 2:** Use a list to store the commands for undo and redo.
-** Pros: We do not need to maintain a separate stack.
-** Cons: Harder for new developers to understand.
+
+We chose alternative 1 as it is easier to maintain a single data structure.
 // end::undo/redo[]
 
 // tag::printLoanSlip[]

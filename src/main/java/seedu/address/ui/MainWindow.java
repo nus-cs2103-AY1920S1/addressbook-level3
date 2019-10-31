@@ -186,6 +186,7 @@ public class MainWindow extends UiPart<Stage> {
                 updateBorrowerPanel();
             }
 
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
