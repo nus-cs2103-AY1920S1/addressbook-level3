@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.UniquePersonList;
@@ -30,7 +31,6 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
         resetData(book);
     }
 
-
     /**
      * Adds the interviewer to the book. The interviewer must be unique.
      * @throws DuplicatePersonException if the interviewer already exists in the book.
@@ -43,8 +43,7 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
     @Override
     public void setEntity(Interviewer target, Interviewer editedTarget) throws PersonNotFoundException {
         requireAllNonNull(target, editedTarget);
-        // TODO: implementation
-        throw new RuntimeException("method not implemented yet");
+        interviewers.setPerson(target, editedTarget);
     }
 
     @Override
@@ -89,8 +88,6 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
         requireNonNull(book);
         this.interviewers.setPersons(book.getEntityList());
     }
-
-
 
     @Override
     public String toString() {

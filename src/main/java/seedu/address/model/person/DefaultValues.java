@@ -16,6 +16,7 @@ public class DefaultValues {
     // Person
     public static final Name DEFAULT_NAME = new Name("John Cena");
     public static final Phone DEFAULT_PHONE = new Phone("88888888");
+    public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
 
     // Interviewee
     public static final Role DEFAULT_INTERVIEWEE_ROLE = new Role("interviewee");
@@ -29,7 +30,6 @@ public class DefaultValues {
     public static final Slot DEFAULT_SLOT = Slot.fromString("17/10/2019 13:00-14:00");
     public static final List<Department> DEFAULT_DEPARTMENTS = new ArrayList<>();
     public static final List<Slot> DEFAULT_TIMESLOTS = new ArrayList<>();
-    public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
 
     // Interviewer
     public static final Role DEFAULT_INTERVIEWER_ROLE = new Role("interviewer");

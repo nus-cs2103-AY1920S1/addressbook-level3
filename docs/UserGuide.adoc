@@ -88,20 +88,86 @@ Example:
 
  import interviewer C:\Users\johndoe\Interviewees.csv
 
-=== Add interviewers/interviewees `add`
-Manually add a new interviewer to the database. +
-Format: `add interviewer name:"NAME" slot:SLOT...` +
+=== Add interviewees/interviewers `add`
+Manually add a new entity to the database.
 
-Examples:
+Format: `add r/ROLE n/NAME p/PHONE [t/TAG]... [f/FACULTY] [ep/PERSONAL_EMAIL] [ew/NUS_WORK_EMAIL] [y/YEAR_OF_STUDY] [d/DEPARTMENT]... [s/SLOT]...`
 
- add interviewee name:"John Doe" slot:"20/09/2019 18:00 - 20/09/2019 21:00"
- add interviewee name:"Mary Jane" slot:"20/09/2019 18:00 - 20/09/2019 19:00" slot:"20/09/2019 20:00 - 20/09/2019 21:00"
+* A `...` at the end of a field indicates that multiple arguments with those prefixes can be added, such as multiple slots.
+* The command format differs on the `r/ROLE` prefix supplied.
+** If `interviewee` is supplied, refer to "Adding a new interviewee" below.
+** If `interviewer` is supplied, refer to "Adding a new interviewer" below.
 
-Notes:
+==== Adding a new interviewee
+Manually add a new interviewee to the database.
 
-- An interviewee can have multiple slots (given by multiple “slot:” arguments)
-- Slots should be given in the format: `DD/MM/YYYY HH:MM - DD/MM/YYYY HH:MM`, where the first date and time is the starting time and the second date and time is the ending time of availability.
-- The starting date should be a date and time that is earlier than the ending date
+Format: add `r/interviewee` `n/NAME` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERSONAL_EMAIL` `ew/NUS_WORK_EMAIL` `y/YEAR_OF_STUDY` +
+`[d/DEPARTMENT]...` `[s/SLOT]...`
+
+Example:
+
+ add r/interviewee n/John Doe p/88888888 t/CAP5 t/dog lover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-19:00
+
+* An interviewee can have multiple `s/SLOT`, `d/DEPARTMENT` and `t/TAG` arguments
+* Slots should be given in the format: `DD/MM/YYYY HH:MM-HH:MM`
+** the first `HH:MM` refers to the starting time and the second `HH:MM` is the ending time of availability.
+** The starting time must be earlier than the ending time.
+
+==== Adding a new interviewer
+Manually add a new interviewer to the database.
+
+Format: add `r/interviewer` `n/NAME` `p/PHONE` `[t/TAG]...` `d/DEPARTMENT` `ew/NUS_WORK_EMAIL` `s/SLOT...`
+
+Example:
+
+ add r/interviewer n/Mary Jane p/99999999 ew/MaryJane@u.nus.edu d/Marketing s/20/09/2019 18:00-19:00
+
+=== Edit interviewees/interviewers
+Manually edit an entity in the database.
+
+Format: `edit NAME r/ROLE p/PHONE [t/TAG]... f/FACULTY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL y/YEAR_OF_STUDY [d/DEPARTMENT]... [s/SLOT]...`
+
+* `NAME` must be provided after `edit` and before the first prefix `r/ROLE`.
+* A `...` at the end of a field indicates that multiple arguments with those prefixes can be added, such as multiple slots.
+* The command format differs on the `r/ROLE` prefix supplied.
+** If `interviewee` is supplied, refer to "Edit an existing interviewee" below.
+** If `interviewer` is supplied, refer to "Edit an existing interviewer" below.
+
+==== Edit an existing interviewee
+Manually edit an existing interviewee in the database.
+
+Format: edit `NAME` `r/interviewee` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERSONAL_EMAIL` `ew/NUS_WORK_EMAIL` `y/YEAR_OF_STUDY`
+`[d/DEPARTMENT]...` `[s/SLOT]...`
+
+* `NAME` and `r/interviewee` are compulsory arguments, and one other argument following `r/interviewee` must be present.
+
+==== Edit an existing interviewer (interview slot)
+Manually edit an existing interviewer in the database.
+
+Format: edit `NAME` `r/interviewer` `p/PHONE` `[t/TAG]...` `d/DEPARTMENT` `ew/NUS_WORK_EMAIL` `s/SLOT...`
+
+=== Delete interviewees/interviewers `delete`
+Manually delete an entity from the database.
+
+Format: `delete NAME r/ROLE`
+
+==== Delete an existing interviewee
+Deletes the specified interviewee from the database.
+
+Format: delete `NAME` `r/interviewee`
+
+Example:
+
+ delete John Doe r/interviewee
+
+==== Delete an existing interviewer (interview slot)
+Deletes the specified interviewer from the database
+
+Format: delete `NAME` `r/interviewee`
+
+Example:
+
+ delete Bohn Doe r/interviewer
 
 === UI Display
 
@@ -150,24 +216,6 @@ Format: `get NAME` +
 Example:
 
  get "John Doe"
-
-=== Changing availabilities `edit` `[Coming in v2.0]`
-==== Changing availabilities of existing interviewer (interview slot)
-Change the specified interviewer from the database +
-Format: `edit interviewer NAME`
-
-==== Changing availabilities of existing interviewee
-Change the specified interviewee from the database. +
-Format: `edit interviewee NAME`
-
-=== Delete interviewer/interviewee `delete`
-==== Delete existing interviewer (interview slot)
-Deletes the specified interviewer from the database +
-Format: `delete interviewer NAME` +
-
-==== Delete existing interviewee
-Deletes the specified interviewee from the database. +
-Format: `delete interviewee NAME`
 
 === Tag interview slot `tag` `[Coming in v2.0]`
 Tags an interview slot with a name. +

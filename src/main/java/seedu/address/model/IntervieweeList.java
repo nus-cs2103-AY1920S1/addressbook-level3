@@ -54,8 +54,7 @@ public class IntervieweeList implements ReadAndWriteList<Interviewee> {
     @Override
     public void setEntity(Interviewee target, Interviewee editedTarget) throws PersonNotFoundException {
         requireAllNonNull(target, editedTarget);
-        // TODO: Implementation
-        throw new RuntimeException("method not implemented yet");
+        interviewees.setPerson(target, editedTarget);
     }
 
     @Override

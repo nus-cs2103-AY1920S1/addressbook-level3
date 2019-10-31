@@ -14,7 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.SLOT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.YEAR_OF_STUDY_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY_INTERVIEWEE;
+import static seedu.address.testutil.TypicalPersons.AMY_INTERVIEWEE_MANUAL;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -97,7 +97,7 @@ public class LogicManagerTest {
                 + TAG_DESC_FRIEND + FACULTY_DESC_AMY + YEAR_OF_STUDY_DESC_AMY + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY
                 + EMAIL_PERSONAL_DESC_AMY + EMAIL_NUS_WORK_DESC_AMY;
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addInterviewee(AMY_INTERVIEWEE);
+        expectedModel.addInterviewee(AMY_INTERVIEWEE_MANUAL);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

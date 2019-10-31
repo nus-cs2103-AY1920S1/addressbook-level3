@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import java.util.NoSuchElementException;
-
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -35,7 +33,7 @@ public interface ReadAndWriteList<T extends Person> extends ReadOnlyList<T> {
 
     /**
      * Gets the entity with specified name.
-     * @throws NoSuchElementException if nobody with the name exists.
+     * @throws PersonNotFoundException if nobody with the name exists.
      */
     T getEntity(Name name) throws PersonNotFoundException;
 

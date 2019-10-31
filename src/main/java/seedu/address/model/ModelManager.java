@@ -124,8 +124,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasInterviewee(Name name) {
+        try {
+            intervieweeList.getEntity(name);
+        } catch (PersonNotFoundException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public boolean hasInterviewer(Interviewer interviewer) {
         return interviewerList.hasEntity(interviewer);
+    }
+
+    @Override
+    public boolean hasInterviewer(Name name) {
+        try {
+            interviewerList.getEntity(name);
+        } catch (PersonNotFoundException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -370,7 +390,6 @@ public class ModelManager implements Model {
 
     /**
      * Replaces schedule data with the data in {@code schedule}.
-     * @param list
      */
     @Override
     public void setSchedulesList(List<Schedule> list) {

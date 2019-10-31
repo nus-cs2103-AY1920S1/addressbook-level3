@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.ui.RefreshListener;
@@ -122,9 +123,19 @@ public interface Model {
     boolean hasInterviewee(Interviewee interviewee);
 
     /**
+     * Returns true if an interviewee with the same Name exists in the interviewee list.
+     */
+    boolean hasInterviewee(Name name);
+
+    /**
      * Returns true if an interviewer with the same identity exists in the interviewer list.
      */
     boolean hasInterviewer(Interviewer interviewer);
+
+    /**
+     * Returns true if an interviewer with the same Name exists in the interviewer list.
+     */
+    boolean hasInterviewer(Name name);
 
     /**
      * Returns an Interviewee given a name. The Interviewee must exist in the database, or an exception is thrown.

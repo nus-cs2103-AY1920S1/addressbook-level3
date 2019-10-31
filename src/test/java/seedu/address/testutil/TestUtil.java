@@ -8,10 +8,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditIntervieweeCommand.EditIntervieweeDescriptor;
+import seedu.address.logic.commands.EditInterviewerCommand.EditInterviewerDescriptor;
 import seedu.address.logic.graph.IntervieweeVertex;
-import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 
 /**
  * A utility class for test cases.
@@ -37,24 +38,29 @@ public class TestUtil {
     }
 
     /**
-     * (WONT WORK) Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the interviewee descriptor with details from the Interviewee {@code i}.
      */
-    public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredIntervieweeList().size() / 2);
+    public static EditIntervieweeDescriptor getDescriptorFromInterviewee(Interviewee i) {
+        EditIntervieweeDescriptor e = new EditIntervieweeDescriptor();
+        e.setName(i.getName());
+        e.setPhone(i.getPhone());
+        e.setTags(i.getTags());
+        e.setFaculty(i.getFaculty());
+        e.setYearOfStudy(i.getYearOfStudy());
+        e.setDepartmentChoices(i.getDepartmentChoices());
+        e.setAvailableTimeslots(i.getAvailableTimeslots());
+        e.setEmails(i.getEmails());
+        return e;
     }
 
-    /**
-     * (WONT WORK) Returns the last index of the person in the {@code model}'s person list.
-     */
-    public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredIntervieweeList().size());
-    }
-
-    /**
-     * (WONT WORK) Returns the person in the {@code model}'s person list at {@code index}.
-     */
-    public static Person getPerson(Model model, Index index) {
-        return model.getFilteredInterviewerList().get(index.getZeroBased());
+    public static EditInterviewerDescriptor getDescriptorFromInterviewer(Interviewer i) {
+        EditInterviewerDescriptor e = new EditInterviewerDescriptor();
+        e.setName(i.getName());
+        e.setPhone(i.getPhone());
+        e.setDepartment(i.getDepartment());
+        e.setAvailabilities(i.getAvailabilities());
+        e.setEmail(i.getEmail());
+        return e;
     }
 
     /**

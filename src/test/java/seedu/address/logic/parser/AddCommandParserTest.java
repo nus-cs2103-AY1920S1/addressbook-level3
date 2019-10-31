@@ -38,8 +38,8 @@ import static seedu.address.logic.commands.CommandTestUtil.YEAR_OF_STUDY_DESC_AM
 import static seedu.address.logic.commands.CommandTestUtil.YEAR_OF_STUDY_DESC_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY_INTERVIEWEE;
-import static seedu.address.testutil.TypicalPersons.BOB_INTERVIEWEE;
+import static seedu.address.testutil.TypicalPersons.AMY_INTERVIEWEE_MANUAL;
+import static seedu.address.testutil.TypicalPersons.BOB_INTERVIEWEE_MANUAL;
 
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +57,7 @@ public class AddCommandParserTest {
     // TODO: Add more tests according to how AddCommandParser has been changed.
     @Test
     public void parse_allFieldsPresent_success() {
-        Interviewee expectedPerson = new IntervieweeBuilder(BOB_INTERVIEWEE).withTags(VALID_TAG_FRIEND).build();
+        Interviewee expectedPerson = new IntervieweeBuilder(BOB_INTERVIEWEE_MANUAL).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + ROLE_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
@@ -78,7 +78,7 @@ public class AddCommandParserTest {
                 new AddIntervieweeCommand(expectedPerson));
 
         // multiple tags - all accepted
-        Interviewee expectedPersonMultipleTags = new IntervieweeBuilder(BOB_INTERVIEWEE)
+        Interviewee expectedPersonMultipleTags = new IntervieweeBuilder(BOB_INTERVIEWEE_MANUAL)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, ROLE_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
@@ -91,7 +91,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Interviewee expectedPerson = new IntervieweeBuilder(AMY_INTERVIEWEE).withTags().build();
+        Interviewee expectedPerson = new IntervieweeBuilder(AMY_INTERVIEWEE_MANUAL).withTags().build();
         assertParseSuccess(parser, ROLE_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY
                 + FACULTY_DESC_AMY + YEAR_OF_STUDY_DESC_AMY + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY
                 + EMAIL_PERSONAL_DESC_AMY + EMAIL_NUS_WORK_DESC_AMY,

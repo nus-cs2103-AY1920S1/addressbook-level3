@@ -33,6 +33,7 @@ import seedu.address.model.person.Person;
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalPersons {
+
     // Persons
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withPhone("94351253").withTags("friends").build();
@@ -85,18 +86,18 @@ public class TypicalPersons {
             .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY_PERSON = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withTags(VALID_TAG_FRIEND).build();
-    public static final Interviewee AMY_INTERVIEWEE = new IntervieweeBuilder(AMY_PERSON).withFaculty(VALID_FACULTY_AMY)
-            .withYearOfStudy(VALID_YEAR_OF_STUDY_AMY).withDepartmentChoices(VALID_DEPARTMENT_AMY)
-            .withTimeslots(VALID_SLOT_AMY).withPersonalEmail(VALID_PERSONAL_EMAIL_AMY)
-            .withNusWorkEmail(VALID_NUS_WORK_EMAIL_AMY).build();
-    public static final Person BOB_PERSON = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    public static final Interviewee BOB_INTERVIEWEE = new IntervieweeBuilder(BOB_PERSON).withFaculty(VALID_FACULTY_BOB)
-            .withYearOfStudy(VALID_YEAR_OF_STUDY_BOB).withDepartmentChoices(VALID_DEPARTMENT_BOB)
-            .withTimeslots(VALID_SLOT_BOB).withPersonalEmail(VALID_PERSONAL_EMAIL_BOB)
-            .withNusWorkEmail(VALID_NUS_WORK_EMAIL_BOB).build();
+    public static final Person AMY_PERSON_MANUAL = new PersonBuilder().withName(VALID_NAME_AMY)
+            .withPhone(VALID_PHONE_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Interviewee AMY_INTERVIEWEE_MANUAL = new IntervieweeBuilder(AMY_PERSON_MANUAL)
+            .withFaculty(VALID_FACULTY_AMY).withYearOfStudy(VALID_YEAR_OF_STUDY_AMY)
+            .withDepartmentChoices(VALID_DEPARTMENT_AMY).withTimeslots(VALID_SLOT_AMY)
+            .withPersonalEmail(VALID_PERSONAL_EMAIL_AMY).withNusWorkEmail(VALID_NUS_WORK_EMAIL_AMY).build();
+    public static final Person BOB_PERSON_MANUAL = new PersonBuilder().withName(VALID_NAME_BOB)
+            .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    public static final Interviewee BOB_INTERVIEWEE_MANUAL = new IntervieweeBuilder(BOB_PERSON_MANUAL)
+            .withFaculty(VALID_FACULTY_BOB).withYearOfStudy(VALID_YEAR_OF_STUDY_BOB)
+            .withDepartmentChoices(VALID_DEPARTMENT_BOB).withTimeslots(VALID_SLOT_BOB)
+            .withPersonalEmail(VALID_PERSONAL_EMAIL_BOB).withNusWorkEmail(VALID_NUS_WORK_EMAIL_BOB).build();
 
     private TypicalPersons() {} // prevents instantiation
 
