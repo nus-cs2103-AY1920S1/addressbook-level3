@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.observable.Observable;
+import com.dukeacademy.observable.StandardObservable;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +19,7 @@ import javafx.collections.transformation.FilteredList;
 public class MockQuestionsLogic implements QuestionsLogic {
     private ObservableList<Question> questions;
     private FilteredList<Question> filteredQuestions;
-    private String problemStatement;
+    private StandardObservable<Question> selectedQuestion;
 
     private MockQuestionsLogic() {
 
@@ -27,7 +29,13 @@ public class MockQuestionsLogic implements QuestionsLogic {
         MockQuestionsLogic logic = new MockQuestionsLogic();
         logic.questions = FXCollections.observableList(TypicalQuestions.getTypicalQuestions());
         logic.filteredQuestions = new FilteredList<>(logic.questions);
+        logic.selectedQuestion = new StandardObservable<>();
         return logic;
+    }
+
+    @Override
+    public ObservableList<Question> getAllQuestionsList() {
+        return FXCollections.unmodifiableObservableList(this.questions);
     }
 
     @Override
@@ -81,13 +89,14 @@ public class MockQuestionsLogic implements QuestionsLogic {
         this.questions.clear();
     }
 
-    @Override public String getProblemStatement() {
-        return this.problemStatement;
+    @Override
+    public Observable<Question> getSelectedQuestion() {
+        return this.selectedQuestion;
     }
 
-    @Override public void setProblemStatement(String problemStatement) {
-        this.problemStatement = problemStatement;
+    @Override
+    public void selectQuestion(int index) {
+        Question selectedQuestion = this.filteredQuestions.get(index);
+        this.selectedQuestion.setValue(selectedQuestion);
     }
-
-
 }
