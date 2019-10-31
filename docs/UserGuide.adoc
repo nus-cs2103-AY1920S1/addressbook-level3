@@ -14,6 +14,14 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F09-4/main
 
+ifndef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+
 By: `CS2103-F09-04`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
