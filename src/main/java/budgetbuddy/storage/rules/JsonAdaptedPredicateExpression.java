@@ -24,7 +24,7 @@ public class JsonAdaptedPredicateExpression implements JsonAdaptedPredicate {
     private final String value;
 
     /**
-     * Constructs an expression {@code JsonAdaptedPredicateExpression} with the given predicate details.
+     * Constructs a {@code JsonAdaptedPredicateExpression} with the given predicate details.
      */
     @JsonCreator
     public JsonAdaptedPredicateExpression(@JsonProperty("attribute") String attribute,

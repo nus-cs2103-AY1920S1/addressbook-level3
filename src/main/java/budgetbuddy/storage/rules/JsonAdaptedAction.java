@@ -15,6 +15,7 @@ import budgetbuddy.model.rule.RuleAction;
 @JsonTypeInfo(use = Id.NAME, property = "type")
 @JsonSubTypes({
         @Type(value = JsonAdaptedActionExpression.class, name = "expr"),
+        @Type(value = JsonAdaptedActionScript.class, name = "script")
 })
 public interface JsonAdaptedAction {
     /**

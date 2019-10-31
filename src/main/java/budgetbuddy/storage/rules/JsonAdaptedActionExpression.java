@@ -22,7 +22,7 @@ public class JsonAdaptedActionExpression implements JsonAdaptedAction {
     private final String value;
 
     /**
-     * Constructs an expression {@code JsonAdaptedPredicateExpression} with the given action details.
+     * Constructs a {@code JsonAdaptedActionExpression} with the given action details.
      */
     @JsonCreator
     public JsonAdaptedActionExpression(@JsonProperty("operator") String operator,
