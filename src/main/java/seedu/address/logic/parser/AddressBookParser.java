@@ -220,6 +220,9 @@ public class AddressBookParser {
         case AppointmentsCommand.COMMAND_WORD:
             return new AppointmentsCommand(arguments);
 
+        case DutyShiftCommand.COMMAND_WORD:
+            return new DutyShiftCommand(arguments);
+
         case RegisterPatientCommand.COMMAND_WORD:
         case EditPatientDetailsCommand.COMMAND_WORD:
             return new SetFocusOnTabCommand(OmniPanelTab.PATIENTS_TAB);
@@ -235,6 +238,11 @@ public class AddressBookParser {
         case MissAppCommand.COMMAND_WORD:
         case SettleAppCommand.COMMAND_WORD:
             return new SetFocusOnTabCommand(OmniPanelTab.APPOINTMENTS_TAB);
+
+        case AddDutyShiftCommand.COMMAND_WORD:
+        case CancelDutyShiftCommand.COMMAND_WORD:
+        case ChangeDutyShiftCommand.COMMAND_WORD:
+            return new SetFocusOnTabCommand(OmniPanelTab.DUTY_SHIFT_TAB);
 
         default:
             return new SetFocusOnTabCommand(null);

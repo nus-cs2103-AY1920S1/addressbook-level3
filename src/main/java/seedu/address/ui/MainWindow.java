@@ -254,7 +254,12 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
         Region acoRoot = aco.getRoot();
         acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
-        logic.eagerEvaluate(commandText);
+        CommandResult commandResult = logic.eagerEvaluate(commandText);
+
+        if (!commandResult.getFeedbackToUser().isEmpty()) {
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+        }
     }
 
     /**

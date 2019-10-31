@@ -81,17 +81,19 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void eagerEvaluate(String commandText) {
+    public CommandResult eagerEvaluate(String commandText) {
         Command command = addressBookParser.eagerEvaluateCommand(commandText, model);
         if (!(command instanceof NonActionableCommand)) {
             throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
         }
 
         try {
-            command.execute(model);
+            return command.execute(model);
         } catch (CommandException ex) {
-            logger.info("Eager evaluation commands should throw any exception: " + ex.getMessage());
+            logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
         }
+
+        return new CommandResult("An error occured!");
     }
 
     @Override

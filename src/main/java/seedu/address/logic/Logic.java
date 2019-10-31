@@ -33,13 +33,13 @@ public interface Logic {
         ParseException;
 
     /**
-     * Evalutes the command eagerly.
+     * Evaluates the command eagerly and returns the result.
      *
      * @param commandText The command as entered by the user.
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException   If an error occurs during parsing.
      */
-    void eagerEvaluate(String commandText);
+    CommandResult eagerEvaluate(String commandText);
 
     /**
      * Returns an unmodifiable view of the filtered list of patients
