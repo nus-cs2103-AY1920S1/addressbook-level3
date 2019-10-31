@@ -1,27 +1,27 @@
-package seedu.address.logic.commands;
+package seedu.planner.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.accommodation.TypicalAccommodations.getTypicalAccommodationManager;
-import static seedu.address.testutil.activity.TypicalActivity.getTypicalActivityManager;
-import static seedu.address.testutil.contact.TypicalContacts.CARL;
-import static seedu.address.testutil.contact.TypicalContacts.ELLE;
-import static seedu.address.testutil.contact.TypicalContacts.FIONA;
-import static seedu.address.testutil.contact.TypicalContacts.getTypicalContactManager;
-import static seedu.address.testutil.day.TypicalDays.getTypicalItinerary;
+import static seedu.planner.commons.core.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
+import static seedu.planner.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.planner.testutil.accommodation.TypicalAccommodations.getTypicalAccommodationManager;
+import static seedu.planner.testutil.activity.TypicalActivity.getTypicalActivityManager;
+import static seedu.planner.testutil.contact.TypicalContacts.CARL;
+import static seedu.planner.testutil.contact.TypicalContacts.ELLE;
+import static seedu.planner.testutil.contact.TypicalContacts.FIONA;
+import static seedu.planner.testutil.contact.TypicalContacts.getTypicalContactManager;
+import static seedu.planner.testutil.day.TypicalDays.getTypicalItinerary;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.field.NameContainsKeywordsPredicate;
+import seedu.planner.model.Model;
+import seedu.planner.model.ModelManager;
+import seedu.planner.model.UserPrefs;
+import seedu.planner.model.field.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

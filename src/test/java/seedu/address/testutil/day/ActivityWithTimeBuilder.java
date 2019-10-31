@@ -1,10 +1,10 @@
-package seedu.address.testutil.day;
+package seedu.planner.testutil.day;
 
 import java.time.LocalTime;
 
-import seedu.address.model.activity.Activity;
-import seedu.address.model.day.ActivityWithTime;
-import seedu.address.testutil.activity.TypicalActivity;
+import seedu.planner.model.activity.Activity;
+import seedu.planner.model.day.ActivityWithTime;
+import seedu.planner.testutil.activity.TypicalActivity;
 
 /**
  * A utility class to help with building Contact objects.

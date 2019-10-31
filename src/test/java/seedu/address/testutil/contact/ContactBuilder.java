@@ -1,15 +1,15 @@
-package seedu.address.testutil.contact;
+package seedu.planner.testutil.contact;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Phone;
-import seedu.address.model.field.Address;
-import seedu.address.model.field.Name;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.planner.model.contact.Contact;
+import seedu.planner.model.contact.Email;
+import seedu.planner.model.contact.Phone;
+import seedu.planner.model.field.Address;
+import seedu.planner.model.field.Name;
+import seedu.planner.model.tag.Tag;
+import seedu.planner.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Contact objects.

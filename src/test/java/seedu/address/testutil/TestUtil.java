@@ -1,13 +1,13 @@
-package seedu.address.testutil;
+package seedu.planner.testutil;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.Model;
-import seedu.address.model.contact.Contact;
+import seedu.planner.commons.core.index.Index;
+import seedu.planner.model.Model;
+import seedu.planner.model.contact.Contact;
 
 /**
  * A utility class for test cases.

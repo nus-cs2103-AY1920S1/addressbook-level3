@@ -1,19 +1,19 @@
-package seedu.address.testutil.accommodation;
+package seedu.planner.testutil.accommodation;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AccommodationManager;
-import seedu.address.model.accommodation.Accommodation;
-import seedu.address.testutil.contact.TypicalContacts;
+import seedu.planner.model.AccommodationManager;
+import seedu.planner.model.accommodation.Accommodation;
+import seedu.planner.testutil.contact.TypicalContacts;
 
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.

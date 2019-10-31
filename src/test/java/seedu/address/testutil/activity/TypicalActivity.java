@@ -1,27 +1,27 @@
-package seedu.address.testutil.activity;
+package seedu.planner.testutil.activity;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ACTIVITY_ADDRESS_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ACTIVITY_ADDRESS_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LESSON;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SIGHTSEEING;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_ADDRESS_A;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_ADDRESS_B;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_A;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_B;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_LESSON;
+import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_SIGHTSEEING;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.ActivityManager;
-import seedu.address.model.activity.Activity;
+import seedu.planner.model.ActivityManager;
+import seedu.planner.model.activity.Activity;
 
 /**
  * A utility class containing a list of {@code Activity} objects to be used in tests.

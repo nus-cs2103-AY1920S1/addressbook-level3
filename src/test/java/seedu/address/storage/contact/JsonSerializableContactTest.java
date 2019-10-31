@@ -1,17 +1,17 @@
-package seedu.address.storage.contact;
+package seedu.planner.storage.contact;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.planner.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ContactManager;
-import seedu.address.testutil.contact.TypicalContacts;
+import seedu.planner.commons.exceptions.IllegalValueException;
+import seedu.planner.commons.util.JsonUtil;
+import seedu.planner.model.ContactManager;
+import seedu.planner.testutil.contact.TypicalContacts;
 
 public class JsonSerializableContactTest {
 

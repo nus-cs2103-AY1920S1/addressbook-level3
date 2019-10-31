@@ -1,9 +1,9 @@
-package seedu.address.commons.util;
+package seedu.planner.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.planner.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collection;

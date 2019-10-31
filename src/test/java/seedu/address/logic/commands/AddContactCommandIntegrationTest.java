@@ -1,20 +1,20 @@
-//package seedu.address.logic.commands;
+//package seedu.planner.logic.commands;
 //
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.address.testutil.accommodation.TypicalAccommodations.getTypicalAccommodationManager;
-//import static seedu.address.testutil.activity.TypicalActivity.getTypicalActivityManager;
-//import static seedu.address.testutil.contact.TypicalContacts.getTypicalContactManager;
-//import static seedu.address.testutil.day.TypicalDays.getTypicalItinerary;
+//import static seedu.planner.logic.commands.CommandTestUtil.assertCommandFailure;
+//import static seedu.planner.logic.commands.CommandTestUtil.assertCommandSuccess;
+//import static seedu.planner.testutil.accommodation.TypicalAccommodations.getTypicalAccommodationManager;
+//import static seedu.planner.testutil.activity.TypicalActivity.getTypicalActivityManager;
+//import static seedu.planner.testutil.contact.TypicalContacts.getTypicalContactManager;
+//import static seedu.planner.testutil.day.TypicalDays.getTypicalItinerary;
 //
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.model.Model;
-//import seedu.address.model.ModelManager;
-//import seedu.address.model.UserPrefs;
-//import seedu.address.model.contact.Contact;
-//import seedu.address.testutil.contact.ContactBuilder;
+//import seedu.planner.model.Model;
+//import seedu.planner.model.ModelManager;
+//import seedu.planner.model.UserPrefs;
+//import seedu.planner.model.contact.Contact;
+//import seedu.planner.testutil.contact.ContactBuilder;
 //
 ///**
 // * Contains integration tests (interaction with the Model) for {@code AddCommand}.

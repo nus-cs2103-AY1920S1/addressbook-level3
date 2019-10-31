@@ -1,16 +1,16 @@
-package seedu.address.testutil.activity;
+package seedu.planner.testutil.activity;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddActivityCommand;
-import seedu.address.logic.commands.EditActivityCommand;
-import seedu.address.model.activity.Activity;
-import seedu.address.model.tag.Tag;
+import seedu.planner.logic.commands.AddActivityCommand;
+import seedu.planner.logic.commands.EditActivityCommand;
+import seedu.planner.model.activity.Activity;
+import seedu.planner.model.tag.Tag;
 
 /**
  * A utility class for Activity.

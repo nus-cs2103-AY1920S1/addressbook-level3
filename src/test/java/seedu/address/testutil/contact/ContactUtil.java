@@ -1,17 +1,17 @@
-package seedu.address.testutil.contact;
+package seedu.planner.testutil.contact;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddContactCommand;
-import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.tag.Tag;
+import seedu.planner.logic.commands.AddContactCommand;
+import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.planner.model.contact.Contact;
+import seedu.planner.model.tag.Tag;
 
 /**
  * A utility class for Contact.

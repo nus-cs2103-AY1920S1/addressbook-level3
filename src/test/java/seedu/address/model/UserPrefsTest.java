@@ -1,6 +1,6 @@
-package seedu.address.model;
+package seedu.planner.model;
 
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.planner.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
