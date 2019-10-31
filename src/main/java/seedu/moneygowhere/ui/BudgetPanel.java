@@ -71,12 +71,12 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     private String getBudgetRemark() {
-        if (sum / amount < 0.2) {
-            budgetRemark.setTextFill(Color.web("#00FF00"));
-            return "You are spending within your budget. Great Job!";
-        } else {
+        if (amount - sum < 0) {
             budgetRemark.setTextFill(Color.web("#FF0000"));
             return "Your money go where ahh?";
+        } else {
+            budgetRemark.setTextFill(Color.web("#00FF00"));
+            return "You are spending within your budget. Great Job!";
         }
     }
 
