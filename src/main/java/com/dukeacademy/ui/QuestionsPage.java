@@ -4,7 +4,9 @@ import com.dukeacademy.model.question.Question;
 import com.dukeacademy.observable.Observable;
 
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
@@ -27,6 +29,7 @@ public class QuestionsPage extends UiPart<Region> {
         super(FXML);
 
         QuestionListPanel questionListPanel = new QuestionListPanel(questions);
+        questionListPanel.getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
         problemStatementPanel = new ProblemStatementPanel();

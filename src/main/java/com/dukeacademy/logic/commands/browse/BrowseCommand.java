@@ -10,7 +10,6 @@ import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.model.state.ApplicationState;
-import javafx.application.Application;
 
 /**
  * The type Browse command.
