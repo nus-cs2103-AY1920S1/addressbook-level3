@@ -1,13 +1,16 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ReadOnlyShoppingList;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Undo shopping list state.
+ */
 public class UndoShoppingCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 

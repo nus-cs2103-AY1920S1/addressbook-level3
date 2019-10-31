@@ -1,10 +1,9 @@
 package seedu.ifridge.model;
 
-import seedu.ifridge.model.food.Name;
-import seedu.ifridge.model.food.UniqueTemplateItems;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.ifridge.model.food.UniqueTemplateItems;
 
 /**
  * Facilitates undo and redo mechanism in template list.
@@ -78,6 +77,9 @@ public class VersionedTemplateList extends TemplateList {
         return templateIndex.get(currentStatePointer);
     }
 
+    /**
+     * Adds the first instance of templateList.
+     */
     public void add(ReadOnlyTemplateList templateList) {
         templateListStateList.add(templateList);
         prevTemplateStateList.add(null);
