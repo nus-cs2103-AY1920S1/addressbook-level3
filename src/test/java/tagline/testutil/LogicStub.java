@@ -27,7 +27,7 @@ public class LogicStub implements Logic {
     private CommandResult commandResult;
     private String exceptionString = null;
 
-    public LogicStub(Path addressBookFilePath, Path noteBookFilePath) {
+    public LogicStub(Path addressBookFilePath, Path noteBookFilePath, Path groupBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
         this.noteBookFilePath = noteBookFilePath;
         this.groupBookFilePath = groupBookFilePath;

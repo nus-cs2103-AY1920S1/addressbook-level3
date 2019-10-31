@@ -17,6 +17,7 @@ import org.testfx.framework.junit5.Stop;
 
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import tagline.model.note.Note;
 import tagline.testutil.TypicalNotes;
 
@@ -24,8 +25,18 @@ import tagline.testutil.TypicalNotes;
 public class NoteListCardTest {
     private NoteListCard noteListCard;
 
+    /**
+     * Sets up the stage style. Can only be done once per testing session.
+     */
+    private void initStage(Stage stage) {
+        if (stage.getStyle() != StageStyle.DECORATED) {
+            stage.initStyle(StageStyle.DECORATED);
+        }
+    }
+
     @Start
     void setUp(Stage stage) {
+        initStage(stage);
         stage.setWidth(500); //for human-viewable results
     }
 

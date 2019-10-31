@@ -23,18 +23,28 @@ public class AutoCompleteUtil {
             new AutoCompleteNode("list"),
             new AutoCompleteNode("create"),
             new AutoCompleteNode("edit"),
-            new AutoCompleteNode("delete")
+            new AutoCompleteNode("delete"),
+            new AutoCompleteNode("tag"),
+            new AutoCompleteNode("untag"),
+            new AutoCompleteNode("clear")
         );
 
         AutoCompleteNode groupRoot = new AutoCompleteNode("group");
         groupRoot.addChildren(
+            new AutoCompleteNode("list"),
             new AutoCompleteNode("create"),
             new AutoCompleteNode("add"),
+            new AutoCompleteNode("remove"),
             new AutoCompleteNode("find")
         );
 
+        AutoCompleteNode tagRoot = new AutoCompleteNode("tag");
+        tagRoot.addChildren(
+            new AutoCompleteNode("list")
+        );
+
         AutoCompleteNode root = AutoCompleteNode.getRootNode();
-        root.addChildren(contactRoot, noteRoot, groupRoot);
+        root.addChildren(contactRoot, noteRoot, groupRoot, tagRoot);
         return root;
     }
 }

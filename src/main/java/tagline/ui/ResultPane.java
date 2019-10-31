@@ -107,7 +107,7 @@ public class ResultPane extends UiPart<StackPane> {
         groupListResultView.fillInnerParts(filteredGroupList);
         resultViewMap.put(ViewType.GROUP_LIST, groupListResultView);
 
-        //set to contact result view by default
-        setCurrentViewType(ViewType.CONTACT);
+        //set to note result view by default
+        setCurrentViewType(ViewType.NOTE);
     }
 }

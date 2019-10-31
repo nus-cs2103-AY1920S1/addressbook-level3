@@ -50,13 +50,18 @@ public class ResultPaneTest {
     private LogicStub logic;
 
     /**
-     * Set up the main window.
+     * Sets up the stage style. Can only be done once per testing session.
      */
-    private void initMainWindow(Stage stage, Logic logic) throws TimeoutException {
+    private void initStage(Stage stage) {
         if (stage.getStyle() != StageStyle.DECORATED) {
             stage.initStyle(StageStyle.DECORATED);
         }
+    }
 
+    /**
+     * Set up the main window.
+     */
+    private void initMainWindow(Stage stage, Logic logic) throws TimeoutException {
         FxToolkit.setupStage(s -> {
             mainWindow = new MainWindow(s, logic);
             mainWindow.show();
@@ -67,7 +72,9 @@ public class ResultPaneTest {
 
     @Start
     void setUp(Stage stage) throws TimeoutException {
-        logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"));
+        logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"),
+                testFolder.resolve("groupbook.json"));
+        initStage(stage);
         initMainWindow(stage, logic);
     }
 
@@ -108,6 +115,7 @@ public class ResultPaneTest {
 
     @Test
     void switchViewToNoteFromContact(FxRobot robot) {
+        sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
         sendCommandWithResult(robot, NOTE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
@@ -135,6 +143,7 @@ public class ResultPaneTest {
     @Test
     void switchViewToContactFromContact(FxRobot robot) {
         sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
+        sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
 
         assertSingleResultView(robot);
         assertResultViewId(robot, "#contactResultView");
@@ -142,6 +151,7 @@ public class ResultPaneTest {
 
     @Test
     void switchViewToNoneFromContact(FxRobot robot) {
+        sendCommandWithResult(robot, CONTACT_COMMAND_RESULT);
         sendCommandWithResult(robot, NONE_COMMAND_RESULT);
 
         assertSingleResultView(robot);
