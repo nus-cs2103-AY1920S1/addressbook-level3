@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.chart.PieChart?>
-<HBox stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox minHeight="600.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
             <children>
@@ -18,7 +18,7 @@
         <VBox minHeight="600.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
             <children>
                 <Label id="doneLabel" text="Members by items bought" />
-                <PieChart fx:id="memberByItems" prefWidth="300" prefHeight="300" />
+                <PieChart fx:id="memberByInv" prefWidth="300" prefHeight="300" />
             </children>
         </VBox>
     </children>

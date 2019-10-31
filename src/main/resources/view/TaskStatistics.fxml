@@ -17,7 +17,7 @@
         </VBox>
         <VBox minHeight="600.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
             <children>
-                <Label id="Tasks by status" alignment="CENTER" text="Proportion of tasks with status" />
+                <Label id="Tasks by status" alignment="CENTER" text="Tasks with statuses" />
                 <PieChart fx:id="taskByStatus" prefWidth="300" prefHeight="300" />
             </children>
         </VBox>

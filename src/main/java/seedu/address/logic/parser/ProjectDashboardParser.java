@@ -6,11 +6,15 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//Remove after implementing MeetingTime Parser
+import java.time.LocalDateTime;
+import java.time.Duration;
+
+import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddMemberCommand;
-import seedu.address.logic.commands.AddMemberToTaskCommand;
 import seedu.address.logic.commands.AddTaskCommand;
-import seedu.address.logic.commands.AddTaskToMemberCommand;
+import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClockCommand;
 import seedu.address.logic.commands.Command;
@@ -24,17 +28,19 @@ import seedu.address.logic.commands.EditInventoryCommand;
 import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindMeetingTimeCommand;
 import seedu.address.logic.commands.FindMemberCommand;
-import seedu.address.logic.commands.GeneratePDFCommand;
+import seedu.address.logic.commands.FireCommand;
 import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
-import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
-import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
+import seedu.address.logic.commands.SetImageCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.ThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -108,17 +114,11 @@ public class ProjectDashboardParser {
             return new ListMemberCommand();
 
         // ASSOCIATION
-        case AddTaskToMemberCommand.COMMAND_WORD:
-            return new AddTaskToMemberParser().parse(arguments);
+        case AssignCommand.COMMAND_WORD:
+            return new AssignCommandParser().parse(arguments);
 
-        case AddMemberToTaskCommand.COMMAND_WORD:
-            return new AddMemberToTaskParser().parse(arguments);
-
-        case RemoveTaskFromMemberCommand.COMMAND_WORD:
-            return new RemoveTaskFromMemberParser().parse(arguments);
-
-        case RemoveMemberFromTaskCommand.COMMAND_WORD:
-            return new RemoveMemberFromTaskParser().parse(arguments);
+        case FireCommand.COMMAND_WORD:
+            return new FireCommandParser().parse(arguments);
 
         // INVENTORY
         case ListInventoryCommand.COMMAND_WORD:
@@ -133,8 +133,8 @@ public class ProjectDashboardParser {
         case DeleteInventoryCommand.COMMAND_WORD:
             return new DeleteInventoryCommandParser().parse(arguments);
 
-        case GeneratePDFCommand.COMMAND_WORD:
-            return new GeneratePDFCommand();
+        //case GeneratePDFCommand.COMMAND_WORD:
+            //return new GeneratePDFCommand();
 
         // STATS
         case GetStatisticsCommand.COMMAND_WORD_MEMBER:
@@ -166,9 +166,31 @@ public class ProjectDashboardParser {
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
 
+        case SetImageCommand.COMMAND_WORD:
+            return new SetImageCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+
+        case AddCalendarCommand.COMMAND_WORD:
+            return new AddCalendarParser().parse(arguments);
+
+        case FindMeetingTimeCommand.COMMAND_WORD:
+            ////Sample Duration
+//          LocalDateTime startDate = new LocalDateTime("20191028T000000Z");
+//          LocalDateTime endDate = new LocalDateTime("20191101T170000Z");
+//          Duration meetingDuration = Duration.ofHours(4);
+//            	of(int year, Month month, int dayOfMonth, int hour, int minute, int second, int nanoOfSecond)
+            LocalDateTime startDate = LocalDateTime.parse("2019-10-28T00:00:00");
+            LocalDateTime endDate = LocalDateTime.parse("2019-11-01T17:00:00");
+            Duration meetingDuration = Duration.ofHours(4);
+            return new FindMeetingTimeCommand(startDate, endDate, meetingDuration);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

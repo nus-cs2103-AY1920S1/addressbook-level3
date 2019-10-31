@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
+import seedu.address.model.mapping.exceptions.IllegalMappingStateException;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 
@@ -38,25 +39,92 @@ public class UniqueMappingManager {
 
     // ================ InvMem methods ==============================
 
-    public void add(InvMemMapping toAdd) {
+    public void add(Mapping toAdd) {
         requireNonNull(toAdd);
-        invMemMappingList.add(toAdd);
+        if (toAdd instanceof InvMemMapping) {
+            InvMemMapping convertedToAdd = (InvMemMapping) toAdd;
+            invMemMappingList.add(convertedToAdd);
+        } else if (toAdd instanceof InvTasMapping) {
+            InvTasMapping convertedToAdd = (InvTasMapping) toAdd;
+            invTasMappingList.add(convertedToAdd);
+        } else if (toAdd instanceof TasMemMapping) {
+            TasMemMapping convertedToAdd = (TasMemMapping) toAdd;
+            tasMemMappingList.add(convertedToAdd);
+        } else {
+            throw new IllegalMappingStateException();
+        }
     }
 
-    public void remove(InvMemMapping toRemove) {
+    public void remove(Mapping toRemove) {
         requireNonNull(toRemove);
-        invMemMappingList.remove(toRemove);
+        if (toRemove instanceof InvMemMapping) {
+            InvMemMapping convertedToRemove = (InvMemMapping) toRemove;
+            invMemMappingList.remove(convertedToRemove);
+        } else if (toRemove instanceof InvTasMapping) {
+            InvTasMapping convertedToRemove = (InvTasMapping) toRemove;
+            invTasMappingList.remove(convertedToRemove);
+        } else if (toRemove instanceof TasMemMapping) {
+            TasMemMapping convertedToRemove = (TasMemMapping) toRemove;
+            tasMemMappingList.remove(convertedToRemove);
+        } else {
+            throw new IllegalMappingStateException();
+        }
     }
 
-    public boolean contains(InvMemMapping toCheck) {
+    public boolean contains(Mapping toCheck) {
         requireNonNull(toCheck);
-        return invMemMappingList.contains(toCheck);
+        if (toCheck instanceof InvMemMapping) {
+            InvMemMapping convertedToCheck = (InvMemMapping) toCheck;
+            return invMemMappingList.contains(convertedToCheck);
+        } else if (toCheck instanceof InvTasMapping) {
+            InvTasMapping convertedToCheck = (InvTasMapping) toCheck;
+            return invTasMappingList.contains(convertedToCheck);
+        } else if (toCheck instanceof TasMemMapping) {
+            TasMemMapping convertedToCheck = (TasMemMapping) toCheck;
+            return tasMemMappingList.contains(convertedToCheck);
+        } else {
+            throw new IllegalMappingStateException();
+        }
     }
 
-    public void setMapping(InvMemMapping target, InvMemMapping editedMapping) {
+    public void setMapping(Mapping target, Mapping editedMapping) {
         requireAllNonNull(target, editedMapping);
-        invMemMappingList.setMapping(target, editedMapping);
+        if (target instanceof InvMemMapping && editedMapping instanceof InvMemMapping) {
+            InvMemMapping convertedTarget = (InvMemMapping) target;
+            InvMemMapping convertedEditedMapping = (InvMemMapping) editedMapping;
+            invMemMappingList.setMapping(convertedTarget, convertedEditedMapping);
+        } else if (target instanceof InvTasMapping && editedMapping instanceof InvTasMapping) {
+            InvTasMapping convertedTarget = (InvTasMapping) target;
+            InvTasMapping convertedEditedMapping = (InvTasMapping) editedMapping;
+            invTasMappingList.setMapping(convertedTarget, convertedEditedMapping);
+        } else if (target instanceof TasMemMapping && editedMapping instanceof TasMemMapping) {
+            TasMemMapping convertedTarget = (TasMemMapping) target;
+            TasMemMapping convertedEditedMapping = (TasMemMapping) editedMapping;
+            tasMemMappingList.setMapping(convertedTarget, convertedEditedMapping);
+        } else {
+            throw new IllegalMappingStateException();
+        }
     }
+
+//    public void add(InvMemMapping toAdd) {
+//        requireNonNull(toAdd);
+//        invMemMappingList.add(toAdd);
+//    }
+//
+//    public void remove(InvMemMapping toRemove) {
+//        requireNonNull(toRemove);
+//        invMemMappingList.remove(toRemove);
+//    }
+//
+//    public boolean contains(InvMemMapping toCheck) {
+//        requireNonNull(toCheck);
+//        return invMemMappingList.contains(toCheck);
+//    }
+//
+//    public void setMapping(InvMemMapping target, InvMemMapping editedMapping) {
+//        requireAllNonNull(target, editedMapping);
+//        invMemMappingList.setMapping(target, editedMapping);
+//    }
 
     public void setMappings(UniqueInvMemMappingList replacement) {
         requireNonNull(replacement);
@@ -72,25 +140,25 @@ public class UniqueMappingManager {
 
     // ================ InvTas methods ==============================
 
-    public void add(InvTasMapping toAdd) {
-        requireNonNull(toAdd);
-        invTasMappingList.add(toAdd);
-    }
-
-    public void remove(InvTasMapping toRemove) {
-        requireNonNull(toRemove);
-        invTasMappingList.remove(toRemove);
-    }
-
-    public boolean contains(InvTasMapping toCheck) {
-        requireNonNull(toCheck);
-        return invTasMappingList.contains(toCheck);
-    }
-
-    public void setMapping(InvTasMapping target, InvTasMapping editedMapping) {
-        requireAllNonNull(target, editedMapping);
-        invTasMappingList.setMapping(target, editedMapping);
-    }
+//    public void add(InvTasMapping toAdd) {
+//        requireNonNull(toAdd);
+//        invTasMappingList.add(toAdd);
+//    }
+//
+//    public void remove(InvTasMapping toRemove) {
+//        requireNonNull(toRemove);
+//        invTasMappingList.remove(toRemove);
+//    }
+//
+//    public boolean contains(InvTasMapping toCheck) {
+//        requireNonNull(toCheck);
+//        return invTasMappingList.contains(toCheck);
+//    }
+//
+//    public void setMapping(InvTasMapping target, InvTasMapping editedMapping) {
+//        requireAllNonNull(target, editedMapping);
+//        invTasMappingList.setMapping(target, editedMapping);
+//    }
 
     public void setMappings(UniqueInvTasMappingList replacement) {
         requireNonNull(replacement);
@@ -107,6 +175,12 @@ public class UniqueMappingManager {
 
     // ================ TasMem methods ==============================
 
+    /**
+     *returns a hashMap of members by tasks
+     */
+    public HashMap<Integer, ObservableList<Integer>> listMemberByTask() {
+        return tasMemMappingList.listMemberByTask();
+    }
 
     public ObservableList<Integer> getMembersMappedToTask(int taskIndex) {
         return tasMemMappingList.getMembersMappedToTask(taskIndex);
@@ -116,32 +190,25 @@ public class UniqueMappingManager {
         return tasMemMappingList.getTasksMappedToMember(memberIndex);
     }
 
-    /**
-     *returns a hashMap of members by tasks
-     */
-    public HashMap<Integer, ObservableList<Integer>> listMemberByTask() {
-        return tasMemMappingList.listMemberByTask();
-    }
-
-    public void add(TasMemMapping toAdd) {
-        requireNonNull(toAdd);
-        tasMemMappingList.add(toAdd);
-    }
-
-    public void remove(TasMemMapping toRemove) {
-        requireNonNull(toRemove);
-        tasMemMappingList.remove(toRemove);
-    }
-
-    public boolean contains(TasMemMapping toCheck) {
-        requireNonNull(toCheck);
-        return tasMemMappingList.contains(toCheck);
-    }
-
-    public void setMapping(TasMemMapping target, TasMemMapping editedMapping) {
-        requireAllNonNull(target, editedMapping);
-        tasMemMappingList.setMapping(target, editedMapping);
-    }
+//    public void add(TasMemMapping toAdd) {
+//        requireNonNull(toAdd);
+//        tasMemMappingList.add(toAdd);
+//    }
+//
+//    public void remove(TasMemMapping toRemove) {
+//        requireNonNull(toRemove);
+//        tasMemMappingList.remove(toRemove);
+//    }
+//
+//    public boolean contains(TasMemMapping toCheck) {
+//        requireNonNull(toCheck);
+//        return tasMemMappingList.contains(toCheck);
+//    }
+//
+//    public void setMapping(TasMemMapping target, TasMemMapping editedMapping) {
+//        requireAllNonNull(target, editedMapping);
+//        tasMemMappingList.setMapping(target, editedMapping);
+//    }
 
     public void setMappings(UniqueTasMemMappingList replacement) {
         requireNonNull(replacement);

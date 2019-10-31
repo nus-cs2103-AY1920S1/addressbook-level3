@@ -7,14 +7,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -22,21 +28,21 @@ import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserSettings;
+import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
 import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.InvTasMapping;
-import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
-import seedu.address.model.member.MemberName;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.InventoryBuilder;
+import seedu.address.testutil.MemberBuilder;
 
 public class AddInventoryCommandTest {
     @Test
@@ -51,7 +57,7 @@ public class AddInventoryCommandTest {
         Inventory validInventory = new InventoryBuilder().build();
 
         CommandResult commandResult = new AddInventoryCommand(new Index(0),
-                validInventory.getName(), validInventory.getPrice(), new MemberId("rak")).execute(modelStub);
+                validInventory.getName(), validInventory.getPrice(), new MemberId("GS")).execute(modelStub);
 
         assertEquals(String.format(AddInventoryCommand.MESSAGE_SUCCESS, validInventory),
                                                         commandResult.getFeedbackToUser());
@@ -62,7 +68,7 @@ public class AddInventoryCommandTest {
     public void execute_duplicateInventory_throwsCommandException() {
         Inventory validInventory = new InventoryBuilder().build();
         AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
-                                    validInventory.getName(), validInventory.getPrice(), new MemberId("rak"));
+                                    validInventory.getName(), validInventory.getPrice(), new MemberId("GS"));
         ModelStub modelStub = new ModelStubWithInventory(validInventory);
         assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_DUPLICATE_INVENTORY, () ->
                 addInventoryCommand.execute(modelStub));
@@ -72,19 +78,19 @@ public class AddInventoryCommandTest {
     public void execute_inValidMemberId_throwsCommandException() {
         AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
                 new InvName("Toy"), new Price(1), new MemberId("invalidId"));
-        AddInventoryCommandTest.ModelStub modelStub = new AddInventoryCommandTest.ModelStub();
+        AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub = new AddInventoryCommandTest.ModelStubAcceptingInventoryAdded();
 
-        assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_MEMBERID_INVALID, () ->
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEMBER_ID, () ->
                 addInventoryCommand.execute(modelStub));
     }
 
     @Test
     public void execute_inValidTaskId_throwsCommandException() {
         AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(2),
-                new InvName("Toy"), new Price(1), new MemberId("rak"));
-        ModelStub modelStub = new ModelStub();
+                new InvName("Toy"), new Price(1), new MemberId("GS"));
+        AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub = new ModelStubAcceptingInventoryAdded();
 
-        assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_INDEX_EXCEEDED, () ->
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, () ->
                 addInventoryCommand.execute(modelStub));
     }
 
@@ -287,49 +293,20 @@ public class AddInventoryCommandTest {
         }
 
         @Override
-        public void addMapping(InvMemMapping mapping) {
+        public void addMapping(Mapping mapping) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addMapping(InvTasMapping mapping) {
+        public void deleteMapping(Mapping mapping) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addMapping(TasMemMapping mapping) {
+        public boolean hasMapping(Mapping mapping) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void deleteMapping(InvMemMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteMapping(InvTasMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteMapping(TasMemMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMapping(InvMemMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMapping(InvTasMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMapping(TasMemMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
         @Override
         public ObservableList<Mapping> getFilteredMappingsList() {
             throw new AssertionError("This method should not be called.");
@@ -366,6 +343,15 @@ public class AddInventoryCommandTest {
         }
 
         @Override
+        public ObservableList<TasMemMapping> getFilteredTasMemMappingsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<InvMemMapping> getFilteredInvMemMappingsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void setCurrentTheme(Theme newTheme) {
 
             throw new AssertionError("This method should not be called.");
@@ -380,12 +366,58 @@ public class AddInventoryCommandTest {
         public void setClockFormat(ClockFormat newClockFormat) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCalendar(CalendarWrapper calendar) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCalendar(CalendarWrapper calendar) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveDashboardState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
      * A Model stub that contains a single task.
      */
     private class ModelStubWithInventory extends AddInventoryCommandTest.ModelStub {
+        final ObservableList<Member> membersAdded = FXCollections.observableArrayList(new MemberBuilder().withId(new MemberId("GS")).build());
+        private final FilteredList<Member> filteredMembers = new FilteredList<Member>(membersAdded);
+        final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
+        private final FilteredList<Task> filteredTasks = new FilteredList<Task>(tasksAdded);
+        final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
+        private final FilteredList<Inventory> filteredInv = new FilteredList<Inventory>(invAdded);
         private final Inventory inventory;
 
         ModelStubWithInventory(Inventory inventory) {
@@ -398,12 +430,53 @@ public class AddInventoryCommandTest {
             requireNonNull(inventory);
             return this.inventory.isSameInventory(inventory);
         }
+
+        @Override
+        public ObservableList<Member> getFilteredMembersList() {
+            return filteredMembers;
+        }
+
+        @Override
+        public void updateFilteredMembersList(Predicate<Member> predicate) {
+            requireNonNull(predicate);
+            filteredMembers.setPredicate(predicate);
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTasksList() {
+            return filteredTasks;
+        }
+
+        @Override
+        public void updateFilteredTasksList(Predicate<Task> predicate) {
+            requireNonNull(predicate);
+            filteredTasks.setPredicate(predicate);
+        }
+
+        @Override
+        public ObservableList<Inventory> getFilteredInventoriesList() {
+            return filteredInv;
+        }
+
+        @Override
+        public void updateFilteredInventoriesList(Predicate<Inventory> predicate) {
+            requireNonNull(predicate);
+            filteredInv.setPredicate(predicate);
+        }
     }
 
     /**
      * A Model stub that always accept the inventory being added.
      */
     private class ModelStubAcceptingInventoryAdded extends AddInventoryCommandTest.ModelStub {
+        final ObservableList<Member> membersAdded = FXCollections.observableArrayList(new MemberBuilder().withId(new MemberId("GS")).build());
+        private final FilteredList<Member> filteredMembers = new FilteredList<Member>(membersAdded);
+        final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
+        private final FilteredList<Task> filteredTasks = new FilteredList<Task>(tasksAdded);
+        final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
+        private final FilteredList<Inventory> filteredInv = new FilteredList<Inventory>(invAdded);
+        final ObservableList<Mapping> mappingAdded = FXCollections.observableArrayList();
+        private final FilteredList<Mapping> filteredMappings = new FilteredList<Mapping>(mappingAdded);
         final ArrayList<Inventory> inventoriesAdded = new ArrayList<>();
 
         @Override
@@ -416,6 +489,44 @@ public class AddInventoryCommandTest {
         public void addInventory(Inventory inventory) {
             requireNonNull(inventory);
             inventoriesAdded.add(inventory);
+        }
+
+        @Override
+        public ObservableList<Member> getFilteredMembersList() {
+            return filteredMembers;
+        }
+
+        @Override
+        public void updateFilteredMembersList(Predicate<Member> predicate) {
+            requireNonNull(predicate);
+            filteredMembers.setPredicate(predicate);
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTasksList() {
+            return filteredTasks;
+        }
+
+        @Override
+        public void updateFilteredTasksList(Predicate<Task> predicate) {
+            requireNonNull(predicate);
+            filteredTasks.setPredicate(predicate);
+        }
+
+        @Override
+        public ObservableList<Inventory> getFilteredInventoriesList() {
+            return filteredInv;
+        }
+
+        @Override
+        public void updateFilteredInventoriesList(Predicate<Inventory> predicate) {
+            requireNonNull(predicate);
+            filteredInv.setPredicate(predicate);
+        }
+
+        @Override
+        public void addMapping(Mapping mapping) {
+            mappingAdded.add(mapping);
         }
 
         @Override

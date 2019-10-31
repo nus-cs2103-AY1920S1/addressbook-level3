@@ -175,5 +175,12 @@ public class CommandBox extends UiPart<Region> {
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
+    /**
+     * Interface to allow other components to update the text inside {@CommandBox}
+     * @param text
+     */
+    public void setCommandText(String text) {
+        commandTextField.setText(text);
+    }
 
 }

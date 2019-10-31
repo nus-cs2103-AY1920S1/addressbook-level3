@@ -30,11 +30,11 @@ public class EditMemberCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the member identified "
             + "by the id used in the displayed member list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: ID (must be an alphanumeric string) "
-            + "[" + PREFIX_MEMBER_NAME + "NAME] "
-            + "[" + PREFIX_MEMBER_ID + "ID] "
-            + "[" + PREFIX_MEMBER_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Parameters:" + PREFIX_MEMBER_ID + "MEMBER ID"
+            + PREFIX_MEMBER_NAME + "NAME"
+            + PREFIX_MEMBER_ID + "MEMBER ID"
+            + PREFIX_MEMBER_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " mi ";
 
     public static final String MESSAGE_EDIT_MEMBER_SUCCESS = "Edited Member: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -64,7 +64,7 @@ public class EditMemberCommand extends Command {
         Member memberToEdit = null;
 
         for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i).getId() == id) {
+            if (lastShownList.get(i).getId().equals(id)) {
                 contains = true;
                 memberToEdit = lastShownList.get(i);
                 break;

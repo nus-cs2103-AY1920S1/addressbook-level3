@@ -7,12 +7,18 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 //import seedu.address.model.task.Task;
 
@@ -37,8 +43,7 @@ public class AddInventoryCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New inventory added: %1$s";
     public static final String MESSAGE_DUPLICATE_INVENTORY = "This inventory already exists in the address book";
-    public static final String MESSAGE_INDEX_EXCEEDED = "The index entered for tasks is invalid";
-    public static final String MESSAGE_MEMBERID_INVALID = "The member Id entered is invalid";
+
 
     private final Index taskId;
     private final InvName name;
@@ -67,12 +72,27 @@ public class AddInventoryCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         int tasksLength = model.getTasksLength();
+        List<Member> lastShownMemberList = model.getFilteredMembersList();
+        List<Inventory> lastShownInvList = model.getFilteredInventoriesList();
 
         if (taskId.getOneBased() > tasksLength) {
-            throw new CommandException(MESSAGE_INDEX_EXCEEDED);
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        if (!model.hasMemberId(memId)) {
-            throw new CommandException(MESSAGE_MEMBERID_INVALID);
+        boolean contains = false;
+        Member memberToAdd = null;
+        Integer memberIndex = null;
+
+        for (int i = 0; i < lastShownMemberList.size(); i++) {
+            if (lastShownMemberList.get(i).getId().equals(memId)) {
+                contains = true;
+                memberToAdd = lastShownMemberList.get(i);
+                memberIndex = i;
+                break;
+            }
+        }
+
+        if (!contains) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_ID);
         }
 
         //Task taskToAdd = model.getFilteredTasksList().get(taskId.getZeroBased());
@@ -83,6 +103,11 @@ public class AddInventoryCommand extends Command {
         }
 
         model.addInventory(toAdd);
+        InvMemMapping invMemToAdd = new InvMemMapping(memberIndex, lastShownInvList.size());
+        InvTasMapping  invTasToAdd = new InvTasMapping(taskId.getZeroBased(), lastShownInvList.size());
+        model.addMapping(invMemToAdd);
+        model.addMapping(invTasToAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

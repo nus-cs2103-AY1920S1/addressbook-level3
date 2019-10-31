@@ -2,15 +2,11 @@ package seedu.address.ui.views;
 
 import java.util.Comparator;
 
-import com.sun.javafx.scene.control.skin.Utils;
-
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Font;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
@@ -43,6 +39,7 @@ public class TaskCard extends UiPart<Region> {
     private Label deadline;
     @FXML
     private FlowPane tags;
+
 
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
