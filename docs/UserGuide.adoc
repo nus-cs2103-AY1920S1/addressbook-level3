@@ -50,15 +50,16 @@ image::UserGuideCommandBox.png[width="790"]
 
 3. Text-based feedback for each command entered is shown in the _ResultDisplay_ (region in red box).
 
+// tag::switchingmodes[]
 === Switching Modes
 
 There are 4 application modes.
 
 .Application modes
-image::UGModes.PNG[width="790"]
+image::UGModes.png[width="790"]
 
 .Mode Display
-image::RestrictedHomeMode.PNG[width="790"]
+image::RestrictedHomeMode.png[width="790"]
 
 In the highlighed section above, you can see the current mode you are in and the available modes.
 
@@ -82,7 +83,7 @@ to enter `home` mode
 * No game should be running
 
 .If other modes are available, they would be displayed beside the Command Box
-image::ModesAvailable.PNG[width="300"]
+image::ModesAvailable.png[width="300"]
 
 ====
 
@@ -93,9 +94,11 @@ But do not worry as we have the AutoComplete Bar that auto completes the availab
 === AutoComplete Bar
 
 .AutoComplete Bar
-image::AutoCompleteBar.PNG[width="790"]
+image::AutoCompleteBar.png[width="790"]
 
 The highlighted section shows, what commands are currently available. You can click them to automatically fill it in for you. Each of your keystroke will dynamically update the AutoComplete bar, just like the keyboard on your smartphone.
+
+// end::switchingmodes[]
 
 
 
@@ -105,6 +108,7 @@ The highlighted section shows, what commands are currently available. You can cl
 .General program flow of Dukemon, showing how the different parts work together.
 image::UserGuideFlowOverview.png[width="790"]
 
+// tag::quickstartsubbash[]
 
 Lets load the sample wordbank and play a game to get familiar.
 
@@ -138,30 +142,31 @@ specified.
 
 === Purposes of each mode
 
-image::HomeMode.PNG[width="450"]
+image::HomeMode.png[width="450"]
 
 * Create/Choose a _Wordbank_
 
 * View Global Statistics
 
 
-image::OpenMode.PNG[width="450"]
+image::OpenMode.png[width="450"]
 
 * Create/Add/Modify _Cards_ of your _WordBank_. (Each _Card_ contains a _Word_ and _Meaning_).
 * View Statistics belonging to a specific _WordBank_
 
-image::GameMode.PNG[width="450"]
+image::GameMode.png[width="450"]
 
 
 * Guess  _Words_ based on each _Meaning_ that appear as quickly as possible!
 * Finish the _Game_ and  view the _Statistics_ for your game session.
 * Evaluate your performance
 
-image::SettingsMode.PNG[width="450"]
+image::SettingsMode.png[width="450"]
 
 
 * Configure your preferred _Settings_. (change _Difficulty_, _Theme_ etc.)
 
+// end::quickstartsubbash[]
 
 
 [[Commands]]
@@ -454,7 +459,7 @@ Statistics are also stored automatically.
 == Overview of Modes for Advanced Users
 
 .All possible application modes
-image::ParserManagerActivityDiagram.PNG[]
+image::ParserManagerActivityDiagram.png[]
 
 
 == Command Summary

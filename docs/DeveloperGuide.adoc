@@ -123,6 +123,7 @@ and notify the `AppManager`, who will notify the `UI` components.
 _Due to the fact that the timer has to work closely with the `UI` and `AppManager` (without being
 coupled directly), it is separated from the `Logic`, `Model` and `Game` components._
 
+// tag::subbashdg2[]
 [[Design-Logic]]
 === Logic component
 
@@ -145,6 +146,8 @@ Given below is the Activity Diagram that shows the workflows that change state o
 .Activity diagram of Application flow
 image::ParserManagerActivityDiagram.PNG[]
 
+
+// end::subbashdg2[]
 
 
 [[Design-Model]]
@@ -203,7 +206,7 @@ Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+// tag::autocompleteimplementation[]
 === [underline]#AutoComplete Feature# (for command execution)
 ==== Implementation
 
@@ -264,7 +267,7 @@ The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, whic
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+// end::autocompleteimplementation[]
 
 // tag::settings[]
 === [underline]#Settings Feature#
