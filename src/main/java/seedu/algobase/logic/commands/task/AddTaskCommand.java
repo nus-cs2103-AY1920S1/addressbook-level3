@@ -34,7 +34,7 @@ public class AddTaskCommand extends Command {
             + "Parameters:\n"
             + PREFIX_PLAN + "PLAN_INDEX "
             + PREFIX_PROBLEM + "PROBLEM_INDEX "
-            + PREFIX_DUE_DATE + "DUE_DATE\n"
+            + "[" + PREFIX_DUE_DATE + "DUE_DATE]\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_PLAN + "1 "

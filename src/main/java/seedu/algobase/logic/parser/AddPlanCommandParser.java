@@ -60,7 +60,7 @@ public class AddPlanCommandParser implements Parser<AddPlanCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_END_DATE)) {
             endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
         } else {
-            endDate = LocalDate.now().plusMonths(1);
+            endDate = startDate.plusMonths(1);
         }
 
         if (!isValidRange(startDate, endDate)) {
