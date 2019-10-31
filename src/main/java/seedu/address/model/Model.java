@@ -29,6 +29,10 @@ public interface Model {
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
     Predicate<Day> PREDICATE_SHOW_ALL_DAYS = unused -> true;
 
+    /**
+     * A method for the model to initialize its necessary fields.
+     */
+    void init();
     //=========== UserPrefs ==================================================================================
 
     /**

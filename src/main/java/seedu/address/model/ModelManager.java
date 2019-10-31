@@ -82,6 +82,10 @@ public class ModelManager implements Model {
         this(new AccommodationManager(), new ActivityManager(), new ContactManager(), new Itinerary(), new UserPrefs());
     }
 
+    public void init() {
+
+    }
+
     //=========== Mapping ====================================================================================
 
     /**
