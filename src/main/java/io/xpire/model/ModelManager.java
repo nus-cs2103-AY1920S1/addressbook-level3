@@ -329,8 +329,6 @@ public class ModelManager implements Model {
             item = itr.next();
             if (item.isItemExpired()) {
                 xpire.updateItemTag(item);
-                //addItemToReplenishList(item);
-                //shiftItemToReplenishList(item);
             }
         }
     }

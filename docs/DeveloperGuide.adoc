@@ -105,7 +105,6 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::LogicComponentSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -149,32 +148,37 @@ This section describes some noteworthy details on how certain features are imple
 === Replenish List
 ==== Implementation
 //{Explain here how the ToReplenish/ToBuy List is implemented}_
-Items are added to the replenish list by the user using the replenish command.
-When an item expires, the item is automatically tagged as "expired".
-This enables the user to search for a list of expired items by searching for the "expired" tag.
-With this, the user is able to view the list of expired items and decide which items to add to the replenish list.
+Items are added to the replenish list by the user using the `ShiftCommand`.
+When an item expires, the item is automatically tagged as `#Expired`.
+By searching for the `#Expired` tag using the `SearchCommand`, the user is able to retrieve a list of expired items.
+
+The sequence diagram below demonstrates how the auto-tagging mechanism occurs.
+
+.Sequence Diagram for ItemManager Class
+image::ItemManagerSequenceDiagram.png[]
+
 On the other hand, when an item has run out, an item is automatically added to the replenish list.
+This occurs when the user uses the `DeleteCommand` to
+The following sequence diagram summarises how this operation works:
 
-image::ItemManagerClassDiagram.png[]
-
+.Sequence Diagram when item quantity is reduced to 0 via the Delete Command
+image::AutoShiftSequenceDiagram.png[]
 //Given below is an example usage scenario and how the mechanism behaves at each step.
-
-//The following sequence diagram shows how the operation works:
 
 //The following activity diagram summarizes what happens when a user executes a new command:
 
 ==== Design Considerations
 
-===== Aspect: How item is added to the replenish list
-
-* **Alternative 1 (current choice): Once an item expires or runs out,
-the user is prompted to shift the item to the replenish list by typing the replenish command and item index.**
-** Pros: User has flexibility in deciding what to add to the replenish list.
+===== Aspect: How expired items are being handled
+* **Alternative 1 (current choice): Once an item expires,
+the item is automatically tagged as `#Expired`.**
+** Pros: Makes good use of existing `SearchCommand`, where user can search for the `#Expired` tag to view list of expired items.
 ** Cons: User has to manually type in a short command to add an item to the replenish list.
 
-* **Alternative 2: Once an item expires or runs out, item is transferred to the replenish list.**
+* **Alternative 2: Once an item expires, item is automatically transferred to the replenish list.**
 ** Pros: User need not manually key in item details to transfer it to the replenish list.
-** Cons: User may not want the item in the list and as such would expect a delete functionality for the to-replenish list.
+** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
+
 //
 //===== Aspect: Data structure to store the items
 //* **Alternative 1 (current choice):**
