@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.3
+skinparam arrowThickness 1.2
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
@@ -21,42 +21,43 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 Class Game
 
-'Package WordBankList {
+Package WordBankList {
 Class WordBankList
-Class UniqueWordBankList
-
 Package WordBank {
 Class WordBank
 Class UniqueCardList
+}
 
 Package Card {
 Class Card
+Class Meaning
+Class Word
 }
-
-}
-
 }
 
 WordBankList .up.|> ReadOnlyWordBankList
 WordBankStatisticsList .up.|> ReadOnlyWordBankStatisticsList
 AppSettings .up.|> ReadOnlyAppSettings
 
-
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager --> "1" WordBankList
-ModelManager --> "1" WordBankStatisticsList
-ModelManager --> "1" GlobalStatistics
-ModelManager --> "1" AppSettings
-ModelManager --> "1" UserPrefs
-ModelManager --> "1" Game
+ModelManager .left.|> Model
+Model .left.> ObservableList
+ModelManager -down--> "1" WordBankList
+ModelManager -up-> "1" WordBankStatisticsList
+ModelManager -up-> "1" GlobalStatistics
+ModelManager -up-> "1" AppSettings
+ModelManager -up-> "1" UserPrefs
+ModelManager -up-> "1" Game
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-WordBankList *-down-> "1" UniqueWordBankList
-UniqueWordBankList o--> "*" WordBank
-WordBank *-down-> "1" UniqueCardList
-UniqueCardList --> "1" Card
-WordBankList -left[hidden]-> UserPrefs
+WordBankList -right-> "1" WordBank
+WordBank --> "*" UniqueCardList
+UniqueCardList -right-> "1" Card
+Card --> "1" Word
+Card --> "1" Meaning
 
-ModelManager -->"1" WordBank : contains
+ModelManager --> WordBank : selected
+ModelManager --> Card : filteredList
+
 @enduml
+
+

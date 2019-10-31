@@ -568,15 +568,15 @@ In Dukemon, there is should only be one `WordBankList`, which is created upon `S
 .Entire overview `WordBankList`.
 image::OverviewOfWordBankList.png[]
 
----
-
-Now the integration - How these data structures are stored in `Model` and `Storage`.
-
-.Simplified class diagram of `Model`.
-image::Model.png[]
-
-.Simplified class diagram of `Storage`.
-image::Storage.png[]
+//---
+//
+//Now the integration - How these data structures are stored in `Model` and `Storage`.
+//
+//.Simplified class diagram of `Model`.
+//image::Model.png[]
+//
+//.Simplified class diagram of `Storage`.
+//image::Storage.png[]
 
 ---
 ==== Implementation of CardCommands and HomeCommands
