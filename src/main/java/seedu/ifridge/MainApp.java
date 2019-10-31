@@ -2,6 +2,7 @@ package seedu.ifridge;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -283,7 +284,6 @@ public class MainApp extends Application {
 
         WasteList.initialiseWasteArchive();
 
-
         try {
             wasteListOptional = storage.readWasteList();
             if (!wasteListOptional.isPresent()) {
@@ -298,6 +298,11 @@ public class MainApp extends Application {
             initialWasteArchiveData = new TreeMap<>();
         }
 
+        WasteMonth currentMonth = new WasteMonth(LocalDate.now());
+        boolean currentWasteMonthInArchive = initialWasteArchiveData.containsKey(currentMonth);
+        if (!currentWasteMonthInArchive) {
+            initialWasteArchiveData.put(currentMonth, new WasteList(currentMonth));
+        }
 
         return initialWasteArchiveData;
 

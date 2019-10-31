@@ -5,13 +5,14 @@ import static seedu.ifridge.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.commons.core.IFridgeSettings;
 import seedu.ifridge.model.GroceryList;
@@ -349,7 +350,7 @@ public class AddCommandTest {
         };
 
         @Override
-        public Set<WasteMonth> getListOfWasteMonths() {
+        public SortedSet<WasteMonth> getDescendingWasteMonths() {
             throw new AssertionError("This method should not be called.");
         }
 

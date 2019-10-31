@@ -18,7 +18,6 @@ import seedu.ifridge.model.waste.WasteStatistic;
 public class WasteList implements ReadOnlyWasteList {
 
     private static TreeMap<WasteMonth, WasteList> wasteArchive;
-    private static WasteMonth currentWasteMonth;
     private final UniqueWasteList wasteList;
 
     public WasteList(WasteMonth wasteMonth) {
@@ -87,6 +86,11 @@ public class WasteList implements ReadOnlyWasteList {
         return wasteList.getWasteMonth();
     }
 
+    @Override
+    public UniqueWasteList getIterableWasteList() {
+        return wasteList;
+    }
+
     //// Waste List Archive operations
 
     /**
@@ -97,10 +101,6 @@ public class WasteList implements ReadOnlyWasteList {
             return;
         }
         wasteArchive = new TreeMap<>();
-        /*******************************************************************
-         * REMOVE THIS BOTTOM LINE LATER
-         */
-        currentWasteMonth = new WasteMonth(LocalDate.now());
     }
 
     /**
@@ -162,14 +162,7 @@ public class WasteList implements ReadOnlyWasteList {
         return wasteArchive.get(wm);
     }
 
-    public static WasteMonth getEarliestExistingWasteMonth() {
-        return wasteArchive.firstKey();
-    }
-
-    public static WasteMonth getLatestExistingWasteMonth() {
-        return wasteArchive.lastKey();
-    }
-
+    /*
     public static WasteStatistic getCurrentMonthPredictedWasteStatistic() {
         LocalDate today = LocalDate.now();
         WasteStatistic currentMonthStatistic = getCurrentWasteList().getWasteStatistic();
@@ -182,4 +175,6 @@ public class WasteList implements ReadOnlyWasteList {
         return WasteStatistic.getPredictedWasteStatistic(currentMonthStatistic,
                 previousOneMonth, previousTwoMonth, previousThreeMonth);
     }
+
+     */
 }

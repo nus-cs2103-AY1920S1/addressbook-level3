@@ -1,15 +1,18 @@
 package seedu.ifridge.logic.commands.wastelist;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ifridge.model.food.Amount.UNIT_KILOGRAM;
-import static seedu.ifridge.model.food.Amount.UNIT_LITRE;
-import static seedu.ifridge.model.food.Amount.UNIT_QUANTITY;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedSet;
 
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
-import seedu.ifridge.model.WasteList;
+import seedu.ifridge.model.ReadOnlyWasteList;
+import seedu.ifridge.model.waste.WasteMonth;
 import seedu.ifridge.model.waste.WasteStatistic;
 
 /**
@@ -23,7 +26,11 @@ public class FeedbackWasteCommand extends Command {
             + ": Gives you feedback based on your current food waste performance for the month.\n"
             + "Example: wlist " + COMMAND_WORD;
 
-    private static final String MESSAGE_SUCCESS = "Successfully displayed feedback results";
+    public static final String MESSAGE_CURRENT_WASTAGE = "Currently, you have wasted %.3f kg, %.3f litres, "
+            + "and %d units of food.\n";
+
+    public static final String MESSAGE_PREDICTED_WASTAGE = "Your predicted food wastage for this month is estimated to "
+            + "be %.3f kg, %.3f litres, and %d units.";
 
     /**
      * Executes the command and returns the result message.
@@ -35,18 +42,34 @@ public class FeedbackWasteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        WasteStatistic predictedWastage = WasteList.getCurrentMonthPredictedWasteStatistic();
-        String feedbackMessage = "This month, your predicted food wastage will be \n"
-                + predictedWastage.getTotalWeight() + UNIT_KILOGRAM + ", "
-                + predictedWastage.getTotalVolume() + UNIT_LITRE + ", "
-                + predictedWastage.getTotalQuantity() + UNIT_QUANTITY;
-        /*
-        //Give feedback based on current month's waste
-        model.
-        1. Get the current waste list
-        2. Compute current food waste, predicted food waste
-        3. Compare with last month's statistics, remark if there is an increase or decrease in food waste.
-         */
-        return new CommandResult(feedbackMessage);
+        WasteMonth currentWasteMonth = new WasteMonth(LocalDate.now());
+        ReadOnlyWasteList currentWasteList = model.getWasteListByMonth(currentWasteMonth);
+        WasteStatistic currentWasteStatistic = currentWasteList.getWasteStatistic();
+
+        List<ReadOnlyWasteList> pastWasteLists = new ArrayList<>();
+        SortedSet<WasteMonth> pastWasteMonths = model.getDescendingWasteMonths();
+        pastWasteLists.remove(currentWasteMonth);
+        int numWasteLists = 0;
+        for (WasteMonth wm : pastWasteMonths) {
+            pastWasteLists.add(model.getWasteListByMonth(wm));
+            numWasteLists++;
+            if (numWasteLists >= 3) {
+                break;
+            }
+        }
+
+        WasteStatistic predictedWastage = WasteStatistic.getWeightedStatistics(currentWasteList, pastWasteLists);
+
+        String currentWastageMessage = String.format(MESSAGE_CURRENT_WASTAGE,
+                currentWasteStatistic.getTotalWeight(),
+                currentWasteStatistic.getTotalVolume(),
+                (int) Math.ceil(currentWasteStatistic.getTotalQuantity()));
+
+        String predictedWastageMessage = String.format(MESSAGE_PREDICTED_WASTAGE,
+                predictedWastage.getTotalWeight(),
+                predictedWastage.getTotalVolume(),
+                (int) Math.ceil(predictedWastage.getTotalQuantity()));
+
+        return new CommandResult(currentWastageMessage + predictedWastageMessage);
     }
 }
