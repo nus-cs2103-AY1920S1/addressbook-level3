@@ -10,7 +10,6 @@ import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.commons.util.VisitUtil;
-import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
@@ -25,7 +24,7 @@ import cs.f10.t1.nursetraverse.model.visittask.VisitTask;
 /**
  * Updates the details of the ongoing visit.
  */
-public class UpdateOngoingVisitCommand extends Command implements MutatorCommand {
+public class UpdateOngoingVisitCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "visit-now-update";
 

@@ -21,8 +21,10 @@ import javafx.collections.ObservableList;
  */
 public class HistoryManager {
     private final int maxSize;
-    private List<HistoryRecord> history = new ArrayList<>(); // Record of command and state BEFORE its execution
-    private Deque<HistoryRecord> redoStack = new LinkedList<>(); // Record of command and state AFTER its execution
+    // Records of command and state BEFORE its execution
+    private ObservableList<HistoryRecord> history = FXCollections.observableArrayList();
+    // Records of command and state AFTER its execution
+    private Deque<HistoryRecord> redoStack = new LinkedList<>();
 
     /**
      * Initialises a HistoryManager with the specified maximum size of history records to keep track of.
@@ -130,7 +132,7 @@ public class HistoryManager {
 
     /** Returns an unmodifiable view of the history */
     public ObservableList<HistoryRecord> asUnmodifiableObservableList() {
-        return FXCollections.unmodifiableObservableList(FXCollections.observableList(history));
+        return FXCollections.unmodifiableObservableList(history);
     }
 
     /**

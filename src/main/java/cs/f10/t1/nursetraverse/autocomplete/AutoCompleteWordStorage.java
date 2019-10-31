@@ -47,8 +47,6 @@ public class AutoCompleteWordStorage {
         oListAllCommandWord.add(new CommandWord(VISITOBJECTWORD, UpdateOngoingVisitCommand.COMMAND_WORD,
                 false, true));
 
-
-
         oListAllCommandWord.add(new CommandWord(PATIENTOBJECTWORD, ListCommand.COMMAND_WORD, false, false));
         oListAllCommandWord.add(new CommandWord(PATIENTOBJECTWORD, FindCommand.COMMAND_WORD, false, true));
         oListAllCommandWord.add(new CommandWord(APPLICATIONOBJECTWORD, UndoCommand.COMMAND_WORD, false, false));

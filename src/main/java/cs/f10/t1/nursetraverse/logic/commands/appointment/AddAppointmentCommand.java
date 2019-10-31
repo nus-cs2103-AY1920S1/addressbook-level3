@@ -12,7 +12,6 @@ import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_WEEKS;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_YEARS;
 import static java.util.Objects.requireNonNull;
 
-import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
@@ -22,7 +21,7 @@ import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 /**
  * Adds an appointment to the appointment list
  */
-public class AddAppointmentCommand extends Command implements MutatorCommand {
+public class AddAppointmentCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "appt-add";
 
