@@ -34,6 +34,10 @@ public class OutCommandParser implements Parser<OutCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OutCommand.MESSAGE_USAGE));
         }
+        /* handles amount above 1billion */
+        if(argMultimap.getValue(PREFIX_AMOUNT).get().length()>7){
+            throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_OVERFLOW));
+        }
 
         Description description = new Description(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());

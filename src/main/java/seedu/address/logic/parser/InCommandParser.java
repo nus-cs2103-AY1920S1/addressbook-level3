@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.InCommand.MESSAGE_AMOUNT_OVERFLOW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
@@ -33,8 +34,14 @@ public class InCommandParser implements Parser<InCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
         }
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
+        /* handles amount above 1billion */
+        if(argMultimap.getValue(PREFIX_AMOUNT).get().length()>7){
+            throw new ParseException(String.format(MESSAGE_AMOUNT_OVERFLOW));
+        }
+                Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
+
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
