@@ -2,7 +2,6 @@ package dukecooks.logic.commands;
 
 import static dukecooks.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
-import static dukecooks.testutil.dashboard.TypicalDashboard.getTypicalDashboardRecords;
 import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,15 +20,11 @@ public class ListCommandTest {
 
     private Model model;
     private Model expectedModel;
-    private Model modelTask;
-    private Model expectedModelTask;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
-        modelTask = new ModelManager(getTypicalDashboardRecords(), new UserPrefs());
-        expectedModelTask = new ModelManager(modelTask.getDashboardRecords(), new UserPrefs());
     }
 
     @Test

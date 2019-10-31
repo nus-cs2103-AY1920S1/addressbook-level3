@@ -1,7 +1,6 @@
 package dukecooks.logic.commands.dashboard;
 
 import static dukecooks.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_DASHBOARD;
 import static dukecooks.testutil.dashboard.TypicalDashboard.getTypicalDashboardRecords;
 
 import org.junit.jupiter.api.BeforeEach;
