@@ -66,8 +66,7 @@ public class EventFactory {
     }
 
     private static Event generateScheduleCommandEvent(ScheduleCommand command) {
-        return new ScheduleCommandEvent(command.getActivityIndex(), command.getStartTime(),
-                command.getEndTime(), command.getDayIndex());
+        return new ScheduleCommandEvent(command.getActivityIndex(), command.getStartTime(), command.getDayIndex());
     }
 
     private static Event generateUnscheduleCommandEvent(UnscheduleCommand command, Model model) throws EventException {

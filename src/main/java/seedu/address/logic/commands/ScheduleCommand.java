@@ -68,10 +68,6 @@ public class ScheduleCommand extends UndoableCommand {
         return startTime;
     }
 
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;

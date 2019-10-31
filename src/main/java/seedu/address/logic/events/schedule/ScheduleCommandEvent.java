@@ -14,13 +14,11 @@ import seedu.address.logic.events.Event;
 public class ScheduleCommandEvent implements Event {
     private final Index activityIndex;
     private final LocalTime startTime;
-    private final LocalTime endTime;
     private final Index dayIndex;
 
-    public ScheduleCommandEvent(Index activityIndex, LocalTime startTime, LocalTime endTime, Index dayIndex) {
+    public ScheduleCommandEvent(Index activityIndex, LocalTime startTime, Index dayIndex) {
         this.activityIndex = activityIndex;
         this.startTime = startTime;
-        this.endTime = endTime;
         this.dayIndex = dayIndex;
     }
 
@@ -29,6 +27,6 @@ public class ScheduleCommandEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new ScheduleCommand(activityIndex, startTime, endTime, dayIndex);
+        return new ScheduleCommand(activityIndex, startTime, dayIndex);
     }
 }

@@ -29,7 +29,7 @@ public class ScheduleCommandParser {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_DAY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DAY)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_START_TIME, PREFIX_DAY)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ScheduleCommand.MESSAGE_USAGE));
         }
