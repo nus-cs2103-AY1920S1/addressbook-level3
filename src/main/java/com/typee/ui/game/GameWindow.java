@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class GameWindow extends UiPart<Stage> {
 
     private static final String FXML = "GameWindow.fxml";
+    private static GameWindow gameInstance = null;
     private Player player;
 
     @FXML
@@ -43,8 +44,15 @@ public class GameWindow extends UiPart<Stage> {
     /**
      * Creates a new Window with a new player.
      */
-    public GameWindow() {
+    private GameWindow() {
         this(new Stage(), new Player());
+    }
+
+    public static GameWindow getInstance() {
+        if (gameInstance == null) {
+            gameInstance = new GameWindow();
+        }
+        return gameInstance;
     }
 
     @FXML
