@@ -119,6 +119,7 @@ public class FlashcardTabWindowController {
      * @param deck deck of flashcards to be tested
      */
     public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
+        resetTexts();
         currFlashcard = Optional.empty();
         Timeline timeline = new Timeline();
         int cardCount = 0;
