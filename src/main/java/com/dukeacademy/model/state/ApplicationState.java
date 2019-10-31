@@ -9,9 +9,11 @@ import com.dukeacademy.observable.StandardObservable;
  */
 public class ApplicationState {
     private final StandardObservable<Activity> currentActivity;
+    private final StandardObservable<Boolean> isEvaluating;
 
     public ApplicationState() {
         this.currentActivity = new StandardObservable<>(Activity.HOME);
+        this.isEvaluating = new StandardObservable<>(false);
     }
 
     public void setCurrentActivity(Activity activity) {
@@ -20,6 +22,14 @@ public class ApplicationState {
 
     public Observable<Activity> getCurrentActivityObservable() {
         return this.currentActivity;
+    }
+
+    public void setIsEvaluating(boolean isEvaluating) {
+        this.isEvaluating.setValue(isEvaluating);
+    }
+
+    public Observable<Boolean> getIsEvaluating() {
+        return this.isEvaluating;
     }
 
     public Activity getCurrentActivity() {

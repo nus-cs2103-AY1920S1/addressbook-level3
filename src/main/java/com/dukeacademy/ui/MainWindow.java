@@ -11,7 +11,7 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.Activity;
-import com.dukeacademy.observable.Observable;
+import com.dukeacademy.model.state.ApplicationState;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -77,7 +77,7 @@ class MainWindow extends UiPart<Stage> {
      * @param programSubmissionLogic the program submission logic
      */
     public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                      ProgramSubmissionLogic programSubmissionLogic, Observable<Activity> currentActivity) {
+                      ProgramSubmissionLogic programSubmissionLogic, ApplicationState applicationState) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -85,7 +85,8 @@ class MainWindow extends UiPart<Stage> {
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
-        currentActivity.addListener(this::selectTabFromActivity);
+
+        applicationState.getCurrentActivityObservable().addListener(this::selectTabFromActivity);
 
         // Configure the UI
         setWindowDefaultSize();
@@ -160,6 +161,7 @@ class MainWindow extends UiPart<Stage> {
         Workspace workspace = new Workspace(programSubmissionLogic.getCurrentQuestionObservable(),
                 programSubmissionLogic.getTestResultObservable());
         workspacePlaceholder.getChildren().add(workspace.getRoot());
+
         programSubmissionLogic.setUserProgramSubmissionChannel(workspace.getUserProgramChannel());
     }
 

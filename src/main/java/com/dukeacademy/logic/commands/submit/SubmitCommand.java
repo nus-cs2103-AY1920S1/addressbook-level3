@@ -30,7 +30,8 @@ public class SubmitCommand implements Command {
 
     /**
      * Instantiates a new Submit command.
-     *  @param questionsLogic         the questions logic
+     *
+     * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
      * @param applicationState
      */
@@ -46,6 +47,8 @@ public class SubmitCommand implements Command {
     public CommandResult execute() throws CommandException {
         Optional<Question> currentlyAttemptingQuestion = this.programSubmissionLogic.getCurrentQuestion();
         UserProgram userProgram = programSubmissionLogic.getUserProgramFromSubmissionChannel();
+
+        applicationState.setCurrentActivity(Activity.WORKSPACE);
 
         if (currentlyAttemptingQuestion.isEmpty()) {
             logger.warning("No question being attempted at the moment, command will not be executed");
@@ -93,9 +96,6 @@ public class SubmitCommand implements Command {
             feedback = feedback + "failed";
         }
 
-        applicationState.setCurrentActivity(Activity.WORKSPACE);
-
-        return new CommandResult(feedback, false, false
-        );
+        return new CommandResult(feedback, false, false);
     }
 }

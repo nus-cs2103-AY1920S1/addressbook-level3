@@ -7,11 +7,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.testexecutor.executor.exceptions.ProgramExecutorException;
+import com.dukeacademy.testexecutor.executor.exceptions.ProgramExecutorExceptionWrapper;
 import com.dukeacademy.testexecutor.models.ClassFile;
 import com.dukeacademy.testexecutor.models.ProgramInput;
 import com.dukeacademy.testexecutor.models.ProgramOutput;
@@ -34,27 +36,35 @@ public class StandardProgramExecutor implements ProgramExecutor {
     }
 
     @Override
-    public ProgramOutput executeProgram(ClassFile program, ProgramInput input) throws ProgramExecutorException {
+    public CompletableFuture<ProgramOutput> executeProgram(ClassFile program, ProgramInput input)
+            throws ProgramExecutorException {
         Process process = this.getExecutionProcess(program);
 
-        logger.info("Starting program execution: " + program);
-        logger.info("Feeding program input: " + program);
-
         try {
+            logger.info("Starting program execution: " + program);
+            logger.info("Feeding program input: " + program);
+
             this.feedProgramInput(process, input);
 
-            logger.info("Processing program output: " + program);
-            ProgramOutput output = this.getProgramOutput(process);
+            return CompletableFuture.supplyAsync(() -> {
+                logger.info("Processing program output: " + program);
 
-            logger.info("Output received : " + program);
-            logger.info("Program successfully executed: " + program);
+                try {
+                    ProgramOutput output = this.getProgramOutput(process);
 
-            return output;
-        } catch (IOException e) {
+                    logger.info("Output received : " + program);
+                    logger.info("Program successfully executed: " + program);
+
+                    return output;
+                } catch (IOException e) {
+                    throw new ProgramExecutorExceptionWrapper();
+                }
+            }).whenCompleteAsync((programOutput, throwable) -> {
+                this.closeStreams(process);
+                process.destroy();
+            });
+        } catch (IOException | ProgramExecutorExceptionWrapper e) {
             throw new ProgramExecutorException(MESSAGE_PROGRAM_EXECUTION_FAILED + program);
-        } finally {
-            // Important to stop the process running on an asynchronous thread
-            process.destroy();
         }
     }
 
@@ -67,6 +77,7 @@ public class StandardProgramExecutor implements ProgramExecutor {
         } catch (IOException e) {
             throw new ProgramExecutorException(MESSAGE_PROGRAM_EXECUTION_FAILED + program);
         } finally {
+            this.closeStreams(process);
             process.destroy();
         }
     }
@@ -140,5 +151,19 @@ public class StandardProgramExecutor implements ProgramExecutor {
         writer.flush();
         writer.close();
 
+    }
+
+    /***
+     * Helper methods to close streams of a process.
+     * @param process the process to be closed
+     */
+    private void closeStreams(Process process) {
+        try {
+            process.getOutputStream().close();
+            process.getInputStream().close();
+            process.getErrorStream().close();
+        } catch (IOException e) {
+            logger.warning("Unable to close process streams. Watch out for memory leaks.");
+        }
     }
 }

@@ -62,7 +62,7 @@ public class UiManager implements Ui {
 
         try {
             mainWindow = new MainWindow(primaryStage, commandLogic, questionsLogic,
-                    programSubmissionLogic, applicationState.getCurrentActivityObservable());
+                    programSubmissionLogic, applicationState);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
