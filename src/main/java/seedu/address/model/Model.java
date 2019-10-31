@@ -189,6 +189,11 @@ public interface Model {
     boolean hasCard(Card card);
 
     /**
+     * Returns true if a card with the same description as {@code card} exists in the card book.
+     */
+    boolean hasCardDescription(Card card);
+
+    /**
      * Deletes the given card.
      * The card must exist in the card book.
      */

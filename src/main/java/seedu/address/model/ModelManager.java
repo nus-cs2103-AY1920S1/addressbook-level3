@@ -233,6 +233,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasCardDescription(Card card) {
+        requireAllNonNull(card);
+        return cardBook.hasCardDescription(card);
+    }
+
+    @Override
     public void deleteCard(Card target) {
         cardBook.removeCard(target);
     }

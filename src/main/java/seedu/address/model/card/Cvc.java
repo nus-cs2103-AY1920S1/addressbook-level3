@@ -12,7 +12,7 @@ import seedu.address.commons.util.StringUtil;
 public class Cvc {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "CVC should only contain 3 digit numeric characters, and it should not be blank";
+            "CVC entered is not valid!\nIt should only contain 3 digit numeric characters, and it should not be blank";
 
     public static final String VALIDATION_REGEX = "\\d{3}";
 

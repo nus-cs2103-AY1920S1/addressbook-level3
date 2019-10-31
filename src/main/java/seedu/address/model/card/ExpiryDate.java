@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ExpiryDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Expiry dates should only contain 4 numeric characters, and it should not be blank";
+            "Expiry entered is invalid!\nIt should be in the format MM/YY, and it should not be blank";
 
     public static final String VALIDATION_REGEX = "(((0)[0-9])|((1)[0-2]))(\\/)\\d{2}";
 

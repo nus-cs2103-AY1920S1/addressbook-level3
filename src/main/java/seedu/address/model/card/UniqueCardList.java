@@ -14,13 +14,13 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
  * A card is considered unique by comparing using {@code Card#isSameCard(Card)}. As such, adding of
- * cards uses Card#isSameCard(Card) for equality so as to ensure that the card being added or updated is
- * unique in terms of identity in the UniqueCardList. However, the removal of a card uses Card#equals(Object) so
- * as to ensure that the card with exactly the same fields will be removed.
+ * cards uses Card#isSameCard(Card) and Card#equals(Card) respectively for equality so as to ensure
+ * that the card being added or updated is unique in terms of identity and description in the
+ * UniqueCardList. However, the removal of a card uses Card#equals(Object) so as to ensure
+ * that the card with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Card#isSameCard(Card)
  */
 public class UniqueCardList implements Iterable<Card> {
 
@@ -34,6 +34,14 @@ public class UniqueCardList implements Iterable<Card> {
     public boolean contains(Card toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameCard);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent card as the given argument.
+     */
+    public boolean containsDescription(Card toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**

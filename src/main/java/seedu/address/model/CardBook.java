@@ -68,6 +68,14 @@ public class CardBook implements ReadOnlyCardBook {
     }
 
     /**
+     * Returns true if a card with the same identity as {@code card} exists in the address book.
+     */
+    public boolean hasCardDescription(Card card) {
+        requireNonNull(card);
+        return cards.containsDescription(card);
+    }
+
+    /**
      * Adds a card to the address book.
      * The card must not already exist in the address book.
      */
