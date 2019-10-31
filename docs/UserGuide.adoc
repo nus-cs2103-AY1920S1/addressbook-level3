@@ -106,7 +106,7 @@ is where you can type your command. The maximum you can type is 60 characters. T
 ==== Opening the help window: `help`
 
 .Help window
-image::help.png[width="2000"]
+image::help.png[width="790"]
 
 Displays the help window. +
 Format: `help`
@@ -118,7 +118,7 @@ Format: `help`
 ===== Viewing all items in the current list
 
 .Items in current list viewed
-image::view-current.png[width="2000"]
+image::view-current.png[width="790"]
 Shows all items in the current list, which is the main list by default, or the replenish list if otherwise specified. +
 All items are sorted by both name (lexicographical order) and date (chronological order). +
 Format: `view`
@@ -126,10 +126,10 @@ Format: `view`
 ===== Viewing all items in another list
 
 .Items in main tracking list viewed
-image::view-main.png[width="2000"]
+image::view-main.png[width="790"]
 
 .Items in replenish list viewed
-image::view-replenish.png[width="2000"]
+image::view-replenish.png[width="790"]
 
 Changes the list to be displayed. +
 You can toggle between the main list and the list of items to be replenished with this command. +
@@ -148,7 +148,7 @@ Displays all items in the replenish list.
 ==== Searching for item(s) by their name and/or tag: `search`
 
 .Items matching #fruit or #chicken shown
-image::search.png[width="2000"]
+image::search.png[width="790"]
 
 Searches for items whose names or tag(s) contain any of the given keywords. +
 Format: `search|<keyword>[|<other keywords>]...`
@@ -226,7 +226,7 @@ Format: `clear`
 ==== Exporting data (multi-platform) : `export`
 
 .Items in current list exported to QR code
-image::export.png[width="2000"]
+image::export.png[width="790"]
 
 Exports the current list of items through a QR code. +
 Any device with a QR code reader will be able to download the list of items. +
@@ -252,7 +252,7 @@ There is no need to save manually.
 ==== Adding an item: `add`
 
 .New item added to main tracking list
-image::add.png[width="2000"]
+image::add.png[width="790"]
 
 Adds an item to your tracker. +
 Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
@@ -308,7 +308,7 @@ Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
 ===== Reducing the quantity of an item
 
 .Item at index 4 reduced in quantity by 1
-image::delete-quantity.png[width="2000"]
+image::delete-quantity.png[width="790"]
 
 Reduces item quantity by the specified quantity. +
 Format `delete|<index>|<quantity>`
@@ -339,7 +339,7 @@ Format: `tag`
 ===== Add new tag(s) to an item
 
 .Item at index 4 tagged with #Fruit and #Yellow
-image::tag.png[width="2000"]
+image::tag.png[width="790"]
 
 [TIP]
 An item can have any number of tags (including 0)
@@ -370,7 +370,7 @@ Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
 
 ===== Setting the number of days before an item's expiry date to start reminding you
 .Reminder set for item at index 4
-image::set-reminder.png[width="2000"]
+image::set-reminder.png[width="790"]
 
 Sets a reminder for your item. +
 Format: `set reminder|<index>|<reminder threshold>`
@@ -409,7 +409,7 @@ Removes the reminder for the first item in the list.
 
 ===== Listing all expiring items with activated reminders
 .Items expiring soon listed
-image::check.png[width="2000"]
+image::check.png[width="790"]
 
 Lists items whose reminder has been activated. +
 Format: `check`
@@ -439,14 +439,14 @@ Format: `sort|<key>`
 
 ****
 * Items can be sorted by either name or date.
-* For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
+* For example, Apple will sort ahead of Banana, while 1/1/790 will sort ahead of 1/1/2001.
 ****
 ===== Sorting all items by their name
 Format: `sort|name`
 
 ===== Sorting all items by their date
 .Items sorted by their date
-image::sort-date.png[width="2000"]
+image::sort-date.png[width="790"]
 
 Format: `sort|date`
 // end::sort[]
