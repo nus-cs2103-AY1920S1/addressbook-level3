@@ -107,7 +107,7 @@ public class Budget {
      * @return int number of days between budget deadline and today
      */
     public int calculateRemaining() {
-        Date today = new Date (LocalDate.now().toString());
+        Date today = Date.now();
         int numberOfDays = today.compareTo(this.deadline);
         return numberOfDays;
 
