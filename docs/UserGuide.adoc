@@ -80,13 +80,28 @@ image::tab_3.png[width="800"]
 
 === Adding an appointment: `add`
 
-Adds an appointment to the appointment manager. +
-Format: `add d/DESCRIPTION`
+Adds an engagement to the system. Engagement can be in different types; `Engagement`, `Meeting` and `Interview` +
+Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY`
+
+.Enters Add Engagement Command in Command Input Text field.
+image::add_1.png[width="800"]
 
 Examples:
 
-* `add d/Meeting on Monday`
-Adds an appointment with the description `Meeting on Monday` to the appointment manager.
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High` +
+Adds an engagement with following information;
+** Engagement Type: Meeting
+** Start Time: 18/10/2019/1500
+** End Time: 18/10/2019/1800
+** Location: COM-2-B1-03
+** Attendees: John, Elijah, Sam
+** Engagement Description: CS2103T Discussion
+** Priority: High
+
+After user enters the above command, system will save the engagement information and displays the brief engagement information as a list item on the List View.
+
+.Engagement successfully saved in system storage.
+image::add_2.png[width="800"]
 
 === Listing all appointments : `list`
 
