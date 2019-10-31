@@ -44,6 +44,7 @@ public class AddTemplateListCommand extends Command {
         }
 
         model.addTemplate(toAdd);
+        model.commitTemplateList(null, null, -1);
 
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         commandResult.setTemplateListCommand();

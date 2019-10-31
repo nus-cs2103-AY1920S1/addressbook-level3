@@ -15,6 +15,8 @@ import seedu.ifridge.logic.commands.shoppinglist.DeleteShoppingCommand;
 import seedu.ifridge.logic.commands.shoppinglist.EditShoppingCommand;
 import seedu.ifridge.logic.commands.shoppinglist.ListShoppingCommand;
 import seedu.ifridge.logic.commands.shoppinglist.MergeShoppingCommand;
+import seedu.ifridge.logic.commands.shoppinglist.RedoShoppingCommand;
+import seedu.ifridge.logic.commands.shoppinglist.UndoShoppingCommand;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 import seedu.ifridge.logic.parser.shoppinglist.AddShoppingCommandParser;
 import seedu.ifridge.logic.parser.shoppinglist.AddTemplateShoppingCommandParser;
@@ -82,6 +84,11 @@ public class ShoppingListParser {
             //case HelpCommand.COMMAND_WORD:
             //    return new HelpCommand();
 
+        case UndoShoppingCommand.COMMAND_WORD:
+            return new UndoShoppingCommand();
+
+        case RedoShoppingCommand.COMMAND_WORD:
+            return new RedoShoppingCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

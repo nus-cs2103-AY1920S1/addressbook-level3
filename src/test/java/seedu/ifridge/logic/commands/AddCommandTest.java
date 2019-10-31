@@ -271,6 +271,45 @@ public class AddCommandTest {
         }
 
         @Override
+        public void commitTemplateList(UniqueTemplateItems prevTemplate, UniqueTemplateItems newTemplate, int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTemplateList undoTemplateList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTemplateList redoTemplateList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoTemplateList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoTemplateList() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public UniqueTemplateItems getPrevTemplate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UniqueTemplateItems getNewTemplate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Integer getIndex() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getWasteListFilePath() {
             throw new AssertionError("This method should not be called.");
         };
@@ -462,6 +501,31 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredBoughtItemList(Predicate<GroceryItem> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitShoppingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyShoppingList undoShoppingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyShoppingList redoShoppingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoShoppingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoShoppingList() {
             throw new AssertionError("This method should not be called.");
         }
 

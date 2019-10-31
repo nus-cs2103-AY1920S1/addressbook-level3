@@ -70,6 +70,7 @@ public class EditShoppingCommand extends Command {
         if (!shoppingItemToEdit.isBought()) {
             model.setShoppingItem(shoppingItemToEdit, editedShoppingItem);
             model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+            model.commitShoppingList();
         }
         CommandResult commandResult =
                 new CommandResult(String.format(MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem));
