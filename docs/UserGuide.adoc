@@ -92,7 +92,7 @@ Adds an expenditure of your personal finance +
 Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` input accepts the value of the expenditure
+* `AMOUNT` input accepts a non-negative value lesser than 1,000,000,000 of the expenditure.
 * `ITEM` input accepts the description of the expenditure
 * `DATE` accepts the date of this transaction
 * `CATEGORY` accepts the CATEGORY for this expenditure
@@ -110,7 +110,7 @@ Adds an income of your personal finance +
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` input accepts the value of the income
+* `AMOUNT` input accepts a non-negative value lesser than 1,000,000,000 of the income.
 * `ITEM` input accepts the description of the income
 * `DATE` input accepts accepts the date of this transaction
 * `CATEGORY` input accepts the CATEGORY for this income
@@ -132,7 +132,7 @@ If you attempt to do so, you will receive an error message: `This budget already
 Format: `set $/AMOUNT d/DATE c/CATEGORY`
 
 ****
-* `AMOUNT` input accepts the new budget amount to be set.
+* `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative and less than 1,000,000,000
 * `DATE` input accepts the deadline to be set.
 * `CATEGORY` accepts the CATEGORY for the budget
 ****
@@ -192,6 +192,7 @@ Format: `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]`
 
 
 ****
+* `AMOUNT` accepts a non-negative value lesser than 1,000,000,000 to update the target Transaction or Budget
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
 * `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update --b1 ...` refers to updating a *Budget* of index 1)
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update --b 1 ..` or `update --1 ..` or `update --1b ..` will not work)
