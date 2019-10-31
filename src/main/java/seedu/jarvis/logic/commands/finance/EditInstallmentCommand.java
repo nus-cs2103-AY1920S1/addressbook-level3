@@ -161,7 +161,8 @@ public class EditInstallmentCommand extends Command {
 
             model.setInstallment(originalInstallment, createdEditedInstallment);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_INSTALLMENT_SUCCESS, editedInstallment));
+            return new CommandResult(String.format(MESSAGE_EDIT_INSTALLMENT_SUCCESS, editedInstallment),
+                    true);
 
         } catch (InstallmentNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);

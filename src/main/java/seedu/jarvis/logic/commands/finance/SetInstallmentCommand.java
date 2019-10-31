@@ -95,7 +95,7 @@ public class SetInstallmentCommand extends Command {
         }
 
         model.addInstallment(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     /**

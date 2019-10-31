@@ -110,7 +110,7 @@ public class RemovePaidCommand extends Command {
         try {
             deletedPurchase = model.getPurchase(targetIndex.getOneBased());
             model.deletePurchase(targetIndex.getOneBased());
-            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS, deletedPurchase));
+            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS, deletedPurchase), true);
         } catch (PurchaseNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_PURCHASE_DISPLAYED_INDEX);
         }
