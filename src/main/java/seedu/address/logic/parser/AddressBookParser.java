@@ -43,7 +43,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.WishListCommand;
 import seedu.address.logic.commands.conditioncommands.AddClassConditionCommand;
 import seedu.address.logic.commands.conditioncommands.AddDateConditionCommand;
-import seedu.address.logic.commands.conditioncommands.AddKeyWordsConditionCommand;
+import seedu.address.logic.commands.conditioncommands.AddHasKeyWordConditionCommand;
 import seedu.address.logic.commands.conditioncommands.AddQuotaConditionCommand;
 import seedu.address.logic.commands.conditioncommands.AddTagsConditionCommand;
 import seedu.address.logic.commands.conditioncommands.DeleteConditionCommand;
@@ -53,11 +53,13 @@ import seedu.address.logic.commands.remindercommands.AddConditionToReminderComma
 import seedu.address.logic.commands.remindercommands.AddReminderCommand;
 import seedu.address.logic.commands.remindercommands.DeleteReminderCommand;
 import seedu.address.logic.commands.remindercommands.EditReminderCommand;
+import seedu.address.logic.commands.remindercommands.ListActiveRemindersCommand;
+import seedu.address.logic.commands.remindercommands.ListAllRemindersCommand;
 import seedu.address.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
-import seedu.address.logic.parser.conditioncommandparsers.AddKeyWordsConditionCommandParser;
+import seedu.address.logic.parser.conditioncommandparsers.AddHasKeyWordConditionCommandParser;
+import seedu.address.logic.parser.conditioncommandparsers.AddHasTagConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddQuotaConditionCommandParser;
-import seedu.address.logic.parser.conditioncommandparsers.AddTagsConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.DeleteConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.ReplaceConditionCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -183,20 +185,26 @@ public class AddressBookParser {
         case AddConditionToReminderCommand.COMMAND_WORD:
             return new AddConditionToReminderCommandParser().parse(arguments);
 
+        case ListAllRemindersCommand.COMMAND_WORD:
+            return new ListAllRemindersCommand();
+
+        case ListActiveRemindersCommand.COMMAND_WORD:
+            return new ListActiveRemindersCommand();
+
         case AddClassConditionCommand.COMMAND_WORD:
             return new AddClassConditionCommandParser().parse(arguments);
 
         case AddDateConditionCommand.COMMAND_WORD:
             return new AddDateConditionCommandParser().parse(arguments);
 
-        case AddKeyWordsConditionCommand.COMMAND_WORD:
-            return new AddKeyWordsConditionCommandParser().parse(arguments);
+        case AddHasKeyWordConditionCommand.COMMAND_WORD:
+            return new AddHasKeyWordConditionCommandParser().parse(arguments);
 
         case AddQuotaConditionCommand.COMMAND_WORD:
             return new AddQuotaConditionCommandParser().parse(arguments);
 
         case AddTagsConditionCommand.COMMAND_WORD:
-            return new AddTagsConditionCommandParser().parse(arguments);
+            return new AddHasTagConditionCommandParser().parse(arguments);
 
         case DeleteConditionCommand.COMMAND_WORD:
             return new DeleteConditionCommandParser().parse(arguments);
