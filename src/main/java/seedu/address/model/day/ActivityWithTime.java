@@ -33,6 +33,14 @@ public class ActivityWithTime implements Comparable<ActivityWithTime> {
         return this.endTime;
     }
 
+    /**
+     * Checks whether activities are overlapping.
+     */
+    public boolean isOverlapping(ActivityWithTime other) {
+        return !((this.startTime.compareTo(other.startTime) < 0 && this.endTime.compareTo(other.startTime) <= 0)
+            || (other.startTime.compareTo(this.startTime) < 0 && other.endTime.compareTo(this.startTime) <= 0));
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

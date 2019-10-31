@@ -17,6 +17,7 @@ import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.field.Cost;
 
 /**
  * Adds an activity to the itinerary.
@@ -80,8 +81,9 @@ public class AddActivityCommand extends AddCommand {
         if (toAdd.getContact().isPresent()) {
             if (model.hasPhone(toAdd.getContact().get().getPhone())) {
                 Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
+                Cost cost = toAdd.getCost().isPresent() ? toAdd.getCost().get() : null;
                 Activity linkedActivity = new Activity(toAdd.getName(), toAdd.getAddress(), contact,
-                        toAdd.getTags(), toAdd.getDuration(), toAdd.getPriority());
+                        cost, toAdd.getTags(), toAdd.getDuration(), toAdd.getPriority());
                 model.addActivity(linkedActivity);
                 return new CommandResult(
                     String.format(MESSAGE_SUCCESS, linkedActivity),

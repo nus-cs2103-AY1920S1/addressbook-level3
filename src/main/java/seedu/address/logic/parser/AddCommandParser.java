@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -31,6 +32,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
+import seedu.address.model.field.Cost;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
@@ -86,7 +88,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private AddAccommodationCommand parseAccommodation(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
-                PREFIX_TAG);
+                PREFIX_COST, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -116,7 +118,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private AddActivityCommand parseActivity(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
-                PREFIX_TAG, PREFIX_DURATION, PREFIX_PRIORITY);
+                PREFIX_COST, PREFIX_TAG, PREFIX_DURATION, PREFIX_PRIORITY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_DURATION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -130,6 +132,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Contact contact = null;
 
         Priority priority = new Priority(LOWEST_PRIORITY);
+        Cost cost = argMultimap.getValue(PREFIX_COST).isPresent()
+                ? ParserUtil.parseCost(argMultimap.getValue(PREFIX_COST).get())
+                : null;
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
@@ -138,7 +143,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
         }
-        Activity activity = new Activity(name, address, contact, tagList, duration, priority);
+        Activity activity = new Activity(name, address, contact, cost, tagList, duration, priority);
         return new AddActivityCommand(activity);
     }
 

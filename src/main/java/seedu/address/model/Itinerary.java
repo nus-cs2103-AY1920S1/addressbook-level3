@@ -86,6 +86,10 @@ public class Itinerary implements ReadOnlyItinerary {
         this.days.setDays(itinerary);
     }
 
+    public void setDay(Day oldDay, Day newDay) {
+        this.days.setDay(oldDay, newDay);
+    }
+
     /**
      * Adds a day to the itinerary
      */

@@ -1,10 +1,9 @@
 package seedu.address.model.day;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.activity.Activity;
 
 /**
@@ -22,13 +21,7 @@ public class Day {
     }
 
     public Day(List<ActivityWithTime> activitiesForDay) {
-        Timetable timetable1;
-        try {
-            timetable1 = new Timetable(activitiesForDay);
-        } catch (CommandException ce) {
-            timetable1 = new Timetable();
-        }
-        this.timetable = timetable1;
+        this.timetable = new Timetable(activitiesForDay);
     }
 
     /**
@@ -49,8 +42,20 @@ public class Day {
         return this.timetable.getActivitiesWithTime();
     }
 
-    public Optional<ActivityWithTime> getActivityWithTime(LocalTime time) {
-        return this.timetable.getActivityWithTimeAtTime(time);
+    public void addActivityWithTime(ActivityWithTime toAdd) {
+        this.timetable.addActivityWithTime(toAdd);
+    }
+
+    public void removeActivityWithTime(Index toRemove) {
+        this.timetable.removeActivityWithTime(toRemove);
+    }
+
+    public Optional<ActivityWithTime> findNextActNoOverlap(Index index) {
+        return timetable.findNextNoOverlap(index);
+    }
+
+    public List<ActivityWithTime> findAllOverlap(ActivityWithTime activity) {
+        return timetable.findAllOverlap(activity);
     }
 
     /**

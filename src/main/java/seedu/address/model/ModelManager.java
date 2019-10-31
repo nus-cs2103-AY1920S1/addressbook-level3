@@ -224,7 +224,7 @@ public class ModelManager implements Model {
         if (contactActivityMap.containsKey(oldContact)) {
             List<Activity> oldList = contactActivityMap.remove(oldContact);
             List<Activity> newList = oldList.stream().map(x -> {
-                Activity newActivity = new Activity(x.getName(), x.getAddress(), newContact,
+                Activity newActivity = new Activity(x.getName(), x.getAddress(), newContact, x.getCost().orElse(null),
                         x.getTags(), x.getDuration(), x.getPriority());
                 activities.setActivity(x, newActivity);
                 activityContactMap.remove(x);
@@ -529,10 +529,24 @@ public class ModelManager implements Model {
         this.itinerary.setDays(itinerary);
     }
 
+    public void setDay(Day oldDay, Day newDay) {
+        this.itinerary.setDay(oldDay, newDay);
+    }
+
     @Override
     public boolean hasDay(Day day) {
         requireNonNull(day);
         return itinerary.hasDay(day);
+    }
+
+    @Override
+    public void scheduleActivity(Day day, ActivityWithTime toAdd) {
+        day.addActivityWithTime(toAdd);
+    }
+
+    @Override
+    public void unscheduleActivity(Day day, Index toRemove) {
+        day.removeActivityWithTime(toRemove);
     }
 
     public List<Day> getDays(Activity activity) {

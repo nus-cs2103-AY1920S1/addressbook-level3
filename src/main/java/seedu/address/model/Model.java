@@ -13,6 +13,7 @@ import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
 import seedu.address.model.field.Name;
 
@@ -327,6 +328,12 @@ public interface Model {
     void addDays(int n);
 
     void setDays(List<Day> itinerary);
+
+    void setDay(Day oldDay, Day newDay);
+
+    void scheduleActivity(Day day, ActivityWithTime toAdd);
+
+    void unscheduleActivity(Day day, Index toRemove);
 
     /**
      * Returns an unmodifiable view of the filtered itinerary
