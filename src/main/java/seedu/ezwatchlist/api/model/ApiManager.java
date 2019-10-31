@@ -6,6 +6,7 @@ import java.util.Set;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TvResultsPage;
+import info.movito.themoviedbapi.model.Discover;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import info.movito.themoviedbapi.tools.MovieDbException;
 import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
@@ -176,7 +177,7 @@ public class ApiManager implements ApiInterface {
                 for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
                     if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
                         int genreID = genreApi.getId();
-                         apiCall.getPeople().get
+                        tvResultsPage tvPage = apiCall.getDiscover().getDiscover(new Discover().withGenres()).
                         ApiUtil.extractTvShows(tvShows, tvPage, apiCall);
                     }
                 }
