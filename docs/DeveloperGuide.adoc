@@ -70,6 +70,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+tag::ui[]
 [[Design-Ui]]
 === UI component
 
@@ -105,6 +106,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+end::ui[]
 
 [[Design-Logic]]
 === Logic component
@@ -216,6 +218,7 @@ may not help as much.
 ** Cons: Association between members and their respective calendars must be rigorously tested to ensure accuracy of timings.
 May introduce complexity into storage and dependencies among components.
 
+
 === Settings feature
 ==== Proposed Implementation
 
@@ -302,6 +305,7 @@ is able to customise.
 ** Pros: User has greater flexibility in choosing themes for +Work.
 ** Cons: We must ensure that all UI components switch themes consistently. This may take a long time to test, due to large number of views
 offered by +Work. Furthermore the compatibility of the theme with JavaFx must be regarded as well.
+end::settings[]
 
 === Statistics feature
 ==== Implementation

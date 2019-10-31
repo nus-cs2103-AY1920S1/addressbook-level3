@@ -216,6 +216,7 @@ This indicates that the task TASK NAME with task id 1 has been removed from its 
 
 
 '''
+tag::task[]
 
 === Task-related Commands
 
@@ -315,6 +316,7 @@ image::set-deadline-res-dashboard.png[]
 
 [TIP]
 The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in less than two weeks.
+end::task[]
 
 '''
 
@@ -449,6 +451,7 @@ image::TaskStats.png[width="790"]
 
 '''
 
+tag::settings[]
 === Settings Commands
 
 ==== Switching the theme of +Work: `theme`
@@ -491,6 +494,8 @@ Switches to the 12 hour clock
 
 * `clock twenty_four` +
 Switches to the 24 hour clock
+
+end::settings[]
 
 '''
 
