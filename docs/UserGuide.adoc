@@ -160,9 +160,9 @@ Format: `account add [n/<name>] [d/<description>]`
 Examples:
 
 * `account add n/Japan trip`
-You have created an account with name as 'Japan trip'.
+You have created an account with name of 'Japan trip'.
 * `account add n/Japan trip d/expense spent in Japan`
-You have created an account with name as 'Japan trip' and description of 'expense spent in Japan'.
+You have created an account with name of 'Japan trip' and description of 'expense spent in Japan'.
 
 ==== List accounts: `account list`
 
@@ -217,8 +217,9 @@ Format: `account find <keyword>`
 Examples:
 
 *`account find trip`
-You can see a list of accounts with 'trip' contained in their names.
+You can see a list of accounts with the word 'trip' contained in their names.
 // end::accounts[]
+
 === Managing categories: `category`
 
 ==== Add a category
