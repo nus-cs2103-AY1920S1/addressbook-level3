@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
+import java.io.File;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -43,7 +44,8 @@ public class ExportCommandTest {
     @Test
     public void execute_allDataIsImported_showUpdatedMessage() throws CommandException, ParseException {
         CommandResult result = logic.execute("export " + PREFIX_PATH + temporaryFolder.toString());
-        assertEquals(String.format(ExportCommand.MESSAGE_SUCCESS, temporaryFolder.toString() + "/moneygowhere.csv"),
+        File file = new File(temporaryFolder + "/moneygowhere.csv");
+        assertEquals(String.format(ExportCommand.MESSAGE_SUCCESS, file.getAbsolutePath()),
                 result.getFeedbackToUser());
     }
 
