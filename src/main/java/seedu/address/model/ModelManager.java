@@ -15,6 +15,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.student.Student;
 
 /**
@@ -28,7 +29,8 @@ public class ModelManager implements Model {
     private final Caretaker caretaker;
     private FilteredList<Student> filteredStudents;
     private FilteredList<Assignment> filteredAssignments;
-    private final FilteredList<Lesson> filteredLessons;
+    private FilteredList<Lesson> filteredLessons;
+    private final FilteredList<UniqueLessonList> filteredLessonLists;
 
     /**
      * Initializes a ModelManager with the given notebook and userPrefs.
@@ -45,6 +47,7 @@ public class ModelManager implements Model {
         filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
         filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
         filteredLessons = new FilteredList<>(this.notebook.getLessonList());
+        filteredLessonLists = new FilteredList<>(this.notebook.getLessonWeekList());
     }
 
     public ModelManager() {
@@ -239,6 +242,11 @@ public class ModelManager implements Model {
         return filteredLessons;
     }
 
+    @Override
+    public ObservableList<UniqueLessonList> getFilteredLessonWeekList() {
+        return filteredLessonLists;
+    }
+
     /*
     @Override
     public ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate) {
@@ -262,6 +270,12 @@ public class ModelManager implements Model {
     public void updateFilteredLessonList(Predicate<Lesson> predicate) {
         requireNonNull(predicate);
         filteredLessons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredLessonWeekList(Predicate<UniqueLessonList> predicate) {
+        requireNonNull(predicate);
+        filteredLessonLists.setPredicate(predicate);
     }
 
 

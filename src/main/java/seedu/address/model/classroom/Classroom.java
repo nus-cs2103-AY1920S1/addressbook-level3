@@ -24,7 +24,6 @@ public class Classroom implements ReadOnlyClassroom {
     //private final UniqueLessonList lessons;
     private boolean isDisplayStudents = true;
 
-
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -35,7 +34,6 @@ public class Classroom implements ReadOnlyClassroom {
     {
         students = new UniqueStudentList();
         assignments = new UniqueAssignmentList();
-        //lessons = new UniqueLessonList();
     }
 
     public Classroom() {}

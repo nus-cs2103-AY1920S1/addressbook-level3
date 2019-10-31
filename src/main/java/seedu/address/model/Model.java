@@ -9,6 +9,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
 //import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
@@ -20,6 +21,7 @@ public interface Model {
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
     Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
     Predicate<Lesson> PREDICATE_SHOW_ALL_LESSONS = unused -> true;
+    Predicate<UniqueLessonList> PREDICATE_SHOW_ALL_LESSONLISTS = unused -> true;
     Predicate<Student> PREDICATE_SHOW_NO_STUDENTS = used -> false;
     Predicate<Assignment> PREDICATE_SHOW_NO_ASSIGNMENTS = used -> false;
 
@@ -101,6 +103,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
     ObservableList<Lesson> getFilteredLessonList();
+    ObservableList<UniqueLessonList> getFilteredLessonWeekList();
 
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
@@ -115,6 +118,8 @@ public interface Model {
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
     void updateFilteredLessonList(Predicate<Lesson> predicate);
+
+    void updateFilteredLessonWeekList(Predicate<UniqueLessonList> predicate);
 
     //ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate);
 
