@@ -402,15 +402,13 @@ E.g. `fontcolor 00FF00`
 E.g. `list r/bloodsugar r/sleep r/food`
 . *Recommend Food*: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
 E.g. `recmf -p -m -f fn/chicken`
-. *Reminder*: `reminder DESCRIPTION t/TIME [t/TIME]... [rp/repetition] [v/venue] [p/people]`
-E.g. `reminder insulin injection t/13:00 rp/daily`
+. *Reminder*: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
+E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 . *Search*: `search [KEYWORD] [t/TIME] [t/END_TIME] [tp/TYPE] [v/VENUE] [p/PEOPLE]`
 E.g. `search tp/event v/NUH`
 . *Snooze*: `snooze [tp/TIME_PERIOD]`
 E.g `snooze 30min`
 . *Summary*: `summary r/RECORD_TYPE [d/START_DATE]`
-. *Reminder*: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
-E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 E.g `summary r/bloodsugar d/01.09.2019`
 
 == FAQ
