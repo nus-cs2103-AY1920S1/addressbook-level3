@@ -19,6 +19,7 @@ import seedu.weme.logic.commands.memecommand.MemeLikeCommand;
 import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.logic.prompter.exceptions.PromptException;
+import seedu.weme.model.meme.Meme;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -33,14 +34,18 @@ public class CommandBox extends UiPart<Region> {
     private final CommandPrompter commandPrompter;
 
     private boolean isShowingCommandSuccess = false;
+    private ObservableList<Meme> memeFilteredList;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, CommandPrompter commandPrompter) {
+    public CommandBox(CommandExecutor commandExecutor,
+                      CommandPrompter commandPrompter,
+                      ObservableList<Meme> memeFilteredList) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.commandPrompter = commandPrompter;
+        this.memeFilteredList = memeFilteredList;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
             setStyleToDefault();
@@ -94,9 +99,11 @@ public class CommandBox extends UiPart<Region> {
             final String commandWord = matcher.group(WemeParser.COMMAND_WORD);
             final String argument = matcher.group(WemeParser.ARGUMENTS);
             int change = event.getCode().equals(KeyCode.LEFT) ? -1 : 1;
-            int currentLikeCount = Integer.parseInt(argument.trim());
-            int newLikeCount = currentLikeCount + change;
-            commandTextField.setText(commandWord + " " + (Math.max(newLikeCount, BASE_INDEX)));
+            int currentIndex = Integer.parseInt(argument.trim());
+            int newIndex = currentIndex + change;
+
+            commandTextField.setText(commandWord + " "
+                    + (Math.min(Math.max(newIndex, BASE_INDEX), memeFilteredList.size())));
         }
         commandTextField.positionCaret(commandTextField.getText().length());
         event.consume();
