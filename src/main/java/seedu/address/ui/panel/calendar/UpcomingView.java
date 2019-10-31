@@ -67,7 +67,7 @@ public class UpcomingView extends UiPart<Region> {
             } else if (source instanceof TaskSource) {
                 TaskSource task = (TaskSource) source;
                 DateTime taskDate = task.getDueDate();
-                if (currentDate.sameMonthYear(taskDate.getMonth(), taskDate.getYear())) {
+                if (taskDate != null && currentDate.sameMonthYear(taskDate.getMonth(), taskDate.getYear())) {
                     UpcomingTaskCard taskCard = new UpcomingTaskCard(task);
                     upcomingList.getChildren().add(taskCard.getRoot());
                     index++;
