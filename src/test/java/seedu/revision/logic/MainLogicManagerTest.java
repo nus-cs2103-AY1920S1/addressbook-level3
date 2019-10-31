@@ -23,12 +23,14 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.JsonAddressBookStorage;
+import seedu.revision.storage.JsonHistoryStorage;
 import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.StorageManager;
 import seedu.revision.testutil.AnswerableBuilder;
@@ -47,7 +49,8 @@ public class MainLogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonHistoryStorage historyStorage = new JsonHistoryStorage(temporaryFolder.resolve("history.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyStorage);
         mainLogic = new MainLogicManager(model, storage);
     }
 
@@ -78,7 +81,9 @@ public class MainLogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonHistoryStorage historyStorage =
+                new JsonHistoryStorage((temporaryFolder.resolve("ioExceptionHistory.json")));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyStorage);
         mainLogic = new MainLogicManager(model, storage);
 
         // Execute add command
@@ -132,7 +137,7 @@ public class MainLogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new History());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

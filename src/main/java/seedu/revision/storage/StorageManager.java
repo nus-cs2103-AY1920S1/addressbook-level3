@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.commons.exceptions.DataConversionException;
 import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyHistory;
 import seedu.revision.model.ReadOnlyUserPrefs;
 import seedu.revision.model.UserPrefs;
 
@@ -19,12 +20,15 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private HistoryStorage historyStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          HistoryStorage historyStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.historyStorage = historyStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -72,6 +76,35 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    // ================ History methods ==============================
+
+    @Override
+    public Path getHistoryFilePath() {
+        return historyStorage.getHistoryFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyHistory> readHistory() throws DataConversionException, IOException {
+        return readHistory(historyStorage.getHistoryFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyHistory> readHistory(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return historyStorage.readHistory(filePath);
+    }
+
+    @Override
+    public void saveHistory(ReadOnlyHistory history) throws IOException {
+        saveHistory(history, historyStorage.getHistoryFilePath());
+    }
+
+    @Override
+    public void saveHistory(ReadOnlyHistory history, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        historyStorage.saveHistory(history, filePath);
     }
 
 }

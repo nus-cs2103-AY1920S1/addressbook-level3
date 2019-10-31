@@ -99,10 +99,11 @@ public class ModelManagerTest {
                 .withAnswerable(B_ANSWERABLE).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
+        History history = new History();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(addressBook, userPrefs, history);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, history);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -115,12 +116,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, history)));
 
         // different filteredList -> returns false
         String[] keywords = A_ANSWERABLE.getQuestion().fullQuestion.split("\\s+");
         modelManager.updateFilteredAnswerableList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, history)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE);
@@ -128,6 +129,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, history)));
     }
 }

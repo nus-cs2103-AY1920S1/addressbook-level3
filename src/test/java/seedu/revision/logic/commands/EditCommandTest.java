@@ -23,6 +23,7 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
@@ -35,7 +36,7 @@ import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new History());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws ParseException {
@@ -45,7 +46,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), new History());
         expectedModel.setAnswerable(model.getFilteredAnswerableList().get(0), editedAnswerable);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -67,7 +68,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), new History());
         expectedModel.setAnswerable(lastAnswerable, editedAnswerable);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -80,7 +81,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), new History());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -98,7 +99,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), new History());
         expectedModel.setAnswerable(model.getFilteredAnswerableList().get(0), editedAnswerable);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.quiz.Statistics;
 
 /**
  * Represents the in-memory model of the revision tool data.
@@ -23,23 +24,28 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Answerable> filteredAnswerables;
+    private final FilteredList<Statistics> filteredStatistics;
+    private final History history;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, userPrefs and quiz history.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyHistory history) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, history);
 
-        logger.fine("Initializing with revision tool: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with revision tool: " + addressBook + " and user prefs " + userPrefs
+                + " and quiz history " + history);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.history = new History(history);
         filteredAnswerables = new FilteredList<>(this.addressBook.getAnswerableList());
+        filteredStatistics = new FilteredList<>(this.history.getStatisticsList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new History());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -72,9 +78,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getHistoryFilePath() {
+        return userPrefs.getHistoryFilePath();
+    }
+
+    @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public void setHistoryFilePath(Path historyFilePath) {
+        requireNonNull(historyFilePath);
+        userPrefs.setHistoryFilePath(historyFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -85,8 +102,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setHistory(ReadOnlyHistory history) {
+        this.history.resetData(history);
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    @Override
+    public ReadOnlyHistory getHistory() {
+        return history;
     }
 
     @Override
@@ -107,6 +134,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addStatistics(Statistics statistics) {
+        history.addStatistics(statistics);
+    }
+
+    @Override
     public void setAnswerable(Answerable target, Answerable editedAnswerable) {
         requireAllNonNull(target, editedAnswerable);
 
@@ -122,6 +154,15 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Answerable> getFilteredAnswerableList() {
         return filteredAnswerables;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Statistics} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Statistics> getStatisticsList() {
+        return filteredStatistics;
     }
 
     @Override
@@ -154,6 +195,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredAnswerables.equals(other.filteredAnswerables);
+                && history.equals(other.history)
+                && filteredAnswerables.equals(other.filteredAnswerables)
+                && filteredStatistics.equals(other.filteredStatistics);
     }
 }

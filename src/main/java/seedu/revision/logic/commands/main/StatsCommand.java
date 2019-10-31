@@ -2,10 +2,12 @@ package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 
+import javafx.collections.ObservableList;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
+import seedu.revision.model.quiz.Statistics;
 
 /**
  * Provides a summary of statistics for current quiz session or last done quiz.
@@ -30,6 +32,11 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException, ParseException {
         requireNonNull(model);
-        return new CommandResult().withFeedBack(MESSAGE_SUCCESS).build();
+        ObservableList<Statistics> history = model.getStatisticsList();
+        if (history.isEmpty()) {
+            return new CommandResult().withFeedBack("You have not attempted any quizzes yet!").build();
+        }
+        return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS, "\n Latest quiz results shown: \n"
+                + history.get(history.size() - 1))).build();
     }
 }

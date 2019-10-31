@@ -16,14 +16,18 @@ import seedu.revision.commons.util.StringUtil;
 import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.MainLogicManager;
 import seedu.revision.model.AddressBook;
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyHistory;
 import seedu.revision.model.ReadOnlyUserPrefs;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.util.SampleDataUtil;
 import seedu.revision.storage.AddressBookStorage;
+import seedu.revision.storage.HistoryStorage;
 import seedu.revision.storage.JsonAddressBookStorage;
+import seedu.revision.storage.JsonHistoryStorage;
 import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.Storage;
 import seedu.revision.storage.StorageManager;
@@ -57,7 +61,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        HistoryStorage historyStorage = new JsonHistoryStorage(userPrefs.getHistoryFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, historyStorage);
 
         initLogging(config);
 
@@ -75,7 +80,9 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyHistory> historyOptional;
         ReadOnlyAddressBook initialData;
+        ReadOnlyHistory initialHistory;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -90,7 +97,22 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            historyOptional = storage.readHistory();
+            if (!historyOptional.isPresent()) {
+                logger.info("History data file not found. Will be starting with an empty history");
+            }
+            initialHistory = new History();
+        } catch (DataConversionException e) {
+            logger.warning("History data file not in the correct format. "
+                    + "Will be starting with an empty history");
+            initialHistory = new History();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty history");
+            initialHistory = new History();
+        }
+
+        return new ModelManager(initialData, userPrefs, initialHistory);
     }
 
     private void initLogging(Config config) {

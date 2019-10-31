@@ -16,6 +16,7 @@ import seedu.revision.commons.core.Messages;
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.main.DeleteCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
@@ -27,7 +28,7 @@ import seedu.revision.model.answerable.Answerable;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new History());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws ParseException {
@@ -40,7 +41,7 @@ public class DeleteCommandTest {
         String expectedMessage =
                 String.format(DeleteCommand.MESSAGE_DELETE_ANSWERABLE_SUCCESS, answerablesToDelete.toString());
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new History());
         expectedModel.deleteAnswerable(model.getFilteredAnswerableList().get(INDEX_FIRST_ANSWERABLE.getZeroBased()));
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);

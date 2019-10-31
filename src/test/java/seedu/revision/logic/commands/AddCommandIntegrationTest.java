@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.History;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
@@ -24,14 +25,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new History());
     }
 
     @Test
     public void execute_newAnswerable_success() throws ParseException {
         Answerable validAnswerable = new AnswerableBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new History());
         expectedModel.addAnswerable(validAnswerable);
 
         assertCommandSuccess(new AddCommand(validAnswerable), model,

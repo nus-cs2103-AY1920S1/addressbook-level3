@@ -1,5 +1,6 @@
 package seedu.revision.ui;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 import java.util.Comparator;
@@ -20,10 +21,10 @@ import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
-import seedu.revision.model.quiz.History;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.Statistics;
 import seedu.revision.ui.answers.AnswersGridPane;
@@ -41,6 +42,7 @@ public class StartQuizWindow extends Window {
     private MainWindow mainWindow;
     private ObservableList<Answerable> quizList;
     private Mode mode;
+    private Model model;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay questionDisplay;
@@ -59,6 +61,7 @@ public class StartQuizWindow extends Window {
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
         super(primaryStage, mainLogic);
         this.mode = mode;
+        this.model = super.mainLogic.getModel();
         this.quizList = getListBasedOnMode(this.mode);
     }
     public final double getCurrentProgressIndex() {
@@ -144,9 +147,14 @@ public class StartQuizWindow extends Window {
 
         Optional<ButtonType> result = alert.showAndWait();
 
+        double totalScore = (double) Math.round(score / getCurrentProgressIndex()) * 100;
+        Statistics newResult = new Statistics(totalScore);
+        updateStatistics(model, newResult);
+
         if (result.get() == endButton) {
             handleExit();
         } else {
+            score = 0;
             currentProgressIndex.set(0);
             progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                     getSizeOfCurrentLevel(nextAnswerable),
@@ -177,9 +185,9 @@ public class StartQuizWindow extends Window {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        double totalScore = (double) Math.round(score/getCurrentProgressIndex()) * 100;
-        Statistics updateStatistics = new Statistics(totalScore);
-        History.updateHistory(updateStatistics);
+        double totalScore = (double) Math.round(score / getCurrentProgressIndex()) * 100;
+        Statistics newResult = new Statistics(totalScore);
+        updateStatistics(model, newResult);
 
         if (result.get() == tryAgainButton) {
             restartQuiz();
@@ -277,5 +285,10 @@ public class StartQuizWindow extends Window {
             questionDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void updateStatistics(Model model, Statistics newResult) {
+        requireNonNull(model);
+        model.addStatistics(newResult);
     }
 }

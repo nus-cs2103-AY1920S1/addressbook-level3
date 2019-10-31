@@ -22,8 +22,10 @@ import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.ReadOnlyHistory;
 import seedu.revision.model.ReadOnlyUserPrefs;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.quiz.Statistics;
 import seedu.revision.testutil.AnswerableBuilder;
 
 public class AddCommandTest {
@@ -108,7 +110,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getHistoryFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBookFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setHistoryFilePath(Path historyFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -118,12 +130,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addStatistics(Statistics statistics) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void setHistory(ReadOnlyHistory newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyHistory getHistory() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -144,6 +171,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Answerable> getFilteredAnswerableList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Statistics> getStatisticsList() {
             throw new AssertionError("This method should not be called.");
         }
 
