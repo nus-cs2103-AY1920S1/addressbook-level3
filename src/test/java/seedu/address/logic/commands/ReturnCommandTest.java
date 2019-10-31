@@ -98,6 +98,13 @@ class ReturnCommandTest {
         borrowerRecords.addBorrower(IDA);
         BorrowerId servingBorrowerId = IDA.getBorrowerId();
 
+        Catalog catalog = new Catalog();
+        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build();
+        catalog.addBook(onLoan);
+
+        LoanRecords loanRecords = new LoanRecords();
+        loanRecords.addLoan(LOAN_7);
+
         Model model = new ModelManager(new Catalog(), new LoanRecords(), borrowerRecords, new UserPrefs());
         model.setServingBorrower(servingBorrowerId);
 
