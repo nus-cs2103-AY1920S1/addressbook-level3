@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -110,6 +111,17 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setText(curr.substring(0, curr.lastIndexOf(' ') + 1) + suggestion);
         commandTextField.positionCaret(commandTextField.getLength());
         handleTextChanged();
+    }
+
+    /**
+     * Restores focus later.
+     */
+    public void restoreFocusLater() {
+        int currPos = commandTextField.getCaretPosition();
+        Platform.runLater(() -> {
+            commandTextField.requestFocus();
+            commandTextField.positionCaret(currPos);
+        });
     }
 
     /**

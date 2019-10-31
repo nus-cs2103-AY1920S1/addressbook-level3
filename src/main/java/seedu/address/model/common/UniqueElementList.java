@@ -44,7 +44,7 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
      */
     public boolean containsExact(T toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().filter(toCheck::isSameAs).anyMatch(toCheck::equals);
+        return internalList.stream().filter(toCheck::equals).findFirst().isPresent();
     }
 
     /**
