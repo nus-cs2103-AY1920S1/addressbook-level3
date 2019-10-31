@@ -31,6 +31,15 @@ public class CheatsheetTabWindowController {
     }
 
     /**
+     * Displays empty body of the cheatsheet
+     */
+    public void loadEmpty() {
+        currCheatSheet = Optional.empty();
+        cheatsheetArea.setText("");
+        tagArea.setItems(null);
+    }
+
+    /**
      * Displays the question of the cheatsheet specified in the cheatsheet tab window.
      * @param cheatSheet cheatsheet to be displayed
      */

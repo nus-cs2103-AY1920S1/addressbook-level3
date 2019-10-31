@@ -82,12 +82,13 @@ public class AddCheatSheetCommand extends Command {
      * Retrieves all the notes with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
-        //Content.resetCounter();
         Set<Content> contentList = new HashSet<>();
 
+        // get within the notes
         ObservableList<Note> noteList = model.getFilteredNoteList();
         NoteFragmentContainsTagPredicate noteFragmentTagPredicate =
                 new NoteFragmentContainsTagPredicate(tags);
+
         for (Note note: noteList) {
             for (NoteFragment nf : note.getNoteFragments()) {
                 if (noteFragmentTagPredicate.test(nf)) {
@@ -104,8 +105,6 @@ public class AddCheatSheetCommand extends Command {
             contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
         }
 
-        // getting within the note's contents' tags to be implemented
-
         // get all flashcards
         FlashcardContainsTagPredicate flashcardTagPredicate = new FlashcardContainsTagPredicate(tags);
         model.updateFilteredFlashcardList(flashcardTagPredicate);
@@ -118,7 +117,6 @@ public class AddCheatSheetCommand extends Command {
             System.out.println(contentList.toString());
         }
 
-        //Content.resetCounter();
         return contentList;
     }
 }
