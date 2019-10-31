@@ -41,7 +41,7 @@ public class LogicManager implements Logic {
         scriptEngine = new ScriptEngine(engine -> {
             // TODO: This will be pulled out into a separate class in a future PR
             // TODO: Currently, this just brings it to feature-parity
-            engine.setVariable("ab", model);
+            engine.setVariable("bb", model);
         });
     }
 
