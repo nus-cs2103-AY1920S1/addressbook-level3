@@ -12,15 +12,9 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class MemeGridPanel
-Class MemeCard
+Class XYZPanel
 Class StatusBarFooter
 Class CommandBox
-Class StatsPanel
-}
-
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
 }
 
 package Logic <<Rectangle>> {
@@ -32,34 +26,34 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow *-left-> StatsPanel
 MainWindow *-down-> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> MemeGridPanel
+MainWindow *-down-> XYZPanel
 MainWindow *-down-> StatusBarFooter
-
-MemeGridPanel -down-> MemeCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-MemeGridPanel --|> UiPart
-MemeCard --|> UiPart
+XYZPanel --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
-StatsPanel -down-|> UiPart
 
-MemeCard ..> Model
-MemeGridPanel ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-MemeGridPanel -[hidden]left- HelpWindow
+XYZPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
+
+note right of XYZPanel: XYZPanel = \
+MemeGridPanel,\n\
+TemplateGridPanel,\n\
+StatsPanel, etc.\n\
+Each panel represents the app\n\
+content when in the corresponding tab.
 @enduml

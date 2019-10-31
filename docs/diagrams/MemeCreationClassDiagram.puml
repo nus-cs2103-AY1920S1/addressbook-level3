@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .down.> Model
+
+Package Model <<Rectangle>>{
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class Weme
+Class ModelManager
+
+Package Template {
+Class Template
+Class MemeCreation
+Class UniqueTemplateList
+
+Package MemeCreation {
+Class MemeCreation
+Class MemeText
+Class Coordinates
+Class MemeTextColor
+Class MemeTextSize
+Class MemeTextStyle
+}
+
+Model .right.> ObservableList
+ModelManager .up.|> Model
+ModelManager o-down-> "1" Weme
+
+Weme -down-> "1" MemeCreation
+Weme -down-> "1" UniqueTemplateList
+UniqueTemplateList o-> "*" Template
+
+MemeCreation .> Template
+
+MemeCreation -down-> "1" MemeText : ObservableList
+MemeText *-down-> "1" Coordinates
+MemeText *-down-> "1" MemeTextColor
+MemeText *-down-> "1" MemeTextSize
+MemeText *-down-> "1" MemeTextStyle
+@enduml

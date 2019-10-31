@@ -1,5 +1,4 @@
 @startuml
-scale 1.5
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4

@@ -59,10 +59,10 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 Weme *--> "1" UniqueMemeList
 UniqueMemeList o--> "*" Meme
 Meme *--> "1" ImagePath
-Meme *--> Description
+Meme *--> "1" Description
 Meme *--> "*" Tag
 
-Weme *-right-> "1" Stats
+Weme *-right-> "1" StatsManager
 
 Weme *--> "1" UniqueTemplateList
 UniqueTemplateList o--> "*" Template
