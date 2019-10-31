@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.Map;
 
-import seedu.address.logic.commands.options.Option;
-import seedu.address.logic.commands.options.OptionBuilder;
-import seedu.address.model.undo.UndoRedoManager;
+import seedu.address.logic.UndoRedoManager;
+import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
+import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 
 /**
  * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.
@@ -18,13 +18,13 @@ class UndoCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    OptionBuilder getCommandArguments() {
-        return Option.newBuilder();
+    RequiredArgumentList defineCommandArguments() {
+        return null;
     }
 
     @Override
-    Map<String, OptionBuilder> getCommandOptions() {
-        return Map.of();
+    Map<String, OptionalArgumentList> defineCommandOptions() {
+        return null;
     }
 
     UndoRedoManager getManager() {

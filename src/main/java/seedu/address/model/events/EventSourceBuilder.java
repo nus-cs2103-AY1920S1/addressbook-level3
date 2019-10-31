@@ -5,6 +5,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import seedu.address.model.DateTime;
+
 /**
  * Represents a Builder responsible for creating {@link EventSource}.
  */
@@ -17,10 +22,24 @@ public class EventSourceBuilder {
     // Optional
     private DateTime end;
     private Set<String> tags;
+    private DateTime remind;
 
     EventSourceBuilder(String description, DateTime start) {
         this.description = Objects.requireNonNull(description);
         this.start = Objects.requireNonNull(start);
+    }
+
+    @JsonCreator
+    private EventSourceBuilder(@JsonProperty("description") String description,
+                               @JsonProperty("start") DateTime start,
+                               @JsonProperty("end") DateTime end,
+                               @JsonProperty("remind") DateTime remind,
+                               @JsonProperty("tags") Set<String> tags) {
+        this.description = description;
+        this.start = start;
+        this.end = end;
+        this.remind = remind;
+        this.tags = tags;
     }
 
     public EventSourceBuilder setEnd(DateTime end) {
@@ -30,6 +49,11 @@ public class EventSourceBuilder {
 
     public EventSourceBuilder setTags(Collection<String> tags) {
         this.tags = new HashSet<>(tags);
+        return this;
+    }
+
+    public EventSourceBuilder setRemind(DateTime remind) {
+        this.remind = remind;
         return this;
     }
 
@@ -51,5 +75,9 @@ public class EventSourceBuilder {
 
     Set<String> getTags() {
         return tags;
+    }
+
+    DateTime getRemind() {
+        return remind;
     }
 }

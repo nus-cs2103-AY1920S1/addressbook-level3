@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import seedu.address.model.DateTime;
 import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
 
 /**
@@ -53,7 +53,8 @@ public class IcsExporter {
                 .append("\n").append("VERSION:").append(CALENDAR_VERSION)
                 .append("\n").append("PRODID:").append(PROD_ID);
         for (EventSource eventSource : eventList) {
-            stringBuilder.append("\n").append(eventSource.toIcsString());
+            String icsEventString = IcsConverter.convertEvent(eventSource);
+            stringBuilder.append("\n").append(icsEventString);
         }
         stringBuilder.append("\n").append("END:VCALENDAR");
         return stringBuilder.toString();

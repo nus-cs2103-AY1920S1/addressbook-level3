@@ -6,6 +6,7 @@ import seedu.address.ics.IcsException;
 import seedu.address.ics.IcsParser;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UserOutput;
 
 /**
@@ -27,13 +28,15 @@ public class ImportIcsCommand extends Command {
     @Override
     public UserOutput execute() {
         try {
-            EventSource[] events = IcsParser.getParser(filepath).parse();
+            IcsParser icsParser = IcsParser.getParser(filepath);
+            EventSource[] events = icsParser.parseEvents();
+            TaskSource[] tasks = icsParser.parseTasks();
             model.addEvents(events);
+            model.addTasks(tasks);
             return new UserOutput(String.format(MESSAGE_IMPORT_ICS_SUCCESS, filepath));
         } catch (IcsException e) {
             return new UserOutput(e.getMessage());
         }
-
     }
 
 

@@ -1,5 +1,8 @@
 package seedu.address.logic.commands.arguments;
 
+import java.util.List;
+import java.util.function.Consumer;
+
 import seedu.address.logic.parser.IndexParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -12,8 +15,8 @@ public class IndexVariableArguments extends VariableArguments<Integer> {
         super(builder);
     }
 
-    public static IndexVariableArgumentsBuilder newBuilder(String description) {
-        return new IndexVariableArgumentsBuilder(description);
+    public static IndexVariableArgumentsBuilder newBuilder(String description, Consumer<List<Integer>> promise) {
+        return new IndexVariableArgumentsBuilder(description, promise);
     }
 
     @Override

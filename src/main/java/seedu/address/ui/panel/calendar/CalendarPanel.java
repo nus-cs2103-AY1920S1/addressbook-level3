@@ -1,6 +1,6 @@
 package seedu.address.ui.panel.calendar;
 
-import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -8,30 +8,29 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import seedu.address.model.CalendarDate;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.EventListListener;
-import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
 /**
  * An Ui that represents a Panel that contains all the components to make a calendar view. This includes
  * a Timeline, Calendar, and the Details of an event.
  */
-public class CalendarPanel extends UiPart<Region> implements EventListListener {
+public class CalendarPanel extends UiPart<Region> {
 
     private static final String FXML = "CalendarPanel.fxml";
 
-    private UiParser uiParser;
     private CalendarScreen calendarScreen;
-    private TimelineDayView timelineDayView;
+    private TimelineView timelineView;
     private Details details;
-    private Instant date;
+    private CalendarDate calendarDate;
+    private List<EventSource> eventList;
 
     @FXML
     private StackPane timelinePlaceholder;
 
     @FXML
-    private VBox calendarPlaceholder;
+    private VBox calendarScreenPlaceholder;
 
     @FXML
     private VBox detailsPlaceholder;
@@ -40,58 +39,87 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
      * Constructor for CalendarPanel. Contains the 3 main viewing points for the calendar panel.
      * The points are calendar screen view, timeline view and details view.
      *
-     * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
+     * @see TimelineView
+     * @see CalendarScreen
+     * @see Details
      */
-    public CalendarPanel(UiParser uiParser) {
+    public CalendarPanel() {
         super(FXML);
-        this.uiParser = uiParser;
-        this.date = Instant.now();
+        this.calendarDate = CalendarDate.now();
+        this.eventList = new ArrayList<>();
 
-        Integer[] dayMonthYear = uiParser.getDateToNumbers(this.date);
-        this.calendarScreen = new CalendarScreen(dayMonthYear[1], dayMonthYear[2], uiParser);
-        this.timelineDayView = new TimelineDayView(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2], uiParser);
-        this.details = new Details(uiParser);
+        this.calendarScreen = new CalendarScreen(this.calendarDate);
+        this.timelineView = new TimelineDayView(this.calendarDate, eventList);
+        this.details = new Details();
 
-        timelinePlaceholder.getChildren().add(this.timelineDayView.getRoot()); // Left
-        calendarPlaceholder.getChildren().add(this.calendarScreen.getRoot()); // Top Right
+        timelinePlaceholder.getChildren().add(this.timelineView.getRoot()); // Left
+        calendarScreenPlaceholder.getChildren().add(this.calendarScreen.getRoot()); // Top Right
         detailsPlaceholder.getChildren().add(this.details.getRoot()); // Bottom Right
 
     }
 
     /**
-     * Changes the timeline of the timeline to the given date. This will automatically change the Calendar Screen
-     * as well to fit the given date.
+     * Changes the CalendarScreen date only with a given CalendarDate.
      *
-     * @param dateTime The given date by the user.
+     * @param calendarDate The given date.
      */
-    public void changeTimelineDate(Instant dateTime) {
-        Integer[] dayMonthYear = uiParser.getDateToNumbers(dateTime);
-        // Change Timeline Date
-        timelinePlaceholder.getChildren().clear();
-        timelineDayView = new TimelineDayView(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2], uiParser);
-        timelinePlaceholder.getChildren().add(timelineDayView.getRoot());
-
-        // Change CalendarScreen Date
-        calendarPlaceholder.getChildren().clear();
-        calendarScreen = new CalendarScreen(dayMonthYear[1], dayMonthYear[2], uiParser);
-        calendarPlaceholder.getChildren().add(calendarScreen.getRoot());
+    public void changeCalendarScreenDate(CalendarDate calendarDate) {
+        calendarScreenPlaceholder.getChildren().clear();
+        calendarScreen = new CalendarScreen(calendarDate);
+        calendarScreenPlaceholder.getChildren().add(calendarScreen.getRoot());
+        calendarScreen.eventChange(eventList);
     }
 
     /**
-     * Changes the Calendar Screen only to the given date.
-     *
-     * @param dateTime The given date by the user.
+     * Re-sizes the TimelineView.
      */
-    public void changeCalendarScreenDate(Instant dateTime) {
-        Integer[] dayMonthYear = uiParser.getDateToNumbers(dateTime);
-        // Change CalendarScreen Date
-        calendarPlaceholder.getChildren().clear();
-        calendarScreen = new CalendarScreen(dayMonthYear[1], dayMonthYear[2], uiParser);
-        calendarPlaceholder.getChildren().add(calendarScreen.getRoot());
+    public void resizeTimelineView() {
+        timelineView.resizeTimelineView();
     }
 
-    @Override
+    /**
+     * Changes to TimelineDayView with a given CalendarDate.
+     *
+     * @param calendarDate The given date.
+     */
+    public void changeToDayView(CalendarDate calendarDate) {
+        changeCalendarScreenDate(calendarDate);
+        timelinePlaceholder.getChildren().clear();
+        timelineView = new TimelineDayView(calendarDate, eventList);
+        timelinePlaceholder.getChildren().add(timelineView.getRoot());
+    }
+
+    /**
+     * Changes to TimelineWeekView with a given CalendarDate.
+     *
+     * @param calendarDate The given date.
+     */
+    public void changeToWeekView(CalendarDate calendarDate) {
+        changeCalendarScreenDate(calendarDate);
+        timelinePlaceholder.getChildren().clear();
+        this.timelineView = new TimelineWeekView(calendarDate, eventList);
+        timelinePlaceholder.getChildren().add(timelineView.getRoot());
+    }
+
+    /**
+     * Changes to TimelineDayView with a given CalendarDate.
+     *
+     * @param calendarDate The given date.
+     */
+    public void changeToMonthView(CalendarDate calendarDate) {
+        changeCalendarScreenDate(calendarDate);
+        timelinePlaceholder.getChildren().clear();
+        this.timelineView = new TimelineMonthView(calendarDate, eventList);
+        timelinePlaceholder.getChildren().add(timelineView.getRoot());
+    }
+
+    /**
+     * Changes the sub-components of the CalendarPanel with the updated events.
+     * @param events The given list of events.
+     */
     public void onEventListChange(List<EventSource> events) {
-        this.timelineDayView.onEventListChange(events);
+        this.timelineView.eventChange(events);
+        this.calendarScreen.eventChange(events);
+        this.eventList = events;
     }
 }

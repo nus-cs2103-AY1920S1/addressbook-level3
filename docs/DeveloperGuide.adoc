@@ -70,42 +70,191 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Main structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is contains 3 main view parts - `CalendarPanel`, `ListPanel`, `LogPanel`. It also holds several other UI parts e.g. `PopUpPanel` and `Command Box`. Every one of the UI classes will abstract from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework, and layout of these UI parts are defined in `.fxml` files which are found in the `src/main/resources/view` folder. One example of the layout would be: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`], whose FXML link is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+
+The `UI` component does the following:
+
+* Executes user two different types commands using the `Logic` component.
+** One command, when executed, affect the actual Events.
+** The other command is executed to change the view of the UI. There are currently 3 main views in the application: `CalendarPanel`, `ListPanel`, `LogPanel`.
+* It listens for any changes in the list of events using a listener:  link:{repoURL}/blob/master/src/main/java/seedu/address/model/listeners/EventListListener.java[`EventListListener`].
+* It also listens for the output to the user with another listener: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/listeners/UserOutputListener.java[`UserOutputListener`].
+
+==== Calendar UI View
+
+.Structure of the Calendar UI View
+image::UiCalendarClassDiagram.png[]
+
+The Calendar View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarPanel.java[`CalendarPanel`], which holds several different other UI parts linked together to form the overall UI. In the Calendar View, it displays two UI parts of the Calendar: `CalendarScreen` and `TimelineView`.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarScreen.java[`CalendarScreen`] is the screen which displays the calendar of a certain month and year to the user. It contains 6 x 7 instance of `CalendarGridDay`, which displays the days of the month.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineView.java[`TimelineView`] is the screen which displays the timeline using 3 different classes which abstract from `TimelineView`.
+
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineDayView.java[`TimelineDayView`] displays the timeline of a particular day in a certain month and year.
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineWeekView.java[`TimelineWeekView`] displays the timeline of a particular week. The week is according to the `CalendarScreen`, where each row represents a week of a month.
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineMonthView.java[`TimelineMonthView`] displays the timeline of a particular month in a certain year.
+
+Each of these timeline will hold up to a certain amount of `CardHolder` depending on the type of `TimelineView`. Each of these `CardHolder` will then hold an amount of EventCards for displaying the event name and date.
+
+==== List UI View
+
+.Structure of the List UI View
+image::UiListClassDiagram.png[]
+
+The List View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/ListPanel.java[`ListPanel`] which contains two lists views, `EventListView` and `TaskListView`
+
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/EventListView.java[`EventListView`] displays the list of Events containing every piece of information of the Events.
+
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/TaskListView.java[`TaskListView`] displays the list of Task, containing every piece of information of each Task. [__To be implemented__]
+
+Similar to `TimelineView`, `EventListView` and `TaskListView` will contain a list of `Card`, but it will not be held in the `CardHolder`.
+
+==== Log UI View
+
+.Structure of the Log UI View
+image::UiLogClassDiagram.png[]
+
+The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogPanel.java[`LogPanel`] which contains several instances of `LogBox`.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogBox.java[`LogBox`] displays literal information back to the user when it is called by `MainWindow` when it listens for a command.
 
 [[Design-Logic]]
-=== Logic component
+=== CommandManager component
 
-[[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
+==== Command
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+A `Command` is defined to be an immutable function, that can be invoked at any time, to perform any set of instructions. After executing the set of instructions, it will optionally return output to be displayed to the user.
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+In Horo, a `Command` implemented as an abstract class with an abstract `execute()` method. To create a new concrete command, extend from `Command` and implement `execute()`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+.Class diagram of Commands
+image::CommandManager.png[]
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+If your concrete command requires any dependencies during execution, it is recommended to pass in the dependency from the constructor.
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+For example, if your command needs to be able to access `ModelManager`:
+```
+public class MyCommand extends Command {
+	private final ModelManager model;
+	MyCommand(ModelManager model) {
+		this.model = model;
+	}
+
+	@Override
+    CommandOutput execute() {
+        this.model.doSomething();
+		...
+	}
+}
+```
+
+
+==== CommandParser
+
+A `CommandParser` is defined to be able to parse a `String` of user input, and return a `Command`.
+
+In Horo, a `CommandParser` is implemented as a finite state machine (FSM). It parses user input token by token, and it transitions from state to state depending on the next token.
+
+What the FSM is trying to do is tokenize user input into:
+
+1. `Command keyword`
+2. `Command phrase(s)`
+
+A *command keyword* is defined as the first sequence of consecutive, non-whitespace characters of the user input. For the rest of this guide, a sequence of consecutive, non-whitespace characters will be referred to as a ‘word’. A word can be described in the form of a regular expression (regex) as `[^\s]+`.
+
+Examples of valid command keywords:
+
+- `exit`
+- `add_event`
+- `123`
+- `😺`
+
+A *command phrase* is defined as either a word, or multiple words delimited by whitespace surrounded by quotes. Command phrases come after a command keyword.
+
+Examples of valid command phrases:
+
+- `Horse`
+- `”Homework”`
+- `”Horo’s Birthday”`
+- `”24/10/2019 07:00”`
+- `’24/10/2019 07:00’`
+- `--description`
+
+A valid command contains exactly one command keyword, and zero or more command phrases.
+
+`[keyword] [phrase] [phrase] [phrase] ...`
+
+.State diagram of CommandParser
+image::CommandParser.png[]
+
+After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`. The remaining command phrases are sent to the `CommandBuilder`, which returns the `Command` we want.
+
+
+==== CommandKeywordParser
+
+A `CommandKeywordParser` is defined to be able to parse a command keyword, and return a `CommandBuilder`.
+
+In Horo, a `CommandKeywordParser` uses a `HashMap` to map a command keyword to a `Supplier<CommandBuilder>`.
+
+
+==== CommandBuilder
+
+A `CommandBuilder` is defined to be able to accept an arbitrary amount of command settings, and eventually create a `Command` using those settings.
+
+In Horo, a `CommandBuilder` is implemented such that the entire definition of a `Command` is in the `CommandBuilder`. The `CommandBuilder` will use those definitions to automagically parse command phrases.
+
+The definition of a command is split into two parts:
+
+1. `Command argument(s)`
+2. `Command option(s)`
+
+A *command option* is defined to have a keyword and a list of arguments.
+An *option’s keyword* is defined to be a command phrase.
+An *option’s argument* is defined to be a command phrase that is not an option’s keyword. An option’s argument is a command phrase that lies after the option’s keyword.
+
+Example of option’s keyword & arguments below. The option’s keyword is underlined:
+
+- `+++<u>--description</u>+++ Horse`
+- `+++<u>--tags</u>+++ Animal Cat Dog`
+- `+++<u>-d</u>+++ Horse`
+
+A *command argument* is defined to be a command phrase that is not an option’s keyword. This is similar to an option’s argument, except that the position of this argument in the user input is important. A command argument is a command phrase that lies after the command keyword, and before any command option’s keywords.
+
+Example of command’s arguments below. The command’s keyword is underlined.
+
+- `+++<u>add_event</u>+++ Horse “24/10/2019 10:00”`
+- `+++<u>delete_event</u>+++ 1 2 3`
+
+==== Argument
+
+A command’s argument and an option’s argument are both considered an `Argument`. An argument will be parsed from a command phrase to another object. The `Argument` class is a generic class, where the type of the class defines what type of object the command phrase be parsed into.
+
+For example, an `Argument<DateTime>` which receives “24/10/2019 10:00” will be parsed into a `DateTime` object.
+
+
+==== Variable Argument
+
+A `VariableArgument` is a special type of argument. A variable argument will be parsed from a list of command phrases to a list of similar type objects. The `VariableArgument` class is a generic class, where the type of the class defines what types of objects the command phrases should be parsed into. A variable argument can accept zero or more command phrases to be parsed.
+
+For example, a `VariableArgument<Integer>` which receives {1, 2, 3} will be parsed into a list of Integers. `A VariableArgument<Integer>` which receives {} will be parsed into an empty list.
+
+
+==== ArgumentList
+
+A command is said to contain a list of arguments, and it’s options are said to contain a list of arguments too. Both are considered an `ArgumentList`. An `ArgumentList` is defined to contain zero or more `Arguments`, and zero or one `VariableArguments`.
+
+Additionally, if a variable argument is defined, it will be treated as the last argument in the `ArgumentList`. This is because a variable argument can accept zero or more command phrases, which will prevent other arguments from receiving command phrases if it is not the last argument.
 
 [[Design-Model]]
 === Model component
@@ -140,6 +289,35 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+[[Design-Notification]]
+=== Notification System
+(Picture: Notification System)
+
+Notifications are handled through the NotificationManager, itself found in the Logic component. There does not exist a singular Notification component. Rather, functional classes for the Notification System are have been split across the Logic and UI components, depending on their functionality.
+
+==== Logic Classes
+Logic classes are reponsible for deciding if a notification should be posted. As with other components, their functionality is accessed through the `NotificationManager` class. The `NotificationManager` class maintains a reference to a `NotificationCheckingThread` as well as a `SystemTrayCommunicator`.
+
+The logic classes of the Notification System can be found under the `notification` package under the `Logic` component.
+
+- The `NotificationCheckingThread` is a daemon thread that runs in parallel with the main application. It checks for new notifications to post every minute.
+- The `NotificationChecker` is responsible for checking `Model` for any notifications that need to be posted.
+
+
+==== UI Classes
+UI classes are responsible for displaying notifications.
+
+The UI classes of the Notification System can be found under the `systemtray` package under the `ui` component.
+
+- The `PopupListener` class is the main channel of communication between the logic and UI classes. When a notification needs to be posted, it will relay the information from the logic to UI classes.
+
+- The `SystemTrayCommunicator` handles posting notifications and displaying the app's icon on the System Tray.
+
+- The `PopupNotification` class carries the information that will be posted on a popup notification.
+
+- The `NotificationClickActionListener` is called when the user clicks on a popup notification.
+
+
 [[Design-Commons]]
 === Common classes
 
@@ -153,67 +331,67 @@ This section describes some noteworthy details on how certain features are imple
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `UndoableHistory`.
-It contains an undo/redo history, stored internally as an `eventListStateList` and a `currentStateIndex`.
-`UndoableHistory` also contains a `mainEventList`, which is the `EventList` that the GUI is in sync with.
+The undo/redo mechanism is facilitated by `UndoRedoManager`, which contains `undoStateList` - a history of `UndoRedoStates`. Each `UndoRedoState` object contains two lists: one to store `EventSources` and the other to store `TaskSources`, together representing the state of all event and task data at that point in time. UndoRedoManager also contains a `currentStateIndex`, which keeps track of the index of the `UndoRedoState` being used presently.
 
-It is important that the `Model` works only with the `mainEventList` (and not duplicates) for this reason.
-This `mainEventList` is updated every time an undo or redo occurs.
+A key point to take note of is that `ModelManager` contains an `eventList` (a list of `EventSources`) and a `taskList` (a list of `TaskSources`), both of which cannot be reinitialized. This is because these two lists are directly in sync with the GUI; changes to these specific list instances are reflected as changes to the GUI, but changes to other copies of `EventSource` or `TaskSource` lists will not affect the GUI. Hence, the history of `UndoRedoStates` held by `UndoRedoManager` stores deep-copies of `EventSource` and `TaskSource` lists. Should there be a need to revert back to a past or future state (if undo or redo is called), these lists will retrieve their data from the appropriate copy of `UndoRedoState` in the list of duplicates.
 
-Additionally, it implements the following operations:
+`UndoRedoManager` also implements the following operations:
 
-* `UndoableHistory#commit()` -- Creates a deep-copy of the `mainEventList` state and saves that copy to its history.
-* `UndoableHistory#undo()` -- Retrieve `mainEventList` 's previous state data from its duplicate and restore `mainEventList`
-* `UndoableHistory#redo()` -- Retrieve `mainEventList` 's future state data from its duplicate and restore `mainEventList`
-* `UndoableHistory#clearFutureHistory()` -- Delete all duplicates of `mainEventList` that occur after the index given by the `currentStateIndex`
-in `eventListStateList`
+* `UndoRedoManager#commit(UndoRedoState state)` -- Adds the new state (which contains a deep-copied version of `TaskSource` and `EventSource` lists) to the `undoStateList`
+* `UndoRedoManager#undo()` -- Restore `eventList` and `taskList` in `ModelManager` to their previous versions from the appropriate duplicate in `undoStateList` via an `UndoRedoListener`
+* `UndoRedoManager#redo()` -- Restore `eventList` and `taskList` in `ModelManager` to their future versions from the appropriate duplicate in `undoStateList` via an `UndoRedoListener`
+* `UndoRedoManager#clearFutureHistory()` -- Delete all duplicates of `UndoRedoState` that occur in `undoStateList` after the index given by the `currentStateIndex`
 
-These operations are exposed in the `Model` interface as `Model#commitToHistory()`, `Model#undoFromHistory()` and `Model#redoFromHistory()`, and `Model#clearFutureHistory()` respectively.
+The `UndoCommand` and `RedoCommand` will interact directly with `UndoRedoManager` while other state-changing commands (such as adding or deleting tasks) will interact only with `ModelManager`.
+
+There are three key *Listener* interfaces that help us achieve the desired undo-redo functionality:
+
+* `EventListListener`
+* `TaskListListener`
+* `UndoRedoListener`
+
+The `UndoRedoManager` implements the `EventListListener` interface’s method `onEventListChange(List<EventSource> events)` to “listen” for any changes to `ModelManager`’s `eventList`. (e.g. when an event is added or deleted) If such a change exists, it will be handled by first calling `UndoRedoManager#clearFutureHistory()`, instantiating a `UndoRedoState` with a deep-copied version of the `taskList` and the modified `eventList`, and calling `UndoRedoManager#commit(UndoRedoState state)` to commit this state. `UndoRedoManager` also implements `TaskListListener` in the same fashion, except that changes to the `taskList` are “listened” to rather than the `eventList`.
+
+The `ModelManager` implements the `UndoRedoListener` interface’s method `onUndoRedo(UndoRedoState state)` to “listen” for any undo or redo being executed. This will be handled by updating `ModelManager`’s `eventList` and `taskList` data to match the data of the `UndoRedoState` with index `currentStateIndex` in `undoStateList`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `UndoableHistory` will be initialized with the initial `mainEventList`. A duplicate of `mainEventList` will be added to `eventListStateList`
-and the `currentStateIndex` will point to that single `EventList` state in the list.
+Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `undoStateList`. An `UndoRedoState` will be added to `undoStateList` and the `currentStateIndex` will point to that single `undoRedoState` in the list.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete_event 5` command to delete the 5th event in the event list. The `delete` command calls `Model#commitToHistory()`, causing the modified state of the event list after the `delete 5` command executes to be saved in the `eventListStateList`, and the `currentStatePointer` is shifted to the newly inserted event list state.
+Step 2. The user executes `add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”`. The event will be added to `ModelManager`’s `eventList`. Then, `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), clearing all future states beyond the `currentStateIndex` as they are no longer useful. In this particular case, there are no future states to be cleared. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add_task “Celebrate Horo’s Birthday”` to add a new task. The `add` command also calls `Model#commitToHistory()`, causing another modified event list state to be saved into the `eventListStateList`.
+[NOTE]
+If a command fails its execution, it will not result in any change to `ModelManager#eventList` or `ModelManager#taskList`. Hence, there is no change to trigger the listener methods and thus no `UndoRedoState` will be saved to `undoStateList`.
+
+Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error. The undo command will decrement the `currentStateIndex` by one to contain the index of the previous undo redo state, thereafter triggering the `UndoRedoListener#onUndoRedo` method. This method updates `ModelManager`’s `eventList` and `taskList` data to match the data of the `UndoRedoState` with index `currentStateIndex` in `undoStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitToHistory()`, so the event list state will not be saved into the `eventListStateList`.
-
-Step 4. The user now decides that adding the task was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoFromHistory()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous event list state, and restores the event list to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStateIndex` is 0, pointing to the initial event list state, then there are no previous event list states to restore. The `undo` command uses `Model#canUndoHistory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStateIndex` is 0, pointing to the initial undo redo state, then there are no previous undo redo states to restore. The undo command uses `UndoRedoManager#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[width=100%]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoFromHistory()`, which shifts the `currentStateIndex` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The redo command does the opposite — it calls `UndoRedoManager#redo()`, which increments the `currentStateIndex` by one to contain the index of the previously undone state. The `UndoRedoListener` then causes `ModelManager#eventList` and `ModelManager#taskList` to reset their data to this state’s list data.
 
 [NOTE]
-If the `currentStateIndex` is `eventListStateList.size() - 1`, pointing to the latest event list state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoHistory()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStateIndex` is at index `undoStateList.size() - 1`, pointing to the latest undo redo state, then there are no undone undo redo states to restore. The `redo` command uses `UndoRedoManager#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the event list, such as `list`, will usually not call `Model#commitToHistory()`, `Model#undoFromHistory()` or `Model#redoFromHistory()`. Thus, the `eventListStateList` remains unchanged.
+Step 4. The user decides to execute the command `log`. Non-state-changing commands such as `log` do not manipulate task and event data. Since no changes to `taskList` or `eventList` have been made, the listener methods will not be triggered and no `UndoRedoState` will be saved to `undoStateList`. Thus, the `undoStateList` remains unchanged.
+
+image::UndoRedoState3.png[]
+
+Step 5. The user executes `delete_event 1`, removing the event from `ModelManager`’s `eventList`. `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), purging all future states beyond the `currentStateIndex` as they are no longer useful. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
 
 image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#clearFutureHistory` and then Model#commitToHistory()`.
-Since the `currentStateIndex` is not pointing at the end of the `eventListStateList`, all event list states after the `currentStateIndex` will be purged. We designed it this way because it no longer makes sense to redo the `add_task “Celebrate Horo’s Birthday”` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -223,21 +401,12 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1 (current choice):** Saves `EventSource` and `TaskSource` data every time a change has been made.
+** Pros: Easy to understand and implement.
+** Cons: Performance issues may arise due to the relatively larger memory usage required.
+* **Alternative 2:** Individual command knows how to undo/redo by itself; inverse functions have to be implemented (if I undo the deletion of a person, it would be equivalent to adding him back to the list)
+** Pros: Uses less memory as we only need to keep track of what commands have been executed and their parameters, as opposed to storing all task and event data between every change.
+** Cons: Every command will have to be implemented twice, since their inverse operations will all be different. This is compounded by the fact that we have to ensure the correctness of every inverse operation individually as well.
 // end::undoredo[]
 
 // tag::dataencryption[]
@@ -261,6 +430,28 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Design-Ics]]
+=== Ics Component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ics/IcsParser.java[`IcsParser.java`]
+
+The ICS component is made up of two parts: ICS file importer, and ICS file exporter.
+
+The file importer makes use of a custom parser that converts files with the `.ics` file extension
+to `EventSource` objects in Horo.
+
+The file exporter takes the `EventSource` objects stored in the `Model` singleton object and
+generates ICS String representations of them. Check out the
+link:https://en.wikipedia.org/wiki/ICalendar[ICalendar Wiki Page] for more information on the specifications.
+
+
+* Can export Horo's save data as a file
+The `ICS` Component,with a `.ics` extension.
+* Can import other Horo's save data from a `.ics` file.
+
+
+== Implementation
 
 [[Implementation-Configuration]]
 === Configuration
@@ -287,10 +478,10 @@ Refer to the guide <<DevOps#, here>>.
 * is a student
 * has a need to manage their Events and Tasks for visualization.
 * requires reminders for their Events and Tasks.
-* prefer desktop apps over other types.
-* can type fast.
-* prefers typing over mouse input.
-* is reasonably comfortable using CLI apps.
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
 
 *Value proposition*: manage Reminders as well as viewing Events and Tasks much faster than a typical mouse/GUI driven app
 
@@ -368,6 +559,7 @@ Use case ends.
 * 1a. The user adds additional sub-commands to the Task command
 +
 Use case ends.
+
 
 * 2a. The given add Task command is of the wrong format.
 +
@@ -522,6 +714,21 @@ Cons:
 
 * Lack of visualization of the Events and Tasks
 * Parsing english language makes it slower to type with a longer requirement as compared to CLI styled commands
+
+*Google Calendar*
+
+Company: Google
+
+Pros:
+
+* A Calendar application that is capable of storing Events and Tasks as well.
+* Mostly uses GUI for interaction with user instead of having CLI, favouring to the common crowd.
+
+Cons:
+
+* Mostly uses GUI for interaction with user instead of having CLI, which does not favour those who prefers CLI.
+* It requires an account to be usable.
+* The desktop version requires a browser, which in turn requires Internet and hence not offline.
 
 [appendix]
 == Instructions for Manual Testing

@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.arguments;
 
+import java.util.function.Consumer;
+
 /**
  * Represents an object that builds arguments.
  * @param <T> the type of the argument to build
@@ -7,15 +9,11 @@ package seedu.address.logic.commands.arguments;
 public abstract class ArgumentBuilder<T> {
 
     private final String description;
+    private final Consumer<T> promise;
 
-    private Argument<T> argument;
-
-    ArgumentBuilder(String description) {
+    ArgumentBuilder(String description, Consumer<T> promise) {
         this.description = description;
-    }
-
-    public T getValue() {
-        return this.argument.getValue();
+        this.promise = promise;
     }
 
     /**
@@ -23,13 +21,16 @@ public abstract class ArgumentBuilder<T> {
      * @return the built argument
      */
     public Argument<T> build() {
-        this.argument = argumentBuild();
-        return this.argument;
+        return argumentBuild();
     }
 
     abstract Argument<T> argumentBuild();
 
     String getDescription() {
         return description;
+    }
+
+    Consumer<T> getPromise() {
+        return promise;
     }
 }

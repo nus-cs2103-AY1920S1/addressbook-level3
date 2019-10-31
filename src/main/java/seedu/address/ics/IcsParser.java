@@ -1,16 +1,23 @@
 package seedu.address.ics;
 
-import static seedu.address.commons.util.IcsUtil.parseTimeStamp;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import seedu.address.model.events.DateTime;
+import seedu.address.logic.parser.DateTimeParser;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
 
 /***
  * Parses an ICS file to allow importing into Horo.
@@ -22,12 +29,12 @@ public class IcsParser {
     private static final String FILE_CANNOT_BE_FOUND = "Sorry, the file specified cannot be found!";
     private static final String INVALID_FILE_EXTENSION = "The file specified is not an ICS file!";
     private static final String FILE_IS_CORRUPTED = "The ICS file is corrupted!";
-    private static final String EVENT_DESC_CANNOT_BE_EMPTY = "The description of an event cannot be empty!";
+    private static final String TIMESTAMP_IS_INVALID = "The timestamp provided is invalid!";
 
     /**
      * This enum represents the different types of objects the IcsParser could be parsing at any given point in time.
      */
-    private enum ParseState { None, Todo, Event }
+    private enum Parsing { TASK, EVENT }
 
     private File icsFile;
 
@@ -57,9 +64,20 @@ public class IcsParser {
      * @throws IcsException Thrown if the file cannot be found or read,
      * is not a proper Ics file, or if a description for an event in the file is empty.
      */
-    public EventSource[] parse() throws IcsException {
+    public EventSource[] parseEvents() throws IcsException {
         String fileContent = getFileContent();
-        return parseFileContent(fileContent);
+        return getEventsFromFile(fileContent);
+    }
+
+    /**
+     * Parses the file provided in the file path and returns an ArrayList of TaskSources.
+     * @return An ArrayList of TaskSources from the file.
+     * @throws IcsException Thrown if the file cannot be found or read,
+     * is not a proper Ics file, or if a description for an event in the file is empty.
+     */
+    public TaskSource[] parseTasks() throws IcsException {
+        String fileContent = getFileContent();
+        return getTasksFromFile(fileContent);
     }
 
     /**
@@ -90,40 +108,41 @@ public class IcsParser {
     }
 
     /**
-     * Parses the Ics file.
+     * Parses the Ics file for its Events only and returns an array of EventSource objects.
      * @param fileContent The contents of the Ics file.
      * @return An ArrayList of EventSources provided by the Ics file.
      * @throws IcsException If the file is not a proper Ics file, or if a description for an event is empty.
      */
-    public EventSource[] parseFileContent(String fileContent) throws IcsException {
+    public EventSource[] getEventsFromFile(String fileContent) throws IcsException {
         ArrayList<EventSource> events = new ArrayList<>();
-        StringBuilder stringBuilder = new StringBuilder("");
-
-        ParseState currentlyParsing = ParseState.None;
-        String[] lines = fileContent.split("\\r?\\n");
-
-        for (int i = 0; i < lines.length; i++) {
-            String line = lines[i];
-            if (currentlyParsing == ParseState.Event) {
-                if (line.startsWith("END:VEVENT")) {
-                    currentlyParsing = ParseState.None;
-                    EventSource eventSource = parseSingleEvent(stringBuilder.toString());
-                    events.add(eventSource);
-                } else {
-                    stringBuilder.append(line).append("\n");
-                }
-            } else {
-                if (line.equals("BEGIN:VEVENT")) {
-                    if (currentlyParsing != ParseState.None) {
-                        throw new IcsException(FILE_IS_CORRUPTED);
-                    } else {
-                        currentlyParsing = ParseState.Event;
-                        stringBuilder = new StringBuilder("");
-                    }
-                }
-            }
+        Pattern pattern = Pattern.compile("BEGIN:VEVENT(.*?)END:VEVENT", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(fileContent);
+        int count = matcher.groupCount();
+        while (matcher.find()) {
+            String icsString = matcher.group(1);
+            EventSource newEvent = parseSingleEvent(icsString);
+            events.add(newEvent);
         }
         return eventSourceArray(events);
+    }
+
+    /**
+     * Parses the Ics file for its Tasks only and returns an array of TaskSource objects.
+     * @param fileContent The contents of the Ics file.
+     * @return An ArrayList of TaskSources provided by the Ics file.
+     * @throws IcsException If the file is not a proper Ics file, or if a description for a task is empty.
+     */
+    public TaskSource[] getTasksFromFile(String fileContent) throws IcsException {
+        ArrayList<TaskSource> tasks = new ArrayList<>();
+        Pattern pattern = Pattern.compile("BEGIN:VTODO(.*?)END:VTODO", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(fileContent);
+        int count = matcher.groupCount();
+        while (matcher.find()) {
+            String icsString = matcher.group(1);
+            TaskSource newTask = parseSingleTask(icsString);
+            tasks.add(newTask);
+        }
+        return taskSourceArray(tasks);
     }
 
     /**
@@ -136,6 +155,20 @@ public class IcsParser {
         EventSource[] array = new EventSource[size];
         for (int i = 0; i < size; i++) {
             array[i] = events.get(i);
+        }
+        return array;
+    }
+
+    /**
+     * Converts an ArrayList of TaskSource objects into an array.
+     * @param tasks the ArrayList of EventSource objects.
+     * @return An array of TaskSource objects.
+     */
+    private TaskSource[] taskSourceArray(ArrayList<TaskSource> tasks) {
+        int size = tasks.size();
+        TaskSource[] array = new TaskSource[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = tasks.get(i);
         }
         return array;
     }
@@ -156,11 +189,13 @@ public class IcsParser {
             if (line.startsWith("DESCRIPTION:")) {
                 description = line.replaceFirst("DESCRIPTION:", "");
                 if (description.equals("")) {
-                    throw new IcsException(EVENT_DESC_CANNOT_BE_EMPTY);
+                    description = "<empty>";
                 }
             } else if (line.startsWith("DTSTART:")) {
                 String timestamp = line.replaceFirst("DTSTART:", "");
-                eventStart = parseTimeStamp(timestamp);
+                eventStart = timestamp.equals("")
+                        ? DateTime.now()
+                        : parseTimeStamp(timestamp);
             } else if (line.startsWith("DTEND:")) {
                 String timestamp = line.replaceFirst("DTEND:", "");
                 eventEnd = parseTimeStamp(timestamp);
@@ -170,5 +205,72 @@ public class IcsParser {
         }
         return EventSource.newBuilder(description, eventStart)
             .build();
+    }
+
+    /**
+     * Creates an TaskSource object from the data provided in the ICS File.
+     * @param segment A String that represents the Task object in the ICS File.
+     * @return a TaskSource object representing the data provided.
+     * @throws IcsException Exception thrown when there was an issue while making the TaskSource object.
+     */
+    public TaskSource parseSingleTask(String segment) throws IcsException {
+        String[] lines = segment.split("\\r?\\n");
+        String description = "";
+        DateTime taskStart = null;
+        DateTime due = null;
+        Duration duration = null;
+        for (String line : lines) {
+            if (line.startsWith("SUMMARY:")) {
+                description = line.replaceFirst("SUMMARY:", "");
+                if (description.equals("")) {
+                    description = "<empty>";
+                }
+            } else if (line.startsWith("DUE:")) {
+                String timestamp = line.replaceFirst("DUE:", "");
+                due = timestamp.equals("")
+                        ? DateTime.now()
+                        : parseTimeStamp(timestamp);
+            } else if (line.startsWith("DURATION:")) {
+                String durationString = line.replaceFirst("DURATION:", "");
+                try {
+                    duration = Duration.parse(durationString);
+                } catch (DateTimeParseException e) {
+                    throw new IcsException(FILE_IS_CORRUPTED);
+                }
+            } else if (line.startsWith("DTSTART:")) {
+                String startString = line.replaceFirst("DURATION:", "");
+                taskStart = startString.equals("")
+                        ? DateTime.now()
+                        : parseTimeStamp(startString);
+            }
+        }
+
+        if (description.equals("")) {
+            throw new IcsException(FILE_IS_CORRUPTED);
+        }
+
+        if (due == null && !(duration == null || taskStart == null)) {
+            due = taskStart.addDuration(duration);
+        }
+        return due != null
+                ? TaskSource.newBuilder(description).setDueDate(due).build()
+                : TaskSource.newBuilder(description).build();
+    }
+
+    /**
+     * Converts the timestamp from the format given in the ICS file to a DateTime object.
+     * @param icsTimeStamp A timestamp in the default ICS file specification format.
+     * @return A DateTime object representing the timestamp.
+     * @throws IcsException Thrown when the timestamp provided is invalid.
+     */
+    public static DateTime parseTimeStamp(String icsTimeStamp) throws IcsException {
+        try {
+            DateTimeParser dateTimeParser =
+                    new DateTimeParser(DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
+                            .withZone(ZoneId.of("GMT")));
+            return dateTimeParser.parse(icsTimeStamp);
+        } catch (ParseException e) {
+            throw new IcsException(TIMESTAMP_IS_INVALID);
+        }
     }
 }

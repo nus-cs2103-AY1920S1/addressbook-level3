@@ -1,8 +1,5 @@
 package seedu.address.logic;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -16,8 +13,11 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.listeners.CommandInputListener;
+import seedu.address.model.CalendarDate;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.ColorTheme;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.Ui;
@@ -28,7 +28,7 @@ import seedu.address.ui.listeners.UserOutputListener;
  * The manager of the UI component.
  * Responsible for creating and destroying the graphical ui.
  */
-public class UiManager implements Ui, UserOutputListener, EventListListener {
+public class UiManager implements Ui, UserOutputListener, EventListListener, TaskListListener {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -52,27 +52,15 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
         try {
             mainWindow = new MainWindow(primaryStage, commandInput -> {
                 // TODO: Temporary command
-                if (commandInput.equals("view_calendar")) {
+                if (commandInput.equals("calendar")) {
                     this.mainWindow.viewCalendar();
-                } else if (commandInput.equals("view_list")) {
+                } else if (commandInput.equals("list")) {
                     this.mainWindow.viewList();
-                } else if (commandInput.equals("view_log")) {
+                } else if (commandInput.equals("log")) {
                     this.mainWindow.viewLog();
-                } else if (commandInput.equals("change_timeline")) {
-                    // TODO: Add a parser that parse the user input into DateTime class or Instant class
-                    // Then I'll parse the Instant into day, month, year
-                    // This is to change the timeline date
-                    // Changes the calendar date as well
-                    LocalDate date = LocalDate.parse("2019-11-18");
-                    Instant dateTime = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-                    this.mainWindow.changeTimelineDate(dateTime);
-                } else if (commandInput.equals("change_calendar")) {
-                    // TODO: Add a parser that parse the user input into DateTime class or Instant class
-                    // The day doesn't matter for this, only need month and year
-                    // This is to change the calendar date
-                    LocalDate date = LocalDate.parse("2019-11-18");
-                    Instant dateTime = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-                    this.mainWindow.changeCalendarScreenDate(dateTime);
+                } else if (commandInput.equals("calendar 11/2019")) {
+                    // No need for day
+                    // this.mainWindow.changeCalendarScreenDate(11, 2019);
                 } else {
                     // Notify listeners of new command input.
                     this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
@@ -126,9 +114,26 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
         System.exit(1);
     }
 
+    public void viewDay(CalendarDate calendarDate) {
+        mainWindow.viewDay(calendarDate);
+    }
+
+    public void viewWeek(CalendarDate calendarDate) {
+        mainWindow.viewWeek(calendarDate);
+    }
+
+    public void viewMonth(CalendarDate calendarDate) {
+        mainWindow.viewMonth(calendarDate);
+    }
+
     @Override
     public void onEventListChange(List<EventSource> events) {
         this.mainWindow.onEventListChange(events);
+    }
+
+    @Override
+    public void onTaskListChange(List<TaskSource> tasks) {
+        this.mainWindow.onTaskListChange(tasks);
     }
 
     @Override

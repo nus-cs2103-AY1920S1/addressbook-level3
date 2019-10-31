@@ -1,8 +1,7 @@
 package seedu.address.ui.panel.calendar;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,7 +9,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 
 import javafx.scene.layout.StackPane;
-import seedu.address.ui.UiParser;
+import seedu.address.model.CalendarDate;
+import seedu.address.model.DateTime;
+import seedu.address.model.events.EventSource;
 import seedu.address.ui.UiPart;
 
 /**
@@ -18,15 +19,10 @@ import seedu.address.ui.UiPart;
  */
 public class CalendarScreen extends UiPart<Region> {
 
-    private static final String FXML = "Calendar.fxml";
+    private static final String FXML = "CalendarScreen.fxml";
 
-    private Integer month;
-    private Integer year;
-    private LocalDate localDate;
-    private YearMonth yearMonth;
+    private CalendarDate calendarDate;
     private ArrayList<CalendarGridDay> dayIndexList;
-
-    private UiParser uiParser;
 
     @FXML
     private GridPane calendarGrid;
@@ -40,21 +36,14 @@ public class CalendarScreen extends UiPart<Region> {
     /**
      * Constructor for CalendarScreen that adds a month and year to form the calendar.
      *
-     * @param month Represents the month of the calendar.
-     * @param year Represents the year of the calendar.
-     * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
+     * @param calendarDate Represents a date of the calendar.
      *
      */
-    public CalendarScreen(Integer month, Integer year, UiParser uiParser) {
+    public CalendarScreen(CalendarDate calendarDate) {
         super(FXML);
-        this.month = month;
-        this.year = year;
-        this.uiParser = uiParser;
-        this.localDate = LocalDate.of(year, month, 1);
-        this.yearMonth = YearMonth.of(year, month);
+        this.calendarDate = calendarDate.firstDayOfTheMonth();
         this.dayIndexList = new ArrayList<>();
-        this.monthYearTitle.setText(uiParser.getEnglishDate(month, year));
-
+        this.monthYearTitle.setText(calendarDate.getEnglishMonth() + " " + calendarDate.getYear());
         resetCalendar();
     }
 
@@ -62,22 +51,47 @@ public class CalendarScreen extends UiPart<Region> {
      * Fills the index of the calendar and resets when needed to.
      */
     private void resetCalendar() {
-        int index = 1;
-        int startingDay = this.localDate.withDayOfMonth(1).getDayOfWeek().getValue();
-        int totalDays = this.yearMonth.lengthOfMonth();
-        for (int weeks = 0; weeks < 6; weeks++) {
-            for (int days = 0; days < 7; days++) {
-                if (weeks == 0 && days == 0) {
-                    days = startingDay - 2;
-                    continue;
+        Integer weekIndex = calendarDate.getWeekIndex();
+        CalendarDate currentDate = calendarDate.previousDays(weekIndex - 1);
+
+        // Week represents the row.
+        for (int week = 0; week < 6; week++) {
+            // Day represents the column.
+            for (int day = 0; day < 7; day++) {
+                CalendarGridDay calendarGridDay = new CalendarGridDay(currentDate, 0);
+                if (!calendarDate.sameMonthYear(currentDate.getMonth(), currentDate.getYear())) {
+                    calendarGridDay.reduceOpacity();
+                } else {
+                    dayIndexList.add(calendarGridDay);
                 }
-                if (index > totalDays) {
-                    break;
-                }
-                CalendarGridDay calendarGridDay = new CalendarGridDay(index);
-                calendarGrid.add(calendarGridDay.getRoot(), days, weeks);
-                dayIndexList.add(calendarGridDay);
-                index++;
+                calendarGrid.add(calendarGridDay.getRoot(), day, week);
+                currentDate = currentDate.nextDay();
+            }
+        }
+    }
+
+    /**
+     * Changes the color scheme for each day of the calendar screen.
+     * @param events The list of events.
+     */
+    public void eventChange(List<EventSource> events) {
+        changeColor(events);
+    }
+
+    /**
+     * Changes the color of the current month to indicate the color of the event by adding
+     * events to the given CalendarGridDay.
+     *
+     * @param events The given list of events.
+     * @see CalendarGridDay
+     */
+    private void changeColor(List<EventSource> events) {
+        // We do not want to change the color of next and previous month.
+        for (EventSource event : events) {
+            DateTime eventDateTime = event.getStartDateTime();
+            if (calendarDate.sameMonthYear(eventDateTime.getMonth(), eventDateTime.getYear())) {
+                Integer day = eventDateTime.getDay();
+                dayIndexList.get(day - 1).addAnEvent();
             }
         }
     }

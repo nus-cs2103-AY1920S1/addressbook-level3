@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
-import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
 
@@ -19,8 +18,7 @@ import seedu.address.ui.UiPart;
 public class ListPanel extends UiPart<Region> implements EventListListener {
 
     private static final String FXML = "ListPanel.fxml";
-    private UiParser uiParser;
-    private EventListPanel eventListPanel;
+    // private EventListPanel eventListPanel;
 
     @FXML
     private VBox list;
@@ -34,15 +32,14 @@ public class ListPanel extends UiPart<Region> implements EventListListener {
     /**
      * Constructor for ListPanel. Stores the event list, and task list[in v2.0].
      */
-    public ListPanel(UiParser uiParser) {
+    public ListPanel() {
         super(FXML);
-        this.uiParser = uiParser;
-        this.eventListPanel = new EventListPanel(uiParser);
+        // this.eventListPanel = new EventListPanel();
         // eventList.getChildren().add(eventListPanel.getRoot());
     }
 
     @Override
     public void onEventListChange(List<EventSource> events) {
-        this.eventListPanel.setItems(events);
+        // this.eventListPanel.setItems(events);
     }
 }

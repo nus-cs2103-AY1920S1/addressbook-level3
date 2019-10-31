@@ -21,9 +21,13 @@ public class SystemTrayCommunicator {
     private static final Logger logger = LogsCenter.getLogger(SystemTrayCommunicator.class);
     private static final String TRAY_ICON_NAME = "Horo";
     private static final String TRAY_ICON_IMAGE_PATH = "/images/system_tray_icon.png";
+    private static final String NOTIFICATIONS_ON_TOOLTIP = "Notifications switched on";
+    private static final String NOTIFICATIONS_OFF_TOOLTIP = "Notifications switched off";
 
     private static TrayIcon trayIcon;
     private static boolean systemTrayIsSupported;
+
+    private boolean notificationsSwitchedOn = true;
 
     public SystemTrayCommunicator() {
         this.initialise();
@@ -40,6 +44,7 @@ public class SystemTrayCommunicator {
 
             SystemTray tray = SystemTray.getSystemTray();
             trayIcon = getTrayIcon();
+            resetToolTipMessage();
 
             try {
                 tray.add(trayIcon);
@@ -60,6 +65,35 @@ public class SystemTrayCommunicator {
     public void postNewNotification(String name, String description) {
         if (systemTrayIsSupported) {
             trayIcon.displayMessage(name, description, MessageType.INFO);
+        }
+    }
+
+    /**
+     * Tells the System Tray Communicator that notifications are switched off.
+     */
+    public void switchOnNotifications() {
+        // This is purely a cosmetic change
+        notificationsSwitchedOn = true;
+        resetToolTipMessage();
+    }
+
+    /**
+     * Tells the SystemTrayCommunicator that notifications are switched off.
+     */
+    public void switchOffNotifications() {
+        // This is purely a cosmetic change
+        notificationsSwitchedOn = false;
+        resetToolTipMessage();
+    }
+
+    /**
+     * Changes the tooltip message based on whether notifications are switched on or off.
+     */
+    private void resetToolTipMessage() {
+        if (notificationsSwitchedOn) {
+            trayIcon.setToolTip(NOTIFICATIONS_ON_TOOLTIP);
+        } else {
+            trayIcon.setToolTip(NOTIFICATIONS_OFF_TOOLTIP);
         }
     }
 

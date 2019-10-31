@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import java.util.Map;
 
 import seedu.address.logic.commands.arguments.StringArgument;
-import seedu.address.logic.commands.arguments.StringArgumentBuilder;
-import seedu.address.logic.commands.options.Option;
-import seedu.address.logic.commands.options.OptionBuilder;
+import seedu.address.logic.commands.arguments.list.ArgumentList;
+import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
+import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 import seedu.address.model.ModelManager;
 
 /**
@@ -13,12 +13,13 @@ import seedu.address.model.ModelManager;
  */
 public class ImportIcsCommandBuilder extends CommandBuilder {
     private static final String ARGUMENT_FILEPATH = "FILEPATH";
+
     private final ModelManager model;
-    private final StringArgumentBuilder filepath;
+
+    private String filepath;
 
     ImportIcsCommandBuilder(ModelManager model) {
         this.model = model;
-        this.filepath = StringArgument.newBuilder(ARGUMENT_FILEPATH);
     }
 
     ModelManager getModel() {
@@ -26,18 +27,18 @@ public class ImportIcsCommandBuilder extends CommandBuilder {
     }
 
     String getFilepath() {
-        return this.filepath.getValue();
+        return this.filepath;
     }
 
     @Override
-    OptionBuilder getCommandArguments() {
-        return Option.newBuilder()
-                .addArgument(this.filepath);
+    RequiredArgumentList defineCommandArguments() {
+        return ArgumentList.required()
+            .addArgument(StringArgument.newBuilder(ARGUMENT_FILEPATH, o -> this.filepath = o));
     }
 
     @Override
-    Map<String, OptionBuilder> getCommandOptions() {
-        return Map.of();
+    Map<String, OptionalArgumentList> defineCommandOptions() {
+        return null;
     }
 
     @Override
