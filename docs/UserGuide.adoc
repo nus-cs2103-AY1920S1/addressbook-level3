@@ -436,13 +436,18 @@ Format: `add ti/TITLE d/DESCRIPTION t/TAG c/CONTENT `
 
 Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
 
-==== Accessing a note : `read`
+****
+* You are not allowed to create notes with the same title.
+* Title, description and tag field must not be empty.
+****
+
+==== Accessing a note : `open`
 
 Reads a note in the app.
 
-Format: `read INDEX`
+Format: `open INDEX`
 
-Example: `read 1`
+Example: `open 1`
 
 ****
 * Read note opens a new window that allows you to read and edit easily.
@@ -483,13 +488,13 @@ Example:`find Personal_diary`
 * Searches title, description and content of all the notes that contains the TEXT.
 ****
 
-==== Sorting notes: `sortBy`
+==== Sorting notes: `sort`
 
 Sorts notes in ways specified by the user.
 
-Format: `sort sb/SORTBYCONDITION`
+Format: `sort by/SORTBYCONDITION`
 
-Example: `sort sb/DateModified`
+Example: `sort by/DateModified`
 
 ****
 * SORTBYCONDITION must be either "DateModified", "DateCreated" and "NumOfAccess".
@@ -574,11 +579,11 @@ Accessing File directory: `goto file`
 
 Accessing Note directory: `goto note`
 
-- `read INDEX`: Reads a note in the app.
+- `open INDEX`: Opens the note corresponding to the index in the app.
 - `delete INDEX`: Deletes a note as specified by the user.
 - `edit INDEX ti/TITLE d/DESCRIPTION t/TAG c/CONTENT`: Edits a note specified by the user.
 - `find INDEX` or `find TITLE`: Finds a note as specified by the user.
-- `sort SORTBYCONDITION`: Sorts notes in ways specified by the user.
+- `sort by/SORTBYCONDITION`: Sorts notes in ways specified by the user.
 - `undo`: Undo last action on notes.
 - `redo`: Redo last undone action on notes.
 
