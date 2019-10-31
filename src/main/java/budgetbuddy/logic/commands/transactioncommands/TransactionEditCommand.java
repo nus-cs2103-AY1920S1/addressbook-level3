@@ -11,9 +11,9 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import budgetbuddy.commons.core.index.Index;
@@ -73,7 +73,7 @@ public class TransactionEditCommand extends Command {
                                   Account targetAccount) {
         requireAllNonNull(targetTransactionIndex, updatedTransactionDescriptor);
         this.targetTransactionIndex = targetTransactionIndex;
-        this.updatedTransactionDescriptor = updatedTransactionDescriptor;
+        this.updatedTransactionDescriptor = new TransactionEditDescriptor(updatedTransactionDescriptor);
         this.targetAccount = targetAccount;
     }
 
@@ -86,7 +86,6 @@ public class TransactionEditCommand extends Command {
 
             ObservableList<Transaction> targetTransactionList = model.getFilteredTransactions();
             Transaction targetTransaction = targetTransactionList.get(targetTransactionIndex.getZeroBased());
-            Transaction updatedTransaction = updateTransaction(targetTransaction, updatedTransactionDescriptor);
 
             //the transaction will be deleted and re-added to allow for changing of accounts.
             //this is because transactions do not have references to their respective accounts.
@@ -96,6 +95,10 @@ public class TransactionEditCommand extends Command {
             if (targetAccount == null) {
                 targetAccount = model.getAccountsManager().getActiveAccount();
             }
+
+            Transaction updatedTransaction = updateTransaction(targetTransaction, updatedTransactionDescriptor,
+                    targetAccount, model.getAccountsManager().getActiveAccount());
+
 
             accountsManager.getAccount(targetAccount.getName()).addTransaction(updatedTransaction);
 
@@ -129,21 +132,23 @@ public class TransactionEditCommand extends Command {
      * edited with {@code transactionEditDescriptor}.
      */
     private Transaction updateTransaction(Transaction targetTransaction,
-                                          TransactionEditDescriptor transactionEditDescriptor) throws CommandException {
+                                          TransactionEditDescriptor transactionEditDescriptor,
+                                          Account targetAccount,
+                                          Account updatedAccount) throws CommandException {
         Date updatedDate = transactionEditDescriptor.getDate() != null
-                ? transactionEditDescriptor.getDate()
+                ? transactionEditDescriptor.getDate().get()
                 : targetTransaction.getDate();
 
         Amount updatedAmount = transactionEditDescriptor.getAmount() != null
-                ? transactionEditDescriptor.getAmount()
+                ? transactionEditDescriptor.getAmount().get()
                 : targetTransaction.getAmount();
 
         Direction updatedDirection = transactionEditDescriptor.getDirection() != null
-                ? transactionEditDescriptor.getDirection()
+                ? transactionEditDescriptor.getDirection().get()
                 : targetTransaction.getDirection();
 
         Description updatedDescription = transactionEditDescriptor.getDescription() != null
-                ? transactionEditDescriptor.getDescription()
+                ? transactionEditDescriptor.getDescription().get()
                 : targetTransaction.getDescription();
 
         Set<Category> updatedCategories = !transactionEditDescriptor.getCategories().isEmpty()
@@ -153,7 +158,7 @@ public class TransactionEditCommand extends Command {
         Transaction updatedTransaction = new Transaction(updatedDate, updatedAmount, updatedDirection,
                 updatedDescription, updatedCategories);
 
-        if (targetTransaction.equals(updatedTransaction)) {
+        if (targetTransaction.equals(updatedTransaction) && targetAccount.equals(updatedAccount)) {
             //no updates were made
             throw new CommandException(MESSAGE_UNEDITED);
         }
@@ -172,33 +177,54 @@ public class TransactionEditCommand extends Command {
         private Set<Category> categories = new HashSet<>();
         private Date date;
 
-        public TransactionEditDescriptor (Direction direction, Amount amount, Description description,
-                                         Category category, Date date) {
+        public TransactionEditDescriptor(){};
+
+        public TransactionEditDescriptor (TransactionEditDescriptor toCopy) {
+            this.date = toCopy.date;
+            this.amount = toCopy.amount;
+            this.direction = toCopy.direction;
+            this.description = toCopy.description;
+            this.categories = toCopy.categories;
+        }
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
+        }
+
+        public void setDate(Date date) {
             this.date = date;
+        }
+
+        public Optional<Amount> getAmount() {
+            return Optional.ofNullable(amount);
+        }
+
+        public void setAmount(Amount amount) {
             this.amount = amount;
+        }
+
+        public Optional<Direction> getDirection() {
+            return Optional.ofNullable(direction);
+        }
+
+        public void setDirection(Direction direction) {
             this.direction = direction;
+        }
+
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
+        }
+
+        public void setDescription(Description description) {
             this.description = description;
-            this.categories.addAll(Arrays.asList(category));
-        }
-
-        public Date getDate() {
-            return date;
-        }
-
-        public Amount getAmount() {
-            return amount;
-        }
-
-        public Direction getDirection() {
-            return direction;
-        }
-
-        public Description getDescription() {
-            return description;
         }
 
         public Set<Category> getCategories() {
             return categories;
+        }
+
+        public void setCategories (Set<Category> categories) {
+            this.categories = categories;
         }
     }
 }

@@ -80,7 +80,7 @@ public class TransactionAddCommand extends Command {
         try {
             realToAccount.addTransaction(toAdd);
         } catch (Exception e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, toAdd), CommandCategory.TRANSACTION);
+            return new CommandResult(MESSAGE_FAILURE, CommandCategory.TRANSACTION);
         }
         RuleProcessor.executeRules(model, toAdd);
 

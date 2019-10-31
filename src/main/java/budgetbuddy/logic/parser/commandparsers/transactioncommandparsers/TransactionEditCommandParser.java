@@ -9,7 +9,8 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.transactioncommands.TransactionEditCommand;
@@ -21,9 +22,6 @@ import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
-import budgetbuddy.model.attributes.Description;
-import budgetbuddy.model.attributes.Direction;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * Parses input and creates a new TransactionAddCommand
@@ -59,37 +57,36 @@ public class TransactionEditCommandParser implements CommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, TransactionEditCommand.MESSAGE_USAGE), e);
         }
 
-        Direction updatedDirection = argMultiMap.getValue(PREFIX_DIRECTION).isPresent()
-                ? CommandParserUtil.parseDirection(argMultiMap.getValue(PREFIX_DESCRIPTION).get())
-                : null;
+        TransactionEditDescriptor transactionEditDescriptor = new TransactionEditDescriptor();
+        if (argMultiMap.getValue(PREFIX_DIRECTION).isPresent()) {
+            transactionEditDescriptor.setDirection(
+                    CommandParserUtil.parseDirection(argMultiMap.getValue(PREFIX_DIRECTION).get()));
+        }
 
-        Amount updatedAmount = argMultiMap.getValue(PREFIX_AMOUNT).isPresent()
-                ? CommandParserUtil.parseAmount(argMultiMap.getValue(PREFIX_AMOUNT).get())
-                : null;
+        if (argMultiMap.getValue(PREFIX_AMOUNT).isPresent()) {
+            transactionEditDescriptor.setAmount(
+                    CommandParserUtil.parseAmount(argMultiMap.getValue(PREFIX_AMOUNT).get()));
+        }
 
-        Description updatedDescription = argMultiMap.getValue(PREFIX_DESCRIPTION).isPresent()
-                ? CommandParserUtil.parseDescription(argMultiMap.getValue(PREFIX_DESCRIPTION).get())
-                : null;
+        if (argMultiMap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            transactionEditDescriptor.setDescription(
+                    CommandParserUtil.parseDescription(argMultiMap.getValue(PREFIX_DESCRIPTION).get()));
+        }
+
+        if (argMultiMap.getValue(PREFIX_DATE).isPresent()) {
+            transactionEditDescriptor.setDate(
+                    CommandParserUtil.parseDate(argMultiMap.getValue(PREFIX_DATE).get()));
+        }
+
+        if (argMultiMap.getValue(PREFIX_CATEGORY).isPresent()) {
+            Set<Category> newCategories = new HashSet<>();
+            newCategories.add(CommandParserUtil.parseCategory(argMultiMap.getValue(PREFIX_DATE).get()));
+            transactionEditDescriptor.setCategories(newCategories);
+        }
 
         Account updatedAccount = argMultiMap.getValue(PREFIX_ACCOUNT).isPresent()
                 ? CommandParserUtil.parseAccount(argMultiMap.getValue(PREFIX_ACCOUNT).get())
                 : null;
-
-        Date updatedDate = argMultiMap.getValue(PREFIX_DATE).isPresent()
-                ? CommandParserUtil.parseDate(argMultiMap.getValue(PREFIX_DATE).get())
-                : null;
-
-        Category updatedCategory = argMultiMap.getValue(PREFIX_CATEGORY).isPresent()
-                ? CommandParserUtil.parseCategory(argMultiMap.getValue(PREFIX_CATEGORY).get())
-                : null;
-
-        TransactionEditDescriptor transactionEditDescriptor = new TransactionEditDescriptor(
-                updatedDirection,
-                updatedAmount,
-                updatedDescription,
-                updatedCategory,
-                updatedDate
-        );
 
         return new TransactionEditCommand(transactionIndex, transactionEditDescriptor, updatedAccount);
     }
