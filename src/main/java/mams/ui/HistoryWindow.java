@@ -3,9 +3,10 @@ package mams.ui;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import mams.commons.core.LogsCenter;
 import mams.logic.InputOutput;
@@ -23,17 +24,24 @@ public class HistoryWindow extends UiPart<Stage> {
 
     private boolean hideOutputHistory;
 
+    private HistoryListPanel historyListPanel;
+
     @FXML
-    private TextArea resultDisplay;
+    private StackPane historyDisplayPanelPlaceholder;
 
     /**
      * Creates a new HistoryWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public HistoryWindow(Stage root, boolean hideOutputHistory) {
+    public HistoryWindow(Stage root, boolean hideOutputHistory, ObservableList<InputOutput> commandHistory) {
         super(FXML, root);
         this.hideOutputHistory = hideOutputHistory;
+        this.historyListPanel = new HistoryListPanel(commandHistory);
+        historyDisplayPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
+
+        // Global event filter: whenever ESC key is pressed, exit HistoryWindow regardless of focus.
+        root.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPress);
     }
 
     /**
@@ -41,27 +49,28 @@ public class HistoryWindow extends UiPart<Stage> {
      *
      * @param hideOutputHistory if true, then command feedback history will be displayed along with command history
      */
-    public HistoryWindow(boolean hideOutputHistory) {
-        this(new Stage(), hideOutputHistory);
+    public HistoryWindow(boolean hideOutputHistory, ObservableList<InputOutput> commandHistory) {
+        this(new Stage(), hideOutputHistory, commandHistory);
     }
 
     /**
      * Updates the history text box with the new {@code commandHistory}.
-     * @param commandHistory
+     * @param commandHistory List of InputOutput obj
      */
     public void updateHistoryDisplay(List<InputOutput> commandHistory) {
         String historyAsText = formatCommandHistoryToString(commandHistory);
-        resultDisplay.setText(historyAsText);
-        resultDisplay.appendText(""); // auto-scroll to bottom
+        //resultDisplay.setText(historyAsText);
+        //resultDisplay.appendText(""); // auto-scroll to bottom
     }
 
     /**
      * Setter method for displaying/hiding command feedback in the history window
-     * @param hideOutputHistory if true, command feedback is shown in history window
+     * @param isOutputHidden if true, command feedback is shown in history window
      */
-    public void hideOutputDisplay(boolean hideOutputHistory) {
-        logger.fine("Feedback display in history window has been set to " + Boolean.toString(hideOutputHistory));
-        this.hideOutputHistory = hideOutputHistory;
+    public void hideOutputDisplay(boolean isOutputHidden) {
+        logger.fine("Feedback display in history window has been set to " + Boolean.toString(isOutputHidden));
+        this.hideOutputHistory = isOutputHidden;
+        historyListPanel.hideOutput(isOutputHidden);
     }
 
     /**
@@ -133,10 +142,10 @@ public class HistoryWindow extends UiPart<Stage> {
     }
 
     /**
-     * Autoscroll to bottom by appending an empty {@code String}
+     * Scroll display list to bottom.
      */
     public void scrollToBottom() {
-        resultDisplay.appendText("");
+        historyListPanel.scrollToBottom();
     }
 
     /**

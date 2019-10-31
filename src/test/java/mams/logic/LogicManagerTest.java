@@ -53,7 +53,8 @@ public class LogicManagerTest {
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-        assertHistorySuccess(Arrays.asList(invalidCommand), Arrays.asList(MESSAGE_UNKNOWN_COMMAND));
+        assertHistorySuccess(Arrays.asList(invalidCommand), Arrays.asList(MESSAGE_UNKNOWN_COMMAND),
+                Arrays.asList(false));
     }
 
     @Test
@@ -69,7 +70,7 @@ public class LogicManagerTest {
                 + ListCommand.MESSAGE_LIST_STUDENTS_SUCCESS;
         assertCommandSuccess(listCommand, expectedFeedback, model);
 
-        assertHistorySuccess(Arrays.asList(listCommand), Arrays.asList(expectedFeedback));
+        assertHistorySuccess(Arrays.asList(listCommand), Arrays.asList(expectedFeedback), Arrays.asList(true));
     }
 
     @Test
@@ -147,16 +148,20 @@ public class LogicManagerTest {
 
     /**
      * Asserts that the {@code CommandHistory} object within {@code LogicManager} is storing the correct sequence
-     * of command inputs and command feedback.
+     * of command inputs and command feedback. However, it is impossible to test the timestamp equality
+     * exactly, so we simply retrieve it from the actual Logic and set the expectedCommandHistory
+     * to the same timestamps.
      * @param inputs List of inputs entered. Each input is assumed to be in the same index as the
      * corresponding {@code outputs}
      * @param outputs List of expected outputs received.
      */
-    private void assertHistorySuccess(List<String> inputs, List<String> outputs) {
+    private void assertHistorySuccess(List<String> inputs, List<String> outputs, List<Boolean> isSuccessfulArray) {
         assertEquals(inputs.size(), outputs.size());
+        List<InputOutput> actualCommandHistory = logic.getCommandHistory();
         ArrayList<InputOutput> expectedList = new ArrayList<>();
         for (int i = 0; i < inputs.size(); i++) {
-            expectedList.add(new InputOutput(inputs.get(i), outputs.get(i)));
+            expectedList.add(new InputOutput(inputs.get(i), outputs.get(i), isSuccessfulArray.get(i),
+                    actualCommandHistory.get(i).getTimeStamp()));
         }
         ObservableList<InputOutput> expectedHistory = FXCollections.unmodifiableObservableList(
                 FXCollections.observableList(expectedList));

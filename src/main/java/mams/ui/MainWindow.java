@@ -72,7 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        historyWindow = new HistoryWindow(false);
+        historyWindow = new HistoryWindow(false, logic.getCommandHistory());
     }
 
     public Stage getPrimaryStage() {

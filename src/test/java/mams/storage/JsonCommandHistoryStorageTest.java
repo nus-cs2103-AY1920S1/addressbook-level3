@@ -1,10 +1,9 @@
 package mams.storage;
 
 import static mams.testutil.Assert.assertThrows;
-import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_3;
-import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_4;
-import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_OUTPUT_3;
-import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_OUTPUT_4;
+import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_1;
+import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_2;
+
 import static mams.testutil.TypicalCommandHistory.getTypicalCommandHistory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -77,13 +76,15 @@ public class JsonCommandHistoryStorageTest {
         assertEquals(original, new CommandHistory(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.add(VALID_COMMAND_3, VALID_COMMAND_OUTPUT_3);
+        original.add(SUCCESSFUL_IO_1.getInput(), SUCCESSFUL_IO_1.getOutput(),
+                SUCCESSFUL_IO_1.checkSuccessful(), SUCCESSFUL_IO_1.getTimeStamp());
         jsonCommandHistoryStorage.saveCommandHistory(original, filePath);
         readBack = jsonCommandHistoryStorage.readCommandHistory(filePath).get();
         assertEquals(original, new CommandHistory(readBack));
 
         // Save and read without specifying file path
-        original.add(VALID_COMMAND_4, VALID_COMMAND_OUTPUT_4);
+        original.add(SUCCESSFUL_IO_2.getInput(), SUCCESSFUL_IO_2.getOutput(),
+                SUCCESSFUL_IO_2.checkSuccessful(), SUCCESSFUL_IO_2.getTimeStamp());
         jsonCommandHistoryStorage.saveCommandHistory(original); // file path not specified
         readBack = jsonCommandHistoryStorage.readCommandHistory().get(); // file path not specified
         assertEquals(original, new CommandHistory(readBack));
