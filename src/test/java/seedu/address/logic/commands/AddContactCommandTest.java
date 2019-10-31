@@ -316,7 +316,15 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public void addDayAtIndex(Index index, Day d) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void deleteDay(Day target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void deleteDays(int n) {
             throw new AssertionError("This method should not be called.");
         }
 

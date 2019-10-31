@@ -20,7 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ViewCommandParser implements Parser<ViewCommand> {
 
-    private static final Pattern VIEW_COMMAND_FORMAT = Pattern.compile("(?<type>\\S+)");
+    private static final Pattern VIEW_COMMAND_FORMAT = Pattern.compile("(?<type>\\S+)(?<arguments>.*)");
     /**
      * Parses the given {@code String} of arguments in the context of the ViewCommand
      * and returns an ViewCommand object for execution.
@@ -35,13 +35,14 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         }
 
         final String type = matcher.group("type");
+        final String arguments = matcher.group("arguments");
         switch (type) {
         case ViewAccommodationCommand.SECOND_COMMAND_WORD:
-            return new ViewAccommodationCommand();
+            return new ViewAccommodationCommand(ParserUtil.parseIndex(arguments));
         case ViewActivityCommand.SECOND_COMMAND_WORD:
-            return new ViewActivityCommand();
+            return new ViewActivityCommand(ParserUtil.parseIndex(arguments));
         case ViewContactCommand.SECOND_COMMAND_WORD:
-            return new ViewContactCommand();
+            return new ViewContactCommand(ParserUtil.parseIndex(arguments));
         case ViewItineraryCommand.SECOND_COMMAND_WORD:
             return new ViewItineraryCommand();
         case ViewInfoCommand.SECOND_COMMAND_WORD:

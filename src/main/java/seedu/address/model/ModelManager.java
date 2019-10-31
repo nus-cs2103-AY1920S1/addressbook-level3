@@ -520,8 +520,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteDays(int n) {
+        itinerary.deleteDays(n);
+    }
+
+    @Override
     public void addDays(int n) {
         itinerary.addDays(n);
+    }
+
+    @Override
+    public void addDayAtIndex(Index index, Day day) {
+        itinerary.addDayAtIndex(index, day);
+        updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
     }
 
     @Override

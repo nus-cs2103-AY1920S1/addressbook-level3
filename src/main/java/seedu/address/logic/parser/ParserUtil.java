@@ -77,16 +77,21 @@ public class ParserUtil {
      * Parses a {@code String argValue} into a {@code NameWithTime}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static NameWithTime parseNameWithTime(String argValue) {
+    public static NameWithTime parseNameWithTime(String argValue) throws ParseException {
         requireNonNull(argValue);
         String trimmedArgValue = argValue.trim();
         String[] args = trimmedArgValue.split(" ");
         try {
-            Integer time = Integer.parseInt(args[args.length - 1]);
-            String name = argValue.substring(0, argValue.length() - 5);
-            return new NameWithTime(new Name(name), time);
+            Integer.parseInt(args[args.length - 1]);
         } catch (NumberFormatException e) {
-            return new NameWithTime(new Name(argValue), null);
+            return new NameWithTime(new Name(trimmedArgValue), null);
+        }
+        try {
+            LocalTime parsedTime = LocalTime.parse(args[args.length - 1], TIME_FORMATTER);
+            String name = trimmedArgValue.substring(0, trimmedArgValue.length() - 5);
+            return new NameWithTime(new Name(name), parsedTime);
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Time format is: " + TIME_FORMAT);
         }
     }
 
@@ -154,16 +159,21 @@ public class ParserUtil {
      * Parses a {@code String argValue} into a {@code TagWithTime}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static TagWithTime parseTagWithTime(String argValue) {
+    public static TagWithTime parseTagWithTime(String argValue) throws ParseException {
         requireNonNull(argValue);
         String trimmedArgValue = argValue.trim();
         String[] args = trimmedArgValue.split(" ");
         try {
-            Integer time = Integer.parseInt(args[args.length - 1]);
-            String tag = argValue.substring(0, argValue.length() - 5);
-            return new TagWithTime(new Tag(tag), time);
+            Integer.parseInt(args[args.length - 1]);
         } catch (NumberFormatException e) {
-            return new TagWithTime(new Tag(argValue), null);
+            return new TagWithTime(new Tag(trimmedArgValue), null);
+        }
+        try {
+            LocalTime parsedTime = LocalTime.parse(args[args.length - 1], TIME_FORMATTER);
+            String tag = trimmedArgValue.substring(0, trimmedArgValue.length() - 5);
+            return new TagWithTime(new Tag(tag), parsedTime);
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Time format is: " + TIME_FORMAT);
         }
     }
 

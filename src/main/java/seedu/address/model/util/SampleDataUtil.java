@@ -24,6 +24,7 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
 import seedu.address.model.field.Address;
+import seedu.address.model.field.Cost;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
@@ -33,18 +34,16 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Accommodation[] getSampleAccommodations() {
         return new Accommodation[]{
-            new Accommodation(new Name("Alex Yeoh"), new Address("Blk 30 Geylang Street 29, #06-40"),
-                        null, getTagSet("friends")),
-            new Accommodation(new Name("Bernice Yu"), new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                        null, getTagSet("colleagues", "friends")),
-            new Accommodation(new Name("Charlotte Oliveiro"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                        null, getTagSet("neighbours")),
-            new Accommodation(new Name("David Li"), new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                        null, getTagSet("family")),
-            new Accommodation(new Name("Irfan Ibrahim"), new Address("Blk 47 Tampines Street 20, #17-35"),
+            new Accommodation(new Name("Mandarin Orchard Hotel"), new Address("333 Orchard Road"),
+                        null, getTagSet("5star")),
+            new Accommodation(new Name("Royal Plaza Hotel"), new Address("25 Scotts Road"),
+                        null, getTagSet("Epic", "Suite")),
+            new Accommodation(new Name("Hard Rock Hotel RWS"), new Address("8 Sentosa Gateway"),
+                        null, getTagSet("Resort")),
+            new Accommodation(new Name("Hotel 81"), new Address("29 Geylang Road"),
+                        null, getTagSet("cheap")),
+            new Accommodation(new Name("Tokyo Grand Hotel"), new Address("Shibuya, Tokyo"),
                         null, getTagSet("classmates")),
-            new Accommodation(new Name("Roy Balakrishnan"), new Address("Blk 45 Aljunied Street 85, #11-31"),
-                        null, getTagSet("colleagues"))
         };
     }
 
@@ -58,18 +57,20 @@ public class SampleDataUtil {
 
     public static Activity[] getSampleActivities() {
         return new Activity[]{
-            new Activity(new Name("Alex Yeoh"), new Address("Blk 30 Geylang Street 29, #06-40"),
-                    null, null, getTagSet("friends"), new Duration(30), new Priority(1)),
-            new Activity(new Name("Bernice Yu"), new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    null, null, getTagSet("colleagues", "friends"), new Duration(30), new Priority(2)),
-            new Activity(new Name("Charlotte Oliveiro"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    null, null, getTagSet("neighbours"), new Duration(30), new Priority(3)),
-            new Activity(new Name("David Li"), new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    null, null, getTagSet("family"), new Duration(30), new Priority(4)),
-            new Activity(new Name("Irfan Ibrahim"), new Address("Blk 47 Tampines Street 20, #17-35"),
-                    null, null, getTagSet("classmates"), new Duration(30), new Priority(5)),
-            new Activity(new Name("Roy Balakrishnan"), new Address("Blk 45 Aljunied Street 85, #11-31"),
-                    null, null, getTagSet("colleagues"), new Duration(30), new Priority(6))
+            new Activity(new Name("Visit Gardens by The Bay"), new Address("18 Marina Gardens Dr"),
+                    null, new Cost("23.00"), getTagSet("indoor", "refreshing"),
+                    new Duration(90), new Priority(1)),
+            new Activity(new Name("Universal Studio Singapore"), new Address("Resort World Sentosa"),
+                    null, new Cost("75.00"), getTagSet("unique", "themepark"),
+                    new Duration(210), new Priority(2)),
+            new Activity(new Name("Night Safari"), new Address("80 Mandai Lake Road"),
+                    null, new Cost("44.00"), getTagSet("wild"),
+                    new Duration(180), new Priority(3)),
+            new Activity(new Name("Singapore City Tour"), new Address("Merlion Park"),
+                    null, new Cost("36.00"), getTagSet("bus"),
+                    new Duration(210), new Priority(4)),
+            new Activity(new Name("Hawker Food Hunt"), new Address("6 Jalan Bukit Merah"),
+                    null, null, getTagSet("yummy"), new Duration(60), new Priority(5)),
         };
     }
 
@@ -114,13 +115,21 @@ public class SampleDataUtil {
 
     // Need to add more samples
     public static Day[] getSampleDays() {
-        ArrayList<ActivityWithTime> sampleActivities = new ArrayList<>();
-        Activity a = new Activity(new Name("Go Ocean Park"), new Address("Tokyo"), null, null, getTagSet("epic"),
-                new Duration(30), new Priority(1));
-        sampleActivities.add(new ActivityWithTime(a, LocalTime.of(10, 30), LocalTime.of(12, 30)));
+        Activity [] activities = getSampleActivities();
+
+        ArrayList<ActivityWithTime> sampleActivities1 = new ArrayList<>();
+        sampleActivities1.add(new ActivityWithTime(activities[0], LocalTime.of(10, 30), LocalTime.of(12, 00)));
+        sampleActivities1.add(new ActivityWithTime(activities[1], LocalTime.of(14, 00), LocalTime.of(17, 30)));
+
+        ArrayList<ActivityWithTime> sampleActivities2 = new ArrayList<>();
+        sampleActivities2.add(new ActivityWithTime(activities[3], LocalTime.of(10, 00), LocalTime.of(13, 30)));
+
+        ArrayList<ActivityWithTime> sampleActivities3 = new ArrayList<>();
+        sampleActivities3.add(new ActivityWithTime(activities[2], LocalTime.of(18, 30), LocalTime.of(21, 30)));
+        sampleActivities3.add(new ActivityWithTime(activities[4], LocalTime.of(12, 30), LocalTime.of(13, 30)));
 
         return new Day[]{
-            new Day(sampleActivities)
+            new Day(sampleActivities1), new Day(sampleActivities2), new Day(sampleActivities3)
         };
 
     }

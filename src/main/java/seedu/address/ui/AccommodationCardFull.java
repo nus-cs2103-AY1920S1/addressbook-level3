@@ -4,11 +4,13 @@ import java.util.Comparator;
 import java.util.Optional;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
+import javafx.scene.layout.VBox;
 import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.contact.Contact;
 
@@ -32,6 +34,10 @@ public class AccommodationCardFull extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private VBox labelPane1;
+    @FXML
+    private VBox labelPane2;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -53,7 +59,13 @@ public class AccommodationCardFull extends UiPart<Region> {
     public AccommodationCardFull(Accommodation accommodation, int displayedIndex, String description) {
         super(FXML);
         this.accommodation = accommodation;
-        this.description.setText(description);
+
+        if (description.equals("")) {
+            hideLabel(this.description);
+        } else {
+            this.description.setText(description);
+        }
+
         id.setText(displayedIndex + ". ");
         name.setText(accommodation.getName().toString());
         address.setText("Address: " + accommodation.getAddress());
@@ -86,18 +98,23 @@ public class AccommodationCardFull extends UiPart<Region> {
     }
 
     private void setEmptyTextForEntireContact() {
-        contactName.setText("");
-        contactPhone.setText("");
+        hideLabel(contactName);
+        hideLabel(contactPhone);
         setEmptyTextForContactAddress();
         setEmptyTextForContactEmail();
     }
 
     private void setEmptyTextForContactAddress() {
-        contactAddress.setText("");
+        hideLabel(contactAddress);
     }
 
     private void setEmptyTextForContactEmail() {
-        contactEmail.setText("");
+        hideLabel(contactEmail);
+    }
+
+    private void hideLabel(Control control) {
+        labelPane1.getChildren().remove(control);
+        labelPane2.getChildren().remove(control);
     }
 
     @Override
