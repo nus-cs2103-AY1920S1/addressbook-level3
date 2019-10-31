@@ -25,7 +25,7 @@ class ListCommandTest {
     }
 
     @Test void execute() {
-        ListCommand command = new ListCommand(questionsLogic);
+        ListCommand command = new ListCommand(questionsLogic, applicationState);
 
         command.execute();
         List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();

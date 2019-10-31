@@ -29,14 +29,14 @@ class AttemptCommandFactoryTest {
 
     @Test
     void getCommandWord() {
-        AttemptCommandFactory factory = new AttemptCommandFactory(questionsLogic, submissionLogic);
+        AttemptCommandFactory factory = new AttemptCommandFactory(questionsLogic, submissionLogic, applicationState);
         System.out.println(factory.getCommandWord());
         assertEquals("attempt", factory.getCommandWord());
     }
 
     @Test
     void getCommand() throws InvalidCommandArgumentsException {
-        AttemptCommandFactory factory = new AttemptCommandFactory(questionsLogic, submissionLogic);
+        AttemptCommandFactory factory = new AttemptCommandFactory(questionsLogic, submissionLogic, applicationState);
         assertTrue(factory.getCommand("1") instanceof AttemptCommand);
 
         assertThrows(InvalidCommandArgumentsException.class,

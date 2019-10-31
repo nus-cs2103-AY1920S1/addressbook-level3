@@ -29,12 +29,12 @@ class SubmitCommandFactoryTest {
     }
 
     @Test void getCommandWord() {
-        SubmitCommandFactory factory = new SubmitCommandFactory(questionsLogic, submissionLogic);
+        SubmitCommandFactory factory = new SubmitCommandFactory(questionsLogic, submissionLogic, applicationState);
         assertEquals("submit", factory.getCommandWord());
     }
 
     @Test void getCommand() throws InvalidCommandArgumentsException {
-        SubmitCommandFactory factory = new SubmitCommandFactory(questionsLogic, submissionLogic);
+        SubmitCommandFactory factory = new SubmitCommandFactory(questionsLogic, submissionLogic, applicationState);
         Command command = factory.getCommand("    ");
         assertTrue(command instanceof SubmitCommand);
 

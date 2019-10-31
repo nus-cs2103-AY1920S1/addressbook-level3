@@ -9,6 +9,8 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
+import com.dukeacademy.model.State.Activity;
+import com.dukeacademy.model.State.ApplicationState;
 import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
@@ -24,17 +26,20 @@ public class SubmitCommand implements Command {
     private final Logger logger;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
+    private final ApplicationState applicationState;
 
     /**
      * Instantiates a new Submit command.
-     *
-     * @param questionsLogic         the questions logic
+     *  @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
+     * @param applicationState
      */
-    public SubmitCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
+    public SubmitCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
+                         ApplicationState applicationState) {
         this.logger = LogsCenter.getLogger(SubmitCommand.class);
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
+        this.applicationState = applicationState;
     }
 
     @Override
@@ -87,6 +92,9 @@ public class SubmitCommand implements Command {
         } else {
             feedback = feedback + "failed";
         }
+
+        applicationState.setCurrentActivity(Activity.WORKSPACE);
+
         return new CommandResult(feedback, false, false
         );
     }

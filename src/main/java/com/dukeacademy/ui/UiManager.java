@@ -10,6 +10,7 @@ import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 
+import com.dukeacademy.model.State.ApplicationState;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -33,6 +34,7 @@ public class UiManager implements Ui {
     private final CommandLogic commandLogic;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
+    private final ApplicationState applicationState;
     private MainWindow mainWindow;
 
     /**
@@ -43,11 +45,12 @@ public class UiManager implements Ui {
      * @param programSubmissionLogic the program submission logic
      */
     public UiManager(CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                     ProgramSubmissionLogic programSubmissionLogic) {
+                     ProgramSubmissionLogic programSubmissionLogic, ApplicationState applicationState) {
         super();
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
+        this.applicationState = applicationState;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class UiManager implements Ui {
 
         try {
             mainWindow = new MainWindow(primaryStage, commandLogic, questionsLogic,
-                    programSubmissionLogic);
+                    programSubmissionLogic, applicationState.getCurrentActivityObservable());
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

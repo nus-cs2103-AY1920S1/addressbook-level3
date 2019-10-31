@@ -39,7 +39,7 @@ class SubmitCommandTest {
     }
 
     @Test void execute() throws IOException, CommandException {
-        SubmitCommand command = new SubmitCommand(questionsLogic, submissionLogic);
+        SubmitCommand command = new SubmitCommand(questionsLogic, submissionLogic, applicationState);
 
         // Check that an exception is thrown if the question is not set previously
         submissionLogic.setUserProgramSubmissionChannel(() -> new UserProgram("Main", ""));

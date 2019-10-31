@@ -24,12 +24,12 @@ public class ListCommandFactoryTest {
     }
 
     @Test void getCommandWord() {
-        ListCommandFactory factory = new ListCommandFactory(questionsLogic);
+        ListCommandFactory factory = new ListCommandFactory(questionsLogic, applicationState);
         assertEquals("showall", factory.getCommandWord());
     }
 
     @Test void getCommand() throws InvalidCommandArgumentsException {
-        ListCommandFactory factory = new ListCommandFactory(questionsLogic);
+        ListCommandFactory factory = new ListCommandFactory(questionsLogic, applicationState);
         Command command = factory.getCommand("    ");
         assertTrue(command instanceof ListCommand);
 

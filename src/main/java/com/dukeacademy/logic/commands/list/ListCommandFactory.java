@@ -4,20 +4,24 @@ import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandFactory;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 import com.dukeacademy.logic.question.QuestionsLogic;
+import com.dukeacademy.model.State.ApplicationState;
 
 /**
  * Factory class to represent all the necessary components for creating an ListCommand instance.
  */
 public class ListCommandFactory implements CommandFactory {
     private final QuestionsLogic questionsLogic;
+    private final ApplicationState applicationState;
 
     /**
      * Instantiates a new Attempt command factory.
      *
      * @param questionsLogic the questions logic
+     * @param applicationState the application state
      */
-    public ListCommandFactory(QuestionsLogic questionsLogic) {
+    public ListCommandFactory(QuestionsLogic questionsLogic, ApplicationState applicationState) {
         this.questionsLogic = questionsLogic;
+        this.applicationState = applicationState;
     }
 
     @Override
@@ -30,7 +34,8 @@ public class ListCommandFactory implements CommandFactory {
             throw new InvalidCommandArgumentsException("Showall command does "
                 + "not take any arguments");
         }
-        return new ListCommand(questionsLogic);
+
+        return new ListCommand(questionsLogic, applicationState);
     }
 
 

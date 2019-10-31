@@ -8,6 +8,8 @@ import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
+import com.dukeacademy.model.State.Activity;
+import com.dukeacademy.model.State.ApplicationState;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 
@@ -19,17 +21,21 @@ public class HomeCommand implements Command {
     private final Logger logger;
     private final ProgramSubmissionLogic programSubmissionLogic;
     private final QuestionsLogic questionsLogic;
+    private final ApplicationState applicationState;
 
     /**
      * Instantiates a new Home command.
      *
      * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
+     * @param applicationState       the application state
      */
-    public HomeCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
+    public HomeCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
+                       ApplicationState applicationState) {
         this.logger = LogsCenter.getLogger(HomeCommand.class);
         this.programSubmissionLogic = programSubmissionLogic;
         this.questionsLogic = questionsLogic;
+        this.applicationState = applicationState;
     }
 
     @Override
@@ -40,7 +46,7 @@ public class HomeCommand implements Command {
         if (currentlyAttemptingQuestion.isPresent()) {
             Question oldQuestion = currentlyAttemptingQuestion.get();
             String loggerMessage = "Latest question attempt : " + oldQuestion.getTitle()
-                + "\nSaving latest user program : " + latestUserProgram.getSourceCode();
+                    + "\nSaving latest user program : " + latestUserProgram.getSourceCode();
 
             logger.info(loggerMessage);
 
@@ -50,8 +56,10 @@ public class HomeCommand implements Command {
             logger.info("No question attempt found. Skipping program save.");
         }
 
+        applicationState.setCurrentActivity(Activity.HOME);
+
         return new CommandResult("Returning to home page...", false,
-            false);
+                false);
     }
 
     private void saveQuestion(Question oldQuestion, Question newQuestion) {

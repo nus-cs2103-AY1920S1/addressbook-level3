@@ -27,12 +27,14 @@ import com.dukeacademy.logic.commands.home.HomeCommandFactory;
 import com.dukeacademy.logic.commands.list.ListCommandFactory;
 import com.dukeacademy.logic.commands.load.LoadCommandFactory;
 import com.dukeacademy.logic.commands.submit.SubmitCommandFactory;
+import com.dukeacademy.logic.commands.tab.TabCommandFactory;
 import com.dukeacademy.logic.commands.view.ViewCommandFactory;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.logic.question.QuestionsLogicManager;
+import com.dukeacademy.model.State.ApplicationState;
 import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.prefs.UserPrefs;
 import com.dukeacademy.storage.prefs.JsonUserPrefsStorage;
@@ -63,6 +65,7 @@ public class MainApp extends Application {
     private Ui ui;
     private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogic programSubmissionLogic;
+    private ApplicationState applicationState;
 
     @Override
     public void init() throws Exception {
@@ -85,6 +88,7 @@ public class MainApp extends Application {
             return;
         }
 
+        applicationState = new ApplicationState();
         questionsLogic = this.initQuestionsLogic(userPrefs);
         programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
 
@@ -96,7 +100,7 @@ public class MainApp extends Application {
             return;
         }
 
-        ui = this.initUi(commandLogic, questionsLogic, programSubmissionLogic);
+        ui = this.initUi(commandLogic, questionsLogic, programSubmissionLogic, applicationState);
     }
 
     /**
@@ -256,29 +260,30 @@ public class MainApp extends Application {
         }
 
         CommandLogicManager commandLogicManager = new CommandLogicManager();
+
         // Registering exit command
         ExitCommandFactory exitCommandFactory = new ExitCommandFactory(this.questionsLogic,
                 this.programSubmissionLogic);
         commandLogicManager.registerCommand(exitCommandFactory);
         // Registering attempt command
         AttemptCommandFactory attemptCommandFactory = new AttemptCommandFactory(this.questionsLogic,
-                this.programSubmissionLogic);
+                this.programSubmissionLogic, applicationState);
         commandLogicManager.registerCommand(attemptCommandFactory);
         // Registering submit command
         SubmitCommandFactory submitCommandFactory = new SubmitCommandFactory(this.questionsLogic,
-                this.programSubmissionLogic);
+                this.programSubmissionLogic, applicationState);
         commandLogicManager.registerCommand(submitCommandFactory);
         // Registering view command
         ViewCommandFactory viewCommandFactory =
-            new ViewCommandFactory(this.questionsLogic);
+            new ViewCommandFactory(this.questionsLogic, applicationState);
         commandLogicManager.registerCommand(viewCommandFactory);
         // Registering home command
         HomeCommandFactory homeCommandFactory =
             new HomeCommandFactory(this.questionsLogic,
-                this.programSubmissionLogic);
+                this.programSubmissionLogic, applicationState);
         commandLogicManager.registerCommand(homeCommandFactory);
         // Registering list command
-        ListCommandFactory listCommandFactory = new ListCommandFactory(this.questionsLogic);
+        ListCommandFactory listCommandFactory = new ListCommandFactory(this.questionsLogic, applicationState);
         commandLogicManager.registerCommand(listCommandFactory);
         // Registering bookmark command
         BookmarkCommandFactory bookmarkCommandFactory = new BookmarkCommandFactory(this.questionsLogic);
@@ -295,8 +300,17 @@ public class MainApp extends Application {
         BrowseCommandFactory browseCommandFactory =
             new BrowseCommandFactory(this.questionsLogic);
         commandLogicManager.registerCommand(browseCommandFactory);
+        // Registering tab command
+        TabCommandFactory tabCommandFactory = new TabCommandFactory(this.applicationState);
+        commandLogicManager.registerCommand(tabCommandFactory);
 
         return commandLogicManager;
+    }
+
+    private ApplicationState initApplicationState() {
+        logger.info("============================ [ Initializing application state ] ===="
+                + "=========================");
+        return new ApplicationState();
     }
 
     /**
@@ -329,10 +343,10 @@ public class MainApp extends Application {
     }
 
     private Ui initUi(CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                      ProgramSubmissionLogic programSubmissionLogic) {
+                      ProgramSubmissionLogic programSubmissionLogic, ApplicationState applicationState) {
         logger.info("============================ [ Initializing UI ] =============================");
         return new UiManager(commandLogic, questionsLogic,
-            programSubmissionLogic);
+            programSubmissionLogic, applicationState);
     }
 
     @Override

@@ -11,8 +11,9 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 
-import com.dukeacademy.ui.tabs.Tab;
-import com.dukeacademy.ui.tabs.TabsSupport;
+import com.dukeacademy.model.State.Activity;
+import com.dukeacademy.model.State.ApplicationState;
+import com.dukeacademy.observable.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -28,7 +29,7 @@ import javafx.stage.Stage;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-class MainWindow extends UiPart<Stage> implements TabsSupport {
+class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -80,7 +81,7 @@ class MainWindow extends UiPart<Stage> implements TabsSupport {
      * @param programSubmissionLogic the program submission logic
      */
     public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                      ProgramSubmissionLogic programSubmissionLogic) {
+                      ProgramSubmissionLogic programSubmissionLogic, Observable<Activity> currentActivity) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -88,6 +89,7 @@ class MainWindow extends UiPart<Stage> implements TabsSupport {
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
+        currentActivity.addListener(this::selectTabFromActivity);
 
         // Configure the UI
         setWindowDefaultSize();
@@ -226,23 +228,17 @@ class MainWindow extends UiPart<Stage> implements TabsSupport {
         }
     }
 
-    @Override
-    public void selectTab(Tab tab) {
-        if (tab == Tab.HOME) {
-            tabPane.getSelectionModel().select(0);
+    private void selectTabFromActivity(Activity activity) {
+        if (activity == Activity.HOME) {
+            this.tabPane.getSelectionModel().select(0);
         }
 
-        if (tab == Tab.QUESTIONS) {
-            tabPane.getSelectionModel().select(1);
+        if (activity == Activity.QUESTION) {
+            this.tabPane.getSelectionModel().select(1);
         }
 
-        if (tab == Tab.WORKSPACE) {
-            tabPane.getSelectionModel().select(2);
+        if (activity == Activity.WORKSPACE) {
+            this.tabPane.getSelectionModel().select(2);
         }
-    }
-
-    @Override
-    public void toggleTab() {
-        tabPane.getSelectionModel().selectNext();
     }
 }
