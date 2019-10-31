@@ -391,12 +391,6 @@ The table below summarises the common commands available for use in both lists.
 |`search\|#drink\|mango pudding`
 |`search\|#fruit #sweet`
 
-1.2+|*Shift*
-|`shift\|<index>`
-|`shift\|2`
-|`shift\|<index>\|<expiry date>\|<quantity>`
-|`shift\|2\|1/1/2020\|2`
-
 
 |*Clear*
 |`clear`|
@@ -439,12 +433,17 @@ The table below summarises the commands only available for use in the main list.
 |`set reminder\|<index>\|<reminder threshold>`
 |`set reminder\|1\|7`
 
+
 1.2+|*Check*
 |`check`
 |
 
 |`check[\|<days>]`
 |`check\|20`
+
+|*Shift*
+|`shift\|<index>`
+|`shift\|2`
 
 1.2+|*Sort*
 1.2+|`sort\|<key>`
@@ -477,3 +476,5 @@ e.g. `set reminder|1|7`
 e.g. `check|20`
 * *Sort* : `sort|<key>` +
 e.g. `sort|date`
+* *Shift* : `shift|<index>` +
+e.g. `shift|2`
