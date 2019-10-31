@@ -14,14 +14,14 @@
     }, {
       "input" : "0 0",
       "expectedResult" : "0\n"
-      } ],
+    } ],
     "userProgram" : {
       "canonicalName" : "Main",
-      "sourceCode" : "public class Main {\n\tpublic static void main(String[] args) { }\n }"
+      "sourceCode" : "// Import Scanner and other Java packages here\n\npublic class Main {\n    public static void main(String[] args) {\n        // Your code here\n    }\n}"
     },
     "description" : "Write a program that when given 2 numbers, prints out the result of adding them together.\n\nExample:\n\nInput: 1 3\nOutput: 4\n"
   }, {
-    "title" : "Matching sums",
+    "title" : "Matching Sums",
     "status" : "NEW",
     "difficulty" : "MEDIUM",
     "isBookmarked" : true,
@@ -35,7 +35,7 @@
     } ],
     "userProgram" : {
       "canonicalName" : "Main",
-      "sourceCode" : "public class Main {\n\tpublic static void main(String[] args) { }\n }"
+      "sourceCode" : "// Import Scanner and other Java packages here\n\npublic class Main {\n    public static void main(String[] args) {\n        // Your code here\n    }\n}"
     },
     "description" : "Given an array of integers, return indices of the two numbers such that they add up to a specific target.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nExample:\n\nInput: 26 2 7 11 15\nOutput: 2 3\n\nBecause nums[2] + nums[3] = 11 + 15 = 26\n"
   }, {
@@ -53,11 +53,11 @@
     } ],
     "userProgram" : {
       "canonicalName" : "Main",
-      "sourceCode" : "public class Main {\n\tpublic static void main(String[] args) { }\n }"
+      "sourceCode" : "// Import Scanner and other Java packages here\n\npublic class Main {\n    public static void main(String[] args) {\n        // Your code here\n    }\n}"
     },
     "description" : "Given a linked list, determine if it has a cycle in it.\n\nTo represent a cycle in the given linked list, we use an integer pos which represents the position (0-indexed) in the linked list where tail connects to. If pos is -1, then there is no cycle in the linked list.\n\n \n\nExample 1:\n\nInput: head = [3,2,0,-4], pos = 1\nOutput: true\nExplanation: There is a cycle in the linked list, where tail connects to the second node.\n\n\nExample 2:\n\nInput: head = [1,2], pos = 0\nOutput: true\nExplanation: There is a cycle in the linked list, where tail connects to the first node.\n\n\nExample 3:\n\nInput: head = [1], pos = -1\nOutput: false\nExplanation: There is no cycle in the linked list."
   }, {
-    "title" : "Swap nodes in pairs",
+    "title" : "Swap Nodes in Pairs",
     "status" : "NEW",
     "difficulty" : "MEDIUM",
     "isBookmarked" : false,
@@ -71,7 +71,7 @@
     } ],
     "userProgram" : {
       "canonicalName" : "Main",
-      "sourceCode" : "public class Main {\n\tpublic static void main(String[] args) { }\n }"
+      "sourceCode" : "// Import Scanner and other Java packages here\n\npublic class Main {\n    public static void main(String[] args) {\n        // Your code here\n    }\n}"
     },
     "description" : "Write an algorithm to determine if a number is \"happy\".\n\nA happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.\n\nExample: \n\nInput: 19\nOutput: true\nExplanation: \n12 + 92 = 82\n82 + 22 = 68\n62 + 82 = 100\n12 + 02 + 02 = 1"
   }, {
@@ -89,7 +89,7 @@
     } ],
     "userProgram" : {
       "canonicalName" : "Main",
-      "sourceCode" : "public class Main {\n\tpublic static void main(String[] args) { }\n }"
+      "sourceCode" : "// Import Scanner and other Java packages here\n\npublic class Main {\n    public static void main(String[] args) {\n        // Your code here\n    }\n}"
     },
     "description" : "Given an array A of positive lengths, return the largest perimeter of a triangle with non-zero area, formed from 3 of these lengths.\n\nIf it is impossible to form any triangle of non-zero area, return 0.\n\n \n\nExample 1:\n\nInput: [2,1,2]\nOutput: 5\nExample 2:\n\nInput: [1,2,1]\nOutput: 0\nExample 3:\n\nInput: [3,2,3,4]\nOutput: 10\nExample 4:\n\nInput: [3,6,2,3]\nOutput: 8\n \n\nNote:\n\n3 <= A.length <= 10000\n1 <= A[i] <= 10^6"
   } ]
