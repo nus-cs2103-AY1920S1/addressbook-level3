@@ -11,23 +11,23 @@ public class Question {
 
     public static final String MESSAGE_CONSTRAINTS = "Questions should not be blank";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "^(?=\\s*\\S).*$";
 
-    public final String fullQuestion;
+    public final String value;
 
     /**
      * Constructs a {@code Question}.
      *
-     * @param question A valid question.
+     * @param value A valid question.
      */
-    public Question(String question) {
-        requireNonNull(question);
-        checkArgument(isValidQuestion(question), MESSAGE_CONSTRAINTS);
-        fullQuestion = question;
+    public Question(String value) {
+        requireNonNull(value);
+        checkArgument(isValidQuestion(value), MESSAGE_CONSTRAINTS);
+        this.value = value;
     }
 
     /**
@@ -40,19 +40,19 @@ public class Question {
 
     @Override
     public String toString() {
-        return fullQuestion;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Question // instanceof handles nulls
-                && fullQuestion.equals(((Question) other).fullQuestion)); // state check
+                && value.equals(((Question) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullQuestion.hashCode();
+        return value.hashCode();
     }
 
 }

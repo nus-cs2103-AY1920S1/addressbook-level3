@@ -58,12 +58,12 @@ public class TrueFalse extends Answerable {
         final StringBuilder builder = new StringBuilder();
         builder.append("Type: T/F ")
                 .append("Question: ")
-                .append(getQuestion())
-                .append(" Answers:")
-                .append(" Correct Answer: " + getCorrectAnswerList())
-                .append(" Difficulty: ")
-                .append(getDifficulty())
-                .append(" Categories: ");
+                .append(getQuestion() + "\n")
+                .append("Answers:")
+                .append(" Correct Answer: " + getCorrectAnswerList() + "\n")
+                .append("Difficulty: ")
+                .append(getDifficulty() + "\n")
+                .append("Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();
     }

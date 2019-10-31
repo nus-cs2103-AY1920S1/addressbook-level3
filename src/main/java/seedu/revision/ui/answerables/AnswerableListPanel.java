@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package seedu.revision.ui.answerables;
 
 import java.util.logging.Logger;
 
@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.ui.UiPart;
 
 /**
  * Panel containing the list of answerables.
@@ -39,9 +40,6 @@ public class AnswerableListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new AnswerableCard(answerable, getIndex() + 1).getRoot());
-
-                //To set the display when StartQuizCommand is run.
-                setGraphic(new AnswerableCardWithAnswers(answerable, getIndex() + 1).getRoot());
             }
         }
     }
