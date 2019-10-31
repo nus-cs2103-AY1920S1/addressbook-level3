@@ -26,12 +26,12 @@ assist users and other developers to understand these features.
 
 This section summarizes the contributions I have made to the team project, including contributions to the code base, documentation and project management.
 
-=== Major Enhancement - Loan-related features
+=== Main enhancement - Loan-related features
 I have added features related to the loaning and returning of books in our library management app, LiBerry.
 
 ==== What it does
-This set of features allow our users, librarians, to loan out books to borrowers, return loaned out books, renew loaned
-out books, and to record payments of fines incurred for overdue books.
+This set of features allow our users, librarians, to *loan* out books to borrowers, *return* loaned out books, *renew* loaned
+out books, and to record payments of *fines* incurred for overdue books.
 
 Every time a book is borrowed, both the starting date and due date of the loan are automatically recorded. For each loaned
 out book, other than the details of the book and the borrower, the starting date, due date, and returning date,
@@ -59,22 +59,68 @@ dates and fines respectively.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
+*** Managed the issues covered for each milestone and set up their deadlines. Also added each feature as an issue and
+assigned them to the appropriate team member.
+
+**** The issues and milestones can be seen https://github.com/AY1920S1-CS2103T-F13-1/main/issues[here].
+
+*** Set up two Github project boards.
+
+**** The project board used to brainstorm and prioritise user stories can be seen https://github.com/AY1920S1-CS2103T-F13-1/main/projects/2[here].
+**** The project board used to keep track of the features and commands can be seen https://github.com/AY1920S1-CS2103T-F13-1/main/projects/3[here].
+
+*** Updated developer guide to include user stories, use cases and non-functional requirements. Done through pull requests:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/81[#81] - Included user stories and non-functional requirements specific to LiBerry.
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/157[#157] - Updated non-functional requirements and use cases and added a general use case diagram.
+
+*** Maintained the team project website, including the site headers, navigation bar, badges and photos. Done through pull requests:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/86[#86] - Updated Travis badges.
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/97[#97] - Updated header, README, contact us, developer photos, role and responsibilities.
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/100[#100] - Fixed user interface image not appearing on the website.
+
+*** Reviewed pull requests by team members, e.g. ...........
+
+** Enhancements to existing features:
+
+*** Enhanced code for `Borrower` class to be immutable. Done through pull request:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/152[#152] - Modified fields in Borrower to be immutable and
+added methods in the class to return new copies instead of mutating values in the current object.
+
+*** Upgraded the `set` command to support setting the maximum renew count such that librarians can define what is the maximum number of times
+a book can be renewed.
+Done through pull request:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/178[#178] - Modified the `set` command to take in maximum renew
+count and integrated this setting to the model component.
+
+*** Updated the user interface to reflect more borrower-related details. Done through pull request:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/179[#179] - Updated panel dimensions to fit more results and
+added more borrower-related information such as total outstanding fine.
+
+** Documentation:
+
+*** Improved and rectified the flow, content, styling, legend and diagrams of the user guide and developer guide
+according to feedback received from tutor and peers.
+Done through pull requests: https://github.com/AY1920S1-CS2103T-F13-1/main/pull/157[#157], https://github.com/AY1920S1-CS2103T-F13-1/main/pull/163[#163],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/179[#179], https://github.com/AY1920S1-CS2103T-F13-1/main/pull/182[#182].
+
+** Community:
+
+*** Gave in-depth and insightful review of team member's pull requests. Examples includes: ........
+
+*** Reported bugs in the team project to team members in the group chat.
+
+** Tools:
+
+*** Integrated a new Github plugin, Coveralls, to the team repository. Coveralls was immensely helpful in tracking the
+test coverage of our team's code.
+
+*** Set up Netlify for the team repository to easily and quickly preview changes made to the team website and documentation.
 
 == Contributions to the User Guide
 |===
