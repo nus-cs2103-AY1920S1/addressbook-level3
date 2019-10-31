@@ -11,7 +11,7 @@ import seedu.address.model.ReadOnlyContact;
 import seedu.address.model.ReadOnlyItinerary;
 
 /**
- * A command that is not usable by a User, only exist to assist in undoing the effects of  Clear command.
+ * A command that is not usable by a User, only exist to assist in undoing the effects of Clear command.
  */
 public class UndoClearCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "undoclear";

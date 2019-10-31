@@ -31,7 +31,7 @@ import seedu.address.model.tag.TagWithTime;
  *
  * @@author oscarsu97
  */
-public class AutoScheduleCommand extends Command {
+public class AutoScheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "autoschedule";
 
@@ -68,6 +68,23 @@ public class AutoScheduleCommand extends Command {
         this.draftSchedule = draftSchedule;
         this.address = address;
         this.days = days;
+    }
+
+    public List<Object> getDraftSchedule() {
+        return draftSchedule;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public List<Index> getDays() {
+        return days;
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     @Override

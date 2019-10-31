@@ -17,12 +17,12 @@ import seedu.address.model.day.Day;
 /**
  * An event representing a 'unschedule' command.
  */
-public class UnscheduleCommandEvent implements Event {
+public class UnscheduleEvent implements Event {
     private final Index activityIndex;
     private final LocalTime startTime;
     private final Index dayIndex;
 
-    public UnscheduleCommandEvent(Index activityIndex, Index dayIndex, Model model) throws EventException {
+    public UnscheduleEvent(Index activityIndex, Index dayIndex, Model model) throws EventException {
         this.activityIndex = activityIndex;
         this.dayIndex = dayIndex;
         this.startTime = generateActivityStartTime(model);

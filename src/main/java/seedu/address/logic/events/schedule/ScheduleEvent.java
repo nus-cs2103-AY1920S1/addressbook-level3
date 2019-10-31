@@ -11,12 +11,12 @@ import seedu.address.logic.events.Event;
 /**
  * An event representing a 'schedule' command.
  */
-public class ScheduleCommandEvent implements Event {
+public class ScheduleEvent implements Event {
     private final Index activityIndex;
     private final LocalTime startTime;
     private final Index dayIndex;
 
-    public ScheduleCommandEvent(Index activityIndex, LocalTime startTime, Index dayIndex) {
+    public ScheduleEvent(Index activityIndex, LocalTime startTime, Index dayIndex) {
         this.activityIndex = activityIndex;
         this.startTime = startTime;
         this.dayIndex = dayIndex;

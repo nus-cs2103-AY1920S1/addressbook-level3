@@ -37,8 +37,8 @@ public class AddActivityCommand extends AddCommand {
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
                     + PREFIX_NAME + "visit mt Fuji "
                     + PREFIX_ADDRESS + "Mount Fuji "
-                    + PREFIX_DURATION + "120"
-                    + PREFIX_TAG + "sight-seeing"
+                    + PREFIX_DURATION + "120 "
+                    + PREFIX_TAG + "sightseeing"
     );
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1s";

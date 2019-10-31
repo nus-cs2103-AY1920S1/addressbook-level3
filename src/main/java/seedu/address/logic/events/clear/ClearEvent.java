@@ -14,10 +14,10 @@ import seedu.address.model.ReadOnlyItinerary;
 /**
  * An event representing a 'clear' command.
  */
-public class ClearCommandEvent implements Event {
+public class ClearEvent implements Event {
     private final Model prevModelManager;
 
-    public ClearCommandEvent(Model model) {
+    public ClearEvent(Model model) {
         prevModelManager = new ModelManager(model.getAccommodations(), model.getActivities(), model.getContacts(),
                 model.getItinerary(), model.getUserPrefs());
     }

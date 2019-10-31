@@ -23,7 +23,7 @@ import seedu.address.model.field.Cost;
 /**
  * Optimises a Day's activities.
  */
-public class OptimiseBudgetCommand extends Command {
+public class OptimiseBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "optimise";
     public static final String MESSAGE_SUCCESS = "Day has been optimised!";
 
@@ -44,6 +44,15 @@ public class OptimiseBudgetCommand extends Command {
     public OptimiseBudgetCommand(Index dayIndex) {
         requireNonNull(dayIndex);
         this.dayIndex = dayIndex;
+    }
+
+    public Index getDayIndex() {
+        return dayIndex;
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     @Override
