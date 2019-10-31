@@ -1,7 +1,5 @@
 package cs.f10.t1.nursetraverse.model.datetime;
 
-import static java.util.Objects.isNull;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
