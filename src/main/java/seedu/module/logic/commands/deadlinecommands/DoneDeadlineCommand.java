@@ -41,7 +41,8 @@ public class DoneDeadlineCommand extends DeadlineCommand {
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
         model.displayTrackedList();
 
-        return new CommandResult(generateSuccessMessage(moduleToMarkDone));
+        return new CommandResult(generateSuccessMessage(moduleToMarkDone),
+                false, true, false);
     }
 
     /**

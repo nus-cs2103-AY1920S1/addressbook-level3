@@ -33,7 +33,7 @@ image::kzrthikz.png[width="150", align="left"]
 {empty}[https://github.com/Kzrthikz[github]]
 
 Role: Developer +
-Responsibilities: Grade Manager
+Responsibilities: Deadline Manager
 
 '''
 

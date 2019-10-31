@@ -31,7 +31,8 @@ public class EditDeadlineTimeCommand extends EditDeadlineCommand {
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
         model.displayTrackedList();
 
-        return new CommandResult(generateSuccessMessage(moduleToEditTime));
+        return new CommandResult(generateSuccessMessage(moduleToEditTime),
+                false, true, false);
     }
 
     /**

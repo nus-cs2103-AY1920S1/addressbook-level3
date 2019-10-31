@@ -41,6 +41,11 @@
          </TextFlow>
          <Label styleClass="label-bright" text="Semesters offered" underline="true" VBox.vgrow="ALWAYS" />
          <ListView fx:id="semesterData" VBox.vgrow="NEVER" />
+         <HBox alignment="CENTER_LEFT" spacing="5" VBox.vgrow="ALWAYS">
+            <children>
+               <Label fx:id="deadline" styleClass="label-bright" text="\$deadline" />
+            </children>
+         </HBox>
          <HBox alignment="BOTTOM_LEFT">
             <children>
                <Label styleClass="label-bright" text="Links: " />

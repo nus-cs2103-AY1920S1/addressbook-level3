@@ -42,7 +42,8 @@ public class DeleteDeadlineTaskCommand extends DeadlineCommand {
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
         model.displayTrackedList();
 
-        return new CommandResult(generateSuccessMessage(moduleToDeleteDeadline));
+        return new CommandResult(generateSuccessMessage(moduleToDeleteDeadline),
+                false, true, false);
     }
 
     /**
