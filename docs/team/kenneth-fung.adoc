@@ -69,12 +69,11 @@ https://github.com/AY1920S1-CS2103T-W13-4/main/pull/80[#80]
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=loans]
+include::../UserGuide.adoc[tag=accounts]
 
 == Contributions to the Developer Guide
 
@@ -82,4 +81,4 @@ include::../UserGuide.adoc[tag=loans]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=loans]
+include::../DeveloperGuide.adoc[tag=accounts]
