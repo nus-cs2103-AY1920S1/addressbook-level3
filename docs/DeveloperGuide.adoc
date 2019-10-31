@@ -240,59 +240,43 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Schedule optimisation
+==== Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The schedule optimisation feature utilises `TimeTable` and allows the user to resolve any overlapping activities. Resulting in a schedule with the
+lowest overall cost and the most number of activities such as the User's time is maximised. The following command is supported:
 
-// end::dataencryption[]
+* optimise INDEX_OF_DAY -- optimises and de-conflicts the schedule. This operation supports activities with or without
+a cost. Activities without a cost has a default cost of $0.00.
 
-=== [Proposed] Schedule optimisation
-==== Proposed Implementation
+Given below is a sample usage of the feature:
 
-The proposed schedule optimisation feature utilises `TimeTable` and allows the user to schedule multiple activities within the same time slot. The following command is supported:
-
-* optimise budget INDEX_OF_DAY -- optimises and brings activities with the lowest cost into focus. This operation supports activities with or without a cost. Activities without a cost has a default cost of $0.00.
-
-
-Given below is a sample usage of the proposed feature:
-
-Step 1. User adds an activity with a cost:
-
-* `add activity n/lunch a/KFC c/5.00`
-
-Step 2. User adds another activity without a cost:
-
-* `add activity n/go for a walk a/park`
-
-Step 3. User schedules the first activity into a day:
-
-* `schedule activity 1 st/1300 et/1400 d/1`
-
-Step 4. User schedules the second activity into the same day:
-
-* `schedule activity 2 st/1300 et/1400 d/1`
-
-Step 6. User executes `optimise budget` command. The activities in that day would be shown in a way such that the activities with the lowest costs are in focus.
+The scheduled activities in a day can be viewed as a Directed Acyclic Graph (DAG), where a path represents a possible schedule. When a user executes the `Optimise` command on a day with conflicting activities, a utility method creates an adjacency list.
+Another utility method then traverses the adjacency list to create all possible paths. The paths are then sorted to obtain the one with the lowest total cost and most number of activities (nodes).
 
 Shown below is a summary of the execution of the command.
 
 image::OptimiseSequenceDiagram.png[]
 
 ==== Design considerations
-Aspect: How version comparison is executed:
+Aspect: Execution
 
-* Alternative 1(current choice): user overload each time slot.
+* Alternative 1 (current): Find all paths
 
-** Pros: User can save time by overloading a single day's schedule.
+** Pros:
+*** Able to compare both budget and number of activities.
+*** Can reuse to find different methods of optimisation besides cost, by replacing comparator.
 
-** Cons: UI might get very cluttered when a single time slot has too many activities.
+** Cons:
+*** Slow runtime.
 
-* Alternative 2: user create copies of each day and choose which they prefer.
+* Alternative 2: Find shortest path
 
-** Pros: UI is neater, each day would not look too crammed.
+** Pros:
+*** Faster runtime.
 
-** Cons: May have a lot of permutations which is tedious for user to optimise.
+** Cons:
+*** Less flexible optimisation.
 
 === [Proposed] Schedule Activity feature
 
