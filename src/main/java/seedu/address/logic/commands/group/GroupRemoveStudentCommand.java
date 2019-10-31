@@ -16,7 +16,8 @@ public class GroupRemoveStudentCommand extends GroupCommand {
             + "Example: groupId/ G03\n\n"
             + "groupIndexNumber/ [INDEX_NUMBER]\n"
             + "Example: groupIndexNumber/ 2 (Specifies the student number in the group to remove)\n"
-            + "Full Example: group delete groupID/G03 groupIndexNumber/1 --> removes student with index number 1 from G03";
+            + "Full Example: group delete groupID/G03 groupIndexNumber/1"
+            + " --> removes student with index number 1 from G03";
 
     private final String groupId;
     private final int groupIndexNumber;
