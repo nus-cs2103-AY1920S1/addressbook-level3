@@ -146,6 +146,9 @@ public class MainWindow extends UiPart<Stage> {
         setCommandNavigationHandler();
     }
 
+    /**
+     * Sets the handlers for the events generated whenever the up and down arrow keys are pressed.
+     */
     private void setCommandNavigationHandler() {
         this.commandBoxPlaceholder.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.UP) {

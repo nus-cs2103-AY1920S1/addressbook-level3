@@ -32,17 +32,37 @@ this organisation and management process, allowing you to quickly get up to spee
 and administrative details of the Hackathon you are organising.
 
 Furthermore, Alfred is *optimized for those who prefer to work with a Command Line Interface (CLI)*, while
-maintaining the benefits of having visual responses in a Graphical User Interface.
+maintaining the benefits of having visual responses in a Graphical User Interface. This means that users mainly
+interact with Alfred by typing on the keyboard, instead of using the mouse to point and click. Point-and-click
+functionality is supported, but is not the main focus of the application.
 
 Interested? Well, head to <<Quick Start>> to get started. We hope Alfred serves you well!
+
+== About
+
+This User Guide introduces you to Alfred's features and how you can use them to enhance your productivity
+when organising a Hackathon. You can use Alfred to add and track participants in your Hackathon, assign mentors
+to participants, keep track of the scores of each team in a leaderboard, undo and redo changes you make, and a
+whole lot more.
+
+Alfred was designed to be as easy to use as possible, and the only assumption we made is that users are
+comfortable typing into a keyboard to interact with Alfred. No other technical knowledge is needed! It's that simple.
+
+Alfred is designed to be cross-platform and is available for the Linux, Windows and Mac OS operating systems.
+
+Some simple conventions are used for this User Guide:
+
+. Commands - You will typically interact with Alfred through what we call "commands". Each command is simply some
+text that you enter into Alfred. The command text that you should enter at the command line is formatted as `user input`
+
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `alfred.jar` link:{releaseURL}[here].
 .  Copy the file to the folder you want to use as the home folder for Alfred.
-.  Double-click the file to start the app. Alternatively, if you use a Mac, commandType the command `java -jar alfred.jar`
-on terminal in the jar file's directory to open start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. Alternatively, if you use a Mac, type the command `java -jar alfred.jar`
+on terminal in the jar file's directory to open and start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -51,7 +71,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Here are some sample commands you can experiment with:
 
 * *`list teams`* : lists teams in the hackathon
-* *`add participant n/Bartholomew Lim p/97654321 e/barrytheflash@superheros.com`* : adds a new participant named `Bartholomew Lim` to the Hackathon.
+* *`add participant n/Bartholomew Lim p/+6597654321 e/barrytheflash@superheros.com`* : adds a new participant named `Bartholomew Lim` to the Hackathon.
 * *`delete participant P-1`* : removes the participant with ID P-1 from the hackathon.
 * *`exit`* : exits the app
 
@@ -64,27 +84,34 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Prelude - Command Format*
 
 * Words in `UPPER_CASE` are the parameters which you need to supply. For example, in `add mentor n/NAME`,
-`NAME` is a parameter which you need to specify as the mentor's name, for example `add mentor n/John Doe`.
-* You can commandType the parameters in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`,
-you may input `p/PHONE_NUMBER n/NAME` and Alfred will still deem it as an acceptable command.
+`NAME` is a parameter which you need to specify as the mentor's name (i.e. `add mentor n/John Doe`).
+* You can input the parameters in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`,
+you may input `p/PHONE_NUMBER n/NAME` and Alfred will still consider it as an acceptable command.
 * Words in {curly braces} indicate values for the command that you need to select and provide.
-** For example in the case of `add {mentor/participant/list}`, you can choose to commandType `add mentor`, `add participant` or `add team`
+** For example in the case of `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
 * Words in [brackets] indicate values that are optional for the command.
 ** For example, in the case of `export [CSV_FILE_PATH]`, you can choose to leave out the file path.
-* Whenever you need to specify an ID, the ID will be prefixed with an alphabet indicating the commandType of the Entity (e.g. M for Mentors, P for Participants, T for Teams).
-* Type your commands in the textbox displayed on the Alfred UI. After you are done typing the command, press ENTER on your keyboard to execute the command.
+* Whenever you need to specify an ID, the ID will be prefixed with an alphabet indicating the type of the Entity (e.g. M for Mentors, P for Participants, T for Teams).
+* Type your commands in the textbox displayed on the Alfred UI. After you are done typing the command, press kbd:[Enter] on your keyboard to execute the command.
 ====
 
 === Saving the data:
 
-Data in Alfred is saved to the hard disk automatically after any command that changes the data. +
+Data in Alfred is saved to the hard disk automatically after any command that changes the data.
 There is no need for you to save the data manually.
 
-=== Viewing help : `help` (Coming in v1.3)
+Should any tampering of the data in storage result in an invalid state for the data, the data will be re-initialised and the old data will be lost.
+Hence, please avoid directly altering the storage files as any minor errors could result in permanent
+loss of critical information.
+
+=== Viewing help : `help`
 
 If at anytime you don't understand how to do a certain thing on Alfred, use this command to display a
-help page in a separate pop-up window. Should you require further information,
-the pop-up window also includes links to further references and documentation. +
+help page in a separate pop-up window.
+
+****
+* Should you require further information, the pop-up window also includes links to further references and documentation.
+****
 
 Format: `help`
 
@@ -114,7 +141,7 @@ Examples:
 * `add participant n/Betsy Crowe e/betsycrowe@example.com p/1234567`
 
 ==== Adding a Mentor: `add mentor PARAMETERS`
-Use this command to add a new Mentor to Alfred to keep track of for your hackathon.
+Use this command to add a new Mentor to Alfred to keep track of for your Hackathon.
 
 ****
 * Mentors have the fields "Name", "Phone number" and "Email address" which you must provide.
@@ -132,7 +159,7 @@ Examples:
 
 ==== Adding a Team: `add team PARAMETERS`
 
-Use this command to add a new Team to Alfred to keep track of for your hackathon.
+Use this command to add a new Team to Alfred to keep track of for your Hackathon.
 ****
 * Teams have the fields "Name", "Project name" and "Table Number" which you must provide.
 * Teams also have a field called "Subject", which refers the area the team's project focuses on, and must be chosen from the predetermined list of subjects given in Section (some number).
@@ -151,7 +178,7 @@ Examples:
 Edits an entity based on the parameter values you supply. Use this command in case you want to make changes to an entity you have already created within Alfred.
 
 ****
-* Updates the fields of the Entity with the `ENTITY_ID` you specified to the new fields you commandType in as the parameter. The ID is the unique identifier for the particular Entity you wish to edit.
+* Updates the fields of the Entity with the `ENTITY_ID` you specified to the new fields you type in as the parameter. The ID is the unique identifier for the particular Entity you wish to edit.
 * You must provide at least one of the optional fields.
 * The fields you provide must pertain to the specified entity in order for the edit to be successful. For instance, you cannot add a field "pn/NewProjectName" for a participant as a participant doesn't have a project name.
 * Existing values will be updated to the input values you provide.
@@ -187,6 +214,8 @@ Deletes an Entity, so that Alfred will no longer keep track of that Entity.
 ****
 * Deletes the Entity with the ID that you specify.
 ****
+
+Examples:
 
 * `delete mentor M-1` will delete the mentor with ID M-1 from Alfred.
 
@@ -231,25 +260,31 @@ Shows you up to the last 50 commands that you executed.
 
 ****
 * This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before.
-* Above the `=` delimiter are the commands that can be re-done. (see the example below)
-* Below the `=` delimiter are the commands that can be un-done. (see the example below)
+* The "History" section of Alfred displays all the previously-executed commands as panels. There are 3 main delimiters.
+* You cannot redo any command beyond the "redo" delimiter.
+* You cannot undo any command beyond the "undo delimiter".
+* The "current" delimiter tells you where you are at relative to the rest of the commands you have executed.
+* Note that only commands that change the state of the data in Alfred will be displayed in the "History" section and are undo/redo-able.
+For instance, `list participants` will not be undo/redo-able, as it simply shows you the participants in Alfred and does not change any information in Alfred.
+On the other hand, invoking `add participant` with the suitable parameters will be undo/redo-able and will be shown in the "History" section by the `history` command.
 ****
 
 Example:
-Running `history` could give you the following output in the Graphical User Interface:
-```
-2. AddParticipantCommand
-1. AddTeamCommand
-==============================
-1. AddParticipantCommand
-2. AddParticipantCommand
-3. AddMentorCommand
-```
-Above the `=` delimiter are the commands that you can re-do, listed in consecutive order. Hence, calling the `redo` command will redo the `1. AddTeamCommand` command. Calling the `redo` command once more will redo the `2. AddParticipantCommand` command.
+After running the following commands:
+1. list participants
+2. add participant n/Bartholomew Lim p/+6593121212 e/barrytheflash@gmail.com
+3. add participant n/Diana Prince p/+6593111111 e/singaporewonderwoman@hotmail.com
 
-Below the `=` delimiter are the commands that you can un-do, listed in consecutive order. Hence, calling the `undo` command once will undo the `1. AddParticipantCommand` command. Calling the `undo` command once more will undo the `2. AddTeamCommand` command. Note that it is not possible to undo beyond the last listed command below the `=` delimiter.
+Running `history` will show you the following output in the "History" section of the Graphical User Interface:
 
-In other words, calling `undo` will undo the command immediately below the `=` delimiter, and calling `redo` will redo the command immediately above the `=` delimiter.
+image::HistoryCommandExampleOutput.png[width="790"]
+
+//Add annotations to image when the UI is finalised.
+The topmost panel shows you that you the "redo" delimiter.
+The second panel from the top shows you the "current" delimiter.
+The bottommost panel shows you the "undo" delimiter.
+This means that you can invoke the `undo` command twice, as both AddParticipantCommands can be undone.
+Notice that the `list participants` command is not shown in the "History" section as it does not change data.
 
 === Undo Previous Commands: `undo`
 Undoes the previous command you executed.
@@ -258,17 +293,31 @@ Undoes the previous command you executed.
 * Undoes the effects of the previous command you executed, and will return Alfred to the previous state (as though you never executed the previous command).
 * All commands that can be undone can be found in the output of the `history` command.
 * To be certain which command you are actually undo-ing, first run the `history` command and examine the output.
-* Only the commands that actually change the data in Alfred will be undo-able. Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command. (Coming in v1.4)
+* Only the commands that actually change the data in Alfred will be undo-able. Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command.
 ****
+
+Format: `undo`
 
 === Redo Previous Commands: `redo`
 Redoes the previous command you executed.
 
 ****
-* Redoes the effects of the previous command you executed, and will return Alfred to the previous state (as though you never executed the previous command).
+* Redoes the effects of the previous command you executed, and will return Alfred to the previous state (as though you re-executed the previous command).
 * All commands that can be redone can be found in the output of the `history` command.
 * To be certain which command you are actually redo-ing, first run the `history` command and examine the output.
-* Only the commands that actually change the data in Alfred will be redo-able. Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command. (Coming in v1.4)
+* Only the commands that actually change the data in Alfred will be redo-able. Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command.
+****
+
+Format: `redo`
+
+=== Command Navigation
+Navigate to previous commands by using the up kbd:[&uparrow;] and down kbd:[&downarrow;] arrow keys
+
+****
+* Every time you execute a command, the command is saved in Alfred, so you can navigate to a previous command without re-typing the whole thing.
+* Press up kbd:[&uparrow;] to navigate to the previous command.
+* Press up kbd:[&downarrow;] to navigate to the next command.
+* This is not a command you type into Alfred, and is mainly for convenience as it allows you to quickly re-use previously executed commands.
 ****
 
 === Judging and Leaderboard Features
@@ -280,24 +329,19 @@ Use this command to display the ranking of the teams in the hackathon in descend
 * Once you run this command, Alfred's UI will display a list of all the teams stored within Alfred sorted in descending order of their points.
 ****
 
+Format: `leaderboard`
+
 ==== Get the top k teams: `getTop NUMBER`
 Use this command to list the top k teams in the leaderboard, where k is a number (NUMBER) which you specify.
 
 ****
 * This command will show you a cropped version of the leaderboard.
-* Alfred's UI will display a list of top "k" teams based on their current score.
-* If you input "k" as a number more than the number of teams in the Hackathon, Alfred will simply display all the teams in the Hackathon.
-****
-
-****
-
+* Alfred's UI will display a list of top `NUMBER` teams based on their current score.
+* If you input `NUMBER` as a number more than the number of teams in the Hackathon, Alfred will simply display all the teams in the Hackathon.
 * If you input `NUMBER` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon in descending order of their points.
 ****
 
-****
-
-* If you input `NUMBER` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon in descending order of their points.
-****
+Format: `getTop NUMBER`
 
 Example:
 
@@ -367,7 +411,7 @@ Example usage of error file is shown at the end of <<CSV File Formatting>>.
 In order for the contents of the CSV file to be correctly loaded into Alfred, the file has to be in the correct format.
 
 ****
-`EntityType` - single capital letter representing the entity commandType
+`EntityType` - single capital letter representing the entity type
 
 * **Mentor:** M
 * **Participant:** P
@@ -492,13 +536,6 @@ Example:
 * `export` will export all entities' data in Alfred to `/AlfredData/Alfred_Data.csv`.
 * `export mentor fp/data/Alfred.csv` will export all mentor data in Alfred to `/data/Alfred.csv`. If the any folders do not happen to exist, Alfred will create them for you.
 
-=== Help command (Coming in v1.3)
-
-The help command will list down all the commands you need to use this
-application properly!
-
-Simply run `help`.
-
 === Seating: `locate {PARTICIPANT/TEAM}` (Coming in v2.0)
 Find where a particular participant or team is seated.
 
@@ -555,7 +592,7 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Alfred folder.
 
 == Command Summary
 
@@ -567,11 +604,17 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 
 |Update an Entity|Edits an entity based on the supplied parameter values |`edit {mentor/participant/team} ID [PARAMETERS]` | *Participant:* `edit participant P01 n/NewParticipantName` *Team:* `edit team T01 n/NewTeamName pn/New Project Name` *Mentor:* `edit participant P01 n/NewMentorName`
 
-|List all Entities |Shows a list of all the entities corresponding to the entity commandType |`list {mentors/teams/participants}`| *Participant:* `list participants` *Team:* `list teams` *Mentor:* `list mentors`
+|List all Entities |Shows a list of all the entities corresponding to the entity type |`list {mentors/teams/participants}`| *Participant:* `list participants` *Team:* `list teams` *Mentor:* `list mentors`
 
 |Deleting an Entity |Deletes an Entity, so that Alfred will no longer keep track of that Entity | `delete {participant/mentor/team} ID` | *Participant:* `delete participant P-1` *Team:* `delete team T-1` *Mentor:* `delete mentor M-1`
 
 |Finding an Entity |Searches for Entities by their name|`find {mentor/team/participant} NAME` | *Participant:* `find participant n/John Doe` *Team:* `find team n/FutureHackathonWinner` *Mentor:* `find mentor n/Joshua Wong`
+
+|List Undo/Redo-able Commands |Displays the Undo/Redo-able Commands in the "History" section of the GUI |`history` | `history
+
+|Undo Previous Command | Undoes the previously executed command. Look at output of `history` to see which command can be re-done. | `undo` | `undo`
+
+|Redo Next Command | Redoes the next command. Look at output of `history` to see which command can be re-done. | `redo` | `redo`
 |List Team rankings|Displays the ranking of the teams in the Hackathon in descending order of their points |`leaderboard`| *Team:* `leaderboard`
 
 |Get the top k teams |List the top k teams in the leaderboard, where k is a number (NUMBER) which you specify |`getTop NUMBER` | *Team:* `getTop 5`
@@ -579,7 +622,9 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 |Add points to a Team |Adds the value of POINTS to the current score of the team with TEAM_ID|`score add TEAM_ID POINTS` | *Team:* `score add T-1 20`
 
 |Subtracts points from a Team |Deducts the value of POINTS from the current score of the team with TEAM_ID |`score sub TEAM_ID NEW_POINTS`| *Team:* `score sub T-1 15`
+
 |Sets points of a Team |Sets the score of the team with TEAM_ID to a new score NEW_POINT |`score sub TEAM_ID NEW_POINTS` | *Team:* `score set T-1 15`
+
 |Bulk registration|Adds multiple participants at once into Alfred through the specification of a .csv file | `addBulk PATH_TO_CSV_FILE`| `addBulk C:\User\Hackathon2019\participant.csv` will import data from the participant.csv file into Alfred
 
 |Add a schedule for a Team |Adds a time slot where the Team of TEAM_ID meets with Mentor of MENTOR_ID |`addSchedule TIME TEAM_ID MENTOR_ID` | `addSchedule 1/2/2019 1400 T-1 M-1` the specified Mentor will meet with Team on 1st February 2019 2pm
@@ -597,4 +642,5 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 |Add User to WaitList |Adds a prospective Participant by USER_ID to Waitlist | `addToWaitList USER_ID` | `addToWaitList U-1`
 
 |Remove a User from WaitList |Removes a prospective Participant by USER_ID from Waitlist | `removeFromWaitList USER_ID` | `removeFromWaitList U-1`
+
 |List all User in WaitList |Lists all prospective Participant in Waitlist | `listWaitList` | `listWaitList`
