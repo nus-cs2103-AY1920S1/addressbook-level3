@@ -140,10 +140,15 @@ public class Budget {
         if (other.isSameBudget(this)) {
             return;
         }
-
-        for (Expense e : expenses) {
-            e.setBudget(other);
-            other.expenses.add(e);
+        if (other.expenses != this.expenses) {
+            for (Expense e : expenses) {
+                e.setBudget(other);
+                other.expenses.add(e);
+            }
+        } else {
+            for (Expense e : expenses) {
+                e.setBudget(other);
+            }
         }
     }
 
