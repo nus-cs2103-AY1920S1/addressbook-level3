@@ -68,19 +68,19 @@ public class DeleteFlashcardCommandTest {
     }
      */
 
+    //    @Test
+    //    public void execute_invalidIndexFilteredList_throwsCommandException() {
+    //        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
+    //
+    //        Index outOfBoundIndex = INDEX_SECOND_FLASHCARD;
+    //        // ensures that outOfBoundIndex is still in bounds of address book list
+    //        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getFlashcardList().size());
+    //
+    //        DeleteFlashcardCommand deleteFlashcardCommand = new DeleteFlashcardCommand(outOfBoundIndex);
+    //
+    //        assertCommandFailure(deleteFlashcardCommand, model, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
+    //    }
 
-        @Test
-        public void execute_invalidIndexFilteredList_throwsCommandException() {
-            showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
-
-            Index outOfBoundIndex = INDEX_SECOND_FLASHCARD;
-            // ensures that outOfBoundIndex is still in bounds of address book list
-            assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getFlashcardList().size());
-
-            DeleteFlashcardCommand deleteFlashcardCommand = new DeleteFlashcardCommand(outOfBoundIndex);
-
-            assertCommandFailure(deleteFlashcardCommand, model, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
-        }
 
     @Test
     public void equals() {
