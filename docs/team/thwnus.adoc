@@ -1,0 +1,77 @@
+= Tee Hao Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Budget Buddy
+
+== Overview
+
+Budget Buddy is a desktop expense tracker application that allows users to track their expenses. The main method of input by the user is using a command-line interface (CLI), but the application presents information using a graphical interface. It targets users from the School of Computing in the National University of Singapore, who are generally comfortable with command-line interfaces.
+
+Budget Buddy has the usual requisite features of an expense tracker: transactions, accounts, categories, loan tracking and a loan splitter. Because we are targetting computing students, Budget Buddy also has a scripting engine, allowing users to write scripts that perform complex operations and extend the functionality of the application.
+
+Budget Buddy benefits users by allowing them to know what they are spending on, so they can make informed decisions to change their spending behaviour and achieve their financial goals.
+
+Budget Buddy is based on the AddressBook-Level3 application by SE-EDU, and currently consists of about 15 thousand lines of code.
+
+My main contributions are the scripting engine, import and export feature and alias feature, as well as managing releases and integration of contributions from other team members.
+
+== Summary of contributions
+
+|===
+| This section summarises the contributions I made to Budget Buddy.
+|===
+
+* *Major enhancement*: added a scripting engine and library
+** What: This feature provides the user the ability to evaluate arbitrary scripts which have full access to the data and user interface of the application, and save these scripts in a library for convenient reuse.
+** Why: This feature allows the user to perform complex operations that may be inconvenient or impossible to do through the CLI, and extend the application with new commands and features on their own, without having to modify the application's source code directly.
+** Highlights: This feature required thought to provide a ergonomic interface to allow scripts to do common operations easily, without restricting scripts from doing more complex operations.
+** Credits: This feature is implemented using the Nashorn JavaScript engine, bundled with Java 11.
+
+* *Major enhancement*: added the ability to import and export transactions
+** What: This feature provides the user the ability to import and export transactions.
+** Why: This feature allows the user to import transactions exported from their bank transaction history and export transactions for further manipulation in an external program, such as Google Sheets or Excel.
+** Highlights: This feature required retrieving exports from various banks and writing parsers for each of their formats.
+
+* *Minor enhancement*: added a command alias feature to allow users to create shorthands
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+
+* *Other contributions*:
+** Project management:
+*** Managed releases `v1.1` to `v1.3` (4 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme; see PRs https://github.com[#33], https://github.com[#34]
+*** Wrote additional tests for existing features to increase coverage from 88% to 92%; see PRs https://github.com[#36], https://github.com[#38]
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide; see PR https://github.com[#14]
+** Community:
+*** Reviewed PRs (with non-trivial comments) https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Rebased PRs #nn, #nn, #nn
+** Tools:
+*** Integrated Netlify, Coveralls and Codacy to the team repository
+
+== Contributions to the User Guide
+
+|===
+| This section includes the parts of the user guide that I wrote, to demonstrate my ability to write end-user facing documentation.
+|===
+
+include::../UserGuide.adoc[tag=importexport]
+
+include::../UserGuide.adoc[tag=scripting]
+
+include::../UserGuide.adoc[tag=aliases]
+
+== Contributions to the Developer Guide
+
+|===
+| This section includes the parts of the user guide that I wrote, to demonstrate my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+include::../DeveloperGuide.adoc[tag=importexport]
+
+include::../DeveloperGuide.adoc[tag=scripts]
+
+include::../DeveloperGuide.adoc[tag=aliases]
