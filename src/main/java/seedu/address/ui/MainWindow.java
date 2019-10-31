@@ -78,6 +78,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -149,7 +150,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * returns the current tab number
+     * Returns the current tab number
      */
     public static int getCurrentTabIndex() {
         return selectionModel.getSelectedIndex();
