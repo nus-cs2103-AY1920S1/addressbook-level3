@@ -33,7 +33,7 @@ public class DeleteNoteCommand extends Command {
     public static boolean isSure = false;
 
     // negative marked index to prevent access
-    public static int markedIndex = -1;
+    private static int markedIndex = -1;
 
     private final Index targetIndex;
 
@@ -68,7 +68,8 @@ public class DeleteNoteCommand extends Command {
             model.deleteNote(noteToDelete);
             isSure = false;
             markedIndex = -1; // reset to -1 to prevent wrong access
-            commandResult = new NoteCommandResult(String.format(MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
+            commandResult = new NoteCommandResult(String.format(
+                    MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete));
         }
         if (isSure) {
             // user is sure he wants to delete but changed the index

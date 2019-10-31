@@ -1,9 +1,13 @@
 package seedu.address.model.note;
 
-import seedu.address.model.tag.Tag;
-
 import java.util.Set;
 import java.util.function.Predicate;
+
+import seedu.address.model.tag.Tag;
+
+/**
+ * Tests that a {@code NoteFragment}'s {@code Tag} matches any of the keywords given.
+ */
 
 public class NoteFragmentContainsTagPredicate implements Predicate<NoteFragment> {
     private final Set<Tag> tags;

@@ -32,10 +32,10 @@ public class DeleteFlashcardCommand extends Command {
 
     public static final String MESSAGE_NOT_IMPLEMENTED_YET = "DeleteFlashcardCommand not implemented yet";
 
-    public static boolean isSure = false;
+    private static boolean isSure = false;
 
     // negative marked index to prevent access
-    public static int markedIndex = -1;
+    private static int markedIndex = -1;
 
     private final Index targetIndex;
 
@@ -74,7 +74,8 @@ public class DeleteFlashcardCommand extends Command {
             model.deleteFlashcard(flashcardToDelete);
             isSure = false;
             markedIndex = -1; // reset to -1 to prevent wrong access
-            commandResult = new FlashcardCommandResult(String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
+            commandResult = new FlashcardCommandResult(String.format(
+                    MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
         }
         if (isSure) {
             // user is sure he wants to delete but changed the index

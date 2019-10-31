@@ -86,8 +86,8 @@ public class AddCheatSheetCommand extends Command {
         Set<Content> contentList = new HashSet<>();
 
         ObservableList<Note> noteList = model.getFilteredNoteList();
-        NoteFragmentContainsTagPredicate noteFragmentTagPredicate
-                = new NoteFragmentContainsTagPredicate(tags);
+        NoteFragmentContainsTagPredicate noteFragmentTagPredicate =
+                new NoteFragmentContainsTagPredicate(tags);
         for (Note note: noteList) {
             for (NoteFragment nf : note.getNoteFragments()) {
                 if (noteFragmentTagPredicate.test(nf)) {
