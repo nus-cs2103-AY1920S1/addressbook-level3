@@ -1,9 +1,10 @@
-package seedu.address.ui;
+package seedu.address.ui.statistics;
 
-import static seedu.address.ui.RangeMarkerColor.COLOR_BLUE;
-import static seedu.address.ui.RangeMarkerColor.COLOR_GREEN;
-import static seedu.address.ui.RangeMarkerColor.COLOR_RED;
-import static seedu.address.ui.RangeMarkerColor.COLOR_YELLOW;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECORD_TYPE;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_BLUE;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_GREEN;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_RED;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_YELLOW;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.model.record.RecordType;
+import seedu.address.ui.UiPart;
 
 /**
  * Represents ui of a custom chart legend.
@@ -31,8 +33,10 @@ public class LegendPane extends UiPart<Region> {
     private static final String OBESE = "Obese: BMI above 30";
 
     // Blood sugar categorization description
-    private static final String BEFORE_MEALS = "Non-diabetic (before meals): Between 4.0 and 5.9";
-    private static final String AFTER_MEALS = "Non-diabetic (At least 90 minutes after meals): Between 5.9 and 7.8";
+    private static final String BEFORE_MEALS = "Before meals (Non-diabetic): Between 4.0 and 5.9 mmol/L";
+    private static final String AFTER_MEALS = "At least 90 minutes after meals (Non-diabetic):"
+            + " Between 5.9 and 7.8 mmol/L";
+
 
     // Weight legend row
     private static final LegendRow UNDER_WEIGHT_LEGEND_ROW = new LegendRow(COLOR_BLUE, UNDERWEIGHT);
@@ -45,7 +49,7 @@ public class LegendPane extends UiPart<Region> {
     private static final LegendRow AFTER_MEAL_LEGEND_ROW = new LegendRow(COLOR_BLUE, AFTER_MEALS);
 
     @FXML
-    private FlowPane flowPane;
+    private FlowPane lineChartLegendFlowPane;
 
     public LegendPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty recordType) {
         super(FXML);
@@ -53,7 +57,7 @@ public class LegendPane extends UiPart<Region> {
         recordType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                flowPane.getChildren().clear();
+                lineChartLegendFlowPane.getChildren().clear();
                 updateLegendPane(averageMap, recordType);
             }
         });
@@ -61,7 +65,7 @@ public class LegendPane extends UiPart<Region> {
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
-                flowPane.getChildren().clear();
+                lineChartLegendFlowPane.getChildren().clear();
                 updateLegendPane(averageMap, recordType);
             }
         });
@@ -77,29 +81,28 @@ public class LegendPane extends UiPart<Region> {
         switch (RecordType.valueOf(recordType.get())) {
         case BMI:
             if (maxAvg >= 0) {
-                flowPane.getChildren().add(UNDER_WEIGHT_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(UNDER_WEIGHT_LEGEND_ROW.getRoot());
             }
             if (maxAvg >= 18.5) {
-                flowPane.getChildren().add(NORMAL_WEIGHT_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(NORMAL_WEIGHT_LEGEND_ROW.getRoot());
             }
             if (maxAvg >= 25) {
-                flowPane.getChildren().add(OVER_WEIGHT_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(OVER_WEIGHT_LEGEND_ROW.getRoot());
             }
             if (maxAvg >= 30) {
-                flowPane.getChildren().add(OBESE_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(OBESE_LEGEND_ROW.getRoot());
             }
             break;
         case BLOODSUGAR:
             if (maxAvg >= 4.0) {
-                flowPane.getChildren().add(BEFORE_MEAL_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(BEFORE_MEAL_LEGEND_ROW.getRoot());
             }
             if (maxAvg >= 5.9) {
-                flowPane.getChildren().add(AFTER_MEAL_LEGEND_ROW.getRoot());
+                lineChartLegendFlowPane.getChildren().add(AFTER_MEAL_LEGEND_ROW.getRoot());
             }
             break;
         default:
-            // will not happen
-            assert false : "Record type is not supported.";
+            throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
 

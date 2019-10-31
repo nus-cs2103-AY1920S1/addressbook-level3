@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.StringJoiner;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
+import seedu.address.model.statistics.RecordContainsRecordTypePredicate;
 import seedu.address.ui.DisplayPaneType;
 
 /**
@@ -22,11 +21,12 @@ public class AverageCommand extends Command {
             + "Parameters: a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]\n"
             + "Example: " + COMMAND_WORD + " a/daily rt/bloodsugar n/5";
 
+    public static final String MESSAGE_SUCCESS = "You %1$s averages for %2$s have been calculated successfully.";
+
     public static final String MESSAGE_INVALID_COUNT = "n/COUNT";
 
     public static final String MESSAGE_INVALID_AVGTYPE = "a/AVERAGE_TYPE";
 
-    public static final String MESSAGE_INVALID_RECORDTYPE = "rt/RECORD_TYPE";
 
     public static final String MESSAGE_NO_RECORD = "Sorry! You do not have any %1$s record.";
 
@@ -34,34 +34,32 @@ public class AverageCommand extends Command {
 
     private final RecordType recordType;
 
+    private final RecordContainsRecordTypePredicate recordContainsRecordTypePredicate;
+
     private final int count;
 
-    public AverageCommand(AverageType averageType, RecordType recordType, int count) {
+    public AverageCommand(RecordContainsRecordTypePredicate recordContainsRecordTypePredicate,
+            AverageType averageType, RecordType recordType, int count) {
         requireNonNull(averageType);
         requireNonNull(recordType);
         this.averageType = averageType;
         this.recordType = recordType;
         this.count = count;
+        this.recordContainsRecordTypePredicate = recordContainsRecordTypePredicate;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        model.updateFilteredRecordList(recordContainsRecordTypePredicate);
         model.calculateAverageMap(averageType, recordType, count);
 
-        StringJoiner result = new StringJoiner(System.lineSeparator());
-
-        model.getAverageMap().entrySet().stream()
-                .limit(count)
-                .forEach(ele -> result.add("average for " + this.recordType + " "
-                        + ele.getKey() + " is " + ele.getValue()));
-
-        if (result.toString().isEmpty()) {
-            throw new CommandException(String.format(MESSAGE_NO_RECORD, this.recordType));
+        if (model.getAverageMap().isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_NO_RECORD, recordType));
         }
 
-        return new CommandResult(String.format(result.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, averageType, recordType));
     }
 
     @Override
@@ -75,6 +73,7 @@ public class AverageCommand extends Command {
                 || (other instanceof AverageCommand // instanceof handles nulls
                 && averageType.equals(((AverageCommand) other).averageType) // state check
                 && recordType.equals(((AverageCommand) other).recordType)
-                && count == ((AverageCommand) other).count);
+                && count == ((AverageCommand) other).count)
+                && recordContainsRecordTypePredicate.equals(((AverageCommand) other).recordContainsRecordTypePredicate);
     }
 }

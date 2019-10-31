@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.statistics;
 
 import java.time.LocalDate;
 import java.util.logging.Logger;
@@ -10,6 +10,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.ui.UiPart;
 
 /**
  * Represents a panel of an average graph and its legend.
@@ -24,10 +25,10 @@ public class AverageGraphPane extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(AverageGraphPane.class);
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane lineChartScrollPane;
 
     @FXML
-    private VBox vBox;
+    private VBox lineChartVBox;
 
     public AverageGraphPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
                             SimpleStringProperty recordType) {
@@ -36,9 +37,9 @@ public class AverageGraphPane extends UiPart<Region> {
         this.averageGraph = new AverageGraph(averageMap, averageType, recordType);
         this.legendPane = new LegendPane(averageMap, recordType);
 
-        vBox.getChildren().add(averageGraph.getAverageGraph());
-        vBox.getChildren().add(legendPane.getRoot());
-        scrollPane.setContent(vBox);
+        lineChartVBox.getChildren().add(averageGraph.getAverageGraph());
+        lineChartVBox.getChildren().add(legendPane.getRoot());
+        lineChartScrollPane.setContent(lineChartVBox);
     }
 
 }

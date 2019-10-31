@@ -26,4 +26,9 @@ public class AchvmCommand extends Command {
     public DisplayPaneType getDisplayPaneType() {
         return DisplayPaneType.ACHVM;
     }
+
+    @Override
+    public boolean getNewPaneIsToBeCreated() {
+        return true;
+    }
 }

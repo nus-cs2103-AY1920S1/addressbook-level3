@@ -43,4 +43,11 @@ public class BloodSugarPlatinum extends Achievement implements BloodSugar {
         return DURATION_UNITS;
     }
 
+    @Override
+    public Achievement copy() {
+        Achievement newAchievement = new BloodSugarPlatinum();
+        newAchievement.setAchievementState(this.getAchievementState());
+        return newAchievement;
+    }
+
 }

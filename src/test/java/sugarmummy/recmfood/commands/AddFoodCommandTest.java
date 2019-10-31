@@ -423,6 +423,11 @@ class AddFoodCommandTest {
         public void resetNewAchievementsState() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

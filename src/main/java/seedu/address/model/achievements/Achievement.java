@@ -29,7 +29,9 @@ public abstract class Achievement {
      * Returns the name of the image file representing this achievement.
      */
     public String getImageName() {
-        return title + "_" + achievementState;
+        return recordType.toString().toLowerCase()
+                + "_" + achievementLevel.toString().toLowerCase()
+                + "_" + achievementState.toString().toLowerCase();
     }
 
     public RecordType getRecordType() {
@@ -105,6 +107,41 @@ public abstract class Achievement {
      * is eligible.
      */
     public abstract double getMinimum();
+
+    /**
+     * Returns the message to be shown when this achievement is displayed to the user.
+     */
+    public String getDisplayMessage() {
+        return "Title: " + title + "\n\n"
+                + "Level: " + achievementLevel.toString() + "\n\n"
+                + "Current State:\n" + achievementState.toString().replace("_", " ") + "\n\n"
+                + "Requirement: " + description;
+    }
+
+    /**
+     * Returns a copy of this achievement instance;
+     */
+    public abstract Achievement copy();
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof Achievement)) {
+            return false;
+        } else {
+            Achievement otherAchievement = (Achievement) other;
+            if (this.recordType == otherAchievement.recordType
+                    && this.title.equals(otherAchievement.title)
+                    && this.description.equals(otherAchievement.description)
+                    && this.achievementLevel == otherAchievement.achievementLevel
+                    && this.achievementState == otherAchievement.achievementState) {
+                return true;
+            }
+            return false;
+        }
+    }
 
     @Override
     public String toString() {

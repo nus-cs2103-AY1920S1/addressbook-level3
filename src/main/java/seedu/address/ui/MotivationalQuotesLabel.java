@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * A ui for a single ImageView used to contain a tile representing the user's achievements
+ * A ui for the motivational quotes at the bottom of hte window to display motivational quotes to the user.
  */
 public class MotivationalQuotesLabel extends UiPart<Region> {
 
