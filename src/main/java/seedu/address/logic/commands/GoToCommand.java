@@ -8,7 +8,8 @@ import seedu.address.ui.PageType;
  */
 public class GoToCommand<T> extends Command<T> {
     public static final String COMMAND_WORD = "goto";
-    public static final String MESSAGE_CHANGE_SUCCESS = "Switching to %s page";
+    // todo: fix bug properly
+    public static final String MESSAGE_CHANGE_SUCCESS = "";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Goes to the page specified.\n"
             + "Parameters: 'address_book', 'calendar', 'diary', 'financial_tracker', 'itinerary', 'main'\n"
@@ -24,6 +25,6 @@ public class GoToCommand<T> extends Command<T> {
     public CommandResult execute(T model) {
         PageManager.getPage(pageType);
         String respondMessage = String.format(MESSAGE_CHANGE_SUCCESS, pageType.toString().toLowerCase());
-        return new CommandResult(respondMessage, false, false);
+        return new CommandResult(respondMessage, false, false, true);
     }
 }
