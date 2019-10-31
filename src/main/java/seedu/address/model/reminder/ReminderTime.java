@@ -7,8 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import seedu.address.model.task.TaskTime;
-
 /**
  * Represents a Task's time in the calendar.
  * Guarantees: immutable; is valid as declared in {@link #isValidTaskTime(String)}

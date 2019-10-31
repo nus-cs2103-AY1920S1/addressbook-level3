@@ -2,9 +2,7 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -12,13 +10,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.classid.ClassId;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderDescription;
 import seedu.address.model.reminder.ReminderTime;
-import seedu.address.model.task.Marking;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskTime;
 
 /**
  * Jackson-friendly version of {@link Reminder}.

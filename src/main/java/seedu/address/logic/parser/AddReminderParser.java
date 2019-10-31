@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_TIME;
 
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
