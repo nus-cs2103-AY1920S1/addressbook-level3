@@ -103,6 +103,7 @@ One of the most important features of THRIFT is to allow you to track your expen
 `add_expense n/EXPENSE_NAME v/VALUE [r/REMARK] [t/TAG]...`
 
 ****
+[[TransactionDetailsTag]]
 * Adds an expense with:
 ** the name `EXPENSE_NAME`
 ** the value `VALUE`
@@ -196,33 +197,50 @@ image::delete/Step3.png[,550]
 // tag::update[]
 [[UpdateTag]]
 === Updating a transaction’s details: `update`
+Made a mistake when creating a transaction? Have new details for an existing transaction? Simply utilize THRIFT's `update` feature to make changes.
 
-Format: `update i/INDEX PREFIX_LETTER/UPDATED_DETAILS ...`
+==== Command Syntax:
+`update i/INDEX [n/NEW_NAME] [v/NEW_VALUE] [r/NEW_REMARK] [t/NEW_TAG] ...`
 
+Here is an explanation for the `update` command:
 ****
-* Updates the transaction's details at the specified `INDEX`.
-** `INDEX` refers to the index number currently shown in the UI, and must be a *positive integer*.
-* `PREFIX_LETTER` specifies type of detail to be updated, e.g. `n/` for name.
-* `UPDATED_DETAILS` are the new details of type corresponding to `PREFIX_LETTER` that the transaction is to be updated with.
-* Multiple detail types can be updated at once.
+* Use this command to update the fields of the transaction at the specified `INDEX`.
+
+- `INDEX` refers to the index number currently shown in the displayed list, and must be a *positive integer*.
+
+* You can update any or all of the transaction's **name**, **value**, **remark** and **tags** fields. For information on these fields, see <<TransactionDetailsTag, here>>.
+
+* All fields are optional, but you must specify at least one field to be updated.
+
+* You can update multiple fields at once.
 ****
 
-Examples:
+==== Example Usage:
+You order a bowl of delicious Laksa and key in the details of this food expense into THRIFT. However, after your meal you realize you recorded some incorrect details - the Laksa was _Asam Laksa_, not Curry Laksa as you thought, and you paid more than the menu price (which you recorded) due to taxes. You also want to add a remark and tag.
 
-*   `update i/1 n/Curry Laksa`
-*   `update i/1 n/Asam Laksa v/11 r/My first time trying! t/Dinner t/Food`
+Fortunately, you can easily update such details in THRIFT. Here is what you do from beginning to end:
 
-Expected output: +
-
-NOTE: Assume 2nd command occurs after 1st
-
-*   `Updated Transaction: [-] Curry Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]` +
+. You initially have a "Curry Laksa" expense in THRIFT. It is at index 2 in the list.
 +
-`Original: [-] Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
-
-*   `Updated Transaction: [-] Asam Laksa ($11.00) Date: 12/10/2019 Remarks: My first time trying! Tags: [Dinner][Food]` +
+image::update/updateUG/UpdateStep1.png[,550]
 +
-`Original: [-] Curry Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
+. When you realize the Laksa is not Curry Laksa and want to change the transaction's name, you type **update i/2 n/Laksa** into the command box and press kbd:[Enter].
++
+image::update/updateUG/UpdateStep2.png[,550]
++
+. You should see that the "Curry Laksa" transaction's name is updated to "Laksa". The status message also tells you what the original transaction was.
++
+image::update/updateUG/UpdateStep3.png[,550]
++
+. Later on, you want to change the name and value, as well as add a remark and tag. You type: +
+**update i/2 n/Asam Laksa v/12 r/My first time trying! t/Food t/Lunch** +
+and press kbd:[Enter].
++
+image::update/updateUG/UpdateStep4.png[,550]
++
+. You can see the updated details of the transaction at index 2. The status message tells you what the original transaction was. The transaction month's Expense and Balance trackers are also updated.
++
+image::update/updateUG/UpdateStep5.png[,550]
 // end::update[]
 
 //tag::tag[]
@@ -312,23 +330,51 @@ The convert command allows you to convert money from one currency to another.
 // tag::clone[]
 [[CloneTag]]
 === Cloning a transaction: `clone`
+Occasionally, you may want to copy a transaction, or create multiple copies of a transaction for recurring incomes or expenses such as a yearly donation or monthly bills. Simply use the `clone` feature to achieve this.
 
-Format: `clone i/INDEX`
+==== Command syntax:
+`clone i/INDEX [o/OCCURRENCE]`
+
+The following is an explanation for the `clone` command:
 
 ****
-* Clones (creates a duplicate of) a `Transaction` entry.
-* Clone produced is added to a new index at the bottom of the list.
+* Clones (creates duplicate(s) of) transaction at `INDEX`. Clone(s) produced are added to a new index at the bottom of the list.
+
+- `INDEX` refers to the index currently shown in the displayed list, and must be a positive integer.
+
+* If you use `clone i/INDEX` without `o/OCCURRENCE` field, one clone is created for the current day.
+
+* Optional `OCCURRENCE` field is in the format `FREQUENCY:NUMBER_OF_OCCURRENCES`. You use it to create multiple clones,  with the 1st clone on the current day.
+
+- `FREQUENCY` is how often or how far apart the clones occur. Valid values are: `daily`, `weekly`, `monthly` and `yearly`.
+
+- `NUMBER_OF_OCCURRENCES` determines how many clones are produced.
+
+- The maximum `NUMBER_OF_OCCURRENCES` is **5 for `yearly`** and **12 for `daily`, `weekly` and `monthly`**.
+
+* For monthly cloning, clones are created on the same day of the following months, e.g. **clone i/1 o/monthly:3** on 20 November 2019 creates clones on 20 November 2019, 20 December 2019 and 20 January 2020.
+
+- For special cases where following months do not have the day a transaction was cloned on, clones are created on the last day of those months, e.g. **clone i/1 o/monthly:3** on 31 October 2019 creates clones on 31 October 2019, 30 November 2019 and 31 December 2019.
 ****
 
-Examples: +
+==== Example usage: +
+You receive your fixed salary on the last day of every month. You don't want to tediously add your salary to THRIFT every month, so you add clones of your salary income for the next year at one go.
 
-*   `clone i/1`
+You do the following on 31 October 2019:
 
-Expected output: +
+NOTE: The following example uses the displayed list of all existing transactions.
 
-NOTE: Assume entry at index 1 is `[-] Laksa ($10.50) Date: 18/10/2019 Remarks: Unique taste Tags: [Lunch][Food]` and there are no other entries.
+. You have the salary income entry you received on 31/10/2019 in the list. It is at index 4.
++
+image::clone/cloneUG/CloneStep1.png[,550]
 
-*   `Cloned transaction: [-] Laksa ($10.50) Date: 18/10/2019 Remarks: Unique taste Tags: [Lunch][Food]`
+. To create clones of the salary entry for 31/10/2019 and the next 11 months up to 30 September 2020, you type **clone i/4 o/monthly:12** and press kbd:[Enter].
++
+image::clone/cloneUG/CloneStep2.png[,550]
+
+. You can see that 12 clones of the transaction at index 4 are created.
++
+image::clone/cloneUG/CloneStep3.png[,550]
 // end::clone[]
 
 [[UndoTag]]

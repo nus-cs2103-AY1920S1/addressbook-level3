@@ -1,0 +1,23 @@
+@startuml
+start
+:User inputs Clone command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then (
+
+[command has
+  valid syntax]
+)
+    :Find and create copies of the specified transaction;
+    :Add copied transactions to Model and in UI;
+    :Scroll to the updated transaction in UI's displayed list;
+    :Display feedback status message;
+else(             [else]
+)
+    :Return and display
+    Exception message;
+endif
+stop
+@enduml

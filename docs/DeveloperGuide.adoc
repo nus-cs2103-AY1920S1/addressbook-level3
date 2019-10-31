@@ -484,7 +484,7 @@ Alternative 2 was chosen as we want to ensure that tags are meaningful to the us
 The **update **functionality modifies details of a specified `**Transaction**` in the existing list and saves modifications to the external storage file.
 
 ==== Implementation
-**Update** mechanism utilizes <<Design-Logic, *Logic*>> operations with the `**UpdateCommand**` class in place of `**Command**`.
+**Update** mechanism utilizes <<Design-Logic, *Logic*>> operations with the `**UpdateCommand**` class in place of `**Command**`, and a unique `**UpdateCommandParser**` class.
 The following methods are concrete implementations for **update** operations:
 
 * `UpdateCommandParser#parse()` - Parses the user's input and creates an `**UpdateCommand**` to execute the command.
@@ -496,7 +496,7 @@ The following methods are concrete implementations for **update** operations:
 The following Object Diagram illustrates objects involved in the execution of **update** command:
 
 .Existing objects when executing **update** on an `**Income**`
-image::UpdateObjectDiagram.png[]
+image::update/updateDG/UpdateObjectDiagram.png[]
 
 ===== Example of usage
 Given next is an example usage scenario for updating a transaction and explanation of how the **update** mechanism behaves at each step:
@@ -505,45 +505,52 @@ Step 1. The user starts up the application with an initial list loaded from exte
 
 :figure-caption!:
 .Example list on startup
-image::UpdateCommandDiagrams/UpdateStep1.png[]
+image::update/updateDG/UpdateStep1.png[]
 
 Step 2. The user inputs **update i/1 n/Government Bursary v/600** to update the 1st transaction's name to "Government Bursary" and value to "600". Input is parsed by `UpdateCommandParser#parse` which creates an `**UpdateCommand**`.
 
 NOTE: The 1st transaction specified here is an `**Income**`
 
 .Example user input for update command
-image::UpdateCommandDiagrams/UpdateStep2.png[]
+image::update/updateDG/UpdateStep2.png[]
 
 Step 3. `UpdateCommand#execute` creates a new transaction that reflects the changes and gets the index of current transaction to be updated.
 
 .Creation of new updated transaction in `UpdateCommand#execute()`
-image::UpdateCommandDiagrams/UpdateStep3.png[]
+image::update/updateDG/UpdateStep3.png[]
 
 Step 4. `UpdateCommand#execute` replaces original transaction in the list with the updated transaction.
 
-image::UpdateCommandDiagrams/UpdateStep4Part1.png[]
-image::UpdateCommandDiagrams/UpdateStep4Part2.png[]
+image::update/updateDG/UpdateStep4Part1.png[]
+image::update/updateDG/UpdateStep4Part2.png[]
 .Replacement of original transaction with updated transaction in `UpdateCommand#execute()`
-image::UpdateCommandDiagrams/UpdateStep4Part3.png[]
+image::update/updateDG/UpdateStep4Part3.png[]
 
 ===== Execution observed by user
 The following activity diagram gives an overview of what the user observes when executing **update** comnand
 
 :figure-caption: Figure
 .Activity Diagram for execution of update command
-image::UpdateActivityDiagram.png[]
+image::update/updateDG/UpdateActivityDiagram.png[]
 
 ==== Design considerations
 ===== Aspect: Modifying details of a transaction
 * **Alternative 1 (current choice)**: Replace the original transaction with a new updated transaction.
-- Pros: Easy to implement.
+- Pros: Easy to implement and keep track of new objects containing new details.
 - Cons: Incurs overhead when creating new instance of `**Transaction**`.
 * **Alternative 2**: Modify the transaction directly using setter methods.
 - Pros: Easy to implement and highly efficient.
-- Cons: Allowing modification of transactions violates immutability principle.
+- Cons: Allowing modification of transactions violates immutability principle, possibly resulting in bugs for UI or accessing modified transaction fields if there is delay in updating.
 
-**Alternative 1 chosen** to maintain better coding practices and keep transactions immutable for the entire project.
+**Alternative 1 chosen** to maintain better coding practices and keep transactions immutable for the entire project. Overhead of creating new `**Transaction**` object not a significant factor as it is not a very large object.
 
+===== Aspect: Method of replacing original transaction with updated version
+* **Alternative 1 (current choice)**: Get the index of original transaction in the transactions list and `set` updated transaction to that index.
+- Pros: High level of certainty that updated transaction replaces the correct outdated transaction and occupies the correct index in the list. Highly efficient.
+- Cons: A little more coding required to get the index of original transaction.
+* **Alternative 2**: Iterate through the transactions list and directly set the updated transaction at the first instance of original transaction found.
+- Pros: Under the assumption that each `**Transaction**` is unique, index to replace can be easily found by iterating through the list with a simple loop.
+- Cons: Efficiency decreases as transactions list size increases. If transactions not unique, incorrect transaction may be replaced if a transaction identical to the one supposed to be replaced is found earlier in the list.
 
 === Undo/Redoing undoable commands
 *Undo* command allows the user to revert `**THRIFT**` to its previous state when they have made a mistake. *Redo* command does
@@ -1103,7 +1110,7 @@ _Use case ends_
 
 *MSS*
 
-1. User requests to update a transaction's name, cost or tags.
+1. User requests to update a transaction's name, value, remark or tags.
 2. THRIFT processes the request, updates the specified details in the transactions list and informs user of what has been changed.
 +
 _Use case ends_
@@ -1114,7 +1121,7 @@ _Use case ends_
 * 1a. Some parameters specified by the user are not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid parameter error to the user and does not update details for invalid parameters.
+** 1a1. THRIFT displays an invalid command format error to the user and does not update details for invalid parameters.
 +
 _Use case ends_
 
@@ -1123,18 +1130,30 @@ _Use case ends_
 
 *MSS*
 
-1. User requests to clone a transaction.
-2. THRIFT processes the request and adds an identical transaction to the transactions list.
+1. User requests to clone a transaction, specifying the occurrence of clones: how many clones are to be created and their frequency over a future period.
+2. THRIFT processes the request and adds the specified number of identical transactions to the transactions list.
 +
 _Use case ends_
 
 *Extensions*
 
 [none]
-* 1a. The index parameter specified by the user is not valid.
+* 1a. User does not specify the occurrence of clones.
 +
 [none]
-** 1a1. THRIFT displays an invalid parameter error to the user and does not update the transactions list.
+** _Use case resumes from Step 2_
+
+* 1b. The index parameter specified by the user is not valid.
++
+[none]
+** 1b1. THRIFT displays an invalid command format error to the user and does not update the transactions list.
++
+_Use case ends_
+
+* 1b. The occurrence specified by the user is not valid.
++
+[none]
+** 1b1. THRIFT displays an invalid command format error to the user and does not update the transactions list.
 +
 _Use case ends_
 
@@ -1387,6 +1406,16 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `clone firstTransaction` +
    Expected: No changes. Error details shown in status message.
 .. Test case: `clone` +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `clone i/1 o/daily:3` +
+   Expected: 3 new transactions identical to first transaction in the list added to the bottom of the list, with their dates set 1 day apart.
+.. Test case: `clone i/1 o/daily:-1` +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `clone i/1 o/onceeveryday:-1` +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `clone i/1 o/yearly:6` +
+   Expected: No changes. Error details shown in status message.
+.. Test case: `clone i/1 o/monthly:13` +
    Expected: No changes. Error details shown in status message.
 
 === Listing the transactions
