@@ -535,7 +535,9 @@ Date should be in the format YYYY.MM.DD with valid year, month and date.
 ==== Add a schedule : `add-s`
 Adds a schedule. +
 If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules, or change the time. +
-[underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow] ` +
+*Note*: You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule. +
+
+[underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
 [underline]#Example#: +
 
 * `add-s 3 cd/2018.7.25 ct/18.00 v/Starbucks t/freebie -allow` +
@@ -567,6 +569,8 @@ Deletes a schedule. +
 ==== Edit a schedule : `edit-s`
 Edits an existing schedule. +
 If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules, or change the time. +
+*Note*: You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule. +
+
 [underline]#Format#: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`
 ****
 - Edits the schedule of the order at the specified `ORDER_INDEX`.
@@ -580,6 +584,11 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 
 * Edit the date of the schedule of the 1st order and allow it to clash with the existing schedules. +
 `edit-s 1 cd/2019.12.12 -allow`
+
+==== Clear the schedules : `clear-s`
+Clears every schedule in SML. +
+
+[underline]#Format#: `clear-s`
 
 === General Commands
 
