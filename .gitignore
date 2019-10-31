@@ -17,5 +17,10 @@ src/main/resources/docs/
 # Test sandbox files
 src/test/data/sandbox/
 
+# Stored Decks
+decks/ererer.json
+decks/Js.json
+decks/My First Deck.json
+
 # MacOS custom attributes files created by Finder
 .DS_Store
