@@ -15,9 +15,11 @@ import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
+import seedu.revision.model.quiz.CustomMode;
 import seedu.revision.model.quiz.ArcadeMode;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
+import seedu.revision.ui.bar.Timer;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -131,7 +133,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> Categorys} into a {@code Set<Category>}.
+     * Parses {@code Collection<String> Categories} into a {@code Set<Category>}.
      */
     public static Set<Category> parseCategories(Collection<String> categories) throws ParseException {
         requireNonNull(categories);
@@ -141,6 +143,22 @@ public class ParserUtil {
         }
         return categorySet;
     }
+
+
+    /**
+     * Parses {@code String time} into a valid {int time}
+     *
+     * @throws ParseException if the given {@code time} is < 1 seconds
+     */
+    public static int parseTimer(String time) throws ParseException {
+        int convertedTime = (int) Double.parseDouble(time);
+        if (convertedTime < 1) {
+            throw new ParseException(Timer.MESSAGE_CONSTRAINTS);
+        }
+
+        return convertedTime;
+    }
+
 
     /**
      * Parses a {@code String mode} into a {@code Mode}.
@@ -159,7 +177,8 @@ public class ParserUtil {
             return new NormalMode();
         case "arcade":
             return new ArcadeMode();
-        //case "custom":
+        case "custom":
+            return new CustomMode();
         default:
             throw new ParseException("Invalid mode found at ParserUtil");
         }
