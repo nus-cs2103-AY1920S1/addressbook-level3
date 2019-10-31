@@ -343,7 +343,8 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* Deleted persons are moved into the bin, where they stay there for 30 days before being removed forever.
+* Deleted persons are moved into the bin, where they stay there for 30 days before being removed forever (currently
+set to 10 seconds so it can be tested easily, value is set in BinItem class).
 ****
 
 Examples:
@@ -364,7 +365,8 @@ Format: `deletepolicy INDEX`
 * Deletes the policy at the specified `INDEX`.
 * The index refers to the index number shown in the displayed policy list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* Deleted policies are moved into the bin, where they stay there for 30 days before being removed forever.
+* Deleted policies are moved into the bin, where they stay there for 30 days before being removed forever (currently
+set to 10 seconds so it can be tested easily, value is set in BinItem class).
 ****
 
 Examples:
