@@ -3,14 +3,15 @@ package seedu.billboard.model.statistics.generators;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.Test;
-import seedu.billboard.commons.core.date.DateRange;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.billboard.commons.core.date.DateRange;
+
 
 class HeatMapGeneratorTest {
     private final HeatMapGenerator heatMapGenerator = new HeatMapGenerator();

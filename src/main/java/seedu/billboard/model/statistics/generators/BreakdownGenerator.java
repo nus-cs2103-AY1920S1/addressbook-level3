@@ -47,8 +47,7 @@ public class BreakdownGenerator implements StatisticsGenerator<ExpenseBreakdown>
      * existing key, the expense is instead merged into the list of expenses under that key.
      */
     private void combineMapAndExpense(Map<Tag, List<Expense>> map, Expense expense) {
-        expense.getTags()
-                .forEach(tag -> map.merge(tag, List.of(expense), this::concatList));
+        expense.getTags().forEach(tag -> map.merge(tag, List.of(expense), this::concatList));
     }
 
     /**
