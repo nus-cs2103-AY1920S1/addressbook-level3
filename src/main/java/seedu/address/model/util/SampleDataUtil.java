@@ -38,7 +38,7 @@ public class SampleDataUtil {
                         null, getTagSet("5star")),
             new Accommodation(new Name("Royal Plaza Hotel"), new Address("25 Scotts Road"),
                         null, getTagSet("Epic", "Suite")),
-            new Accommodation(new Name("Hard Rock Hotel - Resort World Sentosa"), new Address("8 Sentosa Gateway"),
+            new Accommodation(new Name("Hard Rock Hotel RWS"), new Address("8 Sentosa Gateway"),
                         null, getTagSet("Resort")),
             new Accommodation(new Name("Hotel 81"), new Address("29 Geylang Road"),
                         null, getTagSet("cheap")),
