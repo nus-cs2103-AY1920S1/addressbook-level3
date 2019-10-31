@@ -149,7 +149,7 @@ https://github.com/AY1920S1-CS2103T-F13-2/main/pull/177[#177]]
 
 ** Updated the Developer Guide
 
-*** Edited main UML Diagrams [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/164[#164]]
+*** Updated UI section of the Developer Guide [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/190[#190]]
 
 == Contributions to the User Guide
 
