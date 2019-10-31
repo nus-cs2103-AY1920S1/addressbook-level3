@@ -149,34 +149,35 @@ List all tasks. +
 Format: `list_tasks`
 
 
-==== Setting Reminder Details  : `reminder`
+==== Setting Reminder Details  : `addReminder`
 
-===== Reminder Status On/Off
+===== Add Reminder
 
-Switches reminder status between on and off. +
-Format: `reminder INDEX STATUS`
-
-Examples:
-
-* `reminder 5 on`
-
-===== Setting Reminder Time
-
-Sets how many minutes before the marked tasks will be reminded. +
-Format: `reminder INDEX INTEGER(in minutes)`
+Adds reminders. +
+Format: `addReminder rd/DESCRIPTION rt/TIME`
 
 Examples:
 
-* `reminder 3 45`
+* `addReminder rd/Cs2103T homework rt/21/9/2019 13:00, 21/9/2019 15:00`
+
+===== Delete Reminder
+
+Removes the reminder. +
+Format: `reminder INDEX INTEGER`
+
+Examples:
+
+* `deleteReminder 1`
 
 ==== User Interface
 
 View in calendar format. +
-Format: `show calendar`
+Format: `change_tab tab/FORMAT`
 
 Example:
 
-* `show calendar`
+* `change_tab tab/calendar`
+* `change_tab tab/tasks`
 
 === Earnings
 

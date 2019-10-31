@@ -1,9 +1,9 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,6 +34,7 @@ class JsonAdaptedReminder {
         if (reminderTimes != null) {
             this.reminderTimes.addAll(reminderTimes);
         }
+        Collections.sort(reminderTimes);
     }
 
     /**
@@ -49,7 +50,7 @@ class JsonAdaptedReminder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted reminder.
      */
     public Reminder toModelType() throws IllegalValueException {
-        final List<ReminderTime> times = new ArrayList<>();
+        final TreeSet<ReminderTime> times = new TreeSet<>(ReminderTime::compareTo);
         for (JsonAdaptedReminderTime time : reminderTimes) {
             times.add(time.toModelType());
         }
@@ -61,7 +62,7 @@ class JsonAdaptedReminder {
 
         final ReminderDescription modelDescription = new ReminderDescription(description);
 
-        final Set<ReminderTime> modelTimes = new HashSet<>(times);
+        final TreeSet<ReminderTime> modelTimes = new TreeSet<>(times);
 
         return new Reminder(modelDescription, modelTimes);
     }

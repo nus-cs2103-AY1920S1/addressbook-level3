@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_TIME;
 
-import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.reminder.AddReminderCommand;
@@ -35,7 +35,7 @@ public class AddReminderParser {
 
         ReminderDescription reminderDescription = ParserUtil.parseReminderDescription(argMultimap
                 .getValue(PREFIX_REMINDER_DESCRIPTION).get());
-        Set<ReminderTime> reminderTimeSet = ParserUtil.parseReminderTimes(argMultimap
+        TreeSet<ReminderTime> reminderTimeSet = ParserUtil.parseReminderTimes(argMultimap
                 .getAllValues(PREFIX_REMINDER_TIME));
 
         Reminder reminder = new Reminder(reminderDescription, reminderTimeSet);
