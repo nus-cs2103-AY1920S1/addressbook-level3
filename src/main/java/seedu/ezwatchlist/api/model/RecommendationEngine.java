@@ -183,7 +183,7 @@ public class RecommendationEngine {
                 results.forEach((tvSeries) -> addToRecommendations(tvSeries.getId(), false));
             }
         } catch (MovieDbException e) {
-            ApiMain.notConnected();
+            ApiManager.notConnected();
         }
     }
 
@@ -219,7 +219,7 @@ public class RecommendationEngine {
                 similarMovies.forEach((movie) -> addToRecommendations(movie.getId(), true));
             }
         } catch (MovieDbException e) {
-            ApiMain.notConnected();
+            ApiManager.notConnected();
         }
     }
 
