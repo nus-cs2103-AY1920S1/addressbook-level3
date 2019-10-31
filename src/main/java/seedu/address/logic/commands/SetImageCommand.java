@@ -98,34 +98,4 @@ public class SetImageCommand extends Command {
 
 }
 
-    /*public SetImageCommand(MemberId id, String url) {
-        requireNonNull(id, url);
-        memId = id;
-        imageURL = url;
-    }
-
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Member> lastShownList = model.getFilteredMembersList();
-
-        boolean contains = false;
-        Member memberInvolved = null;
-
-        for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i).getId().equals(memId)) {
-                contains = true;
-                memberInvolved = lastShownList.get(i);
-                break;
-            }
-        }
-
-        if (!contains) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_ID);
-        }
-
-        memberInvolved.setImage(imageURL);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
-    }*/
 
