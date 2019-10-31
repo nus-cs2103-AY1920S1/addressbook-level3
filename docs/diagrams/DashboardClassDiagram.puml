@@ -1,0 +1,46 @@
+@startuml
+!include style1.puml
+skinparam arrowThickness 1.5
+skinparam arrowColor MediumSpringGreen
+skinparam classBackgroundColor MediumAquaMarine
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor DarkSlateBlue
+skinparam Class {
+    FontColor MidnightBlue
+    BorderThickness 1
+    BorderColor #FFFFFF
+    StereotypeFontColor #FFFFFF
+    FontName Arial
+}
+
+Class Dashboard {
+ - dashboardName : DashboardName
+ - taskDate : TaskDate
+ - taskStatus : TaskStatus
+ + getDashboardName()
+ + getTaskDate()
+ + getTaskStatus()
+}
+
+Class DashboardName {
+ - dashboardName : String
+ + isValidDashboardName()
+}
+
+Class TaskDate {
+ - taskDate : String
+ + isValidTaskDate()
+}
+
+Class TaskStatus {
+ - taskStatus : String
+ + isValidTaskStatus()
+}
+
+Dashboard *-down-> "1" DashboardName : has unique >
+Dashboard *-down-> "1" TaskDate : has unique >
+Dashboard *-down-> "1" TaskStatus : has unique >
+
+show members
+@enduml
+
