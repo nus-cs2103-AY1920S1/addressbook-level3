@@ -46,30 +46,30 @@ image::Ui.png[width="790"]
 *Command Format for Horo*
 
 * You can enter a command by typing the command name first followed by arguments of the command.
-- E.g. `command_name <argument1> <argument2>...`
+- E.g. `*command_name* <argument1> <argument2>...`
 
 * If you want to type an argument containing blank spaces, surround your sentence within quotation marks.
 - E.g. `"Buy Groceries"`
-- E.g. `add_task "Buy Groceries"`
+- E.g. `*add_task* "Buy Groceries"`
 
 * Command parameters are prefixed by `--`, and they are optional.
-- E.g. `--date 17/09/2019`
-- E.g. `calendar --date 17/09/2019`
+- E.g. `*--date* 17/09/2019`
+- E.g. `*calendar* *--date* 17/09/2019`
 
 
 ====
 *Command Format for this User Guide*
 
 * Arguments are fully capitalized which are to be supplied by you.
-- E.g. `add_task TASK`
+- E.g. `*add_task* TASK`
 
 * Arguments suffixed with ellipsis (`...`) indicate that the argument can be entered zero or more times.
-- E.g. `delete_task INDEX...`
+- E.g. `*delete_task* INDEX...`
 
 * Parameters separated by a vertical bar `|` can be used interchangeably.
 - e.g. given the command format `-d|--description DESCRIPTION`, the following inputs accomplish the same thing:
-- `--description "Buy Groceries"`
-- `-d "Buy Groceries"`
+- `*--description* "Buy Groceries"`
+- `*-d* "Buy Groceries"`
 
 
 === Asking for help : `help` **`[coming in v2.0]`**
@@ -185,11 +185,11 @@ image::AddTaskCommandScreenShot.png[]
 You may use the `add_task` command to add a task to the to-do list.
 
 Command Format: +
-`add_task DESCRIPTION`
+`*add_task* DESCRIPTION`
 
 Command Parameters: +
-*--due* DUE_DATE +
-*--tag* TAG...
+`*--due* DUE_DATE` +
+`*--tag* TAG...`
 
 Argument Format: +
 `DUE_DATE` : `"DD/MM/YYYY HH:MM"`
@@ -235,9 +235,9 @@ Command Format: +
 {empty} +
 
 Command Parameters: +
-*--description* DESCRIPTION
-*--due* DUE_DATE
-*--tag* TAG...
+`*--description* DESCRIPTION` +
+`*--due* DUE_DATE` +
+`*--tag* TAG...`
 
 Argument Format: +
 `DUE_DATE` : `"DD/MM/YYYY HH:MM"` +
@@ -249,15 +249,16 @@ Examples: +
 ==== Making recurring Events: `recur` **`[coming in v2.0]`**
 
 The `recur` command makes an Event show up repeatedly in the Calendar.
-{empty} +
 
-Format: +
-`recur INDEX... [-f|--frequency FREQUENCY]`
-{empty} +
+Command Format: +
+`*recur* INDEX...`
+
+Command Parameters: +
+`*-f*|*--frequency*` FREQUENCY
 
 Examples: +
-`recur 1 2 3 -f daily` +
-`recur 1 2 3 --frequency daily`
+`*recur* 1 2 3 *-f* daily` +
+`*recur* 1 2 3 *--frequency* daily`
 
 ****
 * This will make Events 1, 2 and 3 recur daily on the Calendar.
@@ -268,30 +269,36 @@ Examples: +
 The `find` command returns Events or Tasks whose name or tag contains the specified keyword. If no optional arguments are specified, all items which name or tags contain the keyword will be returned.
 {empty} +
 
-Format: +
-`find [KEYWORD] [--event KEYWORD] [--task KEYWORD] [--tag KEYWORD...]`
-{empty} +
+Command Format: +
+`*find* KEYWORD`
 
-Example: +
-`find Birthday` +
-`find --event Rori` +
-`find --task Rori` +
-`find --tag Birthday` +
-`find --tag Birthday Pet`
+Command Parameters: +
+`*--event* KEYWORD` +
+`*--task* KEYWORD` +
+`*--tag* KEYWORD...`
+
+Examples: +
+`*find* Birthday` +
+`*find* *--event* Rori` +
+`*find* *--task* Rori` +
+`*find* *--tag* Birthday` +
+`*find* *--tag* Birthday Pet`
 
 ==== Completing Tasks **`[coming in v2.0]`**
 
 The `done` command marks a Task as complete. Tasks may be specified by index, or by their associated tags.
 
-Format: +
-`done INDEX...`
-{empty} +
+Command Format: +
+`*done* INDEX...`
 
-Example: +
-`done 1` +
-`done 1 2 3`
-`done --tag Birthday` +
-`done 1 2 3 --tag Birthday`
+Command Parameters: +
+`*--tag* TAG...`
+
+Examples: +
+`*done* 1` +
+`*done* 1 2 3`
+`*done* --tag Birthday` +
+`*done* 1 2 3 --tag Birthday`
 
 === Tagging System **`[coming in v2.0]`**
 The following commands are related to the tagging of Events and Tasks, which gives you finer control over editing your events and tasks.
@@ -299,38 +306,45 @@ The following commands are related to the tagging of Events and Tasks, which giv
 ==== Adding Tags to Events**`[coming in v2.0]`**
 
 The `tag_event` command adds tags to the specified Events.
-{empty} +
 
-Format: +
-`tag_event INDEX... --tag TAG...`
-{empty} +
+Command Format: +
+`*tag_event* INDEX...`
 
-Example: +
-`tag_event 1 2 3 --tag Birthday`
+Command Parameters: +
+`*--tag* TAG...`
+
+Examples: +
+`*tag_event* 1 2 3`
+`*tag_event* 1 2 3 *--tag* Birthday`
 
 ==== Adding Tags to Tasks**`[coming in v2.0]`**
 
 The `tag_task` command adds tags to the specified Tasks.
-{empty} +
 
-Format: +
-`tag_task INDEX... --tag TAG...`
-{empty} +
+Command Format: +
+`*tag_task* INDEX...`
 
-Example: +
-`tag_task 1 2 3 --tag Birthday`
+Command Parameters: +
+`*--tag* TAG...`
+
+Examples: +
+`*tag_task* 1 2 3`
+`*tag_task* 1 2 3 *--tag* Birthday`
 
 
 ==== Removing Tags from events **`[coming in v2.0]`**
 
 The `untag_event` command removes tags from the specified Events.
-{empty} +
 
-Format: +
-`untag_event INDEX... --tag TAG...`
+Command Format: +
+`*untag_event* INDEX...`
+
+Command Parameters: +
+`*--tag* TAG...`
 
 Example: +
-`untag_event 1 2 3 --tag Birthdays`
+`*untag_event* 1 2 3` +
+`*untag_event* 1 2 3 *--tag* Birthdays`
 
 
 ==== Removing Tags from Tasks **`[coming in v2.0]`**
@@ -338,16 +352,20 @@ Example: +
 The `untag_task` command removes tags from the specified Tasks.
 {empty} +
 
-Format: +
-`untag_task INDEX... --tag TAG...`
+Command Format: +
+`*untag_task* INDEX...`
 
-Example: +
-`untag_task 1 2 3 --tag Birthdays`
+Command Parameters: +
+*--tag* TAG...
+
+Examples: +
+`*untag_task* 1 2 3` +
+`*untag_task* 1 2 3 *--tag* Birthdays`
 
 === UI
 The following commands are related to the changing the display of the UI.
 
-==== Changing Screen View to Calendar View: `calendar [DATE]`
+==== Changing Screen View to Calendar View
 
 .Calendar View Command for Calendar
 image::Ui.png[]
@@ -362,14 +380,20 @@ The Calendar View will display the specified date. If no date is specified, the 
 Upon the initial launch of the application, the timeline and calendar dates will be set to the system's current date.
 {empty} +
 
-Format: +
-`calendar`
-`calendar [DATE]`
+Command Format: +
+`*calendar*` +
+
+Command Parameters: +
+`*--date* DATE`
+
+Argument Format: +
+`DATE` : `DD/MM/YYYY`
 
 Example: +
-`calendar 11/10/2019`
+`*calendar*` : Switch back to calendar view, without changing the date. +
+`*calendar* *--date* 11/10/2019`
 
-==== Changing Timeline to a given day: `day [DATE]`
+==== Changing Timeline to a given day
 
 .Day View Command for the Timeline
 image::DayViewCommandScreenShot.png[]
@@ -378,15 +402,18 @@ image::DayViewCommandScreenShot.png[]
 The `day` command sets the timeline in the Calendar View to that of the specified day. In addition, this command will cause a switch to the Calendar View if it is not the current display.
 {empty} +
 
-Format: +
-`day [DATE]`
+Command Format: +
+`day DATE`
 {empty} +
+
+Argument Format: +
+`DATE` : `DD/MM/YYYY`
 
 Example: +
 `day 11/10/2019`
 {empty} +
 
-==== Changing Timeline to a given week: `week [DATE] [MONTH_YEAR]`
+==== Changing Timeline to a given week
 
 .Week View Command for the Timeline
 image::WeekViewCommandScreenShot.png[]
@@ -397,13 +424,15 @@ The `week` command sets the timeline in the Calendar View to the week of the spe
 
 Command Format: +
 `*week* DATE`
-{empty} +
+
+Argument Format: +
+`DATE` : `DD/MM/YYYY`
 
 Example: +
 `week 01/11/2019`
 {empty} +
 
-==== Changing Timeline to a given month: `month [MONTH_YEAR]`
+==== Changing Timeline to a given month
 
 .Month View Command for the Timeline
 image::MonthViewCommandScreenShot.png[]
@@ -416,11 +445,14 @@ Command Format: +
 `*month* MONTH_YEAR`
 {empty} +
 
+Argument Format: +
+`MONTH_YEAR` : `MM/YYYY`
+
 Example: +
 `month 11/2019`
 {empty} +
 
-==== Changing Screen View to List View: `list`
+==== Changing Screen View to List View
 
 .List View Command
 image::ListCommandScreenShot.png[]
@@ -432,7 +464,7 @@ The `list` command will switch the display to the List View, which displays a li
 Command Format and Example: +
 `*list*`
 
-==== Changing Screen View to Log View: `log`
+==== Changing Screen View to Log View
 
 .Log View Command
 image::LogCommandScreenShot.png[]
@@ -537,7 +569,7 @@ Command Format: +
 Horo stores data in the ICS format. Files saved in this format have the extension `.ics`.
 This allows for data to be imported to and exported from other calendar applications that also use the `.ics` format.
 
-==== Export current calendar : `export --directory ["DIRECTORY"]`
+==== Export current calendar
 
 .Export Command
 image::ExportCommandScreenShot.png[]
@@ -559,7 +591,7 @@ Example: +
 `*export* *--directory* "C:\Users\USER_NAME\Desktop\Horo"`
 {empty} +
 
-==== Import other calendar : `import ["DIRECTORY"]`
+==== Import other calendar
 
 .Import Command
 image::ImportCommandScreenShot.png[]
@@ -579,7 +611,7 @@ Example: +
 `*import* "C:\Users\USER_NAME\Desktop\OtherCalendars\Others.ics"`
 {empty} +
 
-=== Exiting the program : `exit`
+=== Exiting the program
 
 Exits the program.
 
@@ -601,7 +633,7 @@ Format: `exit`
 * *Editing Tasks* : `*edit_task* INDEX... *--description* DESCRIPTION *--due* DUE_DATE *--tag* TAG...` +
 * *Adding a Tag* : `*tag* INDEX... *--tag* TAG...` +
 * *Removing a Tag* : `*remove_tag* INDEX... *--tag* TAG...` +
-* *Find* : `*find* KEYWORD... *--tag* TAG ` +
+* *Find* : `*find* KEYWORD... *--tag* TAG` +
 * *Calendar View* : `*calendar* *--date* MONTH_YEAR`
 * *Day View for Timeline* : `*day* DATE`
 * *Week View for Timeline* : `*week* DATE`
