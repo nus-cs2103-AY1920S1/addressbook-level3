@@ -40,7 +40,7 @@ public class Exercise {
     }
 
     /**
-     * Every field except ExerciseHistory must be present and not null.
+     * Every field except ExerciseHistory must be present and must not null.
      */
     public Exercise(ExerciseName exerciseName, MusclesTrained musclesTrained,
                     Intensity intensity, Set<ExerciseDetail> exerciseDetails, ExerciseHistory history) {
