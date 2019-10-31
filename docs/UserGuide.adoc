@@ -86,9 +86,12 @@ Format: `exit`
 Provides a way to jump between the Main and Schedule Tab.
 
 [TIP]
-A schedule-related command executed in the Main Tab will direct you to the Schedule Tab and vice versa.
-*Non-schedule related commands should not be executed in the Schedule Tab as the lists referenced by the app are
-on the Main Tab*
+A Schedule-related command executed in the Main Tab will direct you to the Schedule Tab. While an
+Employee-related command executed in the Schedule Tab will bring you back to the Main Tab. Lastly, all
+Event-related command is executed based on the current Event list being displayed, regardless if the user
+is in the Main Tab or Schedule Tab.
+*Users are not advised to executed Employee-related commands in the Schedule Tab if he/she is unfamiliar
+as the lists referenced by the app are on the Main Tab*
 
 Main Tab: `main`
 
