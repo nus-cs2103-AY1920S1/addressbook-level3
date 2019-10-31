@@ -379,11 +379,11 @@ To accomodate the set-image command, the 'Member' class has an alternative const
 
 Given below is an example usage scenario and how the set-image mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time, and adds a team member into +Work. The member is displayed with a default profile picture. 
+Step 1. The user launches the application for the first time, and adds a team member into +Work. The member is displayed with a default profile picture.
 
 Step 2. The user executes `set-image` command to set an image in their computer as the profile picture of a member in +Work..
 
-The `set-image` command calls `Model#getFilteredMembersList()` to retrive the Member that is to be edited. A new member object is formed, with all the same parameters as the specified member object, and a new Image URL parameter. `Model#setMember` to replace the old member object with the new one in +Work. 
+The `set-image` command calls `Model#getFilteredMembersList()` to retrive the Member that is to be edited. A new member object is formed, with all the same parameters as the specified member object, and a new Image URL parameter. `Model#setMember` to replace the old member object with the new one in +Work.
 
 The following sequence diagram shows how the 'set-image' operation works.
 
@@ -392,14 +392,14 @@ image::SetImageSequenceDiagram.png[]
 Figure 10. Operational flow of 'SetImageCommand'
 
 [NOTE]
-The image's file path will be stored in the Member object. If the image is shifted to another location, the file path stored becomes invalid, and user will have to call the `set-image` command again, with the new file path. 
+The image's file path will be stored in the Member object. If the image is shifted to another location, the file path stored becomes invalid, and user will have to call the `set-image` command again, with the new file path.
 
-Step 3. When an operation is called to display a member, `Member#getImage` is called to display the image using Javafx's ImageView. 
+Step 3. When an operation is called to display a member, `Member#getImage` is called to display the image using Javafx's ImageView.
 
-The following sequence diagram shows how the image is called up and subsequently displayed in the UI for members. 
+The following sequence diagram shows how the image is called up and subsequently displayed in the UI for members.
 
 image::DisplayImage.png[]
-Figure 10. Operational flow of displaying a member with image. 
+Figure 10. Operational flow of displaying a member with image.
 
 
 
