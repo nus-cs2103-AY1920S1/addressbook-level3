@@ -16,4 +16,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_INDEXES = new Prefix("#/");
 
+    /* Flag definitions */
+    public static final Flag FLAG_PERSON = new Flag("-p");
+    public static final Flag FLAG_EVENT = new Flag("-e");
+    public static final Flag FLAG_TRAINING = new Flag("-t");
+
 }
