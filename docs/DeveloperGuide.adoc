@@ -230,13 +230,13 @@ The following activity diagram summarizes the process when the user executes the
 
 image::AccountActivityDiagram.png[]
 
- [NOTE]
+[NOTE]
 For the commands `account edit`, `account delete`,
 if the user targets an account outside of the list (e.g. index greater than list size)
 an error message will be displayed.
 
- ==== Design Considerations
- ===== Aspect: Interaction with ui - the list retrieved by `LogicManager`
+==== Design Considerations
+===== Aspect: Interaction with ui - the list retrieved by `LogicManager`
 
 In the mainWindow of ui, `AccountTab` is associated with a list of accounts. However, two lists of accounts are required.
 One stores all the current accounts present in `accounts`, the other one stores the `filteredAccounts` with the filtered accounts after `account find` executes.
