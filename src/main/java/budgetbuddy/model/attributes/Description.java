@@ -11,7 +11,7 @@ public class Description {
     public static final int MAX_LENGTH = 180;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Description should not be blank and should be no more than " + MAX_LENGTH + " characters.";
+            "Description should be no more than " + MAX_LENGTH + " characters.";
 
     private String description;
 
@@ -21,9 +21,12 @@ public class Description {
         this.description = description;
     }
 
+    /**
+     * Returns true if the given string description is no more than {@link #MAX_LENGTH} characters.
+     */
     public static boolean isValidDescription(String description) {
-        return description != null
-                && description.length() <= MAX_LENGTH;
+        requireNonNull(description);
+        return description.length() <= MAX_LENGTH;
     }
 
     public String getDescription() {
