@@ -62,9 +62,8 @@ public class TaskCard extends UiPart<Region> {
         name.setText(task.getName().fullName);
         name.setWrapText(true);
         name.setTextAlignment(TextAlignment.JUSTIFY);
-        name.setStyle(task.getIsSolved() ? "-fx-text-fill: #96b946;" : "-fx-text-fill: #ff6973;");
         status.setText(task.getStatusIcon());
-        status.setStyle(task.getIsSolved() ? "-fx-text-fill: #96b946;" : "-fx-text-fill: #ff6973;");
+        status.setStyle(task.getIsSolved() ? "-fx-background-color: #96b946;" : "-fx-background-color: #ff6973;");
         targetDate.setText(task.getTargetDate().format(ParserUtil.FORMATTER));
         targetDate.setWrapText(true);
         targetDate.setTextAlignment(TextAlignment.JUSTIFY);

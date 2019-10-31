@@ -27,7 +27,7 @@ public class SetPlanCommand extends Command {
             + "Example:\n"
             + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PROBLEM_SUCCESS = "Plan [%1$s] set as current plan.";
+    public static final String MESSAGE_SET_PLAN_SUCCESS = "Plan [%1$s] set as current plan.";
 
     private final Index targetIndex;
 
@@ -41,12 +41,12 @@ public class SetPlanCommand extends Command {
 
         List<Plan> lastShownList = model.getFilteredPlanList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PLAN_DISPLAYED_INDEX);
         }
         Plan plan = lastShownList.get(targetIndex.getZeroBased());
         model.setCurrentPlan(plan);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PROBLEM_SUCCESS, plan.getPlanName()));
+        return new CommandResult(String.format(MESSAGE_SET_PLAN_SUCCESS, plan.getPlanName()));
     }
 
     @Override

@@ -48,6 +48,9 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     @FXML
+    private SplitPane mainDisplayPlaceholder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -130,8 +133,6 @@ public class MainWindow extends UiPart<Stage> {
 
         layoutPanePlaceholder.getItems().add(displayTabPane.getRoot());
         layoutPanePlaceholder.getItems().add(detailsTabPane.getRoot());
-        layoutPanePlaceholder.getItems().add(taskManagementPane.getRoot());
-        layoutPanePlaceholder.setDividerPositions(0.33, 0.66);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -141,6 +142,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        mainDisplayPlaceholder.getItems().add(taskManagementPane.getRoot());
+        mainDisplayPlaceholder.setDividerPositions(0.66);
     }
 
     private DisplayTabPane getDisplayTabPane(WriteOnlyTabManager writeOnlyTabManager) {

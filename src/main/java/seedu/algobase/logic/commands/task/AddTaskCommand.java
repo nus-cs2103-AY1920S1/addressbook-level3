@@ -98,7 +98,7 @@ public class AddTaskCommand extends Command {
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_SUCCESS, task.getName(), updatedPlan.getPlanName()));
     }
 
     @Override

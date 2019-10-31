@@ -83,7 +83,7 @@ public class EditTaskCommand extends Command {
 
         return new CommandResult(
             String.format(MESSAGE_EDIT_TASK_SUCCESS,
-                taskToUpdate.getProblem().getName(),
+                taskToUpdate.getName(),
                 editTaskDescriptor.targetDate,
                 updatedPlan.getPlanName()));
     }

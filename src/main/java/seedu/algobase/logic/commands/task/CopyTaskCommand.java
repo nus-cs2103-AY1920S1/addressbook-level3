@@ -88,7 +88,7 @@ public class CopyTaskCommand extends Command {
 
         return new CommandResult(
             String.format(MESSAGE_MOVE_TASK_SUCCESS,
-                taskToCopy.getProblem().getName(),
+                taskToCopy.getName(),
                 planFrom.getPlanName(),
                 updatedPlanTo.getPlanName()
             )

@@ -77,7 +77,7 @@ public class MoveTaskCommand extends Command {
         Set<Task> taskSetTo = new HashSet<>(taskListTo);
         if (taskSetTo.contains(taskToMove)) {
             throw new CommandException(
-                String.format(MESSAGE_DUPLICATE_TASK, taskToMove.getProblem().getName(), planTo.getPlanName()));
+                String.format(MESSAGE_DUPLICATE_TASK, taskToMove.getName(), planTo.getPlanName()));
         }
         if (!planTo.checkWithinDateRange(taskToMove.getTargetDate())) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
@@ -92,7 +92,7 @@ public class MoveTaskCommand extends Command {
 
         return new CommandResult(
             String.format(MESSAGE_MOVE_TASK_SUCCESS,
-                taskToMove.getProblem().getName(),
+                taskToMove.getName(),
                 updatedPlanFrom.getPlanName(),
                 updatedPlanTo.getPlanName()
             )
