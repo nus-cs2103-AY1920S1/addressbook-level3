@@ -152,6 +152,9 @@ Format: `offduty <ENTRY_ID>`
 ==== Adds an appointment: `addappt` ====
 
 Adds a new appointment for a patient +
+If no optional fields `[rec/REPEATEDLY]` and `[num/RECURSIVE_TIMES]` are present, only one event will be added. Otherwise repeated appointments will be added. +
+The field `rec/REPEATEDLY` can be `rec/w`, `rec/m`, or `rec/y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
+
 Format: `addappt [i/REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/RECURSIVE_TIMES]`
 
 ==== Acknowledges a appointment: `ackappt` ====
@@ -194,7 +197,7 @@ Format: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
 ==== Shows the empty slots: `slot` (v2.0) ====
 
 List all the available empty slots for patients to make appointments +
-Format: `slot s/<START_DATE> e/<END_DATE>`
+Format: `slot str/<START_DATE> e/<END_DATE>`
 
 === Duty-shift Management
 
