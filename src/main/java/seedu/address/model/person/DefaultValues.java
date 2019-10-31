@@ -1,9 +1,12 @@
 package seedu.address.model.person;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.model.Schedule;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class containing all default values for the model.
@@ -26,6 +29,7 @@ public class DefaultValues {
     public static final Slot DEFAULT_SLOT = Slot.fromString("17/10/2019 13:00-14:00");
     public static final List<Department> DEFAULT_DEPARTMENTS = new ArrayList<>();
     public static final List<Slot> DEFAULT_TIMESLOTS = new ArrayList<>();
+    public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
 
     // Interviewer
     public static final Role DEFAULT_INTERVIEWER_ROLE = new Role("interviewer");

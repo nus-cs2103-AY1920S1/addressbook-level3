@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -186,8 +188,12 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ScheduleViewPanel getScheduleViewPanel() {
-        return scheduleViewPanel;
+    /**
+     * Signals the scheduleview panel that the data of the schedules are updated.
+     */
+    public void scheduleDataUpdated(List<List<String>> newTitles,
+                                    List<ObservableList<ObservableList<String>>> newSchedules) {
+        scheduleViewPanel.dataUpdated(newTitles, newSchedules);
     }
 
     /**

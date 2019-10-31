@@ -3,13 +3,18 @@ package seedu.address.model.util;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.IntervieweeList;
 import seedu.address.model.InterviewerList;
 import seedu.address.model.ReadOnlyList;
 import seedu.address.model.Schedule;
+import seedu.address.model.person.Department;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
+import seedu.address.model.person.Slot;
+import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code IntervieweeList} and {@code IntervieweeList} with sample data.
@@ -75,5 +80,30 @@ public class SampleDataUtil {
             tableCopy.add(rowCopy);
         }
         return tableCopy;
+    }
+    /**
+     * Returns a tag set containing the list of strings given.
+     */
+    public static Set<Tag> getTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Tag::new)
+                .collect(Collectors.toSet());
+    }
+    /**
+     * Returns a department list containing the list of strings given.
+     */
+    public static List<Department> getDepartmentList(String... strings) {
+        return Arrays.stream(strings)
+                .map(Department::new)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a time slot list containing the list of strings given.
+     */
+    public static List<Slot> getTimeslotList(String...timeslots) {
+        return Arrays.stream(timeslots)
+                .map(Slot::fromString)
+                .collect(Collectors.toList());
     }
 }

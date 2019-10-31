@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.UniquePersonList;
@@ -30,6 +29,7 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
         this();
         resetData(book);
     }
+
 
     /**
      * Adds the interviewer to the book. The interviewer must be unique.
@@ -89,6 +89,8 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
         requireNonNull(book);
         this.interviewers.setPersons(book.getEntityList());
     }
+
+
 
     @Override
     public String toString() {

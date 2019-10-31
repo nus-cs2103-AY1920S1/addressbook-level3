@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
@@ -13,6 +14,7 @@ import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.ui.RefreshListener;
 
 /**
  * The API of the Model component.
@@ -23,6 +25,10 @@ public interface Model {
     Predicate<Interviewer> PREDICATE_SHOW_ALL_INTERVIEWERS = unused -> true;
 
     // ==================================IntervieweeList and InterviewerList ======================================
+
+    void setEmptyScheduleList() throws ParseException;
+
+    List<Schedule> getEmptyScheduleList();
 
     /**
      * Replaces the list of IntervieweeList data with the data in {@code interviewees}
@@ -157,6 +163,13 @@ public interface Model {
      * The Interviewee must exist in the database.
      */
     void emailInterviewee(Interviewee interviewee) throws IOException;
+
+    // ================================== Refresh Listener ======================================
+
+    /**
+     * Add a refresh listener to listen to changes of Schedule data.
+     */
+    void addRefreshListener(RefreshListener listener);
 
     // ============================================ Schedule ===================================================
 

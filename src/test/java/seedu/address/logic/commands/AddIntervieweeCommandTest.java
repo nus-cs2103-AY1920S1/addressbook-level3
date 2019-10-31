@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 import static seedu.address.testutil.TypicalPersons.BOB_INTERVIEWEE;
 
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -31,6 +32,7 @@ import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.ui.RefreshListener;
 
 class AddIntervieweeCommandTest {
 
@@ -130,6 +132,16 @@ class AddIntervieweeCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
+        @Override
+        public void setEmptyScheduleList() throws ParseException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Schedule> getEmptyScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void setIntervieweeList(List<Interviewee> interviewees) {
@@ -248,6 +260,11 @@ class AddIntervieweeCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRefreshListener(RefreshListener listener) {
             throw new AssertionError("This method should not be called.");
         }
 

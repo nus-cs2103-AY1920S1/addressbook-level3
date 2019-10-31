@@ -275,7 +275,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::ImportActivityDiagram.png[]
 
 
-=== [Coming soon in v1.3] Export
+=== [Coming soon in v1.4] Export
 ==== Implementation [Proposed]
 The Export command gets the scheduled time slots from the Model and writes them in the specified .csv file.
 CsvWriter facilitates the writing to the specified file.

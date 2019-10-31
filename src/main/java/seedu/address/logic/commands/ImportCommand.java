@@ -4,15 +4,17 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.Schedule;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.util.CsvReader;
-
-
-
 
 
 /**
@@ -28,10 +30,12 @@ public class ImportCommand extends Command {
 
     public static final String SUCCESS_MESSAGE = "Data imported successfully.";
     public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Command not implemented yet";
-    public static final String INCORRECT_FORMAT = "Data is in incorrect format. Please refer to the "
+    private static final String INCORRECT_FORMAT = "Data is in incorrect format. Please refer to the "
             + "User Guide for the supported format";
-    public static final String FILE_DOES_NOT_EXIST = "Target file does not exist. Please ensure that "
+    private static final String FILE_DOES_NOT_EXIST = "Target file does not exist. Please ensure that "
             + "the file path is correct.";
+    private static final String DUPLICATE_PERSON_ERROR = "Data contains entries that are duplicated/already exists "
+            + "in storage. Please remove those entries before running the import command.";
 
     private String filePath;
     private String type;
@@ -47,22 +51,31 @@ public class ImportCommand extends Command {
 
         try {
             if (this.type.equals("interviewer")) {
-                ArrayList<Schedule> schedules;
                 CsvReader csvReader = new CsvReader(filePath);
-                schedules = csvReader.read();
+                ArrayList<Interviewer> interviewers = csvReader.readInterviewers();
+                for (Interviewer interviewer: interviewers) {
+                    model.addInterviewer(interviewer);
+                }
+                model.setEmptyScheduleList();
+                List<Schedule> schedules = model.getEmptyScheduleList();
                 model.setSchedulesList(schedules);
                 return new CommandResult(SUCCESS_MESSAGE, false, false);
             } else if (this.type.equals("interviewee")) {
-                return new CommandResult(MESSAGE_NOT_IMPLEMENTED_YET, false, false);
+                CsvReader csvReader = new CsvReader(filePath);
+                ArrayList<Interviewee> interviewees = csvReader.readInterviewees();
+                for (Interviewee interviewee: interviewees) {
+                    model.addInterviewee(interviewee);
+                }
+                return new CommandResult(SUCCESS_MESSAGE, false, false);
             } else {
                 throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
             }
         } catch (FileNotFoundException fileE) {
             throw new CommandException(FILE_DOES_NOT_EXIST, fileE);
-        } catch (IOException ioe) {
-            throw new CommandException("Failed", ioe);
-        } catch (ArrayIndexOutOfBoundsException arrayE) {
-            throw new CommandException(INCORRECT_FORMAT, arrayE);
+        } catch (IOException | ArrayIndexOutOfBoundsException | ParseException e) {
+            throw new CommandException(INCORRECT_FORMAT, e);
+        } catch (DuplicatePersonException dpe) {
+            throw new CommandException(DUPLICATE_PERSON_ERROR, dpe);
         }
     }
 }

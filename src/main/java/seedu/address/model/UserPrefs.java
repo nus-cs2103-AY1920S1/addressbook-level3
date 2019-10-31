@@ -16,6 +16,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path intervieweeListFilePath = Paths.get("data", "interviewees.json");
     private Path interviewerListFilePath = Paths.get("data", "interviewers.json");
+    private String startTime = "10:00";
+    private String endTime = "21:00";
+    private int durationPerSlot = 30;
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -57,6 +60,30 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     @Override
     public Path getInterviewerListFilePath() {
         return this.interviewerListFilePath;
+    }
+
+    public String getStartTime() {
+        return this.startTime;
+    }
+
+    public String getEndTime() {
+        return this.endTime;
+    }
+
+    public int getDurationPerSlot() {
+        return this.durationPerSlot;
+    }
+
+    public void setDurationPerSlot(int durationPerSlot) {
+        this.durationPerSlot = durationPerSlot;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     public void setIntervieweeListFilePath(Path intervieweeListFilePath) {
