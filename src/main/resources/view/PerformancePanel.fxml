@@ -2,11 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label maxWidth="1.7976931348623157E308" style="-fx-background-color: #30336B;" text="Performance" textFill="#e056fd" VBox.vgrow="ALWAYS">
+   <Label maxHeight="50.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: #30336B;" text="Performance" textFill="#e056fd" VBox.vgrow="ALWAYS">
       <font>
          <Font size="18.0" />
       </font>
@@ -14,5 +15,9 @@
          <Insets bottom="16.0" left="32.0" top="16.0" />
       </padding>
    </Label>
-   <VBox fx:id="eventList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" />
+   <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
+      <content>
+         <VBox fx:id="eventList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+      </content>
+   </ScrollPane>
 </VBox>
