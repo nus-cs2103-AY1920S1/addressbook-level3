@@ -22,7 +22,7 @@ Commands that do not affect the app data, such as `pat-list`, are not shown.
 
 Each command is displayed with an index number. The most recent command is
 shown at the bottom of the history and has the greatest index number. The
-latest command in the history is shown at the top with an index of 1.
+earliest command in the history is shown at the top with an index of 1.
 
 The app keeps a record of the previous 20 data-modifying commands in the history.
 
@@ -91,4 +91,15 @@ Examples:
 `app-undo` +
 `app-redo` (redoes `pat-edit`) +
 `app-redo` (redoes `pat-clear`)
-
+* Suppose the history looks like this:
++
+--
+1. `pat-edit 1 n/Ivan Yeoh`
+2. `pat-delete 3`
+3. `pat-clear`
+--
++
+Now the following commands are executed: +
+`app-undo 2` (reverts `pat-clear` and `pat-delete`) +
+`app-redo` (redoes `pat-delete`) +
+`app-redo` (redoes `pat-clear`)
