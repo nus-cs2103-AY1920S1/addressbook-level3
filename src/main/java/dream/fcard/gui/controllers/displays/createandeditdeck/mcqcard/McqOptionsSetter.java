@@ -7,7 +7,6 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
-import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.model.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +45,6 @@ public class McqOptionsSetter extends ScrollPane {
             fxmlLoader.load();
             rows = new ArrayList<>();
             addNewRow();
-            Dispatcher.addConsumer(ConsumerSchema.ADD_NEW_ROW_MCQ, addNewRow);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,6 +76,7 @@ public class McqOptionsSetter extends ScrollPane {
 
     /**
      * Used by CardEditingWindow to pre-populate a MCQ card's MCQ choices one at a time into the editor.
+     *
      * @param text the option for the row being entered
      */
     public void addNewRow(String text, boolean isCorrectAnswer) {
@@ -99,6 +98,7 @@ public class McqOptionsSetter extends ScrollPane {
 
     /**
      * Determines whether the user has entered at least one option.
+     *
      * @return true if there is at least one filled row in the McqOptionInputRow and false otherwise.
      */
     public boolean hasAtLeastOneNonEmptyOption() {
@@ -113,6 +113,7 @@ public class McqOptionsSetter extends ScrollPane {
 
     /**
      * Determines whether the user has chosen an option as the right answer.
+     *
      * @return true if the user has toggled a radio button to designate an option as the right answer,
      * and false otherwise.
      */
@@ -126,6 +127,7 @@ public class McqOptionsSetter extends ScrollPane {
 
     /**
      * Gets 1-based index of correct answer.
+     *
      * @return 1-based index of the correct answer.
      */
     public int getIndexOfRightAnswer() {

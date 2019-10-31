@@ -65,16 +65,23 @@ public class JsCard extends AnchorPane {
      * @param result user's attempted code, the number of passed and failed attempts.
      * @return
      */
-    void receiveResult(Pair<String, Pair<Integer, Integer>> result) {
+    private void receiveResult(Pair<String, Pair<Integer, Integer>> result) {
         card.setAttempt(result.fst());
-        String front = card.getFront().replaceAll(" Passed!", "")
-            .replaceAll(" Failed", "");
+        String pass = "\nPassed!";
+        String fail = "\nFailed.";
+        String err = "\nCould not compile/run.";
+        String front = card.getFront();
+        front = front.replaceAll(pass, "").replaceAll(fail, "")
+                .replaceAll(err, "").strip();
         if (result.snd().snd().equals(0)) {
-            card.editFront(front + " Passed!");
-            questionTextLabel.setText(front + " Passed!");
+            card.editFront(front + pass);
+            questionTextLabel.setText(front + pass);
+        } else if (result.snd().fst() != -1) {
+            card.editFront(front + fail);
+            questionTextLabel.setText(front + fail);
         } else {
-            card.editFront(front + " Failed.");
-            questionTextLabel.setText(front + " Failed.");
+            card.editFront(front + err);
+            questionTextLabel.setText(front + err);
         }
     }
 }

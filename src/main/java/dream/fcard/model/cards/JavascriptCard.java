@@ -15,7 +15,7 @@ public class JavascriptCard extends FlashCard {
     protected String front; //question
     protected String back;
     protected Statistics stats;
-    protected String attempt;
+    private String attempt;
 
 
     /**
@@ -61,7 +61,9 @@ public class JavascriptCard extends FlashCard {
 
     @Override
     public FlashCard duplicate() {
-        return new JavascriptCard(front, back, 0);
+        String frontText = front;
+        String backText = back;
+        return new JavascriptCard(frontText, backText);
     }
 
     /**
@@ -121,4 +123,5 @@ public class JavascriptCard extends FlashCard {
     public void setAttempt(String attempt) {
         this.attempt = attempt;
     }
+
 }

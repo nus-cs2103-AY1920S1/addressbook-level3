@@ -86,7 +86,7 @@ public class DeckDisplay extends AnchorPane {
      */
     private void startTest() {
         //display the first card
-        TestDisplay testDisplay = new TestDisplay(deck);
+        TestDisplay testDisplay = new TestDisplay(deck.duplicateMyself());
         swapDisplaysInMain.accept(testDisplay);
     }
 
