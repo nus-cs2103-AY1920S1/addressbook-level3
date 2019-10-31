@@ -14,7 +14,7 @@ import seedu.address.model.CalendarDate;
  */
 class DayViewCommandBuilder extends CommandBuilder {
 
-    private static final String ARGUMENT_START_DATE_TIME = "START_DATE";
+    private static final String ARGUMENT_START_DATE_TIME = "DATE";
 
     private CalendarDate start;
     private UiManager uiManager;

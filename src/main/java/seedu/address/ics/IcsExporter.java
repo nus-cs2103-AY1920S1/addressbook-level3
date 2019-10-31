@@ -11,6 +11,7 @@ import java.util.List;
 import seedu.address.model.DateTime;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
 
 /**
  * Class responsible for exporting Horo's tasks and events into an .ics file.
@@ -21,11 +22,10 @@ public class IcsExporter {
     private static final String PROD_ID = "-//Horo//Exported Calendar// v1.0//EN";
     private static final String CALENDAR_VERSION = "2.0";
 
-    private List<EventSource> eventList;
+    private ModelManager model;
 
     public IcsExporter(ModelManager model) {
-        this.eventList = model.getEventList();
-        requireNonNull(this.eventList);
+        this.model = model;
     }
 
     /**
@@ -48,12 +48,22 @@ public class IcsExporter {
      * @return The .ics file content to be exported.
      */
     private String generateIcsFileContent() {
+        List<EventSource> eventList = model.getEventList();
+        List<TaskSource> taskList = model.getTaskList();
+        requireNonNull(eventList);
+        requireNonNull(taskList);
+
         StringBuilder stringBuilder = new StringBuilder("BEGIN:VCALENDAR");
         stringBuilder
                 .append("\n").append("VERSION:").append(CALENDAR_VERSION)
                 .append("\n").append("PRODID:").append(PROD_ID);
         for (EventSource eventSource : eventList) {
-            stringBuilder.append("\n").append(eventSource.toIcsString());
+            String icsEventString = IcsConverter.convertEvent(eventSource);
+            stringBuilder.append("\n").append(icsEventString);
+        }
+        for (TaskSource taskSource : taskList) {
+            String icsEventString = IcsConverter.convertTask(taskSource);
+            stringBuilder.append("\n").append(icsEventString);
         }
         stringBuilder.append("\n").append("END:VCALENDAR");
         return stringBuilder.toString();

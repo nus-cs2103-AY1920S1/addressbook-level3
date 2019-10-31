@@ -1,7 +1,5 @@
 package seedu.address.model.events;
 
-import static seedu.address.commons.util.IcsUtil.generateUid;
-
 import java.util.Objects;
 import java.util.Set;
 
@@ -103,30 +101,4 @@ public class EventSource {
         }
         return false;
     }
-
-    /**
-     * @return The String representation of the EventSource in the Ics file format.
-     */
-    public String toIcsString() {
-        StringBuilder icsStringBuilder = new StringBuilder("BEGIN:VEVENT");
-
-        String uid = generateUid();
-        String dtStamp = DateTime.now().toIcsString();
-        String start = this.start.toIcsString();
-
-        icsStringBuilder
-                .append("\n").append("UID:").append(uid)
-                .append("\n").append("DTSTAMP:").append(dtStamp)
-                .append("\n").append("DTSTART:").append(start)
-                .append("\n").append("SUMMARY:").append(this.getDescription());
-        if (this.end != null) {
-            String end = this.end.toIcsString();
-            icsStringBuilder
-                    .append("\n").append("DTEND:").append(end);
-        }
-
-        icsStringBuilder.append("\n").append("END:VEVENT");
-        return icsStringBuilder.toString();
-    }
-
 }

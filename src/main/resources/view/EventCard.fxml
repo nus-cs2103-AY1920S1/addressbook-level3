@@ -10,12 +10,17 @@
    <children>
       <VBox fx:id="eventDetails" style="-fx-background-color: transparent;" StackPane.alignment="CENTER_LEFT">
          <children>
-            <StackPane alignment="TOP_LEFT">
+            <StackPane fx:id="eventIndexBase" alignment="TOP_LEFT">
                <children>
                   <Label fx:id="eventName" text="eventName" wrapText="true" StackPane.alignment="CENTER_LEFT">
                      <StackPane.margin>
                         <Insets left="15.0" />
                      </StackPane.margin></Label>
+                  <Label fx:id="eventIndex" alignment="TOP_RIGHT" text="eventIndex" wrapText="true" StackPane.alignment="TOP_RIGHT">
+                     <StackPane.margin>
+                        <Insets right="5.0" />
+                     </StackPane.margin>
+                  </Label>
                </children>
                <VBox.margin>
                   <Insets />

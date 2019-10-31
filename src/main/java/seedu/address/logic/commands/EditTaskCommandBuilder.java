@@ -19,7 +19,7 @@ import seedu.address.model.ModelManager;
 class EditTaskCommandBuilder extends CommandBuilder {
 
     public static final String OPTION_DESCRIPTION = "--description";
-    public static final String OPTION_DUE_DATE_DATE_TIME = "--duedate";
+    public static final String OPTION_DUE_DATE_DATE_TIME = "--due";
     public static final String OPTION_TAGS = "--tag";
 
     private static final String ARGUMENT_INDEXES = "INDEXES";

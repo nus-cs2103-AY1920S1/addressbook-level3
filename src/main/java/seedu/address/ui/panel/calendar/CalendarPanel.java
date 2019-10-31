@@ -172,7 +172,6 @@ public class CalendarPanel extends UiPart<Region> {
                     eventTaskList.add(tempTasks.poll());
                 }
             } else if (dateCompare < 0) {
-                System.out.println(dateCompare);
                 eventTaskList.add(tempEvents.poll());
             } else {
                 eventTaskList.add(tempTasks.poll());
