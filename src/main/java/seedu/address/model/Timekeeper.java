@@ -110,7 +110,9 @@ public class Timekeeper {
      */
     public void refreshBudgets() {
         for (Budget budget : budgets) {
-            budget.normalize(Timestamp.getCurrentTimestamp());
+            if (!budget.isDefaultBudget()) {
+                budget.normalize(Timestamp.getCurrentTimestamp());
+            }
         }
     }
 

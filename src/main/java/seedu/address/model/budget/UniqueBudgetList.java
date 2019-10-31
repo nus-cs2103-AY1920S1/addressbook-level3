@@ -70,16 +70,20 @@ public class UniqueBudgetList implements Iterable<Budget> {
      * Adds a budget to MooLah when reconstructing MooLah from json storage file.
      */
     public void addBudgetFromStorage(Budget toAdd) {
+        if (toAdd.isDefaultBudget()) {
+            internalList.remove(getDefaultBudget());
+            internalList.add(toAdd);
+            return;
+        }
         if (contains(toAdd)) {
             throw new DuplicateBudgetException();
         }
         toAdd.normalize(Timestamp.getCurrentTimestamp());
         internalList.add(toAdd);
-        if (internalList.size() > 1) {
-            getDefaultBudget().setToNotPrimary();
-        }
+        //if (!getPrimaryBudget().isDefaultBudget()) {
+        //  getDefaultBudget().setToNotPrimary();
+        //}
     }
-
 
     public void setBudgets(UniqueBudgetList replacement) {
         requireNonNull(replacement);
@@ -278,6 +282,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         //addition
 
         internalList.set(index, editedBudget);
+
     }
 
 

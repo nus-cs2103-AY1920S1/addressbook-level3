@@ -89,8 +89,9 @@ public class Budget {
      * @return A deep copy of the budget, with identical attributes.
      */
     public static Budget deepCopy(Budget other) {
+        ObservableList<Expense> expensesCopy = FXCollections.observableArrayList(other.expenses);
         Budget budget = new Budget(other.description, other.amount, other.getStartDate(),
-                other.getPeriod(), other.expenses, other.isPrimary);
+                other.getPeriod(), expensesCopy, other.isPrimary);
         return budget;
     }
 
@@ -136,6 +137,10 @@ public class Budget {
      * Transfer all expenses from this budget to another.
      */
     public void transferExpensesTo(Budget other) {
+        if (other.isSameBudget(this)) {
+            return;
+        }
+
         for (Expense e : expenses) {
             e.setBudget(other);
             other.expenses.add(e);
