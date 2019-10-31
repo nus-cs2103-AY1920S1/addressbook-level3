@@ -462,13 +462,21 @@ Deletes the event with index 1
 
 ==== Viewing all events
 
-Show all your events in the calendar +
-Format: `event view`
+Show all your events in the calendar. All fields are optional
+Format: `event view scheduleMode/... targetDate/...`
+
+The options supported by this feature includes:
+
+. `scheduleMode` - Schedule viewing mode of the calendar. Either weekly or daily.
+. `targetDate` - The target date to show for the week. If in daily mode, simply show the events in the date.
+If in weekly mode, show the week which includes the specified date
+[NOTE]
+The target date option must be specified in the following format: yyyy-mm-dd. E.g. 2019-11-23
 
 Example:
 
-* `question view` +
-Opens the calendar view consisting of all your events
+* `event view scheduleMode/weekly targetDate/2019-11-23` +
+Opens the calendar view in weekly mode with the target date 23 November 2019.
 
 ==== Export all events
 

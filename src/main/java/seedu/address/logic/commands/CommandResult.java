@@ -11,6 +11,8 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    private String targetFilePath;
+
     /**
      * Represents the type of Command entered.
      */
@@ -29,6 +31,13 @@ public class CommandResult {
         this.commandResultType = commandResultType;
     }
 
+    public CommandResult(String feedbackToUser, CommandResultType commandResultType,
+                         String targetFilePath) {
+        this.feedbackToUser = feedbackToUser;
+        this.commandResultType = commandResultType;
+        this.targetFilePath = targetFilePath;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -39,6 +48,17 @@ public class CommandResult {
 
     public void setResultType(CommandResultType resultType) {
         this.commandResultType = resultType;
+    }
+
+    public String getTargetFilePath() throws NullPointerException{
+        if (targetFilePath == null) {
+            throw new NullPointerException("no target file path specified in command result");
+        }
+        return targetFilePath;
+    }
+
+    public void setTargetFilePath(String targetFilePath) {
+        this.targetFilePath = targetFilePath;
     }
 
     @Override

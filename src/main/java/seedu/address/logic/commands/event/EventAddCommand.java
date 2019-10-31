@@ -30,15 +30,11 @@ public class EventAddCommand extends EventCommand {
             + "Example: event eventName/cs2100 lecture startDateTime/2019-11-02T08:00 "
             + "endDateTime/2019-11-02T09:00 recur/none color/1";
 
-    private static final String WEEKLY_RECURRENCE_RULE = "FREQ=WEEKLY;INTERVAL=1";
-    private static final String DAILY_RECURRENCE_RULE = "FREQ=DAILY;INTERVAL=1";
-
     private static final String BAD_DATE_FORMAT = "Invalid DateTime Format. "
             + "Please follow the format: yyyy-MM-ddTHH:mm, "
             + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
     private static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
     private static final String INVALID_EVENT_RANGE = "Invalid date range between start and end dateTime";
-    private static final String INVALID_COLOR_STRING = "Invalid color string. Input values between 0 - 23 inclusive.";
     private static final String DEFAULT_COLOR_STRING = "group00";
 
     private final String eventName;

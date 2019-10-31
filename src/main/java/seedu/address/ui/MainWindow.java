@@ -1,9 +1,13 @@
 package seedu.address.ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
+
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,6 +28,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.student.Student;
+import seedu.address.storage.printable.SchedulePrintable;
 import seedu.address.storage.printable.StatisticsPrintable;
 import seedu.address.ui.util.DisplayType;
 
@@ -255,6 +260,22 @@ public class MainWindow extends UiPart<Stage> {
         eventSchedulePanel.getRoot().toFront();
     }
 
+    @FXML
+    public void handleScheduleScreenshot(String targetFilePath) throws IOException {
+        EventScheduleWindow eventScheduleWindow = new EventScheduleWindow(new Stage(), eventSchedulePanel.getRoot());
+        eventScheduleWindow.show();
+        WritableImage scheduleSnapShotImage = eventScheduleWindow.takeSnapShot();
+        try {
+            logic.savePrintable(new SchedulePrintable(scheduleSnapShotImage, targetFilePath));
+        } catch (IOException ex) {
+            eventScheduleWindow.close();
+            mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
+            throw new IOException(ex.toString());
+        }
+        eventScheduleWindow.close();
+        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
+    }
+
     /**
      * Opens the student panel or focuses on it if it's already opened.
      */
@@ -377,6 +398,8 @@ public class MainWindow extends UiPart<Stage> {
             case SHOW_QUESTION_SEARCH:
                 handleQuestionSearch();
                 break;
+            case SCHEDULE_SCREENSHOT:
+                handleScheduleScreenshot(commandResult.getTargetFilePath());
             default:
                 break;
             }
