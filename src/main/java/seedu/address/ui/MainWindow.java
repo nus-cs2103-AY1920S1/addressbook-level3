@@ -376,7 +376,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param lists The given model list.
      */
     public void onModelListChange(ModelLists lists) {
-        this.calendarPanel.onModelListChange(lists);
+        this.calendarPanel.onModelListChange(sortDateEventList(lists.getEvents()), sortDateTaskList(lists.getTasks()));
     }
 
     /**

@@ -11,7 +11,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import seedu.address.model.CalendarDate;
-import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
@@ -120,12 +119,13 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Changes the UI according to the given ModelLists.
+     * Changes the UI according to the given Lists.
      *
-     * @param lists The given ModelLists.
+     * @param events The given event lists.
+     * @param tasks The given task list.
      */
-    public void onModelListChange(ModelLists lists) {
-        eventTaskList = combineList(lists.getEvents(), lists.getTasks());
+    public void onModelListChange(List<EventSource> events, List<TaskSource> tasks) {
+        eventTaskList = combineList(events, tasks);
         this.timelineView.onChange(eventTaskList);
         this.calendarScreen.onChange(eventTaskList);
         this.upcomingView.onChange(eventTaskList);
