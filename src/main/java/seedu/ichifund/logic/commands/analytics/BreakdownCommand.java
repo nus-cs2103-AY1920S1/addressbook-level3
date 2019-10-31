@@ -38,8 +38,8 @@ public class BreakdownCommand extends Command {
             + PREFIX_MONTH + "7 "
             + PREFIX_YEAR + "2019 ";
 
-    public static final String MESSAGE_SUCCESS = "Breakdown of expenditure by category for month %1$s and " +
-            "year %2$s displayed.";
+    public static final String MESSAGE_SUCCESS = "Breakdown of expenditure by category for month %1$s and "
+            + "year %2$s displayed.";
 
     public static final String REPORT_DESCRIPTION = "Total expenditure on %1$s for %2$s %3$s";
 
