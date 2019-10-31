@@ -94,13 +94,10 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform to the expected format
      */
     public Optional<String> getCommandWord(String userInput) throws ParseException {
-        if (isMerging) {
-            return Optional.empty();
-        }
-
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+
+        if (isMerging || !matcher.matches()) {
+            return Optional.empty();
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -130,169 +127,168 @@ public class AddressBookParser {
     public Command parseCommand(String userInput, boolean isSystemInput) throws ParseException {
         if (isMerging) {
             return parseMerge(userInput);
-        } else {
-            final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-            if (!matcher.matches()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        switch (commandWord) {
+
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
+
+        case AddPolicyCommand.COMMAND_WORD:
+            return new AddPolicyCommandParser().parse(arguments);
+
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+
+        case EditPolicyCommand.COMMAND_WORD:
+            return new EditPolicyCommandParser().parse(arguments);
+
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
+
+        case DeletePolicyCommand.COMMAND_WORD:
+            return new DeletePolicyCommandParser().parse(arguments);
+
+        case AssignPolicyCommand.COMMAND_WORD:
+            return new AssignPolicyCommandParser().parse(arguments);
+
+        case UnassignPolicyCommand.COMMAND_WORD:
+            return new UnassignPolicyCommandParser().parse(arguments);
+
+        case AddTagCommand.COMMAND_WORD:
+            return new AddTagCommandParser().parse(arguments);
+
+        case AddPolicyTagCommand.COMMAND_WORD:
+            return new AddPolicyTagCommandParser().parse(arguments);
+
+        case AddCriteriaCommand.COMMAND_WORD:
+            return new AddCriteriaCommandParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
+
+        case DeletePolicyTagCommand.COMMAND_WORD:
+            return new DeletePolicyTagCommandParser().parse(arguments);
+
+        case DeleteCriteriaCommand.COMMAND_WORD:
+            return new DeleteCriteriaCommandParser().parse(arguments);
+
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+
+        case FindPolicyCommand.COMMAND_WORD:
+            return new FindPolicyCommandParser().parse(arguments);
+
+        case FindPolicyholdersCommand.COMMAND_WORD:
+            return new FindPolicyholdersCommandParser().parse(arguments);
+
+        case FindTagPeopleCommand.COMMAND_WORD:
+            return new FindTagPeopleCommandParser().parse(arguments);
+
+        case FindTagPolicyCommand.COMMAND_WORD:
+            return new FindTagPolicyCommandParser().parse(arguments);
+
+        case ListPeopleCommand.COMMAND_WORD:
+            return new ListPeopleCommand();
+
+        case ListPolicyCommand.COMMAND_WORD:
+            return new ListPolicyCommand();
+
+        case ListBinCommand.COMMAND_WORD:
+            return new ListBinCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
+
+        case RestoreCommand.COMMAND_WORD:
+            return new RestoreCommandParser().parse(arguments);
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        case MergePersonCommand.COMMAND_WORD:
+            if (isSystemInput) {
+                setIsMerging(true);
+                MergePersonCommand command = new MergePersonCommandParser().parse(arguments);
+                setCurrentMergeCommand(command);
+                setMergeType(MERGE_PERSON);
+                return command;
+            } else {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
 
-            final String commandWord = matcher.group("commandWord");
-            final String arguments = matcher.group("arguments");
-            switch (commandWord) {
+        case DoNotMergePersonCommand.COMMAND_WORD:
+            return new DoNotMergePersonCommandParser().parse(arguments);
 
-            case AddCommand.COMMAND_WORD:
-                return new AddCommandParser().parse(arguments);
-
-            case AddPolicyCommand.COMMAND_WORD:
-                return new AddPolicyCommandParser().parse(arguments);
-
-            case EditCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
-
-            case EditPolicyCommand.COMMAND_WORD:
-                return new EditPolicyCommandParser().parse(arguments);
-
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommandParser().parse(arguments);
-
-            case DeletePolicyCommand.COMMAND_WORD:
-                return new DeletePolicyCommandParser().parse(arguments);
-
-            case AssignPolicyCommand.COMMAND_WORD:
-                return new AssignPolicyCommandParser().parse(arguments);
-
-            case UnassignPolicyCommand.COMMAND_WORD:
-                return new UnassignPolicyCommandParser().parse(arguments);
-
-            case AddTagCommand.COMMAND_WORD:
-                return new AddTagCommandParser().parse(arguments);
-
-            case AddPolicyTagCommand.COMMAND_WORD:
-                return new AddPolicyTagCommandParser().parse(arguments);
-
-            case AddCriteriaCommand.COMMAND_WORD:
-                return new AddCriteriaCommandParser().parse(arguments);
-
-            case DeleteTagCommand.COMMAND_WORD:
-                return new DeleteTagCommandParser().parse(arguments);
-
-            case DeletePolicyTagCommand.COMMAND_WORD:
-                return new DeletePolicyTagCommandParser().parse(arguments);
-
-            case DeleteCriteriaCommand.COMMAND_WORD:
-                return new DeleteCriteriaCommandParser().parse(arguments);
-
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
-
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
-
-            case FindPolicyCommand.COMMAND_WORD:
-                return new FindPolicyCommandParser().parse(arguments);
-
-            case FindPolicyholdersCommand.COMMAND_WORD:
-                return new FindPolicyholdersCommandParser().parse(arguments);
-
-            case FindTagPeopleCommand.COMMAND_WORD:
-                return new FindTagPeopleCommandParser().parse(arguments);
-
-            case FindTagPolicyCommand.COMMAND_WORD:
-                return new FindTagPolicyCommandParser().parse(arguments);
-
-            case ListPeopleCommand.COMMAND_WORD:
-                return new ListPeopleCommand();
-
-            case ListPolicyCommand.COMMAND_WORD:
-                return new ListPolicyCommand();
-
-            case ListBinCommand.COMMAND_WORD:
-                return new ListBinCommand();
-
-            case UndoCommand.COMMAND_WORD:
-                return new UndoCommand();
-
-            case RedoCommand.COMMAND_WORD:
-                return new RedoCommand();
-
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
-
-            case RestoreCommand.COMMAND_WORD:
-                return new RestoreCommandParser().parse(arguments);
-
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
-
-            case MergePersonCommand.COMMAND_WORD:
-                if (isSystemInput) {
-                    setIsMerging(true);
-                    MergePersonCommand command = new MergePersonCommandParser().parse(arguments);
-                    setCurrentMergeCommand(command);
-                    setMergeType(MERGE_PERSON);
-                    return command;
-                } else {
-                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-                }
-
-            case DoNotMergePersonCommand.COMMAND_WORD:
-                return new DoNotMergePersonCommandParser().parse(arguments);
-
-            case MergePolicyCommand.COMMAND_WORD:
-                if (isSystemInput) {
-                    setIsMerging(true);
-                    MergePolicyCommand command = new MergePolicyCommandParser().parse(arguments);
-                    setCurrentMergeCommand(command);
-                    setMergeType(MERGE_POLICY);
-                    return command;
-                } else {
-                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-                }
-
-            case DoNotMergePolicyCommand.COMMAND_WORD:
-                return new DoNotMergePolicyCommandParser().parse(arguments);
-
-            case ReportCommand.COMMAND_WORD:
-                return new ReportCommand();
-
-            case DisplayCommand.COMMAND_WORD:
-                return new DisplayCommandParser().parse(arguments);
-
-            case EligiblePoliciesCommand.COMMAND_WORD:
-                return new EligiblePoliciesCommandParser().parse(arguments);
-
-            case EligiblePeopleCommand.COMMAND_WORD:
-                return new EligiblePeopleCommandParser().parse(arguments);
-
-            case ExpandPersonCommand.COMMAND_WORD:
-                return new ExpandPersonCommandParser().parse(arguments);
-
-            case ExpandPolicyCommand.COMMAND_WORD:
-                return new ExpandPolicyCommandParser().parse(arguments);
-
-            case SuggestionSwitchCommand.COMMAND_WORD:
-                SuggestionSwitchCommand command = new SuggestionSwitchCommandParser().parse(arguments);
-                if (command.isOn()) {
-                    this.suggestionOn = true;
-                } else {
-                    this.suggestionOn = false;
-                }
+        case MergePolicyCommand.COMMAND_WORD:
+            if (isSystemInput) {
+                setIsMerging(true);
+                MergePolicyCommand command = new MergePolicyCommandParser().parse(arguments);
+                setCurrentMergeCommand(command);
+                setMergeType(MERGE_POLICY);
                 return command;
+            } else {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
 
-            default:
-                if (commandWord.length() == 0) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-                }
-                if (suggestionOn) {
-                    String argumentToParse = " " + PREFIX_COMMAND_WORD + commandWord + " " + PREFIX_ARGUMENTS
-                        + arguments.trim();
-                    return new SuggestionCommandParser().parse(argumentToParse);
-                } else {
-                    throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-                }
+        case DoNotMergePolicyCommand.COMMAND_WORD:
+            return new DoNotMergePolicyCommandParser().parse(arguments);
+
+        case ReportCommand.COMMAND_WORD:
+            return new ReportCommand();
+
+        case DisplayCommand.COMMAND_WORD:
+            return new DisplayCommandParser().parse(arguments);
+
+        case EligiblePoliciesCommand.COMMAND_WORD:
+            return new EligiblePoliciesCommandParser().parse(arguments);
+
+        case EligiblePeopleCommand.COMMAND_WORD:
+            return new EligiblePeopleCommandParser().parse(arguments);
+
+        case ExpandPersonCommand.COMMAND_WORD:
+            return new ExpandPersonCommandParser().parse(arguments);
+
+        case ExpandPolicyCommand.COMMAND_WORD:
+            return new ExpandPolicyCommandParser().parse(arguments);
+
+        case SuggestionSwitchCommand.COMMAND_WORD:
+            SuggestionSwitchCommand command = new SuggestionSwitchCommandParser().parse(arguments);
+            if (command.isOn()) {
+                this.suggestionOn = true;
+            } else {
+                this.suggestionOn = false;
+            }
+            return command;
+
+        default:
+            if (commandWord.length() == 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
+            if (suggestionOn) {
+                String argumentToParse = " " + PREFIX_COMMAND_WORD + commandWord + " " + PREFIX_ARGUMENTS
+                    + arguments.trim();
+                return new SuggestionCommandParser().parse(argumentToParse);
+            } else {
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
     }
