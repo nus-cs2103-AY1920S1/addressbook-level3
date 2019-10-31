@@ -11,7 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.flashcard.AnswerContainsAnyKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new SearchCommand object
  */
 
 public class FindAnswerCommandParser implements Parser<FindAnswerCommand> {

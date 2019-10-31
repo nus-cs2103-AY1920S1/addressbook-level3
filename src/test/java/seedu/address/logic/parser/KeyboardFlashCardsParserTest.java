@@ -22,8 +22,8 @@ import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.logic.commands.EndTestCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindAnswerCommand;
-import seedu.address.logic.commands.FindCategoryCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListCategoryCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.FindQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAllCommand;
@@ -85,17 +85,17 @@ public class KeyboardFlashCardsParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new QuestionOrAnswerContainsAnyKeywordsPredicate(keywords)), command);
+        SearchCommand command = (SearchCommand) parser.parseCommand(
+                SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCommand(new QuestionOrAnswerContainsAnyKeywordsPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommand_findCategory() throws Exception {
         List<String> keywords = Arrays.asList("C", "cs2101");
-        FindCategoryCommand command = (FindCategoryCommand) parser.parseCommand(
-                FindCategoryCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCategoryCommand(new CategoryContainsAnyKeywordsPredicate(keywords)), command);
+        ListCategoryCommand command = (ListCategoryCommand) parser.parseCommand(
+                ListCategoryCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new ListCategoryCommand(new CategoryContainsAnyKeywordsPredicate(keywords)), command);
 
     }
 

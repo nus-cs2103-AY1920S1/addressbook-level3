@@ -13,18 +13,18 @@ import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
  * Finds and lists all flashcards in address book whose question contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCategoryCommand extends Command {
+public class ListCategoryCommand extends Command {
 
-    public static final String COMMAND_WORD = "findcat";
+    public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all flashcards which contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all flashcards which contain any of "
             + "the specified category keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " math science";
 
     private final CategoryContainsAnyKeywordsPredicate predicate;
 
-    public FindCategoryCommand(CategoryContainsAnyKeywordsPredicate predicate) {
+    public ListCategoryCommand(CategoryContainsAnyKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -40,7 +40,7 @@ public class FindCategoryCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCategoryCommand // instanceof handles nulls
-                && predicate.equals(((FindCategoryCommand) other).predicate)); // state check
+                || (other instanceof ListCategoryCommand // instanceof handles nulls
+                && predicate.equals(((ListCategoryCommand) other).predicate)); // state check
     }
 }

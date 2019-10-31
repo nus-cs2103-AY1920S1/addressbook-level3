@@ -19,8 +19,8 @@ import seedu.address.logic.commands.EndTestCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindAnswerCommand;
-import seedu.address.logic.commands.FindCategoryCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListCategoryCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.FindQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
 
@@ -117,10 +117,10 @@ public class KeyboardFlashCardsParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
+        case SearchCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case FindCategoryCommand.COMMAND_WORD:
+        case ListCategoryCommand.COMMAND_WORD:
             return new FindCategoryCommandParser().parse(arguments);
 
         case FindAnswerCommand.COMMAND_WORD:
