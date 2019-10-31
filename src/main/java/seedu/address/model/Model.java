@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Appointment;
 
@@ -101,9 +102,22 @@ public interface Model {
     /**
      * Adds the given reminder.
      * @param type Type of reminder - 0 for reminder and 1 for follow-up
+     * @param description Description of the appointment
      * @param days Number of days for the reminder
      */
-    void addAppointment(int type, String description, int days);
+    void addAppointment(int type, String description, int days) throws CommandException;
+
+    /**
+     * Deletes the given reminder.
+     * @param description Description of the appointment
+     * @param days Number of days for the reminder
+     */
+    void deleteAppointment(String description, int days);
+
+    /**
+     * Sorts the appointments by date.
+     */
+    void sortAppointments();
 
     /**
      * Creates a String with all reminders and follow-ups for easy display.
