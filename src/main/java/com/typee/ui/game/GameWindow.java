@@ -21,7 +21,7 @@ public class GameWindow extends UiPart<Stage> {
     private AnchorPane gamePlay;
 
     @FXML
-    private TextField playerInputArea;
+    private TextField playerInput;
 
     @FXML
     private Label gameOver;
@@ -34,12 +34,10 @@ public class GameWindow extends UiPart<Stage> {
      */
     private GameWindow(Stage root, Player player) {
         super(FXML, root);
-        player.setInputAs(playerInputArea.textProperty());
+        player.setInputAs(playerInput.textProperty());
         gameOver.visibleProperty().bind(player.getGameOverProperty());
         gamePlay.getChildren().addAll(new PlayerInformation(player).getRoot(), new GameBody(player).getRoot());
-        /** TODO: Add CSS
-         *  root.getScene().getStylesheets().addAll(this.getClass().getResource(".css").toExternalForm());
-         */
+        root.getScene().getStylesheets().addAll(this.getClass().getResource("/view/GameWindow.css").toExternalForm());
     }
 
     /**
@@ -56,7 +54,7 @@ public class GameWindow extends UiPart<Stage> {
 
     @FXML
     private void handlePlayerInput() {
-        playerInputArea.clear();
+        playerInput.clear();
     }
 
     /**
