@@ -96,14 +96,11 @@ public class Keywords {
             case  FireCommand.COMMAND_WORD:
                 return "fire ti/ mi/";
 
-<<<<<<< HEAD
-            case  RemoveTaskFromMemberCommand.COMMAND_WORD:
-                return "fire-task ti/ mi/";
+            // case  RemoveTaskFromMemberCommand.COMMAND_WORD:
+            //     return "fire-task ti/ mi/";
 
-            case  RemoveMemberFromTaskCommand.COMMAND_WORD:
-                return "fire-member ti/ mi/";
-=======
->>>>>>> 7a1851c10747babfc61f7c55b37033fb7866abec
+            // case  RemoveMemberFromTaskCommand.COMMAND_WORD:
+            //     return "fire-member ti/ mi/";
 
             // INVENTORY
             // case ListInventoryCommand.COMMAND_WORD: default
@@ -140,8 +137,4 @@ public class Keywords {
                 return commandWord + " ";
         }
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 7a1851c10747babfc61f7c55b37033fb7866abec
 }
