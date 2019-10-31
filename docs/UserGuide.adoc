@@ -46,14 +46,17 @@ image::Ui.PNG[width="790"]
 
 === Context: Outside Of Competition (Out-session)
 
+
 === Commands related to competition
 Commands related to managing competitions outside of a competition setting shall be introduced first.
+
 
 ==== Adding a new competition: addCompetition
 Format: `addCompetition n/COMPETITION NAME startDate/START DATE OF COMPETITION endDate/END DATE OF COMPETITION`
 
 Example:
 `addCompetition n/IPF World's startDate/12/02/1995 endDate/15/02/1995`
+
 
 
 ==== Deleting an existing competition: deleteCompetition
@@ -63,6 +66,7 @@ Format: `deleteCompetition INDEX`
 
 Example:
 `deleteCompetition 1`
+
 
 
 ==== Editing information of a competition person: `editCompetition`
@@ -89,12 +93,13 @@ Examples:
 * `editCompetition 1 endDate/15/02/1995`
 
 
+
 ==== Listing all records of current and past competitions: listCompetition
 This command has no parameters
 
 Format: listCompetition
 
-==
+
 
 === Commands related to person (athlete)
 Commands related to managing persons (athletes) outside of a competition setting shall be introduced now.
@@ -106,6 +111,8 @@ Example:
 
 * `addPerson n/John Doe dob/12/02/1995 g/male`
 
+
+
 ==== Deleting an existing person: `deletePerson`
 Deletes the person identified by the index number, used in Person list (shown in the GUI).
 
@@ -114,6 +121,8 @@ Format: `deletePerson INDEX`
 Examples:
 
 * `deletePerson 1`
+
+
 
 ==== Editing information of an existing person: `editPerson`
 Edits the details of the person identified by the index number, used in the Person list (shown in the GUI). 
@@ -138,6 +147,8 @@ Examples:
 
 * `editPerson 1 dob/12/02/1995`
 
+
+
 ==== Finding person(s): `findPerson`
 Finds all persons whose names contain any of the specified keywords (case-insensitive) and displays them as a numerically ordered list.
 
@@ -157,8 +168,12 @@ Examples:
 * Find Alex Yeoh and Bernice Yu:
   `findPerson yeoh yu`
 
+
+
 ==== Listing all existing persons: `listPerson`
 Format: `listPerson`
+
+
 
 === Competition Handling
 This feature adds/edits/lists competitions which are available on the UI.
