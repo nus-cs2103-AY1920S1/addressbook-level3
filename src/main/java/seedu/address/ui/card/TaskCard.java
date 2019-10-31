@@ -64,8 +64,12 @@ public class TaskCard extends Card {
         addOptions(task);
     }
 
+    /**
+     * Removes the non-existant options from the task card of the given task.
+     *
+     * @param task The given task.
+     */
     private void addOptions(TaskSource task) {
-
         // Due Date
         if (task.getDueDate() != null) {
             taskDueDate.setText(task.getDueDate().toEnglishDateTime());

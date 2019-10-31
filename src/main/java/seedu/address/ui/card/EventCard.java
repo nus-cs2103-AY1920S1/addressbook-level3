@@ -9,7 +9,6 @@ import javafx.scene.layout.Region;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import jdk.jfr.Event;
 import seedu.address.model.events.EventSource;
 
 
@@ -73,6 +72,11 @@ public class EventCard extends Card {
         addOptions(event);
     }
 
+    /**
+     * Removes the optional part of the event card if it does not exists.
+     *
+     * @param event The given event.
+     */
     private void addOptions(EventSource event) {
         // End Date Option
         if (event.getEndDateTime() != null) {
