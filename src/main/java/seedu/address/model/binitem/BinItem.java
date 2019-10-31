@@ -42,7 +42,7 @@ public class BinItem {
     }
 
     private LocalDateTime generateExpiryDate() {
-        LocalDateTime expiryDate = LocalDateTime.now().minus(TIME_TO_LIVE_AMOUNT, TIME_TO_LIVE_UNIT);
+        LocalDateTime expiryDate = LocalDateTime.now().plus(TIME_TO_LIVE_AMOUNT, TIME_TO_LIVE_UNIT);
         return expiryDate;
     }
 
