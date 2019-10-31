@@ -1,22 +1,19 @@
 package seedu.address.ui;
 
 
-import javafx.collections.FXCollections;
-
-import seedu.address.commons.Keywords;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import seedu.address.commons.Keywords;
 import seedu.address.logic.Logic;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
-
+import seedu.address.ui.views.CommandListPanel;
 import seedu.address.ui.views.IndivMemberCard;
 import seedu.address.ui.views.InventoryListPanel;
 import seedu.address.ui.views.MemberListPanel;
-import seedu.address.ui.views.CommandListPanel;
 import seedu.address.ui.views.MemberStatisticsView;
 import seedu.address.ui.views.ProjectDashboardView;
 import seedu.address.ui.views.SettingsView;
@@ -112,7 +109,7 @@ public class UserViewNavigator {
         List<Member> members = logic.getProjectDashboard().getMemberList();
 
         ArrayList<Task> specificTasks = new ArrayList<>();
-        int memIndex = members.indexOf(specificMember);
+        int memIndex = members.indexOf(specificMember) - 1;
 
         for (TasMemMapping mapping : tasMemMappings) {
             if (mapping.hasMember(memIndex)) {

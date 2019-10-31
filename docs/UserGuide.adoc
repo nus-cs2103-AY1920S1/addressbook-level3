@@ -104,9 +104,6 @@ This command brings you to the time management page where calendar and meeting t
 Format: `calendar` +
 
 Calling the `calendar` command will bring you to the following page:
-+
-image::Calendar.png[width=790]
-+
 
 ==== Accessing settings page: `settings` (Coming in v1.3) +
 This command brings you to the settings page  +
@@ -114,23 +111,9 @@ This command brings you to the settings page  +
 Format: `settings` +
 
 Calling the `settings` command will bring you to the following page:
-+
+
 image::Settings.png[width=790]
-+
 
-==== View help: `help` +
-This command displays a list of possible commands that you can execute +
-
-Format: `help` +
-
-Calling the `help` command will bring you to the following page:
-+
-image::Help.png[width=790]
-+
-
-==== Accessing settings page: `settings` +
-This brings you to the settings page  +
-Format: `settings`
 
 ==== Viewing help: `help` +
 
@@ -138,6 +121,7 @@ Displays a list of possible commands for the user +
 You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
 
+image::Help.png[width=790]
 
 '''
 
@@ -152,6 +136,8 @@ Example: `add-member mn/New Member mi/NM mt/UG` will result in the following:
 
 image::AddMember.png[width="790"]
 
+As seen from the above, a new member with name 'New Member', member id 'NM' and tag 'UG' is added to +Work.
+
 [NOTE]
 Adding a member tag is optional in the adding of a new member.
 [NOTE]
@@ -160,14 +146,16 @@ It is possible to add a member with multiple tags following this format: +
 
 ==== Set image for member: `set-image` +
 To set a profile picture for a member in +Work, use the command `set-image` following the format below. +
-Format: `set-image mi/MEMBER_ID im/IMAGE_URL` +
+Format: `set-image mi/MEMBER_ID im/IMAGE_PATH` +
 
 Example: `set-image mi/NM im/C:\Users\Lynn\Desktop\Y2S1\CS2103T\tP\NewUserImage.png` will result in the following:
 
 image::SetImage.png[width="790"]
 
+As seen from the above, the specified image is set as the profile picture of the member with member id 'NM'.
+
 [NOTE]
-Image URL refers to the folder path of the image stored in your computer, and should end with .png
+Image Path refers to the folder path of the image stored in your computer, and should end with .png
 
 
 ==== List existing members: `list-members` +
@@ -197,11 +185,11 @@ To assign a task to a specific team member, use the `assign` command in the form
 Format: `assign ti/TASK_ID mi/MEMBER_ID` +
 
 Example: `assign ti/1 mi/GS` will result in the following:
-+
-image::AssignTask.png[width="790"]
-+
 
-This indicates that the task TASK NAME with task id 1 has been assigned to team member 'GABRIEL SEOW' with member id 'GS'. +
+image::Assign.png[width="790"]
+
+As seen from the above, the task 'Review Budget' with task id 1 has been added under member 'John Doe' with member id 'JD'.
+
 
 ==== Removing a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
@@ -209,10 +197,9 @@ To remove a task from a specific team member, use the 'fire' command in the form
 Format: `fire ti/TASK_ID mi/MEMBER_ID` +
 
 Example: `fire ti/1 mi/GS` will result in the following:
-+
-image::FireTask.png[width="790"]
-+
-This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
+
+image::Fire.png[width="790"]
+This indicates that the task 'Review Budget' with task id 1 has been removed from its assignment to team member 'John Doe' with member id 'JD'. +
 
 
 '''
