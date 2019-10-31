@@ -331,9 +331,10 @@ For example, if you would like to indicate that it needs to be a period of 5 day
 
 Whew! After reading so much, it is time to find out how you can add your event (be it your commitment, holiday, school break or trip) so that TravEzy can start suggesting when you can travel! 😊
 
-Format: ``add EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [i/INFO]``
+*Format:* +
+``add EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [i/INFO]``
 
-Examples: 
+*Examples:*
 ****
 * To add a commitment, 
 
@@ -353,7 +354,7 @@ Examples:
     
 ****
 
-Step by step:
+*Step by step:*
 (To indicate that you have a commitment rom 2 Dec 2019 to 5 Dec 2019 because you are volunteering, just key in... COMING SOON)
 
 TIP: As mentioned, you do not have to specify the END YEAR, END MONTH and/or END DAY if they are the same as START YEAR, START MONTH and/or START DAY, respectively.
@@ -366,9 +367,10 @@ Yes, we have all had that experience. We thought that next Friday is a public ho
 
 But how? Well, this is the section for you. 😀
 
-Format: ``delete EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
+*Format:* +
+``delete EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
-Examples: 
+*Examples:*
 ****
 * To delete a commitment, 
 
@@ -388,8 +390,27 @@ Examples:
     
 ****
 
-Step by step: 
+*Step by step:*
 (You have accidentally indicated that 13 August 2019 is an observed holiday for national day and you would like to delete it from TravEzy. MORE COMING SOON...)
+
+=== Showing your schedule for the month: ``show``
+
+After adding and deleting your events, you can have an overview of them! 
+
+How easy is it? 
+
+*Format:* + 
+``show m/MONTH [y/YEAR]``
+
+*Example:* +
+
+    show m/Dec
+
+
+IMPORTANT: Do remember that if you leave out the month and/or year (as we have done in this example), the current month and/or year will be used. This applies to the following commands as well.
+
+*Step by step:*
+(COMING SOON)
 
 === Checking your availability for a trip: ``check``
 
@@ -397,9 +418,10 @@ It is in the middle of the semester and your friend asks you whether you would b
 
 But how do you do that?
 
-Format: ``check d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
+*Format:* +
+``check d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
-Examples: 
+*Examples:* 
 ****
 * To check whether you are available on 9 December, 
 
@@ -411,9 +433,7 @@ Examples:
     
 ****
 
-IMPORTANT: Do remember that if you leave out the month and/or year (as we have done in this example), the current month and/or year will be used. This applies to the following commands as well.
-
-Step by step: 
+*Step by step:* 
 (COMING SOON)
 
 === Suggesting a suitable time for a trip: ``suggest``
@@ -422,9 +442,10 @@ The end of the semester is near. It is time to look for some cheap flights🛫! 
 
 How so? Just ask TravEzy to suggest a suitable time! 
 
-Format: ``suggest d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [p/PERIOD]``
+*Format:* + 
+``suggest d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [p/PERIOD]``
 
-Examples: 
+*Examples:* 
 ****
 * To find out when you can travel between 9 December and 20 December, 
 
