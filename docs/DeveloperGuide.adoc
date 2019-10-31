@@ -371,7 +371,9 @@ Unlike Alternative 1, the developer can create an extension to the class impleme
 The considerations for this aspect was mainly down to how much customisability we wanted to grant our users. While having more customisability is better in some cases,
 in this one, we do not think the added functionality of allowing the user to extensively customise their experience with our application to be particularly impactful not necessary. Moreover, alternative 2 makes for a less organised code base and we wanted to avoid that as much as possible.
 |===
+// end::settings[]
 
+// tag::timer[]
 === [underline]#Timer Feature#
 
 .Screenshot of the `Timer` component in action as seen through the `UI`.
@@ -458,9 +460,7 @@ abstraction between components. This is also to make life easier when there come
 debug and resolve problems in the code.
  +
 |===
-
-
-// end::settings[]
+// end::timer[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -468,6 +468,12 @@ debug and resolve problems in the code.
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::userprofiles[]
+=== [Proposed] User Profiles
+
+_The user profiles could allow multiple users to use the same app and have different statistics tracked. This feature is a work in progress and will be delayed to v2.0._
+// end::userprofiles[]
 
 === Logging
 
