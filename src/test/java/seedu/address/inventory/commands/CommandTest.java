@@ -19,9 +19,14 @@ import seedu.address.inventory.logic.commands.SortDescriptionCommand;
 import seedu.address.inventory.logic.commands.SortQuantityCommand;
 import seedu.address.inventory.logic.commands.SortResetCommand;
 
+import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
+import seedu.address.inventory.logic.commands.exception.NotANumberException;
+import seedu.address.inventory.logic.parser.InventoryTabParser;
+import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.ModelManager;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.testutil.EditItemDescriptorBuilder;
@@ -72,7 +77,7 @@ public class CommandTest {
     @Test
     public void execute_addCommandTest_successful() {
         Model inventoryModel = new ModelManager(new InventoryList());
-        Command addCommand = new AddCommand(TypicalItem.FISH_BURGER);
+        Command addCommand = new AddCommand(TypicalItem.FISH_BURGER, false);
 
         CommandResult commandResult = null;
 
@@ -83,6 +88,38 @@ public class CommandTest {
         }
         assertEquals(new CommandResult(String.format(InventoryMessages.MESSAGE_ADDED_ITEM, TypicalItem.FISH_BURGER)),
                 commandResult);
+    }
+
+    @Test
+    public void execute_addDuplicateItemCommandTest_successful() throws ParseException, NoSuchItemException,
+            NotANumberException, NoSuchSortException {
+        InventoryList inventoryList = new InventoryList();
+        inventoryList.add(TypicalItem.FISH_BURGER);
+        inventoryList.add(TypicalItem.PHONE_CASE);
+        inventoryList.add(TypicalItem.STORYBOOK);
+        Model inventoryModel = new ModelManager(inventoryList);
+        InventoryTabParser parser = new InventoryTabParser();
+
+        String burgerDescription = TypicalItem.FISH_BURGER.getDescription();
+        String burgerCategory = TypicalItem.FISH_BURGER.getCategory();
+        Command addCommand = parser.parseCommand("add d/" + burgerDescription + " c/" + burgerCategory
+                + " q/5 co/8", inventoryList);
+        Command addCommand2 = parser.parseCommand("add d/" + burgerDescription + " c/" + burgerCategory
+                + " q/5 co/8 p/8", inventoryList);
+
+        CommandResult commandResult = null;
+        CommandResult commandResult2 = null;
+
+        try {
+            commandResult = addCommand.execute(inventoryModel);
+            commandResult2 = addCommand2.execute(inventoryModel);
+        } catch (Exception e) {
+            fail();
+        }
+        assertEquals(String.format(InventoryMessages.MESSAGE_ADDED_DUPLICATE_ITEM, TypicalItem.FISH_BURGER),
+                commandResult.getFeedbackToUser());
+        assertEquals(String.format(InventoryMessages.MESSAGE_ADDED_DUPLICATE_ITEM, TypicalItem.FISH_BURGER),
+                commandResult2.getFeedbackToUser());
     }
 
     @Test
@@ -270,9 +307,9 @@ public class CommandTest {
 
     @Test
     public void equalsTest() {
-        AddCommand addCommand1 = new AddCommand(TypicalItem.PHONE_CASE);
-        AddCommand addCommand1Copy = new AddCommand(TypicalItem.PHONE_CASE);
-        AddCommand addCommand2 = new AddCommand(TypicalItem.FISH_BURGER);
+        AddCommand addCommand1 = new AddCommand(TypicalItem.PHONE_CASE, false);
+        AddCommand addCommand1Copy = new AddCommand(TypicalItem.PHONE_CASE, false);
+        AddCommand addCommand2 = new AddCommand(TypicalItem.FISH_BURGER, false);
 
         DeleteCommand deleteCommand1 = new DeleteCommand(1);
         DeleteCommand deleteCommand1Copy = new DeleteCommand(1);

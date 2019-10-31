@@ -12,7 +12,9 @@ import seedu.address.inventory.logic.commands.AddCommand;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
+import seedu.address.inventory.util.InventoryList;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
 import seedu.address.util.Prefix;
@@ -24,13 +26,13 @@ public class AddCommandParser {
     /**
      * Parses the input and returns an AddCommand.
      */
-    public static AddCommand parse(String args, int inventoryListSize) throws ParseException, NumberFormatException,
-            NotANumberException {
+    public static AddCommand parse(String args, InventoryList inventoryList) throws ParseException,
+            NumberFormatException, NotANumberException, NoSuchItemException {
+        int index = inventoryList.size() + 1;
         if (args.contains(" p/")) {
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_QUANTITY,
                             PREFIX_COST, PREFIX_PRICE);
-
 
             if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_QUANTITY,
                     PREFIX_COST, PREFIX_PRICE) || !argMultimap.getPreamble().isEmpty()) {
@@ -50,8 +52,18 @@ public class AddCommandParser {
             int quantity = Integer.parseInt(quantityString);
             double cost = Double.parseDouble(costString);
             double price = Double.parseDouble(priceString);
-            Item item = new Item(description, category, quantity, cost, price, inventoryListSize + 1);
-            AddCommand addCommand = new AddCommand(item);
+            Item item = new Item(description, category, quantity, cost, price, index);
+
+            AddCommand addCommand = null;
+            if (inventoryList.containsItem(item)) {
+                int itemIndex = inventoryList.getIndex(description);
+                Item current = inventoryList.get(itemIndex);
+                current.setQuantity(current.getQuantity() + quantity);
+                current.setPrice(price);
+                addCommand = new AddCommand(current, true);
+            } else {
+                addCommand = new AddCommand(item, false);
+            }
             return addCommand;
         } else {
             ArgumentMultimap argMultimap =
@@ -74,8 +86,16 @@ public class AddCommandParser {
 
             int quantity = Integer.parseInt(quantityString);
             double cost = Double.parseDouble(costString);
-            Item item = new Item(description, category, quantity, cost, inventoryListSize + 1);
-            AddCommand addCommand = new AddCommand(item);
+            Item item = new Item(description, category, quantity, cost, index);
+            AddCommand addCommand = null;
+            if (inventoryList.containsItem(item)) {
+                int itemIndex = inventoryList.getIndex(description);
+                Item current = inventoryList.get(itemIndex);
+                current.setQuantity(current.getQuantity() + quantity);
+                addCommand = new AddCommand(current, true);
+            } else {
+                addCommand = new AddCommand(item, false);
+            }
             return addCommand;
         }
     }

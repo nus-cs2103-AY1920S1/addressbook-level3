@@ -481,56 +481,115 @@ The reimbursements are sorted by deadline date.
 image::Reimbursement/ReimbursementSortDateCommandSuccess.png[]
 
 === Inventory Tab
-
+This section will contain details on all commands in the Inventory Tab.
 ====
-* The inventory tab contains a detailed inventory of items belonging to the CCA for a variety of purposes.
-* Each item will have 6 attributes: category, description, quantity, cost per unit, total cost, and price.
-* The last attribute will be used for sales purposes and is optional.
-* Invalid commands and command formats will be pointed out by Leo.
+* The Inventory Tab shows a list of all items owned.
+* Each column shows the description, category, quantity, cost per unit and the price for each item.
+* The price attribute will be used for sales purposes and is optional.
+* You may add, delete or edit items within this tab.
+* Leo, our mascot, helps give replies indicating successful addition, deletion and edit of an item after a command has been input.
+* Leo will also give replies to guide you when there is a wrong input.
+* You may also sort the list of items by ascending quantity or by descending alphabetical order.
+
+[WARNING]
+Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range of an integer.
+If it exceeds this number, please key in a smaller quantity or checkout items separately.
+You are advised to key in a number smaller than 10000 due to size limitation.
 ====
 
-==== To add an item:
+==== Add an Item:
+This command adds an item to the table and saves it into the system.
+
+* Command:
 `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
 
-Adding an item requires the above attributes. However, price is optional. The attributes can also be inputted in any order.
-
-The quantity, cost and price must also all be in numerical form and cannot exceed 2,147,483,647.
+* Examples:
+. `add d/T-Shirt c/Clothing q/20 co/5 p/14`
+. `add d/Cupcake c/Food q/10 co/2`
 
 [NOTE]
-Adding an item with the same description and category as an existing item is allowed.
+The attributes can also be inputted in any order.
 
-Examples:
-`add c/Food d/Cupcake q/100 co/0.70` -> adds an item of category 'food' and description 'Cupcake', with a quantity of '100' and a cost of '0.70'. It is, as of now, not for sale.
+* Steps:
+. Type the command with all parameters filled in, as shown in the screenshot below:
 
-==== To delete an expense:
-`delete INDEX`
+.Screenshot of the user input into the Command Box for the Add Command in the Inventory Tab
+image::inventoryUG/AddStep1.png[]
 
-Examples:
-`delete 1` -> deletes the first item.
+[start = 2]
+. Hit `Enter`
 
-==== To edit:
+If the command is successfully added, Leo will respond with a success message and the item
+will be shown in the table. This is shown in the screenshot below:
+
+.Screenshot of a successful user input for the Add Command in the Inventory Tab
+image::inventoryUG/AddSuccess.png[]
+
+[NOTE]
+If the description and category of the input matches that of an existing item, a new item will not be added.
+Instead, the quantity will reflect the combined quantity of the input and the existing item, and the price will be updated.
+
+==== Delete an Item:
+This command deletes an item in the table by ID.
+
+* Command:
+`delete ID`
+
+Example:
+`delete 1`
+
+* Steps:
+. Type the command with the ID of the item to be deleted as shown below:
+
+.Screenshot of the user input into Command Box for the Delete Command in the Inventory tab
+image::inventoryUG/DeleteStep1.png[]
+
+[start = 2]
+. Hit `Enter`
+
+Leo will respond with a success message and the item will be removed from the table as shown below:
+
+.Screenshot of a successful user input for the Delete Command in the Inventory Tab
+image::inventoryUG/DeleteSuccess.png[]
+
+==== Edit an Item:
+This command edits an existing item in the table.
+
+* Command:
 `edit INDEX [d/DESCRIPTION] [c/CATEGORY] [q/QUANTITY] [co/COST_PER_UNIT] [p/PRICE]`
 
-To edit, simply type the above command. You may edit any combination of the attributes, as long as one attribute is present.
+[NOTE]
+You may edit any combination, permutation and number of the attributes, as long as at least one attribute is present.
 
-Examples:
+* Examples:
+** `edit 1 d/T-Shirt q/6`
+** `edit 1 c/Clothing`
 
-** `edit 1 d/T-Shirt` -> Edits the item description to be "T-Shirt".
-** `edit 1 c/Clothing` -> Edits the item category to be "Clothing".
+* Steps:
+. Type the command with the ID of the item to be edited, along with the new parameters to be changed, as shown below:
 
-==== To sort:
+.Screenshot of user input into Command Box for the Edit Command in the Inventory Tab
+image::inventoryUG/EditStep1.png[]
 
-The inventory list can be sorted by category, description and quantity.
+[start = 2]
+. Hit `Enter`.
 
-Using the reset command, it can also be reset to the order of the inventory list when the app was first opened.
+Leo will respond with a success message and the updated item will be shown in the table as shown below:
 
-Commands:
+.Screenshot of a successful user input for the Edit Command in the Inventory Tab
+image::inventoryUG/EditSuccess.png[]
 
-** By category: `sort category`
-** By description: `sort description`
-** By quantity: `sort quantity`
+==== Sort Items:
+This command sorts the table of items into a specified order for viewing.
+
+* Commands:
+** Sort by description: `sort description`
+** Sort by category: `sort category`
+** Sort by quantity: `sort quantity`
 ** Reset: `sort reset`
 
+[NOTE]
+Using the reset command, it can be reset to the order of the table when the app was first opened.
 
 === Cashier Tab
 This section will contain the details on all commands available on the Cashier tab.

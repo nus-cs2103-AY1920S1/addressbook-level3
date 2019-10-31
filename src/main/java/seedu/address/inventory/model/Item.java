@@ -136,7 +136,7 @@ public class Item {
     }
 
     /**
-     * Returns true if both items of the same description have at least one other identity field that is the same.
+     * Returns true if both items of the same description and category.
      * This defines a weaker notion of equality between two items.
      */
     public boolean isSameItem(Item otherItem) {
@@ -146,8 +146,7 @@ public class Item {
 
         return otherItem != null
                 && otherItem.getDescription().equalsIgnoreCase(getDescription())
-                && (otherItem.getCategory().equals(getCategory()) || otherItem.getCost() == (getCost())
-                || otherItem.getPrice() == getPrice());
+                && otherItem.getCategory().equalsIgnoreCase(getCategory());
     }
 
     /**

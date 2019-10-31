@@ -29,7 +29,7 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws Exception {
-        Command command = parser.parseCommand(commandText, inventoryModel.getInventoryList().size());
+        Command command = parser.parseCommand(commandText, inventoryModel.getInventoryList());
         CommandResult commandResult = command.execute(inventoryModel);
         inventoryModel.updateIndexes();
         inventoryStorage.writeFile(inventoryModel.getInventoryList());
@@ -42,7 +42,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ArrayList<Item> getInventoryListInArrayList() throws Exception {
+    public ArrayList<Item> getInventoryListInArrayList() {
         ArrayList<Item> inventoryList = inventoryModel.getInventoryListInArrayList();
         return inventoryList;
     }
