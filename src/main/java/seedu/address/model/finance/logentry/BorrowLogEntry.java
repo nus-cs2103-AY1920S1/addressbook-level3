@@ -18,8 +18,8 @@ public class BorrowLogEntry extends LogEntry {
 
     // Meta data
     public static final String LOG_ENTRY_TYPE = "borrow";
-    private static boolean isRepaid; // whether borrowed money has been returned to lender
-    private static RepaidDate repaidDate; // date when user repaid money
+    private boolean isRepaid; // whether borrowed money has been returned to lender
+    private RepaidDate repaidDate; // date when user repaid money
 
     // Fields
     private final Person from; // person borrowed from
@@ -54,12 +54,12 @@ public class BorrowLogEntry extends LogEntry {
      * and records down the day of repayment.
      */
     public void markAsRepaid() {
-        isRepaid = true;
-        repaidDate = new RepaidDate();
+        this.isRepaid = true;
+        this.repaidDate = new RepaidDate();
     }
 
     public RepaidDate getRepaidDate() {
-        return repaidDate;
+        return this.repaidDate;
     }
 
     public void setRepaidDate(String rDate, String tDate) {
