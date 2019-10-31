@@ -22,6 +22,7 @@ import cs.f10.t1.nursetraverse.commons.core.LogsCenter;
 import cs.f10.t1.nursetraverse.commons.exceptions.IllegalValueException;
 import cs.f10.t1.nursetraverse.commons.util.FileUtil;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ExportingException;
+import cs.f10.t1.nursetraverse.importexport.exceptions.ImportingException;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.storage.JsonAdaptedPatient;
 
@@ -33,9 +34,11 @@ public class CsvUtil {
 
     private static final String MESSAGE_OVERRIDING_FORBIDDEN = "File with given filename already exists,"
             + "overriding is not allowed";
+    private static final String MESSAGE_MISSING_FILE = "File not found.";
+
     // Folder paths
     private static final String exportFolder = "exports";
-    private static final Path importFilePath = Paths.get("imports/import.csv");
+    private static final String importFolder = "imports";
 
     //=========== Writing/Export functions =============================================================
 
@@ -52,6 +55,7 @@ public class CsvUtil {
         if (FileUtil.isFileExists(writePath)) {
             throw new ExportingException(MESSAGE_OVERRIDING_FORBIDDEN);
         }
+        assert !patients.isEmpty();
         String toWrite = getCsvStringFromPatients(patients);
         FileUtil.createFile(writePath);
         logger.info("Writing export data to: " + writePath);
@@ -106,7 +110,14 @@ public class CsvUtil {
      * @throws IllegalValueException if illegal values exist in the .csv file
      */
 
-    public static List<Patient> readPatientsFromCsv() throws IOException, IllegalValueException {
+    public static List<Patient> readPatientsFromCsv(String fileName)
+            throws IOException, IllegalValueException, ImportingException {
+        String pathString = importFolder + "/" + fileName + ".csv";
+        Path readPath = Paths.get(pathString);
+        if (!FileUtil.isFileExists(readPath)) {
+            throw new ImportingException(MESSAGE_MISSING_FILE);
+        }
+
         CsvMapper mapper = new CsvMapper();
         mapper.addMixIn(JsonAdaptedPatient.class, PatientMixIn.class)
                 // when an empty field is encountered, create a null object
@@ -117,7 +128,7 @@ public class CsvUtil {
                     .withArrayElementSeparator("\n");
         MappingIterator<JsonAdaptedPatient> iter = mapper.readerFor(JsonAdaptedPatient.class)
                     .with(schema)
-                    .readValues(importFilePath.toFile());
+                    .readValues(readPath.toFile());
         List<JsonAdaptedPatient> importedCsvPatients = iter.readAll();
 
         return convertImportedPatientsToPatientList(importedCsvPatients);
@@ -141,6 +152,21 @@ public class CsvUtil {
             newPatientList.add(convertToPatient(patient));
         }
         return newPatientList;
+    }
+
+    /**
+     * Returns true if the imported list contains only unique patients.
+     */
+    public static boolean importsAreUnique(List<Patient> patients) {
+        int len = patients.size();
+        for (int i = 0; i < len - 1; i++) {
+            for (int j = i + 1; j < len; j++) {
+                if (patients.get(i).isSamePatient(patients.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

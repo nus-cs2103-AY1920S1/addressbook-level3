@@ -125,6 +125,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addPatients(List<Patient> patients) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setStagedPatientBook(ReadOnlyPatientBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -142,6 +147,11 @@ public class AddCommandTest {
         @Override
         public boolean hasPatient(Patient patient) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasAnyPatientInGivenList(List<Patient> patients) {
+            throw new AssertionError("This method should not be called");
         }
 
         @Override
