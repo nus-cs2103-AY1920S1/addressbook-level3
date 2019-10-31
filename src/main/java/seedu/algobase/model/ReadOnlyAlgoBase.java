@@ -17,15 +17,20 @@ import seedu.algobase.model.task.Task;
 public interface ReadOnlyAlgoBase {
 
     /**
+     * Returns an unmodifiable view of the problems list.
+     * This list will not contain any duplicate problems.
+     */
+    ObservableList<Problem> getProblemList();
+
+    /**
      * Returns the {@code Problem} with the same id in the algobase.
      */
     Problem findProblemById(Id problemId) throws IllegalValueException;
 
     /**
-     * Returns an unmodifiable view of the problems list.
-     * This list will not contain any duplicate problems.
+     * Checks whether a problem is used in any plan.
      */
-    ObservableList<Problem> getProblemList();
+    boolean checkIsProblemUsed(Problem problem);
 
     /**
      * Returns an unmodifiable view of the tags list.
@@ -47,11 +52,6 @@ public interface ReadOnlyAlgoBase {
      * Returns the {@code Plan} with the same id in the algobase.
      */
     Plan findPlanById(Id planId) throws IllegalValueException;
-
-    /**
-     * Sets current plan.
-     */
-    void setCurrentPlan(Plan plan);
 
     /**
      * Returns an unmodifiable view of the current tasks list.

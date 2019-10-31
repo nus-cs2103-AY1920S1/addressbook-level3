@@ -1,9 +1,13 @@
 package seedu.algobase.logic.parser.problem;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.algobase.logic.parser.CliSyntax.FLAG_FORCE;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.problem.DeleteCommand;
+import seedu.algobase.logic.parser.ArgumentMultimap;
+import seedu.algobase.logic.parser.ArgumentTokenizer;
 import seedu.algobase.logic.parser.Parser;
 import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.logic.parser.exceptions.ParseException;
@@ -19,9 +23,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, FLAG_FORCE);
+
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteCommand(index);
+            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            boolean isForced = argMultimap.getValue(FLAG_FORCE).isPresent();
+            return new DeleteCommand(index, isForced);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
