@@ -7,15 +7,15 @@ start
 
 :User adds text;
 
-repeat
-if () then ([User wants to add text])
-    :User adds text;
-else if () then ([User wants to edit text])
-    :User edits text;
-else ([User wants to delete text])
-    :User deletes text;
-endif
-repeat while () is ([finished?])
+while () is (else)
+    if () then ([User wants to add text])
+        :User adds text;
+    else if () then ([User wants to edit text])
+        :User edits text;
+    else ([User wants to delete text])
+        :User deletes text;
+    endif
+endwhile (finished?)
 
 :Weme generates new Meme, applying all text entered by the user;
 stop
