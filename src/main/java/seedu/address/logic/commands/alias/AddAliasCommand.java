@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.alias.Alias;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GenericCommandWord;
@@ -16,10 +16,10 @@ import seedu.address.ui.alias.AliasPanel;
 /**
  * Create an alias for common user input.
  */
-public class AddAliasCommand extends Command {
+public class AddAliasCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.ADD + CommandGroup.ALIAS;
-    //    public static final String COMMAND_DESCRIPTION = "Create alias %1$s";
+    public static final String COMMAND_DESCRIPTION = "Create alias %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a shortcut for commonly used Commands.\n"
             + "Parameters: " + PREFIX_ALIAS_ALIAS_NAME
             + " <alias name>  " + PREFIX_ALIAS_ALIAS_INPUT + " <input string> \n"
@@ -76,5 +76,10 @@ public class AddAliasCommand extends Command {
         return obj == this // short circuit if same object
                 || (obj instanceof AddAliasCommand // instanceof handles nulls
                 && this.toAdd.equals(((AddAliasCommand) obj).toAdd));
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, toAdd.getAliasName());
     }
 }

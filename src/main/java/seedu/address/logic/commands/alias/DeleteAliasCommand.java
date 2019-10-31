@@ -2,10 +2,10 @@ package seedu.address.logic.commands.alias;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GenericCommandWord;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.alias.AliasPanel;
@@ -13,10 +13,10 @@ import seedu.address.ui.alias.AliasPanel;
 /**
  * Create an alias for common user input.
  */
-public class DeleteAliasCommand extends Command {
+public class DeleteAliasCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.ALIAS;
-    //    public static final String COMMAND_DESCRIPTION = "Delete alias %1$s";
+    public static final String COMMAND_DESCRIPTION = "Delete alias %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete an alias with the alias name.\n"
             + "Parameters: <alias name>\n"
             + "Example: deletealias findCat";
@@ -55,5 +55,10 @@ public class DeleteAliasCommand extends Command {
         return obj == this // short circuit if same object
                 || (obj instanceof DeleteAliasCommand // instanceof handles nulls
                 && this.aliasName.equals(((DeleteAliasCommand) obj).aliasName));
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, aliasName);
     }
 }
