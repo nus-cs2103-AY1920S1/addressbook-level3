@@ -393,6 +393,20 @@ The options supported by this feature includes:
 . `[QUESTIONS INDEX]` - Index of questions *separated by a whitespace*.
 Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
 
+The following keys are used to control the slideshow:
+
+. `Right arrow(→)` - Go to next question.
+. `Left arrow(←)` - Go to previous question.
+. `Esc` - Quit the slideshow.
+. `Space` - Show or hide the answer to the question.
+
+The following keys are used for polling for [.underline]#mcq# type questions:
+
+. `1` - Plus one to option A.
+. `2` - Plus one to option B.
+. `3` - Plus one to option C.
+. `4` - Plus one to option D.
+
 Example:
 
 * `question slideshow 1 2 3` +

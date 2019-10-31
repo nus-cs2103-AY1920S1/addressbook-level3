@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
@@ -284,10 +283,14 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
      */
     private boolean areInputIndexesValid(String input) {
         if (Pattern.compile("[1-9][0-9]*|[\\s]+").matcher(input).lookingAt()) {
-            // Additional check if input index is greater than zero
-            return !Arrays.stream(input.trim().replaceAll(" +", " ")
-                .split(" "))
-                .anyMatch((x) -> Integer.parseInt(x) <= 0);
+            // Additional check if remaining input is a number and index is greater than zero
+            try {
+                return !Arrays.stream(input.trim().replaceAll(" +", " ")
+                    .split(" "))
+                    .anyMatch((x) -> Integer.parseInt(x) <= 0);
+            } catch (NumberFormatException nfe) {
+                return false;
+            }
         }
         return false;
     }
