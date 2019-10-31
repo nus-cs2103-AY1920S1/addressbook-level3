@@ -525,6 +525,10 @@ will be shown in the table. This is shown in the screenshot below:
 .Screenshot of a successful user input for the Add Command in the Inventory Tab
 image::inventoryUG/AddSuccess.png[]
 
+[NOTE]
+If the description and category of the input matches that of an existing item, a new item will not be added.
+Instead, the quantity will reflect the combined quantity of the input and the existing item, and the price will be updated.
+
 ==== Delete an Item:
 This command deletes an item in the table by ID.
 
