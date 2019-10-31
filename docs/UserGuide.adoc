@@ -65,45 +65,20 @@ Upon launching the app, existing lists will be automatically loaded into their r
 ==== Saving the file
 Upon exiting the app, updated lists will be automatically saved.
 
-==== Checking reminders on expiry dates
-Display list with all food expiring within n days.
-`rem r/NUMBER_OF_DAYS`
 
-Change default number of days which food is expiring in, to be displayed at the start of the app every time the app is launched.
-`remDefault r/NUMBER_OF_DAYS`
-
-Examples:
-
-* `rem r/3`
-* `remDefault r/3`
-
-Upon launching the app, list of food expiring within (default; 3 days if not yet specified) is displayed.
-
-==== Sort settings
-Supports sorting of list displayed by alphabetical order first, or expiry date first.
-
-`sort by/TYPE` - displays list with the specified sorting method first.
-`sortDefault by/TYPE` - change default sorting method when list method is called every time the app is launched.
+==== Reminder settings: `glist remDefault`
+Change default number of days (n) which grocery item is expiring in,
+to colour code grocery items based on expiry dates every time the app is launched. +
+-*red* = has expired +
+-*orange* = is expiring within n days +
+-*green* = not expiring within n days +
+Format: `glist remDefault r/NUMBER_OF_DAYS`
 
 Examples:
 
-* `sort by/alphabetical`
-* `sortDefault by/expiry`
+* `glist remDefault r/3`
 
-For food with the same name, it will be automatically sorted by their expiry dates.
-For food with the same expiry dates, it will be automatically sorted by their alphabetical order.
-For same name *and* same expiry dates, it will be displayed based on the order they are added into the grocery list.
-
-==== Display settings
-Supports list display in merged or unmerged form.
-
-`list d/TYPE` - display grocery list of food objects, where food objects with the same name and expiry dates are merged or not.
-`listDefault d/TYPE` - change default display method when list method is called every time the app is launched.
-
-Examples:
-
-* `list d/merge`
-* `listDefault d/unmerge`
+Default number of days is set to 3 days if not yet specified.
 
 ==== Waste list clearing
 Clearing of waste list is done automatically at the start of every month.
@@ -219,6 +194,24 @@ Returns `Fuji apple` and `Apple loaf cake` and other items tagged as `apple`
 * `glist find milo doughnut roasted` +
 Returns any grocery item which contains any of the word `milo`, `doughnut`, or `roasted` as either name or tag or both
 
+==== Checking reminders on expiry dates: `glist rem`
+Display list with all grocery items expiring within n days. +
+Format: `glist rem r/NUMBER_OF_DAYS` +
+Display list with all grocery items expiring within default number of days.
+Format: `glist rem`
+Examples:
+
+* `glist rem r/3`
+* `glist rem`
+
+==== Undo Grocery List: `glist undo`
+Undo the grocery list and the corresponding waste list (if applicable). +
+Format: `glist undo`
+
+==== Redo Grocery List: `glist redo`
+Redo the grocery list and the corresponding waste list (if applicable). +
+Format: `glist redo`
+
 === Waste List Management
 
 ==== Moving an item into waste list
@@ -330,18 +323,12 @@ a more reliable prediction.
 
 As with any other application, our prediction algorithm will be more accurate with more frequent usage.
 
-==== View most commonly wasted food items: `wlist food`
-
-Format: `wlist food`
-
-Generates a word cloud based on user's most commonly wasted food.
-
 === Templates List Management
 
-==== Add new template: 'tlist add'
+==== Add new template: `tlist add`
 
 Adds a new template into template list. +
-Format: 'tlist add n/TEMPLATENAME'
+Format: `tlist add n/TEMPLATENAME`
 
 Examples:
 
@@ -447,10 +434,23 @@ Examples:
 * `tlist template list 1`
 Shows all entries in the first template
 
+==== Undo Template List: `tlist undo`
+Undo the template list and the corresponding template item list (if applicable). +
+Format: `tlist undo`
+
+Undoing a template list will only display template list.
+Undoing a template item list will display which template is undone.
+
+==== Redo Template List: `tlist redo`
+Redo the template list and the corresponding template item list (if applicable). +
+Format: `tlist redo`
+
+Redoing a template list will only display template list.
+Redoing a template item list will display which template is redone.
 
 === Shopping List Management
 
-=== Add new item to shopping list: 'slist add'
+==== Add new item to shopping list: `slist add`
 
 Adds a new item to the shopping list. +
 Format: 'slist add f/FOOD_ITEM a/AMOUNT'
@@ -462,7 +462,7 @@ Examples:
 * `slist add n/banana a/3`
 
 
-=== Add items in template into shopping list: `slist addTemp`
+==== Add items in template into shopping list: `slist addTemp`
 
 Adds all template items that are not currently found in the grocery list into the shopping list. +
 Format: 'slist addTemp INDEX'
@@ -471,10 +471,10 @@ Examples:
 
 * `slist addTemp 1`
 
-=== Edit item in shopping list: 'slist edit'
+==== Edit item in shopping list: `slist edit`
 
 Edits the name of a specified item in a shopping list. +
-Format: 'slist edit INDEX [f/FOODNAME] [a/AMOUNT]'
+Format: `slist edit INDEX [f/FOODNAME] [a/AMOUNT]`
 
 ****
 * Edits the food item at the specified `INDEX`. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
@@ -488,10 +488,10 @@ Edits the name of the third food item in the shopping list to  `pomegranate`
 * `slist edit 2 a/2l`
 Edits the amount of the second food item in the shopping list to 2 litres.
 
-=== Delete item in shopping list: 'slist delete'
+==== Delete item in shopping list: `slist delete`
 
 Delete specified item from shopping list. +
-Format: 'slist delete INDEX'
+Format: `slist delete INDEX`
 
 ****
 * Deletes the food item at the specified `INDEX`. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
@@ -502,17 +502,17 @@ Examples:
 * `slist delete 1`
 Deletes the first food item in the shopping list.
 
-=== Show shopping list: 'slist'
+==== Show shopping list: `slist list`
 
 Lists out all items in the shopping list with bought items first
-Format: `slist`
+Format: `slist list`
 
 Examples:
 
 * `slist`
 Shows all entries in the shopping list.
 
-=== Mark item as ‘bought’: 'slist bought'
+==== Mark item as 'bought’: `slist bought`
 
 Marks an item as bought and assigns the expiry date and amount to that item
 There is flexibility in the amount of items that are bought. You can indicate more or less number of items bought than the number indicated in the shopping list.
@@ -525,7 +525,7 @@ Marks the item at index 1 as bought and sets its expiry date as 3rd December, 20
 * `slist bought 2 e/3 Nov 2019 a/2l`
 Marks the item at index 2 as bought and sets its expiry date as 3rd November, 2019 and amount as 2 litres.
 
-=== Add bought items: 'slist merge bought'
+==== Add bought items: `slist merge bought`
 
 Adds all items marked as ‘bought’ to the grocery list.
 Format: `slist merge bought`
@@ -535,11 +535,12 @@ Format: `slist merge bought`
 * If the item with same expiry date is already present in the shopping list, just add the amount to the amount already present in the grocery list.
 * `slist merge bought`
 Merges all the items in shopping list marked as bought into the grocery list.
+This command cannot be undone/redone.
 
-==== Generate shopping list: `slist addAll`
+==== Generate shopping list: `slist addTemp`
 
 Generates a shopping list from all missing grocery items in the template.
-Format: `slist addAll [l/TEMPLATENAME] ...`
+Format: `slist addTemp [l/INDEX] ...`
 
 ****
 * At least one template name must be provided.
@@ -548,8 +549,20 @@ Format: `slist addAll [l/TEMPLATENAME] ...`
 ****
 
 Examples:
-* `slist addAll l/Weekly Necessities l/Birthday Cake`
+* `slist addTemp l/Weekly Necessities l/Birthday Cake`
 All entries from the templates `Weekly Necessities` and `Birthday Cake` will be added into the shopping list.
+
+==== Undo Shopping List: `slist undo`
+Undo the shopping list. +
+Format: `slist undo`
+
+'slist merge bought' command cannot be undone.
+
+==== Redo Shopping List: `slist redo`
+Redo the shopping list. +
+Format: `slist redo`
+
+'slist merge bought' command cannot be redone.
 
 === Exiting the program : `exit`
 
@@ -561,6 +574,17 @@ Format: `exit`
 iFridge data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+== Features v2.0
+
+=== Waste List
+
+==== View most commonly wasted food items
+
+Generates a word cloud based on user's most commonly wasted food.
+
+=== Shopping list
+
+==== Generate pdf for shopping list
 
 == FAQ
 
