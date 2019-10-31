@@ -105,6 +105,9 @@ is where you can type your command. The maximum you can type is 60 characters. T
 // tag::help[]
 ==== Opening the help window: `help`
 
+.Help window
+image::help.png[width="790"]
+
 Displays the help window. +
 Format: `help`
 // end::help[]
@@ -113,11 +116,21 @@ Format: `help`
 ==== Viewing all items : `view`
 
 ===== Viewing all items in the current list
+
+.Items in current list viewed
+image::view-current.png[width="790"]
 Shows all items in the current list, which is the main list by default, or the replenish list if otherwise specified. +
 All items are sorted by both name (lexicographical order) and date (chronological order). +
 Format: `view`
 
 ===== Viewing all items in another list
+
+.Items in main tracking list viewed
+image::view-main.png[width="790"]
+
+.Items in replenish list viewed
+image::view-replenish.png[width="790"]
+
 Changes the list to be displayed. +
 You can toggle between the main list and the list of items to be replenished with this command. +
 Format: `view|<list to view>`
@@ -133,6 +146,10 @@ Displays all items in the replenish list.
 
 // tag::search[]
 ==== Searching for item(s) by their name and/or tag: `search`
+
+.Items matching #fruit or #chicken shown
+image::search.png[width="790"]
+
 Searches for items whose names or tag(s) contain any of the given keywords. +
 Format: `search|<keyword>[|<other keywords>]...`
 
@@ -208,6 +225,9 @@ Format: `clear`
 // tag::export[]
 ==== Exporting data (multi-platform) : `export`
 
+.Items in current list exported to QR code
+image::export.png[width="790"]
+
 Exports the current list of items through a QR code. +
 Any device with a QR code reader will be able to download the list of items. +
 Format: `export`
@@ -226,10 +246,14 @@ Format: `exit`
 Items are saved in the hard disk automatically after any command that modifies the list. +
 There is no need to save manually.
 
-=== Main list features only
+=== Main tracking list features only
 
 // tag::add[]
 ==== Adding an item: `add`
+
+.New item added to main tracking list
+image::add.png[width="790"]
+
 Adds an item to your tracker. +
 Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
 Format: `add|<item name>|<expiry date>[|<quantity>]`
@@ -282,6 +306,10 @@ Examples:
 Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
 
 ===== Reducing the quantity of an item
+
+.Item at index 4 reduced in quantity by 1
+image::delete-quantity.png[width="790"]
+
 Reduces item quantity by the specified quantity. +
 Format `delete|<index>|<quantity>`
 
@@ -309,6 +337,10 @@ Shows all the tags you have created.
 Format: `tag`
 
 ===== Add new tag(s) to an item
+
+.Item at index 4 tagged with #Fruit and #Yellow
+image::tag.png[width="790"]
+
 [TIP]
 An item can have any number of tags (including 0)
 
@@ -337,6 +369,9 @@ Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
 ==== Setting reminder for an item: `set reminder`
 
 ===== Setting the number of days before an item's expiry date to start reminding you
+.Reminder set for item at index 4
+image::set-reminder.png[width="790"]
+
 Sets a reminder for your item. +
 Format: `set reminder|<index>|<reminder threshold>`
 
@@ -373,10 +408,14 @@ Removes the reminder for the first item in the list.
 ==== Listing expiring items: `check`
 
 ===== Listing all expiring items with activated reminders
+.Items expiring soon listed
+image::check.png[width="790"]
+
 Lists items whose reminder has been activated. +
 Format: `check`
 
 ===== Listing items that will expire within a certain number of days
+
 Lists items that will expire within the specified number of days in your tracker. +
 Format: `check|<days>`
 
@@ -400,12 +439,15 @@ Format: `sort|<key>`
 
 ****
 * Items can be sorted by either name or date.
-* For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
+* For example, Apple will sort ahead of Banana, while 1/1/790 will sort ahead of 1/1/2001.
 ****
 ===== Sorting all items by their name
 Format: `sort|name`
 
 ===== Sorting all items by their date
+.Items sorted by their date
+image::sort-date.png[width="790"]
+
 Format: `sort|date`
 // end::sort[]
 
@@ -527,49 +569,6 @@ The table below summarises the commands only available for use in the main list.
 |`sort\|date`
 
 |===
-
-=== List Summary
-
-The commands listed below are common to both lists.
-
-* *Help* : `help`
-* *View* : `view|<list>`
-* *Search* : `search|<keyword>[|<other keywords>]...` +
-e.g. `search|milk|tea|pearls`
-* *Clear* : `clear`
-* *Exit* : `exit`
-* *Undo* : `undo`
-* *Redo* : `redo`
-
-The commands listed below can only be used in the main list.
-
-
-Below is a summary of the available commands in Xpire:
-
-* *Help* : `help`
-* *Add* `add|<item name>|<expiry date>[|<quantity>]...` +
-e.g. `add|durian|30/9/2019`
-* *Delete* : `delete|<index>[|<tag> or <quantity>]` +
-e.g. `delete|3`
-* *Tag* : `tag|<index>|[<tag>]...`
-* *Set reminder* : `set reminder|<index>|<reminder threshold>` +
-e.g. `set reminder|1|7`
-* *Check* : `check[|<days>]` +
-e.g. `check|20`
-* *Sort* : `sort|<key>` +
-e.g. `sort|date`
-* *Shift* : `shift|<index>` +
-e.g. `shift|2`
-* *Search* : `search|<keyword>[|<other keywords>]...` +
-e.g. `search|milk|tea|pearls`
-* *Delete* : `delete|<index>[|<tag> or <quantity>]` +
-e.g. `delete|3`
-* *Tag* : `tag|<index>|[<tag>]...`
-* *Undo* : `undo`
-* *Redo* : `redo`
-* *Clear* : `clear`
-* *Export* : `export`
-* *Exit* : `exit`
 
 == Command Shorthands
 
