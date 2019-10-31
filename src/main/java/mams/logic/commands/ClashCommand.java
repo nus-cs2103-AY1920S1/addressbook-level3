@@ -46,7 +46,7 @@ public class ClashCommand extends Command {
     public static final String MESSAGE_INVALID_INDEX = "Index out of bound ";
     public static final String MESSAGE_INVALID_APPEAL_TYPE = "This is not a add/drop module appeal. "
             + "No need to check clashes.";
-    protected ArrayList<Integer> clashingSlots;
+    private ArrayList<ClashCase> clashCases;
 
     private ClashCommandParameters params;
 
@@ -61,7 +61,7 @@ public class ClashCommand extends Command {
         List<Module> lastShownModuleList = model.getFilteredModuleList();
         List<Student> lastShownStudentList = model.getFilteredStudentList();
 
-        clashingSlots = new ArrayList<>();
+        clashCases = new ArrayList<>();
 
         if (params.getAppealIndex().isPresent()) {
             verifyIndex(params.getAppealIndex().get().getZeroBased(), lastShownAppealList.size());
@@ -69,42 +69,69 @@ public class ClashCommand extends Command {
             if (!isAddOrDropModAppeal(appeal)) {
                 throw new CommandException(MESSAGE_INVALID_APPEAL_TYPE);
             }
-            Module moduleToAdd = getModule(appeal.getModuleToAdd(), lastShownModuleList);
-            Student studentToCheck = getStudent(appeal.getStudentId(), lastShownStudentList);
+            Module moduleToAdd = getModule(appeal.getModuleToAdd(), model.getFullModuleList());
+            Student studentToCheck = getStudent(appeal.getStudentId(), model.getFullStudentList());
             ArrayList<Module> currentModules = getStudentCurrentModules(studentToCheck, model);
+            String str = "";
             for (Module currentModule : currentModules) {
-                clashingSlots.addAll(getClashingSlots(currentModule, moduleToAdd));
-            }
-        }
-
-        if (params.getModuleIndices().isPresent()) {
-            Module firstModule = lastShownModuleList.get(params.getFirstModuleIndex().getZeroBased());
-            Module secondModule = lastShownModuleList.get(params.getSecondModuleIndex().getZeroBased());
-            clashingSlots = getClashingSlots(firstModule, secondModule);
-        }
-
-        if (params.getModuleCodes().isPresent()) {
-            Module firstModule = getModule(params.getFirstModuleCode(), model.getFilteredModuleList());
-            Module secondModule = getModule(params.getSecondModuleCode(), model.getFilteredModuleList());
-            clashingSlots = getClashingSlots(firstModule, secondModule);
-        }
-
-        if (params.getStudentIndex().isPresent()) {
-            Student student = lastShownStudentList.get(params.getStudentIndex().get().getZeroBased());
-            ArrayList<Module> currentModules = getStudentCurrentModules(student, model);
-            for (int i = 0; i < currentModules.size() - 1; i++) {
-                for (int j = i + 1; j < currentModules.size(); j++) {
-                    clashingSlots.addAll(getClashingSlots(currentModules.get(i), currentModules.get(j)));
+                if (getClashCase(currentModule, moduleToAdd).isPresent()) {
+                    clashCases.add(getClashCase(currentModule, moduleToAdd).get());
                 }
             }
         }
 
-        if (clashingSlots.size() != 0) {
-            return new CommandResult(MESSAGE_CLASH_DETECTED + getTimeSlotsToString(generateTempMod()));
+        if (params.getModuleIndices().isPresent()) {
+
+            verifyIndex(params.getFirstModuleIndex().getZeroBased(), lastShownModuleList.size());
+            verifyIndex(params.getSecondModuleIndex().getZeroBased(), lastShownModuleList.size());
+            Module firstModule = lastShownModuleList.get(params.getFirstModuleIndex().getZeroBased());
+            Module secondModule = lastShownModuleList.get(params.getSecondModuleIndex().getZeroBased());
+            if (getClashCase(firstModule, secondModule).isPresent()) {
+                clashCases.add(getClashCase(firstModule, secondModule).get());
+            }
+        }
+
+        if (params.getModuleCodes().isPresent()) {
+
+            Module firstModule = getModule(params.getFirstModuleCode(), model.getFilteredModuleList());
+            Module secondModule = getModule(params.getSecondModuleCode(), model.getFilteredModuleList());
+            if (getClashCase(firstModule, secondModule).isPresent()) {
+                clashCases.add(getClashCase(firstModule, secondModule).get());
+            }
+        }
+
+        if (params.getStudentIndex().isPresent()) {
+            verifyIndex(params.getStudentIndex().get().getZeroBased(), lastShownStudentList.size());
+            Student student = lastShownStudentList.get(params.getStudentIndex().get().getZeroBased());
+            ArrayList<Module> currentModules = getStudentCurrentModules(student, model);
+            for (int i = 0; i < currentModules.size() - 1; i++) {
+                for (int j = i + 1; j < currentModules.size(); j++) {
+                    if (getClashCase(currentModules.get(i), currentModules.get(j)).isPresent()) {
+                        clashCases.add(getClashCase(currentModules.get(i), currentModules.get(j)).get());
+                    }
+                }
+            }
+        }
+
+        if (clashCases.size() != 0) {
+            return new CommandResult(MESSAGE_CLASH_DETECTED + getClashDetails());
         } else {
             return new CommandResult(MESSAGE_CLASH_NOT_DETECTED);
         }
 
+    }
+
+    private String getClashDetails() {
+        StringBuilder s = new StringBuilder();
+        for (ClashCase c : clashCases) {
+            s.append(c.getModuleCodeA());
+            s.append("  ");
+            s.append(c.getModuleCodeB());
+            s.append("\n");
+            s.append(c.getClashingSlots());
+            s.append("\n");
+        }
+        return s.toString();
     }
 
     /**
@@ -130,10 +157,12 @@ public class ClashCommand extends Command {
         ArrayList<Module> currentModules = new ArrayList<>();
         for (Tag currentModule : currentModulesSet) {
             String moduleCode = currentModule.getTagName();
-            List<Module> modulesToCheckList = model.getFilteredModuleList().stream()
-                    .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
-            Module moduleToCheck = modulesToCheckList.get(0);
-            currentModules.add(moduleToCheck);
+            List<Module> filteredModulesList = model.getFullModuleList()
+                    .stream()
+                    .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
+                    .collect(Collectors.toList());
+            Module filteredModule = filteredModulesList.get(0);
+            currentModules.add(filteredModule);
         }
         return currentModules;
     }
@@ -176,13 +205,13 @@ public class ClashCommand extends Command {
 
     /**
      * Returns an ArrayList of Integers that contains the clashing time slots.
-     * @param moduleToCheckA a Module object of module A
-     * @param moduleToCheckB a Module object of module B
+     * @param moduleA a Module object of module A
+     * @param moduleB a Module object of module B
      * @return an ArrayList of Integers that contains the clashing time slots.
      */
-    private ArrayList<Integer> getClashingSlots(Module moduleToCheckA, Module moduleToCheckB) {
-        int[] timeTableA = moduleToCheckA.getTimeSlotToIntArray();
-        int[] timeTableB = moduleToCheckB.getTimeSlotToIntArray();
+    private Optional<ClashCase> getClashCase(Module moduleA, Module moduleB) {
+        int[] timeTableA = moduleA.getTimeSlotToIntArray();
+        int[] timeTableB = moduleB.getTimeSlotToIntArray();
         ArrayList<Integer> slots = new ArrayList<>();
         for (int i : timeTableA) {
             for (int j : timeTableB) {
@@ -191,30 +220,14 @@ public class ClashCommand extends Command {
                 }
             }
         }
-        return slots;
-    }
-
-    /**
-     * Returns a temporary module object which stores the clashing time slots
-     * @return Returns a temporary module object which stores the clashing time slots
-     */
-    protected Module generateTempMod() {
-        StringBuilder sb = new StringBuilder("");
-        for (int slot : clashingSlots) {
-            sb.append(slot).append(",");
+        if (!slots.isEmpty()) {
+            ClashCase c = new ClashCase();
+            c.setModuleA(moduleA);
+            c.setModuleB(moduleB);
+            c.setClashingSlots(slots);
+            return Optional.of(c);
         }
-
-        return new Module("", "", "", "", sb.toString(),
-                "", new HashSet<>());
-    }
-
-    /**
-     * Returns a string representation of clashing time slots.
-     * @param moduleToCheck a Module object to be checked.
-     * @return a string representation of clashing time slots.
-     */
-    private String getTimeSlotsToString(Module moduleToCheck) {
-        return moduleToCheck.timeSlotsToString(clashingSlots.stream().mapToInt(i -> i).toArray());
+        return Optional.empty();
     }
 
     /**
@@ -247,7 +260,7 @@ public class ClashCommand extends Command {
     /**
      * Stores the details of the parsed parameters that a {@code ClashCommand} will operate on.
      * This helps to avoid having too many unnecessary constructors (or passing of null-values)
-     * caused by the optional nature of the parameters passed to ViewCommand.
+     * caused by the optional nature of the parameters passed to ClashCommand.
      */
     public static class ClashCommandParameters {
         private Index appealIndex;
@@ -292,7 +305,7 @@ public class ClashCommand extends Command {
         }
 
         public Optional<Index> getStudentIndex() {
-            return Optional.ofNullable(appealIndex);
+            return Optional.ofNullable(studentIndex);
         }
 
         public Optional<List> getModuleCodes() {
@@ -330,6 +343,73 @@ public class ClashCommand extends Command {
                     && getModuleIndices().equals(cp.getModuleIndices())
                     && getStudentIndex().equals(cp.getStudentIndex())
                     && getModuleCodes().equals(cp.getModuleCodes());
+        }
+    }
+
+    /**
+     * Stores the details of the clash cases that a {@code ClashCommand} will operate on.
+     * This helps to display relevant information of the clash details.
+     */
+    public static class ClashCase {
+        private Module moduleA;
+        private Module moduleB;
+        private ArrayList<Integer> clashingSlots;
+
+        public String getModuleCodeA() {
+            return moduleA.getModuleCode();
+        }
+
+        public String getModuleCodeB() {
+            return moduleB.getModuleCode();
+        }
+
+        public String getClashingSlots() {
+            return generateTempMod().getModuleTimeTableToString();
+        }
+
+        public void setModuleA(Module moduleA) {
+            this.moduleA = moduleA;
+        }
+
+        public void setModuleB(Module moduleB) {
+            this.moduleB = moduleB;
+        }
+
+        public void setClashingSlots(ArrayList<Integer> clashingSlots) {
+            this.clashingSlots = clashingSlots;
+        }
+
+        /**
+         * Returns a temporary module object which stores the clashing time slots
+         * @return Returns a temporary module object which stores the clashing time slots
+         */
+        private Module generateTempMod() {
+            StringBuilder sb = new StringBuilder("");
+            for (int slot : clashingSlots) {
+                sb.append(slot).append(",");
+            }
+            return new Module("", "", "", "", sb.toString(),
+                    "", new HashSet<>());
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof ClashCase)) {
+                return false;
+            }
+
+            // state check
+            ClashCase c = (ClashCase) other;
+
+            return this.getModuleCodeA().equals(c.getModuleCodeA())
+                    && this.getModuleCodeB().equals(c.getModuleCodeB())
+                    && this.getClashingSlots().equals(c.getClashingSlots());
         }
     }
 }

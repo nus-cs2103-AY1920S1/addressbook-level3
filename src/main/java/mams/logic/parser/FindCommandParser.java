@@ -6,6 +6,7 @@ import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -40,31 +41,34 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE, PREFIX_APPEAL);
 
-        NameContainsKeywordsPredicate studentPred = new NameContainsKeywordsPredicate(
-                argMultimap.getAllValues(PREFIX_STUDENT));
-        ModuleContainsKeywordsPredicate modulePred = new ModuleContainsKeywordsPredicate(
-                argMultimap.getAllValues(PREFIX_MODULE));
-        AppealContainsKeywordsPredicate appealPred = new AppealContainsKeywordsPredicate(
-                argMultimap.getAllValues(PREFIX_APPEAL));
+        boolean hasValidInput = false;
 
-        if (args.contains(PREFIX_STUDENT.toString()) && studentPred.isEmpty()) {
-            throw new ParseException(FindCommand.MESSAGE_EMPTY_KEYWORD);
-        } else {
+        if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
+            NameContainsKeywordsPredicate studentPred = new NameContainsKeywordsPredicate(
+                    Arrays.asList(argMultimap.getValue(PREFIX_STUDENT).get().split("\\s+")));
             predicates.add(studentPred);
+            hasValidInput = true;
         }
 
-        if (args.contains(PREFIX_MODULE.toString()) && modulePred.isEmpty()) {
-            throw new ParseException(FindCommand.MESSAGE_EMPTY_KEYWORD);
-        } else {
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
+            ModuleContainsKeywordsPredicate modulePred = new ModuleContainsKeywordsPredicate(
+                    Arrays.asList(argMultimap.getValue(PREFIX_MODULE).get().split("\\s+")));
             predicates.add(modulePred);
+            hasValidInput = true;
         }
 
-        if (args.contains(PREFIX_APPEAL.toString()) && appealPred.isEmpty()) {
-            throw new ParseException(FindCommand.MESSAGE_EMPTY_KEYWORD);
-        } else {
+        if (argMultimap.getValue(PREFIX_APPEAL).isPresent()) {
+            AppealContainsKeywordsPredicate appealPred = new AppealContainsKeywordsPredicate(
+                    Arrays.asList(argMultimap.getValue(PREFIX_APPEAL).get().split("\\s+")));
             predicates.add(appealPred);
+            hasValidInput = true;
         }
 
-        return new FindCommand(predicates);
+        if (hasValidInput) {
+            return new FindCommand(predicates);
+        } else {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
     }
+
 }
