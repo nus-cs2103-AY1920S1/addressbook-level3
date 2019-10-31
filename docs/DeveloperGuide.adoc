@@ -798,6 +798,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+// tag::productscope[]
 [appendix]
 == Product Scope
 
@@ -813,6 +814,7 @@ Refer to the guide <<DevOps#, here>>.
 * wishes to import or export their data to a .csv file
 
 *Value proposition*: manage budget quickly compared to a typical mouse/GUI driven app which saves time and makes it more convenient.
+// end::productscope[]
 
 [appendix]
 == User Stories

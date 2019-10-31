@@ -18,23 +18,21 @@ I was tasked to complete find and sort features, as well as natural language dat
 Listed below are some notations that are used throughout the document.
 
 .Legend table
-[width="70%",cols="^15%,85%"]
+[width="100%",cols="^15%,85%"]
 |===
 a| Icon | Description
 a| `command` | Command that can be executed
 ifndef::env-github[]
-a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be helpful
-a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know
-a| icon:exclamation-circle[role="icon-important", size="2x"] | Important information that should be noted
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be helpful in navigating the application
+a| icon:info-circle[role="icon-note", size="2x"] | Important information that should be noted
 endif::[]
 |===
-
-These icons and their following descriptions enable greater clarity in understanding the document.
-
-In addition, if there are any additional information related, it will be described in a block below:
+If there are any additional related information, it will be described in a block below:
 ====
 Useful information for a deeper understanding of the command.
 ====
+
+These icons and their following descriptions enable greater clarity in understanding the document.
 
 == Summary of contributions
 
@@ -56,7 +54,7 @@ In the event that the listed spending results are too general, students can narr
 
 ==== Highlights
 
-This enhancement functions well with existing commands. The design approach was challenging for the sort function as it particularly required some restructuring of how the list would be implemented. It required an in-depth analysis of design alternatives.
+This enhancement functions well with existing commands. The design approach was challenging for the sort function as it particularly required some restructuring of how the sorted list would be implemented. It required an in-depth analysis of design alternatives.
 
 === Minor enhancement: Natural language date parsing
 
@@ -75,7 +73,7 @@ Users no longer need to enter fixed format dates which are difficult to follow a
 This enhancement functions extremely well with existing commands. Other features like `stats`, `budget`, `reminder` leverage on this enhancement, which makes it a key implementation for the application.
 
 ==== Credits
-*natty* library was used to aid in natural language parsing. However, lots of modifications were applied onto it in order to allow support for _DD/MM/YYYY_ dates, which is a missed feature on the author's part.
+*natty* library was used to aid in natural language parsing. However, many modifications were applied in order to allow support for _DD/MM/YYYY_ dates, which is a missed feature on the author's part.
 
 ==== Code contributed
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=nanosync[Collated code]
@@ -95,6 +93,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=nanosync[C
 
 ** Enhancements to existing features:
 *** Refactored and modified existing classes, including package name `AddressBook` to `SpendingBook` code base to match application needs: (https://github.com/AY1920S1-CS2103T-F13-3/main/pull/73[Modified address book comments and sample data #73], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/75[Fixed person to spending #75], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/78[Changed package name from AddressBook to SpendingBook #78])
+
 ** Documentation:
 *** Cleaned up the User Guide and Developer Guide: (https://github.com/AY1920S1-CS2103T-F13-3/main/pull/106[Address UG and DG changes #106])
 
@@ -110,18 +109,25 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=nanosync[C
 == Contributions to the User Guide
 
 |===
-| Listed below are sections I contributed to the User Guide. This includes the Features, Flexible Date Formats, particularly in the Find and Sort, and Command Summary section.
+| Listed below are sections I contributed to the User Guide. This includes the Features section, particularly Flexible Date Formats, Find, Sort and Command Summary section.
 |===
 
 include::../UserGuide.adoc[tag=flexibledateformats]
 
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=commandsummary]
+
 == Contributions to the Developer Guide
 
 |===
-| Listed below are sections I contributed to the Developer Guide. This includes the User Profile, Value Proposition and major features like Find and Sort.
+| Listed below are sections I contributed to the Developer Guide. This includes the features section for Find and Sort, and the Product Scope section.
 |===
 
 include::../DeveloperGuide.adoc[tag=find]
 
 include::../DeveloperGuide.adoc[tag=sort]
 
+include::../DeveloperGuide.adoc[tag=productscope]
