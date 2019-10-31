@@ -346,13 +346,13 @@ Marks an existing appeal as approved, with an optional message that can be suppl
 
 
 ==== Approve appeals individually
-Format: `approve appealId [APPEAL_REMARK]`
+Format: `approve [a/INDEX] [APPEAL_REMARK]`
 
 Examples:
 
 Sample Input:
 
-* `approve 4 rr/watch your workload`
+* `approve a/4 r/watch your workload`
 
 image::beforeapprove.png[width="790"]
 
@@ -379,13 +379,13 @@ image::aftermassapprove.png[width="790"]
 Marks an existing appeal as rejected. with an optional message that can be supplied in the remarks section of the appeal results.
 
 ==== Reject appeals individually
-Format: `reject appealId [APPEAL_REMARK]`
+Format: `reject [a/INDEX] [APPEAL_REMARK]`
 
 Examples:
 
 Sample Input:
 
-* `reject 1 rr/student not suitable for high work load`
+* `reject a/1 r/student not suitable for high work load`
 
 image::beforereject.png[width="790"]
 
@@ -457,7 +457,7 @@ To add remarks to a student’s particulars page
 
 * **approve**:
 ** `approve [INDEX] [rr/REMARK]`
-- e.g `approve 2 rr/meets requisites` Marks the 2nd appeal in the appeal list as approved.
+- e.g `approve a/2 r/meets requisites` Marks the 2nd appeal in the appeal list as approved.
 
 ** `approve mass/ [APPEAL_ID]...`
 - e.g `approve mass/C0000023 C000034`  Marks the shown appeal IDS as approved
@@ -465,7 +465,7 @@ To add remarks to a student’s particulars page
 * **reject**:
 -
 ** `reject [INDEX] [rr/REMARK]`
-- e.g `reject 2 rr/meets requisites` Marks the 2nd appeal in the appeal list as rejected.
+- e.g `reject a/2 r/meets requisites` Marks the 2nd appeal in the appeal list as rejected.
 
 ** `reject mass/ [APPEAL_ID]...`
 - e.g `reject mass/C0000023 C000034`  Marks the shown appeal IDS as rejected

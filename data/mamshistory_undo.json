@@ -10,22 +10,22 @@
     "credits" : "23",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180001",
-    "tagged" : [ "CS1231", "CS2106", "CS2101" ]
+    "tagged" : [ "CS1231", "CS2106", "CS2105", "CS2101" ]
   }, {
     "name" : "Ronna Rousey  ",
     "credits" : "24",
     "prevMods" : "CS1010, CS2105",
     "matricId" : "A0180002",
-    "tagged" : [ "CS1231", "CS2105" ]
+    "tagged" : [ "CS1231", "CS2040", "CS2105" ]
   }, {
     "name" : "Williemae Whitworth  ",
     "credits" : "24",
     "prevMods" : "CS1010, CS2105",
     "matricId" : "A0180003",
-    "tagged" : [ "CS1020", "CS1231", "CS2220", "CS2030" ]
+    "tagged" : [ "CS1231", "CS2220", "CS2030" ]
   }, {
     "name" : "Tamala Touchette  ",
-    "credits" : "28",
+    "credits" : "22",
     "prevMods" : "CS1010, CS1231, CS2030",
     "matricId" : "A0180004",
     "tagged" : [ "CS2220", "CS2030" ]
@@ -318,7 +318,7 @@
     "timeSlot" : "1,2,45,46,47"
   }, {
     "quota" : "60",
-    "tagged" : [ "A0180020", "A0180010", "A0180032", "A0180043", "A0180012", "A0180024", "A0180035", "A0180046", "A0180003", "A0180026", "A0180006", "A0180008" ],
+    "tagged" : [ "A0180020", "A0180010", "A0180032", "A0180043", "A0180012", "A0180024", "A0180035", "A0180046", "A0180026", "A0180006", "A0180008" ],
     "moduleCode" : "CS1020",
     "moduleName" : "Data Structures and Algorithms Is",
     "moduleDescription" : "This module is the second part of a three-part series on introductory programming and problem solving by computing. It continues the introduction that begins in CS1010, and emphasises objectoriented programming with application to simple data structures. Topics include object-oriented problem modeling with objects, classes and methods, object-oriented problem formulation and solving, data structure implementation strageties, abstraction and encapsulation of data structures, object-oriented programming constructs, APIs and class libraries, exception handling, lists, linked lists, stacks, queues, hash tables and their algorithmic design, sorting and searching methods, recursive algorithms, and Big-O notation. This module is appropriate for SoC and FoS students.",
@@ -342,7 +342,7 @@
     "timeSlot" : "1,2,45,46,47"
   }, {
     "quota" : "50",
-    "tagged" : [ "A0180030", "A0180041", "A0180031", "A0180043", "A0180000", "A0180011", "A0180012", "A0180013", "A0180024", "A0180035", "A0180015", "A0180005", "A0180017", "A0180018", "A0180029", "A0180019", "A0180009" ],
+    "tagged" : [ "A0180030", "A0180041", "A0180031", "A0180043", "A0180000", "A0180011", "A0180012", "A0180002", "A0180013", "A0180024", "A0180035", "A0180015", "A0180005", "A0180017", "A0180018", "A0180029", "A0180019", "A0180009" ],
     "moduleCode" : "CS2040",
     "moduleName" : "Data Structures and Algorithms",
     "moduleDescription" : "This module introduces students to the design and implementation of fundamental data structures and algorithms. The module covers basic data structures (linked lists, stacks, queues, hash tables, binary heaps, trees, and graphs), searching and sorting algorithms, and basic analysis of algorithms.",
@@ -366,7 +366,7 @@
     "timeSlot" : "32,33,12,13"
   }, {
     "quota" : "40",
-    "tagged" : [ "A0180041", "A0180020", "A0180031", "A0180021", "A0180032", "A0180044", "A0180002", "A0180035", "A0180025", "A0180036", "A0180016", "A0180027", "A0180038", "A0180039", "A0180007" ],
+    "tagged" : [ "A0180041", "A0180020", "A0180031", "A0180021", "A0180032", "A0180044", "A0180001", "A0180002", "A0180035", "A0180025", "A0180036", "A0180016", "A0180027", "A0180038", "A0180039", "A0180007" ],
     "moduleCode" : "CS2105",
     "moduleName" : "Introduction to Computer Networks",
     "moduleDescription" : "This module aims to provide a broad introduction to computer networks and network application programming. It covers the main concepts, the fundamental principles, and the high-level workings of important protocols in each of the Internet protocol layer. Topics include the Web and Web applications, DNS services, socket programming, reliable protocols, transport and network layer protocols, secure communication, LAN, and data communication. Practical assignments and handson exercises expose students to network application programming and various networking tools and utilities.",
@@ -400,8 +400,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000001",
@@ -414,9 +414,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "CS2105",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000002",
     "appealType" : "Drop module",
@@ -428,8 +428,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "CS2040",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000003",
@@ -442,8 +442,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1020",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000004",
@@ -456,8 +456,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000005",

@@ -179,5 +179,17 @@
   }, {
     "input" : "undo",
     "output" : "Undo Successful "
+  }, {
+    "input" : "approve a/4 r/watch your workload",
+    "output" : "Approved C000003\nAdded module to : A0180003"
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful "
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students"
+  }, {
+    "input" : "reject a/1 r/student not suitable for high work load",
+    "output" : "Rejected C000000"
   } ]
 }
