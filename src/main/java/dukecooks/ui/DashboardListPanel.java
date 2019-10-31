@@ -10,7 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
@@ -39,9 +38,6 @@ public class DashboardListPanel extends UiPart<Region> {
 
     @FXML
     private ProgressBar progressBar;
-
-    @FXML
-    private Label words;
 
     public DashboardListPanel(ObservableList<Dashboard> dashboardList, Rewards rewards) {
         super(FXML);
@@ -90,11 +86,6 @@ public class DashboardListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new DashboardCard(dashboard, getIndex() + 1).getRoot());
-            }
-            if (doneFive(dashboardList)) {
-                words.setText(rewards.generateJoke());
-            } else {
-                words.setText("Complete your tasks!");
             }
         }
     }
