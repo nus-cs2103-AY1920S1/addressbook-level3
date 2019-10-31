@@ -191,7 +191,9 @@ public class Tutorial {
         if (Module.getSemStart() != null) {
             List<Event> tutorialEvents = getTutorialasEvents();
             for (Event tutorialEvent : tutorialEvents) {
-                addEvent(tutorialEvent);
+                if (!eventLog.contains(tutorialEvent)) {
+                    addEvent(tutorialEvent);
+                }
             }
         }
         return eventLog;
@@ -220,6 +222,14 @@ public class Tutorial {
                 students.set(i, editedStudent);
             }
         }
+        for (Week week : getTimeTable().getWeeks()) {
+            setAttendance(week, editedStudent, getAttendance().isPresent(week, target));
+        }
+        List<Assignment> assignmentsList = getAssignments();
+        for (Assignment assignment : assignmentsList) {
+            setScore(assignment, editedStudent, getAssignmentScore(assignment, target));
+        }
+        deleteStudent(target);
     }
     /**
      * Removes a Student from a Tutorial.
@@ -238,6 +248,13 @@ public class Tutorial {
      */
     public void setAttendance(Week week, Student student) {
         attendance.setAttendance(week, student);
+    }
+
+    /**
+     * Sets a Student's Attendance.
+     */
+    public void setAttendance(Week week, Student student, boolean isPresent) {
+        attendance.setAttendance(week, student, isPresent);
     }
 
     /**
@@ -382,12 +399,5 @@ public class Tutorial {
                 && otherTutorial.getTutName().equals(getTutName())
                 && otherTutorial.getModCode().equals(getModCode());
     }
-
-    /* TODO: implement saving of assignments
-    public Map<Assignment, Map<Student, Integer>> getAssignments() {
-        return this.assignments;
-    }
-
-     */
 
 }

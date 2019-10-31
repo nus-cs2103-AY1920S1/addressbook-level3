@@ -15,7 +15,7 @@ public class AddModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "addModule";
 
-    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "addMod", "addmod"};
+    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "addMod", "addmod", "addmodule"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Module to the Application.\n"
             + "Parameters: "

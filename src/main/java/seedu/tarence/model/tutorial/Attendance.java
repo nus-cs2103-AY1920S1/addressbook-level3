@@ -149,8 +149,4 @@ public class Attendance {
         return attendance.toString();
     }
 
-    public Map<Week, Map<Student, Boolean>> getAttendanceMap() {
-        return attendance;
-    }
-
 }

@@ -145,7 +145,7 @@ public class JsonUtil {
      * @return String representation of Attendance object.
      */
     public static String attendanceListToString(Attendance attendance) {
-        Map<Week, Map<Student, Boolean>> attendanceMap = attendance.getAttendanceMap();
+        Map<Week, Map<Student, Boolean>> attendanceMap = attendance.getAttendance();
         LinkedHashMap<String, String> attendanceStringMap = new LinkedHashMap<String, String>();
 
         for (Week week : attendanceMap.keySet()) {

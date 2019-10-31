@@ -21,7 +21,8 @@ public class ImportCommand extends Command {
             + "Otherwise, the tutorials cannot be found.";
     public static final String COMMAND_WORD = "import";
 
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "importtutorials",
+        "importmods", "importtutorial"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports tutorials via an NUSMods shared url.\n"
             + "Expect a slow response the first time this command is inputted.\n"

@@ -33,7 +33,8 @@ public class SetAssignmentScoreCommand extends AssignmentCommand {
 
     public static final String MESSAGE_SET_SCORE_SUCCESS = "%1$s's score is now %2$s ";
     public static final String COMMAND_WORD = "setAssignScore";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "sets", "setscore", "setsc"};
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "sets", "setscore",
+        "setsc", "setassignmentscore"};
 
     // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the score for student.\n"

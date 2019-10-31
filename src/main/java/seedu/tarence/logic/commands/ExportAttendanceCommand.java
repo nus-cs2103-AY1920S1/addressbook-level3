@@ -38,7 +38,8 @@ public class ExportAttendanceCommand extends Command {
     public static final String COMMAND_WORD = "exportAttendance";
 
     private static final String EXPORT_PATH = "./data/%s.csv";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "export", "exporta", "exportatt"};
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "export",
+        "exporta", "exportatt", "exportattendance"};
 
     // TODO: Update the message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the attendance of a tutorial in a csv file.\n"

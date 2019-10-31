@@ -55,7 +55,7 @@ public class AddStudentCommand extends Command {
     public static final String MESSAGE_TUTORIAL_IDX_OUT_OF_BOUNDS = "The given tutorial index %d is out of bounds.";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "addstu", "addstud"};
+        "addstu", "addstud", "addstudent"};
 
     private Student toAdd;
     private Index tutIdx;

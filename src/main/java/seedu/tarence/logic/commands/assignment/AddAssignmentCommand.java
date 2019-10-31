@@ -32,7 +32,8 @@ public class AddAssignmentCommand extends AssignmentCommand {
 
     public static final String MESSAGE_ADD_ASSIGNMENT_SUCCESS = "%1$s created successfully";
     public static final String COMMAND_WORD = "addAssign";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "adda", "addasm", "addassn"};
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "adda", "addasm",
+        "addassn", "addassignment"};
 
     // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates an assignment for a tutorial.\n"

@@ -21,7 +21,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all students";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "liststu", "liststud"};
+        "liststu", "liststud", "liststudents"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Lists the person identified by the index number used in the displayed person list.\n"

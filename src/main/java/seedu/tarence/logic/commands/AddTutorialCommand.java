@@ -50,7 +50,7 @@ public class AddTutorialCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New tutorial added: %1$s. Day: %2$s. Weeks: %3$s. "
                                                 + "Start Time: %4$s. Duration: %5$s MINS.";
 
-    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "addtut"};
+    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "addtut", "addtutorial"};
 
     private Tutorial tutorial;
 

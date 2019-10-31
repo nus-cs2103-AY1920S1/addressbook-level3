@@ -37,7 +37,7 @@ public class DeleteModuleCommand extends Command {
             + COMMAND_WORD + " m/GER1000";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "deletemod", "delmodule", "delmod"};
+        "deletemod", "delmodule", "delmod", "deletemodule"};
 
     private final Optional<Index> targetIndex;
     private final Optional<ModCode> targetModCode;

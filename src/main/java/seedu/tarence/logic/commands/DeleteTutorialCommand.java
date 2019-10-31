@@ -38,7 +38,7 @@ public class DeleteTutorialCommand extends Command {
             + COMMAND_WORD + " tn/Lab 1 m/PC1431";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "deletetut", "deleteclass", "deltutorial", "deltut", "delclass"};
+        "deletetut", "deleteclass", "deltutorial", "deltut", "delclass", "deletetutorial"};
 
     private final Optional<Index> targetIndex;
     private final Optional<ModCode> targetModCode;

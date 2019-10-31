@@ -26,7 +26,7 @@ public class DeleteStudentCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "deletestu", "deletestud", "delstudent", "delstu", "delstud"};
+        "deletestu", "deletestud", "delstudent", "delstu", "delstud", "deletestudent"};
 
     private final Index targetIndex;
 

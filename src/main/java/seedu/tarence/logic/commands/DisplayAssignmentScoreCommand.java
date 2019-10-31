@@ -28,7 +28,7 @@ public class DisplayAssignmentScoreCommand extends Command {
     public static final String[] GRAPH_SYNONYMS = {"g", "graph"};
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "displayassignmentscore", "displayscore", "displayassignment"};
+        "displayassignmentscore", "displayscore", "displayassignment", "displayassignment"};
 
     // TODO: Update message to include full format
     public static final String MESSAGE_USAGE = COMMAND_WORD
