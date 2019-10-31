@@ -39,7 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 .  Some example commands you can try:
 
 
-* `register i/001A n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : registers a patient named `John Doe`.
+* `register -id 001A -name John Doe -phone 98765432 -email johnd@example.com -address John street, block 123, #01-01` : registers a patient named `John Doe`.
 * `enqueue 001A` : enqueues patient with reference id `001A` into the queue.
 * *`exit`* : exits the app.
 
@@ -60,10 +60,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 ====
 *Command Format*
 
-* Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register n/NAME`, `NAME` is a parameter which can be used as `register n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/<NAME> p/<PHONE_NUMBER>`, `p/<PHONE_NUMBER> n/<NAME>` is also acceptable.
+* Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register -name NAME`, `NAME` is a parameter which can be used as `register -name John Doe`.
+* Items in square brackets are optional e.g `-name NAME [-tag TAG]` can be used as `-name John Doe -tag friend` or as `-name John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[-tag TAG]...` can be used as `{nbsp}` (i.e. 0 times), `-tag friend`, `-tag friend -tag family` etc.
+* Parameters can be in any order e.g. if the command specifies `-name <NAME> -phone <PHONE_NUMBER>`, `-phone <PHONE_NUMBER> -name <NAME>` is also acceptable.
 ====
 
 
@@ -107,14 +107,14 @@ Format: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
 ==== Registers a new patient: `register` ====
 
 Registers a new patient. +
-Format:  `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+Format:  `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 
 ==== Updates patients’ profiles: `update` ====
 
 If user is in the patients listing screen, updates any change for patients’ profiles +
-Format: `update <ENTRY_ID> [n/<PATIENT_NAME>] [i/<PATIENT_REFERENCE_ID>] [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+Format: `update <ENTRY_ID> [-name <PATIENT_NAME>] [-id <PATIENT_REFERENCE_ID>] [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 
 
 === On-Duty Doctors Management ===
@@ -129,13 +129,13 @@ Format: `doctors [<DOCTOR_NAME>]`
 
 Registers a new doctor. +
 If the staff reference identifier is not specified, a unique identifier will be assigned by the system.
-Format: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
+Format: `newdoctor -name <STAFF_NAME> [-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
 
 ==== Updates a doctor's profile: `updatedoctor` ====
 
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
-Format: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
-[i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
+Format: `updatedoctor <ENTRY_ID> [-name <STAFF_NAME>]
+[-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
 
 ==== Marks the doctor as on-duty: `onduty` ====
 
@@ -152,37 +152,36 @@ Format: `offduty <ENTRY_ID>`
 ==== Adds an appointment: `addappt` ====
 
 Adds a new appointment for a patient +
-If no optional fields `[rec/REPEATEDLY]` and `[num/RECURSIVE_TIMES]` are present, only one event will be added. Otherwise repeated appointments will be added. +
-The field `rec/REPEATEDLY` can be `rec/w`, `rec/m`, or `rec/y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
 
-Format: `addappt [i/REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/REPEATED_TIMES]`
+If no optional fields `[-rec REPEATEDLY]` and `[-num RECURSIVE_TIMES]` are present, only one event will be added. Otherwise repeated appointments will be added. +
 
-Examples:
+If no optional fields `[-end <END_TIMING>]` is present, default endTiming is 30 mins after startTiming. Otherwise endTiming will be `[-end <END_TIMING>]`. +
 
-* `addappt i/001A str/01/12/19 0900`
-* `addappt i/001A str/02/12/19 0900 rec/m num/2`
+The field `-rec REPEATEDLY` can be `-rec w`, `-rec m`, or `-rec y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
+
+Format: `addappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-rec REPEATEDLY] [-num REPEATED_TIMES]`
 
 ==== Acknowledges a appointment: `ackappt` ====
 
 Acknowledges an existing appointment once the patient has arrived +
-Format: `ackappt [i/REFERENCE_ID]`
+Format: `ackappt -id <REFERENCE_ID>`
 
 ==== Displays all appointments: `appointments` ====
 
-Displays a sorted list of upcoming appointments for the patient that is associated to the given `i/REFERENCE_ID` +
+Displays a sorted list of upcoming appointments for the patient that is associated to the given `-id REFERENCE_ID` +
 If no keywords are given, all upcoming appointments will be displayed. +
-Format: `appointments [i/REFERENCE_ID]`
+Format: `appointments [-id <REFERENCE_ID>]`
 
 
 ==== Cancels an appointment: `cancelappt` ====
-
 Cancels the specified appointment. +
 Format: `cancelappt <ENTRY_ID>`
 
 ==== Changes the appointment date: `changeappt` ====
 
 Changes the timing for an existing appointment. +
-Format: `changeappt <ENTRY_ID> [str/<START_TIMING>]`
+If no optional fields `[-end <END_TIMING>]` is present, default endTiming is 30 mins after startTiming. Otherwise new endTiming will be `[-end <END_TIMING>]`. +
+Format: `changeappt <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 
 ==== Displays patients who have missed their appointments: `missappt` ====
 
@@ -202,14 +201,14 @@ Format: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
 ==== Shows the empty slots: `slot` (v2.0) ====
 
 List all the available empty slots for patients to make appointments +
-Format: `slot str/<START_DATE>`
+Format: `slot -start <START_DATE>`
 
 === Duty-shift Management
 
 ==== Adds a duty shift for a doctor: `addshift` ====
 
 Adds a new duty shift for a doctor. +
-Format: `addshift [i/STAFF_REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/REPEATED_TIMES]`
+Format: `addshift [-id STAFF_REFERENCE_ID] -start <START_TIMING> -end <END_TIMING> [-rec REPEATEDLY] [-num REPEATED_TIMES]`
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
@@ -219,7 +218,10 @@ Format: `cancelshift <ENTRY_ID>`
 ==== Changes the duty shift for a doctor: `changeshift` ====
 
 Changes the timing of an existing duty shift based on the given entry index.  +
-Format: `changeshift <ENTRY_ID> [str/<START_TIMING>]`
+
+If no optional fields `[-rec REPEATEDLY]` and `[-num RECURSIVE_TIMES]` are present, only one event will be added. Otherwise repeated appointments will be added. +
+
+Format: `changeshift <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 
 === Inventory Commands (v2.0) ===
 
@@ -278,34 +280,34 @@ Format: `redo`
 
 * *Patient Management* +
 ** patient: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
-** register: `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+** register: `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 ** unregister: `unregister <ENTRY_ID>`
-** update: `update <ENTRY_ID> [n/<PATIENT_NAME>] [i/<PATIENT_REFERENCE_ID>] [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+** update: `update <ENTRY_ID> [-name <PATIENT_NAME>] [-id <PATIENT_REFERENCE_ID>] [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 
 * *On-Duty Doctors Management* +
 ** doctors: `doctors [<DOCTOR_NAME>]`
-** newdoctor: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
-** updatedoctor: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
-[i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
+** newdoctor: `newdoctor -name <STAFF_NAME> [-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
+** updatedoctor: `updatedoctor <ENTRY_ID> [-name <STAFF_NAME>]
+[-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
 ** resigndoctor: `resigndoctor <ENTRY_ID>`
 ** onduty: `onduty <ROOM_NUMBER>`
 ** offduty: `offduty <ENTRY_ID>`
 
 * *Appointment Management* +
-** addappt: `appointments [p/<PATIENT_NAME | PATIENT_IC>] [rec/REPEATEDLY] [num/TIMES]`
-** ackappt: `appointments [p/<PATIENT_NAME | PATIENT_IC>]`
-** appointments: `appointments [p/<PATIENT_NAME | PATIENT_IC>]`
+** addappt: `appointments [-phone <PATIENT_NAME | PATIENT_IC>] [-rec REPEATEDLY] [-num TIMES]`
+** ackappt: `appointments [-phone <PATIENT_NAME | PATIENT_IC>]`
+** appointments: `appointments [-phone <PATIENT_NAME | PATIENT_IC>]`
 ** cancelappt: `cancelappt <ENTRY_ID>`
-** changeappt: `changeappt <ENTRY_ID> [str/<START_TIMING>]`
+** changeappt: `changeappt <ENTRY_ID> [-start <START_TIMING>]`
 ** missappt: `missappt`
 ** settle: `settle <ENTRY_ID>`
 
 * *Duty-shift Management* +
-** addshift: `addshift [i/STAFF_REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/REPEATED_TIMES]`
+** addshift: `addshift [-id STAFF_REFERENCE_ID] -start <START_TIMING> [-rec REPEATEDLY] [-num REPEATED_TIMES]`
 ** cancelshift: `cancelshift <ENTRY_ID>`
-** changeshift: `changeshift <ENTRY_ID> [str/<START_TIMING>]`
+** changeshift: `changeshift <ENTRY_ID> [-start <START_TIMING>]`
 
 * *Inventory commands (v2.0)* +
 ** inventory: `inventory`
