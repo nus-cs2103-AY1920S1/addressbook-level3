@@ -355,10 +355,7 @@
 }
 
 .course-text-display {
-    -fx-font-family: "Arial";
-    -fx-font-size: 14;
-}
-
-.course-text-display .text {
-    -fx-line-spacing: 0.5em;
+    -fx-font-family: "monospace";
+    -fx-font-weight: 500;
+    -fx-font-size: 17;
 }
