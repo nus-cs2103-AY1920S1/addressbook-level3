@@ -41,8 +41,8 @@ import seedu.address.logic.commands.budget.DeleteBudgetCommand;
 import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
-import seedu.address.logic.commands.budget.ListBudgetCommand;
-import seedu.address.logic.commands.budget.PastPeriodCommand;
+import seedu.address.logic.commands.budget.ListBudgetsCommand;
+import seedu.address.logic.commands.budget.SwitchBudgetWindowCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
@@ -69,7 +69,7 @@ import seedu.address.logic.parser.EditBudgetCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
 import seedu.address.logic.parser.EditEventCommandParser;
 import seedu.address.logic.parser.EditExpenseFromBudgetCommandParser;
-import seedu.address.logic.parser.PastPeriodCommandParser;
+import seedu.address.logic.parser.SwitchBudgetWindowCommandParser;
 import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
@@ -319,7 +319,7 @@ public class MainWindow extends UiPart<Stage> {
                 SwitchBudgetCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                ListBudgetCommand.COMMAND_WORD,
+                ListBudgetsCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
 
@@ -334,9 +334,9 @@ public class MainWindow extends UiPart<Stage> {
                 EditBudgetCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                PastPeriodCommand.COMMAND_WORD,
-                PastPeriodCommandParser.REQUIRED_PREFIXES,
-                PastPeriodCommandParser.OPTIONAL_PREFIXES);
+                SwitchBudgetWindowCommand.COMMAND_WORD,
+                SwitchBudgetWindowCommandParser.REQUIRED_PREFIXES,
+                SwitchBudgetWindowCommandParser.OPTIONAL_PREFIXES);
 
         // alias commands
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
@@ -547,6 +547,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint("");
         primaryStage.show();
     }
 
