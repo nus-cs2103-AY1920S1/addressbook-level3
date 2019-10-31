@@ -9,6 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -53,25 +54,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyBankAccount> readBankAccount() throws DataConversionException, IOException {
-        return readBankAccount(bankAccountStorage.getBankAccountFilePath());
+    public Optional<ReadOnlyUserState> readAccount() throws DataConversionException, IOException {
+        return readAccount(bankAccountStorage.getBankAccountFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyBankAccount> readBankAccount(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyUserState> readAccount(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return bankAccountStorage.readBankAccount(filePath);
+        return bankAccountStorage.readAccount(filePath);
     }
 
-    @Override
-    public void saveBankAccount(ReadOnlyBankAccount bankAccount) throws IOException {
-        saveBankAccount(bankAccount, bankAccountStorage.getBankAccountFilePath());
+    public void saveAccount(ReadOnlyUserState bankAccount) throws IOException {
+        saveAccount(bankAccount, bankAccountStorage.getBankAccountFilePath());
     }
 
-    @Override
-    public void saveBankAccount(ReadOnlyBankAccount bankAccount, Path filePath) throws IOException {
+    public void saveAccount(ReadOnlyUserState bankAccount, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        bankAccountStorage.saveBankAccount(bankAccount, filePath);
+        bankAccountStorage.saveAccount(bankAccount, filePath);
     }
 
 }

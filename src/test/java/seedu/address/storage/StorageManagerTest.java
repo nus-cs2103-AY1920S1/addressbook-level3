@@ -55,8 +55,8 @@ public class StorageManagerTest {
     public void bankAccountReadSave() throws Exception {
 
         BankAccount original = getTypicalBankAccount();
-        storageManager.saveBankAccount(original);
-        ReadOnlyBankAccount retrieved = storageManager.readBankAccount().get();
+        storageManager.saveAccount(original);
+        ReadOnlyBankAccount retrieved = storageManager.readAccount().get();
         assertEquals(original, new BankAccount(retrieved));
     }
      */

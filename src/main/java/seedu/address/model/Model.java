@@ -92,6 +92,8 @@ public interface Model {
      */
     void setTransactions(List<BankAccountOperation> transactionHistory);
 
+    ReadOnlyUserState getUserState();
+
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the bank account.
      * @param transaction

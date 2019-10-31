@@ -97,6 +97,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyUserState getUserState() {
+        return this.versionedUserState;
+    }
+
+    @Override
     public boolean hasTransaction(BankAccountOperation transaction) {
         requireNonNull(transaction);
         return versionedUserState.getBankAccount().hasTransaction(transaction);

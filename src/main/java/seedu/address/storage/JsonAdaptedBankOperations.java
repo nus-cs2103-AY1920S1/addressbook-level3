@@ -22,7 +22,7 @@ import seedu.address.model.util.Date;
 /**
  * Jackson-friendly version of {@link Transaction}.
  */
-class JsonAdaptedTransaction {
+class JsonAdaptedBankOperations {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
@@ -32,12 +32,12 @@ class JsonAdaptedTransaction {
     private final List<JsonAdaptedCategory> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedTransaction} with the given transaction details.
+     * Constructs a {@code JsonAdaptedBankOperations} with the given transaction details.
      */
     @JsonCreator
-    public JsonAdaptedTransaction(@JsonProperty("description") String description,
-                                  @JsonProperty("amount") String amount, @JsonProperty("date") String date,
-                                  @JsonProperty("tagged") List<JsonAdaptedCategory> tagged) {
+    public JsonAdaptedBankOperations(@JsonProperty("description") String description,
+                                     @JsonProperty("amount") String amount, @JsonProperty("date") String date,
+                                     @JsonProperty("tagged") List<JsonAdaptedCategory> tagged) {
         this.description = description;
         this.amount = amount;
         this.date = date;
@@ -49,7 +49,7 @@ class JsonAdaptedTransaction {
     /**
      * Converts a given {@code Transaction} into this class for Jason use.
      */
-    public JsonAdaptedTransaction(BankAccountOperation source) {
+    public JsonAdaptedBankOperations(BankAccountOperation source) {
         description = source.getDescription().toString();
         amount = source.getAmount().toString();
         date = source.getDate().toString();

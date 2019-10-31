@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.ReadOnlyUserState;
 
 /**
  * Represents a storage for {@link seedu.address.model.BankAccount}.
@@ -23,23 +24,23 @@ public interface BankAccountStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyBankAccount> readBankAccount() throws DataConversionException, IOException;
+    Optional<ReadOnlyUserState> readAccount() throws DataConversionException, IOException;
 
     /**
      * @see #getBankAccountFilePath()
      */
-    Optional<ReadOnlyBankAccount> readBankAccount(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyUserState> readAccount(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyBankAccount} to the storage.
      * @param bankAccount cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveBankAccount(ReadOnlyBankAccount bankAccount) throws IOException;
+    void saveAccount(ReadOnlyUserState bankAccount) throws IOException;
 
     /**
-     * @see #saveBankAccount(ReadOnlyBankAccount)
+     * @see #saveAccount(ReadOnlyUserState)
      */
-    void saveBankAccount(ReadOnlyBankAccount bankAccount, Path filePath) throws IOException;
+    void saveAccount(ReadOnlyUserState bankAccount, Path filePath) throws IOException;
 
 }

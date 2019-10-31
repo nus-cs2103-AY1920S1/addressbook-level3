@@ -34,7 +34,7 @@ public class JsonBankAccountStorageTest {
     }
 
     private java.util.Optional<ReadOnlyBankAccount> readBankAccount(String filePath) throws Exception {
-        return new JsonBankAccountStorage(Paths.get(filePath)).readBankAccount(addToTestDataPathIfNotNull(filePath));
+        return new JsonBankAccountStorage(Paths.get(filePath)).readAccount(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -72,21 +72,21 @@ public class JsonBankAccountStorageTest {
 
 
         // Save in new file and read back
-        jsonBankAccountStorage.saveBankAccount(original, filePath);
-        ReadOnlyBankAccount readBack = jsonBankAccountStorage.readBankAccount(filePath).get();
+        jsonBankAccountStorage.saveAccount(original, filePath);
+        ReadOnlyBankAccount readBack = jsonBankAccountStorage.readAccount(filePath).get();
         assertEquals(original, new BankAccount(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addTransaction(HOON);
         original.removeTransaction(ALICE);
-        jsonBankAccountStorage.saveBankAccount(original, filePath);
-        readBack = jsonBankAccountStorage.readBankAccount(filePath).get();
+        jsonBankAccountStorage.saveAccount(original, filePath);
+        readBack = jsonBankAccountStorage.readAccount(filePath).get();
         assertEquals(original, new BankAccount(readBack));
 
         // Save and read without specifying file path
         original.addTransaction(IDA);
-        jsonBankAccountStorage.saveBankAccount(original); // file path not specified
-        readBack = jsonBankAccountStorage.readBankAccount().get(); // file path not specified
+        jsonBankAccountStorage.saveAccount(original); // file path not specified
+        readBack = jsonBankAccountStorage.readAccount().get(); // file path not specified
         assertEquals(original, new BankAccount(readBack));
 
     }
@@ -102,7 +102,7 @@ public class JsonBankAccountStorageTest {
     private void saveBankAccount(ReadOnlyBankAccount bankAccount, String filePath) {
         try {
             new JsonBankAccountStorage(Paths.get(filePath))
-                .saveBankAccount(bankAccount, addToTestDataPathIfNotNull(filePath));
+                .saveAccount(bankAccount, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

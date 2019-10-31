@@ -80,4 +80,12 @@ public class UserState implements ReadOnlyUserState {
     public void addLedgerOperation(LedgerOperation operation) {
         ledger.addOperation(operation);
     }
+
+    public boolean hasTransaction(BankAccountOperation txn) {
+        return bankAccount.hasTransaction(txn);
+    }
+
+    public boolean hasBudget(Budget budget) {
+        return bankAccount.hasBudget(budget);
+    }
 }

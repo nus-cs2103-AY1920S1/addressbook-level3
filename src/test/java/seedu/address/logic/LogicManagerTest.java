@@ -164,7 +164,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveBankAccount(ReadOnlyBankAccount bankAccount, Path filePath) throws IOException {
+        public void saveAccount(ReadOnlyBankAccount bankAccount, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
