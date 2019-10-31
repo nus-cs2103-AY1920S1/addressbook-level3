@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STRONG;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class AnalysePasswordCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException, DictionaryException {
         requireNonNull(model);
+        model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
         List<Password> passwordList = model.getFilteredPasswordList();
         List<Analyser> analyserList = getRequiredAnalysers();
         AnalysisReport analysisReport = new AnalysisReport();

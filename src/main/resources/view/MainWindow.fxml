@@ -63,7 +63,7 @@
             </children>
           </VBox>
 
-          <VBox fx:id="objectList" minWidth="200" prefWidth="200" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+          <VBox fx:id="objectList" minWidth="200" prefWidth="200" styleClass="pane-with-border" HBox.hgrow="SOMETIMES" VBox.vgrow="ALWAYS">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
