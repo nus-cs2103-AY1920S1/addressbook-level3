@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javafx.collections.transformation.SortedList;
+import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.autotag.AutotagController;
 import seedu.mark.model.autotag.BookmarkTagger;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
@@ -36,6 +40,8 @@ public class Mark implements ReadOnlyMark {
 
     private final AutotagController autotagController;
 
+    private final ObservableList<Paragraph> annotatedDocument;
+
 
     public Mark() {
         bookmarks = new UniqueBookmarkList();
@@ -46,6 +52,7 @@ public class Mark implements ReadOnlyMark {
 
         autotagController = new AutotagController(new ArrayList<>());
 
+        annotatedDocument = FXCollections.observableList(new ArrayList<>());
     }
 
     /**
@@ -78,6 +85,8 @@ public class Mark implements ReadOnlyMark {
         setReminderAssociation(newData.getReminderAssociation());
 
         setAutotagController(newData.getAutotagController());
+
+        setAnnotatedDocument(newData.getAnnotatedDocument());
     }
 
     //// bookmark-level operations
@@ -295,6 +304,21 @@ public class Mark implements ReadOnlyMark {
         return autotagController;
     }
 
+    @Override
+    public ObservableList<Paragraph> getAnnotatedDocument() {
+        return annotatedDocument;
+    }
+
+    public void setAnnotatedDocument(ObservableList<Paragraph> docParagraphs) {
+        annotatedDocument.setAll(new SortedList<>(
+                docParagraphs, (
+                Paragraph p1, Paragraph p2) -> {
+            ParagraphIdentifier pid1 = p1.getId();
+            ParagraphIdentifier pid2 = p2.getId();
+            return pid1.compareTo(pid2);
+        }
+        ));
+    }
 
     public boolean hasFolder(Folder folder) {
         return getFolderStructure().hasFolder(folder);

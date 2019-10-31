@@ -1,6 +1,7 @@
 package seedu.mark.model;
 
 import javafx.collections.ObservableList;
+import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.autotag.AutotagController;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.folderstructure.FolderStructure;
@@ -25,5 +26,7 @@ public interface ReadOnlyMark {
     ObservableList<Reminder> getReminderList();
 
     AutotagController getAutotagController();
+
+    ObservableList<Paragraph> getAnnotatedDocument();
 
 }

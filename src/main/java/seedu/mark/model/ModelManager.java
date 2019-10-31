@@ -35,7 +35,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
     private final SimpleObjectProperty<Url> currentUrl = new SimpleObjectProperty<>();
-    private final ObservableList<Paragraph> annotatedDocument;
     private final SimpleObjectProperty<Bookmark> bookmarkToDisplayCache = new SimpleObjectProperty<>();
 
 
@@ -51,7 +50,6 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
-        annotatedDocument = FXCollections.observableList(new ArrayList<>());
     }
 
     public ModelManager() {
@@ -261,19 +259,12 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Paragraph> getObservableDocument() {
-        return annotatedDocument;
+        return versionedMark.getAnnotatedDocument();
     }
 
     @Override
     public void updateDocument(OfflineDocument doc) {
-        annotatedDocument.setAll(new SortedList<>(
-                FXCollections.observableArrayList(doc.getCollection()), (
-                Paragraph p1, Paragraph p2) -> {
-            ParagraphIdentifier pid1 = p1.getId();
-            ParagraphIdentifier pid2 = p2.getId();
-            return pid1.compareTo(pid2);
-        }
-        ));
+        versionedMark.setAnnotatedDocument(FXCollections.observableArrayList(doc.getCollection()));
     }
 
 
