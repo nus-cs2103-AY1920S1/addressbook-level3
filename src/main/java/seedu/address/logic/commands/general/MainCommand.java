@@ -5,7 +5,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Command to jump tab to the schedule tab
+ * Command to jump tab to the Main tab
  */
 public class MainCommand extends Command {
 
