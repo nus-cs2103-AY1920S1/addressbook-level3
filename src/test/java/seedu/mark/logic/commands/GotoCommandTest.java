@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.results.CommandResult;
+import seedu.mark.logic.commands.results.GotoCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
@@ -22,6 +23,7 @@ import seedu.mark.storage.Storage;
 import seedu.mark.storage.StorageStub;
 
 public class GotoCommandTest {
+
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
     private Storage storage = new StorageStub();
@@ -33,7 +35,7 @@ public class GotoCommandTest {
 
         expectedModel.setCurrentUrl(bookmarkToOpen.getUrl());
         String expectedMessage = String.format(GotoCommand.MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, bookmarkToOpen);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new GotoCommandResult(expectedMessage);
 
         assertCommandSuccess(gotoCommand, model, storage, expectedCommandResult, expectedModel);
     }
@@ -56,7 +58,7 @@ public class GotoCommandTest {
 
         expectedModel.setCurrentUrl(bookmarkToOpen.getUrl());
         String expectedMessage = String.format(GotoCommand.MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, bookmarkToOpen);
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new GotoCommandResult(expectedMessage);
 
         assertCommandSuccess(gotoCommand, model, storage, expectedCommandResult, expectedModel);
     }
