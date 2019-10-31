@@ -34,8 +34,13 @@ public class OutCommandParser implements Parser<OutCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OutCommand.MESSAGE_USAGE));
         }
+        /* handles negative amount */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
+            throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_NEGATIVE));
+        }
+
         /* handles amount above 1billion */
-        if(argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH){
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH) {
             throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_OVERFLOW));
         }
 

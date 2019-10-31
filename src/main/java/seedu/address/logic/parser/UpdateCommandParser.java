@@ -56,9 +56,13 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         if (!updateTransactionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
         }
+        /* handles negative amount */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
+            throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_NEGATIVE));
+        }
 
         /* handles amount above 1billion */
-        if(argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH){
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH) {
             throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_OVERFLOW));
         }
 

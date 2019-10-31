@@ -47,6 +47,7 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
     public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated: %1$s";
     public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 billion (i.e. 1,000,000)";
+    public static final String MESSAGE_AMOUNT_NEGATIVE = "Transaction amount cannot be negative";
 
     private final String type;
     private final Index targetIndex;
