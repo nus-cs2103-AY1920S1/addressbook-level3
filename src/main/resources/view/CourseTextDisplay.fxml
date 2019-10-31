@@ -11,6 +11,7 @@
 
    <TextArea fx:id="courseTextDisplay"
              editable="false"
-             styleClass="result-display"/>
+             wrapText="true"
+             styleClass="course-text-display"/>
 
 </StackPane>

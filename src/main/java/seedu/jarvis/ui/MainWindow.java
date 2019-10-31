@@ -1,5 +1,12 @@
 package seedu.jarvis.ui;
 
+import static seedu.jarvis.model.viewstatus.ViewType.HOME_PAGE;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_ADDRESS;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_COURSE;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_FINANCE;
+import static seedu.jarvis.model.viewstatus.ViewType.LIST_PLANNER;
+
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -134,9 +141,9 @@ public class MainWindow extends UiPart<Stage> {
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
-                event.consume();
                 model.setViewStatus(ViewType.getNextViewType(model.getViewStatus().getViewType()));
                 handleSwitch();
+                commandUpdater.executeUpdateCallback();
             }
         });
     }
