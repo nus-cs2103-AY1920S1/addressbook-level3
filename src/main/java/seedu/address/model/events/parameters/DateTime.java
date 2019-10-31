@@ -15,7 +15,7 @@ public class DateTime implements Comparable<DateTime> {
 
     public static final String DATETIME_FORMAT = "dd/MM/yy HHmm";
     public static final String MESSAGE_CONSTRAINTS =
-            "date time must be follow the format of '" + DATETIME_FORMAT + "'.";
+            "date time must be valid and follow the format of '" + DATETIME_FORMAT + "'.";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
 
     private final LocalDateTime time;
