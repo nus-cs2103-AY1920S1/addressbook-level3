@@ -7,6 +7,7 @@ import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
