@@ -588,7 +588,10 @@ public class ModelManager implements Model {
             Order o = orders.get(i);
             if (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED)) {
                 orderBook.remove(o);
-                archivedOrderBook.add(o);
+
+                if (!archivedOrderBook.has(o)) {
+                    archivedOrderBook.add(o);
+                }
             }
         }
 
@@ -596,7 +599,10 @@ public class ModelManager implements Model {
             Order o = archivedOrders.get(i);
             if (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED)) {
                 archivedOrderBook.remove(o);
-                orderBook.add(o);
+
+                if (!orderBook.has(o)) {
+                    orderBook.add(o);
+                }
             }
         }
     }
