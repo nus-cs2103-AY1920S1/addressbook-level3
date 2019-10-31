@@ -41,6 +41,7 @@ import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.SortCommand;
+import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
@@ -199,6 +200,12 @@ public class SaveNusParserTest {
     public void parseCommand_autosort() throws ParseException {
         assertTrue(
                 parser.parseCommand(AutoSortCommand.COMMAND_WORD + " ON") instanceof AutoSortCommand);
+    }
+
+    @Test
+    public void parseCommand_viewsort() throws ParseException {
+        assertTrue(
+                parser.parseCommand(ViewSortCommand.COMMAND_WORD) instanceof ViewSortCommand);
     }
 
     @Test

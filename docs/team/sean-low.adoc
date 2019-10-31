@@ -56,9 +56,9 @@ the food list, they would want it readily available to them.
 
 ==== Highlights
 
-While implementing this feature, I had to implement new commands such as `default`, `sort`, `makesort` `customsort` and
-`autosort`. `default` and `sort` forms the backbone of the sorting algorithm, where it sorts food items based on
-default or specified criterion respectively.
+While implementing this feature, I had to implement new commands such as `default`, `sort`, `viewsort`,
+makesort` `customsort` and `autosort`. `default` and `sort` forms the backbone of the sorting algorithm,
+where it sorts food items based on  default or specified criterion respectively.
 
 `makesort`, `customsort` and `autosort` allow users to specifies their criterion to sort the food items. The application
 can then store the specified criterion and taken into account these criterion. As a result, the user will be able
@@ -69,6 +69,38 @@ into their hard disk and persist even after the application is closed and restar
 
 In this way, the user benefits from the sorting algorithms which allows users to see the food that best matches the
 criterion at the top of the food list.
+
+Finally, they should be able to view the fields of the custom comparator using `viewsort`.
+
+=== Minor enhancement: Filter Feature
+
+I have added a filter feature to $aveNUS which allows users to filter food items based on some specific criterion.
+
+==== What it does
+
+The filter feature only shows food that satisfy the criterion given by the user.  This is done by taking
+into account  specific fields given from the command line interface.
+
+For example, if the user wishes to see the list of food items which have a price of less than $5.00, only
+food items with a price of $4.99 and below can be seen in the display panel.
+
+==== Justification
+
+NUS students might have certain restrictions with regards to the food that they can eat. As a result, it will be
+good for them to be able to filter the type of food they can order.
+
+For example, if they want to view halal food, they can just type in the following:
+
+`filter CATEGORY EQUALS_TO halal`.
+
+==== Highlights
+
+While implementing this feature, I had to implement the `filter` command. This is done in a way such that it
+will only affect the food list display panel. As a result, the food items stored in the data files will not
+be accidentally edited or removed.
+
+In this way, if the user wishes to see his entire food list again, the user can simply type in the command
+`list`.
 
 === Other contributions
 
@@ -105,12 +137,16 @@ https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/64#pullrequestrev
 
 == Contributions to the User Guide
 
-This section shows the contributions that I have made to the recommendation feature of the User Guide.
+This section shows the contributions that I have made to the sorting feature of the User Guide.
 
 include::../UserGuide.adoc[tag=sorting]
 
+This section shows the contributions that I have made to the filter feature of the User Guide.
+
+include::../UserGuide.adoc[tag=filters]
+
 == Contributions to the Developer Guide
 
-This section shows the additions that I have made to the recommendation feature of the Developer Guide.
+This section shows the additions that I have made to the sorting feature of the Developer Guide.
 
 include::../DeveloperGuide.adoc[tag=sorting]

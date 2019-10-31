@@ -229,6 +229,7 @@ Finds a food items based on a specific FIELD or fields. At least one FIELD must 
 *Example*: `find n/Chicken d/Rice`
 ****
 
+//tag::filters[]
 ==== Filters food items based on criteria: `filter`
 Filters the food items based on the criteria specified. Note: You can need to
 have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
@@ -237,6 +238,7 @@ have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 *Format*: `filter FIELD QUANTIFIER VALUE`
 *Example*: `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
 ****
+//end::filters[]
 
 ==== Deletes a food item: `delete`
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
@@ -304,6 +306,13 @@ There are only two states, ON or OFF.
 *Example*: `autosort ON`
 ****
 
+==== Views the fields for the custom comparator: `viewsort`
+Views the current Custom Sorter.
+
+====
+*Format*: `viewsort`
+====
+
 ==== Sorts food items based on natural order: `default`
 Sorts the food items based on their default ordering, where it is based on ascending price, name and then category.
 
@@ -336,6 +345,7 @@ Allows users to top up the money into their wallet.
 If the top up was successful, you should be able to see the update in your wallet immediately.
 //end::budgeting[]
 
+//tag::savings[]
 ==== Saves money into savings account: `save`
 Allows users to log an amount of money to save in his savings account from user's wallet.
 
@@ -361,7 +371,9 @@ Also the amount saved is deducted from your wallet.
 
 ==== Withdraws money from savings account: `withdraw`
 Allows users to log an amount of money to withdraw from his savings account into his wallet.
+//end::savings[]
 
+//tag::withdrawals[]
 ****
 *Format*: `withdraw` +
 *Example*: `withdraw 10`
@@ -379,6 +391,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 [NOTE]
 If you click the "Savings" tab on the right panel, you will be able to view your savings history.
 Also the amount withdrawn is added into your wallet.
+//end::withdrawals[]
 
 //tag::purchasing[]
 === Purchasing
@@ -707,4 +720,7 @@ Unfortunately you are unable to change the app’s language
 | <<Top up money into wallet: `topup`, `topup`>>
 | Allows users to top up the money into their wallet.
 | ```topup 10```
+| <<Views the fields for the custom comparator: `viewsort`, `viewsort`>>
+| Views the current Custom Sorter.
+| ```viewsort```
 |===
