@@ -1,26 +1,22 @@
-/*
-// Need to modify deletedays to be flexible, to delete an index or a range, else cannot undo addDays
 package seedu.address.logic.events.add;
 
 import seedu.address.logic.commands.AddDayCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteDayCommand;
+import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.logic.commands.system.DeleteDaysCommand;
 import seedu.address.logic.events.Event;
 
 public class AddDayEvent implements Event {
-    private final int daysAdded;
+    private final int numberOfDays;
 
-    public AddDayEvent(int daysAdded) {
-        this.daysAdded = daysAdded;
+    public AddDayEvent(int numberOfDays) {
+        this.numberOfDays = numberOfDays;
     }
 
-    public Command undo() {
-        return new DeleteDayCommand(dayAdded);
+    public UndoableCommand undo() {
+        return new DeleteDaysCommand(numberOfDays);
     }
 
-    public Command redo() {
-        return new AddDayCommand(dayAdded);
+    public UndoableCommand redo() {
+        return new AddDayCommand(numberOfDays);
     }
 }
-*/
-

@@ -320,6 +320,10 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public void deleteDays(int n) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void setDays(ReadOnlyItinerary itinerary) {
             throw new AssertionError("This method should not be called.");
         }
