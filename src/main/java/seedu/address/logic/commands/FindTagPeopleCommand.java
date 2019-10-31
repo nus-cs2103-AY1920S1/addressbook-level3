@@ -21,7 +21,7 @@ public class FindTagPeopleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons who possess all "
             + "the specified tags (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: TAG [MORE_TAGS]... (must be lowercase)\n"
             + "Example: " + COMMAND_WORD + " t/nonsmoker t/senior";
 
     private final List<String> tagNames;
@@ -39,7 +39,7 @@ public class FindTagPeopleCommand extends Command {
         }
 
         for (String tag : tagNames) {
-            if ((tag.length() == 0) || (tag.matches("^.*[^a-zA-Z0-9 ].*$"))) {
+            if ((tag.length() == 0) || (tag.matches("^.*[^a-z0-9 ].*$"))) {
                 throw new CommandException(
                         String.format(
                                 Messages.MESSAGE_INVALID_COMMAND_FORMAT,

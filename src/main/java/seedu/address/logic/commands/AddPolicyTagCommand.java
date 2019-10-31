@@ -27,7 +27,7 @@ public class AddPolicyTagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tag to the policy identified "
             + "by the index number used in the last policy listing. "
             + "Parameters: INDEX (must be a positive integer) "
-            + "t/ TAG [MORE_TAGS]\n"
+            + "t/ TAG [MORE_TAGS] (must be lowercase)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "t/life t/accident";
 
@@ -55,7 +55,7 @@ public class AddPolicyTagCommand extends Command {
         }
 
         for (String tag : tags) {
-            if ((tag.length() == 0) || (tag.matches("^.*[^a-zA-Z0-9 ].*$"))) {
+            if ((tag.length() == 0) || (tag.matches("^.*[^a-z0-9 ].*$"))) {
                 throw new CommandException(
                         String.format(
                                 Messages.MESSAGE_INVALID_COMMAND_FORMAT,
