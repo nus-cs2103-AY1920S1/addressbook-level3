@@ -26,7 +26,7 @@ public class UndoCommand extends Command {
             + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5";
 
 
-    public static final String MESSAGE_SUCCESS = "Undone %1$d commands";
+    public static final String MESSAGE_SUCCESS = "Undone %1$d command(s)";
     public static final String MESSAGE_NOTHING_TO_UNDO = "Nothing available to undo.";
     public static final String MESSAGE_TOO_MANY_UNDO = "There are only %1$d commands available to be undone";
     public static final String MESSAGE_UNABLE_TO_UNDO =
