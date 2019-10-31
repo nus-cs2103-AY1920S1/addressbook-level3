@@ -52,7 +52,7 @@ public class AnalyticsFeatureParser implements FeatureParser {
 
         case ExpenditureRankingCommand.COMMAND_WORD:
             return new ExpenditureRankingCommandParser().parse(arguments);
-            
+
         case MonthlyExpenditureRankingCommand.COMMAND_WORD:
             return new MonthlyExpenditureRankingCommandParser().parse(arguments);
 
