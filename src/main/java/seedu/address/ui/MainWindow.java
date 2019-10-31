@@ -90,6 +90,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        lastFired = participantsButton;
     }
 
     public Stage getPrimaryStage() {
@@ -231,8 +232,6 @@ public class MainWindow extends UiPart<Stage> {
         entityListPanel = new EntityListPanel(logic.getFilteredParticipantList());
 
         listPanelPlaceholder.getChildren().set(0, entityListPanel.getRoot());
-        listPanelPlaceholder.setStyle("-fx-background-color: #5d6d7e");
-        logger.info("Color of entity list placeholder is: " + listPanelPlaceholder.getStyle());
     }
 
     /**
@@ -243,8 +242,6 @@ public class MainWindow extends UiPart<Stage> {
         entityListPanel = new EntityListPanel(logic.getSortedTeamList());
 
         listPanelPlaceholder.getChildren().set(0, entityListPanel.getRoot());
-        listPanelPlaceholder.setStyle("-fx-background-color: #5d6d7e");
-        logger.info("Color of entity list placeholder is: " + listPanelPlaceholder.getStyle());
     }
 
     /**
@@ -255,8 +252,6 @@ public class MainWindow extends UiPart<Stage> {
         entityListPanel = new EntityListPanel(logic.getTopKTeams());
 
         listPanelPlaceholder.getChildren().set(0, entityListPanel.getRoot());
-        listPanelPlaceholder.setStyle("-fx-background-color: #5d6d7e");
-        logger.info("Color of entity list placeholder is: " + listPanelPlaceholder.getStyle());
     }
 
     /**
@@ -266,9 +261,6 @@ public class MainWindow extends UiPart<Stage> {
     private void displayTeamList() {
         entityListPanel = new EntityListPanel(logic.getFilteredTeamList());
         listPanelPlaceholder.getChildren().set(0, entityListPanel.getRoot());
-        listPanelPlaceholder.setStyle("-fx-background-color:#abb2b9");
-        logger.info("Color of entity list placeholder is: " + listPanelPlaceholder.getStyle());
-
     }
 
     /**
@@ -278,9 +270,6 @@ public class MainWindow extends UiPart<Stage> {
     private void displayMentorList() {
         entityListPanel = new EntityListPanel(logic.getFilteredMentorList());
         listPanelPlaceholder.getChildren().set(0, entityListPanel.getRoot());
-        listPanelPlaceholder.setStyle("-fx-background-color: #17202a");
-        logger.info("Color of entity list placeholder is: " + listPanelPlaceholder.getStyle());
-
     }
 
     /**
@@ -290,9 +279,6 @@ public class MainWindow extends UiPart<Stage> {
     private void displayHistory() {
         commandListPanel = new CommandListPanel(logic.getCommandHistory());
         listPanelPlaceholder.getChildren().set(0, commandListPanel.getRoot());
-        listPanelPlaceholder.setStyle("-fx-background-color: #17202a");
-        logger.info("Color of entity list placeholder is: " + listPanelPlaceholder.getStyle());
-
     }
 
     public EntityListPanel getEntityListPanel() {
@@ -364,7 +350,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case H:
                 this.fireButton(historyButton);
-                lastFired = mentorsButton;
+                lastFired = historyButton;
                 break;
             case L:
                 this.fireButton(leaderboardButton);

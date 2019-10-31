@@ -52,17 +52,17 @@ public class CommandRecordCard extends UiPart<Region> {
 
         switch (commandType) {
         case UNDO:
-            cardPane.setStyle("-fx-background-color: #17202a");
+            //cardPane.setStyle("-fx-background-color: #17202a");
             break;
         case CURR:
             labels.getChildren().add(new javafx.scene.control.Label("You are here"));
-            cardPane.setStyle("-fx-background-color: #17202a");
+            //cardPane.setStyle("-fx-background-color: #17202a");
             break;
         case REDO:
-            cardPane.setStyle("-fx-background-color: #17202b");
+           // cardPane.setStyle("-fx-background-color: #17202b");
             break;
         case END:
-            cardPane.setStyle("-fx-background-color: #17202c");
+            //cardPane.setStyle("-fx-background-color: #17202c");
             break;
 
         default:
