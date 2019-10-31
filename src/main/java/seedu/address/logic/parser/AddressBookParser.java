@@ -37,9 +37,10 @@ import seedu.address.logic.commands.calendar.FindTaskCommand;
 import seedu.address.logic.commands.calendar.ListTasksBasedOnDateCommand;
 import seedu.address.logic.commands.calendar.ListTasksCommand;
 import seedu.address.logic.commands.note.AddNotesCommand;
-import seedu.address.logic.commands.note.DeleteNotesCommand;
 import seedu.address.logic.commands.note.EditNotesCommand;
+import seedu.address.logic.commands.note.DeleteNotesCommand;
 import seedu.address.logic.commands.note.FindNotesCommand;
+import seedu.address.logic.commands.note.ListNotesCommand;
 import seedu.address.logic.commands.reminder.AddReminderCommand;
 import seedu.address.logic.commands.reminder.DeleteReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -104,6 +105,7 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(DeleteNotesCommand.COMMAND_WORD, DeleteNotesCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(EditNotesCommand.COMMAND_WORD, EditNotesCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(FindNotesCommand.COMMAND_WORD, FindNotesCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ListNotesCommand.COMMAND_WORD, ListNotesCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(LoginCommand.COMMAND_WORD, LoginCommand.COMMAND_WORD);
@@ -234,6 +236,9 @@ public class AddressBookParser {
 
             case FindNotesCommand.COMMAND_WORD:
                 return new FindNotesCommandParser().parse(arguments);
+
+            case ListNotesCommand.COMMAND_WORD:
+                return new ListNotesCommand();
 
             case TotalEarningsCommand.COMMAND_WORD:
                 return new TotalEarningsCommand();
