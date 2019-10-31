@@ -29,6 +29,10 @@ checkstyle {
     toolVersion = '8.1'
 }
 
+run {
+    enableAssertions(true)
+}
+
 jacocoTestReport {
     reports {
         xml.enabled false
