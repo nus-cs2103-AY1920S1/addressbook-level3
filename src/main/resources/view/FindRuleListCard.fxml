@@ -28,37 +28,37 @@
             </HBox>
          <HBox>
             <children>
-               <Label text="Name: " />
+               <Label styleClass="cell_small_label_prefix" text="Name: " />
                <Label fx:id="problemName" styleClass="cell_small_label" text="\$problemName" />
             </children>
          </HBox>
          <HBox>
             <children>
-               <Label text="Author: " />
+               <Label styleClass="cell_small_label_prefix" text="Author: " />
                   <Label fx:id="author" styleClass="cell_small_label" text="\$author" />
             </children>
          </HBox>
          <HBox>
             <children>
-               <Label text="Description: " />
+               <Label styleClass="cell_small_label_prefix" text="Description: " />
                   <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
             </children>
          </HBox>
          <HBox>
             <children>
-               <Label text="Difficulty: " />
+               <Label styleClass="cell_small_label_prefix" text="Difficulty: " />
                   <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" />
             </children>
          </HBox>
          <HBox>
             <children>
-               <Label text="Source: " />
+               <Label styleClass="cell_small_label_prefix" text="Source: " />
                   <Label fx:id="source" styleClass="cell_small_label" text="\$source" />
             </children>
          </HBox>
          <HBox layoutX="25.0" layoutY="100.0">
             <children>
-               <Label text="Tag:" />
+               <Label styleClass="cell_small_label_prefix" text="Tag:" />
                <Label fx:id="tag" styleClass="cell_small_label" text="\$tag" />
             </children>
          </HBox>
