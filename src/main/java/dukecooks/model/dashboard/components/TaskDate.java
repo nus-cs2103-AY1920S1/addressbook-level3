@@ -39,7 +39,13 @@ public class TaskDate {
         int d = Integer.parseInt(t[0]);
         int m = Integer.parseInt(t[1]);
         int y = Integer.parseInt(t[2]);
-        boolean validDay = d > 0 && d < 31;
+        boolean validDay = d > 0 && d < 32;
+        if (m == 2 && d > 29) {
+            validDay = false;
+        }
+        if ((m == 4 || m == 6 || m == 9 || m == 11) && d > 31) {
+            validDay = false;
+        }
         boolean validMonth = m > 0 && m < 13;
         boolean validYear = y > 2018;
         if (validDay && validMonth && validYear) {

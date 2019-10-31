@@ -437,6 +437,11 @@ public interface Model {
     void doneDashboard(Dashboard key);
 
     /**
+     * Replaces recently completed dashboard and updates them as completed.
+     */
+    void changeDashboard(List<Dashboard> l);
+
+    /**
      * Returns true if user has 5 new completed task.
      */
     boolean checkForPrize(List<Dashboard> l);

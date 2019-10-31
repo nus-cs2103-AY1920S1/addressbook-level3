@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -45,22 +44,14 @@
          </VBox>
       </children>
    </HBox>
-   <HBox>
+   <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
       <children>
-         <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
-            <children>
-               <ListView fx:id="mealPlanIndexListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" />
-            </children>
-         </StackPane>
-         <StackPane maxWidth="1.7976931348623157E308" HBox.hgrow="SOMETIMES">
-            <children>
-               <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                  <content>
-                     <FlowPane fx:id="mealPlanListView" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" />
-                  </content>
-               </ScrollPane>
-            </children>
-         </StackPane>
+         <ListView fx:id="mealPlanIndexListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" />
+         <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+            <content>
+               <FlowPane fx:id="mealPlanListView" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" />
+            </content>
+         </ScrollPane>
       </children>
    </HBox>
 </VBox>

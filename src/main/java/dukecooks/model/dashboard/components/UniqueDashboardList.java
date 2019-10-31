@@ -3,7 +3,7 @@ package dukecooks.model.dashboard.components;
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -31,16 +31,6 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     private final ObservableList<Dashboard> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    private final long taskLeft = internalList.stream()
-            .filter(i -> i.getTaskStatus().getDoneStatus() == false).count();
-
-    /**
-     * Get the number of task left in a String.
-     */
-    public String getTaskLeft() {
-        return Long.toString(taskLeft);
-    }
-
     /**
      * Sorts the list by date.
      */
@@ -51,19 +41,46 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
                 return o1.getLocalDate().compareTo(o2.getLocalDate());
             }
         };
-        Collections.sort(l, comparator);
+        l.sort(comparator);
     }
 
     /**
      * Counts the number of completed task and returns true if 5 new tasks are completed.
      */
     public boolean doneFive(List<Dashboard> l) {
-        l.stream().filter(i -> i.getTaskStatus().getNotDoneStatus());
-        int size = l.size();
+        long size = l.stream().filter(i -> i.getTaskStatus().getRecentlyDoneStatus()).count();
+        System.out.println(size);
+        for (Dashboard d : l) {
+            System.out.println(d.getDashboardName());
+        }
         if (size % 5 == 0) {
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * Changes status of recently completed tasks to completed tasks.
+     */
+    public void changeDone(List<Dashboard> l) {
+        List<Dashboard> list1 = new ArrayList<>();
+        List<Dashboard> list2 = new ArrayList<>();
+        int size = l.size();
+
+        for (int i = 0; i < size; i++) {
+            Dashboard d = l.get(i);
+            if (d.getTaskStatus().getRecentlyDoneStatus()) {
+                Dashboard updated = new Dashboard(d.getDashboardName(), d.getTaskDate(), new TaskStatus("COMPLETED"));
+                list1.add(d);
+                list2.add(updated);
+            }
+        }
+        for (Dashboard i : list1) {
+            remove(i);
+        }
+        for (Dashboard ii : list2) {
+            add(ii);
         }
     }
 
@@ -133,7 +150,6 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
         if (!internalList.remove(toRemove)) {
             throw new DashboardNotFoundException();
         }
-        sortDashboard(internalList);
     }
 
     public void setDashboards(UniqueDashboardList replacement) {

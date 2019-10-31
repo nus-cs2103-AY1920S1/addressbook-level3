@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dukecooks.logic.commands.ListCommand;
-import dukecooks.logic.commands.dashboard.ListTaskCommand;
 import dukecooks.logic.commands.dashboard.ListTaskDoneCommand;
 import dukecooks.logic.commands.dashboard.ListTaskNotDoneCommand;
 import dukecooks.logic.commands.diary.ListDiaryCommand;
@@ -42,9 +41,6 @@ public class ListCommandParser implements Parser<ListCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (variant) {
-
-        case ListTaskCommand.VARIANT_WORD:
-            return new ListTaskCommand();
 
         case ListTaskDoneCommand.VARIANT_WORD:
             return new ListTaskDoneCommand();

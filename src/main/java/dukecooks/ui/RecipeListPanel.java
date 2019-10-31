@@ -38,8 +38,8 @@ public class RecipeListPanel extends UiPart<Region> {
      * Gives the overview of health records recorded by user
      */
     void initializeFlowPaneView(ObservableList<Recipe> recipeList) {
-        recipeListView.setHgap(5);
-        recipeListView.setVgap(5);
+        recipeListView.setHgap(10);
+        recipeListView.setVgap(10);
         recipeListView.setPadding(new Insets(10, 10, 10, 10));
 
         // Creates a RecipeCard for each recipe and adds to FlowPane

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane style="-fx-background-color: lightpink; -fx-background-radius: 8 8 8 8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane minHeight="150.0" minWidth="200.0" style="-fx-background-color: lightpink; -fx-background-radius: 8 8 8 8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
    </columnConstraints>
@@ -31,6 +31,9 @@
                   </Label>
                   <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
             </HBox>
             <Label styleClass="cell_small_label" text="Day 1:" />
             <VBox fx:id="day1">
