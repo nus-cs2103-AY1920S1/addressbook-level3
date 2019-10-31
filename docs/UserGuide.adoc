@@ -174,11 +174,39 @@ Navigates back to the *HomePage*.
 
 *Format:* `home`
 
+image::home.png[width="1000"]
+
 === List all questions: `showall`
 
 Navigates to the *Questions* Tab and displays all available questions.
 
 *Format:* `showall`
+
+image::listallquestions.png[width="1000"]
+
+=== Adding bookmark: `bookmark`
+
+Bookmarks a question by its id.
+
+*Format:* `bookmark [id]...`
+
+****
+* The id of a question can be found next to its title.
+* The bookmarked question will appear in the list of bookmarked questions under the *Home* Tab.
+****
+
+image::bookmark.png[width="1000"]
+
+=== Removing bookmark: `deletebookmark`
+
+Removes a bookmark from a question by its id.
+
+*Format:* `deletebookmark [id]...`
+
+****
+* The id of a question can be found next to its title.
+* The question with the bookmark removed will disappear from the list of bookmarked questions under the *Home* Tab.
+****
 
 === Find question by title : `find`
 
@@ -190,8 +218,12 @@ Searches for question of which the title contains *strictly* the keywords entere
 * *NOTE*: This function does not work for character sequences!
 +
 e.g. Searching for `su` will *NOT* yield questions with titles such as `Sudoku` or `The Supreme Seven`
-* The search is case insensitive. e.g `recursion` will match `Recursion`.
-* The order of the keywords does not matter. e.g. `Fun tree` will match `tree Fun`.
+* The search is case insensitive.
++
+e.g `recursion` will match `Recursion`.
+* The order of the keywords does not matter.
++
+e.g. `Fun tree` will match `tree Fun`.
 * Questions with title matching at least one keyword will be displayed
 +
 e.g. searching for `sudoku adder` will yield questions with titles such as `Valid Sudoku` and `Two Number Adder`.
@@ -218,7 +250,9 @@ contains one of the keyword(s) in their _title, topics, description, status_ or 
 * *NOTE*: This function does *NOT* work for character sequences!
 +
 e.g. Searching for `su` will not yield questions that do not strictly contain the word "su".
-* The category is case insensitive. e.g `easy` will match `Easy`.
+* The category is case insensitive.
++
+e.g `easy` will match `Easy`.
 ****
 
 *Examples:*
@@ -253,13 +287,12 @@ Displays the question with the id "2" in the right side window of the GUI.
 
 === Attempting a question : `attempt`
 
-Navigates to the *Questions* tab where you can code your solution to solve the problem statement. The problem statement
-will be displayed on the left of the GUI. The *Editor* will be displayed on the right.
+Navigates to the *Questions* tab where you can code your solution to solve the problem statement.
 
 *Format:* `attempt [id]`
 
 ****
-* Displays the question with the corresponding id on the left side window of the GUI.
+* Displays the question with the corresponding id on the upper-left of the GUI.
 * The *Editor* will appear on the right side for you to code your solution.
 ****
 
@@ -267,8 +300,8 @@ image::attempt.png[width=1000"]
 
 === Submitting your answer: `submit`
 
-Submits your current answer.​ Your code will be compiled and run against test cases. The results will be displayed in
-the ProgramEvaluationDisplay on the bottom left of UI.
+Submits your solution.​ Your code will be compiled and run against test cases. The results will be displayed in
+the *ProgramEvaluationDisplay* on the bottom left of the GUI.
 
 *Format:* `submit`
 
@@ -279,15 +312,10 @@ the ProgramEvaluationDisplay on the bottom left of UI.
 
 image::submit.png[width="1000"]
 
-*Examples:*
-
-* `reset 2` +
-Erases the previous answer for the question with the id "2".
 
 === Loading new questions: `loadquestions`
 
-Loads new questions into the application through a text file. Your text file should be in the format specified below.
-Your questions will be loaded the next time you open DukeAcademy.
+Imports new questions into the application through a text file.
 
 *Format:* `loadquestions [filename]`
 
@@ -296,9 +324,10 @@ Your questions will be loaded the next time you open DukeAcademy.
 * Your text file should follow the format specified at <<Custom-Questions>>.
 * The questions in the text file will only be loaded after entering this command.
 * Your text file will have to found in the home directory of DukeAcademy for it to be loaded.
+* Your questions will be loaded the next time you open DukeAcademy!
 ****
 
-image::loadquestions.png[width="920]
+image::loadquestions.png[width="1000"]
 
 *Examples:*
 
@@ -330,15 +359,17 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 
 == Command Summary
 
-* Viewing Help: ​`help`
 * Home: `home`
-* Find by question title: `find​ [keyword]`
-* Browse by category: ​`browse​ [category]`
+* List all questions: `showall`
+* Adding bookmark: `bookmark [id]`
+* Removing bookmark: `deletebookmark [id]`
+* Find by question title: `find​ [keyword]...`
+* Browse by category: ​`browse​ [keyword]...`
 * View: view: ​`view​ [id]`
 * Attempt a question: `attempt​ [id]`
 * Submit:​ `submit`
 * Load questions: ​`loadquestions​ [filename]`
-* Exit: `exit
+* Exit: `exit`
 
 == Question storage file format
 
@@ -380,7 +411,7 @@ Input::
 Output::
 ```
 
-* It must be in the order appeared above.
+* All inputs must be in the order stated above.
 
 * Title, Description can be any non-empty string.
 
