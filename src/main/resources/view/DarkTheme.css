@@ -129,7 +129,10 @@ h-box {
      -fx-background-color: black;
      -fx-border-color: transparent;
 }
-
+.scroll-pane {
+     -fx-background-color: black;
+     -fx-border-color: transparent;
+}
 .pane-with-border {
      -fx-background-color: black;
      -fx-border-color: black;

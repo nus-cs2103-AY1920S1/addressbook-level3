@@ -64,6 +64,7 @@ The user can navigate to this list by clicking the “Watched” tab on the side
 
 image::Ui.png[width="790"]
 
+
 ==== Watched List
 
 The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `2`.
@@ -74,15 +75,22 @@ The user can navigate to the search page to find a specific movie or television 
 
 image::search_page.png[width="790"]
 
+
 ==== Statistics Page
 
+The user can navigate to the statistics page to find a summary of his watching habits,
+preferences and history according to what is present in his lists.
+Examples include: movies he added but might have forgotten to watch,
+up to 3 most favourite genres of the user and recommendations etc.
+
+**
 The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `4`.
 
 image::statistics_page.png[width="790"]
 
 ==== Sidebar
 
-Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page.
+Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Alternatively, the user can also make use of keyboard shortcut `ctrl + tab` to scroll through the different pages.
 
 ==== Details Page (Coming in v2.0)
 
@@ -135,6 +143,7 @@ Examples:
 * `add 2`
 
 ==== Clear the WatchList: `clear`
+
 
 Clear the WatchList +
 Format: `clear`

@@ -275,7 +275,7 @@ public class ApiUtil {
     public static List<Movie> splitToMovieFromShow(List<Show> shows) {
         List<Movie> movies = new LinkedList<>();
         for (Show show: shows) {
-            if (show.getType().equals("movie")) {
+            if (show.getType().equals("Movie")) {
                 movies.add((Movie) show);
             }
         }
@@ -290,7 +290,7 @@ public class ApiUtil {
     public static List<TvShow> splitToTvShowsFromShow(List<Show> shows) {
         List<TvShow> tvShows = new LinkedList<>();
         for (Show show: shows) {
-            if (show.getType().equals("tv")) {
+            if (show.getType().equals("Tv Show")) {
                 tvShows.add((TvShow) show);
             }
         }
