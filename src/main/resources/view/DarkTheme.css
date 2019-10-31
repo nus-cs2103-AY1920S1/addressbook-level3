@@ -194,13 +194,11 @@
 }
 
 .context-menu .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #d2d2d2;
 }
 
 .menu-bar {
-    -fx-background-color: #ded7d7;
-    -fx-border-color: #c7c5c5;
-    -fx-border-width: 1px;
+    -fx-background-color: derive(rgba(220, 220, 220, 0.65), 30%);
 }
 
 .menu-bar .label {
@@ -320,7 +318,7 @@
 }
 
 #title {
-    -fx-font-size: 25px;
+    -fx-font-size: 36px;
 }
 
 #pageInputPanel #pageHeader {

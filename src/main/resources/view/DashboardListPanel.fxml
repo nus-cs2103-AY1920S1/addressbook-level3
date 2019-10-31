@@ -20,22 +20,37 @@
             <Insets left="5.0" top="5.0" />
          </padding>
       </Label>
-      <HBox prefHeight="391.0" prefWidth="545.0" VBox.vgrow="ALWAYS">
+      <HBox maxHeight="-Infinity" prefHeight="70.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
          <children>
-             <ListView fx:id="dashboardListView" prefHeight="322.0" prefWidth="377.0" HBox.hgrow="ALWAYS" />
-            <VBox prefHeight="389.0" prefWidth="169.0">
+            <VBox prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="201.0" progress="0.0" />
-                  <Region prefHeight="94.0" prefWidth="178.0" />
-                  <DatePicker />
-                  <Label fx:id="words" prefHeight="252.0" prefWidth="167.0" wrapText="true">
+                  <Label text="Your Progress">
                      <font>
-                        <Font size="36.0" />
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="201.0" progress="0.0" />
+               </children>
+            </VBox>
+            <Region prefHeight="100.0" prefWidth="50.0" />
+            <VBox prefHeight="200.0" prefWidth="150.0">
+               <children>
+                  <Label text="Date">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
+                  <DatePicker prefHeight="20.0" />
                </children>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+         </VBox.margin>
       </HBox>
+       <ListView fx:id="dashboardListView" prefHeight="322.0" prefWidth="377.0" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>
