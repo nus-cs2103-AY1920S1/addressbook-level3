@@ -44,7 +44,7 @@ image::Ui.PNG[width="790"]
   There are only two contexts: During Competition (In-session) and Outside of Competition (Out-session)
 ====
 
-=== Context: Outside Of Competition (Out-session)
+== Context: Outside Of Competition (Out-session)
 
 
 === Commands related to competition
