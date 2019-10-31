@@ -39,6 +39,8 @@ public class RecordDetails extends UiPart<Region> {
      * Populates the LineChart that is used to present athlete performance.
      */
     private void populateChart() {
+        yAxis.setLowerBound(Record.getFastestTiming(records));
+        yAxis.setUpperBound(Record.getSlowestTiming(records));
         XYChart.Series series = new XYChart.Series();
         for (Record record : records) {
             String date = record.getDate().toString();
