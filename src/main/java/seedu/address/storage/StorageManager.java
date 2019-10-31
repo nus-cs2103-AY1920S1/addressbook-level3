@@ -23,11 +23,11 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(BankAccountStorage bankAccountStorage, UserPrefsStorage userPrefsStorage) {
-        super();
-        this.bankAccountStorage = bankAccountStorage;
-        this.userPrefsStorage = userPrefsStorage;
-    }
+    // public StorageManager(BankAccountStorage bankAccountStorage, UserPrefsStorage userPrefsStorage) {
+    //     super();
+    //     this.bankAccountStorage = bankAccountStorage;
+    //     this.userPrefsStorage = userPrefsStorage;
+    // }
 
     public StorageManager(UserStateStorage userStateStorage, UserPrefsStorage userPrefsStorage) {
         super();
@@ -71,13 +71,13 @@ public class StorageManager implements Storage {
         return userStateStorage.readUserState(filePath);
     }
 
-    public void saveAccount(ReadOnlyUserState bankAccount) throws IOException {
-        saveAccount(bankAccount, bankAccountStorage.getBankAccountFilePath());
+    public void saveAccount(ReadOnlyUserState userState) throws IOException {
+        saveAccount(userState, userStateStorage.getUserStateFilePath());
     }
 
-    public void saveAccount(ReadOnlyUserState bankAccount, Path filePath) throws IOException {
+    public void saveAccount(ReadOnlyUserState userState, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        bankAccountStorage.saveAccount(bankAccount, filePath);
+        userStateStorage.saveUserState(userState, filePath);
     }
 
 }

@@ -28,7 +28,8 @@ public class MainTabPanel extends UiPart<Region> {
     @FXML
     private TabPane mainTabPanel;
 
-    public MainTabPanel(TransactionListPanel transactionListPanel, BudgetListPanel budgetListPanel, LedgerListPanel ledgerListPanel) {
+    public MainTabPanel(TransactionListPanel transactionListPanel, BudgetListPanel budgetListPanel,
+                        LedgerListPanel ledgerListPanel) {
         super(FXML);
 
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());

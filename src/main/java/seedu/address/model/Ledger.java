@@ -35,12 +35,16 @@ public class Ledger implements ReadOnlyLedger {
 
     private void setLedgerHistory(ReadOnlyLedger ledger) {
         requireNonNull(ledger.getLedgerHistory());
-        ledgerHistory.setTransactions(ledger.getLedgerHistory());
+        ledgerHistory = new UniqueLedgerOperationList();
+        // TODO FIX HERE
+        // ledgerHistory.setTransactions(ledger.getLedgerHistory());
     }
 
     private void setPersonList(ReadOnlyLedger ledger) {
         requireNonNull(ledger.getPeople());
-        people.setPersons(ledger.getPeople());
+        people = new UniquePersonList();
+        // TODO FIX HERE
+        // people.setPersons(ledger.getPeople());
     }
 
 

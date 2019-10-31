@@ -27,8 +27,8 @@ public class LedgerCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label balance;
-    @FXML
-    private FlowPane people;
+    // @FXML
+    // private FlowPane people;
 
     public LedgerCard(LedgerOperation ledgerOperation, int displayedIndex) {
         super(FXML);
@@ -36,9 +36,11 @@ public class LedgerCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         amount.setText(ledgerOperation.getAmount().toString());
         date.setText(ledgerOperation.getDate().toString());
-        ledgerOperation.getPeopleInvolved().asUnmodifiableObservableList().stream()
-            .sorted(Comparator.comparing(person -> person.getName().fullName))
-            .forEach(person -> people.getChildren().add(new Label(person.getName().fullName)));
+        // TODO FIX
+        balance.setText(ledgerOperation.getAmount().toString());
+        // ledgerOperation.getPeopleInvolved().asUnmodifiableObservableList().stream()
+        //     .sorted(Comparator.comparing(person -> person.getName().fullName))
+        //     .forEach(person -> people.getChildren().add(new Label(person.getName().fullName)));
     }
 
     @Override

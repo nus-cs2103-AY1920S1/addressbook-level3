@@ -6,29 +6,28 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
 
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of budgets set.
+ * Panel containing the list of ledgers set.
  */
 public class LedgerListPanel extends UiPart<Region> {
     private static final String FXML = "LedgerListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(LedgerListPanel.class);
 
     @FXML
-    private ListView<LedgerOperation> budgetListView;
+    private ListView<LedgerOperation> ledgerListView;
 
     public LedgerListPanel(ObservableList<LedgerOperation> ledgerOperations) {
         super(FXML);
-        budgetListView.setItems(ledgerOperations);
-        budgetListView.setCellFactory(listView -> new LedgerListViewCell());
+        ledgerListView.setItems(ledgerOperations);
+        ledgerListView.setCellFactory(listView -> new LedgerListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Budget} using a {@code BudgetCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Ledger} using a {@code LedgerCard}.
      */
     class LedgerListViewCell extends ListCell<LedgerOperation> {
         @Override
