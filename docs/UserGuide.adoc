@@ -216,15 +216,6 @@ image::FireTask.png[width="790"]
 +
 This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
 
-==== Setting an image for member: `set-image` +
-To set a profile picture for a specific team member, use the 'set-image' command in the format below. +
-
-Format: `set-image mi/MEMBER_ID im/IMAGE_PATH` +
-
-Example: `set-image mi/1 im/` will result in the following: 
-+
-image::SetImage.png[width="790"]
-+
 
 '''
 
