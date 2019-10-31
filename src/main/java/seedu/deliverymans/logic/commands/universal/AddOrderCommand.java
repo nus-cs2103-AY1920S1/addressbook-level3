@@ -60,6 +60,7 @@ public class AddOrderCommand extends Command {
         Name restaurantName = toAdd.getRestaurant();
         Map<Name, Integer> foodList = toAdd.getFood();
         boolean customerFound = false;
+        boolean restaurantFound = false;
         for (Customer customer : model.getFilteredCustomerList()) {
             if (customer.isSameCustomer(customerToAdd)) {
                 customerFound = true;
@@ -76,6 +77,7 @@ public class AddOrderCommand extends Command {
         }*/
         for (Restaurant restaurant : model.getFilteredRestaurantList()) {
             if (restaurant.equals(restaurantName)) {
+                restaurantFound = true;
                 ObservableList<Food> menu = restaurant.getMenu();
                 for (Name food : foodList.keySet()) {
                     if (!menu.contains(food)) {
@@ -84,6 +86,9 @@ public class AddOrderCommand extends Command {
                 }
                 break;
             }
+        }
+        if (!restaurantFound) {
+            throw new CommandException(MESSAGE_INVALID_RESTAURANT);
         }
 
         if (model.hasOrder(toAdd)) {

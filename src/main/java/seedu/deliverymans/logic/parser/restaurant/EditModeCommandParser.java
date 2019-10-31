@@ -24,7 +24,7 @@ public class EditModeCommandParser implements Parser<EditModeCommand> {
             return new EditModeCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditModeCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditModeCommand.MESSAGE_USAGE), pe);
         }
     }
 }

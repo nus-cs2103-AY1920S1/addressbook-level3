@@ -11,6 +11,7 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.logic.parser.universal.UniversalParser;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
@@ -187,6 +188,12 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    //=============Context======================
+    @Override
+    public void setContext(Context context) {
+        universalParser.setContext(context);
     }
 
 }

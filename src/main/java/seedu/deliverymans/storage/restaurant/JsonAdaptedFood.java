@@ -2,14 +2,14 @@ package seedu.deliverymans.storage.restaurant;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.model.Name;
@@ -88,7 +88,8 @@ class JsonAdaptedFood {
             throw new IllegalValueException(Food.QUANTITY_CONSTRAINTS);
         }
 
-        final Set<Tag> modelTags = new HashSet<>(foodTags);
+        final ObservableList<Tag> modelTags = FXCollections.observableArrayList();
+        modelTags.addAll(foodTags);
         return new Food(modelName, modelPrice, quantity, modelTags);
     }
 }

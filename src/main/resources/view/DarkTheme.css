@@ -384,7 +384,7 @@
 #unavailableDeliverymenLabel {
     -fx-border-radius: 2;
     -fx-font-size: 20;
-    -fx-border-style: white;
+    -fx-border-style: dashed;
     -fx-text-fill: red;
 }
 

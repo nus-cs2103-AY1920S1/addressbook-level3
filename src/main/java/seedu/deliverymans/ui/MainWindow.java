@@ -235,6 +235,8 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
         case EDITING:
+            logic.setContext(Context.EDITING);
+
             Restaurant editing = logic.getEditingRestaurantList().get(0);
             editingRestaurantPlaceholder.setPrefHeight(125.0);
             editingRestaurantPlaceholder.setMinHeight(125.0);
@@ -242,10 +244,6 @@ public class MainWindow extends UiPart<Stage> {
             editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             foodListPanel = new FoodListPanel(editing.getMenu());
             listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
-
-            //statisticsDisplay = new StatisticsDisplay();
-            //statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-            //statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS\nWORK IN PROGRESS");
             break;
         default:
             orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
