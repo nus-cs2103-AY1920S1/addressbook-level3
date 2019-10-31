@@ -2,23 +2,31 @@ package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static io.xpire.commons.core.Messages.MESSAGE_XPIRE_COMMAND_ONLY;
 
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
 import io.xpire.commons.util.StringUtil;
+import io.xpire.logic.commands.AddCommand;
+import io.xpire.logic.commands.CheckCommand;
 import io.xpire.logic.commands.ClearCommand;
 import io.xpire.logic.commands.Command;
+import io.xpire.logic.commands.DeleteCommand;
 import io.xpire.logic.commands.ExitCommand;
 import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.RedoCommand;
 import io.xpire.logic.commands.SearchCommand;
+import io.xpire.logic.commands.SetReminderCommand;
 import io.xpire.logic.commands.ShiftToMainCommand;
+import io.xpire.logic.commands.SortCommand;
+import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 
+//@@author febee99
 /**
  * Parses user input.
  */
@@ -51,18 +59,28 @@ public class ReplenishParser implements Parser {
         switch (commandWord) {
 
         case ClearCommand.COMMAND_WORD:
+            //fallthrough
+        case ClearCommand.COMMAND_SHORTHAND:
             return new ClearCommand("replenish");
 
         case SearchCommand.COMMAND_WORD:
+            //fallthrough
+        case SearchCommand.COMMAND_SHORTHAND:
             return new SearchCommandParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
+            //fallthrough
+        case ViewCommand.COMMAND_SHORTHAND:
             return new ViewCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
+            //fallthrough
+        case ExitCommand.COMMAND_SHORTHAND:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            //fallthrough
+        case HelpCommand.COMMAND_SHORTHAND:
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
@@ -72,7 +90,17 @@ public class ReplenishParser implements Parser {
             return new RedoCommand();
 
         case ShiftToMainCommand.COMMAND_WORD:
+            //fallthrough
+        case ShiftToMainCommand.COMMAND_SHORTHAND:
             return new ShiftToMainCommandParser().parse(arguments);
+
+        case AddCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_WORD:
+        case SortCommand.COMMAND_WORD:
+        case CheckCommand.COMMAND_WORD:
+        case SetReminderCommand.COMMAND_WORD:
+        case TagCommand.COMMAND_WORD:
+            throw new ParseException(MESSAGE_XPIRE_COMMAND_ONLY);
 
         default:
             return parseUnknownCommandWord(commandWord);

@@ -19,13 +19,15 @@ import io.xpire.model.state.State;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
-
+//@@author liawsy
 /**
  * Shifts a {@code XpireItem} to the Replenish List.
  */
 public class ShiftToReplenishCommand extends Command {
 
     public static final String COMMAND_WORD = "shift";
+    public static final String COMMAND_SHORTHAND = "sh";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Moves the item identified by the index number to the replenish list.\n"
             + "Format: shift|<index> (index must be a positive integer)\n"

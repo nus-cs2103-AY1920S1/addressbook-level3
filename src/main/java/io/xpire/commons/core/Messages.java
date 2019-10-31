@@ -6,6 +6,7 @@ package io.xpire.commons.core;
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command.";
+    public static final String MESSAGE_XPIRE_COMMAND_ONLY = "Command can only be used in the main list.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_ITEM_DISPLAYED_INDEX = "The item index provided is invalid.";
     public static final String MESSAGE_ITEMS_LISTED_OVERVIEW = "%d items listed!";
@@ -17,5 +18,5 @@ public class Messages {
     public static final String MESSAGE_REMINDER_THRESHOLD_EXCEEDED =
             "The item has only %s day(s) left before expiring. \nReminder will start from today!";
     public static final String MESSAGE_THRESHOLD_ITEM_EXPIRED = "Cannot set reminder for expired item!";
-
+    public static final String MESSAGE_MAXIMUM_INPUT_LENGTH_EXCEEDED = "Maximum input length is 60 characters!";
 }

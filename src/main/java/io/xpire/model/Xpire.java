@@ -85,6 +85,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
         this.items.remove(key);
     }
 
+    //@@author febee99
     /**
      * Set method of sorting.
      */
@@ -92,7 +93,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
         this.items.setXpireMethodOfSorting(method);
     }
 
-
+    //@@author
     /**
      * Checks expiry date of every item in xpire.
      */

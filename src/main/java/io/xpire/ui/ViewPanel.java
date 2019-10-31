@@ -9,18 +9,18 @@ import java.util.stream.IntStream;
 import io.xpire.commons.core.LogsCenter;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
  * Panel containing the list of items.
  */
-public class CardListPanel extends UiPart<AnchorPane> {
-    private static final String FXML = "CardListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(CardListPanel.class);
+public class ViewPanel extends UiPart<VBox> {
+    private static final String FXML = "ViewPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ViewPanel.class);
 
     private Collection<ItemCard> oldCardList = new ArrayList<>();
 
@@ -29,17 +29,19 @@ public class CardListPanel extends UiPart<AnchorPane> {
     @FXML
     private Label view;
 
-    public CardListPanel(FilteredList<? extends Item> xpireItemList) {
+    public ViewPanel(ObservableList<? extends Item> xpireItemList) {
         super(FXML);
-        displayItem(xpireItemList);
+        displayItems(xpireItemList);
     }
+
 
     /**
      * Renders items in the {@Code xpireItemList}.
      */
-    void displayItem(FilteredList<? extends Item> itemList) {
+    void displayItems(ObservableList<? extends Item> itemList) {
         card.getChildren().clear();
         Collection<ItemCard> cardList;
+        //@@author febee99
         if (!itemList.isEmpty() && itemList.get(0) instanceof XpireItem) {
             //ObservableList<XpireItem> xpireItemList = (ObservableList<XpireItem>) itemList;
             FilteredList<XpireItem> xpireItemList = (FilteredList<XpireItem>) itemList;
@@ -51,6 +53,7 @@ public class CardListPanel extends UiPart<AnchorPane> {
                                 .mapToObj(i -> new ItemCard(itemList.get(i), i + 1))
                                 .collect(Collectors.toList());
         }
+        //@@author
         for (ItemCard itemCard : cardList) {
             card.getChildren().add(itemCard.getRoot());
         }

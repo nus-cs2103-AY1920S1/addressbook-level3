@@ -148,6 +148,7 @@ public class ModelManager implements Model {
         this.xpire.setItem(target, editedXpireItem);
     }
 
+    //@@author febee99
     @Override
     public Set<Tag> getAllItemTags() {
         Set<Tag> tagSet = new TreeSet<>(new TagComparator());
@@ -162,6 +163,7 @@ public class ModelManager implements Model {
         return nameSet;
     }
 
+    //@@author liawsy
     //=========== replenish list methods  ==============================================================================
     @Override
     public void setReplenishList(ReadOnlyListView<Item> replenishList) {
@@ -240,6 +242,7 @@ public class ModelManager implements Model {
         return new Item(itemName, newTags);
     }
 
+    //@@author febee99
     //=========== Sorted XpireItem List Accessors ======================================================================
 
     @Override
@@ -249,6 +252,7 @@ public class ModelManager implements Model {
         this.xpire.setMethodOfSorting(method);
     }
 
+    //@@author liawsy
     // =========== Filtered XpireItem List Accessors =============================================================
 
     /**
@@ -265,6 +269,7 @@ public class ModelManager implements Model {
         return this.filteredReplenishItems;
     }
 
+    //@@author febee99
     @Override
     public FilteredList<? extends Item> getCurrentFilteredItemList() {
         return this.currentFilteredItems;
@@ -319,7 +324,7 @@ public class ModelManager implements Model {
         }
     }
 
-
+    //@@author liawsy
     @Override
     public void updateFilteredReplenishItemList(Predicate<Item> predicate) {
         requireNonNull(predicate);
@@ -332,6 +337,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author Kalsyc
     // =========== Tag XpireItem List Accessors =============================================================
 
     @Override

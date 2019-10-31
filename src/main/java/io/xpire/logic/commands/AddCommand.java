@@ -14,6 +14,7 @@ import io.xpire.model.state.State;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_SHORTHAND = "a";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an xpireItem to the list.\n"
             + "Format: add|<xpireItem name>|<expiry date>[|<quantity>]\n"

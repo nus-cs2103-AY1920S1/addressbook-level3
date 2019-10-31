@@ -6,12 +6,14 @@ import io.xpire.model.StackManager;
 import io.xpire.model.item.ListToView;
 import io.xpire.model.state.State;
 
+//@@author febee99
 /**
  * Display all items to the user.
  */
 public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
+    public static final String COMMAND_SHORTHAND = "v";
 
     public static final String MESSAGE_SUCCESS = "Displayed all items in %s list";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views all items in tracking or toReplenish list.\n"

@@ -16,6 +16,7 @@ import io.xpire.model.state.State;
 public class SearchCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
+    public static final String COMMAND_SHORTHAND = "se";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches and displays all items whose names "
             + "or tag(s) contain any of the specified keywords (case-insensitive).\n"
@@ -36,6 +37,7 @@ public class SearchCommand extends Command {
         model.updateFilteredItemList(this.predicate);
         StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW,
                 model.getCurrentFilteredItemList().size()));
+        //@@author febee99
         if (model.getCurrentFilteredItemList().size() == 0) {
             predicate.getKeywords().forEach(s -> {
                 if (s.startsWith("#")) {
@@ -45,6 +47,7 @@ public class SearchCommand extends Command {
                 }
             });
         }
+        //@@author
         return new CommandResult(sb.toString());
     }
 
