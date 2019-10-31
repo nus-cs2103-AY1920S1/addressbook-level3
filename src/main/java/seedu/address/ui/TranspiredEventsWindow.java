@@ -13,7 +13,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Timekeeper;
 import seedu.address.model.expense.Event;
 
 /**
@@ -22,7 +21,7 @@ import seedu.address.model.expense.Event;
 public class TranspiredEventsWindow extends UiPart<Stage> {
 
     public static final String MESSAGE =
-            "This event was supposed to have happened %s ago. Do you want to add it as an expense?\n%s";
+            "This event should have already happened! Do you want to add it as an expense?\n%s";
     public static final String ERROR_MESSAGE =
             "There was an error adding the specified expense!";
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
@@ -81,8 +80,7 @@ public class TranspiredEventsWindow extends UiPart<Stage> {
                 logger.fine("Notifying users of transpired events.");
                 currentEvent = event;
                 message.setText(
-                        String.format(MESSAGE,
-                                Timekeeper.formatTimeOutdated(event.getTimestamp()), event.toString()));
+                        String.format(MESSAGE, event.toString()));
                 getRoot().show();
                 getRoot().centerOnScreen();
             }

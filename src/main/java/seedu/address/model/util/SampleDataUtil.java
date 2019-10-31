@@ -9,6 +9,7 @@ import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
@@ -103,6 +104,20 @@ public class SampleDataUtil {
         };
     }
 
+    public static Event[] getSampleEvents() {
+        return new Event[] {
+            new Event(new Description("Brian bday"), new Price("30"),
+                    getCategory("shopping"), Timestamp.createTimestampIfValid("31-12").get(),
+                    DEFAULT_BUDGET_DESCRIPTION),
+            new Event(new Description("Family buffet"), new Price("200"),
+                    getCategory("food"), Timestamp.createTimestampIfValid("3 weeks from now").get(),
+                    DEFAULT_BUDGET_DESCRIPTION),
+            new Event(new Description("RC Sem 2 deposit"), new Price("300"),
+                    getCategory("utilities"), Timestamp.createTimestampIfValid("3 days from now").get(),
+                    DEFAULT_BUDGET_DESCRIPTION),
+        };
+    }
+
     public static ReadOnlyMooLah getSampleMooLah() {
         MooLah sampleMl = new MooLah();
         for (Budget sampleBudget : getSampleBudgets()) {
@@ -110,6 +125,9 @@ public class SampleDataUtil {
         }
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleMl.addExpense(sampleExpense);
+        }
+        for (Event sampleEvent : getSampleEvents()) {
+            sampleMl.addEvent(sampleEvent);
         }
         return sampleMl;
     }
