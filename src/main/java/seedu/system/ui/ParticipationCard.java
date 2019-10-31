@@ -27,7 +27,11 @@ public class ParticipationCard extends UiPart<Region> {
     @FXML
     private Label competition;
     @FXML
-    private Label attempts;
+    private Label bestSquat;
+    @FXML
+    private Label bestBench;
+    @FXML
+    private Label bestDeadlift;
 
     public ParticipationCard(Participation participation, int displayedIndex) {
         super(FXML);
@@ -35,7 +39,10 @@ public class ParticipationCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(participation.getPerson().getName().toString());
         competition.setText(participation.getCompetition().toString());
-        attempts.setText(participation.getThreeLiftScore());
+        String[] scores = participation.getThreeLiftScore().split("/");
+        bestSquat.setText("Best Squat Attempt: " + scores[0] + "kg");
+        bestBench.setText("Best Bench Press Attempt: " + scores[1] + "kg");
+        bestDeadlift.setText("Best Deadlift Attempt: " + scores[2] + "kg");
     }
 
     @Override

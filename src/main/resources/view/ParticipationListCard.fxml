@@ -29,7 +29,9 @@
             </HBox>
             <FlowPane fx:id="tags" />
             <Label fx:id="competition" styleClass="cell_small_label" text="\$competition" />
-            <Label fx:id="attempts" styleClass="cell_small_label" text="\$attempts" />
+            <Label fx:id="bestSquat" styleClass="cell_small_label" text="\$bestSquat" />
+            <Label fx:id="bestBench" styleClass="cell_small_label" text="\$bestBench" />
+            <Label fx:id="bestDeadlift" styleClass="cell_small_label" text="\$bestDeadlift" />
         </VBox>
     </GridPane>
 </HBox>

@@ -29,8 +29,8 @@ public class CompetitionCard extends UiPart<Region> {
         this.competition = competition;
         id.setText(displayedIndex + ". ");
         name.setText(competition.getName().toString());
-        startDate.setText(competition.getStartDate().toString());
-        endDate.setText(competition.getEndDate().toString());
+        startDate.setText("Start Date: " + competition.getStartDate().toString());
+        endDate.setText("End Date: " + competition.getEndDate().toString());
 
     }
 

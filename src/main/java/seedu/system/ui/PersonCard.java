@@ -41,8 +41,8 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().toString());
-        dateOfBirth.setText(person.getDateOfBirth().toString());
-        gender.setText(person.getGender().toString());
+        dateOfBirth.setText("Date of Birth: " + person.getDateOfBirth().toString());
+        gender.setText("Gender: " + person.getGender().toString());
 
     }
 
