@@ -172,6 +172,10 @@ The following class diagram demonstrates the association between the `LoansManag
 
 image::LoanClassDiagram.png[]
 
+[NOTE]
+The `Debtor` class and `debtors` list belonging to `LoansManager` have been omitted to reduce complexity.
+Both will be depicted later when discussing the `loan split` command.
+
 Each `Loan` object has the following attributes:
 
 * `person:Person` -- The person to whom the loan belongs.
@@ -179,23 +183,28 @@ Each `Loan` object has the following attributes:
 * `direction:Direction` -- The direction of the loan (either *in* or *out*).
 * `status:Status` -- The status of the loan (either *paid* or *unpaid*).
 * `date:Date` -- The date of the loan.
-* `description:Description` (optional) -- A description of the loan.
+* `description:Description` -- A description of the loan.
 
-To facilitate the manipulation of `Loan` objects, `LoansManager` implements the following operations.
+To facilitate the manipulation of `Loan` objects, `LoansManager` implements the following operations:
 
-* `LoansManager#getLoans()` -- Gets the current list of loans.
-* `LoansManager#addLoan(Index toAdd)` -- Adds the `Loan toAdd` to `internalList`.
+* `LoansManager#updateFilteredList(Predicate<Loan> predicate)` -- Updates the current predicate of `filteredLoans` to `predicate`.
+* `LoansManager#sortLoans(Comparator<Loan> sorter)` -- Sorts `internalList` using the given `sorter`.
+* `LoansManager#getFilteredLoans()` -- Gets `filteredLoans`, representing the loans in `internalList` after filtering.
+* `LoansManager#addLoan(Loan toAdd)` -- Adds the `Loan toAdd` to `internalList`.
 * `LoansManager#editLoan(Index toEdit, Loan editedLoan)` -- Edits the loan at `Index toEdit` to match `Loan editedLoan`.
-* `LoansManager#updateLoanStatus(Index toUpdate, Status newStatus)` -- Updates the `Status` of the loan at `Index toUpdate` to `newStatus`.
 * `LoansManager#deleteLoan(Index toDelete)` -- Deletes the loan at `Index toDelete` from `internalList`.
 
-After each of the above operations, the state of `internalList` is saved in the file `loans.json`, which is stored on the local hard disk.
+Each user-given command makes use of one or more of the above operations.
+For example, `loan delete` will call `LoansManager#deleteLoan` to delete the targeted loan(s), then `LoansManager#getFilteredLoans` to display the remaining loans.
+
+After each command, the state of `internalList` is saved in the file `loans.json`.
+`loans.json` itself is stored on the local hard disk in a `data` folder, which is in the same directory as `budgetbuddy.jar`.
 
 Given below is an example usage scenario and how the `LoansManager` behaves at each step.
 
 Step 1. The user launches the application.
 If `loans.json` exists on the hard disk, its data is loaded into `internalList`.
-Otherwise, `loans.json` is created and the `LoansManager` initializes with an empty `internalList`.
+Otherwise, `loans.json` is created and the `LoansManager` initializes with an `internalList` containing a few sample loans.
 
 Step 2. The user executes the command `loan out p/John x/4.20` to add a new loan.
 This creates a new loan `toAdd` of `amount` 4.20 `out` to the `person` John, with the current `date` being used as the user did not provide one.
@@ -206,11 +215,13 @@ The following sequence diagram illustrates how the process of adding a loan work
 image::LoanSequenceDiagram.png[]
 
 In general, the rest of the operations work using a similar sequence of steps.
-Some commands might create a new `Loan` object (as shown above) while others might simply use the `Index` of a loan.
+Some commands might create a new `Loan` object (as shown above) while others might just use the `Index` of a loan.
 
-Step 3. The user executes the command `loan list` to see their current list of loans.
-`LoansManager#getLoans()` is called.
-An immutable version of `internalList` sorted by `person` is retrieved and displayed to the user.
+Step 3. The user executes the command `loan list out p/John w/1/11/19 s/x` to see all loans `out` to `John` dated `1/11/19`, sorted by amount.
+First, `LoansManager#sortLoans` is called, sorting `internalList` by the amount of each loan.
+`LoansManager#updateFilteredList` is then called, setting the predicate of `filteredLoans` according to the input parameters.
+Finally, `LoansManager#getFilteredLoans` is called.
+An immutable version of `filteredLoans` (filtered and sorted as per user input) is retrieved and displayed to the user.
 
 Step 4. The user executes the command `loan edit 1 x/500` to edit the `amount` of the first loan in the list.
 This creates a new `editedLoan` identical to the first loan in `internalList`, except that `editedLoan` has an `amount` of 500.
@@ -219,12 +230,13 @@ where `toEdit` is the index of the first loan in `internalList`,
 and `toEdit` is replaced with `editedLoan`.
 
 Step 5. The user executes the command `loan paid 1` to update the status of the first loan in the list to *paid*.
-`LoansManager#updateLoanStatus(Index toUpdate, Status newStatus)` is called
-(where `toUpdate` is the index of the first loan in `internalList` and `newStatus` has the value `Status.PAID`)
-and the loan at index `toUpdate` in `internalList` has its `status` updated to `newStatus`.
+While the command syntax is different, `LoansManager#editLoan(Index toEdit, Loan editedLoan)` is reused
+with an `editedLoan` identical to the target loan at `Index toEdit` - except for its `Status`, which is set to `Status.PAID`.
+`LoansManager#editLoan` is reused here since changing the status of a loan is functionally identical to editing its other properties.
+The command syntax differs only to make the app more user-friendly.
 
 [NOTE]
-The command `loan unpaid` works identically to `loan paid`, except that `newStatus` has the value `Status.UNPAID`.
+The command `loan unpaid` works identically to `loan paid`, except that the `Status` of `editedLoan` is set to `Status.UNPAID`.
 
 Step 6. The user executes the command `loan delete 1` to delete the first loan in the list.
 `LoansManager#deleteLoan(Index toDelete)` is called,
@@ -239,17 +251,93 @@ an error message will be displayed.
 ===== Multi-Loan Targeting
 
 The user can target and act on multiple loans with a single command.
-For example, `loan delete 1 3 4` can be used to delete the first, third and fourth loans in `internalList`.
-Alternatively or additionally, `loan delete p/John Mary` can also be used
-to delete all the loans of the persons John and Mary in `internalList`.
+For example, `loan paid 1 3 4` can be used to mark the first, third and fourth loans in `internalList` as *paid*.
+Alternatively or additionally, `loan paid p/John p/Mary` can also be used
+to mark all the loans of the persons John and Mary in `internalList`.
 The `LoansManager` handles this by executing the appropriate operation repeatedly.
-In the case of `loan delete 1 3 4`, `LoansManager#deleteLoan(Index toDelete)` is called once for each of the three loans.
+In the case of `loan paid 1 3 4`, `LoansManager#editLoan` is called once for each of the three loans.
 
 If any of the targeted loan indices cannot be found by the `LoansManager` in `internalList`, they are added to a `missingLoanIndices` list.
 The `missingLoanIndices` list is then displayed to the user after all other loans have been acted upon,
 notifying them that the loans with those indices could not be found.
 
 Multi-loan targeting is implemented for the commands `loan paid`, `loan unpaid` and `loan delete`.
+In the case of `loan delete`, since the indices of loans in the list would change after each deletion, targeted indices are decremented after each deletion.
+
+===== Loan Splitting
+
+Loan splitting exists as a command that the user can execute.
+Its main purpose is to split a large, initially unbalanced group payment equally among the group's members.
+The following example scenario should clarify the purpose of the command:
+
+====
+John, Mary and Peter go out for dinner.
+The meal costs $100, so Peter pays $90 and Mary covers the remaining $10.
+However, the three want to split the bill equally among themselves.
+
+John executes the command `loan split p/John p/Mary p/Peter x/0 x/10 x/90`.
+Budget Buddy then outputs a list of the necessary payments between the three.
+From this list, John can now see that he owes Peter *$33.33* and that Mary owes Peter *$23.33*.
+====
+
+To display the results of the calculations, `LoansManager` holds a list of `debtors` containing `Debtor` objects.
+The following class diagram illustrates the relationship between the `LoansManager` and the `Debtor` class:
+
+image::LoanSplitClassDiagram.png[]
+
+[NOTE]
+The `LoansManager` in the above diagram is the same `LoansManager` as the one in the class diagram containing the `Loan` class.
+The `Debtor` class and its associations were not depicted earlier as they are used only for the `loan split` command.
+
+Each `Debtor` object has the following attributes:
+
+* `debtor:Person` -- The person who owes money to one or more creditors.
+* `creditors:HashMap<Person, Amount>` -- A list of persons that the `debtor` owes money to, mapped to the amount of money owed.
+Each entry in the `HashMap` represents a creditor, with their name as the `Person` key and the amount owed as the corresponding `Amount` value.
+
+`LoansManager` also implements the `getDebtors` and `setDebtors` operations to get/set the `debtors` list.
+`setDebtors` is used in `LoanSplitCommand#execute` to hold the `Debtor` objects created for the latest execution of `loan split`.
+To display the results of the command, `getDebtors` is then called through the `Logic` component by the `Ui` component.
+
+Given below is an example scenario to demonstrate how the calculations are performed in `LoanSplitCommand#execute`.
+
+Step 1. The user executes the command `loan split p/John p/Mary p/Peter p/Bruce p/Thomas x/0 x/20 x/90 x/110 x/50 me/Mary d/For dinner`.
+
+Step 2. `LoanSplitCommandParser` parses each `p/<person>` into a `Person` object and each `x/<amount>` into an `Amount` object.
+A `List<Person>` and `List<Amount>` are created to hold the `Person` and `Amount` objects.
+Next, `me/Mary` is parsed into an `Optional<Person>` object and `d/For dinner` is parsed into an `Optional<Description>` object.
+A new `LoanSplitCommand` object is then created, with the two lists and two `Optional` objects passed to its constructor.
+
+Step 3. `LoanSplitCommand` constructs a `HashMap<Person, Amount> personAmountMap` using `List<Person>` and `List<Amount>`.
+It then begins the calculation of results using the following algorithm.
+
+. Each `Person` in `personAmountMap` is assigned an individual `balance`.
+Each balance is calculated using the `Person` 's `Amount` value in `personAmountMap` minus the ideal amount paid `perPerson`.
+With the example command executed above, ideal amount `perPerson` would be *$54* (derived from `270 / 5`).
+
+. Using `CollectionUtil#generateCombinations`, a list of all possible sub-groups (combinations) of persons is generated.
+With the example command executed above, the number of sub-groups for the 5 persons would be *32*.
+
+. For each sub-group of persons, if the sum of their balances is *zero*, then the following steps are performed:
+
+.. Take the persons with the smallest and biggest balances: the `debtor` and `creditor` respectively.
+
+.. Transfer money between the two such that one or both of their balances reaches zero.
+The person(s) with a balance of zero are then removed, and a record of the `debtor`, `creditor` and `amountTransferred` is stored in a `List<DebtorCreditorAmount>`.
+
+.. Repeat until the sub-group contains less than two persons.
+
+. After every sub-group has been processed, `List<DebtorCreditorAmount>` is used to create the final `List<Debtor>` stored in `LoansManager`.
+
+Step 4. As the example command executed above included the optional `me/Mary` and `d/For dinner`, all debts involving the person with the name `Mary` are used to create loans with the description `For dinner`.
+These loans are added to `internalList` in `LoansManager` using `LoansManager#addLoan`.
+
+Step 5. The list of `debtors` in `LoansManager` is displayed to the user.
+Using the example command executed above, the display will show that `John` owes `Bruce` *$54*, `You` (`Mary`, the user) owe `Peter` *$34*, and `Thomas` owes `Peter` and `Bruce` *$2* each.
+
+The following activity diagram summarizes the process described above:
+
+image::LoanSplitActivityDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: Structure of the loan - person interaction
