@@ -9,7 +9,6 @@ import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.logic.commands.Command;
 import seedu.flashcard.logic.commands.CommandResult;
-import seedu.flashcard.logic.commands.QuizCommand;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.parser.FlashcardListParser;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
@@ -41,9 +40,6 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = flashcardListParser.parseCommand(commandText);
         CommandResult commandResult = command.execute(model);
-        if (!(command instanceof QuizCommand)) {
-            model.updateLastViewedFlashcard(null);
-        }
         try {
             storage.saveFlashcardList(model.getFlashcardList());
         } catch (IOException e) {

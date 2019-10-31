@@ -11,6 +11,7 @@
 <?import javafx.stage.Stage?>
 
 
+<?import javafx.scene.control.ScrollPane?>
 <fx:root maxHeight="1000.0" maxWidth="1500.0" minHeight="800.0" minWidth="1500.0" title="FlashMind" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <scene>
@@ -40,7 +41,7 @@
                </VBox>
                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="1000.0" minWidth="550.0" styleClass="pane-with-border-2">
                   <children>
-                     <StackPane fx:id="flashcardListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1000" minHeight="1000.0" minWidth="550.0" prefHeight="503.0" styleClass="pane-with-border-2" />
+                     <ScrollPane fx:id="flashcardListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1000" minHeight="1000.0" minWidth="550.0" prefHeight="503.0" styleClass="pane-with-border-2" />
                   </children>
                </VBox>
             </children>

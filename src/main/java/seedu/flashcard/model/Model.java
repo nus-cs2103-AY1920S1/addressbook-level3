@@ -1,6 +1,7 @@
 package seedu.flashcard.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -133,6 +134,19 @@ public interface Model {
      * Retrieves the desired statistics.
      */
     Statistics getStatistics();
+
+    /**
+     * Retrieves the quizable flashcards.
+     */
+    Quiz getQuiz();
+
+    /**
+     * Sets a list of quizable flashcards to the quiz.
+     * @param quizableFlashcards Flashcards to be quizzed.
+     */
+    void setQuiz(List<Flashcard> quizableFlashcards);
+
+
 
 
 }

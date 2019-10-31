@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +35,8 @@ public class MainWindow extends UiPart<Stage> {
     private FlashcardListPanel flashcardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsDisplay statsDisplay;
+    private FlashcardDisplay flashcardDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane flashcardListPanelPlaceholder;
+    private ScrollPane flashcardListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -66,6 +69,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsDisplay = new StatsDisplay(logic.getStatistics());
     }
 
     public Stage getPrimaryStage() {
@@ -111,10 +115,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         flashcardListPanel = new FlashcardListPanel(logic.getFilteredFlashcardList());
-        flashcardListPanelPlaceholder.getChildren().add(flashcardListPanel.getRoot());
+        flashcardListPanelPlaceholder.setContent(flashcardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        flashcardDisplay = new FlashcardDisplay();
+        statisticsDisplayPlaceholder.getChildren().add(flashcardDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -144,6 +151,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the stats display or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handlestats() {
+        statsDisplay.updateStats();
+        if (!statsDisplay.isShowing()) {
+            statsDisplay.show();
+        } else {
+            statsDisplay.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -157,6 +177,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statsDisplay.hide();
         primaryStage.hide();
     }
 
@@ -184,8 +205,11 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowStats()) {
-                StatsDisplay statsDisplay = new StatsDisplay(logic.getStatistics());
-                statisticsDisplayPlaceholder.getChildren().addAll(statsDisplay.getRoot());
+                handlestats();
+            }
+
+            if (commandResult.isFlip()) {
+                flashcardDisplay.setFeedbackToUser(commandResult.getFlashcardToDisplay());
             }
 
             return commandResult;
