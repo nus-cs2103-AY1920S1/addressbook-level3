@@ -6,6 +6,7 @@ import seedu.address.inventory.logic.commands.Command;
 import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
 import seedu.address.inventory.model.Item;
+import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.util.InventoryList;
 
@@ -15,11 +16,11 @@ import seedu.address.inventory.util.InventoryList;
 public class LogicManager implements Logic {
 
     private InventoryTabParser parser;
-    private ModelManager inventoryModel;
+    private Model inventoryModel;
     private final seedu.address.inventory.storage.Storage inventoryStorage;
 
-    public LogicManager(ModelManager inventoryModel,
-                        seedu.address.inventory.storage.StorageManager inventoryStorage) {
+    public LogicManager(Model inventoryModel,
+                        seedu.address.inventory.storage.Storage inventoryStorage) {
         parser = new InventoryTabParser();
 
         this.inventoryModel = inventoryModel;

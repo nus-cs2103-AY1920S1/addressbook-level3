@@ -60,21 +60,21 @@ public class MainApp extends Application {
     protected seedu.address.transaction.model.Model transactionModel;
     protected seedu.address.transaction.storage.Storage transactionStorage;
 
-    protected seedu.address.reimbursement.logic.LogicManager reimbursementLogic;
-    protected seedu.address.reimbursement.model.ModelManager reimbursementModel;
-    protected seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
+    protected seedu.address.reimbursement.logic.Logic reimbursementLogic;
+    protected seedu.address.reimbursement.model.Model reimbursementModel;
+    protected seedu.address.reimbursement.storage.Storage reimbursementStorage;
 
-    protected seedu.address.inventory.logic.LogicManager inventoryLogic;
-    protected seedu.address.inventory.model.ModelManager inventoryModel;
-    protected seedu.address.inventory.storage.StorageManager inventoryStorage;
+    protected seedu.address.inventory.logic.Logic inventoryLogic;
+    protected seedu.address.inventory.model.Model inventoryModel;
+    protected seedu.address.inventory.storage.Storage inventoryStorage;
 
-    protected seedu.address.cashier.logic.LogicManager cashierLogic;
-    protected seedu.address.cashier.model.ModelManager cashierModel;
-    protected seedu.address.cashier.storage.StorageManager cashierStorage;
+    protected seedu.address.cashier.logic.Logic cashierLogic;
+    protected seedu.address.cashier.model.Model cashierModel;
+    protected seedu.address.cashier.storage.Storage cashierStorage;
 
-    protected seedu.address.overview.logic.LogicManager overviewLogic;
-    protected seedu.address.overview.model.ModelManager overviewModel;
-    protected seedu.address.overview.storage.StorageManager overviewStorage;
+    protected seedu.address.overview.logic.Logic overviewLogic;
+    protected seedu.address.overview.model.Model overviewModel;
+    protected seedu.address.overview.storage.Storage overviewStorage;
 
     @Override
     public void init() throws Exception {
@@ -104,9 +104,9 @@ public class MainApp extends Application {
         //For Reimbursement Storage and Model
         reimbursementStorage =
                 new seedu.address.reimbursement.storage.StorageManager(new File(FILE_PATH_REIMBURSEMENT));
-        reimbursementModel =
-                new seedu.address.reimbursement.model.ModelManager(
-                        reimbursementStorage.getReimbursementFromFile(transactionModel.getTransactionList()));
+        reimbursementModel = initReimbursementModelManager(reimbursementStorage, transactionModel.getTransactionList());
+        /*new seedu.address.reimbursement.model.ModelManager(
+                        reimbursementStorage.getReimbursementFromFile(transactionModel.getTransactionList()));*/
 
         //For Inventory Storage and Model
         inventoryStorage =

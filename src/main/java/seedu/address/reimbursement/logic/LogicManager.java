@@ -17,13 +17,13 @@ import seedu.address.transaction.storage.exception.FileReadWriteException;
 public class LogicManager implements Logic {
 
     private final seedu.address.reimbursement.model.Model reimbursementModel;
-    private final seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
+    private final seedu.address.reimbursement.storage.Storage reimbursementStorage;
     private final seedu.address.person.model.Model personModel;
     private final ReimbursementTabParser parser;
 
 
     public LogicManager(Model reimbursementModel,
-                        seedu.address.reimbursement.storage.StorageManager reimbursementStorage,
+                        seedu.address.reimbursement.storage.Storage reimbursementStorage,
                         seedu.address.person.model.Model personModel) {
 
         this.reimbursementModel = reimbursementModel;
