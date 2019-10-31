@@ -71,34 +71,6 @@ Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `r
 ====
 
 
-=== Queue Management
-
-==== Adds a patient to the queue: `enqueue` ====
-
-Adds a patient to the queue based based on the patient's Id. The enqueued patient must be a registered. Staff members cannot be enqueued.+
-Format: `enqueue <PATIENT_REFERENCE_ID>` +
-
-==== Removes a patient from the queue: `dequeue` ====
-
-Removes a patient from the queue based on their queue position. +
-Format: `dequeue <QUEUE_INDEX>`
-
-==== Assigns next patient to an available doctor : `next` ====
-//todo add doctor first
-
-Assigns the next patient in the queue to a doctor based on the consultation room number. +
-Format: `next <ROOM_NUMBER>`
-
-==== Doctor takes a break: `break`  ====
-
-Avoids directing patients to a doctor based on the room number. e.g. Doctor is on a lunch break +
-Format: `break <ROOM_NUMBER>`
-
-==== Doctor resumes his/her duty: `resume` ====
-
-Allows patients to be directed to a doctor based on the room number. +
-Format: `resume <ROOM_NUMBER>`
-
 === Patient Management
 
 ==== Searches patient by arguments: `patient` ====
@@ -122,7 +94,7 @@ Format: `edit <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PH
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
 
-=== On-Duty Doctors Management ===
+=== Staff Personal Management ===
 
 ==== Views doctors: `doctors` ====
 
@@ -154,6 +126,36 @@ Format: `onduty <ENTRY_ID>`
 
 Marks the doctor, based on the index given, as off-duty and removes him/her from the list based on the index given. +
 Format: `offduty <ENTRY_ID>`
+
+
+=== Queue Management
+
+==== Adds a patient to the queue: `enqueue` ====
+
+Adds a patient to the queue based based on the patient's Id. The enqueued patient must be a registered. Staff members cannot be enqueued.+
+Format: `enqueue <PATIENT_REFERENCE_ID>` +
+
+==== Removes a patient from the queue: `dequeue` ====
+
+Removes a patient from the queue based on their queue position. +
+Format: `dequeue <QUEUE_INDEX>`
+
+==== Assigns next patient to an available doctor : `next` ====
+//todo add doctor first
+
+Assigns the next patient in the queue to a doctor based on the consultation room number. +
+Format: `next <ROOM_NUMBER>`
+
+==== Doctor takes a break: `break`  ====
+
+Avoids directing patients to a doctor based on the room number. e.g. Doctor is on a lunch break +
+Format: `break <ROOM_NUMBER>`
+
+==== Doctor resumes his/her duty: `resume` ====
+
+Allows patients to be directed to a doctor based on the room number. +
+Format: `resume <ROOM_NUMBER>`
+
 
 === Appointment Management
 
@@ -236,24 +238,24 @@ Format: `changeshift <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 
 === Inventory Commands (v2.0) ===
 
-==== Views the inventory: `inventory` ====
+==== Views the inventory: `inventory` (v2.0) ====
 
 Displays the medicine inventory. +
 Format: `inventory`
 
-==== Views the inventory: `prescription` ====
+==== Views the inventory: `prescription` (v2.0) ====
 
 Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
 Format: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
 
 === User Accounts (v2.0) ===
 
-==== Login: `login` ====
+==== Login: `login` (v2.0) ====
 
 Login with your username and password. The user will then be prompted to enter their password. +
 Format: `login <USER_NAME>`
 
-==== Logout: `logout` ====
+==== Logout: `logout` (v2.0) ====
 
 Logout from your account +
 Format: `logout`
