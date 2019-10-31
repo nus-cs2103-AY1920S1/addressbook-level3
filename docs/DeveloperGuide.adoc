@@ -22,6 +22,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+// tag::yida-design[]
+
 [[Design-Architecture]]
 === Architecture
 
@@ -65,6 +67,8 @@ For the components UI, Logic, Model, Timer and Game:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
+
+// end::yida-design[]
 
 For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
@@ -170,6 +174,8 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:BetterModelClassDiagram.png[]
 
+// tag::yida-game[]
+
 [[Design-Game]]
 === Game component
 
@@ -183,6 +189,8 @@ The `Game`,
 * maintains an `Index` to keep track of the state of the game.
 * has an associated `DifficultyEnum` that dictates the time allowed for each question.
 * verifies `Guess` that are sent by `Logic` (User's guesses)
+
+// end::yida-game[]
 
 [[Design-Storage]]
 === Storage component
@@ -372,6 +380,8 @@ The considerations for this aspect was mainly down to how much customisability w
 in this one, we do not think the added functionality of allowing the user to extensively customise their experience with our application to be particularly impactful not necessary. Moreover, alternative 2 makes for a less organised code base and we wanted to avoid that as much as possible.
 |===
 
+// tag::yida-timer[]
+
 === [underline]#Timer Feature#
 
 .Screenshot of the `Timer` component in action as seen through the `UI`.
@@ -459,6 +469,7 @@ debug and resolve problems in the code.
  +
 |===
 
+// end::yida-timer[]
 
 // end::settings[]
 
