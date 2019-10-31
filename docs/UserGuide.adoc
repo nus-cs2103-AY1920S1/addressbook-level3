@@ -291,6 +291,8 @@ The feature for adding transactions is built to work best under these constraint
 | Type | Either "in" or "exp"
 |==============================
 
+Additionally, the transaction feature works best when the system time functions normally, with no change in time zone.
+
 <<edittx>>
 ==== Editing transaction: `edittx` [Coming in v2.0]
 Edits a transaction. +
