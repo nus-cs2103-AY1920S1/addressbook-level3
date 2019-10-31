@@ -38,6 +38,7 @@ public class LoanCard extends UiPart<Region> {
         amountDirectionPerson.setText(loan.getEssentialInfo());
         date.setText(loan.getDateString());
         description.setText(loan.getDescription().toString());
+        description.setWrapText(true);
         status.setText(loan.getStatus().getStatusIcon());
         status.setStyle("-fx-font-size: 48");
     }
