@@ -53,7 +53,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Here are some commands you can try out:
 .. *Add a new book* to LiBerry by using `add t/Animal Farm a/George Orwell`
 .. *Register a new borrower* to LiBerry by using `register n/John Smith p/97875454 e/jsmith@gmail.com`
-..
 
 .  Refer to <<Features>> for details of each command.
 // end::quickStart[]

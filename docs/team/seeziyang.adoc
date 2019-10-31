@@ -131,6 +131,8 @@ test coverage of our team's code.
 
 include::../UserGuide.adoc[tag=quickStart]
 
+'''
+
 include::../UserGuide.adoc[tag=loanRelated]
 
 == Contributions to the Developer Guide
