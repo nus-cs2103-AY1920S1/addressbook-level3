@@ -19,7 +19,7 @@ import seedu.ifridge.model.waste.WasteMonth;
  */
 public class ReportWasteCommandParser implements Parser<ReportWasteCommand> {
 
-    public static final int ONE_PERIOD = 11;
+    public static final int ONE_PERIOD = 12;
 
     /**
      * Parses {@code userInput} into a command and returns it.

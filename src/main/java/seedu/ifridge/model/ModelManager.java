@@ -6,7 +6,7 @@ import static seedu.ifridge.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -437,8 +437,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Set<WasteMonth> getListOfWasteMonths() {
-        return WasteList.getWasteArchive().keySet();
+    public SortedSet<WasteMonth> getDescendingWasteMonths() {
+        return WasteList.getWasteArchive().descendingKeySet();
     }
 
     @Override

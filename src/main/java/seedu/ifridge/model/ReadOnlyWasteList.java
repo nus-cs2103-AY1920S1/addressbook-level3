@@ -2,6 +2,7 @@ package seedu.ifridge.model;
 
 import javafx.collections.ObservableList;
 import seedu.ifridge.model.food.GroceryItem;
+import seedu.ifridge.model.food.UniqueWasteList;
 import seedu.ifridge.model.waste.WasteMonth;
 import seedu.ifridge.model.waste.WasteStatistic;
 
@@ -18,5 +19,7 @@ public interface ReadOnlyWasteList {
     WasteMonth getWasteMonth();
 
     WasteStatistic getWasteStatistic();
+
+    UniqueWasteList getIterableWasteList();
 
 }

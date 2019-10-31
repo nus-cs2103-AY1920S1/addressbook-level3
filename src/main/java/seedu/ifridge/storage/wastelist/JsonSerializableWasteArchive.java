@@ -1,5 +1,6 @@
 package seedu.ifridge.storage.wastelist;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ import seedu.ifridge.model.waste.WasteMonth;
  */
 @JsonRootName(value = "wastearchive")
 public class JsonSerializableWasteArchive {
-    public static final String MESSAGE_DUPLICATE_TEMPLATE = "Waste list storage contains duplicate waste list(s) "
+    public static final String MESSAGE_DUPLICATE_WASTELIST = "Waste list storage contains duplicate waste list(s) "
             + "for the month of %s.";
 
     private final List<JsonSerializableWasteList> wastearchive = new ArrayList<>();
@@ -47,6 +48,12 @@ public class JsonSerializableWasteArchive {
         for (JsonSerializableWasteList jsonSerializableWasteList : wastearchive) {
             WasteList wasteList = jsonSerializableWasteList.toModelType();
             WasteMonth wasteMonth = wasteList.getWasteMonth();
+            if (wasteMonth.isAfter(new WasteMonth(LocalDate.now()))) {
+                continue;
+            }
+            if (modelWasteArchive.containsKey(wasteMonth)) {
+                throw new IllegalValueException(String.format(MESSAGE_DUPLICATE_WASTELIST, wasteMonth.toString()));
+            }
             modelWasteArchive.put(wasteMonth, wasteList);
         }
         return modelWasteArchive;
