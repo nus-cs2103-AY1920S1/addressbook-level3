@@ -42,8 +42,8 @@ public class AddCheatSheetCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New cheatsheet added: %1$s";
     public static final String MESSAGE_DUPLICATE_CHEATSHEET = "This cheatsheet already exists";
-    public static final String MESSAGE_SUCCESSFUL_AUTOGENERATE
-            = " content(s) have been successfully generated from the other modes.";
+    public static final String MESSAGE_SUCCESSFUL_AUTOGENERATE =
+            " content(s) have been successfully generated from the other modes.";
 
     private final CheatSheet toAdd;
 
@@ -71,7 +71,7 @@ public class AddCheatSheetCommand extends Command {
         model.setCheatSheet(toAdd, editedCheatSheet);
         int numberOfContentPulled = editedCheatSheet.getContents().size();
         return new CheatSheetCommandResult(String.format(MESSAGE_SUCCESS, editedCheatSheet)
-        + "\n" + numberOfContentPulled +  MESSAGE_SUCCESSFUL_AUTOGENERATE);
+        + "\n" + numberOfContentPulled + MESSAGE_SUCCESSFUL_AUTOGENERATE);
     }
 
     @Override
