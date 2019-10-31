@@ -42,7 +42,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
     @Override
     public TransactionAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION,
+                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_ACCOUNT,
                         PREFIX_CATEGORY, PREFIX_DATE);
 
         String directionString = argMultimap.getPreamble().toUpperCase();
