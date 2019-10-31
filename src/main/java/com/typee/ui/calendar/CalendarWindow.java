@@ -172,7 +172,20 @@ public class CalendarWindow extends UiPart<Region> {
         for (CalendarDateCell calendarDateCell : calendarDateCells) {
             if (calendarDateCell.getDate().equals(date)) {
                 calendarDateCell.displayEngagements();
+                return;
             }
+        }
+        throw new IllegalArgumentException("Please choose a date within the displayed calendar month"
+                + " to show engagements for.");
+    }
+
+    /**
+     * Closes all displayed daily engagement lists, if any.
+     */
+    @Override
+    public void handleExit() {
+        for (CalendarDateCell calendarDateCell : calendarDateCells) {
+            calendarDateCell.closeDisplayedEngagements();
         }
     }
 

@@ -69,12 +69,28 @@ public class CalendarDateCell extends UiPart<Region> {
         return engagements.size();
     }
 
+    /**
+     * Sets the date of this {@code CalendarDateCell} to the specified date.
+     * @param date The specified date.
+     */
     public void setDate(LocalDate date) {
         this.date = date;
+        engagementsDisplayWindow.setDate(date);
     }
 
+    /**
+     * Returns the date of this {@code CalendarDateCell}.
+     * @return The date of this {@code CalendarDateCell}.
+     */
     public LocalDate getDate() {
         return date;
+    }
+
+    /**
+     * Closes the displayed engagements list if it is opened.
+     */
+    public void closeDisplayedEngagements() {
+        engagementsDisplayWindow.hide();
     }
 
     /**

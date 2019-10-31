@@ -11,10 +11,10 @@ import com.typee.model.Model;
  */
 public class CalendarDateDisplayEngagementsCommand extends CalendarCommand {
 
-    public static final String COMMAND_WORD = "display";
+    public static final String COMMAND_WORD = "opendisplay";
     public static final String MESSAGE_SUCCESS = "Displaying engagements for ";
     public static final String INVALID_COMMAND_FORMAT = "Invalid calendar display command format.\n"
-            + "Usage: calendar display DD/MM/YYYY\n";
+            + "Usage: calendar opendisplay DD/MM/YYYY\n";
 
     private LocalDate date;
 

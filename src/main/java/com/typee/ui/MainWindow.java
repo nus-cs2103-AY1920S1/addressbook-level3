@@ -183,11 +183,14 @@ public class MainWindow extends UiPart<Stage> {
      * Closes the application.
      */
     @FXML
-    private void handleExit() {
+    public void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        if (currentTab != null) {
+            currentTab.getController().handleExit();
+        }
         primaryStage.hide();
     }
 
@@ -212,18 +215,22 @@ public class MainWindow extends UiPart<Stage> {
         }
         CalendarWindow calendarWindow = (CalendarWindow) currentTab.getController();
         String calendarCommandType = commandResult.getCalendarCommandType();
-        switch (calendarCommandType) {
-        case "display":
-            calendarWindow.display(commandResult.getCalendarDate());
-            break;
-        case "nextmonth":
-            calendarWindow.populateCalendarWithNextMonth();
-            break;
-        case "previousmonth":
-            calendarWindow.populateCalendarWithPreviousMonth();
-            break;
-        default:
-            throw new CommandException("Invalid calendar command.");
+        try {
+            switch (calendarCommandType) {
+            case "display":
+                calendarWindow.display(commandResult.getCalendarDate());
+                break;
+            case "nextmonth":
+                calendarWindow.populateCalendarWithNextMonth();
+                break;
+            case "previousmonth":
+                calendarWindow.populateCalendarWithPreviousMonth();
+                break;
+            default:
+                throw new CommandException("Invalid calendar command.");
+            }
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
         }
     }
 
