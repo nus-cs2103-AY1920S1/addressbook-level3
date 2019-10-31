@@ -34,6 +34,7 @@ public class PriceTest {
         assertFalse(Price.isValidPrice("$.12")); // no digit before decimal
         assertFalse(Price.isValidPrice("$-1.5")); // negative
         assertFalse(Price.isValidPrice("$0123")); // starts with 0 but is not $0 or $0.x or $0.xx
+        assertFalse(Price.isValidPrice("$00123")); // more than one 0
 
         // valid price
         assertTrue(Price.isValidPrice("$911")); // no decimal
