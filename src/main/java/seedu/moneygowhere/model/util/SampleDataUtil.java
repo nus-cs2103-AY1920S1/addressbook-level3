@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.SpendingBook;
+import seedu.moneygowhere.model.reminder.Reminder;
+import seedu.moneygowhere.model.reminder.ReminderMessage;
 import seedu.moneygowhere.model.spending.Cost;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Name;
@@ -41,10 +43,23 @@ public class SampleDataUtil {
         };
     }
 
+    public static Reminder[] getSampleReminders() {
+        return new Reminder[] {
+            new Reminder(new Date("yesterday"), new ReminderMessage("Pay school fees")),
+            new Reminder(new Date("5 days later"), new ReminderMessage("Check bank balance")),
+            new Reminder(new Date("7 days later"), new ReminderMessage("Repay my friend $2")),
+            new Reminder(new Date("30 days later"), new ReminderMessage("Pay phone bills")),
+            new Reminder(new Date("30 days later"), new ReminderMessage("Pay rent"))
+        };
+    }
+
     public static ReadOnlySpendingBook getSampleSpendingBook() {
         SpendingBook sampleAb = new SpendingBook();
         for (Spending sampleSpending : getSampleSpendings()) {
             sampleAb.addSpending(sampleSpending);
+        }
+        for (Reminder sampleReminder : getSampleReminders()) {
+            sampleAb.addReminder(sampleReminder);
         }
         return sampleAb;
     }
