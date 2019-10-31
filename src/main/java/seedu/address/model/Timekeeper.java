@@ -93,7 +93,10 @@ public class Timekeeper {
             }
         }
 
-        StringBuilder remindersMessage = new StringBuilder("These are your upcoming events:");
+        StringBuilder remindersMessage =
+                new StringBuilder((reminders.isEmpty()
+                        ? "You have no upcoming events!"
+                        : "These are your upcoming events:"));
         for (Reminder reminder: reminders) {
             remindersMessage.append("\n" + reminder.toString());
         }
@@ -124,28 +127,28 @@ public class Timekeeper {
         return (isUrgent(timestamp)) ? Optional.of(new Reminder(event, daysLeft)) : Optional.empty();
     }
 
-    /**
-     * Calculates how many days outdated the given timestamp is.
-     *
-     * @param timestamp The given timestamp.
-     * @return How many days outdated the given timestamp is. Can be negative.
-     */
-    public static String formatTimeOutdated(Timestamp timestamp) {
-        LocalDateTime temp = systemTime.fullTimestamp;
-
-        long daysLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.DAYS);
-        temp = temp.plusDays(daysLeft);
-
-        long hoursLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.HOURS);
-        temp = temp.plusHours(hoursLeft);
-
-        long minutesLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.MINUTES);
-
-        String timeRemaining = String.format("%d days, %d hours and %d minutes",
-                Math.abs(daysLeft), Math.abs(hoursLeft), Math.abs(minutesLeft));
-
-        return timeRemaining;
-    }
+    //    /**
+    //     * Calculates how many days outdated the given timestamp is.
+    //     *
+    //     * @param timestamp The given timestamp.
+    //     * @return How many days outdated the given timestamp is. Can be negative.
+    //     */
+    //    public static String formatTimeOutdated(Timestamp timestamp) {
+    //        LocalDateTime temp = systemTime.fullTimestamp;
+    //
+    //        long daysLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.DAYS);
+    //        temp = temp.plusDays(daysLeft);
+    //
+    //        long hoursLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.HOURS);
+    //        temp = temp.plusHours(hoursLeft);
+    //
+    //        long minutesLeft = temp.until(timestamp.fullTimestamp, ChronoUnit.MINUTES);
+    //
+    //        String timeRemaining = String.format("%d days, %d hours and %d minutes",
+    //                Math.abs(daysLeft), Math.abs(hoursLeft), Math.abs(minutesLeft));
+    //
+    //        return timeRemaining;
+    //    }
 
     private static long calculateDaysRemaining(Timestamp timestamp) {
         long daysLeft = systemTime.getFullTimestamp().until(timestamp.getFullTimestamp(), ChronoUnit.DAYS);
