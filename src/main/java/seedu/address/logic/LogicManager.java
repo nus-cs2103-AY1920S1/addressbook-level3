@@ -87,6 +87,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Notif> getFilteredActiveNotifList() {
+        return model.getFilteredActiveNotifList();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }

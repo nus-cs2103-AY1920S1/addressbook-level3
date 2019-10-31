@@ -1,6 +1,9 @@
 package seedu.address.model;
 
+import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
+
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -24,6 +27,8 @@ public interface Model {
     Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
     Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
     Predicate<Notif> PREDICATE_SHOW_ALL_NOTIFS = unused -> true;
+    Predicate<Notif> PREDICATE_SHOW_ACTIVE_NOTIFS =
+        unused -> unused.getBody().getBodyStatus().equals(Optional.of(CONTACT_POLICE));
     Predicate<Fridge> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
 
     /**
@@ -152,6 +157,11 @@ public interface Model {
      */
     int getNumberOfNotifs();
 
+    /**
+     *  Returns the total number of active notifications in the system.
+     */
+    int getNumberOfActiveNotifs();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -169,6 +179,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered list of notifs */
     ObservableList<Notif> getFilteredNotifList();
+
+    /** Returns an unmodifiable view of the filtered list of active notifs */
+    ObservableList<Notif> getFilteredActiveNotifList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -193,6 +206,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNotifList(Predicate<Notif> predicate);
+
+    /**
+     * Updates the filter of the filtered active notif list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredActiveNotifList(Predicate<Notif> predicate);
 
     /**
      * Updates the filter of the filtered fridge list to filter by the given {@code predicate}.

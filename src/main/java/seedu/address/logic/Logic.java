@@ -47,8 +47,11 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of bodies */
     ObservableList<Fridge> getFilteredFridgeList();
 
-    /** Returns an unmodifiable view of the filtered list of bodies */
+    /** Returns an unmodifiable view of the filtered list of notifs */
     ObservableList<Notif> getFilteredNotifList();
+
+    /** Returns an unmodifiable view of the filtered list of active notifs */
+    ObservableList<Notif> getFilteredActiveNotifList();
 
     /**
      * Returns the user prefs' address book file path.
