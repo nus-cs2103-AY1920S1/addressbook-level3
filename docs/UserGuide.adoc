@@ -16,6 +16,7 @@ endif::[]
 
 By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 *MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
@@ -66,6 +67,7 @@ e.g. typing *`help`* will display the help information.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+// end::introduction[]
 
 [[Features]]
 == Features
@@ -96,6 +98,7 @@ image::help.png[width="300"]
 
 Help can be accessed from the menu bar by clicking on the `Help` button.
 
+// tag::flexibledateformats[]
 === Flexible date formats
 
 Whenever a particular command requires a `DATE` field, you can choose either of the following formats.
@@ -131,6 +134,7 @@ You do not need to specify which date format you would like to use as MoneyGoWhe
 [NOTE]
 MoneyGoWhere will also automatically check whether a given date is valid.
 Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019.
+// end::flexibledateformats[]
 
 === Adding a spending : `add`
 
@@ -208,7 +212,7 @@ List is sorted by descending order of date, followed by descending order of cost
 [NOTE]
 This command is implicitly invoked upon application start up, and can be used to reset the view after find or sort.
 
-
+// tag::sort[]
 === Sorting spending entries : `sort`
 Sorts all spending based on a given order. +
 
@@ -227,8 +231,9 @@ Examples:
 Sorts current spending displayed by Date in ascending order. If they are the same, sort by Cost in descending order.
 * `sort n/DESC` +
 Sorts current spending displayed by Name in descending order.
+// end::sort[]
 
-
+// tag::find[]
 === Finding a spending : `find`
 
 Searches for spending based on given keywords, cost range, date range, remarks or tags. You may refine the search results by entering more keywords. +
@@ -276,11 +281,7 @@ Returns a list of spending with matching the keywords `breakfast` or `meal` in r
 Returns a list of spending with `food` or `leisure` tags.
 * `find d/yesterday d/today t/food t/leisure` +
 Returns a list of spending within `yesterday` and `today` that have `food` or `leisure` tags.
-
-=== Listing all tags : `ltags`
-Displays a list of all tags. +
-
-Format: `ltags`
+// end::find[]
 
 === Setting monthly budget : `budget`
 Sets a budget for the current month in Singapore dollars. +
@@ -314,6 +315,7 @@ Format: `exchangerate`
 [NOTE]
 Only supported currencies (SGD, USD, EUR, IDR, MYR, INR, MMK) are shown.
 
+// tag::statistics[]
 === Generating statistics : `stats`
 Returns an overview of the spending in the form of a pie chart, with each sector representing a tag as shown in Figure 3.
 Each sector is labelled with the name and total expenditure for the tag, allowing you to better analyze your spending habits.
@@ -344,7 +346,9 @@ Generates statistics for spending that fall between and including 01/01/2019 and
 * `stats` +
 Generates statistics for all spending.
 
+// end::statistics[]
 
+// tag::graph[]
 === Graphing the data : `graph`
 Shows a graph of total cost spent in a day against date in the form of a line graph as seen in Figure 4.
 This allows users to view trends in their spending over a specified period of time.
@@ -374,6 +378,8 @@ Generates a graph for spending that fall between and including 01/01/2019 and 07
 * `graph` +
 Generates a graph for all spending.
 
+// end::graph[]
+
 === Adding a reminder: `reminder add`
 Adds a reminder to the reminder list
 Format: `reminder add d/DATE m/MESSAGE`
@@ -398,7 +404,7 @@ Example:
 * `reminder delete 2` +
 Deletes the second reminder in the list based on the current results shown.
 
-
+// tag::import[]
 === Importing data : `import`
 Imports data from a CSV file specified by file path. +
 
@@ -410,18 +416,47 @@ Examples: +
 * `import p/C:\Users\User\Documents\importfile.csv`
 * `import p/~/data.csv`
 
-=== Exporting data : `export`
-Exports data to a CSV file specified by file path. +
+[.text-center]
+.A Valid `.csv` File.
+image::ExampleValidCsv.png[]
 
-Format: export `p/FILE_PATH` +
+`.csv` file must have a header row with the following values:
+
+* name
+* date
+* remark
+* cost
+* tagged
+
+[Note]
+====
+Multiple tags should be separated by a semi-colon.
+
+Example:
+
+`juicy;nice`
+
+Alternatively, tags could be wrapped in double quotes and separated by commas.
+
+Example:
+
+`"juicy,nice"`
+====
+// end::import[]
+
+// tag::export[]
+=== Exporting data : `export`
+Exports data to a `moneygowhere.csv` file specified by a folder path. +
+
+Format: export `p/FOLDER_PATH` +
 
 Examples: +
 
-* `export p/data.csv`
-* `export p/C:\data.csv`
-* `export p/~/data.csv`
+* `export p/Documents`
+* `export p/Finance`
+// end::export[]
 
-=== Undoing previous command : `undo`
+=== Undoing previous command : `undo` `[Coming in v2.0]`
 Restores the list of spending to the state before the previous undoable command was executed. +
 
 Format: `undo` +
@@ -444,7 +479,7 @@ Examples: +
 `undo` (reverses the add n/textbook c/100 command) +
 `undo` (reverses the delete 1 command)
 
-=== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command : `redo` `[Coming in v2.0]`
 Reverses the most recent undo command. +
 
 Format: `redo` +
@@ -485,6 +520,7 @@ Format: `exit`
 
 Listed below is a summary of all available commands.
 
+// tag::commandsummary[]
 .Command Summary table
 [width="100%",cols="20%,<30%",options="header"]
 |=======================================================================
@@ -501,7 +537,6 @@ e.g. `delete 123`
 e.g. `sort d/DESC c/ASC` +
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
 e.g. `find n/apple orange c/1.00-200.00 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
-| *List all tags*| `ltags` +
 | *Budget* | `budget MONTHLY_BUDGET` +
 e.g. `budget 18000`
 | *Show Budget* | `showbudget` +
@@ -525,3 +560,4 @@ e.g. `reminder delete 2`
 |=======================================================================
 
 The command summary above displays all commands available in MoneyGoWhere.
+// end::commandsummary[]

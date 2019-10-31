@@ -1,0 +1,62 @@
+= Jonathan Tjendana - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MoneyGoWhere
+
+---
+
+== Overview
+
+MoneyGoWhere is a desktop personal finance application targeted at students of the National University of Singapore (NUS).
+It allows students to keep track of all their spending and their related information such as date, cost and tags.
+Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
+
+The user interacts with it using a CLI, and it has a GUI created with JavaFx.
+The CLI is equipped with a Natural Language Processing (NLP) library, natty, to read in date input.
+It is written in Java, and has about 15 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to import/export data*
+** What it does: allows the user to import and export data to and from a .csv file.
+** Justification: This feature improves the product significantly because a user can have existing data before starting to use the application and to export the data if he would like to process the data using other applications such as Microsoft Excel.
+** Highlights: This enhancement affects other commands as it modifies the spending list. It required an in-depth analysis of design alternatives.
+** Credits: Jackson library.
+
+* *Minor enhancement*: Redesign the user interface to fit the application
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jonathantjendana&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jonathantjendana&tabRepo=AY1920S1-CS2103T-F13-3%2Fmain%5Bmaster%5D[Collated code]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Updated the GUI (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/136[#136], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/137[#137])
+*** Changed email field into remark field https://github.com/AY1920S1-CS2103T-F13-3/main/pull/69[#68]
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/39[#39], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/47[#47]
+*** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/98[#98]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-3/main/pull/106[#106]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=import]
+
+include::../UserGuide.adoc[tag=export]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=import]
+
+include::../DeveloperGuide.adoc[tag=export]

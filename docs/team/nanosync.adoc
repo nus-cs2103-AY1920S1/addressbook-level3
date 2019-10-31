@@ -1,0 +1,133 @@
+= Benedict Pak - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MoneyGoWhere
+
+== Overview
+
+MoneyGoWhere is a personal finance application targeted at students at the National University of Singapore (NUS), designed by my team and I for our Software Engineering project.
+
+Designed primarily with a Command Line Interface (CLI), it allows students to keep track of all their spending with related information such as date, cost and tags. Users can also set budget goals, view statistics, view exchange rates, set their existing  set reminders for bills, import and export their data from and to a .csv file.
+
+=== My Role
+
+I was tasked to complete find and sort features, as well as natural language date parsing. The sections that follow in this document will elaborate these features in detail. I have also made notable contributions to the User Guide and Developer Guide.
+
+Listed below are some notations that are used throughout the document.
+
+.Legend table
+[width="100%",cols="^15%,85%"]
+|===
+a| Icon | Description
+a| `command` | Command that can be executed
+ifndef::env-github[]
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be helpful in navigating the application
+a| icon:info-circle[role="icon-note", size="2x"] | Important information that should be noted
+endif::[]
+|===
+If there are any additional related information, it will be described in a block below:
+====
+Useful information for a deeper understanding of the command.
+====
+
+These icons and their following descriptions enable greater clarity in understanding the document.
+
+== Summary of contributions
+
+This section shows a summary of my contributions to the team project.
+
+=== Major enhancement: Refined search and user-defined sort
+
+I have implemented both a refined search and user-defined sort function.
+
+==== What it does
+
+It allows the student to search for an existing spending based on different keywords. Based on this search, or based on the existing spending entries listed, the student may also choose to sort displayed spending entries based on their preference.
+
+To access this function, the student may type `find`, followed by the necessary criteria to refine their search results. They can also type `sort` to re-organise the current displayed data.
+
+==== Justification
+
+In the event that the listed spending results are too general, students can narrow down their search results to a range of spending, or a specific spending. Students can now meticulously observe what they have spent their money on, based on a given date range.
+
+==== Highlights
+
+This enhancement functions well with existing commands. The design approach was challenging for the sort function as it particularly required some restructuring of how the sorted list would be implemented. It required an in-depth analysis of design alternatives.
+
+=== Minor enhancement: Natural language date parsing
+
+I have also implemented natural language date parsing.
+
+==== What it does
+
+This feature allows users to enter dates without a fixed format, similar to how dates are written in real life.
+
+==== Justification
+
+Users no longer need to enter fixed format dates which are difficult to follow and are free to enter a non-fixed format, similar to how dates are written in real life.
+
+==== Highlights
+
+This enhancement functions extremely well with existing commands. Other features like `stats`, `budget`, `reminder` leverage on this enhancement, which makes it a key implementation for the application.
+
+==== Credits
+*natty* library was used to aid in natural language parsing. However, many modifications were applied in order to allow support for _DD/MM/YYYY_ dates, which is a missed feature on the author's part.
+
+==== Code contributed
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=nanosync[Collated code]
+
+
+
+== Other contributions
+
+** Project management
+*** Team lead of a team size of 5
+*** Handled integration in repository
+*** Guided teammates for tips and tricks in IntelliJ and git rebase workflow
+*** Managed releases `v1.3` - `v1.4` on GitHub
+*** Managed project page on GitHub for milestone tracking
+*** Enforced maintaining code coverage above 75%
+*** Added RepoSense support
+
+** Enhancements to existing features:
+*** Refactored and modified existing classes, including package name `AddressBook` to `SpendingBook` code base to match application needs: (https://github.com/AY1920S1-CS2103T-F13-3/main/pull/73[Modified address book comments and sample data #73], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/75[Fixed person to spending #75], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/78[Changed package name from AddressBook to SpendingBook #78])
+
+** Documentation:
+*** Cleaned up the User Guide and Developer Guide: (https://github.com/AY1920S1-CS2103T-F13-3/main/pull/106[Address UG and DG changes #106])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): (https://github.com/AY1920S1-CS2103T-F13-3/main/pull/56[Added reminder class #56], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/68[Refactor Email to Remark #68], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/95[Add commands for reminders in UG and amended DG for MoneyGoWhere #95])
+*** Did manual testing, reported bugs and offered suggestions for other teams in the class
+
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com/AY1920S1-CS2103T-F13-3/main/pull/55[Add base for natural language processing #55], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/62[Update NLP #62], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/69[Refactor date validation #69])
+*** Integrated Netlify in GitHub to the team repo to allow continuous deployment of documentation
+
+
+== Contributions to the User Guide
+
+|===
+| Listed below are sections I contributed to the User Guide. This includes the Features section, particularly Flexible Date Formats, Find, Sort and Command Summary section.
+|===
+
+include::../UserGuide.adoc[tag=flexibledateformats]
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=commandsummary]
+
+== Contributions to the Developer Guide
+
+|===
+| Listed below are sections I contributed to the Developer Guide. This includes the features section for Find and Sort, and the Product Scope section.
+|===
+
+include::../DeveloperGuide.adoc[tag=find]
+
+include::../DeveloperGuide.adoc[tag=sort]
+
+include::../DeveloperGuide.adoc[tag=productscope]

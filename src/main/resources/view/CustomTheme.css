@@ -46,10 +46,10 @@
 }
 
 .status-bar .label {
-   -fx-font-family: "Segoe UI Light";
-   -fx-padding: 4px;
-   -fx-pref-height: 30px;
- }
+  -fx-font-family: "Segoe UI Light";
+  -fx-padding: 4px;
+  -fx-pref-height: 30px;
+}
 
 .status-bar-with-border {
   -fx-border-width: 1px;

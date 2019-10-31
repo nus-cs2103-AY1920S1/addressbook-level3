@@ -2,7 +2,6 @@ package seedu.moneygowhere.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.moneygowhere.logic.commands.StatsCommand.MESSAGE_SUCCESS;
 import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
@@ -33,13 +32,15 @@ class StatsCommandTest {
 
     @Test
     public void execute_statsMessage_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, true, false);
+        CommandResult expectedCommandResult = new CommandResult("Statistics for all dates\n", false, true, false);
         assertCommandSuccess(new StatsCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_statsMessageValidDateRange_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, true, false);
+        CommandResult expectedCommandResult = new CommandResult(
+            String.format("Statistics for spending between %s and %s\n",
+            APPLE.getDate(), GLASSES.getDate()), false, true, false);
         assertCommandSuccess(new StatsCommand(APPLE.getDate(), GLASSES.getDate()), model,
             expectedCommandResult, expectedModel);
     }

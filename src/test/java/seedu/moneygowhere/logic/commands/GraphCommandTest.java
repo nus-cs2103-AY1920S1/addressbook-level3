@@ -2,7 +2,6 @@ package seedu.moneygowhere.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.moneygowhere.logic.commands.GraphCommand.MESSAGE_SUCCESS;
 import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
@@ -25,13 +24,15 @@ public class GraphCommandTest {
 
     @Test
     public void execute_graphMessage_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, true, false, false);
+        CommandResult expectedCommandResult = new CommandResult("Graph for all dates\n", true, false, false);
         assertCommandSuccess(new GraphCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_graphMessageValidDateRange_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, true, false, false);
+        CommandResult expectedCommandResult = new CommandResult(
+            String.format("Graph for spending between %s and %s\n", APPLE.getDate(), GLASSES.getDate()),
+                true, false, false);
         assertCommandSuccess(new GraphCommand(APPLE.getDate(), GLASSES.getDate()), model,
             expectedCommandResult, expectedModel);
     }
