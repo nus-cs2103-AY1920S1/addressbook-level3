@@ -70,6 +70,8 @@ public class InfoCommand extends Command {
 
     public static final String TOP_UP_INFO = COMMAND_INDICATOR + TopUpCommand.COMMAND_WORD;
 
+    public static final String VIEW_SORT_INFO = COMMAND_INDICATOR + ViewSortCommand.COMMAND_WORD;
+
     public static final String INVALID_COMMAND_ENTERED_MESSAGE = "Sorry, no information for such command exists!";
 
     public static final String MULTIPLE_COMMAND_ENTERED_MESSAGE =
@@ -143,6 +145,8 @@ public class InfoCommand extends Command {
             return new CommandResult(SORT_INFO);
         case TopUpCommand.COMMAND_WORD :
             return new CommandResult(TOP_UP_INFO);
+        case ViewSortCommand.COMMAND_WORD :
+            return new CommandResult(VIEW_SORT_INFO);
         default :
             throw new CommandException(INVALID_COMMAND_ENTERED_MESSAGE);
         }

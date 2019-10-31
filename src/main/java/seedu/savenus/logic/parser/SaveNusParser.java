@@ -35,6 +35,7 @@ import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.SortCommand;
 
 import seedu.savenus.logic.commands.TopUpCommand;
+import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
 /**
@@ -145,6 +146,9 @@ public class SaveNusParser {
 
         case AutoSortCommand.COMMAND_WORD:
             return new AutoSortCommandParser().parse(arguments);
+
+        case ViewSortCommand.COMMAND_WORD:
+            return new ViewSortCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
