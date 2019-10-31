@@ -18,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentGrades;
 import seedu.address.model.assignment.AssignmentName;
+//import seedu.address.model.classroom.Classroom;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Time;
 import seedu.address.model.student.Address;
@@ -283,6 +284,16 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
         return new Time(calendar);
+    }
+
+    /**
+     * Parses the classroom name.
+     * @param classroomName classroomname to check
+     * @return trimmed classroom name
+     */
+    public static String parseClassroomName(String classroomName) {
+        String trimmedName = classroomName.trim();
+        return trimmedName;
     }
 
     /**

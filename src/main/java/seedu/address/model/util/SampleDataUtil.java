@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.Classroom;
-import seedu.address.model.ReadOnlyClassroom;
+import seedu.address.model.Notebook;
+import seedu.address.model.ReadOnlyNotebook;
+//import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentName;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
@@ -46,15 +48,22 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyClassroom getSampleClassroom() {
-        Classroom sampleAb = new Classroom();
+    public static Classroom getSampleClassroom() {
+        Classroom sampleClassroom = new Classroom();
         for (Student sampleStudent : getSampleStudents()) {
-            sampleAb.addStudent(sampleStudent);
+            sampleClassroom.addStudent(sampleStudent);
         }
         for (Assignment sampleAssignment : getSampleAssignments()) {
-            sampleAb.addAssignment(sampleAssignment);
+            sampleClassroom.addAssignment(sampleAssignment);
         }
-        return sampleAb;
+        return sampleClassroom;
+    }
+
+    public static ReadOnlyNotebook getSampleNotebook() {
+        Notebook sampleNotebook = new Notebook();
+        //sampleNotebook.addClassroom(new Classroom("testing"));
+        sampleNotebook.addClassroom(getSampleClassroom());
+        return sampleNotebook;
     }
 
     public static Assignment[] getSampleAssignments() {

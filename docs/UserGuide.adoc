@@ -35,11 +35,24 @@ Teacher’s Notebook is for teachers who prefer to make use of an application to
 
 ====
 *Command Format*
-* Words in UPPER_CASE are the parameters supplied by the user e.g. in add c/CLASS, CLASS is a parameter which can be used as add c/4C.
-* Items in square brackets are optional e.g. n/NAME [a/ADDRESS] can be used as n/John Doe a/National University of Singapore or n/John Doe.
+* Words in UPPER_CASE are the parameters supplied by the user e.g. in addclass cn/CLASS, CLASS is a parameter which can be used as addclass cn/4C.
+* Items in square brackets are optional e.g. n/NAME [m/MEDICAL_CONDITION] can be used as n/John Doe m/Sinus or n/John Doe.
 * Items with … after them can be used multiple times including zero times e.g. [m/MEDICAL_CONDITIONS]... can be used as   (i.e. 0 times), m/Sinus, m/Sinus m/Asthma etc.
 * Parameters can be in any order e.g. if the command specifies n/NAME i/INDEX, n/NAME, i/INDEX is also acceptable
 ====
+
+// tag::set[]
+=== Setting: set
+
+==== Classes
+
+Sets the chosen classroom as the current classroom to view. +
+Format: setclass c/CLASSROOM_NAME
+
+Examples:
+* setclass c/4C
+
+// end::set[]
 
 // tag::add[]
 === Adding: add
@@ -47,16 +60,16 @@ Teacher’s Notebook is for teachers who prefer to make use of an application to
 ==== Classes
 
 Adds a class to the class list. +
-Format: addclass c/CLASS
+Format: addclass cn/CLASS
 
-Examples:
-* addclass c/4C
-* addclass c/3E5
+Examples: +
+* addclass cn/4C +
+* addclass cn/3E5
 
 ==== Students
 
-Adds a student to the student list. +
-Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG]...
+Adds a student to the student list of current class. +
+Format: addstudent n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG]...
 
 Examples: +
 * addstudent n/John Doe p/91234567 e/john.doe@gmail.com a/John Street, Block 123, #01-01 pp/92222222 +
@@ -64,12 +77,21 @@ Examples: +
 
 ==== Assignments
 
-Adds an assignment to the assignment list +
+Adds an assignment to the assignment list of current class. +
 Format: addassignment as/ASSIGNMENT d/DEADLINE
 
-Examples:
-* addassignment as/CS2103 Team Project d/31/10/2019
-* addassignment as/CS2103 Individual Project d/30/09/2019
+Examples: +
+* addassignment as/CS2103 Team Project d/31/10/2019 1800 +
+* addassignment as/CS2103 Individual Project d/30/09/2019 2000
+
+==== Lessons
+
+Adds a lesson to the lesson list in the notebook. +
+Format: addlesson l/LESSON st/START_TIME et/ET_TIME
+
+Examples: +
+* addlesson l/4E3 Math st/31/10/2019 1800 et/31/10/2019 2000 +
+* addlesson l/4C3 Camp st/30/09/2019 1200 et/01/10/2019 1400
 
 // end::add[]
 
@@ -78,13 +100,13 @@ Examples:
 
 ==== Students’ information
 
-Edits an existing student in the student list. +
-Format: editstudent c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
+Edits an existing student in the student list of current class. +
+Format: editstudent STUDENT_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
 [m/MEDICAL_CONDITIONS], [t/TAG]...
 
-Examples:
-* editstudent c/4C 2 p/91111111
-* editstudent c/5E2 4 e/new_email@gmail.com
+Examples: +
+* editstudent 2 p/91111111 +
+* editstudent 4 e/new_email@gmail.com
 
 // end::edit[]
 
@@ -93,12 +115,12 @@ Examples:
 
 === Students' display picture
 
-Uploads a display picture for existing student in student list
+Uploads a display picture for existing student in student list in current classroom.
 
-Format: upload INDEX
+Format: upload STUDENT_INDEX
 
-Examples:
-* upload 2
+Examples: +
+* upload 2 +
 * upload 3
 
 
@@ -107,39 +129,36 @@ Examples:
 
 ==== Students’ grades for individual assignments
 
-Edits the grades for students of the specified assignment index. Additional arguments will be dropped and too few
-arguments will be prompted to the user. +
-Format: editstudent c/CLASS INDEX g/GRADE_ONE GRADE_TWO GRADE_THREE ...
+Edits the grades for students of the specified assignment index of current class. Arguments fewer than or more than the number of
+students will be prompted to the user. Use s/STUDENT_INDEX to change the chosen student's grades. +
+Format: grades as/ASSIGNMENT_INDEX g/GRADE_ONE GRADE_TWO GRADE_THREE ... +
+Format (Individual): grades as/ASSIGNMENT_INDEX s/STUDENT_INDEX g/GRADE
 
-Examples:
-* editstudent c/4E3 2 g/70 30 50
+Examples: +
+* grades as/2 g/70 30 50 +
+* grades as/2 s/1 g/69
 
 //end::update[]
 
 //tag::list[]
 === Listing: list
 
-==== Class list
-
-Shows a list of all classes taken by the user. +
-Format: list class
-
 ==== Student list
 
-Shows a list of all students in a particular class of the user. +
-Format: list [c/CLASS] students
+Shows a list of all students in the current class of the user. +
+Format: liststudents
 
-Examples:
-* liststudents c/4E3 students
+Examples: +
+* liststudents
 
 ==== Assignment list
 
-Shows a list of all assignments of classes of the user. +
-Format: listassignments c/CLASS
+Shows a list of all assignments in the current class of the user. +
+Format: listassignments +
 
-Examples:
-* listassignments c/4C
-* listassignments c/5E3
+Examples: +
+* listassignments
+
 //end::list[]
 
 //tag::reminder[]
@@ -155,40 +174,51 @@ Format: none, reminder should come automatically
 
 ==== Students by name
 
-Find students whose name matches a given keyword. +
-Format: findstudent STUDENT_NAME
+Find students whose name matches a given keyword in current classroom. +
+Format: findstudent STUDENT_NAME +
 
-Examples:
-* findstudent John Doe
+Examples: +
+* findstudent John Doe +
 * findstudent Jane Doe
 
-=== Assignments by name
-
-Find assignments which name matches given keyword. +
-Format: find [c/CLASS] as/ASSIGNMENT
-
-Examples:
-* find c/4E3 as/CS2103
-* find as/CS2103
-
 //end::find[]
+
+//tag::get[]
+=== Retrieving: get
+
+==== Students grades by student index
+
+Finds all the grades of all the assignments of the student chosen. +
+Format: get s/STUDENT_INDEX
+
+Examples: +
+* get s/2
+
+//end::get[]
 
 //tag::delete[]
 === Deleting: delete
 
 ==== Deleting student
-Deletes the student in the index from the specified class list.
-Format: delete c/CLASS s/INDEX
+Deletes the student in the index from the current classroom.
+Format: deletestudent STUDENT_INDEX
 
-Examples:
-* deletestudent c/4E3 3
+Examples: +
+* deletestudent 3
 
 ==== Deleting assignment
-Deletes the assignment in the index from the specified class list.
-Format: deleteassignment c/CLASS INDEX
+Deletes the assignment in the index from the current classroom.
+Format: deleteassignment ASSIGNMENT_INDEX
 
-Examples:
-* delete c/4E 3
+Examples: +
+* deleteassignment 3
+
+==== Deleting assignment
+Deletes the assignment in the index from the current classroom.
+Format: deleteassignment ASSIGNMENT_INDEX
+
+Examples: +
+* deleteassignment 3
 
 //end::delete[]
 
@@ -216,18 +246,6 @@ Format: up arrow key brings up last typed command into user input box.
 
 //end::history[]
 
-//tag::generate[]
-=== Generate file: generate
-
-Generate test score of class for every test into csv file. This will be in a more readable format for users to see. +
-Format: generate CLASS_NAME
-
-Examples:
-* generate 4C
-* generate 5E3
-
-//end::generate[]
-
 //tag::save[]
 === Saving data
 
@@ -249,21 +267,35 @@ Format: exit
 Coming up soon!
 
 == Command Summary
-* Add: addstudent n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG] … +
+* Add Student: addstudent n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG] … +
 e.g. addstudent n/John Doe p/91234567 e/john_doe@gmail.com pp/98765432
-* Edit: editstudent c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
+* Add Assignment: addassignment as/ASSIGNMENT_NAME d/DEADLINE +
+e.g. addassignment as/Math Homework 3 d/31/10/2019 2359
+* Add Lesson: addlesson l/LESSON_NAME st/START_TIME et/END_TIME +
+e.g. addlesson l/4C3 Math st/11/11/2011 1800 et/11/11/2011 2000
+* Edit Student: editstudent STUDENT_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
 [m/MEDICAL_CONDITIONS], [t/TAG] +
-e.g. editstudent c/4C 2 p/91111111
-* Update: grades c/CLASS INDEX g/GRADE_ONE GRADE_TWO GRADE_THREE... +
-e.g. grades c/4E3 3 g/70 60 50
-* List: liststudents c/CLASS OR listassignments c/CLASS +
-e.g. liststudents c/4C +
-e.g. listassignments c/4E3
+e.g. editstudent 2 p/91111111
+* Edit Lesson: editlesson LESSON_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME] +
+e.g. editlesson 3 l/4C3 Mathematics
+* Edit Assignment: editassignment ASSIGNMNET_INDEX [as/ASSIGNMENT_NAME] [d/DEADLINE] +
+e.g. editassignment 2 d/31/10/2019 2359
+* Update: grades as/ASSIGNMENT_INDEX [s/STUDENT_INDEX] g/GRADE_ONE GRADE_TWO GRADE_THREE... +
+e.g. grades as/3 g/70 60 50
+e.g. grades as/2 s/2 g/10
+* List: liststudents OR listassignments +
+e.g. liststudents +
+e.g. listassignments
 * Find: findstudent STUDENT_NAME +
 e.g. findstudent John Doe
-* Delete: deletestudent c/CLASS INDEX OR deletestudent c/CLASS INDEX +
-e.g. deletestudent c/4C 5 +
-e.g. deleteassignment c/4E3 2
+* Get: get s/STUDENT_INDEX +
+e.g. get s/2
+* Delete Student: deletestudent STUDENT_INDEX +
+e.g. deletestudent 3
+* Delete Assignment: deleteassignment ASSIGNMENT_INDEX +
+e.g. deleteassignment 4
+* Delete Lesson: deletelesson LESSON_INDEX +
+e.g. deletelesson 5
 * Undo: undo
 * Redo: redo
 * Generate: generate CLASSNAME +

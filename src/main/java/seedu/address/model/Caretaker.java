@@ -3,53 +3,64 @@ package seedu.address.model;
 import java.util.ArrayList;
 
 /**
- * Manages a list of all the previous Classrooms.
+ * Manages a list of all the previous Notebooks.
  */
-public class Caretaker extends Classroom {
+public class Caretaker extends Notebook {
 
     private ArrayList<Memento> mementos = new ArrayList<>();
     private int statePointer;
-    private final Classroom classroom;
+    private final Notebook notebook;
 
     /**
      * Initializes the list of mementos.
-     * @param start the first state of the classroom.
-     * @param classroom the classroom where changes are updated in
+     * @param notebook the notebook where changes are updated in
      */
-    public Caretaker(Memento start, Classroom classroom) {
+    public Caretaker(Memento start, Notebook notebook) {
         statePointer = 0;
         mementos.add(start);
-        this.classroom = classroom;
+        this.notebook = notebook;
+        //Notebook toAdd = new Notebook(this.notebook);
+        //toAdd.setClassrooms(notebook.getClassroomList());
+        //mementos.add(new Memento(toAdd));
+        //mementos.add(new Memento(new Notebook(this.notebook)));
+        //System.out.println("START: ");
+        //mementos.get(statePointer).getState().getClassroomList().get(0).getAssignmentList()
+        // .forEach(assignment -> System.out.println(assignment));
     }
 
     /**
-     * Saves the current state of classroom into the list of mementos.
+     * Saves the current state of notebook into the list of mementos.
      */
     public void saveState() {
+        //System.out.println("FIRST");
+        //mementos.get(0).getState().getClassroomList().get(0).getAssignmentList()
+        // .forEach(assignment -> System.out.println(assignment));
         mementos = new ArrayList<>(mementos.subList(0, statePointer + 1));
-        Memento mementoToAdd = new Memento(new Classroom(this.classroom));
+        Memento mementoToAdd = new Memento(new Notebook(this.notebook));
         mementos.add(mementoToAdd);
+        //System.out.println("SIZE::  " + mementos.size());
+        //System.out.println(mementos.get(0).getState().equals(mementos.get(1).getState()));
         statePointer++;
     }
 
     /**
      * Undoes the previous command.
-     * @return ReadOnlyClassroom that is the previous state of the classroom.
+     * @return ReadOnlyNotebook that is the previous state of the notebook.
      */
-    public ReadOnlyClassroom undo() {
+    public ReadOnlyNotebook undo() {
         statePointer--;
-        ReadOnlyClassroom previousCopy = mementos.get(statePointer).getState();
+        ReadOnlyNotebook previousCopy = mementos.get(statePointer).getState();
         resetData(previousCopy);
         return previousCopy;
     }
 
     /**
      * Redoes the previously undone command.
-     * @return ReadOnlyClassroom that is the previous state of the classroom.
+     * @return ReadOnlyNotebook that is the previous state of the notebook.
      */
-    public ReadOnlyClassroom redo() {
+    public ReadOnlyNotebook redo() {
         statePointer++;
-        ReadOnlyClassroom previousCopy = mementos.get(statePointer).getState();
+        ReadOnlyNotebook previousCopy = mementos.get(statePointer).getState();
         resetData(previousCopy);
         return previousCopy;
     }

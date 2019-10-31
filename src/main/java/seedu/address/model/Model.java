@@ -6,8 +6,10 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.scheduler.Reminder;
+//import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -42,14 +44,14 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' classroom file path.
+     * Returns the user prefs' notebook file path.
      */
-    Path getClassroomFilePath();
+    Path getNotebookFilePath();
 
     /**
      * Sets the user prefs' classroom file path.
      */
-    void setClassroomFilePath(Path classroomFilePath);
+    void setNotebookFilePath(Path classroomFilePath);
 
     /**
      * Replaces classroom data with the data in {@code classroom}.
@@ -57,7 +59,17 @@ public interface Model {
     void setClassroom(ReadOnlyClassroom classroom);
 
     /** Returns the Classroom */
-    ReadOnlyClassroom getClassroom();
+    ReadOnlyClassroom getCurrentClassroom();
+
+    /**
+     * Replaces notebook data with the data in {@code notebook}.
+     */
+    void setNotebook(ReadOnlyNotebook notebook);
+
+    /** Returns the Notebook */
+    ReadOnlyNotebook getNotebook();
+
+    boolean hasClassroom(Classroom classroom);
 
     /**
      * Returns true if a student with the same identity as {@code student} exists in the classroom.
@@ -104,11 +116,13 @@ public interface Model {
 
     void updateFilteredLessonList(Predicate<Lesson> predicate);
 
-    ReadOnlyClassroom undo();
+    //ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate);
+
+    ReadOnlyNotebook undo();
 
     boolean canUndo();
 
-    ReadOnlyClassroom redo();
+    ReadOnlyNotebook redo();
 
     boolean canRedo();
 
@@ -155,9 +169,8 @@ public interface Model {
      */
     void setLesson(Lesson target, Lesson editedLesson);
 
-    /**
-     * returns an unmodifiable view of the filtered reminder list.
-     * @return Ob
-     */
-    ObservableList<Reminder> getFilteredReminderList();
+
+    void addClassroom(Classroom classroom);
+    void setCurrentClassroom(Classroom classroom);
+    ObservableList<Classroom> getClassroomList();
 }

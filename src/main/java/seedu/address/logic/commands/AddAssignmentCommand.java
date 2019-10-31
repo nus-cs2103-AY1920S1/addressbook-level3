@@ -4,11 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 
+import java.util.List;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
-
-
+import seedu.address.model.student.Student;
 
 /**
  * Adds an assignment to the classroom.
@@ -47,6 +48,10 @@ public class AddAssignmentCommand extends Command {
         }
 
         model.addAssignment(toAdd);
+        List<Student> studentList = model.getFilteredStudentList();
+        for (Student student: studentList) {
+            toAdd.addOneStudentGrade(student.getName().fullName);
+        }
         model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

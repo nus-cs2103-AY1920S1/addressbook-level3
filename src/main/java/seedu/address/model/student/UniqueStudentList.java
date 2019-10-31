@@ -132,4 +132,8 @@ public class UniqueStudentList implements Iterable<Student> {
         }
         return true;
     }
+
+    public String getLength() {
+        return Integer.toString(internalList.size());
+    }
 }
