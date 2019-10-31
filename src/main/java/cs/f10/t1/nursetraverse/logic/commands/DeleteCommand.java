@@ -13,7 +13,7 @@ import cs.f10.t1.nursetraverse.model.patient.Patient;
 /**
  * Deletes a patient identified using it's displayed index from the patient book.
  */
-public class DeleteCommand extends Command implements MutatorCommand {
+public class DeleteCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "pat-delete";
 

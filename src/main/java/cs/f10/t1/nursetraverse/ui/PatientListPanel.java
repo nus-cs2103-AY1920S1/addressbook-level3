@@ -22,6 +22,8 @@ public class PatientListPanel extends UiPart<Region> {
         patientListView.setItems(patientList);
         patientListView.setCellFactory(listView -> new PatientListViewCell());
         patientListView.setPlaceholder(new Label("No patients found."));
+        //Prevent user from selecting any rows which can mess up the CSS
+        patientListView.setSelectionModel(null);
     }
 
     /**

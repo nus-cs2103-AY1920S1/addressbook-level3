@@ -222,6 +222,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasAnyPatientInGivenList(List<Patient> patients) {
+        requireNonNull(patients);
+        return patients.stream().anyMatch(this::hasPatient);
+    }
+
+    @Override
     public void deletePatient(Patient target) {
         stagedPatientBook.removePatient(target);
         refreshStagedData();
@@ -231,6 +237,17 @@ public class ModelManager implements Model {
     @Override
     public void addPatient(Patient patient) {
         stagedPatientBook.addPatient(patient);
+        refreshStagedData();
+        updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+    }
+
+    @Override
+    public void addPatients(List<Patient> patients) {
+        requireNonNull(patients);
+        assert !patients.isEmpty();
+        for (Patient patient : patients) {
+            stagedPatientBook.addPatient(patient);
+        }
         refreshStagedData();
         updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
     }

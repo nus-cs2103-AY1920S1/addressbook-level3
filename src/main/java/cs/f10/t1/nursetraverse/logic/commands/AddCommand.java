@@ -15,7 +15,7 @@ import cs.f10.t1.nursetraverse.model.patient.Patient;
 /**
  * Adds a patient to the patient book.
  */
-public class AddCommand extends Command implements MutatorCommand {
+public class AddCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "pat-add";
 

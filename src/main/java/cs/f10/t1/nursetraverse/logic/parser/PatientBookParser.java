@@ -16,6 +16,7 @@ import cs.f10.t1.nursetraverse.logic.commands.ExportCommand;
 import cs.f10.t1.nursetraverse.logic.commands.FindCommand;
 import cs.f10.t1.nursetraverse.logic.commands.HelpCommand;
 import cs.f10.t1.nursetraverse.logic.commands.HistoryCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ImportMergeCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ImportReplaceCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ListCommand;
 import cs.f10.t1.nursetraverse.logic.commands.RedoCommand;
@@ -62,74 +63,103 @@ public class PatientBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        Command command;
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            command = new AddCommandParser().parse(arguments);
+            break;
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            command = new EditCommandParser().parse(arguments);
+            break;
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            command = new DeleteCommandParser().parse(arguments);
+            break;
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            command = new ClearCommand();
+            break;
 
         case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            command = new FindCommandParser().parse(arguments);
+            break;
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            command = new ListCommand();
+            break;
 
         case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            command = new ExitCommand();
+            break;
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            command = new HelpCommand();
+            break;
 
         case ExportCommand.COMMAND_WORD:
-            return new ExportCommandParser().parse(arguments);
+            command = new ExportCommandParser().parse(arguments);
+            break;
 
         case ImportReplaceCommand.COMMAND_WORD:
-            return new ImportReplaceCommand();
+            command = new ImportReplaceCommandParser().parse(arguments);
+            break;
+
+        case ImportMergeCommand.COMMAND_WORD:
+            command = new ImportMergeCommandParser().parse(arguments);
+            break;
 
         case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+            command = new HistoryCommand();
+            break;
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommandParser().parse(arguments);
+            command = new UndoCommandParser().parse(arguments);
+            break;
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            command = new RedoCommand();
+            break;
 
         case BeginVisitCommand.COMMAND_WORD:
-            return new BeginVisitCommandParser().parse(arguments);
+            command = new BeginVisitCommandParser().parse(arguments);
+            break;
 
         case FinishOngoingVisitCommand.COMMAND_WORD:
-            return new FinishOngoingVisitCommand();
+            command = new FinishOngoingVisitCommand();
+            break;
 
         case UpdateOngoingVisitCommand.COMMAND_WORD:
-            return new UpdateOngoingVisitCommandParser().parse(arguments);
+            command = new UpdateOngoingVisitCommandParser().parse(arguments);
+            break;
 
         case CancelOngoingVisitCommand.COMMAND_WORD:
-            return new CancelOngoingVisitCommand();
+            command = new CancelOngoingVisitCommand();
+            break;
 
         case AddAppointmentCommand.COMMAND_WORD:
-            return new AddAppointmentCommandParser().parse(arguments);
+            command = new AddAppointmentCommandParser().parse(arguments);
+            break;
 
         case DeleteAppointmentCommand.COMMAND_WORD:
-            return new DeleteAppointmentCommandParser().parse(arguments);
+            command = new DeleteAppointmentCommandParser().parse(arguments);
+            break;
 
         case EditAppointmentCommand.COMMAND_WORD:
-            return new EditAppointmentCommandParser().parse(arguments);
+            command = new EditAppointmentCommandParser().parse(arguments);
+            break;
 
         case FindAppointmentCommand.COMMAND_WORD:
-            return new FindAppointmentCommandParser().parse(arguments);
+            command = new FindAppointmentCommandParser().parse(arguments);
+            break;
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+
+        command.setCommandText(userInput);
+        return command;
     }
 
 }
