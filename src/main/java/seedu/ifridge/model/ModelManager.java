@@ -86,6 +86,7 @@ public class ModelManager implements Model {
         versionedGroceryList.add(groceryList);
         versionedWasteList = new VersionedWasteList(wasteList.getWasteMonth());
         versionedWasteList.add(wasteList);
+        commitWasteList();
         versionedShoppingList = new VersionedShoppingList();
         versionedShoppingList.add(shoppingList);
         versionedTemplateList = new VersionedTemplateList();

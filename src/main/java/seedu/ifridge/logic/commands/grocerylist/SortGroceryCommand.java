@@ -43,6 +43,8 @@ public class SortGroceryCommand extends Command {
         GroceryList groceryList = ((GroceryList) model.getGroceryList());
         groceryList.setGroceryList(sortedList);
 
+        model.commitGroceryList();
+        model.commitWasteList();
         return new CommandResult(String.format(MESSAGE_SORT_SUCCESS, sortBy));
     }
 
