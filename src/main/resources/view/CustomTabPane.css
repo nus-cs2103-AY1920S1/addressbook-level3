@@ -1,0 +1,38 @@
+.tab-pane {
+    -fx-padding: 0 0 0 1;
+    -fx-background-color: #383838;
+    -fx-alignment: center;
+}
+
+.tab  {
+    -fx-background-color: #383838;
+    -fx-border-width: 4;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab:selected {
+    -fx-border-width: 4;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: lightgrey;
+    -fx-alignment: center;
+}
+
+.tab-label {
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 15;
+    -fx-alignment: center;
+}
+
+.tab-header-area {
+    -fx-padding: 0 0 0 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+*.tab-header-background {
+    -fx-background-color: transparent;
+    -fx-effect: innershadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 0);
+}
