@@ -598,19 +598,19 @@ Steps:
 1. Type the command with a category specified as shown in the screenshot below:
 
 .Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
-image::casherUG/AddCommand1.png[]
+image::cashierUG/AddCommand1.png[]
 
 [start = 2]
 2. Enter the required description and quantity according to the items suggested by Leo as shown below:
 
 .Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
-image::casherUG/AddCommand2.png[]
+image::cashierUG/AddCommand2.png[]
 
 [start = 3]
 . Hit `Enter`
 
 .Screenshot of the response message for Add Command in Cashier Tab
-image::casherUG/AddCommand3.png[]
+image::cashierUG/AddCommand3.png[]
 
 Leo will respond to the successful addition with a response message.
 
@@ -630,13 +630,13 @@ The specified index should correspond to the row index of the item on the table.
 1. Type the command with an index specified as shown in the screenshot below:
 
 .Screenshot of the user input into Command Box for Delete Command in Cashier Tab
-image::casherUG/DeleteCommand1.png[]
+image::cashierUG/DeleteCommand1.png[]
 
 [start = 2]
 . Hit `Enter`
 
 .Screenshot of the response message for Delete Command in Cashier Tab
-image::casherUG/DeleteCommand2.png[]
+image::cashierUG/DeleteCommand2.png[]
 
 Leo will respond to the successful deletion with a response message. The item will be deleted from the table.
 
@@ -669,19 +669,19 @@ If the quantity is invalid, Leo will display the quantity of stock left.
 1.1 To edit by index, enter the command with an index and quantity specified as shown in the screenshot below:
 
 .Screenshot of user input (index, description) into Command Box for Edit Command in Cashier Tab
-image::casherUG/EditCommand1.png[]
+image::cashierUG/EditCommand1.png[]
 
 [start = 2]
 1.2. To edit by description, enter the required description and quantity as shown below:
 
 .Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier Tab
-image::casherUG/EditCommand3.png[]
+image::cashierUG/EditCommand3.png[]
 
 [start = 2]
 . Hit `Enter`
 
 .Screenshot of response message for Edit Command in Cashier Tab
-image::casherUG/EditCommand3.png[]
+image::cashierUG/EditCommand3.png[]
 
 If successfully updated, Leo will respond with a response message. The quantity will be updated in the table.
 
@@ -709,13 +709,13 @@ This step must be executed before checking out. Else, checkout cannot proceed.
 1. Type the command with a cashier's name specified as shown in the screenshot below:
 
 .Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
-image::casherUG/SetCashierCommand1.png[]
+image::cashierUG/SetCashierCommand1.png[]
 
 [start = 2]
 . Hit `Enter`
 
 .Screenshot of response message for Set Cashier Command in Cashier Tab
-image::casherUG/SetCashierCommand2.png[]
+image::cashierUG/SetCashierCommand2.png[]
 
 If set successfully, Leo will respond with a response message. The cashier in the bottom row will be updated.
 
@@ -744,13 +744,13 @@ The cashier must be set before checking out. Else, checkout cannot proceed.
 1. Type the command with the amount that the customer is paying as shown in the screenshot below:
 
 .Screenshot of user input into Command Box for Checkout Command in Cashier Tab
-image::casherUG/CheckoutCommand1.png[]
+image::cashierUG/CheckoutCommand1.png[]
 
 [start = 2]
 . Hit `Enter`
 
 .Screenshot of response message for Checkout Command in Cashier Tab
-image::casherUG/CheckoutCommand2.png[]
+image::cashierUG/CheckoutCommand2.png[]
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset. +
 The `Home Tab` will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
@@ -776,13 +776,13 @@ This command is irreversible. Please use at your own discretion.
 1. Type only the "clear" command word as shown in the screenshot below:
 
 .Screenshot of user input into Command Box for Clear Command in Cashier Tab
-image::casherUG/ClearCommand1.png[]
+image::cashierUG/ClearCommand1.png[]
 
 [start = 2]
 . Hit `Enter`
 
 .Screenshot of response message for Clear Command in Cashier Tab
-image::casherUG/ClearCommand2.png[]
+image::cashierUG/ClearCommand2.png[]
 
 If cleared successful, Leo will respond with a response message. The table will also be cleared and the cashier
 will be reset.
@@ -799,23 +799,79 @@ will be reset.
 ** Total inventory value
 ** Total sales
 ** Remaining budget
-* The user may also set financial goals and set up notifications to notify them of the goals set.
-* At the side, the lion mascot will guide the user along to what inputs are permissible, and also offer financial advice based on the data gathered.
+* The user may also set financial goals and set up percentage thresholds to receive notifications.
+* Leo will notify the user any time their financial goals have been reached.
 ====
 
-* To set goals:
+==== Set a Financial Goal
+
+* Command:
 ** To set budget goal: `set b/AMOUNT`
 ** To set expense goal: `set e/AMOUNT`
 ** To set sales goal: `set s/AMOUNT`
 
+* Examples:
+** To set budget goal: `set b/500`
+** To set expense goal: `set e/500`
+** To set sales goal: `set s/500`
+
+[NOTE]
 The amount should be non-negative.
 
-* To notify when a certain goal has reached specific percentage of completion:
+* Steps:
+. Type the command with the corresponding target and amount.
+
+.Screenshot of user input into Command Box for Set Command in Overview Tab
+image::overviewUG/SetCommandExample.png[]
+
+[start = 2]
+. Hit `Enter`
+
+.Screenshot of a successful user input for Set Command in Overview Tab
+image::overviewUG/SetCommandResult.png[]
+
+Leo displays a confirmation showing that the goal was successfully set. +
+The user interface reflects this under the respective section.
+
+==== Set a Notification Threshold
+
+* Command:
 ** To set budget goal notification: `notify b/PERCENTAGE`
 ** To set expense goal notification: `notify e/PERCENTAGE`
 ** To set sales goal notification: `notify s/PERCENTAGE`
 
+* Examples:
+** To set budget goal notification: `notify b/PERCENTAGE`
+** To set expense goal notification: `notify e/PERCENTAGE`
+** To set sales goal notification: `notify s/PERCENTAGE`
+
+[NOTE]
 The percentage value should be a value from 0 - 100.
+
+* Steps:
+. Type the command with the corresponding target and amount.
+
+.Screenshot of user input into Command Box for Notify Command in Overview Tab
+image::overviewUG/NotifyCommandExample.png[]
+
+[start = 2]
+. Hit `Enter`
+
+.Screenshot of a successful user input for Notify Command in Overview Tab
+image::overviewUG/NotifyCommandResult.png[]
+
+Leo displays a confirmation showing that the notification was successfully set. +
+Additionally, if the goal is already reached, it will display the notification immediately.
+
+==== Viewing Notifications
+
+Notifications in treasurerPro are automatically displayed upon app launch  by Leo as long as the threshold is met. +
+Notifications show only once per app run, or whenever a target or threshold is modified.
+
+The following screenshot shows an example of the notifications:
+
+.Screenshot of notifications displayed by Leo for Notify Command in Overview Tab
+image::overviewUG/NotificationExample.png[]
 
 === Saving the data
 
@@ -825,6 +881,9 @@ Data in treasurerPro is saved automatically after executing any command. There i
 
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous treasurerPro folder.
+
+*Q*: Can I modify the data files myself? +
+*A*: No, any external modification to the app's data files *WILL* result in loss of all data. You have been warned.
 
 == Command Summary
 
@@ -854,6 +913,13 @@ e.g. `find James Jake`
 * *Sort by deadline*: `sort deadline`
 
 === Inventory
+* *Add*: `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
+* *Delete*: `delete INDEX`
+* *Edit*: `edit INDEX [d/DESCRIPTION] [c/CATEGORY] [q/QUANTITY] [co/COST_PER_UNIT] [p/PRICE]`
+* *Sort by category:* `sort category`
+* *Sort by description*: `sort description`
+* *Sort by quantity*: `sort quantity`
+* *Reset sorted list*: `sort reset`
 
 === Cashier
 * *Add sales item*: `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
@@ -871,3 +937,9 @@ e.g. `find James Jake`
 * *Set notification for budget goal*: `notify b/ AMOUNT`
 * *Set notification for expense goal*: `notify e/ AMOUNT`
 * *Set notification for sales goal*: `notify s/ AMOUNT`
+
+== Copyright Notice
+
+Leo and the corresponding 'Lion' mascot design is copyright of the AY1920S1-CS2103T-T13-3 group. +
+Reproduction and distribution without prior permission is prohibited.
+
