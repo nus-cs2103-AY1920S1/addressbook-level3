@@ -16,7 +16,6 @@ import dukecooks.logic.commands.ListCommand;
 import dukecooks.logic.commands.ViewCommand;
 import dukecooks.logic.commands.dashboard.DashboardCommand;
 import dukecooks.logic.commands.dashboard.DoneTaskCommand;
-import dukecooks.logic.commands.stats.StatisticsCommand;
 import dukecooks.logic.parser.dashboard.DoneTaskCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
 
@@ -73,9 +72,6 @@ public class DukeCooksParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        case StatisticsCommand.COMMAND_WORD:
-            return new StatisticsCommand();
 
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
