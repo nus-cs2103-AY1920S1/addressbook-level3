@@ -472,11 +472,11 @@ If kbd:[Tab] is pressed, "c" in the command box will be replaced by "CS".
 
 == Command Summary
 
-* *General Command* :
+* *Universal Commands* :
 ** *Help* : `help`
 ** *Undo* : `undo`
 ** *Redo* : `redo`
-** *Tab* :
+** *Switch tabs* :
 *** *Memes Tab* : `tab memes`
 *** *Templates Tab* : `tab templates`
 *** *Create Tab* : `tab create`
@@ -486,38 +486,45 @@ If kbd:[Tab] is pressed, "c" in the command box will be replaced by "CS".
 *** *Preferences Tab* : `tab preferences`
 ** *Exit* : `exit`
 
-* *Memes Command* :
+* *Commands for the Memes tab* :
 ** *Add Meme* : `add p/PATH [d/DESCRIPTION] [t/TAG]...` +
-e.g. `add p/~/Downloads/dgirl_oof.jpg n/Disaster Girl t/Funny`
-** *Clear Meme* : `clear`
+e.g. `add p//Users/Me/Downloads/dgirl_oof.jpg d/Disaster Girl t/Funny`
+** *Clear Memes* : `clear`
 ** *Delete Meme* : `delete INDEX`
 ** *Edit Meme* : `edit INDEX [d/DESCRIPTION] [t/TAG]...`
 ** *Stage Meme* : `stage INDEX`
 ** *Like Meme* : `like INDEX`
 ** *Dislike Meme* : `dislike INDEX`
 ** *Find Meme* : `find KEYWORD [MORE_KEYWORDS]`
-** *List Meme* : `list`
+** *List Memes* : `list`
 ** *List Archived Memes* : `archives`
 ** *Archive Meme* : `archive INDEX`
 ** *Unarchive Meme* : `unarchive INDEX`
 
-* *Templates Tab* :
+* *Commands for the Templates Tab* :
 ** *Add Template* : `add n/NAME p/PATH`
-** *Edit Template* : `edit INDEX`
+** *Edit Template* : `edit INDEX n/NAME`
 ** *Delete Template* : `delete INDEX`
-** *Find Template* : `find KEYWORD [MORE_KEYWORDS]`
+** *Find Template* : `find KEYWORD [MORE_KEYWORDS]` (_coming in v1.4_)
 ** *Archive Template* : `archive INDEX`
 ** *Unarchive Template* : `unarchive INDEX`
+** *List Templates* : `list` (_coming in v1.4_)
 ** *List Archived Templates* : `archives`
-** *View Template* : `view INDEX`
 ** *Use Template* : `use INDEX`
 
-* *Export Tab* :
+* *Commands for the Create Tab* :
+** *Add text* : `add TEXT x/X_COORDINATE y/Y_COORDINATE [c/COLOR] [s/SIZE] [S/STYLE]...`
+** *Edit text* : `edit INDEX [t/TEXT] [x/X_COORDINATE] [y/Y_COORDINATE] [c/COLOR] [s/SIZE] [S/STYLE]...`
+** *Delete text* : `delete INDEX`
+** *Abort creation* : `abort`
+** *Finish creation* : `create [d/DESCRIPTION] [t/TAG]...`
+
+* *Commands for the Export Tab* :
 ** *Unstage Meme* : `unstage INDEX`
 ** *Export Meme* : `export [p/PATH]`
-** *Clear staged Meme* : `clear`
+** *Clear staged Memes* : `clear`
 
-* *Import Tab* :
+* *Commands for the Import Tab* :
 ** *Load Memes* : `load p/PATH`
 ** *Edit Meme* : `edit INDEX [d/DESCRIPTION] [t/TAG]...`
 ** *Delete Meme* : `delete INDEX`
