@@ -12,7 +12,7 @@ public class ContainsKeywordsPredicate implements Predicate<Person> {
     private final String keyword;
 
     public ContainsKeywordsPredicate(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.toUpperCase();
     }
 
     @Override

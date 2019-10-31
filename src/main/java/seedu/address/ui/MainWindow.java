@@ -263,6 +263,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
         Region acoRoot = aco.getRoot();
         acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
+        commandBox.restoreFocusLater();
+        logic.eagerEvaluate(commandText);
     }
 
     /**
@@ -292,6 +294,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             commandBoxHistory.add(commandBox.handleCommandEntered());
             break;
         default:
+            break;
+
         }
     }
 

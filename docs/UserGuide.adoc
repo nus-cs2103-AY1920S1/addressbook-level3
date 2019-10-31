@@ -29,9 +29,11 @@ This program is targeted at clerks working in small clinics. It is designed for 
 +
 image::Ui.png[width="790"]
 +
+.  You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
 .  Some example commands you can try:
+
 
 * `register i/001A n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : registers a patient named `John Doe`.
 * `enqueue 001A` : enqueues patient with reference id `001A` into the queue.
@@ -43,6 +45,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 == Features
 
+====
+*AutoComplete & History*
+
+* When the command box is blank, kbd:[UP] & kbd:[DOWN] will auto-fill the command box with commands previously entered. kbd:[UP] gives older commands and kbd:[DOWN] gives newer commands.
+
+* When the command box is not blank, AutoComplete will come into action and tries to suggest commands that are available for whatever that has been typed. During which, you may traverse your selection of the suggestions via kbd:[UP] & kbd:[DOWN] then press kbd:[ENTER] to confirm selection.
+
+====
 ====
 *Command Format*
 

@@ -65,8 +65,7 @@ public class Event implements Identical<Event> {
 
         return otherEvent != null
                 && otherEvent.getPersonId().equals(getPersonId())
-                && otherEvent.getEventTiming().equals(getEventTiming())
-                && otherEvent.getStatus().equals(status);
+                && otherEvent.getEventTiming().equals(getEventTiming());
     }
 
     /**
@@ -85,7 +84,8 @@ public class Event implements Identical<Event> {
 
         Event otherEvent = (Event) other;
         return otherEvent.getPersonId().equals(getPersonId())
-                && otherEvent.getEventTiming().equals(getEventTiming());
+                && otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(status);
     }
 
     @Override
