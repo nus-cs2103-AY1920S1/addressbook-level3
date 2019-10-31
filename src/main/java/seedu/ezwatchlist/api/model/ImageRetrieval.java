@@ -14,7 +14,7 @@ import info.movito.themoviedbapi.tools.MovieDbException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 
 /**
- * A class for the image retrieval.
+ * A class to retrieve images from the internet to store in the user's cache.
  */
 public class ImageRetrieval {
     private static final String DEFAULT_FILE_SIZE = "w500";
