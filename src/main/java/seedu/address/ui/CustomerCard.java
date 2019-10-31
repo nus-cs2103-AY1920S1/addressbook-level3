@@ -1,20 +1,17 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Customer;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class CustomerCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "CustomerListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +21,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Customer customer;
 
     @FXML
     private HBox cardPane;
@@ -39,19 +36,18 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private Label customerId;
 
-    public PersonCard(Person person, int displayedIndex) {
+
+    public CustomerCard(Customer customer, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.customer = customer;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText("Phone:" + person.getPhone().value);
-        address.setText("Address: " + person.getAddress().value);
-        email.setText("Email: " + person.getEmail().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        customerId.setText("Customer ID: #" + customer.getId());
+        name.setText(customer.getName().fullName);
+        phone.setText("Phone: " + customer.getPhone().value);
+        address.setText("Address: " + customer.getAddress().value);
+        email.setText("Email: " + customer.getEmail().value);
     }
 
     @Override
@@ -62,13 +58,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof CustomerCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        CustomerCard card = (CustomerCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && customer.equals(card.customer);
     }
 }

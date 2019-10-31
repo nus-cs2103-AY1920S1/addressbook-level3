@@ -33,7 +33,6 @@ public class EventTime implements Comparable<EventTime> {
     private LocalTime start;
     private LocalTime end;
 
-
     public EventTime(LocalTime start, LocalTime end) {
         this.start = start;
         this.end = end;

@@ -26,7 +26,6 @@
                 <Label fx:id="description" styleClass="cell_big_label" text="\$description"/>
             </HBox>
             <Label fx:id="taskId" styleClass="cell_small_label" text="\$taskId"/>
-            <Label fx:id="assigned" styleClass="cell_small_label" text="\$assigned"/>
             <Label fx:id="deliverTo" styleClass="cell_small_label" text="\$deliverTo"/>
             <Label fx:id="address" styleClass="cell_small_label" text="\$address"/>
             <Label fx:id="date" styleClass="cell_small_label" text="\$date"/>

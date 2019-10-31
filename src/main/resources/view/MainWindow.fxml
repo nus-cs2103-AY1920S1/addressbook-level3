@@ -36,19 +36,22 @@
 
           <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
 
-<!--          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">-->
-<!--            <padding>-->
-<!--              <Insets top="10" right="10" bottom="10" left="10" />-->
-<!--            </padding>-->
-<!--            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>-->
-<!--          </VBox>-->
+          <SplitPane minWidth="580">
+            <VBox fx:id="driverList" styleClass="pane-with-border" minWidth="150" prefWidth="150"
+                  minHeight="520" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="driverListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
 
-          <VBox fx:id="driverList" styleClass="pane-with-border" minWidth="300" prefWidth="300" VBox.vgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="driverListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+            <VBox fx:id="customerList" styleClass="pane-with-border" minWidth="320" prefWidth="320" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+          </SplitPane>
 
           <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                      minHeight="100" prefHeight="100" maxHeight="100">
@@ -78,13 +81,6 @@
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="unassignedTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-            </VBox>
-
-            <VBox fx:id="customerList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
-              <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </padding>
-              <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
             </VBox>
 
           </SplitPane>

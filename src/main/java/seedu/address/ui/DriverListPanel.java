@@ -38,7 +38,7 @@ public class DriverListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(driver, getIndex() + 1).getRoot());
+                setGraphic(new DriverCard(driver, getIndex() + 1).getRoot());
             }
         }
     }

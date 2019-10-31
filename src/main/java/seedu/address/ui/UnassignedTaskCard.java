@@ -9,17 +9,9 @@ import seedu.address.model.task.Task;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class TaskCard extends UiPart<Region> {
+public class UnassignedTaskCard extends UiPart<Region> {
 
-    private static final String FXML = "TaskListCard.fxml";
-
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
+    private static final String FXML = "UnassignedTaskListCard.fxml";
 
     public final Task task;
 
@@ -40,19 +32,14 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label deliverTo;
     @FXML
-    private Label assigned;
-    @FXML
     private Label taskId;
 
-    public TaskCard(Task task, int displayedIndex) {
+    public UnassignedTaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
         description.setText(task.getDescription().value);
         taskId.setText("Task ID: #" + task.getId());
-        assigned.setText("Assigned: " + task.getDriver().get().getSchedule() + " @ "
-            + task.getDriver().get().getName().fullName + " (#" + task.getDriver().get().getId()
-            + ") - " + task.getDriver().get().getPhone());
         deliverTo.setText("Deliver To: " + task.getCustomer().getName().fullName
                 + " (#" + task.getCustomer().getId() + ") - " + task.getCustomer().getPhone());
         address.setText("Address: " + task.getCustomer().getAddress().value);
@@ -67,12 +54,12 @@ public class TaskCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TaskCard)) {
+        if (!(other instanceof UnassignedTaskCard)) {
             return false;
         }
 
         // state check
-        TaskCard card = (TaskCard) other;
+        UnassignedTaskCard card = (UnassignedTaskCard) other;
         return id.getText().equals(card.id.getText())
                 && task.equals(card.task);
     }
