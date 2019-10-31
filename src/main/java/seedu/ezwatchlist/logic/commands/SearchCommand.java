@@ -183,7 +183,7 @@ public class SearchCommand extends Command {
     }
 
     /**
-     * Adds show from list if it has the same name as the given show.
+     * Adds show from list if it has the same name as in {@code showName}.
      * @param showName name of the given show.
      * @param model current model of the program.
      */
@@ -195,7 +195,7 @@ public class SearchCommand extends Command {
     }
 
     /**
-     * Adds show from list if it has any actor in actorSet.
+     * Adds show from list if it has any actor in {@code actorSet}.
      * @param actorSet Set of actors to be searched for.
      * @param model Model used.
      */
@@ -206,6 +206,11 @@ public class SearchCommand extends Command {
         }
     }
 
+    /**
+     * Adds show from list if it has any genre in {@code genreSet}.
+     * @param genreSet Set of actors to be searched for.
+     * @param model Model used.
+     */
     private void addShowFromWatchListIfIsGenre(Set<Genre> genreSet, Model model) {
         if (!genreSet.isEmpty()) {
             List<Show> filteredShowList = model.getShowIfIsGenre(genreSet);

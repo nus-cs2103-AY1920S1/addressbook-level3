@@ -55,28 +55,51 @@ public interface Model {
      */
     void setWatchList(ReadOnlyWatchList watchList);
 
-    /** Returns the WatchList */
+    /**
+     * Returns the WatchList
+     */
     ReadOnlyWatchList getWatchList();
 
     /**
      * Returns true if a show with the same identity as {@code show} exists in the watchlist.
+     * @param show The show to be checked.
+     * @return True if a same show exists in the watchlist.
      */
     boolean hasShow(Show show);
 
     /**
-     * Returns true if a show with the same name as {@code show} exists in the watchlist.
+     * Returns true if a show with the same name as {@code showName} exists in the watchlist.
+     * @param showName The name of the show to be searched.
+     * @return True if a show with the same name exists in the watchlist.
      */
     boolean hasShowName(Name showName);
 
     /**
      * Returns the list of shows that has the same name as the given argument as the current watch list.
+     * @param showName The name of the show to be searched.
+     * @return The list of shows that has the same name exists in the watchlist.
      */
     List<Show> getShowIfHasName(Name showName);
 
+    /**
+     * Returns true if a show with any of the actor in {@code actorSet} exists in the watchlist.
+     * @param actorSet The set of actors to be searched in the watchlist.
+     * @return True if a show with any actor in the {@code actorSet} exists in the watchlist.
+     */
     boolean hasActor(Set<Actor> actorSet);
 
+    /**
+     * Returns the list of shows that has any of the actor in {@code actorSet}.
+     * @param actorSet The set of actors to be searched in the watchlist.
+     * @return The list of shows that has any of the actor in {@code actorSet}.
+     */
     List<Show> getShowIfHasActor(Set<Actor> actorSet);
 
+    /**
+     * Returns the list of shows that has any of the genre in {@code genreSet}.
+     * @param genreSet The set of genres to be searched in the watchlist.
+     * @return The list of shows that has any of the genre in {@code genreSet}.
+     */
     List<Show> getShowIfIsGenre(Set<Genre> genreSet);
 
     /**

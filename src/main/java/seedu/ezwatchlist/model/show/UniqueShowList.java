@@ -91,8 +91,8 @@ public class UniqueShowList implements Iterable<Show> {
 
     /**
      * Returns the list of shows that has any of the actor in actorSet.
-     * @param actorSet Set of Actor(s) to be searched.
-     * @return List of Show that has the actor.
+     * @param actorSet Set of actor(s) to be searched.
+     * @return List of shows that has the actor.
      */
     public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
         requireNonNull(actorSet);
@@ -105,6 +105,11 @@ public class UniqueShowList implements Iterable<Show> {
                 || show.hasActorWithName(currentTvShow)).collect(Collectors.toList());
     }
 
+    /**
+     * Returns the list of shows that has any of the genre in genreSet.
+     * @param genreSet Set of genre(s) to be searched.
+     * @return List of shows that has the genre.
+     */
     public List<Show> getShowIfIsGenre(Set<Genre> genreSet) {
         requireNonNull(genreSet);
         Show currentMovie = new Movie(new Name(), new Description(), new IsWatched(false), new Date(),
