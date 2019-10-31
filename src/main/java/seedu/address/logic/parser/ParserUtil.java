@@ -54,6 +54,7 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+
     /**
      * Parses {@code commandToCheck} into an {@code CommandObject} and returns it.
      * Leading and trailing whitespaces will be trimmed.
