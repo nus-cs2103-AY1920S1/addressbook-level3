@@ -1,11 +1,13 @@
 package tagline.logic;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import tagline.commons.core.GuiSettings;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
+import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ReadOnlyAddressBook;
@@ -29,6 +31,13 @@ public interface Logic {
      * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Executes the command with some additional prompts.
+     *
+     * @see Logic#execute(String).
+     */
+    CommandResult execute(String commandText, List<Prompt> filledPrompts) throws CommandException, ParseException;
 
     /**
      * Returns the address book.

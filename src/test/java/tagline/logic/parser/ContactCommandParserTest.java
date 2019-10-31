@@ -3,6 +3,8 @@ package tagline.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static tagline.logic.parser.contact.ContactCommandParser.CONTACT_CLEAR_COMMAND_CONFIRM_STRING;
+import static tagline.logic.parser.contact.ContactCommandParser.CONTACT_CLEAR_CONFIRM_CHARACTER;
 import static tagline.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
@@ -20,6 +22,7 @@ import tagline.logic.commands.contact.FindContactCommand;
 import tagline.logic.commands.contact.ListContactCommand;
 import tagline.logic.parser.contact.ContactCommandParser;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 import tagline.model.contact.ContactId;
@@ -40,8 +43,20 @@ public class ContactCommandParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearContactCommand.COMMAND_WORD) instanceof ClearContactCommand);
-        assertTrue(parser.parseCommand(ClearContactCommand.COMMAND_WORD + " 3") instanceof ClearContactCommand);
+        assertThrows(PromptRequestException.class, () -> parser.parseCommand(ClearContactCommand.COMMAND_WORD));
+        assertThrows(PromptRequestException.class, () -> parser.parseCommand(ClearContactCommand.COMMAND_WORD + " 3"));
+
+        Prompt validFilledPrompt = new Prompt("", CONTACT_CLEAR_COMMAND_CONFIRM_STRING);
+        validFilledPrompt.setPromptResponse(CONTACT_CLEAR_CONFIRM_CHARACTER);
+        Prompt invalidFilledPrompt = new Prompt("", CONTACT_CLEAR_COMMAND_CONFIRM_STRING);
+        invalidFilledPrompt.setPromptResponse("Z");
+
+        assertTrue(parser.parseCommand(ClearContactCommand.COMMAND_WORD,
+                Arrays.asList(validFilledPrompt)) instanceof ClearContactCommand);
+        assertTrue(parser.parseCommand(ClearContactCommand.COMMAND_WORD + " 3",
+                Arrays.asList(validFilledPrompt)) instanceof ClearContactCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(ClearContactCommand.COMMAND_WORD,
+                Arrays.asList(invalidFilledPrompt)));
     }
 
     @Test

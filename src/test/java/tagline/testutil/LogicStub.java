@@ -3,6 +3,7 @@ package tagline.testutil;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -10,6 +11,7 @@ import tagline.commons.core.GuiSettings;
 import tagline.logic.Logic;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
+import tagline.logic.parser.Prompt;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.group.Group;
@@ -61,6 +63,18 @@ public class LogicStub implements Logic {
      * Simulates an execution of the command and returns the set {@code CommandResult}.
      */
     public CommandResult execute(String commandText) throws CommandException {
+        if (exceptionString != null) {
+            throw new CommandException(exceptionString);
+        }
+
+        requireNonNull(commandResult);
+        return commandResult;
+    }
+
+    /**
+     * @see LogicStub#execute(String).
+     */
+    public CommandResult execute(String commandText, List<Prompt> promptList) throws CommandException {
         if (exceptionString != null) {
             throw new CommandException(exceptionString);
         }

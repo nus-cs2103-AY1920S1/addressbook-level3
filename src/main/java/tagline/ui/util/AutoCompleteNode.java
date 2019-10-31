@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class AutoCompleteNode {
     private String matcher;
     private List<AutoCompleteNode> children = new ArrayList<>();
+    private boolean enabled = true;
 
     public AutoCompleteNode(String matcher) {
         this.matcher = matcher;
@@ -22,6 +23,14 @@ public class AutoCompleteNode {
 
     public static AutoCompleteNode getRootNode() {
         return new RootAutoCompleteNode();
+    }
+
+    /**
+     * Enables or disables the node.
+     * When the node is disabled, it will not match any string.
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     /**
@@ -74,6 +83,11 @@ public class AutoCompleteNode {
      */
     public List<String> findMatches(String query) {
         requireNonNull(query);
+
+        //if node is disabled
+        if (!enabled) {
+            return new ArrayList<>();
+        }
 
         //if matchString begins with queryString
         if (isMatch(query)) {

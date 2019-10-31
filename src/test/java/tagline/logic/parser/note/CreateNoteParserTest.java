@@ -11,11 +11,17 @@ import static tagline.logic.commands.NoteCommandTestUtil.VALID_NOTEID_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_PROTECTOR;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tagline.logic.parser.CommandParserTestUtil.assertPromptRequest;
+import static tagline.logic.parser.note.CreateNoteParser.CREATE_NOTE_MISSING_CONTENT_PROMPT;
+import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.testutil.note.TypicalNotes.PROTECTOR;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.note.CreateNoteCommand;
+import tagline.logic.parser.Prompt;
 import tagline.model.note.Note;
 import tagline.model.note.NoteIdCounter;
 import tagline.testutil.note.NoteBuilder;
@@ -80,7 +86,8 @@ class CreateNoteParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateNoteCommand.MESSAGE_USAGE);
 
         // missing content
-        assertParseFailure(parser, TITLE_DESC_PROTECTOR, expectedMessage);
+        assertPromptRequest(parser, TITLE_DESC_PROTECTOR, Arrays.asList(
+                new Prompt(PREFIX_CONTENT.getPrefix(), CREATE_NOTE_MISSING_CONTENT_PROMPT)));
 
         // missing prefix for argument
         assertParseFailure(parser, VALID_TITLE_PROTECTOR + CONTENT_DESC_PROTECTOR, expectedMessage);

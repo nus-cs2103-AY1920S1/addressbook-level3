@@ -9,6 +9,7 @@ import javafx.scene.layout.Region;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.ui.exceptions.PromptOngoingException;
 import tagline.ui.util.AutoCompleteNode;
 import tagline.ui.util.AutoCompleteUtil;
 
@@ -23,6 +24,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final AutoCompleteNode autoCompleteMatcher;
 
     @FXML
     private TextField commandTextField;
@@ -31,21 +33,20 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
 
-        initializeAutoComplete();
+        autoCompleteMatcher = AutoCompleteUtil.getAutoCompleteRootNode();
+        TextFields.bindAutoCompletion(commandTextField,
+            input -> autoCompleteMatcher.findMatches(input.getUserText()))
+            .setVisibleRowCount(AUTO_COMPLETE_MAX_ROWS);
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
     /**
-     * Initializes the auto-complete popup of the command box.
+     * Sets the enabled status of the auto-completion box.
      */
-    public void initializeAutoComplete() {
-        AutoCompleteNode autoCompleteMatcher = AutoCompleteUtil.getAutoCompleteRootNode();
-
-        TextFields.bindAutoCompletion(commandTextField,
-            input -> autoCompleteMatcher.findMatches(input.getUserText()))
-            .setVisibleRowCount(AUTO_COMPLETE_MAX_ROWS);
+    public void setAutoCompleteEnabled(boolean enabled) {
+        autoCompleteMatcher.setEnabled(enabled);
     }
 
     /**
@@ -55,8 +56,13 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandEntered() {
         try {
             commandExecutor.execute(commandTextField.getText());
+            setAutoCompleteEnabled(true);
+            commandTextField.setText("");
+        } catch (PromptOngoingException e) {
+            setAutoCompleteEnabled(false);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
+            setAutoCompleteEnabled(true);
             setStyleToIndicateCommandFailure();
         }
     }
@@ -65,7 +71,7 @@ public class CommandBox extends UiPart<Region> {
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
+        commandTextField.getStyleClass().removeAll(ERROR_STYLE_CLASS);
     }
 
     /**
@@ -91,7 +97,7 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see tagline.logic.Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException, PromptOngoingException;
     }
 
 }

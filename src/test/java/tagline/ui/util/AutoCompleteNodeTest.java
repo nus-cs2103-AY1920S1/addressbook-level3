@@ -126,4 +126,14 @@ public class AutoCompleteNodeTest {
         assertEquals(new ArrayList<>(),
                 rootNodeWithChildren.findMatches("CharlieAlice"));
     }
+
+    @Test
+    void findMatches_disabledNode_emptyResults() {
+        rootNodeWithChildren.setEnabled(false);
+
+        assertEquals(new ArrayList<>(), rootNodeWithChildren.findMatches(""));
+        assertEquals(new ArrayList<>(), rootNodeWithChildren.findMatches("Char"));
+        assertEquals(new ArrayList<>(), rootNodeWithChildren.findMatches("Charlie"));
+        assertEquals(new ArrayList<>(), rootNodeWithChildren.findMatches("Charlie Alic"));
+    }
 }

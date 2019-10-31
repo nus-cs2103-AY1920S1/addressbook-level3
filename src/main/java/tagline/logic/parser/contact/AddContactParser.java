@@ -6,6 +6,7 @@ import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import tagline.logic.commands.contact.CreateContactCommand;
@@ -13,7 +14,9 @@ import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
 import tagline.logic.parser.Prefix;
+import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.contact.Address;
 import tagline.model.contact.Contact;
 import tagline.model.contact.Description;
@@ -36,6 +39,8 @@ public class AddContactParser implements Parser<CreateContactCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_DESCRIPTION);
+
+        checkCompulsoryFields(argMultimap);
 
         Name name;
         Phone phone;
@@ -76,6 +81,17 @@ public class AddContactParser implements Parser<CreateContactCommand> {
         Contact contact = new Contact(name, phone, email, address, description);
 
         return new CreateContactCommand(contact);
+    }
+
+    /**
+     * Checks the compulsory fields of the command (i.e. name).
+     * @throws PromptRequestException if name is missing
+     */
+    private void checkCompulsoryFields(ArgumentMultimap argMultimap) throws PromptRequestException {
+        if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            throw new PromptRequestException(Arrays.asList(new Prompt(PREFIX_NAME.getPrefix(),
+                    "Please enter a name.")));
+        }
     }
 
     /**

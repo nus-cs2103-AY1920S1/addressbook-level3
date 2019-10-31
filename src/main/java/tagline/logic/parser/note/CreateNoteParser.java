@@ -5,6 +5,7 @@ import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -14,7 +15,9 @@ import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
 import tagline.logic.parser.Prefix;
+import tagline.logic.parser.Prompt;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.note.Content;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
@@ -27,6 +30,8 @@ import tagline.model.tag.Tag;
  * Parses input arguments and creates a new CreateNoteCommand object
  */
 public class CreateNoteParser implements Parser<CreateNoteCommand> {
+    public static final String CREATE_NOTE_MISSING_CONTENT_PROMPT = "Please enter the content of the note.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the CreateNoteCommand
      * and returns an CreateNoteCommand object for execution.
@@ -35,8 +40,13 @@ public class CreateNoteParser implements Parser<CreateNoteCommand> {
     public CreateNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT);
 
-        if (!argMultimap.getPreamble().isEmpty() || !arePrefixesPresent(argMultimap, PREFIX_CONTENT)) {
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateNoteCommand.MESSAGE_USAGE));
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_CONTENT)) {
+            throw new PromptRequestException(Arrays.asList(new Prompt(PREFIX_CONTENT.getPrefix(),
+                    CREATE_NOTE_MISSING_CONTENT_PROMPT)));
         }
 
         NoteId noteId = new NoteId();
