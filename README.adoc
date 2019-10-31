@@ -15,7 +15,7 @@ endif::[]
 
 * This is a desktop engagement management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is an appointment manager for secretaries and receptionists to better schedule and manage appointments.
-* Ever wanted a comprehensive appointment manager? Well, look no further! Typee includes a built-in spell checker, calendar view, typing game, and much more!
+* Ever wanted a comprehensive appointment manager? Well, look no further! Typee includes a built-in calendar view, typing game, and pdf report generator!
 
 == Site Map
 
