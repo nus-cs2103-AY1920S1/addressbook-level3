@@ -9,7 +9,7 @@
 
 == Overview
 
-{should a Introductory Statement(Aspect 1 Point 1) be included here?}
+{Introductory statement is as when necessary}
 
 My team of 4 software engineering students and I were tasked with enhancing a basic desktop addressbook application(AddressBook - Level 3) for our Software Engineering project. We chose to morph
 it into a calorie tracker cum food database system called CaloFit.
@@ -18,7 +18,7 @@ CaloFit is a desktop application for tracking the calories that the user has tak
 The user interacts with CaloFit using a Command Line Interface(CLI) that is represented by a box near the top of the application screen. This is where the user can type in their commands and press "Enter" on their keyboards to execute them. +
 It has a Graphical User Interface(GUI) created with JavaFX which is the main display that the user sees upon starting up CaloFit.
 
-{Rubric says to list main features, but this is not indicated in Sample PPP. indicate here?}
+{Rubric says to list main features, indicated in PPP as a picture, can manually list as well}
 
 My role was to design and write the codes for the report feature. The following sections
 illustrate these enhancements in more detail, as well as the relevant documentation I have added to
