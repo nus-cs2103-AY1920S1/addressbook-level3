@@ -94,7 +94,8 @@ Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdu
 
 ****
 * The search is case insensitive. e.g `harry` will match `Harry`
-* Only full words will be matched e.g. `Har` will not match `Harry`
+// * Only full words will be matched e.g. `Har` will not match `Harry`
+* Partial words will also be matched e.g. `Har` will match `Harry`
 * Books matching at least one keyword will be returned (i.e. `OR` search). e.g. `harry` will return both `Harry Potter` and `Harry Botter`
 * `[NUMBER]` will list this `NUMBER` of books instead
 * `[t/TITLE]` will be used to search through book titles
