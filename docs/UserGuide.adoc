@@ -203,25 +203,32 @@ Format: `addvisit INDEX [v/DATE]`
 
 Let's say that you have just got a patient's folder of past visits and you want to record a house call made on 3rd January 2019.
 The patient is 1st in the list.
-//image of mainwindow with 1st patient boxed/circled in red
+
 To enter the details of the report into VISIT:
 
 1. Type `addvisit 1 v/03/01/2019` into the command box and press kbd:[Enter] to execute it.
-//image here
++
+image::UGAddVisit0.png[width="790"]
++
 * Date must be in the "dd/MM/2yyy" format (i.e. `v/19/10/2019`)
 [TIP]
 If no date is specified and the command is used without the prefix 'v/' (for example `addvisit 1`), the report will default to the current local date of the computer.
 2. Key in the details in the respective fields of the pop-up form that appears.
-//image here
++
+image::UGAddVisit1.png[width="790"]
++
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
 * Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
 3. Click the kbd:[Submit] button or press kbd:[F2] to save your entry.
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
-//image here
++
+image::UGAddVisit2.png[width="790"]
++
 
 [NOTE]
 While  `addvisit 1` is valid, typing in `addvisit 1 v/` without a valid date will give an error.
-//error image here
+
+image::UGAddVisit3.png[width="790"]
 ==== Editing the particulars of a visitation report : `editvisit`
 
 Opens a pop-up panel that enables the editing of an existing visitation report of a particular patient. +
@@ -229,25 +236,32 @@ Format: `editvisit INDEX [i/REPORT INDEX]`
 
 [NOTE]
 If no report index is specified, `editvisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
-//image of panel here
+
+image::UGEditVisit0.png[width="790"]
 
 *Example*:
 
 Let's say you want to edit the 2nd visit report of a patient and the patient is the 3rd name in the list.
-//image of mainwindow with 3rd patient circled in red
+
 1. Type `editvisit 3 i/2` into the command box and press kbd:[Enter] to execute it.
-//image here
++
+image::UGEditVisit1.png[width="790"]
++
 2. Key in the details in the respective fields of the pop-up form(which is pre-filled with the existing information of the report) that appears.
-//image here
++
+image::UGEditVisit2.png[width="790"]
++
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
 * Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
 3. Click the kbd:[Submit] button or press kbd:[F2] to save your edits.
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
-//image here
+
+image::UGEditVisit3.png[width="790"]
 
 [NOTE]
 An error will be thrown if the report with the given report index does not exist or the index given is not a number.
-//error image here
+
+image::UGEditVisit4.png[width="790"]
 
 ==== Deleting a visitation report : `deletevisit`
 
@@ -256,22 +270,29 @@ Format: `deletevisit INDEX [d/REPORT INDEX]`
 
 [NOTE]
 If no report index is specified, `deletevisit INDEX` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
-//image of panel here
+
+image::UGDeleteVisit0.png[width="790"]
+
 *Example*:
 
 Let's say you want to delete the 1st visit report of a patient and the patient is the 2nd name in the list.
 
 1. Type `deletevisit 2 d/1` into the command box and press kbd:[Enter] to execute it.
-//image here
++
+image::UGDeleteVisit1.png[width="790"]
++
 2. A panel showing the list of reports will be shown, now without the deleted report and the display box will display a message indicating a successful deletion.
-//image here
+
+image::UGDeleteVisit2.png[width="790"]
 
 [NOTE]
 An error will be thrown if the report with the given report index does not exist or the index given is not a number.
-//error image here
+
+image::UGDeleteVisit3.png[width="790"]
 
 For both `deletevisit` and `editvisit` commands if the patient has no past records, a pop up with the message "Patient has no past records" will be shown instead of a list of reports when `editvisit [INDEX]` or `deletevisit [INDEX]` is run. Note that an error will be raised if the report index is provided to a patient with no past records, for example `editvisit [INDEX] i/1` or `deletevisit [INDEX] d/1`.
 
+image::UGNoRecords.png[width="790"]
 
 === *Follow-Ups and Reminders*
 
