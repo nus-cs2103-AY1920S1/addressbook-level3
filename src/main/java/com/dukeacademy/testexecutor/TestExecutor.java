@@ -153,7 +153,7 @@ public class TestExecutor {
 
         String input = testcase.getInput();
         String expected = testcase.getExpectedResult();
-        String actual = output.getOutput();
+        String actual = output.getOutput().replaceAll("\n", "\n");
         if (expected.equals(actual)) {
             return TestCaseResult.getSuccessfulTestCaseResult(input, actual);
         } else {
