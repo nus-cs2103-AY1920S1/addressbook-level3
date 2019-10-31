@@ -24,7 +24,7 @@ public class SampleDataUtil {
             new FlashCard(new Question("What is pointer in C ?"),
                     new Answer("A pointer variable stores the address of a memory location"),
                 new Rating("easy"),
-                getCategorySet("CS2100", "C", "POINTER" )),
+                getCategorySet("CS2100", "C", "POINTER")),
             new FlashCard(new Question("How to declare a pointer in C ?"),
                     new Answer("& + variable name"),
                     new Rating("easy"),
@@ -46,9 +46,9 @@ public class SampleDataUtil {
 
     public static Deadline[] getSampleDeadline() {
         return new Deadline[]{
-                new Deadline(new Task("CS2103 Final Project Submission"),
+            new Deadline(new Task("CS2103 Final Project Submission"),
                         new DueDate("10/11/2019")),
-                new Deadline(new Task("CS2101 User Guide Submission"),
+            new Deadline(new Task("CS2101 User Guide Submission"),
                         new DueDate("12/11/2019"))
         };
     }
