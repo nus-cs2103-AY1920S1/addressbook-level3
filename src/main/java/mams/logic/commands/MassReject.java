@@ -73,7 +73,7 @@ public class MassReject extends Reject {
         if (rejectedSuccessfully.isEmpty()) {
             result += "No appeals were rejected";
         } else {
-            result += "Successfully approved: " + rejectedSuccessfully.toString();
+            result += "Successfully rejected: " + rejectedSuccessfully.toString();
         }
         if (!alreadyApproved.isEmpty()) {
             result += "\nAlready approved: " + alreadyApproved.toString();
@@ -86,4 +86,6 @@ public class MassReject extends Reject {
         }
         return result;
     }
+
+
 }
