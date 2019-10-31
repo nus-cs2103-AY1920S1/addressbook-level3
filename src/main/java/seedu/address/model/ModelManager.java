@@ -151,6 +151,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteAppointment(String description, int days) {
+        userPrefs.deleteAppointment(description, days);
+    }
+
+    @Override
     public String outputAppointments() {
         return userPrefs.outputAppointments();
     }

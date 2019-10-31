@@ -77,6 +77,24 @@ public class AppointmentTable {
         return this;
     }
 
+    /**
+     * Deletes an appointment from VISIT
+     */
+    public AppointmentTable deleteAppointment(String description, int days) {
+        requireNonNull(description);
+        requireNonNull(days);
+
+        if (days == -1) {
+            reminders.remove(description);
+            followup.remove(description);
+        } else {
+            reminders.remove(description, days);
+            followup.remove(description, days);
+        }
+
+        return this;
+    }
+
     private boolean antiDuplicate(HashMap<String, Integer> check, String description, int days) {
         Iterator it = check.entrySet().iterator();
         while (it.hasNext()) {

@@ -102,9 +102,17 @@ public interface Model {
     /**
      * Adds the given reminder.
      * @param type Type of reminder - 0 for reminder and 1 for follow-up
+     * @param description Description of the appointment
      * @param days Number of days for the reminder
      */
     void addAppointment(int type, String description, int days) throws CommandException;
+
+    /**
+     * Deletes the given reminder.
+     * @param description Description of the appointment
+     * @param days Number of days for the reminder
+     */
+    void deleteAppointment(String description, int days);
 
     /**
      * Creates a String with all reminders and follow-ups for easy display.
