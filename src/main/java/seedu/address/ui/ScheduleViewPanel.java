@@ -62,7 +62,7 @@ public class ScheduleViewPanel extends UiPart<Region> {
     }
 
     protected void clearData() {
-        this.scheduleViewList.removeAll(this.scheduleViewList);
+        this.scheduleViewList.clear();
     }
 }
 
