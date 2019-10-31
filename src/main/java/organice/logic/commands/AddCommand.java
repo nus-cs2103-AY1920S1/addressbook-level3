@@ -8,6 +8,7 @@ import static organice.logic.parser.CliSyntax.PREFIX_DOCTOR_IN_CHARGE;
 import static organice.logic.parser.CliSyntax.PREFIX_NAME;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
 import static organice.logic.parser.CliSyntax.PREFIX_ORGAN;
+import static organice.logic.parser.CliSyntax.PREFIX_ORGAN_EXPIRY_DATE;
 import static organice.logic.parser.CliSyntax.PREFIX_PHONE;
 import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
@@ -28,8 +29,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to ORGANice. "
-            + "Parameters: "
-            + PREFIX_TYPE + "PERSON TYPE "
+            + "\nTo add a patient, the command format is as follows:\n"
+            + PREFIX_TYPE + "TYPE "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -39,17 +40,49 @@ public class AddCommand extends Command {
             + PREFIX_TISSUE_TYPE + "TISSUE TYPE "
             + PREFIX_ORGAN + "ORGAN "
             + PREFIX_DOCTOR_IN_CHARGE + "DOCTOR IN CHARGE "
-            + "Example: " + COMMAND_WORD + " "
+            + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "patient "
             + PREFIX_NRIC + "S1234568R "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_AGE + "21 "
             + PREFIX_PRIORITY + "high "
-            + PREFIX_BLOOD_TYPE + "A+ "
+            + PREFIX_BLOOD_TYPE + "A "
             + PREFIX_TISSUE_TYPE + "1,2,3,4,5,6 "
             + PREFIX_ORGAN + "kidney "
-            + PREFIX_DOCTOR_IN_CHARGE + "S1111111A ";
+            + PREFIX_DOCTOR_IN_CHARGE + "S1111111A\n"
+            + "\nTo add a donor, the command format is as follows:\n"
+            + PREFIX_TYPE + "TYPE "
+            + PREFIX_NRIC + "NRIC "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_PHONE + "PHONE "
+            + PREFIX_AGE + "AGE "
+            + PREFIX_BLOOD_TYPE + "BLOOD TYPE "
+            + PREFIX_TISSUE_TYPE + "TISSUE TYPE "
+            + PREFIX_ORGAN + "ORGAN "
+            + PREFIX_ORGAN_EXPIRY_DATE + "ORGAN EXPIRY DATE"
+            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_TYPE + "donor "
+            + PREFIX_NRIC + "S1234568R "
+            + PREFIX_NAME + "John Doe Donor "
+            + PREFIX_PHONE + "98765432 "
+            + PREFIX_AGE + "21 "
+            + PREFIX_PRIORITY + "high "
+            + PREFIX_BLOOD_TYPE + "A "
+            + PREFIX_TISSUE_TYPE + "1,2,3,4,5,6 "
+            + PREFIX_ORGAN + "kidney "
+            + PREFIX_ORGAN_EXPIRY_DATE + "23-Oct-2019\n"
+            + "\nTo add a doctor, the command format is as follows:\n"
+            + PREFIX_TYPE + "TYPE "
+            + PREFIX_NRIC + "NRIC "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_PHONE + "PHONE "
+            + PREFIX_AGE + "AGE "
+            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_TYPE + "doctor "
+            + PREFIX_NRIC + "S1234568R "
+            + PREFIX_NAME + "John Doe Doctor "
+            + PREFIX_PHONE + "98765432 ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in ORGANice";
