@@ -89,7 +89,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Validates that the question to be added is either an MCQ, TrueFalse or SAQ.
      * @param questionType type of question to be added.
-     * @param argMultimap
+     * @param argMultimap add multi-map.
      * @return true or false
      * @throws ParseException if question is in the wrong format.
      */
