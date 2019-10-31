@@ -575,10 +575,7 @@ image::OverviewOfWordBankList.png[]
 
 Now the integration - How these data structures are stored in `Model` and `Storage`.
 
-.Simplified class diagram of `Model`.
-image::Model.png[]
-
-.Simplified class diagram of `Storage`.
+.Overview class diagram of `Storage` and `Model`.
 image::WBStorage.png[]
 
 ---
@@ -588,17 +585,41 @@ WordBank data structure. +
 A home command edits the word bank within that particular word bank list. Therefore it needs to make function calls through
 the WordBankList data structure.
 
-To have a better understanding of how these commands work, I will walk you through one command from CardCommand and HomeCommand.
+To have a better understanding of how these commands work, I will show you how these commands are structured in `Logic`
+and then walk you through a Sequence Diagram of executing a particular command.
 
-For instance, `AddCommand` +
+.Overview class diagram of `Logic` with emphasis on CardCommands and WordBankCommands.
+image::WBLogicStorageModel.png[]
 
-.Sequence diagram describing the updating of `Card` using `CardCommands` through different components
-image::mySequenceDiagram.png[]
+With the understanding of `WordBankList` data structure, and how the `Commands` are structured within `Logic`,
+I will now take you through what happens when a `Command` is called. +
+For instance, `CreateCommand`: +
 
-For instance, `CreateCommand` +
+.Sequence diagram describing the updating of `WordBankList` using `WordBankCommand` through different components
+image::CreateCommandSequenceDiagram.png[]
 
-.Sequence diagram describing the updating of `WordBank` using `HomeCommands through different components
-image::mySequenceDiagram.png[]
+We will see the case where the input: "create bank1" is valid.
+
+1. It gets parsed by the ParserManager. Depending on the input, a specific `Command` is returned.
+In this case, a `CreateCommand` object is instantiated.
+2. Depending on the type of Command object, execute() performs slightly different tasks.
+In this case, the execute method of `CreateCommand` checks in `Model` to see if the `WordBank` currently already exist.
+3. Relevant information is stored in `CreateCommandResult` and is returned back to `LogicManager`.
+4. With the retrieved information and type of `CommandResult`, commandResult updates the storage through it's method.
+5. The `Storage` abstracts away details and contains well-written methods, each to handle different cases of `CommandResult`.
+In this case, createWordBank is called.
+6. `JsonWordBankListStorage` contains the abstracted details of how a commandResult should be handled.
+For a `CreateCommandResult`, addWordBank and saveWordBank is called.
+7. In addWordBank method, it simply adds to the only WordBankList in the entire app. This `WordBankList` is the
+same instance as referenced by `Model`.
+8. In saveWordBank method, an even lower level saveJsonFile function is called to write to the disk.
+This is performed through the common class: `JsonUtil`.
+9. In addWordBank method, it simply adds to the only WordBankList in the entire app. This `WordBankList` is the
+same instance as referenced by `Model`.
+10. It returns void all the way back to `LogicManager`, and then success message is then passed back to `AppManager`,
+then to the `UI` to notify the user.
+
+---
 
 ==== Drag and drop feature and it's implementation.
 As much as a pro CLI user would love to type all the commands, I figured a good old drag and drop feature will save

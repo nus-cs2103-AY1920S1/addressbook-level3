@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.homecommands;
+package seedu.address.logic.commands.wordbankcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
@@ -15,7 +15,7 @@ import seedu.address.model.wordbank.WordBank;
 /**
  * Removes a word bank identified using it's unique name.
  */
-public class ExportCommand extends HomeCommand {
+public class ExportCommand extends WordBankCommand {
 
     public static final String COMMAND_WORD = "export";
 
@@ -52,8 +52,8 @@ public class ExportCommand extends HomeCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.homecommands.ExportCommand // instanceof handles nulls
-                && wordBankName.equals(((seedu.address.logic.commands.homecommands.ExportCommand) other).wordBankName));
+                || (other instanceof seedu.address.logic.commands.wordbankcommands.ExportCommand // instanceof handles nulls
+                && wordBankName.equals(((seedu.address.logic.commands.wordbankcommands.ExportCommand) other).wordBankName));
     }
 
 

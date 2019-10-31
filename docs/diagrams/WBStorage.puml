@@ -5,6 +5,9 @@ skinparam arrowThickness 1.3
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+show members
+hide empty members
+
 package Storage <<Database>> {
 
 Interface Storage <<Interface>>  #A38300
@@ -27,8 +30,7 @@ Interface WordBankListStorage <<Interface>>  #A38300 {
 }
 
 Class JsonWordBankListStorage #A38300 {
-    -WordBankList
-    -wordBanksFilePath
+    -wordBanksFilePath: Path
     -addWordBank(ReadOnlyWordBank, Path)
     -deleteWordBank(WordBank)
     -saveWordBank(ReadOnlyWordBank, Path)
@@ -51,7 +53,7 @@ StorageManager o-up[#A38300]-> JsonAppSettingsStorage
 
 JsonWordBankListStorage .left[#A38300].|> WordBankListStorage
 JsonWordBankListStorage .down[#A38300].> JsonSerializableWordBank
-JsonWordBankListStorage o-right[#A38300]-> "1" WordBankList
+JsonWordBankListStorage o-left[#A38300]-> "1" WordBankList
 JsonSerializableWordBank ..down[#A38300]> JsonAdaptedCard
 JsonAdaptedCard .left[#A38300]> JsonAdaptedTag
 
@@ -72,9 +74,15 @@ Class UserPrefs
 Class Game
 
 Package WordBankList {
-Interface ReadOnlyWordBankList <<Interface>>
-Class WordBankList
+
+Interface ReadOnlyWordBankList <<Interface>> {
+}
+
+Class WordBankList {
+}
+
 Package WordBank {
+
 Class WordBank
 Class UniqueCardList
 }
@@ -107,5 +115,54 @@ ModelManager --> WordBank : selected
 ModelManager --> Card : filteredList
 
 @enduml
+
+
+
+
+
+
+
+'
+'Package WordBank <<Rectangle>>{
+'Interface ReadOnlyWordBank <<Interface>> {
+'getName()
+'getCard(Index)
+'getCardList()
+'}
+'
+'class WordBank {
+'   -name: String
+'   +addCard(Card)
+'   +removeCard(Card)
+'   +setCard(Card, Card)
+'   +hasCard(Card)
+'   +resetData(ReadOnlyWordBank)
+'}
+'Class UniqueCardList
+'Class Card
+'
+'
+'WordBank .left.|> ReadOnlyWordBank
+'WordBank o-down-> "1" UniqueCardList
+'UniqueCardList -down-> Card
+'
+'show members
+'hide empty members
+'
+'Package Card <<Rectangle>>{
+'Class Card {
+'- id: String
+'- tags: Set<Tag>
+'}
+'Class Word
+'Class Meaning
+'}
+'
+'Card o--> "1" Word
+'Card o--> "1" Meaning
+'
+'Meaning *-LEFT[hidden]-> Word
+'@enduml
+'
 
 

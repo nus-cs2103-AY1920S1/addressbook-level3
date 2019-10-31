@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.homecommands;
+package seedu.address.logic.commands.wordbankcommands;
 
 import static java.util.Objects.requireNonNull;
 
@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 /**
  * Creates a word bank.
  */
-public class CreateCommand extends HomeCommand {
+public class CreateCommand extends WordBankCommand {
 
     public static final String COMMAND_WORD = "create";
 
@@ -31,7 +31,7 @@ public class CreateCommand extends HomeCommand {
     }
 
     @Override
-    public HomeCommandResult execute(Model model) throws CommandException {
+    public WordBankCommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (model.hasWordBank(wordBankName)) {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
