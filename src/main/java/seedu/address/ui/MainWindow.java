@@ -27,6 +27,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static SingleSelectionModel<Tab> selectionModel;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -41,7 +42,6 @@ public class MainWindow extends UiPart<Stage> {
     private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
     private ScheduleBox scheduleBox;
-    private SingleSelectionModel<Tab> selectionModel;
 
     @FXML
     private StackPane schedulePlaceholder;
@@ -151,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * returns the current tab number
      */
-    public int getCurrentTabIndex() {
+    public static int getCurrentTabIndex() {
         return selectionModel.getSelectedIndex();
     }
 
@@ -262,10 +262,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             if (commandResult.getFetch() != null) {
-                if (commandResult.getType().equals("employee")) {
+                if (commandResult.getType().contains("Employee")) {
                     handleEmployeeFetch(commandResult.getFetch());
                 }
-                if (commandResult.getType().equals("event")) {
+                if (commandResult.getType().contains("Event")) {
                     handleEventFetch(commandResult.getFetch());
                 }
             }
@@ -279,7 +279,7 @@ public class MainWindow extends UiPart<Stage> {
                 scheduleBox.setLabelText(commandResult.getUiChange());
             }
 
-            if (commandResult.getType().equals("Schedule_Tab")) {
+            if (commandResult.getType().contains("Schedule")) {
                 selectionModel.select(1);
             }
 
