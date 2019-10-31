@@ -44,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     //Tab related attributes.
     private TabPanel tabPanel;
     private ObservableList<Tab> tabList;
+    private Tab currentTab;
 
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -182,11 +183,14 @@ public class MainWindow extends UiPart<Stage> {
      * Closes the application.
      */
     @FXML
-    private void handleExit() {
+    public void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        if (currentTab != null) {
+            currentTab.getController().handleExit();
+        }
         primaryStage.hide();
     }
 
@@ -198,6 +202,36 @@ public class MainWindow extends UiPart<Stage> {
         mainWindow.getChildren().clear();
         mainWindow.getChildren().add(root);
         lblWindowTitle.setText(tabInput.getName() + " Window");
+        currentTab = tabInput;
+    }
+
+    /**
+     * Handles the calendar interaction represented by the specified {@code CommandResult}.
+     * @param commandResult The specified {@code CommandResult}.
+     */
+    private void handleCalendarInteraction(CommandResult commandResult) throws CommandException {
+        if (currentTab == null || !(currentTab.getController() instanceof CalendarWindow)) {
+            throw new CommandException("Calendar commands can only be used in the calendar window.");
+        }
+        CalendarWindow calendarWindow = (CalendarWindow) currentTab.getController();
+        String calendarCommandType = commandResult.getCalendarCommandType();
+        try {
+            switch (calendarCommandType) {
+            case "display":
+                calendarWindow.display(commandResult.getCalendarDate());
+                break;
+            case "nextmonth":
+                calendarWindow.populateCalendarWithNextMonth();
+                break;
+            case "previousmonth":
+                calendarWindow.populateCalendarWithPreviousMonth();
+                break;
+            default:
+                throw new CommandException("Invalid calendar command.");
+            }
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     public EngagementListPanel getEngagementListPanel() {
@@ -212,8 +246,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -227,6 +259,13 @@ public class MainWindow extends UiPart<Stage> {
                 Tab tab = commandResult.getTab();
                 handleTabSwitch(fetchTabInformation(tab.getName()));
             }
+
+            if (commandResult.isCalendarCommand()) {
+                handleCalendarInteraction(commandResult);
+            }
+
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {
@@ -250,10 +289,7 @@ public class MainWindow extends UiPart<Stage> {
         }
         switch (tabName) {
         case "Calendar":
-            CalendarWindow calendarWindow = new CalendarWindow();
-            calendarWindow.setLogic(logic);
-            calendarWindow.populateCalendar();
-            tabToReturn.setController(calendarWindow);
+            tabToReturn.setController(new CalendarWindow(logic.getFilteredEngagementList()));
             break;
         case "TypingGame":
             tabToReturn.setController(new StartWindow());

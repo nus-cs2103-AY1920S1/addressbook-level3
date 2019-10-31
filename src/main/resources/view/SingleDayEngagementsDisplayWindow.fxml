@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
+<fx:root resizable="false" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefHeight="600" prefWidth="600">
+                <ListView fx:id="engagementListView" VBox.vgrow="ALWAYS" />
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>
