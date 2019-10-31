@@ -2,6 +2,7 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
 import static mams.logic.parser.CliSyntax.PREFIX_MASS_RESOLVE;
 import static mams.logic.parser.CliSyntax.PREFIX_REASON;
 
@@ -18,7 +19,6 @@ import mams.logic.commands.MassApprove;
 import mams.logic.parser.exceptions.ParseException;
 
 import mams.model.appeal.Appeal;
-
 /**
  * Parses input arguments and creates a new {@code ApproveCommand} object
  */
@@ -30,17 +30,27 @@ public class ApproveCommandParser implements Parser<Approve> {
      */
     public Approve parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_REASON, PREFIX_MASS_RESOLVE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
+                PREFIX_APPEAL, PREFIX_REASON, PREFIX_MASS_RESOLVE);
 
         Index index;
-        if (argMultimap.getValue(PREFIX_REASON).isPresent()) {
+
+        if (argMultimap.areAllPrefixesAbsent(PREFIX_APPEAL, PREFIX_MASS_RESOLVE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ApproveCommand.MESSAGE_USAGE_APPROVE));
+        }
+
+        if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
+            String remark = "";
             try {
-                index = ParserUtil.parseIndex(argMultimap.getPreamble());
+                index = ParserUtil.parseIndex((argMultimap.getValue(PREFIX_APPEAL).get()));
             } catch (IllegalValueException ive) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         ApproveCommand.MESSAGE_USAGE_APPROVE), ive);
             }
-            String remark = argMultimap.getValue(PREFIX_REASON).orElse("");
+            if (argMultimap.getValue(PREFIX_REASON).isPresent()) {
+                remark = argMultimap.getValue(PREFIX_REASON).orElse("");
+            }
             return new ApproveCommand(index, remark);
         } else if (argMultimap.getValue(PREFIX_MASS_RESOLVE).isPresent()) {
             Optional<String> appealLine = argMultimap.getValue(PREFIX_MASS_RESOLVE);
