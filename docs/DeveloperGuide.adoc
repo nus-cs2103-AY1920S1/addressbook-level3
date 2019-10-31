@@ -203,7 +203,7 @@ The `redo` command does the opposite -- it calls `Model#redoEngagementList()`, w
 [NOTE]
 If the `versionPointer` is at index `historyList.size() - 1`, pointing to the latest engagement list state, then there are no undone engagement list states to restore. The `redo` command uses `Model#hasNoRedoableCommand()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `sort start_ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
+Step 5. The user then decides to execute the command `sort start ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
 
 image::UndoRedoState4.png[width="450", align="center"]
 

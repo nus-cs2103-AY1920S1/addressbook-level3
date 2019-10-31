@@ -94,18 +94,14 @@ Format: `list`
 === Sorting all appointments : `sort`
 
 Sorts the list of all appointments in the appointment list by the order specified by user. +
-
-[TIP]
-Orders supported: `description_ascending`, `description_descending`, `start_ascending`, `start_descending`, `end_ascending`, `end_descending`, `priority_ascending`, `priority_descending`.
-
-[TIP]
-After sorting, commands that require index as an input field (e.g. `delete`) will take in index with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
-
 Format: `sort ORDER`
+
+[TIP]
+Orders supported: `description ascending`, `description descending`, `start ascending`, `start descending`, `end ascending`, `end descending`, `priority ascending`, `priority descending`.
 
 Examples:
 
-* `sort start_ascending` +
+* `sort start ascending` +
 Sorts the list displayed in ascending order of start time.
 
 [.clearfix]
@@ -116,6 +112,9 @@ image::before-sort.png[width="450", float="left"]
 .Engagement list after sorting by start time in ascending order
 image::after-sort.png[width="450"]
 --
+
+[TIP]
+After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
 
 === Editing an appointment : `edit`
 

@@ -28,7 +28,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     private String parseOrder() throws ParseException {
         try {
-            switch (Order.valueOf(trimmedArgs.toUpperCase())) {
+            switch (Order.valueOf(trimmedArgs.toUpperCase().replace(" ", "_"))) {
 
             case START_ASCENDING:
                 return "START_TIME";
@@ -55,7 +55,7 @@ public class SortCommandParser implements Parser<SortCommand> {
                 return "PRIORITY_REVERSE";
 
             default:
-                return "Not supposed to reach here";
+                throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
