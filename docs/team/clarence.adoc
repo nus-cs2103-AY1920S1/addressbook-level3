@@ -1,0 +1,140 @@
+= *Clarence Koh - Project Portfolio for $aveNUS*
+:site-section: AboutUs
+:icons: font
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Overview
+
+$aveNUS is a command line interface (CLI) financial planning application that my team and I designed for
+CS2103T (Software Engineering) module in School of Computing, National University of Singapore (NUS).
+
+In this project, we morphed the sample address book application into $aveNUS, an application that allows NUS students
+to track their financial spending with regards to food purchases. Additionally, the application provides them with
+the best food recommendations within their current budget as well as a savings feature to track their savings.
+
+The table below provides a quick summary of the symbols and formatting used in this portfolio.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | Command that can be typed into the command box
+ifndef::env-github[]
+a| icon:check[role="green", size="2x"] | Success execution of command
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be useful
+a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know
+a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointers to take note
+endif::[]
+|===
+
+== Summary of contributions
+
+This section provides a summary of the contributions that I have made to the team project.
+
+=== Major enhancement: Savings and Withdrawal Feature
+
+I have added a savings and withdrawal feature that enables users to keep track of their savings and withdrawals from their savings account.
+
+==== What it does
+
+The savings and withdrawal feature allows users to manage their savings.
+
+Firstly, the user must have money set in their wallet. This can be added by using the "budget" command which specifies their budget amount for a budget duration,
+or by calling "topup" to topup the amount of money in the wallet without a budget duration. With this, the user can then add an amount of money
+into their savings account by using the "save" command.
+
+Next, if the user has money in his savings account, he/she will be able to use the "withdraw" command to transfer money from the savings account
+into his/her wallet.
+
+Lastly, the user can track his/her savings and withdrawal history from the graphical user interface (GUI).
+The user can also keep track of his current savings account balance from the GUI.
+
+==== Justification
+
+In university, students are keen to plan for their lives after they graduate. Students would like to graduate with at least
+a certain amount of money in their banks so that they can either pay for their student loans, or return the amount they borrowed
+from their parents for paying off their school fees. To do this, they have to start saving from the time they stepped into university.
+
+With the savings and withdrawal feature encompassed into the expenditure tracking application of $aveNUS, the application
+serves as a one-stop application for them to plan their finances. Students can not only track their expenditure history,
+but also take note of their savings and withdrawals they have made over time conveniently in one application. Thus, they will have a
+better understanding of their personal spending and savings behaviour, which can encourage them to take the necessary measures to make changes
+in these behaviours to suit their financial goals.
+
+==== Highlights
+
+While implementing this feature, I had to implement new models such as `Savings`, `TimeStamp`, which allowed users to keep their savings in a structured manner
+and track when the saving or withdrawal occurred respectively. I also implemented the model for `SavingsAccount`, so that the user can reference their SavingsAccount
+and make changes to it accordingly.
+
+Storage functionality was also implemented for the user's savings history to conveniently save the user's savings history into their hard disk.
+This functionality is persistent even when the application is restarted.
+Furthermore, additional user interface classes such as `ReadOnlySavingsHistory` and `SavingsHistory` ensures that a user's savings history is accurately
+updated on a timely basis on the GUI.
+
+=== Minor Enhancement: History Command Retrieval
+
+==== What it does
+
+Retrieves the list of commands previously typed by the user from the users command history.
+
+This allows users to refer to the results display to reference the list of commands they have previously typed.
+If the user wishes to view the past commands he/she has entered, they can simply type "history" to see the past commands
+being reflected in the results display.
+
+The command alias of "h" is also provided to allow the users to engage the same command with less typing.
+
+==== Justification
+
+This feature allows the user to conveniently refer to the list of commands he/she typed previously without the hassle of scrolling through his past commands
+one by one using the "UP" or "DOWN" arrow. This can speed up input as users can simply copy and paste a command that was typed many commands earlier, increasing
+convenience to the user.
+
+This is especially useful since this application is a Command-Line application.
+
+==== Highlights
+
+It references the Singleton class of `CommandHistory`, which was implemented as a queue, and served to primarily allow users to access previously typed commands
+from the command-line.
+
+However, I enabled the user to reference the full list of commands previous type from the `CommandHistory`. Now, previously typed commands are observable all at once.
+This is an enhancement to the implemented command-line command history feature.
+
+=== Other contributions
+
+* Project Management:
+
+** Added user stories as issues on GitHub
+
+** Reviewed pull requests by team members
+
+** Opened issues when enhancements could be made by team members [Issue https://github.com/AY1920S1-CS2103T-F13-2/main/issues/202[#202],
+https://github.com/AY1920S1-CS2103T-F13-2/main/issues/140[#140]]
+
+** Opened issues when bugs were found [Issue https://github.com/AY1920S1-CS2103T-F13-2/main/issues/133[#133]]
+
+** Fixed bugs after they were found [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/159[#159]]
+
+* Documentation:
+
+** Updated User Guide and Developer Guide
+
+*** Replace diagrams and update command information in User Guide and Developer Guide [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/217[#217],
+https://github.com/AY1920S1-CS2103T-F13-2/main/pull/188[#188]]
+
+** Community:
+
+*** Reviewed the Developer Guide of other teams
+
+== Contributions to the User Guide
+
+This section shows the contributions that I have made to the Savings and Withdrawals feature of the User Guide.
+
+include::../UserGuide.adoc[tag=savings]
+
+include::../UserGuide.adoc[tag=withdrawals]
+
+== Contributions to the Developer Guide
+
+This section shows the additions that I have made to the Savings feature of the Developer Guide.
+
+include::../DeveloperGuide.adoc[tag=savings]

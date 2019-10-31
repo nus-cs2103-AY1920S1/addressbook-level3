@@ -349,6 +349,7 @@ Allows users to top up the money into their wallet.
 If the top up was successful, you should be able to see the update in your wallet immediately.
 //end::budgeting[]
 
+//tag::savings[]
 ==== Saves money into savings account: `save`
 Allows users to log an amount of money to save in his savings account from user's wallet.
 
@@ -374,7 +375,9 @@ Also the amount saved is deducted from your wallet.
 
 ==== Withdraws money from savings account: `withdraw`
 Allows users to log an amount of money to withdraw from his savings account into his wallet.
+//end::savings[]
 
+//tag::withdrawals[]
 ****
 *Format*: `withdraw` +
 *Example*: `withdraw 10`
@@ -392,6 +395,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 [NOTE]
 If you click the "Savings" tab on the right panel, you will be able to view your savings history.
 Also the amount withdrawn is added into your wallet.
+//end::withdrawals[]
 
 //tag::purchasing[]
 === Purchasing
