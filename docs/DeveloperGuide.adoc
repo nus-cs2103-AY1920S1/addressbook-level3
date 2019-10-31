@@ -192,23 +192,23 @@ An unfortunate side effect to matching the longest matching macro increases the 
 
 // end::alias[]
 
-[[followupImplementation]]
-// tag::followup[]
-=== Follow-up and Reminders feature
+[[appointmentsImplementation]]
+// tag::appointments[]
+=== Appointments feature
 ==== Implementation
-Both mechanisms are facilitated by the `Reminder` class.
+The Appointments feature comprises of Reminders and Follow-Ups. Both mechanisms are facilitated by the `AppointmentTable` class, with individual Appointment data stored in the `Appointment` class.
 
 It implements the following operations:
 
-* `Reminder#addReminder(reminder)` -- Adds a new reminder.
-* `Reminder#getReminders()` -- Retrieves the reminders for output.
+* `AppointmentTable#addAppointment(appointment)` -- Adds a new appointment.
+* `AppointmentTable#outputAppointments()` -- Retrieves the appointments for output.
 
-These operations are exposed in the `Model` interface as `Model#addReminder(reminder)` and `Model#getReminders()` respectively.
+These operations are exposed in the `Model` interface as `Model#addAppointment(reminder)` and `Model#outputAppointments()` respectively.
 
 The following sequence diagram shows how adding a follow-up or reminder works:
 
-image::AddReminderSequenceDiagram.png[]
-// end::followup[]
+image::AddAppointmentSequenceDiagram.png[]
+// end::appointments[]
 
 [[profileImplementation]]
 // tag::profile[]

@@ -51,7 +51,7 @@ public class FollowUpCommand extends Command {
         }
 
         Person person = lastShownList.get(index.getZeroBased());
-        model.addReminder(1, person.getName().toString(), days);
+        model.addAppointment(1, person.getName().toString(), days);
 
         return new CommandResult(String.format(MESSAGE_ADD_FOLLOWUP_SUCCESS, person.getName().toString(), days));
     }
