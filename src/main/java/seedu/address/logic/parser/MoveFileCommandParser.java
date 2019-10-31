@@ -22,7 +22,7 @@ public class MoveFileCommandParser implements Parser<MoveFileCommand> {
         try {
             String trimmedArgs = args.trim();
             Index index = ParserUtil.parseIndex(trimmedArgs.split(" ")[0]);
-            FilePath newPath = new FilePath(trimmedArgs.substring(args.indexOf(" ") + 2));
+            FilePath newPath = new FilePath(trimmedArgs.substring(trimmedArgs.indexOf(' ') + 1));
             return new MoveFileCommand(index, newPath);
         } catch (ParseException pe) {
             throw new ParseException(

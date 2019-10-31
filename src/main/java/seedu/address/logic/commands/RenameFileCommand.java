@@ -54,7 +54,8 @@ public class RenameFileCommand extends Command {
         FileCommandUtil.checkIfFileExists(fileToRename, model);
 
         EncryptedFile newFile = new EncryptedFile(
-                newFileName,
+                FileName.constructWithExtension(newFileName.getFileNameWithoutExtention(),
+                        fileToRename.getFileName().getExtension()),
                 fileToRename.getFilePath(),
                 fileToRename.getFileStatus() == FileStatus.CORRUPTED ? FileStatus.CORRUPTED : FileStatus.ACTIVE,
                 fileToRename.getTags(),
