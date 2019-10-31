@@ -99,6 +99,8 @@ Employee Format: `list_em`
 
 Event Format: `list_ev`
 
+//tag::DeXun1[]
+
 ==== Adding: `add_em | add_ev`
 
 Employee: Adds an employee to the employee list
@@ -205,6 +207,7 @@ Deletes the 2nd employee in the displayed employee list.
 * `find_ev Music` `delete_ev 1` +
 Deletes the 1st event in the list shown after the `find_ev` command.
 
+//end::DeXun1[]
 
 === Employee-Specific Management
 
@@ -307,6 +310,7 @@ Examples:
 Frees all employees allocated the 1st event on the event list.
 //end::calvin[]
 
+//tag::DeXun2[]
 ==== Setting a Date&Time to an Event: `set_ev_dt`
 
 Sets a Date-Time mapping to an specific Event.
@@ -371,6 +375,7 @@ Example:
 
 * `clear_ev_dt 2` +
 Clears all the date-time mapping from the 2nd Event on the Event list.
+//end::DeXun2[]
 
 //tag::calvin2[]
 
