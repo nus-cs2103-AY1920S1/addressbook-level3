@@ -51,8 +51,8 @@ public class AutoCompleteListHandler {
     /**
      * Update list of autocomplete words to be suggested according to current phrase in command box textfield
      *
-     * @param currentList list to be updated
-     * @param segments Array of segments of the full command in textfield
+     * @param currentList       list to be updated
+     * @param segments          Array of segments of the full command in textfield
      * @param firstSegmentParts Linkedlist of parts in first segment of segments array
      * @return updatedList
      */
@@ -122,14 +122,13 @@ public class AutoCompleteListHandler {
 
     /**
      * Add - for each word in object list, for user understanding in the autocomplete panel ui
+     *
      * @param objectList list for words to add dash to
      */
     public void addDashToObjectWordList(ObservableList<AutoCompleteWord> objectList) {
-        if (objectList.size() != 0) {
-            if (objectList.get(0) instanceof ObjectWord) {
-                for (int i = 0; i < objectList.size(); i++) {
-                    objectList.set(i, new AutoCompleteWord(objectList.get(i).getSuggestedWord() + "-"));
-                }
+        if (objectList.size() != 0 && objectList.get(0) instanceof ObjectWord) {
+            for (int i = 0; i < objectList.size(); i++) {
+                objectList.set(i, new AutoCompleteWord(objectList.get(i).getSuggestedWord() + "-"));
             }
         }
     }

@@ -109,7 +109,7 @@ public class AutoCompletePanel extends UiPart<Region> {
     }
 
     /**
-     * @return string representation of all the matched words
+     * @return string representation of all the matched words plus current selected word
      */
     public String getStringAfterSelection() {
         StringBuilder combinedMatchedWords = new StringBuilder();
