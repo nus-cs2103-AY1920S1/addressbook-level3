@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-class AmountTest {
+public class AmountTest {
     private static Amount AMOUNT_POSITIVE_1 = new Amount("10.20");
     private static Amount AMOUNT_POSITIVE_2 = new Amount("0.50");
     private static Amount AMOUNT_POSITIVE_3 = new Amount("5");
