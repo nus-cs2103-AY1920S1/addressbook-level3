@@ -36,9 +36,14 @@ public class DeleteCriteriaCommandParser implements Parser<DeleteCriteriaCommand
                     ive);
         }
 
-        Object[] tagValues = argMultimap.getAllValues(PREFIX_CRITERIA).toArray();
-        String[] tags = Arrays.copyOf(tagValues, tagValues.length, String[].class);
-        return new DeleteCriteriaCommand(index, tags);
+        Object[] criteriaValues = argMultimap.getAllValues(PREFIX_CRITERIA).toArray();
+        String[] criteria = Arrays.copyOf(criteriaValues, criteriaValues.length, String[].class);
+
+        for (int i = 0; i < criteria.length; i++) {
+            criteria[i] = criteria[i].toLowerCase();
+        }
+
+        return new DeleteCriteriaCommand(index, criteria);
     }
 
 }

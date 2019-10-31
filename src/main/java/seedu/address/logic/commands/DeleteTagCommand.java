@@ -25,7 +25,7 @@ public class DeleteTagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes tag of the person identified "
             + "by the index number used in the last person listing. "
             + "Parameters: INDEX (must be a positive integer) "
-            + "t/ TAG [MORE_TAGS] (must be lowercase)\n"
+            + "t/ TAG [MORE_TAGS] (will be converted to lowercase)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "t/smoker t/diabetic";
 

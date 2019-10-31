@@ -38,6 +38,11 @@ public class DeletePolicyTagCommandParser implements Parser<DeletePolicyTagComma
 
         Object[] tagValues = argMultimap.getAllValues(PREFIX_TAG).toArray();
         String[] tags = Arrays.copyOf(tagValues, tagValues.length, String[].class);
+
+        for (int i = 0; i < tags.length; i++) {
+            tags[i] = tags[i].toLowerCase();
+        }
+
         return new DeletePolicyTagCommand(index, tags);
     }
 

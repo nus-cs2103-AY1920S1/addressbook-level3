@@ -27,7 +27,7 @@ public class DeleteCriteriaCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes criteria of the policy identified "
             + "by the index number used in the last policy listing. "
             + "Parameters: INDEX (must be a positive integer) "
-            + "t/ CRITERIA [MORE_CRITERIA] (must be lowercase)\n"
+            + "t/ CRITERIA [MORE_CRITERIA] (will be converted to lowercase)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "cr/life cr/accident";
 

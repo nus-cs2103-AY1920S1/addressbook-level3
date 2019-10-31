@@ -38,6 +38,11 @@ public class AddCriteriaCommandParser implements Parser<AddCriteriaCommand> {
 
         Object[] criteriaValues = argMultimap.getAllValues(PREFIX_CRITERIA).toArray();
         String[] criteria = Arrays.copyOf(criteriaValues, criteriaValues.length, String[].class);
+
+        for (int i = 0; i < criteria.length; i++) {
+            criteria[i] = criteria[i].toLowerCase();
+        }
+
         return new AddCriteriaCommand(index, criteria);
     }
 

@@ -31,6 +31,8 @@ public class FindTagPeopleCommandParser implements Parser<FindTagPeopleCommand> 
 
         List<String> tagNames = argMultimap.getAllValues(PREFIX_TAG);
 
+        tagNames.replaceAll(String::toLowerCase);
+
         return new FindTagPeopleCommand(tagNames);
     }
 

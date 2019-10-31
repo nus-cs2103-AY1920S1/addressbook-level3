@@ -31,6 +31,8 @@ public class FindTagPolicyCommandParser implements Parser<FindTagPolicyCommand> 
 
         List<String> tagNames = argMultimap.getAllValues(PREFIX_TAG);
 
+        tagNames.replaceAll(String::toLowerCase);
+
         return new FindTagPolicyCommand(tagNames);
     }
 
