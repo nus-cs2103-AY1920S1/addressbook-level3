@@ -265,23 +265,26 @@ can be displayed in Ezwatchlist's sleek dark interface.
 the minor details for you.
 
 * Unsure of what actors played in your favourite movie? Ezwatchlist will find that information for you.
+
 ****
-You don't need to do anything other than be connected to the internet. It is that easy!
+* You don't need to do anything other than be connected to the internet. It is that easy!
 ****
+
 ==== Movie and Tv Show Recommendations
 Ezwatchlist has the ability to recommend Movies and TvShows to you based on
 your Ezwatchlist usage. Ezwatchlist will create your own personalized recommendations for you.
 
 ****
-Excited? Enter your statistics page to get started on your recommendations. You might
-just find your next favourite!
+* Excited? Enter your statistics page to get started on your recommendations. You might
+* just find your next favourite!
 ****
 
 ==== Auto-Correct (Coming in v2.0)
 Ezwatchlist aims to provide a smooth experience for our typing users. All typing in Ezwatchlist will be automatically
 corrected for you when typing in your commands.
+
 ****
-Say goodbye to typing errors!
+* Say goodbye to typing errors!
 ****
 
 == FAQ
