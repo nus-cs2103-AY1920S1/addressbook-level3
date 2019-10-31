@@ -148,4 +148,13 @@ public class InventoryTabParserTest {
             assertEquals(InventoryMessages.MESSAGE_NO_SUCH_SORT_COMMAND, e.toString());
         }
     }
+
+    @Test
+    public void parser_invalidCommandExceptionTest() {
+        try {
+            Command command = parser.parseCommand("command", new InventoryList());
+        } catch (NoSuchSortException | NoSuchItemException | NotANumberException | ParseException e) {
+            assertEquals(InventoryMessages.MESSAGE_NO_COMMAND, e.getMessage());
+        }
+    }
 }
