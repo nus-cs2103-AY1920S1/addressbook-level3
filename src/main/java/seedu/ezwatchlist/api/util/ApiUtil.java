@@ -2,6 +2,7 @@ package seedu.ezwatchlist.api.util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -264,5 +265,35 @@ public class ApiUtil {
             totalEpisodes += season.getEpisodes().size();
         }
         return totalEpisodes;
+    }
+
+    /**
+     * Splits the list of Shows to a list of Movies.
+     * @param shows the list of Shows.
+     * @return a list of movies from the Shows.
+     */
+    public List<Movie> splitToMovieFromShow(List<Show> shows) {
+        List<Movie> movies = new LinkedList<>();
+        for (Show show: shows) {
+            if (show.getType().equals("movie")) {
+                movies.add((Movie) show);
+            }
+        }
+        return movies;
+    }
+
+    /**
+     * Splits the list of Shows to a list of Tv Shows.
+     * @param shows the list of Shows.
+     * @return a list of Tv Shows from the Shows.
+     */
+    public List<TvShow> splitToTvShowsFromShow(List<Show> shows) {
+        List<TvShow> tvShows = new LinkedList<>();
+        for (Show show: shows) {
+            if (show.getType().equals("tv")) {
+                tvShows.add((TvShow) show);
+            }
+        }
+        return tvShows;
     }
 }
