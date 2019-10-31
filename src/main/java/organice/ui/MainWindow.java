@@ -92,6 +92,10 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanelPlaceholder;
     }
 
+    public StackPane getResultDisplayPlaceholder() {
+        return resultDisplayPlaceholder;
+    }
+
     public CommandBox getCommandBox() {
         return commandBox;
     }
@@ -171,6 +175,8 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBoxPlaceholder.getChildren().clear();
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        resultDisplayPlaceholder.setMinHeight(200);
     }
 
     /**
@@ -277,6 +283,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isForm()) {
+                resultDisplayPlaceholder.setMinHeight(100);
                 FormAnimation.fadingAnimation(this);
                 Type formType = commandResult.getFormType();
                 FormUiManager formUiManager = new FormUiManager(this, formType, model, logger);
