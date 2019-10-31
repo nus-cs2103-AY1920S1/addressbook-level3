@@ -170,9 +170,8 @@ Format: `subject SUBJECT`
 
 You can delete all questions from the app. +
 Format: `clearq`
-
 // end::question[]
-
+// tag::quiz[]
 === Quiz mode
 
 There is a built-in quiz mode in NUStudy for you to take a revision quiz.
@@ -200,6 +199,7 @@ Format: `skip`
 
 Exits from the quiz mode. +
 Format: `quit`
+// end::quiz[]
 
 === Get statistics
 
@@ -281,8 +281,10 @@ Format: `notify -d [-A] [INDEX]`
 === Auto-complete feature `[coming in v2.0]`
 Returns suggestions when you are typing commands.
 
+// tag::quizFuture[]
 === Set a timer for test mode `[coming in v2.0]`
 The student sets a time limit for the test mode. The app will exit test mode once the time ends.
+// end::quizFuture[]
 
 === Share notes and questions with other users `[coming in v2.0]`
 The student shares notes and questions with other students with Internet connection.

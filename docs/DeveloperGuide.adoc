@@ -261,6 +261,7 @@ in local storage when the command finishes executing.
 list operations.
 // end::questiond[]
 
+// tag::quiz[]
 === Quiz mode for revision
 ==== Implementation
 
@@ -307,7 +308,7 @@ image::QuizModeSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command for quiz:
 
-image::QuizModeActivityDiagram.png[]
+image::QuizModeActivityDiagram.png[width=400]
 
 ==== Design Considerations
 
@@ -328,6 +329,7 @@ updated appData in local storage when the command finishes executing.
 ** Pros: Do not need to maintain a separate list class.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
+// end::quiz[]
 
 === Statistics feature
 ==== Implementation
@@ -807,6 +809,7 @@ Use case ends
 * Use case resumes at step 2
 // end::usecasew[]
 
+// tag::quizUseCase[]
 [discrete]
 === Use case: Delete an existing question (Dongjun)
 
@@ -840,6 +843,7 @@ Use case ends
 6. Repeat 2 - 5 until all questions are answered
 
 Use case ends
+// end::quizUseCase[]
 
 *Extensions*
 
@@ -893,35 +897,32 @@ It is not quizzable.
 // end::nfrglossary[]
 
 [appendix]
-== Instructions for Manual Testing
+== Manual testing
+A few ways of manually testing NUStudy are listed below. Of course, any tester
+should explore more than just these.
 
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
+=== Opening and closing
 . Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
+.. Download the JAR file and copy into an empty folder.
+.. Open the jar file. _The GUI with some initial application data should be visible._
 . Saving window preferences
+.. Change the position and size of the window and close it.
+.. Re-launch NUStudy. _It should look just like when it was closed._
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+=== Image support
+. Adding a lecture note with an image
+.. Type `addnote t/t c/c i/` in the command line. _An image dialog should be brought up._
+.. Select any image. _It should appear in the lecture note panel, as a new lecture note with
+title "t" and content "c"._
+. Modifying an image
+.. After adding one lecture note with an image, type `editnote i i/` where `i` is its index.
+.. _The same image dialog should be brought up_; select a different image.
+_This image should appear in place of the old image, if any, even if the filename is the same._
+. Local copy of images
+.. Close the application and move the JAR file and its associated application data to another location.
+.. Relaunch the application. _Images should display as before.
+. Silent ignoring of broken images
+.. Once lecture notes with images have been added, close NUStudy and delete all images
+in its data folder.
+.. Relaunch the application. _The app should not throw an exception, merely not display any images._
+.. Add back the images to the lecture notes using `editnote`. _This operation should succeed._
