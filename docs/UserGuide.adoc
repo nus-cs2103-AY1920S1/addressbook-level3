@@ -270,7 +270,9 @@ On the other hand, invoking `add participant` with the suitable parameters will 
 ****
 
 Example:
+
 After running the following commands:
+
 1. list participants
 2. add participant n/Bartholomew Lim p/+6593121212 e/barrytheflash@gmail.com
 3. add participant n/Diana Prince p/+6593111111 e/singaporewonderwoman@hotmail.com
@@ -280,11 +282,11 @@ Running `history` will show you the following output in the "History" section of
 image::HistoryCommandExampleOutput.png[width="790"]
 
 //Add annotations to image when the UI is finalised.
-The topmost panel shows you that you the "redo" delimiter.
-The second panel from the top shows you the "current" delimiter.
-The bottommost panel shows you the "undo" delimiter.
-This means that you can invoke the `undo` command twice, as both AddParticipantCommands can be undone.
-Notice that the `list participants` command is not shown in the "History" section as it does not change data.
+The topmost panel is the "redo" delimiter. +
+The second panel from the top is the "current" delimiter. +
+The bottommost panel shows you the "undo" delimiter. +
+This means that you can invoke the `undo` command twice, as both AddParticipantCommands can be undone. + 
+Notice that the `list participants` command is not shown in the "History" section as it does not change data. + 
 
 === Undo Previous Commands: `undo`
 Undoes the previous command you executed.
