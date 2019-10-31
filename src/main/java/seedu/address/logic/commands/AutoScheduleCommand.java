@@ -16,6 +16,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.NameWithTime;
@@ -34,25 +35,19 @@ public class AutoScheduleCommand extends Command {
     public static final String TIME_FORMAT = "HHmm";
     public static final String MESSAGE_INVALID_SCHEDULE = "Unnable to generate a schedule based on the requirements";
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activities successfully scheduled.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Generates a list of activities for a specified day based on tag order given by user."
-            + "Parameters: "
-            + "[" + PREFIX_TAG + "TAG START_TIME]..."
-            + "{" + PREFIX_NAME + "ACTIVITY_NAME START_TIME]..."
-            + PREFIX_ADDRESS + "ADDRESS"
-            + PREFIX_DAY + "DAY\n"
-            + "Example 1: autoSchedule " + COMMAND_WORD + " "
-            + PREFIX_TAG + "Dining 1000 "
-            + PREFIX_TAG + "Attraction 1200 "
-            + PREFIX_TAG + "Dining "
+
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD,
+"Generates a list of activities for a specified day based on tag order given by user.",
+    COMMAND_WORD + " ([" + PREFIX_TAG + "TAG START_TIME] || "
+            + PREFIX_NAME + "ACTIVITY_NAME START_TIME])... "
             + PREFIX_ADDRESS + "Tokyo "
-            + PREFIX_DAY + "{DAY}...\n"
-            + "Example 2: autoSchedule " + COMMAND_WORD + " "
-            + PREFIX_TAG + "Dining 1000 "
-            + PREFIX_NAME + "Disneyland 1200 "
-            + PREFIX_TAG + "Dining 1800 "
-            + PREFIX_ADDRESS + "Tokyo "
-            + PREFIX_DAY + "{DAY}...\n";
+            + PREFIX_DAY + "[DAY_INDEX]...",
+    COMMAND_WORD + " " + PREFIX_TAG + "Dining 1000 " + PREFIX_TAG + "Attraction 1200 "
+            + PREFIX_TAG + "Dining " + PREFIX_NAME + "Disneyland 1400 "
+            + PREFIX_ADDRESS + "Tokyo " + PREFIX_DAY + "1 4 5"
+    );
+
     public static final String MESSAGE_SUCCESS = "Schedule for the day generated!";
     public static final Integer DEFAULT_START_TIME = 900;
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);

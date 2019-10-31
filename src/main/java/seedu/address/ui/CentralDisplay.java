@@ -26,6 +26,8 @@ import seedu.address.logic.commands.AddAccommodationCommand;
 import seedu.address.logic.commands.AddActivityCommand;
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddDayCommand;
+import seedu.address.logic.commands.AutoScheduleCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteAccommodationCommand;
 import seedu.address.logic.commands.DeleteActivityCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
@@ -33,7 +35,10 @@ import seedu.address.logic.commands.DeleteDayCommand;
 import seedu.address.logic.commands.EditAccommodationCommand;
 import seedu.address.logic.commands.EditActivityCommand;
 import seedu.address.logic.commands.EditContactCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ScheduleCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnscheduleCommand;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
@@ -243,7 +248,12 @@ public class CentralDisplay extends UiPart<Region> {
                 new HelpCard(EditActivityCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(EditContactCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(ScheduleCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot()
+                new HelpCard(AutoScheduleCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(UndoCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(RedoCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(ClearCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(ExitCommand.MESSAGE_USAGE).getRoot()
         );
     }
 

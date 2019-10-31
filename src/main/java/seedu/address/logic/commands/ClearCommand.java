@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.AccommodationManager;
 import seedu.address.model.ActivityManager;
 import seedu.address.model.ContactManager;
@@ -16,6 +17,13 @@ public class ClearCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Data has been cleared!";
+
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD,
+            "Clear all data from the program.",
+            COMMAND_WORD,
+            COMMAND_WORD
+    );
 
     @Override
     public String getCommandWord() {
