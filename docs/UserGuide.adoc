@@ -317,7 +317,7 @@ Format: `listplan`
 ==== Locating plans: `findplan`
 
 Finds plans fulfilling all provided constraints. +
-Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
+Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]`
 
 * Name
 ** is case-insensitive.
@@ -331,6 +331,10 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
 ** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
 ** both `RANGE_START` and `RANGE_END` should be specified.
 ** `RANGE_START` should be before or equal to `RANGE_END`.
+* Task name
+** is case-sensitive.
+** is matched word by word.
+** is considered a match only when there is a task whose name is exactly the same as the given task name.
 
 === Task Management
 
@@ -549,7 +553,7 @@ e.g. `deletetag 3`
 e.g. `addplan n/CS2040`
 * *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `editplan 1 n/training start/2020-02-02`
-* *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]` +
+* *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]` +
 e.g. `find n/CS2040 start/2019-03-01 end/2019-03-31`
 * *List Training Plans* : `listplan`
 * *Delete Training Plan* : `deleteplan INDEX` +

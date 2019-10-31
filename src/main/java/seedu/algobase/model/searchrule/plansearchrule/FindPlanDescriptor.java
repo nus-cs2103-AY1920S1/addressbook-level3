@@ -2,6 +2,7 @@ package seedu.algobase.model.searchrule.plansearchrule;
 
 import static seedu.algobase.model.searchrule.plansearchrule.PlanDescriptionContainsKeywordsPredicate.DEFAULT_PLAN_DESCRIPTION_PREDICATE;
 import static seedu.algobase.model.searchrule.plansearchrule.PlanNameContainsKeywordsPredicate.DEFAULT_PLAN_NAME_PREDICATE;
+import static seedu.algobase.model.searchrule.plansearchrule.TasksContainsNamePredicate.DEFAULT_TASKS_CONTAINS_NAME_PREDICATE;
 import static seedu.algobase.model.searchrule.plansearchrule.TimeRangePredicate.DEFAULT_TIME_RANGE_PREDICATE;
 
 import java.util.Optional;
@@ -19,19 +20,23 @@ public class FindPlanDescriptor {
     private PlanNameContainsKeywordsPredicate planNamePredicate;
     private PlanDescriptionContainsKeywordsPredicate planDescriptionPredicate;
     private TimeRangePredicate timeRangePredicate;
+    private TasksContainsNamePredicate tasksContainsNamePredicate;
 
     public FindPlanDescriptor() {
         planNamePredicate = null;
         planDescriptionPredicate = null;
         timeRangePredicate = null;
+        tasksContainsNamePredicate = null;
     }
 
     public FindPlanDescriptor(PlanNameContainsKeywordsPredicate planNamePredicate,
                               PlanDescriptionContainsKeywordsPredicate planDescriptionPredicate,
-                              TimeRangePredicate timeRangePredicate) {
+                              TimeRangePredicate timeRangePredicate,
+                              TasksContainsNamePredicate tasksContainsNamePredicate) {
         this.planNamePredicate = planNamePredicate;
         this.planDescriptionPredicate = planDescriptionPredicate;
         this.timeRangePredicate = timeRangePredicate;
+        this.tasksContainsNamePredicate = tasksContainsNamePredicate;
     }
 
     /**
@@ -41,10 +46,12 @@ public class FindPlanDescriptor {
         setPlanNamePredicate(toCopy.planNamePredicate);
         setPlanDescriptionPredicate(toCopy.planDescriptionPredicate);
         setTimeRangePredicate(toCopy.timeRangePredicate);
+        setTasksContainsNamePredicate(toCopy.tasksContainsNamePredicate);
     }
 
     public boolean isAnyFieldProvided() {
-        return CollectionUtil.isAnyNonNull(planNamePredicate, planDescriptionPredicate, timeRangePredicate);
+        return CollectionUtil.isAnyNonNull(planNamePredicate, planDescriptionPredicate,
+                timeRangePredicate, tasksContainsNamePredicate);
     }
 
     public void setPlanNamePredicate(PlanNameContainsKeywordsPredicate planNameContainsKeywordsPredicate) {
@@ -71,6 +78,14 @@ public class FindPlanDescriptor {
         return Optional.ofNullable(timeRangePredicate);
     }
 
+    public void setTasksContainsNamePredicate(TasksContainsNamePredicate tasksContainsNamePredicate) {
+        this.tasksContainsNamePredicate = tasksContainsNamePredicate;
+    }
+
+    public Optional<TasksContainsNamePredicate> getTasksContainsNamePredicate() {
+        return Optional.ofNullable(tasksContainsNamePredicate);
+    }
+
     /**
      * Creates and returns a {@code findPlanPredicate} with the details of {@code findPlanDescriptor}.
      */
@@ -80,9 +95,12 @@ public class FindPlanDescriptor {
         PlanDescriptionContainsKeywordsPredicate planDescriptionPredicate =
                 getPlanDescriptionPredicate().orElse(DEFAULT_PLAN_DESCRIPTION_PREDICATE);
         TimeRangePredicate timeRangePredicate = getTimeRangePredicate().orElse(DEFAULT_TIME_RANGE_PREDICATE);
+        TasksContainsNamePredicate tasksContainsNamePredicate = getTasksContainsNamePredicate()
+                .orElse(DEFAULT_TASKS_CONTAINS_NAME_PREDICATE);
         return planNamePredicate
                 .and(planDescriptionPredicate)
-                .and(timeRangePredicate);
+                .and(timeRangePredicate)
+                .and(tasksContainsNamePredicate);
     }
 
     @Override
@@ -102,7 +120,8 @@ public class FindPlanDescriptor {
 
         return getPlanNamePredicate().equals(e.getPlanNamePredicate())
                 && getPlanDescriptionPredicate().equals(e.getPlanDescriptionPredicate())
-                && getTimeRangePredicate().equals(e.getTimeRangePredicate());
+                && getTimeRangePredicate().equals(e.getTimeRangePredicate())
+                && getTasksContainsNamePredicate().equals((e.getTasksContainsNamePredicate()));
     }
 
 }

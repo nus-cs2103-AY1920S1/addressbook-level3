@@ -44,7 +44,7 @@ public class TimeRangePredicate implements Predicate<Plan> {
         requireNonNull(timeRange);
         return other == this
                 || (other instanceof TimeRangePredicate
-                && timeRange.equals(((TimeRangePredicate) other).timeRange));
+                && timeRange.equals(((TimeRangePredicate) other).getTimeRange()));
 
     }
 }
