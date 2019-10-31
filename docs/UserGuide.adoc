@@ -52,7 +52,7 @@ These are the steps you should take:
 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Gui.PNG[width=450]
+image::Gui.png[width=450]
 
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -371,21 +371,21 @@ Let's say that you have been entering training and performance records into **At
 
 Type `view calender` into the command box, and press kbd:[Enter] to execute it.
 
-image::calendar1.PNG[width=350]
+image::calendar1.png[width=350]
 
 *What you should see*
 
 The result box will display the message "Viewing your calendar".
 
-image::calendar2.PNG[width=350]
+image::calendar2.png[width=350]
 
 Additionally, the feature box will display the calendar for the current month (e.g. October).
 
-image::calendar3.PNG[width=450]
+image::calendar3.png[width=450]
 
 With reference to the diagram below, header 1 displays today’s day and date. Header 2 displays the month and year you are currently viewing.
 
-image::calendar4.PNG[width=450]
+image::calendar4.png[width=450]
 
 You may use the left and right buttons beside header 2 to navigate to the previous or next month.
 
@@ -412,17 +412,17 @@ Example: `calendar 102017`
 
 Type `calendar 102017` into the command box, and press kbd:[enter] to execute it.
 
-image::calendar5.PNG[width=350]
+image::calendar5.png[width=350]
 
 *What you should see*
 
 The result box will display the message "Viewing calendar for: October 2017".
 
-image::calendar6.PNG[width=350]
+image::calendar6.png[width=350]
 
 Additionally, the feature box will display the calendar for the selected month and year (e.g. October 2017).
 
-image::calendar7.PNG[width=450]
+image::calendar7.png[width=450]
 
 ==== Viewing training / performance details for a specific date : `calendar DDMMYYYY`
 
@@ -448,15 +448,15 @@ image::calendar8.png[width=350]
 
 The result box will display the message "Viewing details for: 31st October 2019".
 
-image::calendar9.PNG[width=350]
+image::calendar9.png[width=350]
 
 Additionally, the feature box will display the training and performance details recorded on 31 October 2019.
 
-image::calendar10.PNG[width=450]
+image::calendar10.png[width=450]
 
 The blue vertical scrollbar on the right may be used to scroll down if the list of training and performance details is very long.
 
-image::calendar11.PNG[width=450]
+image::calendar11.png[width=450]
 
 === Athlete Management
 
@@ -511,13 +511,13 @@ Type `sort` into the command box and press kbd:[Enter] to execute it.
 
 Format : `sort`
 
-image::sort1.PNG[width=450]
+image::sort1.png[width=450]
 
 *What you should see*
 
 The result box will display the message "Sorted your team list in alphabetical order."
 
-image::sort2.PNG[width=450]
+image::sort2.png[width=450]
 
 As seen in the diagram, Aaron and Bala are now in their correct positions and the indexes of all athletes in the list have been updated.
 
@@ -625,7 +625,7 @@ Format: `help`
 
 *What you should see*
 
-image::help.PNG[width="350"]
+image::help.png[width="350"]
 
 A pop up box will appear, with a link to the user guide on Athletick.
 
