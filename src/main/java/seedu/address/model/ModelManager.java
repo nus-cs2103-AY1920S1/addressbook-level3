@@ -51,6 +51,11 @@ public class ModelManager implements Model {
 
     @Override
     public void setSession(Person person) {
+        if (person != null) {
+            logger.info("Session started by " + person.getUsername());
+        } else {
+            logger.info("Session Reset");
+        }
         session = new Session(person);
     }
 

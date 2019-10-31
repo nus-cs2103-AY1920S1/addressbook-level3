@@ -17,12 +17,6 @@ public class Session implements ReadOnlySession {
         loginTime = new Date();
     }
 
-    // Used for testing
-    public Session(Person person, Date loginTime) {
-        this.person = person;
-        this.loginTime = loginTime;
-    }
-
     @Override
     public Person getLoggedInPerson() {
         if (person == null) {

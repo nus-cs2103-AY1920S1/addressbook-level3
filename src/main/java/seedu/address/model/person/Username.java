@@ -11,15 +11,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Username {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Usernames should only consist of alphanumeric characters, "
-                    + "with a period or a hyphen for the characters in between if any, "
+            "Usernames should be at least 3 characters in length,\nand only consist of alphanumeric characters, "
+                    + "with a period or a hyphen for the characters in between if any,\n"
                     + "and it should not be blank or contain a whitespace";
 
     /*
      * The first character of the username must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[a-zA-Z0-9.-]+";
+    public static final String VALIDATION_REGEX = "[a-zA-Z0-9][a-zA-Z0-9.-]+[a-zA-Z0-9]";
 
     public final String value;
 
