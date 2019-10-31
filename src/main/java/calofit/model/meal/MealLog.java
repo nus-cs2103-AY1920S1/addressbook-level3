@@ -169,4 +169,11 @@ public class MealLog implements ReadOnlyMealLog {
     public DoubleExpression getTodayCalories() {
         return todayCalories;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MealLog // instanceof handles nulls
+                && mealLog.equals(((MealLog) other).mealLog));
+    }
 }
