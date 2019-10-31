@@ -23,7 +23,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
-    private final VersionedBankAccount versionedBankAccount;
+    private final VersionedBankAccount versionedUserState;
     private final FilteredList<BankAccountOperation> filteredTransactions;
     private final FilteredList<Budget> filteredBudgets;
     private final FilteredList<LedgerOperation> filteredLedgerOperations;
@@ -37,11 +37,11 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with bank account" + bankAccount + " and user prefs " + userPrefs);
 
-        this.versionedBankAccount = new VersionedBankAccount(bankAccount);
+        this.versionedUserState = new VersionedBankAccount(bankAccount);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredTransactions = new FilteredList<>(this.versionedBankAccount.getTransactionHistory());
-        filteredBudgets = new FilteredList<>(this.versionedBankAccount.getBudgetHistory());
-        filteredLedgerOperations = new FilteredList<>(this.versionedBankAccount.getLedgerHistory());
+        filteredTransactions = new FilteredList<>(this.versionedUserState.getTransactionHistory());
+        filteredBudgets = new FilteredList<>(this.versionedUserState.getBudgetHistory());
+        filteredLedgerOperations = new FilteredList<>(this.versionedUserState.getLedgerHistory());
     }
 
     public ModelManager() {
@@ -88,58 +88,58 @@ public class ModelManager implements Model {
     @Override
     public void setBankAccount(ReadOnlyBankAccount bankAccount) {
         requireNonNull(bankAccount);
-        this.versionedBankAccount.resetData(bankAccount);
+        this.versionedUserState.resetData(bankAccount);
     }
 
     @Override
     public ReadOnlyBankAccount getBankAccount() {
-        return versionedBankAccount;
+        return versionedUserState;
     }
 
     @Override
     public boolean hasTransaction(BankAccountOperation transaction) {
         requireNonNull(transaction);
-        return versionedBankAccount.hasTransaction(transaction);
+        return versionedUserState.hasTransaction(transaction);
     }
 
     @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
-        return versionedBankAccount.hasBudget(budget);
+        return versionedUserState.hasBudget(budget);
     }
 
     @Override
     public void deleteTransaction(BankAccountOperation transaction) {
-        versionedBankAccount.removeTransaction(transaction);
+        versionedUserState.removeTransaction(transaction);
     }
 
     @Override
     public void deleteBudget(Budget budget) {
-        versionedBankAccount.removeBudget(budget);
+        versionedUserState.removeBudget(budget);
     }
 
     @Override
     public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         requireAllNonNull(transactionTarget, transactionEdit);
 
-        versionedBankAccount.setTransaction(transactionTarget, transactionEdit);
+        versionedUserState.setTransaction(transactionTarget, transactionEdit);
     }
 
     @Override
     public void setBudget(Budget budgetTarget, Budget budgetEdit) {
         requireAllNonNull(budgetTarget, budgetEdit);
 
-        versionedBankAccount.setBudget(budgetTarget, budgetEdit);
+        versionedUserState.setBudget(budgetTarget, budgetEdit);
     }
 
     @Override
     public void addTransaction(BankAccountOperation transaction) {
-        versionedBankAccount.addTransaction(transaction);
+        versionedUserState.addTransaction(transaction);
     }
 
     @Override
     public void addBudget(Budget budget) {
-        versionedBankAccount.addBudget(budget);
+        versionedUserState.addBudget(budget);
     }
 
     /**
@@ -164,32 +164,32 @@ public class ModelManager implements Model {
 
     @Override
     public boolean canUndoBankAccount() {
-        return versionedBankAccount.canUndo();
+        return versionedUserState.canUndo();
     }
 
     @Override
     public void undoBankAccount() {
-        versionedBankAccount.undo();
+        versionedUserState.undo();
     }
 
     @Override
     public boolean canRedoBankAccount() {
-        return versionedBankAccount.canRedo();
+        return versionedUserState.canRedo();
     }
 
     @Override
     public void redoBankAccount() {
-        versionedBankAccount.redo();
+        versionedUserState.redo();
     }
 
     @Override
     public void commitBankAccount() {
-        versionedBankAccount.commit();
+        versionedUserState.commit();
     }
 
     @Override
     public void setTransactions(List<BankAccountOperation> transactionHistory) {
-        versionedBankAccount.setTransactions(transactionHistory);
+        versionedUserState.setTransactions(transactionHistory);
     }
 
     @Override
@@ -200,12 +200,12 @@ public class ModelManager implements Model {
 
     @Override
     public void handleOperation(BankAccountOperation operation) {
-        versionedBankAccount.addTransaction(operation);
+        versionedUserState.addTransaction(operation);
     }
 
     @Override
     public void handleOperation(LedgerOperation operation) {
-        versionedBankAccount.addLoan(operation);
+        versionedUserState.addLoan(operation);
     }
 
     @Override
@@ -222,7 +222,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedBankAccount.equals(other.versionedBankAccount)
+        return versionedUserState.equals(other.versionedUserState)
                 && userPrefs.equals(other.userPrefs)
                 && filteredTransactions.equals(other.filteredTransactions)
                 && filteredBudgets.equals(other.filteredBudgets);
