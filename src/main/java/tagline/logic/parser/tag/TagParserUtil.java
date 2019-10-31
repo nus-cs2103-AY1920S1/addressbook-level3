@@ -39,6 +39,9 @@ public class TagParserUtil {
         switch (tagKey) {
 
         case HashTag.TAG_PREFIX:
+            if (!HashTag.isValidValue(tagValue)) {
+                throw new ParseException("Invalid tag: " + HashTag.MESSAGE_CONSTRAINTS);
+            }
             return new HashTag(tagValue);
 
         case ContactTag.TAG_PREFIX:
