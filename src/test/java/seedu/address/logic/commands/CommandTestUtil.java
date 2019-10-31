@@ -202,6 +202,7 @@ public class CommandTestUtil {
             .setDate(2019, 11, 17).setTimeOfDay(13, 0, 0).build();
     public static final Calendar VALID_CALENDAR_FRIDAY = new Calendar.Builder()
             .setDate(2020, 6, 1).setTimeOfDay(19, 30, 0).build();
+    public static final Calendar VALID_SCHEDULE_MONDAY = new Calendar.Builder().setDate(2019, 11, 17).build();
     public static final boolean VALID_ALLOW_EVERYDAY = true;
     public static final boolean VALID_DISALLOW_EVERYDAY = false;
 

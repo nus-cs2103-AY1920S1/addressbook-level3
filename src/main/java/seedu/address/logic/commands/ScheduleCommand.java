@@ -38,4 +38,11 @@ public class ScheduleCommand extends Command {
         model.setCalendarDate(calendarToShow);
         return new CommandResult(MESSAGE_SUCCESS, UiChange.SCHEDULE);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleCommand // instanceof handles nulls
+                && calendarToShow.equals(((ScheduleCommand) other).calendarToShow));
+    }
 }
