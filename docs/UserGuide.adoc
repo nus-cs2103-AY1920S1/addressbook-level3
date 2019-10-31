@@ -29,8 +29,12 @@ This program is targeted at clerks working in small clinics. It is designed for 
 +
 image::Ui.png[width="790"]
 +
-.  You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+. You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
+. The figure below shows the layout.
++
+image::Layout.png[width="790"]
++
+. Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
 .  Some example commands you can try:
 
@@ -67,12 +71,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 
 ==== Adds a patient to the queue: `enqueue` ====
 
-Adds a patient to the queue +
-Format: `enqueue <PATIENT_REFERENCE_ID>`
-Examples:
-
-* `add acc n/Hotel 81 a/Orchard /p67555312`
-* `add acc n/Mandarin Oriental a/Ang Mo Kio`
+Adds a patient to the queue. Patient must be registered and appear in the patients tab. +
+Format: `enqueue <PATIENT_REFERENCE_ID>` +
 
 ==== Removes a patient from the queue: `dequeue` ====
 
@@ -82,17 +82,17 @@ Format: `dequeue <QUEUE_NUMBER>`
 ==== Assigns next patient to an available doctor : `next` ====
 //todo add doctor first
 
-Assigns next patient to an available doctor based on the room number. +
+Assigns next patient to a doctor based on the room number given. +
 Format: `next <ROOM_NUMBER>`
 
 ==== Doctor takes a break: `break`  ====
 
-Avoids directing patients to a given doctor based on the room number. +
+Avoids directing patients to a doctor based on the room number. +
 Format: `break <ROOM_NUMBER>`
 
 ==== Doctor resumes his/her duty: `resume` ====
 
-Allows patients to be directed to a given Doctor based on the room number. +
+Allows patients to be directed to a doctor based on the room number. +
 Format: `resume <ROOM_NUMBER>`
 
 === Patient Management
@@ -152,6 +152,9 @@ Format: `offduty <ENTRY_ID>`
 ==== Adds an appointment: `addappt` ====
 
 Adds a new appointment for a patient +
+If no optional fields `[rec/REPEATEDLY]` and `[num/RECURSIVE_TIMES]` are present, only one event will be added. Otherwise repeated appointments will be added. +
+The field `rec/REPEATEDLY` can be `rec/w`, `rec/m`, or `rec/y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
+
 Format: `addappt [i/REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/RECURSIVE_TIMES]`
 
 ==== Acknowledges a appointment: `ackappt` ====
@@ -194,7 +197,7 @@ Format: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
 ==== Shows the empty slots: `slot` (v2.0) ====
 
 List all the available empty slots for patients to make appointments +
-Format: `slot s/<START_DATE> e/<END_DATE>`
+Format: `slot str/<START_DATE> e/<END_DATE>`
 
 === Duty-shift Management
 

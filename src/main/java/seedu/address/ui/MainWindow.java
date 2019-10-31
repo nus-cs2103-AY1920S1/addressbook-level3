@@ -295,7 +295,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             break;
         default:
             break;
-
         }
     }
 

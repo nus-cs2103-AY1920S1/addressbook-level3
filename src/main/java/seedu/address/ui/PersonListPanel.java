@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -29,37 +28,34 @@ public class PersonListPanel extends UiPart<Region> {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
 
-        personListView.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                int size = personList.size();
-                MultipleSelectionModel<Person> msm = personListView.getSelectionModel();
-                switch (event.getCode()) {
-                case DOWN:
-                    if (msm.getSelectedIndex() < size - 1) {
-                        return;
-                    }
-                    msm.select(0);
-                    personListView.scrollTo(0);
-                    event.consume();
-                    return;
-                case UP:
-                    if (msm.getSelectedIndex() > 0) {
-                        return;
-                    }
-                    msm.select(size - 1);
-                    personListView.scrollTo(size - 1);
-                    event.consume();
-                    return;
-                case TAB:
-                case LEFT:
-                    dropSelector();
-                    return;
-                default:
+        personListView.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            int size = personList.size();
+            MultipleSelectionModel<Person> msm = personListView.getSelectionModel();
+            switch (keyEvent.getCode()) {
+            case DOWN:
+                if (msm.getSelectedIndex() < size - 1) {
                     return;
                 }
-
+                msm.select(0);
+                personListView.scrollTo(0);
+                keyEvent.consume();
+                return;
+            case UP:
+                if (msm.getSelectedIndex() > 0) {
+                    return;
+                }
+                msm.select(size - 1);
+                personListView.scrollTo(size - 1);
+                keyEvent.consume();
+                return;
+            case TAB:
+            case LEFT:
+                dropSelector();
+                return;
+            default:
+                return;
             }
+
         });
         Runnable dropSelectorDeferred = this::dropSelector;
         personListView.setOnMouseExited(e -> deferredUntilMouseClickOuter.add(dropSelectorDeferred));

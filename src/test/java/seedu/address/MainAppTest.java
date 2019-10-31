@@ -126,13 +126,9 @@ public class MainAppTest extends ApplicationTest {
     }
 
     @Test
-    public void helpAndExitCommandTest(FxRobot robot) {
+    public void exitCommandTest(FxRobot robot) {
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
-        var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
 
-        robot.clickOn(commandBox).write("help").type(KeyCode.ENTER);
-        Assertions.assertThat(resultDisplay.getText()).startsWith("Opened help window.");
-        Assertions.assertThat(robot.listWindows()).hasSize(2);
         robot.clickOn(commandBox).write("exit").type(KeyCode.ENTER);
         Assertions.assertThat(robot.listWindows()).hasSize(0);
     }
