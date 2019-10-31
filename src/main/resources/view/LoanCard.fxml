@@ -12,10 +12,10 @@
             <ColumnConstraints percentWidth="5"/>
         </columnConstraints>
         <columnConstraints>
-            <ColumnConstraints percentWidth="80" />
+            <ColumnConstraints percentWidth="70" />
         </columnConstraints>
         <columnConstraints>
-            <ColumnConstraints percentWidth="15"/>
+            <ColumnConstraints percentWidth="25"/>
         </columnConstraints>
         <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="0">
             <padding>

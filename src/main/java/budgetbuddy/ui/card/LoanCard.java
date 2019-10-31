@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 
 /**
  * A UI component that displays information of a {@code Loan}.
@@ -38,6 +39,7 @@ public class LoanCard extends UiPart<Region> {
         date.setText(loan.getDateString());
         description.setText(loan.getDescription().toString());
         status.setText(loan.getStatus().getStatusIcon());
+        status.setStyle("-fx-font-size: 48");
     }
 
     @Override
