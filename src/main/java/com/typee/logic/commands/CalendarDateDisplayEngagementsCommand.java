@@ -1,5 +1,7 @@
 package com.typee.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 
 import com.typee.model.Model;
@@ -17,6 +19,7 @@ public class CalendarDateDisplayEngagementsCommand extends CalendarCommand {
     private LocalDate date;
 
     public CalendarDateDisplayEngagementsCommand(LocalDate date) {
+        requireNonNull(date);
         this.date = date;
     }
 
