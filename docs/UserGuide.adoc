@@ -68,10 +68,13 @@ Format: `editCompetition INDEX (must be a positive integer) [n/COMPETITION NAME]
 
 Example(s):
 If you choose to supply all fields:
+
 * `editCompetition 1 n/IPF World's startDate/12/02/1995 endDate/15/02/1995`
 
 If you choose to supply only 1 field:
+
 * `editCompetition 1 n/IPF World's`
+
 * `editCompetition 1 startDate/12/02/1995`
 
 ==== Getting top scorers: `score`
