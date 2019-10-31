@@ -297,6 +297,8 @@ Note::
 ** All nutrition values are numerical values and should be equal or greater than zero.
 Besides, the values are suggested to be per serving.
 ** The order of fields is flexible.
+** Duplicate fields are allowed and only the last one will be considered. Therefore, the last occurrence must be in
+valid format for the command to be executed.
 
 Format: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 
