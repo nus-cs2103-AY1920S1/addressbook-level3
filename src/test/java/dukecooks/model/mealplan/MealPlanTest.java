@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
@@ -20,7 +18,7 @@ import dukecooks.testutil.mealplan.MealPlanBuilder;
 
 public class MealPlanTest {
 
-    MealPlan mealPlan = new MealPlanBuilder().build();
+    private final MealPlan mealPlan = new MealPlanBuilder().build();
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
