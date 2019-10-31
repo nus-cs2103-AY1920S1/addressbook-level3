@@ -16,7 +16,7 @@ public class FindPasswordCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all passwords whose description contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD + " Gmail";
     private final DescriptionContainsKeywordsPredicate predicate;
 

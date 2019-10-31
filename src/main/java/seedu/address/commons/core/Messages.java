@@ -15,7 +15,8 @@ public class Messages {
     public static final String MESSAGE_FILES_LISTED_OVERVIEW = "%1$d files listed!";
     public static final String MESSAGE_INVALID_NOTE_DISPLAYED_INDEX = "The note index provided is invalid";
     public static final String MESSAGE_NOTES_LISTED_OVERVIEW = "%1$d notes listed!";
-
+    public static final String MESSAGE_DUPLICATE_FIELDS = "Duplicate fields detected.";
+    public static final String MESSAGE_TOO_MANY_TAG_FIELDS = "Limit of the number of tags is 5";
 
     public static final String MESSAGE_PASSWORD_LISTED_OVERVIEW = "%1$d password listed!";
     public static final String MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX = "The password index provided is invalid";

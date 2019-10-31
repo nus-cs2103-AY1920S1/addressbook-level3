@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FIELDS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_TOO_MANY_TAG_FIELDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -38,12 +40,21 @@ public class AddPasswordCommandParser implements Parser<AddPasswordCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPasswordCommand.MESSAGE_USAGE));
         }
-
+        if (argMultimap.getAllValues(PREFIX_DESCRIPTION).size() > 1
+                || argMultimap.getAllValues(PREFIX_USERNAME).size() > 1
+                || argMultimap.getAllValues(PREFIX_PASSWORDVALUE).size() > 1
+                || argMultimap.getAllValues(PREFIX_WEBSITE).size() > 1) {
+            throw new ParseException(String.format(MESSAGE_DUPLICATE_FIELDS, AddPasswordCommand.MESSAGE_USAGE));
+        }
         Description description = ParserUtil.parsePasswordDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         PasswordValue passwordValue = ParserUtil.parsePasswordValue(argMultimap.getValue(PREFIX_PASSWORDVALUE).get());
         PasswordModifiedAt passwordModifiedAt = new PasswordModifiedAt(new Date());
         Website website = ParserUtil.parseWebsite(argMultimap.getValue(PREFIX_WEBSITE).orElse("NIL"));
+
+        if (argMultimap.getAllValues(PREFIX_TAG).size() > 5) {
+            throw new ParseException(String.format(MESSAGE_TOO_MANY_TAG_FIELDS, AddPasswordCommand.MESSAGE_USAGE));
+        }
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Password password = new Password(description, username, passwordValue, passwordModifiedAt, website, tagList);

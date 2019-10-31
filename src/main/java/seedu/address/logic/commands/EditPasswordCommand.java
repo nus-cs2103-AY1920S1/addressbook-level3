@@ -35,18 +35,18 @@ public class EditPasswordCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the password identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed password list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_USERNAME + "USER] "
             + "[" + PREFIX_PASSWORDVALUE + "PASSWORD] "
             + "[" + PREFIX_WEBSITE + "WEBSITE] "
-            + "[" + PREFIX_TAG + "TAG]...\n";
+            + "[" + PREFIX_TAG + "TAG]";
 
     public static final String MESSAGE_EDIT_PASSWORD_SUCCESS = "Edited Password: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PASSWORD = "This person already exists in the password book.";
+    public static final String MESSAGE_DUPLICATE_PASSWORD = "This password already exists in the password book.";
 
     private final Index index;
     private final EditPasswordDescriptor editPasswordDescriptor;

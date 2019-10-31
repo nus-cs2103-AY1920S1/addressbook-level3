@@ -21,8 +21,8 @@ public class AddPasswordCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_USERNAME + "USERNAME "
             + PREFIX_PASSWORDVALUE + "PASSWORD "
-            + PREFIX_WEBSITE + "<WEBSITE> "
-            + PREFIX_TAG + "<TAG> ";
+            + "[" + PREFIX_WEBSITE + "WEBSITE] "
+            + "[" + PREFIX_TAG + "TAG]";
 
     public static final String MESSAGE_SUCCESS = "New password added: %1$s";
     public static final String MESSAGE_DUPLICATE_PASSWORD = "This password already exists in the password book";
