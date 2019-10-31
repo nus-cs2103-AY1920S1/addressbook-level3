@@ -249,7 +249,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-
+// tag::find[]
 [[Implementation-Find]]
 === Find feature
 
@@ -317,7 +317,9 @@ Poor abstraction
 |===
 
 Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles.
+// end::find[]
 
+// tag::sort[]
 [[Implementation-Sort]]
 === Sort feature
 
@@ -393,6 +395,7 @@ Cons: Large code structure changes
 |===
 
 Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. Manipulating the internal elements of the list directly is dangerous and can cause unintended side effects.
+// end::sort[]
 
 // tag::reminder[]
 === Reminder feature
@@ -773,6 +776,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+// tag::productscope[]
 [appendix]
 == Product Scope
 
@@ -788,6 +792,7 @@ Refer to the guide <<DevOps#, here>>.
 * wishes to import or export their data to a .csv file
 
 *Value proposition*: manage budget quickly compared to a typical mouse/GUI driven app which saves time and makes it more convenient.
+// end::productscope[]
 
 [appendix]
 == User Stories

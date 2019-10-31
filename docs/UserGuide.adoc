@@ -98,6 +98,7 @@ image::help.png[width="300"]
 
 Help can be accessed from the menu bar by clicking on the `Help` button.
 
+// tag::flexibledateformats[]
 === Flexible date formats
 
 Whenever a particular command requires a `DATE` field, you can choose either of the following formats.
@@ -133,6 +134,7 @@ You do not need to specify which date format you would like to use as MoneyGoWhe
 [NOTE]
 MoneyGoWhere will also automatically check whether a given date is valid.
 Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019.
+// end::flexibledateformats[]
 
 === Adding a spending : `add`
 
@@ -210,7 +212,7 @@ List is sorted by descending order of date, followed by descending order of cost
 [NOTE]
 This command is implicitly invoked upon application start up, and can be used to reset the view after find or sort.
 
-
+// tag::sort[]
 === Sorting spending entries : `sort`
 Sorts all spending based on a given order. +
 
@@ -229,8 +231,9 @@ Examples:
 Sorts current spending displayed by Date in ascending order. If they are the same, sort by Cost in descending order.
 * `sort n/DESC` +
 Sorts current spending displayed by Name in descending order.
+// end::sort[]
 
-
+// tag::find[]
 === Finding a spending : `find`
 
 Searches for spending based on given keywords, cost range, date range, remarks or tags. You may refine the search results by entering more keywords. +
@@ -278,6 +281,7 @@ Returns a list of spending with matching the keywords `breakfast` or `meal` in r
 Returns a list of spending with `food` or `leisure` tags.
 * `find d/yesterday d/today t/food t/leisure` +
 Returns a list of spending within `yesterday` and `today` that have `food` or `leisure` tags.
+// end::find[]
 
 === Setting monthly budget : `budget`
 Sets a budget for the current month in Singapore dollars. +
@@ -487,6 +491,7 @@ Format: `exit`
 
 Listed below is a summary of all available commands.
 
+// tag::commandsummary[]
 .Command Summary table
 [width="100%",cols="20%,<30%",options="header"]
 |=======================================================================
@@ -526,3 +531,4 @@ e.g. `reminder delete 2`
 |=======================================================================
 
 The command summary above displays all commands available in MoneyGoWhere.
+// end::commandsummary[]
