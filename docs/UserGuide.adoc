@@ -95,8 +95,8 @@ The following commands are related to Events and Tasks, which Horo recognises as
 - Cannot be marked as done.
 - Will be automatically removed from the Calendar past its due date, provided it is a non-recurring event.
 
-* Task **`[coming in v2.0]`**
-- May show up on the Calendar if a due-date is specified.
+* Task
+- Will show up on the Calendar only if a due-date is specified.
 - Can be marked as done.
 - If not accomplished by its due date, will be automatically archived into an undone list.
 
@@ -231,7 +231,7 @@ Command Format: +
 `*delete_task* INDEX...`
 
 Command Parameters: +
-*--tag* TAG...
+`*--tag* TAG...`
 
 Remarks: +
 Tasks which match both `INDEX` and `TAG` will be deleted.
