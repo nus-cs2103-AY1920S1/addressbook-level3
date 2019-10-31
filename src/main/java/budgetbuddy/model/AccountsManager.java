@@ -20,7 +20,7 @@ import javafx.collections.transformation.FilteredList;
  */
 public class AccountsManager {
     private final UniqueAccountList accounts;
-    private FilteredList<Account> filteredAccounts;
+    private final FilteredList<Account> filteredAccounts;
 
     private Index activeAccountIndex;
 
