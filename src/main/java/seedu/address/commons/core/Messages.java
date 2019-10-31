@@ -14,6 +14,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_NOTES_DISPLAYED_INDEX = "The notes index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_EARNINGS_LISTED_OVERVIEW = "%1$d earnings listed!";
+    public static final String MESSAGE_NOTES_LISTED_OVERVIEW = "%1$d notes listed!";
     public static final String MESSAGE_USERNAME_ERROR = "Username is invalid. Please try again.";
     public static final String MESSAGE_PASSWORD_ERROR = "Password is invalid. Please try again.";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
