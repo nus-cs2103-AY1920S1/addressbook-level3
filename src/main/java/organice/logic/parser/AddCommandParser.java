@@ -31,6 +31,7 @@ import organice.model.person.Patient;
 import organice.model.person.Phone;
 import organice.model.person.Priority;
 import organice.model.person.Status;
+import organice.model.person.TaskList;
 import organice.model.person.TissueType;
 import organice.model.person.Type;
 
@@ -93,6 +94,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             OrganExpiryDate organExpiryDate =
                     ParserUtil.parseOrganExpiryDate(argMultimap.getValue(PREFIX_ORGAN_EXPIRY_DATE).get());
             Status status = new Status(Status.STATUS_NOT_PROCESSING);
+            TaskList taskList = new TaskList("");
             Donor donor = new Donor(type, nric, name, phone, age, bloodType, tissueType, organ, organExpiryDate,
                     status);
             return new AddCommand(donor);

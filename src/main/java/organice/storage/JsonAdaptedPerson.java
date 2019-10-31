@@ -18,6 +18,7 @@ import organice.model.person.Person;
 import organice.model.person.Phone;
 import organice.model.person.Priority;
 import organice.model.person.Status;
+import organice.model.person.TaskList;
 import organice.model.person.TissueType;
 import organice.model.person.Type;
 
@@ -41,17 +42,20 @@ class JsonAdaptedPerson {
     protected final String doctorInCharge;
     protected final String organExpiryDate;
     protected final String status;
+    protected final String processingTaskList;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("type") String type, @JsonProperty("nric") String nric,
-            @JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("age") String age, @JsonProperty("priority") String priority,
-            @JsonProperty("bloodType") String bloodType, @JsonProperty("tissueType") String tissueType,
-            @JsonProperty("organ") String organ, @JsonProperty("doctorInCharge") String doctorInCharge,
-            @JsonProperty("organExpiryDate") String organExpiryDate, @JsonProperty("status") String status) {
+                             @JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                             @JsonProperty("age") String age, @JsonProperty("priority") String priority,
+                             @JsonProperty("bloodType") String bloodType, @JsonProperty("tissueType") String tissueType,
+                             @JsonProperty("organ") String organ, @JsonProperty("doctorInCharge") String doctorInCharge,
+                             @JsonProperty("organExpiryDate") String organExpiryDate,
+                             @JsonProperty("status") String status,
+                             @JsonProperty("processingTaskList") String processingTaskList) {
 
         this.type = type;
         this.nric = nric;
@@ -65,6 +69,7 @@ class JsonAdaptedPerson {
         this.doctorInCharge = doctorInCharge;
         this.organExpiryDate = organExpiryDate;
         this.status = status;
+        this.processingTaskList = processingTaskList;
     }
 
     /**
@@ -84,7 +89,8 @@ class JsonAdaptedPerson {
             organ = ((Patient) source).getOrgan().value;
             doctorInCharge = ((Patient) source).getDoctorInCharge().value;
             organExpiryDate = "";
-            status = "not processing";
+            status = ((Patient) source).getStatus().value;
+            processingTaskList = "";
         } else if (source instanceof Donor) {
             age = ((Donor) source).getAge().value;
             priority = "";
@@ -93,7 +99,9 @@ class JsonAdaptedPerson {
             organ = ((Donor) source).getOrgan().value;
             doctorInCharge = "";
             organExpiryDate = ((Donor) source).getOrganExpiryDate().value;
-            status = "not processing";
+            status = ((Donor) source).getStatus().value;
+            Nric patientNric = ((Donor) source).getPatientNric();
+            processingTaskList = ((Donor) source).getProcessingList(patientNric).toString();
         } else if (source instanceof Doctor) {
             age = "";
             priority = "";
@@ -103,6 +111,7 @@ class JsonAdaptedPerson {
             doctorInCharge = "";
             organExpiryDate = "";
             status = "";
+            processingTaskList = "";
         } else {
             age = "";
             priority = "";
@@ -112,6 +121,7 @@ class JsonAdaptedPerson {
             doctorInCharge = "";
             organExpiryDate = "";
             status = "";
+            processingTaskList = "";
         }
     }
 
@@ -217,8 +227,16 @@ class JsonAdaptedPerson {
             }
             final Status modelStatus = new Status(status);
 
-            return new Donor(modelType, modelNric, modelName, modelPhone, modelAge, modelBloodType, modelTissueType,
+            Donor modelDonor = new Donor(modelType, modelNric, modelName, modelPhone,
+                    modelAge, modelBloodType, modelTissueType,
                     modelOrgan, modelOrganExpiryDate, modelStatus);
+
+            final TaskList modelTaskList = new TaskList("");
+
+            modelDonor.setProcessingList(processingTaskList);
+
+            return modelDonor;
+
         } else if (modelType.isPatient()) {
             if (age == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

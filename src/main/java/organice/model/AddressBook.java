@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Person;
@@ -70,7 +71,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a person with the same nric as {@code personNric} exists in the address book.
+     * Returns true if a person with the same nric as {@code personNric} exists in ORGANice.
      */
     public boolean hasPerson(Nric personNric) {
         requireNonNull(personNric);
@@ -78,7 +79,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a doctor with the same nric as {@code doctorInCharge} exists in the address book.
+     * Returns true if a doctor with the same nric as {@code doctor} exists in ORGANice.
      */
     public boolean hasDoctor(Nric doctor) {
         requireNonNull(doctor);
@@ -94,11 +95,35 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a donor with the same NRIC as {@code donor} exists in the address book.
+     */
+    public boolean hasDonor(Nric donor) {
+        requireNonNull(donor);
+        return persons.containsDonor(donor);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Retrieves the {@code Patient} with the specified {@code Nric}.
+     * {@code Nric} must exist in ORGANice.
+     */
+    public Patient getPatient(Nric patientNric) throws PersonNotFoundException {
+        return persons.getPatient(patientNric);
+    }
+
+    /**
+     * Retrieves the {@code Donor} with the specified {@code Nric}.
+     * {@code Nric} must exist in ORGANice.
+     */
+    public Donor getDonor(Nric donorNric) throws PersonNotFoundException {
+        return persons.getDonor(donorNric);
     }
 
     /**
@@ -119,14 +144,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
-    }
-
-    /**
-     * Retrieves the {@code Patient} with the specified {@code Nric}.
-     * {@code Nric} must exist in ORGANice.
-     */
-    public Patient getPatient(Nric patientNric) throws PersonNotFoundException {
-        return persons.getPatient(patientNric);
     }
 
     //// util methods
@@ -153,4 +170,5 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return persons.hashCode();
     }
+
 }

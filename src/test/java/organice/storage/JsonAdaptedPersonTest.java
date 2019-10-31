@@ -39,6 +39,7 @@ public class JsonAdaptedPersonTest {
 
     private static final String PLACEHOLDER_DOCTOR_IN_CHARGE = "";
     private static final String PLACEHOLDER_ORGAN_EXPIRY_DATE = "";
+    private static final String PLACEHOLDER_PROCESSINGLIST = "";
 
     private static final String VALID_NAME = DOCTOR_ALICE.getName().toString();
     private static final String VALID_PHONE = DOCTOR_ALICE.getPhone().toString();
@@ -74,7 +75,8 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidType_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(INVALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE, VALID_TISSUE_TYPE,
-                        VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE, VALID_STATUS);
+                        VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE, VALID_STATUS,
+                                PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = Type.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -83,7 +85,8 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullType_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(null, VALID_NRIC, VALID_NAME, VALID_PHONE,
                 VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE, VALID_TISSUE_TYPE,
-                        VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE, VALID_STATUS);
+                        VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE, VALID_STATUS,
+                                PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -92,7 +95,8 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidNric_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, INVALID_NRIC, VALID_NAME, VALID_PHONE,
                 VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE, VALID_TISSUE_TYPE,
-                        VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE, VALID_STATUS);
+                        VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE, VALID_STATUS,
+                                PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = Nric.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -101,7 +105,8 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullNric_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, null, VALID_NAME, VALID_PHONE,
                 VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE, VALID_TISSUE_TYPE,
-                        VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE, VALID_STATUS);
+                        VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE, VALID_STATUS,
+                                PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -111,7 +116,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, INVALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -121,7 +126,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, null,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -131,7 +136,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 INVALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -141,7 +146,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 null, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -151,7 +156,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, INVALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = Age.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -161,7 +166,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, null, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -171,7 +176,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, INVALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = Priority.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -181,7 +186,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, null, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -191,7 +196,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, INVALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = BloodType.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -201,7 +206,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, null,
                         VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, BloodType.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -211,7 +216,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         INVALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = TissueType.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -221,7 +226,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         null, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TissueType.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -231,7 +236,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, INVALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = Organ.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -241,7 +246,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, null, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Organ.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -251,7 +256,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, INVALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = DoctorInCharge.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -261,7 +266,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, null, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, DoctorInCharge.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -272,7 +277,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(donorType, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, PLACEHOLDER_DOCTOR_IN_CHARGE, INVALID_ORGAN_EXPIRY_DATE,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = OrganExpiryDate.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -283,7 +288,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(donorType, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
                         VALID_TISSUE_TYPE, VALID_ORGAN, PLACEHOLDER_DOCTOR_IN_CHARGE, null,
-                                VALID_STATUS);
+                                VALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, OrganExpiryDate.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -292,8 +297,8 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidStatus_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_TYPE, VALID_NRIC, VALID_NAME,
                 VALID_PHONE, VALID_AGE, VALID_PRIORITY, VALID_BLOOD_TYPE,
-                VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
-                INVALID_STATUS);
+                        VALID_TISSUE_TYPE, VALID_ORGAN, VALID_DOCTOR_IN_CHARGE, PLACEHOLDER_ORGAN_EXPIRY_DATE,
+                                INVALID_STATUS, PLACEHOLDER_PROCESSINGLIST);
         String expectedMessage = Status.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
