@@ -259,6 +259,11 @@ public class MainWindow extends VBox {
         State.getState().setCurrState(StateEnum.DEFAULT);
     }
 
+    /**
+     * Handles the input when State is in Create mode.
+     *
+     * @param input
+     */
     public void processInputCreate(String input) {
         tempCreateDeckDisplay.processInput(input);
 

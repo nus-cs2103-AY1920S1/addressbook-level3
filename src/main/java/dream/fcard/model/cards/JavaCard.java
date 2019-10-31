@@ -1,15 +1,17 @@
 package dream.fcard.model.cards;
 
+import java.util.ArrayList;
+
 import dream.fcard.logic.storage.Schema;
-import dream.fcard.util.json.JsonInterface;
+import dream.fcard.model.TestCase;
+import dream.fcard.util.DeepCopy;
+//import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import java.util.ArrayList;
 
-import dream.fcard.model.TestCase;
-import dream.fcard.util.DeepCopy;
+
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
