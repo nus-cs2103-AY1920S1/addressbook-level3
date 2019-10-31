@@ -95,6 +95,8 @@ public class CommandTest {
             NotANumberException, NoSuchSortException {
         InventoryList inventoryList = new InventoryList();
         inventoryList.add(TypicalItem.FISH_BURGER);
+        inventoryList.add(TypicalItem.PHONE_CASE);
+        inventoryList.add(TypicalItem.STORYBOOK);
         Model inventoryModel = new ModelManager(inventoryList);
         InventoryTabParser parser = new InventoryTabParser();
 
@@ -102,16 +104,22 @@ public class CommandTest {
         String burgerCategory = TypicalItem.FISH_BURGER.getCategory();
         Command addCommand = parser.parseCommand("add d/" + burgerDescription + " c/" + burgerCategory
                 + " q/5 co/8", inventoryList);
+        Command addCommand2 = parser.parseCommand("add d/" + burgerDescription + " c/" + burgerCategory
+                + " q/5 co/8 p/8", inventoryList);
 
         CommandResult commandResult = null;
+        CommandResult commandResult2 = null;
 
         try {
             commandResult = addCommand.execute(inventoryModel);
+            commandResult2 = addCommand2.execute(inventoryModel);
         } catch (Exception e) {
             fail();
         }
         assertEquals(String.format(InventoryMessages.MESSAGE_ADDED_DUPLICATE_ITEM, TypicalItem.FISH_BURGER),
                 commandResult.getFeedbackToUser());
+        assertEquals(String.format(InventoryMessages.MESSAGE_ADDED_DUPLICATE_ITEM, TypicalItem.FISH_BURGER),
+                commandResult2.getFeedbackToUser());
     }
 
     @Test
