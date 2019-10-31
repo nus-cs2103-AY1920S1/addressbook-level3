@@ -27,7 +27,7 @@ public class NoteListCard extends UiPart<Region> {
     @FXML
     private HBox tagBox;
     @FXML
-    private FlowPane tagsContainer;
+    private FlowPane tags;
     @FXML
     private Label title;
     @FXML
@@ -36,8 +36,6 @@ public class NoteListCard extends UiPart<Region> {
     private Label time;
     @FXML
     private Label content;
-    @FXML
-    private Label tags;
 
     public NoteListCard(Note note) {
         super(FXML);
@@ -57,7 +55,7 @@ public class NoteListCard extends UiPart<Region> {
             card.getChildren().remove(tagBox);
         } else {
             note.getTags().stream().map(tag -> new Label(tag.toString()))
-                .forEach(tagLabel -> tagsContainer.getChildren().add(tagLabel));
+                .forEach(tagLabel -> tags.getChildren().add(tagLabel));
         }
     }
 

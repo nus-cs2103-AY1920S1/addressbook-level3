@@ -23,7 +23,7 @@
             <Label fx:id="name" text="\$name" styleClass="cell_big_label"/>
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" wrapText="true"/>
             <Separator minHeight="2.0"/>
-            <HBox fx:id="memberIdsContainer" alignment="CENTER_LEFT" spacing="5" HBox.hgrow="ALWAYS">
+            <HBox fx:id="memberIdsContainer" spacing="5" HBox.hgrow="ALWAYS">
                 <Label fx:id="memberIdsLabel" styleClass="cell_small_label" text="Members:" wrapText="true">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
