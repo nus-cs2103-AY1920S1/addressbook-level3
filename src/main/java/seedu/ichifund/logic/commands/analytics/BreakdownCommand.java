@@ -4,7 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.ichifund.logic.commands.Command;
@@ -28,7 +32,8 @@ public class BreakdownCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays breakdown of expenditure by category for the "
             + "month and/or year specified, or current month and/or year if month and/or year is unspecified."
             + "Parameters: "
-            + "[" + PREFIX_MONTH + "MONTH] [" + PREFIX_YEAR + "YEAR] "
+            + "[" + PREFIX_MONTH + "MONTH] "
+            + "[" + PREFIX_YEAR + "YEAR] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MONTH + "7 "
             + PREFIX_YEAR + "2019 ";
