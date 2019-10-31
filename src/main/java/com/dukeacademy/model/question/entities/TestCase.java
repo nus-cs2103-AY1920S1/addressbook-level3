@@ -50,7 +50,7 @@ public class TestCase {
 
     @Override
     public String toString() {
-        return "Input: " + input + "Expected: " + expectedResult;
+        return "Input: " + input + " Expected: " + expectedResult;
     }
 
     @Override

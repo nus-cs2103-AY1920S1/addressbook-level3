@@ -236,13 +236,15 @@ class ProgramSubmissionLogicManagerTest {
     private boolean matchTestCaseAndResults(List<TestCase> testCases, List<TestCaseResult> results) {
         return IntStream.range(0, testCases.size())
                 .mapToObj(index -> {
-                    TestCase testCase = testCases.get(index);
                     TestCaseResult result = results.get(index);
 
-                    return result.getActualOutput().isPresent()
-                            && testCase.getExpectedResult().equals(result.getActualOutput().get())
-                            && testCase.getExpectedResult().equals(result.getExpectedOutput())
-                            && result.isSuccessful();
+                    if (result.getActualOutput().isEmpty() || !result.isSuccessful()) {
+                        return false;
+                    }
+
+                    return testCases.stream()
+                            .anyMatch(testCase -> testCase.getExpectedResult().equals(result.getActualOutput().get())
+                                    && testCase.getExpectedResult().equals(result.getExpectedOutput()));
                 }).reduce((x, y) -> x && y)
                 .orElse(false);
     }

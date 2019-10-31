@@ -8,16 +8,12 @@
 
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
       <TextFlow prefHeight="23.0" prefWidth="200.0">
-         <children>
             <Label fx:id="feedback" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-         </children>
       </TextFlow>
-      <ListView fx:id="evaluationListView" prefHeight="200.0" prefWidth="200.0" />
-   </children>
+      <ListView fx:id="evaluationListView"/>
 </VBox>

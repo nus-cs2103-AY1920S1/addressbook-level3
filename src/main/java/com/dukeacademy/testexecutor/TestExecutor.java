@@ -1,8 +1,12 @@
 package com.dukeacademy.testexecutor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.model.program.TestCaseResult;
@@ -32,11 +36,11 @@ import com.dukeacademy.testexecutor.models.ProgramOutput;
  */
 public class TestExecutor {
     private static final String messageTestExecutorFailed = "Test executor failed unexpectedly.";
-
     private final Logger logger;
     private final CompilerEnvironment environment;
     private final Compiler compiler;
     private final ProgramExecutor executor;
+    private final int timeLimit;
 
     /**
      * Instantiates a new Test executor.
@@ -45,10 +49,11 @@ public class TestExecutor {
      * @param compiler    the compiler
      * @param executor    the executor
      */
-    public TestExecutor(CompilerEnvironment environment, Compiler compiler, ProgramExecutor executor) {
+    public TestExecutor(CompilerEnvironment environment, Compiler compiler, ProgramExecutor executor, int timeLimit) {
         this.environment = environment;
         this.compiler = compiler;
         this.executor = executor;
+        this.timeLimit = timeLimit;
         this.logger = LogsCenter.getLogger(TestExecutor.class);
     }
 
@@ -81,14 +86,33 @@ public class TestExecutor {
             ClassFile classFile = this.compileProgram(program);
             logger.info("Compilation succeeded, proceeding to run test cases...");
 
+            CopyOnWriteArrayList<TestCaseResult> results = new CopyOnWriteArrayList<>();
+            List<CompletableFuture<TestCaseResult>> completableFutureList = new ArrayList<>();
+
             try {
-                List<TestCaseResult> results = testCases.parallelStream()
-                        .map(testCase -> this.runIndividualTestCase(classFile, testCase))
-                        .collect(Collectors.toList());
+                for (TestCase testCase : testCases) {
+                    ProgramInput input = new ProgramInput(testCase.getInput());
+                    String testCaseInput = testCase.getInput();
+                    String testCaseExpected = testCase.getExpectedResult();
+
+                    CompletableFuture<TestCaseResult> evaluationTask = executor.executeProgram(classFile, input)
+                            .handleAsync((programOutput, throwable) ->
+                                    getTestCaseResultFromProgramOutput(testCase, programOutput))
+                            .completeOnTimeout(TestCaseResult
+                                    .getErroredTestCaseResult(testCaseInput, testCaseExpected,
+                                            "Time limit exceeded!"), timeLimit, TimeUnit.SECONDS)
+                            .whenCompleteAsync((testCaseResult, throwable) -> results.add(testCaseResult));
+
+                    completableFutureList.add(evaluationTask);
+                }
+
+                CompletableFuture.allOf(completableFutureList.toArray(CompletableFuture[]::new)).get();
 
                 logger.info("Test execution completed. Test cases ran : " + results.size());
                 return new TestResult(results);
-            } catch (TestExecutorExceptionWrapper e) {
+
+            } catch (TestExecutorExceptionWrapper | ProgramExecutorException
+                    | InterruptedException | ExecutionException e) {
                 logger.warning("Test execution failed unexpectedly. Aborting operation...");
                 throw new TestExecutorException(e.getMessage());
             }
@@ -120,26 +144,6 @@ public class TestExecutor {
         }
     }
 
-    /**
-     * Runs the user's program against an individual test case.
-     *
-     * @param program  the user's compiled program.
-     * @param testCase the test case to run the program against.
-     * @return the results of the test case.
-     * @throws TestExecutorExceptionWrapper when the test executor fails unexpectedly
-     */
-    private TestCaseResult runIndividualTestCase(ClassFile program, TestCase testCase)
-            throws TestExecutorExceptionWrapper {
-        try {
-            logger.info("Running test case : " + testCase);
-            ProgramInput input = new ProgramInput(testCase.getInput());
-            ProgramOutput output = this.executor.executeProgram(program, input);
-            return getTestCaseResultFromProgramOutput(testCase, output);
-        } catch (ProgramExecutorException e) {
-            throw new TestExecutorExceptionWrapper(messageTestExecutorFailed);
-        }
-    }
-
     private TestResult getTestExecutorResultWithCompileError(CompileError error) {
         return new TestResult(error);
     }
@@ -152,7 +156,7 @@ public class TestExecutor {
         }
 
         String input = testcase.getInput();
-        String expected = testcase.getExpectedResult();
+        String expected = testcase.getExpectedResult().replaceAll("(\n|\r\n)", System.lineSeparator());
         String actual = output.getOutput().replaceAll("\n", "\n");
         if (expected.equals(actual)) {
             return TestCaseResult.getSuccessfulTestCaseResult(input, actual);
