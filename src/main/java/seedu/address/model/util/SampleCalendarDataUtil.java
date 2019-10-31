@@ -11,7 +11,7 @@ import seedu.address.model.calendar.Repetition;
 import seedu.address.model.time.DateTime;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating SugarMummy with sample data.
  */
 public class SampleCalendarDataUtil {
 

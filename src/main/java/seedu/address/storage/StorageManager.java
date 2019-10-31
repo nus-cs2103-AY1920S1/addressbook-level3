@@ -18,7 +18,7 @@ import sugarmummy.recmfood.model.UniqueFoodList;
 import sugarmummy.recmfood.storage.JsonFoodListStorage;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of SugarMummy data in local storage.
  */
 public class StorageManager implements Storage {
 
