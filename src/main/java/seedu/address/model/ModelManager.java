@@ -582,7 +582,6 @@ public class ModelManager implements Model {
     @Override
     public void resolveOrderBooksConflict() {
         List<Order> orders = orderBook.getList();
-        List<Order> archivedOrders = archivedOrderBook.getList();
 
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order o = orders.get(i);
@@ -594,6 +593,8 @@ public class ModelManager implements Model {
                 }
             }
         }
+
+        List<Order> archivedOrders = archivedOrderBook.getList();
 
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
