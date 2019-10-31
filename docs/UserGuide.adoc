@@ -238,15 +238,19 @@ Format: `wlist list [m/MONTH_OF_YEAR]` +
 ****
 * If a particular month is specified, the food waste of the particular month will be displayed.
 Otherwise, the food waste of the current month is displayed.
-* The `MONTH_OF_YEAR` permits formats allowable by the Natty library. This includes both relative months
-and the exact month. We recommend specifying the format in the style of `MMM yyyy`, e.g. `sep 2019`.
+* The `MONTH_OF_YEAR` is the natural language month and year expression in English.
+To avoid ambiguity, we recommend specifying the month and year in a relaxed date format,
+e.g. `Aug 2019`.
 
 ****
 
 Examples:
 
-* `wlist`
-* `wlist m/sep 2019`
+* `wlist list` +
+This will list out the current month's waste list.
+* `wlist list m/sep 2019` +
+This will list out the waste list for the month of September 2019, if such a record exists in our
+waste archive (i.e. you have opened our application in the month of September 2019).
 
 ==== Displaying food wastage statistics: `wlist report`
 
@@ -257,30 +261,54 @@ Format: `wlist report [sm/START_MONTH] [em/END_MONTH]`
 * The report will display 3 charts: kg, litres and units of food wasted per month across the
 time frame.
 
-[width="100%",cols="^2,^2,10",options="header"]
-|==========================
-|Start Month |End Month |Result
-|&#10003; |&#10003; |The start and end month would follow that specified by the user.
-|&#10003; |&#10007; |The start month follows that specified by the user, and the end month
-will by one year from the start month or the current month, whichever is earlier.
-|&#10007; |&#10003; |The end month follows that specified by the user, and the start month
-will be one year before the end month of the earliest month found in your waste archive,
-whichever is later.
-|&#10007; |&#10007; |The end month would be the current month, and the start month would be
-one year ago or the earliest month found in your waste archive, whichever is later.
-|==========================
-
-* If you wish to specify both the start and end dates, please ensure that they are at least one
-month apart.
-
 * The dates can be specified in any format permissible by the Natty library. If you only wish to
-see your waste report starting 5 months ago, you can consider the command `wlist report sm/5 months ago`
+see your waste report starting 5 months ago, you can consider the command `wlist report sm/5 months ago`.
+To avoid ambiguity, you are advised to specify the dates in the relaxed date format (e.g. `Sep 2019`).
+
+[width="100%",cols="^2,^2, 8, 8",options="header"]
+|==========================
+|Start Month |End Month |Start Month Used |End Month Used
+|&#10003; |&#10003;
+|The start month follows that specified by the user, or the earliest record found in our waste archive,
+whichever is later.
+|The end month follows that specified by the user, or the current month, whichever is earlier.
+|&#10003; |&#10007;
+|The start month follows that specified by the user, or the earliest record found in our waste archive,
+whichever is later.
+|The end month will be one year from the specified start month or the current month, whichever is earlier.
+|&#10007; |&#10003;
+|The start month will be one year before the end month specified, or the earliest month found in our waste archive,
+whichever is later.
+|The end month follows that specified by the user, or the current month, whichever is earlier.
+|&#10007; |&#10007;
+|The start month would be one year ago from the current month, or the earliest month found in your waste archive,
+whichever is later.
+|The end month would be the current month.
+|==========================
+
+To illustrate an example, suppose we have a waste archive with waste data from the months of Oct 2018, Nov 2018, ...,
+Oct 2019 (the current month). We specify Aug 2018 as a start month and Jun 2019 as an end month, as
+shown below:
+
+image::WasteReportTimeFrame.png[]
+
+iFridge will generate the report using all available data within the time period, which will be
+Jun 2018 to Jun 2019, highlighted in the yellow box.
 ****
+
 
 Examples:
 
-* `wlist report sm/Mar 2019`
-* `wlist report sm/Mar 2019 em/Oct 2019`
+Suppose we have a waste archive with data from Oct 2018 to Oct 2019 (current month).
+
+* `wlist report sm/Mar 2019` +
+Generates a waste report from Mar 2019 to the current month of Oct 2019.
+* `wlist report sm/Mar 2019 em/Sep 2019` +
+Generates a waste report from Mar 2019 to Sep 2019
+* `wlist report sm/Mar 2018` +
+Generates a waste report from Oct 2018 to Mar 2019 (one year from Mar 2018)
+* `wlist report sm/5 months ago` +
+Generates a waste report from May 2019 to Oct 2019 (current month)
 
 The allowable date formats can be found in the Natty library documentation.
 

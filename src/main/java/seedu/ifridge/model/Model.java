@@ -1,7 +1,7 @@
 package seedu.ifridge.model;
 
 import java.nio.file.Path;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 
@@ -222,7 +222,7 @@ public interface Model {
     /** Returns an unmodifiable view of a specific month's filtered waste list */
     ObservableList<GroceryItem> getFilteredWasteItemListByMonth(WasteMonth wasteMonth);
 
-    Set<WasteMonth> getListOfWasteMonths();
+    SortedSet<WasteMonth> getDescendingWasteMonths();
 
     boolean hasWasteMonth(WasteMonth wasteMonth);
 
