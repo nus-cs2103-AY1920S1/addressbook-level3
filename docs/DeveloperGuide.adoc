@@ -150,9 +150,6 @@ The following class diagram is the current structure of the `Analyser` component
 
 image::AnalyserClassDiagram.png[]
 
-*API* : **TODO**
-//link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
-
 The `Analyser` component,
 
 * can analyse the current list of `Password` object to produce a list of analysis `Results`.
