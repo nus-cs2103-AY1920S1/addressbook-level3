@@ -32,8 +32,10 @@ public class AmountTest {
         // null amount
         assertThrows(NullPointerException.class, () -> Amount.isValidAmount(null));
 
-        // invalid amount - alphabetical characters
+        // invalid amount
         assertFalse(Amount.isValidAmount("ab.cd"));
+        assertFalse(Amount.isValidAmount(""));
+        assertFalse(Amount.isValidAmount(" "));
 
         // invalid amount - dollars and cents format
         assertFalse(Amount.isValidAmount("50.0"));

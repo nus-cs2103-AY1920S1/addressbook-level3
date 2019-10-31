@@ -28,6 +28,7 @@ public class YearTest {
         assertFalse(Year.isValidYear("10000"));
         assertFalse(Year.isValidYear("999"));
         assertFalse(Year.isValidYear(""));
+        assertFalse(Year.isValidYear(" "));
         assertFalse(Year.isValidYear("abcd"));
 
 
