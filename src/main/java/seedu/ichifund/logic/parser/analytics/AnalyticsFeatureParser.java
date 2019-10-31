@@ -10,6 +10,7 @@ import seedu.ichifund.logic.commands.analytics.CategoryRankingCommand;
 import seedu.ichifund.logic.commands.analytics.ExpenditureRankingCommand;
 import seedu.ichifund.logic.commands.analytics.ExpenditureTrendCommand;
 import seedu.ichifund.logic.commands.analytics.IncomeTrendCommand;
+import seedu.ichifund.logic.commands.analytics.MonthlyExpenditureRankingCommand;
 import seedu.ichifund.logic.parser.FeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
@@ -51,6 +52,9 @@ public class AnalyticsFeatureParser implements FeatureParser {
 
         case ExpenditureRankingCommand.COMMAND_WORD:
             return new ExpenditureRankingCommandParser().parse(arguments);
+            
+        case MonthlyExpenditureRankingCommand.COMMAND_WORD:
+            return new MonthlyExpenditureRankingCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
