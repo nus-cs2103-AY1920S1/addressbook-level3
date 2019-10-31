@@ -19,10 +19,43 @@ public class FileName {
     }
 
     /**
+     * Constructs a {@code FileName} using file name and extension.
+     *
+     * @param fileName A file's name.
+     * @param extension A file's extension.
+     */
+    public static FileName constructWithExtension(String fileName, String extension) {
+        if (extension.trim().equals("")) {
+            return new FileName(fileName);
+        }
+        return new FileName(fileName + "." + extension);
+    }
+
+    /**
      * Returns true if a given string is a valid file name.
      */
     public static boolean isValidFileName(String test) {
         return !("".equals(test)); // trim not required since empty space can be valid file name
+    }
+
+    /**
+     * Gets the part of the file name without extension.
+     */
+    public String getFileNameWithoutExtention() {
+        if (value.lastIndexOf('.') == -1) {
+            return value;
+        }
+        return value.substring(0, value.lastIndexOf('.'));
+    }
+
+    /**
+     * Gets the file extension of the file name.
+     */
+    public String getExtension() {
+        if (value.lastIndexOf('.') == -1) {
+            return "";
+        }
+        return value.substring(value.lastIndexOf('.') + 1);
     }
 
     @Override
