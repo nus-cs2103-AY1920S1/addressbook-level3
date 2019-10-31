@@ -30,7 +30,8 @@ public class CategoryRankingCommandParser implements Parser<CategoryRankingComma
                 ArgumentTokenizer.tokenize(args, PREFIX_MONTH, PREFIX_YEAR);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CategoryRankingCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    CategoryRankingCommand.MESSAGE_USAGE));
         }
         Month month = null;
         Year year = null;
