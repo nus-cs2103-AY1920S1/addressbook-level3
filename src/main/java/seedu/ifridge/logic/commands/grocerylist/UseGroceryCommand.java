@@ -20,6 +20,8 @@ import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.ExpiryDate;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
+import seedu.ifridge.model.food.exceptions.InvalidAmountException;
+import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 import seedu.ifridge.model.tag.Tag;
 
 /**
@@ -37,6 +39,8 @@ public class UseGroceryCommand extends Command {
 
     public static final String MESSAGE_USE_GROCERY_ITEM_SUCCESS = "Used grocery item: %1$s";
     public static final String MESSAGE_NOT_USED = "At least amount field must be provided.";
+    public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
+            + "with the same name";
 
     private final Index index;
     private final UseGroceryItemDescriptor useGroceryItemDescriptor;
@@ -63,7 +67,12 @@ public class UseGroceryCommand extends Command {
         }
 
         GroceryItem groceryItemToUse = lastShownList.get(index.getZeroBased());
-        GroceryItem usedGroceryItem = createdUsedGroceryItem(groceryItemToUse, useGroceryItemDescriptor);
+        GroceryItem usedGroceryItem;
+        try {
+            usedGroceryItem = createdUsedGroceryItem(groceryItemToUse, useGroceryItemDescriptor);
+        } catch (InvalidUnitException | InvalidAmountException e) {
+            throw new CommandException(e.getMessage());
+        }
 
         model.setGroceryItem(groceryItemToUse, usedGroceryItem);
         model.commitGroceryList();
@@ -77,7 +86,8 @@ public class UseGroceryCommand extends Command {
      * edited with {@code editPersonDescriptor}.
      */
     private static GroceryItem createdUsedGroceryItem(GroceryItem groceryItemToUse,
-                                                        UseGroceryItemDescriptor useGroceryItemDescriptor) {
+                                                      UseGroceryItemDescriptor useGroceryItemDescriptor) throws
+            InvalidUnitException {
         assert groceryItemToUse != null;
 
         Name name = groceryItemToUse.getName();

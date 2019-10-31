@@ -6,6 +6,9 @@ import static seedu.ifridge.commons.util.AppUtil.checkArgument;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.ifridge.model.food.exceptions.InvalidAmountException;
+import seedu.ifridge.model.food.exceptions.InvalidUnitException;
+
 /**
  * Represents a Food's amount in the grocery list.
  */
@@ -32,6 +35,9 @@ public class Amount {
     public static final float KG_FROM_POUND = 0.453592f;
     public static final float KG_FROM_OUNCE = 0.0283495f;
     public static final float LITRE_FROM_MILLILITRE = 0.001f;
+
+    public static final String MESSAGE_UNIT_DOES_NOT_MATCH = "Unit does not match with the existing items";
+    public static final String MESSAGE_INVALID_RESULTANT_AMOUNT = "Amount used should not exceed amount left in the item.";
 
 
     private static Pattern p = Pattern.compile("(\\d*\\.?\\d+)(\\s*)((lbs?|g|kg|oz?|L|ml|units?)+)");
@@ -173,14 +179,21 @@ public class Amount {
      * @param amt the Amount class to be reduced by
      * @return Returns Amount with its value deducted
      */
-    public Amount reduceBy(Amount amt) {
-        float resultantAmount = Amount.getValue(this) - Amount.getValue(amt);
+    public Amount reduceBy(Amount amt) throws InvalidUnitException, InvalidAmountException {
+        if (!getUnit(this).equalsIgnoreCase(getUnit(amt))) {
+            throw new InvalidUnitException(MESSAGE_UNIT_DOES_NOT_MATCH);
+        }
         String unit = Amount.getUnit(this);
 
+        float resultantAmount = Amount.getValue(this) - Amount.getValue(amt);
         if (resultantAmount < 0) {
-            return new Amount(0 + unit);
+            throw new InvalidAmountException(MESSAGE_INVALID_RESULTANT_AMOUNT);
         }
 
+        if (resultantAmount == Math.round(resultantAmount)) {
+            int wholeResultantAmount = Math.round(resultantAmount);
+            return new Amount(wholeResultantAmount + unit);
+        }
         return new Amount(resultantAmount + unit);
     }
 
