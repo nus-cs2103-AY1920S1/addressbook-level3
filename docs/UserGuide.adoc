@@ -561,7 +561,7 @@ Examples:
 
 * `deleteWishlist 3`
 
-==== Edit Wish in WishList : `editWish` 
+==== Edit Wish in WishList : `editWish`
 edit the description, date, or tags of your wishes.
 
 Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
