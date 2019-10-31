@@ -1,21 +1,12 @@
 package seedu.address.commons.util;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Arrays;
 
-import com.itextpdf.io.font.PdfEncodings;
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 
 /**
@@ -28,9 +19,12 @@ public class LoanSlipDocument {
     private static final int PARAGRAPH_FONT_SIZE = 20;
     private static final double SCALE_RATIO = 0.1;
 
-    private static final String FONT = "src/main/resources/font/Lato-Black.ttf";
-    private static final String LOGO_PATH = "src/main/resources/images/LiBerryLogo.png";
+    private static final String FONT = "/src/main/resources/font/Lato-Black.ttf";
+    private static final String LOGO_PATH = "/src/main/resources/images/LiBerryLogo.png";
+    private static final String LOGO_NAME = "LiBerryLogo.png";
+
     private static final String LINE_DIVIDER = "_______________________________________________________";
+    private static final String TEMP_LINE_DIVIDER = "__________________________________________";
 
     private Document doc;
     private Table table;
@@ -45,22 +39,23 @@ public class LoanSlipDocument {
         this.table = table;
     }
 
+
     /**
      * Appends the logo to the pdf document.
      */
+    /*
     public void writeLogo() {
-        try {
-            Image pdfImg = createImage(LOGO_PATH);
-            double newWidth = pdfImg.getImageWidth() * SCALE_RATIO;
-            double newHeight = pdfImg.getImageHeight() * SCALE_RATIO;
-            pdfImg.scaleToFit((float) newWidth, (float) newHeight);
-            pdfImg.setHorizontalAlignment(HorizontalAlignment.LEFT);
-            doc.add(pdfImg);
-        } catch (MalformedURLException e) {
-            assert false; // path is provided by us and should not throw this error
-            e.printStackTrace();
-        }
+        logger.info(getClass().getClassLoader().getResource(LOGO_PATH).toString());
+        String path = getClass().getResource(LOGO_NAME).toString();
+        Image pdfImg = createImage(path);
+        double newWidth = pdfImg.getImageWidth() * SCALE_RATIO;
+        double newHeight = pdfImg.getImageHeight() * SCALE_RATIO;
+        pdfImg.scaleToFit((float) newWidth, (float) newHeight);
+        pdfImg.setHorizontalAlignment(HorizontalAlignment.LEFT);
+        doc.add(pdfImg);
+        logger.info("end writing logo");
     }
+    */
 
     /**
      * Writes the divider line for the loan slip.
@@ -183,13 +178,17 @@ public class LoanSlipDocument {
      */
     private Paragraph alignParagraph(TextAlignment textAlignment) {
         Paragraph p = new Paragraph();
+        /*
         try {
-            PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.WINANSI, true);
+            PdfFont font = PdfFontFactory.createFont(
+                    getClass().getResource(FONT).toString(), PdfEncodings.WINANSI, true);
             p.setFont(font);
         } catch (IOException e) {
+            logger.info("font error");
             // error occur while loading font, use default font
             e.printStackTrace();
         }
+        */
         p.setTextAlignment(textAlignment);
         return p;
     }
@@ -199,11 +198,12 @@ public class LoanSlipDocument {
      *
      * @param path path of the image in local directory.
      * @return an {@code Image} Object.
-     * @throws MalformedURLException if path given is corrupted/does not exist.
      */
-    private Image createImage(String path) throws MalformedURLException {
+    /*
+    private Image createImage(String path) {
         ImageData imageData = ImageDataFactory.create(path);
         return new Image(imageData);
     }
+    */
 
 }

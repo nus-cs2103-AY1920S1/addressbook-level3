@@ -57,15 +57,18 @@ public class LogicManager implements Logic {
             storage.saveBorrowerRecords(model.getBorrowerRecords());
             if (commandResult.isDone()) {
                 if (LoanSlipUtil.isMounted()) {
+                    logger.info("making new loan slip");
                     storage.storeNewLoanSlip();
                     LoanSlipUtil.openGeneratedLoanSlip();
                     LoanSlipUtil.unmountLoans();
                 }
             }
         } catch (IOException ioe) {
+            logger.info("IOException");
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         } catch (LoanSlipException lse) {
             logger.info("Error in generating loan slip");
+            return commandResult;
         }
 
         return commandResult;
