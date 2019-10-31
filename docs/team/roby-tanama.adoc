@@ -1,4 +1,4 @@
-= *Sean Low - Project Portfolio for $aveNUS*
+= *Roby Tanama - Project Portfolio for $aveNUS*
 :site-section: AboutUs
 :icons: font
 :imagesDir: ../images
