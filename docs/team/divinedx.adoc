@@ -10,7 +10,7 @@
 
 == Overview of Project
 
-AddMin+ is student developed application under the National University of Singapore's __CS2103T Software Engineering Module__. In this module, we were organized to a team of 5 members for the software engineering project. The project requires us to enhance a basic command line interface desktop application, the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook - Level 3] developed by the https://se-education.org/[se-edu team] for the the purpose of teaching Software Engineering principles. 
+AddMin+ is student developed application under the National University of Singapore's __CS2103T Software Engineering Module__. In this module, we were organized to a team of 5 members for the software engineering project. The project requires us to enhance a basic command line interface desktop application, the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook - Level 3] developed by the https://se-education.org/[se-edu team] for the the purpose of teaching Software Engineering principles.
 
 == About AddMin+, the All in One Administration App
 
