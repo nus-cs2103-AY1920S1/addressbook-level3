@@ -634,18 +634,42 @@ The options supported by this feature includes:
 Deleting a event which is recurring (daily or weeekly) will delete all instances of that event.
 
 
-* `question delete 1` +
+* `event delete 1` +
 Deletes the event with index 1
+
+==== Taking screenshot of schedule
+
+Takes a screen shot of the calendar as PNG file +
+Format: `event screenshot directory/[DIRECTORY]`
+
+The options supported by this feature includes:
+
+. `[DIRECTORY]` - The target directory to save the screenshot to
+[NOTE]
+Scroll to which portion of the calendar is to be taken, and the application will then open a separate
+full screen window to maximise the content captured of the screenshot.
+
+
+* `event screenshot directory/Users/John/Desktop` +
+Takes a screenshot of the current calendar and saves it to John's desktop.
 
 ==== Viewing all events
 
-Show all your events in the calendar +
-Format: `event view`
+Show all your events in the calendar. All fields are optional
+Format: `event view scheduleMode/... targetDate/...`
+
+The options supported by this feature includes:
+
+. `scheduleMode` - Schedule viewing mode of the calendar. Either weekly or daily.
+. `targetDate` - The target date to show for the week. If in daily mode, simply show the events in the date.
+If in weekly mode, show the week which includes the specified date
+[NOTE]
+The target date option must be specified in the following format: yyyy-mm-dd. E.g. 2019-11-23
 
 Example:
 
-* `question view` +
-Opens the calendar view consisting of all your events
+* `event view scheduleMode/weekly targetDate/2019-11-23` +
+Opens the calendar view in weekly mode with the target date 23 November 2019.
 
 ==== Export all events
 
@@ -844,6 +868,12 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Listing a Quiz* : `quiz list quizID/...`
 * *Showing only Questions of a Quiz* : `quiz showQuestions quizID/...`
 * *Showing only Answers of a Quiz* : `quiz showAnswers quizID/...`
+* *Adding an Event* : `event eventName/... startDateTime/... endDateTime/... recur/... color/...`
+* *Editing an Event* : `event [INDEX] eventName/... startDateTime/... endDateTime/... recur/... color/...`
+* *Deleting an Event* : `event delete [INDEX]`
+* *Viewing all Event* : `event view scheduleMode/... targetDate/...`
+* *Exporting Events* : `event export directory/...`
+* *Screenshot Calendar* : `event screenshot directory/...`
 * *Creating a Note* : `note note/... desc/...`
 * *Creating a Note with Priority* : `note note/... desc/... priority/...`
 * *Editing a Note* : `note [INDEX] note/... desc/... priority/...`
