@@ -457,6 +457,37 @@ as one would need to understand the parsing.
 ** Pros: Less code written in total.
 ** Cons: Harder to maintain.
 
+=== Export feature
+==== Implementation
+
+The export mechanism is allows user to export current saved Json files into csv files available for import into MSExcel.
+We made use of `FileReader` to read the Json saved data files. The data is used to create `JsonObjects` and stored into `JsonArray` and then CSV formatted string using comma delimiters.
+
+Additionally, it implements the following operations:
+
+* `ExportCommand#getCSVString()` -- Returns CSV formatted string containing the customer data, phone data, order data and schedule data.
+
+===== How it works.
+Given below is an example usage scenario and how the export mechanism behaves at each step.
+
+The user executes `export filename` command to export current data into a CSV file.
+`UserPrefs` is created and used to get the file path of the data files (i.e. customerbook.json).
+The method getCSVString is executed to create `FileReader` and `BufferedReader` to read the data files from each of the path.
+The string is then used to create `JsonObject` and then converted to CSV formatted string data representation.
+At the end, the strings are appended to get the full CSV file containing the various data.
+
+
+==== Design Considerations
+
+* **Alternative 1 (current choice):** Converting Json formatted string into CSV formatted string.
+** Pros: Easy to implement.
+** Cons: Customisation to design CSV layout requires re-formatting of the string.
+* **Alternative 2:** Creating CSV formatted string straight from the Model.
+** Pros: Easier to implement on the fly the decided layout of created CSV file.
+** Cons: Harder to maintain. Had to code for the various cases in different data.
+
+// end::export[]
+
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
