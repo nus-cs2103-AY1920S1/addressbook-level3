@@ -25,15 +25,8 @@ public class ReadDisplayPasswordReport extends UiPart<Region> {
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
-        try {
-            // load a custom font from a specific location (change path!)
-            // 12 is the size to use
-            final Font f = Font.loadFont(new FileInputStream(
-                    new File("/SecureIT/src/main/java/seedu/address/ui/COURIER.TTF")), 12);
-            resultDisplay.setFont(f);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Font f = Font.loadFont(getClass().getResource("/fonts/COURIER.TTF").toExternalForm(), 10);
+        resultDisplay.setFont(f);
         requireNonNull(feedbackToUser);
         resultDisplay.setText(feedbackToUser);
     }
