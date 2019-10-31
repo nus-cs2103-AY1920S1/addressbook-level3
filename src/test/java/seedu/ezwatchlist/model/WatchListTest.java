@@ -69,7 +69,7 @@ public class WatchListTest {
     @Test
     public void hasShow_showWithSameIdentityFieldsInWatchList_returnsTrue() {
         watchList.addShow(AVENGERSENDGAME);
-        Show editedAvenger = new ShowBuilder(AVENGERSENDGAME).build();
+        Show editedAvenger = new ShowBuilder(AVENGERSENDGAME).withType("Movie").build();
         assertTrue(watchList.hasShow(editedAvenger));
     }
 

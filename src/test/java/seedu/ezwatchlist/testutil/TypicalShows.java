@@ -18,7 +18,7 @@ public class TypicalShows {
                     + "projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied "
                     + "and disregarded by society, Fleck begins a slow descent into madness as he transforms into the "
                     + "criminal mastermind known as the Joker."
-    ).withIsWatched(false).withDateOfRelease("3 october 2019")
+    ).withIsWatched(false).withDateOfRelease("3 october 2019").withType("Movie")
             .withRunningTime(122).withActors("Joaquin Phoenix").build();
 
     public static final Show AVENGERSENDGAME = new ShowBuilder().withName("Avenger Endgame").withDescription(""
@@ -27,6 +27,7 @@ public class TypicalShows {
             + "Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos"
             + " -- the evil demigod who decimated the planet and the universe.")
             .withIsWatched(false).withDateOfRelease("24 April 2019").withRunningTime(182).withActors("Chris Hemsworth")
+            .withType("Movie")
             .build();
 
     /*public static final Show BLACKPANTHER = new ShowBuilder().withName("Black Panther").withDescription("After the"

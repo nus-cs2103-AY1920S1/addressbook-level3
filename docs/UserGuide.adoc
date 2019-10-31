@@ -33,7 +33,7 @@ image::UI.PNG[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add`**`n/Titanic` : adds the movie named `Titanic` to the Watchlist.
+* **`add`**`n/Titanic t/movie` : adds the `movie` named `Titanic` to the Watchlist.
 * **`search`**`n/Titanic` : Searched for movie named `Titanic` in all movies
 * **`delete`**`3` : deletes the 3rd movie shown in the current list
 * *`exit`* : exits the app
@@ -49,40 +49,40 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 The watchlist is the default page that is opened upon start-up of ezwatchlist.
 It shows the user’s unwatched movies and television series.
 The watchlist page also contains a command bar to allow the user to input commands.
+The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `1`.
 
 **Characteristics of the watchlist page:**
 
-.  Shows that are added more recently are at the bottom of the list
-.  Each show has the following visible characteristics:
 * Movie/TV show poster
 * Name of show (and year in brackets?)
-* Remarks
-* Progress bar showing number of episodes watched (For TV series)
+* Genres
+* Actors
+* Description of the show
+* Running Time
+* Last watched episode (For TV series that have been updated using the `watch` command)
 * Checkbox to indicate if the show has been watched
 
 image::UI.PNG[width="790"]
 
-
 ==== Watched List
 
-The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `ctrl + tab`.
+The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `2`.
 
 ==== Search Page
 
-The user can navigate to the search page to find a specific movie or television by searching for its name.
+The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `3`.
 
 image::search_page.png[width="790"]
 
-
 ==== Statistics Page
 
-The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc.
+The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `4`.
 
 image::statistics_page.png[width="790"]
 
 ==== Sidebar
 
-Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Alternatively, the user can also make use of keyboard shortcut `ctrl + tab` to scroll through the different pages.
+Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page.
 
 ==== Details Page (Coming in v2.0)
 
@@ -96,11 +96,10 @@ image::details_page.png[width="790"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/MOVIE_NAME`, `MOVIE_NAME` is a parameter which can be used as `add n/The Angry Birds Movie 2`.
-* Items in square brackets are optional e.g `n/MOVIE_NAME [a/ACTOR]` can be used as `n/The Angry Birds Movie 2 a/Johnny Depp or as `n/The Angry Birds Movie`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[a/ACTOR]...` can be used as `{nbsp}` (i.e. 0 times), `a/Leonardo DiCaprio a/Robert Downey, Jr. a/Johnny Depp` etc.
-* Parameters can be in any order e.g. if the command specifies `n/MOVIE_NAME a/ACTOR`, `a/MOVIE n/MOVIE_NAME` is also acceptable.
-====
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/SHOW_NAME t/SHOW_TYPE`, `SHOW_NAME` and `SHOW_TYPE` are parameters which can be used as `add n/The Angry Birds Movie 2 t/movie`.
+* Items in square brackets are optional e.g `n/SHOW_NAME t/SHOW_TYPE [d/DESCRIPTION]` can be used as `n/The Angry Birds Movie t/movie 2 d/Oscar-worthy` or as `n/The Angry Birds Movie t/movie`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[a/ACTOR]...` can be used as `{nbsp}` (i.e. 0 times), `a/Leonardo Di Carpio`, `a/Leonardo Di Carpio a/Christian Bale` etc.
+* Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
 
 ==== Viewing help : `help`
 
@@ -110,12 +109,14 @@ Format: `help`
 
 Adds a show to the watchlist +
 
-Format: `add n/MOVIE_NAME t/TYPE d/DATE_OF_RELEASE w/WATCHED r/RUNNING_TIME s/DESCRIPTION [a/ACTOR_NAME]`
+Format: `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]...`
 [TIP]
 A show can have any number of actors (including 0)
 
 Examples:
 
+* `add n/Titanic t/movie`
+* `add n/Friends t/tv`
 * `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
 * `add n/Joker t/movie d/3 OCTOBER 2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
 
@@ -134,19 +135,38 @@ Examples:
 
 ==== Clear the WatchList: `clear`
 
-
 Clear the WatchList +
 Format: `clear`
 
 ==== Mark as watched : `watch`
 
 Marks an unwatched show in the watchlist as watched. +
-Format: `watch INDEX`
+Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
+
+****
+* Marks the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
+* Any number of the optional fields may be provided.
+* Having only the index of the show will mark/unmark the show as watched.
+* Having the index and the episode number of the show will update the cumulative number of episodes of the show that are watched.
+* Having the index and the season number of the show will update the cumulative number of seasons of the show that are watched.
+* Having the index, season number and the episode number of the show will update the last watched episode to be the indicated episode of the indicated season of the show.
+****
+
+Examples:
+
+* `watch 1` +
+Marks/un-marks the first show of the list as watched.
+* `watch 2 e/20` +
+Marks the first 20 episodes of the second show of the list as watched.
+* `watch 2 s/5` +
+Marks all episodes of the first 5 seasons of the second show to be watched.
+* `watch 3 s/5 e/2` +
+Marks all episodes including the second episode of the fifth season of the third show in the list as watched.
 
 ==== Editing a show's details : `edit`
 
 Edits an existing show in the list +
-Format: `edit INDEX [n/MOVIE_NAME] [t/TYPE] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...`
+Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...`
 
 ****
 * Edits the show at the specified `INDEX`. The index refers to the index number shown in the displayed watchlist. The index *must be a positive integer* 1, 2, 3, ...
@@ -259,19 +279,19 @@ Say goodbye to typing errors!
 
 == Command Summary
 
-* *Add* `add n/MOVIE_NAME t/TYPE d/DATE_OF_RELEASE w/WATCHED r/RUNNING_TIME s/DESCRIPTION [a/ACTOR_NAME]` +
+* *Add* `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]` +
 e.g. `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
 * *Add from search result page* `add INDEX` +
 e.g. `add 1`
 * *CLEAR* `clear`
-* *Watch* : `watch INDEX`
+* *Watch* : `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/MOVIE_NAME] [t/TYPE] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...` +
+* *Edit* : `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...` +
 e.g. `edit 2 n/John Wick a/Johnny Depp`
 * *Search* : `search KEYWORD [MORE_KEYWORDS]` +
 e.g. `search John`
-* *Search (ONLINE)* `search n/MOVIE_NAME` +
+* *Search (ONLINE)* `search n/SHOW_NAME` +
 e.g. `search n/Harry potter`
 * *Exit* : `exit`
 * *Help* : `help`
