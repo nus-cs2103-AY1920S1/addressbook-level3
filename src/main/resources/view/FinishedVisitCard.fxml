@@ -27,10 +27,10 @@
             <Label styleClass="bold">Visit Index: </Label>
             <Label fx:id="index" styleClass="cell_small_label" text="\$index" />
 
-            <Label styleClass="bold">Visit Start Date: </Label>
+            <Label styleClass="bold">Visit Start Date and Time: </Label>
             <Label fx:id="startDateTime" styleClass="cell_small_label" text="\$startDateTime" />
 
-            <Label styleClass="bold">Visit End Date: </Label>
+            <Label styleClass="bold">Visit End Date and Time: </Label>
             <Label fx:id="endDateTime" styleClass="cell_small_label" text="\$endDateTime" />
 
             <Label styleClass="bold">Visit Remarks: </Label>
