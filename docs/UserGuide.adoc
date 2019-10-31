@@ -412,15 +412,9 @@ Format: `listbypriority`
 Displays a useful error message if the input is invalid. For example, it should highlight wrong commands, wrong numbers of arguments, or arguments in the wrong format.
 
 ==== Checking a study plan's feasibility
-Shows details about what requirements are left to be fulfilled,
-such as modules that remain to be taken or prerequisites that have yet to be satisfied. +
-Format: `check [AREA]`
-
-Examples:
-
-* `check` -- checks all graduation requirements by default +
-* `check core` -- checks only core modules +
-* `check focus` -- checks only the declared focus area
+Shows details about what graduation requirements are left to be fulfilled,
+such as MCs, core or focus area modules that remain to be taken.
+Format: `check`
 
 ==== Viewing modules that can be taken in a given semester : `validmods`
 Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +

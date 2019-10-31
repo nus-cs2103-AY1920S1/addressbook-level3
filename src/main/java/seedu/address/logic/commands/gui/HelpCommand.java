@@ -96,6 +96,7 @@ public class HelpCommand extends Command {
             + DescriptionCommand.HELP_MESSAGE + "\n"
             + ValidModsCommand.HELP_MESSAGE + "\n"
             + FindModuleCommand.HELP_MESSAGE + "\n"
+            + CheckCommand.HELP_MESSAGE + "\n"
             + "\nGUI:\n"
             + "NOT YET: expand - Expanding a semester\n"
             + "NOT YET: collapse - Collapsing a semester\n"
@@ -127,6 +128,8 @@ public class HelpCommand extends Command {
             return new CommandResult(FindModuleCommand.MESSAGE_USAGE, false, false);
         case DescriptionCommand.COMMAND_WORD:
             return new CommandResult(DescriptionCommand.MESSAGE_USAGE, false, false);
+        case CheckCommand.COMMAND_WORD:
+            return new CommandResult(CheckCommand.MESSAGE_USAGE, false, false);
         case ValidModsCommand.COMMAND_WORD:
             return new CommandResult(ValidModsCommand.MESSAGE_USAGE, false, false);
         case CommitStudyPlanCommand.COMMAND_WORD:
@@ -185,8 +188,6 @@ public class HelpCommand extends Command {
             return new CommandResult(RemoveTagFromStudyPlanCommand.MESSAGE_USAGE, false, false);
         case SortStudyPlansByPriorityTagCommand.COMMAND_WORD:
             return new CommandResult(SortStudyPlansByPriorityTagCommand.MESSAGE_USAGE, false, false);
-        case CheckCommand.COMMAND_WORD:
-            return new CommandResult(CheckCommand.MESSAGE_USAGE, false, false);
         case "":
             return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
         default:

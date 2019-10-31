@@ -39,6 +39,9 @@ import seedu.address.logic.commands.storage.EditTitleCommand;
 import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
+import seedu.address.logic.commands.verification.CheckCommand;
+import seedu.address.logic.commands.verification.DescriptionCommand;
+import seedu.address.logic.commands.verification.ValidModsCommand;
 import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -174,6 +177,9 @@ public class Autocomplete extends TextField {
         commandKeywords.add(TagStudyPlanCommand.COMMAND_WORD);
         commandKeywords.add(RemoveTagFromStudyPlanCommand.COMMAND_WORD);
         commandKeywords.add(SortStudyPlansByPriorityTagCommand.COMMAND_WORD);
+        commandKeywords.add(ValidModsCommand.COMMAND_WORD);
+        commandKeywords.add(DescriptionCommand.COMMAND_WORD);
+        commandKeywords.add(CheckCommand.COMMAND_WORD);
     }
 
     /**

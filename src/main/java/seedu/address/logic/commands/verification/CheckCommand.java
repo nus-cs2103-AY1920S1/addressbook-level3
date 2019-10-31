@@ -17,9 +17,8 @@ import seedu.address.model.studyplan.StudyPlan;
 public class CheckCommand extends Command {
 
     public static final String COMMAND_WORD = "check";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Checks the graduation requirements.";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Checking all graduation requirements";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks all graduation requirements.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
