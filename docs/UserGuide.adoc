@@ -157,6 +157,8 @@ For example,
 
 will list all items that match at least one of the specified tags.
 
+NOTE: 'Note Fragments' are described further in the Notes section (see Section 6.1).
+
 === Exiting the application: `exit`
 
 Checks if there are any remaining flashcards to revise for the day
@@ -372,9 +374,11 @@ NOTE: The format for Note fragment content is 'C/', not 'c/', and the format for
         Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
         Tags: [about]
 
-* Multiple intra-note tags are allowed. These do not interfere with the other tags of the Note.
+* Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
 
-NOTE: Intra-note tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3)
+NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3).
+For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
+commands.
 
 === Deleting a note: `delete`
 
@@ -392,9 +396,9 @@ Deletes the note of index `NOTE_INDEX`.
 
 === Viewing a note: `view`
 
-Views the note of index `NOTE_INDEX`. If the note contains any intra-note tags, those tags will be hidden.
+Views the note of index `NOTE_INDEX`. If the note contains any note fragment tags, those tags will be hidden.
 
-NOTE: To view the note with its intra-note tags, use the `viewraw` command instead (see Section 6.4).
+NOTE: To view the note with its note fragment tags, use the `viewraw` command instead (see Section 6.4).
 
     Format: view (index)
 
@@ -408,7 +412,7 @@ NOTE: To view the note with its intra-note tags, use the `viewraw` command inste
 
 === Viewing a raw note: `viewraw`
 
-Views the note of index `NOTE_INDEX`. The note is shown exactly as written, including all intra-note tags.
+Views the note of index `NOTE_INDEX`. The note is shown exactly as written, including all note fragment tags.
 
     Format: viewraw (index)
 
