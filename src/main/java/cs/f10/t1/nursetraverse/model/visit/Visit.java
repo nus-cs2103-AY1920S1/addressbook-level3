@@ -100,7 +100,7 @@ public class Visit {
         builder.append(endDateTime.equals(Optional.empty()) ? "Ongoing" : endDateTime)
                 .append(" Tags: ");
         getVisitTasks().forEach(builder::append);
-        builder.append(" Remarks")
+        builder.append(" Remarks: ")
                 .append(getRemark());
         return builder.toString();
     }
