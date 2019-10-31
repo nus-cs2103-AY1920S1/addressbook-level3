@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
-import seedu.ezwatchlist.api.model.ApiMain;
+import seedu.ezwatchlist.api.model.ApiInterface;
+import seedu.ezwatchlist.api.model.ApiManager;
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
@@ -45,6 +46,7 @@ public class SearchCommand extends Command {
     private static final String KEY_IS_WATCHED = "is_watched";
     private static final String KEY_IS_INTERNAL = "is_internal";
 
+    private ApiInterface onlineSearch;
     private List<String> nameList;
     private List<String> typeList;
     private List<String> actorList;
@@ -61,6 +63,11 @@ public class SearchCommand extends Command {
         genreList = searchShowsHashMap.get(KEY_GENRE); // unable to search at all
         isWatchedList = searchShowsHashMap.get(KEY_IS_WATCHED);
         isInternalList = searchShowsHashMap.get(KEY_IS_INTERNAL);
+        try {
+            onlineSearch = new ApiManager();
+        } catch (OnlineConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -252,7 +259,7 @@ public class SearchCommand extends Command {
      * @throws OnlineConnectionException If online exception occurred.
      */
     private void addOnlineMovieSearchedByNameToResult(String showName) throws OnlineConnectionException {
-        List<Movie> movies = new ApiMain().getMovieByName(showName);
+        List<Movie> movies = onlineSearch.getMovieByName(showName);
         for (Movie movie : movies) {
             searchResult.add(movie);
         }
@@ -264,7 +271,7 @@ public class SearchCommand extends Command {
      * @throws OnlineConnectionException If online exception occurred.
      */
     private void addOnlineTvSearchedByNameToResult(String showName) throws OnlineConnectionException {
-        List<TvShow> tvShows = new ApiMain().getTvShowByName(showName);
+        List<TvShow> tvShows = onlineSearch.getTvShowByName(showName);
         for (TvShow tvShow : tvShows) {
             searchResult.add(tvShow);
         }

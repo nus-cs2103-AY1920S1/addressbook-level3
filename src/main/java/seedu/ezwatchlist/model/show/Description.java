@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class Description {
     public static final String MESSAGE_CONSTRAINTS =
             "Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
-    public static final String DEFAULT_DESCRIPTION = "na";
+    public static final String DEFAULT_DESCRIPTION = "n.a.";
     /*
      * The first character of the show's description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.

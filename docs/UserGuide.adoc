@@ -27,14 +27,14 @@ EzWatchList is for those who *prefer to use a desktop app for managing movies an
 .  Copy the file to the folder you want to use as the home folder for your watchlist.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::RealUI.png[width="790"]
+image::UI.PNG[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add`**`Titanic` : adds the movie named `Titanic` to the Watchlist.
-* **`search`**`Titanic` : Searched for movie named `Titanic` in all movies
+* **`add`**`n/Titanic` : adds the movie named `Titanic` to the Watchlist.
+* **`search`**`n/Titanic` : Searched for movie named `Titanic` in all movies
 * **`delete`**`3` : deletes the 3rd movie shown in the current list
 * *`exit`* : exits the app
 
@@ -46,7 +46,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Watchlist Page
 
-The watchlist is the default page that is opened upon start-up of ezwatchlist. It shows the user’s unwatched movies and television series. The watchlist page also contains a command bar to allow the user to input commands.
+The watchlist is the default page that is opened upon start-up of ezwatchlist.
+It shows the user’s unwatched movies and television series.
+The watchlist page also contains a command bar to allow the user to input commands.
 
 **Characteristics of the watchlist page:**
 
@@ -58,7 +60,7 @@ The watchlist is the default page that is opened upon start-up of ezwatchlist. I
 * Progress bar showing number of episodes watched (For TV series)
 * Checkbox to indicate if the show has been watched
 
-image::RealUI.png[width="790"]
+image::UI.PNG[width="790"]
 
 
 ==== Watched List
@@ -82,7 +84,7 @@ image::statistics_page.png[width="790"]
 
 Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Alternatively, the user can also make use of keyboard shortcut `ctrl + tab` to scroll through the different pages.
 
-==== Details Page
+==== Details Page (Coming in v2.0)
 
 Upon clicking a movie or tv show title, a pop-up window will emerge, with a detailed view of the movie or tv show. This page provides the user with more information about the show, like the year, cast and ratings. The user also has the ability to edit the details here.
 
@@ -220,14 +222,35 @@ _{explain how the user can enable/disable data encryption}_
 
 === Advanced Features
 
-==== Parsing of Movie Information
-In ezwatchlist, we access a movie database so that we can get information about your movies and tv series that you want to watch and have watched. This means that pictures and information will be readily available to you with a proper internet connection.
+==== Parsing of Movie and Tv Show Information
+In Ezwatchlist, an online database is accessed so that all the information about your favourite Movies and
+Television Shows is updated, informative, and concise. What this means for you is that:
 
-==== Recommendations
-Ezwatchlist will recommend movies to you based on your ratings and your existing watchlist to create a personalized recommendation just for you.
+* Posters of your Ezwatchlist shows,
+can be displayed in Ezwatchlist's sleek dark interface.
 
-==== Auto-Correct
-All typing in the application will be spell-checked and corrected for you to help ease you into the application.
+* Moreover, your offline shows can be synced with this database allowing the application to fill in
+the minor details for you.
+
+* Unsure of what actors played in your favourite movie? Ezwatchlist will find that information for you.
+****
+You don't need to do anything other than be connected to the internet. It is that easy!
+****
+==== Movie and Tv Show Recommendations
+Ezwatchlist has the ability to recommend Movies and TvShows to you based on
+your Ezwatchlist usage. Ezwatchlist will create your own personalized recommendations for you.
+
+****
+Excited? Enter your statistics page to get started on your recommendations. You might
+just find your next favourite!
+****
+
+==== Auto-Correct (Coming in v2.0)
+Ezwatchlist aims to provide a smooth experience for our typing users. All typing in Ezwatchlist will be automatically
+corrected for you when typing in your commands.
+****
+Say goodbye to typing errors!
+****
 
 == FAQ
 

@@ -13,12 +13,15 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+   <HBox HBox.hgrow="ALWAYS">
       <children>
-         <ImageView fx:id="poster" fitHeight="160.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="poster" fitHeight="160.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin></ImageView>
            <VBox fx:id="information" prefWidth="600.0" spacing="3.0">
                <padding>
-                   <Insets bottom="5" left="15" right="5" top="5" />
+                   <Insets left="15.0" />
                </padding>
                <HBox alignment="CENTER_LEFT" spacing="5">
                    <Label fx:id="id" styleClass="cell_big_label">
