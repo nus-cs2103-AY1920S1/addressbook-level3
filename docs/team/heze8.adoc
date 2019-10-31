@@ -1,15 +1,40 @@
-= John Doe - Project Portfolio
+= Caleb Goh - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
-
+== PROJECT: `Ezwatchlist`
 ---
+== 1. Introduction
+The following Project Portfolio documents my contributions to the software project, `Ezwatchlist`.
+Which was a project my team of software engineering students and I decided to pursue for our Software Engineering project.
+
+Our team were initially tasked with enhancing a basic command line interface (CLI) desktop application that functioned as an Adressbook.
+What this means is that the application focused on typing as the main mode of use, and had an existing rudimentary base of code already functioning.
+
+Ultimately, we made the decision to modify it into a management application for Movies and Tv Shows named `Ezwatchlist`.
+This enhanced application enables users to:
+
+. Keep track of the movies and television shows that they planed to watch.
+. Allow them to update the episodes they are at each television show.
+. Keep track of the movies and television shows that they have watched.
+. Get information about their watching habits.
+. Get recommendations for movies and television shows.
+
+This is what our project looks like:
+
+Figure 1. The graphical user interface for OASIS.
+My role was to design and write the codes for the undo and redo features. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+Note the following symbols and formatting used in this document:
+This symbol indicates important information.
+undo
+A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+VersionedAddressBook
+Blue text with grey highlight indicates a component, class or object in the architecture
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Ezwatchlist is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
