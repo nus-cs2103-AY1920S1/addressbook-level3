@@ -58,6 +58,9 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
         if (argMultimap.getValue(PREFIX_DAY).isPresent()) {
             editTransactionDescriptor.setDay(ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get()));
         }
+        if (argMultimap.getValue(PREFIX_MONTH).isPresent()) {
+            editTransactionDescriptor.setMonth(ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get()));
+        }
         if (argMultimap.getValue(PREFIX_YEAR).isPresent()) {
             editTransactionDescriptor.setYear(ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get()));
         }
