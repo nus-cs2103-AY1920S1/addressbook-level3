@@ -62,7 +62,7 @@ The user can navigate to this list by clicking the “Watched” tab on the side
 * Last watched episode (For TV series that have been updated using the `watch` command)
 * Checkbox to indicate if the show has been watched
 
-image::UI.PNG[width="790"]
+image::Ui.png[width="790"]
 
 ==== Watched List
 
