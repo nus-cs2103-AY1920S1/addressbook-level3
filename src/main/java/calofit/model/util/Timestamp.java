@@ -29,8 +29,8 @@ public class Timestamp implements Comparable<Timestamp> {
 
     @Override
     public boolean equals(Object other) {
-        return this.getDateTime().toString().equals(
-                ((Timestamp) other).getDateTime().toString());
+        return this.getDateTime().toString().equals((
+                 (Timestamp) other).getDateTime().toString());
     }
 
     public LocalDateTime getDateTime() {
