@@ -16,8 +16,8 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Redoes a given number of previous undo commands. "
-            + "If not specified, the default number of commands to redo is 1. \n"
+            + ": Redoes a given number of previous undo commands.\n"
+            + "If not specified, the default number of commands to redo is 1.\n"
             + "Parameters: [STEP] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 2";
 

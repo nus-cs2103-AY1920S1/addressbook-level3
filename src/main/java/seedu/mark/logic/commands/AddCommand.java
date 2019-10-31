@@ -3,6 +3,7 @@ package seedu.mark.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.core.Messages.MESSAGE_FOLDER_NOT_FOUND;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
@@ -28,6 +29,7 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_URL + "URL "
             + "[" + PREFIX_REMARK + "REMARK] "
+            + "[" + PREFIX_FOLDER + "FOLDER] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "NUSMods "

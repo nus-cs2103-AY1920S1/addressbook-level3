@@ -16,10 +16,10 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all bookmarks whose names or URLs contain any "
-            + "of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " stack-overflow github programming";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds bookmarks that contain any of the given "
+            + "keywords in their name or URL, or that are under the given folder(s) or tagged with the given tag(s).\n"
+            + "Parameters: [KEYWORD]... [t/TAG]... [f/FOLDER]...\n"
+            + "Example: " + COMMAND_WORD + " stack-overflow github t/Favorite f/CS2103T";
 
     private final BookmarkContainsKeywordsPredicate predicate;
 
