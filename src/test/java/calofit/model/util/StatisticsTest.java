@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -56,6 +57,19 @@ public class StatisticsTest {
         assertEquals(test.getPieChartData().get(0).getPieValue(), 1);
         assertEquals(test.getPieChartData().get(0).getPieValue(), 1);
 
+        for (int i = 0; i < LocalDate.now().lengthOfMonth(); i++) {
+            assertEquals(test.getCalorieChartData().getData().get(i).getXValue(),
+                    String.valueOf(i + 1));
+            if (i + 1 == LocalDateTime.now().getDayOfMonth()) {
+                assertEquals(test.getCalorieChartData().getData().get(i).getYValue(),
+                        TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
+                                + TypicalMeals.MUSHROOM_SOUP.getDish().getCalories().getValue()
+                                + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue());
+
+            } else {
+                assertEquals(test.getCalorieChartData().getData().get(i).getYValue(), 0);
+            }
+        }
     }
 
 }

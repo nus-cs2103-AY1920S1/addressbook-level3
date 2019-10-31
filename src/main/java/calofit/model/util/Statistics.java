@@ -10,6 +10,8 @@ import java.util.SortedMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart.Data;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 
 import calofit.model.CalorieBudget;
 import calofit.model.dish.Dish;
@@ -27,6 +29,7 @@ public class Statistics {
     private final int calorieExceedCount;
     private final List<Dish> mostConsumedDishes;
     private final ObservableList<Data> pieChartData;
+    private final Series<String, Integer> calorieChartData;
 
     /**
      * Constructor for the wrapper Statistics class that cannot be called by other classes.
@@ -35,16 +38,18 @@ public class Statistics {
      * @param average is the average Calorie intake per day of the month.
      * @param calorieExceedCount is the number of days of the month where the calorie budget exceeded.
      * @param mostConsumed is the list of dishes that was most consumed in the month.
-     * @param data is the list of meals converted into a list of data to be used in a PieChart.
+     * @param pieChartData is the list of meals converted into a list of data to be used in a PieChart.
+     * @param calorieData is the data that contains the calories taken over time.
      */
     private Statistics(int maximum, int minimum, double average, int calorieExceedCount, List<Dish> mostConsumed,
-                       ObservableList<Data> data) {
+                       ObservableList<Data> pieChartData, Series<String, Integer> calorieData) {
         this.maximum = maximum;
         this.minimum = minimum;
         this.average = average;
         this.calorieExceedCount = calorieExceedCount;
         this.mostConsumedDishes = mostConsumed;
-        this.pieChartData = data;
+        this.pieChartData = pieChartData;
+        this.calorieChartData = calorieData;
     }
 
     /**
@@ -56,6 +61,7 @@ public class Statistics {
     public static Statistics generateStatistics(MealLog mealLog, CalorieBudget budget) {
         ObservableList<Meal> currentMonthMeals = mealLog.getCurrentMonthMeals();
         ObservableList<Data> pieChartData = Statistics.getPieChartData(currentMonthMeals);
+        Series<String, Integer> calorieChartData = Statistics.getCalorieChartData(currentMonthMeals);
         List<Dish> mostConsumed = Statistics.getMostConsumedDishes(currentMonthMeals);
         int calorieExceedCount = Statistics.getCalorieExceedCount(budget, currentMonthMeals);
         int maximum = 0;
@@ -81,7 +87,8 @@ public class Statistics {
 
         average = Math.round(average / LocalDate.now().lengthOfMonth());
 
-        return new Statistics(maximum, minimum, average, calorieExceedCount, mostConsumed, pieChartData);
+        return new Statistics(maximum, minimum, average,
+                calorieExceedCount, mostConsumed, pieChartData, calorieChartData);
     }
 
     /**
@@ -212,4 +219,28 @@ public class Statistics {
         return this.pieChartData;
     }
 
+    /**
+     * Method to get the Amount of the Calories taken per day over the month and store them in a series.
+     * @param monthlyMeals is the list of meals taken this month.
+     * @return the series itself
+     */
+    public static Series<String, Integer> getCalorieChartData(ObservableList<Meal> monthlyMeals) {
+        XYChart.Series<String, Integer> calorieData = new XYChart.Series<>();
+        calorieData.setName("Date");
+        for (int i = 1; i <= LocalDate.now().lengthOfMonth(); i++) {
+            int currentCalorieValue = 0;
+            LocalDate currentDate = LocalDate.now().withDayOfMonth(i);
+            ObservableList<Meal> currentDayMeals = monthlyMeals
+                    .filtered(meal -> meal.getTimestamp().getDateTime().toLocalDate().equals(currentDate));
+            for (int j = 0; j < currentDayMeals.size(); j++) {
+                currentCalorieValue += currentDayMeals.get(j).getDish().getCalories().getValue();
+            }
+            calorieData.getData().add(new XYChart.Data(String.valueOf(i), currentCalorieValue));
+        }
+        return calorieData;
+    }
+
+    public Series<String, Integer> getCalorieChartData() {
+        return this.calorieChartData;
+    }
 }
