@@ -511,8 +511,17 @@ Command Format: +
 image::RedoCommandScreenShot.png[]
 
 {empty} +
-The `redo` command redoes a previously undone command.+
-The `redo` command is able to redo any undone commands that have not been succeeded by a separate state-changing command (e.g. add_event, delete_event, edit). If you've ever used another application with undo-redo functionality, just imagine that Horo's undo-redo functions are as intuitive as theirs.
+The `redo` command redoes a previously undone command.
+The `redo` command is able to redo any undone commands that have not been succeeded by a separate state-changing command (e.g. add_event, delete_event, edit).
+
+For example, suppose you added an event `"Attend Horo's Birthday"` and ran the `undo` command, thus removing the event from Horo.
+Now, if you run `redo`, the previous state of Horo before the latest `undo` command was executed will be restored;
+`"Attend Horo's Birthday"` will once again appear in Horo.
+
+However, if you had executed any state-changing command (except for `undo` or `redo`) just after undoing the `add_event` command,
+calling redo will then amount to no effect.
+
+If you've ever used another application with undo-redo functionality, just imagine that Horo's undo-redo functions are as intuitive as theirs.
 {empty} +
 
 Command Format: +

@@ -1,0 +1,18 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+class IcsExporter
+class IcsParser
+class IcsConverter
+class EventSource
+class TaskSource
+
+IcsExporter ..> IcsConverter
+IcsConverter ..> EventSource
+IcsConverter ..> TaskSource
+IcsParser ..> EventSource
+IcsParser ..> TaskSource
+@enduml
