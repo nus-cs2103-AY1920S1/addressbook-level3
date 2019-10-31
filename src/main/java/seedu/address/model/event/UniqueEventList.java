@@ -7,8 +7,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.employee.exceptions.DuplicateEmployeeException;
-import seedu.address.model.employee.exceptions.EmployeeNotFoundException;
+import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.exceptions.EventNotFoundException;
 
 /**
  * A list of Events that enforces uniqueness
@@ -37,7 +37,7 @@ public class UniqueEventList {
     public void add(Event toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateEmployeeException();
+            throw new DuplicateEventException();
         }
         internalList.add(toAdd);
     }
@@ -52,11 +52,11 @@ public class UniqueEventList {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new EmployeeNotFoundException();
+            throw new EventNotFoundException();
         }
 
         if (!target.isSameEvent(editedEvent) && contains(editedEvent)) {
-            throw new DuplicateEmployeeException();
+            throw new DuplicateEventException();
         }
 
         internalList.set(index, editedEvent);
@@ -71,7 +71,7 @@ public class UniqueEventList {
     public void remove(Event toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new EmployeeNotFoundException();
+            throw new EventNotFoundException();
         }
     }
 
@@ -86,9 +86,9 @@ public class UniqueEventList {
      */
     public void setEvents(List<Event> events) {
         requireAllNonNull(events);
-        /*if (!personsAreUnique(persons)) {
-            throw new DuplicateEmployeeException();
-        }*/
+        if (!eventsAreUnique(events)) {
+            throw new DuplicateEventException();
+        }
 
         internalList.setAll(events);
     }
@@ -108,19 +108,14 @@ public class UniqueEventList {
     /**
      * Returns true if {@code persons} contains only unique events.
      */
-    /*
-    private boolean personsAreUnique(List<Employee> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+    private boolean eventsAreUnique(List<Event> events) {
+        for (int i = 0; i < events.size() - 1; i++) {
+            for (int j = i + 1; j < events.size(); j++) {
+                if (events.get(i).isSameEvent(events.get(j))) {
                     return false;
                 }
             }
         }
         return true;
     }
-
-     */
-
-
 }

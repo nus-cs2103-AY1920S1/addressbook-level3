@@ -115,7 +115,7 @@ public class EmployeeCard extends UiPart<Region> {
     public EmployeeCard(Employee employee, int displayedIndex, Logic logic, Event event, int eventOneBasedIndex,
                          FetchEventWindow fetchWindow, boolean isAllocate) {
         this(employee, displayedIndex, FETCH_WINDOW_FXML);
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> eventHandler = new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
