@@ -22,6 +22,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.student.Student;
 import seedu.address.storage.printable.StatisticsPrintable;
 import seedu.address.ui.util.DisplayType;
@@ -244,6 +245,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleSchedule() {
+        eventSchedulePanel.updateScheduler();
+        if (logic.getScheduleViewMode().equals(EventScheduleViewMode.DAILY)) {
+            eventSchedulePanel.setDailySkin();
+        } else if (logic.getScheduleViewMode().equals(EventScheduleViewMode.WEEKLY)) {
+            eventSchedulePanel.setWeeklySkin();
+        }
+        eventSchedulePanel.setDisplayedDateTime(logic.getEventScheduleTargetDateTime());
         eventSchedulePanel.getRoot().toFront();
     }
 
@@ -343,7 +351,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
                 break;
             case SHOW_SCHEDULE:
-                eventSchedulePanel.updateScheduler();
                 handleSchedule();
                 break;
             case SHOW_STATISTIC:

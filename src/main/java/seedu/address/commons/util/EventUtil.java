@@ -1,11 +1,15 @@
 package seedu.address.commons.util;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.event.RecurrenceType;
 
 /**
@@ -14,6 +18,12 @@ import seedu.address.model.event.RecurrenceType;
 public class EventUtil {
     private static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
     private static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
+    private static final DateTimeFormatter dateOnlyFormatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd[ HH:mm:ss]")
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                .toFormatter();
 
     /**
      * Maps a event to VEvent
@@ -79,7 +89,7 @@ public class EventUtil {
         } else if (recurrenceString.equals("none")) {
             return new RecurrenceRule();
         } else {
-            throw new IllegalValueException("recurrence string type is not valid. value passedL " + recurrenceString);
+            throw new IllegalValueException("recurrence string type is not valid. value passed: " + recurrenceString);
         }
     }
 
@@ -110,5 +120,23 @@ public class EventUtil {
      */
     public static String convertNumberToColorNumber(String number) {
         return "group" + (Integer.parseInt(number) < 10 ? "0" : "") + number;
+    }
+
+    /**
+     * Custom method to convert a date to localDateTime object with default time values
+     * @param date date to be converted in the form of yyyy-mm-dd
+     */
+    public static LocalDateTime dateToLocalDateTimeFormatter(String date) {
+        return LocalDateTime.parse(date, dateOnlyFormatter);
+    }
+
+    public static EventScheduleViewMode stringToEventScheduleViewMode(String viewMode) throws IllegalValueException {
+        if (viewMode.equalsIgnoreCase(EventScheduleViewMode.WEEKLY.name())) {
+            return EventScheduleViewMode.WEEKLY;
+        } else if (viewMode.equalsIgnoreCase(EventScheduleViewMode.DAILY.name())) {
+            return EventScheduleViewMode.DAILY;
+        } else {
+            throw new IllegalValueException("view mode string type is not valid. value passed: " + viewMode);
+        }
     }
 }

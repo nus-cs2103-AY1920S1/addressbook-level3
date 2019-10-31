@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
@@ -10,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
@@ -134,4 +136,8 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     void savePrintable(NjoyPrintable printable) throws IOException;
+
+    LocalDateTime getEventScheduleTargetDateTime();
+
+    EventScheduleViewMode getScheduleViewMode();
 }
