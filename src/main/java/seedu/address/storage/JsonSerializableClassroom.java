@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
-import seedu.address.model.assignment.Assignment;
 import seedu.address.model.student.Student;
 
 /**
@@ -31,9 +31,9 @@ class JsonSerializableClassroom {
      * Constructs a {@code JsonSerializableClassroom} with the given students.
      */
     @JsonCreator
-    public JsonSerializableClassroom( @JsonProperty("classroomName") String classroomName,
-                                      @JsonProperty("students") List<JsonAdaptedStudent> students,
-                                      @JsonProperty("assignments") List<JsonAdaptedAssignment> assignments ) {
+    public JsonSerializableClassroom(@JsonProperty("classroomName") String classroomName,
+                                     @JsonProperty("students") List<JsonAdaptedStudent> students,
+                                     @JsonProperty("assignments") List<JsonAdaptedAssignment> assignments) {
         this.classroomName = classroomName;
         this.students.addAll(students);
         this.assignments.addAll(assignments);

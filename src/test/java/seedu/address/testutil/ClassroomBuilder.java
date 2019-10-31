@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import seedu.address.model.classroom.Classroom;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.lesson.Lesson;
+import seedu.address.model.classroom.Classroom;
+//import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 
 /**
@@ -41,10 +41,12 @@ public class ClassroomBuilder {
     /**
      * Adds a new {@code Lesson} to the {@code Classroom} that we are building.
      */
+    /*
     public ClassroomBuilder withLesson(Lesson lesson) {
         classroom.addLesson(lesson);
         return this;
     }
+     */
 
     public Classroom build() {
         return classroom;

@@ -4,6 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.lesson.Lesson;
 
+/**
+ * Unmodifiable view of a notebook.
+ */
 public interface ReadOnlyNotebook {
     /**
      * Returns an unmodifiable view of the classrooms list.

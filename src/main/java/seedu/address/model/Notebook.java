@@ -2,16 +2,11 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.*;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.classroom.Classroom;
@@ -81,14 +76,19 @@ public class Notebook implements ReadOnlyNotebook {
         }
     }
 
+
     public Classroom currentClassroom() {
         return classrooms.get(currentClassroom);
     }
 
+    /**
+     * Resets the data of the notebook to the newData.
+     * @param newData notebook to reset data to.
+     */
     public void resetData(ReadOnlyNotebook newData) {
         requireNonNull(newData);
         setClassrooms(newData.getClassroomList());
-        setLessons(newData.getLessonList());
+        //setLessons(newData.getLessonList());
     }
 
     //=========== Notebook ================================================================================
@@ -107,6 +107,11 @@ public class Notebook implements ReadOnlyNotebook {
         this.currentClassroom().resetData(classroom);
     }
 
+    /**
+     * Returns true if the notebook has the given classroom.
+     * @param classroom check whether this classroom is in the notebook.
+     * @return true if the notebook has the given classroom.
+     */
     public boolean hasClassroom(Classroom classroom) {
         requireNonNull(classroom);
         return classrooms.contains(classroom);
@@ -119,7 +124,10 @@ public class Notebook implements ReadOnlyNotebook {
     }
     */
 
-
+    /**
+     * Adds the classroom to the notebook.
+     * @param classroom classroom to add to notebook.
+     */
     public void addClassroom(Classroom classroom) {
         if (classrooms.isEmpty()) {
             classrooms.add(classroom);
@@ -133,13 +141,21 @@ public class Notebook implements ReadOnlyNotebook {
         return currentClassroom();
     }
 
-
+    /**
+     * Returns true if the current classroom has the given student.
+     * @param student checks to see if this student is in the classroom.
+     * @return true if the classroom has the student.
+     */
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return currentClassroom().hasStudent(student);
     }
 
-
+    /**
+     * Returns true if the current classroom has the given assignment.
+     * @param assignment checks to see if this assignment is in the classroom.
+     * @return true if the classroom has the assignment.
+     */
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
         return currentClassroom().hasAssignment(assignment);

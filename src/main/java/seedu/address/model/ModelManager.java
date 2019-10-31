@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.scheduler.Reminder;
+//import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**

@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.classroom.Classroom;
 import seedu.address.model.Notebook;
 import seedu.address.model.ReadOnlyNotebook;
+import seedu.address.model.classroom.Classroom;
 
 /**
  * An Immutable Notebook that is serializable to JSON format.
@@ -21,13 +21,13 @@ class JsonSerializableNotebook {
 
     public static final String MESSAGE_DUPLICATE_CLASSROOM = "Classroom list contains duplicate classrooms";
 
-    private final List<JsonSerializableClassroom> classrooms= new ArrayList<>();
+    private final List<JsonSerializableClassroom> classrooms = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableNotebook} with the given students.
      */
     @JsonCreator
-    public JsonSerializableNotebook( @JsonProperty("classrooms") List<JsonSerializableClassroom> classrooms) {
+    public JsonSerializableNotebook(@JsonProperty("classrooms") List<JsonSerializableClassroom> classrooms) {
         this.classrooms.addAll(classrooms);
     }
 
