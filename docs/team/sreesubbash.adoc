@@ -23,7 +23,7 @@ Dukemon is a desktop flashcard application used to reinforce memory techniques. 
 
 ** Project management:
 *** Coordinated devlopment and master branch workflow for rapid prototyping in early weeks.
-*** Suggested username-number-reason branching workflow period closer to deployment for stability and accountability in changes without too much restriction. 
+*** Suggested username-number-reason branching workflow period closer to deployment for stability and accountability in changes without too much restriction.
 *** Managed product release https://github.com/AY1920S1-CS2103T-T11-2/main/releases/tag/[v1.3.5] on GitHub
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
