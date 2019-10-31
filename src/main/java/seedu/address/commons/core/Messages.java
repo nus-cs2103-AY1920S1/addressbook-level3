@@ -28,6 +28,7 @@ public class Messages {
     public static final String MESSAGE_REDO_SUCCESS = "Previous undone command has been redone!";
     public static final String MESSAGE_IMPORT_ICS_SUCCESS = "ICS file at %s has been successfully imported!";
     public static final String MESSAGE_EXPORT_ICS_SUCCESS = "Horo has successfully been exported at the filepath: %s";
+    public static final String MESSAGE_EXIT_SUCCESS = "Exiting Horo!";
 
     public static final String MESSAGE_DAY_VIEW_SUCCESS = "Changed Day to: %s";
     public static final String MESSAGE_WEEK_VIEW_SUCCESS = "Changed Week to week of: %s";

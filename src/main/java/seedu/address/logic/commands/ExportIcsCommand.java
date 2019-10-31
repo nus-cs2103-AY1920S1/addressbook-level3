@@ -15,7 +15,7 @@ import seedu.address.ui.UserOutput;
  * Represents a Command which exports Events stored in Horo into an Ics file.
  */
 public class ExportIcsCommand extends Command {
-    private static final Path DEFAULT_DIRECTORY = Paths.get("exports");
+    private static final Path DEFAULT_DIRECTORY = Paths.get("");
 
     private final String filepath;
     private final ModelManager model;

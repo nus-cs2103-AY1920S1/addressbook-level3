@@ -16,6 +16,18 @@ endif::[]
 
 By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 
+== Introduction
+
+=== About the Application
+*Horo* is a command-line interface scheduling application. It helps the user maintain a to-do list and a calendar, and posts timely reminders on their desktop.
+
+=== Purpose
+This guide specifies the architecture and software design decisions for Horo, and instructions for building upon the current codebase. This is done in hopes of ensuring extensibility and maintainability of Horo for both current and future developers.
+
+
+=== How to use this Guide
+todo
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -185,35 +197,6 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
-[[Design-Notification]]
-=== Notification System
-(Picture: Notification System)
-
-Notifications are handled through the NotificationManager, itself found in the Logic component. There does not exist a singular Notification component. Rather, functional classes for the Notification System are have been split across the Logic and UI components, depending on their functionality.
-
-==== Logic Classes
-Logic classes are reponsible for deciding if a notification should be posted. As with other components, their functionality is accessed through the `NotificationManager` class. The `NotificationManager` class maintains a reference to a `NotificationCheckingThread` as well as a `SystemTrayCommunicator`.
-
-The logic classes of the Notification System can be found under the `notification` package under the `Logic` component.
-
-- The `NotificationCheckingThread` is a daemon thread that runs in parallel with the main application. It checks for new notifications to post every minute.
-- The `NotificationChecker` is responsible for checking `Model` for any notifications that need to be posted.
-
-
-==== UI Classes
-UI classes are responsible for displaying notifications.
-
-The UI classes of the Notification System can be found under the `systemtray` package under the `ui` component.
-
-- The `PopupListener` class is the main channel of communication between the logic and UI classes. When a notification needs to be posted, it will relay the information from the logic to UI classes.
-
-- The `SystemTrayCommunicator` handles posting notifications and displaying the app's icon on the System Tray.
-
-- The `PopupNotification` class carries the information that will be posted on a popup notification.
-
-- The `NotificationClickActionListener` is called when the user clicks on a popup notification.
-
-
 [[Design-Commons]]
 === Common classes
 
@@ -224,8 +207,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation Details
 
 The undo/redo mechanism is facilitated by `UndoRedoManager`, which contains `undoStateList` - a history of `UndoRedoStates`. Each `UndoRedoState` object contains two lists: one to store `EventSources` and the other to store `TaskSources`, together representing the state of all event and task data at that point in time. UndoRedoManager also contains a `currentStateIndex`, which keeps track of the index of the `UndoRedoState` being used presently.
 
@@ -240,7 +223,8 @@ A key point to take note of is that `ModelManager` contains an `eventList` (a li
 
 The `UndoCommand` and `RedoCommand` will interact directly with `UndoRedoManager` while other state-changing commands (such as adding or deleting tasks) will interact only with `ModelManager`.
 
-There are three key listener interfaces that help us achieve the desired undo-redo functionality:
+There are three key *Listener* interfaces that help us achieve the desired undo-redo functionality:
+
 * `EventListListener`
 * `TaskListListener`
 * `UndoRedoListener`
@@ -255,7 +239,7 @@ Step 1. The user runs the program for the first time. The `UndoRedoManager` will
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”. The event will be added to `ModelManager`’s `eventList`. Then, `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), clearing all future states beyond the `currentStateIndex` as they are no longer useful. In this particular case, there are no future states to be cleared. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
+Step 2. The user executes `add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”`. The event will be added to `ModelManager`’s `eventList`. Then, `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), clearing all future states beyond the `currentStateIndex` as they are no longer useful. In this particular case, there are no future states to be cleared. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
 
 image::UndoRedoState1.png[]
 
@@ -264,29 +248,29 @@ If a command fails its execution, it will not result in any change to `ModelMana
 
 Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error. The undo command will decrement the `currentStateIndex` by one to contain the index of the previous undo redo state, thereafter triggering the `UndoRedoListener#onUndoRedo` method. This method updates `ModelManager`’s `eventList` and `taskList` data to match the data of the `UndoRedoState` with index `currentStateIndex` in `undoStateList`.
 
-image::UndoRedoState3.png[]
+image::UndoRedoState2.png[]
 
 [NOTE]
 If the `currentStateIndex` is 0, pointing to the initial undo redo state, then there are no previous undo redo states to restore. The undo command uses `UndoRedoManager#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[width=100%]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The redo command does the opposite — it calls UndoRedoManager#redo(), which increments the currentStateIndex by one to contain the index of the previously undone state. The `UndoRedoListener` then causes `ModelManager#eventList` and `ModelManager#taskList` to reset their data to this state’s list data.
+The redo command does the opposite — it calls `UndoRedoManager#redo()`, which increments the `currentStateIndex` by one to contain the index of the previously undone state. The `UndoRedoListener` then causes `ModelManager#eventList` and `ModelManager#taskList` to reset their data to this state’s list data.
 
 [NOTE]
 If the `currentStateIndex` is at index `undoStateList.size() - 1`, pointing to the latest undo redo state, then there are no undone undo redo states to restore. The `redo` command uses `UndoRedoManager#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 4. The user decides to execute the command list. Non-state-changing commands such as `list` do not manipulate task and event data. Since no changes to `taskList` or `eventList` have been made, the listener methods will not be triggered and no `UndoRedoState` will be saved to `undoStateList`. Thus, the `undoStateList` remains unchanged.
+Step 4. The user decides to execute the command `log`. Non-state-changing commands such as `log` do not manipulate task and event data. Since no changes to `taskList` or `eventList` have been made, the listener methods will not be triggered and no `UndoRedoState` will be saved to `undoStateList`. Thus, the `undoStateList` remains unchanged.
+
+image::UndoRedoState3.png[]
+
+Step 5. The user executes `delete_event 1`, removing the event from `ModelManager`’s `eventList`. `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), purging all future states beyond the `currentStateIndex` as they are no longer useful. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
 
 image::UndoRedoState4.png[]
-
-Step 5. The user executes delete_event 1, removing the event from `ModelManager`’s `eventList`. `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), purging all future states beyond the `currentStateIndex` as they are no longer useful. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
-
-image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -296,7 +280,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves EventSource and TaskSource data every time a change has been made.
+* **Alternative 1 (current choice):** Saves `EventSource` and `TaskSource` data every time a change has been made.
 ** Pros: Easy to understand and implement.
 ** Cons: Performance issues may arise due to the relatively larger memory usage required.
 * **Alternative 2:** Individual command knows how to undo/redo by itself; inverse functions have to be implemented (if I undo the deletion of a person, it would be equivalent to adding him back to the list)
@@ -304,12 +288,62 @@ image::CommitActivityDiagram.png[]
 ** Cons: Every command will have to be implemented twice, since their inverse operations will all be different. This is compounded by the fact that we have to ensure the correctness of every inverse operation individually as well.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::notification[]
+=== Notification System
+==== Class Architecture
+.Class diagram for Notification System
+image::NotificationClassDiagram.png[]
 
-_{Explain here how the data encryption feature will be implemented}_
+The Notification System is facilitated by the  `NotificationManager`, which is found in the Logic component. Other constituent classes of the Notification System can be found in the Logic and UI components, depending on their functionality. These classes and their functionalities are listed below:
 
-// end::dataencryption[]
+===== *Logic Classes*
+Logic classes are responsible for deciding if a notification should be posted. As with other components, their functionality is accessed through the `NotificationManager` class. The `NotificationManager` class maintains a reference to a `NotificationCheckingThread` as well as a `SystemTrayCommunicator`.
+
+The logic classes of the Notification System can be found under the `notification` package under the `Logic` component.
+
+- The `NotificationCheckingThread` is a daemon thread that runs in parallel with the main application. It checks for new notifications to post every minute.
+- The `NotificationChecker` is responsible for checking `Model` for any notifications that need to be posted.
+{empty} +
+
+===== *UI Classes*
+UI classes are responsible for displaying notifications to the user.
+
+The UI classes of the Notification System can be found under the `systemtray` package under the `ui` component.
+
+- The `PopupListener` class is the main channel of communication between the logic and UI classes. When a notification needs to be posted, it will relay the information from the logic to UI classes.
+- The `SystemTrayCommunicator` handles posting notifications and displaying the app's icon on the System Tray. It listens to the `NotificationCheckingThread` through a `PopupListener`.
+- The `PopupNotification` class carries the information that will be posted to a popup notification.
+- The `NotificationClickActionListener` is called when the user clicks on a popup notification.
+{empty} +
+
+==== Class Activity
+As with other Manager classes, an instance of the  `NotificationManager` is created upon the starting of MainApp. The NotificationManager proceeds to initialize and run a `NotificationCheckingThread`, as well as a `SystemTrayCommunicator`. Upon being started, the `NotificationCheckingThread` will enter a `notificationCheckingLoop` by calling its method of the same name.
+
+To give a better explanation of how the `NotificationCheckingThread` works, a single run of its loop is illustrated below:
+
+.Sequence diagram for NotificationCheckingThread's main loop
+image::NotificationCheckingLoopSequenceDiagram.png[]
+
+Step 1. The `NotificationCheckingThread` calls the `NotificationChecker` to generate `PopupNotification`s through a call to `NotificationChecker#getListOfPopupNotifications()`
+
+Step 2. For each `PopupNotification` generated by the NotificationChecker, a call to `PopupListener#notify()` is made.
+
+Step 3. This prompts the `SystemTrayCommunicator` to post a new notification.
+
+Step 4. The `NotificationCheckingThread` sleeps until the start of the next minute, found by the method `NotificationCheckingThread#findMillisecondsToNextMinute()`.
+
+==== Design Considerations
+===== Aspect: How the Notification system should run
+* **Alternative 1 (current choice):** Running the Notification system as a separate thread in the same application
+** Pros: Easier to implement and test.
+** Cons: The user would have to leave the application on if they always wanted to be notified.
+* **Alternative 2:** Running the Notification system as a background application
+** Pros: This would allow notifications to be posted to the user's desktop even if the Horo main app were not open.
+** Cons: This would require the creation of a separate application that the user would have to install on their computer. Because different Java applications are ran in different instances of Java Virtual Machines, this could vastly complicate implementation as the Notification System and the rest Horo would be unable to interact directly.
+
+Alternative 1 was eventually chosen as it was simpler to implement and test, and remain within the initial scope of Horo's development. The application can be potentially changed to use Alternative 2 in the future.
+
+// end::notification[]
 
 === Logging
 
@@ -648,8 +682,3 @@ These instructions only provide a starting point for testers to work on; testers
   Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
-
-
-
-
-

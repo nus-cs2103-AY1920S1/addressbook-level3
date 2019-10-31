@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":NotificationCheckingThread" as NotificationCheckingThread LOGIC_COLOR
+participant ":NotificationChecker" as NotificationChecker LOGIC_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant "pn:PopupNotification" as PopupNotification UI_COLOR
+participant ":PopupListener" as PopupListener UI_COLOR
+participant ":SystemTrayCommunicator" as SystemTrayCommunicator UI_COLOR
+end box
+
+[-> NotificationCheckingThread : run()
+
+loop infinitely
+    activate NotificationCheckingThread
+
+    NotificationCheckingThread -> NotificationChecker : getListOfPopupNotifications()
+    activate NotificationChecker
+
+    create PopupNotification
+    NotificationChecker -> PopupNotification
+    activate PopupNotification
+
+    PopupNotification --> NotificationChecker : pn
+    deactivate PopupNotification
+
+    NotificationChecker --> NotificationCheckingThread : pn
+    deactivate NotificationChecker
+
+    NotificationCheckingThread -> PopupListener : notify(pn)
+    activate PopupListener
+
+    PopupListener -> SystemTrayCommunicator : postNewNotification(pn)
+    activate SystemTrayCommunicator
+
+    SystemTrayCommunicator --> PopupListener
+    deactivate SystemTrayCommunicator
+
+    PopupListener --> NotificationCheckingThread
+    deactivate PopupListener
+
+    destroy PopupNotification
+
+    deactivate NotificationCheckingThread
+end
+
+@enduml

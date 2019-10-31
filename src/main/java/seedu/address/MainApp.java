@@ -20,6 +20,7 @@ import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditTaskCommand;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportIcsCommand;
 import seedu.address.logic.commands.ImportIcsCommand;
 import seedu.address.logic.commands.ListViewCommand;
@@ -58,6 +59,7 @@ public class MainApp extends Application {
     private static final String COMMAND_CALENDAR_VIEW = "calendar";
     private static final String COMMAND_LIST_VIEW = "list";
     private static final String COMMAND_LOG_VIEW = "log";
+    private static final String COMMAND_EXIT = "exit";
 
     private CommandManager commandManager;
     private ModelManager modelManager;
@@ -109,6 +111,7 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_CALENDAR_VIEW, () -> CalendarViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_LIST_VIEW, () -> ListViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_LOG_VIEW, () -> LogViewCommand.newBuilder(uiManager));
+        commandManager.addCommand(COMMAND_EXIT, ExitCommand::newBuilder);
     }
 
     /**

@@ -16,7 +16,7 @@ class DeleteEventCommandTest {
 
     @Test
     void build_fullCommand_success() {
-        String[] indexes = new String[]{"1", "2", "3"};
+        String[] indexes = new String[]{"0", "1", "2"};
         String[] tags = new String[]{"a", "b", "c"};
         assertDoesNotThrow(() -> {
             DeleteEventCommand.newBuilder(null)
@@ -47,7 +47,7 @@ class DeleteEventCommandTest {
 
     @Test
     void execute_deleteOne_success() {
-        String index = "2";
+        String index = "1";
         assertDoesNotThrow(() -> {
             ModelManager model = new ModelManager();
             model.addEvents(
@@ -84,7 +84,7 @@ class DeleteEventCommandTest {
 
     @Test
     void execute_deleteMultiple_success() {
-        String[] indexes = new String[]{"2", "3", "4"};
+        String[] indexes = new String[]{"1", "2", "3"};
         assertDoesNotThrow(() -> {
             ModelManager model = new ModelManager();
             model.addEvents(
@@ -109,7 +109,7 @@ class DeleteEventCommandTest {
 
     @Test
     void execute_deleteMultipleInvalidIndexes_failed() {
-        String[] indexes = new String[]{"1", "2", "3"};
+        String[] indexes = new String[]{"0", "1", "2"};
         assertThrows(CommandException.class, () -> {
             ModelManager model = new ModelManager();
             model.addEvents(

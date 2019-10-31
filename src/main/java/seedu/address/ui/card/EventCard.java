@@ -46,6 +46,12 @@ public class EventCard extends Card {
     @FXML
     private HBox eventTags;
 
+    @FXML
+    private Label eventIndex;
+
+    @FXML
+    private StackPane eventIndexBase;
+
     /**
      * Constructor for the EventCard, which displays the information of a particular event.
      * This is used for ListPanel.
@@ -54,8 +60,9 @@ public class EventCard extends Card {
      */
     public EventCard(EventSource event, Integer index) {
         super(FXML);
-        eventName.setText(index + ". " + event.getDescription());
+        eventName.setText(event.getDescription());
         eventStartDate.setText("Start Date: " + event.getStartDateTime().toEnglishDateTime());
+        eventIndex.setText("[" + index + "]");
         addOptions(event);
     }
 
@@ -69,6 +76,7 @@ public class EventCard extends Card {
         super(FXML);
         eventName.setText(event.getDescription());
         eventStartDate.setText("Start Date: " + event.getStartDateTime().toEnglishDateTime());
+        eventIndexBase.getChildren().remove(eventIndex);
         addOptions(event);
     }
 
