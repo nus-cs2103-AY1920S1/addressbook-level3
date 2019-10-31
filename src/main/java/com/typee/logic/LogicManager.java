@@ -7,12 +7,10 @@ import java.util.logging.Logger;
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
-import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.InteractiveParser;
 import com.typee.logic.interactive.parser.Parser;
-import com.typee.logic.parser.TypeeParser;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyEngagementList;
@@ -44,7 +42,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        interactiveParser.parseCommand(commandText);
+        interactiveParser.parseInput(commandText);
         commandResult = interactiveParser.fetchResult();
         if (interactiveParser.hasParsedCommand()) {
             commandResult = interactiveParser.makeCommand().execute(model);

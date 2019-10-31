@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser;
+package com.typee.logic.interactive.parser.state;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ import com.typee.logic.parser.exceptions.ParseException;
 public interface State {
     void processInput(String commandText);
 
-    State transition(Map<String, String> arguments) throws ParseException;
+    State transition(Map<String, String> arguments);
 
     String getStateConstraints();
 

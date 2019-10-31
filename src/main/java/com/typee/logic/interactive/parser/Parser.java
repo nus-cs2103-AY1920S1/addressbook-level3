@@ -2,23 +2,32 @@ package com.typee.logic.interactive.parser;
 
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
+import com.typee.logic.interactive.parser.state.State;
 
 public class Parser implements InteractiveParser {
+
+    private static String MESSAGE_CLEAR_ALL = "// clear";
 
     private boolean isActive;
     private State currentState;
 
     public Parser() {
         this.currentState = null;
-    }
-
-    public boolean isActive() {
-        return isActive;
+        this.isActive = false;
     }
 
     @Override
-    public void parseCommand(String commandText) {
+    public void parseInput(String commandText) {
+        if (commandText.equalsIgnoreCase(MESSAGE_CLEAR_ALL)) {
+            resetParser();
+            return;
+        }
 
+        if (isActive) {
+            parseActive(commandText);
+        } else {
+            parseInactive(commandText);
+        }
     }
 
     @Override
@@ -36,5 +45,9 @@ public class Parser implements InteractiveParser {
         return null;
     }
 
+    private void resetParser() {
+        this.isActive = false;
+        this.currentState = null;
+    }
 
 }
