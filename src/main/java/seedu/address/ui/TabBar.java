@@ -23,9 +23,9 @@ public class TabBar extends UiPart<Region> {
     public TabBar(OmniPanel omniPanel) {
         super("TabBar.fxml");
 
-        ObservableList<Node> ols = tabBar.getChildren();
-
         Platform.runLater(() -> omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex)));
+
+        ObservableList<Node> ols = tabBar.getChildren();
 
         tabBar.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             int size = ols.size();
@@ -49,6 +49,7 @@ public class TabBar extends UiPart<Region> {
 
         ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(mouseEvent.getTarget())));
+            tabBar.requestFocus();
         }));
     }
 
@@ -56,7 +57,6 @@ public class TabBar extends UiPart<Region> {
      * Selects the TabBar's tile using index.
      */
     public void selectTabUsingIndex(int selectedIndex) {
-        tabBar.requestFocus();
         this.selectedIndex = selectedIndex;
         ObservableList<Node> ols = tabBar.getChildren();
         ols.forEach(iv -> iv.getStyleClass().setAll("unselected-tab"));
