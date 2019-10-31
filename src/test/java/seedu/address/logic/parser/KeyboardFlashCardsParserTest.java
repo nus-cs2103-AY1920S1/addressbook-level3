@@ -21,10 +21,10 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.logic.commands.EndTestCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindAnswerCommand;
+import seedu.address.logic.commands.SearchAnswerCommand;
 import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.logic.commands.SearchCommand;
-import seedu.address.logic.commands.FindQuestionCommand;
+import seedu.address.logic.commands.SearchQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAllCommand;
 import seedu.address.logic.commands.RateQuestionCommand;
@@ -102,18 +102,18 @@ public class KeyboardFlashCardsParserTest {
     @Test
     public void parseCommand_findQuestion() throws Exception {
         List<String> keywords = Arrays.asList("what", "cs2101");
-        FindQuestionCommand command = (FindQuestionCommand) parser.parseCommand(
-            FindQuestionCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindQuestionCommand(new QuestionContainsAnyKeywordsPredicate(keywords)), command);
+        SearchQuestionCommand command = (SearchQuestionCommand) parser.parseCommand(
+            SearchQuestionCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchQuestionCommand(new QuestionContainsAnyKeywordsPredicate(keywords)), command);
 
     }
 
     @Test
     public void parseCommand_findAnswer() throws Exception {
         List<String> keywords = Arrays.asList("C", "cs2101");
-        FindAnswerCommand command = (FindAnswerCommand) parser.parseCommand(
-                FindAnswerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindAnswerCommand(new AnswerContainsAnyKeywordsPredicate(keywords)), command);
+        SearchAnswerCommand command = (SearchAnswerCommand) parser.parseCommand(
+                SearchAnswerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchAnswerCommand(new AnswerContainsAnyKeywordsPredicate(keywords)), command);
     }
 
     @Test

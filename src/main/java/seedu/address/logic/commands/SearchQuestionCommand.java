@@ -13,9 +13,9 @@ import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
  * Finds and lists all flashcards in address book whose question contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindQuestionCommand extends Command {
+public class SearchQuestionCommand extends Command {
 
-    public static final String COMMAND_WORD = "findq";
+    public static final String COMMAND_WORD = "searchqn";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all flashcards whose questions contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
@@ -24,7 +24,7 @@ public class FindQuestionCommand extends Command {
 
     private final QuestionContainsAnyKeywordsPredicate predicate;
 
-    public FindQuestionCommand(QuestionContainsAnyKeywordsPredicate predicate) {
+    public SearchQuestionCommand(QuestionContainsAnyKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -40,7 +40,7 @@ public class FindQuestionCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindQuestionCommand // instanceof handles nulls
-                && predicate.equals(((FindQuestionCommand) other).predicate)); // state check
+                || (other instanceof SearchQuestionCommand // instanceof handles nulls
+                && predicate.equals(((SearchQuestionCommand) other).predicate)); // state check
     }
 }

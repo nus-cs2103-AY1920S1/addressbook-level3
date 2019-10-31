@@ -8,10 +8,10 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.FindAnswerCommand;
+import seedu.address.logic.commands.SearchAnswerCommand;
 import seedu.address.model.flashcard.AnswerContainsAnyKeywordsPredicate;
 
-public class FindAnswerCommandParserTest {
+public class SearchAnswerCommandParserTest {
 
     private FindAnswerCommandParser parser = new FindAnswerCommandParser();
 
@@ -19,18 +19,18 @@ public class FindAnswerCommandParserTest {
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        FindAnswerCommand.MESSAGE_USAGE));
+                        SearchAnswerCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindAnswerCommand() {
         // no leading and trailing whitespaces
-        FindAnswerCommand expectedFindAnswerCommand =
-                new FindAnswerCommand(new AnswerContainsAnyKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindAnswerCommand);
+        SearchAnswerCommand expectedSearchAnswerCommand =
+                new SearchAnswerCommand(new AnswerContainsAnyKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+        assertParseSuccess(parser, "Alice Bob", expectedSearchAnswerCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindAnswerCommand);
+        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedSearchAnswerCommand);
     }
 
 }
