@@ -2,8 +2,14 @@ package dukecooks.model.mealplan;
 
 import static dukecooks.testutil.mealplan.TypicalMealPlans.BURGER_MP;
 import static dukecooks.testutil.mealplan.TypicalMealPlans.MILO_MP;
+import static dukecooks.testutil.mealplan.TypicalMealPlans.TEA_MP;
+import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
+import static dukecooks.testutil.recipe.TypicalRecipes.TEA;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +19,8 @@ import dukecooks.testutil.Assert;
 import dukecooks.testutil.mealplan.MealPlanBuilder;
 
 public class MealPlanTest {
+
+    MealPlan mealPlan = new MealPlanBuilder().build();
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
@@ -60,6 +68,24 @@ public class MealPlanTest {
         editedAlice = new MealPlanBuilder(MILO_MP)
                 .withDay7(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
         assertTrue(MILO_MP.isSameMealPlan(editedAlice));
+    }
+
+    @Test
+    public void replaceRecipe_oldRecipeNull_throwsNullExceptionError() {
+        Assert.assertThrows(NullPointerException.class, () -> mealPlan.replaceRecipe(null, MILO));
+    }
+
+    @Test
+    public void replaceRecipe_newRecipeNull_throwsNullExceptionError() {
+        Assert.assertThrows(NullPointerException.class, () -> mealPlan.replaceRecipe(MILO, null));
+    }
+
+    @Test
+    public void replaceRecipe_newRecipeNull_success() {
+        MealPlan expectedMealPlan = new MealPlanBuilder(TEA_MP).withName("Milo Plan").build();
+        MealPlan actualMealPlan = MILO_MP;
+        actualMealPlan.replaceRecipe(MILO, TEA);
+        assertEquals(expectedMealPlan, actualMealPlan);
     }
 
     @Test

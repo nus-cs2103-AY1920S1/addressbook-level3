@@ -1,5 +1,7 @@
 package dukecooks.model.mealplan.components;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -84,6 +86,9 @@ public class MealPlan {
      * and replaces it with {@code newRecipe}.
      */
     public void replaceRecipe(Recipe oldRecipe, Recipe newRecipe) {
+        requireNonNull(oldRecipe);
+        requireNonNull(newRecipe);
+
         for (RecipeName recipeName : day1) {
             if (recipeName.equals(oldRecipe.getName())) {
                 day1.remove(recipeName);
