@@ -1,16 +1,10 @@
 {
     "cards": [
         {
-            "back": "assert(f(5), 10); assert(f(4), 9);",
-            "front": "Add 5",
-            "type": "javascript"
-        },
-        {
             "back": "assert(f(10), 50);",
             "front": "another x5",
             "type": "javascript"
         }
     ],
-
     "name": "js"
 }
