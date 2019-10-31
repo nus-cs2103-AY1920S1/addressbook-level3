@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 //import seedu.address.model.scheduler.Reminder;
@@ -67,6 +68,8 @@ public interface Model {
 
     /** Returns the Notebook */
     ReadOnlyNotebook getNotebook();
+
+    boolean hasClassroom(Classroom classroom);
 
     /**
      * Returns true if a student with the same identity as {@code student} exists in the classroom.
@@ -167,4 +170,7 @@ public interface Model {
     void setLesson(Lesson target, Lesson editedLesson);
 
 
+    void addClassroom(Classroom classroom);
+    void setCurrentClassroom(Classroom classroom);
+    ObservableList<Classroom> getClassroomList();
 }

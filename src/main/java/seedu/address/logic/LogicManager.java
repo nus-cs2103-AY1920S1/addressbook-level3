@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 //import seedu.address.model.Notebook;
 import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
@@ -75,10 +76,14 @@ public class LogicManager implements Logic {
         return model.getFilteredLessonList();
     }
 
-
     @Override
     public ObservableList<Assignment> getFilteredAssignmentList() {
         return model.getFilteredAssignmentList();
+    }
+
+    @Override
+    public ObservableList<Classroom> getClassroomList() {
+        return model.getClassroomList();
     }
 
     @Override
@@ -99,4 +104,6 @@ public class LogicManager implements Logic {
     public boolean isDisplayStudents() {
         return model.isDisplayStudents();
     }
+
+
 }

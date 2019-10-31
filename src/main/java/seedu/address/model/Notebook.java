@@ -24,43 +24,22 @@ import seedu.address.model.student.Student;
 public class Notebook implements ReadOnlyNotebook {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+
     private Classroom currentClassroom;
     //private Caretaker caretaker;
     private final UniqueClassroomList classrooms;
     private final UniqueLessonList lessons;
     private final UniqueReminderList reminders;
-    //private FilteredList<Student> filteredStudents;
-    //private FilteredList<Assignment> filteredAssignments;
-    //private FilteredList<Lesson> filteredLessons;
-    //private FilteredList<Reminder> filteredReminders;
-    //private LinkedHashMap<String, Classroom> classrooms;
+
 
     {
-        //this.classrooms = new LinkedHashMap<>();
-        //Classroom newClassroom = new Classroom();
-        //classrooms.put(newClassroom.getClassroomName(),newClassroom);
-        //setCurrentClassroom(newClassroom.getClassroomName());
         //this.caretaker = new Caretaker(new Memento(currentClassroom()), this.currentClassroom());
         lessons = new UniqueLessonList();
         reminders = new UniqueReminderList();
         classrooms = new UniqueClassroomList();
-        //filteredStudents = new FilteredList<>(getStudentList());
-        //filteredAssignments = new FilteredList<>(getAssignmentList());
-        //filteredLessons = new FilteredList<>(getLessonList());
-        //filteredReminders = new FilteredList<>(getReminderList());
     }
 
     public Notebook() {
-        /*
-        if (classrooms.isEmpty()) {
-            Classroom newClassroom = new Classroom();
-            classrooms.add(newClassroom);
-            setCurrentClassroom(newClassroom);
-        } else {
-            Classroom firstClassroom = getClassroomList().get(0);
-            setCurrentClassroom(firstClassroom);
-        }
-         */
     }
 
     public Notebook(ReadOnlyNotebook toBeCopied) {
@@ -72,7 +51,7 @@ public class Notebook implements ReadOnlyNotebook {
             setCurrentClassroom(newClassroom);
         } else {
             Classroom firstClassroom = getClassroomList().get(0);
-            setCurrentClassroom(firstClassroom);
+            setCurrentClassroom(getFirstClassroom());
         }
     }
 
@@ -88,7 +67,6 @@ public class Notebook implements ReadOnlyNotebook {
     public void resetData(ReadOnlyNotebook newData) {
         requireNonNull(newData);
         setClassrooms(newData.getClassroomList());
-        //setLessons(newData.getLessonList());
     }
 
     //=========== Notebook ================================================================================
@@ -101,6 +79,11 @@ public class Notebook implements ReadOnlyNotebook {
         if (hasClassroom(classroom)) {
             this.currentClassroom = classrooms.get(classroom);
         }
+    }
+
+    public Classroom getFirstClassroom() {
+        List<Classroom> classroomList = classrooms.asUnmodifiableObservableList();
+        return classroomList.get(0);
     }
 
     public void setClassroom(ReadOnlyClassroom classroom) {
@@ -116,13 +99,6 @@ public class Notebook implements ReadOnlyNotebook {
         requireNonNull(classroom);
         return classrooms.contains(classroom);
     }
-
-    /*
-    public boolean hasClassroom(String classroomName) {
-        requireNonNull(classroomName);
-        return classrooms.contains(classroomName);
-    }
-    */
 
     /**
      * Adds the classroom to the notebook.

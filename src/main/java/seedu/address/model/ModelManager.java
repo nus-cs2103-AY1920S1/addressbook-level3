@@ -12,9 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
-//import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -26,9 +26,8 @@ public class ModelManager implements Model {
     private final Notebook notebook;
     private final UserPrefs userPrefs;
     private final Caretaker caretaker;
-    private final FilteredList<Student> filteredStudents;
-    //private FilteredList<Reminder> filteredReminders;
-    private final FilteredList<Assignment> filteredAssignments;
+    private FilteredList<Student> filteredStudents;
+    private FilteredList<Assignment> filteredAssignments;
     private final FilteredList<Lesson> filteredLessons;
 
     /**
@@ -110,6 +109,28 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyNotebook getNotebook() {
         return notebook;
+    }
+
+    @Override
+    public boolean hasClassroom(Classroom classroom) {
+        return notebook.hasClassroom(classroom);
+    }
+
+    @Override
+    public void addClassroom(Classroom classroom) {
+        notebook.addClassroom(classroom);
+    }
+
+    @Override
+    public void setCurrentClassroom(Classroom classroom) {
+        notebook.setCurrentClassroom(classroom);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+    }
+
+    @Override
+    public ObservableList<Classroom> getClassroomList() {
+        return notebook.getClassroomList();
     }
 
     @Override

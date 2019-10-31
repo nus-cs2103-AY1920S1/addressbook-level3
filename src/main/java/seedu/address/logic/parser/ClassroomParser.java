@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddAssignmentCommand;
+import seedu.address.logic.commands.AddClassroomCommand;
 import seedu.address.logic.commands.AddLessonCommand;
 import seedu.address.logic.commands.AddStudentCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -25,6 +26,7 @@ import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListLessonCommand;
 import seedu.address.logic.commands.ListStudentCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetClassroomCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateGradesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -55,6 +57,12 @@ public class ClassroomParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case SetClassroomCommand.COMMAND_WORD:
+            return new SetClassroomCommandParser().parse(arguments);
+
+        case AddClassroomCommand.COMMAND_WORD:
+            return new AddClassroomCommandParser().parse(arguments);
 
         case ListAssignmentCommand.COMMAND_WORD:
             return new ListAssignmentCommand();

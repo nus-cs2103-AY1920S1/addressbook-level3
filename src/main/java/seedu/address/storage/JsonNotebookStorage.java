@@ -47,7 +47,7 @@ public class JsonNotebookStorage implements NotebookStorage {
 
         Optional<JsonSerializableNotebook> jsonNotebook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableNotebook.class);
-        if (!jsonNotebook.isPresent()) {
+        if (jsonNotebook.isEmpty()) {
             return Optional.empty();
         }
 
@@ -60,6 +60,7 @@ public class JsonNotebookStorage implements NotebookStorage {
     }
 
     @Override
+
     public void saveNotebook(ReadOnlyNotebook notebook) throws IOException {
         saveNotebook(notebook, filePath);
     }

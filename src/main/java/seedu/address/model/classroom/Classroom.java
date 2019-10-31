@@ -63,6 +63,14 @@ public class Classroom implements ReadOnlyClassroom {
         return this.classroomName;
     }
 
+    public String getStudentLength() {
+        return students.getLength();
+    }
+
+    public String getAssignmentLength() {
+        return assignments.getLength();
+    }
+
     /**
      * Replaces the contents of the student list with {@code students}.
      * {@code students} must not contain duplicate students.
@@ -174,7 +182,7 @@ public class Classroom implements ReadOnlyClassroom {
 
     @Override
     public String toString() {
-        return students.asUnmodifiableObservableList().size() + " students";
+        return classroomName;
         // TODO: refine later
     }
 

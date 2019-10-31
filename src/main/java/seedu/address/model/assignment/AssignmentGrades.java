@@ -61,7 +61,7 @@ public class AssignmentGrades {
      * Removes the key-value pair for key: studentName.
      */
     public void addOneStudentGrade (String studentName) {
-        assignmentGrades.put(studentName, "Did not do");
+        assignmentGrades.put(studentName, "Not submitted.");
     }
 
     /**
