@@ -138,11 +138,11 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         graphTab = new Tab("Graph");
-        graphPanel = new GraphPanel(logic.getGraphData());
+        graphPanel = new GraphPanel(logic.getGraphData(), "Graph for all dates\n");
         graphTab.setContent(graphPanel.getRoot());
 
         statsTab = new Tab("Statistics");
-        statsPanel = new StatsPanel(logic.getStatsData());
+        statsPanel = new StatsPanel(logic.getStatsData(), "Statistics for all dates\n");
         statsTab.setContent(statsPanel.getRoot());
 
         tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);
@@ -207,15 +207,15 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             if (commandResult.isShowGraph()) {
-                graphPanel = new GraphPanel(logic.getGraphData());
+                graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser());
                 graphTab.setContent(graphPanel.getRoot());
                 tabPanePlaceholder.getSelectionModel().select(graphTab);
             }
 
             if (commandResult.isShowStats()) {
-                statsPanel = new StatsPanel(logic.getStatsData());
+                statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser());
                 statsTab.setContent(statsPanel.getRoot());
-                tabPanePlaceholder.getSelectionModel().select(graphTab);
+                tabPanePlaceholder.getSelectionModel().select(statsTab);
             }
 
             return commandResult;

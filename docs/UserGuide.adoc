@@ -16,6 +16,7 @@ endif::[]
 
 By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 *MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
@@ -66,6 +67,7 @@ e.g. typing *`help`* will display the help information.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+// end::introduction[]
 
 [[Features]]
 == Features
@@ -277,11 +279,6 @@ Returns a list of spending with `food` or `leisure` tags.
 * `find d/yesterday d/today t/food t/leisure` +
 Returns a list of spending within `yesterday` and `today` that have `food` or `leisure` tags.
 
-=== Listing all tags : `ltags`
-Displays a list of all tags. +
-
-Format: `ltags`
-
 === Setting monthly budget : `budget`
 Sets a budget for the current month in Singapore dollars. +
 Format: `budget MONTHLY_BUDGET` +
@@ -314,6 +311,7 @@ Format: `exchangerate`
 [NOTE]
 Only supported currencies (SGD, USD, EUR, IDR, MYR, INR, MMK) are shown.
 
+// tag::statistics[]
 === Generating statistics : `stats`
 Returns an overview of the spending in the form of a pie chart, with each sector representing a tag as shown in Figure 3.
 Each sector is labelled with the name and total expenditure for the tag, allowing you to better analyze your spending habits.
@@ -344,7 +342,9 @@ Generates statistics for spending that fall between and including 01/01/2019 and
 * `stats` +
 Generates statistics for all spending.
 
+// end::statistics[]
 
+// tag::graph[]
 === Graphing the data : `graph`
 Shows a graph of total cost spent in a day against date in the form of a line graph as seen in Figure 4.
 This allows users to view trends in their spending over a specified period of time.
@@ -373,6 +373,8 @@ Examples:
 Generates a graph for spending that fall between and including 01/01/2019 and 07/01/2019.
 * `graph` +
 Generates a graph for all spending.
+
+// end::graph[]
 
 === Adding a reminder: `reminder add`
 Adds a reminder to the reminder list
@@ -410,7 +412,7 @@ Examples: +
 * `import p/C:\Users\User\Documents\importfile.csv`
 * `import p/~/data.csv`
 
-=== Exporting data : `export`
+=== Exporting data : `export` `[Coming in v2.0]`
 Exports data to a CSV file specified by file path. +
 
 Format: export `p/FILE_PATH` +
@@ -421,7 +423,7 @@ Examples: +
 * `export p/C:\data.csv`
 * `export p/~/data.csv`
 
-=== Undoing previous command : `undo`
+=== Undoing previous command : `undo` `[Coming in v2.0]`
 Restores the list of spending to the state before the previous undoable command was executed. +
 
 Format: `undo` +
@@ -444,7 +446,7 @@ Examples: +
 `undo` (reverses the add n/textbook c/100 command) +
 `undo` (reverses the delete 1 command)
 
-=== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command : `redo` `[Coming in v2.0]`
 Reverses the most recent undo command. +
 
 Format: `redo` +
@@ -501,7 +503,6 @@ e.g. `delete 123`
 e.g. `sort d/DESC c/ASC` +
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
 e.g. `find n/apple orange c/1.00-200.00 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
-| *List all tags*| `ltags` +
 | *Budget* | `budget MONTHLY_BUDGET` +
 e.g. `budget 18000`
 | *Show Budget* | `showbudget` +

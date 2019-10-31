@@ -18,7 +18,6 @@ import seedu.moneygowhere.model.spending.Spending;
 public class StatsCommand extends Command {
 
     public static final String COMMAND_WORD = "stats";
-    public static final String MESSAGE_SUCCESS = "Successfully updated the statistics panel.\n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Updates the statistics panel.\n"
@@ -34,7 +33,9 @@ public class StatsCommand extends Command {
         + "DATE_START being earlier or equal to DATE_END.\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DATE + "today "
-        + PREFIX_DATE + "tomorrow ";;
+        + PREFIX_DATE + "tomorrow ";
+
+    private String messageSuccess;
 
     private final Logger logger = Logger.getLogger("Statistics Logger");
 
@@ -48,6 +49,7 @@ public class StatsCommand extends Command {
     public StatsCommand() {
         startDate = null;
         endDate = null;
+        messageSuccess = "Statistics for all dates\n";
     }
 
     /**
@@ -58,6 +60,7 @@ public class StatsCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
+        messageSuccess = String.format("Statistics for spending between %s and %s\n", startDate, endDate);
     }
 
     @Override
@@ -66,7 +69,7 @@ public class StatsCommand extends Command {
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
         model.updateStatsPredicate(getStatsPredicate());
         logger.log(Level.INFO, String.format("Showing statistics from %s to %s", startDate, endDate));
-        return new CommandResult(MESSAGE_SUCCESS, false, true, false);
+        return new CommandResult(messageSuccess, false, true, false);
     }
 
     public Predicate<Spending> getStatsPredicate() {

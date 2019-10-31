@@ -10,7 +10,7 @@ import static seedu.moneygowhere.commons.util.AppUtil.checkArgument;
 public class Cost implements Comparable<Cost> {
 
     public static final String MESSAGE_CONSTRAINTS = "Cost must be a number with at most 2 decimal places, "
-        + "and it should not be blank.";
+        + "and it should not be blank. The maximum cost allowed is $1 billion (1 000 000 000).";
 
     /*
      * The first character of the cost must not be a whitespace,
@@ -36,7 +36,7 @@ public class Cost implements Comparable<Cost> {
      * Returns true if a given string is a valid cost.
      */
     public static boolean isValidCost(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && Double.parseDouble(test) <= 1000000000;
     }
 
     @Override

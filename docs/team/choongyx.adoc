@@ -1,0 +1,104 @@
+= Choong Yong Xin - Project Portfolio for MoneyGoWhere
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About the Project
+
+MoneyGoWhere is a finance application built by my team and I as part of a Software Engineering Project.
+It was morphed from a basic command line interface Address Book.
+MoneyGoWhere is designed to help students to keep track of all their spending and their related information such as date, cost and tags.
+Notable features include allowing users to set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
+
+=== My Role
+
+My  role was to implement the statistics and graph features which are essential in allowing users analyze their spending habits.
+The following sections will illustrate these features in greater detail.
+These include the implementation details and also other contributions and relevant sections I have recorded in the User Guide and Developer Guide.
+
+Below are a few icons and formatting which will be used in this document.
+
+[NOTE]
+Important information that should be noted.
+
+[TIP]
+Tips that can help you better navigate the application.
+
+`test`: Command to be executed or a component, class or object in the architecture of the application.
+
+====
+Additional useful information for this section.
+====
+
+
+== Summary of contributions
+
+This section shows a summary of contributions I have made for the project.
+
+* *Major enhancement*: I implemented the *statistics feature*.
+** What it does: It allows the user to view their spending in the form of a pie-chart which organises the user's expenditure based on tags.
+** Justification: This feature enhances the product significantly as it enables users to view their spending in the form of figures which is easier to read than text.
+It allows them to be more informed of their spending habits as they will be more aware of what they have spent their money on.
+** Highlights: This enhancement required an in-depth understanding of the software architecture as it involves multiple components of the application.
+
+* *Minor enhancement*: I implemented the *graph feature*.
+** What it does: It allows the user to view their spending in the form of a graph based on a date range provided.
+** Justification: This enables the user to easily track their spending by providing an overview of their spending within a specified date range.
+** Highlights: This enhancement also required an in-depth understanding of the software architecture as it involves multple components of the application.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=choongyx[Collated code]]
+* *Other contributions*:
+
+** Project management:
+*** Helped track issues on the team repository using labels, milestones and project card.
+
+** Enhancements to existing features:
+*** Refactored and modified existing class `Address` to `Cost` to fit the needs of our application.
+(Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/61)[#61],
+https://github.com/AY1920S1-CS2103T-F13-3/main/pull/67[#67],
+https://github.com/AY1920S1-CS2103T-F13-3/main/pull/71[#71])
+
+** Documentation:
+*** Vetted and formatted the entire User Guide after individual contributions by team members. (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/101[#101])
+*** Reviewed team member's documentations. (Pull requests
+https://github.com/AY1920S1-CS2103T-F13-3/main/pull/80[#80]
+https://github.com/AY1920S1-CS2103T-F13-3/main/pull/85[#85],
+https://github.com/AY1920S1-CS2103T-F13-3/main/pull/98[#98])
+*** Updated Quick Start section and created a set of symbols/legends for User Guide (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/50/files[#50], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/101[#101])
+*** Collated and updated profiles for all members of the team. (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/7/files[#7])
+
+** Community:
+*** PRs reviewed with non-trivial review comments (Pull requests
+https://github.com/AY1920S1-CS2103T-F13-3/main/pull/62)[#62],
+https://github.com/AY1920S1-CS2103T-F13-3/main/pull/70[#70],
+https://github.com/AY1920S1-CS2103T-F13-3/main/pull/81[#81]
+)
+*** Conducted manual testing, reported bugs and offered suggestions for our team
+(Examples: https://github.com/AY1920S1-CS2103T-F13-3/main/issues/128[1],
+https://github.com/AY1920S1-CS2103T-F13-3/main/issues/122[2],
+https://github.com/AY1920S1-CS2103T-F13-3/main/issues/125[3],
+https://github.com/AY1920S1-CS2103T-F13-3/main/issues/124[4],
+https://github.com/AY1920S1-CS2103T-F13-3/main/issues/120[5],
+https://github.com/AY1920S1-CS2103T-F13-3/main/issues/115[6],
+https://github.com/AY1920S1-CS2103T-F13-3/main/issues/114[7],
+https://github.com/AY1920S1-CS2103T-F13-3/main/issues/119[8])
+*** Conducted manual testing, reported bugs and offered suggestions for other teams in the class
+
+== Contributions to the User Guide
+
+Given below are sections I contributed to the User Guide, which include the Introduction, How To Use This Guide, Quick Start, Statistics feature and Graph feature.
+
+include::../UserGuide.adoc[tag=introduction]
+
+include::../UserGuide.adoc[tag=statistics]
+
+include::../UserGuide.adoc[tag=graph]
+
+== Contributions to the Developer Guide
+
+Given below are sections on the implementation of the Statistics feature and Graph feature I have worked on.
+
+include::../DeveloperGuide.adoc[tag=statistics]
+include::../DeveloperGuide.adoc[tag=graph]
+
+
