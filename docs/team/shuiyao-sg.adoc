@@ -1,0 +1,45 @@
+= Shui Yao - Project Portfolio for NUStudy
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+This portfolio is to document my contributions to project NUStudy, which is a software engineering project under Module
+CS2103T at National University of Singapore. Our team consists of five students majoring in Computer Science. We decided
+to morph an existing Java application https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book 3] into
+NUStudy, which is a desktop application with command line for user input and a JavaFX GUI for display. NUStudy supports
+notes management, quiz practice, revision task records, and usage statistics to help with revision.
+
+You may take note of the following symbols and formatting used in this portfolio: +
+`overdue` - The monospaced text indicate that it is a user input. +
+_Task_ - An italicised word indicates that it is a class name. +
+#11 - A number with # sign indicates the Pull Request or Issue number. +
+PR - Abbreviation for "Pull Request".
+
+== Summary of Contributions
+This section is to summarise my contributions to the project, including feature enhancements, documentation and project
+management.
+
+* Major Enhancement: I implemented revision tasks, which have attributes of a heading, a starting date and time
+(starting from PR https://github.com/AY1920S1-CS2103T-F11-4/main/pull/37[#37]).
+** What it does: This feature supports tasks for revision of a note or a question at a particular point of time. It is
+implemented as _Task_ class stored in a revision list which is implemented as _TaskList_ class. I also implemented
+commands (_AddTaskForNoteCommand_, _DoneTaskCommand_ etc.) to support operations on tasks.
+** Justification: This feature allows users to set their revision plans and goals. It makes the revision more structured
+and organised. It helps to stop procrastination to some extent. In the future release *v2.0*, this feature will also
+support desktop push notification to remind the users to start their revision.
+** Highlights: This enhancement is dependent on _Note_ and _Question_ classes implemented by my teammates. There might
+be regressions of my task features if my teammates decide to change their implementations of _Note_ or _Question_.
+Therefore, I did a thorough analysis of the design pattern and the project architecture to use as least information as
+possible from their classes in order to reduce coupling.
+
+* Minor Enhancement
+
+* Code Contributed
+
+* Other Contributions
+
+== Contributions to the User Guide
+
+== Contributions to the Developer Guide
