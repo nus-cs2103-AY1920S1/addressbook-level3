@@ -242,6 +242,15 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Reminder Default Feature
+
+==== Implementation
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remDefault r/3")` API call.
+
+.Interactions Inside the Logic Component for the `remDefault r/3` Command
+image::RemDefault.png[]
+
 === Waste Report Feature
 
 ==== Implementation
