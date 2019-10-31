@@ -113,9 +113,9 @@ public class Event {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\nStart DateTime: ")
-                .append(getStartDateTime()..format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm"))
+                .append(getStartDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")))
                 .append("\nEnd DateTime: ")
-                .append(getEndDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")))
+                .append(getEndDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
                 //Removed duration portion of string as requested in team meeting.
 
         return builder.toString();
