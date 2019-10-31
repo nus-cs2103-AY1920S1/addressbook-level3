@@ -18,6 +18,7 @@ import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.food.exceptions.InvalidAmountException;
 
 
 /**
@@ -144,7 +145,11 @@ public class AddTemplateShoppingCommand extends Command {
         for (int i = 0; i < groceryList.size(); i++) {
             GroceryItem g = groceryList.get(i);
             if (g.isSameName(toCheck) && !g.hasExpired()) {
-                reqAmt = reqAmt.reduceBy(g.getAmount());
+                try {
+                    reqAmt = reqAmt.reduceBy(g.getAmount());
+                } catch (InvalidAmountException e) {
+                    reqAmt = new Amount("0" + reqAmt.getUnit(reqAmt));
+                }
             }
         }
         return createShoppingItem(itemName, reqAmt);
