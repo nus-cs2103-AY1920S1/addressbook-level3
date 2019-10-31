@@ -29,9 +29,16 @@ public class SetCommandParser implements Parser<SetCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
         }
+
         /* handles negative amount */
         if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
             throw new ParseException(String.format(SetCommand.MESSAGE_AMOUNT_NEGATIVE));
+        }
+
+        /* handles 0 value */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)) {
+            throw new ParseException(String.format(SetCommand.MESSAGE_AMOUNT_ZERO));
+
         }
 
         /* handles amount above 1billion */
