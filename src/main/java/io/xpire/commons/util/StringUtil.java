@@ -22,6 +22,10 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import io.xpire.commons.core.Messages;
 import io.xpire.model.item.Name;
 import io.xpire.model.tag.Tag;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 /**
  * Helper functions for handling strings.
@@ -249,23 +253,21 @@ public class StringUtil {
     }
 
     /**
-     * Returns a byte array representing the QR code-encoded text
+     * Returns the byte array representing the QR code-encoded text
      *
      * @param text The string to be encoded.
      * @param length The size of the QR code
-     * @return Byte array representing the QR code generated.
+     * @return The byte array of the QR code-encoded text
      */
-    public byte[] getQrCode(String text, int length) {
+    public static byte[] getQrCode(String text, int length) {
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, length, length);
-
             ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-            MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
-            byte[] pngData = pngOutputStream.toByteArray();
-            return pngData;
+            MatrixToImageWriter.writeToStream(bitMatrix, "png", pngOutputStream);
+            return pngOutputStream.toByteArray();
         } catch (WriterException | IOException e) {
-            return new byte[]{};
+            return new byte[0];
         }
     }
 }
