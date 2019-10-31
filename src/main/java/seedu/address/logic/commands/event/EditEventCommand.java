@@ -30,6 +30,7 @@ import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 /**
  * Edits the details of an existing event in the event book.
@@ -75,8 +76,12 @@ public class EditEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> lastShownList = model.getFilteredEventList();
-
+        List<Event> lastShownList;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownList = model.getFilteredEventList();
+        } else {
+            lastShownList = model.getFilteredScheduledEventList();
+        }
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }

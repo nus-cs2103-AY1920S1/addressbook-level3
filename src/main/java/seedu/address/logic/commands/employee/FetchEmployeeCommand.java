@@ -46,7 +46,7 @@ public class FetchEmployeeCommand extends Command {
         model.updateEmployeeDistinctDateList(distinctDates);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, employeeToFetch.getEmployeeName()), false,
-                false, index.getZeroBased(), "Employee");
+                false, index.getZeroBased(), "Employee_Fetch");
     }
 
     @Override

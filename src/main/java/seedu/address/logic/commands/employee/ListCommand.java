@@ -23,6 +23,7 @@ public class ListCommand extends Command {
         requireNonNull(model);
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.updateFilteredScheduledEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -15,6 +15,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.EventContainsKeyDatePredicate;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDayTime;
+import seedu.address.ui.MainWindow;
 
 /**
  * Assigns a Date-TimePeriod mapping to an Event.
@@ -61,8 +62,12 @@ public class AssignDateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> lastShownList = model.getFilteredEventList();
-
+        List<Event> lastShownList;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownList = model.getFilteredEventList();
+        } else {
+            lastShownList = model.getFilteredScheduledEventList();
+        }
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }

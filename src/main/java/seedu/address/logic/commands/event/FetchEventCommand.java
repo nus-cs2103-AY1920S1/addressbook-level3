@@ -43,17 +43,15 @@ public class FetchEventCommand extends Command {
         String commandType;
         if (MainWindow.getCurrentTabIndex() == 0) {
             lastShownList = model.getFilteredEventList();
-            commandType = "Event_Main";
         } else {
             lastShownList = model.getFilteredScheduledEventList();
-            commandType = "Event_Schedule";
         }
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
         Event eventToFetch = lastShownList.get(index.getZeroBased());
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch.getName()), false,
-                false, index.getZeroBased(), commandType);
+                false, index.getZeroBased(), "Event");
     }
 
     @Override

@@ -7,6 +7,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.event.EventNameContainsKeywordsPredicate;
+import seedu.address.ui.MainWindow;
 
 /**
  * Finds and lists all events in event list whose name contains any of the argument keywords.
@@ -29,7 +30,11 @@ public class FindEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredEventList(predicate);
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            model.updateFilteredEventList(predicate);
+        } else {
+            model.updateFilteredScheduledEventList(predicate);
+        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
     }

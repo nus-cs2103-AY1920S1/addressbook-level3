@@ -58,7 +58,8 @@ public class DeleteCommand extends Command {
         model.getFilteredEventList().stream()
                 .forEach(x -> model.setEvent(x, createEditedEvent(x, employeeToDelete)));
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, employeeToDelete.getEmployeeName()));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS,
+                employeeToDelete.getEmployeeName()), "Employee");
     }
 
     /**

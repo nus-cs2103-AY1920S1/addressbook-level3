@@ -262,10 +262,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             if (commandResult.getFetch() != null) {
-                if (commandResult.getType().contains("Employee")) {
+                if (commandResult.getType().equals("Employee_Fetch")) {
                     handleEmployeeFetch(commandResult.getFetch());
                 }
-                if (commandResult.getType().contains("Event")) {
+                if (commandResult.getType().equals("Event_Fetch")) {
                     handleEventFetch(commandResult.getFetch());
                 }
             }
@@ -283,11 +283,11 @@ public class MainWindow extends UiPart<Stage> {
                 selectionModel.select(1);
             }
 
-            if (commandResult.getType().equals("Main_Tab")) {
+            if (commandResult.getType().contains("Employee")) {
                 selectionModel.select(0);
             }
 
-            if (!commandResult.getType().contains("Schedule")) {
+            if (commandResult.getType().equals("Main_Tab")) {
                 selectionModel.select(0);
             }
 
