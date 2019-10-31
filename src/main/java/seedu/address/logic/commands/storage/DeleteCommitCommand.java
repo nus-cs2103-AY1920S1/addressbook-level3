@@ -15,7 +15,7 @@ import seedu.address.model.versiontracking.exception.CommitNotFoundException;
  */
 public class DeleteCommitCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletecommit";
+    public static final String COMMAND_WORD = "removecommit";
 
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Deleting a commit";
 

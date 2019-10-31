@@ -21,6 +21,7 @@ import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonModulePlannerStorage;
 import seedu.address.storage.JsonModulesInfoStorage;
@@ -75,7 +76,7 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s module planner and {@code userPrefs}. <br>
-     * The data from the sample module planner will be used instead if {@code storage}'s module planner is not found,
+     * The data from the default module planner will be used instead if {@code storage}'s module planner is not found,
      * or an empty module planner will be used instead if errors occur when reading {@code storage}'s module planner.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ModulesInfo modulesInfo) {
@@ -84,14 +85,17 @@ public class MainApp extends Application {
         try {
             modulePlannerOptional = storage.readModulePlanner(modulesInfo);
             if (modulePlannerOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with a sample ModulePlanner");
+                logger.info("Data file not found. Will be starting with a default ModulePlanner");
             }
             initialData = modulePlannerOptional.orElseGet(() -> SampleDataUtil.getSampleModulePlanner(modulesInfo));
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with a sample ModulePlanner");
+            logger.warning("Data file not in the correct format. Will be starting with a default ModulePlanner");
             initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with a sample ModulePlanner");
+            logger.warning("Problem while reading from the file. Will be starting with a default ModulePlanner");
+            initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
+        } catch (StudyPlanNotFoundException e) {
+            logger.warning("There is no active study plan. Will be starting with a default ModulePlanner");
             initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
         }
 

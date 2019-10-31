@@ -38,6 +38,7 @@ public class EditTitleCommand extends Command {
         requireNonNull(model);
         try {
             model.changeActiveStudyPlanTitle(newTitle);
+            model.addToHistory();
         } catch (InvalidTitleException e) {
             return new CommandResult(Title.MESSAGE_CONSTRAINTS);
         }

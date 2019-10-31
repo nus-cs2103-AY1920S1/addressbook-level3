@@ -372,6 +372,11 @@ public class CheckCommandTest {
         }
 
         @Override
+        public void deleteSemester(SemesterName semesterName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoModulePlanner() {
             return false;
         }
@@ -669,6 +674,11 @@ public class CheckCommandTest {
         }
 
         @Override
+        public void deleteSemester(SemesterName semesterName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoModulePlanner() {
             return false;
         }
@@ -962,6 +972,11 @@ public class CheckCommandTest {
 
         //@Override
         public void deleteAllModulesInSemester(SemesterName semesterName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteSemester(SemesterName semesterName) {
             throw new AssertionError("This method should not be called.");
         }
 

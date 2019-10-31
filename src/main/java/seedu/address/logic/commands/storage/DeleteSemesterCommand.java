@@ -11,6 +11,9 @@ import seedu.address.model.studyplan.StudyPlan;
 
 /**
  * Deletes all modules inside the specified semester in the current active study plan.
+ * If semester is a mainstream semester (i.e. not special terms or Year 5 semesters), the semester itself
+ * is not deleted, and only the modules inside is cleared. But if the semester to be deleted is a special
+ * semester or a Year 5 semester, then the whole semester will be removed from the study plan.
  */
 public class DeleteSemesterCommand extends Command {
 
@@ -21,7 +24,8 @@ public class DeleteSemesterCommand extends Command {
             + "Parameters: SEMESTER_NAME\n"
             + "Example: " + COMMAND_WORD + " y1s2";
 
-    public static final String MESSAGE_DELETE_SEMESTER_SUCCESS = "Deleted Semester: %1$s";
+    public static final String MESSAGE_DELETE_MAINSTREAM_SEMESTER_SUCCESS = "Cleared all modules in Semester: %1$s";
+    public static final String MESSAGE_DELETE_SPECIAL_SEMESTER_SUCCESS = "Deleted Semester: %1$s";
     public static final String MESSAGE_NO_ACTIVE_STUDYPLAN = "You don't have any study plan currently. Create now!";
 
     private final SemesterName semesterName;
@@ -41,9 +45,18 @@ public class DeleteSemesterCommand extends Command {
             return new CommandResult(MESSAGE_NO_ACTIVE_STUDYPLAN);
         }
 
-        model.deleteAllModulesInSemester(semesterName);
+        if (SemesterName.isMainstreamSemester(semesterName.toString())) {
+            model.deleteAllModulesInSemester(semesterName);
+            model.addToHistory();
+            return new CommandResult(String.format(MESSAGE_DELETE_MAINSTREAM_SEMESTER_SUCCESS,
+                    semesterName.toString()));
+        } else {
+            model.deleteSemester(semesterName);
+            model.addToHistory();
+            return new CommandResult(String.format(MESSAGE_DELETE_SPECIAL_SEMESTER_SUCCESS,
+                    semesterName.toString()));
+        }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_SEMESTER_SUCCESS, semesterName.toString()));
     }
 
     @Override

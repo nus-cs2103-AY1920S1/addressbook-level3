@@ -460,9 +460,7 @@ public class StudyPlan implements Cloneable {
      */
     public void deleteAllModulesInSemester(SemesterName semesterName) {
         Semester toDelete = null;
-        Iterator<Semester> iterator = semesters.iterator();
-        while (iterator.hasNext()) {
-            Semester semester = iterator.next();
+        for (Semester semester : semesters) {
             if (semester.getSemesterName().equals(semesterName)) {
                 toDelete = semester;
             }
@@ -474,6 +472,24 @@ public class StudyPlan implements Cloneable {
 
         // delete all modules inside this semester
         toDelete.clearAllModules();
+    }
+
+    /**
+     * Deletes a semester completely from a study plan. This is applicable to special terms and Year 5 semesters.
+     */
+    public void deleteSemester(SemesterName semesterName) {
+        Semester toDelete = null;
+        for (Semester semester : semesters) {
+            if (semester.getSemesterName().equals(semesterName)) {
+                toDelete = semester;
+            }
+        }
+
+        if (toDelete == null) {
+            throw new SemesterNotFoundException();
+        }
+
+        semesters.remove(toDelete);
     }
 
     /**

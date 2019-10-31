@@ -14,6 +14,7 @@ public enum SemesterName {
     Y5S1, Y5S2, Y5ST1, Y5ST2;
 
     public static final String VALIDATION_REGEX = "Y[1-5]ST?[1-2]";
+    public static final String MAINSTREAM_SEMESTER_REGEX = "Y[1-4]S[1-2]"; // NOT special terms or Y5
     public static final String MESSAGE_CONSTRAINTS = "The semester name must follow this format: " + VALIDATION_REGEX;
 
     public static SemesterName getEnum(int year, int semester) {
@@ -122,5 +123,9 @@ public enum SemesterName {
 
     public static boolean isValidSemesterName(String test) {
         return test.toUpperCase().matches(VALIDATION_REGEX);
+    }
+
+    public static boolean isMainstreamSemester(String test) {
+        return test.toUpperCase().matches(MAINSTREAM_SEMESTER_REGEX);
     }
 }

@@ -132,6 +132,11 @@ public interface Model {
      */
     void deleteAllModulesInSemester(SemesterName semesterName);
 
+    /**
+     * Deletes a semester completely from a study plan. This is applicable to special terms and Year 5 semesters.
+     */
+    void deleteSemester(SemesterName semesterName);
+
     // ===================== VERSION TRACKING ==========================
 
     /**

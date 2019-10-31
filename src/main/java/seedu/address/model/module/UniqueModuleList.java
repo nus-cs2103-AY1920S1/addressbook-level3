@@ -118,9 +118,31 @@ public class UniqueModuleList implements Iterable<Module>, Cloneable {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueModuleList // instanceof handles nulls
-                && internalList.equals(((UniqueModuleList) other).internalList));
+        if (other == this) {
+            return true; // short circuit if same object
+        }
+
+        if (!(other instanceof UniqueModuleList)) {
+            return false; // instanceof handles nulls
+        }
+
+        if (internalList.equals(((UniqueModuleList) other).internalList)) {
+            return true;
+        }
+
+        // check module list
+        try {
+            for (int i = 0; i < internalList.size(); i++) {
+                Module module1 = internalList.get(i);
+                Module module2 = ((UniqueModuleList) other).internalList.get(i);
+                if (!module1.equals(module2)) {
+                    return false;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -24,9 +24,14 @@ public class DeleteCommitCommandParser implements Parser<DeleteCommitCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommitCommand.MESSAGE_USAGE));
         }
-        int studyPlanIndex = Integer.parseInt(commitToken[0]);
-        int commitNumber = Integer.parseInt(commitToken[1]);
-        return new DeleteCommitCommand(studyPlanIndex, commitNumber);
+        try {
+            int studyPlanIndex = Integer.parseInt(commitToken[0]);
+            int commitNumber = Integer.parseInt(commitToken[1]);
+            return new DeleteCommitCommand(studyPlanIndex, commitNumber);
+        } catch (NumberFormatException e) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommitCommand.MESSAGE_USAGE));
+        }
     }
 
 }

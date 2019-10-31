@@ -155,6 +155,13 @@ public class ModelManager implements Model {
         modulePlanner.deleteAllModulesInSemester(semesterName);
     }
 
+    @Override
+    public void deleteSemester(SemesterName semesterName) {
+        requireNonNull(semesterName);
+
+        modulePlanner.deleteSemester(semesterName);
+    }
+
     //=========== Version Tracking ============================================================================
 
     @Override
@@ -251,7 +258,6 @@ public class ModelManager implements Model {
                 }
             }
         } catch (IndexOutOfBoundsException e) {
-
             return false;
         }
 
@@ -377,7 +383,7 @@ public class ModelManager implements Model {
         return modulePlanner.getSemestersFromActiveSp();
     }
 
-    public StudyPlan getStudyPlan(int index) {
+    public StudyPlan getStudyPlan(int index) throws StudyPlanNotFoundException {
         return modulePlanner.getStudyPlan(index);
     }
 

@@ -306,6 +306,11 @@ public class DescriptionCommandTest {
         }
 
         @Override
+        public void deleteSemester(SemesterName semesterName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoModulePlanner() {
             return false;
         }

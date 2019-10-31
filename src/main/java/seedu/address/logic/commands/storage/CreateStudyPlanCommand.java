@@ -28,7 +28,7 @@ public class CreateStudyPlanCommand extends Command {
             + "newplan NOC halfyear";
 
     public static final String MESSAGE_SUCCESS = "New studyPlan added: %1$s";
-    public static final String MESSAGE_DUPLICATE_STUDYPLAN = "This studyPlan already exists in the module planner";
+    public static final String MESSAGE_DUPLICATE_STUDYPLAN = "This study plan already exists in the module planner";
 
     private final String studyPlanName;
 
