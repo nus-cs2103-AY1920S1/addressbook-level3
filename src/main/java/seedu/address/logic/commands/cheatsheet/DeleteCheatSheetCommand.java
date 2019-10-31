@@ -31,6 +31,9 @@ public class DeleteCheatSheetCommand extends Command {
 
     public static boolean isSure = false;
 
+    // negative marked index to prevent access
+    public static int markedIndex = -1;
+
     private final Index targetIndex;
 
     public DeleteCheatSheetCommand(Index targetIndex) {
@@ -50,14 +53,28 @@ public class DeleteCheatSheetCommand extends Command {
         CheatSheetCommandResult commandResult = new CheatSheetCommandResult("");
         if (!isSure) {
             isSure = true;
+            // one prompt for index
+            markedIndex = this.targetIndex.getOneBased();
             throw new CommandException(MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_CHEATSHEET
                     + "\n" + cheatsheetToDelete
                     + "\n" + MESSAGE_HIT_ENTER_TO_DELETE);
         }
-        if (isSure) {
+        if (isSure && markedIndex == this.targetIndex.getOneBased()) {
+            // if this was marked
+            // this is to prevent calling delete 1 then
+            // calling delete 2
+            // user is forced to delete the same index twice in a row.
             model.deleteCheatSheet(cheatsheetToDelete);
             isSure = false;
+            markedIndex = -1; // reset to -1 to prevent wrong access
             commandResult = new CheatSheetCommandResult(String.format(MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
+        }
+        if (isSure) {
+            // user is sure he wants to delete but changed the index
+            markedIndex = this.targetIndex.getOneBased();
+            throw new CommandException(MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_CHEATSHEET
+                    + "\n" + cheatsheetToDelete
+                    + "\n" + MESSAGE_HIT_ENTER_TO_DELETE);
         }
         return commandResult;
     }

@@ -26,6 +26,10 @@ public class Messages {
             + "provided is invalid";
     public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_CHEATSHEET = "Are you sure you would like "
             + "to delete the following cheatsheet?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_FLASHCARD = "Are you sure you would like "
+            + "to delete the following flashcard?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_NOTE = "Are you sure you would like "
+            + "to delete the following note?";
     public static final String MESSAGE_HIT_ENTER_TO_DELETE = "Hit enter again to confirm your deletion.";
 
 
