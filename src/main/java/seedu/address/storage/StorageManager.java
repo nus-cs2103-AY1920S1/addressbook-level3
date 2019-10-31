@@ -66,6 +66,9 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveIncidentManager(ReadOnlyIncidentManager incidentManager) throws IOException {
+        assert(incidentManager != null);
+        assert(incidentManagerStorage != null);
+        assert(incidentManagerStorage.getIncidentManagerFilePath() != null);
         saveIncidentManager(incidentManager, incidentManagerStorage.getIncidentManagerFilePath());
     }
 

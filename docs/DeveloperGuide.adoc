@@ -341,11 +341,13 @@ image::NewDraftSequenceDiagramManual.png[]
 ===== Aspect: How incident draft creation executes
 
 * **Alternative 1:** Auto assignment of vehicles
-** Pros: Reduces number of steps of execution.
-** Cons: User does not get to choose vehicle to dispatch.
+** Pros:
+*** Reduces number of steps of execution.
+*** User need not waste time on decision making; an available vehicle will be dispatched directly, and if no vehicles are available, user will be notified as well.
+** Cons: User does not get to choose vehicle to dispatch, especially if vehicle of a specific type is wanted.
 * **Alternative 2:** Manual assignment of vehicles
-** Pros: User is able to choose vehicle to dispatch.
-** Cons: More number of steps.
+** Pros: User is able to choose vehicle to dispatch, especially if a specific vehicle type is wanted.
+** Cons: More number of steps, potentially a waste of time.
 // end::incidentdraftcreation[]
 
 // tag::incidentfillandsubmit[]
@@ -548,10 +550,10 @@ image::EditCommandSequence.png[]
 
 The vehicle search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
 
-* Unfiltered - Displays all vehicles in `Model`
-* District - Displays all vehicles with exact matches in `District district` in `Vehicle vehicle`
-* Vehicle Number - Displays all vehicles with exact matches in `VehicleNumber vehicleNumber` in `Vehicle vehicle`
-* Vehicle Type - Displays all vehicles with exact matches in `VehicleType vehicleType` in `Vehicle vehicle`
+* Unfiltered - Displays all vehicles in `Model`.
+* District - Displays all vehicles with `District district` in list of specified districts.
+* Vehicle Number - Displays all vehicles with `VehicleNumber vehicleNumberKeyword` in `Vehicle vehicle`. Need not be exact matches.
+* Vehicle Type - Displays all vehicles with exact matches in `VehicleType vehicleType` in `Vehicle vehicle`.
 
 The vehicle search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Vehicle> filteredVehicles`, which internally stores the list of displayed vehicles in the GUI. Additionally, it implements the following key method:
 
@@ -561,26 +563,33 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 
 ===== Aspect: How vehicle search keyword is inputted
 
-* **Current choice:** Parse user input after flag (eg. `ds\` or `vnum\`)
+* **Current choice:** Parse user input after flag (eg. `ds/` or `vnum/`)
 ** Pros:
 *** Easy to implement.
 *** Reduce number of steps of input, more efficient.
 ** Cons:
 *** Have to parse keyword from command and flag, user has to follow style of flag for successful search.
+*** User might confuse relevant flags, eg ds/ and l/, as they both pertain to districts.
+*** User might have to remember too many flags.
 * **Alternative 2:** Prompt user for search input
-** Pros: Separates command from keyword for ease of reading and parsing.
+** Pros:
+*** Separates command from keyword for ease of reading and parsing.
+*** User need not remember flags and will not confuse flags, just key in information as prompted.
 ** Cons:
 *** Difficult to implement multi-command execution.
 *** Requires multiple steps of input, slower and less efficient.
 
-===== Aspect: How listing all incidents is called
+===== Aspect: How listing all vehicles is called
 
-* **Current choice:** Utilise separate command `vehicles`
-** Pros: Easy to implement.
-** Cons: Might not be very intuitive; user might prefer action words like `list vehicles"
-* **Alternative 2:** Utilise `list` command (eg. `list vehicles`)
-** Pros: Intuitive and clear.
-** Cons: More keywords to parse.
+* **Current choice:** Utilise separate command `list-v`
+** Pros:
+*** Intuitive to user, as it contains clear action word.
+*** Consistent with other list commands.
+** Cons:
+*** Some users might find it more intuitive to simply call `vehicles`.
+* **Alternative 2:** Utilise separate command `vehicles`
+** Pros: Intuitive for some.
+** Cons: Appears separate from other list commands even though they are of the same nature and implemented similarly.
 
 === Logging
 
