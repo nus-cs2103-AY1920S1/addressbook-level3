@@ -45,7 +45,6 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Imported all spending. \nAdded %s spending.";
     public static final String MESSAGE_SUCCESS_WITH_ERRORS = "Imported %s spending. "
             + "\nThe following line has errors and were not imported:\n%s";
-    public static final String MESSAGE_INVALID_FILEPATH = "This filepath is invalid.";
 
     private final FilePath fullFilePath;
 
@@ -61,13 +60,13 @@ public class ImportCommand extends Command {
      * @throws ParseException If the input cannot be parsed
      */
     private static Spending createSpending(Map<String, String> map) throws ParseException {
-        String metaName = map.get("Name"); // Name
-        String metaCost = map.get("Cost"); // Cost
-        String metaDate = map.get("Date"); // Date
-        String metaRemarks = map.get("Remarks"); // Remarks
-        String metaTags = map.get("Tag"); // Tags
+        String metaName = map.get("name"); // Name
+        String metaCost = map.get("cost"); // Cost
+        String metaDate = map.get("date"); // Date
+        String metaRemarks = map.get("remark"); // Remarks
+        String metaTags = map.get("tagged"); // Tags
 
-        String[] tags = metaTags.split(",");
+        String[] tags = metaTags.split(";|,");
 
         Name name = ParserUtil.parseName(metaName);
         Date date = ParserUtil.parseDate(metaDate);

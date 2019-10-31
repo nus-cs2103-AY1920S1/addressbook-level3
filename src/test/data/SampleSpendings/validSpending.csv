@@ -1,3 +1,4 @@
-Name,Cost,Date,Tag,Remarks
-Buy Apples,100,17/10/2019,"juicy","Fuji"" Apple"
-Buy Pears,100,17/10/2019,"yummy","Korean Pear"
+name,cost,date,tagged,remark
+Buy Apples,100,17/10/2019,juicy,"Fuji"" Apple"
+Buy Pears,100,17/10/2019,yummy,"Korean Pear"
+Buy Mangoes,100,17/10/2019,"yummy,nice","US Mango"
