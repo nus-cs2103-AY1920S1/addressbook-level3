@@ -24,8 +24,10 @@ class JavaRunnerTest {
         FileWriter fw = new FileWriter(file);
         fw.write(code);
         fw.close();
-        String result = JavaRunner.compileAndRun("./src/test"
+        JavaRunner.compile("./src/test"
                 + "/java/dream/fcard/util/data/Test.java");
-        assertEquals("\nHello from JavaRunnerTest\n", result);
+        String result = JavaRunner.runJava("./src/test"
+                + "/java/dream/fcard/util/data/Test.java");
+        assertEquals("Hello from JavaRunnerTest\n", result);
     }
 }

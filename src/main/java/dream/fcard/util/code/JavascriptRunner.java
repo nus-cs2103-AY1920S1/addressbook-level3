@@ -53,7 +53,7 @@ public class JavascriptRunner {
             } else {
                 return consoleLogs;
             }
-        } catch (Exception e) {
+        } catch (StackOverflowError | Exception e) {
             return e.toString();
         } finally {
             Context.exit();

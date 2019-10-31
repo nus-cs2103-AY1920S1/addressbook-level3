@@ -297,6 +297,6 @@ public class Deck implements JsonInterface {
     }
 
     public Deck duplicateMyself() {
-        return new Deck(DeepCopy.duplicateCards(this.cards), this.deckName);
+        return new Deck(DeepCopy.duplicateCards(cards), deckName);
     }
 }

@@ -3,11 +3,10 @@ package dream.fcard.model.cards;
 import java.util.ArrayList;
 
 import dream.fcard.model.TestCase;
-import dream.fcard.model.exceptions.IndexNotFoundException;
+import dream.fcard.util.DeepCopy;
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
- * TODO wait for Haliq's javacard and javascript card updated file saving functionality
  */
 public class JavaCard extends FlashCard {
 
@@ -21,8 +20,7 @@ public class JavaCard extends FlashCard {
     }
 
     @Override
-    public Boolean evaluate(String in) throws IndexNotFoundException {
-        //TODO: Evaluating Java code can be done inside here
+    public Boolean evaluate(String in) {
         return null;
     }
 
@@ -33,22 +31,30 @@ public class JavaCard extends FlashCard {
 
     @Override
     public String getBack() {
-        //irrelevant
         return null;
     }
 
     @Override
     public void editFront(String newText) {
-        //irrelevant
+        this.front = newText;
     }
 
     @Override
     public void editBack(String newText) {
-        //irrelevant
+        //unused
     }
 
     @Override
     public FlashCard duplicate() {
-        return new JavaCard(question, testCases);
+        String front = question;
+        return new JavaCard(front, DeepCopy.duplicateTestCases(testCases));
+    }
+
+    public String getAttempt() {
+        return attempt;
+    }
+
+    public void setAttempt(String attempt) {
+        this.attempt = attempt;
     }
 }

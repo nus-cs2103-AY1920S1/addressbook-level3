@@ -1,5 +1,6 @@
 package dream.fcard.util;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import dream.fcard.util.code.JavascriptRunner;
@@ -23,7 +24,6 @@ public class JsTestCaseRunner {
     }
 
 
-
     /**
      * Runs the user's attempt at writing a function against the assertions that the user has written.
      *
@@ -36,10 +36,16 @@ public class JsTestCaseRunner {
         output = output.replaceAll("pass", "")
                 .replaceAll("fail", "")
                 .strip();
-        System.out.println(output);
-        Scanner sc = new Scanner(output);
-        int correct = sc.nextInt();
-        int wrong = sc.nextInt();
+        int correct;
+        int wrong;
+        try {
+            Scanner sc = new Scanner(output);
+            correct = sc.nextInt();
+            wrong = sc.nextInt();
+        } catch (InputMismatchException e) {
+            correct = -1;
+            wrong = -1;
+        }
         return new Pair<>(userAttempt, new Pair<>(correct, wrong));
     }
 
@@ -57,7 +63,7 @@ public class JsTestCaseRunner {
                 + "\n"
                 + "function assert(actual, expected) {\n"
                 + "    if (actual == expected) {\n"
-                + "        correct++;"
+                + "        correct++;\n"
                 + "        print('pass');\n"
                 + "    } else {\n"
                 + "        wrong++;\n"

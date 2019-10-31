@@ -89,7 +89,7 @@ public class TestDisplay extends AnchorPane {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            this.deck = deck.duplicateMyself();
+            this.deck = deck;
             nowShowing = 0;
             this.cardOnDisplay = deck.getCards().get(nowShowing); //show the first card - fails if no cards are present
             seeFront();

@@ -1,12 +1,10 @@
 package dream.fcard.gui.controllers.windows;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.displays.createandeditdeck.javacard.TestCaseUploader;
-import dream.fcard.gui.controllers.displays.createandeditdeck.jscard.JsFileUploader;
+import dream.fcard.gui.controllers.displays.createandeditdeck.jscard.JsTestCaseInputTextArea;
 import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptionsSetter;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
@@ -14,7 +12,6 @@ import dream.fcard.model.State;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -42,13 +39,11 @@ public class CardCreatingWindow extends AnchorPane {
 
     private final String frontBack = "Front-back";
     private final String mcq = "MCQ";
-    //private final String java = "Java";
     private final String js = "JavaScript";
 
     private TextArea frontBackTextArea;
     private McqOptionsSetter mcqOptionsSetter;
-    private TestCaseUploader testCaseUploader;
-    private JsFileUploader jsFileUploader;
+    private JsTestCaseInputTextArea jsTestCaseInputTextArea;
 
     private String cardType = "";
     private Deck tempDeck = new Deck();
@@ -72,13 +67,7 @@ public class CardCreatingWindow extends AnchorPane {
                 }
             });
             cardTypeSelector.setValue(frontBack);
-            onAddQuestion.setOnAction(e -> {
-                try {
-                    addCardToDeck();
-                } catch (DuplicateInChoicesException ex) {
-                    displayMessage.accept("You have duplicated options!");
-                }
-            });
+            onAddQuestion.setOnAction(e -> addCardToDeck());
             this.incrementCounterInParent = incrementCounterInParent;
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,18 +90,17 @@ public class CardCreatingWindow extends AnchorPane {
             answerContainer.getChildren().add(mcqOptionsSetter);
             addAnswerLabel.setText("Enter your options");
         } else if (cardType.equals(js)) {
-            jsFileUploader = new JsFileUploader();
-            answerContainer.getChildren().add(jsFileUploader);
-            addAnswerLabel.setText("Upload your test file");
+            jsTestCaseInputTextArea = new JsTestCaseInputTextArea();
+            answerContainer.getChildren().add(jsTestCaseInputTextArea);
+            addAnswerLabel.setText("Add your asserts");
         }
     }
 
     /**
      * Adds a card to the temporary deck inside CardCreatingWindow.
      *
-     * @throws DuplicateInChoicesException if the user enters the same multiple choice option more than once.
      */
-    void addCardToDeck() throws DuplicateInChoicesException {
+    void addCardToDeck() {
         if (cardType.equals(mcq)) {
             //validation - non-empty question, at least one non-empty option, and a designated right answer
             if (questionField.getText().isBlank()) {
@@ -150,36 +138,16 @@ public class CardCreatingWindow extends AnchorPane {
                 displayMessage.accept("You need to enter a question!");
                 return;
             }
-            if (!jsFileUploader.hasFile()) {
-                displayMessage.accept("You need to upload a JS file");
+            if (!jsTestCaseInputTextArea.hasTestCase()) {
+                displayMessage.accept("You need to enter a test case!");
                 return;
             }
-            try {
-                String testCases = jsFileUploader.getAssertions();
-                String front = questionField.getText();
-                JavascriptCard card = new JavascriptCard(front, testCases);
-                tempDeck.addNewCard(card);
-            } catch (FileNotFoundException e) {
-                displayMessage.accept("I could not read in your file. Please try again");
-                return;
-            }
+            String testCases = jsTestCaseInputTextArea.getAssertions();
+            String front = questionField.getText();
+            JavascriptCard card = new JavascriptCard(front, testCases);
+            tempDeck.addNewCard(card);
 
         }
-        //else if (cardType.equals(java)) {
-        //    //validation - all files uploaded
-        //    if (questionField.getText().isBlank()) {
-        //        displayMessage.accept("You need to enter a question!");
-        //        return;
-        //    }
-        //    //for more specific file-hunting, the error messages are printed within JavaTestCaseInputRow so
-        //    //we don't need to directly handle checking for missing files here.
-        //    if (testCaseUploader.hasNoMissingFiles()) {
-        //        ArrayList<TestCase> cases = testCaseUploader.getTestCases();
-        //        String front = questionField.getText();
-        //        JavaCard card = new JavaCard(front, cases);
-        //        tempDeck.addNewCard(card);
-        //    }
-        //}
         incrementCounterInParent.accept(1);
         clearFields();
     }
@@ -197,10 +165,10 @@ public class CardCreatingWindow extends AnchorPane {
             answerContainer.getChildren().clear();
             answerContainer.getChildren().add(mcqOptionsSetter);
         }
-        if (jsFileUploader != null) {
-            jsFileUploader = new JsFileUploader();
+        if (jsTestCaseInputTextArea != null) {
+            jsTestCaseInputTextArea = new JsTestCaseInputTextArea();
             answerContainer.getChildren().clear();
-            answerContainer.getChildren().add(jsFileUploader);
+            answerContainer.getChildren().add(jsTestCaseInputTextArea);
         }
         //if (testCaseUploader != null) {
         //    testCaseUploader = new TestCaseUploader();

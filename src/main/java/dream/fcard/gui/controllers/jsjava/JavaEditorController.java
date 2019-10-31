@@ -30,8 +30,13 @@ public class JavaEditorController extends AnchorPane {
     private void runCode() throws IOException {
         String code = textEditor.getText();
         FileReadWrite.write(filepath, code);
-        String result = JavaRunner.compileAndRun(filepath);
-        consoleOutput.setText(result);
-
+        String compileOutput = JavaRunner.compile(filepath);
+        if (!compileOutput.isBlank()) {
+            consoleOutput.setText(compileOutput);
+            return;
+        } else {
+            String output = JavaRunner.runJava(filepath);
+            consoleOutput.setText(output);
+        }
     }
 }
