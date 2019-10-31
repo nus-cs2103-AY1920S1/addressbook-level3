@@ -20,7 +20,6 @@ import seedu.address.model.classid.ClassId;
 import seedu.address.model.task.Marking;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskTime;
-import seedu.address.ui.UiManager;
 
 /**
  * command to update the existing tasks.

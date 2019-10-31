@@ -8,9 +8,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REMINDERS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.WindowView;
-import seedu.address.ui.UiManager;
 
 
 /**

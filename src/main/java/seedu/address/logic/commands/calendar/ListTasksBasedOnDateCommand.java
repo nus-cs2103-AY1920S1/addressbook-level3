@@ -6,7 +6,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.task.TaskContainsDatePredicate;
-import seedu.address.ui.UiManager;
 
 /**
  * Lists all tasks in the address book on a certain date to the user.
