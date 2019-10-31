@@ -125,7 +125,7 @@ The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-S
 
 1. Type the command with all parameters filled in, as shown in the screenshot below:
 
-.Screenshot of user input into Command Box for Add Command in Home Tab
+.Screenshot of the user input into the Command Box for Add Command in Home Tab
 image::homeUG/HomeAddStep1.png[]
 
 [start = 2]
@@ -134,14 +134,14 @@ image::homeUG/HomeAddStep1.png[]
 If the command is successfully added, Leo will respond with a success message and the transaction
 will be shown in the table. This is shown in the screenshot below:
 
-.Screenshot of successful user input for Add Command in Home Tab
+.Screenshot of a successful user input for Add Command in Home Tab
 image::homeUG/HomeAddStep2.png[]
 
 [[NoSuchPerson]]
 If the person's name does not exactly match a current member in the Members Tab, Leo will respond with an error and the transaction
 record will not be added. This is shown in the screenshot below:
 
-.Screenshot of unsuccessful user input for Add Command in the Home Tab due to an invalid name
+.Screenshot of an unsuccessful user input for Add Command in the Home Tab due to an invalid name
 image::homeUG/HomeAddUnsuccessfulStep2.png[]
 
 If the added transaction contains a negative amount (indicating an expenditure), a corresponding entry will
@@ -150,7 +150,7 @@ automatically be shown in the Reimbursement Tab, tagged to the member who spent 
 Since reimbursements are aggregated by member, if the member already has other outstanding reimbursements,
 it will simply be added to his existing row. This is shown in the screenshot below:
 
-.Screenshot of Reimbursement Tab after successfully adding a transaction
+.Screenshot of the Reimbursement Tab after successfully adding a transaction
 image::homeUG/HomeAddShowInR.png[]
 
 ==== Delete Transaction(s)
@@ -166,7 +166,7 @@ This command deletes either all transactions of a person or a single transaction
 * Steps for Deleting by ID:
 1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
 
-.Screenshot of user input into Command Box for Delete by ID command in Home tab
+.Screenshot of the user input into Command Box for Delete by ID command in Home tab
 image::homeUG/HomeDeleteStep1.png[]
 
 [start = 2]
@@ -174,13 +174,13 @@ image::homeUG/HomeDeleteStep1.png[]
 
 Leo will respond with a success message and the transaction will be removed from the table as shown below:
 
-.Screenshot of successful user input for Delete by ID Command in Home Tab
+.Screenshot of a successful user input for Delete by ID Command in Home Tab
 image::homeUG/HomeDeleteStep2.png[]
 
 * Steps for Deleting by Person:
 1. Type the command with the person's name to delete all transactions related to that person, as shown in the screenshot below:
 
-.Screenshot of user input into Command Box for Delete by ID command in Home Tab
+.Screenshot of a user input into Command Box for Delete by ID command in Home Tab
 image::homeUG/HomeDeletePStep1.png[]
 
 [start = 2]
@@ -188,7 +188,7 @@ image::homeUG/HomeDeletePStep1.png[]
 
 Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
 
-.Screenshot of successful user input for Delete by Person Command in Home Tab
+.Screenshot of a successful user input for Delete by Person Command in Home Tab
 image::homeUG/HomeDeletePStep2.png[]
 
 If the person does belong to any transactions, Leo will also respond with a message to inform you.
@@ -217,7 +217,7 @@ image::homeUG/HomeEditStep1.png[]
 
 Leo will respond with a success message and the updated transaction will be shown in the table as shown below:
 
-.Screenshot of successful user input for Edit Command in Home Tab
+.Screenshot of a successful user input for Edit Command in Home Tab
 image::homeUG/HomeEditStep2.png[]
 
 If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Figure 3>>.
@@ -259,7 +259,7 @@ image::homeUG/HomeFindCurr.png[]
 
 1. Type the command with keyword(s) to find transactions as shown in the screenshot below:
 
-.Screenshot of user input into Command Box for Find Command in Home Tab
+.Screenshot of the user input into Command Box for Find Command in Home Tab
 image::homeUG/HomeFindStep1.png[]
 
 [start = 2]
@@ -268,14 +268,14 @@ image::homeUG/HomeFindStep1.png[]
 Leo will respond with the number of matching transactions, and the table will show only
 transactions matching the keywords. This is shown in the screenshot below:
 
-.Screenshot of successful user input for find command in Home tab
+.Screenshot of a successful user input for find command in Home tab
 image::homeUG/HomeFindStep2.png[]
 
 [start = 3]
 3. Key in `back` and hit `Enter` to return to the table of all transactions, or enter your next command to be executed.
 The screenshot below shows the Edit Command being input as the next command:
 
-.Screenshot of user input for Edit Command according to filtered table's ID in Home Tab
+.Screenshot of the user input for Edit Command according to filtered table's ID in Home Tab
 image::homeUG/HomeFindStep3.png[]
 
 The table will continue to show the filtered table with the transaction edited according to the command, shown in the screenshot above.
@@ -285,7 +285,7 @@ All other commands require the user to input `back` to return to the full list o
 
 The screenshot below shows the table after entering `back` which shows all the transactions in the table again:
 
-.Screenshot of user input for Back Command after entering Find Command in Home Tab
+.Screenshot of the user input for Back Command after entering Find Command in Home Tab
 image::homeUG/HomeFindStep3Back.png[]
 
 === Reimbursements Tab
@@ -303,126 +303,171 @@ image::homeUG/HomeFindStep3Back.png[]
 * Reimbursement records are automatically extracted from the transactions history.
 * The reimbursement list aggregates transactions by person and displays only one row per person.
 
-* All Reimbursements shown in the Reimbursement Tab are outstanding and have not been paid. Completed reimbursements will not be displayed.
+* You can add a deadline to a reimbursement, find a reimbursement by name, mark a reimbursement as done
+and sort the reimbursements.
+
+* All reimbursements shown in the Reimbursement Tab are outstanding and have not been paid. Completed reimbursements will not be displayed.
 
 ====
 
 [NOTE]
-The reimbursements only count the outflow transactions. When a transaction has negative amount, it means
-the person in that transaction pays for the CCA first and you need to reimburse the person for the expense.
+Reimbursements constitute only transactions resulting in an outflow of cash. This is represented by a negative amount
+in a transaction, and means that the person tagged to that transaction had paid first, and needs to be reimburesd
+for their expenditure.
 
-A user can add deadline to a reimbursement, find a reimbursement by providing the person's name,
-let the app display full list, mark a reimbursement as done and sort reimbursement lists.
+==== Adding Deadline to a Reimbursement:
 
-==== Adding deadline to a reimbursement: `deadline p/[name] dt/dd-mmm-yyyy`
-This command helps to add a deadline to a reimbursement for the person.
+This command adds a deadline to a person's reimbursement.
 
-.Diagram of deadline command in reimbursement tab
+* Command: `deadline p/[name] dt/dd-mmm-yyyy`
+* Example: `deadline p/Alex Yeoh dt/19-Dec-2019`
+
+* Steps:
+
+. Type the command with all parameters filled in, as shown in the screenshot below:
+
+.Screenshot of the user input into Command Box for Deadline Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDeadlineCommand.png[]
 
 [start = 2]
-. The tab will show the added deadline for the reimbursement if the person appears in reimbursement.
-Otherwise, Leo in the right box shows response that the person is not in reimbursement list.
+. Hit `Enter`
 
-.Diagram of successful deadline command in reimbursement tab
+If the deadline is successfully added, Leo will respond with a success message and the
+deadline will now show for the specified person's reimbursement. +
+Otherwise, Leo will show an error message indicating that the person is not in the reimbursement list.
+
+.Screenshot of a successful user input for Deadline Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[]
 
 [NOTE]
-The deadline date provided should be in the format of `dd-mmm-yyyy` e.g. `19-Dec-2019`.
-If you provide an invalid form e.g. `01-AAA-2019` or `19-DEC-2019` or `-1-Dec-2019`,
-Leo will remind you that the date is invalid.
-In another case, if you input an invalid date e.g. `31-Feb-2019`,
-our app helps to round it to `28-Feb-2019` and adds this deadline.
+The deadline provided should be in the format `dd-mmm-yyyy` e.g. `19-Dec-2019`. +
+If an invalid format is input, e.g. `01-AAA-2019` or `19-DEC-2019` or `-1-Dec-2019`,
+Leo will inform you that the input is invalid. +
+If an invalid is entered, e.g. `31-Feb-2019`, the app will round it  to `28-Feb-2019`
+and adds the rounded date as the deadline.
 
 [NOTE]
-If you want to modify the deadline for a reimbursement, you can use `deadline` command again
+To modify the deadline for a reimbursement, you can use `deadline` command again
 to reassign deadline to a reimbursement.
 
-==== Finding a reimbursement for a person: `find p/[name]`
-This command helps to find out the reimbursement for the person.
+==== Finding a Reimbursement for a Person:
 
-. Type `find p/[name]` into command box and press `enter` to execute it. e.g. `find p/Bernice Yu`
+This command finds the reimbursement for a specified person.
 
-.Diagram of find command in reimbursement tab
+* Command: `find p/[name]`
+* Example: `find p/Alex Yeoh`
+
+* Steps:
+
+. Type the command, along with the person's name you'd like to find into command box:
+
+.Screenshot of the user input into Command Box for Find Command in Reimbursement Tab
 image::Reimbursement/ReimbursementFindCommand.png[]
+
 [start = 2]
-. The tab will show the found reimbursement if the person appears in reimbursement.
-Otherwise, Leo in the right box shows response that the person is not in reimbursement list.
+. Hit `Enter`
+
+Leo will respond with a success message and the tab will show the person's corresponding reimbursement, if it exists. +
+Otherwise, Leo will show an error message indicating that the person is not in reimbursement list.
 
 .Diagram of successful find command in reimbursement tab
 image::Reimbursement/ReimbursementFindCommandSuccess.png[]
 
-==== Going back to display the full list: `Back`
+==== Going Back to Display the Full List
 This command helps to display the full reimbursement list after `find` and `deadline` commands.
 
-. Type `back` into command box and press `enter` to execute it.
+* Command: `back`
 
-.Diagram of back command in reimbursement tab
+* Steps:
+. Type `back` into the Command Box
+
+.Screenshot of the user input into the Command Box for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommand.png[]
 
 [start = 2]
-. The tab will show the full reimbursement list.
+. Hit `Enter`
 
-.Diagram of successful back command in reimbursement tab
+The tab will now show the full reimbursement list.
+
+.Screenshot of a successful user input for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommandSuccess.png[]
 
-==== Marking a command as done: `done p/[name]`
+==== Marking a Command as Done
 This command helps to mark a reimbursement as done and remove it from reimbursement list.
 
-. Type `done p/[name]` into command box and press `enter` to execute it. e.g. `done p/Roy Balakrishnan`
+* Command: `done p/[name]`
+* Example: `done p/Alex Yeoh`
 
-.Diagram of done command in reimbursement tab
+* Steps:
+. Type the command, along with the person's name whose reimbursement is to be marked as done,
+as shown in the screenshot below:
+
+.Screenshot of the user input into Command Box for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommand.png[]
 
 [start = 2]
-. The reimbursement for that person will be removed from the tab.
+. Hit `Enter`
 
-.Diagram of successful done command in reimbursement tab
+The reimbursement for that person will be removed from the tab, as shown below:
+
+.Screenshot of a successful user input for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[]
 
-==== Sorting the list based on amount: `sort amount`
-This command helps to sort the reimbursement lists based on amount. And the
-list will be in descending order of the amount.
+==== Sorting the List Based on Amount
+This command helps to sort the reimbursement lists based on amount, in descending order.
 
-. Type `sort amount` into command box and press `enter` to execute it.
+* Command: `sort amount`
 
-.Diagram of sort amount command in reimbursement tab
+* Steps:
+. Type the command `sort amount`, as shown in the screenshot below:
+
+.Screenshot of the user input into Command Box for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommand.png[]
 
 [start = 2]
-. The reimbursements are sorted in descending order of the amount.
+. Hit `Enter`
 
-.Diagram of successful sort amount command in reimbursement tab
+The reimbursements are sorted in descending order of the amount.
+
+.Screenshot of a successful user input for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommandSuccess.png[]
 
 ==== Sorting the list based on name: `sort name`
-This command helps to sort the reimbursement lists based on name.
-And the list will be in alphabetical order.
+This command helps to sort the reimbursement lists based on name, in alphabetical order.
 
-. Type `sort name` into command box and press `enter` to execute it.
+* Command: `sort name`
 
-.Diagram of sort name command in reimbursement tab
+* Steps:
+. Type the command `sort name`, as shown in the screenshot below:
+
+.Screenshot of the user input into Command Box for Sort Name Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortNameCommand.png[]
 
 [start = 2]
-. The reimbursements are sorted in alphabetical order of person's name.
+. Hit `Enter`
 
-.Diagram of successful sort name command in reimbursement tab
+The reimbursements are sorted in alphabetical order of person's name.
+
+.Screenshot of a successful user input for Sort Name Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortNameCommandSuccess.png[]
 
 ==== Sorting the list based on deadline: `sort date`
-This command helps to sort the reimbursement lists based on deadline.
-And the reimbursements with closer deadline will be at the front.
+This command helps to sort the reimbursement lists based on deadline, in order of the closest date.
 
-. Type `sort date` into command box and press `enter` to execute it.
+* Command: `sort date`
 
-.Diagram of sort date command in reimbursement tab
+* Steps:
+. Type the command `sort date `, as shown in the screenshot below:
+
+.Screenshot of the user input into Command Box for Sort Date Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortDateCommand.png[]
 
 [start = 2]
-. The reimbursements are sorted by deadline date.
+. Hit `Enter`
 
-.Diagram of successful sort date command in reimbursement tab
+The reimbursements are sorted by deadline date.
+
+.Screenshot of a successful user input for Sort Date Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortDateCommandSuccess.png[]
 
 === Inventory Tab
