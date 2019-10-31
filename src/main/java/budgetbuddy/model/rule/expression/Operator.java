@@ -13,16 +13,16 @@ import budgetbuddy.logic.rules.RuleProcessor;
  */
 public enum Operator {
     // Predicate operators
-    LESS_THAN("<", RuleProcessor.TYPE_NUMBER),
-    MORE_THAN(">", RuleProcessor.TYPE_NUMBER),
-    LESS_EQUAL("<=", RuleProcessor.TYPE_NUMBER),
-    MORE_EQUAL(">=", RuleProcessor.TYPE_NUMBER),
-    EQUAL_TO("=", RuleProcessor.TYPE_NUMBER),
-    CONTAINS("contains", RuleProcessor.TYPE_STRING, RuleProcessor.TYPE_NUMBER),
+    LESS_THAN("<", RuleProcessor.TYPE_AMOUNT),
+    MORE_THAN(">", RuleProcessor.TYPE_AMOUNT),
+    LESS_EQUAL("<=", RuleProcessor.TYPE_AMOUNT),
+    MORE_EQUAL(">=", RuleProcessor.TYPE_AMOUNT),
+    EQUAL_TO("=", RuleProcessor.TYPE_AMOUNT),
+    CONTAINS("contains", RuleProcessor.TYPE_CATEGORY),
 
     // Action operators
-    SET_CATEGORY("setcategory", RuleProcessor.TYPE_STRING),
-    SET_DESC("setdesc", RuleProcessor.TYPE_STRING);
+    SET_CATEGORY("setcategory", RuleProcessor.TYPE_CATEGORY),
+    SET_DESC("setdesc", RuleProcessor.TYPE_CATEGORY);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Operators should be valid for their expression and not be blank\n"

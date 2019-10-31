@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import budgetbuddy.logic.parser.CommandParserUtil;
+import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.rules.performable.Performable;
 import budgetbuddy.logic.rules.performable.PerformableExpression;
 import budgetbuddy.logic.rules.performable.SetCategoryExpression;
@@ -35,8 +37,9 @@ import budgetbuddy.model.transaction.Transaction;
  * Contains utility methods and constants used for processing rules.
  */
 public class RuleProcessor {
-    public static final String TYPE_STRING = "STRING";
-    public static final String TYPE_NUMBER = "NUMBER";
+    public static final String TYPE_CATEGORY = "CATEGORY";
+    public static final String TYPE_DESC = "DESC";
+    public static final String TYPE_AMOUNT = "AMOUNT";
     public static final String TYPE_DATE = "DATE";
     private static final HashMap<Operator, BiFunction<Attribute, Value, TestableExpression>> testableMap;
     private static final HashMap<Operator, Function<Value, PerformableExpression>> performableMap;
@@ -130,14 +133,21 @@ public class RuleProcessor {
      */
     public static boolean isValueParsable(String typeName, Value value) {
         switch (typeName) {
-        case TYPE_STRING:
-            // don't have to handle since value already stored as string
+        case TYPE_CATEGORY:
+            CommandParserUtil.parseCategory(value.toString());
             break;
-        case TYPE_NUMBER:
+        case TYPE_DESC:
             try {
-                Double.parseDouble(value.toString());
+                CommandParserUtil.parseDescription(value.toString());
                 break;
-            } catch (NumberFormatException e) {
+            } catch (ParseException e) {
+                return false;
+            }
+        case TYPE_AMOUNT:
+            try {
+                CommandParserUtil.parseAmount(value.toString());
+                break;
+            } catch (ParseException e) {
                 return false;
             }
         case TYPE_DATE:
