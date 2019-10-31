@@ -128,9 +128,18 @@ Displays all the cards in the deck of cards, `science_deck`
 
 === Creating new flashcards : `create`
 
-Create a new deck of flashcards
+Enters 'Create' mode. Allows the sequential creation of different cards based on input (FrontBack, MCQ and JavaScript cards).
 
-Format: `create deck/DECK_NAME`
+Format: `create'
+
+        For FrontBack Cards:
+        Format: 'front/FRONT_OF_CARD back/BACK_OF_CARD'
+
+        For MCQ Cards:
+        Format: 'front/FRONT_OF_CARD choice/CHOICE1 choice/CHOICE2 [choice/CHOICE3...] correctIndex/INTEGER'
+        Where correctIndex indicates which choice is correct.
+
+        For JavaScript Cards:
 
 === Start test with flashcards : `test`
 

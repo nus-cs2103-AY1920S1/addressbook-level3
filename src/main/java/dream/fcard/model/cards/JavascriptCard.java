@@ -2,21 +2,18 @@ package dream.fcard.model.cards;
 
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 
-import dream.fcard.logic.stats.CardStats;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
- * Format of back of card is a string of assert functions, e.g. "assert(f(4),10); assert(f(14),20);"
- * which evaluate will then run against the user's typed code (user will have to define a function f
- * in a popup editor window)
  */
 public class JavascriptCard extends FlashCard {
 
-    protected String front;
+    protected String front; //question
     protected String back;
+    protected String attempt;
 
 
     /**
@@ -28,7 +25,6 @@ public class JavascriptCard extends FlashCard {
         front = frontString;
         back = outputString;
         priority = LOW_PRIORITY;
-        cardStats = new CardStats();
     }
 
     /**
@@ -59,6 +55,13 @@ public class JavascriptCard extends FlashCard {
         return new JsonValue(obj);
     }
 
+    @Override
+    public FlashCard duplicate() {
+        String frontText = front;
+        String backText = back;
+        return new JavascriptCard(frontText, backText);
+    }
+
     /**
      *
      * @param in input
@@ -66,7 +69,6 @@ public class JavascriptCard extends FlashCard {
      */
     @Override
     public Boolean evaluate(String in) {
-
         return null;
     }
 
@@ -103,13 +105,27 @@ public class JavascriptCard extends FlashCard {
     }
 
     /**
-     * Returns boolean value false.
-     * Since no choices exist in this class.
-     *
-     * @return Boolean value false.
+     * Return the user's attempted code.
+     * @return code attempt
      */
+    public String getAttempt() {
+        return attempt;
+    }
+
+    /**
+     * Store the user's attempted code.
+     * @param attempt code attempt
+     */
+    public void setAttempt(String attempt) {
+        this.attempt = attempt;
+    }
+
     @Override
-    public boolean hasChoices() {
-        return false;
+    public void updateScore(Boolean isCorrect) {
+        if (isCorrect) {
+            this.cardResult = 1;
+        } else {
+            this.cardResult = 0;
+        }
     }
 }

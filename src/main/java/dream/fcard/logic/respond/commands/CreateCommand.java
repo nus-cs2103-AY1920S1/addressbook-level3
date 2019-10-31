@@ -2,166 +2,92 @@ package dream.fcard.logic.respond.commands;
 
 import java.util.ArrayList;
 
-import dream.fcard.core.commons.core.LogsCenter;
-import dream.fcard.gui.Gui;
-import dream.fcard.logic.respond.ResponseFunc;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
-import dream.fcard.model.cards.FrontBackCard;
-import dream.fcard.model.cards.MultipleChoiceCard;
-import dream.fcard.model.exceptions.DeckNotFoundException;
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
-import dream.fcard.model.exceptions.IndexNotFoundException;
+import dream.fcard.model.exceptions.DeckAlreadyExistsException;
 
 /**
  * Represents a command that creates a new deck or card (?).
  */
-public class CreateCommand implements ResponseFunc {
-    private String deckName;
-    private String front;
-    private String back;
-    private ArrayList<String> choices;
+public class CreateCommand extends Command {
 
-    private boolean hasFront;
-    private boolean hasBack;
-    private boolean hasChoice;
+    private String input;
+    private State progState;
+
+    public CreateCommand(String i, State s) {
+        this.input = i;
+        this.progState = s;
+    }
 
     /**
-     *
-     * @param commandInput string
-     * @param programState state object
-     * @return
-     * @throws DeckNotFoundException
+     * Performs execution of create command.
      */
-    @Override
-    public boolean funcCall(String commandInput, State programState) {
+    public boolean funcCall() throws DeckAlreadyExistsException {
+        String deckName = input.split("deck/")[1].strip();
+        //if (deckAlreadyExists(deckName)) {
+        //    throw new DeckAlreadyExistsException(deckName);
+        //} else {
+        //    Deck newDeck = new Deck(deckName);
+        //    Scanner sc = new Scanner(System.in);
+        //
+        //
+        //    if (!progState.isCreateMode()) {
+        //        progState.toggleCreateMode();
+        //    }
 
-        System.out.println(commandInput);
+        //    //GUI.printCreateMode("Let’s begin creating the deck ‘" + deckName
+        //    // + "’. When done, simply type ‘quit’!");
+        //    System.out.println("Let’s begin creating the deck ‘" + deckName
+        //            + "’. When done, simply type ‘quit’!");
+        //    while (sc.hasNextLine()) {
+        //        // GUI.printCreateMode("Type the front of card #" + (newDeck.getNumCards() + 1));
+        //        System.out.println("Type the front of card #" + (newDeck.getNumCards() + 1));
+        //        String frontOfCard;
+        //        String backOfCard;
+        //        if (sc.nextLine().matches("(?i)^(quit)?.")) {
+        //            //GUI.printCreateMode("You have created the deck ‘" + deckName + "’ with a total of "
+        //            //        + newDeck.getNumCards() + " cards!\n");
+        //            System.out.println("You have created the deck ‘" + deckName + "’ with a total of "
+        //                    + newDeck.getNumCards() + " cards!\n");
+        //            break;
+        //        } else {
+        //            frontOfCard = sc.nextLine();
+        //        }
+        //
+        //        // GUI.printCreateMode("Type the back of card #" + (newDeck.getNumCards() + 1));
+        //        System.out.println("Type the back of card #" + (newDeck.getNumCards() + 1));
+        //        if (sc.nextLine().matches("(?i)^(quit)?.")) {
+        //            //GUI.printCreateMode("You have created the deck ‘" + deckName + "’ with a total of "
+        //            //        + newDeck.getNumCards() + " cards!\n");
+        //            System.out.println("You have created the deck ‘" + deckName + "’ with a total of "
+        //                    + newDeck.getNumCards() + " cards!\n");
+        //            break;
+        //        } else {
+        //            backOfCard = sc.nextLine();
+        //            FlashCard newCard = new FrontBackCard(frontOfCard, backOfCard);
+        //            newDeck.addNewCard(newCard);
+        //        }
+        //    }
+        //    progState.toggleCreateMode();
+        //    return true;
+        //}
+        return false;
+    }
 
-        hasFront = hasFront(commandInput);
-        hasBack = hasBack(commandInput);
-        hasChoice = hasChoice(commandInput);
-
-        boolean success;
-        if (!hasChoice) {
-            success = parseInputOneShot(commandInput);
-        } else {
-            success = parseInputWithChoice(commandInput);
-        }
-
-        if (!success) {
-            Gui.showError("MCQ card creation failed.");
-            return true;
-        }
-
-        try {
-            Deck deck = programState.getDeck(deckName);
-
-            if (!hasChoice) {
-                deck.addNewCard(new FrontBackCard(front, back));
-            } else {
-                deck.addNewCard(new MultipleChoiceCard(front, back, choices));
+    /**
+     * Checks if there is already a deck with the same name as the user input.
+     *
+     * @param deckName A String representing the name of the deck to be created.
+     * @return A boolean of whether a deck with the same name already exists
+     */
+    private boolean deckAlreadyExists(String deckName) {
+        ArrayList<Deck> allDecks = progState.getAllDecks();
+        for (Deck curr : allDecks) {
+            if (curr.getName().equals(deckName)) {
+                return true;
             }
-
-            LogsCenter.getLogger(CreateCommand.class).info("DECK_CREATE_REG_CARD: Card added to " + deckName);
-
-        } catch (DeckNotFoundException d) {
-            LogsCenter.getLogger(CreateCommand.class).warning(
-                    "DECK_CREATE_REG_CARD: Deck not found - " + deckName);
-            Gui.showError(d.getMessage());
-        } catch (DuplicateInChoicesException e) {
-            Gui.showError("Duplicate found in choices.");
-        } catch (IndexNotFoundException e) {
-            Gui.showError("Answer not valid.");
-        } catch (NumberFormatException n) {
-            Gui.showError("Answer not valid.");
         }
-        return true;
-    }
-
-    /**
-     *
-     *
-     * @param commandInput
-     * @return
-     */
-    private boolean parseInputWithChoice(String commandInput) {
-        String userInput = commandInput.replaceFirst("create deck/", "");
-
-        String[] userCardFields;
-        if (hasBack && hasFront) {
-            String[] userInputFields = userInput.trim().split(" front/");
-            deckName = userInputFields[0];
-            userCardFields = userInputFields[1].trim().split(" back/");
-            front = userCardFields[0];
-
-            userCardFields = userCardFields[1].trim().split(" choice/");
-            back = userCardFields[0];
-        } else {
-            return false;
-        }
-
-        choices = new ArrayList<>();
-        for (int i = 1; i < userCardFields.length; i++) {
-            choices.add(userCardFields[i]);
-        }
-
-        if (choices.size() <= 1) {
-            Gui.showError("Too few choices provided");
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     *
-     * @param commandInput
-     * @return
-     */
-    private boolean parseInputOneShot(String commandInput) {
-        String userInput = commandInput.replaceFirst("create deck/", "");
-
-        if (hasBack && hasFront) {
-            String[] userInputFields = userInput.trim().split(" front/");
-
-            deckName = userInputFields[0];
-
-            String[] userCardFields = userInputFields[1].trim().split(" back/");
-
-            front = userCardFields[0];
-            back = userCardFields[1];
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     *
-     * @param input
-     * @return
-     */
-    private boolean hasFront(String input) {
-        return input.contains("front/");
-    }
-
-    /**
-     *
-     * @param input
-     * @return
-     */
-    private boolean hasBack(String input) {
-        return input.contains("back/");
-    }
-
-    /**
-     *
-     * @param input
-     * @return
-     */
-    private boolean hasChoice(String input) {
-        return input.contains("choice/");
+        return false;
     }
 }
 
