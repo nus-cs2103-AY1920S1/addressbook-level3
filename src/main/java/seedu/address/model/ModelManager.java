@@ -51,7 +51,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.pageStatus = new PageStatus(PageType.TRIP_MANAGER, null, null, null, null,
                 null, null, null, null,
-                null, null, null, null, null);
+                null, null, null, null, null, null);
         filteredPersons = new FilteredList<>(this.travelPal.getPersonList());
         filteredTripList = new FilteredList<>(this.travelPal.getTripList());
         filteredCurrencyList = new FilteredList<>(this.travelPal.getCurrencies());

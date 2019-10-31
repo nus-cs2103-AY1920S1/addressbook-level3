@@ -1,5 +1,6 @@
 package seedu.address.model.itinerary.event;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,8 @@ import seedu.address.model.itinerary.Name;
  * Optional fields: expenditure, booking, inventory.
  */
 public class Event {
+    public static final String MESSAGE_INVALID_DATETIME = "Start date should be before end date";
+
     // Compulsory fields
     private final Name name;
     private final LocalDateTime startDate;
@@ -34,6 +37,8 @@ public class Event {
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
                  Expenditure expenditure, Inventory inventory, Location destination) {
         requireAllNonNull(name, startDate, endDate);
+        checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
+
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -47,6 +52,7 @@ public class Event {
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
                  Expenditure expenditure, Location destination) {
         requireAllNonNull(name, startDate, endDate, expenditure);
+        checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -62,25 +68,26 @@ public class Event {
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
                  Optional<Expenditure> expenditure, Location destination) {
         requireAllNonNull(name, startDate, endDate, expenditure);
+        checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.booking = null;
         this.destination = destination;
-        if (expenditure.isPresent()) {
-            this.expenditure = expenditure.get();
-        } else {
-            this.expenditure = null;
-        }
+        this.expenditure = expenditure.orElse(null);
         this.inventory = null;
     }
 
+
+    public boolean isValidDuration(LocalDateTime startDate, LocalDateTime endDate) {
+        return startDate.isBefore(endDate);
+    }
+
+    // Compulsory Field getters
     public Name getName() {
         return name;
     }
 
-
-    // Compulsory Field getters
     public LocalDateTime getStartDate() {
         return startDate;
     }

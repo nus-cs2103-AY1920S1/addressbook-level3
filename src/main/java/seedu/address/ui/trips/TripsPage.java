@@ -1,10 +1,13 @@
 package seedu.address.ui.trips;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -52,11 +55,16 @@ public class TripsPage extends Page<AnchorPane> {
      */
     public void fillPage() {
         tripGridPane.getChildren().clear();
-        List<Trip> trips = model.getTravelPal().getTripList();
-        List<Node> tripCards = IntStream.range(0, trips.size())
-                .mapToObj(i -> Index.fromZeroBased(i))
+        ObservableList<Trip> trips = model.getTravelPal().getTripList();
+
+        // Sorts trips for display
+        SortedList<Trip> tripsSortedList = trips.sorted(Comparator.comparing(Trip::getStartDate));
+        model.setPageStatus(model.getPageStatus().withNewSortedOccurrencesList(tripsSortedList));
+
+        List<Node> tripCards = IntStream.range(0, tripsSortedList.size())
+                .mapToObj(Index::fromZeroBased)
                 .map(index -> {
-                    TripCard tripCard = new TripCard(trips.get(index.getZeroBased()), index, model);
+                    TripCard tripCard = new TripCard(tripsSortedList.get(index.getZeroBased()), index, model);
                     int column = index.getZeroBased() % MAX_COLUMNS;
                     int row = index.getZeroBased() / MAX_COLUMNS;
 
