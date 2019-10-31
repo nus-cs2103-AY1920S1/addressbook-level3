@@ -468,12 +468,12 @@
     -fx-alignment: center;
 }
 
-#groupDetailCard, #detailCard, #listHeaderContainer, #listMemberContainer, #exportContainer {
+#groupDetailContainer, #detailCard, #listHeaderContainer, #listMemberContainer, #exportContainer {
     -fx-background: #222831;
     -fx-background-color: #222831;
 }
 
-#groupDetailCard .label {
+#groupDetailContainer .label {
     -fx-text-fill: white;
 }
 
@@ -483,6 +483,11 @@
 
 #locationsViewContainer .label {
     -fx-text-fill: #FFFFFF;
+}
+
+#listHeaderContainer {
+    -fx-border-color: #393E46;
+    -fx-border-style: solid none none none;
 }
 
 #listHeaders .label {
@@ -513,7 +518,7 @@
 }
 
 #offsetRegion {
-    -fx-background-color: linear-gradient(from 0px 0px to 1px 1px, reflect,  #222831 30%, #393E46  47%);;
+    -fx-background-color: linear-gradient(from 0px 0px to 2px 2px, reflect,  #222831 30%, #393E46  47%);;
 }
 
 #personDetailContainer {

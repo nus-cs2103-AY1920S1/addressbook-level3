@@ -14,7 +14,7 @@ public interface ScheduleViewManager {
     public static ScheduleViewManager getInstanceOf(ScheduleWindowDisplay scheduleWindowDisplay) {
         ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
         ArrayList<String> colors = ColorGenerator
-                .generateColorList(scheduleWindowDisplay.getPersonSchedules().size());
+                .generateColorList();
         switch(displayType) {
         case PERSON:
             //There is only 1 schedule in the scheduleWindowDisplay
