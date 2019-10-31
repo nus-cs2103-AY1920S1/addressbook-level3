@@ -50,7 +50,7 @@ public class CommandResult {
         this.commandResultType = resultType;
     }
 
-    public String getTargetFilePath() throws NullPointerException{
+    public String getTargetFilePath() throws NullPointerException {
         if (targetFilePath == null) {
             throw new NullPointerException("no target file path specified in command result");
         }

@@ -119,7 +119,7 @@ public class EventUtil {
      * @param number String representation of number
      * @return String representation of colorNumber as required by ICalendarAgenda
      */
-    public static String convertNumberToColorNumber(String number) throws NumberFormatException{
+    public static String convertNumberToColorNumber(String number) throws NumberFormatException {
         return "group" + (Integer.parseInt(number) < 10 ? "0" : "") + number;
     }
 
@@ -181,7 +181,7 @@ public class EventUtil {
      * @param recurTypeString String to be evaluated
      * @return true if recurTypeString is valid
      */
-    public static boolean validateRecurTypeString(String recurTypeString)  {
+    public static boolean validateRecurTypeString(String recurTypeString) {
         if (recurTypeString.equalsIgnoreCase(RecurrenceType.WEEKLY.name())) {
             return true;
         } else if (recurTypeString.equalsIgnoreCase(RecurrenceType.DAILY.name())) {

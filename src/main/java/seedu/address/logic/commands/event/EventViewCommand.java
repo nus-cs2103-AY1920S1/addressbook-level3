@@ -66,6 +66,12 @@ public class EventViewCommand extends EventCommand {
                 model.getEventScheduleTargetDateTime()), CommandResultType.SHOW_SCHEDULE);
     }
 
+    /**
+     * Generates the success message viewing event schedule
+     * @param eventScheduleViewMode the type of view mode the schedule is in
+     * @param targetViewDate the target date the schedule is referencing
+     * @return a success message string to be shown to the user
+     */
     private String generateSuccessMessage(EventScheduleViewMode eventScheduleViewMode, LocalDateTime targetViewDate) {
         StringBuilder sb = new StringBuilder(GENERAL_MESSAGE_SUCCESS);
         sb.append(String.format(" in %s format", eventScheduleViewMode.name().toLowerCase()));

@@ -8,9 +8,12 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
 
-public class SchedulePrintable implements NjoyPrintable  {
-    private static final String SAVE_PNG_ERROR = "Error saving event schedule as .png file. Please check file path" +
-            "is valid";
+/**
+ * Provides functionality to save schedule into PNG format
+ */
+public class SchedulePrintable implements NjoyPrintable {
+    private static final String SAVE_PNG_ERROR = "Error saving event schedule as .png file. Please check file path"
+            + "is valid";
     private static final String PNG_FILE_TYPE = ".png";
 
     private final WritableImage image;

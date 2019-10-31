@@ -94,7 +94,7 @@ public class EventCommandParser implements Parser<EventCommand> {
             return viewCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_SCREENSHOT).isPresent()) { //screenshot Command
             return screenshotCommand(argMultimap);
-        }else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) { //Export Command
+        } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) { //Export Command
             return exportCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
             return indexOfCommand(argMultimap);
@@ -114,7 +114,7 @@ public class EventCommandParser implements Parser<EventCommand> {
      * @return EventScreenshotCommand object.
      *      * @throws ParseExceptions
      */
-    private EventScreenshotCommand screenshotCommand(ArgumentMultimap argMultimap) throws ParseException{
+    private EventScreenshotCommand screenshotCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_DIRECTORY) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EventScreenshotCommand.MESSAGE_USAGE));
@@ -150,7 +150,7 @@ public class EventCommandParser implements Parser<EventCommand> {
      * @return EventExportCommand object.
      * @throws ParseException
      */
-    private EventExportCommand exportCommand(ArgumentMultimap argMultimap) throws ParseException{
+    private EventExportCommand exportCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_DIRECTORY) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventExportCommand.MESSAGE_USAGE));
         }

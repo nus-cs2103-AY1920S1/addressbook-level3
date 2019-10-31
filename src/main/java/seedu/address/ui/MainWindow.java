@@ -1,16 +1,11 @@
 package seedu.address.ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
-
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -260,6 +255,11 @@ public class MainWindow extends UiPart<Stage> {
         eventSchedulePanel.getRoot().toFront();
     }
 
+    /**
+     * Handles Taking a screenshot of the schedule
+     * @param targetFilePath the targetFilePath to save the screenshot to
+     * @throws IOException for invalid path specified
+     */
     @FXML
     public void handleScheduleScreenshot(String targetFilePath) throws IOException {
         EventScheduleWindow eventScheduleWindow = new EventScheduleWindow(new Stage(), eventSchedulePanel.getRoot());
@@ -400,6 +400,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case SCHEDULE_SCREENSHOT:
                 handleScheduleScreenshot(commandResult.getTargetFilePath());
+                break;
             default:
                 break;
             }

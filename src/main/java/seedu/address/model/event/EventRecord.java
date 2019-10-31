@@ -3,11 +3,6 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,12 +11,10 @@ import org.apache.commons.math3.util.Pair;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import jfxtras.icalendarfx.VCalendar;
 import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.EventUtil;
 import seedu.address.commons.util.StringUtil;
-
 import seedu.address.model.event.exceptions.DuplicateVEventException;
 import seedu.address.model.event.exceptions.VEventNotFoundException;
 
