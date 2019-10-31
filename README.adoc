@@ -7,7 +7,7 @@ https://coveralls.io/github/AY1920S1-CS2103T-T10-2/main?branch=master[image:http
 
 
 ifdef::env-github[]
-image::docs/images/Ui.png.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 
