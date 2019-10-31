@@ -41,77 +41,38 @@ image::Ui.PNG[width="790"]
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * Note that Powerlifting Coordinator has different commands for different contexts.
-  There are two contexts: During Competition (In-session) and Outside of Competition (Out-session)
+  There are only two contexts: During Competition (In-session) and Outside of Competition (Out-session)
 ====
 
-=== Competitions
-The commands listed below in 3.2, 3.3, … are based on the context of a competition.
+=== Context: Outside Of Competition (Out-session)
+Commands related to managing competitions outside of a competition setting shall be introduced first.
 
-==== Context: No Competition
-*Commands*
+==== Adding a new competition: addCompetition
+Format: `addCompetition n/COMPETITION NAME startDate/START DATE OF COMPETITION endDate/END DATE OF COMPETITION`
 
-* Save: this changes the context to `Creating a competition`
-* Select: changes the context of a `Competition`
+Example:
+`addCompetition n/IPF World's startDate/12/02/1995 endDate/15/02/1995`
 
-==== Context: Creating a Competition
-*Parameters*
+==== Deleting an existing competition: deleteCompetition
+Format: `deleteCompetition INDEX`
 
-* name
-* date
-* Type
+Example:
+`deleteCompetition 1`
 
-*Commands*
+==== Editing a new competition: editCompetition
+Edits the details of the competition identified by the index number, as shown in the displayed competition list. 
+Existing values will be overwritten by the input values.
+In addition to INDEX,  at least one other field must be provided to the command.
 
-* Save
-
-==== Context: On a Competition
-*Commands*
-
-* Athletes
-* List
-
-*Prints a list of competitions*
-
-* Finalise
-
-*Parameters*
-
-* Id
-* name
-
-*Marks the competition as completed and prevents further edits*
-
-* Switch
-
-*Parameters*
-
-* id
-* name
-
-*Switch context to a different competition*
-
-* Delete
-
-*Parameters*
-
-* Id
-* name
-
-=== Getting Competitors’ Data
-
-==== Sorting Athletes: `sort`
-
-Groups and sorts all athletes into their respective weight classes or attempted weights for an event.
-
-Format: `sort wc/WEIGHTCLASS`
-
-Format: `sort aw/EVENT`
+Format: `editCompetition INDEX (must be a positive integer) [n/COMPETITION NAME] [startDate/START DATE OF COMPETITION] [endDate/END DATE OF COMPETITION]`
 
 Example(s):
+If you choose to supply all fields:
+* `editCompetition 1 n/IPF World's startDate/12/02/1995 endDate/15/02/1995`
 
-* `sort wc/90kg`
-
-* `sort aw/Squat`
+If you choose to supply only 1 field:
+* `editCompetition 1 n/IPF World's`
+* `editCompetition 1 startDate/12/02/1995`
 
 ==== Getting top scorers: `score`
 Gets and displays leading athletes and their scores for individual events or for their total scores.
