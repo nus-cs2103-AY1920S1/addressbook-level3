@@ -19,6 +19,7 @@ It is aimed at NUS project leaders who are in charge of a small project group of
 Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI).
 
 What it is, what does it do (mention the main features)
+can maybe insert a picture of the home page
 
 == Summary of Contributions
 * *Major enhancement*: added *the ability to undo/redo previous commands*
@@ -58,7 +59,7 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
-== Other Significant Contribution to Project
+== Other Significant Contribution to Project (should i put under summary of contribution)
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
