@@ -2,6 +2,8 @@ package seedu.ichifund.model.analytics;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,7 +34,7 @@ public class BreakdownReport extends Report {
     /**
      * Fills the {@code BreakdownReport}.
      *
-     * @param breakdownList Trends to fill the report.
+     * @param breakdownList Data to fill the report.
      */
     public void fillReport(List<Data> breakdownList) {
         requireNonNull(breakdownList);
@@ -54,11 +56,21 @@ public class BreakdownReport extends Report {
     }
 
     /**
-     * Retrieves the trend list.
+     * Retrieves the data list.
      */
     public List<Data> getBreakdownList() {
         return breakdown;
     }
+
+    /**
+     * Retrieves the sorted data list.
+     */
+    public List<Data> getSortedBreakdownList() {
+        List<Data> sortedBreakdownList = new ArrayList<>(breakdown);
+        Collections.sort(sortedBreakdownList);
+        return sortedBreakdownList;
+    }
+
 
     /**
      * Returns true if both trend reports contain the same month, year and data.

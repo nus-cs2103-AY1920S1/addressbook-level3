@@ -6,7 +6,7 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.Optional;
 
-import seedu.ichifund.logic.commands.analytics.BreakdownCommand;
+import seedu.ichifund.logic.commands.analytics.CategoryRankingCommand;
 import seedu.ichifund.logic.parser.ArgumentMultimap;
 import seedu.ichifund.logic.parser.ArgumentTokenizer;
 import seedu.ichifund.logic.parser.Parser;
@@ -16,21 +16,21 @@ import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 
 /**
- * Parses input arguments and creates a new BreakdownCommand object
+ * Parses input arguments and creates a new CategoryRankingCommand object
  */
-public class BreakdownCommandParser implements Parser<BreakdownCommand> {
+public class CategoryRankingCommandParser implements Parser<CategoryRankingCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the BreakdownCommand
-     * and returns an BreakdownCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CategoryRankingCommand
+     * and returns an CategoryRankingCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public BreakdownCommand parse(String args) throws ParseException {
+    public CategoryRankingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MONTH, PREFIX_YEAR);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BreakdownCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CategoryRankingCommand.MESSAGE_USAGE));
         }
         Month month = null;
         Year year = null;
@@ -46,6 +46,6 @@ public class BreakdownCommandParser implements Parser<BreakdownCommand> {
         Optional<Month> optionalMonth = Optional.ofNullable(month);
         Optional<Year> optionalYear = Optional.ofNullable(year);
 
-        return new BreakdownCommand(optionalMonth, optionalYear);
+        return new CategoryRankingCommand(optionalMonth, optionalYear);
     }
 }
