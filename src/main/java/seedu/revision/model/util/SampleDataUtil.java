@@ -76,16 +76,20 @@ public class SampleDataUtil {
                             new Answer("Regression testing is less effective when done frequently"))),
                     new Difficulty("2"), getCategorySet("quality assurance", "testing", "Week 2")),
 
-            new Mcq(new Question("Which of the following is not true?"),
-                    new ArrayList<>(Arrays
-                            .asList(new Answer("Downloading a copy of a remote repo to your computer is "
-                                    + "called forking"))),
-                    new ArrayList<>(Arrays.asList(
-                            new Answer("A local repo can pull from multiple remote repositories"),
-                            new Answer("It is possible to set up a Git server on your own computer"),
-                            new Answer("A pull request is mechanism for contributing code to a remote repo."))),
-                    new Difficulty("3"), getCategorySet("project management", "revision control", "Week 2")),
+            new TrueFalse(new Question("The term Design Patterns was popularized by a book whose authors are "
+                    + "also known as the ‘Three Amigos’."),
+                    new ArrayList<>(Arrays.asList(new Answer("false"))),
+                    new Difficulty("2"), getCategorySet("Design Patterns", "Week 9")),
 
+            new Mcq(new Question("Which of the following is not true?"),
+                new ArrayList<>(Arrays
+                        .asList(new Answer("Downloading a copy of a remote repo to your computer is "
+                                + "called forking"))),
+                new ArrayList<>(Arrays.asList(
+                        new Answer("A local repo can pull from multiple remote repositories"),
+                        new Answer("It is possible to set up a Git server on your own computer"),
+                        new Answer("A pull request is mechanism for contributing code to a remote repo."))),
+                new Difficulty("3"), getCategorySet("project management", "revision control", "Week 2")),
 
             new Mcq(new Question("Which of the following is not true?"),
                     new ArrayList<>(Arrays

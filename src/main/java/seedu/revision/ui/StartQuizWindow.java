@@ -81,6 +81,7 @@ public class StartQuizWindow extends Window {
         } else if (currentAnswerable instanceof TrueFalse) {
             answersGridPane = new TfAnswersGridPane(currentAnswerable);
         }
+        //TODO: Sihao to add here and line 177
 
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
@@ -103,6 +104,7 @@ public class StartQuizWindow extends Window {
         progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
         scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
     }
+
 
     private int getSizeOfCurrentLevel(Answerable answerable) {
         ObservableList<Answerable> sectionList = quizList.filtered(a ->
@@ -161,22 +163,18 @@ public class StartQuizWindow extends Window {
                 }
             }
 
+            answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
             if (currentAnswerable instanceof Mcq) {
-                answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
                 answersGridPane = new McqAnswersGridPane(currentAnswerable);
-                answersGridPane.updateAnswers(currentAnswerable);
-                answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
             } else if (currentAnswerable instanceof TrueFalse) {
-                answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
                 answersGridPane = new TfAnswersGridPane(currentAnswerable);
-                answersGridPane.updateAnswers(currentAnswerable);
-                answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
             }
-
+            //TODO: Sihao to add here as well
             //} else if (currentAnswerable instanceof Saq) {
             //    answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
             //}
-            //answersGridPane.updateAnswers(currentAnswerable);
+            answersGridPane.updateAnswers(currentAnswerable);
+            answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
 
@@ -201,7 +199,7 @@ public class StartQuizWindow extends Window {
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("You have completed level " + (nextLevel - 1) + "\n"
-                + "Your current score is: " + score + "\n"
+                + "Your current score is: " + score + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
                 + "Would you like to proceed to level " + nextLevel + "?\n"
                 + "Press [ENTER] to proceed.\n"
                 + "Press [ESC] to return to main screen.");
@@ -260,12 +258,14 @@ public class StartQuizWindow extends Window {
         alert.setHeaderText(null);
         alert.setGraphic(null);
         if (mode.value.equals("arcade") && answerableIterator.hasNext()) {
-            alert.setContentText("Better luck next time! :P Your score is " + score + "\n"
+            alert.setContentText("Better luck next time! :P Your score is " + score
+                    + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
                     + "Try again?\n"
                     + "Press [ENTER] to try again.\n"
                     + "Press [ESC] to return to main screen.");
         } else {
-            alert.setContentText("Quiz has ended! Your score is " + score + "\n"
+            alert.setContentText("Quiz has ended! Your final score is " + score
+                    + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
                     + "Try again?\n"
                     + "Press [ENTER] to try again.\n"
                     + "Press [ESC] to return to main screen.");
