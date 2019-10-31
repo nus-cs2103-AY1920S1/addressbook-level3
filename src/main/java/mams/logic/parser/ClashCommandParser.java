@@ -20,7 +20,7 @@ public class ClashCommandParser implements Parser<ClashCommand> {
     public ClashCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE, PREFIX_APPEAL);
+                ArgumentTokenizer.tokenize(args, PREFIX_APPEAL, PREFIX_MODULE, PREFIX_STUDENT);
         ClashCommand.ClashCommandParameters parameters = new ClashCommand.ClashCommandParameters();
 
         if (argMultimap.areAllPrefixesAbsent(PREFIX_APPEAL, PREFIX_MODULE, PREFIX_STUDENT)
@@ -31,7 +31,9 @@ public class ClashCommandParser implements Parser<ClashCommand> {
 
         if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
             parameters.setAppealIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEAL).get()));
-        } else if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) == 2) {
+        }
+
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) == 2) {
             List<String> modules = argMultimap.getAllValues(PREFIX_MODULE);
             if (isModuleCode(modules)) {
                 parameters.setModuleCodes(modules.get(0), modules.get(1));
@@ -39,11 +41,10 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                 parameters.setModuleIndices(ParserUtil.parseIndex(modules.get(0)),
                         ParserUtil.parseIndex(modules.get(1)));
             }
-        } else if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
+        }
+
+        if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
             parameters.setStudentIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get()));
-        } else {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    ClashCommand.MESSAGE_USAGE));
         }
 
         return new ClashCommand(parameters);
