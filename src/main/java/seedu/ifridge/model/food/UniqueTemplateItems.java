@@ -128,7 +128,8 @@ public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<U
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTemplateItems // instanceof handles nulls
-                        && internalList.equals(((UniqueTemplateItems) other).internalList));
+                        && internalList.equals(((UniqueTemplateItems) other).internalList)
+                        && name.toString().equals(((UniqueTemplateItems) other).getName().toString()));
     }
 
     /**
