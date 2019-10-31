@@ -4,12 +4,17 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -39,11 +44,17 @@ public class InformationDisplay extends UiPart<Region> {
     @FXML
     private Label attendanceRate;
     @FXML
-    private Label performance;
-    @FXML
     private Label title;
     @FXML
     private Label secondaryTitle;
+    @FXML
+    private ScrollPane performanceList;
+    @FXML
+    private TableColumn athleteEvent;
+    @FXML
+    private TableColumn athletePerformance;
+    @FXML
+    private TableView performance;
     @FXML
     private VBox imageHolder;
     @FXML
@@ -65,7 +76,7 @@ public class InformationDisplay extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add((new TagLayout(tag.tagName)).getRoot()));
         //setText of attendance and performance. Should attendance and performance be tag to a person?
         attendanceRate.setText(attendance);
-        performance.setText("superb");
+        //performance.setText("superb");
         resizeImage();
     }
 
@@ -75,5 +86,19 @@ public class InformationDisplay extends UiPart<Region> {
     public void resizeImage() {
         photo.fitHeightProperty().bind(imageHolder.heightProperty().subtract(40));
         photo.fitWidthProperty().bind(imageHolder.widthProperty());
+    }
+
+    public void setUpColumn() {
+        athleteEvent = new TableColumn("Event");
+        athleteEvent.setCellValueFactory(new PropertyValueFactory<>("event"));
+
+        athletePerformance = new TableColumn("Timing");
+        athletePerformance.setCellValueFactory(new PropertyValueFactory<>("timing"));
+
+        performance.getColumns().add(athleteEvent);
+        performance.getColumns().add(athletePerformance);
+
+
+
     }
 }
