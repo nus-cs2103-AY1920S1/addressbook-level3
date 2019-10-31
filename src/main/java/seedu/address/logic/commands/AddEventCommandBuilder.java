@@ -1,17 +1,16 @@
 package seedu.address.logic.commands;
 
+import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.commands.arguments.DateTimeArgument;
-import seedu.address.logic.commands.arguments.DateTimeArgumentBuilder;
 import seedu.address.logic.commands.arguments.StringArgument;
-import seedu.address.logic.commands.arguments.StringArgumentBuilder;
 import seedu.address.logic.commands.arguments.StringVariableArguments;
-import seedu.address.logic.commands.arguments.StringVariableArgumentsBuilder;
-import seedu.address.logic.commands.options.Option;
-import seedu.address.logic.commands.options.OptionBuilder;
-import seedu.address.model.Model;
-import seedu.address.model.events.DateTime;
+import seedu.address.logic.commands.arguments.list.ArgumentList;
+import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
+import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
+import seedu.address.model.DateTime;
+import seedu.address.model.ModelManager;
 
 /**
  * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.
@@ -28,53 +27,51 @@ class AddEventCommandBuilder extends CommandBuilder {
     private static final String ARGUMENT_REMIND_DATE_TIME = "REMIND_DATE_TIME";
     private static final String ARGUMENT_TAGS = "TAGS";
 
-    private final Model model;
+    private final ModelManager model;
 
-    private final StringArgumentBuilder description;
-    private final DateTimeArgumentBuilder start;
-    private final DateTimeArgumentBuilder end;
-    private final DateTimeArgumentBuilder remind;
-    private final StringVariableArgumentsBuilder tags;
+    private String description;
+    private DateTime start;
+    private DateTime end;
+    private DateTime remind;
+    private List<String> tags;
 
-    AddEventCommandBuilder(Model model) {
+    AddEventCommandBuilder(ModelManager model) {
         this.model = model;
-
-        this.description = StringArgument.newBuilder(ARGUMENT_DESCRIPTION);
-        this.start = DateTimeArgument.newBuilder(ARGUMENT_START_DATE_TIME);
-        this.end = DateTimeArgument.newBuilder(ARGUMENT_END_DATE_TIME);
-        this.remind = DateTimeArgument.newBuilder(ARGUMENT_REMIND_DATE_TIME);
-        this.tags = StringVariableArguments.newBuilder(ARGUMENT_TAGS);
     }
 
     @Override
-    OptionBuilder getCommandArguments() {
-        return Option.newBuilder()
-            .addArgument(this.description)
-            .addArgument(this.start);
+    RequiredArgumentList defineCommandArguments() {
+        return ArgumentList.required()
+            .addArgument(StringArgument.newBuilder(ARGUMENT_DESCRIPTION, v -> this.description = v))
+            .addArgument(DateTimeArgument.newBuilder(ARGUMENT_START_DATE_TIME, v -> this.start = v));
     }
 
     @Override
-    Map<String, OptionBuilder> getCommandOptions() {
+    Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(
-            OPTION_END_DATE_TIME, Option.newBuilder()
-                .addArgument(this.end),
-            OPTION_REMIND_DATE_TIME, Option.newBuilder()
-                .addArgument(this.remind),
-            OPTION_TAGS, Option.newBuilder()
-                .setVariableArguments(this.tags)
+            OPTION_END_DATE_TIME, ArgumentList.optional()
+                .addArgument(DateTimeArgument.newBuilder(ARGUMENT_END_DATE_TIME, v -> this.end = v)),
+            OPTION_REMIND_DATE_TIME, ArgumentList.optional()
+                .addArgument(DateTimeArgument.newBuilder(ARGUMENT_REMIND_DATE_TIME, v -> this.remind = v)),
+            OPTION_TAGS, ArgumentList.optional()
+                .setVariableArguments(StringVariableArguments.newBuilder(ARGUMENT_TAGS, v -> this.tags = v))
         );
     }
 
-    Model getModel() {
+    ModelManager getModel() {
         return model;
     }
 
     String getDescription() {
-        return this.description.getValue();
+        return this.description;
     }
 
     DateTime getStart() {
-        return this.start.getValue();
+        return this.start;
+    }
+
+    DateTime getRemind() {
+        return this.remind;
     }
 
     @Override

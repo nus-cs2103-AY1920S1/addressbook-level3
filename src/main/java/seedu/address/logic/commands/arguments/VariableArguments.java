@@ -3,6 +3,7 @@ package seedu.address.logic.commands.arguments;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -16,12 +17,15 @@ public abstract class VariableArguments<T> {
 
     private final List<T> values;
     private final List<String> userInput;
+
     private final String description;
+    private final Consumer<List<T>> promise;
 
     VariableArguments(VariableArgumentsBuilder<T> builder) {
         this.values = new ArrayList<>();
         this.userInput = new ArrayList<>();
         this.description = builder.getDescription();
+        this.promise = builder.getPromise();
     }
 
     /**
@@ -37,6 +41,7 @@ public abstract class VariableArguments<T> {
 
     /**
      * Builds the variable arguments by parsing user input from accept().
+     * Passes the built values to a user defined promise.
      * @return the built variable arguments values
      * @throws ParseException if the user input is invalid
      */
@@ -44,6 +49,7 @@ public abstract class VariableArguments<T> {
         for (String input : this.userInput) {
             this.values.add(this.parse(input));
         }
+        this.promise.accept(this.values);
         return this.values;
     }
 

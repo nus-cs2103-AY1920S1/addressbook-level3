@@ -6,29 +6,41 @@ import static seedu.address.commons.util.FileUtil.writeToFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
-import seedu.address.model.events.EventList;
+import seedu.address.model.DateTime;
+import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 
 /**
  * Class responsible for exporting Horo's tasks and events into an .ics file.
  */
 public class IcsExporter {
-    private EventList eventList;
 
-    public IcsExporter(EventList eventList) {
-        requireNonNull(eventList);
-        this.eventList = eventList;
+    private static final String EXPORT_ERROR_MESSAGE = "Error occurred while exporting file!";
+    private static final String PROD_ID = "-//Horo//Exported Calendar// v1.0//EN";
+    private static final String CALENDAR_VERSION = "2.0";
+
+    private List<EventSource> eventList;
+
+    public IcsExporter(ModelManager model) {
+        this.eventList = model.getEventList();
+        requireNonNull(this.eventList);
     }
 
     /**
      * Saves the events in an ics file, whose location is specified in the parameter.
-     * @param filePath the directory where the file should be made.
+     * @param filepathString the path of where the file should be made.
      * @throws IOException if the file or directory cannot be created.
      */
-    public void export(Path filePath) throws IOException {
-        createIfMissing(filePath);
-        writeToFile(filePath, generateIcsFileContent());
+    public void export(String filepathString) throws IcsException {
+        try {
+            Path filepath = Path.of(filepathString);
+            createIfMissing(filepath);
+            writeToFile(filepath, generateIcsFileContent());
+        } catch (IOException e) {
+            throw new IcsException(EXPORT_ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -37,14 +49,19 @@ public class IcsExporter {
      */
     private String generateIcsFileContent() {
         StringBuilder stringBuilder = new StringBuilder("BEGIN:VCALENDAR");
-        String prodId = "-//Horo//Exported Calendar// v1.0//EN";
-        stringBuilder.append("\n").append(prodId);
-        for (EventSource eventSource : eventList.getReadOnlyList()) {
+        stringBuilder
+                .append("\n").append("VERSION:").append(CALENDAR_VERSION)
+                .append("\n").append("PRODID:").append(PROD_ID);
+        for (EventSource eventSource : eventList) {
             stringBuilder.append("\n").append(eventSource.toIcsString());
         }
         stringBuilder.append("\n").append("END:VCALENDAR");
         return stringBuilder.toString();
     }
 
+    public static String getExportFileName() {
+        String timestamp = DateTime.now().toIcsString();
+        return "Horo_export_" + timestamp + ".ics";
+    }
 
 }

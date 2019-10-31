@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javafx.collections.ObservableList;
-
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.UserOutput;
 
@@ -19,7 +17,7 @@ import seedu.address.ui.UserOutput;
  */
 public class DeleteEventCommand extends Command {
 
-    private final Model model;
+    private final ModelManager model;
     private final List<Integer> indexes;
     private final List<String> tags;
 
@@ -29,13 +27,13 @@ public class DeleteEventCommand extends Command {
         this.tags = builder.getTags();
     }
 
-    public static CommandBuilder newBuilder(Model model) {
+    public static CommandBuilder newBuilder(ModelManager model) {
         return new DeleteEventCommandBuilder(model).init();
     }
 
     @Override
     public UserOutput execute() throws CommandException {
-        ObservableList<EventSource> list = model.getEventList().getReadOnlyList();
+        List<EventSource> list = model.getEventList();
 
         List<EventSource> events = new ArrayList<>();
         for (Integer index : indexes) {
@@ -47,7 +45,7 @@ public class DeleteEventCommand extends Command {
         }
 
         for (EventSource event : events) {
-            model.deleteEvent(event);
+            model.removeEvent(event);
         }
         return new UserOutput(String.format(MESSAGE_DELETE_EVENT_SUCCESS, events.stream()
             .map(EventSource::getDescription)

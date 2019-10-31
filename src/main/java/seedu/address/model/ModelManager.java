@@ -1,291 +1,186 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.nio.file.Path;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.notification.NotificationChecker;
-import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.events.ReadOnlyEventList;
 import seedu.address.model.listeners.EventListListener;
-import seedu.address.model.person.Person;
-import seedu.address.ui.systemtray.PopupNotification;
+import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.listeners.UndoRedoListener;
+import seedu.address.model.tasks.TaskSource;
+import seedu.address.model.undo.UndoRedoState;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of Horo.
  */
-public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
-    private final AddressBook addressBook;
-    private final UndoableHistory undoableHistory;
-    private final NotificationChecker notificationChecker;
-    private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-
+public class ModelManager implements UndoRedoListener {
+    private final NotNullList<EventSource> eventList;
     private final List<EventListListener> eventListListeners;
+    private final NotNullList<TaskSource> taskList;
+    private final List<TaskListListener> taskListListeners;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Creates a ModelManager.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEventList readOnlyEventList,
-            ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        EventList eventList = new EventList(readOnlyEventList);
-
-        this.addressBook = new AddressBook(addressBook);
-        this.undoableHistory = new UndoableHistory(eventList);
-        this.notificationChecker = new NotificationChecker(eventList);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
-        this.eventListListeners = new ArrayList<>();
-    }
-
     public ModelManager() {
-        this(new AddressBook(), new EventList(), new UserPrefs());
+        super();
+        this.eventList = new NotNullList<>();
+        this.eventListListeners = new ArrayList<>();
+        this.taskList = new NotNullList<>();
+        this.taskListListeners = new ArrayList<>();
     }
 
     public void addEventListListener(EventListListener listener) {
         this.eventListListeners.add(listener);
     }
 
-    //=========== UserPrefs ==================================================================================
-
-    @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void addTaskListListener(TaskListListener listener) {
+        this.taskListListeners.add(listener);
     }
 
-    @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== EventsBook ================================================================================
-
-    @Override
-    public void addEvent(EventSource event) {
-        EventList eventList = undoableHistory.getCurrentState();
-
-        eventList.add(event);
-
-        // Save the modified EventList state to the UndoableHistory
-        commitToHistory(eventList);
-
-        eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
-    }
-
-    @Override
-    public void deleteEvent(EventSource target) {
-        EventList eventList = undoableHistory.getCurrentState();
-
-        eventList.remove(target);
-
-        // Save the modified EventList state to the UndoableHistory
-        commitToHistory(eventList);
-
-        eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
-    }
-
-    @Override
-    public ReadOnlyEventList getEventList() {
-        return undoableHistory.getCurrentState();
-    }
-
-    @Override
-    public boolean hasEvent(EventSource event) {
-        return undoableHistory.getCurrentState().contains(event);
-    }
-
-    @Override
-    public void setEvent(EventSource target, EventSource editedEvent) {
-        EventList eventList = undoableHistory.getCurrentState();
-
-        eventList.replace(target, editedEvent);
-
-        // Save the modified EventList state to the UndoableHistory
-        commitToHistory(eventList);
-
-        eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
-    }
-
-    @Override
-    public void setEventList(ReadOnlyEventList readOnlyEventList) {
-        EventList eventList = undoableHistory.getCurrentState();
-
-        eventList.resetData(readOnlyEventList);
-
-        // Save the modified EventList state to the UndoableHistory
-        commitToHistory(eventList);
-
-        eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
+    /* Events */
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Adds EventSource(s) to this model's eventList.
+     * @param events the EventSource(s) to add
      */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public ObservableList<EventSource> getFilteredEventList() {
-        return undoableHistory.getCurrentState().getReadOnlyList();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
+    public void addEvents(EventSource... events) {
+        for (EventSource e : events) {
+            // Create a deep-copy of each addition.
+            this.eventList.add(new EventSource(e));
         }
+        notifyEventListListeners();
+    }
 
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
+    public boolean containsEvent(EventSource event) {
+        return this.eventList.contains(event);
+    }
+
+    /**
+     * Removes an EventSource from this model.
+     * @param event the EventSource to remove.
+     */
+    public void removeEvent(EventSource event) {
+        this.eventList.remove(event);
+        notifyEventListListeners();
+    }
+
+    /**
+     * Replaces an EventSource in this model with another EventSource.
+     * @param event the EventSource to replace
+     * @param replacement the replacement
+     */
+    public void replaceEvent(EventSource event, EventSource replacement) {
+        // Create a deep-copy of the replacement.
+        this.eventList.replace(event, new EventSource(replacement));
+        notifyEventListListeners();
+    }
+
+    /**
+     * Replaces the entire EventList in this model with a list of events.
+     * @param events the events to replace the entire EventList.
+     */
+    public void setEventList(List<EventSource> events) {
+        this.eventList.reset(events);
+        notifyEventListListeners();
+    }
+
+    /**
+     * Returns an unmodifiable, deep copy of this model's EventList.
+     * @return a copy of the EventList
+     */
+    public List<EventSource> getEventList() {
+        List<EventSource> result = new ArrayList<>();
+        for (EventSource event : this.eventList) {
+            // Create a deep-copy of each EventSource.
+            result.add(new EventSource(event));
         }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-            && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+        // Return an unmodifiable list.
+        return Collections.unmodifiableList(result);
     }
 
-    //=========== UndoableHistory ================================================================================
+    /* Tasks */
 
     /**
-     * Creates a deep-copy of the current event list state and saves that copy to the UndoableHistory.
+     * Adds TaskSource(s) to this model's taskList.
+     * @param tasks the TaskSource(s) to add
      */
-    public void commitToHistory(EventList eventList) {
-        undoableHistory.commit(eventList);
+    public void addTasks(TaskSource... tasks) {
+        for (TaskSource t : tasks) {
+            // Create a deep-copy of each addition.
+            this.taskList.add(new TaskSource(t));
+        }
+        notifyTaskListListeners();
     }
 
-    /**
-     * Restores the previous event list state from UndoableHistory.
-     */
-    @Override
-    public void undoFromHistory() {
-        undoableHistory.undo();
+    public boolean containsTask(TaskSource task) {
+        return this.taskList.contains(task);
     }
 
     /**
-     * Restores the previously undone event list state from UndoableHistory.
+     * Removes an TaskSource from this model.
+     * @param task the TaskSource to remove.
      */
-    @Override
-    public void redoFromHistory() {
-        undoableHistory.redo();
+    public void removeTask(TaskSource task) {
+        this.taskList.remove(task);
+        notifyTaskListListeners();
     }
 
     /**
-     * Returns true if there are previous event list states to restore, and false otherwise.
-     *
-     * @return boolean
+     * Replaces a TaskSource in this model with another TaskSource.
+     * @param task the TaskSource to replace
+     * @param replacement the replacement
      */
-    @Override
-    public boolean canUndoHistory() {
-        return undoableHistory.canUndo();
+    public void replaceTask(TaskSource task, TaskSource replacement) {
+        // Create a deep-copy of the replacement.
+        this.taskList.replace(task, new TaskSource(replacement));
+        notifyTaskListListeners();
     }
 
     /**
-     * Clears all future event list states in UndoableHistory beyond the current state.
+     * Replaces the entire TaskList in this model with a list of tasks.
+     * @param tasks the tasks to replace the entire TaskList.
      */
-    @Override
-    public void clearFutureHistory() {
-        undoableHistory.clearFutureHistory();
+    public void setTaskList(List<TaskSource> tasks) {
+        this.taskList.reset(tasks);
+        notifyTaskListListeners();
     }
 
+    /**
+     * Returns an unmodifiable, deep copy of this model's TaskList.
+     * @return a copy of the TaskList
+     */
+    public List<TaskSource> getTaskList() {
+        List<TaskSource> result = new ArrayList<>();
+        for (TaskSource task : this.taskList) {
+            // Create a deep-copy of each TaskSource.
+            result.add(new TaskSource(task));
+        }
+        // Return an unmodifiable list.
+        return Collections.unmodifiableList(result);
+    }
 
-    //=========== Notification ===================================================================================
+    /**
+     * Notify all listeners whenever the EventList is changed.
+     */
+    private void notifyEventListListeners() {
+        this.eventListListeners.forEach(listener ->
+                listener.onEventListChange(this.getEventList()));
+    }
+
+    /**
+     * Notify all listeners whenever the TaskList is changed.
+     */
+    private void notifyTaskListListeners() {
+        this.taskListListeners.forEach(listener ->
+                listener.onTaskListChange(this.getTaskList()));
+    }
 
     @Override
-    public ArrayList<PopupNotification> getListOfPopupNotifications() {
-        return notificationChecker.getListOfPopupNotifications();
+    public void onUndoRedo(UndoRedoState state) {
+        this.setEventList(state.getEvents());
+        this.setTaskList(state.getTasks());
     }
+
 }

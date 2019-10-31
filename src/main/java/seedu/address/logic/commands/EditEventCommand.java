@@ -8,11 +8,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import javafx.collections.ObservableList;
-
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
+import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.UserOutput;
 
@@ -21,7 +19,7 @@ import seedu.address.ui.UserOutput;
  */
 public class EditEventCommand extends Command {
 
-    private final Model model;
+    private final ModelManager model;
     private final List<Integer> indexes;
     private final String description;
     private final DateTime start;
@@ -39,13 +37,13 @@ public class EditEventCommand extends Command {
         this.tags = builder.getTags();
     }
 
-    public static CommandBuilder newBuilder(Model model) {
+    public static CommandBuilder newBuilder(ModelManager model) {
         return new EditEventCommandBuilder(model).init();
     }
 
     @Override
     public UserOutput execute() throws CommandException {
-        ObservableList<EventSource> list = model.getEventList().getReadOnlyList();
+        List<EventSource> list = model.getEventList();
 
         List<EventSource> events = new ArrayList<>();
         for (Integer index : indexes) {
@@ -71,7 +69,17 @@ public class EditEventCommand extends Command {
                 start = this.start;
             }
 
-            model.setEvent(event, new EventSource(description, start));
+            DateTime remind;
+            if (this.remind == null) {
+                remind = event.getRemind();
+            } else {
+                remind = this.remind;
+            }
+
+            EventSource replacement = EventSource.newBuilder(description, start)
+                .setRemind(remind)
+                .build();
+            model.replaceEvent(event, replacement);
         }
 
         return new UserOutput(String.format(MESSAGE_EDIT_EVENT_SUCCESS, events.stream()
