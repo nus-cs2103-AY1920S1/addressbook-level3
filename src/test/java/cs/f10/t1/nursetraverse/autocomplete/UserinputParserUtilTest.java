@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class UserinputParserUtilTest {
 
     @Test
-    void splitIntoSegments() {
+    public void splitIntoSegments() {
         String testString = "pat-delete 1";
         String[] segments = UserinputParserUtil.splitIntoSegments(testString);
         assertEquals("pat-delete", segments[0]);
@@ -17,7 +17,7 @@ class UserinputParserUtilTest {
     }
 
     @Test
-    void splitIntoSegments_emptyString_emptyArray() {
+    public void splitIntoSegments_emptyString_emptyArray() {
         String testString = "";
         String[] segments = UserinputParserUtil.splitIntoSegments(testString);
         assertEquals(1, segments.length);

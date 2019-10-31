@@ -10,12 +10,12 @@ class PrefixWordTest {
             "test1", "test2", "test3");
 
     @Test
-    void getSuggestedWord() {
+    public void getSuggestedWord() {
         assertEquals("test3", testPrefixWord.getSuggestedWord());
     }
 
     @Test
-    void getAssociatedWordList() {
+    public void getAssociatedWordList() {
         assertEquals(2, testPrefixWord.getAssociatedWordList().size());
         assertEquals("test1", testPrefixWord.getAssociatedWordList().get(0));
         assertEquals("test2", testPrefixWord.getAssociatedWordList().get(1));

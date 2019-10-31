@@ -10,23 +10,23 @@ class CommandWordTest {
             true, true);
 
     @Test
-    void getSuggestedWord() {
+    public void getSuggestedWord() {
         assertEquals("test2", testCommandWord.getSuggestedWord());
     }
 
     @Test
-    void getAssociatedWordList() {
+    public void getAssociatedWordList() {
         assertEquals(1, testCommandWord.getAssociatedWordList().size());
         assertEquals("test1", testCommandWord.getAssociatedWordList().get(0));
     }
 
     @Test
-    void hasIndex() {
+    public void hasIndex() {
         assertTrue(testCommandWord.hasIndex());
     }
 
     @Test
-    void hasPrefix() {
+    public void hasPrefix() {
         assertTrue(testCommandWord.hasPrefix());
     }
 }
