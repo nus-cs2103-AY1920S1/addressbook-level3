@@ -50,10 +50,12 @@ public class LogicManager implements Logic {
             storage.saveLoanRecords(model.getLoanRecords());
             storage.saveCatalog(model.getCatalog());
             storage.saveBorrowerRecords(model.getBorrowerRecords());
-            if (LoanSlipUtil.isMounted()) {
-                storage.storeNewLoanSlip();
-                LoanSlipUtil.openGeneratedLoanSlip();
-                LoanSlipUtil.unmountLoan();
+            if (commandResult.isDone()) {
+                if (LoanSlipUtil.isMounted()) {
+                    storage.storeNewLoanSlip();
+                    LoanSlipUtil.openGeneratedLoanSlip();
+                    LoanSlipUtil.unmountLoans();
+                }
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

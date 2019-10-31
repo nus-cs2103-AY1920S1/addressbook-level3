@@ -19,6 +19,7 @@ import static seedu.address.testutil.UserSettingsBuilder.DEFAULT_LOAN_PERIOD;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
@@ -64,6 +65,8 @@ class LoanCommandTest {
             actualMessage = loanCommand.execute(model).getFeedbackToUser();
         } catch (CommandException e) {
             actualMessage = e.getMessage();
+        } finally {
+            LoanSlipUtil.unmountLoans();
         }
         String expectedMessage = String.format(LoanCommand.MESSAGE_SUCCESS, updatedLoanedOutBook,
                 model.getServingBorrower());
@@ -90,6 +93,8 @@ class LoanCommandTest {
             actualMessage = loanCommand.execute(model).getFeedbackToUser();
         } catch (CommandException e) {
             actualMessage = e.getMessage();
+        } finally {
+            LoanSlipUtil.unmountLoans();
         }
         String expectedMessage = MESSAGE_NOT_IN_SERVE_MODE;
         assertEquals(actualMessage, expectedMessage);
@@ -113,6 +118,8 @@ class LoanCommandTest {
             actualMessage = loanCommand.execute(model).getFeedbackToUser();
         } catch (CommandException e) {
             actualMessage = e.getMessage();
+        } finally {
+            LoanSlipUtil.unmountLoans();
         }
         String expectedMessage = MESSAGE_NO_SUCH_BOOK;
         assertEquals(actualMessage, expectedMessage);
@@ -139,6 +146,8 @@ class LoanCommandTest {
             actualMessage = loanCommand.execute(model).getFeedbackToUser();
         } catch (CommandException e) {
             actualMessage = e.getMessage();
+        } finally {
+            LoanSlipUtil.unmountLoans();
         }
         String expectedMessage = String.format(MESSAGE_BOOK_ON_LOAN, BOOK_7);
         assertEquals(actualMessage, expectedMessage);
