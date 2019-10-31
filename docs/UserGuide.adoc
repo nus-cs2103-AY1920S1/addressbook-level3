@@ -287,9 +287,18 @@ Encrypts a local file as specified by its file path. The file's content is conve
 
 As you encrypt the file, you may tag the file at the same time for easy reference later on.
 
-Format: `encrypt <FILEPATH> [t/<TAG>]...`
+Format: `encrypt FILEPATH [t/TAG]...`
 
 Example: `encrypt ~/Desktop/Secret File.png t/Image`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* Instead of typing the file path, you can drag the file into the input field to easily append the file path. This also applies to other commands (e.g. `add`).
+====
 
 ====
 --
@@ -305,7 +314,7 @@ image::warning.png[width = "20", float = "left"]
 
 Decrypts a local file as specified by the displayed index number.
 
-Format: `decrypt <INDEX>`
+Format: `decrypt INDEX`
 
 Example: `decrypt 1` (This command decrypts the first file in the displayed file list.)
 
@@ -325,7 +334,7 @@ Adds an encrypted file as specified by its file path. The file must be encrypted
 
 As you add the file, you may tag the file at the same time for easy reference later on.
 
-Format: `add <FILENAME> [t/<TAG>]...`
+Format: `add FILENAME [t/TAG]...`
 
 Example: `add ~/Desktop/[LOCKED] Secret File.png t/Image`
 
@@ -344,7 +353,7 @@ Removes an encrypted file record as specified by the displayed index number.
 
 Please note that only the file record within SecureIT is removed. The actual file is not deleted from the file system.
 
-Format: `remove <INDEX>`
+Format: `remove INDEX`
 
 Example: `remove 1`
 
@@ -361,7 +370,7 @@ image::warning.png[width = "20", float = "left"]
 
 Renames an encrypted file as specified by its index number. The prefix `[LOCKED]` is retained.
 
-Format: `rename <INDEX> <TARGET_FILENAME>`
+Format: `rename INDEX TARGET_FILENAME`
 
 Example: `rename 1 Secret File.txt`
 
@@ -369,7 +378,7 @@ Example: `rename 1 Secret File.txt`
 
 Moves an encrypted file as specified by its index number.
 
-Format: `move <INDEX> <TARGET_DIRECTORY>`
+Format: `move INDEX TARGET_DIRECTORY`
 
 Example: `move 1 ~/Documents/Secret File.png`
 
@@ -389,7 +398,7 @@ Finds matching encrypted files as specified by the search keywords.
 
 To return from search results, use `list` command.
 
-Format: `find <KEYWORDS>...`
+Format: `find KEYWORDS...`
 
 Examples: `find Secret File`
 ====
@@ -407,6 +416,14 @@ image::tip.png[width = "20", float = "left"]
 Lists all encrypted files managed by SecureIT.
 
 Format: `list`
+
+==== Viewing an encrypted file : `preview` [coming soon]
+
+Previews an encrypted file as specified by its index number. You can only preview `.txt`, `.jpg` and `.png` files.
+
+Format: `preview INDEX`
+
+Example: `preview 1`
 
 ===  Note
 Accessing note directory : `goto note`
