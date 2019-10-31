@@ -16,7 +16,7 @@
     </columnConstraints>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-          <VBox alignment="CENTER_LEFT" minHeight="105">
+          <VBox alignment="CENTER_LEFT" maxWidth="800" minHeight="105">
             <padding>
               <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
