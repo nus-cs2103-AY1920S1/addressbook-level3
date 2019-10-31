@@ -47,26 +47,26 @@ This section contains the features and their respective commands
 * Items with `…`​ after them can be inserted zero or more times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
 * Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
 ====
-
+//tag:flashcard[]
 === Add new flashcard: `add [q>QUESTION] [q>ANSWER] [c>CATEGORY]...`
 
-This command allow to you to add a new flashcard with specific question and answer. +
+This command allows to you to add a new flashcard with question and answer. +
 `add q>What is CS2103T a>Software engineering`
 
-You may also specified the category of the flashcard. +
+You may also include the category for the flashcard. +
 `add q>What is CS2103T a>Software engineering c>CS2103T`
 
 To add:
 
-. Type `add` followed by the question and answer and press **Enter** to execute it.
+. Type `add q>What is the use of checksum ? a>To detect "error"` and press **Enter**.
 +
 image::AddStep1.png[width="600"]
 
-. The result box will display the message: _"New flashCard added: What is the use of checksum ? Answer: To detect "error" Categories: "_
+. The result box will display the message: _"New flashCard added: What is the use of checksum ? Answer: To detect "error""_
 +
 image::AddStep2.png[width="600"]
 
-. And you can check whether the new flashcard has been added to the flashcard list.
+. And you can check the new flashcard has been added to bottom of the flashcard list.
 +
 image::AddStep3.png[width="600"]
 
@@ -77,12 +77,10 @@ display list with 1 or multiple fields +
 e.g: +
 
 * `edit 7 c>CS2105`
-* `edit 1 a>lambda c>science`
-* `edit 1 q> 11 * 11 a> 121 c> math`
 
 To edit:
 
-. Type `edit` followed by the index and the content to edit, then press *Enter* to execute it.
+. Type `edit 7c>CS2105` and press *Enter*.
 +
 image::EditStep1.png[width="600"]
 
@@ -90,7 +88,7 @@ image::EditStep1.png[width="600"]
 +
 image::EditStep2.png[width="600"]
 
-. And you can check whether the flashcard has been edited on the flashcard list.
+. And you can see that the 7th flashcard has been edited on the flashcard list.
 +
 image::EditStep3.png[width="600"]
 
@@ -99,12 +97,11 @@ image::EditStep3.png[width="600"]
 This command allows you the delete a
 particular flashcard with the index
 show on the flashcard list. e.g.
-`delete 1`
+`delete 7`
 
 To delete:
 
-. Type `delete` with the corresponding index displayed on the
-flashcard list and press *Enter* to execute it.
+. Type `delete 7` and press *Enter*.
 +
 image::DeleteStep1.png[width="600"]
 
@@ -122,7 +119,7 @@ This command allows you to delete all the flashcard in the storage.
 
 To clear:
 
-. Type `clear' and press *Enter* to execute it.
+. Type `clear' and press *Enter*.
 +
 image::ClearStep1.png[width="600"]
 
@@ -132,10 +129,47 @@ And you will see that all lists turn empty.
 image::ClearStep2.png[width="600"]
 
 
-=== Search of flashcards: `find`
+=== List of category : `list [category]`
 
-This section will show you different ways to find flashcards that matches the keyword(s).
+This command allows you to list all flashcards under one or multiple categories.
+Multiple keywords are separated by a single space.
 
+to list category:
+
+. Type `list CS2105` and press *Enter*.
++
+image::ListcatStep1.png[width="600"]
+
+. The result box will show message: _"1 flashcard is listed!"_ .
++
+image::ListCatStep2.png[width="600"]
+
+. And the flashcard list is updated.
++
+image::ListCatStep3.png[width="600"]
+
+=== List all flashcards: `listall`
+
+This command allows you to lists all the flashcards in the storage.
+
+To listall:
+
+. Type `listall` and press *Enter*.
++
+image::ListAllStep1.png[width="600"]
+
+. The result box will show message: _"Listed all Flash Cards"_.
++
+image::ListAllStep2.png[width="600"]
+
+.  And the flashcard list will show all the flashcards. You can move your mouse
+to the flashcard list and scroll up and down to view the flashcards.
++
+image::ListAllStep3.png[width="600"]
+
+=== Search for flashcards: `search`
+
+The section will show 3 ways
 ==== Search for flashcards that either the question or the answer matches the keyword(s): "find [keyword(s)]
 
 This command allows you to find a list of flashcards with the question or answer matching the keyword(s).
@@ -183,33 +217,10 @@ image::FindaStep2.png[width="600"].
 
 ==== Search for category/categories : `findcat [keyword(s)]`
 
-list all the flashcards under the specific category that matching the keyword(s).
-Multiple keywords are separated by a single space.
-
-to find category:
-
-. Type `findcat` follow by the keywords and press *Enter* to execute it.
-+
-image::FindcatStep1.png[width="600"]
-
-. The result box will show message: _""_ and the flashcard list will show the matched flashcards
-+
-image::FindcatStep2.png[width="600"].
 
 
-=== List all flashcards: `list`
 
-This command allows you to lists all the flashcards in the storage.
-
-To list:
-
-. Type `list` and press *Enter* to execute it.
-+
-image::ListStep1.png[width="600"]
-
-. The result box will show message: _"Listed all Flash Cards"_  and the flashcard list will show all the flashcards.
-+
-image::ListStep2.png[width="600"]
+//end::flashcard[]
 
 === Start flashcard test: `start`
 
