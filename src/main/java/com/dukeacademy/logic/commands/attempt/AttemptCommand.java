@@ -10,6 +10,8 @@ import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.state.Activity;
+import com.dukeacademy.model.state.ApplicationState;
 
 /**
  * Command for attempting a question. This command loads the selected question into the registered
@@ -19,6 +21,7 @@ public class AttemptCommand implements Command {
     private final Logger logger;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
+    private final ApplicationState applicationState;
     private final int index;
 
     /**
@@ -28,11 +31,13 @@ public class AttemptCommand implements Command {
      * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
      */
-    public AttemptCommand(int index, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
+    public AttemptCommand(int index, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
+                          ApplicationState applicationState) {
         this.logger = LogsCenter.getLogger(AttemptCommand.class);
         this.index = index - 1;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
+        this.applicationState = applicationState;
     }
 
     @Override
@@ -50,8 +55,12 @@ public class AttemptCommand implements Command {
                 // Notify user that he has already passed this question
                 String feedback = "Reattempting question " + (index + 1) + " : " + userSelection.getTitle() + " - "
                         + "You have already passed this question successfully.";
-                return new CommandResult(feedback, false, false, false, false, false,
-                        true, false);
+
+                // Update app's current activity
+                this.applicationState.setCurrentActivity(Activity.WORKSPACE);
+
+                return new CommandResult(feedback, false, false
+                );
             } else {
                 // Update status of question to ATTEMPTED
                 Question questionToAttempt = this.questionsLogic.getQuestion(index).withNewStatus(Status.ATTEMPTED);
@@ -62,8 +71,12 @@ public class AttemptCommand implements Command {
                 this.programSubmissionLogic.setCurrentQuestion(questionToAttempt);
 
                 String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
-                return new CommandResult(feedback, false, false, false, false, false,
-                        true, false);
+
+                // Update app's current activity
+                this.applicationState.setCurrentActivity(Activity.WORKSPACE);
+
+                return new CommandResult(feedback, false, false
+                );
             }
 
         } catch (IndexOutOfBoundsException e) {

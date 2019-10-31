@@ -22,6 +22,7 @@ import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.state.ApplicationState;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 import com.dukeacademy.testutil.TypicalQuestions;
 
@@ -32,14 +33,16 @@ class SubmitCommandTest {
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
+    private ApplicationState applicationState;
 
     @BeforeEach void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         this.submissionLogic = new ProgramSubmissionLogicManager(tempFolder.toString());
+        this.applicationState = new ApplicationState();
     }
 
     @Test void execute() throws IOException, CommandException {
-        SubmitCommand command = new SubmitCommand(questionsLogic, submissionLogic);
+        SubmitCommand command = new SubmitCommand(questionsLogic, submissionLogic, applicationState);
 
         // Check that an exception is thrown if the question is not set previously
         submissionLogic.setUserProgramSubmissionChannel(() -> new UserProgram("Main", ""));
@@ -56,7 +59,7 @@ class SubmitCommandTest {
 
         // Check that questionsLogic has changed accordingly
         List<Question> expected = TypicalQuestions.getTypicalQuestions();
-        expected.set(0, expected.get(0).withNewStatus(Status.ATTEMPTED).withNewUserProgram(invalidClassNameSubmission));
+        expected.set(0, expected.get(0).withNewUserProgram(invalidClassNameSubmission));
         assertTrue(this.matchListData(questionsLogic.getFilteredQuestionsList(), expected));
 
         // Check correct results
