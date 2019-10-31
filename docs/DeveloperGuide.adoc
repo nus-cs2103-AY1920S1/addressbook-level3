@@ -345,6 +345,7 @@ behaves at each step.
 Step 1. The user launches the application for the first time.
 The `CommandHistory` will be initialized with an empty `commandHistoryList`.
 
+.Initial state of CommandHistroy
 image::UndoRedoState0.png[width=300]
 
 Step 2. The user executes `delete 5` command to delete the 5th
@@ -352,12 +353,14 @@ book in the catalog. The `delete` command calls `Model#commitCommand()`,
 causing the `delete 5` command to be saved in the `commandHistoryList`,
 and the `currentCommandPointer` is pointed to the newly inserted command.
 
+.State of CommandHistory after `delete 5`
 image::UndoRedoState1.png[width=300]
 
 Step 3. The user executes `add t/Animal Farm ...` to add a new book.
 The `add` command also calls `Model#commitCommand()`, causing the add
 command to be saved into the `catalogHistoryList`.
 
+.State of CommandHistory after `add t/Animal Farm`
 image::UndoRedoState2.png[width=300]
 
 [NOTE]
@@ -374,6 +377,7 @@ and the `Command` returned would be executed, undoing the add command.
 This will then shift the `currentCommandPointer` once to the left, pointing it
 to the previous `ReversibleCommand` in the `commandListHistory`.
 
+.State of CommandHistory after `undo`
 image::UndoRedoState3.png[width=300]
 
 [NOTE]
@@ -384,6 +388,7 @@ return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
+.Sequence diagram for undo command
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X)
@@ -405,6 +410,7 @@ Commands that do not modify the model, such as `help`,
 will usually not call `Model#commitCommand()`,`Model#undoCommand()` or
 `Model#redoCommand()`. Thus, the `commandHistoryList` remains unchanged.
 
+.State of CommandHistory after `help`
 image::UndoRedoState4.png[width=300]
 
 Step 6. The user executes `clear`, which calls `Model#commitCommand()`.
@@ -414,11 +420,13 @@ We designed it this way because it no longer makes sense to redo the
 `add t/Animal Farm ...` command. This is the behavior that most modern
 desktop applications follow.
 
+.State of CommandHistory after `clear`
 image::UndoRedoState5.png[width=300]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+.Activity diagram for committing Command
+image::CommitActivityDiagram.png[width=300]
 
 ==== Design Considerations
 
