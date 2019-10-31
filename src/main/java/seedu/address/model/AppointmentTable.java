@@ -2,10 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -107,6 +104,28 @@ public class AppointmentTable {
             }
         }
         return true;
+    }
+
+    public void sortAppointments() {
+        reminders = sort(reminders);
+        followup = sort(followup);
+    }
+
+    private HashMap<String, Integer> sort(HashMap<String, Integer> hashMap)
+    {
+        List<HashMap.Entry<String, Integer>> list =
+                new LinkedList<>(hashMap.entrySet());
+
+        Comparator<HashMap.Entry<String, Integer>> compareByValue = Comparator.comparing(HashMap.Entry::getValue);
+        Comparator<HashMap.Entry<String, Integer>> compareByKey = Comparator.comparing(HashMap.Entry::getKey);
+        Comparator<HashMap.Entry<String, Integer>> compareByValueThenKey = compareByValue.thenComparing(compareByKey);
+        Collections.sort(list, compareByValueThenKey);
+
+        HashMap<String, Integer> tmp = new LinkedHashMap<>();
+        for (HashMap.Entry<String, Integer> entry : list) {
+            tmp.put(entry.getKey(), entry.getValue());
+        }
+        return tmp;
     }
 
     /**

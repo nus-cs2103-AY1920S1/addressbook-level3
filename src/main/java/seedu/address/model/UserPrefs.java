@@ -152,6 +152,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         appointmentTable.deleteAppointment(description, days);
     }
 
+    public void sortAppointments() {
+        appointmentTable.sortAppointments();
+    }
+
     public String outputAppointments() {
         return appointmentTable.outputAppointments();
     }

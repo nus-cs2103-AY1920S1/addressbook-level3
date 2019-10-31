@@ -156,6 +156,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void sortAppointments() {
+        userPrefs.sortAppointments();
+    }
+
+    @Override
     public String outputAppointments() {
         return userPrefs.outputAppointments();
     }

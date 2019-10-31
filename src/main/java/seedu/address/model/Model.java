@@ -115,6 +115,11 @@ public interface Model {
     void deleteAppointment(String description, int days);
 
     /**
+     * Sorts the appointments by date.
+     */
+    void sortAppointments();
+
+    /**
      * Creates a String with all reminders and follow-ups for easy display.
      */
     String outputAppointments();
