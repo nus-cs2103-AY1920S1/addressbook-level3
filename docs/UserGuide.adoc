@@ -286,9 +286,6 @@ This command allows you to check the answer of the flashcard question.
 
 `ans`
 
-image::deadline-entry.png[width="600"]
-image::deadline-entered.png[width="600"]
-
 ==== Rate flashcard
 This command rates the flashcard, depending on how well you answered the question i.e. easy, good, hard.
 
