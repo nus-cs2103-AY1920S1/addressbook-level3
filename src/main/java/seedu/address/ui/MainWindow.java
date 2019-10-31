@@ -267,11 +267,20 @@ public class MainWindow extends UiPart<Stage> {
                 generateDate();
             }
 
-            if (commandResult.getType().equals("Schedule")) {
+            if (commandResult.getType().equals("Schedule_Update")) {
                 selectionModel.select(1);
                 scheduleBox.setLabelText(commandResult.getUiChange());
             }
-            if (!commandResult.getType().equals("Schedule")) {
+
+            if (commandResult.getType().equals("Schedule_Tab")) {
+                selectionModel.select(1);
+            }
+
+            if (commandResult.getType().equals("Main_Tab")) {
+                selectionModel.select(0);
+            }
+
+            if (!commandResult.getType().contains("Schedule")) {
                 selectionModel.select(0);
             }
 

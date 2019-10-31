@@ -2,46 +2,60 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:repoPRURL: https://github.com/AY1920S1-CS2103T-T11-3/main/pull
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: AddMin+
 
 ---
 
-== Overview
+== Overview of Project
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+AddMin+ is student developed application under the National University of Singapore's __CS2103T Software Engineering Module__. In this module, we were organized to a team of 5 members for the software engineering project. The project requires us to enhance a basic command line interface desktop application, the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook - Level 3] developed by the https://se-education.org/[se-edu team] for the the purpose of teaching Software Engineering principles.
+
+== About AddMin+, the All in One Administration App
+
+._The Graphical User Interface (GUI) for *AddMin+*_
+image::Ui.png[]
+
+include::../../README.adoc[tag=AboutAddMin+]
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Implemented the *`Event` Component*, and most significantly the *Event Date-Time Mapping and its ancillaries*
+** What it does: The `Event` Component features basic __Create, Read, Update and Delete (CRUD)__ functionality, extended with the ability to store a list of `Employees` in a Manpower List and a Date-Time Map that stores the schedule of the `Event`. The Date-Time Mapping feature enables the user to accurately and precisely map a schedule of an existing `Event`, broken down into its individual dates and time period.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Justification: The `Event` Component is critical for our application's functionality as its target audience is Administrative Staff in small companies managing events. Having a known date-time schedule of each `Event` supports the ability for administrative matters such as manpower allocation and schedule generation, ensuring that the employees are allocated to events efficiently without overlaps/conflicts in schedule.
+
+** Highlights: This Date-Time Mapping feature is significant and is required for two other significant features of our application, manpower allocation and scheduling. To enhance the user experience and achieve our goal of simplifying tedious administrative work, we included methods for __quick assignment__ of dates and time. Overall, the implementation was challenging as I also needed to consider how edits to the start/end dates of the `Event` may break the manpower allocation or assigned date-time mapping and deal with them accordingly.
+
+* *Minor enhancement*: Implemented the *Fetch Employee* Command
+** What it does: Shows the schedule of a single `Employee`, which displays a list of dates which itslf contains a list of `Event` that the `Employee` is allocated to.
+
+** Justification: It would be useful for either the adminstrative staff or the employee to view the current schedule of an `Employee` for tracking and logging purposes.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Set-Up the Team Organization and Project Repo on Github
+*** Implemented and Enforced Protected Branching to ensure that PRs failing CI are not merged.
+*** Consistent contributor in PR Reviews and identifying bugs and code flaws for Team Members. PRs reviewed (with non-trivial review comments): link:{repoPRURL}/146[#146], link:{repoPRURL}/139[#139], link:{repoPRURL}/132[#132], link:{repoPRURL}/111[#111], link:{repoPRURL}/85[#85]
+*** Managed releases `v1.2.1`, `v1.3` and `v1.4` (3 releases) on GitHub
+*** Extensively used https://github.com/AY1920S1-CS2103T-T11-3/main/projects?query=is%3Aclosed[Github Project Board] and https://github.com/AY1920S1-CS2103T-T11-3/main/issues[Issue Tracker] to manage Task Allocations for the Team
+*** Reorganized files to improve code tidiness (Pull requests link:{repoPRURL}/129[#129])
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** GUI: Upgraded the `Employee` and `Event` Cards with a gradient background and image (Pull requests link:{repoPRURL}/140[#140])
+*** Assisted in the Refactoring of `Person` to `Employee` (Pull requests link:{repoPRURL}/92[#92])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did refactoring, overall editing and polishing to the User Guide: (link:{repoPRURL}/14[#14])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/56#pullrequestreview-296628495[#56]
+*** Contributed to forum discussions (https://github.com/nus-cs2103-AY1920S1/forum/issues/153[#153])
+// *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated Travis CI to the Team Repo
+*** Integrated Netify (Automatic Website Hosting) to the Team Repo
 
 == Contributions to the User Guide
 
@@ -50,9 +64,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=DeXun1]
+include::../UserGuide.adoc[tag=DeXun2]
 
 == Contributions to the Developer Guide
 
@@ -60,12 +73,10 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=DeXun]
 
 
-== PROJECT: PowerPointLabs
+== PROJECT: Duke
 
 ---
 

@@ -30,7 +30,7 @@ public class DisplayScheduleForYearMonthCommand extends Command {
         model.updateFilteredScheduledEventList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW,
-                        model.getFilteredScheduledEventList().size()), "Schedule", predicate.getYearMonth());
+                        model.getFilteredScheduledEventList().size()), "Schedule_Update", predicate.getYearMonth());
     }
 
     @Override

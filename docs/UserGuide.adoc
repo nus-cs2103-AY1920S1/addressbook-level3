@@ -81,6 +81,14 @@ Exits and shuts down the program
 
 Format: `exit`
 
+==== Navigation between Tabs : `main` | 'schedule'
+
+Provides a way to jump between the Main and Schedule Tab.
+
+Main Tab: `main`
+
+Schedule Tab: `schedule`
+
 === Entity Management
 
 AddMin+ contains two main entities - Employees and Events with similar commands, especially in __Create, Read, Update and Delete (CRUD)__ operations.
@@ -98,6 +106,8 @@ Both Employee and Event: `list`
 Employee Format: `list_em`
 
 Event Format: `list_ev`
+
+//tag::DeXun1[]
 
 ==== Adding: `add_em | add_ev`
 
@@ -205,6 +215,7 @@ Deletes the 2nd employee in the displayed employee list.
 * `find_ev Music` `delete_ev 1` +
 Deletes the 1st event in the list shown after the `find_ev` command.
 
+//end::DeXun1[]
 
 === Employee-Specific Management
 
@@ -311,6 +322,7 @@ Frees all employees allocated to the 1st event on the event list.
 Frees an employee with id: "001" allocated to the 1st event on the event list.
 //end::calvin[]
 
+//tag::DeXun2[]
 ==== Setting a Date&Time to an Event: `set_ev_dt`
 
 Sets a Date-Time mapping to an specific Event.
@@ -375,6 +387,7 @@ Example:
 
 * `clear_ev_dt 2` +
 Clears all the date-time mapping from the 2nd Event on the Event list.
+//end::DeXun2[]
 
 //tag::calvin2[]
 
@@ -641,6 +654,7 @@ e.g. `clear_ev_dt 2`
 | *Display Entire Schedule*| `display_schedule` | `display_schedule`
 | *Generate Statistics [coming in v2.0]* | `stats_g` | `stats_g`
 | *Generate Pay [coming in v2.0]* | `pay` | `pay 1...`
+| *Navigate between Tabs* | `main, schedule` | `main, schedule`
 | *Clear* | `clear` | `clear`
 | *Help* | `help`| `help`
 | *Exit* | `exit`| `exit`
