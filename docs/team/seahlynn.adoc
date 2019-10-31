@@ -1,12 +1,12 @@
 
 = Seah Lynn - Project Portfolio
 :site-section: AboutUs
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
-== PROJECT: +Work
-
----
 
 == Introduction
 === About The Team
