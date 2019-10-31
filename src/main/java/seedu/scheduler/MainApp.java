@@ -82,9 +82,11 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s scheduler book and {@code userPrefs}. <br>
-     * The data from the sample scheduler book will be used instead if {@code storage}'s scheduler book is not found,
-     * or an empty scheduler book will be used instead if errors occur when reading {@code storage}'s scheduler book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s interviewee list, interviewer list
+     * and {@code userPrefs}. <br>
+     * The data from the sample interviewee and interviewer list will be used instead if {@code storage}'s
+     * interviewee and interviewer lists are not found, or an empty interviewee and interviewer list will be
+     * used instead if errors occur when reading {@code storage}'s interviewee and interviewer lists.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyList<Interviewee>> intervieweeListOptional;

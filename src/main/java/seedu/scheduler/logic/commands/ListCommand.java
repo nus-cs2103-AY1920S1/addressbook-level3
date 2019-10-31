@@ -1,6 +1,8 @@
 package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_INTERVIEWEES;
+import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_INTERVIEWERS;
 
 import seedu.scheduler.model.Model;
 
@@ -16,8 +18,8 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredIntervieweeList(Model.PREDICATE_SHOW_ALL_INTERVIEWEES);
-        model.updateFilteredInterviewerList(Model.PREDICATE_SHOW_ALL_INTERVIEWERS);
+        model.updateFilteredIntervieweeList(PREDICATE_SHOW_ALL_INTERVIEWEES);
+        model.updateFilteredInterviewerList(PREDICATE_SHOW_ALL_INTERVIEWERS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

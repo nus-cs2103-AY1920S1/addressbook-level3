@@ -22,7 +22,7 @@ public class EmailCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Handles the sending of emails to "
             + "interviewers/interviewees using their email addresses.\n\n"
-            + COMMAND_WORD + " " + TIMESLOT_COMMAND_WORD + " <interviewee-name> [email-scheduler-type]\n"
+            + COMMAND_WORD + " " + TIMESLOT_COMMAND_WORD + " <interviewee-name> [email-address-type]\n"
             + "Sends an email containing the interviewee's allocated interview time slot to the specified "
             + "interviewee, including other details such as the interviewer, time, date and location.";
 

@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.scheduler.model.tag.Tag;
 
 /**
- * Represents a Person in the scheduler book.
+ * Represents a Person in the database.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {

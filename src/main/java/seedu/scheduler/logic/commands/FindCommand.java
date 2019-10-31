@@ -11,7 +11,7 @@ import seedu.scheduler.model.person.InterviewerNameHasKeywordsPredicate;
 import seedu.scheduler.model.person.PersonNameHasKeywordsPredicate;
 
 /**
- * Finds and lists all persons in scheduler book whose name contains any of the argument keywords.
+ * Finds and lists all persons in the database whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

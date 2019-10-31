@@ -1,7 +1,9 @@
 package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_PERSON_NAME;
 import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_INTERVIEWEES;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.util.CollectionUtil;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
@@ -47,14 +48,14 @@ public class EditIntervieweeCommand extends EditCommand {
 
         // ensure interviewee to edit exists
         if (!model.hasInterviewee(toEdit)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_NAME);
+            throw new CommandException(MESSAGE_INVALID_PERSON_NAME);
         }
 
         Interviewee intervieweeToEdit = model.getInterviewee(toEdit.fullName);
 
         // ensure user only edits what is shown on UI (i.e the filtered list)
         if (!lastShownList.contains(intervieweeToEdit)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_NAME);
+            throw new CommandException(MESSAGE_INVALID_PERSON_NAME);
         }
 
         Interviewee editedInterviewee = createEditedInterviewee(intervieweeToEdit, editIntervieweeDescriptor);
@@ -65,7 +66,7 @@ public class EditIntervieweeCommand extends EditCommand {
         }
 
         model.setInterviewee(intervieweeToEdit, editedInterviewee);
-        model.updateFilteredIntervieweeList(Model.PREDICATE_SHOW_ALL_INTERVIEWEES);
+        model.updateFilteredIntervieweeList(PREDICATE_SHOW_ALL_INTERVIEWEES);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedInterviewee));
     }

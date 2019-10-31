@@ -16,7 +16,7 @@ import seedu.scheduler.model.ReadOnlyList;
 import seedu.scheduler.model.person.Interviewee;
 
 /**
- * A class to scheduler Interviewee data stored as a JSON file on the hard disk.
+ * A class to read Interviewee data stored as a JSON file on the hard disk.
  */
 public class JsonIntervieweeListStorage implements IntervieweeListStorage {
 
