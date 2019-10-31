@@ -18,7 +18,7 @@ import seedu.address.model.field.Name;
 /**
  * Adds a person to the address book.
  */
-public class InitCommand extends UndoableCommand {
+public class InitCommand extends Command {
 
     public static final String COMMAND_WORD = "init";
 
@@ -45,11 +45,6 @@ public class InitCommand extends UndoableCommand {
         requireAllNonNull(name, date);
         this.name = name;
         this.startDate = date;
-    }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
     }
 
     @Override

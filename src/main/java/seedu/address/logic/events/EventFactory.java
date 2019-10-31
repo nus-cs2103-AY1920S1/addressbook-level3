@@ -3,10 +3,12 @@ package seedu.address.logic.events;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.events.add.AddEventFactory;
+import seedu.address.logic.events.clear.ClearCommandEvent;
 import seedu.address.logic.events.delete.DeleteEventFactory;
 import seedu.address.logic.events.edit.EditEventFactory;
 import seedu.address.logic.events.exceptions.EventException;
@@ -40,18 +42,16 @@ public class EventFactory {
 
         case (EditCommand.COMMAND_WORD):
             return EditEventFactory.parse((EditCommand) command, model);
-        /*
-        case (ClearCommand.COMMAND_WORD):
-            generateClearCommandEvent(model);
-            break;
 
-        case (InitCommand.COMMAND_WORD):
-            parseInitCommand(command);
-            break;
-        }
-        */
+        case (ClearCommand.COMMAND_WORD):
+            return generateClearCommandEvent(model);
+
         default:
             throw new EventException(String.format(MESSAGE_COMMAND_ERROR, commandWord));
         }
+    }
+
+    private static Event generateClearCommandEvent(Model model) {
+        return new ClearCommandEvent(model);
     }
 }
