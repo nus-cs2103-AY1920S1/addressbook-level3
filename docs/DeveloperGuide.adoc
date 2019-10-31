@@ -365,20 +365,43 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ics/IcsParser.java[`IcsParser.java`]
 
-The ICS component is made up of two parts: ICS file importer, and ICS file exporter.
+The ICS component is made up of 2 main sub-components: ICS file parser, and ICS file exporter.
 
-The file importer makes use of a custom parser that converts files with the `.ics` file extension
-to `EventSource` objects in Horo.
+The file parser makes use of a custom parser that converts files with the `.ics` file extension
+to `EventSource` and `TaskSource` objects in Horo.
 
-The file exporter takes the `EventSource` objects stored in the `Model` singleton object and
-generates ICS String representations of them. Check out the
-link:https://en.wikipedia.org/wiki/ICalendar[ICalendar Wiki Page] for more information on the specifications.
+Here is an overview of how the ICS component looks like:
+
+image::IcsComponentDiagram.png[]
+
+The file exporter uses the `IcsConverter` class to convert `EventSource` and `TaskSource` objects
+stored in the `ModelManager` singleton object into their ICS String representations. Check out the
+link:https://en.wikipedia.org/wiki/ICalendar[iCalendar Wiki Page] for more information on the specifications.
 
 
 * Can export Horo's save data as a file
 The `ICS` Component,with a `.ics` extension.
 * Can import other Horo's save data from a `.ics` file.
 
+==== Design Considerations
+
+===== Aspect: Handling of Horo TaskSource and EventSource conversion to ICS Strings
+- **Alternative 1 (Current Choice):** Use of a separate class `IcsConverter` to convert `TaskSource` and `EventSource` objects
+    their ICS string representations.
+
+    * Pros: Adherence to Single Responsibility Principle,
+        decouples `IcsExporter` from the `TaskSource` and `EventSource` classes, and keeps code reusable and scalable.
+    * Cons: Not consistent with Object-Oriented Programming structure.
+- **Alternative 2:** Create a common `IcsConvertible` Interface for `TaskSource` and `EventSource` to implement a `toIcsString()` function.
+
+    * Pros: Adheres to Object-Oriented Programming structure.
+    * Cons: Hard to reuse functions and modify code.
+
+Alternative 1 was chosen eventually, as I felt that it is more important to adhere to the Single Responsibility Principle
+and keep all code relevant to converting objects to ICS Strings in the same class.
+
+This further makes it easier for future debugging,
+and makes adding new exportable objects a lot easier as there are common functions that can be used.
 
 == Implementation
 
