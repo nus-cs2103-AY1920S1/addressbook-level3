@@ -19,8 +19,8 @@ import javafx.collections.transformation.FilteredList;
  * Manages the accounts in a list of accounts.
  */
 public class AccountsManager {
-    private final FilteredList<Account> filteredAccounts;
     private final UniqueAccountList accounts;
+    private final FilteredList<Account> filteredAccounts;
 
     private Index activeAccountIndex;
 
@@ -59,6 +59,13 @@ public class AccountsManager {
      */
     public ObservableList<Account> getAccounts() {
         return accounts.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Reset the filteredAccountList so that it contains all the accounts.
+     */
+    public void resetFilteredAccountList() {
+        filteredAccounts.setPredicate(s -> true);
     }
 
     /**
