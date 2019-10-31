@@ -11,7 +11,7 @@
 
 Budget Buddy is a desktop application that allows users to track their expenses.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about 12 kLoC.
+It is written in Java, and has about 15 kLoC.
 
 == Summary of contributions
 
