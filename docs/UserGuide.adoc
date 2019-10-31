@@ -76,37 +76,214 @@ _If you are not able to run the application using the method above, use the foll
 All commands start with a forward slash “/” followed by the command name. Certain commands may include additional options and will be specified in the description. An optional field will be marked ​(optional) beside the field.
 ====
 
-=== Student ​- `/student`
+=== Students - `student`
 
-Create and edit students.
+==== Adding a student
 
-. *Create student* - `/student create [name] [birthdate in DD/MM/YYYY format]​(optional)` +
-e.g. `/student create “John” “20/09/2006”` +
-*Return*: student no.
-. *Edit student* ​- `/student edit [student no.]` +
-e.g. `/student edit 1` +
-*Return*:​ Options to edit name or birthdate
-. *Delete student* ​- `/student delete [student no.]`  +
-e.g. `/student delete 1`
-. *Find student* ​- `/student find [name]` +
-e.g. `/student find “John”` +
-*Return*:​ student no.
+Adds a student +
+Format: `student name/... tag/...(optional)`
+
+The options supported by this feature includes:
+
+. `name` - The name of the student.
+. `tag`(optional) - The weak subjects of the student.
+
+[NOTE]
+`tag` fields of a student represent the weak subjects of a particular student, and is an optional field which can be added later under the `Tag` feature
 
 
-=== Class​ - `​/class`
+Examples:
 
-Manage classes and manage students within the class.
+* *Untagged student*: `student name/John Doe` +
+Adds an untagged student named John Doe
+* *Student with one tag*: `student name/John Doe tag/Chemistry` +
+Adds a student named John Doe with one tag Chemistry
+* *Student with multiple tags*: `student name/John Doe tag/Chemistry tag/Physics` +
+Adds a student named John Doe with tags Chemistry and Physics
 
-. *Create class*​ - `/class create [class id] [description]​(optional)` +
-e.g. `/class create unity “My First Class”`
-. *Edit class description* ​- `/class edit [class id] [description]​(optional)` +
-e.g. `/class edit unity “My Second Class”`
-. *Delete class* ​- `/class delete [class id]` +
-e.g. `/class delete unity`
-. *Add student to class* ​ - `/class add [class id] [student no.]` +
-e.g. `/class add unity 1`
-. *Remove student from class* ​ - `/class remove [class id] [student no.]` +
-e.g. `/class remove unity 1`
+==== Editing a student
+
+Edit a student currently stored. +
+Format: `student [index number] name/...`
+
+[NOTE]
+All tags and mark of the student to be edited will be transferred over to the new student.
+
+The options supported by this feature includes:
+
+. `[index number]` - Index number of the student to be edited in the student list
+. `name` - New name of the student to be edited.
+
+Examples:
+
+* `student 1 name/Jane Doe` +
+Changes the name of the student with index number 1 in the student list to Jane Doe
+
+==== Deleting a student
+
+Delete a student from the student list. +
+Format: `student delete [INDEX]`
+
+The options supported by this feature includes:
+
+. `[INDEX]` - Index number oif the student to be deleted in the student list
+
+Example:
+
+* `student delete 1` +
+Deletes the first student in the student list.
+
+[[Feature-Student-List]]
+==== Listing students
+
+Display the list of students in the Main Window, and also displays the list in the Command Result Box+
+Format: `student list`
+
+The options supported by this feature includes: +
+*_-This command does not support any additional options-_*
+
+Example:
+
+* `student list` +
+Lists the students.
+
+=== Tags ​-​ `tag`
+
+Represents the weak subjects of a student, allowing users to focus on the specified weak subject of the student.
+
+==== Adds a tag to a student: `tag`
+
+Allows a user to add a tag to an already added student. +
+Format: `tag index/... tag/...`
+
+The format supported by this feature includes:
+
+- `index` (The index number of the student you want to add the tag to)
+- `tag` (The name of the tag you want to add to the student)
+
+Examples:
+
+* *Add one tag*: `tag index/1 tag/Chemistry` +
+Adds tag Chemistry to student with index number 1
+* *Add multiple tags to a student*: `tag index/1 tag/Chemistry tag/Physics` +
+Adds tag Chemistry and tag Physics to student with index number 1
+
+The screenshot below shows a representation of a student with tags
+
+image::tagged-student-example.png[]
+
+=== Mark ​-​ `mark`
+
+Marks academically weak students, allowing users to pay extra attention to the marked students.
+
+==== Marks a student: `mark`
+
+Allows a user to mark an already created student. +
+Format: `mark index/...`
+
+The format supported by this feature includes:
+
+- `index` (The index number of the student you want to mark)
+
+Examples:
+
+* `mark index/1` +
+Marks the student with index number 1
+
+==== Remove mark from a student: `unmark`
+
+Allows a user to remove mark from an already created student who has been previously marked. +
+
+Format: `mark unmark index/...`
+
+The format supported by this feature includes:
+
+- `index` (The index number of the student you want to unmark)
+
+Examples:
+
+* `mark unmark index/1` +
+Unmarks the student with index number 1
+
+image::marked-student-example.png[]
+
+=== Groups ​-​ `group`
+
+==== Creating a Group manually: `manual`
+
+Allows a user to create a group manually. +
+Format: `group manual groupID/... studentNumber/...`
+
+The format supported by this feature includes:
+
+- `groupID` (The name of the group)
+- `studentNumber` (The index numbers of the students you want to add to the group)
+
+Examples:
+
+* `group manual groupID/G03 studentNumber/1 2 3` +
+Adds student index numbers 1, 2 and 3 to the group named G03.
+
+==== Adding a Student to a Group: `add`
+
+Allows a user to add a Student to a Group. +
+Format: `group add groupID/... studentNumber/... groupIndexNumber/...`
+
+The format supported by this feature includes:
+
+- `groupID` (The name of the group)
+- `studentNumber` (The index number of the student you want to add to the group)
+- `groupIndexNumber` (The index number within the group that you want to add the student to)
+
+Examples:
+
+* `group add groupID/G01 studentNumber/2 groupIndexNumber/3` +
+Adds student 2 to the group index number 3 for the group named G01.
+
+==== Removing a Student from a Group: `delete`
+
+Allows a user to remove a student from a group. +
+Format: `group delete groupID/... groupIndexNumber/...`
+
+The format supported by this feature includes:
+
+- `groupID` (The name of the group)
+- `groupIndexNumber` (The group index number of the student in the group to be deleted)
+
+Examples:
+
+* `group delete groupID/G01 groupIndexNumber/1` +
+Removes the student with group index number 1 for the group named G01.
+
+==== Exporting a Group to a Word Document: `export`
+
+Allows a user to export a group to a Word Document. +
+Format: `group export groupID/...`
+
+The format supported by this feature includes:
+
+- `groupID` (The name of the group)
+
+Examples:
+
+* `quiz export groupID/G01` +
+Exports the group named G01 to a word document named `G01.docx`, found under the exports folder.
+
+==== Showing students from a group:
+
+Allows a user to see all students from a group.+
+
+Format: `group groupID/...`
+
+The format supported by this feature includes:
+
+- `groupID` (The name of the group)
+
+Examples:
+
+* `group groupID/G01` +
+Shows all the students that belong to group with groupID `G01`
+
 
 === Timetable​ - `​/timetable`
 
@@ -672,6 +849,18 @@ Note that all fields all mandatory unless stated otherwise.​
 == Command Summary
 
 * *Help* : `help`
+* *Adding a student*: `student name/...`
+* *Removing a student*: `student delete index/...`
+* *Editing a student*: `student [index] name/...`
+* *Listing all students*: `student list`
+* *Tagging student*: `tag index/... tag/...`
+* *Marking a student*: `mark index/...`
+* *Unmarking a student*: `mark unmark index/...`
+* *Creating a group*: `group manual groupID/... studentNumber/...`
+* *Adding student to a group*: `group groupID/... studentNumber/... groupIndexNumber/...`
+* *Removing student from a group*: `group delete groupID/... groupIndexNumber/...`
+* *Showing students from a group*: `group groupID/...`
+* *Exporting a group*: `group export groupID/...`
 * *Creating a Quiz Manually* : `quiz manual quizID/... questionNumber/...`
 * *Creating a Quiz Automatically* : `quiz auto quizID/... numQuestions/... type/...` [Where type is: mcq, open or all]
 * *Adding a Question to Quiz* : `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
