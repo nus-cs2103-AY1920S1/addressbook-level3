@@ -3,7 +3,6 @@ package io.xpire.model.item;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import io.xpire.commons.util.AppUtil;
 import io.xpire.commons.util.DateUtil;
