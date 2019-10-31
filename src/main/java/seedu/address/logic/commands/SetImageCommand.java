@@ -16,6 +16,8 @@ import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
 
 public class SetImageCommand extends Command {
     public static final String COMMAND_WORD = "set-image";
+    public static final String PREFIX_USAGE = "mi/ {filepath}";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the profile image of "
             + "member identified by the id used in the displayed member list\n"
             + "Parameters: "

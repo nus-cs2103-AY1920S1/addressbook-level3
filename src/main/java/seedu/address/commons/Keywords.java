@@ -15,6 +15,7 @@ public class Keywords {
         DoingTaskCommand.COMMAND_WORD,
         SetDeadlineCommand.COMMAND_WORD,
         DoneTaskCommand.COMMAND_WORD,
+        ListMemberByTaskCommand.COMMAND_WORD,
 
         // MEMBER
         AddMemberCommand.COMMAND_WORD,
@@ -22,6 +23,7 @@ public class Keywords {
         EditMemberCommand.COMMAND_WORD,
         FindMemberCommand.COMMAND_WORD,
         ListMemberCommand.COMMAND_WORD,
+        SetImageCommand.COMMAND_WORD,
 
         // ASSOCIATION
         FireCommand.COMMAND_WORD,
@@ -34,6 +36,10 @@ public class Keywords {
         DeleteInventoryCommand.COMMAND_WORD,
         //GeneratePDFCommand.COMMAND_WORD,
 
+        //CALENDAR
+        AddCalendarCommand.COMMAND_WORD,
+        FindMeetingTimeCommand.COMMAND_WORD,
+
         // STATS
         GetStatisticsCommand.COMMAND_WORD_MEMBER,
         GetStatisticsCommand.COMMAND_WORD_TASK,
@@ -41,6 +47,7 @@ public class Keywords {
         // SETTINGS
         ThemeCommand.COMMAND_WORD,
         ClockCommand.COMMAND_WORD,
+        SettingsCommand.COMMAND_WORD,
 
         // UNIVERSAL
         ClearCommand.COMMAND_WORD,
@@ -53,48 +60,57 @@ public class Keywords {
         switch(commandWord) {
             // TASK
             case AddTaskCommand.COMMAND_WORD:
-                return "add-task tn/ s/ t/";
+                return commandWord + " " + AddTaskCommand.PREFIX_USAGE;
 
             case DeleteTaskCommand.COMMAND_WORD:
-                return "delete-task ti/";
+                return commandWord + " " + DeleteTaskCommand.PREFIX_USAGE;
 
             case FindCommand.COMMAND_WORD:
-                return "find-task ti/";
+                return commandWord + " " + FindCommand.PREFIX_USAGE;
 
-            // case ListCommand.COMMAND_WORD: default
+            case ListCommand.COMMAND_WORD: 
+                return commandWord + " " + ListCommand.PREFIX_USAGE;
 
             case EditCommand.COMMAND_WORD:
-                return "edit-task ti/ tn/ t/ s/";
+                return commandWord + " " + EditCommand.PREFIX_USAGE;
 
             case DoingTaskCommand.COMMAND_WORD:
-                return "doing-task ti/";
+                return commandWord + " " + DoingTaskCommand.PREFIX_USAGE;
 
             case SetDeadlineCommand.COMMAND_WORD:
-                return "set-deadline ti/";
+                return commandWord + " " + SetDeadlineCommand.PREFIX_USAGE;
 
             case DoneTaskCommand.COMMAND_WORD:
-                return "set-deadline ti/ /at";
-
+                return commandWord + " " + DoneTaskCommand.PREFIX_USAGE;
+            
+            case ListMemberByTaskCommand.COMMAND_WORD:
+                return commandWord + " " + ListMemberByTaskCommand.PREFIX_USAGE;
 
             // MEMBER
             case AddMemberCommand.COMMAND_WORD:
-                return "add-member mn/ mi/ mt/";
+                return commandWord + " " + AddMemberCommand.PREFIX_USAGE;
 
             case DeleteMemberCommand.COMMAND_WORD:
-                return "remove-member {id}";
-            case EditMemberCommand.COMMAND_WORD:
-                return "edit-member mn/ mi/ mt/";
-            case FindMemberCommand.COMMAND_WORD:
-                return "find-member {KEYWORD}";
+                return commandWord + " " + DeleteMemberCommand.PREFIX_USAGE;
 
-            // case ListMemberCommand.COMMAND_WORD: default
+            case EditMemberCommand.COMMAND_WORD:
+                return commandWord + " " + EditMemberCommand.PREFIX_USAGE;
+
+            case FindMemberCommand.COMMAND_WORD:
+                return commandWord + " " + FindMemberCommand.PREFIX_USAGE;
+
+            case ListMemberCommand.COMMAND_WORD:
+                return commandWord + " " + ListMemberCommand.PREFIX_USAGE;
+
+            case SetImageCommand.COMMAND_WORD:
+                return commandWord + " " + SetImageCommand.PREFIX_USAGE;
 
             // ASSOCIATION
             case AssignCommand.COMMAND_WORD:
-                return "assign ti/ mi/";
+                return commandWord + " " + AssignCommand.PREFIX_USAGE;
 
             case  FireCommand.COMMAND_WORD:
-                return "fire ti/ mi/";
+                return commandWord + " " + FireCommand.PREFIX_USAGE;
 
             // case  RemoveTaskFromMemberCommand.COMMAND_WORD:
             //     return "fire-task ti/ mi/";
@@ -103,35 +119,58 @@ public class Keywords {
             //     return "fire-member ti/ mi/";
 
             // INVENTORY
-            // case ListInventoryCommand.COMMAND_WORD: default
+            case ListInventoryCommand.COMMAND_WORD:
+                return commandWord + " " + ListInventoryCommand.PREFIX_USAGE;
 
             case AddInventoryCommand.COMMAND_WORD:
-                return "add-inv i/ p/ ti/ mi/";
+                return commandWord + " " + AddInventoryCommand.PREFIX_USAGE;
 
             case EditInventoryCommand.COMMAND_WORD:
-                return "edit-inv i/ p/ ti/ mi/";
+                return commandWord + " " + EditInventoryCommand.PREFIX_USAGE;
 
             case DeleteInventoryCommand.COMMAND_WORD:
-                return "delete-inv {index}";
+                return commandWord + " " + DeleteInventoryCommand.PREFIX_USAGE;
 
-            // case GeneratePDFCommand.COMMAND_WORD: default
+            // case GeneratePDFCommand.COMMAND_WORD:
+            //     return commandWord + " " + GeneratePDFCommand.PREFIX_USAGE;
+
+            //CALENDAR
+            case AddCalendarCommand.COMMAND_WORD:
+                return commandWord + " " + AddCalendarCommand.PREFIX_USAGE;
+
+            case FindMeetingTimeCommand.COMMAND_WORD:
+                return commandWord + " " + FindMeetingTimeCommand.PREFIX_USAGE;
 
             // STATS
-            // case  GetStatisticsCommand.COMMAND_WORD_MEMBER: default
-            // case GetStatisticsCommand.COMMAND_WORD_TASK:
+            case GetStatisticsCommand.COMMAND_WORD_MEMBER:
+                return commandWord + " " + GetStatisticsCommand.PREFIX_USAGE;
+
+            case GetStatisticsCommand.COMMAND_WORD_TASK:
+                return commandWord + " " + GetStatisticsCommand.PREFIX_USAGE;
 
             // SETTINGS
             case ThemeCommand.COMMAND_WORD:
-                return "theme {theme}";
+                return commandWord + " " + ThemeCommand.PREFIX_USAGE;
 
-            // case ClockCommand.COMMAND_WORD:
+            case ClockCommand.COMMAND_WORD:
+                return commandWord + " " + ClockCommand.PREFIX_USAGE;
+
+            case SettingsCommand.COMMAND_WORD:
+                return commandWord + " " + SettingsCommand.PREFIX_USAGE;
 
             // UNIVERSAL
 
-            // case ClearCommand.COMMAND_WORD:
-            // case ExitCommand.COMMAND_WORD:
-            // case HelpCommand.COMMAND_WORD:
-            // case HomeCommand.COMMAND_WORD:
+            case ClearCommand.COMMAND_WORD:
+                return commandWord + " " + ClearCommand.PREFIX_USAGE;
+
+            case ExitCommand.COMMAND_WORD:
+                return commandWord + " " + ExitCommand.PREFIX_USAGE;
+
+            case HelpCommand.COMMAND_WORD:
+                return commandWord + " " + HelpCommand.PREFIX_USAGE;
+
+            case HomeCommand.COMMAND_WORD:
+                return commandWord + " " + HomeCommand.PREFIX_USAGE;
 
             default:
                 return commandWord + " ";

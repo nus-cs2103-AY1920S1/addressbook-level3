@@ -17,6 +17,7 @@ import seedu.address.model.inventory.Inventory;
  */
 public class DeleteInventoryCommand extends Command {
     public static final String COMMAND_WORD = "delete-inv";
+    public static final String PREFIX_USAGE = "ii/ ";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the inventory identified by the index number used in the displayed task list.\n"

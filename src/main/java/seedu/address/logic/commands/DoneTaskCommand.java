@@ -22,6 +22,8 @@ import seedu.address.model.task.TaskStatus;
 public class DoneTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "done-task";
+    public static final String PREFIX_USAGE = "ti/";
+
     public static final String UPDATED_STATUS = TaskStatus.DONE.getDisplayName();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
