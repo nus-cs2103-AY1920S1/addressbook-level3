@@ -100,6 +100,9 @@ public class BudgetCard extends UiPart<Region> {
         budgetProgressBar.setProgress(totalAmount / budget.getAmount().getAsDouble());
     }
 
+    /**
+     * Updates period shown in budget card.
+     */
     private void updateBudgetCardPeriod() {
         if (!budget.isDefaultBudget()) {
             budgetStart.setText(budget.getStartDate().fullTimestamp.format(formatter));
@@ -126,12 +129,14 @@ public class BudgetCard extends UiPart<Region> {
      */
     private void updateBudgetCardProgressBarColour() {
         if (budget.isDefaultBudget()) {
-            return; // default budget's progress bar is not updated
+            return; // default budget's progress bar is not shown
         }
         if (budget.isExceeded()) {
             budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-overbudget;");
         } else if (budget.isNear()) {
             budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-nearbudget;");
+        } else if (budget.isHalf()) {
+            budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-halfbudget;");
         } else {
             budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-inbudget;");
         }

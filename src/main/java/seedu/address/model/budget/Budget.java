@@ -27,6 +27,7 @@ public class Budget {
     public static final Budget DEFAULT_BUDGET = new Budget(DEFAULT_BUDGET_DESCRIPTION, DEFAULT_BUDGET_AMOUNT,
             DEFAULT_BUDGET_START_DATE, DEFAULT_BUDGET_PERIOD, DEFAULT_BUDGET_EXPENSES, DEFAULT_BUDGET_IS_PRIMARY);
 
+    private static final Percentage IS_HALF_THRESHOLD = new Percentage(50);
     private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
     private final Description description;
@@ -131,6 +132,9 @@ public class Budget {
         expenses.clear();
     }
 
+    /**
+     * Transfer all expenses from this budget to another.
+     */
     public void transferExpensesTo(Budget other) {
         for (Expense e : expenses) {
             e.setBudget(other);
@@ -183,6 +187,10 @@ public class Budget {
 
     public Percentage calculateProportionUsed() {
         return Percentage.calculate(calculateExpenseSum(), amount.getAsDouble());
+    }
+
+    public boolean isHalf() {
+        return calculateProportionUsed().reach(IS_HALF_THRESHOLD);
     }
 
     public boolean isNear() {

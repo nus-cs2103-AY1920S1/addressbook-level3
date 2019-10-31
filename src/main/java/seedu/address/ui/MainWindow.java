@@ -44,8 +44,8 @@ import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.ListBudgetsCommand;
-import seedu.address.logic.commands.budget.SwitchBudgetWindowCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
+import seedu.address.logic.commands.budget.SwitchBudgetWindowCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand;
@@ -72,10 +72,10 @@ import seedu.address.logic.parser.EditBudgetCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
 import seedu.address.logic.parser.EditEventCommandParser;
 import seedu.address.logic.parser.EditExpenseFromBudgetCommandParser;
-import seedu.address.logic.parser.SwitchBudgetWindowCommandParser;
 import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
+import seedu.address.logic.parser.SwitchBudgetWindowCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.budget.Budget;
@@ -103,8 +103,10 @@ import seedu.address.ui.panel.exceptions.UnmappedPanelException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MESSAGE_BUDGET_HALF = "You have spent half of your budget.";
     private static final String MESSAGE_BUDGET_NEAR = "You are close to your budget limit.";
-    private static final String MESSAGE_BUDGET_EXCEEDED = "Your budget is exceeded.";
+    private static final String MESSAGE_BUDGET_EXCEEDED = "You have exceeded your budget! "
+            + "Time to rein in your spending.";
     private static final Background BUDGET_WARNING_POPUP_BACKGROUND = new Background(
             new BackgroundFill(
                     Paint.valueOf("f57d7d"),
@@ -595,6 +597,7 @@ public class MainWindow extends UiPart<Stage> {
 
         try {
             Budget primaryBudget = logic.getPrimaryBudget();
+            boolean initialIsHalf = primaryBudget.isHalf();
             boolean initialIsNear = primaryBudget.isNear();
             boolean initialIsExceeded = primaryBudget.isExceeded();
 
@@ -616,13 +619,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-
-
-
+            boolean finalIsHalf = primaryBudget.isHalf();
             boolean finalIsNear = primaryBudget.isNear();
             boolean finalIsExceeded = primaryBudget.isExceeded();
 
-            showWarningIfAny(initialIsNear, initialIsExceeded, finalIsNear, finalIsExceeded);
+            showWarningIfAny(initialIsHalf, initialIsNear, initialIsExceeded,
+                    finalIsHalf, finalIsNear, finalIsExceeded);
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -709,8 +711,9 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Determines if there is a need to show warnings, and shows the corresponding warnings.
      */
-    public void showWarningIfAny(boolean initialIsNear, boolean initialIsExceeded,
-                                 boolean finalIsNear, boolean finalIsExceeded) {
+    public void showWarningIfAny(boolean initialIsHalf, boolean initialIsNear, boolean initialIsExceeded,
+                                 boolean finalIsHalf, boolean finalIsNear, boolean finalIsExceeded) {
+
         if (!initialIsExceeded && finalIsExceeded) {
             showPopupMessage(MESSAGE_BUDGET_EXCEEDED);
             return;
@@ -718,6 +721,11 @@ public class MainWindow extends UiPart<Stage> {
 
         if (!initialIsNear && finalIsNear) {
             showPopupMessage(MESSAGE_BUDGET_NEAR);
+            return;
+        }
+
+        if (!initialIsHalf && finalIsHalf) {
+            showPopupMessage(MESSAGE_BUDGET_HALF);
         }
     }
 }
