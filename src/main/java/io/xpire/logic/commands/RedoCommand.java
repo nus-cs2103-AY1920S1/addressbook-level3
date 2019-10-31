@@ -12,7 +12,7 @@ import io.xpire.model.state.State;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_REDO_SUCCESS = "Redo command";
+    public static final String MESSAGE_REDO_SUCCESS = "Redo earlier command.";
     public static final String MESSAGE_REDO_FAILURE = "There are no commands to redo.";
 
     @Override

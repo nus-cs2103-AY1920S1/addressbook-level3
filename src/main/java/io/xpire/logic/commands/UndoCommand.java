@@ -12,7 +12,7 @@ import io.xpire.model.state.State;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_UNDO_SUCCESS = "Undo command";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undo previous command.";
     public static final String MESSAGE_UNDO_FAILURE = "There are no previous commands to undo.";
 
     @Override
