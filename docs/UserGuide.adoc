@@ -354,11 +354,11 @@ Sample Input:
 
 * `approve a/4 r/watch your workload`
 
-image::beforeapprove.png[width="790"]
+image::beforeApprove.png[width="790"]
 
 Sample Output:
 
-image::afterapprove.png[width="790"]
+image::afterApprove.png[width="790"]
 
 ==== Approve appeals in bulk
 Format: `approve mass/ [APPEAL_ID]...`
@@ -387,11 +387,11 @@ Sample Input:
 
 * `reject a/1 r/student not suitable for high work load`
 
-image::beforereject.png[width="790"]
+image::beforeReject.png[width="790"]
 
 Sample Output:
 
-image::afterreject.png[width="790"]
+image::afterReject.png[width="790"]
 
 ==== Reject appreals in bulk
 Format: `reject mass/ [APPEAL_ID]...`
