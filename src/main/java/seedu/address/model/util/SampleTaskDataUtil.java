@@ -10,6 +10,9 @@ import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
@@ -59,6 +62,39 @@ public class SampleTaskDataUtil {
         };
     }
 
+    public static InvMemMapping[] getSampleInvMemMapping() {
+        return new InvMemMapping[] {
+                new InvMemMapping(1, 1),
+                new InvMemMapping(1, 2),
+                new InvMemMapping(2, 3),
+                new InvMemMapping(3, 4),
+                new InvMemMapping(4, 5),
+                new InvMemMapping(5, 6),
+        };
+    }
+
+    public static InvTasMapping[] getSampleInvTasMapping() {
+        return new InvTasMapping[] {
+                new InvTasMapping(1, 1),
+                new InvTasMapping(2, 2),
+                new InvTasMapping(3, 3),
+                new InvTasMapping(3, 4),
+                new InvTasMapping(5, 5),
+                new InvTasMapping(6, 6),
+        };
+    }
+
+    public static TasMemMapping[] getSampleTasMemMapping() {
+        return new TasMemMapping[] {
+                new TasMemMapping(1, 1),
+                new TasMemMapping(1, 2),
+                new TasMemMapping(2, 1),
+                new TasMemMapping(3, 4),
+                new TasMemMapping(4, 3),
+                new TasMemMapping(6, 6),
+        };
+    }
+
     public static ReadOnlyProjectDashboard getSampleProjectDashboard() {
         ProjectDashboard samplePd = new ProjectDashboard();
         for (Task sampleTask : getSampleTasks()) {
@@ -70,6 +106,19 @@ public class SampleTaskDataUtil {
         for (Inventory sampleInventory : getSampleInventory()) {
             samplePd.addInventory(sampleInventory);
         }
+
+        for (InvMemMapping sampleInvMem : getSampleInvMemMapping()) {
+            samplePd.addMapping(sampleInvMem);
+        }
+
+        for (InvTasMapping sampleInvTas : getSampleInvTasMapping()) {
+            samplePd.addMapping(sampleInvTas);
+        }
+
+        for (TasMemMapping samepleTasMem : getSampleTasMemMapping()) {
+            samplePd.addMapping(samepleTasMem);
+        }
+
         return samplePd;
     }
 

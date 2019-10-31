@@ -47,5 +47,22 @@ public class MemberStatisticsView extends UiPart<Region> {
                         )
                 )
         );
+
+        //For PieChart memberByInv
+        ObservableList<PieChart.Data> memberByInvData = FXCollections.observableArrayList();
+        for (Member mem : members) {
+            PieChart.Data toBeAdded = new PieChart.Data(mem.getName().toString(), stats.getPortionMembersByInv().get(mem));
+            memberByInvData.add(toBeAdded);
+        }
+
+        memberByInv.setData(memberByInvData);
+
+        memberByInvData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " ", Math.round(data.getPieValue()), " items"
+                        )
+                )
+        );
     }
 }

@@ -30,7 +30,7 @@ public class DoingTaskCommand extends Command {
             + "by the index number used in the displayed task list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TASK_INDEX + "TASK_INDEX\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: " + COMMAND_WORD + "ti/1 ";
 
     public static final String MESSAGE_DOING_TASK_SUCCESS = "Updated Task to <"
             + UPDATED_STATUS + ">: %1$s";

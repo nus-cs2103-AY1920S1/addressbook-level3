@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
@@ -99,6 +100,10 @@ public class LogicManager implements Logic {
         return model.getFilteredInventoriesList();
     }
 
+    @Override
+    public ObservableList<TasMemMapping> getFilteredTasMemMappingList() {
+        return model.getFilteredTasMemMappingsList();
+    }
     @Override
     public Path getProjectDashboardFilePath() {
         return model.getProjectDashboardFilePath();

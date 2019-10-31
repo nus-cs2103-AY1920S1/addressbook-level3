@@ -17,6 +17,6 @@ public class HomeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(SHOWING_HOME_MESSAGE, false, false);
+        return new CommandResult(SHOWING_HOME_MESSAGE, false, false, false);
     }
 }

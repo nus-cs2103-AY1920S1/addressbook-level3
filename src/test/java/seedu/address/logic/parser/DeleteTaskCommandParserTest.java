@@ -22,7 +22,7 @@ public class DeleteTaskCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteTaskCommand() {
-        assertParseSuccess(parser, "1", new DeleteTaskCommand(INDEX_FIRST_TASK));
+        assertParseSuccess(parser, "delete-task ti/1", new DeleteTaskCommand(INDEX_FIRST_TASK));
     }
 
     @Test
