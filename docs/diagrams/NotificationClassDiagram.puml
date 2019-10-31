@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+
+package Logic {
+    Class NotificationManager LOGIC_COLOR
+    Class NotificationCheckingThread LOGIC_COLOR
+    Class NotificationChecker LOGIC_COLOR
+}
+
+package Ui {
+    Class SystemTrayCommunicator UI_COLOR
+    Class PopupListener UI_COLOR
+    Class PopupNotification UI_COLOR
+    Class NotificationClickActionListener UI_COLOR
+}
+
+package Model{
+    Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .right.> NotificationManager
+
+NotificationManager -down-> "1" NotificationCheckingThread : runs >
+NotificationManager -right-> "1" SystemTrayCommunicator : creates >
+
+NotificationCheckingThread -down-> "1" NotificationChecker
+NotificationCheckingThread .right.> PopupNotification
+NotificationCheckingThread -right-> PopupListener : notifies >
+
+NotificationChecker .right.> PopupNotification
+NotificationChecker -down-> Model
+
+PopupListener -up-> SystemTrayCommunicator : notifies >
+PopupListener .down.> PopupNotification
+
+SystemTrayCommunicator -right-> NotificationClickActionListener
+
+@enduml
