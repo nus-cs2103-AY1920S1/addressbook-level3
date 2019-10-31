@@ -120,7 +120,7 @@ https://github.com/tishyakhanna97/main/commit/341deffba3e3b00970f9160feb37a2134f
 In this section, I shall be sharing some of the portions from the *TravEzy* Userguide which I wrote.
 I shall be focusing on the ``find``, ``findSpecific`` and ``encrypt`` commands.
 
-=== Find Command
+=== Find a Diary Entry which include a certain word inside: ``find``
 
 "Hey, when did I go to Spain?" It can be hard to remember
 all the details of your trips. That's why, this Diary allows you to *Find*
@@ -134,12 +134,19 @@ The _Command Word_ is ``find``.
 
 Format: ``list input``
 
-Example: I want to find about my trip on 12/12/2019
-
-``find 12/12/2019``
+Example: I want to look at an old entry, it had something to do with "Aruba"...
 
 
-=== Find Specific Command
+
+The user enters the command ``find Aruba``
+image::DiaryFindCommand.png
+
+And gets a list of all _Diary Entries_ which match the command:
+image::DiaryFindCommandResult.png
+
+
+
+=== Find a Diary Entry by narrowing down your search `FindSpecific`
 
 Let's narrow down your search!
 
@@ -153,11 +160,15 @@ The _Command Word_ is ``findSpecific``.
 
 Format: ``list input``
 
-Example: I want to find about my trip on 12/12/2019
+Example: I remember that i titled the trip "Temp", but I cant remember where I went on those trips...
 
-``find 12/12/2019``
+The user enters the command ``find Temp``
+image::DiaryFindSpecificCommand.png
 
+And gets a list of all _Diary Entries_ which match the command:
+image::DiaryFindSpecificCommandResult.png
 
+IMPORTANT: The ``find`` and `findSpecific` commands can't be used for empty parameters!
 
 == Contributions to the Developer Guide
 
@@ -168,6 +179,8 @@ Example: I want to find about my trip on 12/12/2019
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
 
 
 == PROJECT: PowerPointLabs
