@@ -61,13 +61,24 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     private String getRemainingBudgetText() {
-        if (amount - sum < 0) {
+        double percentDiff = (amount - sum) / amount;
+        double remainingAmount = Math.abs(amount - sum);
+
+        String defaultOutput = String.format("$%.2f", remainingAmount);
+        if (percentDiff < 0) {
             remainingBudget.setTextFill(Color.web("#FF0000"));
-            return "$" + String.format("%.2f", Math.abs(amount - sum)) + " exceeded";
-        } else {
-            remainingBudget.setTextFill(Color.web("#000000"));
-            return "$" + String.format("%.02f", amount - sum) + " left to spend";
+            return defaultOutput + " exceeded";
         }
+
+        if (percentDiff == 0) {
+            remainingBudget.setTextFill(Color.web("#8B2300"));
+        } else if (percentDiff <= 0.5) {
+            remainingBudget.setTextFill(Color.web("#FF8C00"));
+        } else {
+            remainingBudget.setTextFill(Color.web("#00698B"));
+        }
+
+        return defaultOutput + " left to spend";
     }
 
     private String getBudgetRemark() {

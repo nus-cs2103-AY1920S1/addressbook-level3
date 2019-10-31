@@ -39,7 +39,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
      */
     {
         spendings = new SpendingList();
-        budget = new Budget(0);
+        budget = new Budget(1000);
         reminders = new ReminderList();
         currencies = new UniqueCurrencyList();
         for (Currency currency : CurrencyDataUtil.getSampleCurrencies()) {
