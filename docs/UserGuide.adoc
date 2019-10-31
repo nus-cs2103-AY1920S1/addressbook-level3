@@ -879,7 +879,7 @@ Below are the _PREFIX_ convention that TravEzy's Financial Tracker will be using
 
 . Country. You can select from the dropdown menu to select which countries you're currently in. The default country every time you launch the application is *Singapore*. There is no prefix for country field and you're not allowed to edit it :(
 
-=== HelpCommand
+=== Requesting help: ``help``
 At anytime, not sure what to do?
 
 *Simply ask for help!:* ``help``
@@ -892,7 +892,7 @@ Example:
 
 ``help``
 
-=== AddCommand
+=== Adding an expense: ``add``
 Adding what you've spent at the nice coffee shop you stopped by?
 
 *Add an entry to your Financial Tracker:* `add`
@@ -909,7 +909,7 @@ Example:
 
 ``add a/4 t/dinner at Vivocity t/food``
 
-=== DeleteCommand
+=== Deleting an expense: ``delete``
 Added a wrong expense? Of course you can delete it if you want to :)
 
 *Delete an expense:* ``delete``
@@ -925,7 +925,7 @@ Example: Delete the first expense you saw on your expense list.
 ``delete 1``
 
 
-=== EditCommand
+=== Editing an expense: ``edit``
 Add a wrong expense? Why not edit it instead!
 
 *Edit an expense:* `edit`
@@ -941,10 +941,10 @@ Example: Edit the 3rd expense you saw on your expense list.
 ``edit 3``
 
 
-=== SummaryCommand
+=== Generate an overview of your spending: ``summary``
 View your expenses all at once!
 
-Get summary of your financial expenses: ``summary``
+*Get summary of your financial expenses:* ``summary``
 
 Generate statistics of your financial expenses in a Pie Chart form and also in a Bar Char form.
 You can now view your total spending easily!
