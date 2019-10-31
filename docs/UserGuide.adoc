@@ -327,6 +327,7 @@ Use this command to display the ranking of the teams in the hackathon in descend
 
 ****
 * Once you run this command, Alfred's UI will display a list of all the teams stored within Alfred sorted in descending order of their points.
+* By default Alfred sorts teams with equal points in the order they were added into Alfred, based on their ID.
 ****
 
 Format: `leaderboard`
@@ -336,9 +337,11 @@ Use this command to list the top k teams in the leaderboard, where k is a number
 
 ****
 * This command will show you a cropped version of the leaderboard.
-* Alfred's UI will display a list of top `NUMBER` teams based on their current score.
-* If you input `NUMBER` as a number more than the number of teams in the Hackathon, Alfred will simply display all the teams in the Hackathon.
-* If you input `NUMBER` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon in descending order of their points.
+* Alfred's UI will display a list of top "k" teams based on their current score.
+* Do note that this command does not discriminate between teams of the same score - Teams with equal scores will be
+counted as one. Due to this, the command "getTop 1" (for example) may show more than 1 team if there are more than 1 teams with the
+same high score.
+* If you input `NUMBER` as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon, in desceding order of their points.
 ****
 
 Format: `getTop NUMBER`
@@ -348,6 +351,33 @@ Example:
 * `getTop 5` will display the top 5 teams with the highest points in the hackathon.
 
 * `getTop 20` will display the top 20 teams with the highest points in the hackathon.
+
+==== Tie-Break
+
+By default Alfred sorts the Leaderboard by order of descending scores and by order they were added into Alfred in case tied up scores. However, Alfred also provides greater flexibility in choosing how you want to break the tie between the teams when calling the `leaderboard` or `getTop` commands. To break a tie, follow the following format:
+
+* `leaderboard tb/METHOD_1 METHOD_2 METHOD_3` in the case of a `leaderboard` command
+* `getTop NUMBER tb/METHOD_1 METHOD_2 METHOD_3` in the case of a `getTop NUMBER` command
+
+where `METHOD_N` is one of the following currently available tie-break methods:
+
+* `moreParticipants`: teams with more participants are win the tie.
+* `lessParticipants`: teams with lesser participants are win the tie.
+* `higherID`: teams registered more recently (hence the highest ID) win the tie.
+* `lowerID`: teams registered earlier (hence the lowest ID) win the tie.
+* `random`: in case all methods used yield no distinct winner, `random` can be used as a method of last resort to break a tie in favour of a randomly chosen team.
+
+****
+* You may choose one or more methods from the above list to break the tie. You need to precede the tie-break methods with the prefix `tb/` and separate each method with a single space for Alfred to properly understand them.
+* Do note that the tie-break methods will be applied in the order in which you state them. That is, first METHOD_1 will be applied to break the ties, and only then will METHOD_2 be applied to break any remaining ties, if the command `leaderboard tb/METHOD_1 METHOD_2` is called.
+* The `getTop NUMBER` command may still display teams more than the value of `NUMBER` if Alfred was still unsuccessful in breaking certain ties despite applying the tie-break methods you stated.
+* When using the `random` method, it must be the last stated tie-break method if it is being used alongside other tie-break methods.
+****
+
+Example:
+
+* `leaderboard tb/moreParticipants lowerId` will display the leaderboard on the UI with Alfred breaking the tie between teams with equals scores based on which team has more participants, and if the number of participants is equal then by which team has the lower ID.
+* `getTop 3 tb/lessParticipants random` will display the top 3 teams on the UI with Alfred breaking the tie between teams with equals scores based on which team has fewer participants, and if the number of participants is equal then Alfred will randomly pick the winners for the tie.
 
 ==== Add points: `score add TEAM_ID POINTS`
 
