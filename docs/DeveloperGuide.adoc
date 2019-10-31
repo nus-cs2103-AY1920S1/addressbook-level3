@@ -600,7 +600,7 @@ Updating the UI synchronously
 
 === Training Plan Feature
 
-Training plan feature allows user to create customized training plans that consist of selected problems in AlgoBase. Users can record their progress by marking problems in plans as done.
+Training plan feature allows user to create customized training plans with specific starting date and end date that consist of selected problems in AlgoBase. Each problem is wrapped up as a task in the plan. Users can record their progress by marking problems in plans as done.
 
 ==== Current Implementation
 

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 
 import java.util.function.Predicate;
 
@@ -25,12 +26,13 @@ public class FindPlanCommand extends Command {
             + ": Finds all plans whose names contain any of "
             + "the specified keywords (case-insensitive) or with time overlaps"
             + "and displays them as a list with index numbers.\n"
-            + "Parameters: [n/PLAN_NAME] [d/PLAN_DESCRIPTION] [start/RANGE_START] [end/RANGE_END]...\n"
+            + "Parameters: [n/PLAN_NAME] [d/PLAN_DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]\n"
             + "Example:\n"
             + COMMAND_WORD
             + PREFIX_DESCRIPTION + "future questions of CS2040 "
             + PREFIX_START_DATE + "2019/01/01 "
-            + PREFIX_END_DATE + "3019/12/12";
+            + PREFIX_END_DATE + "3019/12/12 "
+            + PREFIX_TASK + "Two Sequences";
 
     public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
 

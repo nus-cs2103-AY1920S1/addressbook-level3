@@ -5,6 +5,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.algobase.logic.parser.ParserUtil.hasPrefixesPresent;
 import static seedu.algobase.logic.parser.ParserUtil.parseDate;
 import static seedu.algobase.model.searchrule.plansearchrule.TimeRange.ORDER_CONSTRAINTS;
@@ -17,10 +18,12 @@ import java.util.stream.Collectors;
 
 import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.problem.Name;
 import seedu.algobase.model.searchrule.plansearchrule.FindPlanDescriptor;
 import seedu.algobase.model.searchrule.plansearchrule.Keyword;
 import seedu.algobase.model.searchrule.plansearchrule.PlanDescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.plansearchrule.PlanNameContainsKeywordsPredicate;
+import seedu.algobase.model.searchrule.plansearchrule.TasksContainsNamePredicate;
 import seedu.algobase.model.searchrule.plansearchrule.TimeRange;
 import seedu.algobase.model.searchrule.plansearchrule.TimeRangePredicate;
 
@@ -46,10 +49,10 @@ public class FindPlanCommandParser implements Parser {
     public FindPlanCommand parse(String args) throws ParseException {
         ArgumentMultimap argumentMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION,
-                        PREFIX_START_DATE, PREFIX_END_DATE);
+                        PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_TASK);
 
         if (!hasPrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_DESCRIPTION,
-                PREFIX_START_DATE, PREFIX_END_DATE)
+                PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_TASK)
                 || !argumentMultimap.getPreamble().isBlank()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPlanCommand.MESSAGE_USAGE));
         }
@@ -91,6 +94,15 @@ public class FindPlanCommandParser implements Parser {
             }
             TimeRange timeRange = new TimeRange(startDate, endDate);
             findPlanDescriptor.setTimeRangePredicate(new TimeRangePredicate(timeRange));
+        }
+
+        if (argumentMultimap.getValue(PREFIX_TASK).isPresent()) {
+            String taskName = argumentMultimap.getValue(PREFIX_TASK).get();
+            if (taskName.isBlank()) {
+                throw new ParseException(FindPlanCommand.MESSAGE_NO_CONSTRAINTS);
+            }
+            Name name = new Name(taskName);
+            findPlanDescriptor.setTasksContainsNamePredicate(new TasksContainsNamePredicate(name));
         }
 
         if (!findPlanDescriptor.isAnyFieldProvided()) {
