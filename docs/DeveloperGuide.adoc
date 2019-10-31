@@ -481,6 +481,26 @@ _TODO: activity diagram_
 _TODO: design considerations_
 // end::rules[]
 
+// tag::importexport[]
+=== Import and export
+==== Implementation
+
+The import functionality takes in a file and parses it into ``Transaction``s.
+
+All of the supported formats are comma-separated value (CSV) files. The bulk of
+the work is parsing the different ways the different banks represent the same data,
+and mapping each column from bank transaction export into the fields contained by
+Budget Buddy ``Transaction``s.
+
+The following class diagram illustrates the design of the import and export function.
+
+_TODO: Class diagram_
+
+==== Design considerations
+
+_TODO_
+// end::importexport[]
+
 // tag::scripts[]
 === Scripting
 ==== Implementation
@@ -506,6 +526,25 @@ _TODO: Class diagram_
 ==== Design considerations
 
 _TODO_
+// end::scripts[]
+
+// tag::aliases[]
+=== Aliases
+==== Implementation
+
+The alias is a simple hook into the command parsing engine. If there is no
+built-in command corresponding to a command line, then the alias map is checked.
+If there is a matching alias, then the alias name in the command line is replaced,
+and the command execution is re-tried.
+
+To prevent alias loops where the user creates an alias `x` mapping to `y`, and an
+alias `y` mapping to `x`, we track the aliases that have been applied, and
+stop evaluation if we see that the same alias has been applied more than once.
+
+==== Design considerations
+
+_TODO_
+// end::aliases[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
