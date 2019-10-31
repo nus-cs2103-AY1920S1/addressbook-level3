@@ -40,7 +40,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 
 
 * `register -id 001A -name John Doe -phone 98765432 -email johnd@example.com -address John street, block 123, #01-01` : registers a patient named `John Doe`.
-* `enqueue 001A` : enqueues patient with reference id `001A` into the queue.
+* `enqueue 001A` : enqueues patient with reference id `001A` into the queue. The patient `001A` must be registered.
 * *`exit`* : exits the app.
 
 .  Refer to <<Features>> for details of each command.
@@ -301,9 +301,9 @@ Format: `redo`
 
 * *On-Duty Doctors Management* +
 ** doctors: `doctors [<DOCTOR_NAME>]`
-** newdoctor: `newdoctor -name <STAFF_NAME> [-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
+** newdoctor: `newdoctor -name <STAFF_NAME> [-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num`
 ** updatedoctor: `updatedoctor <ENTRY_ID> [-name <STAFF_NAME>]
-[-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
+[-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num`
 ** resigndoctor: `resigndoctor <ENTRY_ID>`
 ** onduty: `onduty <ROOM_NUMBER>`
 ** offduty: `offduty <ENTRY_ID>`
