@@ -139,10 +139,12 @@ Example: I want to look at an old entry, it had something to do with "Aruba"...
 
 
 The user enters the command ``find Aruba``
-image::DiaryFindCommand.png
+
+image::DiaryFindCommand.png[]
 
 And gets a list of all _Diary Entries_ which match the command:
-image::DiaryFindCommandResult.png
+
+image::DiaryFindCommandResult.png[]
 
 
 
@@ -163,22 +165,55 @@ Format: ``list input``
 Example: I remember that i titled the trip "Temp", but I cant remember where I went on those trips...
 
 The user enters the command ``find Temp``
-image::DiaryFindSpecificCommand.png
+
+image::DiaryFindSpecificCommand.png[]
 
 And gets a list of all _Diary Entries_ which match the command:
-image::DiaryFindSpecificCommandResult.png
+
+image::DiaryFindSpecificCommandResult.png[]
 
 IMPORTANT: The ``find`` and `findSpecific` commands can't be used for empty parameters!
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+=== Diary
 
-include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+==== Architecture
+
+.Architecture Diagram for Diary Feature
+image::DiaryArchitecture.png[]
+
+The architecture diagram above explains the high-level design and implementation of the Diary Feature within TravEzy.
+
+
+`Diary Model` has multiple classes which form the basis of a Diary.
+This implementation starts at the root object, which is a `DiaryEntry`. These entries
+are stored within a `DiaryList`, which are then encapsulated within a `DiaryBook`
+
+After receiving user input from `DiaryUi`, `DiaryParser`
+changes the input to a executable format, and `DiaryCommand` allows for execution of the user input.
+
+
+
+==== UI component
+
+.Structure of DiaryUi
+image::DiaryUI.png[]
+
+`DiaryUI`, which is represented above, consists of  `DiaryPage`, which encapsulates all the smaller Ui components.
+
+*The main components are the:*
+
+* `CommandBox` -> Captures user input
+
+* `ResultDisplay` -> Returns the output after the user input has passed through the DiaryCommand
+
+* `DiaryListPanel` -> Shows an easily readable version of the current DiaryBook
+
+All of these components inherit from the abstract `UiPart` Class
+
+
 
 
 
