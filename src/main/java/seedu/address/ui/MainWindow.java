@@ -703,7 +703,7 @@ public class MainWindow extends UiPart<Stage> {
             }
         });
         popup.show(primaryStage);
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
         delay.setOnFinished(event -> popup.hide());
         delay.play();
     }
