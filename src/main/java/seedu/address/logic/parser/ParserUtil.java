@@ -13,14 +13,16 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.UploadPictureCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentGrades;
 import seedu.address.model.assignment.AssignmentName;
-import seedu.address.model.classroom.Classroom;
+//import seedu.address.model.classroom.Classroom;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Time;
 import seedu.address.model.student.Address;
+import seedu.address.model.student.DisplayPicture;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
 import seedu.address.model.student.Name;
@@ -287,5 +289,20 @@ public class ParserUtil {
     public static String parseClassroomName(String classroomName) {
         String trimmedName = classroomName.trim();
         return trimmedName;
+    }
+
+    /**
+     * parses filename into displaypicture
+     * ensures format is valid
+     * @param fileName
+     * @return displayPicture
+     * @throws ParseException
+     */
+    public static String parseDisplayPicture(String fileName) throws ParseException {
+        requireNonNull(fileName);
+        if (!DisplayPicture.isValidFormat(fileName)) {
+            throw new ParseException(UploadPictureCommand.MESSAGE_WRONG_FORMAT);
+        }
+        return fileName;
     }
 }

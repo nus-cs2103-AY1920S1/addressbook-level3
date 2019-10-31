@@ -23,5 +23,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_REPEAT = new Prefix("r/");
     public static final Prefix PREFIX_CLASSROOMNAME = new Prefix("cn/");
     public static final Prefix PREFIX_CLASSROOM = new Prefix("c/");
+    public static final Prefix PREFIX_FILE = new Prefix("f/");
 
 }
