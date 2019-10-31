@@ -354,9 +354,8 @@ image::GetStatisticsActivityDiagram.png[]
 
 === Member Feature
 ==== Implementation
-The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks. Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduce a 'set-image' command. The set-image command allows users to set an image in their computer as the profile picture of a member in +Work. In addition, members are listed with the tasks allocated to them, which makes +Work more comprehensive.
-
-To acoomodate the set-image command, the 'Member' class has an alternative constructor that takes in the image url as a parameter to save it as an attribute to the member object, when 'set-image' command is called. Additionally, to support the 'set-image' command, the 'Member' class implements the following operation:
+The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks. Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduce a 'set-image' command. The set-image command allows users to set an image in their computer as the profile picture of a member in +Work.
+To accomodate the set-image command, the 'Member' class has an alternative constructor that takes in the image url as a parameter to save it as an attribute to the member object, when 'set-image' command is called. Additionally, to support the 'set-image' command, the 'Member' class implements the following operation:
 
 * `Member#getImageUrl()` -- Retrieves the URL of the image stored in the user's computer
 * `Member#getImage()` -- Retrieves the member's image using the image url
@@ -364,31 +363,37 @@ To acoomodate the set-image command, the 'Member' class has an alternative const
 
 Given below is an example usage scenario and how the set-image mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The 'Statistics' will be initialised based on the data previously saved.
+Step 1. The user launches the application for the first time, and adds a team member into +Work. The member is displayed with a default profile picture. 
+
+Step 2. The user executes `set-image` command to set an image in their computer as the profile picture of a member in +Work..
+
+The `set-image` command calls `Model#getFilteredMembersList()` to retrive the Member that is to be edited. A new member object is formed, with all the same parameters as the specified member object, and a new Image URL parameter. `Model#setMember` to replace the old member object with the new one in +Work. 
+
+The following sequence diagram shows how the 'set-image' operation works.
+
+image::SetImageSequenceDiagram.png[]
+
+Figure 10. Operational flow of 'SetImageCommand'
 
 [NOTE]
+The image's file path will be stored in the Member object. If the image is shifted to another location, the file path stored becomes invalid, and user will have to call the `set-image` command again, with the new file path. 
 
-Data previously saved refers to the statistics calculation done based on list of members, tasks and mappings saved.
+Step 3. When an operation is called to display a member, `Member#getImage` is called to display the image using Javafx's ImageView. 
 
-Step 2. The user executes `get-task-stats` command to retrieve statistics related to the tasks in the application.
+The following sequence diagram shows how the image is called up and subsequently displayed in the UI for members. 
 
-The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` after updating all the lists to show all tasks/members/mappings, to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard.
+image::DisplayImage.png[]
+Figure 10. Operational flow of displaying a member with image. 
 
-The following sequence diagram shows how the 'get-member-stats' operation works.
 
-image::GetStatisticsSequenceDiagram.png[]
-Figure 10. Operational flow of 'GetStatisticsCommand'
-
-[NOTE]
-The 'get-member-stats' operation is similar to the one shown in figure 10.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::GetStatisticsActivityDiagram.png[]
+image::SetImageActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How to implement Statistics class
+===== Aspect: How to save image under Member (url or image object)
 
 * **Alternative 1 (current choice):** One statistics object for the entire ProjectDashboard
 ** Pros: Easy to implement, centralised class for all statistics
@@ -397,15 +402,23 @@ image::GetStatisticsActivityDiagram.png[]
 ** Pros: Will ensure faster performance,
 ** Cons: Design of statistics object has to be very well-implemented, might not have enough time to implement it by v1.3
 
-===== Aspect: Display of Statistics for Project Dashboard
-
+===== Aspect: Store image as (final or changeable) (basically repalcing the whole member or not)
 * **Alternative 1 (current choice):** Use a pie chart to represent information
 ** Pros: Easy for workload comparison
 ** Cons: Less details of individual taks and members exposed in the statistiscs page.
 * **Alternative 2:** Use a list to represent information
 ** Pros: Includes more details for individual elements
 ** Cons: Decreases the ease of comparison between tasks and members
-// end::statistics[]
+
+===== Aspect: Ui Display of members
+* **Alternative 1 (current choice):** Use a pie chart to represent information
+** Pros: Easy for workload comparison
+** Cons: Less details of individual taks and members exposed in the statistiscs page.
+* **Alternative 2:** Use a list to represent information
+** Pros: Includes more details for individual elements
+** Cons: Decreases the ease of comparison between tasks and members
+
+// end::member[]
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
