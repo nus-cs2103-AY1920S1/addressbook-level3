@@ -27,6 +27,12 @@ public class CommandResult {
     /** The restore window will open. */
     private boolean showRestore;
 
+    /** The history window will open. */
+    private boolean showHistory;
+
+    /** The stats window will open. */
+    private boolean showStats;
+
     /** The mode of the quiz in session **/
     private Mode mode;
 
@@ -43,6 +49,8 @@ public class CommandResult {
         this.exit = false;
         this.start = false;
         this.showRestore = false;
+        this.showHistory = false;
+        this.showStats = false;
         this.mode = new Mode("normal");
         this.model = new ModelManager();
     }
@@ -54,17 +62,21 @@ public class CommandResult {
      * @param exit true if it is a exit command, false otherwise.
      * @param start true if it is a start command, false otherwise.
      * @param showRestore true if it is a restore command, false otherwise.
+     * @param showHistory true if it is a history command, false otherwise.
+     * @param showStats true if it is a stats command, false otherwise.
      * @param mode mode that was selected by the user.
      * @param model model that will be used to restore.
      */
     private CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean start, boolean showRestore,
-                          Mode mode, Model model) {
+                          boolean showHistory, boolean showStats, Mode mode, Model model) {
         requireNonNull(feedbackToUser);
         this.feedbackToUser = feedbackToUser;
         this.showHelp = showHelp;
         this.exit = exit;
         this.start = start;
         this.showRestore = showRestore;
+        this.showHistory = showHistory;
+        this.showStats = showStats;
         this.mode = mode;
         this.model = model;
     }
@@ -120,6 +132,26 @@ public class CommandResult {
     }
 
     /**
+     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code RestoreCommand}.
+     * @param isHistory input boolean to determine result.
+     * @return {@code CommandResult} with the withRestore boolean updated according to the input.
+     */
+    public CommandResult withHistory(boolean isHistory) {
+        this.showHistory = isHistory;
+        return this;
+    }
+
+    /**
+     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code RestoreCommand}.
+     * @param isStats input boolean to determine result.
+     * @return {@code CommandResult} with the withRestore boolean updated according to the input.
+     */
+    public CommandResult withStats(boolean isStats) {
+        this.showStats = isStats;
+        return this;
+    }
+
+    /**
      * Adds a {@code Mode} to the {@code CommandResult} to be used to determine the mode when starting the quiz session.
      * @param mode mode that is chosen by the user.
      * @return {@code CommandResult} with the updated mode.
@@ -144,7 +176,8 @@ public class CommandResult {
      * @return {@code CommandResult}
      */
     public CommandResult build() {
-        return new CommandResult(feedbackToUser, showHelp, exit, start, showRestore, mode, model);
+        return new CommandResult(feedbackToUser, showHelp, exit, start, showRestore, showHistory, showStats,
+                mode, model);
     }
 
     public String getFeedbackToUser() {
@@ -165,6 +198,14 @@ public class CommandResult {
 
     public boolean isShowRestore() {
         return showRestore;
+    }
+
+    public boolean isShowHistory() {
+        return showHistory;
+    }
+
+    public boolean isShowStats() {
+        return showStats;
     }
 
     public Model getModel() {

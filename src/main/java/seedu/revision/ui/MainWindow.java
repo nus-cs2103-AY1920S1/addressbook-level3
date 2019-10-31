@@ -68,6 +68,62 @@ public class MainWindow extends Window {
     }
 
     /**
+     * Shows history of results as a line graph. Loads the window components for line graph.
+     * @throws CommandException
+     */
+    @FXML
+    public void handleHistory(Model model) throws CommandException {
+        if (this.mainLogic.getStatisticsList().size() > 0) {
+            // HistoryWindow historyWindow = new HistoryWindow(getPrimaryStage(), getMainLogic());
+            // historyWindow.show();
+            // historyWindow.fillInnerParts();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Results");
+            alert.setHeaderText(null);
+            alert.setGraphic(null);
+            alert.setContentText(String.format("These are your past results: \n" + model.getStatisticsList()));
+            ButtonType confirm = new ButtonType(
+                    "Ok",
+                    ButtonBar.ButtonData.OK_DONE
+            );
+            alert.getButtonTypes().setAll(confirm);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+        } else {
+            throw new CommandException("No past results were found.");
+        }
+    }
+
+    /**
+     * Shows results of latest quiz attempted as a pie chart. Loads the window components for pie chart.
+     * @throws CommandException
+     */
+    @FXML
+    public void handleStats(Model model) throws CommandException {
+        if (this.mainLogic.getStatisticsList().size() > 0) {
+            // StatsWindow statsWindow = new StatsWindow(getPrimaryStage(), getMainLogic());
+            // statsWindow.show();
+            // statsWindow.fillInnerParts();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Results");
+            alert.setHeaderText(null);
+            alert.setGraphic(null);
+            alert.setContentText(String.format("Your latest quiz result: \n"
+                    + model.getStatisticsList().get(model.getStatisticsList().size() - 1)));
+            ButtonType confirm = new ButtonType(
+                    "Ok",
+                    ButtonBar.ButtonData.OK_DONE
+            );
+            alert.getButtonTypes().setAll(confirm);
+
+            Optional<ButtonType> result = alert.showAndWait();
+        } else {
+            throw new CommandException("You have not attempted any quiz yet.");
+        }
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -139,6 +195,14 @@ public class MainWindow extends Window {
 
             if (commandResult.isShowRestore()) {
                 handleRestore(commandResult.getModel());
+            }
+
+            if (commandResult.isShowHistory()) {
+                handleHistory(commandResult.getModel());
+            }
+
+            if (commandResult.isShowStats()) {
+                handleStats(commandResult.getModel());
             }
 
             return commandResult;

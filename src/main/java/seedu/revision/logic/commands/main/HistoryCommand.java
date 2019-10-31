@@ -35,6 +35,6 @@ public class HistoryCommand extends Command {
             return new CommandResult().withFeedBack("You have not attempted any quizzes yet!").build();
         }
         return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS, history, "You have attempted "
-                + history.size() + " quizzes so far")).build();
+                + history.size() + " quizzes so far")).withHistory(true).build();
     }
 }

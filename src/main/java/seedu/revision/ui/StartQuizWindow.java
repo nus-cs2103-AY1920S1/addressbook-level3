@@ -147,7 +147,7 @@ public class StartQuizWindow extends Window {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        double totalScore = (double) Math.round(score / getCurrentProgressIndex()) * 100;
+        double totalScore = (double) Math.round(score / getCurrentProgressIndex()) * 100.00;
         Statistics newResult = new Statistics(totalScore);
         updateStatistics(model, newResult);
 
@@ -185,7 +185,7 @@ public class StartQuizWindow extends Window {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        double totalScore = (double) Math.round(score / getCurrentProgressIndex()) * 100;
+        double totalScore = (double) Math.round(score / getCurrentProgressIndex()) * 100.00;
         Statistics newResult = new Statistics(totalScore);
         updateStatistics(model, newResult);
 
