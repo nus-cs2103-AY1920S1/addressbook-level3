@@ -8,7 +8,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 import seedu.address.commons.core.LogsCenter;
+
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;

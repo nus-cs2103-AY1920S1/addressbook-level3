@@ -127,7 +127,11 @@ public interface Model {
 
     void addParticipantToTeam(Id teamId, Participant participant) throws AlfredException;
 
+    void removeParticipantFromTeam(Id teamId, Participant participant) throws AlfredException;
+
     void addMentorToTeam(Id teamId, Mentor mentor) throws AlfredException;
+
+    void removeMentorFromTeam(Id teamId, Mentor mentor) throws AlfredException;
 
     void updateTeam(Id teamId, Team team) throws AlfredException;
 

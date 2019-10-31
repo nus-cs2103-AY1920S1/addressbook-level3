@@ -21,7 +21,7 @@
 <?import javafx.scene.Scene?>
 <?import com.jfoenix.controls.JFXButton?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Alfred - The Hackathon Butler" minWidth="700" minHeight="700">
+         title="Alfred - The Hackathon Butler" minWidth="700" minHeight="700" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/alfred_icon.png"/>
     </icons>
@@ -40,9 +40,6 @@
                                     <AnchorPane layoutY="-2.0" prefHeight="700.0" prefWidth="35.0"
                                                 style="-fx-background-color: #ffff;" AnchorPane.bottomAnchor="0.0"
                                                 AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                        <effect>
-                                            <DropShadow/>
-                                        </effect>
                                     </AnchorPane>
                                     <JFXButton fx:id="participantsButton" id="participantsButton" alignment="BASELINE_LEFT" graphicTextGap="40.0"
                                                layoutX="3.0" layoutY="8.0" prefHeight="60.0"
@@ -102,9 +99,6 @@
                                         </graphic>
                                     </JFXButton>
                                 </children>
-                                <effect>
-                                    <DropShadow/>
-                                </effect>
                             </AnchorPane>
                         </left>
                         <center>
@@ -146,9 +140,6 @@
                                 <opaqueInsets>
                                     <Insets/>
                                 </opaqueInsets>
-                                <effect>
-                                    <DropShadow/>
-                                </effect>
                             </MenuBar>
 
                         </top>
