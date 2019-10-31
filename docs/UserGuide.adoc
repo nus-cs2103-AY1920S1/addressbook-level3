@@ -30,13 +30,12 @@ By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 .Startup Screen Shot of Horo
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Type the command in the command box and press kbd:[Enter] to execute it.
 .  Some example commands you can try:
 
-* `**add_event** Celebrate Rori’s Birthday`: adds an event to the event book.
-* `**delete** -task 3` : deletes the 3rd event shown in the event book.
-* *`exit`* : exits the application.
+* `**add_task** "Buy Groceries"`: adds a task to Horo.
+* `delete_task 1` : deletes the first task in Horo.
+* `exit` : exits Horo.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,30 +45,26 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format for Horo*
 
+* You can enter a command by typing the command name first followed by arguments of the command.
+- E.g. `command_name <argument1> <argument2>...`
 
-* The first word of any command should be a non-capitalized command, followed by the necessary arguments of the command itself.
-- E.g. `help`
-- E.g. `done 1`
+* If you want to type an argument containing blank spaces, surround your sentence within quotation marks.
+- E.g. `"Buy Groceries"`
+- E.g. `add_task "Buy Groceries"`
 
-* If the argument contains more than 1 blank space, it should be contained in a double apostrophe.
-- E.g. `delete 1`
-- E.g. `add_event "Celebrate Rori's Birthday"`
-
-* Any sub-commands should be after the main command, and require a `--` before the sub-command itself. Sub commands should
-- E.g. `add_event "Celebrate Horo's Birthday" --at 17/09/2019 23:59`
+* Command parameters are prefixed by `--`, and they are optional.
+- E.g. `--date 17/09/2019`
+- E.g. `calendar --date 17/09/2019`
 
 
 ====
-*Command Format specifically for this User Guide*
+*Command Format for this User Guide*
 
-* Words that are fully capitalized are the terms supplied by you.
-- E.g. `event EVENT`
+* Arguments are fully capitalized which are to be supplied by you.
+- E.g. `add_task TASK`
 
-* Words in square brackets, `[]`, are optional terms.
-- E.g. `event EVENT [--at DATE_TIME]
-
-* Words with ellipsis, `...`, can be used multiple times including zero times.
-- E.g. `event EVENT [--at DATE_TIME] [--tag TAG_1] [--tag TAG_2]...`
+* Arguments suffixed with ellipsis (`...`) indicate that the argument can be entered zero or more times.
+- E.g. `delete_task INDEX...`
 
 
 === Asking for help : `help` **`[coming in v2.0]`**
@@ -91,7 +86,7 @@ The  following commands are related to Events and Tasks which revolves around a 
 - If past the specified date, it is removed from the Calendar, unless it is recurring.
 {empty} +
 
-* Task **`[coming in v2.0]`**
+* Task:
 - May show up on the Calendar if time is specified.
 - Able to be marked as done.
 - If past the specified date, it is archived into an undone list, which subsequently able to be unarchived.
@@ -101,18 +96,26 @@ The  following commands are related to Events and Tasks which revolves around a 
 .Add Event Command
 image::AddEventCommandScreenShot.png[]
 
-Adds an event to the event list.
-{empty} +
+Adds an event to the event list. +
 
-Format: +
-`add_event DESCRIPTION DATE_TIME [--end DATE_TIME] [--remind DATE_TIME] [--tag TAG...]`
-{empty} +
+Command Format: +
+`*add_event* DESCRIPTION START_DATE`
+
+Command Parameters: +
+`*--end* END_DATE` +
+`*--remind* REMIND_DATE` +
+`*--tag* TAG...`
+
+Argument Format: +
+`START_DATE` : `"DD/MM/YYYY HH:MM"` +
+`END_DATE` : `"DD/MM/YYYY HH:MM"` +
+`REMIND_DATE` : `"DD/MM/YYYY HH:MM"`
 
 Examples: +
-`add_event “Celebrate Rori’s Birthday” “18/08/2019 16:00”` +
-`add_event “Celebrate Rori’s Birthday” “18/08/2019 16:00” --end “18/08/2019 20:00”` +
-`add_event “Celebrate Rori’s Birthday” “18/08/2019 16:00” --remind “18/08/2019 12:00”` +
-`add_event “Celebrate Rori’s Birthday” “18/08/2019 16:00” --tag Birthday Rori` +
+`*add_event* “Rori’s Birthday” “18/08/2019 16:00”` +
+`*add_event* “Rori’s Birthday” “18/08/2019 16:00” *--end* “18/08/2019 20:00”` +
+`*add_event* “Rori’s Birthday” “18/08/2019 16:00” *--remind* “18/08/2019 12:00”` +
+`*add_event* “Rori’s Birthday” “18/08/2019 16:00” *--tag* Birthday Rori` +
 
 ==== Deleting Events
 
