@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
+import com.typee.logic.commands.CalendarCommand;
 import com.typee.logic.commands.ClearCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.DeleteCommand;
@@ -50,32 +51,32 @@ public class TypeeParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case CalendarCommand.COMMAND_WORD:
+            return new CalendarCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case TabCommand.COMMAND_WORD:
-            return new TabCommandParser().parse(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+        case PdfCommand.COMMAND_WORD:
+            return new PdfCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
@@ -83,8 +84,11 @@ public class TypeeParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
-        case PdfCommand.COMMAND_WORD:
-            return new PdfCommandParser().parse(arguments);
+        case TabCommand.COMMAND_WORD:
+            return new TabCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

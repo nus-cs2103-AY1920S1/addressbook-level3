@@ -54,7 +54,7 @@ public class GameWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void handleExit() {
+    public void handleExit() {
         getRoot().close();
     }
 

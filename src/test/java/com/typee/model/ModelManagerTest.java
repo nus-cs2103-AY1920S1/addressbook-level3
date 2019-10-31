@@ -1,18 +1,21 @@
 package com.typee.model;
 
-//import static com.typee.testutil.TypicalPersons.ALICE;
-//import static com.typee.testutil.TypicalPersons.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import com.typee.commons.core.GuiSettings;
 
 public class ModelManagerTest {
 
-    /*
     private ModelManager modelManager = new ModelManager();
 
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new EngagementList(), new EngagementList(modelManager.getHistoryManager()));
+        assertEquals(new EngagementList(), new EngagementList(modelManager.getEngagementList()));
     }
 
     @Test
@@ -20,6 +23,7 @@ public class ModelManagerTest {
         assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
     }
 
+    /*
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();

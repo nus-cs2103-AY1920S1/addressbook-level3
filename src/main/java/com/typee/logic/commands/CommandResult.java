@@ -2,8 +2,10 @@ package com.typee.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
+import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.ui.Tab;
 
 /**
@@ -22,7 +24,14 @@ public class CommandResult {
     /** The application should switch tab menu. */
     private final boolean tabCommand;
 
+    /* The application should interact with the calendar window. */
+    private final boolean calendarCommand;
+
     private final Tab tab;
+
+    private final LocalDate calendarDate;
+
+    private final String calendarCommandType;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -33,6 +42,9 @@ public class CommandResult {
         this.exit = exit;
         this.tabCommand = false;
         this.tab = new Tab("main");
+        this.calendarCommand = false;
+        this.calendarDate = null;
+        this.calendarCommandType = "";
     }
 
     /**
@@ -44,6 +56,39 @@ public class CommandResult {
         this.exit = false;
         this.tabCommand = tabCommand;
         this.tab = tab;
+        this.calendarCommand = false;
+        this.calendarDate = null;
+        this.calendarCommandType = "";
+    }
+
+    /**
+     * Constructs a {@code CommandResult} for a calendar command with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean calendarCommand, LocalDate calendarDate,
+                         String calendarCommandType) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.tabCommand = false;
+        this.tab = new Tab("calendar");
+        this.calendarCommand = calendarCommand;
+        this.calendarDate = calendarDate;
+        this.calendarCommandType = calendarCommandType;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} for a calendar command with the specified fields,
+     * excluding the date field.
+     */
+    public CommandResult(String feedbackToUser, boolean calendarCommand, String calendarCommandType) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.tabCommand = false;
+        this.tab = new Tab("calendar");
+        this.calendarCommand = calendarCommand;
+        this.calendarDate = null;
+        this.calendarCommandType = calendarCommandType;
     }
 
     /**
@@ -72,6 +117,24 @@ public class CommandResult {
 
     public Tab getTab() {
         return tab;
+    }
+
+    public boolean isCalendarCommand() {
+        return calendarCommand;
+    }
+
+    public LocalDate getCalendarDate() throws CommandException {
+        if (!calendarCommand) {
+            throw new CommandException("Cannot get calendar date from a non-calendar command result");
+        }
+        return calendarDate;
+    }
+
+    public String getCalendarCommandType() throws CommandException {
+        if (!calendarCommand) {
+            throw new CommandException("Cannot get calendar command type from a non-calendar command result");
+        }
+        return calendarCommandType;
     }
 
     @Override
