@@ -9,7 +9,6 @@ import dukecooks.logic.Logic;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.dashboard.components.Rewards;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -169,7 +168,7 @@ public class MainWindow extends UiPart<Stage> {
      * Initializes all Panels.
      */
     void initializePanels() {
-        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList(), new Rewards());
+        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());

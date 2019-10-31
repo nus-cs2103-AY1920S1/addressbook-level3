@@ -1,5 +1,7 @@
 package dukecooks.model.dashboard.components;
 
+import javafx.concurrent.Task;
+
 /**
  * Represents a TaskStatus in DukeCooks.
  */
@@ -14,11 +16,8 @@ public class TaskStatus {
         this.taskStatus = taskStatus;
     }
 
-    /**
-     * Check if task is complete
-     */
-    public boolean isDone(String complete) {
-        if (complete.equals("COMPLETE")) {
+    public boolean getRecentlyDoneStatus() {
+        if (taskStatus.equals("RECENTLY COMPLETED")) {
             return true;
         } else {
             return false;
@@ -26,7 +25,7 @@ public class TaskStatus {
     }
 
     public boolean getDoneStatus() {
-        if (taskStatus.equals("COMPLETE")) {
+        if (taskStatus.equals("COMPLETED") || (taskStatus.equals("RECENTLY COMPLETED"))) {
             return true;
         } else {
             return false;

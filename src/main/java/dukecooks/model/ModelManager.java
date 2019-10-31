@@ -578,6 +578,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void changeDashboard(List<Dashboard> l) {
+        dashboard.changeDashboard(l);
+    }
+
+    @Override
     public boolean checkForPrize(List<Dashboard> l) {
         return dashboard.checkDashboard(l);
     }

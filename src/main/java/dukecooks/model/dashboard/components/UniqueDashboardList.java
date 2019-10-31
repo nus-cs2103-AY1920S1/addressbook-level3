@@ -32,7 +32,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
             FXCollections.unmodifiableObservableList(internalList);
 
     private final long taskLeft = internalList.stream()
-            .filter(i -> i.getTaskStatus().getDoneStatus() == false).count();
+            .filter(i -> !i.getTaskStatus().getDoneStatus()).count();
 
     /**
      * Get the number of task left in a String.
@@ -51,19 +51,31 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
                 return o1.getLocalDate().compareTo(o2.getLocalDate());
             }
         };
-        Collections.sort(l, comparator);
+        l.sort(comparator);
     }
 
     /**
      * Counts the number of completed task and returns true if 5 new tasks are completed.
      */
     public boolean doneFive(List<Dashboard> l) {
-        l.stream().filter(i -> i.getTaskStatus().getNotDoneStatus());
-        int size = l.size();
+        long size = l.stream().filter(i -> i.getTaskStatus().getRecentlyDoneStatus()).count();
         if (size % 5 == 0) {
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * Changes status of recently completed tasks to completed tasks.
+     */
+    public void changeDone(List<Dashboard> l) {
+        for (Dashboard d : l) {
+            if (d.getTaskStatus().getRecentlyDoneStatus()) {
+                Dashboard updated = new Dashboard(d.getDashboardName(), d.getTaskDate(), new TaskStatus("COMPLETED"));
+                remove(d);
+                add(updated);
+            }
         }
     }
 

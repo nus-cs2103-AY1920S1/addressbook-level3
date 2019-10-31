@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import dukecooks.commons.core.Event;
 import dukecooks.logic.commands.Command;
 import dukecooks.logic.commands.CommandResult;
-import dukecooks.logic.commands.ListCommand;
 import dukecooks.model.Model;
 
 /**
