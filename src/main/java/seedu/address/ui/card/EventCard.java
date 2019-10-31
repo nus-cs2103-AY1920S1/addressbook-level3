@@ -9,6 +9,7 @@ import javafx.scene.layout.Region;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import jdk.jfr.Event;
 import seedu.address.model.events.EventSource;
 
 
@@ -48,6 +49,20 @@ public class EventCard extends Card {
 
     /**
      * Constructor for the EventCard, which displays the information of a particular event.
+     * This is used for ListPanel.
+     *
+     * @param event The given event.
+     */
+    public EventCard(EventSource event, Integer index) {
+        super(FXML);
+        eventName.setText(index + ". " + event.getDescription());
+        eventStartDate.setText("Start Date: " + event.getStartDateTime().toEnglishDateTime());
+        addOptions(event);
+    }
+
+    /**
+     * Constructor for the EventCard, which displays the information of a particular event.
+     * This is used for CalendarPanel.
      *
      * @param event The given event.
      */
@@ -55,7 +70,10 @@ public class EventCard extends Card {
         super(FXML);
         eventName.setText(event.getDescription());
         eventStartDate.setText("Start Date: " + event.getStartDateTime().toEnglishDateTime());
+        addOptions(event);
+    }
 
+    private void addOptions(EventSource event) {
         // End Date Option
         if (event.getEndDateTime() != null) {
             eventEndDate.setText("End Date: " + event.getEndDateTime().toEnglishDateTime());

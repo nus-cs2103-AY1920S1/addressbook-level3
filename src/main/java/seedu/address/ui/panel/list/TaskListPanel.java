@@ -31,9 +31,11 @@ public class TaskListPanel extends UiPart<Region> {
      */
     public void onTaskListChange(List<TaskSource> tasks) {
         this.taskList.getChildren().clear();
+        int index = 1;
         for (TaskSource task : tasks) {
-            TaskCard taskCard = new TaskCard(task);
+            TaskCard taskCard = new TaskCard(task, index);
             taskList.getChildren().add(taskCard.getRoot());
+            index++;
         }
     }
 

@@ -42,12 +42,29 @@ public class TaskCard extends Card {
 
     /**
      * Constructor for the TaskCard, which displays the information of a particular task.
+     * This is used for ListPanel.
+     *
+     * @param task The given task.
+     */
+    public TaskCard(TaskSource task, Integer index) {
+        super(FXML);
+        taskName.setText(index + ". " + task.getDescription());
+        addOptions(task);
+    }
+
+    /**
+     * Constructor for the TaskCard, which displays the information of a particular task.
+     * This is used for CalendarPanel.
      *
      * @param task The given task.
      */
     public TaskCard(TaskSource task) {
         super(FXML);
         taskName.setText(task.getDescription());
+        addOptions(task);
+    }
+
+    private void addOptions(TaskSource task) {
 
         // Due Date
         if (task.getDueDate() != null) {
@@ -78,5 +95,6 @@ public class TaskCard extends Card {
         }
 
         taskName.setMinHeight(Region.USE_PREF_SIZE);
+
     }
 }

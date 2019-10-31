@@ -9,6 +9,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import seedu.address.model.CalendarDate;
+import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
@@ -22,6 +23,8 @@ import seedu.address.ui.card.UpcomingTaskCard;
 public class UpcomingView extends UiPart<Region> {
 
     private static final String FXML = "UpcomingView.fxml";
+
+    private CalendarDate currentDate;
     private Integer totalDisplays;
 
     @FXML
@@ -35,8 +38,8 @@ public class UpcomingView extends UiPart<Region> {
 
     public UpcomingView(List<Object> eventTaskList) {
         super(FXML);
-        CalendarDate calendarDate = CalendarDate.now();
-        upcomingViewTitle.setText("Upcoming in " + calendarDate.getEnglishMonth());
+        currentDate = CalendarDate.now();
+        upcomingViewTitle.setText("Upcoming in " + currentDate.getEnglishMonth());
         resizeUpcomingView(eventTaskList);
     }
 
@@ -55,14 +58,20 @@ public class UpcomingView extends UiPart<Region> {
             }
             if (source instanceof EventSource) {
                 EventSource event = (EventSource) source;
-                UpcomingEventCard eventCard = new UpcomingEventCard(event);
-                upcomingList.getChildren().add(eventCard.getRoot());
-                index++;
+                DateTime eventDate = event.getStartDateTime();
+                if (currentDate.sameMonthYear(eventDate.getMonth(), eventDate.getYear())) {
+                    UpcomingEventCard eventCard = new UpcomingEventCard(event);
+                    upcomingList.getChildren().add(eventCard.getRoot());
+                    index++;
+                }
             } else if (source instanceof TaskSource) {
                 TaskSource task = (TaskSource) source;
-                UpcomingTaskCard taskCard = new UpcomingTaskCard(task);
-                upcomingList.getChildren().add(taskCard.getRoot());
-                index++;
+                DateTime taskDate = task.getDueDate();
+                if (currentDate.sameMonthYear(taskDate.getMonth(), taskDate.getYear())) {
+                    UpcomingTaskCard taskCard = new UpcomingTaskCard(task);
+                    upcomingList.getChildren().add(taskCard.getRoot());
+                    index++;
+                }
             }
         }
     }
