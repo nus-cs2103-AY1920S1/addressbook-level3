@@ -14,6 +14,7 @@ import io.xpire.model.item.XpireItem;
  */
 public class CheckCommand extends Command {
     public static final String COMMAND_WORD = "check";
+    public static final String COMMAND_SHORTHAND = "ch";
 
     public static final String MESSAGE_SUCCESS = "Item(s) expiring soon";
 
