@@ -3,9 +3,13 @@ package seedu.elisa.ui;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -16,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 
@@ -29,7 +34,7 @@ public class CalendarPanel extends UiPart<Region> {
     private int month;
 
     @FXML
-    private Label monthAndYear;
+    private Text monthAndYear;
 
     @FXML
     private GridPane calendarGrid;
@@ -40,13 +45,26 @@ public class CalendarPanel extends UiPart<Region> {
      */
     public CalendarPanel(ObservableList<Item> visualList) {
         super(FXML);
-        monthAndYear.setAlignment(Pos.CENTER);
         LocalDateTime currentTime = LocalDateTime.now();
         this.month = currentTime.getMonthValue();
         this.year = currentTime.getYear();
         monthAndYear.setText(String.format("%s, %s", Month.of(month), String.valueOf(year)));
         initializeCalendarGrid();
         loadData(visualList);
+        visualList.addListener(new ListChangeListener<Item>() {
+            @Override
+            public void onChanged(Change<? extends Item> c) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("running");
+                        clearCells();
+                        generateDate();
+                        loadData(visualList);
+                    }
+                });
+            }
+        });
     }
 
     private void initializeCalendarGrid() {
@@ -113,7 +131,7 @@ public class CalendarPanel extends UiPart<Region> {
             GridPane.setVgrow(vPane, Priority.NEVER);
             Label day = new Label();
             day.setAlignment(Pos.CENTER);
-            day.setText(DayOfWeek.of(i + 1).toString());
+            day.setText(DayOfWeek.of(i + 1).getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
             vPane.getChildren().add(day);
             calendarGrid.add(vPane, i, 0);
         }
@@ -169,6 +187,19 @@ public class CalendarPanel extends UiPart<Region> {
                     vPane.setStyle("-fx-background-color: #E9F2F5");
                 }
                 calendarGrid.add(vPane, j, i);
+            }
+        }
+    }
+
+    /**
+     * Helper method to clear all the cells so that it can be updated.
+     */
+    private void clearCells() {
+        ObservableList<Node> allCells = calendarGrid.getChildren();
+        for (Node cell: allCells) {
+            if (GridPane.getRowIndex(cell) != 0) {
+                VBox pane = (VBox) cell;
+                pane.getChildren().clear();
             }
         }
     }
