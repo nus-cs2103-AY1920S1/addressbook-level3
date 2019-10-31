@@ -10,9 +10,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_B
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
-import static seedu.address.testutil.TypicalBooks.BOOK_7_ON_LOAN;
+import static seedu.address.testutil.TypicalBooks.BOOK_7;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalBorrowers.HOON;
+import static seedu.address.testutil.TypicalLoans.LOAN_7;
 import static seedu.address.testutil.UserSettingsBuilder.DEFAULT_LOAN_PERIOD;
 
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanId;
 import seedu.address.model.loan.LoanList;
+import seedu.address.testutil.BookBuilder;
 
 class LoanCommandTest {
 
@@ -118,12 +120,13 @@ class LoanCommandTest {
 
     @Test
     public void execute_bookAlreadyOnLoan_loanUnsuccessful() {
-        SerialNumber toLoan = BOOK_7_ON_LOAN.getSerialNumber();
+        SerialNumber toLoan = BOOK_7.getSerialNumber();
         BorrowerRecords borrowerRecords = new BorrowerRecords();
         borrowerRecords.addBorrower(HOON);
         BorrowerId servingBorrowerId = HOON.getBorrowerId();
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7_ON_LOAN);
+        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build();
+        catalog.addBook(onLoan);
 
         Model model = new ModelManager(catalog, new LoanRecords(),
                 borrowerRecords, new UserPrefs());
@@ -137,7 +140,7 @@ class LoanCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         }
-        String expectedMessage = String.format(MESSAGE_BOOK_ON_LOAN, BOOK_7_ON_LOAN);
+        String expectedMessage = String.format(MESSAGE_BOOK_ON_LOAN, BOOK_7);
         assertEquals(actualMessage, expectedMessage);
     }
 

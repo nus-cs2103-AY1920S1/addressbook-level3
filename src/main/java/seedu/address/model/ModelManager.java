@@ -362,7 +362,8 @@ public class ModelManager implements Model {
 
     @Override
     public void setServingBorrower(BorrowerId borrowerId) {
-        this.servingBorrower = Optional.of(borrowerRecords.getBorrowerFromId(borrowerId));
+        Borrower borrower = borrowerRecords.getBorrowerFromId(borrowerId);
+        setServingBorrower(borrower);
     }
 
     @Override
@@ -458,6 +459,10 @@ public class ModelManager implements Model {
     public List<Book> getBorrowerBooks() {
         if (!isServeMode()) {
             throw new NotInServeModeException();
+        }
+
+        if (servingBorrower.get().getCurrentLoanList().isEmpty()) {
+            return new ArrayList<>();
         }
 
         ArrayList<Loan> loans = new ArrayList<>();

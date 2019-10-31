@@ -64,8 +64,6 @@ public class TypicalBorrowers {
     public static final Borrower BOB = new BorrowerBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withBorrowerId(VALID_ID_BOB).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-
     private TypicalBorrowers() {} // prevents instantiation
 
     /**

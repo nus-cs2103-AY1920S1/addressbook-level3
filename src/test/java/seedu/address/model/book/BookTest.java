@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_2;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
@@ -14,10 +13,6 @@ import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
 
 import org.junit.jupiter.api.Test;
-
-//import seedu.address.commons.util.DateUtil;
-//import seedu.address.model.borrower.BorrowerId;
-//import seedu.address.model.loan.Loan;
 
 import seedu.address.testutil.BookBuilder;
 
@@ -30,16 +25,16 @@ public class BookTest {
     }
 
     @Test
-    public void noGenres_toString_noTagFieldDisplayed() {
-        Book book = new BookBuilder().withGenres().build();
-        boolean containsTag = book.toString().contains("Genres");
-        assertFalse(containsTag);
+    public void toString_haveTitleDisplayed() {
+        Book book = new BookBuilder(BOOK_1).build();
+        boolean containsTag = book.toString().contains(book.getTitle().toString());
+        assertTrue(containsTag);
     }
 
     @Test
-    public void haveGenres_toString_haveTagFieldDisplayed() {
-        Book book = new BookBuilder().withGenres("Action").build();
-        boolean containsTag = book.toString().contains("Genres");
+    public void toString_haveAuthorDisplayed() {
+        Book book = new BookBuilder(BOOK_1).build();
+        boolean containsTag = book.toString().contains(book.getAuthor().toString());
         assertTrue(containsTag);
     }
 
@@ -133,10 +128,12 @@ public class BookTest {
         Book book1 = new BookBuilder(BOOK_1).build();
         StringBuilder genres = new StringBuilder();
         book1.getGenres().forEach(genre -> genres.append(genre + " "));
-        String stringRep = book1.getTitle()
-                + ", Serial Number: " + book1.getSerialNumber()
-                + ", Author: " + book1.getAuthor()
-                + ", Genres: " + genres.toString();
+        String stringRep = "["
+                + book1.getSerialNumber().toString()
+                + "] \""
+                + book1.getTitle().toString()
+                + "\" by "
+                + book1.getAuthor().toString();
 
         assertTrue(book1.toString().equals(stringRep));
     }

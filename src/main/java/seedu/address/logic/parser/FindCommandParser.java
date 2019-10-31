@@ -122,7 +122,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 .filter(flag -> flag == Flag.AVAILABLE || flag == Flag.OVERDUE || flag == Flag.LOANED)
                 .collect(Collectors.toList());
         if (loanStates.size() > MAX_LOANSTATE_FLAGS) {
-            throw new ParseException(Messages.MESSAGE_LOANSTATE_CONSTRAINTS);
+            throw new ParseException(Messages.MESSAGE_LOAN_STATE_CONSTRAINTS);
         } else {
             return Optional.of(loanStates.get(0));
         }

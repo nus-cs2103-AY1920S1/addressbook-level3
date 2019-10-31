@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_AUTHOR_NAME_TOO_LONG;
+import static seedu.address.commons.core.Messages.MESSAGE_BOOK_TITLE_TOO_LONG;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
@@ -44,7 +46,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        if (title.toString().length() > 30) {
+            throw new ParseException(MESSAGE_BOOK_TITLE_TOO_LONG);
+        }
+
         Author author = ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get());
+        if (author.toString().length() > 30) {
+            throw new ParseException(MESSAGE_AUTHOR_NAME_TOO_LONG);
+        }
+
         boolean haveSerialNumber = argMultimap.getValue(PREFIX_SERIAL_NUMBER).isPresent();
         SerialNumber serialNumber;
         if (haveSerialNumber) {

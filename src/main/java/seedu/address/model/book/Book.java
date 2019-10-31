@@ -201,8 +201,12 @@ public class Book {
         return Objects.hash(title, serialNumber, author, genres);
     }
 
-    @Override
-    public String toString() {
+    /**
+     * Method to return the full string representation of the book, if required.
+     *
+     * @return Full string representation of book.
+     */
+    public String toFullString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
                 .append(", Serial Number: ")
@@ -213,6 +217,21 @@ public class Book {
             builder.append(", Genres: ");
             getGenres().forEach(genre -> builder.append(genre + " "));
         }
+        return builder.toString();
+    }
+
+    /**
+     * Returns display string of Book.
+     *
+     * @return display string of book.
+     */
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("[" + getSerialNumber() + "] ")
+                .append("\"" + getTitle() + "\"")
+                .append(" by ")
+                .append(getAuthor());
         return builder.toString();
     }
 

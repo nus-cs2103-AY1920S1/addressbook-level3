@@ -17,7 +17,7 @@ public class BorrowerIdGenerator {
 
     public static void setBorrowers(BorrowerRecords borrowers) {
         BorrowerIdGenerator.borrowers = borrowers;
-        currentBorrowerIdIndex = borrowers.getSize();
+        currentBorrowerIdIndex = 0;
     }
 
     /**
@@ -25,14 +25,13 @@ public class BorrowerIdGenerator {
      */
     public static BorrowerId generateBorrowerId() {
         currentBorrowerIdIndex++;
-        int paddingLength = getPaddingLength();
-        String padding = getPadding(paddingLength);
+        String padding = getPadding(currentBorrowerIdIndex);
         BorrowerId id = new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
-        while (borrowers.checkIfBorrowerIdExists(id)) {
+        while (borrowerIdExists(id)) {
             currentBorrowerIdIndex++;
             id = new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
         }
-        return new BorrowerId(PREFIX + padding + currentBorrowerIdIndex);
+        return id;
     }
 
     /**
@@ -42,12 +41,9 @@ public class BorrowerIdGenerator {
         return borrowers.checkIfBorrowerIdExists(id);
     }
 
-    private static int getPaddingLength() {
-        String stringRepresentation = Integer.toString(currentBorrowerIdIndex);
-        return BORROWER_ID_LENGTH - stringRepresentation.length();
-    }
-
-    private static String getPadding(int paddingLength) {
+    private static String getPadding(int index) {
+        String stringRepresentation = Integer.toString(index);
+        int paddingLength = BORROWER_ID_LENGTH - stringRepresentation.length();
         return IntStream.rangeClosed(1, paddingLength)
                 .mapToObj(x -> "0")
                 .reduce("", (a, b) -> a + b);
