@@ -8,8 +8,8 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
-import seedu.address.model.itineraryitem.accommodation.UniqueAccommodationList;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.accommodation.UniqueAccommodationList;
 
 /**
  * Wraps all data at the address-book level

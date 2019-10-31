@@ -9,7 +9,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddActivityCommand;
 import seedu.address.logic.commands.EditActivityCommand;
-import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.tag.Tag;
 
 /**

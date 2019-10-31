@@ -12,12 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Duration;
+import seedu.address.model.activity.Priority;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
-import seedu.address.model.itineraryitem.activity.Activity;
-import seedu.address.model.itineraryitem.activity.Duration;
-import seedu.address.model.itineraryitem.activity.Priority;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.JsonAdaptedTag;
 import seedu.address.storage.contact.JsonAdaptedContact;
@@ -110,8 +110,6 @@ public class JsonAdaptedActivity {
         final Duration modelDuration = new Duration(Integer.parseInt(duration));
         if (priority == null) {
             modelPriority = new Priority(LOWEST_PRIORITY);
-        } else if (!StringUtil.isNonZeroUnsignedInteger(priority) && (Integer.parseInt(priority) >= 0)) {
-            throw new IllegalValueException(String.format(Priority.MESSAGE_CONSTRAINTS));
         } else {
             modelPriority = new Priority(Integer.parseInt(priority));
         }

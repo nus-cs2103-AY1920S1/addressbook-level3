@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAccommodation;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
+import seedu.address.model.accommodation.Accommodation;
 
 /**
  * Represents a storage for {@link Accommodation}.

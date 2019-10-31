@@ -8,7 +8,7 @@ import seedu.address.logic.commands.EditAccommodationCommand.EditAccommodationDe
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.events.Event;
 import seedu.address.model.Model;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
+import seedu.address.model.accommodation.Accommodation;
 
 /**
  * An event representing a 'edit accommodation' command.

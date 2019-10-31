@@ -8,8 +8,8 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.itineraryitem.activity.Activity;
-import seedu.address.model.itineraryitem.activity.UniqueActivityList;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.UniqueActivityList;
 
 
 

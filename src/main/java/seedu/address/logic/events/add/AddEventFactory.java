@@ -6,9 +6,9 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.events.Event;
 import seedu.address.logic.events.exceptions.EventException;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
-import seedu.address.model.itineraryitem.activity.Activity;
 
 /**
  * A factory class to generate the corresponding add Events according to the add Commands parsed.

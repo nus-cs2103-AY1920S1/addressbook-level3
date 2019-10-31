@@ -2,7 +2,7 @@ package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.itineraryitem.activity.NameWithTime;
+import seedu.address.model.activity.NameWithTime;
 
 /**
  * Class to contain a Tag class and the timing to be scheduled.

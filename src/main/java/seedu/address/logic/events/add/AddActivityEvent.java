@@ -4,7 +4,7 @@ import seedu.address.logic.commands.AddActivityCommand;
 import seedu.address.logic.commands.DeleteActivityCommand;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.events.Event;
-import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.activity.Activity;
 
 /**
  * An event representing an 'add activity' command.

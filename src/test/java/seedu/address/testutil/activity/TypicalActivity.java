@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.ActivityManager;
-import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.activity.Activity;
 
 /**
  * A utility class containing a list of {@code Activity} objects to be used in tests.

@@ -24,13 +24,13 @@ import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Duration;
+import seedu.address.model.activity.Priority;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
-import seedu.address.model.itineraryitem.activity.Activity;
-import seedu.address.model.itineraryitem.activity.Duration;
-import seedu.address.model.itineraryitem.activity.Priority;
 import seedu.address.model.tag.Tag;
 
 /**

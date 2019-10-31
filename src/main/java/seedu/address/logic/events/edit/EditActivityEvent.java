@@ -8,7 +8,7 @@ import seedu.address.logic.commands.EditActivityCommand.EditActivityDescriptor;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.events.Event;
 import seedu.address.model.Model;
-import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.activity.Activity;
 
 /**
  * An event representing a 'edit activity' command.

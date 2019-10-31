@@ -2,8 +2,8 @@ package seedu.address.testutil.day;
 
 import java.time.LocalTime;
 
+import seedu.address.model.activity.Activity;
 import seedu.address.model.day.ActivityWithTime;
-import seedu.address.model.itineraryitem.activity.Activity;
 import seedu.address.testutil.activity.TypicalActivity;
 
 /**

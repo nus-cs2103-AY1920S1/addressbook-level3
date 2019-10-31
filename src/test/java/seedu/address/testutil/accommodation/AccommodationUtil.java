@@ -9,7 +9,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddAccommodationCommand;
 import seedu.address.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
+import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.tag.Tag;
 
 /**

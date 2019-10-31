@@ -23,15 +23,15 @@ import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddDayCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Duration;
+import seedu.address.model.activity.Priority;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
-import seedu.address.model.itineraryitem.activity.Activity;
-import seedu.address.model.itineraryitem.activity.Duration;
-import seedu.address.model.itineraryitem.activity.Priority;
 import seedu.address.model.tag.Tag;
 
 /**
