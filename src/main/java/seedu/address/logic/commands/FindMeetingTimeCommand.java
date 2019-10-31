@@ -39,7 +39,7 @@ public class FindMeetingTimeCommand extends Command {
         requireNonNull(model);
 
         //Replace after including meeting display into UI
-        List<LocalDateTime> possibleMeetingTimes = model.findMeetingTime(startDate, endDate, meetingDuration);
+        ObList<LocalDateTime> possibleMeetingTimes = model.findMeetingTime(startDate, endDate, meetingDuration);
         String LIST_OF_TIMINGS = "The following are good meeting times: \n";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (LocalDateTime dateTime : possibleMeetingTimes) {
