@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.ReadOnlyUserState;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -33,17 +34,17 @@ public class JsonBankAccountStorage implements BankAccountStorage {
     }
 
     @Override
-    public Optional<ReadOnlyBankAccount> readBankAccount() throws DataConversionException, IOException {
-        return readBankAccount(filePath);
+    public Optional<ReadOnlyUserState> readAccount() throws DataConversionException, IOException {
+        return readAccount(filePath);
     }
 
     /**
-     * Similar to {@link #readBankAccount()}.
+     * Similar to {@link #readAccount()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyBankAccount> readBankAccount(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyUserState> readAccount(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableBankAccount> jsonBankAccount = JsonUtil.readJsonFile(
@@ -61,16 +62,17 @@ public class JsonBankAccountStorage implements BankAccountStorage {
     }
 
     @Override
-    public void saveBankAccount(ReadOnlyBankAccount bankAccount) throws IOException {
-        saveBankAccount(bankAccount, filePath);
+    public void saveAccount(ReadOnlyUserState bankAccount) throws IOException {
+        saveAccount(bankAccount, filePath);
     }
 
     /**
-     * Similar to {@link #saveBankAccount(ReadOnlyBankAccount)}.
+     * Similar to {@link #saveAccount(ReadOnlyUserState)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveBankAccount(ReadOnlyBankAccount bankAccount, Path filePath) throws IOException {
+    @Override
+    public void saveAccount(ReadOnlyUserState bankAccount, Path filePath) throws IOException {
         requireNonNull(bankAccount);
         requireNonNull(filePath);
 

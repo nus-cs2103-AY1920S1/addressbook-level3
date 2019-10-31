@@ -18,6 +18,7 @@ public class Budget {
     private Amount amount;
     private Date deadline;
     private boolean valid;
+    private int between;
 
     private final Set<Category> categories = new HashSet<>();
 
@@ -34,6 +35,7 @@ public class Budget {
         this.deadline = date;
         this.categories.add(new Category("general"));
         this.valid = true;
+        this.between = calculateRemaining();
     }
 
     public Budget(Amount amount, Date date, Set<Category> categories) {
@@ -41,12 +43,14 @@ public class Budget {
         this.deadline = date;
         this.categories.addAll(categories);
         this.valid = true;
+        this.between = calculateRemaining();
     }
 
     public Budget(Amount amount, int duration) {
         this.amount = amount;
         this.deadline = calculateDeadline(duration);
         this.valid = true;
+        this.between = calculateRemaining();
     }
 
     public Amount getBudget() {
@@ -59,6 +63,10 @@ public class Budget {
 
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    public String getBetween() {
+        return String.format("%d more days", this.between);
     }
 
 
@@ -91,6 +99,18 @@ public class Budget {
         LocalDate today = LocalDate.now();
         LocalDate newDeadline = today.plus(duration, DAYS);
         return new Date(newDeadline.toString());
+    }
+
+    /**
+     * Calculates the number of days between budget's deadline and Today.
+     *
+     * @return int number of days between budget deadline and today
+     */
+    public int calculateRemaining() {
+        Date today = new Date (LocalDate.now().toString());
+        int numberOfDays = today.compareTo(this.deadline);
+        return numberOfDays;
+
     }
 
     /**

@@ -1,21 +1,24 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * {@code BankAccount} that keeps track of its own history.
  */
-public class VersionedBankAccount extends BankAccount {
+public class VersionedUserState extends UserState {
 
-    private final List<ReadOnlyBankAccount> bankAccountStateList;
+    private final List<ReadOnlyUserState> userStateList;
     private int currentStatePointer;
 
-    public VersionedBankAccount(ReadOnlyBankAccount initialState) {
-        super(initialState);
-
-        bankAccountStateList = new ArrayList<>();
-        bankAccountStateList.add(new BankAccount(initialState));
+    public VersionedUserState(ReadOnlyUserState initialState) {
+        userStateList = new ArrayList<>();
+        userStateList.add(new UserState(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,12 +28,12 @@ public class VersionedBankAccount extends BankAccount {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        bankAccountStateList.add(new BankAccount(this));
+        userStateList.add(new UserState(this));
         currentStatePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        bankAccountStateList.subList(currentStatePointer + 1, bankAccountStateList.size()).clear();
+        userStateList.subList(currentStatePointer + 1, userStateList.size()).clear();
     }
 
     /**
@@ -41,7 +44,7 @@ public class VersionedBankAccount extends BankAccount {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(bankAccountStateList.get(currentStatePointer));
+        resetData(userStateList.get(currentStatePointer));
     }
 
     /**
@@ -52,7 +55,7 @@ public class VersionedBankAccount extends BankAccount {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(bankAccountStateList.get(currentStatePointer));
+        resetData(userStateList.get(currentStatePointer));
     }
 
     /**
@@ -66,7 +69,7 @@ public class VersionedBankAccount extends BankAccount {
      * Returns true if {@code redo()} has bank account states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < bankAccountStateList.size() - 1;
+        return currentStatePointer < userStateList.size() - 1;
     }
 
     @Override
@@ -77,16 +80,30 @@ public class VersionedBankAccount extends BankAccount {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof VersionedBankAccount)) {
+        if (!(other instanceof VersionedUserState)) {
             return false;
         }
 
-        VersionedBankAccount otherVersionedBankAccount = (VersionedBankAccount) other;
+        VersionedUserState otherVersionedUserState = (VersionedUserState) other;
 
         // state check
-        return super.equals(otherVersionedBankAccount)
-                && bankAccountStateList.equals(otherVersionedBankAccount.bankAccountStateList)
-                && currentStatePointer == otherVersionedBankAccount.currentStatePointer;
+        return super.equals(otherVersionedUserState)
+                && userStateList.equals(otherVersionedUserState.userStateList)
+                && currentStatePointer == otherVersionedUserState.currentStatePointer;
+    }
+
+    // TODO: implement stub
+    public ObservableList<BankAccountOperation> getTransactionHistory() {
+        return userStateList.get(currentStatePointer).getBankAccount().getTransactionHistory();
+    }
+
+    // TODO: implement stub
+    public ObservableList<Budget> getBudgetHistory() {
+        return userStateList.get(currentStatePointer).getBankAccount().getBudgetHistory();
+    }
+
+    public ObservableList<LedgerOperation> getLedgerHistory() {
+        return userStateList.get(currentStatePointer).getLedger().getLedgerHistory();
     }
 
     /**

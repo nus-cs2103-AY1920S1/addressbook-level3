@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.BankAccount;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.ReadOnlyUserState;
+import seedu.address.model.UserState;
 import seedu.address.model.category.Category;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -58,12 +60,12 @@ public class SampleDataUtil {
     /**
      * Returns a sample BankAccount containing sample transactions.
      */
-    public static ReadOnlyBankAccount getSampleBankAccount() {
-        BankAccount sampleBankAccount = new BankAccount();
+    public static ReadOnlyUserState getSampleAccount() {
+        UserState sampleUserState = new UserState();
         for (BankAccountOperation sampleTxn : getSampleTransactions()) {
-            sampleBankAccount.addTransaction(sampleTxn);
+            sampleUserState.addTransaction(sampleTxn);
         }
-        return sampleBankAccount;
+        return sampleUserState;
     }
 
     /**

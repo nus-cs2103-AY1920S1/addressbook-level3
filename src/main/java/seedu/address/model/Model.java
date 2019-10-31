@@ -53,7 +53,7 @@ public interface Model {
     /**
      * Replaces bank account data with the data in {@code bankAccount}.
      */
-    void setBankAccount(ReadOnlyBankAccount bankAccount);
+    void setUserState(ReadOnlyUserState bankAccount);
 
     /**
      * Returns the BankAccount
@@ -91,6 +91,8 @@ public interface Model {
      * @param transactionHistory
      */
     void setTransactions(List<BankAccountOperation> transactionHistory);
+
+    ReadOnlyUserState getUserState();
 
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the bank account.

@@ -27,6 +27,8 @@ public class BudgetCard extends UiPart<Region> {
     private Label date;
     @FXML
     private FlowPane categories;
+    @FXML
+    private FlowPane between;
 
     public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
@@ -34,6 +36,7 @@ public class BudgetCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         amount.setText(budget.getBudget().toString());
         date.setText(budget.getDeadline().toString());
+        between.getChildren().add(new Label(budget.getBetween()));
         budget.getCategories().stream()
             .sorted(Comparator.comparing(category -> category.categoryName))
             .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));

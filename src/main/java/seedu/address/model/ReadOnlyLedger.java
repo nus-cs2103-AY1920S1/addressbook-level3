@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.Comparator;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.LedgerOperation;
 
@@ -15,13 +16,15 @@ public interface ReadOnlyLedger {
      * Returns an unmodifiable view of the transaction list.
      * This list will not contain any duplicate transactions.
      */
-    ObservableList<LedgerOperation> getLoanHistory();
+    ObservableList<LedgerOperation> getLedgerHistory();
 
     /**
      * Returns an unmodifiable view of the sorted transaction list.
      * This list will not contain any duplicate transactions
      */
-    ObservableList<LedgerOperation> getSortedLoanHistory(Comparator<LedgerOperation> t);
+    ObservableList<LedgerOperation> getSortedLedgerHistory(Comparator<LedgerOperation> t);
+
+    ObservableList<Person> getPeople();
 
     Amount getBalance();
 }
