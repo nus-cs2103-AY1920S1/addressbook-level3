@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.note;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INCORRECT_NOTE_FRAGMENT_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_CONTENT;

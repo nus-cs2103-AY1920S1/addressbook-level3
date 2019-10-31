@@ -64,8 +64,6 @@ public class AddCheatSheetCommand extends Command {
         edit.setContents(getRelevantContents(toAdd.getTags(), model));
         CheatSheet editedCheatSheet = createEditedCheatSheet(toAdd, edit, true);
 
-
-
         model.setCheatSheet(toAdd, editedCheatSheet);
 
         return new CheatSheetCommandResult(String.format(MESSAGE_SUCCESS, editedCheatSheet));
@@ -82,7 +80,7 @@ public class AddCheatSheetCommand extends Command {
      * Retrieves all the notes with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
-        Content.resetCounter();
+        //Content.resetCounter();
         Set<Content> contentList = new HashSet<>();
 
         // get all notes
@@ -91,8 +89,10 @@ public class AddCheatSheetCommand extends Command {
         ObservableList<Note> noteList = model.getFilteredNoteList();
 
         for (Note note: noteList) {
-            contentList.add(new Content(note.getContent().toString()));
+            contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
         }
+
+        // getting within the note's contents' tags to be implemented
 
         // get all flashcards
         FlashcardContainsTagPredicate flashcardTagPredicate = new FlashcardContainsTagPredicate(tags);
@@ -100,10 +100,13 @@ public class AddCheatSheetCommand extends Command {
         ObservableList<Flashcard> flashcardList = model.getFilteredFlashcardList();
 
         for (Flashcard flashcard: flashcardList) {
-            contentList.add(new Content(flashcard.getQuestion().toString(), flashcard.getAnswer().toString()));
+            contentList.add(new Content(flashcard.getQuestion().toString(),
+                    flashcard.getAnswer().toString(), flashcard.getTags()));
+
+            System.out.println(contentList.toString());
         }
 
-        Content.resetCounter();
+        //Content.resetCounter();
         return contentList;
     }
 }

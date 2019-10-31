@@ -24,6 +24,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX = "The cheatsheet index provided is invalid";
     public static final String MESSAGE_INVALID_CHEATSHEET_CONTENT_DISPLAYED_INDEX = "The content index "
             + "provided is invalid";
+    public static final String MESSAGE_NO_CHEATSHEET_LOADED = "No cheatsheet has been loaded";
+    public static final String MESSAGE_INVALID_TAG_INDEX = "Sorry! The tag index provided is invalid!";
 
     public static final String MESSAGE_TAG_LIMIT_EXCEEDED = "Sorry! A StudyBuddyItem can have no more than 10 tags.";
 
@@ -38,6 +40,7 @@ public class Messages {
     public static final String LIST = "list";
     public static final String FILTER = "filter";
     public static final String FILTER_ALL = "filterall";
+    public static final String CLEAR = "clear";
 
     public static final String TIMETRIAL = "timetrial";
     public static final String SHOW = "show";
