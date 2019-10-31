@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
@@ -327,6 +328,16 @@ public class AddCommandTest {
 
         @Override
         public void setSavingsAccount(ReadOnlySavingsAccount savingsAccount) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public AliasList getAliasList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAliasList(AliasList aliasList) {
             throw new AssertionError("This method should not be called.");
         }
     }

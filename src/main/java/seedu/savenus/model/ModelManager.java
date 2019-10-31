@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.commandhistory.CommandHistory;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
@@ -50,6 +51,7 @@ public class ModelManager implements Model {
     private final PurchaseHistory purchaseHistory;
     private final Wallet wallet;
     private final CustomSorter customSorter;
+    private final AliasList aliasList;
     private final SavingsAccount savingsAccount;
     private boolean autoSortFlag;
 
@@ -72,6 +74,7 @@ public class ModelManager implements Model {
         this.savingsAccount = new SavingsAccount(savingsAccount);
         this.customSorter = customSorter;
         this.autoSortFlag = false;
+        this.aliasList = AliasList.getInstance();
         RecommendationSystem.getInstance().setUserRecommendations(userRecs);
     }
 
@@ -223,6 +226,18 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Purchase> getPurchaseHistoryList() {
         return purchaseHistory.getPurchaseHistoryList();
+    }
+
+    //=========== Alias Accessors ==========================================================================
+
+    @Override
+    public AliasList getAliasList() {
+        return this.aliasList;
+    }
+
+    @Override
+    public void setAliasList(AliasList aliasList) {
+        this.aliasList.setAliasPairList(aliasList.getList());
     }
 
     //=========== Wallet Accessors =========================================================================
