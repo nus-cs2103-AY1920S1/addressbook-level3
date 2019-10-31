@@ -26,12 +26,16 @@ import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
+import seedu.address.logic.commands.EligiblePeopleCommand;
 import seedu.address.logic.commands.EligiblePoliciesCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExpandPersonCommand;
 import seedu.address.logic.commands.ExpandPolicyCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
+import seedu.address.logic.commands.FindPolicyholdersCommand;
+import seedu.address.logic.commands.FindTagPeopleCommand;
+import seedu.address.logic.commands.FindTagPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListBinCommand;
@@ -187,6 +191,15 @@ public class AddressBookParser {
             case FindPolicyCommand.COMMAND_WORD:
                 return new FindPolicyCommandParser().parse(arguments);
 
+            case FindPolicyholdersCommand.COMMAND_WORD:
+                return new FindPolicyholdersCommandParser().parse(arguments);
+
+            case FindTagPeopleCommand.COMMAND_WORD:
+                return new FindTagPeopleCommandParser().parse(arguments);
+
+            case FindTagPolicyCommand.COMMAND_WORD:
+                return new FindTagPolicyCommandParser().parse(arguments);
+
             case ListPeopleCommand.COMMAND_WORD:
                 return new ListPeopleCommand();
 
@@ -250,6 +263,9 @@ public class AddressBookParser {
 
             case EligiblePoliciesCommand.COMMAND_WORD:
                 return new EligiblePoliciesCommandParser().parse(arguments);
+
+            case EligiblePeopleCommand.COMMAND_WORD:
+                return new EligiblePeopleCommandParser().parse(arguments);
 
             case ExpandPersonCommand.COMMAND_WORD:
                 return new ExpandPersonCommandParser().parse(arguments);

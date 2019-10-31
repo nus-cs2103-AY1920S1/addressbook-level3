@@ -12,6 +12,8 @@ import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
+import seedu.address.logic.commands.FindTagPeopleCommand;
+import seedu.address.logic.commands.FindTagPolicyCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
 /**
@@ -40,7 +42,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_POLICY = new Prefix("pol/", AssignPolicyCommand.COMMAND_WORD,
             UnassignPolicyCommand.COMMAND_WORD);
     public static final Prefix PREFIX_TAG = new Prefix("t/", AddTagCommand.COMMAND_WORD,
-            AddPolicyTagCommand.COMMAND_WORD, DeleteTagCommand.COMMAND_WORD, DeletePolicyTagCommand.COMMAND_WORD);
+            AddPolicyTagCommand.COMMAND_WORD, DeleteTagCommand.COMMAND_WORD, DeletePolicyTagCommand.COMMAND_WORD,
+            FindTagPeopleCommand.COMMAND_WORD, FindTagPolicyCommand.COMMAND_WORD);
 
     // Policy prefix
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/", AddPolicyCommand.COMMAND_WORD,

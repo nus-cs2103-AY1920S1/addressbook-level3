@@ -27,7 +27,7 @@ public class AddCriteriaCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds criteria to the policy identified "
             + "by the index number used in the last policy listing. "
             + "Parameters: INDEX (must be a positive integer) "
-            + "t/ CRITERIA [MORE_CRITERIA]\n"
+            + "t/ CRITERIA [MORE_CRITERIA] (will be converted to lowercase)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "cr/life cr/accident";
 
@@ -55,7 +55,7 @@ public class AddCriteriaCommand extends Command {
         }
 
         for (String criterion : criteria) {
-            if ((criterion.length() == 0) || (criterion.matches("^.*[^a-zA-Z0-9 ].*$"))) {
+            if ((criterion.length() == 0) || (criterion.matches("^.*[^a-z0-9 ].*$"))) {
                 throw new CommandException(
                         String.format(
                                 Messages.MESSAGE_INVALID_COMMAND_FORMAT,
