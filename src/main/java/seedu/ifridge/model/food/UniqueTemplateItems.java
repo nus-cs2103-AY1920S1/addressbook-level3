@@ -73,7 +73,7 @@ public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<U
             throw new FoodNotFoundException();
         }
 
-        if (!target.isSameFood(editedFood) && contains(editedFood)) {
+        if (!target.isSameName(editedFood) && contains(editedFood)) {
             throw new DuplicateFoodException();
         }
 
@@ -194,6 +194,6 @@ public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<U
         String thisName = this.getName().toString();
         String otherName = other.getName().toString();
 
-        return thisName.compareTo(otherName);
+        return thisName.toLowerCase().compareTo(otherName.toLowerCase());
     }
 }
