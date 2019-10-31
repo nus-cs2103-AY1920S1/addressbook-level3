@@ -392,8 +392,14 @@ Refer to <<Scripting>> for script usage.
 
 * **Action**: In the order of `<action operator> <value>`
 ** An action operator can be one of the following:
-*** `setcategory` : Adds a category to the transaction
-*** `setdesc` : Sets the description of the transaction
+*** `set_cat` : Adds a category to the transaction
+*** `remove_cat` : Removes a category from the transaction
+*** `set_desc` : Sets the description of the transaction
+*** `app_desc` : Appends a value to the description
+*** `prep_desc` : Prepends a value to the description
+*** `set_in` : Sets the direction of the transaction to be inwards
+*** `set_out` : Sets the direction of the transaction to be outwards
+*** `switch_direct` : Switches the current direction of the transaction
 ** A value is as described in a predicate expression
 ****
 
