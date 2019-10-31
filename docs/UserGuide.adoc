@@ -488,8 +488,10 @@ Format: `slist edit INDEX [f/FOODNAME] [a/AMOUNT]`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * Units in the amount field must match that of the item specified
+****
 
 Examples:
+
 * `slist edit 3 f/pomegranate`
 Edits the name of the third food item in the shopping list to  `pomegranate`
 * `slist edit 2 a/2l`
@@ -516,15 +518,20 @@ Format: `slist list`
 
 Examples:
 
-* `slist`
+* `slist list`
 Shows all entries in the shopping list.
 
 ==== Mark item as 'bought’: `slist bought`
 
-Marks an item as bought and assigns the expiry date and amount to that item
-There is flexibility in the amount of items that are bought. You can indicate more or less number of items bought than the number indicated in the shopping list.
+Marks the specified item as bought and assigns the expiry date and amount to that item
+
 Format: `slist bought INDEX e/EXPIRYDATE a/AMOUNT`
 
+****
+* Marks the shopping item at the specified `INDEX` as bought. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
+* Both `EXPIRYDATE` and `AMOUNT` of items bought must be specified. `AMOUNT` must match with that of the item in the shopping list.
+* There is flexibility in the amount of items that are bought. You can indicate more or less quantity of items bought than the number indicated in the shopping list.
+****
 Examples:
 
 * `slist bought 1 e/3 Dec 2019 a/3`
@@ -532,17 +539,36 @@ Marks the item at index 1 as bought and sets its expiry date as 3rd December, 20
 * `slist bought 2 e/3 Nov 2019 a/2l`
 Marks the item at index 2 as bought and sets its expiry date as 3rd November, 2019 and amount as 2 litres.
 
-==== Add bought items: `slist merge bought`
+==== Add bought items: `slist mergebought`
 
 Adds all items marked as ‘bought’ to the grocery list.
-Format: `slist merge bought`
+Format: `slist mergebought`
 
 ****
 * Adds all the items marked as bought in shopping list into the grocery list.
 * If the item with same expiry date is already present in the shopping list, just add the amount to the amount already present in the grocery list.
-* `slist merge bought`
-Merges all the items in shopping list marked as bought into the grocery list.
+* For each bought item, if the amount bought is less than the amount of that item in the shopping list, the amount of that item in the shopping list is now the remaining amount to be bought.
+** Eg: Consider a shopping item 'NAME: Orange, AMOUNT: 2units' in the shopping list.
+** Then, when marking the item as bought, you indicate the amount of 'Orange' that is bought is 1unit.
+** If now you call `slist mergebought`, shopping list will still have 'NAME: Orange, AMOUNT: 1units', i.e., the amount in shopping list is subtracted to reflect the remaining amount to be bought.
+****
 This command cannot be undone/redone.
+
+==== Mark shopping item as Urgent: `slist urgent`
+
+Marks the specified item in the shopping list as *urgent!*
+When shopping list is displayed, urgent items are shown at the top with an indication that the item is 'urgent!'
+Items in the shopping list are sorted by urgent status first, alphabetical order next.
+
+Format: `slist urgent 1`
+
+****
+* Marks the shopping item at the specified `INDEX` as urgent. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
+****
+Examples:
+
+* `slist urgent 1`
+Marks the shopping item at `INDEX` 1 as urgent. That item is tagged as 'urgent' and -moves to the top of the shopping list.
 
 ==== Generate shopping list: `slist addTemp`
 
@@ -556,6 +582,7 @@ Format: `slist addTemp [l/INDEX] ...`
 ****
 
 Examples:
+
 * `slist addTemp l/Weekly Necessities l/Birthday Cake`
 All entries from the templates `Weekly Necessities` and `Birthday Cake` will be added into the shopping list.
 
@@ -625,6 +652,7 @@ Generates a word cloud based on user's most commonly wasted food.
 |`slist addTemp INDEX`| Adds all template items that are not currently found in the grocery list into the shopping list
 |`slist edit INDEX [f/FOODNAME] [a/AMOUNT]` | Edits the name of a specified item in a shopping list
 |`slist delete INDEX` | Delete specified item from shopping list
+|`slist urgent INDEX` | Marks the specified shopping item as 'urgent!'
 |`slist list` | Lists out all items in the shopping list with bought items first
 |`slist bought INDEX e/EXPIRYDATE a/AMOUNT` | Marks an item as bought and assigns the expiry date and amount to that item
 |`slist merge bought` | Adds all items marked as ‘bought’ to the grocery list
