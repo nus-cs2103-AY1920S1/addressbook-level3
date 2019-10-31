@@ -5,7 +5,6 @@ import java.util.HashMap;
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.Name;
-import seedu.ifridge.model.food.ShoppingItem;
 import seedu.ifridge.model.food.exceptions.InvalidDictionaryException;
 import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 
