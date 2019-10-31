@@ -60,16 +60,16 @@ public class JsonOrderDatabaseStorage implements OrderDatabaseStorage {
     }
 
     @Override
-    public void saveOrderBook(ReadOnlyOrderBook orderBook) throws IOException {
-        saveOrderBook(orderBook, filePath);
+    public void saveOrderDatabase(ReadOnlyOrderBook orderBook) throws IOException {
+        saveOrderDatabase(orderBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveOrderBook(ReadOnlyOrderBook)}.
+     * Similar to {@link #saveOrderDatabase(ReadOnlyOrderBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveOrderBook(ReadOnlyOrderBook orderBook, Path filePath) throws IOException {
+    public void saveOrderDatabase(ReadOnlyOrderBook orderBook, Path filePath) throws IOException {
         requireNonNull(orderBook);
         requireNonNull(filePath);
 

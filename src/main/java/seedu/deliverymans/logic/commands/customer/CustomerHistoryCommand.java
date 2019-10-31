@@ -9,26 +9,27 @@ import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.customer.Customer;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * List order history of customer.
  */
-public class DeleteCommand extends Command {
-
-    public static final String COMMAND_WORD = "delete";
+public class CustomerHistoryCommand extends Command {
+    public static final String COMMAND_WORD = "history";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the customer identified by the index number used in the displayed customer list.\n"
+            + ": Lists the history of customer's orders identified by the index number used in the "
+            + "displayed customer list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_CUSTOMER_SUCCESS = "Deleted Customer: %1$s";
+    public static final String MESSAGE_LIST_ORDERS_SUCCESS = "Listed Customer's order history: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public CustomerHistoryCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -41,15 +42,15 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Customer customerToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteCustomer(customerToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete));
+        Customer customerToList = lastShownList.get(targetIndex.getZeroBased());
+        model.setCustomerOrders(customerToList);
+        return new CommandResult(String.format(MESSAGE_LIST_ORDERS_SUCCESS, customerToList), Context.CUSTOMERLIST);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof CustomerHistoryCommand // instanceof handles nulls
+                && targetIndex.equals(((CustomerHistoryCommand) other).targetIndex)); // state check
     }
 }

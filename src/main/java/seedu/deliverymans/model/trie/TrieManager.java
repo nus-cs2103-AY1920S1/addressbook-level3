@@ -2,12 +2,12 @@ package seedu.deliverymans.model.trie;
 
 import java.util.LinkedList;
 
-import seedu.deliverymans.logic.commands.customer.AddCommand;
-import seedu.deliverymans.logic.commands.customer.DeleteCommand;
-import seedu.deliverymans.logic.commands.customer.EditCommand;
-import seedu.deliverymans.logic.commands.customer.HistoryCommand;
-import seedu.deliverymans.logic.commands.customer.ListCommand;
-import seedu.deliverymans.logic.commands.customer.SortCommand;
+import seedu.deliverymans.logic.commands.customer.CustomerAddCommand;
+import seedu.deliverymans.logic.commands.customer.CustomerDeleteCommand;
+import seedu.deliverymans.logic.commands.customer.CustomerEditCommand;
+import seedu.deliverymans.logic.commands.customer.CustomerHistoryCommand;
+import seedu.deliverymans.logic.commands.customer.CustomerListCommand;
+import seedu.deliverymans.logic.commands.customer.CustomerSortCommand;
 
 import seedu.deliverymans.logic.commands.deliveryman.AssignCommand;
 import seedu.deliverymans.logic.commands.deliveryman.ListAvailCommand;
@@ -56,12 +56,12 @@ public class TrieManager {
      * TO fill
      */
     private void addCustomerCommands() {
-        customerTrie.insert(AddCommand.COMMAND_WORD);
-        customerTrie.insert(DeleteCommand.COMMAND_WORD);
-        customerTrie.insert(EditCommand.COMMAND_WORD);
-        customerTrie.insert(HistoryCommand.COMMAND_WORD);
-        customerTrie.insert(ListCommand.COMMAND_WORD);
-        customerTrie.insert(SortCommand.COMMAND_WORD);
+        customerTrie.insert(CustomerAddCommand.COMMAND_WORD);
+        customerTrie.insert(CustomerDeleteCommand.COMMAND_WORD);
+        customerTrie.insert(CustomerEditCommand.COMMAND_WORD);
+        customerTrie.insert(CustomerHistoryCommand.COMMAND_WORD);
+        customerTrie.insert(CustomerListCommand.COMMAND_WORD);
+        customerTrie.insert(CustomerSortCommand.COMMAND_WORD);
     }
 
     /**

@@ -73,8 +73,23 @@ public class Customer {
         return Collections.unmodifiableSet(tags);
     }
 
+    /**
+     * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders.
+     */
     public void addOrder(Order order) {
         orders.add(order);
+        // reviewTags();
+    }
+
+    /**
+     * Reviews Customer's {@code ObservableList<Order>} orders to determine customer's favourite cuisine and set it as
+     * a tag.
+     */
+    public void reviewTags() {
+        /*
+        to be implemented
+        depending on the list of orders, tags change to the tag that showed up the most in the list of orders
+         */
     }
 
     /**
