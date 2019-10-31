@@ -198,7 +198,6 @@ public class MainWindow extends UiPart<Stage> {
             b2.setDisable(false);
             b3.setDisable(false);
             b4.setDisable(false);
-
         }
     }
 
@@ -216,6 +215,8 @@ public class MainWindow extends UiPart<Stage> {
         } else if (object instanceof Note) {
             readDisplayNote = new ReadDisplayNote();
             readDisplayNote.setLogic(logic);
+            //TODO bad coupling? how else to implement though?
+            readDisplayNote.setMainWindow(this);
             readListPanelPlaceholder.getChildren().add(readDisplayNote.getRoot());
             readDisplayNote.setFeedbackToUser((Note) object, index);
         } else if (object instanceof AnalysisReport) {
@@ -346,7 +347,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException,
+    CommandResult executeCommand(String commandText) throws CommandException,
             ParseException, DictionaryException {
         readList.setVisible(false);
         readList.setMinWidth(0);

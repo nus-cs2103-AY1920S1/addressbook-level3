@@ -424,6 +424,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Predicate<Note> getFilteredNoteListPred() {
+       if ((Predicate<Note>) filteredNotes.getPredicate() == null) {
+           return PREDICATE_SHOW_ALL_NOTES;
+       } else {
+           return (Predicate<Note>) filteredNotes.getPredicate();
+       }
+    }
+
+    @Override
     public void undoNote() {
         noteBook.undo();
     }

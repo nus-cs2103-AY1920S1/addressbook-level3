@@ -15,7 +15,7 @@ public class Content {
      * The first character of the content must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].(?s).*";
+    public static final String VALIDATION_REGEX = "(?s).*";
 
     public final String content;
 

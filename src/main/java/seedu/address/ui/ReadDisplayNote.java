@@ -12,6 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Note;
@@ -31,6 +32,7 @@ public class ReadDisplayNote extends UiPart<Region> {
     private Logic logic;
     private Index index;
     private Note note;
+    private MainWindow mainWindow;
 
     @FXML
     private Button saveButton;
@@ -74,6 +76,10 @@ public class ReadDisplayNote extends UiPart<Region> {
         this.logic = logic;
     }
 
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+    }
+
     private void setNoteContent() {
         noteContent.setText(content + "\n");
         noteContent.setEditable(true);
@@ -103,9 +109,9 @@ public class ReadDisplayNote extends UiPart<Region> {
     @FXML
     private void saveNote() throws CommandException, ParseException,
             DictionaryException { //TODO:Dictionary Exception unneeded?
-        System.out.println(noteContent.getText());
+        System.out.println("noteTitle:" + noteTitle.getText());
 
-        logic.execute("edit " + index.getOneBased() + " c/"
+        mainWindow.executeCommand("edit " + index.getOneBased() + " c/"
                 + noteContent.getText()
                 + " d/" + noteDescription.getText() + " ti/" + noteTitle.getText()
         );

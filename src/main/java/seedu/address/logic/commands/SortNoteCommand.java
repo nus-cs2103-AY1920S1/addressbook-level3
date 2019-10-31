@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SORTBY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
+import java.util.function.Predicate;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.note.Note;
 import seedu.address.model.note.SortByCond;
 
 
@@ -44,9 +47,10 @@ public class SortNoteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.commitNote();
+        Predicate<Note> notePredicate = model.getFilteredNoteListPred();
         model.editNoteSortByCond(sortByCond);
         model.sortNoteBook();
-        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        model.updateFilteredNoteList(notePredicate);
         return new CommandResult(String.format(MESSAGE_SORT_NOTE_SUCCESS, sortByCond.sortByCond));
     }
 

@@ -261,6 +261,8 @@ public interface Model {
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
 
+    Predicate<Note> getFilteredNoteListPred();
+
     Path getNoteBookFilePath();
 
     void setNoteBookFilePath(Path noteBookFilePath);
