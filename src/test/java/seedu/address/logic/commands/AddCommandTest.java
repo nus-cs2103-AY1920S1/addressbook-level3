@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Context;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.stub.ModelStub;
@@ -83,10 +84,11 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept a context and the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+        private Context context;
 
         @Override
         public boolean hasPerson(Person person) {
@@ -114,6 +116,11 @@ public class AddCommandTest {
                 }
             }
             return Optional.empty();
+        }
+
+        @Override
+        public void setContext(Context context) {
+            this.context = context;
         }
     }
 

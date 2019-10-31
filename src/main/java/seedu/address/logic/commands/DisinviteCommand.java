@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Context;
 import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
@@ -149,14 +150,13 @@ public class DisinviteCommand extends Command {
 
         if (successMessage.toString().equals("")) {
             result = String.format(MESSAGE_RESULT_NONE_SUCCESS, warningMessage);
+            return new CommandResult(result);
         } else {
             result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
+            Context newContext = new Context(activityToDisinviteFrom);
+            model.setContext(newContext);
+            return new CommandResult(result, newContext);
         }
-
-
-
-        return new CommandResult(result);
-
     }
 
     @Override
