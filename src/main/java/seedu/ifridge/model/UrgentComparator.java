@@ -21,7 +21,7 @@ public class UrgentComparator implements Comparator<ShoppingItem> {
         } else if (!si1.isUrgent() && si2.isUrgent()) {
             return 1;
         } else {
-            return si1.getName().toString().compareTo(si2.getName().toString());
+            return si1.getName().toString().toLowerCase().compareTo(si2.getName().toString().toLowerCase());
         }
     }
 }
