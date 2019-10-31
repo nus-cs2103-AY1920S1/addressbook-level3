@@ -4,6 +4,7 @@ import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.account.Account;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
@@ -23,6 +24,11 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Returns an unmodifiable view of the list of accounts.
+     */
+    ObservableList<Account> getAccountList();
 
     /**
      * Returns an unmodifiable view of the list of loans.
@@ -46,4 +52,5 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
 }
