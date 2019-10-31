@@ -100,6 +100,7 @@ image::details_page.png[width="790"]
 * Items in square brackets are optional e.g `n/SHOW_NAME t/SHOW_TYPE [d/DESCRIPTION]` can be used as `n/The Angry Birds Movie t/movie 2 d/Oscar-worthy` or as `n/The Angry Birds Movie t/movie`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[a/ACTOR]...` can be used as `{nbsp}` (i.e. 0 times), `a/Leonardo Di Carpio`, `a/Leonardo Di Carpio a/Christian Bale` etc.
 * Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
+====
 
 ==== Viewing help : `help`
 
