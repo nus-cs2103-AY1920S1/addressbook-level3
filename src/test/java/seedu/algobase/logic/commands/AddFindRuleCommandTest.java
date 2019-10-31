@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.findrule.AddFindRuleCommand;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;

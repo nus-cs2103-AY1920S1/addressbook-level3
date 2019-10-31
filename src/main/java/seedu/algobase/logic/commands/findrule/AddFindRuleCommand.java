@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.findrule;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
@@ -9,6 +9,8 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
@@ -19,6 +21,7 @@ import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 public class AddFindRuleCommand extends Command {
 
     public static final String COMMAND_WORD = "addfindrule";
+    public static final String SHORT_COMMAND_WORD = "afr";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a find rule to AlgoBase.\n"

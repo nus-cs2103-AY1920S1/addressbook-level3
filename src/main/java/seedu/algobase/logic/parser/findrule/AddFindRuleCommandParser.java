@@ -1,4 +1,4 @@
-package seedu.algobase.logic.parser;
+package seedu.algobase.logic.parser.findrule;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_NAME_FORMAT;
@@ -16,7 +16,10 @@ import static seedu.algobase.logic.parser.ParserUtil.parseNamePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseSourcePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseTagPredicate;
 
-import seedu.algobase.logic.commands.AddFindRuleCommand;
+import seedu.algobase.logic.commands.findrule.AddFindRuleCommand;
+import seedu.algobase.logic.parser.ArgumentMultimap;
+import seedu.algobase.logic.parser.ArgumentTokenizer;
+import seedu.algobase.logic.parser.Parser;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;

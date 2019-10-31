@@ -2,6 +2,9 @@ package seedu.algobase.logic.commands;
 
 import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.findrule.AddFindRuleCommand;
+import seedu.algobase.logic.commands.findrule.ApplyCommand;
+import seedu.algobase.logic.commands.findrule.DeleteFindRuleCommand;
 import seedu.algobase.logic.commands.problem.AddCommand;
 import seedu.algobase.logic.commands.problem.DeleteCommand;
 import seedu.algobase.logic.commands.problem.EditCommand;

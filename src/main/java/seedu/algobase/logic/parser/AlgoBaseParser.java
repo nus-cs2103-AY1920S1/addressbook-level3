@@ -6,14 +6,11 @@ import static seedu.algobase.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.algobase.logic.commands.AddFindRuleCommand;
 import seedu.algobase.logic.commands.AddPlanCommand;
 import seedu.algobase.logic.commands.AddTagCommand;
-import seedu.algobase.logic.commands.ApplyCommand;
 import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.CloseTabCommand;
 import seedu.algobase.logic.commands.Command;
-import seedu.algobase.logic.commands.DeleteFindRuleCommand;
 import seedu.algobase.logic.commands.DeletePlanCommand;
 import seedu.algobase.logic.commands.DeleteTagCommand;
 import seedu.algobase.logic.commands.EditPlanCommand;
@@ -25,6 +22,9 @@ import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.commands.ListTagCommand;
 import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.SwitchTabCommand;
+import seedu.algobase.logic.commands.findrule.AddFindRuleCommand;
+import seedu.algobase.logic.commands.findrule.ApplyCommand;
+import seedu.algobase.logic.commands.findrule.DeleteFindRuleCommand;
 import seedu.algobase.logic.commands.problem.AddCommand;
 import seedu.algobase.logic.commands.problem.DeleteCommand;
 import seedu.algobase.logic.commands.problem.EditCommand;
@@ -42,6 +42,9 @@ import seedu.algobase.logic.commands.task.MoveTaskCommand;
 import seedu.algobase.logic.commands.task.SetPlanCommand;
 import seedu.algobase.logic.commands.task.UndoneTaskCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.logic.parser.findrule.AddFindRuleCommandParser;
+import seedu.algobase.logic.parser.findrule.ApplyCommandParser;
+import seedu.algobase.logic.parser.findrule.DeleteFindRuleParser;
 import seedu.algobase.logic.parser.problem.AddCommandParser;
 import seedu.algobase.logic.parser.problem.DeleteCommandParser;
 import seedu.algobase.logic.parser.problem.EditCommandParser;
@@ -159,12 +162,14 @@ public class AlgoBaseParser {
 
         // Find Rule
         case AddFindRuleCommand.COMMAND_WORD:
+        case AddFindRuleCommand.SHORT_COMMAND_WORD:
             return new AddFindRuleCommandParser().parse(arguments);
 
         case ApplyCommand.COMMAND_WORD:
             return new ApplyCommandParser().parse(arguments);
 
         case DeleteFindRuleCommand.COMMAND_WORD:
+        case DeleteFindRuleCommand.SHORT_COMMAND_WORD:
             return new DeleteFindRuleParser().parse(arguments);
 
         // Storage

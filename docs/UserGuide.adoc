@@ -185,7 +185,8 @@ Returns any problem from `Kattis` that's authored by `Hentin Marz`.
 ==== Storing a problem-finding rule: `addfindrule`
 
 Saves a problem-finding rule from provided constraints. +
-Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
+Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...` +
+Alias: `afr`
 
 [NOTE]
 The rules for constraints are the same as those described in `find` command.
@@ -194,7 +195,7 @@ Examples:
 
 * `addfindrule MediumDiffAlgo t/algorithm diff/2.0-4.0` +
 Adds a new find rule named `MediumDiffAlgo` that when applied, returns any problem with `algorithm` as one of its tags AND with a difficulty between 2.0 and 4.0 (inclusive).
-* `addfindrule Kattis src/Kattis` +
+* `addfindrule Kattis src/Kattis` or `afr Kattis src/Kattis` +
 Adds a new find rule named `Kattis` that when applied, returns any problem from `Kattis`.
 
 ==== Applying a problem-finding rule: `apply`
@@ -214,7 +215,8 @@ Applies the 2nd find rule in the displayed list.
 ==== Deleting a problem-finding rule: `deletefindrule`
 
 Deletes a problem-finding rule. +
-Format: `deletefindrule INDEX`
+Format: `deletefindrule INDEX` +
+Alias: `dfr`
 
 * Deletes the find rule at the specified `INDEX`.
 * The index refers to the index number shown in the displayed find rule list.
@@ -222,7 +224,7 @@ Format: `deletefindrule INDEX`
 
 Examples:
 
-* `deletefindrule 2` +
+* `deletefindrule 2` or `dfr 2` +
 Deletes the 2nd find rule in the displayed list.
 
 === Tags
