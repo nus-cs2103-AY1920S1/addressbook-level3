@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -17,7 +18,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.storage.Storage;
 
@@ -50,10 +50,12 @@ public class LogicManager implements Logic {
             storage.saveLoanRecords(model.getLoanRecords());
             storage.saveCatalog(model.getCatalog());
             storage.saveBorrowerRecords(model.getBorrowerRecords());
-            if (LoanSlipUtil.isMounted()) {
-                storage.storeNewLoanSlip();
-                LoanSlipUtil.openGeneratedLoanSlip();
-                LoanSlipUtil.unmountLoan();
+            if (commandResult.isDone()) {
+                if (LoanSlipUtil.isMounted()) {
+                    storage.storeNewLoanSlip();
+                    LoanSlipUtil.openGeneratedLoanSlip();
+                    LoanSlipUtil.unmountLoans();
+                }
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -71,8 +73,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Book getBook(SerialNumber sn) {
-        return model.getBook(sn);
+    public ObservableList<Book> getServingBorrowerBookList() {
+        return FXCollections.observableList(model.getBorrowerBooks());
     }
 
     @Override

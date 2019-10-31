@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -28,8 +30,10 @@ public class LoanSlipUtil {
     private static final float SECOND_ROW_WIDTH = 325F;
     private static final float THIRD_ROW_WIDTH = 125F;
 
-    private static Loan currentLoan;
-    private static Book currentBook;
+    private static final int FIRST_INDEX = 0;
+
+    private static ArrayList<Loan> currentLoans;
+    private static ArrayList<Book> currentBooks;
     private static Borrower currentBorrower;
 
     private static File currentFile;
@@ -46,18 +50,23 @@ public class LoanSlipUtil {
      * @param borrower Borrower associated to current loan.
      */
     public static void mountLoan(Loan loan, Book book, Borrower borrower) throws LoanSlipException {
-        if (isMounted) {
-            unmountLoan();
-        }
         if (!loan.getBorrowerId().equals(borrower.getBorrowerId())) {
             throw new LoanSlipException("Borrower and Loan do not match!");
         }
         if (!loan.getBookSerialNumber().equals(book.getSerialNumber())) {
             throw new LoanSlipException("Book and Loan do not match!");
         }
-        currentLoan = loan;
-        currentBook = book;
-        currentBorrower = borrower;
+        if (!isMounted) {
+            currentLoans = new ArrayList<>();
+            currentBooks = new ArrayList<>();
+        }
+        currentLoans.add(loan);
+        currentBooks.add(book);
+        if (currentBorrower != null) {
+            assert currentBorrower.equals(borrower) : "Wrong borrower";
+        } else {
+            currentBorrower = borrower;
+        }
         isMounted = true;
         isGenerated = false;
     }
@@ -65,14 +74,30 @@ public class LoanSlipUtil {
     /**
      * Unmounts a Loan slip after creating a pdf of it.
      */
-    public static void unmountLoan() {
+    public static void unmountLoans() {
         if (isMounted) {
-            currentLoan = null;
-            currentBook = null;
+            currentLoans = null;
+            currentBooks = null;
             currentBorrower = null;
             currentFile = null;
             isMounted = false;
             isGenerated = false;
+        }
+    }
+
+    /**
+     * Unmounts a specific loan from the loan slip
+     *
+     * @param loan loan to be unmounted.
+     * @param book Book associated with this loan.
+     */
+    public static void unmountSpecificLoan(Loan loan, Book book) {
+        if (isMounted && currentLoans.contains(loan) && currentBooks.contains(book)) {
+            currentLoans.remove(loan);
+            currentBooks.remove(book);
+        }
+        if (isMounted && currentBooks.isEmpty() && currentLoans.isEmpty()) {
+            unmountLoans();
         }
     }
 
@@ -84,10 +109,10 @@ public class LoanSlipUtil {
     public static void createLoanSlipInDirectory() throws LoanSlipException {
         assert isMounted : "No loan slip mounted";
         try {
-            requireNonNull(currentLoan);
-            requireNonNull(currentBook);
+            requireNonNull(currentLoans);
+            requireNonNull(currentBooks);
             requireNonNull(currentBorrower);
-            Document document = createDocument(currentLoan.getLoanId().toString());
+            Document document = createDocument(createFileNameFromLoan());
             float [] pointColumnWidths = {FIRST_ROW_WIDTH, SECOND_ROW_WIDTH, THIRD_ROW_WIDTH};
             Table table = new Table(pointColumnWidths);
             LoanSlipDocument doc = new LoanSlipDocument(document, table);
@@ -98,13 +123,25 @@ public class LoanSlipUtil {
     }
 
     /**
+     * Helper method to assist in generating a file name based on the first loan of the entire loan slip.
+     *
+     * @return a String representation of the file name generated.
+     */
+    private static String createFileNameFromLoan() {
+        assert isMounted : "No loans mounted";
+        assert !currentLoans.isEmpty() : "No loans in list";
+        Loan firstLoan = currentLoans.get(FIRST_INDEX);
+        return firstLoan.getLoanId().toString();
+    }
+
+    /**
      * Creates a {@code File} object to be populated with information.
      *
      * @param docName name of the new file object.
      * @return a {@code Document} object representing the file.
      * @throws IOException if there are errors in creating the new file.
      */
-    private static Document createDocument(String docName) throws IOException, LoanSlipException {
+    private static Document createDocument(String docName) throws IOException {
         assert isMounted : "No loan slip mounted";
         String finalDest = DEST + docName + PDF_EXTENSION;
         File file = new File(finalDest);
@@ -122,7 +159,7 @@ public class LoanSlipUtil {
      *
      * @param doc {@code LoanSlipDocument} object to be populated with data.
      */
-    private static void generateLiberryLoanSlip(LoanSlipDocument doc) throws LoanSlipException {
+    private static void generateLiberryLoanSlip(LoanSlipDocument doc) {
         assert isMounted : "No loan slip mounted";
         writeLogoToDoc(doc);
         writeHeaderToDoc(doc);
@@ -159,10 +196,24 @@ public class LoanSlipUtil {
      *
      * @param doc {@code LoanSlipDocument} to be written to.
      */
-    private static void populateTableInDoc(LoanSlipDocument doc) throws LoanSlipException {
+    private static void populateTableInDoc(LoanSlipDocument doc) {
         String[] headerRow = new String[]{"S/N", "Book", "Due By"};
         doc.writeRow(headerRow);
-        doc.writeRow(createBookRow());
+        int numberOfBooks = currentBooks.size();
+        int numberOfLoans = currentLoans.size();
+        assert numberOfBooks == numberOfLoans : "Number of books and loans are not consistent";
+        populateTableWithAllBooks(numberOfBooks, doc);
+    }
+
+    /**
+     * Helper method to populate the table with all books being loaned out.
+     *
+     * @param noOfBooks number of books loaned out.
+     * @param doc {@code LoanSlipDocument} to be written to.
+     */
+    private static void populateTableWithAllBooks(int noOfBooks, LoanSlipDocument doc) {
+        IntStream.range(0, noOfBooks)
+                .forEach(index -> doc.writeRow(createBookRow(index)));
     }
 
     /**
@@ -181,9 +232,11 @@ public class LoanSlipUtil {
      *
      * @return an array of string representing a row of the table.
      */
-    private static String[] createBookRow() throws LoanSlipException {
+    private static String[] createBookRow(int index) {
         assert isMounted : "No loan slip mounted";
         String[] currentBookDetails = new String[3];
+        Book currentBook = currentBooks.get(index);
+        Loan currentLoan = currentLoans.get(index);
         currentBookDetails[0] = currentBook.getSerialNumber().toString();
         currentBookDetails[1] = currentBook.getTitle().toString();
         currentBookDetails[2] = DateUtil.formatDate(currentLoan.getDueDate());
@@ -212,14 +265,5 @@ public class LoanSlipUtil {
         } catch (IOException e) {
             throw new LoanSlipException("Error in opening loan slip");
         }
-    }
-
-    /**
-     * For testing purposes.
-     *
-     * @return Current loan mounted, or null if unmounted.
-     */
-    public static Loan getCurrentLoan() {
-        return currentLoan;
     }
 }

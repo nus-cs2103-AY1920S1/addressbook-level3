@@ -168,11 +168,15 @@ public class Borrower {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, borrowerId);
+        return Objects.hash(name, phone, email, borrowerId, currentLoanList, returnedLoanList);
     }
 
-    @Override
-    public String toString() {
+    /**
+     * Method to return the full string representation of the borrower, if required.
+     *
+     * @return Full string representation of borrower.
+     */
+    public String toFullString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(", Phone: ")
@@ -181,6 +185,19 @@ public class Borrower {
                 .append(getEmail())
                 .append(", Borrower ID: ")
                 .append(getBorrowerId());
+        return builder.toString();
+    }
+
+    /**
+     * Returns display string of Borrower.
+     *
+     * @return display string of borrower.
+     */
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("[" + getBorrowerId() + "] ")
+                .append(getName());
         return builder.toString();
     }
 

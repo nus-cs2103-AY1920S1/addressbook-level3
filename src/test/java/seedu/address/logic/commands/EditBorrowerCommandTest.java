@@ -41,7 +41,8 @@ public class EditBorrowerCommandTest {
                 new EditBorrowerDescriptorBuilder(editedBorrower).build();
         EditBorrowerCommand editBorrowerCommand = new EditBorrowerCommand(descriptor);
 
-        String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower);
+        String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS,
+                editedBorrower.toFullString());
 
         Model expectedModel = new ModelManager(
                 new Catalog(new Catalog()), new LoanRecords(), model.getBorrowerRecords(), new UserPrefs());
@@ -65,7 +66,8 @@ public class EditBorrowerCommandTest {
                 new EditBorrowerDescriptorBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
         EditBorrowerCommand editCommand = new EditBorrowerCommand(descriptor);
 
-        String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower);
+        String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS,
+                editedBorrower.toFullString());
 
         Model expectedModel = new ModelManager(
                 new Catalog(), new LoanRecords(), model.getBorrowerRecords(), new UserPrefs());
@@ -83,7 +85,8 @@ public class EditBorrowerCommandTest {
                 new EditBorrowerCommand.EditBorrowerDescriptor());
         Borrower editedBorrower = model.getServingBorrower();
 
-        String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower);
+        String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS,
+                editedBorrower.toFullString());
 
         Model expectedModel = new ModelManager(
                 new Catalog(), new LoanRecords(), model.getBorrowerRecords(), new UserPrefs());

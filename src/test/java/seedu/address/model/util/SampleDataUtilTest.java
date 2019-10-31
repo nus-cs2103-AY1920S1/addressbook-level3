@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;
+import seedu.address.model.ReadOnlyCatalog;
 
 class SampleDataUtilTest {
 
@@ -16,6 +17,7 @@ class SampleDataUtilTest {
     public void getSampleCatalog_containsSampleBooks() {
         Catalog sampleAb = new Catalog();
         Arrays.stream(SampleDataUtil.getSampleBooks()).forEach(book -> sampleAb.addBook(book));
+        ReadOnlyCatalog b = SampleDataUtil.getSampleCatalog();
         assertEquals(sampleAb, SampleDataUtil.getSampleCatalog());
     }
 

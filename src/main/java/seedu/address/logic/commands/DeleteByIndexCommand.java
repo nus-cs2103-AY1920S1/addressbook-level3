@@ -32,6 +32,10 @@ public class DeleteByIndexCommand extends DeleteCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
         Book bookToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (bookToDelete.isCurrentlyLoanedOut()) {
+            // mark book as returned
+            super.markBookAsReturned(model, bookToDelete);
+        }
         model.deleteBook(bookToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
     }

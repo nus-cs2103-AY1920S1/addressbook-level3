@@ -32,7 +32,7 @@ public class UnregisterCommandTest {
     public void execute_validSerialNumber_success() {
         UnregisterCommand command = new UnregisterCommand(ID_FIRST_BORROWER);
 
-        String expectedMessage = String.format(UnregisterCommand.MESSAGE_SUCCESS, ALICE);
+        String expectedMessage = String.format(UnregisterCommand.MESSAGE_SUCCESS, ALICE.toFullString());
 
         ModelManager expectedModel = new ModelManager(
                 model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
