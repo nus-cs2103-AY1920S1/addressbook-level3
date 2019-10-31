@@ -44,6 +44,8 @@ public class EditTemplateItemCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
             + "with the same name";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This template already has another template item with "
+            + "the same name";
 
     private final Index targetTemplateIndex;
     private final Index targetItemIndex;
@@ -82,8 +84,12 @@ public class EditTemplateItemCommand extends Command {
 
         TemplateItem itemToEdit = templateToEdit.get(targetItemIndex.getZeroBased());
         TemplateItem editedItem = createEditedItem(itemToEdit, editTemplateItemDescriptor);
+
         if (!editTemplateItemDescriptor.isAnyFieldEdited()) {
             throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+        if (templateToEdit.contains(editedItem)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ITEM);
         }
 
         UnitDictionary unitDictionary = model.getUnitDictionary();
