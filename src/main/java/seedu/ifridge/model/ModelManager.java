@@ -48,6 +48,8 @@ public class ModelManager implements Model {
     private UniqueTemplateItems shownTemplate;
     private VersionedGroceryList versionedGroceryList;
     private VersionedWasteList versionedWasteList;
+    private VersionedShoppingList versionedShoppingList;
+    private VersionedTemplateList versionedTemplateList;
     private UnitDictionary unitDictionary;
 
     /**
@@ -84,6 +86,10 @@ public class ModelManager implements Model {
         versionedGroceryList.add(groceryList);
         versionedWasteList = new VersionedWasteList(wasteList.getWasteMonth());
         versionedWasteList.add(wasteList);
+        versionedShoppingList = new VersionedShoppingList();
+        versionedShoppingList.add(shoppingList);
+        versionedTemplateList = new VersionedTemplateList();
+        versionedTemplateList.add(templateList);
     }
 
     public ModelManager() {
@@ -320,6 +326,45 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void commitTemplateList(UniqueTemplateItems prevTemplate, UniqueTemplateItems newTemplate, int index) {
+        versionedTemplateList.commit(new TemplateList(templateList), prevTemplate, newTemplate, index);
+    }
+
+    @Override
+    public ReadOnlyTemplateList undoTemplateList() {
+        return versionedTemplateList.undo();
+    }
+
+    @Override
+    public ReadOnlyTemplateList redoTemplateList() {
+        return versionedTemplateList.redo();
+    }
+
+    @Override
+    public UniqueTemplateItems getPrevTemplate() {
+        return versionedTemplateList.getPrevTemplate();
+    }
+
+    @Override
+    public UniqueTemplateItems getNewTemplate() {
+        return versionedTemplateList.getNewTemplate();
+    }
+
+    @Override
+    public Integer getIndex() {
+        return versionedTemplateList.getIndex();
+    }
+
+    @Override
+    public boolean canUndoTemplateList() {
+        return versionedTemplateList.getCurrentStatePointer() > 0;
+    }
+
+    @Override
+    public boolean canRedoTemplateList() {
+        return versionedTemplateList.getCurrentStatePointer() < versionedTemplateList.getListSize() - 1;
+    }
+
     public boolean containsTemplateItemWithName(Food foodItem) {
         return templateList.containsTemplateItemWithName(foodItem);
     }
@@ -527,6 +572,31 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedShoppingItem);
 
         shoppingList.setShoppingItem(target, editedShoppingItem);
+    }
+
+    @Override
+    public void commitShoppingList() {
+        versionedShoppingList.commit(new ShoppingList(shoppingList));
+    }
+
+    @Override
+    public ReadOnlyShoppingList undoShoppingList() {
+        return versionedShoppingList.undo();
+    }
+
+    @Override
+    public ReadOnlyShoppingList redoShoppingList() {
+        return versionedShoppingList.redo();
+    }
+
+    @Override
+    public boolean canUndoShoppingList() {
+        return versionedShoppingList.getCurrentStatePointer() > 0;
+    }
+
+    @Override
+    public boolean canRedoShoppingList() {
+        return versionedShoppingList.getCurrentStatePointer() < versionedShoppingList.getListSize() - 1;
     }
 
     //=========== Filtered Shopping List Accessors =============================================================

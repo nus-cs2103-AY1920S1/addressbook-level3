@@ -44,6 +44,7 @@ public class DeleteShoppingCommand extends Command {
         ShoppingItem shoppingItemToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteShoppingItem(shoppingItemToDelete);
         model.sortShoppingItems();
+        model.commitShoppingList();
         CommandResult commandResult =
                 new CommandResult(String.format(MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS, shoppingItemToDelete));
         commandResult.setShoppingListCommand();

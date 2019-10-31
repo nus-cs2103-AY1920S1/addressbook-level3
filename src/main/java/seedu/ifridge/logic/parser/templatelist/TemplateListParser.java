@@ -13,6 +13,8 @@ import seedu.ifridge.logic.commands.templatelist.ClearTemplateListCommand;
 import seedu.ifridge.logic.commands.templatelist.DeleteTemplateListCommand;
 import seedu.ifridge.logic.commands.templatelist.EditTemplateListCommand;
 import seedu.ifridge.logic.commands.templatelist.ListTemplateListCommand;
+import seedu.ifridge.logic.commands.templatelist.RedoTemplateCommand;
+import seedu.ifridge.logic.commands.templatelist.UndoTemplateCommand;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 import seedu.ifridge.logic.parser.templatelist.template.TemplateItemParser;
 
@@ -60,6 +62,12 @@ public class TemplateListParser {
 
         case TemplateItemParser.LIST_TYPE_WORD:
             return new TemplateItemParser().parseCommand(arguments);
+
+        case UndoTemplateCommand.COMMAND_WORD:
+            return new UndoTemplateCommand();
+
+        case RedoTemplateCommand.COMMAND_WORD:
+            return new RedoTemplateCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

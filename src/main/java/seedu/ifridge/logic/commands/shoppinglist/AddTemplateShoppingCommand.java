@@ -61,6 +61,7 @@ public class AddTemplateShoppingCommand extends Command {
         }
 
         updateShoppingList(model);
+        model.commitShoppingList();
 
         model.sortShoppingItems();
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, templateToAdd.getName()));

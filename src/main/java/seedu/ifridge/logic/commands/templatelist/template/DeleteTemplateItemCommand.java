@@ -47,7 +47,8 @@ public class DeleteTemplateItemCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
         }
         UniqueTemplateItems templateToEdit = lastShownList.get(targetTemplateIndex.getZeroBased());
-        UniqueTemplateItems editedTemplate = templateToEdit;
+        UniqueTemplateItems editedTemplate = new UniqueTemplateItems(templateToEdit.getName());
+        editedTemplate.setTemplateItems(templateToEdit);
 
         if (targetItemIndex.getZeroBased() >= templateToEdit.getSize()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);
@@ -59,6 +60,7 @@ public class DeleteTemplateItemCommand extends Command {
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
         model.setShownTemplate(editedTemplate);
         model.updateFilteredTemplateToBeShown();
+        model.commitTemplateList(templateToEdit, editedTemplate, targetTemplateIndex.getZeroBased());
 
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, itemToDelete));
         commandResult.setTemplateListItemCommand();

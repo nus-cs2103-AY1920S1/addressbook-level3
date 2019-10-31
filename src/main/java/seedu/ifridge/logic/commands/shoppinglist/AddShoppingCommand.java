@@ -48,6 +48,7 @@ public class AddShoppingCommand extends Command {
 
         model.addShoppingItem(toAdd);
         model.sortShoppingItems();
+        model.commitShoppingList();
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         commandResult.setShoppingListCommand();
         return commandResult;
