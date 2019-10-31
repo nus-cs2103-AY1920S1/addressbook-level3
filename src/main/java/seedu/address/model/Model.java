@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +15,9 @@ import jfxtras.icalendarfx.components.VEvent;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
@@ -241,6 +244,11 @@ public interface Model {
      * Check if group already exists.
      */
     boolean checkGroupExists(String groupId);
+
+    /**
+     * Exports group to word document
+     */
+    void exportGroup(String groupId);
     //endregion
 
     //region Questions
@@ -434,6 +442,24 @@ public interface Model {
     Path getEventRecordFilePath();
 
     ReadOnlyEvents getEventRecord();
+
+    ReadOnlyVEvents getVEventRecord();
+
+    String getEventExportPath();
+
+    void setEventExportPath(String targetExportPath);
+
+    //endregion
+
+    //region EventSchedulePrefs
+
+    LocalDateTime getEventScheduleTargetDateTime();
+
+    void setEventScheduleTargetDateTime(LocalDateTime targetDateTime);
+
+    EventScheduleViewMode getEventScheduleViewMode();
+
+    void setEventScheduleViewMode(EventScheduleViewMode viewMode);
     //endregion
 
     //region VEvents
@@ -456,7 +482,7 @@ public interface Model {
     ObservableList<VEvent> getVEventList();
 
     Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
-    String saveToIcsFile(String targetDir) throws IOException;
+
     //endregion
 
     //region Statistics

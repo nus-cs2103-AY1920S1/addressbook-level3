@@ -11,11 +11,14 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
+import seedu.address.storage.event.EventExport;
 import seedu.address.storage.event.EventStorage;
+import seedu.address.storage.event.IcsEventExport;
 import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.printable.NjoyPrintable;
 import seedu.address.storage.question.QuestionStorage;
@@ -35,6 +38,7 @@ public class StorageManager implements Storage {
     private NotesRecordStorage notesRecordStorage;
     private UserPrefsStorage userPrefsStorage;
     private EventStorage eventStorage;
+    private EventExport eventExport;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
                           StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage,
@@ -47,6 +51,7 @@ public class StorageManager implements Storage {
         this.eventStorage = eventStorage;
         this.quizStorage = quizStorage;
         this.notesRecordStorage = notesStorage;
+        this.eventExport = new IcsEventExport();
     }
 
     //region UserPrefs
@@ -247,6 +252,11 @@ public class StorageManager implements Storage {
     public void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException {
         logger.fine("Attempting to write to events data file: " + filePath);
         eventStorage.saveEvents(events, filePath);
+    }
+
+    @Override
+    public String exportEvent(String targetDirectory, ReadOnlyVEvents eventRecord) throws IOException {
+        return eventExport.exportEvent(targetDirectory, eventRecord);
     }
     //endRegion
 

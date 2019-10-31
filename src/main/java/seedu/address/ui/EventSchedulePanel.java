@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.logging.Logger;
 
@@ -9,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import jfxtras.icalendarfx.VCalendar;
 import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import seedu.address.commons.core.LogsCenter;
@@ -37,8 +39,18 @@ public class EventSchedulePanel extends UiPart<Region> {
 
     private void initCalendar(ICalendarAgenda agenda) {
         setLocale(agenda, UK_LOCALE);
-        setWeekSkin(this.agenda);
+        setWeeklySkin();
         disableMouseClick(this.agenda);
+    }
+
+    /**
+     * Change the EventSchedulePanel to show the time interval including this targetDateTime. If in daily skin,
+     * simply show the date. If in weekly skin, show the week, with start day defined as in locale, including
+     * @param targetDateTime
+     * @param targetDateTime the desired dateTime to be viewed.
+     */
+    public void setDisplayedDateTime(LocalDateTime targetDateTime) {
+        this.agenda.setDisplayedLocalDateTime(targetDateTime);
     }
 
     /**
@@ -68,11 +80,18 @@ public class EventSchedulePanel extends UiPart<Region> {
 
     /**
      * Sets the calendar to week format.
-     * @param agenda ICalendarAgenda object to be set to week skin / view.
      */
-    private void setWeekSkin(ICalendarAgenda agenda) {
-        AgendaWeekSkin weekSkin = new AgendaWeekSkin(agenda);
+    public void setWeeklySkin() {
+        AgendaWeekSkin weekSkin = new AgendaWeekSkin(this.agenda);
         agenda.setSkin(weekSkin);
+    }
+
+    /**
+     * Sets the calendar to daily format.
+     */
+    public void setDailySkin() {
+        AgendaDaySkin dailySkin = new AgendaDaySkin(this.agenda);
+        agenda.setSkin(dailySkin);
     }
 
     /**

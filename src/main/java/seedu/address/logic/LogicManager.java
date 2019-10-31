@@ -1,7 +1,10 @@
 package seedu.address.logic;
 
+import static seedu.address.logic.commands.CommandResultType.EXPORT_CALENDAR;
+
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -15,6 +18,7 @@ import seedu.address.logic.parser.NjoyParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
@@ -56,6 +60,9 @@ public class LogicManager implements Logic {
             storage.saveEvents(model.getEventRecord());
             storage.saveQuizzes(model.getSavedQuizzes());
             storage.saveNotesRecord(model.getNotesRecord());
+            if (commandResult.getCommandResultType().equals(EXPORT_CALENDAR)) {
+                storage.exportEvent(model.getEventExportPath(), model.getVEventRecord());
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -151,5 +158,15 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public LocalDateTime getEventScheduleTargetDateTime() {
+        return model.getEventScheduleTargetDateTime();
+    }
+
+    @Override
+    public EventScheduleViewMode getScheduleViewMode() {
+        return model.getEventScheduleViewMode();
     }
 }

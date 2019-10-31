@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.EventSchedulePrefs;
+import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.note.Note;
@@ -53,6 +57,7 @@ public class ModelManager implements Model {
     private final StudentRecord studentRecord;
     private final SavedQuestions savedQuestions;
     private final EventRecord eventRecord;
+    private final EventSchedulePrefs eventSchedulePrefs;
     private final SavedQuizzes savedQuizzes;
     private final NotesRecord notesRecord;
     private final StatisticsRecord statisticsRecord;
@@ -86,6 +91,7 @@ public class ModelManager implements Model {
         this.eventRecord = new EventRecord(readEvents);
         this.savedQuizzes = new SavedQuizzes(savedQuizzes);
         this.notesRecord = new NotesRecord(notesRecord);
+        this.eventSchedulePrefs = new EventSchedulePrefs(EventScheduleViewMode.WEEKLY, LocalDateTime.now());
         this.statisticsRecord = new StatisticsRecord(statisticsRecord);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
@@ -229,6 +235,7 @@ public class ModelManager implements Model {
     }
 
     //region Mark
+
     /**
      * Mark a student who is struggling academically.
      *
@@ -415,6 +422,16 @@ public class ModelManager implements Model {
         }
         return groupExists;
     }
+
+    /**
+     * Exports group to word document
+     *
+     * @param groupId Id of group to be exported.
+     */
+    public void exportGroup(String groupId) {
+        groupList.exportGroup(groupId);
+    }
+
     //endregion
 
     //region Questions
@@ -647,7 +664,45 @@ public class ModelManager implements Model {
         return eventRecord;
     }
 
+    @Override
+    public ReadOnlyVEvents getVEventRecord() {
+        return eventRecord;
+    }
+
+    @Override
+    public String getEventExportPath() {
+        return eventRecord.getEventExportPath();
+    }
+
+    @Override
+    public void setEventExportPath(String targetEventExportPath) {
+        eventRecord.setEventExportPath(targetEventExportPath);
+    }
+
     //endregion
+
+    //region EventSchedulePrefs
+    @Override
+    public LocalDateTime getEventScheduleTargetDateTime() {
+        return eventSchedulePrefs.getTargetViewDateTime();
+    }
+
+    @Override
+    public void setEventScheduleTargetDateTime(LocalDateTime targetDateTime) {
+        eventSchedulePrefs.setTargetViewDateTime(targetDateTime);
+    }
+
+
+    @Override
+    public EventScheduleViewMode getEventScheduleViewMode() {
+        return eventSchedulePrefs.getViewMode();
+    }
+
+    @Override
+    public void setEventScheduleViewMode(EventScheduleViewMode viewMode) {
+        eventSchedulePrefs.setViewMode(viewMode);
+    }
+    //endRegion
 
     //region Events
     @Override
@@ -701,12 +756,7 @@ public class ModelManager implements Model {
     @Override
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
-    };
-
-    @Override
-    public String saveToIcsFile(String targetDir) throws IOException {
-        return eventRecord.saveToIcsFile(targetDir);
-    };
+    }
     //endregion
 
     @Override
@@ -727,5 +777,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
-
 }

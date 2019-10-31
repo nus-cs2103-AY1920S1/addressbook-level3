@@ -2,6 +2,8 @@ package seedu.address.logic.parser.group;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP_INDEX_NUMBER;
@@ -16,6 +18,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.group.GroupAddStudentCommand;
 import seedu.address.logic.commands.group.GroupCommand;
 import seedu.address.logic.commands.group.GroupCreateManuallyCommand;
+import seedu.address.logic.commands.group.GroupExportCommand;
 import seedu.address.logic.commands.group.GroupGetStudentsCommand;
 import seedu.address.logic.commands.group.GroupRemoveStudentCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -38,15 +41,17 @@ public class GroupCommandParser implements Parser<GroupCommand> {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer
-                .tokenize(args, PREFIX_GROUP, PREFIX_MODE_MANUAL,
-                        PREFIX_GROUP_ID, PREFIX_STUDENT_NUMBER,
+                .tokenize(args, PREFIX_GROUP, PREFIX_MODE_MANUAL, PREFIX_EXPORT,
+                        PREFIX_GROUP_ID, PREFIX_STUDENT_NUMBER, PREFIX_DELETE,
                         PREFIX_GROUP_INDEX_NUMBER, PREFIX_TYPE, PREFIX_LIST);
 
         if (argMultimap.getValue(PREFIX_MODE_MANUAL).isPresent()) { // Create manual command
             return createManuallyCommand(argMultimap);
+        } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) {
+            return exportGroupCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_STUDENT_NUMBER).isPresent()) { // Add command
             return addStudentCommand(argMultimap);
-        } else if (argMultimap.getValue(PREFIX_GROUP_INDEX_NUMBER).isPresent()) { // Remove command
+        } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Remove command
             return removeStudentCommand(argMultimap);
         } else { // List command
             return getStudentsCommand(argMultimap);
@@ -54,7 +59,26 @@ public class GroupCommandParser implements Parser<GroupCommand> {
     }
 
     /**
+     * Add student to the group specified.
+     *
+     * @param argMultimap Arguments Multimap.
+     * @return Group export command if the parsing was successful.
+     * @throws ParseException if the input was incorrectly formatted.
+     */
+    private GroupExportCommand exportGroupCommand(ArgumentMultimap argMultimap) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_GROUP_ID, PREFIX_EXPORT)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String
+                            .format(MESSAGE_INVALID_COMMAND_FORMAT, GroupExportCommand.MESSAGE_USAGE));
+        }
+        String groupId = argMultimap.getValue(PREFIX_GROUP_ID).orElse("");
+        return new GroupExportCommand(groupId);
+    }
+
+    /**
      * Creates a group by specifying individual students and groupID.
+     *
      * @param argMultimap Arguments Multimap.
      * @return Group create manually command if the parsing was successful.
      * @throws ParseException if the input was incorrectly formatted.
@@ -76,6 +100,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
 
     /**
      * Add student to the group specified.
+     *
      * @param argMultimap Arguments Multimap.
      * @return Group add student command if the parsing was successful.
      * @throws ParseException if the input was incorrectly formatted.
@@ -97,6 +122,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
 
     /**
      * Remove student from the group specified.
+     *
      * @param argMultimap Arguments Multimap.
      * @return Group remove student command if the parsing was successful.
      * @throws ParseException if the input was in an incorrect format.
@@ -117,6 +143,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
 
     /**
      * Gets students from the group specified.
+     *
      * @param argMultimap Argument multimap.
      * @return Group get students command if the parsing was successful.
      * @throws ParseException if the input was in an incorrect format.

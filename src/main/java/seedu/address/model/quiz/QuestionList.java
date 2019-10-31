@@ -101,7 +101,6 @@ public class QuestionList {
             String[] split = s.split(":");
             if (split.length <= 2) {
                 String question = split[0];
-                System.out.println(question);
                 String answer = split[1];
                 OpenEndedQuestion openEndedQuestion = new OpenEndedQuestion(question, answer);
                 questions.add(openEndedQuestion);

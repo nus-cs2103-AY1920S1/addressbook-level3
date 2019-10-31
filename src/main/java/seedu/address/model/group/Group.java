@@ -3,6 +3,7 @@ package seedu.address.model.group;
 import javafx.collections.ObservableList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
+import seedu.address.storage.export.WordDocExporter;
 
 /**
  * Model that represents a group of students.
@@ -79,4 +80,11 @@ public class Group {
         return studentList.asUnmodifiableObservableList();
     }
 
+    /**
+     * Exports the group into a word document
+     */
+    public void export() {
+        String studentsFormatted = this.getStudentsFormatted();
+        WordDocExporter.saveExport(this.groupId, studentsFormatted);
+    }
 }
