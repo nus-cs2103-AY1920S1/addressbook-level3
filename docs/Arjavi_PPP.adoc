@@ -1,0 +1,64 @@
+= Bahety Arjavi - Project Portfolio for Mortago
+
+== Introduction
+
+=== About the Team
+
+My team of 5 software engineering students was tasked to work on a desktop application supporting command line
+interface.
+
+=== About the Project
+We were given the code for <insert link>Address Book 3 and we chose to morph it to suit a mortuary management system
+called *Mortago*.
+
+My key role was to design and implement the notification feature as well as the `Fridge` class. In
+addition, I morphed the `delete` command. The following sections will elaborate on these features, as well as my
+contributions to the user and develop guide documentation for them.
+
+The following are the frequently used symbols used in this document:
+
+<insert table>
+
+=== 1. Summary of contributions
+This section summarizes my coding, documentation, and other contributions to the team project.
+
+==== 1.1 Contributions to the Code Base
+
+*Enhancement Added:* I added the notification feature. <How to add in more features?>
+
+* What it does: It reminds the mortuary manager to contact the police after 10 seconds by automatically changing the
+status of the body and showing a pop-up alert.
+* Justification: If the next-of-kin of a body has been uncontactable for more than 24 hours, police must be notified
+to start a more thorough investigation. It can be tedious for the mortuary manager to manually keep checking which
+bodies have crosses the 24 hour window. This feature serves the dual purpose of automatically changing the status of
+the body as well as reminding the manager. For the purpose of testing, the time window was set to 10 seconds instead
+of 24 hours.
+* Highlights: This command makes use of threading to update the body status after 10 seconds. Reflecting changes in
+the UI was particularly challenging because JavaFX works on a separate thread from the main Logic commands.
+* Credits: @bjhoohaha/duke's AlertWindow.java was reused to create `NotifWindow`.
+
+*Code Contributed:* Please click on these links to see some samples of my code - [Functional Code] [Test Code]
+
+*Other Contributions:*
+
+* Project Management:
+
+** Set-up team repository on Github.
+** Set up Travis CI for continuous integration to build and test the software.
+** Set-up Coveralls to check code coverage.
+
+* Enhancements to Existing Features:
+
+** <need to add>
+
+* Documentation:
+
+* Community:
+** Reviewed pull requests <add>
+** Recommended API for PDF generation which was eventually used by the team
+
+
+==== 1.2 Contributions to the User Guide
+
+
+==== 1.3 Contributions to the Developer Guide
