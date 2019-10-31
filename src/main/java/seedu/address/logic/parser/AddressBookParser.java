@@ -201,7 +201,7 @@ public class AddressBookParser {
      * @param userInput full user input string
      * @return the command based on the user input
      */
-    public Command eagerEvaluateCommand(String userInput, Model model) {
+    public Command eagerEvaluateCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new SetFocusOnTabCommand(null);

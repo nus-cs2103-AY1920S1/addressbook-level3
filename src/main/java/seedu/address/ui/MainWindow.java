@@ -9,6 +9,7 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -49,6 +50,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private OmniPanelTab currentOmniPanelTab;
 
     private final HashSet<Runnable> deferredDropSelectors;
+    private Thread lastThread;
 
     // Independent Ui parts residing in this Ui container
     private AutoCompleteOverlay aco;
@@ -98,7 +100,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         this.commandBoxHistory = new CommandBoxHistory();
 
         this.deferredDropSelectors = new HashSet<>();
-
+        lastThread = new Thread();
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
@@ -254,7 +256,11 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
         Region acoRoot = aco.getRoot();
         acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
-        logic.eagerEvaluate(commandText);
+        lastThread = new Thread(() -> {
+            lastThread.interrupt();
+            logic.eagerEvaluate(commandText);
+        });
+        lastThread.start();
     }
 
     /**
@@ -301,21 +307,25 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
         currentOmniPanelTab = omniPanelTab;
         tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
+        Region region = null;
         switch (omniPanelTab) {
         case PATIENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(patientListPanel.getRoot());
+            region = patientListPanel.getRoot();
             break;
         case APPOINTMENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(appointmentListPanel.getRoot());
+            region = appointmentListPanel.getRoot();
             break;
         case DOCTORS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(staffListPanel.getRoot());
+            region = staffListPanel.getRoot();
             break;
         case DUTY_SHIFT_TAB:
-            omniPanelPlaceholder.getChildren().setAll(dutyShiftListPanel.getRoot());
+            region = dutyShiftListPanel.getRoot();
             break;
         default:
+            return;
         }
+        Region finalRegion = region;
+        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(finalRegion));
     }
 
     @Override

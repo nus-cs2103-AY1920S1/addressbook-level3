@@ -52,7 +52,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText)
+    public synchronized CommandResult execute(String commandText)
         throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
@@ -81,8 +81,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void eagerEvaluate(String commandText) {
-        Command command = addressBookParser.eagerEvaluateCommand(commandText, model);
+    public synchronized void eagerEvaluate(String commandText) {
+        Command command = addressBookParser.eagerEvaluateCommand(commandText);
         if (!(command instanceof NonActionableCommand)) {
             throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
         }

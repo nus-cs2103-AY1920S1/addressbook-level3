@@ -30,7 +30,7 @@ public class Person implements Identical<Person> {
 
     // Data fields
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> tags;
 
     /**
      * Every field must be present and not null.
@@ -43,7 +43,7 @@ public class Person implements Identical<Person> {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
+        this.tags = tags;
     }
 
     public ReferenceId getReferenceId() {
