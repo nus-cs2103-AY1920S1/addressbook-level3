@@ -293,7 +293,8 @@ image::LoanSlip.png[width=250]
 ==== Returning book(s): `return`
 
 Return book(s) that were loaned by the borrower. +
-Format: `return INDEX` or `return -all` +
+Format: `return INDEX` +
+Format: `return INDEX` or `return -all` ** - Coming in v2.0** +
 Including `-all` will return all currently loaned books.
 
 // add example with ss when UI is done
@@ -308,7 +309,8 @@ Including `-all` will return all currently loaned books.
 ==== Renewing book(s): `renew`
 
 Renew book(s) from the list of currently loaned books, i.e., extend their due dates. +
-Format: `renew INDEX` or `renew -all` +
+Format: `return INDEX` +
+Format: `renew INDEX` or `renew -all` ** - Coming in v2.0** +
 
 // add example with ss when UI is done
 

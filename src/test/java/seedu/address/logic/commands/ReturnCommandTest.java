@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_7;
+import static seedu.address.testutil.TypicalBorrowers.HOON;
 import static seedu.address.testutil.TypicalBorrowers.IDA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BOOK;
@@ -95,18 +96,10 @@ class ReturnCommandTest {
     @Test
     public void execute_noSuchIndex_returnUnsuccessful() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
-        borrowerRecords.addBorrower(IDA);
-        BorrowerId servingBorrowerId = IDA.getBorrowerId();
+        borrowerRecords.addBorrower(HOON);
 
-        Catalog catalog = new Catalog();
-        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build();
-        catalog.addBook(onLoan);
-
-        LoanRecords loanRecords = new LoanRecords();
-        loanRecords.addLoan(LOAN_7);
-
-        Model model = new ModelManager(catalog, loanRecords, borrowerRecords, new UserPrefs());
-        model.setServingBorrower(servingBorrowerId);
+        Model model = new ModelManager(new Catalog(), new LoanRecords(), borrowerRecords, new UserPrefs());
+        model.setServingBorrower(HOON);
 
         ReturnCommand returnCommand = new ReturnCommand(INDEX_SECOND_BOOK);
 
