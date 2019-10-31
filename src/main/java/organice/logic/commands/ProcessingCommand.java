@@ -74,7 +74,7 @@ public class ProcessingCommand extends Command {
             canBePaired = true;
         } else {
             if (donor.getProcessingList(patientNric).getPatient() == null
-            || donor.getProcessingList(patientNric).getPatient().isSamePerson(patient)) {
+                || donor.getProcessingList(patientNric).getPatient().isSamePerson(patient)) {
                 canBePaired = true;
             } else {
                 canBePaired = false;
