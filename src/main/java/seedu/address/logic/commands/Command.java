@@ -16,6 +16,9 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;
-
+    /**
+     * An undoable command is a command that can be undone
+     * @return a boolean value of whether the command is undoable
+     */
     public abstract boolean isUndoable();
 }
