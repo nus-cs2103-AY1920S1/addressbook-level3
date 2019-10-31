@@ -22,7 +22,7 @@ public class ProgramEvaluationCard extends UiPart<Region> {
     private Label testCaseStatus;
 
     @FXML
-    private Label failReason;
+    private Label feedback;
 
     @FXML
     private Label input;
@@ -38,7 +38,7 @@ public class ProgramEvaluationCard extends UiPart<Region> {
         this.testCaseResult = testCaseResult;
         updateTestCaseId(displayedIndex);
         updateTestCaseStatus(testCaseResult);
-        updateFailReason();
+        updateFeedback(testCaseResult);
         updateInput(testCaseResult);
         updateExpectedOutput(testCaseResult);
         updateActualOutput(testCaseResult);
@@ -55,6 +55,7 @@ public class ProgramEvaluationCard extends UiPart<Region> {
      */
     private void updateTestCaseStatus(TestCaseResult testCaseResult) {
         boolean isPass = testCaseResult.isSuccessful();
+
         if (isPass) {
             testCaseStatus.setText("(PASS)");
         } else {
@@ -62,8 +63,19 @@ public class ProgramEvaluationCard extends UiPart<Region> {
         }
     }
 
-    private void updateFailReason() {
-        failReason.setText("Incorrect Output");
+    /**
+     * Updates the feedback given to the user for a specfic test case, based on the isSuccessful boolean
+     * attribute stored in a test case result object.
+     * @param testCaseResult test case result object
+     */
+    private void updateFeedback(TestCaseResult testCaseResult) {
+        boolean isPass = testCaseResult.isSuccessful();
+
+        if (isPass) {
+            feedback.setText("Correct Output");
+        } else {
+            feedback.setText("Incorrect Output");
+        }
     }
 
     private void updateInput(TestCaseResult testCaseResult) {

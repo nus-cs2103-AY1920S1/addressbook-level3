@@ -9,6 +9,7 @@ import com.dukeacademy.observable.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -23,6 +24,9 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
     @FXML
     private ListView<TestCaseResult> evaluationListView;
 
+    @FXML
+    private Label feedback;
+
     /**
      * Instantiates a new Program Evaluation Panel.
      *
@@ -31,15 +35,25 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
     public ProgramEvaluationPanel(Observable<TestResult> testResultObservable) {
         super(FXML);
         testResultObservable.addListener(result -> {
+
             if (result != null) {
-                List<TestCaseResult> testCaseResults = result.getResults();
-                ObservableList<TestCaseResult> observableTestCaseResults =
-                        FXCollections.observableArrayList(testCaseResults);
+                // if there is a compile error, we display the compile error message to the user
+                if (result.getCompileError().isPresent()) {
+                    evaluationListView.getItems().clear();
+                    String compileErrorMessage = result.getCompileError().get().getErrorMessage();
+                    feedback.setText(compileErrorMessage);
+                } else {
+                    // otherwise, we will display how well the user's program performed against pre-defined test cases
+                    feedback.setText("");
+                    List<TestCaseResult> testCaseResults = result.getResults();
+                    ObservableList<TestCaseResult> observableTestCaseResults =
+                            FXCollections.observableArrayList(testCaseResults);
 
-                evaluationListView.setItems(observableTestCaseResults);
-                evaluationListView.setCellFactory(cell -> new EvaluationListViewCell());
-
+                    evaluationListView.setItems(observableTestCaseResults);
+                    evaluationListView.setCellFactory(cell -> new EvaluationListViewCell());
+                }
             }
+
         });
     }
 
@@ -55,6 +69,9 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
             if (empty || testCaseResult == null) {
                 setGraphic(null);
                 setText(null);
+            } else if (testCaseResult.getRuntimeError().isPresent()) {
+                String runtimeErrorMessage = testCaseResult.getRuntimeError().get().getErrorMessage();
+                setGraphic(new Label(runtimeErrorMessage));
             } else {
                 setGraphic(new ProgramEvaluationCard(testCaseResult, getIndex() + 1).getRoot());
             }

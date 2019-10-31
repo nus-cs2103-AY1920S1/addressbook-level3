@@ -32,7 +32,7 @@
       </TextFlow>
       <TextFlow layoutX="8.0" layoutY="28.0" prefHeight="17.0" prefWidth="308.0" AnchorPane.leftAnchor="8.0">
          <children>
-            <Label fx:id="failReason" prefHeight="17.0" prefWidth="295.0" text="FAIL REASON (IF ANY)">
+            <Label fx:id="feedback" prefHeight="17.0" prefWidth="295.0" text="FEEDBACK">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>

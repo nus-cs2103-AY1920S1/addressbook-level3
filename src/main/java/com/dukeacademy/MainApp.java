@@ -20,6 +20,7 @@ import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandLogicManager;
 import com.dukeacademy.logic.commands.attempt.AttemptCommandFactory;
 import com.dukeacademy.logic.commands.bookmark.BookmarkCommandFactory;
+import com.dukeacademy.logic.commands.bookmark.DeleteBookmarkCommandFactory;
 import com.dukeacademy.logic.commands.browse.BrowseCommandFactory;
 import com.dukeacademy.logic.commands.exit.ExitCommandFactory;
 import com.dukeacademy.logic.commands.find.FindCommandFactory;
@@ -303,6 +304,10 @@ public class MainApp extends Application {
         // Registering tab command
         TabCommandFactory tabCommandFactory = new TabCommandFactory(this.applicationState);
         commandLogicManager.registerCommand(tabCommandFactory);
+        // Registering delete bookmark command
+        DeleteBookmarkCommandFactory deleteBookmarkCommandFactory =
+                new DeleteBookmarkCommandFactory(this.questionsLogic);
+        commandLogicManager.registerCommand(deleteBookmarkCommandFactory);
 
         return commandLogicManager;
     }

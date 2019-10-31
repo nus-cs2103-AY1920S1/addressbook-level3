@@ -61,7 +61,14 @@ public class StandardProgramExecutor implements ProgramExecutor {
     @Override
     public ProgramOutput executeProgram(ClassFile program) throws ProgramExecutorException {
         Process process = this.getExecutionProcess(program);
-        return this.getProgramOutput(process);
+
+        try {
+            return this.getProgramOutput(process);
+        } catch (IOException e) {
+            throw new ProgramExecutorException(MESSAGE_PROGRAM_EXECUTION_FAILED + program);
+        } finally {
+            process.destroy();
+        }
     }
 
     /**
@@ -90,7 +97,7 @@ public class StandardProgramExecutor implements ProgramExecutor {
      * @param process the executing process.
      * @return the program output of the process.
      */
-    private ProgramOutput getProgramOutput(Process process) {
+    private ProgramOutput getProgramOutput(Process process) throws IOException {
         // Retrieve the error stream of the process
         InputStream err = process.getErrorStream();
 
@@ -108,13 +115,12 @@ public class StandardProgramExecutor implements ProgramExecutor {
 
         // Read the output of the process
         BufferedReader reader = new BufferedReader(new InputStreamReader(stdout));
-        ProgramOutput programOutput = ProgramOutput.getEmptyProgramOutput();
 
-        // Append the output to our model
-        programOutput = reader.lines().reduce(programOutput, ProgramOutput::appendNewLine,
-                ProgramOutput::appendNewLine).appendNewLine("");
+        char[] output = new char[500];
+        int bytesRead = reader.read(output);
+        String programOutput = String.copyValueOf(output, 0, bytesRead);
 
-        return programOutput;
+        return ProgramOutput.getEmptyProgramOutput().append(programOutput);
     }
 
     /**
