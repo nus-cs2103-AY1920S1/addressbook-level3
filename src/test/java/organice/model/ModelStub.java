@@ -64,7 +64,7 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasDoctor(Nric doctor) {
-        throw new AssertionError("This method should not be called.");
+        return true;
     }
 
     @Override
