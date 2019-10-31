@@ -52,7 +52,7 @@ public class AddCalendarCommand extends Command {
         }
 
         model.addCalendar(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getCalendar()));
     }
 
     @Override

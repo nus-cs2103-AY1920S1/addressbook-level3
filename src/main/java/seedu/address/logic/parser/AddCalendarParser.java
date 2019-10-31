@@ -4,8 +4,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
+import java.io.FileNotFoundException;
 import java.util.Set;
 import java.util.stream.Stream;
+
+import net.fortuna.ical4j.model.Calendar;
 
 import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,7 +32,7 @@ public class AddCalendarParser implements Parser<AddCalendarCommand> {
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCalendarCommand parse(String args) throws ParseException {
+    public AddCalendarCommand parse(String args) throws ParseException, FileNotFoundException {
         switch (count % 3) {
         case 0:
             args = "add-calendar mn/Gabriel fp/" +
@@ -60,7 +63,8 @@ public class AddCalendarParser implements Parser<AddCalendarCommand> {
         MemberName memberName = ParserUtil.parseMemberName(argMultimap.getValue(PREFIX_MEMBER_NAME).get());
         FilePath filePath = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE_PATH).get());
 
-        CalendarWrapper memberCalendar = DataAccess.getCalendarFile(memberName, filePath);
+        Calendar calendar = DataAccess.getCalendarFile(filePath);
+        CalendarWrapper memberCalendar = new CalendarWrapper(memberName, calendar);
 
         return new AddCalendarCommand(memberCalendar);
     }
