@@ -126,6 +126,16 @@ public class StartQuizWindow extends Window {
                 //  Both has access to the answerable.
                 score++;
             }
+
+            if (commandResult.isExit()) {
+                handleExit();
+                return new CommandResult().withFeedBack("Quiz has ended.").build();
+            }
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
+
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
                     && mode.value.equals("arcade")) {
                 handleEnd();
@@ -135,14 +145,6 @@ public class StartQuizWindow extends Window {
             if (!answerableIterator.hasNext()) {
                 handleEnd();
                 return new CommandResult().withFeedBack("Quiz has ended.").build();
-            }
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
             }
 
             currentProgressIndex.set(getCurrentProgressIndex() + 1);

@@ -53,9 +53,11 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_DIFFICULTY, PREFIX_CATEGORY);
 
         QuestionType questionType;
-        if (arePrefixesPresent(argMultimap, PREFIX_QUESTION_TYPE)) {
+//        if (arePrefixesPresent(argMultimap, PREFIX_QUESTION_TYPE)) {
+        try {
             questionType = ParserUtil.parseType(argMultimap.getValue(PREFIX_QUESTION_TYPE).get());
-        } else {
+        } catch (ParseException e){
+//        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 

@@ -28,11 +28,7 @@ public class McqAnswersGridPane extends AnswersGridPane {
     public McqAnswersGridPane(Answerable answerable) {
         super(MCQ_GRID_PANE_FXML, answerable);
 
-        ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
-        option1.setText(answerList.get(0).toString());
-        option2.setText(answerList.get(1).toString());
-        option3.setText(answerList.get(2).toString());
-        option4.setText(answerList.get(3).toString());
+        updateAnswers(answerable);
         this.getRoot().getStyleClass().add("option-label");
     }
 
@@ -42,10 +38,10 @@ public class McqAnswersGridPane extends AnswersGridPane {
      */
     public void updateAnswers(Answerable answerable) {
         ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
-        option1.setText(answerList.get(0).toString());
-        option2.setText(answerList.get(1).toString());
-        option3.setText(answerList.get(2).toString());
-        option4.setText(answerList.get(3).toString());
+        option1.setText("a. " + answerList.get(0).toString());
+        option2.setText("b. " + answerList.get(1).toString());
+        option3.setText("c. " + answerList.get(2).toString());
+        option4.setText("d. " + answerList.get(3).toString());
     }
 
 

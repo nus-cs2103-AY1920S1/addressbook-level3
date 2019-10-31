@@ -7,10 +7,11 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
 public class Answer {
 
     /** Message to be shown if user-added answer is not is in the wrong format**/
-    public static final String MESSAGE_CONSTRAINTS = "Answers should be not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "Answers must be less than 100 characters "
+            + "and should be not be blank.";
 
     /** Validation Regex for the Answer class used to validate user-added answers. **/
-    public static final String VALIDATION_REGEX = "(.*\\n*.*)*";
+    public static final String VALIDATION_REGEX = "((?=.{0,100}$).*\\n*.*)*";
 
     public final String answer;
     /**

@@ -65,7 +65,7 @@ public class ParserUtil {
      */
     public static QuestionType parseType(String questionType) throws ParseException {
         String trimmedType = questionType.trim();
-        if (!Question.isValidQuestion(trimmedType)) {
+        if (!QuestionType.isValidQuestionType(trimmedType)) {
             throw new ParseException(QuestionType.MESSAGE_CONSTRAINTS);
         }
         return new QuestionType(trimmedType);
