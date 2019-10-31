@@ -124,11 +124,12 @@ This command deletes an athlete from the list by their index.
 
 *What you should do*
 
-Type the delete command, followed by the index of the athlete you wish to delete from Athletick.
+Let's say you want to remove Irfan from Athletick as he is no longer in the team. Type the delete command, followed by
+the index of the athlete you wish to delete in the following format and press `Enter` to execute it.
 
 Format: `delete INDEX`
 
-Example: `delete 7`
+Example: `delete 5`
 
 [IMPORTANT]
 The index refers to the index number shown in the displayed person list.
@@ -136,9 +137,11 @@ The index refers to the index number shown in the displayed person list.
 [IMPORTANT]
 The index must be a positive integer 1, 2, 3, …​
 
+image::delete_before.png[width="790"]
+
 *What you should see*
 
-image::deletecommand.png[width="790"]
+image::delete_after.png[width="790"]
 
 If successfully removed, the details of the removed athlete will be displayed in the result box.
 
@@ -212,9 +215,10 @@ Examples : `training d/20102019 #/1 4` or `training #/1 3 4 7`
 
 IMPORTANT: If no date is entered, the training will be recorded under today's date.
 
+image::training_without_flag_before.png[width:"250]
 *What you should see*
 
-image::training_without_flag.png[width:"250]
+image::training_without_flag_after.png[width:"250]
 If successfully added, the result box will display the following result.
 
 ==== Taking attendance of a training session by members absent : `training -a`
@@ -231,17 +235,20 @@ Examples : `training -a d/23112019 #/3 6` or `training -a #/2`
 
 IMPORTANT: If no date is entered, the training will be recorded under today's date.
 
+image::training_with_flag_before.png[width:"250]
+
 *What you should see*
 
-image::training_with_flag.png[width:"250]
+image::training_with_flag_after.png[width:"250]
 If successfully added, the result box will display the following result.
 
 === Attendance
 To save you the trouble of manually checking your team member's attendance, Athletick has an attendance tracker that
-checks your team's overall attendance rate.
+checks your team's overall attendance rate as you record trainings.
 
-Check the attendance of an athlete (see <<Check attendance of an athlete : `attendance`>>) or check overall team
-attendance (see: <<>>)
+After recording a training, you can check the attendance of an athlete
+(see <<Check attendance of an athlete : `attendance`>>)
+or check overall team attendance (see: <<Check overall attendance of team : ` view attendance` `Coming in v1.4`>>)
 
 ==== Check attendance of an athlete : `attendance`
 This command allows you to check the attendance of an Athlete.
@@ -254,9 +261,11 @@ Format : `attendance INDEX`
 
 Examples: `attendance 1`
 
+image::attendance_before.png[width:"250]
+
 *What you should see*
 
-image::attendance_alex.png[width:"250]
+image::attendance_after.png[width:"250]
 If the command is successful, the athlete's name and attendance will be displayed in the result box.
 
 ==== Check overall attendance of team : ` view attendance` `Coming in v1.4`
@@ -705,8 +714,9 @@ Delete athlete:: `delete INDEX`
 Edit athlete:: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... i/IMAGE`
 Add event:: `event EVENT_NAME`
 Record performance:: `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
-Take attendance (by present):: `attendance INDEX [INDEX]...`
-Take attendance (by absent):: `attendance -a INDEX [INDEX]...`
+Take attendance (by present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
+Take attendance (by absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
+Check attendance of an athlete:: `attendance INDEX`
 View athlete details:: `select INDEX`
 View calendar:: `view calendar`
 Sort athletes:: `sort`
