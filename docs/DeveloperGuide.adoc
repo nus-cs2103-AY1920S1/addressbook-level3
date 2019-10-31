@@ -335,17 +335,18 @@ image::DeleteActivityDiagram.png[]
 
 ==== Current Implementation
 
+`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extend the `Transaction` class.
+`Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
+`Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
+`inTransaction` and `outTransaction` implement `BankAccountOperation`.
 ==== Design Consideration
 
 ===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
 
-* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction or Budget list. (e.g. `delete b1` deletes item index 1 from budget).
-** Pros: Requires lesser user steps to be taken before executing a `delete` command
-** Cons: Requires two lists to be created instead of 1. The `UniqueTransactionList` stores Transaction items and `UniqueBudgetList` to store Budget items.
-For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `delete 1`)
-** Pros: Requires only one unique list required to store both Transactions and Budgets.
-** Cons: Requires additional user step to switch between modes before executing a delete command.
+Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
+`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`,
+this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
+This allows multiple transaction calls within the same method.
 
 // end::delete[]
 
@@ -455,7 +456,7 @@ The `pay` command creates `LendMoney` class that handles the transfer of fund fr
 === Set Budget Feature: `set`
 
 This feature allows the user to set a budget for a given time period for a category, if specified.
-The user is allowed to set multiple budgets.
+The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *tag*) are not allowed.
 Upon setting the budget and prior to the deadline, the user's `OutTransaction` will deduct the amount from each budget in the list respectively.
 
 ==== Current Implementation
@@ -466,8 +467,14 @@ Upon setting a new budget, a `BudgetCard` is created and displayed in a list in 
 
 // TODO: add PUML figure for Sequence diagram
 
-==== Design Considerations
 
+==== Design Considerations
+Currently, `Budget` does not extend from `Transaction` although the two behave in a similar way.
+There is an aggregation between `Budget` and `Transaction` as the two can exist independent of each other,
+although an effect on one may also cause an impact on the other.
+The current design was chosen over the former design of inheritance as there is a stark difference in the two
+in a way that `Budget` does not affect the `balance` of the user's bank account directly while `Transaction` does.
+Hence, by Liskov Substitution Principle, inheritance is not a suitable design. +
 
 // end::set[]
 
