@@ -99,22 +99,30 @@ public class LogicManager implements Logic {
         }
 
         assert lastEagerEvaluationThread != null;
-        Thread previousThread = lastEagerEvaluationThread;
+        lastEagerEvaluationThread.interrupt();
+        Thread previousEagerEvaluationThread = lastEagerEvaluationThread;
         lastEagerEvaluationThread = new Thread(() -> {
-            previousThread.interrupt();
-            logger.info("Starting Eager evaluation execution");
+            try {
+                Thread.sleep(100);
+                previousEagerEvaluationThread.join(500);
+            } catch (InterruptedException ex) {
+                logger.info("Skipping eager evaluation execution ");
+                return;
+            }
+
+            logger.info("Starting Eager evaluation execution  - " + commandText);
             displayResult.accept("searching...");
 
             try {
                 CommandResult result = command.execute(model);
                 if (!result.getFeedbackToUser().isEmpty()) {
-                    logger.info("Result: " + result.getFeedbackToUser());
+                    logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
                     displayResult.accept(result.getFeedbackToUser());
                 }
             } catch (CommandException ex) {
                 logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
             } catch (ForceThreadInterruptException ex) {
-                logger.info("Interrupting Eager evaluation execution");
+                logger.info("Interrupting eager evaluation execution");
             }
         });
         lastEagerEvaluationThread.start();
