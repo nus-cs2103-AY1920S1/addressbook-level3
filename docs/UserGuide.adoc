@@ -77,11 +77,11 @@ Example: `redo`
 `undo` and `redo` only supports commands that modify data in Weme. This means that commands that alter the UI (such as `find` and `list`), as well as commands that modify the staging / import list (such as `load`, `stage`) are not undoable. The following are the commands that are undoable in each tab:
 
 * Memes Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`, `dislike`
-* Template Tab: `add`, `edit`, `delete`, `archive`, `unarchive`, `use`
+* Templates Tab: `add`, `edit`, `delete`, `archive`, `unarchive`, `use`
 * Create Tab: `add`, `abort`, `create`, `edit`, `delete`
 * Import Tab: `import`
 
-`undo` and `redo` are also global actions. This means that if you made a change in the memes tab, and changed to the template tab, when `undo` is entered, it will undo the change done in the memes tab.
+`undo` and `redo` are also global actions. This means that if you made a change in the memes tab, and changed to the templates tab, when `undo` is entered, it will undo the change done in the memes tab.
 ****
 
 ==== Switching tabs : `tab`
@@ -226,100 +226,82 @@ Unarchives a meme at the specified index. +
 Format: `unarchive INDEX`
 
 === Templates Tab
-Templates are meme prototypes. You can use any image as template base and add labels to it. Labels serve as placeholders that will be replaced with text supplied by the user when creating a meme from the template.
+Templates are meme prototypes.
+You can add templates to Weme and use them to create new memes.
+The templates tab handles template management and meme creation is handled in the <<Create Tab>>.
 
 ==== Adding a template: `add`
 
-Adds a new template to weme. The newly created template will not have any labels. +
-Format: `add n/NAME p/PATH` +
+Adds a new template to Weme. +
+Format: `add n/NAME p/PATH`
+
 Examples:
 
-* Add a template named “Drake” from ~/Downloads/Drake_hotline_bling.jpg +
-`add n/Drake p/~/Downloads/Drake_hotline_bling.jpg`
+* `add n/Drake p//Users/Me/Downloads/Drake.jpg` +
+Adds a template with image `/Users/Me/Downloads/Drake.jpg` and name it `Drake`
+
+==== Listing all templates: `list` (_coming in v1.4_)
+
+Lists all templates. +
+Format: `list`
 
 ==== Editing a template: `edit`
-Edits a template at the specified index. The list panel will become the editing area and display the selected template. You can add, remove, or move labels. A set of keyboard actions are available: +
 
-* a: add a label
-* NUMBER: focus a label labelled NUMBER
-* ↓/j: move the currently focused label downwards
-* ↑/k: move the currently focused label upwards
-* ←/h: move the currently focused label to the left
-* →/l: move the currently focused label to the right
-* Delete/d: delete the currently focused label
-* Enter: finish editing
+Edits a template at the specified index. Only the name is editable. +
+Format: `edit INDEX n/NAME`
 
-Format: `edit INDEX`
+Examples:
 
-****
-* Note: The current edit session will be aborted if another command is entered before the session is finished.
-****
+* `edit 1 n/Surprised Pikachu` +
+Edits the name of the 1st template to be `Surprised Pikachu`.
 
-==== Deleting a template: `delete`
-
-Deletes the specified template from the template tab. +
-Format: `delete INDEX`
-
-==== Locating templates by name: `find`
+==== Locating templates by name: `find` (_coming in v1.4_)
 
 Finds templates whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g drake will match dRaKE
-* The order of the keywords does not matter. e.g. Pikachu Surprised will match Surprised Pikachu
-* Only the name is searched.
-* Only full words will be matched e.g. sponge will not match spongebob
-* Templates matching at least one keyword will be returned (i.e. OR search). e.g. SpongeBob Patrick will return both Tired SpongeBob and Savage Patrick
+* The search is case-insensitive. e.g `drake` will match `dRaKE`
+* The order of the keywords does not matter. e.g. `Pikachu Surprised` will match `Surprised Pikachu`
+* Only the name is searched
+* Only full words will be matched e.g. `sponge` will not match `spongebob`
+* Templates matching at least one keyword will be returned (i.e. OR search). e.g. `SpongeBob Patrick` will return both `Tired SpongeBob` and `Savage Patrick`.
 ****
 
 Examples:
 
 * `find Thanos` +
-Returns all template containing Thanos in their names
+Returns all templates containing `Thanos` in their names
 
 * `find Stonks Doge Pikachu` +
-Returns any templates having names stonks, doge, or pikachu
+Returns any templates having names `stonks`, `doge`, or `pikachu`
 
-****
-* The search is case insensitive. e.g `Pikachu` will match `pikachu`
-* The order of the keywords does not matter. e.g. `run naruto` will match `naruto run`
-* Only the name is searched.
-* Only full words will be matched e.g. `naru` will not match `naruto`
-****
+==== Deleting a template: `delete`
 
-==== Archive a template: `archive`
+Deletes the template at the specified index. +
+Format: `delete INDEX`
 
-Archives a template by index. +
-Format: `archive 1`
+==== Archiving a template: `archive`
 
-==== Unarchive a template: `unarchive`
+Archives the template at the specified index. +
+Format: `archive INDEX`
 
-Unarchives a template by index. +
-Format: `unarchive 1`
+==== Unarchiving a template: `unarchive`
 
-==== Archives: `archives`
+Unarchives the template at the specified index. +
+Format: `unarchive INDEX`
 
-Lists all templates that are archived in the template tab. +
+==== Listing all archived templates: `archives`
+
+Lists all templates that are archived in the templates tab. +
 Format: `archives`
 
-==== Listing all templates: `list`
+==== Creating memes from templates: `use`
 
-Lists all templates. +
-Format: `list`
-
-==== Viewing a template: `view`
-Views a template. The list panel will be filled by the template. The labels will be displayed at their respective positions. +
-Format: `view INDEX`
-
-==== Creating memes from templates: use
-Creates a meme from one of the templates stored in weme. Multiple pieces of text can be supplied, each of which will be used to fill in the labels 1, 2, 3, …, etc, in the order they are supplied. The resultant meme will be saved in weme with the tags you specified. +
-Format: `use INDEX l/TEXT [l/TEXT]... t/TAG [t/TAG]..` +
-Example:
-
-* `use 1 t/wow t/so amaze t/random` +
-Using the template at index 1, create a new meme tagged `random` by replacing label 1 with `wow` and label 2 with `so amaze`.
-
+Uses the template at the specified index to start a meme creation session. +
+Weme will enter the create tab and allow you to add text to the template. +
+For details, please refer to the next section <<Create Tab>>. +
+Format: `use INDEX`
 
 === Export Tab
 
