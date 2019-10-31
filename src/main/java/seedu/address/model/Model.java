@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.ReadOnlyBudgetList;
@@ -85,6 +86,8 @@ public interface Model {
      * {@code expense} must not already exist in the expense list.
      */
     void addExpense(Expense expense);
+
+    public FilteredList<Expense> getExpenses();
 
     /**
      * Replaces the given expense {@code target} with {@code editedExpense}.
