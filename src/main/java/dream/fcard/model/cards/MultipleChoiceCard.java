@@ -53,7 +53,10 @@ public class MultipleChoiceCard extends FrontBackCard {
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
 
+
         priority = LOW_PRIORITY;
+
+        boolean isNotValidAnswerIndex = isNotValidChoice(answerIndex);
     }
     //@author
 

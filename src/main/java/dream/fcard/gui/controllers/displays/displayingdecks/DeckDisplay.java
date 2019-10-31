@@ -18,14 +18,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
  * The pane to view the questions of a deck and access deck editing functionality.
  */
-public class DeckDisplay extends AnchorPane {
+public class DeckDisplay extends VBox {
     @FXML
     private Label deckName;
     @FXML
@@ -148,7 +147,5 @@ public class DeckDisplay extends AnchorPane {
         CardEditingWindow window = new CardEditingWindow(cardToEdit, onSave, onCancel);
         questionList.getChildren().clear();
         questionList.getChildren().add(window);
-
     }
-
 }

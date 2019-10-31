@@ -10,11 +10,14 @@ import dream.fcard.gui.controllers.jsjava.JavaEditorApplication;
 import dream.fcard.gui.controllers.jsjava.JsEditorApplication;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Dispatcher;
+import dream.fcard.logic.stats.Stats;
+import dream.fcard.logic.storage.StatsStorageManager;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -22,6 +25,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -30,7 +34,7 @@ import javafx.stage.Stage;
 public class MainWindow extends VBox {
 
     @FXML
-    private ScrollPane deckScrollPane;
+    private VBox deckScrollPane;
     @FXML
     private ListView<Deck> deckList;
     @FXML
@@ -45,6 +49,8 @@ public class MainWindow extends VBox {
     private MenuItem javaEditor;
     @FXML
     private MenuItem quit;
+    @FXML
+    private MenuItem statistics;
     @FXML
     private Label messageLabel;
     @FXML
@@ -71,11 +77,11 @@ public class MainWindow extends VBox {
      */
     @FXML
     public void initialize() {
-        deckScrollPane.vvalueProperty().bind(deckList.heightProperty());
         displayScrollPane.vvalueProperty().bind(displayContainer.heightProperty());
         onCreateNewDeck.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
         displayMessage.accept("Welcome to FlashCard Pro!");
+
         deckList.setOnMouseClicked(e -> {
             Deck d = deckList.getSelectionModel().getSelectedItem();
             displaySpecificDeck(d);
@@ -84,12 +90,17 @@ public class MainWindow extends VBox {
             // this extra flexibility - whether it's a flexibility or an annoyance depends on us.
         });
         quit.setOnAction(e -> {
-            //Save all files only exit
+            // end the current session
+            Stats.endCurrentSession();
+
+            // save all files only on exit
             StorageManager.saveAll(State.getState().getDecks());
+            StatsStorageManager.saveLoginSessions();
             System.exit(0);
         });
         javaEditor.setOnAction(e -> openEditor(true));
         jsEditor.setOnAction(e -> openEditor(false));
+        statistics.setOnAction(e -> openStatistics());
         render();
     }
 
@@ -128,6 +139,7 @@ public class MainWindow extends VBox {
     /**
      * Switches the display pane to an edit pane
      */
+    @FXML
     private void showCreateNewDeckForm() {
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(new CreateDeckDisplay());
@@ -204,4 +216,18 @@ public class MainWindow extends VBox {
 
     }
 
+    /**
+     * Opens a new window to show the user's statistics.
+     */
+    @FXML
+    public void openStatistics() {
+        // when Logger is implemented, log "Opening Statistics window..."
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(new StatisticsWindow());
+        stage.setScene(scene);
+        stage.setTitle("My Statistics");
+        stage.show();
+    }
 }
