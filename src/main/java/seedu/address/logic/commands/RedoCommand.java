@@ -9,8 +9,8 @@ import seedu.address.model.history.HistoryManager;
  */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
-    private static final String MESSAGE_SUCCESS = "Redo Command Success";
-    private static final String MESSAGE_FAILURE = "Redo Command Failure: You have not "
+    public static final String MESSAGE_SUCCESS = "Redo Command Success";
+    public static final String MESSAGE_FAILURE = "Redo Command Failure: You have not "
         + "undone any commands. As such, you are unable to redo any commands.";
     @Override
     public CommandResult execute(Model model) throws CommandException {
