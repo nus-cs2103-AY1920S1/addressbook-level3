@@ -102,8 +102,6 @@ public class AutoCompletePanel extends UiPart<Region> {
                 .updateList(matchedWordUpdater.getMatchedAutoCompleteWords(),
                         filteredList, segments, firstSegmentParts);
 
-        // Add '-' to each object word displayed for user understanding
-        autoCompleteListHandler.addDashToObjectWordList(updatedList);
         autoCompleteWordListView.setItems(updatedList);
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
@@ -112,13 +110,6 @@ public class AutoCompletePanel extends UiPart<Region> {
      * @return string representation of all the matched words plus current selected word
      */
     public String getStringAfterSelection() {
-        StringBuilder combinedMatchedWords = new StringBuilder();
-        for (AutoCompleteWord autoCompleteWord : matchedWordUpdater.getMatchedAutoCompleteWords()) {
-            combinedMatchedWords
-                    .append(autoCompleteWord.getSuggestedWord())
-                    .append(autoCompleteWord.getConnectorChar());
-        }
-        combinedMatchedWords.append(getSelected().getSuggestedWord());
-        return combinedMatchedWords.toString();
+        return matchedWordUpdater.getCombinedMatchedWords() + getSelected().getSuggestedWord();
     }
 }

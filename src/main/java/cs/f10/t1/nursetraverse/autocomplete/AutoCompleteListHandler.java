@@ -72,6 +72,8 @@ public class AutoCompleteListHandler {
                     updatedList.add(autoCompleteWord);
                 }
             }
+            // Add '-' to each object word displayed for user understanding
+            addDashToObjectWordList(updatedList);
             return updatedList;
         }
     }
