@@ -4,31 +4,31 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.reminder.ReminderStub;
+import seedu.address.model.reminder.Appointment;
 
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class ReminderCard extends UiPart<Region> {
+public class AppointmentCard extends UiPart<Region> {
 
-    private static final String FXML = "ReminderListCard.fxml";
+    private static final String FXML = "AppointmentListCard.fxml";
 
-    public final ReminderStub reminder;
+    public final Appointment appointment;
 
     @FXML
-    private HBox reminderCardPane;
+    private HBox appointmentCardPane;
     @FXML
     private Label title;
     @FXML
     private Label date;
 
 
-    public ReminderCard(ReminderStub reminder) {
+    public AppointmentCard(Appointment appointment) {
         super(FXML);
-        this.reminder = reminder;
-        title.setText(reminder.getDescription());
-        date.setText(reminder.getDaysString());
+        this.appointment = appointment;
+        title.setText(appointment.getDescription());
+        date.setText(appointment.getDaysString());
     }
 
     @Override
@@ -39,12 +39,12 @@ public class ReminderCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ReminderCard)) {
+        if (!(other instanceof AppointmentCard)) {
             return false;
         }
 
         // state check
-        ReminderCard card = (ReminderCard) other;
-        return reminder.equals(card.reminder);
+        AppointmentCard card = (AppointmentCard) other;
+        return appointment.equals(card.appointment);
     }
 }

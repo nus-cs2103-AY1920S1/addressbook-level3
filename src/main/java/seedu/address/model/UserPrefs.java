@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.reminder.Appointment;
 
 /**
  * Represents User's preferences.
@@ -17,7 +19,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private AliasTable aliasTable;
-    private Reminder reminders;
+    private AppointmentTable appointmentTable;
     private LocalDate lastUpdate;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
@@ -26,7 +28,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      */
     public UserPrefs() {
         aliasTable = AliasTable.getDefaultAliasTable();
-        reminders = Reminder.getDefaultReminders();
+        appointmentTable = AppointmentTable.getDefaultAppointments();
         lastUpdate = LocalDate.now();
     }
 
@@ -47,7 +49,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setAliasTable(newUserPrefs.getAliasTable());
         lastUpdate = newUserPrefs.getLastUpdate();
-        setReminders(newUserPrefs.getReminders());
+        setAppointmentsTable(newUserPrefs.getAppointmentTable());
     }
 
     public AliasTable getAliasTable() {
@@ -59,16 +61,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.aliasTable = aliasTable;
     }
 
-    public Reminder getReminders() {
-        return reminders;
+    public AppointmentTable getAppointmentTable() {
+        return appointmentTable;
     }
 
-    public void setReminders(Reminder reminders) {
-        requireNonNull(reminders);
-        this.reminders = reminders;
+    public void setAppointmentsTable(AppointmentTable appointmentTable) {
+        requireNonNull(appointmentTable);
+        this.appointmentTable = appointmentTable;
         int dateDiff = Period.between(LocalDate.now(), lastUpdate).getDays();
         if (dateDiff < 0) {
-            this.reminders.cascadeDay(Math.abs(dateDiff));
+            this.appointmentTable.cascadeDay(Math.abs(dateDiff));
         }
         lastUpdate = LocalDate.now();
     }
@@ -96,7 +98,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)) { //this handles null as well.
+        if (!(other instanceof UserPrefs)) { // this handles null as well.
             return false;
         }
 
@@ -105,13 +107,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
                 && aliasTable.equals(o.aliasTable)
-                && reminders.equals(o.reminders)
+                && appointmentTable.equals(o.appointmentTable)
                 && lastUpdate.equals(o.lastUpdate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, aliasTable, reminders, lastUpdate);
+        return Objects.hash(guiSettings, addressBookFilePath, aliasTable, appointmentTable, lastUpdate);
     }
 
     @Override
@@ -120,7 +122,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nAlias table : " + aliasTable);
-        sb.append("\nReminders table : " + reminders);
+        sb.append("\nAppointments table : " + appointmentTable);
         sb.append("\nLast update : " + lastUpdate);
         return sb.toString();
     }
@@ -141,12 +143,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return aliasTable.getAlias(reusable);
     }
 
-    public void addReminder(int type, String description, int days) {
-        reminders.addReminder(type, description, days);
+    public void addAppointment(int type, String description, int days) {
+        appointmentTable.addAppointment(type, description, days);
     }
 
-    public String outputReminders() {
-        return reminders.outputReminders();
+    public String outputAppointments() {
+        return appointmentTable.outputAppointments();
+    }
+
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointmentTable.getAppointmentList();
     }
 
     public LocalDate getLastUpdate() {
