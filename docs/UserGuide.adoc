@@ -299,6 +299,7 @@ Sets a budget of `$500,000` for this month
 Returns the current monthly budget. +
 Format: `showbudget`
 
+// tag::currency[]
 === Setting the currency : `currency`
 Sets the currency used to display spending entries. +
 Format: `currency [CURRENCYCODE]`
@@ -308,12 +309,32 @@ Format: `currency [CURRENCYCODE]`
 * CURRENCYCODE can be `SGD`, `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
 ****
 
-=== Viewing exchange rates : `exchangerate`
-Displays the current exchange rates available. +
-Format: `exchangerate`
+Example:
 
-[NOTE]
-Only supported currencies (SGD, USD, EUR, IDR, MYR, INR, MMK) are shown.
+* `currency USD` +
+Sets the currency displayed for spending entries to `USD`.
+
+// end::currency[]
+
+// tag::exchangerates[]
+=== Viewing exchange rates : `exchangerate`
+Displays the current exchange rate for a specified currency in SGD. +
+Format: `exchangerate [AMOUNT] [CURRENCYCODE]`
+
+****
+* If AMOUNT and CURRENCYCODE is not specified, all exchange rates are shown.
+* CURRENCYCODE can be `SGD`, `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
+****
+
+Example:
+
+* `exchangerate` +
+Shows all exchange rates.
+* `exchangerate 5 USD` +
+Shows the exchange rate for 5 USD in SGD.
+
+
+// end::exchangerates[]
 
 // tag::statistics[]
 === Generating statistics : `stats`
