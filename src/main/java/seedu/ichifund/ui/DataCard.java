@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.ichifund.model.analytics.Data;
-import seedu.ichifund.model.analytics.exceptions.DateFieldNotFoundException;
+import seedu.ichifund.model.analytics.exceptions.FieldNotFoundException;
 
 /**
  * An UI component that displays information of {@code Data}.
@@ -48,24 +48,10 @@ public class DataCard extends UiPart<Region> {
         description.setText(data.getDescription());
         amount.setText(data.getAmount().toString());
         try {
-            year.setText(data.getYear().toString());
-        } catch (DateFieldNotFoundException ignored) {
-            ;
-        }
-        try {
-            month.setText(data.getMonth().wordString());
-        } catch (DateFieldNotFoundException ignored) {
-            ;
-        }
-        try {
-            day.setText(data.getDay().toString());
-        } catch (DateFieldNotFoundException ignored) {
-            ;
-        }
-        try {
-            category.setText(data.getCategory().toString());
-        } catch (DateFieldNotFoundException ignored) {
-            ;
+            data.getCategory();
+            category.setText("");
+        } catch (FieldNotFoundException e) {
+            category.setText("All categories");
         }
     }
 

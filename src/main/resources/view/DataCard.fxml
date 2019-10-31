@@ -27,8 +27,7 @@
                 <Label fx:id="description" text="\$description" styleClass="cell_big_label" />
             </HBox>
             <Label fx:id="amount" text="\$amount" styleClass="cell_big_label" />
-            <Label fx:id="year" styleClass="cell_small_label" text="\$criterion" />
-            <Label fx:id="month" styleClass="cell_small_label" text="\$criterion" />
+            <Label fx:id="category" styleClass="cell_small_label" text="\$criterion" />
         </VBox>
     </GridPane>
 </HBox>
