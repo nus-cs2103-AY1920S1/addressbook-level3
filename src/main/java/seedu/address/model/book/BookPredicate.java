@@ -46,7 +46,7 @@ public class BookPredicate implements Predicate<Book> {
 
         if (title != null
                 && !Arrays.stream(title.split(" "))
-                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(book.getTitle().value, keyword))) {
+                .allMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(book.getTitle().value, keyword))) {
             return false;
         }
         if (author != null
