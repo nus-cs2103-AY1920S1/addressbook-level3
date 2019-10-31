@@ -76,7 +76,12 @@ image::search_page.png[width="790"]
 
 ==== Statistics Page
 
-The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: movies he added but might have forgotten to watch, up to 3 most favourite genres of the user and recommendations etc.
+The user can navigate to the statistics page to find a summary of his watching habits,
+preferences and history according to what is present in his lists.
+Examples include: movies he added but might have forgotten to watch,
+up to 3 most favourite genres of the user and recommendations etc.
+
+**
 
 image::statistics_page.png[width="790"]
 

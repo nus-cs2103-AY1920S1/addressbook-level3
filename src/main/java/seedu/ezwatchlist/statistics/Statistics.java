@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.collections.ObservableMap;
+
+import seedu.ezwatchlist.api.model.RecommendationEngine;
 import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.UniqueShowList;
 
@@ -18,9 +21,12 @@ import seedu.ezwatchlist.model.show.UniqueShowList;
  */
 public class Statistics {
     private final Model model;
+    private RecommendationEngine recommendationEngine;
 
     public Statistics (Model model) {
         this.model = model;
+
+        //recommendationEngine = new RecommendationEngine();
     }
 
     /**
