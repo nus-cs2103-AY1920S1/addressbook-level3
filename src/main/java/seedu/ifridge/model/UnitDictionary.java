@@ -76,7 +76,7 @@ public class UnitDictionary {
     }
 
     private boolean inShoppingList(Food foodItem, Model model) {
-        return false;
+        return model.containsShoppingItemWithName(foodItem);
     }
 
     public HashMap<String, String> getUnitDictionary() {
