@@ -23,7 +23,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_DATE_STRING = "Please stick to the DD/MM/YYYY format.";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "%s is not a valid date "
-            + "in the DD/MM/YYYY format.";
+            + "in the DD/MM/YYYY/HHMM format.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_TIME_STRING = "Please stick to the DD/MM/YYYY/HHMM format.";
     public static final String MESSAGE_INVALID_TIME_FORMAT = "%s is not a valid date-time "
@@ -191,10 +191,10 @@ public class ParserUtil {
         try {
             LocalDate localDate = convertStringToDate(date);
             return localDate;
+        } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE_STRING);
         } catch (DateTimeException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_DATE_FORMAT, date));
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new ParseException(MESSAGE_INVALID_DATE_STRING);
         }
     }
 
@@ -204,7 +204,7 @@ public class ParserUtil {
      * @return the corresponding {@code LocalDate} object.
      */
     private static LocalDate convertStringToDate(String date) {
-        if (date.length() > 10) {
+        if (date.length() != 10) {
             throw new StringIndexOutOfBoundsException();
         }
         int year = Integer.parseInt(date.substring(6, 10));

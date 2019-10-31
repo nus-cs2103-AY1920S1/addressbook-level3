@@ -29,4 +29,17 @@ public class CalendarDateDisplayEngagementsCommand extends CalendarCommand {
         return new CommandResult(MESSAGE_SUCCESS + formattedDateString, true, date, COMMAND_WORD);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof CalendarDateDisplayEngagementsCommand)) {
+            return false;
+        } else {
+            CalendarDateDisplayEngagementsCommand otherCalendarDateDisplayEngagementsCommand =
+                    (CalendarDateDisplayEngagementsCommand) other;
+            return this.date.equals(otherCalendarDateDisplayEngagementsCommand.date);
+        }
+    }
+
 }
