@@ -16,6 +16,7 @@ import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.Mode;
+import seedu.revision.model.quiz.NormalMode;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -152,7 +153,14 @@ public class ParserUtil {
         if (!Mode.isValidMode(trimmedMode)) {
             throw new ParseException(Mode.MESSAGE_CONSTRAINTS);
         }
-        return new Mode(trimmedMode);
+        switch (trimmedMode) {
+        case "normal":
+            return new NormalMode();
+//        case "arcade":
+//        case "custom":
+        default:
+            throw new ParseException("Invalid mode found at ParserUtil");
+        }
     }
 
 }

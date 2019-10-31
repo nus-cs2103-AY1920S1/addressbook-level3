@@ -10,7 +10,7 @@ import seedu.revision.model.answerable.answer.Answer;
 
 /** TfInputCommand class used to execute user inputs for True and False Answerables. **/
 public class TfInputCommand extends Command {
-    public static final String MESSAGE_USAGE = "Input can only be True(T) or False(F) or N(case insensitive)";
+    public static final String MESSAGE_USAGE = "Input can only be True(T) or False(F) (case insensitive)";
     private final String tfInput;
     private final Answerable currentAnswerable;
 
