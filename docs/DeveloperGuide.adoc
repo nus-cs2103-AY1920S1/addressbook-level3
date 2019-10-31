@@ -182,9 +182,9 @@ If the flashcard exists in the storage, an error will be shown.
 
 The following activity diagram summarizes what happens when a user executes an add command:
 
-image::AddActivityDiagram.png[]
+image::AddActivityDiagram.png[width="300"]
 
-==== Design Considerations
+==== Design considerations
 ===== Aspect: How to implement add
 
 * **Alternative 1(current choice):** Use command `add` together with

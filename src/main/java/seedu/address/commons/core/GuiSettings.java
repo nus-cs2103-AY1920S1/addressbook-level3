@@ -10,8 +10,8 @@ import java.util.Objects;
  */
 public class GuiSettings implements Serializable {
 
-    private static final double DEFAULT_HEIGHT = 600;
-    private static final double DEFAULT_WIDTH = 900;
+    private static final double DEFAULT_HEIGHT = 700;
+    private static final double DEFAULT_WIDTH = 1000;
     private static final String DEFAULT_STYLESHEET = "view/DarkTheme.css";
 
     private final double windowWidth;
