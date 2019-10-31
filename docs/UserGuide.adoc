@@ -76,7 +76,7 @@ image::search_page.png[width="790"]
 
 ==== Statistics Page
 
-The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc.
+The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: movies he added but might have forgotten to watch, up to 3 most favourite genres of the user and recommendations etc.
 
 image::statistics_page.png[width="790"]
 
@@ -84,11 +84,6 @@ image::statistics_page.png[width="790"]
 
 Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Alternatively, the user can also make use of keyboard shortcut `ctrl + tab` to scroll through the different pages.
 
-==== Details Page (Coming in v2.0)
-
-Upon clicking a movie or tv show title, a pop-up window will emerge, with a detailed view of the movie or tv show. This page provides the user with more information about the show, like the year, cast and ratings. The user also has the ability to edit the details here.
-
-image::details_page.png[width="790"]
 
 [[UserCommands]]
 === User Commands

@@ -153,7 +153,6 @@ public class MainWindow extends UiPart<Stage> {
         watchedPanel.setMainWindow(this);
         searchPanel = new SearchPanel(logic.getSearchResultList());
         searchPanel.setMainWindow(this);
-        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre());
 
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 
@@ -354,6 +353,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void goToStatistics() {
+        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre());
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
         currentTab = STATISTICS_TAB;
