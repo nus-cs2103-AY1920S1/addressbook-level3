@@ -122,6 +122,7 @@ public abstract class Show {
 
         return otherShow != null
                 && otherShow.getName().equals(getName())
+                && otherShow.getType().equals(getType())
                 && (otherShow.getDateOfRelease().equals(getDateOfRelease()) || otherShow.isWatched() == (isWatched()));
     }
 
