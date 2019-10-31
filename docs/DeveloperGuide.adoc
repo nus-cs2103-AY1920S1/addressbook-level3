@@ -221,7 +221,15 @@ The app does not store the master password itself. Instead, during initializatio
 
 ==== Encryption Method
 
-_{Explain here how the data encryption feature will be implemented}_
+The following sequence diagram explains how the `EncryptionUtil` class encrypts an input byte array (`byte[] input`) using using a password (`String pwd`).
+
+image::EncryptionUtilSequenceDiagram.png[]
+
+Before the encryption, both a key (`SecretKey key`) and a set of parameter specification (`PBEParameterSpec paramSpec`) are required. The key is generated from the password string and a specified encryption method (`PBEWithMD5AndTripleDES`) via a utility class (`SecretKeyFactory`). On the other hand, the parameter specification is generated with hardcoded parameters (`SALT`, `ITERATION`). Hardcoded parameters ensure that the same password can always be correctly validated at different times.
+
+Finally, a `Cipher` class is constructed with the same encryption method specified above (`PBEWithMD5AndTripleDES`) and initialised with the key and the set of parameter specifications. The `doFinal` method conducts the actual encryption on the input array and returns the encrypted byte array.
+
+The decryption process is similar to the encryption process, except that the `ENCRYPT_MODE` is changed to `DECRYPT_MODE`. The same password is necessary to decrypt an encrypted byte array to its original content.
 
 // end::dataencryption[]
 
