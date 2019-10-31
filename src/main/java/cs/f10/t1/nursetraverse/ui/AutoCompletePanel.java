@@ -105,7 +105,7 @@ public class AutoCompletePanel extends UiPart<Region> {
     }
 
     /**
-     * Re-set and filter list to be suggested
+     * Choose initial list to be suggested
      */
     public ObservableList<AutoCompleteWord> chooseList() {
         ObservableList<AutoCompleteWord> currentList;

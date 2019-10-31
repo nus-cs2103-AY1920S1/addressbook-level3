@@ -283,14 +283,14 @@ public class AutoCompleteWordStorage {
     }
 
     /**
-     * Dummy method to produce index word list
-     * (total patient/medcon etc may change during runtime (to improve later))
+     * Generate index word list according to the number of specified object present
      *
+     * @param objectWord object that determines the number of index that will be generated
      * @return list of index word
      */
-    public ObservableList<AutoCompleteWord> generateOListAllIndexWord(ObjectWord matchedObjectWord) {
+    public ObservableList<AutoCompleteWord> generateOListAllIndexWord(ObjectWord objectWord) {
         FilteredList listToGenerateFrom;
-        if (matchedObjectWord.getSuggestedWord().equals(PATIENT_OBJECT_WORD)) {
+        if (objectWord.getSuggestedWord().equals(PATIENT_OBJECT_WORD)) {
             listToGenerateFrom = patList;
         } else {
             listToGenerateFrom = apptList;

@@ -13,9 +13,11 @@ public class AutoCompleteListHandler {
     /**
      * Update list of autocomplete words to be suggested according to current phrase in command box textfield
      *
+     * @param currentList list to be updated
      * @param numberOfMatchedWords number of matched words in command textfield
      * @param segments Array of segments of the full command in textfield
      * @param firstSegmentParts Linkedlist of parts in first segment of segments array
+     * @return updatedList
      */
     public ObservableList<AutoCompleteWord> updateList(ObservableList<AutoCompleteWord> currentList,
                                                        int numberOfMatchedWords, String[] segments,
@@ -40,16 +42,16 @@ public class AutoCompleteListHandler {
     /**
      * Filter unrelated words from either prefix or command wordlist
      *
-     * @param matchedWords      linkedlist of current matched words
+     * @param matchedWords linkedlist of current matched words
      * @param listToBeSuggested list to be filtered
-     * @return
+     * @return filteredList
      */
     public ObservableList<AutoCompleteWord> filterList(LinkedList<AutoCompleteWord> matchedWords,
                                                        ObservableList<AutoCompleteWord> listToBeSuggested) {
         ObservableList<AutoCompleteWord> filteredList = FXCollections.observableArrayList();
         // Perform filter only if listToBeSuggested is not empty and is a prefix or command list
-        if (listToBeSuggested.size() != 0 &&
-                (listToBeSuggested.get(0) instanceof PrefixWord || listToBeSuggested.get(0) instanceof CommandWord)) {
+        if (listToBeSuggested.size() != 0 && (listToBeSuggested.get(0) instanceof PrefixWord
+                || listToBeSuggested.get(0) instanceof CommandWord)) {
             // filter based on first 2 correct word
             for (AutoCompleteWord autoCompleteWord : listToBeSuggested) {
                 boolean isAssociable = true;
