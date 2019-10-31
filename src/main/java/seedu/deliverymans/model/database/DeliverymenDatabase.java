@@ -89,6 +89,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         requireNonNull(editedDeliveryman);
         deliverymen.setDeliveryman(target, editedDeliveryman);
         statusManager.removeDeliveryman(target);
+        statusManager.addUnavailableMan(editedDeliveryman);
     }
 
     /**

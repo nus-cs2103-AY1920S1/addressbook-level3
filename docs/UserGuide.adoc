@@ -46,8 +46,8 @@ respectively.
 
 **Command Format**
 
-* Command words for universal commands are prepended with "-"
-** Example Usage: `-help`.
+* Command words for universal commands are prepended with "-" *(not for now)*
+** Example Usage: `help`.
 * Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`,
 `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be supplied.
 ** Example Usage: `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
@@ -69,13 +69,13 @@ restaurant and deliverymen.
 
 {nbsp} +
 
-==== Viewing help `-help`
+==== Viewing help: `help`
 
 This generates a list of commands and tips for you.
 
-Format: `-help`
+Format: `help`
 
-** Example: `-help`
+** Example: `help`
 
 
 {nbsp} +
@@ -85,28 +85,28 @@ Format: `-help`
 This command switches to a specific context for you to enter targeted commands. The list of contexts include:
 customer, deliveryman and restaurant. By default, the application will be in the universal context upon startup.
 
-===== Switching to customer context `-customer`
+===== Switching to customer context: `customer`
 This command switches to the customer context for you to enter customer-specific commands.
 
-Format: `-customer`
+Format: `customer`
 
-===== Switching to restaurant context `-restaurant`
+===== Switching to restaurant context: `restaurant`
 This command switches to the restaurant context for you to enter restaurant-specific commands.
 
-Format: `-restaurant`
+Format: `restaurant`
 
-===== Switching to deliveryman context `-deliveryman`
+===== Switching to deliveryman context: `deliverymen`
 This command switches to the deliveryman context for you to enter deliveryman-specific commands.
 
-Format: `-deliveryman`
+Format: `deliverymen`
 
 {nbsp} +
 
-==== Adding of orders `-add_order`
+==== Adding an order: `add_order`
 This command adds a new order to the database to be processed. The deliveryman to deliver the order will be allocated
 automatically based on the internal algorithms.
 
-Format: `-add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
+Format: `add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
 
 Example:  `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
 
@@ -119,7 +119,7 @@ exists currently in the database.
 
 {nbsp} +
 
-==== Editing of orders `-edit_order`
+==== Editing an order: `edit_order`
 This enables you to edit an order. The order to edit will have to be specified by its index when you are entering the command.
 
 You can change:
@@ -134,9 +134,9 @@ You can change:
 
 * The delivery status of the order
 
-Format: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
+Format: `edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
 
-Example: `-edit_order i/1337 d/John Doe completed/true`
+Example: `edit_order i/1337 d/John Doe completed/true`
 
 Requirements:
 
@@ -150,19 +150,19 @@ Requirements:
 
 {nbsp} +
 
-==== Deleting of orders `-delete_order`
+==== Deleting an order: `delete_order`
 This command enables you to delete an unwanted/cancelled order in the database by its index.
 
-Format: `-delete_order INDEX`
+Format: `delete_order INDEX`
 
-Example: `-delete_order 3`
+Example: `delete_order 3`
 
 {nbsp} +
 
-==== Undoing command `-undo`
+==== Undoing a command: `undo`
 This command undoes the effects of a command that you have previously executed.
 
-Format: `-undo`
+Format: `undo`
 
 Say you have accidentally executed a command and now want to reverse it. Just type `undo` into the
 command line and press Enter like any other command. The result pane will then show the following:
@@ -174,12 +174,12 @@ reverse commands which you have performed even earlier.
 
 {nbsp} +
 
-==== Redoing command `-redo`
+==== Redoing a command: `redo`
 This command redoes the effects of a command that you have just undone, in effect undoing an undo.
 Similarly to `undo`, this command can be used multiple times in succession to bring back multiple
 commands which you have undone earlier.
 
-Format: `-redo`
+Format: `redo`
 
 After performing `redo`, the result pane will show:
 
@@ -187,10 +187,10 @@ Successfully redid: (your previous command here)
 
 {nbsp} +
 
-==== Exiting program `-exit`
+==== Exiting program: `exit`
 This command exits the program.
 
-Format: `-exit`
+Format: `exit`
 
 // end::universalCommand[]
 // tag::customerCommand[]
@@ -370,7 +370,11 @@ Example: `add n/John Doe p/91234567`
 
 ==== Editing a deliveryman: `edit`
 
-This command allows you to edit an existing deliveryman in the deliverymen database. You must edit at least one field (eg. name, phone number).
+This command allows you to edit an existing deliveryman in the deliverymen database. You must edit at least one field
+(eg. name, phone number).
+
+NOTE: Editing the info of a deliveryman will reset the status of the deliveryman to *UNAVAILABLE*. You will have
+to switch it back to *AVAILABLE* through the `status` command explained in _Section 3.4.5_.
 
 Format: `edit INDEX [n/NAME] [p/PHONE]`
 
@@ -380,7 +384,8 @@ Example: `edit 1 n/John Hoe p/97654321`
 
 ==== Deleting a deliveryman: `delete`
 
-This command allows you to delete an existing deliveryman in the deliverymen database. You only have to provide the index of the deliveryman.
+This command allows you to delete an existing deliveryman in the deliverymen database. You only have to provide the
+index of the deliveryman.
 
 Format: `delete INDEX`
 
@@ -388,9 +393,15 @@ Example: `delete 1`
 
 {nbsp} +
 
-==== Listing available deliverymen
+==== Listing status lists of deliverymen: `lista`
 
-This command allows you to view all the deliverymen who are available for delivery (ie. ready to be assigned food orders).
+This command allows you to view all the deliverymen sorted according to their statuses. For your easy navigation,
+you can click on any of the three buttons to show the status list that you wish to view
+*(Yes, it took me one whole day to learn JavaFX and implement that shit)*, as shown in Fig X.Y below.
+
+`(Diagram to be added here)`
+
+NOTE: A deliveryman can have one of the 3 statuses: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*.
 
 Format: `lista`
 
@@ -398,38 +409,42 @@ Example: `lista`
 
 {nbsp} +
 
-==== Entering a specific deliveryman
+==== Changing status of a deliveryman: `status`
+
+This command allows you to switch the status of a deliveryman between *AVAILABLE* and *UNAVAILABLE*. Using this command
+will prompt the status lists as well (that can be done through `lista` command explained in _Section 3.4.4_).
+
+NOTE: You are not allowed to change the status of a deliveryman who has the status *DELIVERING*. Completion of the
+the assigned delivery will automatically set it back to *AVAILABLE*.
+
+Format: `status INDEX`
+
+Example: `status 3`
+
+{nbsp} +
+
+==== Viewing the statistics of the deliverymen statuses: `stats`
+
+This command allows you to view the statistics of the current statuses of deliverymen. Relevant statistics such as the
+utilisation level will also be computed and displayed for your reference.
+
+Format: `stats`
+
+Example: `stats`
+
+{nbsp} +
+
+==== Entering a specific deliveryman: `enter`
 
 This command allows you to view a deliveryman's basic information.
 
-Format: `list NAME`
+WARNING: This is half-implemented. But you can still use it. For fun. But if you have time.
 
-Example: `list Stanley Tay`
+Format: `enter INDEX`
 
-{nbsp} +
-
-==== Assigning order to a deliveryman
-
-This command allows you to manually assign an order to an available deliveryman.
-
-NOTE: Auto-assignment of orders is enabled by default. Should you wish to manually assign an order, this command can be used.
-
-Format: `assn NAME #ORDERINDEX`
-
-Example: `assn Stanley Tay #12`
+Example: `enter 1`
 
 {nbsp} +
-
-==== Obtaining a list of deliverymen eligible for pay rise
-
-This command allows you to view a list of deliverymen who have met the pre-determined requirements for a pay rise.
-
-NOTE:  The pre-determined requirements are based on two factors: *delivery rate* and *time in database* of the deliveryman.
-
-Format: `payrise`
-
-Example: `payrise`
-
 
 {nbsp} +
 
@@ -438,17 +453,17 @@ Example: `payrise`
 **Command:** format
 
 * Universal commands
-- View help: `-help`
-- View order summary: `-order_summary`
-- Add order: `-add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
-- Edit order: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
-- Delete order: `-delete_order INDEX`
-- Switch to restaurant context: `-restaurant`
-- Switch to customer context: `-customer`
-- Switch to deliverymen context: `-deliverymen`
-- Undo command: `-undo`
-- Redo command: `-redo`
-- Exit application: `-exit`
+- View help: `help`
+- View order summary: `order_summary`
+- Add order: `add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
+- Edit order: `edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
+- Delete order: `delete_order INDEX`
+- Switch to restaurant context: `restaurant`
+- Switch to customer context: `customer`
+- Switch to deliverymen context: `deliverymen`
+- Undo command: `undo`
+- Redo command: `redo`
+- Exit application: `exit`
 
 * Customer commands
 - Add a customer: `add n/NAME p/PHONE [t/TAG]...`
@@ -457,19 +472,19 @@ Example: `payrise`
 - View a customer's order history: `history INDEX`
 
 * Restaurant commands
-- Adding a restaurant: `add n/NAME l/LOCATION [t/TAG]...`
-- Deleting a restaurant: `delete INDEX`
-- Entering EditMode: `edit INDEX`
-- Editing a restaurant's details: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
-- Adding a food item: `add n/NAME a/PRICE [t/TAG]...`
-- Deleting a food item: `delete INDEX`
-- Adding a rating: `rate RATING`
+- Add a restaurant: `add n/NAME l/LOCATION [t/TAG]...`
+- Delete a restaurant: `delete INDEX`
+- Enter EditMode: `edit INDEX`
+- Edit a restaurant's details: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
+- Add a food item: `add n/NAME a/PRICE [t/TAG]...`
+- Delete a food item: `delete INDEX`
+- Add a rating: `rate RATING`
 
 * Deliverymen commands
 - Add a deliveryman: `add n/NAME p/PHONE`
 - Delete a deliveryman: `delete INDEX`
 - Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE]`
-- List available deliverymen: `lista`
-- List specific deliveryman info: `list NAME`
-- Assign order to deliveryman: `assn NAME #orderINDEX`
-- List deliverymen eligible for pay rise: `payrise`
+- List deliverymen sorted by status: `lista`
+- Switch status of a deliveryman: `status INDEX`
+- View statistics for deliverymen current statuses: `stats`
+- List specific deliveryman info: `enter INDEX`
