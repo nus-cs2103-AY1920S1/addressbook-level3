@@ -44,9 +44,6 @@ public class ScheduleView extends UiPart<Region> {
     private Label title;
 
     @FXML
-    private VBox scheduleContainer;
-
-    @FXML
     private ScrollPane scheduleHeaderWrapper;
 
     @FXML
@@ -182,6 +179,8 @@ public class ScheduleView extends UiPart<Region> {
                 }
             }
             stackPane.getChildren().add(timeslotContainer);
+            String altDayId = l % 2 == 0 ? "dayEvenStackPane" : "dayOddStackPane";
+            stackPane.setId(altDayId);
             dayTimeslotStackPanes.put(DayOfWeek.of(offsetDay), stackPane);
             scheduleView.add(stackPane, l, 0, 1, endTime - startTime);
         }

@@ -58,6 +58,10 @@ public class PopupCommand extends Command {
 
             ClosestCommonLocationData commonLocationData = freeTimeslot.get().getClosestCommonLocationData();
 
+            if (freeTimeslot.isEmpty()) {
+                return new CommandResult(MESSAGE_FAILURE);
+            }
+
             if (!commonLocationData.isOk()) {
                 String locations = "";
 
@@ -69,10 +73,6 @@ public class PopupCommand extends Command {
                     locations += s + "\n";
                 }
                 return new CommandResult(MESSAGE_FAILURE_NO_LOCATION + locations);
-            }
-
-            if (freeTimeslot.isEmpty()) {
-                return new CommandResult(MESSAGE_FAILURE);
             }
 
             return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, true,

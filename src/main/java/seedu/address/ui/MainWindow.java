@@ -7,12 +7,10 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -20,14 +18,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.export.VisualExporter;
+import seedu.address.logic.export.GroupScheduleExporter;
+import seedu.address.logic.export.IndividualScheduleExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
-import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.DefaultStartView;
 import seedu.address.ui.util.LocationPopup;
 import seedu.address.ui.util.LocationsView;
@@ -264,31 +261,22 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleExport(ScheduleWindowDisplay scheduleWindowDisplay) {
         ScheduleWindowDisplayType type = scheduleWindowDisplay.getScheduleWindowDisplayType();
-        StackPane stackPane = new StackPane();
-        HBox exportContainer = new HBox();
-        ScheduleView scheduleView = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay).getScheduleView();
+        ScheduleViewManager manager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
         if (type.equals(ScheduleWindowDisplayType.PERSON)) {
-            PersonSchedule personSchedule = scheduleWindowDisplay.getPersonSchedules().get(0).get(0);
-            exportContainer.getChildren().addAll(scheduleView.getRoot());
-            stackPane.getChildren().add(exportContainer);
-            Scene scene = new Scene(stackPane);
-            scene.getStylesheets().add("/view/DarkTheme.css");
+            IndividualScheduleExporter exporter = new IndividualScheduleExporter(manager.getScheduleView(),
+                    "png", "./export.png");
             try {
-                VisualExporter.exportTo(stackPane, "png", "./export.png");
+                exporter.export();
             } catch (IOException e) {
                 resultDisplay.setFeedbackToUser("Error exporting");
             }
         } else {
-            int size = scheduleWindowDisplay.getPersonSchedules().size();
             GroupInformation groupInformation = new GroupInformation(scheduleWindowDisplay,
-                    ColorGenerator.generateColorList(size));
-            exportContainer.getChildren().addAll(groupInformation.getRoot(),
-                    scheduleView.getRoot());
-            stackPane.getChildren().add(exportContainer);
-            Scene scene = new Scene(stackPane);
-            scene.getStylesheets().add("/view/DarkTheme.css");
+                    manager.getColors());
+            GroupScheduleExporter exporter = new GroupScheduleExporter(manager.getScheduleView(), groupInformation,
+                    "png", "./export.png");
             try {
-                VisualExporter.exportTo(stackPane, "png", "./export.png");
+                exporter.export();
             } catch (IOException e) {
                 resultDisplay.setFeedbackToUser("Error exporting");
             }
