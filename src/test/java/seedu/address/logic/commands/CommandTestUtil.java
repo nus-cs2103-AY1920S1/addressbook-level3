@@ -2,25 +2,32 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PICTURE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RESULT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.earnings.ClassIdContainKeywordPredicate;
+import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.UpdateEarningsDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -67,6 +74,28 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final String VALID_DATE_EARNINGS_CS2100_A01 = "03/04/2020";
+    public static final String VALID_DATE_EARNINGS_CS1231_T05 = "06/04/2019";
+    public static final String VALID_TYPE_EARNINGS_CS2100_A01 = "tut";
+    public static final String VALID_TYPE_EARNINGS_CS1231_T05 = "c";
+    public static final String VALID_AMOUNT_EARNINGS_CS2100_A01 = "50.00";
+    public static final String VALID_AMOUNT_EARNINGS_CS1231_T05 = "60.00";
+
+    public static final String DATE_DESC_CS2100 = " " + PREFIX_DATE + VALID_DATE_EARNINGS_CS2100_A01;
+    public static final String DATE_DESC_CS1231 = " " + PREFIX_DATE + VALID_DATE_EARNINGS_CS1231_T05;
+    public static final String TYPE_DESC_CS2100 = " " + PREFIX_TYPE + VALID_TYPE_EARNINGS_CS2100_A01;
+    public static final String TYPE_DESC_CS1231 = " " + PREFIX_TYPE + VALID_TYPE_EARNINGS_CS1231_T05;
+    public static final String AMOUNT_DESC_CS2100 = " " + PREFIX_AMOUNT + VALID_AMOUNT_EARNINGS_CS2100_A01;
+    public static final String AMOUNT_DESC_CS1231 = " " + PREFIX_AMOUNT + VALID_AMOUNT_EARNINGS_CS1231_T05;
+
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "04/593/2022"; // "593" for months not allowed
+    public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "consulting"; // "consulting" is not allowed
+    public static final String INVALID_AMOUNT_DESC =
+            " " + PREFIX_AMOUNT + "323.332"; // Only 2 decimal places are allowed
+
+    public static final UpdateEarningsCommand.EditEarningsDescriptor DESC_CS2100;
+    public static final UpdateEarningsCommand.EditEarningsDescriptor DESC_CS1231;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPicture(VALID_PICTURE_AMY).withAttendance(VALID_ATTENDANCE_AMY)
@@ -76,6 +105,12 @@ public class CommandTestUtil {
                 .withPicture(VALID_PICTURE_BOB).withAttendance(VALID_ATTENDANCE_BOB)
                 .withResult(VALID_RESULT_BOB).withClassId(VALID_CLASSID_BOB)
                 .withParticipation(VALID_PARTICIPATION_BOB).build();
+        DESC_CS2100 = new UpdateEarningsDescriptorBuilder().withDate(VALID_DATE_EARNINGS_CS2100_A01)
+                .withType(VALID_TYPE_EARNINGS_CS2100_A01).withClassId(VALID_CLASSID_AMY)
+                .withAmount(VALID_AMOUNT_EARNINGS_CS2100_A01).build();
+        DESC_CS1231 = new UpdateEarningsDescriptorBuilder().withDate(VALID_DATE_EARNINGS_CS1231_T05)
+                .withType(VALID_TYPE_EARNINGS_CS1231_T05).withClassId(VALID_CLASSID_BOB)
+                .withAmount(VALID_AMOUNT_EARNINGS_CS1231_T05).build();
     }
 
     /**
@@ -120,6 +155,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -134,4 +170,17 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showEarningsAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredEarningsList().size());
+
+        Earnings earnings = model.getFilteredEarningsList().get(targetIndex.getZeroBased());
+        final String Date = earnings.getDate().dateNum;
+        model.updateFilteredEarningsList(new ClassIdContainKeywordPredicate(Collections.singletonList(Date)));
+
+        assertEquals(1, model.getFilteredEarningsList().size());
+    }
 }

@@ -31,9 +31,9 @@ public class AddEarningsCommandParser implements Parser<AddEarningsCommand> {
     public AddEarningsCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_DATE, PREFIX_CLASSID, PREFIX_AMOUNT, PREFIX_TYPE);
+                PREFIX_DATE, PREFIX_TYPE, PREFIX_CLASSID, PREFIX_AMOUNT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_CLASSID, PREFIX_AMOUNT, PREFIX_TYPE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_TYPE, PREFIX_CLASSID, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEarningsCommand.MESSAGE_USAGE));
         }

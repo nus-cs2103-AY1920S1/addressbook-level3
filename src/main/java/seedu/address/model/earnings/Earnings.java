@@ -12,7 +12,7 @@ import seedu.address.model.classid.ClassId;
  */
 public class Earnings {
 
-    private static Amount totalEarnings = new Amount("0.00");
+    private static Amount totalEarnings = new Amount("00.00");
 
     // Identity fields
     private final Date date;

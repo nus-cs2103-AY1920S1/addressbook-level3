@@ -60,6 +60,6 @@ public class Amount {
         double localAmt = Double.parseDouble(this.amount);
         double variableAmt = Double.parseDouble(amt.amount);
         double totalAmt = localAmt + variableAmt;
-        return new Amount(Double.toString(totalAmt));
+        return new Amount(String.format("%.2f", totalAmt));
     }
 }
