@@ -36,6 +36,7 @@ public class EditTemplateListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Edited template: %1$s";
     public static final String MESSAGE_NOT_EDITED = "Name field must be provided.";
+    public static final String MESSAGE_DUPLICATE_TEMPLATE = "There is already another template with the same name.";
 
     private final Index index;
     private final EditTemplateListDescriptor editTemplateListDescriptor;
@@ -63,6 +64,13 @@ public class EditTemplateListCommand extends Command {
 
         UniqueTemplateItems templateToEdit = lastShownList.get(index.getZeroBased());
         UniqueTemplateItems editedTemplate = createEditedTemplate(templateToEdit, editTemplateListDescriptor);
+
+        if (!editTemplateListDescriptor.isAnyFieldEdited()) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+        if (lastShownList.contains(editedTemplate) && editTemplateListDescriptor.isNameFieldEdited(templateToEdit)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TEMPLATE);
+        }
 
         model.setTemplate(templateToEdit, editedTemplate);
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
@@ -117,6 +125,21 @@ public class EditTemplateListCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name);
+        }
+
+        /**
+         * Returns true if the name field has been edited.
+         */
+        public boolean isNameFieldEdited(UniqueTemplateItems templateToEdit) {
+            if (CollectionUtil.isAnyNonNull(name)) {
+                String templateName = templateToEdit.getName().toString();
+                String templateNameToUpperCase = templateName.toUpperCase();
+                String nameToUpperCase = name.toString().toUpperCase();
+
+                return !nameToUpperCase.equals(templateNameToUpperCase);
+            };
+
+            return false;
         }
 
         public void setName(Name name) {
