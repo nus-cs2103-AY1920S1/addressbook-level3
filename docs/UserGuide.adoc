@@ -189,7 +189,7 @@ image::listallquestions.png[width="1000"]
 
 Bookmarks a question by its id.
 
-*Format:* `bookmark [id]...`
+*Format:* `bookmark [id]`
 
 ****
 * The id of a question can be found next to its title.
@@ -202,7 +202,7 @@ image::bookmark.png[width="1000"]
 
 Removes a bookmark from a question by its id.
 
-*Format:* `deletebookmark [id]...`
+*Format:* `deletebookmark [id]`
 
 ****
 * The id of a question can be found next to its title.
