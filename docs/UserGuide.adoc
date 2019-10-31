@@ -230,18 +230,18 @@ Deletes the 2nd find rule in the displayed list.
 ==== Creating new tags: `addtag`
 
 Generates a new tag. +
-Format: `addtag n/NAME`
+Format: `addtag t/NAME`
 
 Examples:
 
-* `newtag n/sssp`
+* `addtag t/sssp`
 
 ==== Listing tags: `listtag`
 
 Displays a list of all existing tags. +
 Format: `listtag`
 
-==== Deleting new tags: `deletetag`
+==== Deleting current tags: `deletetag`
 
 Deletes an existing tag. +
 Format: `deletetag INDEX`
@@ -539,11 +539,13 @@ e.g. `apply 2`
 * *Delete Find Rule*: `deletefindrule INDEX` +
 e.g. `deletefindrule 2`
 
-* *New Tag* : `addtag n/NAME` +
-e.g. `addtag n/sssp`
+* *New Tag* : `addtag t/NAME` +
+e.g. `addtag t/sssp`
 * *List Tags* : `listtag`
 * *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
+* *Edit tag* : `edittag INDEX t/TAGNAME` +
+e.g. `edittag 1 t/sort`
 
 * *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `addplan n/CS2040`
