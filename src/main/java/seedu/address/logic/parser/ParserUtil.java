@@ -356,8 +356,15 @@ public class ParserUtil {
         try {
             for (int index = 0; index < 3; index++) {
                 input[index] = Integer.parseInt(stringCalendar[index]);
+                if (input[index] <= 0) {
+                    throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS_LESS_THAN_0);
+                }
                 //offset for month
             }
+            if (input[0] < 1970 ) {
+                throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS_LESS_THAN_DEFAULT);
+            }
+
             localDateTime = LocalDateTime.of(input[0], input[1], input[2], 0, 0);
         } catch (NumberFormatException | DateTimeException e) {
             throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
