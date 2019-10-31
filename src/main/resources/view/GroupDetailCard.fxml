@@ -7,9 +7,8 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<ScrollPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="NEVER" fx:id="groupDetailCard">
-    <VBox fx:id="groupDetailContainer" spacing="10">
+    <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:id="groupDetailContainer" spacing="10">
         <VBox spacing="5">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
@@ -25,4 +24,3 @@
             <Label fx:id="groupDescription" styleClass="cell_small_label"/>
         </VBox>
     </VBox>
-</ScrollPane>
