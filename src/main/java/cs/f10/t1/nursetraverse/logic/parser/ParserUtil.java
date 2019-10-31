@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
@@ -202,7 +203,7 @@ public class ParserUtil {
         requireNonNull(endDateTime, startDateTime);
         String trimmedEndDateTime = endDateTime.trim();
         String trimmedStartDateTime = startDateTime.trim();
-        if (!EndDateTime.isValidEndDateTime(trimmedEndDateTime, trimmedStartDateTime)) {
+        if (!EndDateTime.isValidEndDateTime(trimmedStartDateTime, trimmedEndDateTime)) {
             throw new ParseException(EndDateTime.MESSAGE_CONSTRAINTS);
         }
         return new EndDateTime(trimmedEndDateTime);
@@ -214,13 +215,17 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code frequency} is invalid.
      */
-    public static Long parseFrequency(String frequency) throws ParseException {
-        String trimmedFrequency = frequency.trim();
-        if (!RecurringDateTime.isValidFrequency(trimmedFrequency)) {
-            throw new ParseException(RecurringDateTime.MESSAGE_CONSTRAINTS);
-        }
+    public static Long parseFrequency(Optional<String> frequency) throws ParseException {
+        if (!frequency.isPresent()) {
+            return Long.parseLong("0");
+        } else {
+            String trimmedFrequency = frequency.get().trim();
+            if (!RecurringDateTime.isValidSingleFrequency(trimmedFrequency)) {
+                throw new ParseException(RecurringDateTime.MESSAGE_CONSTRAINTS);
+            }
 
-        return RecurringDateTime.getSingleFrequencyAsLong(trimmedFrequency);
+            return RecurringDateTime.getSingleFrequencyAsLong(trimmedFrequency);
+        }
     }
 
     /**
@@ -229,10 +234,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static String parseDescription(String description) throws ParseException {
-        String trimmedDescription = description.trim();
-
-        return trimmedDescription;
+    public static String parseDescription(Optional<String> description) throws ParseException {
+        if (!description.isPresent()) {
+            return "";
+        } else {
+            String trimmedDescription = description.get().trim();
+            return trimmedDescription;
+        }
     }
 
 }

@@ -82,6 +82,14 @@ public class RecurringDateTime {
     /**
      * @return boolean, which is true if frequency is valid
      */
+    public static boolean isValidSingleFrequency(String freq) {
+        Long freqLong = Long.parseLong(freq);
+        return freqLong >= 0;
+    }
+
+    /**
+     * @return boolean, which is true if frequency is valid
+     */
     public static boolean isValidFrequency(String freq) {
         Long[] freqLongArray = frequencyStringToLong(freq);
         return freqLongArray.length == EXPECTED_FREQUENCY_ARRAY_LENGTH;
@@ -104,11 +112,7 @@ public class RecurringDateTime {
      * @return Long, which is 0 if string passed in is null
      */
     public static Long getSingleFrequencyAsLong(String freq) {
-        if (isNull(freq) || freq.isEmpty()) {
-            return Long.parseLong("0");
-        } else {
-            return Long.parseLong(freq);
-        }
+        return Long.parseLong(freq);
     }
 
     /**
