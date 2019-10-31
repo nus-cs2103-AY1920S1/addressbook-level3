@@ -22,7 +22,7 @@ public class MovingWord extends UiPart<Pane> {
     private static final int WINDOW_BOUNDARY = 500;
     private Pane parent;
     private Player player;
-    private double fallingRate = 4.0;
+    private double fallingRate = 2.0;
     private String word;
     private AnimationTimer animationTimer;
 
