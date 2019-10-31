@@ -21,13 +21,7 @@ public class UndoCommand extends Command {
         if (stackManager.isUndoStackEmpty()) {
             return new CommandResult(MESSAGE_UNDO_FAILURE);
         }
-        State currentState;
-        if (stackManager.isDateSorted()) {
-            currentState = new State(model, true, true);
-        } else {
-            currentState = new State(model);
-        }
-        State previousState = stackManager.undo(currentState);
+        State previousState = stackManager.undo(new State(model));
         model.update(previousState);
         return new CommandResult(MESSAGE_UNDO_SUCCESS);
     }

@@ -242,6 +242,8 @@ Format: `tag|<index>|<tag>[<other tags>]...`
 * The index refers to the index number shown in the list.
 * The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
 * Tags must be prefixed with a '#'.
+* Only a maximum of 5 tags allowed per item.
+* Tag lengths are restricted to 20 characters. So make use of those 20 characters wisely!
 * Tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
 ****
 

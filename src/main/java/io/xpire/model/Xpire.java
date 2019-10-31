@@ -4,7 +4,6 @@ import static io.xpire.model.tag.Tag.EXPIRED_TAG;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -39,7 +38,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
      * Replaces the contents of the xpireItem list with {@code xpireItems}.
      * {@code xpireItems} must not contain duplicate xpireItems.
      */
-    public void setItems(List<XpireItem> xpireItems) {
+    public void setItems(ObservableList<XpireItem> xpireItems) {
         this.items.setItems(xpireItems);
     }
 

@@ -66,7 +66,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new ReadOnlyListView[]{new Xpire(), new ReplenishList()}, new UserPrefs());
+        this(new ReadOnlyListView<?>[]{new Xpire(), new ReplenishList()}, new UserPrefs());
     }
 
     //=========== UserPrefs =========================================================================================
@@ -106,7 +106,7 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyListView<? extends Item>[] getLists() {
-        return new ReadOnlyListView[]{this.xpire, this.replenishList};
+        return new ReadOnlyListView<?>[]{this.xpire, this.replenishList};
     }
 
     //=========== expiryDateTracker  ================================================================================

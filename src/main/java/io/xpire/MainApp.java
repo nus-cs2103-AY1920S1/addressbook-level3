@@ -111,7 +111,7 @@ public class MainApp extends Application {
             initialReplenishData = new ReplenishList();
         }
 
-        return new ModelManager(new ReadOnlyListView[]{initialTrackerData, initialReplenishData}, userPrefs);
+        return new ModelManager(new ReadOnlyListView<?>[]{initialTrackerData, initialReplenishData}, userPrefs);
     }
 
     private void initLogging(Config config) {

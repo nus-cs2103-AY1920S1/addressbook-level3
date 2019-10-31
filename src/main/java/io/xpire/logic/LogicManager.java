@@ -55,7 +55,6 @@ public class LogicManager implements Logic {
         }
         Command command = this.parser.parse(commandText);
         commandResult = command.execute(this.model, this.stackManager);
-
         //System.out.println("ALLITEMS");
         //this.model.getXpire().getItemList().forEach(System.out::println);
         //System.out.println("Xpireitem");

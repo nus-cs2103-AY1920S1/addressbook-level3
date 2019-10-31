@@ -26,6 +26,8 @@ import io.xpire.model.tag.TagItemDescriptor;
  */
 public class TagCommand extends Command {
 
+
+
     /**
      * Private enum to indicate whether command shows all tags or tags and xpireItem
      */
@@ -36,6 +38,7 @@ public class TagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Tags the xpireItem identified by the index number used in the displayed xpireItem list.\n"
+            + "Note that only 5 tags are allowed per item. \n"
             + "Format: <index>|<tag>[<other tags>]...\n"
             + "(index must be a positive integer; each tag must be prefixed with a '#')\n"
             + "Example: " + COMMAND_WORD + "|1|#Food #Fruit";
@@ -43,10 +46,14 @@ public class TagCommand extends Command {
     public static final String MESSAGE_TAG_ITEM_SUCCESS = "Tagged xpireItem: %1$s";
     public static final String MESSAGE_TAG_SHOW_SUCCESS = "All xpireItem tags:";
     public static final String MESSAGE_TAG_SHOW_FAILURE = "There are no tags.";
+    private static final String MESSAGE_TOO_MANY_TAGS = "Only 5 tags are allowed per item.";
+    private static final String MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING = "Warning! "
+            + "Some tag(s) have been truncated. Maximum tag length accepted is 20.\nTagged xpireItem: %1$s";
 
     private final Index index;
     private final TagItemDescriptor tagItemDescriptor;
     private final TagMode mode;
+    private boolean containsLongTags = false;
     private Item item = null;
 
 
@@ -81,15 +88,20 @@ public class TagCommand extends Command {
 
         switch (this.mode) {
         case TAG:
-            stackManager.saveState(new State(model));
             if (this.index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
-
             XpireItem xpireItemToTag = (XpireItem) lastShownList.get(this.index.getZeroBased());
             this.item = xpireItemToTag;
             XpireItem taggedXpireItem = createTaggedItem(xpireItemToTag, this.tagItemDescriptor);
+            if (this.tagItemDescriptor.getTags().stream().anyMatch(Tag::isTruncated)) {
+                this.containsLongTags = true;
+            }
+            stackManager.saveState(new State(model));
             model.setItem(xpireItemToTag, taggedXpireItem);
+            if (containsLongTags) {
+                return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedXpireItem));
+            }
             return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedXpireItem));
 
         case SHOW:
@@ -126,9 +138,13 @@ public class TagCommand extends Command {
      * Creates and returns a {@code XpireItem} with the details of {@code xpireItemToTag}
      * edited with {@code tagItemDescriptor}.
      */
-    private static XpireItem createTaggedItem(XpireItem xpireItemToTag, TagItemDescriptor tagItemDescriptor) {
+    private static XpireItem createTaggedItem(XpireItem xpireItemToTag, TagItemDescriptor tagItemDescriptor)
+            throws CommandException {
         assert xpireItemToTag != null;
         Set<Tag> updatedTags = updateTags(xpireItemToTag, tagItemDescriptor);
+        if (updatedTags.size() >= 6) {
+            throw new CommandException(MESSAGE_TOO_MANY_TAGS);
+        }
         return new XpireItem(xpireItemToTag.getName(), xpireItemToTag.getExpiryDate(), xpireItemToTag.getQuantity(),
                 updatedTags, xpireItemToTag.getReminderThreshold());
     }
