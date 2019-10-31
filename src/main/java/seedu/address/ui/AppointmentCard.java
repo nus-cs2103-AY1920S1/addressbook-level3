@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.reminder.Appointment;
@@ -19,6 +21,8 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private HBox appointmentCardPane;
     @FXML
+    private ImageView icon;
+    @FXML
     private Label title;
     @FXML
     private Label date;
@@ -27,8 +31,19 @@ public class AppointmentCard extends UiPart<Region> {
     public AppointmentCard(Appointment appointment) {
         super(FXML);
         this.appointment = appointment;
-        title.setText(appointment.getDescription());
-        date.setText(appointment.getDaysString());
+
+        String description = appointment.getDescription();
+
+        // Add icon based on whether reminder or followup
+        if (description.startsWith("[R] ")) {
+            icon.setImage(new Image("/images/reminder.png"));
+            title.setText(description.substring(4));
+        } else {
+            icon.setImage(new Image("/images/follow_up.png"));
+            title.setText(description.substring(4));
+        }
+
+        date.setText("Days left: " + appointment.getDaysString());
     }
 
     @Override
