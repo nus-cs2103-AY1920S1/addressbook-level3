@@ -346,7 +346,7 @@ image::ViewSequenceDiagram.png[]
 
 // tag::invitedisinvite[]
 === Invite/Disinvite feature
-==== Proposed Implementation
+==== Implementation
 
 The invite/disinvite mechanism is facilitated by `Activity`.
 It extends `AddressBook` with an `ActivityBook`, stored internally as an `activityList`. Additionally, it implements the following operations:

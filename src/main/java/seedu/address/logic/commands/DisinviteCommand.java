@@ -153,7 +153,7 @@ public class DisinviteCommand extends Command {
             result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
         }
 
-        // TODO: check disinvite function again with the updated expense
+
 
         return new CommandResult(result);
 
