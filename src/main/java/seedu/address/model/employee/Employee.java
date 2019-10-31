@@ -29,6 +29,7 @@ public class Employee {
     private final EmployeeAddress employeeAddress;
     private final Set<Tag> tags = new HashSet<>();
     private final EmployeeJoinDate employeeJoinDate;
+    private final EmployeeFinances employeeFinances = null; //edit later
 
     /**
      * Every field must be present and not null.
@@ -117,6 +118,10 @@ public class Employee {
 
     public void setEmployeePendingPay(EmployeePendingPay employeePendingPay) {
         this.employeePendingPay = employeePendingPay;
+    }
+
+    public void updateEmployeeFinances(EmployeeTotalSalary totalSalary, EmployeePendingPay pendingSalary) {
+        employeeFinances.setFinances(totalSalary, pendingSalary);
     }
 
     /**

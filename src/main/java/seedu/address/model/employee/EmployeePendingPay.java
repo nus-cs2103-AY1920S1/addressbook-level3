@@ -1,7 +1,7 @@
 package seedu.address.model.employee;
 
 /**
- * Represents a Employee's Pay  in the address book.
+ * Represents a Employee's PendingPay  in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPay(String)}
  */
 public class EmployeePendingPay {
