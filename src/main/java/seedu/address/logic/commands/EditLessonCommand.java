@@ -18,8 +18,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.lesson.Time;
+import seedu.address.model.lesson.UniqueLessonList;
 
 /**
  * Edits the details of an existing lesson in the classroom.
@@ -69,8 +69,8 @@ public class EditLessonCommand extends Command {
         List<UniqueLessonList> lastShownList = model.getFilteredLessonWeekList();
         UniqueLessonList dayList = lastShownList.get(day.getZeroBased());
 
-        if (index.getZeroBased() >= dayList.asUnmodifiableObservableList().size() ||
-                day.getZeroBased() < 0 || day.getZeroBased() > 7) {
+        if (index.getZeroBased() >= dayList.asUnmodifiableObservableList().size() 
+            || day.getZeroBased() < 0 || day.getZeroBased() > 7) {
             throw new CommandException(Messages.MESSAGE_INVALID_LESSON_DISPLAYED_INDEX);
         }
 
