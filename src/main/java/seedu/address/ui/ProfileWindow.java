@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.Set;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -9,11 +11,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenerateProfileCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.VisitList;
+import seedu.address.model.person.VisitReport;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,8 +30,9 @@ import seedu.address.model.tag.Tag;
  */
 public class ProfileWindow extends UiPart<Stage> {
     private static final String FXML = "ProfileWindow.fxml";
+    private static final String line = "==================================================================\n";
 
-    private int target;
+    private Logic logic;
 
     @FXML
     private TextArea nameField;
@@ -43,6 +52,9 @@ public class ProfileWindow extends UiPart<Stage> {
     @FXML
     private TextArea visitField;
 
+    @FXML
+    private Label message;
+
 
     public ProfileWindow(Stage root) {
         super(FXML, root);
@@ -60,17 +72,18 @@ public class ProfileWindow extends UiPart<Stage> {
     }
 
     /**
-     *
-     * @param person
+     * Initializes the Profile Window with the particulars from the Person instance.
+     * @param person Person instance to show in the Profile Window
      */
-    public void setup(Person person) {
+    public void setup(Person person, Logic logic) {
+        this.logic = logic;
+
         nameField.setText(stringifyName(person.getName()));
         tagField.setText(stringifyTags(person.getTags()));
         phoneField.setText(stringifyPhone(person.getPhone()));
         emailField.setText(stringifyEmail(person.getEmail()));
         addressField.setText(stringifyAddress(person.getAddress()));
-        // TODO: Implement the displaying of Visit information neatly
-        //visitField.setText(person.getVisitList());
+        visitField.setText(stringifyVisit(person.getVisitList()));
     }
 
     /**
@@ -122,7 +135,58 @@ public class ProfileWindow extends UiPart<Stage> {
         return address.value;
     }
 
-    // private String stringify
+    /**
+     * @param visitList
+     * @return
+     */
+    private String stringifyVisit(VisitList visitList) {
+        if (visitList == null) {
+            return "-";
+        }
+
+        ArrayList<VisitReport> visits = visitList.getRecords();
+
+        if (visits.size() == 0) {
+            return "-";
+        }
+
+        StringBuilder output = new StringBuilder();
+
+        for (VisitReport visit : visits) {
+            output.append(stringifyVisitReport(visit));
+            output.append(line);
+            output.append("\n");
+        }
+
+        return output.toString();
+    }
+
+    /**
+     * @param report
+     * @return
+     */
+    private String stringifyVisitReport(VisitReport report) {
+        String date = report.date;
+        String diagnosis = report.getDiagnosis();
+        String medication = report.getMedication();
+        String remarks = report.getRemarks();
+
+        StringBuilder output = new StringBuilder();
+
+        // [Report on the XX/XX/2XXX]
+        output.append("[ Report on the " + date + "]\n\n");
+
+        // *Diagnosis*: DIAGNOSIS
+        output.append("*Diagnosis*:\n" + diagnosis + "\n\n");
+
+        // *Medication prescribed*: MEDICATION
+        output.append("*Medication prescribed*:\n" + medication + "\n\n");
+
+        // *Remarks*: REMARKS
+        output.append("*Remarks*:\n" + remarks + "\n\n");
+
+        return output.toString();
+    }
 
     /**
      * Shows the Profile Panel.
@@ -173,6 +237,22 @@ public class ProfileWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * @param event
+     * @throws CommandException
+     */
+    @FXML
+    void generateProfilePressed(ActionEvent event) throws CommandException {
+        GenerateProfileCommand generateProfile = new GenerateProfileCommand(nameField.getText(), tagField.getText(),
+                phoneField.getText(), emailField.getText(), addressField.getText(), visitField.getText());
+        try {
+            CommandResult commandResult = logic.execute(generateProfile);
+            message.setText("A log has been successfully created.");
+        } catch (CommandException e) {
+            throw e;
+        }
     }
 
     @FXML

@@ -22,7 +22,7 @@
                 <URL value="@DarkTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-            <VBox fx:id="profilePanel" minHeight="330.0" minWidth="535.0" prefHeight="536.0" prefWidth="622.0" styleClass="background">
+            <VBox fx:id="profilePanel" minHeight="330.0" minWidth="535.0" prefHeight="536.0" prefWidth="628.0" styleClass="background">
                 <children>
                <HBox maxHeight="30.0" prefHeight="30.0" prefWidth="200.0">
                   <children>
@@ -45,7 +45,12 @@
                            </Button>
                         </children>
                      </HBox>
-                     <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                        <children>
+                           <Label fx:id="message" prefHeight="15.0" prefWidth="255.0" styleClass="label-bright-footnote" />
+                        </children>
+                     </HBox>
+                     <HBox alignment="TOP_RIGHT" maxWidth="-Infinity" minWidth="20.0" prefHeight="27.0" prefWidth="20.0">
                         <children>
                            <Label fx:id="exitButton" alignment="CENTER" contentDisplay="RIGHT" onMouseClicked="#mouseClickExit" onMouseEntered="#mouseEnterExit" onMouseExited="#mouseLeaveExit" styleClass="label-bright-footnote" text="[X]">
                               <font>

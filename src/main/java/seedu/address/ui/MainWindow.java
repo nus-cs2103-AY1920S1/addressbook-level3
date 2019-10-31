@@ -305,9 +305,10 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowProfile()) {
-                profilePanel.setup(commandResult.getProfilePerson());
+                profilePanel.setup(commandResult.getProfilePerson(), logic);
                 handleProfilePanel();
             }
+
             if (commandResult.isShowAliasList()) {
                 aliasListWindow.setup(commandResult.getFeedbackToUser());
                 handleAliasListWindow();
