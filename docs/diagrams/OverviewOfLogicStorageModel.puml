@@ -1,0 +1,110 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.2
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyWordBankList <<Interface>>
+Interface ReadOnlyWordBankStatisticsList <<Interface>>
+Interface ReadOnlyAppSettings <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class WordBankList
+Class WordBankStatisticsList
+Class GlobalStatistics
+Class AppSettings
+Class Model
+Class ModelManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
+Class Game
+
+Package WordBank {
+Class WordBank
+Class Name
+Class UniqueWordBankList
+}
+
+Package UniqueCardList {
+Class UniqueCardList
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+WordBankList .up.|> ReadOnlyWordBankList
+WordBankStatisticsList .up.|> ReadOnlyWordBankStatisticsList
+AppSettings .up.|> ReadOnlyAppSettings
+
+
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager o--> "1" WordBankList
+ModelManager o--> "1" WordBankStatisticsList
+ModelManager o--> "1" GlobalStatistics
+ModelManager o--> "1" AppSettings
+ModelManager o--> "1" UserPrefs
+ModelManager o--> "1" Game
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+WordBankList *-down-> "1" UniqueWordBankList
+UniqueWordBankList o--> "*" WordBank
+WordBank *-down-> "1" UniqueCardList
+WordBank *-down-> "1" Name
+
+ModelManager -->"1" WordBank : contains
+
+package Storage {
+Interface Storage <<Interface>>
+Interface UserPrefsStorage <<Interface>>
+Interface WordBankListStorage <<Interface>>
+Interface WordBankStatisticsListStorage <<Interface>>
+Interface GlobalStatisticsStorage <<Interface>>
+Interface AppSettingsStorage <<Interface>>
+
+Class StorageManager
+Class JsonUserPrefsStorage
+Class JsonWordBankListStorage
+Class WordBankStatisticsListStorage
+Class GlobalStatisticsStorage
+Class JsonAppSettingsStorage
+Class JsonSerializableWordBank
+Class JsonAdaptedCard
+Class JsonAdaptedTag
+Class JsonGlobalStatisticsStorage
+Class JsonSerializableGlobalStatistics
+Class JsonAdaptedWeeklyPlayed
+Class JsonWordBankStatisticsListStorage
+Class JsonSerializableWordBankStatistics
+Class JsonAdaptedCardStatistics
+}
+
+StorageManager .up.|> Storage
+StorageManager o--> UserPrefsStorage
+StorageManager o--> WordBankListStorage
+StorageManager o--> WordBankStatisticsListStorage
+StorageManager o--> GlobalStatisticsStorage
+StorageManager o--> AppSettingsStorage
+
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+
+JsonWordBankListStorage .up.|> WordBankListStorage
+JsonWordBankListStorage .down.> JsonSerializableWordBank
+JsonSerializableWordBank .down.> JsonAdaptedCard
+JsonAdaptedCard .down.> JsonAdaptedTag
+
+JsonWordBankStatisticsListStorage .up.|> WordBankStatisticsListStorage
+JsonWordBankStatisticsListStorage .down.> JsonSerializableWordBankStatistics
+JsonSerializableWordBankStatistics .down.> JsonAdaptedCardStatistics
+
+JsonGlobalStatisticsStorage .up.|> GlobalStatisticsStorage
+JsonGlobalStatisticsStorage .down.> JsonSerializableGlobalStatistics
+JsonSerializableGlobalStatistics .down.> JsonAdaptedWeeklyPlayed
+
+JsonAppSettingsStorage .up.|> AppSettingsStorage
+@enduml
+
+

@@ -513,14 +513,14 @@ image::WordBanks.png[]
 We start from the lowest level - `Card`. +
 
 .Class diagram of `Card`.
-image::MyCardClassDiagram.png[]
+image::CardDiagram.png[]
 
-A `Card` contains a unique `id`, a `word`, a unique `meaning`, a list of `tag`. +
+A `Card` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`. +
 
 `id` : for statistical tracking +
 `word`: answer to the question +
 `meaning`: the question that will appear in the game +
-`tag`: optional tag to classify cards
+`tags`: optional tag to classify cards
 
 [NOTE]
 Cards with the same meaning are duplicates, and is disallowed.
@@ -532,7 +532,7 @@ Cards with the same meaning are duplicates, and is disallowed.
 Now the second level - `WordBank`
 
 .Class diagram of `Word Bank`.
-image::MyWordBankClassDiagram.png[]
+image::WordBankDiagram.png[]
 
 A `WordBank` contains a `UniqueCardList` and a unique `name`. +
 
@@ -550,7 +550,7 @@ This is so any changes to the cards gets updated in the `Model` and thus the `UI
 Now the third level - `WordBankList`
 
 .Class diagram of `WordBankList`.
-image::MyWordBankListClassDiagram.png[]
+image::WordBankListDiagram.png[]
 
 A `WordBankList` contains a `UniqueWordBankList`.
 
@@ -565,7 +565,12 @@ In Dukemon, there is should only be one `WordBankList`, which is created upon `S
 
 ---
 
-Now the overview - How these data structures are stored in `Model` and `Storage`.
+.Entire overview `WordBankList`.
+image::OverviewOfWordBankList.png[]
+
+---
+
+Now the integration - How these data structures are stored in `Model` and `Storage`.
 
 .Simplified class diagram of `Model`.
 image::Model.png[]

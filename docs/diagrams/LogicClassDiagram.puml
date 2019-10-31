@@ -39,6 +39,7 @@ Logic -up-|> UiLogicHelper
 
 LogicManager .up.|> Logic
 LogicManager -->"1" ParserManager
+
 ParserManager ..> SpecificModeParser
 ParserManager ..> SwitchModeParser
 SpecificModeParser ..> ClassUtil
