@@ -1,19 +1,125 @@
 package seedu.billboard.model.statistics.generators;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.concurrent.Task;
+
+import javafx.util.Pair;
+import seedu.billboard.commons.core.date.DateInterval;
+import seedu.billboard.commons.core.date.DateRange;
+import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.ExpenseHeatMap;
+import seedu.billboard.model.statistics.formats.FilledExpenseHeatMap;
 
-import java.util.List;
-
+/**
+ * Stateless class to generate a heatmap of aggregate expenses. Methods here are guaranteed to have no side effects,
+ * or depend on external state.
+ */
 public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
+
+    /**
+     * Generates an {@code ExpenseHeatMap} from the given list of expenses over a default date range of one year
+     * before the latest expense in the list.
+     * @return An {@code ExpenseHeatMap} representing the aggregate expenses over each day in the date range.
+     */
     @Override
     public ExpenseHeatMap generate(List<? extends Expense> expenses) {
-        return null;
+        List<? extends Expense> sortedExpense = sortExpenses(expenses);
+        LocalDate latestDate = getLatestDate(sortedExpense);
+
+        return generate(expenses, DateRange.fromClosed(
+                latestDate.with(DateInterval.YEAR.getAdjuster()), latestDate));
     }
 
+    /**
+     * Generates an {@code ExpenseHeatMap} from the given list of expenses over the specified date range.
+     * @return An {@code ExpenseHeatMap} representing the aggregate expenses over each day in the date range.
+     */
+    public ExpenseHeatMap generate(List<? extends Expense> expenses, DateRange dateRange) {
+        List<? extends Expense> sortedExpense = sortExpenses(expenses);
+
+        List<Pair<DateRange, EnumMap<DayOfWeek, Amount>>> heatMapValues = dateRange
+                .partitionByInterval(DateInterval.WEEK)
+                .stream()
+                .map(range -> new Pair<>(range, new EnumMap<DayOfWeek, Amount>(DayOfWeek.class)))
+                .collect(Collectors.toList());
+
+        sortedExpense.forEach(expense -> addExpenseToHeatMap(dateRange, heatMapValues, expense));
+
+        return new FilledExpenseHeatMap(heatMapValues);
+    }
+
+    /**
+     * Generates an {@code ExpenseHeatMap} asynchronously from the given list of expenses over a default date range
+     * of one year before the latest expense in the list.
+     * @return An {@code ExpenseHeatMap} representing the aggregate expenses over each day in the date range.
+     */
     @Override
     public Task<ExpenseHeatMap> generateAsync(List<? extends Expense> expenses) {
-        return null;
+        List<? extends Expense> sortedExpense = sortExpenses(expenses);
+        LocalDate latestDate = getLatestDate(sortedExpense);
+
+        return generateAsync(sortedExpense, DateRange.fromClosed(
+                latestDate.with(DateInterval.YEAR.getAdjuster()), latestDate));
+    }
+
+    /**
+     * Generates an {@code ExpenseHeatMap} asynchronously from the given list of expenses over the specified date range.
+     * @return An {@code ExpenseHeatMap} representing the aggregate expenses over each day in the date range.
+     */
+    public Task<ExpenseHeatMap> generateAsync(List<? extends Expense> expenses, DateRange dateRange) {
+        Task<ExpenseHeatMap> expenseHeatMapTask = new Task<>() {
+            @Override
+            protected ExpenseHeatMap call() {
+                List<? extends Expense> copy = new ArrayList<>(expenses);
+                return generate(copy, dateRange);
+            }
+        };
+        Thread thread = new Thread(expenseHeatMapTask);
+        thread.setDaemon(true);
+        thread.start();
+        return expenseHeatMapTask;
+    }
+
+    private List<? extends Expense> sortExpenses(List<? extends Expense> expenses) {
+        return expenses.stream()
+                .sorted(Comparator.comparing(expense -> expense.getCreated().dateTime))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Gets the latest created date out of a list of expenses sorted by date.
+     */
+    private LocalDate getLatestDate(List<? extends Expense> sortedExpense) {
+        return sortedExpense.get(sortedExpense.size() - 1)
+                .getCreated()
+                .dateTime.toLocalDate();
+    }
+
+    /**
+     * Aggregates the given expense with the heat map values, if the expense lies within the accepted date range for
+     * the heat map.
+     */
+    private void addExpenseToHeatMap(DateRange dateRange,
+                                     List<Pair<DateRange, EnumMap<DayOfWeek, Amount>>> heatMapValues,
+                                     Expense expense) {
+        LocalDate createdDate = expense.getCreated().dateTime.toLocalDate();
+
+        if (dateRange.contains(createdDate)) {
+            int index = (int) ChronoUnit.WEEKS.between(dateRange.getStartDate(), createdDate);
+            DayOfWeek dayOfWeek = createdDate.getDayOfWeek();
+
+            heatMapValues.get(index)
+                    .getValue()
+                    .merge(dayOfWeek, expense.getAmount(), Amount::add);
+        }
     }
 }

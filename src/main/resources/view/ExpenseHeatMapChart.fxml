@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.BubbleChart?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.NumberAxis?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
@@ -14,11 +14,19 @@
                  AnchorPane.topAnchor="0.0"
                  minHeight="370.0" prefHeight="370.0" maxHeight="370.0"
                  minWidth="540.0" prefWidth="540.0" maxWidth="540.0"
-                 title="Heat Map">
+                 title="Heatmap">
 
-        <padding>
-            <Insets left="15.0" right="15.0"/>
-        </padding>
+        <xAxis>
+            <NumberAxis fx:id="xAxis"
+                        autoRanging="false">
+            </NumberAxis>
+        </xAxis>
+
+        <yAxis>
+            <NumberAxis fx:id="yAxis"
+                        autoRanging="false">
+            </NumberAxis>
+        </yAxis>
 
     </BubbleChart>
 

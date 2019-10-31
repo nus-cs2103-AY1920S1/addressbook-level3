@@ -58,6 +58,7 @@ public class ChartBox extends UiPart<Region> {
             break;
         case HEAT_MAP:
             currentChart = new ExpenseHeatMapChart(expenses, new HeatMapGenerator());
+            break;
         default:
             throw new UnsupportedOperationException("Chart not implemented for selected statistic");
         }
