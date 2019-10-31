@@ -32,7 +32,7 @@ public class BeginVisitCommand extends Command implements MutatorCommand {
             + "list displayed using the list or find patient commands.\n"
             + "Parameters: "
             + PREFIX_PATIENT_INDEX + "PATIENT_INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + PREFIX_PATIENT_INDEX + "1 ";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_PATIENT_INDEX + " 1 ";
 
     public static final String MESSAGE_START_VISIT_SUCCESS = "Started a new visit under patient: %1$s";
     public static final String MESSAGE_START_VISIT_FAILURE = "There is already an ongoing visit.";

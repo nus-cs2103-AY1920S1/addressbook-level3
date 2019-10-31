@@ -1,12 +1,8 @@
 package cs.f10.t1.nursetraverse.ui;
 
-import java.util.Comparator;
-
-import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.model.visit.Visit;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -14,9 +10,9 @@ import javafx.scene.layout.StackPane;
 /**
  * An UI component that displays information of a {@code Visit}.
  */
-public class OngoingVisitCard extends UiPart<Region> {
+public class FinishedVisitCard extends UiPart<Region> {
 
-    private static final String FXML = "OngoingVisitListCard.fxml";
+    private static final String FXML = "FinishedVisitCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,15 +27,7 @@ public class OngoingVisitCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private Label index;
     @FXML
     private Label startDateTime;
     @FXML
@@ -49,21 +37,14 @@ public class OngoingVisitCard extends UiPart<Region> {
     @FXML
     private StackPane visitTasksPlaceholder;
 
-    public OngoingVisitCard(Visit visit) {
+    public FinishedVisitCard(Visit visit, int visitIndex) {
         super(FXML);
         this.visit = visit;
 
-        Patient patient = this.visit.getPatient();
-
-        name.setText(patient.getName().fullName);
-        phone.setText(patient.getPhone().value);
-        address.setText(patient.getAddress().value);
-        email.setText(patient.getEmail().value);
-
-        patient.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-
+        //There's substantial overlap with this code here and OngoingVisitCard
+        //But it is not combined as I do not want the designs to be intertwined
+        //e.g. inclusion of index for example
+        index.setText(Integer.toString(visitIndex));
         startDateTime.setText(visit.getStartDateTime().toString());
         if (visit.getEndDateTime().isPresent()) {
             endDateTime.setText(visit.getEndDateTime().get().toString());
@@ -89,12 +70,12 @@ public class OngoingVisitCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof OngoingVisitCard)) {
+        if (!(other instanceof FinishedVisitCard)) {
             return false;
         }
 
         // state check
-        OngoingVisitCard card = (OngoingVisitCard) other;
+        FinishedVisitCard card = (FinishedVisitCard) other;
         return visit.equals(card.visit);
     }
 }
