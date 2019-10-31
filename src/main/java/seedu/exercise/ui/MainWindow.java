@@ -3,6 +3,7 @@ package seedu.exercise.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -72,6 +73,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane chartPlaceholder;
 
+    @FXML
+    private StackPane statsPlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -125,6 +129,8 @@ public class MainWindow extends UiPart<Stage> {
         resourceListPanelPlaceholder.getTabs().add(suggestionListTabPlaceholder);
 
         chartPlaceholder.getChildren().add(new LineChartPanel(logic.getStatistic()).getRoot());
+        Label totalAndAverage = new Label(getTotalAndAverage());
+        statsPlaceholder.getChildren().add(totalAndAverage);
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -151,6 +157,18 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             chartPlaceholder.getChildren().add(new PieChartPanel(statistic).getRoot());
         }
+    }
+
+    private String getTotalAndAverage() {
+        Statistic statistic = logic.getStatistic();
+        return ChartTextUtil.totalFormatter(statistic.getCategory(), statistic.getTotal()) + "\n"
+                + ChartTextUtil.averageFormatter(statistic.getCategory(), statistic.getAverage());
+    }
+
+    private void setStats() {
+        statsPlaceholder.getChildren().clear();
+        Label totalAndAverage = new Label(getTotalAndAverage());
+        statsPlaceholder.getChildren().add(totalAndAverage);
     }
 
     private void displayInitialList() {
@@ -200,6 +218,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             setChart();
+            setStats();
 
             shouldShowWindowsBasedOnCommandResult(commandResult);
             shouldExitAppBasedOnCommandResult(commandResult);

@@ -15,7 +15,7 @@ import seedu.exercise.logic.commands.statistic.Statistic;
  */
 public class BarChartPanel extends UiPart<Region> {
     private static final String FXML = "BarChartPanel.fxml";
-
+    private static final String DEFAULT_EXERCISES = "Exercises";
     private Statistic statistic;
 
     @FXML
@@ -38,21 +38,21 @@ public class BarChartPanel extends UiPart<Region> {
         String category = statistic.getCategory();
         String startDate = statistic.getStartDate().toString();
         String endDate = statistic.getEndDate().toString();
-        ArrayList<String> names = statistic.getProperties();
+        ArrayList<String> properties = statistic.getProperties();
         ArrayList<Double> values = statistic.getValues();
 
         barChart.setAnimated(false);
         barChart.layout();
 
-        xAxis.setLabel(ChartTextUtil.changeFirstLetterToUpperCase("exercises"));
-        yAxis.setLabel(ChartTextUtil.barChartLabelFormatter(statistic.getCategory()));
+        xAxis.setLabel(DEFAULT_EXERCISES);
+        yAxis.setLabel(ChartTextUtil.labelFormatter(statistic.getCategory()));
 
         XYChart.Series<String, Double> series = new XYChart.Series<>();
 
-        int size = names.size();
+        int size = properties.size();
         for (int i = 0; i < size; i++) {
             series.getData().add(new XYChart.Data<>(ChartTextUtil
-                .changeFirstLetterToUpperCase(names.get(i)), values.get(i)));
+                .changeFirstLetterToUpperCase(properties.get(i)), values.get(i)));
         }
 
         barChart.setLegendVisible(false);

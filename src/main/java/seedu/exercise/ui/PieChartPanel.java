@@ -31,20 +31,23 @@ public class PieChartPanel extends UiPart<Region> {
         String category = statistic.getCategory();
         String startDate = statistic.getStartDate().toString();
         String endDate = statistic.getEndDate().toString();
-        ArrayList<String> names = statistic.getProperties();
+        ArrayList<String> properties = statistic.getProperties();
         ArrayList<Double> values = statistic.getValues();
 
-        int size = names.size();
+        int size = properties.size();
         if (size == 0) {
             PieChart.Data slice = new PieChart.Data("No exercise data found", 1);
             pieChart.getData().add(slice);
         }
 
         for (int i = 0; i < size; i++) {
-            PieChart.Data slice = new PieChart.Data(names.get(i), values.get(i));
+            double percentage = Statistic.percentage(values.get(i), statistic.getTotal());
+            PieChart.Data slice = new PieChart.Data(ChartTextUtil.percentageFormatter(properties.get(i), percentage),
+                    values.get(i));
             pieChart.getData().add(slice);
         }
 
+        pieChart.setLegendVisible(false);
         pieChart.setTitle(ChartTextUtil.pieChartTitleFormatter(category, startDate, endDate));
     }
 }

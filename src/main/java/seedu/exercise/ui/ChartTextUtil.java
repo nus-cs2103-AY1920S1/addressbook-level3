@@ -26,20 +26,9 @@ public class ChartTextUtil {
     }
 
     /**
-     * Returns the y-axis label of bar chart.
+     * Returns the y-axis label of bar and line chart.
      */
-    public static String barChartLabelFormatter(String category) {
-        if (category.equals("exercise")) {
-            return "Quantity";
-        } else {
-            return "kcal";
-        }
-    }
-
-    /**
-     * Returns the y-axis label of line chart.
-     */
-    public static String lineChartLabelFormatter(String category) {
+    public static String labelFormatter(String category) {
         if (category.equals("exercise")) {
             return "Frequency";
         } else {
@@ -52,5 +41,34 @@ public class ChartTextUtil {
      */
     public static String changeFirstLetterToUpperCase(String string) {
         return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
+    /**
+     * Returns the percentage of property for pie chart.
+     */
+    public static String percentageFormatter(String property, double percentage) {
+        return String.format("%s \n[%.2f%%]", property, percentage);
+    }
+
+    /**
+     * Returns the formatted string of total.
+     */
+    public static String totalFormatter(String category, double total) {
+        if (category.equals("exercise")) {
+            return String.format("Total: %.2f Exercise(s)", total);
+        } else {
+            return String.format("Total: %.2f kcal", total);
+        }
+    }
+
+    /**
+     * Returns the formatted string of average.
+     */
+    public static String averageFormatter(String category, double average) {
+        if (category.equals("exercise")) {
+            return String.format("Average: %.2f Exercise(s)", average);
+        } else {
+            return String.format("Average: %.2f kcal", average);
+        }
     }
 }

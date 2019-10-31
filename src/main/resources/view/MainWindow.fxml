@@ -45,7 +45,16 @@
                     </center>
 
                     <right>
-                        <StackPane fx:id="chartPlaceholder" BorderPane.alignment="CENTER" styleClass="chartBox"/>
+                        <BorderPane styleClass="pane-with-border">
+                            <center>
+                                <StackPane fx:id="chartPlaceholder" BorderPane.alignment="CENTER"
+                                           styleClass="chartBox"/>
+                            </center>
+
+                            <bottom>
+                                <StackPane fx:id="statsPlaceholder"/>
+                            </bottom>
+                        </BorderPane>
                     </right>
                 </BorderPane>
 
@@ -53,11 +62,10 @@
                     <left>
                         <StackPane styleClass="logoBox">
                             <padding>
-                                <Insets left="10" />
+                                <Insets left="10"/>
                             </padding>
                             <ImageView fx:id="logoImageView" fitWidth="100" fitHeight="100"/>
                         </StackPane>
-
                     </left>
 
                     <center>

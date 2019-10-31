@@ -22,12 +22,14 @@ public class Statistic {
     private Date endDate;
     private ArrayList<String> properties;
     private ArrayList<Double> values;
+    private double total;
+    private double average;
 
     /**
      * Every field must be present and not null.
      */
     public Statistic(String category, String chart, Date startDate, Date endDate,
-                     ArrayList<String> properties, ArrayList<Double> values) {
+                     ArrayList<String> properties, ArrayList<Double> values, double total, double average) {
         requireAllNonNull(category, chart, startDate, endDate, properties, values);
         this.category = category;
         this.chart = chart;
@@ -35,6 +37,8 @@ public class Statistic {
         this.endDate = endDate;
         this.properties = properties;
         this.values = values;
+        this.total = total;
+        this.average = average;
     }
 
     /**
@@ -48,6 +52,15 @@ public class Statistic {
         setEndDate(newStatistic.getEndDate());
         setProperties(newStatistic.getProperties());
         setValues(newStatistic.getValues());
+        setTotal(newStatistic.getTotal());
+        setAverage(newStatistic.getAverage());
+    }
+
+    /**
+     * Calculates and returns the percentage of value.
+     */
+    public static double percentage(double value, double total) {
+        return value / total * 100;
     }
 
     private void setCategory(String category) {
@@ -80,6 +93,15 @@ public class Statistic {
         this.values = values;
     }
 
+    private void setTotal(double total) {
+        requireNonNull(total);
+        this.total = total;
+    }
+    private void setAverage(double average) {
+        requireNonNull(average);
+        this.average = average;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -104,6 +126,14 @@ public class Statistic {
         return values;
     }
 
+    public double getTotal() {
+        return total;
+    }
+
+    public double getAverage() {
+        return average;
+    }
+
     @Override
     public boolean equals(Object other) {
         return this == other
@@ -113,6 +143,8 @@ public class Statistic {
             && startDate.equals(((Statistic) other).startDate)
             && endDate.equals(((Statistic) other).endDate)
             && properties.equals(((Statistic) other).properties)
-            && values.equals(((Statistic) other).values));
+            && values.equals(((Statistic) other).values))
+            && total == ((Statistic) other).total
+            && average == ((Statistic) other).average;
     }
 }

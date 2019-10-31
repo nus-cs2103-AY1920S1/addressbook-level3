@@ -21,6 +21,8 @@ public class StatisticBuilder {
     private Date endDate;
     private ArrayList<String> properties;
     private ArrayList<Double> values;
+    private double total;
+    private double average;
 
     public StatisticBuilder() {
         this.category = DEFAULT_CATEGORY;
@@ -29,6 +31,8 @@ public class StatisticBuilder {
         this.endDate = new Date(DEFAULT_END_DATE);
         this.properties = new ArrayList<>();
         this.values = new ArrayList<>();
+        this.total = 0;
+        this.average = 0;
     }
 
     /**
@@ -79,7 +83,23 @@ public class StatisticBuilder {
         return this;
     }
 
+    /**
+     * Sets the total of the {@code Statistic} that we are building.
+     */
+    public StatisticBuilder withTotal(double total) {
+        this.total = total;
+        return this;
+    }
+
+    /**
+     * Sets the average of the {@code Statistic} that we are building.
+     */
+    public StatisticBuilder withAverage(double average) {
+        this.average = average;
+        return this;
+    }
+
     public Statistic build() {
-        return new Statistic(category, chart, startDate, endDate, properties, values);
+        return new Statistic(category, chart, startDate, endDate, properties, values, total, average);
     }
 }

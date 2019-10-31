@@ -17,9 +17,11 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class StatsFactory {
 
-    private static final String BAR_CHART = "barchart";
-    private static final String LINE_CHART = "linechart";
-    private static final String PIE_CHART = "piechart";
+    private static final String DEFAULT_BAR_CHART = "barchart";
+    private static final String DEFAULT_LINE_CHART = "linechart";
+    private static final String DEFAULT_PIE_CHART = "piechart";
+    private static final String DEFAULT_CALORIES = "calories";
+    private static final String DEFAULT_EXERCISE = "exercise";
 
     private static final Logger logger = LogsCenter.getLogger(StatsFactory.class);
     private ObservableList<Exercise> exercises;
@@ -53,13 +55,13 @@ public class StatsFactory {
     public Statistic generateStatistic() {
         switch(chart) {
 
-        case PIE_CHART:
+        case DEFAULT_PIE_CHART:
             return generatePieChartStatistic();
 
-        case LINE_CHART:
+        case DEFAULT_LINE_CHART:
             return generateLineChartStatistic();
 
-        case BAR_CHART:
+        case DEFAULT_BAR_CHART:
             return generateBarChartStatistic();
 
         default:
@@ -75,13 +77,16 @@ public class StatsFactory {
         ArrayList<Date> dates = Date.getListOfDates(startDate, endDate);
         ArrayList<Double> values;
 
-        if (category.equals("exercise")) {
+        if (category.equals(DEFAULT_EXERCISE)) {
             values = exerciseFrequencyByDate(getFilteredExercise(), dates);
         } else {
             values = caloriesByDate(getFilteredExercise(), dates);
         }
 
-        return new Statistic(category, chart, startDate, endDate, datesToString(dates), values);
+        double total = getTotal(values);
+        double average = getAverage(total);
+
+        return new Statistic(category, chart, startDate, endDate, datesToString(dates), values, total, average);
     }
 
     /**
@@ -89,24 +94,7 @@ public class StatsFactory {
      */
     private Statistic generateBarChartStatistic() {
         HashMap<String, Double> data;
-        if (category.equals("exercise")) {
-            data = getTotalExerciseQuantity();
-        } else { //calories
-            data = getTotalCaloriesData();
-        }
-
-        ArrayList<String> names = hashMapNameToList(data);
-        ArrayList<Double> values = hashMapDoubleToList(data, names);
-
-        return new Statistic(category, chart, startDate, endDate, names, values);
-    }
-
-    /**
-     * Generate statistic for pie chart.
-     */
-    private Statistic generatePieChartStatistic() {
-        HashMap<String, Double> data;
-        if (category.equals("exercise")) {
+        if (category.equals(DEFAULT_EXERCISE)) {
             data = getTotalExerciseFrequency();
         } else { //calories
             data = getTotalCaloriesData();
@@ -114,8 +102,48 @@ public class StatsFactory {
 
         ArrayList<String> names = hashMapNameToList(data);
         ArrayList<Double> values = hashMapDoubleToList(data, names);
+        double total = getTotal(values);
+        double average = getAverage(total);
 
-        return new Statistic(category, chart, startDate, endDate, names, values);
+        return new Statistic(category, chart, startDate, endDate, names, values, total, average);
+    }
+
+    /**
+     * Generate statistic for pie chart.
+     */
+    private Statistic generatePieChartStatistic() {
+        HashMap<String, Double> data;
+        if (category.equals(DEFAULT_EXERCISE)) {
+            data = getTotalExerciseFrequency();
+        } else { //calories
+            data = getTotalCaloriesData();
+        }
+
+        ArrayList<String> names = hashMapNameToList(data);
+        ArrayList<Double> values = hashMapDoubleToList(data, names);
+        double total = getTotal(values);
+        double average = getAverage(total);
+
+        return new Statistic(category, chart, startDate, endDate, names, values, total, average);
+    }
+
+    /**
+     * Returns the sum of all values.
+     */
+    private double getTotal(ArrayList<Double> values) {
+        double total = 0;
+        for (double d : values) {
+            total += d;
+        }
+        return total;
+    }
+
+    /**
+     * Returns the average value.
+     */
+    private double getAverage(double total) {
+        int numberOfDays = Date.numberOfDaysBetween(startDate, endDate) + 1;
+        return total / numberOfDays;
     }
 
     /**
@@ -136,28 +164,6 @@ public class StatsFactory {
             }
 
             data.put(nameWithUnit, count);
-        }
-
-        return data;
-    }
-
-    /**
-     * Compute exercise quantity with filtered exercises list.
-     */
-    private HashMap<String, Double> getTotalExerciseQuantity() {
-        ArrayList<Exercise> filteredExercise = getFilteredExercise();
-        HashMap<String, Double> data = new HashMap<>();
-
-        for (Exercise e : filteredExercise) {
-            Name name = e.getName();
-            Unit unit = e.getUnit();
-            String nameWithUnit = name.toString() + " (" + unit.toString() + ")";
-            double quantity = Double.parseDouble(e.getQuantity().toString());
-            if (data.containsKey(nameWithUnit)) {
-                quantity = data.get(nameWithUnit) + quantity;
-            }
-
-            data.put(nameWithUnit, quantity);
         }
 
         return data;
@@ -286,6 +292,9 @@ public class StatsFactory {
         ArrayList<Date> dates = Date.getListOfDates(startDate, endDate);
         ArrayList<String> properties = datesToString(dates);
         ArrayList<Double> values = caloriesByDate(filteredExercise, dates);
-        return new Statistic("calories", LINE_CHART, startDate, endDate, properties, values);
+        double total = getTotal(values);
+        double average = getAverage(total);
+        return new Statistic(DEFAULT_CALORIES, DEFAULT_LINE_CHART, startDate, endDate,
+                properties, values, total, average);
     }
 }

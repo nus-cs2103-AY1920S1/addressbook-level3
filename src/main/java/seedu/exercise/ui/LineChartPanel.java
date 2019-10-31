@@ -16,7 +16,7 @@ import seedu.exercise.logic.commands.statistic.Statistic;
 public class LineChartPanel extends UiPart<Region> {
 
     private static final String FXML = "LineChartPanel.fxml";
-
+    private static final String DEFAULT_DATE = "Date";
     private Statistic statistic;
 
     @FXML
@@ -45,8 +45,8 @@ public class LineChartPanel extends UiPart<Region> {
         lineChart.setAnimated(false);
         lineChart.layout();
 
-        xAxis.setLabel(ChartTextUtil.changeFirstLetterToUpperCase("date"));
-        yAxis.setLabel(ChartTextUtil.lineChartLabelFormatter(category));
+        xAxis.setLabel(DEFAULT_DATE);
+        yAxis.setLabel(ChartTextUtil.labelFormatter(category));
 
         XYChart.Series<String, Double> series = new XYChart.Series<>();
 

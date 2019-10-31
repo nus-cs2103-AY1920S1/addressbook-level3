@@ -27,7 +27,11 @@ import seedu.exercise.testutil.builder.StatisticBuilder;
 public class StatsFactoryTest {
 
     private static final String START_DATE = "25/09/2019";
-    private static final String END_DATE = "30/09/2019";
+    private static final String END_DATE = "29/09/2019";
+    private static final double TOTAL_CALORIES = 672.0;
+    private static final double AVERAGE_CALORIES = 134.4;
+    private static final double TOTAL_EXERCISE = 4.0;
+    private static final double AVERAGE_EXERCISE = 0.8;
     private ReadOnlyResourceBook<Exercise> eb;
 
     @BeforeEach
@@ -40,20 +44,20 @@ public class StatsFactoryTest {
 
     @Test
     public void generateLineChartStatistic() {
-        String[] dates = new String[]{"25/09/2019", "26/09/2019", "27/09/2019", "28/09/2019", "29/09/2019",
-            "30/09/2019"};
+        String[] dates = new String[]{"25/09/2019", "26/09/2019", "27/09/2019", "28/09/2019", "29/09/2019"};
         ArrayList<String> expectedLineChartProperties = new ArrayList<>(Arrays.asList(dates));
         //======calories================================================================================================
         StatsFactory caloriesStatsFactory = new StatsFactory(eb, VALID_LINE_CHART, VALID_STATISTIC_CATEGORY_CALORIES,
                 new Date(START_DATE), new Date(END_DATE));
         Statistic actualCaloriesStatistic = caloriesStatsFactory.generateStatistic();
 
-        Double[] caloriesArr = new Double[]{0.0, 111.0, 300.0, 261.0, 0.0, 0.0};
+        Double[] caloriesArr = new Double[]{0.0, 111.0, 300.0, 261.0, 0.0};
         ArrayList<Double> expectedCaloriesValues = new ArrayList<>(Arrays.asList(caloriesArr));
 
         Statistic expectedCaloriesStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_CALORIES)
                 .withChart(VALID_LINE_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
-                .withProperties(expectedLineChartProperties).withValues(expectedCaloriesValues).build();
+                .withProperties(expectedLineChartProperties).withValues(expectedCaloriesValues)
+                .withTotal(TOTAL_CALORIES).withAverage(AVERAGE_CALORIES).build();
 
         assertEquals(expectedCaloriesStatistic, actualCaloriesStatistic);
 
@@ -62,12 +66,13 @@ public class StatsFactoryTest {
                 new Date(START_DATE), new Date(END_DATE));
         Statistic actualExerciseStatistic = exerciseStatsFactory.generateStatistic();
 
-        Double[] valuesArr = new Double[]{0.0, 1.0, 1.0, 2.0, 0.0, 0.0};
+        Double[] valuesArr = new Double[]{0.0, 1.0, 1.0, 2.0, 0.0};
         ArrayList<Double> expectedExerciseValues = new ArrayList<>(Arrays.asList(valuesArr));
 
         Statistic expectedExerciseStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_EXERCISE)
                 .withChart(VALID_LINE_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
-                .withProperties(expectedLineChartProperties).withValues(expectedExerciseValues).build();
+                .withProperties(expectedLineChartProperties).withValues(expectedExerciseValues)
+                .withTotal(TOTAL_EXERCISE).withAverage(AVERAGE_EXERCISE).build();
 
         assertEquals(expectedExerciseStatistic, actualExerciseStatistic);
 
@@ -87,7 +92,8 @@ public class StatsFactoryTest {
 
         Statistic expectedCaloriesStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_CALORIES)
                 .withChart(VALID_BAR_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
-                .withProperties(expectedProperties).withValues(expectedCalories).build();
+                .withProperties(expectedProperties).withValues(expectedCalories)
+                .withTotal(TOTAL_CALORIES).withAverage(AVERAGE_CALORIES).build();
 
         assertEquals(expectedCaloriesStatistic, actualCaloriesStatistic);
 
@@ -96,12 +102,13 @@ public class StatsFactoryTest {
                 new Date(START_DATE), new Date(END_DATE));
         Statistic actualExerciseStatistic = exerciseStatsFactory.generateStatistic();
 
-        Double[] valuesArr = new Double[]{5.0, 1.5, 10.0};
+        Double[] valuesArr = new Double[]{1.0, 2.0, 1.0};
         ArrayList<Double> expectedValues = new ArrayList<>(Arrays.asList(valuesArr));
 
         Statistic expectedExerciseStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_EXERCISE)
                 .withChart(VALID_BAR_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
-                .withProperties(expectedProperties).withValues(expectedValues).build();
+                .withProperties(expectedProperties).withValues(expectedValues)
+                .withTotal(TOTAL_EXERCISE).withAverage(AVERAGE_EXERCISE).build();
 
         assertEquals(expectedExerciseStatistic, actualExerciseStatistic);
     }
@@ -120,7 +127,8 @@ public class StatsFactoryTest {
 
         Statistic expectedCaloriesStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_CALORIES)
                 .withChart(VALID_PIE_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
-                .withProperties(expectedProperties).withValues(expectedCalories).build();
+                .withProperties(expectedProperties).withValues(expectedCalories)
+                .withTotal(TOTAL_CALORIES).withAverage(AVERAGE_CALORIES).build();
 
         assertEquals(expectedCaloriesStatistic, actualCaloriesStatistic);
 
@@ -134,7 +142,8 @@ public class StatsFactoryTest {
 
         Statistic expectedExerciseStatistic = new StatisticBuilder().withCategory(VALID_STATISTIC_CATEGORY_EXERCISE)
                 .withChart(VALID_PIE_CHART).withStartDate(new Date(START_DATE)).withEndDate(new Date(END_DATE))
-                .withProperties(expectedProperties).withValues(expectedValues).build();
+                .withProperties(expectedProperties).withValues(expectedValues)
+                .withTotal(TOTAL_EXERCISE).withAverage(AVERAGE_EXERCISE).build();
 
         assertEquals(expectedExerciseStatistic, actualExerciseStatistic);
     }
