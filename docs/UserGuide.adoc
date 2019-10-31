@@ -58,14 +58,23 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in UPPER_CASE are the parameters to be supplied by you!
-  e.g. in `add p/PRICE`, `PRICE` is a parameter which can be used as `add p/2.50`
-* You don't have to input the parameters in square brackets if you don't want to; they are optional.
-** `d/DESCRIPTION p/PRICE c/CATEGORY [t/DATE]` can be used as `add d/Chicken Rice p/2.50 c/Food` or
-`add d/Chicken Rice p/2.50 c/Food t/25-01`
+* Words in between `<` and `>` are the parameters which are to supplied by you! +
+  e.g. `add p/<PRICE>`, you will need to supply a value to be used as the `PRICE` such as `add p/2.50` .
+* You don't have to input the parameters in square brackets if you don't want to. These arguments are optional, and you
+may use them so specify more details.
+** `addexpense d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> [t/<DATE>]` means that both +
+`addexpense d/Chicken Rice p/2.50 c/Food` +
+`addexpense d/Chicken Rice p/2.50 c/Food t/25-01` +
+are valid inputs
 
-* You can input parameters in any order.
-** `add p/PRICE d/DESCRIPTION`, `add d/DESCRIPTION p/PRICE` are both acceptable.
+
+* You may also enter parameters which have a prefix in any order.
+** `addexpense p/2.50 d/chicken rice c/food` +
+ `addexpense c/food d/chicken rice p/2.50` are both valid.
+* However, for commands which require an argument without a prefix require that the argument be supplied immediately after the command word.
+** `editexpense 1 p/2.30` is valid.
+** `editexpense d/2.30 1` is not valid.
+
 ====
 
 
@@ -119,11 +128,15 @@ At the end, expense #5 will keep being deleted (poor thing!). MooLah will also d
 
 This is MooLah's fundamental feature: you can add your expenses.
 
-Format: `addexpense d/DESCRIPTION p/PRICE c/CATEGORY [t/TIMESTAMP]`
+This is the format:
+----
+addexpense d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> [t/TIMESTAMP]
+----
 
 ****
 * If you don't specify the time, your expense will be added with its time being the current system time.
-* You should only input one of the following into the CATEGORY field: FOOD, TRAVEL, TRANSPORT, SHOPPING, UTILITIES, HEALTHCARE, ENTERTAINMENT, EDUCATION, OTHERS.
+* You should only input one of the following into the CATEGORY field: `FOOD`, `TRAVEL`, `TRANSPORT`,
+`SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.
 ****
 Examples:
@@ -142,12 +155,15 @@ Format: `listexpenses`
 
 Made a mistake? You can edit expenses too.
 
-Format: `edit INDEX [p/PRICE] [d/DESCRIPTION] [t/TIMESTAMP] [c/CATEGORY]...`
-
+Format:
+----
+editexpense <INDEX> [p/<PRICE>] [d/<DESCRIPTION>] [t/<TIMESTAMP>] [c/<CATEGORY>]
+----
 Example:
-
-`edit 2 p/3.50`
-Updates the price of the 2nd expense in the current list to 3.50.
+----
+editexpense 2 p/3.50
+----
+This will update the price of the 2nd expense in the current list to 3.50.
 
 
 ****
@@ -162,7 +178,10 @@ Updates the price of the 2nd expense in the current list to 3.50.
 
 You can find expenses whose description contains any of the keywords you inputted.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format:
+----
+findexpense <KEYWORD> [<MORE_KEYWORDS>]
+----
 
 ****
 * The search is case insensitive. e.g `chicken` will match `Chicken`
@@ -175,15 +194,19 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find rice` returns `chicken rice` and `duck rice`.
-* `find chicken taxi schoolfee` returns any expense having description containing `chicken`, `taxi`, or `schoolfee`.
+* `findexpense rice` will show you all expenses with rice in their description
+
+* `findexpense chicken taxi schoolfee` will show you all expenses with either `chicken`, `taxi`, `schoolfee`, or a
+combination of those in their description.
 
 ==== Deleting an expense: `deleteexpense`
 
 You can also delete an expense from the expenses list in MooLah.
 
-Format: `deleteexpense INDEX`
-
+Format:
+----
+deleteexpense <INDEX>
+----
 ****
 * Deletes the expense at the specified `INDEX`.
 * The index refers to the index number shown in the currently displayed list.
@@ -192,18 +215,18 @@ Format: `deleteexpense INDEX`
 
 Examples:
 
-```
-listexpenses
+----
+listexpense
 delete 2
-```
-Deletes the 2nd expense in the list of expenses, shown by `list`.
+----
+Deletes the 2nd expense in the list of expenses, shown after `listexpense` is executed.
 
-```
-list
-find chicken
-delete 1
-```
-Deletes the 1st expense in the results of the `find` command.
+----
+listexpense
+findexpense chicken
+deleteexpense 1
+----
+Deletes the 1st expense in the results of the `findexpense` command.
 
 === Basic Event-related Commands
 
@@ -220,11 +243,14 @@ image::TranspiredEventsPopup.png[width="790"]
 
 Events share the same fields as expenses, so you add them the same way.
 
-Format: `addevent d/DESCRIPTION p/PRICE c/CATEGORY t/TIMESTAMP`
-
+Format:
+----
+addevent d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> t/<TIMESTAMP>
+----
 ****
-* Events are potential future expenses, so the `TIMESTAMP' field is compulsory and should contain a future time.
-* You should only input one of the following into the CATEGORY field: FOOD, TRAVEL, TRANSPORT, SHOPPING, UTILITIES, HEALTHCARE, ENTERTAINMENT, EDUCATION, OTHERS.
+* Events are potential future expenses, so the `TIMESTAMP` field is compulsory and should contain a future time.
+* You should only input one of the following into the `CATEGORY` field:
+`FOOD`, `TRAVEL`, `TRANSPORT`, `SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.
 ****
 Examples:
@@ -237,18 +263,24 @@ Examples:
 
 You can list every single event you have added into MooLah.
 
-Format: `listevents`
-
+Format:
+----
+listevents
+----
 ==== Updating an event: `editevent`
 
 You can edit events the same way you edit expenses.
 
-Format: `edit INDEX [p/PRICE] [d/DESCRIPTION] [t/TIMESTAMP] [c/CATEGORY]...`
+Format:
+----
+ editevent <INDEX> [p/<PRICE>] [d/<DESCRIPTION>] [t/<TIMESTAMP>] [c/<CATEGORY>]
+----
 
 Example:
-
-`editevent 2 p/300`
-Updates the price of the 2nd event in the current list to 300.
+----
+editevent 2 p/300
+----
+Updates the price of the 2nd event in the current list to be 300.
 
 
 ****
@@ -261,7 +293,10 @@ Updates the price of the 2nd event in the current list to 300.
 
 You can also delete an event from the events list in MooLah.
 
-Format: `deleteevent INDEX`
+Format:
+----
+deleteevent <INDEX>
+----
 
 ****
 * Deletes the event at the specified `INDEX`.
@@ -271,10 +306,10 @@ Format: `deleteevent INDEX`
 
 Examples:
 
-```
+----
 listevents
 delete 2
-```
+----
 Deletes the 2nd event in the list of events, shown by `listevents`.
 
 ==== (Coming in v2.0) Converting any currency to preferred currency : `convert`
@@ -302,7 +337,7 @@ Want your expenses tracked under a recurring budget? Simple enough with this com
 
 The concrete format is:
 ----
-addbudget d/DESCRIPTION p/AMOUNT sd/START_DATE pr/PERIOD
+addbudget d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>
 ----
 
 For example, after typing
@@ -329,7 +364,7 @@ Now that you've successfully added a few different budgets, wonder how to toggle
 
 The concrete format is:
 ----
-switchbudget d/BUDGET_NAME`
+switchbudget d/<BUDGET_NAME>`
 ----
 
 For example, suppose you're at primary budget `school` now.
@@ -342,11 +377,11 @@ switchbudget d/outside school
 You will see that the primary budget panel is switched from `school` to `outside school`. Every expense you add
 from now on will be tracked under the "outside school" budget instead.
 
-==== List all budgets: `listbudgets`
+==== List all budgets: `listbudget`
 To get an overview of all the budgets at hand, simply type:
 
 ----
-listbudgets
+listbudget
 ----
 You'll see a list of all budgets in MooLah.
 
@@ -360,15 +395,15 @@ A typo? On a second thought? No worries, you can easily modify your budget with 
 
 The concrete format is:
 ----
-listbudgets (first go to list of budgets)
-editbudget INDEX d/DESCRIPTION p/AMOUNT sd/START DATE pr/PERIOD
+listbudget (first go to list of budgets)
+editbudget <INDEX> d/<DESCRIPTION> p/<AMOUNT> sd/<START DATE> pr/<PERIOD>
 ----
 
 For example, if the second budget shown in the list is "school", recurring monthly, amount set at $300,
 refreshed on the first day of each month, after typing:
 
 ----
-listbudgets (first go to list of budgets)
+listbudget (first go to list of budgets)
 editbudget 2 d/school expenses p/400 sd/05-10
 ----
 
@@ -384,7 +419,7 @@ Don't want it any more? Use `deletebudget` to say bye to your budget!
 
 The concrete format is:
 ----
-deletebudget d/BUDGET_NAME
+deletebudget d/<BUDGET_NAME>
 ----
 
 For example, after typing:
@@ -401,7 +436,7 @@ If budget names are too long, there's an easier way to delete them: `deletebudge
 The concrete format is:
 ----
 listbudgets (first go to list of budgets)
-deletebudget INDEX
+deletebudget <INDEX>
 ----
 You'll see the corresponding budget disappear from the list.
 
@@ -424,7 +459,7 @@ Wanna see your archived expenses in the past? The command `switchperiod` is the 
 
 The concrete format is:
 ----
-switchperiod t/DATE
+switchperiod t/<DATE>
 ----
 
 For example, suppose you have a monthly budget "school", refreshed at the first day of each month; and
@@ -441,19 +476,140 @@ Tips:
 to input again.
 * Only expenses tracked under *the current budget* are shown.
 
-=== Creating an alias for your favourite commands : `alias`
-Assign a full parameterized input to an alias.
+=== Making inputs quick and easy.
 
-Format: `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS`
+==== Creating a shortcut:  `alias`
+You can save your favourite inputs by assigning an them to an `alias`.
 
-E.g.
-`alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
-Result creates an alias “chicken rice” for the command which adds an expense of 2.50 under the Food category with a
-description of “Chicken Rice” at the current system time.
+The format is:
+------
+addalias a/<ALIAS_NAME> i/<INPUT>
+------
+For example, you can type:
+----
+addalias a/chicken i/ addexpense d/ Chicken Rice p/2.50 c/Food
+----
+This creates an alias `chicken` for `addexpense d/ Chicken Rice p/2.50 c/Food` which when executed creates: +
+an `Expense` with `price=2.50` and `description=“Chicken Rice”` in the `Food category`.
 
-- Note: all white spaces characters will be removed from alias names
-- Note: aliases with names of official commands cannot be made
-- Note: using the same name for an alias will overwrite the existing alias if it exists
+You may also create an alias with an incomplete input which you may add arguments to when using it:
+----
+addalias a/ addfood i/ addexpense c/Food
+addfood d/ chickenrice p/3.50
+----
+
+****
+*Note*
+
+* alias names cannot contain white spaces.
+* alias names cannot be the name of another alias.
+* you may not create an alias to create an alias
+* using the same name for an alias will overwrite the existing alias if it exists.
+* using the same name for an alias will overwrite the existing alias if it exists.
+****
+
+****
+*Warning*  +
+Because MooLah prioritizes later instances of a prefix, including `a/` and `i/` in your input may cause your Alias to
+not be parsed properly.
+****
+==== Listing the shortcuts you have saved: `listalias`
+To view the aliases you have defined, you may use the `listalias`.
+
+Alternatively, you may use the `view` command by typing `view Aliases`.
+
+Either of these will bring you to the `User Defined Aliases` panel where
+you can see the list of aliases you have created.
+
+==== Deleting the shortcuts you no longer want to use: `deletealias`
+To delete an `Alias` you no longer wish to use, you may use the `deletealias` command.
+
+This is the format:
+----
+deletealias <ALIAS_NAME>
+----
+This will delete the `Alias` with the name you specified. For example:
+----
+addalias a/hello i/helloworld
+deletealias hello
+----
+This will delete the `hello` from your saved shortcuts.
+
+==== Autocomplete
+When entering a command, MooLah will show you a list of valid command words which match the text you have entered.
+****
+image:autocommand0.png[width="350px"] +
+You can press kbd:[TAB] to cycle through the available suggestions and press kbd:[ENTER] to autocomplete.
+All other keys will hide the menu.
+****
+
+When you have entered a valid command, MooLah will show you a list of prefixes you have missed while typing your input.
+Prefixes with the red `Missing` tag are required prefixes you have not entered. While orange `Optional`
+prefixes are not necessary.
+
+****
+image:autoprefix0.png[width="350px"] +
+You can press kbd:[TAB] to cycle through the available suggestions and press kbd:[ENTER] to autocomplete.
+All other keys will hide the menu.
+****
+
+****
+image:autoprefix1.png[width="350px"] +
+After including the prefix, the prefix will not be included in the menu.
+****
+
+If you choose `ALL MISSING`, all your missing required prefixes will be inserted.
+
+
+==== Syntax Highlighting
+****
+image:syntaxhighlighting0.png[width="350px"] +
+argument and prefix highlighting
+****
+MooLah highlights valid prefixes, and indicates what arguments fall under them.
+
+*note*: while an argument may be highlighted, it does mean the value is valid.
+
+****
+image:descriptionplaceholder.png[width="350px"] +
+`<placeholder>` for description field
+****
+After typing in a prefix, MooLah will put a `<placeholder>` to remind you what the argument you should
+enter is. +
+Typing over this area will write write over the placeholder.
+
+****
+image:amountplaceholder.png[width="350px"] +
+`<placeholder>` for amount field
+****
+
+*note* +
+If you forget to type over the placeholders, do not worry. It will not affect your input as these placeholders are
+ignored during execution of your input.
+
+==== Input history
+You may cycle through successfully entered commands during the current session with the kbd:[UP] and kbd:[DOWN] keys.
+
+For example, if you entered these commands previously.
+----
+addexpense d/chickenrice p/12.3 c/food
+addexpense d/chickenrice p/12.3 c/food
+addexpense d/duck rice p/12.3111 c/food
+----
+You may cycle thorough these commands using the arrow keys.
+
+==== Generic commands
+MooLah has 4 generic commands which behave differently depending on which Panel in the UI is being shown at the moment.
+These commands are `add`, `list`, `delete`, and `edit`. These generic commands differ from Panel to Panel.
+
+For example, you are in the Expense List Panel, then the following command:
+----
+add d/chicken duck p/3 c/food
+----
+will be interpreted as:
+----
+addexpense d/chicken duck p/3 c/food
+----
 
 === Saving the data
 Expense tracker data is saved in the hard disk automatically after any command that changes the data.
@@ -471,7 +627,7 @@ the combined expenditure of all expenses under the category,
 taken as a percentage of the total expenditure in the budget the command was called.
 
 
-Format: `stats [sd/START_DATE] [ed/END_DATE]`
+Format: `stats [sd/<START_DATE>] [ed/<END_DATE>]`
 
 
 [NOTE]
@@ -549,7 +705,7 @@ while the cells in the second pair of columns, denoted as the "difference column
 represents the difference in frequency and difference in total expenditure.
 
 
-Format: `statscompare sd1/START_DATE_1 sd2/START_DATE_2 [pr/PERIOD]`
+Format: `statscompare sd1/<START_DATE_1> sd2/<START_DATE_2> [pr/<PERIOD>]`
 
 [NOTE]
 - Date formats accepted are handled by our Natural Language Parser library which supports human jargons.
@@ -624,7 +780,7 @@ trend lines, one for each category and every plotted point on a line
 represents the total expenditure starting from its stated date,
 till before the start of the next date.
 
-Format: `statstrend [sd/START_DATE] [ed/END_DATE] mode/MODE`
+Format: `statstrend [sd/<START_DATE>] [ed/<END_DATE>] mode/MODE`
 
 
 [NOTE]
@@ -724,9 +880,26 @@ the data of your previous MooLah folder.
 
 == Command Summary
 
-* *Add an expense* `add d/DESCRIPTION p/PRICE [t/time] [c/CATEGORY]...` +
-e.g. `add d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
-* *Clear all expenses* : `clear`
+* *Add an expense* +
+`addexpense d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> [t/<time>]` +
+e.g. `addexpense d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
+
+* *list all expenses* +
+`listexpense` +
+e.g. `listexpense`
+
+* *edit an expenses* +
+`editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<time>]` +
+e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
+
+* *delete an expense* +
+`deleteexpense <INDEX>`
+
+* *find an expense* +
+`findexpense <KEYWORD> [<MORE_KEYWORD>]`
+
+* *Clear all expenses and budgets*: +
+ `clear`
 
 ---
 
@@ -762,26 +935,21 @@ e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/week`
 e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
 
 ---
+*Alias commands*
 
-* *Create alias* : `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS` +
+* *Add alias* : `addalias a/<ALIAS_NAME> c/<INPUT>` +
 e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
-* *Currency conversion* : `convert`
-* *Delete an expense* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit an expense* : `edit INDEX [p/PRICE] [d/DESCRIPTION] [t/time] [c/CATEGORY]...` +
-e.g. `edit 2 p/3.50`
+* *See all aliases* : `listalias`
+* *Delete an alias* : `deletealias <DESCRIPTION>`
+
+---
 * *Exit the app* : `exit`
 * *Find an expense* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find rice`
-* *List all expenses* : `list`
-* *List all reminders* : `reminders`
+* *List all expenses* : `listexpense`
+* *List all events* : `listevent`
 * *Help* : `help`
-* *Prediction* : `predict`
-* *Record important date* : `remind EVENT DATE [n DAYS]` +
-e.g. `remind Brian’s birthday 04/06/2020 14 DAYS`
 * *Redo* : `redo`
-* *Switch budget* : `switch d/BUDGET_NAME` +
-e.g. `switch d/outside school`
 * *Undo* : `undo`
 
 
