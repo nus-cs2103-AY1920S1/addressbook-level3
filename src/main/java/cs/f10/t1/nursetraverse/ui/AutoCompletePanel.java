@@ -96,9 +96,11 @@ public class AutoCompletePanel extends UiPart<Region> {
         // Choose initial list
         ObservableList<AutoCompleteWord> chosenList = chooseList();
         // Filter list based on previous matched words
-        ObservableList<AutoCompleteWord> filteredList = autoCompleteListHandler.filterList(matchedAutoCompleteWords, chosenList);
+        ObservableList<AutoCompleteWord> filteredList = autoCompleteListHandler
+                .filterList(matchedAutoCompleteWords, chosenList);
         // Update list based on userinput
-        ObservableList<AutoCompleteWord> updatedList = autoCompleteListHandler.updateList(filteredList, matchedAutoCompleteWords.size(), segments, firstSegmentParts);
+        ObservableList<AutoCompleteWord> updatedList = autoCompleteListHandler
+                .updateList(filteredList, matchedAutoCompleteWords.size(), segments, firstSegmentParts);
 
         autoCompleteWordListView.setItems(updatedList);
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());

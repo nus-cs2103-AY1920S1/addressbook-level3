@@ -47,8 +47,8 @@ public class AutoCompleteWordStorage {
     private ObservableList<AutoCompleteWord> oListAllObjectWord;
     private ObservableList<AutoCompleteWord> oListAllCommandWord;
     private ObservableList<AutoCompleteWord> oListAllPrefixWord;
-    FilteredList<Patient> patList;
-    FilteredList<Appointment> apptList;
+    private FilteredList<Patient> patList;
+    private FilteredList<Appointment> apptList;
 
     public AutoCompleteWordStorage(FilteredList<Patient> patList, FilteredList<Appointment> apptList) {
         this.oListAllCommandWord = initAllCommandWordList();

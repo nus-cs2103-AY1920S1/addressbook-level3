@@ -1,10 +1,10 @@
 package cs.f10.t1.nursetraverse.autocomplete;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.Arrays;
 import java.util.LinkedList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A handler class that updates list of autocomplete words to be shown according to userinput
@@ -79,8 +79,7 @@ public class AutoCompleteListHandler {
                 }
             }
             return filteredList;
-        }
-        else {
+        } else {
             return listToBeSuggested;
         }
     }
