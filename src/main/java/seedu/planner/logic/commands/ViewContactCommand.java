@@ -19,7 +19,8 @@ public class ViewContactCommand extends ViewCommand {
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "Opens the specified contact on the info tab.",
+            "Opens the specified contact on the info tab or "
+                    + "simply opens the contact side panel",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 2"
     );

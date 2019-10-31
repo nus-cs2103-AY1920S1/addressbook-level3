@@ -19,8 +19,9 @@ public class ViewActivityCommand extends ViewCommand {
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "Opens the specified activity on the info tab.",
-            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX",
+            "Opens the specified activity on the info tab or simply opens"
+                    + " the contact side panel",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " [INDEX]",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1"
     );
 
