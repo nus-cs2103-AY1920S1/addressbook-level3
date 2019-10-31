@@ -28,6 +28,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.MarkAttendanceCommand;
+import seedu.address.logic.commands.MarkParticipationCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.TotalEarningsCommand;
@@ -115,7 +116,7 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(ListClassCommand.COMMAND_WORD, ListClassCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(AssignClassCommand.COMMAND_WORD, AssignClassCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(MarkAttendanceCommand.COMMAND_WORD, MarkAttendanceCommand.COMMAND_WORD);
-
+        AddressBookParser.commandList.put(MarkParticipationCommand.COMMAND_WORD, MarkParticipationCommand.COMMAND_WORD);
     }
 
     /**
@@ -253,6 +254,9 @@ public class AddressBookParser {
 
             case MarkAttendanceCommand.COMMAND_WORD:
                 return new MarkAttendanceCommandParser().parse(arguments);
+
+            case MarkParticipationCommand.COMMAND_WORD:
+                return new MarkParticipationCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
