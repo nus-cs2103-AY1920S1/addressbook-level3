@@ -16,6 +16,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
@@ -165,7 +166,7 @@ public class AutoScheduleCommand extends Command {
             model.setDays(editedDays);
             model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         }
-        return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS));
+        return new CommandResult(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }
 
     /**

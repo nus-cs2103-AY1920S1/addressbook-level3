@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.result;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Optional;
 
@@ -22,7 +21,7 @@ public class ResultInformation {
 
     public ResultInformation(Contact contact, Activity activity, Accommodation accommodation,
                              Index displayedIndex, String descriptionOfInformation) {
-        requireAllNonNull(displayedIndex, descriptionOfInformation);
+        requireNonNull(displayedIndex);
         this.descriptionOfInformation = descriptionOfInformation;
         this.displayedIndex = displayedIndex;
         onlyOneNonNull(contact, activity, accommodation);
@@ -43,6 +42,18 @@ public class ResultInformation {
         this(null, null, requireNonNull(accommodation), displayedIndex, description);
     }
 
+    public ResultInformation(Contact contact, Index displayedIndex) {
+        this(requireNonNull(contact), null, null, displayedIndex, null);
+    }
+
+    public ResultInformation(Activity activity, Index displayedIndex) {
+        this(null, requireNonNull(activity), null, displayedIndex, null);
+    }
+
+    public ResultInformation(Accommodation accommodation, Index displayedIndex) {
+        this(null, null, requireNonNull(accommodation), displayedIndex, null);
+    }
+
     public Optional<Contact> getContact() {
         return Optional.ofNullable(contact);
     }
@@ -59,8 +70,8 @@ public class ResultInformation {
         return displayedIndex;
     }
 
-    public String getDescription() {
-        return descriptionOfInformation;
+    public Optional<String> getDescription() {
+        return Optional.ofNullable(descriptionOfInformation);
     }
 
     /**
