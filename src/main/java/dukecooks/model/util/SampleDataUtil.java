@@ -22,8 +22,12 @@ import dukecooks.model.profile.person.Gender;
 import dukecooks.model.profile.person.Height;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.profile.person.Weight;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.Workout;
+import dukecooks.model.workout.WorkoutCatalogue;
+import dukecooks.model.workout.WorkoutName;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.Intensity;
@@ -107,6 +111,14 @@ public class SampleDataUtil {
         }
     }
 
+    //=========== Sample Workout =================================================================================
+
+    public static Workout[] getSampleWorkout() {
+        return new Workout[]{
+            new Workout(new WorkoutName("Hardcore Parkour"))
+        };
+    }
+
     //=========== Sample Person ==================================================================================
 
     public static Person[] getSamplePersons() {
@@ -121,13 +133,20 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyWorkoutPlanner getSampleWorkoutPlanner() {
-        WorkoutPlanner workoutPlanner = new WorkoutPlanner();
+    public static ReadOnlyExerciseCatalogue getSampleExerciseCatalogue() {
+        ExerciseCatalogue exerciseCatalogue = new ExerciseCatalogue();
         for (Exercise sampleExercise : getSampleExercises()) {
-            workoutPlanner.addExercise(sampleExercise);
-
+            exerciseCatalogue.addExercise(sampleExercise);
         }
-        return workoutPlanner;
+        return exerciseCatalogue;
+    }
+
+    public static ReadOnlyWorkoutCatalogue getSampleWorkoutCatalogue() {
+        WorkoutCatalogue workoutCatalogue = new WorkoutCatalogue();
+        for (Workout sampleWorkout : getSampleWorkout()) {
+            workoutCatalogue.addWorkout(sampleWorkout);
+        }
+        return workoutCatalogue;
     }
 
     public static ReadOnlyUserProfile getSampleUserProfile() {

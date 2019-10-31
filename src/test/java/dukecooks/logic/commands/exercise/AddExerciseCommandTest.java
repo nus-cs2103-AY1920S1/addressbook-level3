@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.ModelStub;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.exercise.ExerciseBuilder;
@@ -110,8 +110,8 @@ public class AddExerciseCommandTest {
         }
 
         @Override
-        public ReadOnlyWorkoutPlanner getWorkoutPlanner() {
-            return new WorkoutPlanner();
+        public ReadOnlyExerciseCatalogue getExerciseCatalogue() {
+            return new ExerciseCatalogue();
         }
     }
 

@@ -18,7 +18,9 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.Workout;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
 
@@ -64,6 +66,13 @@ public interface Logic {
     ReadOnlyDiary getDiaryRecords();
 
     /**
+     * Returns Workout Catalogue.
+     *
+     * @see Model#getWorkoutCatalogue()
+     */
+    ReadOnlyWorkoutCatalogue getWorkoutCatalogue();
+
+    /**
      * Returns UserProfile.
      *
      * @see Model#getUserProfile()
@@ -73,9 +82,9 @@ public interface Logic {
     /**
      * Returns DukeCooks.
      *
-     * @see Model#getWorkoutPlanner()
+     * @see Model#getExerciseCatalogue()
      */
-    ReadOnlyWorkoutPlanner getDukeCooks();
+    ReadOnlyExerciseCatalogue getDukeCooks();
 
     /** Returns an unmodifiable view of the filtered list of recipes */
     ObservableList<Recipe> getFilteredRecipeList();
@@ -89,8 +98,11 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of exercises */
     ObservableList<Exercise> getFilteredExerciseList();
+
+    /** Returns an unmodifiable view of the filtered list of workouts */
+    ObservableList<Workout> getFilteredWorkoutList();
 
     /** Returns an unmodifiable view of the filtered list of records */
     ObservableList<Record> getFilteredRecordList();
@@ -132,6 +144,11 @@ public interface Logic {
      * Returns the user prefs' Dashboard file path.
      */
     Path getDashboardFilePath();
+
+    /**
+     * Returns the user prefs' Workout Catalogue file path.
+     */
+    Path getWorkoutCatalogueFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

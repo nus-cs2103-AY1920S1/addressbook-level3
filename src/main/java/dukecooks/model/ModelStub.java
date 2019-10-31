@@ -17,7 +17,8 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
@@ -252,7 +253,7 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    // ======================================= Workout Planner ==============================================
+    // ======================================= Exercise Catalogue ==============================================
     @Override
     public Path getWorkoutPlannerFilePath() {
         throw new AssertionError("This method should not be called.");
@@ -264,12 +265,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner) {
+    public void setExerciseCatalogue(ReadOnlyExerciseCatalogue exerciseCatalogue) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ReadOnlyWorkoutPlanner getWorkoutPlanner() {
+    public ReadOnlyExerciseCatalogue getExerciseCatalogue() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -291,6 +292,21 @@ public class ModelStub implements Model {
     @Override
     public void setExercise(Exercise target, Exercise editedExercise) {
         throw new AssertionError("This method should not be called.");
+    }
+
+    // ======================================= Workout Catalogue ==============================================
+
+
+    @Override
+    public ReadOnlyWorkoutCatalogue getWorkoutCatalogue() {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void setWorkoutCatalogue(ReadOnlyWorkoutCatalogue workoutCatalogue) {
+        throw new AssertionError(
+                "This method should not be called.");
     }
 
     @Override

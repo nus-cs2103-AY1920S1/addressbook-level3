@@ -29,12 +29,12 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.storage.JsonUserPrefsStorage;
 import dukecooks.storage.StorageManager;
 import dukecooks.storage.dashboard.JsonDashboardStorage;
 import dukecooks.storage.diary.JsonDiaryStorage;
-import dukecooks.storage.workout.exercise.JsonWorkoutPlannerStorage;
+import dukecooks.storage.workout.exercise.JsonExerciseCatalogueStorage;
 import dukecooks.storage.health.JsonHealthRecordsStorage;
 import dukecooks.storage.mealplan.JsonMealPlanBookStorage;
 import dukecooks.storage.profile.JsonUserProfileStorage;
@@ -65,8 +65,8 @@ public class LogicManagerTest {
                 new JsonUserProfileStorage(temporaryFolder.resolve("dukecooks.json"));
         JsonHealthRecordsStorage healthRecordsStorage =
                 new JsonHealthRecordsStorage(temporaryFolder.resolve("healthrecords.json"));
-        JsonWorkoutPlannerStorage workoutPlannerStorage =
-                new JsonWorkoutPlannerStorage(temporaryFolder.resolve("exercises.json"));
+        JsonExerciseCatalogueStorage workoutPlannerStorage =
+                new JsonExerciseCatalogueStorage(temporaryFolder.resolve("exercises.json"));
         JsonDiaryStorage diaryStorage =
                 new JsonDiaryStorage(temporaryFolder.resolve("diary.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
@@ -119,8 +119,8 @@ public class LogicManagerTest {
         JsonUserProfileStorage userProfileStorage =
                 new JsonUserProfileIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
         // Setup LogicManager with JsonDukeCooksIoExceptionThrowingStub
-        JsonWorkoutPlannerStorage workoutPlannerStorage =
-                new JsonWorkoutPlannerIoExceptionThrowingStub(temporaryFolder
+        JsonExerciseCatalogueStorage workoutPlannerStorage =
+                new JsonExerciseCatalogueStorageIoExceptionThrowingStub(temporaryFolder
                         .resolve("ioExceptionWorkoutPlanner.json"));
         // Setup LogicManager with JsonDiaryIoExceptionThrowingStub
         JsonDiaryStorage diaryStorage =
@@ -212,7 +212,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getUserProfile(), model.getDashboardRecords(),
-                model.getHealthRecords(), model.getRecipeBook(), model.getMealPlanBook(), model.getWorkoutPlanner(),
+                model.getHealthRecords(), model.getRecipeBook(), model.getMealPlanBook(), model.getExerciseCatalogue(),
                 model.getDiaryRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
@@ -247,14 +247,14 @@ public class LogicManagerTest {
     /**
     * A stub class to throw an {@code IOException} when the save method is called.
     */
-    private static class JsonWorkoutPlannerIoExceptionThrowingStub extends JsonWorkoutPlannerStorage {
+    private static class JsonExerciseCatalogueStorageIoExceptionThrowingStub extends JsonExerciseCatalogueStorage {
 
-        private JsonWorkoutPlannerIoExceptionThrowingStub(Path filePath) {
+        private JsonExerciseCatalogueStorageIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks, Path filePath) throws IOException {
+        public void saveExerciseCatalogue(ReadOnlyExerciseCatalogue dukeCooks, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.model.workout.exercise.components.Exercise;
@@ -22,7 +24,7 @@ import javafx.collections.ObservableList;
 
 public class WorkoutPlannerTest {
 
-    private final WorkoutPlanner workoutPlanner = new WorkoutPlanner();
+    private final ExerciseCatalogue workoutPlanner = new ExerciseCatalogue();
 
     @Test
     public void constructor() {
@@ -36,7 +38,7 @@ public class WorkoutPlannerTest {
 
     @Test
     public void resetData_withValidReadOnlyDukeCooks_replacesData() {
-        WorkoutPlanner newData = getTypicalWorkoutPlanner();
+        ExerciseCatalogue newData = getTypicalWorkoutPlanner();
         workoutPlanner.resetData(newData);
         assertEquals(newData, workoutPlanner);
     }
@@ -48,7 +50,7 @@ public class WorkoutPlannerTest {
                 .withDetails(null, null, null, null, 99, 99)
                 .build();
         List<Exercise> newExercises = Arrays.asList(ABS_ROLLOUT, editedAbsRollout);
-        WorkoutPlannerStub newData = new WorkoutPlannerStub(newExercises);
+        ExerciseCatalogueStub newData = new ExerciseCatalogueStub(newExercises);
 
         Assert.assertThrows(DuplicateExerciseException.class, () -> workoutPlanner.resetData(newData));
     }
@@ -86,10 +88,10 @@ public class WorkoutPlannerTest {
     /**
      * A stub ReadOnlyDukeCooks whose persons list can violate interface constraints.
      */
-    private static class WorkoutPlannerStub implements ReadOnlyWorkoutPlanner {
+    private static class ExerciseCatalogueStub implements ReadOnlyExerciseCatalogue {
         private final ObservableList<Exercise> exercises = FXCollections.observableArrayList();
 
-        WorkoutPlannerStub(Collection<Exercise> exercises) {
+        ExerciseCatalogueStub(Collection<Exercise> exercises) {
             this.exercises.setAll(exercises);
         }
 

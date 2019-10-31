@@ -22,7 +22,7 @@ public class ListExerciseCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
-        expectedModel = new ModelManager(model.getWorkoutPlanner(), new UserPrefs());
+        expectedModel = new ModelManager(model.getExerciseCatalogue(), new UserPrefs());
     }
 
     @Test

@@ -17,7 +17,8 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
@@ -288,15 +289,15 @@ public interface Model {
      */
     void setMealPlan(MealPlan target, MealPlan editedMealPlan);
 
-    //=========== Workout Planner ================================================================================
+    //=========== Exercise Catalogue ================================================================================
 
     /**
      * Replaces Workout Planner Data with {@code workoutPlanner}
      */
-    void setWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner);
+    void setExerciseCatalogue(ReadOnlyExerciseCatalogue exerciseCatalogue);
 
     /** Returns WorkoutPlanner */
-    ReadOnlyWorkoutPlanner getWorkoutPlanner();
+    ReadOnlyExerciseCatalogue getExerciseCatalogue();
 
 
     /**
@@ -324,6 +325,16 @@ public interface Model {
      * same as another existing exercise in the Duke Cooks.
      */
     void setExercise(Exercise target, Exercise editedExercise);
+
+    //=========== Workout Catalogue ================================================================================
+
+    /**
+     * Replaces Workout Catalogue Data with {@code workoutCatalogue}
+     */
+    void setWorkoutCatalogue(ReadOnlyWorkoutCatalogue workoutCatalogue);
+
+    /** Returns WorkoutCatalogue */
+    ReadOnlyWorkoutCatalogue getWorkoutCatalogue();
 
     /**
      * Returns true if an workout with the same identity as {@code workout}

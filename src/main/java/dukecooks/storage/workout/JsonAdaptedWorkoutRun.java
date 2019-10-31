@@ -2,8 +2,9 @@ package dukecooks.storage.workout;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import dukecooks.commons.exceptions.IllegalValueException;
-import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.history.ExerciseRun;
 import dukecooks.model.workout.history.WorkoutRun;
 import dukecooks.storage.workout.exercise.JsonAdaptedExerciseRun;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class JsonAdaptedWorkoutRun {
 
-    private final LocalDateTime timeStarted;
+    private LocalDateTime timeStarted;
     private final LocalDateTime timeEnded;
     private final Integer totalExercisesCompleted;
     private final List<JsonAdaptedExerciseRun> exercisesRan;
@@ -26,9 +27,11 @@ public class JsonAdaptedWorkoutRun {
      * Constructs a {@code JsonAdaptedWorkoutRun} with the given parameters.
      */
     @JsonCreator
-    public JsonAdaptedWorkoutRun(LocalDateTime timeStarted, LocalDateTime timeEnded,
-                                  Integer totalExercisesCompleted,
-                                  List<JsonAdaptedExerciseRun> exercisesRan, Duration totalTimeTaken) {
+    public JsonAdaptedWorkoutRun(@JsonProperty("timeStarted") LocalDateTime timeStarted,
+                                 @JsonProperty("timeEnded") LocalDateTime timeEnded,
+                                 @JsonProperty("totalExercisesCompleted") Integer totalExercisesCompleted,
+                                 @JsonProperty("exercisesRan") List<JsonAdaptedExerciseRun> exercisesRan,
+                                 @JsonProperty("totalTime") Duration totalTimeTaken) {
         this.timeStarted = timeStarted;
         this.timeEnded = timeEnded;
         this.totalExercisesCompleted = totalExercisesCompleted;

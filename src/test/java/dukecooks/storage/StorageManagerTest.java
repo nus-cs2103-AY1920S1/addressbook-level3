@@ -21,11 +21,11 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.storage.dashboard.JsonDashboardStorage;
 import dukecooks.storage.diary.JsonDiaryStorage;
-import dukecooks.storage.workout.exercise.JsonWorkoutPlannerStorage;
+import dukecooks.storage.workout.exercise.JsonExerciseCatalogueStorage;
 import dukecooks.storage.health.JsonHealthRecordsStorage;
 import dukecooks.storage.mealplan.JsonMealPlanBookStorage;
 import dukecooks.storage.profile.JsonUserProfileStorage;
@@ -44,7 +44,7 @@ public class StorageManagerTest {
         JsonHealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(getTempFilePath("hr"));
         JsonRecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(getTempFilePath("ab"));
         JsonMealPlanBookStorage mealPlanBookStorage = new JsonMealPlanBookStorage(getTempFilePath("ab"));
-        JsonWorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(getTempFilePath("ab"));
+        JsonExerciseCatalogueStorage workoutPlannerStorage = new JsonExerciseCatalogueStorage(getTempFilePath("ab"));
         JsonDiaryStorage diaryStorage = new JsonDiaryStorage(getTempFilePath("ab"));
         JsonDashboardStorage dashboardStorage = new JsonDashboardStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
@@ -88,11 +88,11 @@ public class StorageManagerTest {
         ReadOnlyRecipeBook retrievedRecipeBook = storageManager.readRecipeBook().get();
         assertEquals(originalRecipeBook, new RecipeBook(retrievedRecipeBook));
 
-        WorkoutPlanner originalWorkoutPlanner = getTypicalWorkoutPlanner();
-        storageManager.saveWorkoutPlanner(originalWorkoutPlanner);
-        ReadOnlyWorkoutPlanner retrievedWorkoutPlanner = storageManager
-                .readWorkoutPlanner().get();
-        assertEquals(originalWorkoutPlanner, new WorkoutPlanner(retrievedWorkoutPlanner));
+        ExerciseCatalogue originalWorkoutPlanner = getTypicalWorkoutPlanner();
+        storageManager.saveExerciseCatalogue(originalWorkoutPlanner);
+        ReadOnlyExerciseCatalogue retrievedWorkoutPlanner = storageManager
+                .readExerciseCatalogue().get();
+        assertEquals(originalWorkoutPlanner, new ExerciseCatalogue(retrievedWorkoutPlanner));
 
         DiaryRecords originalDiaryRecord = getTypicalDiaryRecords();
         storageManager.saveDiary(originalDiaryRecord);

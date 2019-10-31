@@ -1,6 +1,7 @@
 package dukecooks.storage.workout.exercise;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.workout.exercise.ExerciseSetAttempt;
 import dukecooks.model.workout.exercise.details.Sets;
@@ -25,10 +26,13 @@ public class JsonAdaptedExerciseRun {
      * Constructs a {@code JsonAdaptedExerciseRun} with the given parameters.
      */
     @JsonCreator
-    public JsonAdaptedExerciseRun(LocalDateTime timeStarted, LocalDateTime timeEnded,
-                                  JsonAdaptedSets setsAttempted, JsonAdaptedSets setsCompleted,
-                                  List<JsonAdaptedExerciseSetAttempt> exerciseSetAttempts,
-                                  Duration totalTimeTaken) {
+    public JsonAdaptedExerciseRun(@JsonProperty("timeStarted") LocalDateTime timeStarted,
+                                  @JsonProperty("timeEnded") LocalDateTime timeEnded,
+                                  @JsonProperty("setAttempted") JsonAdaptedSets setsAttempted,
+                                  @JsonProperty("setsCompleted") JsonAdaptedSets setsCompleted,
+                                  @JsonProperty("exerciseSetAttempts") List<JsonAdaptedExerciseSetAttempt>
+                                              exerciseSetAttempts,
+                                  @JsonProperty("totalTimeTaken") Duration totalTimeTaken) {
         this.timeStarted = timeStarted;
         this.timeEnded = timeEnded;
         this.setsAttempted = setsAttempted;

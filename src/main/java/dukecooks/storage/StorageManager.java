@@ -15,10 +15,13 @@ import dukecooks.model.health.ReadOnlyHealthRecords;
 import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.WorkoutCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
-import dukecooks.storage.workout.exercise.WorkoutPlannerStorage;
+import dukecooks.storage.workout.WorkoutCatalogueStorage;
+import dukecooks.storage.workout.exercise.ExerciseCatalogueStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
 import dukecooks.storage.mealplan.MealPlanBookStorage;
 import dukecooks.storage.profile.UserProfileStorage;
@@ -34,7 +37,8 @@ public class StorageManager implements Storage {
     private HealthRecordsStorage healthRecordsStorage;
     private RecipeBookStorage recipeBookStorage;
     private MealPlanBookStorage mealPlanBookStorage;
-    private WorkoutPlannerStorage workoutPlannerStorage;
+    private ExerciseCatalogueStorage exerciseCatalogueStorage;
+    private WorkoutCatalogueStorage workoutCatalogueStorage;
     private DiaryStorage diaryStorage;
     private DashboardStorage dashboardStorage;
     private UserPrefsStorage userPrefsStorage;
@@ -42,7 +46,8 @@ public class StorageManager implements Storage {
 
     public StorageManager(UserProfileStorage userProfileStorage, HealthRecordsStorage healthRecordsStorage,
                           RecipeBookStorage recipeBookStorage, MealPlanBookStorage mealPlanBookStorage,
-                          WorkoutPlannerStorage workoutPlannerStorage,
+                          ExerciseCatalogueStorage exerciseCatalogueStorage,
+                          WorkoutCatalogueStorage workoutCatalogueStorage,
                           DiaryStorage diaryStorage, DashboardStorage dashboardStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
@@ -50,7 +55,8 @@ public class StorageManager implements Storage {
         this.healthRecordsStorage = healthRecordsStorage;
         this.recipeBookStorage = recipeBookStorage;
         this.mealPlanBookStorage = mealPlanBookStorage;
-        this.workoutPlannerStorage = workoutPlannerStorage;
+        this.exerciseCatalogueStorage = exerciseCatalogueStorage;
+        this.workoutCatalogueStorage = workoutCatalogueStorage;
         this.diaryStorage = diaryStorage;
         this.dashboardStorage = dashboardStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -191,41 +197,62 @@ public class StorageManager implements Storage {
         mealPlanBookStorage.saveMealPlanBook(recipeBook, filePath);
     }
 
-    // ================ Workout Planner methods ==============================
+    // ================ Exercise Catalogue methods ==============================
 
     @Override
     public Path getExerciseFilePath() {
-        return workoutPlannerStorage.getExerciseFilePath();
+        return exerciseCatalogueStorage.getExerciseFilePath();
     }
 
+    @Override
+    public Optional<ReadOnlyExerciseCatalogue> readExerciseCatalogue() throws DataConversionException, IOException {
+        return readExerciseCatalogue(exerciseCatalogueStorage.getExerciseFilePath());
+    }
+
+    public Optional<ReadOnlyExerciseCatalogue> readExerciseCatalogue(Path exerciseFilePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + exerciseFilePath);
+        return exerciseCatalogueStorage.readExerciseCatalogue(exerciseFilePath);
+    }
+
+    @Override
+    public void saveExerciseCatalogue(ReadOnlyExerciseCatalogue workoutPlanner) throws IOException {
+        saveExerciseCatalogue(workoutPlanner, exerciseCatalogueStorage.getExerciseFilePath());
+    }
+
+    @Override
+    public void saveExerciseCatalogue(ReadOnlyExerciseCatalogue workoutPlanner, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        exerciseCatalogueStorage.saveExerciseCatalogue(workoutPlanner, filePath);
+    }
+
+    // ================ Workout Catalogue methods ==============================
 
     @Override
     public Path getWorkoutFilePath() {
-        return workoutPlannerStorage.getWorkoutFilePath();
+        return workoutCatalogueStorage.getWorkoutFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException, IOException {
-        return readWorkoutPlanner(workoutPlannerStorage.getExerciseFilePath(),
-                workoutPlannerStorage.getWorkoutFilePath());
+    public Optional<ReadOnlyWorkoutCatalogue> readWorkoutCatalogue() throws DataConversionException, IOException {
+        return readWorkoutCatalogue(workoutCatalogueStorage.getWorkoutFilePath());
     }
 
-    @Override
-    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path exerciseFilePath, Path workoutFilePath)
+    public Optional<ReadOnlyWorkoutCatalogue> readWorkoutCatalogue(Path workoutFilePath)
             throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + exerciseFilePath);
-        return workoutPlannerStorage.readWorkoutPlanner(exerciseFilePath, workoutFilePath);
+        logger.fine("Attempting to read data from file: " + workoutFilePath);
+        return workoutCatalogueStorage.readWorkoutCatalogue(workoutFilePath);
     }
 
     @Override
-    public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner) throws IOException {
-        saveWorkoutPlanner(workoutPlanner, workoutPlannerStorage.getExerciseFilePath());
+    public void saveWorkoutCatalogue(ReadOnlyWorkoutCatalogue workoutCatalogue) throws IOException {
+        saveWorkoutCatalogue(workoutCatalogue, workoutCatalogueStorage.getWorkoutFilePath());
     }
 
     @Override
-    public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner, Path filePath) throws IOException {
+    public void saveWorkoutCatalogue(ReadOnlyWorkoutCatalogue workoutCatalogue, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        workoutPlannerStorage.saveWorkoutPlanner(workoutPlanner, filePath);
+        workoutCatalogueStorage.saveWorkoutCatalogue(workoutCatalogue, filePath);
     }
 
     // ================ DiaryRecords methods ==============================

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import dukecooks.logic.commands.ClearCommand;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.model.Model;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 
 /**
  * Clears Duke Cooks.
@@ -19,7 +19,7 @@ public class ClearExerciseCommand extends ClearCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setWorkoutPlanner(new WorkoutPlanner());
+        model.setExerciseCatalogue(new ExerciseCatalogue());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -23,7 +23,9 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.Workout;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.storage.Storage;
 import javafx.collections.ObservableList;
@@ -55,7 +57,8 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveWorkoutPlanner(model.getWorkoutPlanner());
+            storage.saveExerciseCatalogue(model.getExerciseCatalogue());
+            storage.saveWorkoutCatalogue(model.getWorkoutCatalogue());
             storage.saveUserProfile(model.getUserProfile());
             storage.saveRecipeBook(model.getRecipeBook());
             storage.saveMealPlanBook(model.getMealPlanBook());
@@ -70,8 +73,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyWorkoutPlanner getDukeCooks() {
-        return model.getWorkoutPlanner();
+    public ReadOnlyExerciseCatalogue getDukeCooks() {
+        return model.getExerciseCatalogue();
     }
 
     @Override
@@ -100,8 +103,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyWorkoutCatalogue getWorkoutCatalogue() {
+        return model.getWorkoutCatalogue();
+    }
+
+    @Override
     public ObservableList<Exercise> getFilteredExerciseList() {
         return model.getFilteredExerciseList();
+    }
+
+    @Override
+    public ObservableList<Workout> getFilteredWorkoutList() {
+        return model.getFilteredWorkoutList();
     }
 
     @Override
@@ -162,6 +175,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getDashboardFilePath() {
         return model.getDashboardFilePath();
+    }
+
+    @Override
+    public Path getWorkoutCatalogueFilePath() {
+        return model.getWorkoutPlannerFilePath();
     }
 
     @Override

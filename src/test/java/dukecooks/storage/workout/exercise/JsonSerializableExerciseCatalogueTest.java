@@ -8,10 +8,10 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.util.JsonUtil;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.testutil.exercise.TypicalExercises;
 
-public class JsonSerializableWorkoutPlannerTest {
+public class JsonSerializableExerciseCatalogueTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "JsonSerializableWorkoutPlannerTest");
@@ -19,10 +19,10 @@ public class JsonSerializableWorkoutPlannerTest {
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
-        JsonSerializableWorkoutPlanner dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
-                JsonSerializableWorkoutPlanner.class).get();
-        WorkoutPlanner dukeCooksFromFile = dataFromFile.toModelType();
-        WorkoutPlanner typicalPersonsDukeCooks = TypicalExercises.getTypicalWorkoutPlanner();
+        JsonSerializableExerciseCatalogue dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
+                JsonSerializableExerciseCatalogue.class).get();
+        ExerciseCatalogue dukeCooksFromFile = dataFromFile.toModelType();
+        ExerciseCatalogue typicalPersonsDukeCooks = TypicalExercises.getTypicalWorkoutPlanner();
         assertEquals(dukeCooksFromFile, typicalPersonsDukeCooks);
     }
 }

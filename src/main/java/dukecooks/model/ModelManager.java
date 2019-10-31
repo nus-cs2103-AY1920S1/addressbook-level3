@@ -28,9 +28,11 @@ import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.Recipe;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.WorkoutCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.Workout;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -47,7 +49,8 @@ public class ModelManager implements Model {
     private final DiaryRecords diaryRecords;
     private final RecipeBook recipeBook;
     private final MealPlanBook mealPlanBook;
-    private final WorkoutPlanner workoutPlanner;
+    private final ExerciseCatalogue exerciseCatalogue;
+    private final WorkoutCatalogue workoutCatalogue;
     private final DashboardRecords dashboard;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Record> filteredRecords;
@@ -63,7 +66,8 @@ public class ModelManager implements Model {
     private final DiaryRecords defaultDiaryRecords = new DiaryRecords();
     private final RecipeBook defaultRecipeBook = new RecipeBook();
     private final MealPlanBook defaultMealPlanBook = new MealPlanBook();
-    private final WorkoutPlanner defaultWorkoutPlanner = new WorkoutPlanner();
+    private final ExerciseCatalogue defaultExerciseCatalogue = new ExerciseCatalogue();
+    private final WorkoutCatalogue defaultWorkoutCatalogue = new WorkoutCatalogue();
     private final DashboardRecords defaultDashboardRecord = new DashboardRecords();
 
     /**
@@ -71,15 +75,19 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyUserProfile dukeCooks, ReadOnlyDashboard dashboard, ReadOnlyHealthRecords healthRecords,
                         ReadOnlyRecipeBook recipeBook, ReadOnlyMealPlanBook mealPlanBook,
-                        ReadOnlyWorkoutPlanner workoutPlanner, ReadOnlyDiary diary, ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyExerciseCatalogue exerciseCatalogue, ReadOnlyWorkoutCatalogue workoutCatalogue,
+                        ReadOnlyDiary diary, ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(dukeCooks, dashboard, healthRecords, userPrefs, recipeBook);
+        CollectionUtil.requireAllNonNull(dukeCooks, dashboard, healthRecords, userPrefs, recipeBook,
+                exerciseCatalogue, workoutCatalogue);
 
         logger.fine("Initializing with Duke Cooks: " + dukeCooks
                 + "with dashboard " + dashboard
                 + "with Health Records: " + healthRecords
                 + "with Recipe Book: " + recipeBook
                 + "with Diary Records: " + diary
+                + "with Exercise Catalogue: " + exerciseCatalogue
+                + "with Workout Catalogue: " + workoutCatalogue
                 + "and user prefs " + userPrefs);
 
         this.dashboard = new DashboardRecords(dashboard);
@@ -88,26 +96,27 @@ public class ModelManager implements Model {
         this.recipeBook = new RecipeBook(recipeBook);
         this.mealPlanBook = new MealPlanBook(mealPlanBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
+        this.exerciseCatalogue = new ExerciseCatalogue(exerciseCatalogue);
+        this.workoutCatalogue = new WorkoutCatalogue(workoutCatalogue);
         this.diaryRecords = new DiaryRecords(diary);
         filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
-        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredExercises = new FilteredList<>(this.exerciseCatalogue.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
-        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
+        filteredWorkout = new FilteredList<>(this.workoutCatalogue.getWorkoutList());
     }
 
     /**
      * Initializes a WorkoutModelManager with the given userProfile and userPrefs.
      */
-    public ModelManager(ReadOnlyWorkoutPlanner workoutPlanner, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExerciseCatalogue exerciseCatalogue, ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(workoutPlanner, userPrefs);
+        CollectionUtil.requireAllNonNull(exerciseCatalogue, userPrefs);
 
-        logger.fine("Initializing with Workout Planner: " + workoutPlanner
+        logger.fine("Initializing with Workout Planner: " + exerciseCatalogue
                 + "and user prefs " + userPrefs);
 
         this.dashboard = defaultDashboardRecord;
@@ -116,21 +125,22 @@ public class ModelManager implements Model {
         this.recipeBook = defaultRecipeBook;
         this.mealPlanBook = defaultMealPlanBook;
         this.userPrefs = new UserPrefs(userPrefs);
-        this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
+        this.exerciseCatalogue = new ExerciseCatalogue(exerciseCatalogue);
+        this.workoutCatalogue = defaultWorkoutCatalogue;
         this.diaryRecords = defaultDiaryRecords;
         filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
-        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredExercises = new FilteredList<>(this.exerciseCatalogue.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
-        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
+        filteredWorkout = new FilteredList<>(this.workoutCatalogue.getWorkoutList());
     }
 
     public ModelManager() {
         this(new UserProfile(), new DashboardRecords(), new HealthRecords(), new RecipeBook(), new MealPlanBook(),
-                new WorkoutPlanner(), new DiaryRecords(), new UserPrefs());
+                new ExerciseCatalogue(), new WorkoutCatalogue(), new DiaryRecords(), new UserPrefs());
     }
 
     public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
@@ -146,16 +156,17 @@ public class ModelManager implements Model {
         this.recipeBook = new RecipeBook(recipeBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.mealPlanBook = defaultMealPlanBook;
-        this.workoutPlanner = defaultWorkoutPlanner;
+        this.exerciseCatalogue = defaultExerciseCatalogue;
+        this.workoutCatalogue = defaultWorkoutCatalogue;
         this.diaryRecords = defaultDiaryRecords;
         filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
-        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredExercises = new FilteredList<>(this.exerciseCatalogue.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
-        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
+        filteredWorkout = new FilteredList<>(this.workoutCatalogue.getWorkoutList());
     }
 
     public ModelManager(ReadOnlyMealPlanBook mealPlanBook, ReadOnlyUserPrefs userPrefs) {
@@ -171,16 +182,17 @@ public class ModelManager implements Model {
         this.recipeBook = defaultRecipeBook;
         this.mealPlanBook = new MealPlanBook(mealPlanBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.workoutPlanner = defaultWorkoutPlanner;
+        this.exerciseCatalogue = defaultExerciseCatalogue;
+        this.workoutCatalogue = defaultWorkoutCatalogue;
         this.diaryRecords = defaultDiaryRecords;
         filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
-        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredExercises = new FilteredList<>(this.exerciseCatalogue.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
-        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
+        filteredWorkout = new FilteredList<>(this.workoutCatalogue.getWorkoutList());
     }
 
     public ModelManager(ReadOnlyDiary diaryRecord, ReadOnlyUserPrefs userPrefs) {
@@ -195,7 +207,8 @@ public class ModelManager implements Model {
         this.healthRecords = defaultHealthRecords;
         this.recipeBook = defaultRecipeBook;
         this.mealPlanBook = defaultMealPlanBook;
-        this.workoutPlanner = defaultWorkoutPlanner;
+        this.exerciseCatalogue = defaultExerciseCatalogue;
+        this.workoutCatalogue = defaultWorkoutCatalogue;
         this.diaryRecords = new DiaryRecords(diaryRecord);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
@@ -203,9 +216,9 @@ public class ModelManager implements Model {
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
-        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredExercises = new FilteredList<>(this.exerciseCatalogue.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
-        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
+        filteredWorkout = new FilteredList<>(this.workoutCatalogue.getWorkoutList());
     }
 
     public ModelManager(ReadOnlyDashboard dashboardRecord, ReadOnlyUserPrefs userPrefs) {
@@ -220,7 +233,8 @@ public class ModelManager implements Model {
         this.healthRecords = defaultHealthRecords;
         this.recipeBook = defaultRecipeBook;
         this.mealPlanBook = defaultMealPlanBook;
-        this.workoutPlanner = defaultWorkoutPlanner;
+        this.exerciseCatalogue = defaultExerciseCatalogue;
+        this.workoutCatalogue = defaultWorkoutCatalogue;
         this.diaryRecords = defaultDiaryRecords;
         this.userPrefs = new UserPrefs(userPrefs);
         filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
@@ -228,9 +242,9 @@ public class ModelManager implements Model {
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
-        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredExercises = new FilteredList<>(this.exerciseCatalogue.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
-        filteredWorkout = new FilteredList<>(this.workoutPlanner.getWorkoutList());
+        filteredWorkout = new FilteredList<>(this.workoutCatalogue.getWorkoutList());
     }
     //=========== UserPrefs ==================================================================================
 
@@ -472,61 +486,73 @@ public class ModelManager implements Model {
         mealPlanBook.setMealPlan(target, editedMealPlan);
     }
 
-    //=========== Workout Planner ================================================================================
+    //=========== Exercise Catalogue ================================================================================
 
     @Override
-    public void setWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner) {
-        this.workoutPlanner.resetData(workoutPlanner);
+    public void setExerciseCatalogue(ReadOnlyExerciseCatalogue exerciseCatalogue) {
+        this.exerciseCatalogue.resetData(exerciseCatalogue);
     }
 
     @Override
-    public ReadOnlyWorkoutPlanner getWorkoutPlanner() {
-        return workoutPlanner;
+    public ReadOnlyExerciseCatalogue getExerciseCatalogue() {
+        return exerciseCatalogue;
     }
 
     @Override
     public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
-        return workoutPlanner.hasExercise(exercise);
+        return exerciseCatalogue.hasExercise(exercise);
     }
 
     @Override
     public void addExercise(Exercise exercise) {
-        workoutPlanner.addExercise(exercise);
+        exerciseCatalogue.addExercise(exercise);
         updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
     }
 
     @Override
     public void deleteExercise(Exercise target) {
-        workoutPlanner.removeExercise(target);
+        exerciseCatalogue.removeExercise(target);
     }
 
     @Override
     public void setExercise(Exercise target, Exercise editedExercise) {
         CollectionUtil.requireAllNonNull(target, editedExercise);
-        workoutPlanner.setExercise(target, editedExercise);
+        exerciseCatalogue.setExercise(target, editedExercise);
+    }
+
+    //=========== Workout Catalogue ================================================================================
+
+    @Override
+    public void setWorkoutCatalogue(ReadOnlyWorkoutCatalogue workoutCatalogue) {
+        this.workoutCatalogue.resetData(workoutCatalogue);
+    }
+
+    @Override
+    public ReadOnlyWorkoutCatalogue getWorkoutCatalogue() {
+        return workoutCatalogue;
     }
 
     @Override
     public void deleteWorkout(Workout target) {
-        workoutPlanner.removeWorkout(target);
+        workoutCatalogue.removeWorkout(target);
     }
 
     @Override
     public void setWorkout(Workout target, Workout editedWorkout) {
         CollectionUtil.requireAllNonNull(target, editedWorkout);
-        workoutPlanner.setWorkout(target, editedWorkout);
+        workoutCatalogue.setWorkout(target, editedWorkout);
     }
 
     @Override
     public boolean hasWorkout(Workout workout) {
         requireNonNull(workout);
-        return workoutPlanner.hasWorkout(workout);
+        return workoutCatalogue.hasWorkout(workout);
     }
 
     @Override
     public void addWorkout(Workout workout) {
-        workoutPlanner.addWorkout(workout);
+        workoutCatalogue.addWorkout(workout);
         updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUT);
     }
 
@@ -731,7 +757,7 @@ public class ModelManager implements Model {
                 && recipeBook.equals(other.recipeBook)
                 && healthRecords.equals(other.healthRecords)
                 && diaryRecords.equals(other.diaryRecords)
-                && workoutPlanner.equals(other.workoutPlanner)
+                && exerciseCatalogue.equals(other.exerciseCatalogue)
                 && filteredDashboard.equals(other.filteredDashboard)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredRecords.equals(other.filteredRecords)

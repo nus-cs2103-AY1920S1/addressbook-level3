@@ -9,32 +9,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import dukecooks.commons.exceptions.IllegalValueException;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
-import dukecooks.model.workout.Workout;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
-import dukecooks.storage.workout.JsonAdaptedWorkout;
 
 /**
  * An Immutable Exercise Catalogue that is serializable to JSON format.
  */
-@JsonRootName(value = "workoutPlanner")
-class JsonSerializableWorkoutPlanner {
+@JsonRootName(value = "exerciseCatalogue")
+class JsonSerializableExerciseCatalogue {
 
     public static final String MESSAGE_DUPLICATE_EXERCISE = "Exercises list contains duplicate exercise(s).";
-    public static final String MESSAGE_DUPLICATE_WORKOUT = "Workouts list contains duplicate workout(s).";
 
     private final List<JsonAdaptedExercise> exercises = new ArrayList<>();
-    private final List<JsonAdaptedWorkout> workouts = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableWorkoutPlanner} with the given persons.
+     * Constructs a {@code JsonSerializableExerciseCatalogue} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableWorkoutPlanner(@JsonProperty("exercises") List<JsonAdaptedExercise> exercises,
-                                          @JsonProperty("workouts") List<JsonAdaptedWorkout> workouts) {
+    public JsonSerializableExerciseCatalogue(@JsonProperty("exercises") List<JsonAdaptedExercise> exercises) {
         this.exercises.addAll(exercises);
-        this.workouts.addAll(workouts);
     }
 
     /**
@@ -42,9 +36,8 @@ class JsonSerializableWorkoutPlanner {
     *
     * @param source future changes to this will not affect the created {@code JsonSerializableExerciseCatalogue}.
     */
-    public JsonSerializableWorkoutPlanner(ReadOnlyWorkoutPlanner source) {
+    public JsonSerializableExerciseCatalogue(ReadOnlyExerciseCatalogue source) {
         exercises.addAll(source.getExerciseList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
-        workouts.addAll(source.getWorkoutList().stream().map(JsonAdaptedWorkout::new).collect(Collectors.toList()));
     }
 
     /**
@@ -52,21 +45,14 @@ class JsonSerializableWorkoutPlanner {
     *
     * @throws IllegalValueException if there were any data constraints violated.
     */
-    public WorkoutPlanner toModelType() throws IllegalValueException {
-        WorkoutPlanner workoutPlanner = new WorkoutPlanner();
+    public ExerciseCatalogue toModelType() throws IllegalValueException {
+        ExerciseCatalogue workoutPlanner = new ExerciseCatalogue();
         for (JsonAdaptedExercise jsonAdaptedExercise : exercises) {
             Exercise exercise = jsonAdaptedExercise.toModelType();
             if (workoutPlanner.hasExercise(exercise)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EXERCISE);
             }
             workoutPlanner.addExercise(exercise);
-        }
-        for (JsonAdaptedWorkout jsonAdaptedWorkout : workouts) {
-            Workout workout = jsonAdaptedWorkout.toModelType();
-            if (workoutPlanner.hasWorkout(workout)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_WORKOUT);
-            }
-            workoutPlanner.addWorkout(workout);
         }
         return workoutPlanner;
     }
