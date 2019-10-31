@@ -11,6 +11,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 
@@ -25,34 +27,32 @@ public class Food {
     private final Name name;
     private final BigDecimal price;
     private final int quantity;
-    private final Set<Tag> tags;
+    private final ObservableList<Tag> tags = FXCollections.observableArrayList();
 
     /**
      * Constructs a {@code Food}.
      *
      * @param name A valid food name.
      * @param price A non-negative price.
-     * @param quantity A non-negative preparation time in seconds.
      * @param tags Tags of the food.
      */
-    public Food(Name name, BigDecimal price, int quantity, Set<Tag> tags) {
-        requireAllNonNull(name, price, quantity);
+    public Food(Name name, BigDecimal price, ObservableList<Tag> tags) {
+        requireAllNonNull(name, price, tags);
         checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
-        checkArgument(isValidQuantity(quantity), QUANTITY_CONSTRAINTS);
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
-        this.tags = Collections.unmodifiableSet(tags);
+        this.quantity = 0;
+        this.tags.addAll(tags);
     }
 
-    public Food(Name name, BigDecimal price, int quantity) {
-        requireAllNonNull(name, price, quantity);
+    public Food(Name name, BigDecimal price, int quantity, ObservableList<Tag> tags) {
+        requireAllNonNull(name, price, quantity, tags);
         checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
         checkArgument(isValidQuantity(quantity), QUANTITY_CONSTRAINTS);
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.tags = new HashSet<>();
+        this.tags.addAll(tags);
     }
 
     /**
@@ -81,7 +81,7 @@ public class Food {
         return quantity;
     }
 
-    public Set<Tag> getTags() {
+    public ObservableList<Tag> getTags() {
         return tags;
     }
 

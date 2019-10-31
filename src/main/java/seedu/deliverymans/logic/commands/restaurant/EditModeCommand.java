@@ -44,7 +44,7 @@ public class EditModeCommand extends Command {
         List<Restaurant> lastShownList = model.getFilteredRestaurantList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
         }
 
         Restaurant restaurantToEdit = lastShownList.get(targetIndex.getZeroBased());

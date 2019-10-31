@@ -235,6 +235,8 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
         case EDITING:
+            logic.setContext(Context.EDITING);
+
             Restaurant editing = logic.getEditingRestaurantList().get(0);
             editingRestaurantPlaceholder.setPrefHeight(125.0);
             editingRestaurantPlaceholder.setMinHeight(125.0);

@@ -35,6 +35,8 @@ public class FoodCard extends UiPart<Region> {
     @FXML
     private Label price;
     @FXML
+    private Label quantity;
+    @FXML
     private FlowPane tags;
 
     public FoodCard(Food food, int displayedIndex) {

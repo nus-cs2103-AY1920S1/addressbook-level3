@@ -113,9 +113,6 @@ public class UniversalParser {
                 return new CustomerParser().parseCommand(userInput);
             case RESTAURANT:
                 Command command = new RestaurantParser().parseCommand(userInput);
-                if (commandWord.equals("edit")) {
-                    currentContext = Context.EDITING;
-                }
                 return command;
             case DELIVERYMEN:
                 return new DeliverymanParser().parseCommand(userInput);
@@ -134,5 +131,9 @@ public class UniversalParser {
         if (currentContext == nextContext) {
             throw new ParseException(String.format(MESSAGE_ALREADY_IN_CONTEXT, nextContext.toLowerCaseString()));
         }
+    }
+
+    public void setContext(Context context) {
+        this.currentContext = context;
     }
 }

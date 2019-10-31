@@ -14,6 +14,7 @@ import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.location.LocationMap;
 import seedu.deliverymans.model.restaurant.Rating;
@@ -24,7 +25,7 @@ import seedu.deliverymans.model.restaurant.Rating;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_RATING = "Rating provided is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_RATING = "Rating provided is not a non-negative unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -163,11 +164,17 @@ public class ParserUtil {
     public static BigDecimal parsePrice(String price) throws ParseException {
         requireNonNull(price);
         String trimmedPrice = price.trim();
+        BigDecimal result;
         try {
-            return new BigDecimal(trimmedPrice);
+            result = new BigDecimal(trimmedPrice);
         } catch (NumberFormatException e) {
-            throw new ParseException(e.getMessage(), e);
+            throw new ParseException("Price must be a non-negative number");
         }
+
+        if (!Food.isValidPrice(result)) {
+            throw new ParseException(Food.PRICE_CONSTRAINTS);
+        }
+        return result;
     }
 
     /**
@@ -176,28 +183,28 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code quantity} is invalid.
      */
-    public static int parseQuantity(String seconds) throws ParseException {
-        requireNonNull(seconds);
-        String trimmedSeconds = seconds.trim();
+    public static int parseQuantity(String quantity) throws ParseException {
+        requireNonNull(quantity);
+        String trimmedQuantity = quantity.trim();
         try {
-            return Integer.parseInt(trimmedSeconds);
+            return Integer.parseInt(trimmedQuantity);
         } catch (NumberFormatException e) {
             throw new ParseException(e.getMessage(), e);
         }
     }
 
     /**
-     * Parses a {@code Collection<String> tags} in seconds into a {@code ArrayList<Integer>}.
+     * Parses a {@code Collection<String> quantity} in seconds into a {@code ArrayList<Integer>}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code Collection<String> tags} is invalid.
+     * @throws ParseException if the given {@code Collection<String> quantity} is invalid.
      */
-    public static ArrayList<Integer> parseQuantity(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final ArrayList<Integer> tagSet = new ArrayList<>();
-        for (String tagName : tags) {
-            tagSet.add(Integer.parseInt(tagName));
+    public static ArrayList<Integer> parseQuantity(Collection<String> quantity) throws ParseException {
+        requireNonNull(quantity);
+        final ArrayList<Integer> quantitySet = new ArrayList<>();
+        for (String quantityName : quantity) {
+            quantitySet.add(Integer.parseInt(quantityName));
         }
-        return tagSet;
+        return quantitySet;
     }
 }
