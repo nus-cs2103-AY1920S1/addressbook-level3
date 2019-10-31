@@ -97,11 +97,13 @@ public class EditRecipeCommand extends EditCommand {
         List<String> recipeNameKeyword = new ArrayList<>();
         recipeNameKeyword.add(recipeToEdit.getName().fullName);
         Predicate<MealPlan> recipeNamePredicate = new MealPlanRecipesContainsKeywordsPredicate(recipeNameKeyword);
-        //model.updateFilteredMealPlanList(recipeNamePredicate);
+        model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_ALL_MEALPLANS);
         //TODO: This implementation is broken, should find a way to fix it to allow faster dynamic updates of recipes
         for (MealPlan mealPlan : model.getFilteredMealPlanList()) {
             mealPlan.replaceRecipe(recipeToEdit, editedRecipe);
         }
+        model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_NO_MEALPLANS);
+        model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_ALL_MEALPLANS);
 
         event = Event.getInstance();
         event.set("recipe", "all");
