@@ -451,7 +451,7 @@ unless specified otherwise)
 *MSS*
 
 1. User requests to add an appointment.
-2. System adds the appointment to the existing appointment list.
+2. System adds the corresponding appointment to the existing appointment list.
 3. System displays the updated appointment list
 and notifies the user.
 +
