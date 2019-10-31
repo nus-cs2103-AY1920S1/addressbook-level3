@@ -1,6 +1,7 @@
 package com.dukeacademy;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -238,10 +239,17 @@ public class MainApp extends Application {
         try {
             logger.info("Creating new question bank.");
             // Copy default questions
-            Path defaultQuestions = Paths.get("questionBank.json");
             FileUtil.createIfMissing(questionBankFilePath);
-            Files.copy(defaultQuestions, questionBankFilePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
+            InputStream defaultQuestionsInputStream = this.getClass().getClassLoader()
+                    .getResourceAsStream("questionBank.json");
+            if (defaultQuestionsInputStream != null) {
+                logger.info("Copying default questions into the new question bank");
+                Files.copy(defaultQuestionsInputStream, questionBankFilePath, StandardCopyOption.REPLACE_EXISTING);
+                defaultQuestionsInputStream.close();
+            } else {
+                logger.warning("Default questions not found. Default questions will be loaded.");
+            }
+        } catch (IOException | NullPointerException e) {
             logger.warning("Unable to create default question bank data file.");
         }
     }
