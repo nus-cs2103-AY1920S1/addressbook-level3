@@ -209,6 +209,10 @@ image::tip.png[width = "20", float = "left"]
 
 Format: `generate [length/LENGTH] [lower/TRUE] [upper/TRUE] [num/TRUE] [special/TRUE]`
 
+* The various fields are set to TRUE by default.
+
+* To disable these fields, set to FALSE.
+
 Example: `generate`
 
 Example `generate length/10`
@@ -411,7 +415,7 @@ Accessing note directory : `goto note`
 
 Adds a note to the app.
 
-Format: `add <title> <description> <tag> <content>`
+Format: `add ti/TITLE d/DESCRIPTION t/TAG c/CONTENT `
 
 Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
 
@@ -419,7 +423,7 @@ Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
 
 Reads a note in the app.
 
-Format: `read <index>`
+Format: `read INDEX`
 
 Example: `read 1`
 
@@ -432,7 +436,7 @@ Example: `read 1`
 
 Deletes a note as specified by the user.
 
-Format: `delete <index>`
+Format: `delete INDEX`
 
 Example: `delete 1`
 
@@ -440,13 +444,13 @@ Example: `delete 1`
 
 Edits a note specified by the user.
 
-Format: `edit <index> ti/<Title> d/<Description> t/<Tag> c/<Content>`
+Format: `edit INDEX [ti/TITLE] [d/DESCRIPTION] [t/TAG c/CONTENT]`
 
 Example: `edit 1 ti/NewTitle d/NewDescription t/NewTag c/NewContent`
 Example: `edit 1 ti/NewTitle`
 
 ****
-* <index> and at least one field is compulsory to successfully edit the note.
+* INDEX and at least one optional field is compulsory to successfully edit the note.
 * To edit the content of the note, you can also choose to use the Read command for better usability.
 ****
 
@@ -454,22 +458,26 @@ Example: `edit 1 ti/NewTitle`
 
 Finds a note as specified by the user.
 
-Format: `find <index>` or `find <Title>`
+Format: `find TEXT`
 
-Example: `find 1` or `find Personal_diary`
+Example:`find Personal_diary`
 ****
-* The search is case insensitive. e.g `Personal_diary` will match `personal_diary`
-* Only the description is searched.
+* Your input TEXT for search is case insensitive. e.g `Personal_diary` will match `personal_diary`
+* Searches title, description and content of all the notes that contains the TEXT.
 ****
 
 ==== Sorting notes: `sortBy`
 
 Sorts notes in ways specified by the user.
 
-Format: `sortBy <sortMethod>`
+Format: `sortBy sb/SORTBYCONDITION`
 
-Example: `sortBy date/`
+Example: `sortBy sb/DateModified`
 
+****
+* SORTBYCONDITION must be either "DateModified", "DateCreated" and "NumOfAccess".
+* SORTBYCONDITION is not case-sensitive.
+****
 ==== Undo notes action: `undo`
 
 Undo last action on notes.
@@ -478,6 +486,10 @@ Format: `undo`
 
 Example: `undo`
 
+****
+* You can only perform undo on undo-able commands. Undoable commands are: `add`, `edit`, `delete`, `clear` and `sort`
+* You can undo as many commands as you wish until there are no more commands that can be undone.
+****
 ==== Redo notes action: `redo`
 
 Redo last undone action on notes.
@@ -485,6 +497,11 @@ Redo last undone action on notes.
 Format: `redo`
 
 Example: `redo`
+
+****
+* You can redo as many commands as you wish until there are no more commands that can be redone.
+* If you perform a new undo-able command, all existing redo-able commands will be cleared.
+****
 
 === Clearing all entries : `clear`
 
