@@ -65,10 +65,15 @@ public class AddNusModCommand extends Command {
         requireNonNull(model);
 
         Person person;
-        try {
-            person = model.findPerson(name);
-        } catch (PersonNotFoundException pnfe) {
-            return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
+
+        if (name == null) {
+            person = model.getUser();
+        } else {
+            try {
+                person = model.findPerson(name);
+            } catch (PersonNotFoundException pnfe) {
+                return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
+            }
         }
 
         AcadYear acadYear = model.getAcadYear();
@@ -97,10 +102,18 @@ public class AddNusModCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_EVENT);
         }
         // updates UI
-        model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
-        model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
-        return new CommandResult(MESSAGE_SUCCESS + person.getSchedule());
+        if (name == null) {
+            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
+        } else {
+            model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS);
+
+        //return new CommandResult(MESSAGE_SUCCESS + person.getSchedule());
     }
 
     @Override
