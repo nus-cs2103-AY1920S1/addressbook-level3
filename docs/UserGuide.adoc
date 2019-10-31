@@ -498,6 +498,10 @@ ifdef::env-github[| :white_check_mark: a| The list of recommendations will be sh
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown.]
 |===
 
+[WARNING]
+If you do not see any recommendations, make sure that you have a non-zero budget and days to budget expiry set using
+the `budget` command! See <<Sets budget for a number of days: `budget`>> for more information.
+
 ==== Listing likes and dislikes in the recommendation system: `like` or `dislike`
 
 To list the user's likes and dislikes, use the command without providing any arguments.
