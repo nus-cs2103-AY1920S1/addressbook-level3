@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.account.Account;
@@ -223,6 +222,11 @@ public class ModelManager implements Model {
     @Override
     public void addTask(Task task) {
         addressBook.addTask(task);
+        //updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void afterAddTask() {
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 

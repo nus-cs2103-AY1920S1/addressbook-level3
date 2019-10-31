@@ -175,6 +175,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void afterAddTask() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -264,10 +274,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void addTask(Task task) {
 
-        }
 
         @Override
         public boolean userHasLoggedIn() {

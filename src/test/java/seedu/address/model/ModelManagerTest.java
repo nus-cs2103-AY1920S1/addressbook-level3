@@ -99,12 +99,11 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasPerson(ALICE));
     }
 
-    /* @Test
+    @Test
     public void hasTask_taskInAddressBook_returnsTrue() {
         modelManager.addTask(CS2103T);
-        System.out.println(CS2103T);
         assertTrue(modelManager.hasTask(CS2103T));
-    }*/
+    }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {

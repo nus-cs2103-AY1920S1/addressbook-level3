@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddNotesCommandParser" as AddNotesCommandParser LOGIC_COLOR
+participant "ae:AddNotesCommand" as AddNotesCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addnote mod/....")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("addnote mod/....")
+activate AddressBookParser
+
+create AddNotesCommandParser
+AddressBookParser -> AddNotesCommandParser
+activate AddNotesCommandParser
+
+AddNotesCommandParser --> AddressBookParser
+deactivate AddNotesCommandParser
+
+AddressBookParser -> AddNotesCommandParser : parse("mod/...")
+activate AddNotesCommandParser
+
+create AddNotesCommand
+AddNotesCommandParser -> AddNotesCommand
+activate AddNotesCommand
+
+AddNotesCommand --> AddNotesCommandParser : ae
+deactivate AddNotesCommand
+
+AddNotesCommandParser --> AddressBookParser : ae
+deactivate AddNotesCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddNotesCommandParser -[hidden]-> AddressBookParser
+destroy AddNotesCommandParser
+
+AddressBookParser --> LogicManager : ae
+deactivate AddressBookParser
+
+LogicManager -> AddNotesCommand : execute()
+activate AddNotesCommand
+
+AddNotesCommand -> Model : hasNotes(note)
+activate Model
+Model --> AddNotesCommand
+deactivate Model
+
+AddNotesCommand -> Model : addNotes(note)
+activate Model
+Model --> AddNotesCommand
+deactivate Model
+
+create CommandResult
+AddNotesCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddNotesCommand
+deactivate CommandResult
+
+AddNotesCommand --> LogicManager : result
+deactivate AddNotesCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
