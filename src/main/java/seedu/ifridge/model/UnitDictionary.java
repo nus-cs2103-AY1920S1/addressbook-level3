@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Food;
-import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.exceptions.InvalidDictionaryException;
 import seedu.ifridge.model.food.exceptions.InvalidUnitException;
@@ -56,8 +55,20 @@ public class UnitDictionary {
                 || inShoppingList(foodItem, model));
     }
 
+    /**
+     * Check if there is a food item with the same name in the grocery list as the food argument.
+     * @param foodItem The food argument.
+     * @param model The model to check with.
+     * @return Returns true if the grocery list in model contains an item with the same name as the food argument.
+     */
     private boolean inGroceryList(Food foodItem, Model model) {
-        return model.hasGroceryItem((GroceryItem) foodItem);
+        for (int i = 0; i < model.getGroceryList().getGroceryList().size(); i++) {
+            Food foodInModel = model.getGroceryList().getGroceryList().get(i);
+            if (foodItem.isSameFood(foodInModel)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean inTemplateList(Food foodItem, Model model) {
@@ -65,7 +76,7 @@ public class UnitDictionary {
     }
 
     private boolean inShoppingList(Food foodItem, Model model) {
-        return false;
+        return model.containsShoppingItemWithName(foodItem);
     }
 
     public HashMap<String, String> getUnitDictionary() {

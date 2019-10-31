@@ -444,6 +444,11 @@ public class AddTemplateItemCommandTest {
         }
 
         @Override
+        public boolean containsShoppingItemWithName(Food foodItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasShoppingItem(ShoppingItem food) {
             throw new AssertionError("This method should not be called.");
         }
