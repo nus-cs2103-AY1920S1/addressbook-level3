@@ -1,0 +1,96 @@
+= Chong Guang Jun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Budget Buddy
+
+== About Budget Buddy
+
+Budget Buddy is a desktop-based expense tracking application made for students, NUS School of Computing students in particular,
+to keep track of and manage their finances better. The user interacts with it using a Command Line Interface (CLI),
+and it has a Graphical User Interface (GUI) created with JavaFX. The application is written in Java, and has about 15 kLoC.
+
+This is a software engineering project in which groups are tasked to enhance or morph a simple CLI-based address book application.
+The end result is a expense tracking application with focus on programmers, to make customisation that much easier.
+
+Budget Buddy is able to maintain separate accounts, handle a multitude of transactions within an account, and even track any
+loans that the user might have made. Rules can be added to make repetitive tasks automated, and scripts can even allow the user
+to create mass changes to data in their own way by themselves.
+
+My task in this project is the rule engine feature, which allows for the automation in the application, executing certain tasks
+automatically upon the addition of a new transaction. The following sections will elaborate on the feature, which includes
+the additions I have made to both the user and developer guides.
+
+'''
+
+Take note of the following formatting used in the rest of this portfolio.
+
+[cols="<1a,<5a", frame=none, grid=none]
+|===
+|`command word`
+|Monospace text like this indicates that this is a command word that can be entered as part of a command to be executed by the application.
+
+|_filename.txt_
+|Italicized text like this indicates that this is a filename that can be found within the application.
+
+|`*component*`
+|Bold monospace text like this indicates that this is a component that can be found within the application.
+|===
+
+
+== Summary of contributions
+
+(Clear description of purpose, enhancement added: what does it do + justification)
+
+* *Major enhancement*: added *the ability to add/remove/edit rules*
+** What it does: Allows the user to define a set of rules in the rule engine which will be executed by the rule engine upon
+the addition of every new transaction. A rule may carry out an action depending on whether the transaction satisfies the rule's requirement.
+** Justification: This feature improves the application significantly because for day-to-day transactions, there may be many
+repetitions in what the user types. The app can therefore help users save time by automating such repetitive processes, or even
+more, depending on how the user uses it.
+// TODO: Everything else below
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=rules]
+
+include::../UserGuide.adoc[tag=budget]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=rules]

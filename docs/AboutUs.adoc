@@ -31,6 +31,7 @@ Responsibilities: Transactions
 === Chong Guang Jun
 image::tcgj.png[width="150", align="left"]
 {empty}[http://github.com/tcgj[github]]
+{empty}[<<tcgj#, portfolio>>]
 
 Role: Developer, Tracking, UI +
 Responsibilities: Rule Engine

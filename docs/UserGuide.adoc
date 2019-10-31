@@ -203,20 +203,6 @@ Note that this is the same as un-categorising all transactions under the specifi
 
 Format: `category delete n/<name>`
 
-=== Viewing reports: `report`
-
-Displays a report.
-
-Format: `report [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [total|category]`
-****
-* You can specify either the start and end date range, inclusive, or name a period.
-If no period is specified, it defaults to the current month-to-date.
-* You can see a total report that shows your total income and expenditure and budget information,
-if a budget has been set up,  or a report that breaks your income and expenditure down into categories.
-If the type is omitted, it defaults to a total report.
-* Your goal progress will also be shown in both reports.
-****
-
 // tag::loans[]
 === Tracking loans: `loan`
 
@@ -336,7 +322,10 @@ The resulting display should show that `John` owes `Peter` *$33.33* and `You` ow
 The latter debt will also have been added to your loan list, which can be checked using the command `loan list`.
 // end::loans[]
 
+// tag::rules[]
 === Automating with rules: `rule`
+
+// TODO: Some information here to show users perspective
 
 ==== Add a new rule: `rule add`
 
@@ -349,7 +338,7 @@ Refer to <<Scripting>> for script usage.
 ****
 *Expression Formatting Guide:*
 
-* Predicate: In the order of `<attribute> <predicate operator> <value>`
+* **Predicate**: In the order of `<attribute> <predicate operator> <value>`
 ** An attribute can be one of the following:
 *** `inamt` : Transaction amount inwards
 *** `outamt` : Transaction amount outwards
@@ -360,7 +349,7 @@ Refer to <<Scripting>> for script usage.
 *** `contains` : string comparison operator
 ** A value can be a number or a string of length not more than 50 characters
 
-* Action: In the order of `<action operator> <value>`
+* **Action**: In the order of `<action operator> <value>`
 ** An action operator can be one of the following:
 *** `setcategory` : Adds a category to the transaction
 *** `setdesc` : Sets the description of the transaction
@@ -385,6 +374,7 @@ Format: `rule edit <rule ID> [pred/<expression | script>] [act/<expression | scr
 Deletes a rule with the specified rule ID.
 
 Format: `rule delete <rule ID>`
+// end::rules[]
 
 === Import and export: `import, export`
 
@@ -449,9 +439,11 @@ Format: `script run <script name> [<argument>]`
 * The argument is the rest of the command line after the script name, and is passed to the script as a single string.
 ****
 
+// tag::budget[]
 === Managing budgets *(Coming in v2.0)* : `budget`
 
 Displays or sets the budget for the specified period.
+// TODO: give purpose of this command for user
 
 ==== View budgets: `budget list`
 
@@ -461,10 +453,10 @@ Views the list of budgets currently stored.
 
 This command sets a budget. Note that budgets cannot overlap.
 
-
 ==== Remove budgets: `budget delete`
 
 This command removes a budget from the list.
+// end::budget[]
 
 === Goal setting *(Coming in v2.0)* : `goal`
 
@@ -479,6 +471,21 @@ List all goals.
 ==== Delete goal(s): `goal delete`
 
 Deletes the goal with the specified goal ID.
+
+
+=== Viewing reports *(Coming in v2.0)*: `report`
+
+Displays a report.
+
+Format: `report [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [total|category]`
+****
+* You can specify either the start and end date range, inclusive, or name a period.
+If no period is specified, it defaults to the current month-to-date.
+* You can see a total report that shows your total income and expenditure and budget information,
+if a budget has been set up,  or a report that breaks your income and expenditure down into categories.
+If the type is omitted, it defaults to a total report.
+* Your goal progress will also be shown in both reports.
+****
 
 == FAQ
 
