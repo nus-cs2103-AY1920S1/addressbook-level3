@@ -64,6 +64,19 @@ public class InventoryList {
         iList.remove(index);
     }
 
+    /**
+     * Checks if the InventoryList contains an item of the same description and category.
+     */
+    public boolean containsItem(Item item) {
+        boolean containsItem = false;
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).isSameItem(item)) {
+                containsItem = true;
+            }
+        }
+        return containsItem;
+    }
+
     public static int size() {
         return iList.size();
     }

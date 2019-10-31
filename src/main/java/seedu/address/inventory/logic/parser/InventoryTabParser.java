@@ -10,7 +10,9 @@ import seedu.address.inventory.logic.commands.SortCommand;
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
+import seedu.address.inventory.util.InventoryList;
 import seedu.address.transaction.logic.commands.DeleteIndexCommand;
 
 /**
@@ -31,8 +33,8 @@ public class InventoryTabParser {
      * @throws NotANumberException if the user input is a String when a number is expected.
      * @throws NoSuchSortException if the user input is a SortCommand that does not sort by the existing categories.
      */
-    public Command parseCommand(String userInput, int inventoryListSize) throws ParseException, NotANumberException,
-            NoSuchSortException {
+    public Command parseCommand(String userInput, InventoryList inventoryList) throws ParseException,
+            NotANumberException, NoSuchSortException, NoSuchItemException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(InventoryMessages.MESSAGE_NO_COMMAND);
@@ -43,7 +45,11 @@ public class InventoryTabParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments, inventoryListSize);
+            try {
+                return new AddCommandParser().parse(arguments, inventoryList);
+            } catch (NoSuchItemException e) {
+                throw new NoSuchItemException(InventoryMessages.NO_SUCH_ITEM_INVENTORY);
+            }
 
         case DeleteIndexCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

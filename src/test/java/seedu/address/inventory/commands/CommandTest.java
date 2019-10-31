@@ -72,7 +72,7 @@ public class CommandTest {
     @Test
     public void execute_addCommandTest_successful() {
         Model inventoryModel = new ModelManager(new InventoryList());
-        Command addCommand = new AddCommand(TypicalItem.FISH_BURGER);
+        Command addCommand = new AddCommand(TypicalItem.FISH_BURGER, false);
 
         CommandResult commandResult = null;
 
@@ -270,9 +270,9 @@ public class CommandTest {
 
     @Test
     public void equalsTest() {
-        AddCommand addCommand1 = new AddCommand(TypicalItem.PHONE_CASE);
-        AddCommand addCommand1Copy = new AddCommand(TypicalItem.PHONE_CASE);
-        AddCommand addCommand2 = new AddCommand(TypicalItem.FISH_BURGER);
+        AddCommand addCommand1 = new AddCommand(TypicalItem.PHONE_CASE, false);
+        AddCommand addCommand1Copy = new AddCommand(TypicalItem.PHONE_CASE, false);
+        AddCommand addCommand2 = new AddCommand(TypicalItem.FISH_BURGER, false);
 
         DeleteCommand deleteCommand1 = new DeleteCommand(1);
         DeleteCommand deleteCommand1Copy = new DeleteCommand(1);

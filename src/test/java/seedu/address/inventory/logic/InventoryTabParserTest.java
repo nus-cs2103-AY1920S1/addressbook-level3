@@ -18,14 +18,16 @@ import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
 import seedu.address.inventory.logic.parser.exception.ParseException;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
+import seedu.address.inventory.util.InventoryList;
 
 public class InventoryTabParserTest {
     private static final InventoryTabParser parser = new InventoryTabParser();
 
     @Test
     public void parser_invalidCommand_exceptionThrown() {
-        assertThrows(Exception.class, () -> parser.parseCommand("command", 0));
+        assertThrows(Exception.class, () -> parser.parseCommand("command", new InventoryList()));
     }
 
     @Test
@@ -34,7 +36,7 @@ public class InventoryTabParserTest {
         String input = "add d/item";
 
         try {
-            command = parser.parseCommand(input, 0);
+            command = parser.parseCommand(input, new InventoryList());
         } catch (Exception e) {
             assertEquals(InventoryMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT, e.toString());
         }
@@ -46,7 +48,7 @@ public class InventoryTabParserTest {
         String input = "add d/item c/test q/number co/number p/number";
 
         try {
-            command = parser.parseCommand(input, 0);
+            command = parser.parseCommand(input, new InventoryList());
         } catch (Exception e) {
             assertEquals(InventoryMessages.MESSAGE_NOT_A_NUMBER, e.toString());
         }
@@ -60,8 +62,8 @@ public class InventoryTabParserTest {
         String input2 = "add d/item2 c/test q/3 co/4 p/7";
 
         try {
-            command1 = parser.parseCommand(input1, 0);
-            command2 = parser.parseCommand(input2, 0);
+            command1 = parser.parseCommand(input1, new InventoryList());
+            command2 = parser.parseCommand(input2, new InventoryList());
         } catch (Exception e) {
             fail();
         }
@@ -75,7 +77,7 @@ public class InventoryTabParserTest {
         Command command = null;
 
         try {
-            command = parser.parseCommand("edit 1 d/new c/test q/6 co/9 p/8", 1);
+            command = parser.parseCommand("edit 1 d/new c/test q/6 co/9 p/8", new InventoryList());
         } catch (Exception e) {
             fail();
         }
@@ -88,7 +90,7 @@ public class InventoryTabParserTest {
         Command command = null;
 
         try {
-            command = parser.parseCommand("delete 1", 1);
+            command = parser.parseCommand("delete 1", new InventoryList());
         } catch (Exception e) {
             fail();
         }
@@ -101,8 +103,8 @@ public class InventoryTabParserTest {
         Command command = null;
 
         try {
-            command = parser.parseCommand("delete number", 1);
-        } catch (NotANumberException | ParseException | NoSuchSortException e) {
+            command = parser.parseCommand("delete number", new InventoryList());
+        } catch (NotANumberException | ParseException | NoSuchSortException | NoSuchItemException e) {
             assertEquals(InventoryMessages.MESSAGE_NOT_A_NUMBER, e.getMessage());
         }
     }
@@ -111,10 +113,10 @@ public class InventoryTabParserTest {
     public void parser_sortCommand_successful() {
         Command command = null;
 
-        assertThrows(Exception.class, () -> parser.parseCommand("sort", 0));
+        assertThrows(Exception.class, () -> parser.parseCommand("sort", new InventoryList()));
 
         try {
-            command = parser.parseCommand("sort description", 0);
+            command = parser.parseCommand("sort description", new InventoryList());
         } catch (Exception e) {
             fail();
         }
@@ -122,14 +124,14 @@ public class InventoryTabParserTest {
         assertTrue(command instanceof SortDescriptionCommand);
 
         try {
-            command = parser.parseCommand("sort category", 0);
+            command = parser.parseCommand("sort category", new InventoryList());
         } catch (Exception e) {
             fail();
         }
         assertTrue(command instanceof SortCategoryCommand);
 
         try {
-            command = parser.parseCommand("sort quantity", 0);
+            command = parser.parseCommand("sort quantity", new InventoryList());
         } catch (Exception e) {
             fail();
         }
@@ -141,8 +143,8 @@ public class InventoryTabParserTest {
         Command command = null;
 
         try {
-            command = parser.parseCommand("sort person", 0);
-        } catch (NoSuchSortException | ParseException | NotANumberException e) {
+            command = parser.parseCommand("sort person", new InventoryList());
+        } catch (NoSuchSortException | ParseException | NotANumberException | NoSuchItemException e) {
             assertEquals(InventoryMessages.MESSAGE_NO_SUCH_SORT_COMMAND, e.toString());
         }
     }
