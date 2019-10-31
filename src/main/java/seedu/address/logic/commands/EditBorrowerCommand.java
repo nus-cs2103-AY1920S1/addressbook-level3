@@ -77,7 +77,7 @@ public class EditBorrowerCommand extends Command {
 
         model.setBorrower(borrowerToEdit, editedBorrower);
         model.setServingBorrower(editedBorrower);
-        return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower));
+        return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower.toFullString()));
     }
 
     /**

@@ -51,7 +51,7 @@ public class RegisterCommand extends Command {
         }
 
         model.registerBorrower(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toFullString()));
     }
 
     @Override
