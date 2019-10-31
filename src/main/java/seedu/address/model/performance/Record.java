@@ -2,6 +2,8 @@ package seedu.address.model.performance;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.model.date.AthletickDate;
 
 /**
@@ -34,6 +36,30 @@ public class Record {
 
     public AthletickDate getDate() {
         return date;
+    }
+
+    public static double getFastestTiming(List<Record> records) {
+        double fastest = Double.MAX_VALUE;
+        for (Record record : records) {
+            double timing = record.getTiming().getValue();
+            if (timing < fastest) {
+                fastest = timing;
+            }
+        }
+        assert(fastest < Double.MAX_VALUE);
+        return fastest;
+    }
+
+    public static double getSlowestTiming(List<Record> records) {
+        double slowest = Double.MIN_VALUE;
+        for (Record record : records) {
+            double timing = record.getTiming().getValue();
+            if (timing > slowest) {
+                slowest = timing;
+            }
+        }
+        assert(slowest > Double.MIN_VALUE);
+        return slowest;
     }
 
     @Override
