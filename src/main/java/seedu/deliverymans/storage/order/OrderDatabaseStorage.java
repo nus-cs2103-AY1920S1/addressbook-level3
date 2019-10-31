@@ -37,10 +37,10 @@ public interface OrderDatabaseStorage {
      * @param orderBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveOrderBook(ReadOnlyOrderBook orderBook) throws IOException;
+    void saveOrderDatabase(ReadOnlyOrderBook orderBook) throws IOException;
 
     /**
-     * @see #saveOrderBook(ReadOnlyOrderBook)
+     * @see #saveOrderDatabase(ReadOnlyOrderBook)
      */
-    void saveOrderBook(ReadOnlyOrderBook orderBook, Path filePath) throws IOException;
+    void saveOrderDatabase(ReadOnlyOrderBook orderBook, Path filePath) throws IOException;
 }

@@ -8,10 +8,10 @@ import seedu.deliverymans.model.Model;
 /**
  * (to be added)
  */
-public class SortCommand extends Command {
+public class CustomerSortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
-    public SortCommand(String arguments) {
+    public CustomerSortCommand(String arguments) {
 
     }
 

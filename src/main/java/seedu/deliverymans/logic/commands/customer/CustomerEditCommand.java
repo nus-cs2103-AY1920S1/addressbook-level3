@@ -27,7 +27,7 @@ import seedu.deliverymans.model.customer.Customer;
 /**
  * Edits the details of an existing customer in the address book.
  */
-public class EditCommand extends Command {
+public class CustomerEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -52,7 +52,7 @@ public class EditCommand extends Command {
      * @param index                  of the customer in the filtered customer list to edit
      * @param editCustomerDescriptor details to edit the customer with
      */
-    public EditCommand(Index index, EditCustomerDescriptor editCustomerDescriptor) {
+    public CustomerEditCommand(Index index, EditCustomerDescriptor editCustomerDescriptor) {
         requireNonNull(index);
         requireNonNull(editCustomerDescriptor);
 
@@ -104,12 +104,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof CustomerEditCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        CustomerEditCommand e = (CustomerEditCommand) other;
         return index.equals(e.index)
                 && editCustomerDescriptor.equals(e.editCustomerDescriptor);
     }

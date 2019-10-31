@@ -75,13 +75,8 @@ This generates a list of commands and tips for you.
 
 Format: `-help`
 
-* Help with a specific context: `-help CONTEXT`
+** Example: `-help`
 
-** Example: `-help customer`
-
-* Help with a specific context command: `-help cxt/CONTEXT cmd/COMMAND`
-
-** Example: `-help -cxt customer -cmd sort`
 
 {nbsp} +
 
@@ -161,13 +156,6 @@ This command enables you to delete an unwanted/cancelled order in the database b
 Format: `-delete_order INDEX`
 
 Example: `-delete_order 3`
-
-{nbsp} +
-
-==== Viewing order summary `-order_summary`
-This command brings up the current order summary for your viewing.
-
-Format: `-order_summary`
 
 {nbsp} +
 

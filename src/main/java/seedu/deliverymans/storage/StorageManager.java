@@ -172,14 +172,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveOrderBook(ReadOnlyOrderBook orderBook) throws IOException {
-        saveOrderBook(orderBook, orderDatabaseStorage.getOrderBookFilePath());
+    public void saveOrderDatabase(ReadOnlyOrderBook orderBook) throws IOException {
+        saveOrderDatabase(orderBook, orderDatabaseStorage.getOrderBookFilePath());
     }
 
     @Override
-    public void saveOrderBook(ReadOnlyOrderBook orderBook, Path filePath) throws IOException {
+    public void saveOrderDatabase(ReadOnlyOrderBook orderBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        orderDatabaseStorage.saveOrderBook(orderBook, filePath);
+        orderDatabaseStorage.saveOrderDatabase(orderBook, filePath);
     }
 
     // ================ DeliverymenDatabase methods ==============================

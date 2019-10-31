@@ -14,7 +14,7 @@ import seedu.deliverymans.model.customer.Customer;
 /**
  * Adds a customer to the system.
  */
-public class AddCommand extends Command {
+public class CustomerAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
@@ -36,7 +36,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Customer}
      */
-    public AddCommand(Customer customer) {
+    public CustomerAddCommand(Customer customer) {
         requireNonNull(customer);
         toAdd = customer;
     }
@@ -54,7 +54,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof CustomerAddCommand // instanceof handles nulls
+                && toAdd.equals(((CustomerAddCommand) other).toAdd));
     }
 }
