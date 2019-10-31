@@ -27,6 +27,9 @@ import io.xpire.model.tag.Tag;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+
+    private static final String NUMERIC_VALIDATION_REGEX = "^[0-9]+$";
+
     /**
      * Returns true if the {@code sentence} contains the {@code phrase}.
      *   Ignores case, allows partial phrase match.
@@ -56,6 +59,14 @@ public class StringUtil {
         StringWriter sw = new StringWriter();
         t.printStackTrace(new PrintWriter(sw));
         return t.getMessage() + "\n" + sw.toString();
+    }
+
+    /**
+     * Returns true if {@code s} is numeric.
+     * @return true if {@code s} matches validation regex.
+     */
+    public static boolean isNumeric(String s) {
+        return s.matches(NUMERIC_VALIDATION_REGEX);
     }
 
     /**
