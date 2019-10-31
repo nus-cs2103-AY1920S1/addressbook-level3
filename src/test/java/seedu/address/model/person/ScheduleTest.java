@@ -4,15 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalTime;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
 
 class ScheduleTest {
+    public static final LocalTime TEN_AM = LocalTime.of(10, 0);
+
 
     /**
      * Gets a sample schedule with two events.
+     *
      * @return sample schedule
      */
     Schedule sampleSchedule() {
@@ -58,28 +63,32 @@ class ScheduleTest {
     @Test
     void findFirstAvailableSlot_lateButAvail_returnsEarlySlot() {
         Schedule sample = sampleSchedule();
+        EventTime expected = EventTime.parse("1000", "1100");
         EventTime oneHourTask = EventTime.parse("1500", "1600");
-        assertEquals(EventTime.parse("1000", "1100"), sample.findFirstAvailableSlot(oneHourTask).get());
+        assertEquals(expected, sample.findFirstAvailableSlot(oneHourTask, expected.getStart()).get());
     }
 
     @Test
     void findFirstAvailableSlot_schedulingConflict_returnsAvailableSlot() {
         Schedule sample = sampleSchedule();
         EventTime oneHourTask = EventTime.parse("1400", "1500");
-        assertEquals(EventTime.parse("1000", "1100"), sample.findFirstAvailableSlot(oneHourTask).get());
+        EventTime expected = EventTime.parse("1000", "1100");
+        assertEquals(expected, sample.findFirstAvailableSlot(oneHourTask, expected.getStart()).get());
     }
 
     @Test
     void findFirstAvailableSlot_alreadyEarliest_returnsItself() {
         Schedule sample = sampleSchedule();
         EventTime threeHourTask = EventTime.parse("1500", "1800");
-        assertEquals(threeHourTask, sample.findFirstAvailableSlot(threeHourTask).get());
+        assertEquals(threeHourTask, sample.findFirstAvailableSlot(threeHourTask, TEN_AM).get());
     }
 
     @Test
     void findFirstAvailableSlot_notAvailable_returnsEmpty() {
         Schedule sample = sampleSchedule();
         EventTime fourHourTask = EventTime.parse("1400", "1800");
-        assertTrue(sample.findFirstAvailableSlot(fourHourTask).isEmpty());
+        assertTrue(sample.findFirstAvailableSlot(fourHourTask, TEN_AM).isEmpty());
     }
+
+
 }

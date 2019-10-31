@@ -1,8 +1,10 @@
 package seedu.address.model.person;
 
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.Iterator;
 import java.util.NavigableSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
 
@@ -40,8 +42,9 @@ public class Schedule {
     }
 
 
-    public String getSchedulingSuggestion(EventTime eventTime) {
-        String suggested = findFirstAvailableSlot(eventTime)
+    public String getSchedulingSuggestion(EventTime eventTime, LocalTime timeNow) {
+        String suggested = findFirstAvailableSlot(eventTime, timeNow)
+                .filter(x -> !x.equals(eventTime)) // check if the suggested time is different from proposed
                 .map(x -> String.format(MESSAGE_SUGGEST_TIME_FORMAT, x.toString()))
                 .orElse("");
 
@@ -79,16 +82,24 @@ public class Schedule {
 
     /**
      * Finds the earliest available EventTime has the same length of proposed, and fits in the schedule.
+     * This method will check against the given time.
      *
      * @param proposed a proposed time slot
+     * @param timeNow  time now
      * @return Optional of the earliest EventTime that can fit in the schedule; if the proposed time is already the
      * earliest, return an Optional of the proposed time; if no slot available, return an empty Optional.
      */
-    public Optional<EventTime> findFirstAvailableSlot(EventTime proposed) {
+    public Optional<EventTime> findFirstAvailableSlot(EventTime proposed, LocalTime timeNow) {
         Duration length = proposed.getDuration();
 
+        // get a view of the schedule, from system time to the last EventTime that is later than the proposed time
         EventTime lastCandidate = schedule.ceiling(proposed);
-        NavigableSet<EventTime> candidates = schedule.headSet(lastCandidate, true);
+
+        // HACK: using a zero minute event time to get the tailset
+        EventTime now = new EventTime(timeNow, timeNow);
+        schedule.add(now);
+
+        NavigableSet<EventTime> candidates = schedule.subSet(now, true, lastCandidate, true);
         Iterator<EventTime> iter = candidates.iterator();
 
         EventTime prev = null;
@@ -101,12 +112,14 @@ public class Schedule {
             boolean canFit = Duration.between(prev.getEnd(), head.getStart()).compareTo(length) >= 0;
 
             if (canFit) {
+                schedule.remove(now);
                 return Optional.of(new EventTime(prev.getEnd(), length));
             }
 
             prev = head;
         }
 
+        schedule.remove(now);
         return Optional.empty();
     }
 
@@ -156,6 +169,23 @@ public class Schedule {
                 .map(EventTime::to24HrString)
                 .reduce((str1, str2) -> str1 + ", " + str2)
                 .orElse(MESSAGE_EMPTY_SCHEDULE);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Schedule schedule1 = (Schedule) o;
+        return this.schedule.equals(schedule1.schedule);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(schedule);
     }
 }
 
