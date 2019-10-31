@@ -611,20 +611,23 @@ The training plan mechanism is faciliated by `AlgoBase`, which keeps a list of t
 * `AlgoBase#removePlan()` -- Deletes a training plan.
 * `AlgoBase#getPlanList()` -- Returns a list of training plans.
 
+.Class Diagram of `Plan`
+image::plan/PlanClassDiagram.png[]
+
 Given below is an example usage scenario and how the AlgoBase behaves at each step.
 
 Step 1. The user launches the application for the first time. The `AlgoBase` will be initialized with the initial empty state.
 
 Step 2. The user switches to the plan tab and executes `addplan n/CS2040 d/past year questions start/2019-01-01 end/2019-05-04` command to add a new plan to AlgoBase. The `addplan` command checks if `Model#hasPlan()` and calls `Model#addPlan()`, causing the modified state of plans after the `addplan` command executes to be saved in the `PlanList`.
 
-.Object Diagram of `Plan` created by `AddPlanCommand` in Step 2
-image::plan/PlanObjectDiagram.png
+.Sequence Diagram for the execution of `AddPlanCommand`
+image::plan/AddPlanSequenceDiagram.png[]
 
 Step 3. The user executes `listplan` to list all plans. The `listplan` command calls `Model#updateFilteredPlanList()`. The plan `CS2040` is numbered `1` in the displayed list.
 
 Step 4. The user finds out that the exam date of CS2040 has changed, and decides to change the end date of the training plan by executing the `editplan 1 end/2019-05-05` command. The `editplan` command will check if `Model#hasPlan()`, and then call `Model#setPlan()` and `Model#updateFilteredPlanList()`, which will replace the original plan with the modified plan in the `PlanList`.
 
-Activity Diagram for the Execution of `EditPlanCommand`
+.Activity Diagram for the Execution of `EditPlanCommand`
 image::plan/EditPlanCommandActivityDiagram.png[]
 
 [NOTE]
@@ -633,10 +636,7 @@ The user can also add value for an empty field by executing `editplan` command i
 Step 5. The user then decides to execute the command `findplan start/2019-03-01 end/2019-03-31` to find out what plans he has in March. The `findplan` command constructs a `FindPlanDescriptor`, and then executes `Model#getFilteredPlanList()` and `Model#updateFilteredPlanList(FindPlanDescriptor)`. A list of plans in AlgoBase that has overlapping time range with the specified starting date and end date will be displayed on the plan list panel.
 
 .Class Diagram for `FindPlanDescriptor`
-image::plan/FindPlanDescriptorClassDiagram.png
-
-.Sequence Diagram for the execution of `FindPlanCommand`
-image::plan/FindPlanSequenceDiagram.png
+image::plan/FindPlanDescriptorClassDiagram.png[]
 
 [NOTE]
 If the user wants to find plans with overlapping time range, both the starting date and the end date should be specified, and the starting date should be before or at least equal to the end date, or an error message will be displayed to inform the user the correct form of input.
