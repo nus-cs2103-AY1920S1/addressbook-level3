@@ -45,7 +45,6 @@ image::Ui.png[width="790"]
 
 [[Features]]
 == Features
-
 ====
 *Command Format for Horo*
 
@@ -60,6 +59,9 @@ image::Ui.png[width="790"]
 - E.g. `*--date* 17/09/2019`
 - E.g. `*calendar* *--date* 17/09/2019`
 ====
+
+{empty} +
+
 ====
 *Command Format for this User Guide*
 
