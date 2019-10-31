@@ -30,13 +30,12 @@ deactivate ProjectDashboardParser
 LogicManager -> ThemeCommand : execute()
 activate ThemeCommand
 
-ThemeCommand -> Model : setDarkTheme()
+ThemeCommand -> Model : setCurrentTheme(Theme.DARK)
 activate Model
 
-Model -> UserSettings : setDarkTheme()
+Model -> UserSettings : setTheme(Theme.DARK)
 activate UserSettings
 
-UserSettings -> UserSettings :setDarkTheme()
 UserSettings --> Model :
 deactivate UserSettings
 

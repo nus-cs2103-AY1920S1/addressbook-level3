@@ -216,43 +216,48 @@ may not help as much.
 ** Cons: Association between members and their respective calendars must be rigorously tested to ensure accuracy of timings.
 May introduce complexity into storage and dependencies among components.
 
-=== [Proposed] Settings feature
+=== Settings feature
 ==== Proposed Implementation
 
+This feature was implemented to allow users to customise their experience when using +Work.
+
 The commands introduced by this feature include; `theme light`, `theme dark`, `clock twenty_four` and `clock twelve`.
-The commands are facilitated by `UserSettings`. This component resides in model and contains the customisable settings available to
-the user, which include `theme` and `clockFormat`.
+The commands are facilitated by `UserSettings`. This component resides in `Model` and contains the customisable settings available to
+the user, which are currently the `theme` and `clockFormat`.
 
-* `Settings#getTheme()` -- Retrieves the current theme applied to +Work.
-* `Settings#getClockFormat()` -- Retrieves the current clock format applied to +Work.
-* `Settings#setDarkTheme()` -- Sets the new theme of +Work to be `DARK`.
-* `Settings#setLightTheme()` -- Sets the new theme of +Work to be `LIGHT`.
-* `Settings#setTwelveHourFormat()` -- Sets the new clock format of +Work to be `TWELVE_HOUR`.
-* `Settings#setTwentyFourHourFormat()` -- Sets the new clock format of +Work to be `TWENTY_FOUR`.
+* `UserSettings#getTheme()` -- Retrieves the current theme applied to +Work.
+* `UserSettings#getClockFormat()` -- Retrieves the current clock format applied to +Work.
+* `UserSettings#setTheme(Theme newTheme)` -- Sets the default theme of +Work to be `newTheme`
+* `UserSettings#setClockFormat(ClockFormat newClockFormat)` -- Sets the default clock format of +Work to be `newClockFormat`
 
-These operations are exposed in the `Model` interface as `Model#getTheme()`, `Model#getClockFormat()`, `Model#setDarkTheme()`,
-`Model#setLightTheme()`, `Model#setTwelveHourFormat()`, `Model#setTwentyFourHourFormat()` respectively.
+These operations are exposed in the `Model` interface as `Model#getCurrentTheme()`, `Model#getCurrentClockFormat()`,
+`Model#setCurrentTheme(Theme newTheme)`, `Model#setClockFormat(ClockFormat newClockFormat)` respectively.
 
 [NOTE]
 
-To allow the `UI` to be responsive, two of the operations are similarly exposed in the `Logic` interface as `Logic#getTheme()` and
+To allow `Ui` to be responsive to updates in the settings, two of the operations are similarly exposed in the `Logic` interface as `Logic#getTheme()` and
 `Logic#getClockFormat()`.
 
-Given below is an example usage scenario and how the various commands work.
+The activity diagram below summarises the process of executing a settings command.
 
-Step 1. The user launches the application. The `UserSettings` will be initialised based on the
+.Activity diagram of settings command execution.
+image::SettingsActivityDiagram.png[]
+
+Assume that the current `theme` is `LIGHT` and `clockFormat` is `TWENTY_FOUR`.
+
+Given below is an example usage scenario and how the various commands work:
+
+Step 1. The user launches the application. The `UserSettings` will be initialised by `Model` based on the
 saved `UserSettings`.
 
-[NOTE]
+Step 2. The user executes `theme dark` command.
 
-Assume that the previous setting for `theme` is `LIGHT`.
+Step 3. `Logic#execute()` calls `Model#setDarkTheme()`, which calls `UserSettings#setDarkTheme()`.
+This changes the `theme` attribute in `UserSettings` to `DARK`.
 
-Step 2. The user executes `theme dark` command to switch the theme of +Work to `DARK`.
+Step 4. `DARK` theme has been applied to +Work and `Ui` is updated.
 
-Step 3. `Logic` calls `Model#setDarkTheme()`, which calls `UserSettings#setDarkTheme()`, which changes `theme` attribute to
-`DARK`.
-
-Step 4. `DARK` theme has been applied to +Work, and the settings have been updated and stored in the save file.
+Step 5. The settings have been updated and stored in `plusworksettings.json`.
 
 The following sequence diagram shows how the `theme dark` operation works.
 
@@ -272,14 +277,21 @@ The `clock twelve` and `clock twenty_four` have a similar operation to `theme da
 
 This section explores how the design can affect the level of customisation available to the user through the settings feature in +Work.
 
-===== Aspect: Level of user customisation for +Work clock format
+===== Aspect: Storage of the required settings data
 
-* **Alternative 1 (current choice):** User can change the display format of date and time only
-** Pros: Easier to implement in terms of storage.
-** Cons: User has to remember to create new deadlines for tasks in 24 hour format only.
-* **Alternative 2:** User can change the input and display format of date and time
-** Pros: User has greater flexibility in input of date and time.
-** Cons: We must ensure that during load and save of storage, the formatting does not cause any errors.
+Within a specific setting, each option has data that helps yield a specific behaviour. Currently the available settings are
+represented as enumerations.
+
+* **Alternative 1 (current choice):** The relevant data is stored within the enum class itself. +
+For example `ClockFormat` has two constants `TWENTY_FOUR` and `TWELVE` that contain `DateTimeFormatters` which are retrieved
+when the user wishes to toggle between them.
+** Pros: Better design as it is more modular. The data can be stored as attributes of the enum constants and retrieved via the default setting from `Model`. Furthermore if
+data is to be changed, it only needs to be changed in one component for the expected behaviour to be achieved.
+** Cons: User cannot customise the data.
+* **Alternative 2:** The data is stored in the `UserSettings` interface as `static` fields.
+** Pros: This exposes the data of each option of all settings to the `Model`. If the user requests to customise that data, it would be possible in this design.
+** Cons: This violates the Single Responsibility principle, as the interface changes whenever the data related to a particular settings option is updated. `UserSettings` should only be aware of the various settings the user
+is able to customise.
 
 ===== Aspect: Level of user customisation for +Work themes
 
