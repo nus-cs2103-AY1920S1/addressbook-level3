@@ -31,7 +31,7 @@ public class ReportGenerator {
      * Generates a PDF summary report for all bodies registered in Mortago.
      *
      */
-    public static boolean generateSummary(java.util.List<Body> bodyList) {
+    public boolean generateSummary(java.util.List<Body> bodyList) {
         if (bodyList == null || bodyList.isEmpty()) {
             return false;
         }
@@ -73,7 +73,7 @@ public class ReportGenerator {
      * Generates a PDF report for all bodies registered in Mortago.
      *
      */
-    public static boolean generateAll(java.util.List<Body> bodyList) {
+    public boolean generateAll(java.util.List<Body> bodyList) {
         if (bodyList == null || bodyList.isEmpty()) {
             return false;
         }
@@ -106,7 +106,7 @@ public class ReportGenerator {
      * @param document which is the report.
      * @param title which is title of the pdf report.
      */
-    private static void addHeader(Document document, String title) throws DocumentException, IOException {
+    private void addHeader(Document document, String title) throws DocumentException, IOException {
         document.open();
         Paragraph preface = new Paragraph(title, titleFont);
         preface.setAlignment(Element.ALIGN_CENTER);
@@ -114,7 +114,7 @@ public class ReportGenerator {
         document.add(new Paragraph("\n"));
         try {
             //Image logo = Image.getInstance("docs/images/logo.png");
-            //Image logo = Image.getInstance(ReportGenerator.class.getClassLoader().getResource("/logo.png"));  //null
+            //Image logo = Image.getInstance(getClass().getClassLoader().getResource("/logo.png"));  //null
             String imageUrl =
                     "https://raw.githubusercontent.com/AY1920S1-CS2103T-T13-2/main/master/docs/images/logo.png";
             Image logo = Image.getInstance(new URL(imageUrl));
@@ -146,7 +146,7 @@ public class ReportGenerator {
      * @param body which is used to generate the report.
      * @return boolean which returns true when report is generated successfully.
      */
-    public static boolean generate(Body body) {
+    public boolean generate(Body body) {
         if (body == null) {
             return false;
         }
