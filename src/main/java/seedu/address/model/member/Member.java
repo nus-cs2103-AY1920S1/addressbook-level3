@@ -2,14 +2,13 @@ package seedu.address.model.member;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.scene.image.Image;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Task;
 
 /**
  * Represents a Member in the address book.
@@ -19,9 +18,8 @@ public class Member {
     // Identity fields
     private final MemberName name;
     private final MemberId id;
-
+    private final String url;
     private final Set<Tag> tags = new HashSet<>();
-
 
     /**
      * Every field must be present and not null.
@@ -31,13 +29,26 @@ public class Member {
         this.name = name;
         this.id = id;
         this.tags.addAll(tags);
+        this.url = null;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Member(MemberName name, MemberId id, Set<Tag> tags, String url) {
+        requireAllNonNull(name, tags);
+        this.name = name;
+        this.id = id;
+        this.tags.addAll(tags);
+        this.url = url;
     }
 
     public Member() {
         this.name = null;
         this.id = null;
         this.tags.addAll(null);
-    }
+        this.url = null;
+}
 
     // TODO add multiple constructors so that users can add additional info later
 
@@ -57,6 +68,20 @@ public class Member {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Image getImage() {
+        Image memImage;
+        if (this.url == null) {
+            memImage = null;
+        } else {
+            memImage = new Image("file:///" + url);
+        }
+        return memImage;
+    }
+
+    public String getImageUrl() {
+        return this.url;
+    }
+
     /**
      * Returns true if both tasks of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -69,7 +94,7 @@ public class Member {
         // TODO change the logic to check for the identity fields of status and member
         // basically the name cannot be the same, that's it
         return otherMember != null
-                && otherMember.getName().equals(getName());
+                && otherMember.getId().equals(getId());
     }
 
     /**
@@ -101,10 +126,14 @@ public class Member {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append("Member ID: " + getId())
-                .append(" Tags: ");
+        builder.append(getName() + " \n")
+                .append("Member ID: " + getId().getDisplayId() + "\n")
+                .append("Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    public String toStringOnlyId() {
+        return id.getDisplayId();
     }
 }

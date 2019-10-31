@@ -318,6 +318,11 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public ObservableList<TasMemMapping> getFilteredTasMemMappingsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
         public void setClockFormat(ClockFormat newClockFormat) {
             throw new AssertionError("This method should not be called.");
         }
@@ -359,6 +364,11 @@ public class AddTaskCommandTest {
 
         @Override
         public boolean canRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<InvMemMapping> getFilteredInvMemMappingsList() {
             throw new AssertionError("This method should not be called.");
         }
     }

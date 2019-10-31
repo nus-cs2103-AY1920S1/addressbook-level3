@@ -27,18 +27,19 @@ class JsonAdaptedMember {
     private final String id;
 
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
-
+    private final String memberImage;
     /**
      * Constructs a {@code JsonAdaptedMember} with the given member details.
      */
     @JsonCreator
     public JsonAdaptedMember(@JsonProperty("name") String name, @JsonProperty("id") String id,
-                           @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                           @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("image") String memberImage) {
         this.name = name;
         this.id = id;
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.memberImage = memberImage;
     }
 
     /**
@@ -50,6 +51,7 @@ class JsonAdaptedMember {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        memberImage = source.getImageUrl();
     }
 
     /**
@@ -73,9 +75,11 @@ class JsonAdaptedMember {
         if (!MemberName.isValidMemberName(name.toString())) {
             throw new IllegalValueException(MemberName.MESSAGE_CONSTRAINTS);
         }
+
         final MemberName modelName = new MemberName(name);
         final MemberId modelId = new MemberId(id);
         final Set<Tag> modelTags = new HashSet<>(memberTags);
-        return new Member(modelName, modelId, modelTags);
+        final String modelImage = memberImage;
+        return new Member(modelName, modelId, modelTags, modelImage);
     }
 }

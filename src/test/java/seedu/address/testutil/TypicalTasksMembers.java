@@ -17,6 +17,7 @@ import java.util.List;
 
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
@@ -135,8 +136,12 @@ public class TypicalTasksMembers {
             ab.addMember(member);
         }
 
-        for(Inventory inventory: TypicalInventories.getTypicalInventories()) {
+        for (Inventory inventory: TypicalInventories.getTypicalInventories()) {
             ab.addInventory(inventory);
+        }
+
+        for (TasMemMapping tasMem: TypicalTasMemMapping.getTypicalTasMemMapping()) {
+            ab.addMapping(tasMem);
         }
         return ab;
     }
