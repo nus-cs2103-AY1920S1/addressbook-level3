@@ -8,8 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
-            "The amount of money spent can only be a positive number from 0.01 to 1000000, "
-            + "specified up to 2 decimal places";
+            "The amount of money spent (after rounding to 2 decimal places) can only be from $0.01 to $1000000";
 
     public final double value;
 
@@ -27,7 +26,8 @@ public class Amount {
      * Returns true if the given amount is a valid amount.
      */
     public static boolean isValidAmount(double test) {
-        return test > 0 && test <= 1000000 && test * 100 == (int) (test * 100);
+        double d = Math.round(test * 100) / 100.0;
+        return d > 0 && d <= 1000000;
     }
 
     @Override

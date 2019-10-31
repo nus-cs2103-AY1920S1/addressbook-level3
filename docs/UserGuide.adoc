@@ -171,8 +171,8 @@ Format: `expense p/PERSON e/AMOUNT_PAID [p/PERSON ...] [d/DESCRIPTION]`
 
 ****
 * Exactly one expense amount must be provided.
-* The amount specified is limited to 2 decimal places.
-* The maximum amount for any single expense is $1,000,000.
+* The amount specified will be rounded to 2 decimal places.
+* After rounding, the allowable expense amount for any single expense is from $0.01 to $1,000,000.
 ****
 
 Examples:

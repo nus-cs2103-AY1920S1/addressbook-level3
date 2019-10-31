@@ -38,5 +38,6 @@ public class NameTest {
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
         assertTrue(Name.isValidName("peterpeterpeterpeterpeterpeterpeterpeter")); // contains 40 characters
+        assertTrue(Name.isValidName("p")); // contains 1 character
     }
 }
