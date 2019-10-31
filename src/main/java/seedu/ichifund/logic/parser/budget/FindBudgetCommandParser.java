@@ -1,8 +1,7 @@
 package seedu.ichifund.logic.parser.budget;
 
-import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.Arrays;
+import java.util.Collections;
 
 import seedu.ichifund.logic.commands.budget.FindBudgetCommand;
 import seedu.ichifund.logic.parser.Parser;
@@ -22,8 +21,7 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
     public FindBudgetCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindBudgetCommand.MESSAGE_USAGE));
+            return new FindBudgetCommand(new BudgetDescriptionPredicate(Collections.emptyList()));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");

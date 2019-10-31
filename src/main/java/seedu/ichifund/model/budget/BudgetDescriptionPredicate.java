@@ -17,6 +17,10 @@ public class BudgetDescriptionPredicate implements Predicate<Budget> {
 
     @Override
     public boolean test(Budget budget) {
+        if (keywords.isEmpty()) {
+            return true;
+        }
+
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(budget.getDescription().description, keyword));
     }
