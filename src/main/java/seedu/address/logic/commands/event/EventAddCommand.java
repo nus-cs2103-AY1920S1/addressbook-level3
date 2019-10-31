@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.EventUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
@@ -37,6 +38,7 @@ public class EventAddCommand extends EventCommand {
             + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
     private static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
     private static final String INVALID_EVENT_RANGE = "Invalid date range between start and end dateTime";
+    private static final String INVALID_COLOR_STRING = "Invalid color string. Input values between 0 - 23 inclusive.";
     private static final String DEFAULT_COLOR_STRING = "group00";
 
     private final String eventName;
@@ -86,7 +88,7 @@ public class EventAddCommand extends EventCommand {
         this.startDateTimeString = startDateTimeString;
         this.endDateTimeString = endDateTimeString;
         this.recurTypeString = recurTypeString.toLowerCase();
-        this.colorNumberString = EventUtil.convertNumberToColorNumber(colorNumberString);
+        this.colorNumberString = colorNumberString;
     }
 
 
@@ -116,20 +118,22 @@ public class EventAddCommand extends EventCommand {
                 startDateTimeString, endDateTimeString);
         vEvent.setUniqueIdentifier(uniqueIdentifier);
 
-        if (recurTypeString.equals("weekly")) {
-            vEvent.setRecurrenceRule(WEEKLY_RECURRENCE_RULE);
-        } else if (recurTypeString.equals("daily")) {
-            vEvent.setRecurrenceRule(DAILY_RECURRENCE_RULE);
-        } else if (!recurTypeString.equals("none")) {
+        if (!EventUtil.validateRecurTypeString(recurTypeString)) {
             throw new CommandException(INVALID_RECURRENCE_TYPE);
         }
 
-        //validate colorNumberString is in range
+        try {
+            vEvent.setRecurrenceRule(EventUtil.stringToRecurrenceRule(recurTypeString));
+        } catch (IllegalValueException ex) {
+            throw new CommandException(ex.toString());
+        }
 
-        Categories colorCategory = new Categories(colorNumberString);
-        ArrayList<Categories> colorCategoryList = new ArrayList<>();
-        colorCategoryList.add(colorCategory);
-        vEvent.setCategories(colorCategoryList);
+        try {
+            ArrayList<Categories> categoriesToBeSet = EventUtil.convertNumberToColorCategoryList(colorNumberString);
+            vEvent.setCategories(categoriesToBeSet);
+        } catch (IllegalValueException ex) {
+            throw new CommandException(ex.toString());
+        }
 
         if (model.hasVEvent(vEvent)) {
             return new CommandResult("Will result in duplicate Event being created");

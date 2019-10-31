@@ -8,8 +8,6 @@ import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.util.EventUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.EventScheduleViewMode;
 
 /**
- * Represents a view events command.
+ * Represents a command to view events in the schedule pane
  */
 public class EventViewCommand extends EventCommand {
 
@@ -36,6 +34,12 @@ public class EventViewCommand extends EventCommand {
         this.viewDateString = fields.get("viewDate");
     }
 
+    /**
+     * Executes this command which returns a commandResult for UI to act on
+     * @param model {@code Model} which the command should operate on.
+     * @return returns a commandResult of type SHOW_SCHEDULE
+     * @throws CommandException for invalid view modes or invalid date format
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (!this.viewMode.isBlank()) {
@@ -67,14 +71,6 @@ public class EventViewCommand extends EventCommand {
         sb.append(String.format(" in %s format", eventScheduleViewMode.name().toLowerCase()));
         sb.append(String.format(" with reference date: %s", targetViewDate.toLocalDate().toString()));
         return sb.toString();
-    }
-
-    private boolean fieldModified(String field) {
-        return CollectionUtil.isAnyNonNull(field);
-    }
-
-    private boolean anyModified() {
-        return CollectionUtil.isAnyNonNull(viewMode, viewDateString);
     }
 }
 

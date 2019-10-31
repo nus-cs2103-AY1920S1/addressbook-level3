@@ -244,6 +244,11 @@ public interface Model {
      * Check if group already exists.
      */
     boolean checkGroupExists(String groupId);
+
+    /**
+     * Exports group to word document
+     */
+    void exportGroup(String groupId);
     //endregion
 
     //region Questions
@@ -477,6 +482,7 @@ public interface Model {
     ObservableList<VEvent> getVEventList();
 
     Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
+
     //endregion
 
     //region Statistics

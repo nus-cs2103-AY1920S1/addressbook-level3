@@ -235,6 +235,7 @@ public class ModelManager implements Model {
     }
 
     //region Mark
+
     /**
      * Mark a student who is struggling academically.
      *
@@ -421,6 +422,16 @@ public class ModelManager implements Model {
         }
         return groupExists;
     }
+
+    /**
+     * Exports group to word document
+     *
+     * @param groupId Id of group to be exported.
+     */
+    public void exportGroup(String groupId) {
+        groupList.exportGroup(groupId);
+    }
+
     //endregion
 
     //region Questions
@@ -743,7 +754,7 @@ public class ModelManager implements Model {
     @Override
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
-    };
+    }
     //endregion
 
     @Override
@@ -764,5 +775,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
-
 }

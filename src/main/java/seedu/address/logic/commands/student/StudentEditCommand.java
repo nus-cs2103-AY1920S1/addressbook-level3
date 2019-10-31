@@ -65,6 +65,11 @@ public class StudentEditCommand extends StudentCommand {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
 
+        //ensures that the mark is transferred over as well
+        if (studentToEdit.getIsMarked()) {
+            editedStudent.setMarked();
+        }
+
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         return new CommandResult(generateSuccessMessage(studentToEdit, editedStudent), CommandResultType.SHOW_STUDENT);
