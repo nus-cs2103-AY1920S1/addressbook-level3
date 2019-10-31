@@ -117,6 +117,11 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      */
     public void addProblem(Problem p) {
         problems.add(p);
+        for (Tag tag : p.getTags()) {
+            if (!hasTag(tag)) {
+                addTag(tag);
+            }
+        }
     }
 
     /**

@@ -96,10 +96,12 @@ public class EditCommand extends Command {
         }
 
         model.setProblem(problemToEdit, editedProblem);
-        // model.addTags(editProblemDescriptor.tags);
+
         if (editProblemDescriptor.tags != null) {
             for (Tag tag : editProblemDescriptor.tags) {
-                model.addTag(tag);
+                if (!model.hasTag(tag)) {
+                    model.addTag(tag);
+                }
             }
         }
 
