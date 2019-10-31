@@ -125,7 +125,12 @@ public class ParserUtil {
         requireNonNull(priority);
         String trimmedString = priority.trim();
         try {
-            Priority parsedPriority = Priority.of(trimmedString);
+            Priority parsedPriority;
+            if (trimmedString.isBlank()) {
+                parsedPriority = Priority.NONE;
+            } else {
+                parsedPriority = Priority.of(trimmedString);
+            }
             return parsedPriority;
         } catch (IllegalArgumentException e) {
             throw new ParseException(Priority.getMessageConstraints());
