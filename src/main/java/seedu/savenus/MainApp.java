@@ -17,6 +17,7 @@ import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.LogicManager;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.PurchaseHistory;
@@ -31,6 +32,8 @@ import seedu.savenus.model.util.SampleDataUtil;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.storage.Storage;
 import seedu.savenus.storage.StorageManager;
+import seedu.savenus.storage.alias.AliasStorage;
+import seedu.savenus.storage.alias.JsonAliasListStorage;
 import seedu.savenus.storage.menu.JsonMenuStorage;
 import seedu.savenus.storage.menu.MenuStorage;
 import seedu.savenus.storage.purchase.JsonPurchaseHistoryStorage;
@@ -80,13 +83,14 @@ public class MainApp extends Application {
                 .getPurchaseHistoryFilePath());
         CustomSortStorage sort = new JsonCustomSortStorage(userPrefs.getSortFilePath());
         WalletStorage walletStorage = new JsonWalletStorage(userPrefs.getWalletFilePath());
+        AliasStorage aliasStorage = new JsonAliasListStorage(userPrefs.getAliasFilePath());
         storage = new StorageManager(menuStorage, userPrefsStorage, userRecommendations,
-                purchaseHistoryStorage, walletStorage, sort, savingsAccountStorage);
+                purchaseHistoryStorage, walletStorage, sort, savingsAccountStorage, aliasStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs, userRecommendations, purchaseHistoryStorage, walletStorage,
-                sort, savingsAccountStorage);
+                sort, savingsAccountStorage, aliasStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -100,7 +104,8 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, RecsStorage userRecs,
                                    PurchaseHistoryStorage purchaseHistoryStorage, WalletStorage walletStorage,
-                                   CustomSortStorage userSortFields, SavingsStorage savingsAccountStorage) {
+                                   CustomSortStorage userSortFields, SavingsStorage savingsAccountStorage,
+                                   AliasStorage aliasStorage) {
         Optional<ReadOnlyMenu> menuOptional;
         ReadOnlyMenu initialData;
 
@@ -118,6 +123,9 @@ public class MainApp extends Application {
 
         Optional<CustomSorter> sorterOptional;
         CustomSorter initialSorter;
+
+        Optional<AliasList> aliasListOptional;
+        AliasList initialAliasList;
         try {
             menuOptional = storage.readMenu();
             if (!menuOptional.isPresent()) {
@@ -154,6 +162,12 @@ public class MainApp extends Application {
                 logger.info("CustomSorter file not found. Will be starting with a blank CustomSorter");
             }
             initialSorter = sorterOptional.orElse(new CustomSorter());
+
+            aliasListOptional = aliasStorage.readList();
+            if (!aliasListOptional.isPresent()) {
+                logger.info("AliasList file not found. Will be starting with a new AliasList.");
+            }
+            initialAliasList = aliasListOptional.orElse(new AliasList());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty application");
             initialData = new Menu();
@@ -162,6 +176,7 @@ public class MainApp extends Application {
             initialPurchaseHistory = new PurchaseHistory();
             initialWallet = new Wallet();
             initialSorter = new CustomSorter();
+            initialAliasList = new AliasList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty application");
             initialData = new Menu();
@@ -170,9 +185,10 @@ public class MainApp extends Application {
             initialPurchaseHistory = new PurchaseHistory();
             initialWallet = new Wallet();
             initialSorter = new CustomSorter();
+            initialAliasList = new AliasList();
         }
         return new ModelManager(initialData, userPrefs, initialRecs, initialPurchaseHistory,
-                initialWallet, initialSorter, initialSavingsAccount);
+                initialWallet, initialSorter, initialSavingsAccount, initialAliasList);
     }
 
     private void initLogging(Config config) {

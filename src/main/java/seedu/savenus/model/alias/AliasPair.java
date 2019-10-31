@@ -51,4 +51,19 @@ public class AliasPair {
             return true;
         }
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (this instanceof AliasPair) {
+            AliasPair other = (AliasPair) object;
+            return this.getCommandWord().equals(other.getCommandWord())
+                    && this.getAliasWord().equals(other.getAliasWord());
+        } else {
+            return false;
+        }
+    }
 }

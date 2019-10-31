@@ -8,7 +8,7 @@ import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.sort.CustomSorter;
 
 /**
- * An Immutable Recommendation Set that is serializable to JSON format.
+ * An Immutable CustomSorter that is serializable to JSON format.
  */
 @JsonRootName(value = "savenus")
 public class JsonSerializableCustomSort {

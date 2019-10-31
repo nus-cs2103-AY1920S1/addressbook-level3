@@ -14,6 +14,7 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.SaveNusParser;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
@@ -53,6 +54,7 @@ public class LogicManager implements Logic {
             storage.savePurchaseHistory(model.getPurchaseHistory());
             storage.saveWallet(model.getWallet());
             storage.saveFields(model.getCustomSorter());
+            storage.saveList(model.getAliasList());
             storage.saveSavingsAccount(model.getSavingsAccount());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -74,6 +76,11 @@ public class LogicManager implements Logic {
     @Override
     public CustomSorter getCustomSorter() {
         return model.getCustomSorter();
+    }
+
+    @Override
+    public AliasList getAliasList() {
+        return model.getAliasList();
     }
 
     @Override

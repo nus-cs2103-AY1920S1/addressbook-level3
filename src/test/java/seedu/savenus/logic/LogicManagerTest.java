@@ -32,6 +32,7 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.PurchaseHistory;
@@ -42,6 +43,7 @@ import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.storage.StorageManager;
+import seedu.savenus.storage.alias.JsonAliasListStorage;
 import seedu.savenus.storage.menu.JsonMenuStorage;
 import seedu.savenus.storage.purchase.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.JsonRecsStorage;
@@ -76,8 +78,12 @@ public class LogicManagerTest {
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
                 temporaryFolder.resolve("userPrefs-sort.json")
         );
+        JsonAliasListStorage aliasListStorage = new JsonAliasListStorage(
+                temporaryFolder.resolve("userPrefs-alias.json")
+        );
         StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage, walletStorage, customSortStorage, savingsAccountStorage);
+                purchaseHistoryStorage, walletStorage, customSortStorage, savingsAccountStorage,
+                aliasListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -116,8 +122,12 @@ public class LogicManagerTest {
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(
                 temporaryFolder.resolve("ioExceptionUserRecs.json")
         );
+        JsonAliasListStorage aliasListStorage = new JsonAliasListStorage(
+                temporaryFolder.resolve("ioExceptionAliasList.json")
+        );
         StorageManager storage = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage, walletStorage, customSortStorage, savingsAccountStorage);
+                purchaseHistoryStorage, walletStorage, customSortStorage, savingsAccountStorage,
+                aliasListStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -220,7 +230,8 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(),
+                new AliasList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

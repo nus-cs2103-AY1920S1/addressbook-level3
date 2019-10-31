@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
@@ -30,9 +31,9 @@ import seedu.savenus.model.wallet.Wallet;
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-            new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
+            new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(), new AliasList());
     private Model expectedModel = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(),
-            new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
+            new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(), new AliasList());
 
     @Test
     public void equals() {

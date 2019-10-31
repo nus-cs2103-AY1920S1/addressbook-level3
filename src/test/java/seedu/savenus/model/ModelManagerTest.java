@@ -17,6 +17,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.savenus.commons.core.GuiSettings;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.purchase.PurchaseHistory;
@@ -174,12 +175,13 @@ public class ModelManagerTest {
         PurchaseHistory purchaseHistory = new PurchaseHistory();
         Wallet wallet = new Wallet();
         CustomSorter customSorter = new CustomSorter();
+        AliasList aliasList = new AliasList();
 
         // same values -> returns true
         modelManager = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount);
+                customSorter, savingsAccount, aliasList);
         ModelManager modelManagerCopy = new ModelManager(menu, userPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount);
+                customSorter, savingsAccount, aliasList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -193,13 +195,13 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentMenu, userPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount)));
+                customSorter, savingsAccount, aliasList)));
 
         // different filteredList -> returns false
         String[] keywords = CARBONARA.getName().fullName.split("\\s+");
         modelManager.updateFilteredFoodList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(menu, userPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount)));
+                customSorter, savingsAccount, aliasList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOOD);
@@ -208,6 +210,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMenuFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(menu, differentUserPrefs, userRecs, purchaseHistory, wallet,
-                customSorter, savingsAccount)));
+                customSorter, savingsAccount, aliasList)));
     }
 }

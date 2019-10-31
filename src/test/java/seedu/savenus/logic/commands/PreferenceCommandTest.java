@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Tag;
@@ -45,7 +46,7 @@ public class PreferenceCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalMenu(), new UserPrefs(), new UserRecommendations(), new PurchaseHistory(),
-                new Wallet(), new CustomSorter(), new SavingsAccount());
+                new Wallet(), new CustomSorter(), new SavingsAccount(), new AliasList());
         model.clearDislikes();
         model.clearLikes();
     }

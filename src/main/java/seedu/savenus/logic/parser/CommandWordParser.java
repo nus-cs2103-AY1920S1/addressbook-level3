@@ -13,7 +13,7 @@ public class CommandWordParser {
      * @return the word after being parsed.
      */
     public static String parseWord(String keyword) {
-        AliasList aliasList = AliasList.getInstance();
+        AliasList aliasList = new AliasList();
         String commandWord = aliasList.getCommandWord(keyword);
         return commandWord;
     }

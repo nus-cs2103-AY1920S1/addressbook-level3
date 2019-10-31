@@ -22,6 +22,7 @@ import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.storage.alias.JsonAliasListStorage;
 import seedu.savenus.storage.menu.JsonMenuStorage;
 import seedu.savenus.storage.purchase.JsonPurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.JsonRecsStorage;
@@ -48,8 +49,9 @@ public class StorageManagerTest {
         JsonWalletStorage walletStorage = new JsonWalletStorage(
                 getTempFilePath("wallet"));
         JsonCustomSortStorage customSortStorage = new JsonCustomSortStorage(getTempFilePath("sort"));
+        JsonAliasListStorage aliasListStorage = new JsonAliasListStorage(getTempFilePath("alias"));
         storageManager = new StorageManager(menuStorage, userPrefsStorage, userRecsStorage,
-                purchaseHistoryStorage, walletStorage, customSortStorage, savingsStorage);
+                purchaseHistoryStorage, walletStorage, customSortStorage, savingsStorage, aliasListStorage);
     }
 
     private Path getTempFilePath(String fileName) {
