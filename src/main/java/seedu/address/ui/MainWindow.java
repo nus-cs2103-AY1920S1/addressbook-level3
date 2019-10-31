@@ -1,7 +1,11 @@
 package seedu.address.ui;
 
+import static java.awt.Desktop.getDesktop;
+
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.IOException;
+import java.net.URI;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
@@ -56,7 +60,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private EventListPanel appointmentListPanel;
     private EventListPanel dutyShiftListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
     private TabBar tabBar;
 
     @FXML
@@ -101,8 +104,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-
-        helpWindow = new HelpWindow();
 
         getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
@@ -206,10 +207,10 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     @FXML
     public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
+        try {
+            getDesktop().browse(URI.create("https://clerkpro.netlify.com/userguide#Features"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -225,7 +226,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -295,7 +295,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             break;
         default:
             break;
-
         }
     }
 

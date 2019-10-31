@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
@@ -28,34 +27,28 @@ public class TabBar extends UiPart<Region> {
 
         Platform.runLater(() -> omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex)));
 
-        tabBar.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                int size = ols.size();
+        tabBar.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            int size = ols.size();
 
-                switch (keyEvent.getCode()) {
-                case DOWN:
-                    selectedIndex = (size + selectedIndex + 1) % size;
-                    break;
-                case UP:
-                    selectedIndex = (size + selectedIndex - 1) % size;
-                    break;
-                case RIGHT:
-                    omniPanel.regainOmniPanelSelector();
-                    return;
-                default:
-                    return;
-                }
-                keyEvent.consume();
-                omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
+            switch (keyEvent.getCode()) {
+            case DOWN:
+                selectedIndex = (size + selectedIndex + 1) % size;
+                break;
+            case UP:
+                selectedIndex = (size + selectedIndex - 1) % size;
+                break;
+            case RIGHT:
+                omniPanel.regainOmniPanelSelector();
+                return;
+            default:
+                return;
             }
+            keyEvent.consume();
+            omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
         });
 
-        ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(event.getTarget())));
-            }
+        ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(mouseEvent.getTarget())));
         }));
     }
 

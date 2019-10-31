@@ -106,8 +106,8 @@ public class MainAppTest extends ApplicationTest {
 
     @Test
     public void enqueueAndDequeueTest(FxRobot robot) {
-        robot.clickOn("#commandTextField").write("register i/001A n/John Doe p/98765432"
-                + " e/johnd@example.com a/311, Clementi Ave 2, #02-25").type(KeyCode.ENTER);
+        robot.clickOn("#commandTextField").write("register -id 001A -name John Doe -phone 98765432"
+                + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25").type(KeyCode.ENTER);
         robot.clickOn("#commandTextField").write("enqueue 001A").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#queueListView").queryListView()).hasExactlyNumItems(1);
         robot.write("dequeue 1").type(KeyCode.ENTER);
@@ -126,13 +126,9 @@ public class MainAppTest extends ApplicationTest {
     }
 
     @Test
-    public void helpAndExitCommandTest(FxRobot robot) {
+    public void exitCommandTest(FxRobot robot) {
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
-        var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
 
-        robot.clickOn(commandBox).write("help").type(KeyCode.ENTER);
-        Assertions.assertThat(resultDisplay.getText()).startsWith("Opened help window.");
-        Assertions.assertThat(robot.listWindows()).hasSize(2);
         robot.clickOn(commandBox).write("exit").type(KeyCode.ENTER);
         Assertions.assertThat(robot.listWindows()).hasSize(0);
     }
