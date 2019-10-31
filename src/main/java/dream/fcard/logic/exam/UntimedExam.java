@@ -13,22 +13,17 @@ public class UntimedExam implements Exam {
     private final ArrayList<FlashCard> testDeck;
     private Result result;
     private int index = 0;
-    private ArrayList<FlashCard> statDeck;
+    private ArrayList<FlashCard> initialDeck;
 
     public UntimedExam(ArrayList<FlashCard> deck) {
-        this.testDeck = deck;
+        this.initialDeck = deck;
+        this.testDeck = createTestDeck();
         this.result = new Result(testDeck.size());
-        this.statDeck = createStatDeck();
     }
 
     @Override
     public FlashCard getCurrentCard() {
         return testDeck.get(index);
-    }
-
-    @Override
-    public FlashCard getCurrentStatCard() {
-        return statDeck.get(index);
     }
 
     @Override
@@ -68,17 +63,12 @@ public class UntimedExam implements Exam {
         return index;
     }
 
-    @Override
-    public void addDuplicateCardToDeck(FlashCard card) {
-        this.statDeck.add(card);
-    }
-
-    private ArrayList<FlashCard> createStatDeck() {
-        ArrayList<FlashCard> statDeckConsumer = new ArrayList<>();
-        for (FlashCard card : testDeck) {
+    private ArrayList<FlashCard> createTestDeck() {
+        ArrayList<FlashCard> testDeckConsumer = new ArrayList<>();
+        for (FlashCard card : initialDeck) {
             FlashCard duplicateCard = card.duplicate();
-            statDeckConsumer.add(duplicateCard);
+            testDeckConsumer.add(duplicateCard);
         }
-        return statDeckConsumer;
+        return testDeckConsumer;
     }
 }

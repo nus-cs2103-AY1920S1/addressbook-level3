@@ -74,12 +74,12 @@ public class TestDisplay extends AnchorPane {
     };
 
     private Consumer<Integer> updateMCQUserAttempt = input -> {
-        MultipleChoiceCard card = (MultipleChoiceCard) exam.getCurrentStatCard();
+        MultipleChoiceCard card = (MultipleChoiceCard) exam.getCurrentCard();
         card.setUserAttempt(input);
     };
 
     private Consumer<String> updateJSUserAttempt = input -> {
-        JavascriptCard card = (JavascriptCard) exam.getCurrentStatCard();
+        JavascriptCard card = (JavascriptCard) exam.getCurrentCard();
         card.setAttempt(input);
     };
 
@@ -178,21 +178,21 @@ public class TestDisplay extends AnchorPane {
         } catch (IndexOutOfBoundsException e) {
             //code for a result popup
             displayMessage.accept("You've ran out of cards in this test!");
-            EndOfTestAlert.display("Results", "results");
+            EndOfTestAlert.display("Results", "Final Score" + exam.getResult());
             displayDecks.accept(true);
             clearMessage.accept(true);
         }
     }
     //sample renderer for Shawn
     private void renderCurrentScore() {
-        scoreLabel.setText(exam.getResult());
+        scoreLabel.setText("Current Score: " + exam.getResult());
     }
 
     private void updateStatDeckWithScore(Boolean isCorrect) {
         try {
             Boolean successfulScore = exam.parseUserInputAndGrade(isCorrect);
-            FlashCard statCard = exam.getCurrentStatCard();
-            statCard.updateScore(successfulScore);
+            FlashCard currCard = exam.getCurrentCard();
+            currCard.updateScore(successfulScore);
             //checkif this method works for MCQ and JS card
         } catch (IndexNotFoundException e) {
             e.printStackTrace();
