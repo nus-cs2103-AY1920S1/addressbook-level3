@@ -228,7 +228,7 @@ Format: `unarchive INDEX`
 === Templates Tab
 Templates are meme prototypes.
 You can add templates to Weme and use them to create new memes.
-The templates tab handles template management and meme creation is handled in the <<Create Tab>>.
+The templates tab handles template management and meme creation is handled in the create tab.
 
 ==== Adding a template: `add`
 
@@ -302,6 +302,77 @@ Uses the template at the specified index to start a meme creation session. +
 Weme will enter the create tab and allow you to add text to the template. +
 For details, please refer to the next section <<Create Tab>>. +
 Format: `use INDEX`
+
+=== Create Tab
+The create tab allows you to create a new meme from a template.
+To start a meme creation session, select a template from the templates tab and execute the `use` command.
+
+==== Adding text: `add`
+
+Adds a piece of text to the template. +
+Format: `add TEXT x/X_COORDINATE y/Y_COORDINATE [c/COLOR] [s/SIZE] [S/STYLE]...`
+
+****
+* `X_COORDINATE` and `Y_COORDINATE` denote the position at which the supplied text will be placed and are represented as ratios of the image dimensions.
+`x/0.3 y/0.5` means the center of the supplied text will be 30% right of the left border and 50% down from the top border.
+* `COLOR` can be a name, e.g. `cyan`, or a hex RGB value, e.g. `#FF34E2`.
+* Weme supports 6 levels of font size. `SIZE` must be an integer from 1 to 6, where 1 denotes the smallest font size and 6 denotes the largest font size. Some text of each font size can be found at the right hand side of the image as a reference.
+* `STYLE` must be `plain`, `bold`, or `italic`. In the case you specify multiple font styles, Weme will combine them. For example, `S/bold S/italic` will give you bold and italic text.
+* If you do not specify `COLOR`, `SIZE`, or `STYLE`, the default values will be used. The default values are black, 5, and plain, respectively.
+* Weme will not add text that would exceed the image boundary. If it detects such a scenario, it will print an error message.
+****
+
+Examples:
+
+* `add CS students be like x/0.3 y/0.5` +
+Adds text `CS students be like` to the template, placing its center 30% right of the left border and 50% down from the top border.
+* `add sToNKs x/0.5 y/0.75 c/red s/5 S/bold` +
+Adds red and bold text `sToNKs` with size 5 to the template, placing its center 50% right of the left border and 75% down from the top border.
+
+==== Editing text: `edit`
+
+Whenever you add text, the list at the right hand side will be updated. +
+The `edit` command allows you to choose and edit a piece of text from that list. +
+Format: `edit INDEX [t/TEXT] [x/X_COORDINATE] [y/Y_COORDINATE] [c/COLOR] [s/SIZE] [S/STYLE]...`
+
+****
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing text styles, the existing styles of the text will be removed i.e adding of styles is not cumulative.
+****
+
+Examples:
+
+* `edit 1 t/CODE` +
+Changes the text at index 1 to `CODE`.
+* `edit 2 x/0.5` +
+Changes the x-coordinate of the text at index 2 to 0.5.
+* `edit 3 c/#FC1423 s/5 S/bold` +
+Edits the text at index 3, changing its color to #FC1423, size to 5 and style to bold.
+
+==== Deleting text: `delete`
+
+Deletes the text at the specified index. +
+Format: `delete INDEX`
+
+==== Aborting meme creation: `abort`
+
+Aborts this meme creation session and go back to the templates tab. +
+Format: `abort`
+
+==== Completing the creation session: `create`
+
+Creates a new meme with all the added text applied. The new meme will be saved into Weme's meme collection, with the specified description and tags. +
+Format: `create [d/DESCRIPTION] [t/TAG]...`
+
+****
+* This command does not modify the template you used to start the creation session.
+****
+
+Examples:
+
+* `create d/sleep or code t/soc t/cs2103` +
+Creates a new meme from the current meme creation session, giving it a description `sleep or code` and tags `soc` and `cs2103`.
 
 === Export Tab
 
