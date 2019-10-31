@@ -1,0 +1,53 @@
+= Ryo Chandra Putra Armanda - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MooLah
+
+---
+
+== Overview
+
+MooLah is an expense tracker application developed in Java by and for students from National University of Singapore. The application
+is command-line based but presented with a GUI created with JavaFX for display purposes.
+
+== Summary of contributions
+
+* *Major enhancement*: implemented *undo/redo functionality*
+** What it does: The functionality enables the user to undo commands that have been executed in a one-by-one manner. Commands that have been undone can be reverted back by using the redo command, provided that the user have not executed any new commands at the time.
+** Justification: This component improves the application significantly as a user can make mistakes in commands and the component helps the user amend them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required a thoughtful analysis of design approaches and resource trade-offs. The implementation too was challenging as it hinges on the immutability of the data structures of the model.
+
+* *Other contributions*:
+
+** Project management:
+*** Ensured the master branch is protected from rogue code pushes
+*** Made passing Travis build a requirement for merging pull requests to ensure passing build of the master branch.
+*** Configured Coveralls to post coverage status to pull requests after passing Travis build, with a warning if coverage drops by 5%.
+*** Set the requirement for one teammate approval to be able to merge pull requests to improve codebase quality.
+** Improvements to existing components:
+*** Separated command validation from execution https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#85]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#62], https://github.com/AY1920S1-CS2103T-T11-1/main/pull/[#89]
+** Tools:
+*** Integrated Coveralls to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undo]
+
+include::../UserGuide.adoc[tag=redo]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]

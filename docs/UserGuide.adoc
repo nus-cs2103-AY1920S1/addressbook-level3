@@ -73,34 +73,46 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-==== Undo the previous command : `undo`
+// tag::undo[]
+=== Undo the previous command : `undo`
 
-User can undo the previous command. Only commands that modify the data, e.g. `add` `edit` `delete` `clear` etc,
-can be undone. User will see the command that is being undone at the result display.
+Did something wrong? You can undo it. However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`, `deleteexpense`, and so on.
+
+Do not worry if you forget what did you do a few steps back (it happens!), MooLah will display a short description of what
+particular command it did undo to ensure that you undo the right thing.
 
 Format: `undo`
 
 Example:
 ```
-delete 5
+deleteexpense 5
 undo
 ```
 Result:
-Expense no. 5 will be undone, re-added to the data.
+The deletion of expense #5 will be undone, or in other words, re-added to MooLah.
+MooLah will then display the message `Undid "Delete expense with index 5"`.
 
-==== Redo the command that was undone : `redo`
-User can redo the command they have undone.
+// end::undo[]
+
+// tag::redo[]
+=== Redo an undone command : `redo`
+
+You might hit one undo too many and you wish to cancel that one undo. That's okay, redo will help you on that.
+
+Similar to undo, MooLah will display a short description of the command it did redo to you.
 
 Format: `redo`
 
 Example:
 ```
-delete 5
+deleteexpense 5
 undo
 redo
 ```
 Result:
-Expense no. 5 will now be deleted.
+At the end, expense #5 will keep being deleted (poor thing!). MooLah will also display a message `Redid "Delete expense with index 5"`.
+
+// end::redo[]
 
 === Basic Expense-related Commands
 ==== Adding an expense: `addexpense`
