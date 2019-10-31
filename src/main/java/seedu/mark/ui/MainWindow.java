@@ -46,13 +46,13 @@ public class MainWindow extends UiPart<Stage> {
     private OfflinePanel offlinePanel;
 
     @FXML
-    private ToggleButton offlineButton;
+    private ToggleButton dashboardButton;
 
     @FXML
     private ToggleButton onlineButton;
 
     @FXML
-    private ToggleButton dashboardButton;
+    private ToggleButton offlineButton;
 
     @FXML
     private SplitPane splitPane;
@@ -195,18 +195,27 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Switches to dashboard view
+     */
     @FXML
     public void handleSwitchToDashboard() {
         dashboardButton.setSelected(true);
         mainViewAreaPlaceholder.getChildren().set(0, dashboardPanel.getRoot());
     }
 
+    /**
+     * Switches to online view
+     */
     @FXML
     public void handleSwitchToOnline() {
         onlineButton.setSelected(true);
         mainViewAreaPlaceholder.getChildren().set(0, browserPanel.getRoot());
     }
 
+    /**
+     * Switches to offline view
+     */
     @FXML
     public void handleSwitchToOffline() {
         offlineButton.setSelected(true);
