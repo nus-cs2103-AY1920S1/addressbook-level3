@@ -86,4 +86,8 @@ public class ActivityWindow extends UiPart<Region> {
     public void displayCheatSheet(CheatSheet cheatSheet) {
         cheatsheetTabWindowController.loadCheatSheet(cheatSheet);
     }
+
+    public void switchCheatSheetContent(int index) {
+        cheatsheetTabWindowController.showSpecificTagContents(index);
+    }
 }

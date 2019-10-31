@@ -27,7 +27,7 @@ public class ViewCheatSheetCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String VIEW_CHEATSHEET_SUCCESS = "Viewing cheatsheet: %1$s";
+    public static final String VIEW_CHEATSHEET_SUCCESS = "Viewing cheatsheet: ";
 
     private final Index targetIndex;
 
@@ -45,8 +45,8 @@ public class ViewCheatSheetCommand extends Command {
         }
 
         CheatSheet cheatSheet = lastShownList.get(targetIndex.getZeroBased());
-
-        return new CheatSheetCommandResult(String.format(VIEW_CHEATSHEET_SUCCESS, cheatSheet), Optional.of(cheatSheet));
+        return new CheatSheetCommandResult(
+                String.format(VIEW_CHEATSHEET_SUCCESS + cheatSheet.getTitle(), cheatSheet), Optional.of(cheatSheet));
     }
 
     @Override

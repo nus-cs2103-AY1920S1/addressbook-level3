@@ -17,6 +17,7 @@ import seedu.address.logic.commands.cheatsheet.DeleteCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.FilterCheatSheetByTagCommand;
 import seedu.address.logic.commands.cheatsheet.ViewCheatSheetCommand;
+import seedu.address.logic.commands.cheatsheet.ViewSpecificCheatSheetTagCommand;
 import seedu.address.logic.commands.flashcard.AddFlashcardCommand;
 import seedu.address.logic.commands.flashcard.DeleteFlashcardCommand;
 import seedu.address.logic.commands.flashcard.FilterFlashcardByTagCommand;
@@ -40,6 +41,7 @@ import seedu.address.logic.parser.cheatsheet.DeleteCheatSheetCommandParser;
 import seedu.address.logic.parser.cheatsheet.EditCheatSheetCommandParser;
 import seedu.address.logic.parser.cheatsheet.FilterCheatSheetByTagCommandParser;
 import seedu.address.logic.parser.cheatsheet.ViewCheatSheetCommandParser;
+import seedu.address.logic.parser.cheatsheet.ViewSpecificCheatSheetTagCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.flashcard.AddFlashcardCommandParser;
 import seedu.address.logic.parser.flashcard.DeleteFlashcardCommandParser;
@@ -142,6 +144,8 @@ public class AddressBookParser {
         case ViewCheatSheetCommand.COMMAND_WORD:
             return new ViewCheatSheetCommandParser().parse(arguments);
 
+        case ViewSpecificCheatSheetTagCommand.COMMAND_WORD:
+            return new ViewSpecificCheatSheetTagCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

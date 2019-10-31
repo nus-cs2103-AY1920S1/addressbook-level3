@@ -8,6 +8,8 @@ import java.util.Optional;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.cheatsheet.CheatSheet;
 
+import javax.swing.text.html.Option;
+
 /**
  * Represents the result of a command execution.
  */
@@ -18,12 +20,18 @@ public class CheatSheetCommandResult extends CommandResult {
     /** CheatSheet to display (if any) */
     private final Optional<CheatSheet> cheatsheet;
 
+    private boolean isSwitchTags;
+
+    private Optional<Integer> tagIndex;
+
     /**
      * Constructs a {@code CheatSheetCommandResult} with the specified fields.
      */
     public CheatSheetCommandResult(String feedbackToUser, Optional<CheatSheet> cheatsheet) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.cheatsheet = cheatsheet;
+        tagIndex = Optional.empty();
+        isSwitchTags = false;
     }
 
     /**
@@ -31,6 +39,23 @@ public class CheatSheetCommandResult extends CommandResult {
      */
     public CheatSheetCommandResult(String feedbackToUser) {
         this(feedbackToUser, Optional.empty());
+        tagIndex = Optional.empty();
+        isSwitchTags = false;
+    }
+
+    public CheatSheetCommandResult(String feedbackToUser, int tagIndex, boolean isSwitchTags) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.cheatsheet = Optional.empty();
+        this.tagIndex = Optional.of(tagIndex);
+        this.isSwitchTags = isSwitchTags;
+    }
+
+    public Optional<Integer> getTagIndex() {
+        return tagIndex;
+    }
+
+    public boolean isSwitchTags() {
+        return isSwitchTags;
     }
 
     @Override

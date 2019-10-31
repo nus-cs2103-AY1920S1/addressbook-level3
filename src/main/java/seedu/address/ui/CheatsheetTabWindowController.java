@@ -28,6 +28,10 @@ public class CheatsheetTabWindowController {
 
     private static Optional<CheatSheet> currCheatSheet;
 
+    public static Optional<CheatSheet> getCurrCheatSheet() {
+        return currCheatSheet;
+    }
+
     /**
      * Displays the question of the cheatsheet specified in the cheatsheet tab window.
      * @param cheatSheet cheatsheet to be displayed
