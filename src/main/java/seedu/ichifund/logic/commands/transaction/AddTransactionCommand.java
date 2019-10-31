@@ -37,10 +37,6 @@ public class AddTransactionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to IchiFund "
             + "and switches view to show new transaction. \n"
-            + "If unspecified, transactions occur on the day of the month in system time, "
-            + "and the month and year in the current list view. \n"
-            + "If unspecified, the category and type of transactions follow the current list view where applicable. "
-            + "Otherwise, transactions are uncategorised expenditure items by default.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_AMOUNT + "AMOUNT "

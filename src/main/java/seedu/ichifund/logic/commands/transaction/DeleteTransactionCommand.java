@@ -17,7 +17,7 @@ public class DeleteTransactionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the transaction identified by the index number used in the displayed transaction list. "
-            + "Transaction must be non-repeatable. \n"
+            + "Transaction must not be from a repeatable. \n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -35,7 +35,7 @@ public class DeleteTransactionCommand extends Command {
         List<Transaction> lastShownList = model.getFilteredTransactionList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
         }
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
