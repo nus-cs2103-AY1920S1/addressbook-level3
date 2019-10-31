@@ -71,7 +71,7 @@ public class GradientDescent {
                 break;
             }
         } while((Math.abs(delta0) + Math.abs(delta1)) > TOLERANCE);
-    }
+        }
 
     public int getIterations() {
         return this.iterations;
