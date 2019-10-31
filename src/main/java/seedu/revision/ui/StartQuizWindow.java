@@ -225,6 +225,13 @@ public class StartQuizWindow extends Window {
         new Thread(task).start();
     }
 
+    /**
+     * Helper function for the nextLevel method used to show the alert and get user input.
+     * @param alert alert that will be shown to the user.
+     * @param endButton button that will end the quiz.
+     * @param nextAnswerable the next answerable in the quiz.
+     * @param nextLevel the next level in the quiz.
+     */
     private void nextLevelHelper(Alert alert, ButtonType endButton, Answerable nextAnswerable, int nextLevel) {
         Optional<ButtonType> result = alert.showAndWait();
 
@@ -274,7 +281,7 @@ public class StartQuizWindow extends Window {
             public Void call() throws Exception {
                 timer.stopTimer();
                 logger.info("---------Timer Stopped!!!!----------");
-                return null ;
+                return null;
             }
         };
         task.setOnSucceeded(e -> {
@@ -285,6 +292,11 @@ public class StartQuizWindow extends Window {
 
     }
 
+    /**
+     * Helper function to display the alert when quiz ends.
+     * @param alert alert that is shown to user when the quiz ends.
+     * @param endButton button that will end the quiz.
+     */
     private void endHelper(Alert alert, ButtonType endButton) {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == endButton) {
@@ -350,8 +362,8 @@ public class StartQuizWindow extends Window {
     }
 
     private ObservableList<Answerable> getListBasedOnMode(Mode mode) {
-        Comparator<Answerable> difficultyComparator = Comparator.comparing(
-                answerable -> answerable.getDifficulty().value);
+        Comparator<Answerable> difficultyComparator = Comparator.comparing(answerable ->
+                answerable.getDifficulty().value);
         switch (mode.value.toLowerCase()) {
         case "normal":
             ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(

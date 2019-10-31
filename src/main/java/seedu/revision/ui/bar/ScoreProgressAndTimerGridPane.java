@@ -1,6 +1,5 @@
 package seedu.revision.ui.bar;
 
-
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -12,13 +11,17 @@ import javafx.scene.text.Text;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.ui.UiPart;
 
-
+/**
+ * UI Part which contains the {@ProgressBar} and {@Timer} in a {@StackPane}.
+ */
 public class ScoreProgressAndTimerGridPane extends UiPart<Region> {
-    private final Logger logger = LogsCenter.getLogger(ScoreProgressAndTimerGridPane.class);
     private static final String FXML = "ScoreProgressAndTimerGridPane.fxml";
 
-    private ProgressIndicatorBar progressIndicatorBar;
-    private Timer timer;
+    @FXML
+    protected Text text;
+
+    private final Logger logger = LogsCenter.getLogger(ScoreProgressAndTimerGridPane.class);
+
     @FXML
     private Label timerLabel;
     @FXML
@@ -27,10 +30,8 @@ public class ScoreProgressAndTimerGridPane extends UiPart<Region> {
     private StackPane pane2;
     @FXML
     private ProgressBar bar;
-    @FXML
-    protected Text text;
-
-
+    private ProgressIndicatorBar progressIndicatorBar;
+    private Timer timer;
 
     public ScoreProgressAndTimerGridPane(ProgressIndicatorBar progressIndicatorBar, Timer timer) {
         super(FXML);

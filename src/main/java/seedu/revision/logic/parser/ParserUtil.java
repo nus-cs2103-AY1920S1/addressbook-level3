@@ -159,7 +159,7 @@ public class ParserUtil {
             return new NormalMode();
         case "arcade":
             return new ArcadeMode();
-//        case "custom":
+        //case "custom":
         default:
             throw new ParseException("Invalid mode found at ParserUtil");
         }

@@ -1,7 +1,5 @@
 package seedu.revision.model.answerable;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -33,11 +31,12 @@ public class Saq extends Answerable {
         final StringBuilder builder = new StringBuilder();
         builder.append("Type: SAQ ")
                 .append("Question: ")
-                .append(" Correct Answers: ")
-                .append(getCorrectAnswerList())
-                .append(" Difficulty: ")
-                .append(getDifficulty())
-                .append(" Categories: ");
+                .append(getQuestion() + "\n")
+                .append("Correct Answers: ")
+                .append(getCorrectAnswerList() + "\n")
+                .append("Difficulty: ")
+                .append(getDifficulty() + "\n")
+                .append("Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();
     }

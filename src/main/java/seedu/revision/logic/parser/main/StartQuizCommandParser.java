@@ -1,14 +1,10 @@
 package seedu.revision.logic.parser.main;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_MODE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_TIMER;
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
-
-import java.util.function.Predicate;
 
 import seedu.revision.logic.commands.main.StartQuizCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
@@ -16,13 +12,9 @@ import seedu.revision.logic.parser.ArgumentTokenizer;
 import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
-import seedu.revision.model.answerable.predicates.CategoryPredicate;
-import seedu.revision.model.answerable.predicates.DifficultyPredicate;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.ArcadeMode;
-import seedu.revision.model.quiz.CustomMode;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
 
@@ -77,26 +69,27 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
                 mode = new ArcadeMode();
                 return new StartQuizCommand(mode);
             }
-//        case "custom":
-//            Predicate<Answerable> combinedPredicate = PREDICATE_SHOW_ALL_ANSWERABLE;
-//
-//            if (optionalCategoryPrefixIsPresent) {
-//                Category categoryToFilter = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
-//                CategoryPredicate categoryPredicate = new CategoryPredicate(categoryToFilter);
-//                combinedPredicate = combinedPredicate.and(categoryPredicate);
-//            }
-//
-//            if (optionalDifficultyPrefixIsPresent) {
-//                Difficulty difficultyToFilter = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
-//                DifficultyPredicate difficultyPredicate = new DifficultyPredicate(difficultyToFilter);
-//                combinedPredicate = combinedPredicate.and(difficultyPredicate);
-//            }
-//
-//            if (optionalTimerPrefixIsPresent) {
-//                time =  ParserUtil.parseTimer(argMultimap.getValue(PREFIX_TIMER).get());
-//            }
-//            mode = new CustomMode().with
-//            break;
+        //case "custom":
+        //    Predicate<Answerable> combinedPredicate = PREDICATE_SHOW_ALL_ANSWERABLE;
+
+        //    if (optionalCategoryPrefixIsPresent) {
+        //        Category categoryToFilter = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+        //        CategoryPredicate categoryPredicate = new CategoryPredicate(categoryToFilter);
+        //        combinedPredicate = combinedPredicate.and(categoryPredicate);
+        //    }
+
+        //    if (optionalDifficultyPrefixIsPresent) {
+        //        Difficulty difficultyToFilter = ParserUtil.parseDifficulty(argMultimap.getValue(
+        //            PREFIX_DIFFICULTY).get());
+        //        DifficultyPredicate difficultyPredicate = new DifficultyPredicate(difficultyToFilter);
+        //        combinedPredicate = combinedPredicate.and(difficultyPredicate);
+        //    }
+
+        //    if (optionalTimerPrefixIsPresent) {
+        //        time =  ParserUtil.parseTimer(argMultimap.getValue(PREFIX_TIMER).get());
+        //    }
+        //    mode = new CustomMode().with
+        //    break;
         default:
             throw new ParseException(StartQuizCommand.MESSAGE_USAGE);
         }

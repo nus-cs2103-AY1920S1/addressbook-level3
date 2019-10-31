@@ -1,5 +1,6 @@
 package seedu.revision.model.quiz;
 
+/** ArcadeMode class which has increasing difficulty each level and ends any time a user gets a question wrong. **/
 public class ArcadeMode extends Mode {
     /**
      * Constructs an {@code ArcadeMode}.
