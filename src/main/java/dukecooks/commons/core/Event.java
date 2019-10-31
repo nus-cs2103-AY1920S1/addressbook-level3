@@ -55,6 +55,13 @@ public class Event {
         }
     }
 
+    public void set(String mode) {
+        if (!this.type.equals(type)) {
+            this.type = type;
+            changes.firePropertyChange("event", false, true);
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
