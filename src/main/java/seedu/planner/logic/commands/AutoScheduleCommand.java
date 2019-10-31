@@ -39,9 +39,9 @@ public class AutoScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_INVALID_SCHEDULE = "Unable to generate a schedule"
             + " with no overlapping activitiies";
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activities successfully scheduled.";
-    public static final String MESSAGE_ACTIVITY_TAG_NOT_FOUND = "Activity with the this tag [%s] not found";
-    public static final String MESSAGE_ACTIVITY_NAME_NOT_FOUND = "Activity with the this name [%s] not found";
-    public static final String MESSAGE_ADDRESS_NOT_FOUND = "Activities of this address [%s] not found";
+    public static final String MESSAGE_ACTIVITY_TAG_NOT_FOUND = "Activity with the this tag %s not found";
+    public static final String MESSAGE_ACTIVITY_NAME_NOT_FOUND = "Activity with the this name %s not found";
+    public static final String MESSAGE_ADDRESS_NOT_FOUND = "Activities of this address %s not found";
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
