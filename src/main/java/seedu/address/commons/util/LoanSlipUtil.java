@@ -141,7 +141,7 @@ public class LoanSlipUtil {
      * @return a {@code Document} object representing the file.
      * @throws IOException if there are errors in creating the new file.
      */
-    private static Document createDocument(String docName) throws IOException, LoanSlipException {
+    private static Document createDocument(String docName) throws IOException {
         assert isMounted : "No loan slip mounted";
         String finalDest = DEST + docName + PDF_EXTENSION;
         File file = new File(finalDest);
@@ -159,7 +159,7 @@ public class LoanSlipUtil {
      *
      * @param doc {@code LoanSlipDocument} object to be populated with data.
      */
-    private static void generateLiberryLoanSlip(LoanSlipDocument doc) throws LoanSlipException {
+    private static void generateLiberryLoanSlip(LoanSlipDocument doc) {
         assert isMounted : "No loan slip mounted";
         writeLogoToDoc(doc);
         writeHeaderToDoc(doc);
@@ -196,7 +196,7 @@ public class LoanSlipUtil {
      *
      * @param doc {@code LoanSlipDocument} to be written to.
      */
-    private static void populateTableInDoc(LoanSlipDocument doc) throws LoanSlipException {
+    private static void populateTableInDoc(LoanSlipDocument doc) {
         String[] headerRow = new String[]{"S/N", "Book", "Due By"};
         doc.writeRow(headerRow);
         int numberOfBooks = currentBooks.size();

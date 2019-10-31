@@ -81,7 +81,7 @@ class LoanSlipUtilTest {
     }
 
     @Test
-    public void mountLoanSlip_loanSlipMountedSameBorrower_sucess() {
+    public void mountLoanSlip_loanSlipMountedSameBorrower_success() {
         LoanSlipUtil.unmountLoans();
         assertFalse(LoanSlipUtil.isMounted());
         //Mount first loan
