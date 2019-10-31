@@ -8,7 +8,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyPerformance;
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.Event;
+import seedu.address.model.performance.Record;
+import seedu.address.model.performance.Timing;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
@@ -25,15 +28,28 @@ public class SampleDataUtil {
 
     private static Event[] getSampleEvents() {
         return new Event[] {
-            new Event("freestyle 50m"), new Event("backstroke 100m"),
+            new Event("freestyle 50m"), new Event("freestyle 100m"),
             new Event("breaststroke 100m"), new Event("butterfly 100m"),
-            new Event("medley 200m"), new Event("freestyle relay 4 x 100m")
+            new Event("backstroke 100m"), new Event("medley 200m")
+        };
+    }
+
+    private static Record[] getSampleRecords() {
+        return new Record[] {
+            new Record(new AthletickDate(2, 9, 2019, 1, "September"), new Timing("30.12")),
+            new Record(new AthletickDate(9, 10, 2019, 1, "October"), new Timing("31.27")),
+            new Record(new AthletickDate(23, 10, 2019, 1, "October"), new Timing("30.61"))
         };
     }
 
     public static ReadOnlyPerformance getSamplePerformance() {
         Performance samplePerformance = new Performance();
-        for (Event sampleEvent : getSampleEvents()) {
+        for (int i = 0; i < getSampleEvents().length; i++) {
+            Event sampleEvent = getSampleEvents()[i];
+            for (int j = getSamplePersons().length - 1; j >= 0; j--) {
+                int recordIndex = j / 2;
+                sampleEvent.addPerformance(getSamplePersons()[j], getSampleRecords()[recordIndex]);
+            }
             samplePerformance.addEvent(sampleEvent);
         }
         return samplePerformance;
