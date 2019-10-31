@@ -43,4 +43,11 @@ public class BmiDiamond extends Achievement implements Bmi {
         return DURATION_UNITS;
     }
 
+    @Override
+    public Achievement copy() {
+        Achievement newAchievement = new BmiDiamond();
+        newAchievement.setAchievementState(this.getAchievementState());
+        return newAchievement;
+    }
+
 }

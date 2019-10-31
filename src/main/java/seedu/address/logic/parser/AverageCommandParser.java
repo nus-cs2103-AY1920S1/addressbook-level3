@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AverageCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
+import seedu.address.model.statistics.RecordContainsRecordTypePredicate;
 
 /**
  * Parses input arguments and creates a new AverageCommand object
@@ -62,7 +63,7 @@ public class AverageCommandParser implements Parser<AverageCommand> {
 
         int count = Integer.parseInt(strCount);
 
-        return new AverageCommand(averageType, recordType, count);
+        return new AverageCommand(new RecordContainsRecordTypePredicate(recordType), averageType, recordType, count);
     }
 
 }
