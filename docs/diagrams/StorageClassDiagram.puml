@@ -1,9 +1,10 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.5
+skinparam arrowThickness 1.3
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+package Storage {
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
 Interface WordBankListStorage <<Interface>>
@@ -14,31 +15,40 @@ Interface AppSettingsStorage <<Interface>>
 Class StorageManager
 Class JsonUserPrefsStorage
 Class JsonWordBankListStorage
-Class WordBankStatisticsListStorage
-Class GlobalStatisticsStorage
 Class JsonAppSettingsStorage
+Class JsonSerializableWordBank
+Class JsonAdaptedCard
+Class JsonAdaptedTag
+Class JsonGlobalStatisticsStorage
+Class JsonSerializableGlobalStatistics
+Class JsonAdaptedWeeklyPlayed
+Class JsonWordBankStatisticsListStorage
+Class JsonSerializableWordBankStatistics
+Class JsonAdaptedCardStatistics
+}
 
-StorageManager .up.|> Storage
-StorageManager o--> UserPrefsStorage
-StorageManager o--> WordBankListStorage
-StorageManager o--> WordBankStatisticsListStorage
-StorageManager o--> GlobalStatisticsStorage
-StorageManager o--> AppSettingsStorage
+StorageManager .up..|> Storage
+StorageManager o--> JsonUserPrefsStorage
+StorageManager o--> JsonWordBankListStorage
+StorageManager o--> JsonWordBankStatisticsListStorage
+StorageManager o--> JsonGlobalStatisticsStorage
+StorageManager o--> JsonAppSettingsStorage
 
-JsonUserPrefsStorage .up.|> UserPrefsStorage
+JsonUserPrefsStorage .up..|> UserPrefsStorage
 
-JsonWordBankListStorage .up.|> WordBankListStorage
+JsonWordBankListStorage .up..|> WordBankListStorage
 JsonWordBankListStorage .down.> JsonSerializableWordBank
 JsonSerializableWordBank .down.> JsonAdaptedCard
 JsonAdaptedCard .down.> JsonAdaptedTag
 
-JsonWordBankStatisticsListStorage .up.|> WordBankStatisticsListStorage
+JsonWordBankStatisticsListStorage .up..|> WordBankStatisticsListStorage
 JsonWordBankStatisticsListStorage .down.> JsonSerializableWordBankStatistics
 JsonSerializableWordBankStatistics .down.> JsonAdaptedCardStatistics
 
-JsonGlobalStatisticsStorage .up.|> GlobalStatisticsStorage
+JsonGlobalStatisticsStorage .up..|> GlobalStatisticsStorage
 JsonGlobalStatisticsStorage .down.> JsonSerializableGlobalStatistics
 JsonSerializableGlobalStatistics .down.> JsonAdaptedWeeklyPlayed
 
-JsonAppSettingsStorage .up.|> AppSettingsStorage
+JsonAppSettingsStorage .up..|> AppSettingsStorage
+JsonWordBankListStorage -left[hidden]-> JsonWordBankStatisticsListStorage
 @enduml

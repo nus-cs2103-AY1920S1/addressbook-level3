@@ -116,6 +116,8 @@ image::UserGuideFlowOverview.png[width="790"]
 
 // tag::quickstartsubbash[]
 
+// tag::chenhui-quickstart[]
+
 Lets load the sample wordbank and play a game to get familiar.
 
 
@@ -146,6 +148,9 @@ specified.
 
 .  Refer to <<Features>> for details of each command.
 
+// end::chenhui-quickstart[]
+
+
 === Purposes of each mode
 
 image::HomeMode.png[width="450"]
@@ -174,6 +179,7 @@ image::SettingsMode.png[width="450"]
 
 // end::quickstartsubbash[]
 
+// tag::chenhui-commandusage[]
 
 [[Commands]]
 == Commands
@@ -318,6 +324,8 @@ Returns entries containing elephant and giraffe.
 Returns any entries containing `mammal`, `fish` or `bird` in its descriptions or words.
 
 ==== Exit Dukemon: `exit`
+
+// end::chenhui-commandusage[]
 
 // tag::yida-game[]
 
@@ -472,6 +480,8 @@ Statistics are also stored automatically.
 image::ParserManagerActivityDiagram.png[]
 
 
+// tag::chenhui-commandsummary[]
+
 == Command Summary
 
 |===
@@ -543,6 +553,8 @@ s| start m| [DIFFICULTY]
 s| setting m|
 
 |===
+
+// end::chenhui-commandsummary[]
 
 == Upcoming Features
 

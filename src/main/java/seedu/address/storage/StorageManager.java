@@ -89,8 +89,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void importWordBank(Path filePath, String wordBankName) {
-        wordBankListStorage.importWordBank(filePath, wordBankName);
+    public void importWordBank(String wordBankName, Path filePath) {
+        wordBankListStorage.importWordBank(wordBankName, filePath);
     }
 
     @Override

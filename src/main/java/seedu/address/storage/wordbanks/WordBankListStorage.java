@@ -34,10 +34,10 @@ public interface WordBankListStorage {
     /**
      * Creates the word bank specified by the file path, add to internal list, and then add to storage.
      *
-     * @param filePath cannot be null.
      * @param wordBankName
+     * @param filePath cannot be null.
      */
-    void importWordBank(Path filePath, String wordBankName);
+    void importWordBank(String wordBankName, Path filePath);
 
     /**
      * Retrieves the word bank, add to internal list, then add to storage.

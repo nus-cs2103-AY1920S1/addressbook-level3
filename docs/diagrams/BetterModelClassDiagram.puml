@@ -1,17 +1,44 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.1
+skinparam arrowThickness 1.2
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-WordBank *-down-> "1" UniqueCardList
-WordBank *-down-> "1" Name
-UniqueTagList *-down-> "*" Tag
-UniqueCardList o-down-> Card
+Package Model <<Rectangle>>{
+Interface Model <<Interface>>
+Class WordBankList
+Class Model
+Class ModelManager
 
-Card o-down-> "*" UniqueTagList
+Package WordBankList {
+Interface ReadOnlyWordBankList <<Interface>>
+Class WordBankList
+Package WordBank {
+Class WordBank
+Class UniqueCardList
+}
 
-Card *--> Id
-Card *--> Word
-Card *--> Meaning
+Package Card {
+Class Card
+Class Meaning
+Class Word
+}
+}
+
+WordBankList .left.|> ReadOnlyWordBankList
+
+ModelManager .left.|> Model
+ModelManager -down--> "1" WordBankList
+
+WordBankList -right-> "1" WordBank
+WordBank --> "*" UniqueCardList
+UniqueCardList -right-> "1" Card
+Card --> "1" Word
+Card --> "1" Meaning
+
+ModelManager --> WordBank : selected
+ModelManager --> Card : filteredList
+
 @enduml
+
+

@@ -1,0 +1,168 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.3
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+show members
+hide empty members
+
+package Storage <<Database>> {
+
+Interface Storage <<Interface>>  #A38300
+Class StorageManager #A38300
+Class JsonUserPrefsStorage #A38300
+Class JsonAppSettingsStorage #A38300
+Class JsonGlobalStatisticsStorage #A38300
+Class JsonWordBankStatisticsListStorage #A38300
+
+package WordBankListStorage {
+Interface WordBankListStorage <<Interface>>  #A38300 {
+   createWordBank(String)
+   removeWordBank(String)
+   importWordBank(String, Path)
+   exportWordBank(String, Path)
+   updateWordBank(WordBank)
+   getWordBankList()
+   getFilteredWordBankList()
+   getWordBanksFilePath()
+}
+
+Class JsonWordBankListStorage #A38300 {
+    -wordBanksFilePath: Path
+    -addWordBank(ReadOnlyWordBank, Path)
+    -deleteWordBank(WordBank)
+    -saveWordBank(ReadOnlyWordBank, Path)
+    -initData(Path, String)
+    -initWordBankList()
+    +jsonToWordBank(Path)
+}
+Class JsonSerializableWordBank #A38300
+Class JsonAdaptedCard #A38300
+Class JsonAdaptedTag #A38300
+}
+}
+
+StorageManager .left[#A38300].|> Storage
+StorageManager o-up[#A38300]-> JsonUserPrefsStorage
+StorageManager o-down[#A38300]-> JsonWordBankListStorage
+StorageManager o-up[#A38300]-> JsonWordBankStatisticsListStorage
+StorageManager o-up[#A38300]-> JsonGlobalStatisticsStorage
+StorageManager o-up[#A38300]-> JsonAppSettingsStorage
+
+JsonWordBankListStorage .left[#A38300].|> WordBankListStorage
+JsonWordBankListStorage .down[#A38300].> JsonSerializableWordBank
+JsonWordBankListStorage o-left[#A38300]-> "1" WordBankList
+JsonSerializableWordBank ..down[#A38300]> JsonAdaptedCard
+JsonAdaptedCard .left[#A38300]> JsonAdaptedTag
+
+skinparam arrowThickness 1.2
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>> {
+
+Interface Model <<Interface>>
+Class WordBankList
+Class WordBankStatisticsList
+Class GlobalStatistics
+Class AppSettings
+Class Model
+Class ModelManager
+Class UserPrefs
+Class Game
+
+Package WordBankList {
+
+Interface ReadOnlyWordBankList <<Interface>> {
+}
+
+Class WordBankList {
+}
+
+Package WordBank {
+
+Class WordBank
+Class UniqueCardList
+}
+
+Package Card {
+Class Card
+Class Meaning
+Class Word
+}
+}
+}
+
+WordBankList ..|> ReadOnlyWordBankList
+
+ModelManager .left.|> Model
+ModelManager -down--> "1" WordBankList
+ModelManager -up-> "1" WordBankStatisticsList
+ModelManager -up-> "1" GlobalStatistics
+ModelManager -up-> "1" AppSettings
+ModelManager -up-> "1" UserPrefs
+ModelManager -up-> "1" Game
+
+WordBankList -right-> "1" WordBank
+WordBank --> "*" UniqueCardList
+UniqueCardList -right-> "1" Card
+Card --> "1" Word
+Card --> "1" Meaning
+
+ModelManager --> WordBank : selected
+ModelManager --> Card : filteredList
+
+@enduml
+
+
+
+
+
+
+
+'
+'Package WordBank <<Rectangle>>{
+'Interface ReadOnlyWordBank <<Interface>> {
+'getName()
+'getCard(Index)
+'getCardList()
+'}
+'
+'class WordBank {
+'   -name: String
+'   +addCard(Card)
+'   +removeCard(Card)
+'   +setCard(Card, Card)
+'   +hasCard(Card)
+'   +resetData(ReadOnlyWordBank)
+'}
+'Class UniqueCardList
+'Class Card
+'
+'
+'WordBank .left.|> ReadOnlyWordBank
+'WordBank o-down-> "1" UniqueCardList
+'UniqueCardList -down-> Card
+'
+'show members
+'hide empty members
+'
+'Package Card <<Rectangle>>{
+'Class Card {
+'- id: String
+'- tags: Set<Tag>
+'}
+'Class Word
+'Class Meaning
+'}
+'
+'Card o--> "1" Word
+'Card o--> "1" Meaning
+'
+'Meaning *-LEFT[hidden]-> Word
+'@enduml
+'
+
+
