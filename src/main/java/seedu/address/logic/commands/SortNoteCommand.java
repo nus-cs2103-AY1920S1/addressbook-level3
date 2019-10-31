@@ -19,12 +19,12 @@ public class SortNoteCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
     public static final String DATEMODIFIED = "DateModified";
-    public static final String DATECREATED = "DateCreated";
+    public static final String DATEADDED = "DateAdded";
     public static final String NUMOFACCESS = "NumOfAccess";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the notes "
             + "by the condition given by the user. \n "
             + "Parameters: "
-        + "[" + PREFIX_SORTBY + DATEMODIFIED + " or " + DATECREATED + " or " + NUMOFACCESS + " ] "
+        + "[" + PREFIX_SORTBY + DATEMODIFIED + " or " + DATEADDED + " or " + NUMOFACCESS + " ] "
             + "Example: " + COMMAND_WORD + " " + PREFIX_SORTBY + "DateModified";
 
     public static final String MESSAGE_SORT_NOTE_SUCCESS = "Sorted Note by: %1$s";

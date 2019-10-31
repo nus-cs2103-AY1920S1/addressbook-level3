@@ -9,7 +9,7 @@ public class SortByCond {
     public static final String DATEMODIFIED = "datemodified";
     public static final String DATEADDED = "dateadded";
     public static final String NUMOFACCESS = "numofaccess";
-    public static final String MESSAGE_CONSTRAINTS = "Sort condition should be either" + DATEADDED + ", or "
+    public static final String MESSAGE_CONSTRAINTS = "Sort condition should be either " + DATEADDED + ", or "
             + DATEMODIFIED + " or " + NUMOFACCESS;
 
     public final String sortByCond;
@@ -57,8 +57,8 @@ public class SortByCond {
      */
     public static boolean isValidSortByCond(String sortByCond) {
         String editedSortByCond = sortByCond.toLowerCase();
-        return sortByCond.equals(DATEMODIFIED) || sortByCond.equals(DATEADDED)
-                || sortByCond.equals(NUMOFACCESS);
+        return sortByCond.toLowerCase().equals(DATEMODIFIED) || sortByCond.toLowerCase().equals(DATEADDED)
+                || sortByCond.toLowerCase().equals(NUMOFACCESS);
     }
 
     @Override
