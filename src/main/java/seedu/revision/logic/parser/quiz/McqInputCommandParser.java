@@ -20,11 +20,10 @@ public class McqInputCommandParser implements QuizParser<McqInputCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public McqInputCommand parse(String args, Answerable currentAnswerable) throws ParseException {
-        if (args.matches("\\b[a-d]\\b|\\b[A-D]\\b")) {
+        if (args.matches("\\b(?i)[a-d]|[n]\\b")) {
             return new McqInputCommand(args, currentAnswerable);
         } else {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, McqInputCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, McqInputCommand.MESSAGE_USAGE));
         }
     }
 }
