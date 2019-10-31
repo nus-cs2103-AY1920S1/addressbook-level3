@@ -25,7 +25,7 @@
               <Label text="Name" styleClass="scroll-pane-text"/>
           </StackPane>
           <StackPane>
-              <TextField fx:id="name" />
+              <TextField editable="false" fx:id="name" />
           </StackPane>
 
           <!-- Author-->
@@ -36,7 +36,7 @@
               <Label text="Author" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField fx:id="author" />
+              <TextField editable="false" fx:id="author" />
           </StackPane>
 
           <!-- Weblink-->
@@ -47,7 +47,7 @@
               <Label text="Weblink" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField fx:id="weblink" />
+              <TextField editable="false" fx:id="weblink" />
           </StackPane>
 
           <!-- Difficulty-->
@@ -58,7 +58,7 @@
               <Label text="Difficulty" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField fx:id="difficulty" />
+              <TextField editable="false" fx:id="difficulty" />
           </StackPane>
 
           <!-- Remark-->
@@ -69,7 +69,7 @@
               <Label text="Remark" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField fx:id="remark" />
+              <TextField editable="false" fx:id="remark" />
           </StackPane>
 
           <!-- Source-->
@@ -80,7 +80,7 @@
               <Label text="Source" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextField fx:id="source" />
+              <TextField editable="false" fx:id="source" />
           </StackPane>
 
           <!-- Description-->
@@ -91,7 +91,7 @@
             <Label text="Description" styleClass="scroll-pane-text" />
           </StackPane>
           <StackPane>
-              <TextArea fx:id="description" wrapText="true" />
+              <TextArea editable="false" fx:id="description" wrapText="true" />
           </StackPane>
       </VBox>
   </ScrollPane>
