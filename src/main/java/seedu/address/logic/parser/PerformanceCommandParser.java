@@ -43,7 +43,7 @@ public class PerformanceCommandParser implements Parser<PerformanceCommand> {
         }
 
         String event = ParserUtil.parseEvent(argMultimap.getValue(PREFIX_EVENT).get());
-        AthletickDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        AthletickDate date = ParserUtil.parseDateTypeOne(argMultimap.getValue(PREFIX_DATE).get());
         Timing timing = ParserUtil.parseTiming(argMultimap.getValue(PREFIX_TIMING).get());
 
         return new PerformanceCommand(index, event, date, timing);
