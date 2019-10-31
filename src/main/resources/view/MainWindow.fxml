@@ -23,7 +23,7 @@
         <URL value="@CustomExtensions.css" />
       </stylesheets>
 
-      <VBox fx:id = "parentVBox" minWidth="450" minHeight="600" >
+      <VBox fx:id = "parentVBox">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -43,26 +43,26 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
-        <TabPane fx:id="tabPanePlaceHolder" VBox.vgrow="ALWAYS" layoutX="3.0" layoutY="2.0" tabClosingPolicy="UNAVAILABLE" stylesheets="@CustomTabPane.css" >
+        <TabPane fx:id="tabPanePlaceHolder" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE" stylesheets="@CustomTabPane.css" >
           <tabs>
             <Tab text="Planner" >
               <content>
-                <StackPane fx:id="plannerContentPlaceholder" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
+                <StackPane fx:id="plannerContentPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
             </Tab>
             <Tab text="Modules">
               <content>
-                <StackPane fx:id="moduleContentPlaceholder" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
+                <StackPane fx:id="moduleContentPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
             </Tab>
             <Tab text="Ccas">
               <content>
-                <StackPane fx:id="ccaContentPlaceholder" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
+                <StackPane fx:id="ccaContentPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
             </Tab>
             <Tab text="Finances">
               <content>
-                <StackPane fx:id="financeContentPlaceholder" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
+                <StackPane fx:id="financeContentPlaceholder" VBox.vgrow="ALWAYS" />
               </content>
             </Tab>
           </tabs>
