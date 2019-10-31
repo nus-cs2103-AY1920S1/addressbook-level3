@@ -158,54 +158,61 @@ Format: `listPerson`
 Commands related to managing persons participating in competitions will be introduced now.
 
 ==== Adding a new participation: `addParticipation`
-Adds an existing person as shown in the Person list (shown in the GUI) into an existing competition as shown in the Competition list (shown in the GUI).
-User needs to supply 3 weight attempts for each of the following events:
+Adds an existing person as shown in the Person list (shown in the GUI) into an existing competition as shown in the Competition list (shown in the GUI). User also needs to supply 3 weight attempts for each of the following events:
 
-1. Squat
+1. Squat 
 2. Bench
 3. Deadlift
 
-
-
-Format: `addComp n/COMPETITION_NAME startDate/START_DATE_OF_COMPETITION endDate/END_DATE_OF_COMPETITION`
-
-Example:
-
-* `addComp n/IWF startDate/18/01/2019 endDate/19/01/2019`
-
-==== Edits a new competition: `editComp`
-Changes details of an existing competition listed on the UI to updated ones.
-INDEX here refers to the position of the existing competition in the list of competitions shown on the UI.
-Fields which come after INDEX refers to data fields which a user wish to change.
-Dates should be in DD/MM/YYYY format. Eg: 19/01/2019 or 01/02/2020.
-
-Format: `editComp INDEX n/NAME startDate/START_DATE_OF_COMPETITION endDate/END_DATE_OF_COMPETITION`
+Format: `addParticipation n/Athlete_Name c/Competition Name s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3 `
+Note: S1 means the 1st attempted weight for the Squat and so on.
 
 Example:
 
-* `editComp 1 n/IWF startDate/18/01/2019 endDate/19/01/2019`
+* `addParticipation n/Ho c/NUS 2022 s/100/101/102 b/300/400/500 d/1000/2000/3000`
 
-==== Deletes a new competition: `deleteComp`
-Removes an existing competition from a list of competitions listed on the UI.
-INDEX here refers to the position of the existing competition in the list of competitions shown on the UI.
+==== Listing all persons who are participating in all competitions or for one competition: `listParticipation`
+Note that the user can choose to provide a competition name or not.
 
-Dates should be in DD/MM/YYYY format. Eg: 19/01/2019 or 01/02/2020.
+Format: `listParticipation [COMPETITION NAME]`
 
-Format: `deleteComp INDEX`
+Example:
+To display all persons for all competitions:
+
+* `listParticipation`
+
+To display all persons for NUS 2022 competition only:
+
+* `listParticipation NUS 2022`
+
+=== Auxiliary commands
+
+==== Cleaning entire data from the GUI: `clear`
+Removes all persons, participations and competitions information from the GUI
+
+Format: `clear`
+
+==== Exiting and closing the GUI: `exit`
+Format: `exit`
+
+==== Showing help instructions: `help`
+Display URL to this User Guide to teach users how to use the appropriate commands for Outside Of Competition.
+
+Format: `help`
+
+==== Showing overall ranking: `overallRank`
+Sorts and displays ranking of athletes according to the amount of times they are the overall champions for any competition.
+
+Format: `overallRank`
+
+==== Starting a competition event along with its competing athletes (person): `session`
+Only display athletes who are participating for a specified competition. 
+
+Format: `session COMPETITION NAME`
 
 Example:
 
-* `deleteComp 1`
-
-==== Lists all competitions: `listComp`
-Displays all competitions available.
-
-Format: `listComp`
-
-Example:
-
-* `listComp`
-
+* `session NUS 2022`
 
 === Participation Handling
 This feature creates an associated participation between an existing person and competition.
