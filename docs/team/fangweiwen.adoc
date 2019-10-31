@@ -69,18 +69,6 @@ include::../DeveloperGuide.adoc[tag=history]
 include::../DeveloperGuide.adoc[tag=updownkey]
 
 
-== PROJECT: Augmented Reality Guided Aircraft Maintenance
-
----
-
-== Overview
-
-Aircraft technicians rely on physically printed Aircraft Maintenance Manuals(AMM) to do maintenance and
-do not have any form of remote assistance solution available for them during work.
-The project involves the development of a smartglass application that displays AMMs digitally and
-also provides a remote connection between on-site workers and a remote expert,
-and a web client that allows AMMs to be sent and updated real-time.
-
 == Summary of contributions
 
 
