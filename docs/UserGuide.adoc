@@ -105,6 +105,22 @@ The schedule display is the main component that you will be looking at to look s
 
 image::scheduleDisplay.png[]
 
+==== How to read the schedule view
+
+Unsure of how to read the combined schedules of your friends in TimeBook? Here is a simple example to guide you!
+
+TimeBook ensures that the leftmost column will always start from today's date. Each unnumbered coloured block belongs to
+someone's schedule in the group. For example, the image below highlights all of Charlie's schedule.
+
+image::charlieBusyTimeslot.png[]
+
+Take note of the numbered green boxes you see below!
+
+image::freeTimeslot.png[]
+
+These are the common free time slot that you and your group members share! You can use
+these numbered green boxes to arrange your meetings or share it with your group members to pick.
+
 === Tabs
 
 Tabs will contain your contacts and your groups.
@@ -549,16 +565,10 @@ Removes `Bobby` from the group `CS2103`
 This feature is currently work in progress!
 
 Want to share your group's schedule with your friends?
-This command exports a visualisation representation of the schedule (timetable) of a group or person(s) to a PNG file! +
+This command exports a visualisation representation of currently showing schedule (timetable) of a group or person(s) to a PNG file! +
 Format:
 
-* `export-vr [n/NAME]` +
-* `export-vr [g/GROUP_NAME]` +
-
-Examples:
-
-* `export-vr g/CS2103T Team project`
-* `export-vr n/John Doe`
+* `export-vr` +
 
 //=== Export ICS: `export-ics`
 //
