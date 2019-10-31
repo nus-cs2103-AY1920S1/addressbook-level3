@@ -18,8 +18,9 @@ public class AddEventCommand extends Command<Model> {
             + "based on the following format:\nadd title/[title] date/ [date] time/[time] l/[location] d/[desc]\n"
             + "NOTE: Title, date and time are compulsory the rest can be left as empty fields.";
 
-    public static final String MESSAGE_DUPLICATE_EVENT = "There is another event which is similar to this one.\n"
-            + "Please input a different event instead. ^( '-' )^";
+    public static final String MESSAGE_DUPLICATE_EVENT = "There is another event which is happening at the same "
+            + "date and time.\n"
+            + "Please input an event that has a different timing instead. ^( '-' )^";
     public static final String MESSAGE_SUCCESS = "Processing...\nDone!\n"
             + "Your event has been successfully added! HAND, TravEzy! :D";
 
