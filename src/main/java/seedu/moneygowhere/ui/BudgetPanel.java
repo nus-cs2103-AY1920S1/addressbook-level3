@@ -65,7 +65,7 @@ public class BudgetPanel extends UiPart<Region> {
             remainingBudget.setTextFill(Color.web("#FF0000"));
             return "$" + String.format("%.2f", Math.abs(amount - sum)) + " exceeded";
         } else {
-            remainingBudget.setTextFill(Color.web("#FFFFFF"));
+            remainingBudget.setTextFill(Color.web("#000000"));
             return "$" + String.format("%.02f", amount - sum) + " left to spend";
         }
     }
