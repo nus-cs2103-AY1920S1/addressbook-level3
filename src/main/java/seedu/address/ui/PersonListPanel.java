@@ -34,14 +34,23 @@ public class PersonListPanel extends UiPart<Region> {
             public void handle(KeyEvent event) {
                 int size = personList.size();
                 MultipleSelectionModel<Person> msm = personListView.getSelectionModel();
-                int selectedIndex = msm.getSelectedIndex();
                 switch (event.getCode()) {
                 case DOWN:
-                    selectedIndex = (size + selectedIndex + 1) % size;
-                    break;
+                    if (msm.getSelectedIndex() < size - 1) {
+                        return;
+                    }
+                    msm.select(0);
+                    personListView.scrollTo(0);
+                    event.consume();
+                    return;
                 case UP:
-                    selectedIndex = (size + selectedIndex - 1) % size;
-                    break;
+                    if (msm.getSelectedIndex() > 0) {
+                        return;
+                    }
+                    msm.select(size - 1);
+                    personListView.scrollTo(size - 1);
+                    event.consume();
+                    return;
                 case TAB:
                 case LEFT:
                     dropSelector();
@@ -49,15 +58,13 @@ public class PersonListPanel extends UiPart<Region> {
                 default:
                     return;
                 }
-                msm.select(selectedIndex);
-                personListView.scrollTo(selectedIndex);
-                event.consume();
+
             }
         });
         Runnable dropSelectorDeferred = this::dropSelector;
         personListView.setOnMouseExited(e -> deferredUntilMouseClickOuter.add(dropSelectorDeferred));
         personListView.setOnMouseEntered(e -> deferredUntilMouseClickOuter.remove(dropSelectorDeferred));
-        personListView.setOnMouseClicked(e -> this.getRoot().requestFocus());
+        personListView.setOnMouseClicked(e -> personListView.requestFocus());
     }
 
     /**
@@ -80,10 +87,13 @@ public class PersonListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {
+        {
+            setFocusTraversable(true);
+        }
+
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
-            this.setFocusTraversable(true);
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);

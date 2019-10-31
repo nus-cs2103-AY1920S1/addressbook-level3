@@ -35,12 +35,12 @@ public class RoomCard extends UiPart<Region> {
         this.doctor = doctor;
         this.patient = patient;
         if (isReadyToServe) {
-            doctorName.setText(doctor.getName().fullName);
+            doctorName.setText(doctor.getName().toString());
             doctorName.setStyle("-fx-text-fill: white;");
             doctorPane.setStyle("-fx-background-color: #34495e;");
             roomCard.setStyle("-fx-background-color: #1abc9c;");
         } else {
-            doctorName.setText(doctor.getName().fullName + " [BREAK]");
+            doctorName.setText(doctor.getName().toString() + " [BREAK]");
             doctorName.setStyle("-fx-text-fill: white;");
             doctorPane.setStyle("-fx-background-color: #c0392b;");
             roomCard.setStyle("-fx-background-color: #1abc9c;");

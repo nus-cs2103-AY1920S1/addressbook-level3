@@ -106,8 +106,8 @@ public class MainAppTest extends ApplicationTest {
 
     @Test
     public void enqueueAndDequeueTest(FxRobot robot) {
-        robot.clickOn("#commandTextField").write("register i/001A n/John Doe p/98765432"
-                + " e/johnd@example.com a/311, Clementi Ave 2, #02-25").type(KeyCode.ENTER);
+        robot.clickOn("#commandTextField").write("register -id 001A -name John Doe -phone 98765432"
+                + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25").type(KeyCode.ENTER);
         robot.clickOn("#commandTextField").write("enqueue 001A").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#queueListView").queryListView()).hasExactlyNumItems(1);
         robot.write("dequeue 1").type(KeyCode.ENTER);
