@@ -1,19 +1,18 @@
 package seedu.elisa.model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * List of jokes to pick and display
  * */
 
 public class JokeList {
-    private Path jokeFile = Paths.get("data", "jokes.txt");
+    private InputStream jokeFile = JokeList.class.getResourceAsStream("/documents/jokes.txt");
     private ArrayList<String> jokes;
     private Random rng;
 
@@ -21,14 +20,14 @@ public class JokeList {
         jokes = new ArrayList<>();
         rng = new Random();
 
-        File file = jokeFile.toFile();
+        BufferedReader r = new BufferedReader(new InputStreamReader(jokeFile));
 
         try {
-            Scanner sc = new Scanner(file);
-            while (sc.hasNext()) {
-                jokes.add(sc.nextLine());
+            String l;
+            while ((l = r.readLine()) != null) {
+                jokes.add(l);
             }
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
