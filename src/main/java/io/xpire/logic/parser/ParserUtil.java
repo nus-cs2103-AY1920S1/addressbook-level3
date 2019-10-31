@@ -69,8 +69,11 @@ public class ParserUtil {
         if (!ExpiryDate.isValidFormatExpiryDate(trimmedDate)) {
             throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
         }
-        if (!ExpiryDate.isValidRangeExpiryDate(trimmedDate)) {
-            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS_RANGE);
+        if (!ExpiryDate.isValidLowerRangeExpiryDate(trimmedDate)) {
+            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS_LOWER);
+        }
+        if (!ExpiryDate.isValidUpperRangeExpiryDate(trimmedDate)) {
+            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS_UPPER);
         }
         return new ExpiryDate(trimmedDate);
     }
