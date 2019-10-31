@@ -51,7 +51,7 @@
                     </StackPane>
                 </HBox>
 
-                <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS">
+                <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
                     <Tab text="Home">
                         <AnchorPane fx:id="homePagePlaceholder"/>
                     </Tab>

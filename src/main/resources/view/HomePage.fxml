@@ -70,40 +70,40 @@
                 </Label>
             </VBox>
 
-            <HBox spacing="25.0">
-                <Button fx:id="userGuideButton" alignment="CENTER" prefWidth="195.0" text="User Guide"
-                        textAlignment="CENTER" mnemonicParsing="false"
-                        onAction="#handleUserGuideButtonClick">
-                    <font>
-                        <Font name="Century Gothic" size="15.0"/>
-                    </font>
-                </Button>
+<!--            <HBox spacing="25.0">-->
+<!--                <Button fx:id="userGuideButton" alignment="CENTER" prefWidth="195.0" text="User Guide"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false"-->
+<!--                        onAction="#handleUserGuideButtonClick">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
 
-                <Button fx:id="devGuideButton" prefWidth="195.0" text="Developer Guide"
-                        textAlignment="CENTER" mnemonicParsing="false">
-                    <font>
-                        <Font name="Century Gothic" size="15.0"/>
-                    </font>
-                </Button>
+<!--                <Button fx:id="devGuideButton" prefWidth="195.0" text="Developer Guide"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
 
-                <Button fx:id="aboutUsButton" prefWidth="195.0" text="About us"
-                        textAlignment="CENTER" mnemonicParsing="false">
-                    <font>
-                        <Font name="Century Gothic" size="15.0"/>
-                    </font>
-                </Button>
+<!--                <Button fx:id="aboutUsButton" prefWidth="195.0" text="About us"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
 
-                <Button fx:id="contactUsButton" prefWidth="195.0" text="Contact us"
-                        textAlignment="CENTER" mnemonicParsing="false">
-                    <font>
-                        <Font name="Century Gothic" size="15.0"/>
-                    </font>
-                </Button>
+<!--                <Button fx:id="contactUsButton" prefWidth="195.0" text="Contact us"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
 
-                <padding>
-                    <Insets top="10.0"/>
-                </padding>
-            </HBox>
+<!--                <padding>-->
+<!--                    <Insets top="10.0"/>-->
+<!--                </padding>-->
+<!--            </HBox>-->
 
             <Separator>
                 <padding>
