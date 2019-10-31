@@ -290,10 +290,10 @@ public class AutoCompleteWordStorage {
      */
     public ObservableList<AutoCompleteWord> generateOListAllIndexWord(ObjectWord objectWord) {
         FilteredList listToGenerateFrom;
-        if (objectWord.getSuggestedWord().equals(PATIENT_OBJECT_WORD)) {
-            listToGenerateFrom = patList;
-        } else {
+        if (objectWord.getSuggestedWord().equals(APPT_OBJECT_WORD)) {
             listToGenerateFrom = apptList;
+        } else {
+            listToGenerateFrom = patList;
         }
 
         ObservableList<AutoCompleteWord> oListAllIndexWord = FXCollections.observableArrayList();
