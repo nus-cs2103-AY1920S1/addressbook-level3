@@ -162,12 +162,14 @@ public class AlgoBaseParser {
 
         // Find Rule
         case AddFindRuleCommand.COMMAND_WORD:
+        case AddFindRuleCommand.SHORT_COMMAND_WORD:
             return new AddFindRuleCommandParser().parse(arguments);
 
         case ApplyCommand.COMMAND_WORD:
             return new ApplyCommandParser().parse(arguments);
 
         case DeleteFindRuleCommand.COMMAND_WORD:
+        case DeleteFindRuleCommand.SHORT_COMMAND_WORD:
             return new DeleteFindRuleParser().parse(arguments);
 
         // Storage
