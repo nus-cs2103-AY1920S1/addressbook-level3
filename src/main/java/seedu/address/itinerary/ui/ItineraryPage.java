@@ -88,6 +88,20 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    String[] possibleSuggestions = {
+            // For basic command
+            "greet", "summary", "goto", "goto calendar", "goto financial_tracker", "goto diary",
+            "goto main", "goto achievements", "exit", "list", "help", "history", "clear"
+            // For the add command
+            , "add", "add title/", "add title/ date/ time/ l/ d/"
+            // For the edit, done and delete command
+            , "delete", "delete ", "edit", "edit ", "done", "done "
+            // For the sort event
+            , "sort", "sort by/", "by/", "title", "location", "completion", "priority", "chronological"
+            // For the search event
+            , "search", "search title/", "search title/ date/ time/ l/ d/ tag/"
+    };
+
     public ItineraryPage(Stage primaryStage) {
         super(fxmlWindow);
         this.itineraryScene = new Scene(itineraryPane);
@@ -129,7 +143,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, model.getActionList());
+        CommandBox commandBox = new CommandBox(this::executeCommand, model.getActionList(), possibleSuggestions);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         tagDropdown = new TagDropdown();

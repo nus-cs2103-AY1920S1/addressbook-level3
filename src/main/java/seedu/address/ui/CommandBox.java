@@ -45,25 +45,12 @@ public class CommandBox extends UiPart<Region> {
      * @param commandExecutor is the input user gave to be executed.
      * @param history is the previous actions called by the user stored in a list.
      */
-    public CommandBox(CommandExecutor commandExecutor, List<String> history) {
+    public CommandBox(CommandExecutor commandExecutor, List<String> history, String[] possibleSuggestions) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.history = history;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        String[] possibleSuggestions = {
-                // For basic command
-                "greet", "summary", "goto", "goto calendar", "goto financial_tracker", "goto diary",
-                "goto main", "goto achievements", "exit", "list", "help", "history", "clear"
-                // For the add command
-                , "add", "add title/", "add title/ date/ time/ l/ d/"
-                // For the edit, done and delete command
-                , "delete", "delete ", "edit", "edit ", "done", "done "
-                // For the sort event
-                , "sort", "sort by/", "by/", "title", "location", "completion", "priority", "chronological"
-                // For the search event
-                , "search", "search title/", "search title/ date/ time/ l/ d/ tag/"
-        };
 
         AutoCompletionBinding<String> autoComplete =
                 TextFields.bindAutoCompletion(commandTextField, possibleSuggestions);
