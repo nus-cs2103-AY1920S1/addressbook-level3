@@ -376,8 +376,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Deliveryman getOneAvailableDeliveryman() {
-        return deliverymenDatabase.getAvailableDeliveryman();
+    public Name getOneAvailableDeliveryman() {
+        return deliverymenDatabase.getAvailableDeliveryman().getName();
     }
 
     //=========== Order Methods =============================================================

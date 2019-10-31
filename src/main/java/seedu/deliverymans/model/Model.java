@@ -354,7 +354,7 @@ public interface Model {
     /**
      * Method for order assignment by OrderManager.
      */
-    Deliveryman getOneAvailableDeliveryman();
+    Name getOneAvailableDeliveryman();
 
     void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException;
 
