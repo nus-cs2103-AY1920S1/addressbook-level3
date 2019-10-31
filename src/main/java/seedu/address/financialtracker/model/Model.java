@@ -1,5 +1,7 @@
 package seedu.address.financialtracker.model;
 
+import java.util.HashMap;
+
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.util.CollectionUtil;
@@ -71,5 +73,9 @@ public class Model {
     public void updateFinancialTracker(FinancialTracker financialTracker) {
         this.financialTracker = financialTracker;
         internalUnmodifiableExpenseListMap = this.financialTracker.getInternalUnmodifiableExpenseListMap();
+    }
+
+    public HashMap<String, Double> getSummaryMap() {
+        return this.financialTracker.getSummaryMap();
     }
 }
