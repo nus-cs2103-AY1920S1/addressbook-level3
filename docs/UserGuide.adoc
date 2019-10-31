@@ -245,11 +245,11 @@ Sample output:
 
 image::NoClashDetectedResponse.png[width="790"]
 
-* `clash m/2 m/4`
+* `clash m/1 m/2`
 
 Sample output:
 
-image::AppealClashDetected.png[width="790"]
+image::ModuleClashDetected.png[width="790"]
 
 
 === Add or remove modules `addmod` & `removemod`

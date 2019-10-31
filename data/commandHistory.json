@@ -1,0 +1,9 @@
+{
+  "inputOutputs" : [ {
+    "input" : "clash a/6",
+    "output" : "Timetable clash detected: \nCS1231  CS2106\nMonday 08:00 to 10:00 Thursday 10:00 to 13:00 \nCS2105  CS2106\nMonday 08:00 to 10:00 Thursday 10:00 to 13:00 \n"
+  }, {
+    "input" : "clash m/1 m/2",
+    "output" : "Timetable clash detected: \nCS1010  CS1231\nMonday 08:00 to 10:00 Thursday 10:00 to 13:00 \n"
+  } ]
+}
