@@ -1,5 +1,6 @@
 package seedu.address.model.lesson;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -36,6 +37,21 @@ public class Lesson {
 
     public void setRepeat() {
         this.isRepeat = true;
+    }
+
+    public int getDayIndex() {
+        Calendar date = startTime.getTime();
+        int index = (date.get(Calendar.DAY_OF_WEEK) + 5) % 7;
+        return index;
+    }
+
+    /**
+     * Returns true if both lessons are on the same day of week.
+     * @param otherLesson Lesson object to compare to.
+     * @return boolean.
+     */
+    public boolean isSameDay(Lesson otherLesson) {
+        return this.getDayIndex() == otherLesson.getDayIndex();
     }
 
     /**

@@ -12,6 +12,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.student.Student;
 
 /**
@@ -44,6 +45,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of reminders */
     ObservableList<Lesson> getFilteredLessonList();
+
+    /** Returns an unmodifiable view of the filtered list of lesson lists */
+    ObservableList<UniqueLessonList> getFilteredLessonWeekList();
 
     /**
      * Returns the user prefs' notebook file path.

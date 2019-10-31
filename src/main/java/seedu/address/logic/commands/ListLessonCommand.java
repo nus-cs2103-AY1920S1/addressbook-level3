@@ -17,7 +17,7 @@ public class ListLessonCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
+        //model.updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

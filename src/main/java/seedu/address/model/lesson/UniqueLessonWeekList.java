@@ -14,8 +14,12 @@ public class UniqueLessonWeekList implements Iterable<UniqueLessonList> {
     private final ObservableList<UniqueLessonList> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    public UniqueLessonList getList(int index) {
+    public UniqueLessonList getDayList(int index) {
         return internalList.get(index);
+    }
+
+    public void add(UniqueLessonList uniqueLessonList) {
+        internalList.add(uniqueLessonList);
     }
 
     public void setLessonLists(UniqueLessonWeekList replacement) {

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LESSONLISTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LESSONS;
 
 import java.util.List;

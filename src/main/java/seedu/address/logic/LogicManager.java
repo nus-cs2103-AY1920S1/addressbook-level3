@@ -19,6 +19,8 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
+import seedu.address.model.lesson.UniqueLessonWeekList;
 import seedu.address.model.student.Student;
 import seedu.address.storage.Storage;
 
@@ -74,6 +76,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Lesson> getFilteredLessonList() {
         return model.getFilteredLessonList();
+    }
+
+    @Override
+    public ObservableList<UniqueLessonList> getFilteredLessonWeekList() {
+        return model.getFilteredLessonWeekList();
     }
 
     @Override

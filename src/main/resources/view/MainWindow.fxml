@@ -58,37 +58,37 @@
                     <tabs>
                       <Tab text="Mon">
                            <content>
-                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                              <StackPane fx:id="monReminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
                            </content>
                         </Tab>
                       <Tab text="Tue">
                            <content>
-                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                              <StackPane fx:id="tueReminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
                            </content>
                         </Tab>
                         <Tab text="Wed">
                            <content>
-                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                              <StackPane fx:id="wedReminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
                            </content>
                         </Tab>
                         <Tab text="Thur">
                            <content>
-                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                              <StackPane fx:id="thurReminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
                            </content>
                         </Tab>
                         <Tab text="Fri">
                            <content>
-                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                              <StackPane fx:id="friReminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
                            </content>
                         </Tab>
                         <Tab text="Sat">
                            <content>
-                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                              <StackPane fx:id="satReminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
                            </content>
                         </Tab>
                         <Tab text="Sun">
                            <content>
-                              <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                              <StackPane fx:id="sunReminderListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
                            </content>
                         </Tab>
                     </tabs>

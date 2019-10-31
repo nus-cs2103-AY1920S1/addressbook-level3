@@ -54,7 +54,13 @@ public class MainWindow extends UiPart<Stage> {
     private ClassroomListPanel classroomListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ReminderListPanel reminderListPanel;
+    private ReminderListPanel monReminderListPanel;
+    private ReminderListPanel tueReminderListPanel;
+    private ReminderListPanel wedReminderListPanel;
+    private ReminderListPanel thurReminderListPanel;
+    private ReminderListPanel friReminderListPanel;
+    private ReminderListPanel satReminderListPanel;
+    private ReminderListPanel sunReminderListPanel;
 
 
     @FXML
@@ -79,7 +85,25 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane reminderListPanelPlaceholder;
+    private StackPane monReminderListPanelPlaceholder;
+
+    @FXML
+    private StackPane tueReminderListPanelPlaceholder;
+
+    @FXML
+    private StackPane wedReminderListPanelPlaceholder;
+
+    @FXML
+    private StackPane thurReminderListPanelPlaceholder;
+
+    @FXML
+    private StackPane friReminderListPanelPlaceholder;
+
+    @FXML
+    private StackPane satReminderListPanelPlaceholder;
+
+    @FXML
+    private StackPane sunReminderListPanelPlaceholder;
 
     @FXML
     private StackPane assignmentListPanelPlaceholder;
@@ -175,12 +199,49 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void createLessonTabs() {
-        reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
-        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
         ObservableList<Tab> tabs = lessonTabPanel.getTabs();
-        tabs.forEach((tab -> {
-            tab.setContent(reminderListPanelPlaceholder);
-        }));
+
+        Tab mon = tabs.get(0);
+        monReminderListPanel = new ReminderListPanel(logic.getFilteredLessonWeekList().get(0)
+                .asUnmodifiableObservableList());
+        monReminderListPanelPlaceholder.getChildren().add(monReminderListPanel.getRoot());
+        mon.setContent(monReminderListPanelPlaceholder);
+
+        Tab tue = tabs.get(1);
+        tueReminderListPanel = new ReminderListPanel(logic.getFilteredLessonWeekList().get(1)
+                .asUnmodifiableObservableList());
+        tueReminderListPanelPlaceholder.getChildren().add(tueReminderListPanel.getRoot());
+        tue.setContent(tueReminderListPanelPlaceholder);
+
+        Tab wed = tabs.get(2);
+        wedReminderListPanel = new ReminderListPanel(logic.getFilteredLessonWeekList().get(2)
+                .asUnmodifiableObservableList());
+        wedReminderListPanelPlaceholder.getChildren().add(wedReminderListPanel.getRoot());
+        wed.setContent(wedReminderListPanelPlaceholder);
+
+        Tab thur = tabs.get(3);
+        thurReminderListPanel = new ReminderListPanel(logic.getFilteredLessonWeekList().get(3)
+                .asUnmodifiableObservableList());
+        thurReminderListPanelPlaceholder.getChildren().add(thurReminderListPanel.getRoot());
+        thur.setContent(thurReminderListPanelPlaceholder);
+
+        Tab fri = tabs.get(4);
+        friReminderListPanel = new ReminderListPanel(logic.getFilteredLessonWeekList().get(4)
+                .asUnmodifiableObservableList());
+        friReminderListPanelPlaceholder.getChildren().add(friReminderListPanel.getRoot());
+        fri.setContent(friReminderListPanelPlaceholder);
+
+        Tab sat = tabs.get(5);
+        satReminderListPanel = new ReminderListPanel(logic.getFilteredLessonWeekList().get(5)
+                .asUnmodifiableObservableList());
+        satReminderListPanelPlaceholder.getChildren().add(satReminderListPanel.getRoot());
+        sat.setContent(satReminderListPanelPlaceholder);
+
+        Tab sun = tabs.get(6);
+        sunReminderListPanel = new ReminderListPanel(logic.getFilteredLessonWeekList().get(6)
+                .asUnmodifiableObservableList());
+        sunReminderListPanelPlaceholder.getChildren().add(sunReminderListPanel.getRoot());
+        sun.setContent(sunReminderListPanelPlaceholder);
     }
 
     /**
@@ -226,9 +287,9 @@ public class MainWindow extends UiPart<Stage> {
     public StudentListPanel getStudentListPanel() {
         return studentListPanel;
     }
-    public ReminderListPanel getReminderListPanel() {
-        return reminderListPanel;
-    }
+//    public ReminderListPanel getReminderListPanel() {
+//        return reminderListPanel;
+//    }
 
     public AssignmentListPanel getAssignmentListPanel() {
         return assignmentListPanel;
