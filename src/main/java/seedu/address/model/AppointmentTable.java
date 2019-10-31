@@ -43,14 +43,14 @@ public class AppointmentTable {
             Iterator it = reminders.entrySet().iterator();
             while (it.hasNext()) {
                 HashMap.Entry pair = (HashMap.Entry) it.next();
-                appointmentArrayList.add(new Appointment("[R] " + pair.getKey(), (int)pair.getValue()));
+                appointmentArrayList.add(new Appointment("[R] " + pair.getKey(), (int) pair.getValue()));
             }
         }
         for (int i = 0; i < followup.size(); i++) {
             Iterator it = followup.entrySet().iterator();
             while (it.hasNext()) {
                 HashMap.Entry pair = (HashMap.Entry) it.next();
-                appointmentArrayList.add(new Appointment("[F] " + pair.getKey(), (int)pair.getValue()));
+                appointmentArrayList.add(new Appointment("[F] " + pair.getKey(), (int) pair.getValue()));
             }
         }
 

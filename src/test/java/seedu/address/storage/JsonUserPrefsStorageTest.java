@@ -101,8 +101,7 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void saveUserPrefs_allInOrder_success() throws DataConversionException, IOException {
-        assertEquals(1, 1);
-        /* UserPrefs original = new UserPrefs();
+        UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
 
         Path pefsFilePath = testFolder.resolve("TempPrefs.json");
@@ -117,7 +116,7 @@ public class JsonUserPrefsStorageTest {
         original.setGuiSettings(new GuiSettings(5, 5, 5, 5));
         jsonUserPrefsStorage.saveUserPrefs(original);
         readBack = jsonUserPrefsStorage.readUserPrefs().get();
-        assertEquals(original, readBack); */
+        assertEquals(original, readBack);
     }
 
 }

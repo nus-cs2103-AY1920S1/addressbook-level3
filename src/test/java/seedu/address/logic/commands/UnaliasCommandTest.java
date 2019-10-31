@@ -110,12 +110,12 @@ public class UnaliasCommandTest {
         }
 
         @Override
-        public void addReminder(int type, String description, int days) {
+        public void addAppointment(int type, String description, int days) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public String outputReminders() {
+        public String outputAppointments() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -170,7 +170,7 @@ public class UnaliasCommandTest {
         }
 
         @Override
-        public ObservableList<Appointment> getFilteredReminderList() {
+        public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -180,7 +180,7 @@ public class UnaliasCommandTest {
         }
 
         @Override
-        public void updateFilteredReminderList(Predicate<Appointment> predicate) {
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
