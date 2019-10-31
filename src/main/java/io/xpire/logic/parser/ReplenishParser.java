@@ -15,6 +15,7 @@ import io.xpire.logic.commands.ClearCommand;
 import io.xpire.logic.commands.Command;
 import io.xpire.logic.commands.DeleteCommand;
 import io.xpire.logic.commands.ExitCommand;
+import io.xpire.logic.commands.ExportCommand;
 import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.RedoCommand;
 import io.xpire.logic.commands.SearchCommand;
@@ -94,6 +95,11 @@ public class ReplenishParser implements Parser {
         case ShiftToMainCommand.COMMAND_SHORTHAND:
             return new ShiftToMainCommandParser().parse(arguments);
 
+        case ExportCommand.COMMAND_WORD:
+            //fallthrough
+        case ExportCommand.COMMAND_SHORTHAND:
+            return new ExportCommand();
+
         case AddCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_WORD:
         case SortCommand.COMMAND_WORD:
@@ -120,7 +126,8 @@ public class ReplenishParser implements Parser {
         String[] allCommandWords = new String[]{
             ClearCommand.COMMAND_WORD, SearchCommand.COMMAND_WORD,
             ViewCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
-            HelpCommand.COMMAND_WORD, ShiftToMainCommand.COMMAND_WORD
+            HelpCommand.COMMAND_WORD, ShiftToMainCommand.COMMAND_WORD,
+            ExportCommand.COMMAND_WORD
         };
         Set<String> allCommandsSet = new TreeSet<>(Arrays.asList(allCommandWords));
         sb.append(StringUtil.findSimilar(command, allCommandsSet, 1));

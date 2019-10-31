@@ -14,6 +14,7 @@ import io.xpire.logic.commands.ClearCommand;
 import io.xpire.logic.commands.Command;
 import io.xpire.logic.commands.DeleteCommand;
 import io.xpire.logic.commands.ExitCommand;
+import io.xpire.logic.commands.ExportCommand;
 import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.RedoCommand;
 import io.xpire.logic.commands.SearchCommand;
@@ -122,6 +123,11 @@ public class XpireParser implements Parser {
         case ShiftToReplenishCommand.COMMAND_SHORTHAND:
             return new ShiftToReplenishCommandParser().parse(arguments);
 
+        case ExportCommand.COMMAND_WORD:
+            //fallthrough
+        case ExportCommand.COMMAND_SHORTHAND:
+            return new ExportCommand();
+
         default:
             return parseUnknownCommandWord(commandWord);
         }
@@ -144,7 +150,8 @@ public class XpireParser implements Parser {
             ViewCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD, SortCommand.COMMAND_WORD,
             SetReminderCommand.COMMAND_WORD, TagCommand.COMMAND_WORD,
-            CheckCommand.COMMAND_WORD, ShiftToReplenishCommand.COMMAND_WORD
+            CheckCommand.COMMAND_WORD, ShiftToReplenishCommand.COMMAND_WORD,
+            ExportCommand.COMMAND_WORD
         };
         Set<String> allCommandsSet = new TreeSet<>(Arrays.asList(allCommandWords));
         sb.append(StringUtil.findSimilar(command, allCommandsSet, 1));

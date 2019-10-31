@@ -37,6 +37,7 @@ public class TagCommand extends Command {
     public static final String COMMAND_SHORTHAND = "t";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
+
             + ": Tags the xpireItem identified by the index number used in the displayed xpireItem list.\n"
             + "Note that only 5 tags are allowed per item. \n"
             + "Format: <index>|<tag>[<other tags>]...\n"

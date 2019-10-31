@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox fx:id="allPanel" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="allPanel" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TreeView fx:id="tree" style="-fx-background: black;" VBox.vgrow="ALWAYS">
          <padding>

@@ -10,13 +10,14 @@ import io.xpire.logic.parser.exceptions.ParseException;
  * Represents the quantity of an xpireItem.
  * Users are only allowed to key in positive integers.
  * Internally, there can be quantity of value 0.
- * Guarantees: immutable and valid in {@link #isValidInputQuantity(String test)}.
+ * Guarantees: immutable and valid.
  */
 public class Quantity {
 
     public static final String DEFAULT_QUANTITY = "1";
     public static final String MESSAGE_CONSTRAINTS =
             "Quantity added should be a positive integer and should not be blank";
+    public static final String MESSAGE_QUANTITY_LIMIT = "Quantity exceeds maximum input quantity of 100000";
     public static final int MAX_VALUE = 100000;
     private static final String INTERNAL_MESSAGE_CONSTRAINTS =
             "Quantity added should be a non-negative integer and should not be blank";
@@ -26,12 +27,13 @@ public class Quantity {
     /**
      * Constructs a {@code Quantity}.
      *
-     * @param quantity A valid input quantity, i.e. positive integer.
+     * @param quantity A valid input quantity, i.e. positive integer not exceeding maximum allowed limit.
      */
     public Quantity(String quantity) {
         String trimmedQuantity = quantity.trim();
         requireNonNull(trimmedQuantity);
-        AppUtil.checkArgument(isValidInputQuantity(trimmedQuantity), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isPositiveIntegerQuantity(trimmedQuantity), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isAcceptedRange(trimmedQuantity), MESSAGE_QUANTITY_LIMIT);
         this.quantity = Integer.parseInt(trimmedQuantity);
     }
 
@@ -56,18 +58,39 @@ public class Quantity {
         this.quantity = quantity;
     }
 
-    public static boolean isValidQuantity(String test) {
-        return StringUtil.isNonNegativeInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
-    }
+
     /**
      * Returns true if a given input string is a valid quantity.
      */
-    /**
-     * Returns true if a given input string is a valid quantity and lies below the maximum value.
-     */
-    public static boolean isValidInputQuantity(String test) {
-        return StringUtil.isNonZeroUnsignedInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
+    public static boolean isValidQuantity(String test) {
+        return StringUtil.isNonNegativeInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
     }
+
+    /**
+     * Returns true if a given input string lies below the maximum value.
+     */
+    public static boolean isAcceptedRange(String test) {
+        return Integer.parseInt(test) <= MAX_VALUE;
+    }
+
+
+    /**
+     * Returns true if a given input string is a valid integer.
+     */
+    public static boolean isPositiveIntegerQuantity(String test) {
+        return StringUtil.isNonZeroUnsignedInteger(test);
+    }
+
+    /**
+     * Returns true if a given input string is numeric but exceeds given range.
+     */
+    public static boolean isNumericButExceedQuantity(String test) {
+        return StringUtil.isNumeric(test) && test.length() > 6;
+    }
+
+    /**
+     * Returns true if a given input string is a valid input.
+     */
 
     /**
      * Returns true if quantity is zero.

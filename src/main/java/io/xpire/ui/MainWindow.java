@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ViewPanel viewPanel;
+    private ExportWindow exportWindow;
     private AllItemsPanel allItemsPanel;
 
     @FXML
@@ -68,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        resultWindow = new ResultWindow();
+        exportWindow = new ExportWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -166,7 +169,22 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        exportWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Opens the export window or refreshes it if it is already opened.
+     */
+    @FXML
+    public void handleExport(byte[] pngData) {
+        exportWindow.update(pngData);
+
+        if (!exportWindow.isShowing()) {
+            exportWindow.show();
+        } else {
+            exportWindow.focus();
+        }
     }
 
     public ViewPanel getViewPanel() {
@@ -196,6 +214,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowQr()) {
+                handleExport(commandResult.getPngData());
             }
 
             return commandResult;

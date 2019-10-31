@@ -7,6 +7,7 @@ import io.xpire.model.ReplenishList;
 import io.xpire.model.StackManager;
 import io.xpire.model.Xpire;
 import io.xpire.model.state.State;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Clears all items in the list.
@@ -31,9 +32,13 @@ public class ClearCommand extends Command {
         switch (list) {
         case "main" :
             model.setXpire(new Xpire());
+            model.setFilteredXpireItems(new FilteredList<>(model.getXpire().getItemList()));
+            model.setCurrentFilteredItemList(model.getFilteredXpireItemList());
             break;
         case "replenish":
             model.setReplenishList(new ReplenishList());
+            model.setFilteredReplenishItems(new FilteredList<>(model.getReplenishList().getItemList()));
+            model.setCurrentFilteredItemList(model.getFilteredReplenishItemList());
             break;
         default:
             break;
