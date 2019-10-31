@@ -2,6 +2,7 @@ package seedu.address.model.achievements;
 
 import static seedu.address.model.achievements.AchievementState.ACHIEVED;
 import static seedu.address.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
+import static seedu.address.model.achievements.AchievementState.YET_TO_ACHIEVE;
 import static seedu.address.model.achievements.DurationUnit.MONTH;
 import static seedu.address.model.achievements.DurationUnit.WEEK;
 import static seedu.address.model.achievements.DurationUnit.YEAR;
@@ -92,8 +93,8 @@ public class AchievementStateProcessor {
      * @param achievement Achievement that is to have it's state demoted to previously achieved.
      */
     private void demote(Achievement achievement) {
-        if (achievement.isAchieved()) {
-            setAchievementState(achievement, PREVIOUSLY_ACHIEVED);
+        if (!achievement.isYetToBeAchieved()) {
+            setAchievementState(achievement, YET_TO_ACHIEVE);
         }
     }
 

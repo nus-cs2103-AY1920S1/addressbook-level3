@@ -208,5 +208,10 @@ public interface Logic {
      */
     public void resetNewAchievementsState();
 
+    /**
+     * Returns whether or not a given achievements map is the same as the current achievements map.
+     */
+    public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap);
+
 
 }

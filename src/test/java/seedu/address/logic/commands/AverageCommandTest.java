@@ -427,6 +427,11 @@ public class AverageCommandTest {
         public void resetNewAchievementsState() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -442,6 +447,11 @@ public class AverageCommandTest {
         @Override
         public ObservableMap<LocalDate, Double> getAverageMap() {
             return FXCollections.observableHashMap();
+        }
+
+        @Override
+        public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
