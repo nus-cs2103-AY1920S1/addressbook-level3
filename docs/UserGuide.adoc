@@ -97,13 +97,16 @@ views the contact with ID 2, e.g. John Smith
 
 === Create new contact: `contact`
 
-Creates a new contact with a name and phone number. Each contact will be assigned a contact ID automatically. +
+Creates a new contact with a name and phone number. Each contact will be assigned a contact ID automatically. Optionally, an email, home address and tag(s) can also be specified. +
 
 ****
+* Name and phone numbers are compulsory fields.
 * Each contact must have a unique name.
+* Names are limited to 40 alphanumeric characters.
+* Phone numbers must be between 3 to 20 digits long.
 ****
 
-Format: `contact n/CONTACT_NAME hp/PHONE_NUMBER`
+Format: `contact n/CONTACT_NAME hp/PHONE_NUMBER [e/EMAIL] [t/TAG] [a/ADDRESS]`
 
 Examples:
 
@@ -155,6 +158,7 @@ Examples:
 * `disinvite p/John Doe p/Mary` +
 Removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.
 
+// tag::expense[]
 === Add expenses to an activity : `expense`
 
 Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. +
@@ -167,6 +171,8 @@ Format: `expense p/PERSON e/AMOUNT_PAID [p/PERSON ...] [d/DESCRIPTION]`
 
 ****
 * Exactly one expense amount must be provided.
+* The amount specified is limited to 2 decimal places.
+* The maximum amount for any single expense is $1,000,000.
 ****
 
 Examples:
@@ -177,6 +183,7 @@ If no activity is currently viewed, an error will occur as there is no descripti
 * `expense p/Mary e/100 p/Joseph p/Silva d/Drinks` +
 Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named `Drinks`. If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
 Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.
+// end::expense[]
 
 === Edit an existing contact or activity : `edit`
 
