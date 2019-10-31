@@ -22,12 +22,14 @@ import seedu.address.model.training.Training;
  */
 public class TrainingCommandPresent extends TrainingCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds training session of people identified by the index numbers used in the displayed person list at"
-            + " the specified date.\nIf no date is specified, the current date is used.\n"
-            + "Parameters: " + "#/INDEX [INDEX] [INDEX] [d/DATE]\nDate must be in the format: " + DATE_FORMAT + "\n"
-            + "Index must be a positive integer\nExample: " + COMMAND_WORD + " " + PREFIX_DATE + "20/10/2019 "
-            + PREFIX_INDEXES + " 1 5 7";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds training session "
+            + "of people identified by the index numbers used in the displayed person list on the specified date.\n"
+            + "If no date is specified, the current date is used.\n"
+            + "Parameters: "
+            + PREFIX_INDEXES + "INDEX [INDEX]... [d/DDMMYYYY]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_DATE + "20102019 "
+            + PREFIX_INDEXES + "1 5 7";
 
     /**
      * Creates a TrainingCommandPresent to add a training session on {@code date} using the {@code indexList}.
