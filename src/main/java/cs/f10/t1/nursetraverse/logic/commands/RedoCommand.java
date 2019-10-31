@@ -7,7 +7,7 @@ import cs.f10.t1.nursetraverse.model.Model;
 /**
  * Redoes the previous command if it was an undo.
  */
-public class RedoCommand extends Command implements MutatorCommand {
+public class RedoCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "app-redo";
 
@@ -22,7 +22,8 @@ public class RedoCommand extends Command implements MutatorCommand {
     public CommandResult execute(Model model) throws CommandException {
         try {
             HistoryRecord redoneRecord = model.redo();
-            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, redoneRecord.toString()));
+            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS,
+                    redoneRecord.getCommand().getCommandText().orElse(redoneRecord.toString())));
         } catch (IllegalStateException e) {
             throw new CommandException(MESSAGE_NO_MORE_HISTORY);
         }

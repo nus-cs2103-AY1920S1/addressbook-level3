@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
-import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
@@ -16,7 +15,7 @@ import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 /**
  * Deletes a patient identified using it's displayed index from the patient book.
  */
-public class DeleteAppointmentCommand extends Command implements MutatorCommand {
+public class DeleteAppointmentCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "appt-delete";
 

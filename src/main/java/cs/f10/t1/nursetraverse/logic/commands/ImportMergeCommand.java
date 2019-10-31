@@ -13,44 +13,40 @@ import cs.f10.t1.nursetraverse.importexport.exceptions.ImportingException;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
+import cs.f10.t1.nursetraverse.model.patient.exceptions.DuplicatePatientException;
+
 
 /**
- * Imports data from a csv file.
- * Replaces ALL data in the patient book with the imported data
+ * Imports data from a .csv file.
+ * Patients from the .csv are batch added into the AB.
  */
-public class ImportReplaceCommand extends MutatorCommand {
-    public static final String COMMAND_WORD = "app-import-replace";
+public class ImportMergeCommand extends MutatorCommand {
+    public static final String COMMAND_WORD = "app-import-merge";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Imports data from a .csv file in /imports.\n"
-            + "All patients in the .csv will be imported. ALL EXISTING PERSONS WILL BE ERASED.\n"
+            + "All patients in the .csv will be imported and merged with existing data.\n"
             + "File name provided must exist and be in .csv format\n"
-            + "Cannot import and replace when visit is ongoing. \n"
             + "Parameters: [" + PREFIX_FILENAME + "FILENAME]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "assigned_patient_data";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "new_patients_data";
 
     public static final String MESSAGE_SUCCESS = "Import success!";
     public static final String MESSAGE_FAILURE = "Import failed.\n"
             + "Check that the .csv file adheres to the format in the User Guide";
     public static final String MESSAGE_INVALID_CSV_FIELDS = "Invalid fields in csv file.";
-    public static final String MESSAGE_DUPLICATE_CSV_PATIENTS = "Duplicate patients exist in the csv file.\n"
+    public static final String MESSAGE_DUPLICATE_CSV_PATIENTS = "Operation will result in duplicate patients.\n"
             + "Duplicates are not allowed.";
-    public static final String MESSAGE_VISIT_ONGOING = "Cannot import and replace when visit is ongoing";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "File does not exist: %s.csv cannot be found";
 
     private final String importFileName;
 
-    public ImportReplaceCommand(String importFileName) {
+    public ImportMergeCommand(String importFileName) {
         this.importFileName = importFileName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (model.getOngoingVisit().isPresent()) {
-            throw new CommandException(MESSAGE_VISIT_ONGOING);
-        }
 
         List<Patient> importedPatients = new ArrayList<>();
 
@@ -62,14 +58,17 @@ public class ImportReplaceCommand extends MutatorCommand {
             throw new CommandException(MESSAGE_FAILURE, e);
         } catch (IllegalValueException e) {
             throw new CommandException(MESSAGE_INVALID_CSV_FIELDS, e);
+        } catch (DuplicatePatientException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_CSV_PATIENTS, e);
         }
 
-        // Ensure imported list is unique.
-        if (!CsvUtil.importsAreUnique(importedPatients)) {
+        // Check that the operation will not cause duplicates
+        if (!CsvUtil.importsAreUnique(importedPatients)
+            || model.hasAnyPatientInGivenList(importedPatients)) {
             throw new CommandException(MESSAGE_DUPLICATE_CSV_PATIENTS);
         }
 
-        model.replaceStagedPatientBook(importedPatients);
+        model.addPatients(importedPatients);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

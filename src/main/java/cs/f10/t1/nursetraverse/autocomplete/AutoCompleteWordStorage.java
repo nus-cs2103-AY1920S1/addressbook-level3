@@ -7,6 +7,7 @@ import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ExportCommand;
 import cs.f10.t1.nursetraverse.logic.commands.FindCommand;
 import cs.f10.t1.nursetraverse.logic.commands.HelpCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ImportMergeCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ImportReplaceCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ListCommand;
 import cs.f10.t1.nursetraverse.logic.commands.RedoCommand;
@@ -22,6 +23,7 @@ import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -30,6 +32,7 @@ import javafx.collections.transformation.FilteredList;
  * Class that initialise and stores all list
  */
 public class AutoCompleteWordStorage {
+
     public static final String VISIT_OBJECT_WORD = UserinputParserUtil
             .parseFirstSegment(BeginVisitCommand.COMMAND_WORD)
             .get(0);
@@ -42,7 +45,6 @@ public class AutoCompleteWordStorage {
     public static final String APPT_OBJECT_WORD = UserinputParserUtil
             .parseFirstSegment(AddAppointmentCommand.COMMAND_WORD)
             .get(0);
-
 
     private ObservableList<AutoCompleteWord> oListAllObjectWord;
     private ObservableList<AutoCompleteWord> oListAllCommandWord;
@@ -63,6 +65,7 @@ public class AutoCompleteWordStorage {
      */
     private ObservableList<AutoCompleteWord> initAllCommandWordList() {
         ObservableList<AutoCompleteWord> oListAllCommandWord = FXCollections.observableArrayList();
+
         // Visit commands
         oListAllCommandWord.add(new CommandWord(VISIT_OBJECT_WORD, UserinputParserUtil
                 .parseFirstSegment(BeginVisitCommand.COMMAND_WORD)
@@ -86,6 +89,9 @@ public class AutoCompleteWordStorage {
                 .get(1), false, false));
         oListAllCommandWord.add(new CommandWord(APP_OBJECT_WORD, UserinputParserUtil
                 .parseFirstSegment(ImportReplaceCommand.COMMAND_WORD)
+                .get(1), false, true));
+        oListAllCommandWord.add(new CommandWord(APP_OBJECT_WORD, UserinputParserUtil
+                .parseFirstSegment(ImportMergeCommand.COMMAND_WORD)
                 .get(1), false, true));
         oListAllCommandWord.add(new CommandWord(APP_OBJECT_WORD, UserinputParserUtil
                 .parseFirstSegment(ExportCommand.COMMAND_WORD)
@@ -136,6 +142,7 @@ public class AutoCompleteWordStorage {
      */
     private ObservableList<AutoCompleteWord> initAllPrefixWordList() {
         ObservableList<AutoCompleteWord> oListAllPrefixWord = FXCollections.observableArrayList();
+
         // Visit prefixes
         oListAllPrefixWord.add(new PrefixWord(VISIT_OBJECT_WORD, UserinputParserUtil
                 .parseFirstSegment(UpdateOngoingVisitCommand.COMMAND_WORD)
@@ -158,6 +165,9 @@ public class AutoCompleteWordStorage {
                 .get(1), CliSyntax.PREFIX_NAME.getPrefix()));
         oListAllPrefixWord.add(new PrefixWord(APP_OBJECT_WORD, UserinputParserUtil
                 .parseFirstSegment(ImportReplaceCommand.COMMAND_WORD)
+                .get(1), CliSyntax.PREFIX_NAME.getPrefix()));
+        oListAllPrefixWord.add(new PrefixWord(APP_OBJECT_WORD, UserinputParserUtil
+                .parseFirstSegment(ImportMergeCommand.COMMAND_WORD)
                 .get(1), CliSyntax.PREFIX_NAME.getPrefix()));
         // Pat prefixes
         oListAllPrefixWord.add(new PrefixWord(PATIENT_OBJECT_WORD, UserinputParserUtil
@@ -262,6 +272,7 @@ public class AutoCompleteWordStorage {
      */
     private ObservableList<AutoCompleteWord> initAllObjectWordList() {
         ObservableList<AutoCompleteWord> oListAllObjectWord = FXCollections.observableArrayList();
+
         oListAllObjectWord.add(new ObjectWord(PATIENT_OBJECT_WORD));
         oListAllObjectWord.add(new ObjectWord(APP_OBJECT_WORD));
         oListAllObjectWord.add(new ObjectWord(VISIT_OBJECT_WORD));

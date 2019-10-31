@@ -1,0 +1,103 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
+participant "u:UpdateOngoingVisitCommandParser" as UpdateOngoingVisitCommandParser LOGIC_COLOR
+participant "ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant "updateOngoingVisitDescriptor:UpdateOngoingVisitDescriptor" as UpdateOngoingVisitDescriptor LOGIC_COLOR
+participant "cmd:UpdateOngoingVisitCommand" as UpdateOngoingVisitCommand LOGIC_COLOR
+participant "cmdResult:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+end box
+
+box Util
+participant ":VisitUtil" as VisitUtil MODEL_COLOR
+participant ":CsvUtil" as CsvUtil MODEL_COLOR
+participant ":FileUtil" as FileUtil MODEL_COLOR
+end box
+
+box Exceptions
+participant "e:CommandException" as CommandException MODEL_COLOR
+end box
+
+[-> LogicManager : execute("visit-now-update d/2 details f/2 r/Remarks")
+activate LogicManager
+
+LogicManager -> PatientBookParser : parseCommand("visit-now-update d/2 details f/2 r/Remarks")
+activate PatientBookParser
+
+create UpdateOngoingVisitCommandParser
+PatientBookParser -> UpdateOngoingVisitCommandParser : UpdateOngoingVisitCommandParser()
+activate UpdateOngoingVisitCommandParser
+
+UpdateOngoingVisitCommandParser --> PatientBookParser : u
+PatientBookParser -> UpdateOngoingVisitCommandParser : parse(arguments)
+
+ref over UpdateOngoingVisitCommandParser, ArgumentTokenizer : Create ArgumentMultimap argMultimap
+create UpdateOngoingVisitDescriptor
+UpdateOngoingVisitCommandParser -> UpdateOngoingVisitDescriptor : UpdateOngoingVisitDescriptor()
+ref over UpdateOngoingVisitCommandParser, ArgumentTokenizer, UpdateOngoingVisitDescriptor : Parse args from argMultimap into updateOngoingVisitDescriptor based on their prefix
+create UpdateOngoingVisitCommand
+UpdateOngoingVisitCommandParser -> UpdateOngoingVisitCommand : UpdateOngoingVisitCommand(updateOngoingVisitDescriptor)
+activate UpdateOngoingVisitCommand
+UpdateOngoingVisitCommand --> UpdateOngoingVisitCommandParser : cmd
+deactivate UpdateOngoingVisitCommand
+UpdateOngoingVisitCommandParser --> PatientBookParser : cmd
+deactivate UpdateOngoingVisitCommandParser
+PatientBookParser --> LogicManager : cmd
+deactivate PatientBookParser
+
+LogicManager -> UpdateOngoingVisitCommand : execute(model)
+activate UpdateOngoingVisitCommand
+UpdateOngoingVisitCommand -> UpdateOngoingVisitDescriptor : isAnyFieldUpdated()
+activate UpdateOngoingVisitDescriptor
+UpdateOngoingVisitDescriptor -> UpdateOngoingVisitCommand : isAnyFieldUpdated
+deactivate UpdateOngoingVisitDescriptor
+
+opt isAnyFieldUpdated
+    create CommandException
+    UpdateOngoingVisitCommand -> CommandException : CommandException(MESSAGE_ONGOING_VISIT_NOT_MODIFIED)
+    activate CommandException
+    [<-- CommandException
+    deactivate CommandException
+end
+UpdateOngoingVisitCommand -> VisitUtil : getOngoingVisitIfExists(model, MESSAGE_NO_ONGOING_VISIT)
+UpdateOngoingVisitCommand <-- VisitUtil : visitToUpdate
+UpdateOngoingVisitCommand -> UpdateOngoingVisitCommand : createUpdated(visitToUpdate, updateOngoingVisitDescriptor)
+activate UpdateOngoingVisitCommand
+UpdateOngoingVisitCommand <-- UpdateOngoingVisitCommand : updatedVisit
+deactivate UpdateOngoingVisitCommand
+
+opt visitToUpdate.equals(updatedVisit)
+    create CommandException
+    UpdateOngoingVisitCommand -> CommandException : CommandException(MESSAGE_ONGOING_VISIT_NOT_MODIFIED)
+    activate CommandException
+    [<-- CommandException
+    deactivate CommandException
+end
+
+UpdateOngoingVisitCommand -> Model : updateOngoingVisit(updatedVisit)
+activate Model
+UpdateOngoingVisitCommand <-- Model
+deactivate Model
+
+create CommandResult
+UpdateOngoingVisitCommand -> CommandResult : CommandResult(String.format(MESSAGE_UPDATE_ONGOING_VISIT_SUCCESS, updatedVisit))
+activate CommandResult
+UpdateOngoingVisitCommand <-- CommandResult : cmdResult
+deactivate CommandResult
+
+LogicManager <-- UpdateOngoingVisitCommand : cmdResult
+
+deactivate UpdateOngoingVisitCommand
+
+deactivate LogicManager
+
+@enduml
