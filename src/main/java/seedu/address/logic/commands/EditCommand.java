@@ -44,7 +44,7 @@ public class EditCommand extends Command {
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_AMOUNT + "$23.50 "
+        + PREFIX_AMOUNT + "23.50 "
         + PREFIX_DATE + "1245";
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
