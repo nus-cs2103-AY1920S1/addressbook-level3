@@ -16,27 +16,19 @@ public class PersonSchedule {
 
     private PersonDisplay personDisplay;
 
-    private Role role;
-
     private HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleDisplay;
 
     public PersonSchedule(String scheduleName,
-                          PersonDisplay personDisplay,
-                          Role role, HashMap<DayOfWeek,
+                          PersonDisplay personDisplay, HashMap<DayOfWeek,
             ArrayList<PersonTimeslot>> scheduleDisplay) {
 
         this.scheduleName = scheduleName;
         this.personDisplay = personDisplay;
-        this.role = role;
         this.scheduleDisplay = scheduleDisplay;
     }
 
     public PersonDisplay getPersonDisplay() {
         return this.personDisplay;
-    }
-
-    public Role getRole() {
-        return this.role;
     }
 
     public String getScheduleName() {

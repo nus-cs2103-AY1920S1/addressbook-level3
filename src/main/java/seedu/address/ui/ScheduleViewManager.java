@@ -34,4 +34,6 @@ public interface ScheduleViewManager {
     public void scrollNext();
     public void toggleNext();
     public List<String> getColors();
+    public ScheduleWindowDisplayType getScheduleWindowDisplayType();
+    public ScheduleView getScheduleViewCopy();
 }
