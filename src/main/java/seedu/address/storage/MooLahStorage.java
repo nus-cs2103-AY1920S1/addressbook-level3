@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.DataInconsistencyException;
 import seedu.address.model.MooLah;
 import seedu.address.model.ReadOnlyMooLah;
 
@@ -25,13 +24,12 @@ public interface MooLahStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyMooLah> readMooLah() throws DataConversionException, IOException, DataInconsistencyException;
+    Optional<ReadOnlyMooLah> readMooLah() throws DataConversionException, IOException;
 
     /**
      * @see #getMooLahFilePath()
      */
-    Optional<ReadOnlyMooLah> readMooLah(Path filePath) throws DataConversionException, IOException,
-            DataInconsistencyException;
+    Optional<ReadOnlyMooLah> readMooLah(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyMooLah} to the storage.
