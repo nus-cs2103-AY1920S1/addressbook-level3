@@ -54,11 +54,13 @@ and the inputs correspond to a book that is not on loan.
 Additionally, I also created utility classes like `DateUtil` and `FineUtil` to centralize utility functions that dealt with
 dates and fines respectively.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+=== Code contributed
 
-* *Other contributions*:
+[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-** Project management:
+=== Other contributions
+
+==== Project management
 
 *** Managed the issues covered for each milestone and set up their deadlines. Also added each feature as an issue and
 assigned them to the appropriate team member.
@@ -83,7 +85,7 @@ assigned them to the appropriate team member.
 
 *** Reviewed pull requests by team members, e.g. ...........
 
-** Enhancements to existing features:
+==== Enhancements to existing features
 
 *** Enhanced code for `Borrower` class to be immutable. Done through pull request:
 
@@ -102,20 +104,20 @@ count and integrated this setting to the model component.
 **** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/179[#179] - Updated panel dimensions to fit more results and
 added more borrower-related information such as total outstanding fine.
 
-** Documentation:
+==== Documentation
 
 *** Improved and rectified the flow, content, styling, legend and diagrams of the user guide and developer guide
 according to feedback received from tutor and peers.
 Done through pull requests: https://github.com/AY1920S1-CS2103T-F13-1/main/pull/157[#157], https://github.com/AY1920S1-CS2103T-F13-1/main/pull/163[#163],
 https://github.com/AY1920S1-CS2103T-F13-1/main/pull/179[#179], https://github.com/AY1920S1-CS2103T-F13-1/main/pull/182[#182].
 
-** Community:
+==== Community
 
 *** Gave in-depth and insightful review of team member's pull requests. Examples includes: ........
 
 *** Reported bugs in the team project to team members in the group chat.
 
-** Tools:
+==== Tools
 
 *** Integrated a new Github plugin, Coveralls, to the team repository. Coveralls was immensely helpful in tracking the
 test coverage of our team's code.
@@ -127,7 +129,9 @@ test coverage of our team's code.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=quickStart]
+
+include::../UserGuide.adoc[tag=loanRelated]
 
 == Contributions to the Developer Guide
 
@@ -135,8 +139,7 @@ test coverage of our team's code.
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=bookLoaningFeatures]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
 
 

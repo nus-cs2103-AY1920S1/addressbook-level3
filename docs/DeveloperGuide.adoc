@@ -494,7 +494,9 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Book loaning feature
+// tag::bookLoaningFeatures[]
+
+=== Book Loaning Features
 
 ==== Functionalities
 The functionalities and commands associated with the book loaning feature are:
@@ -654,6 +656,8 @@ up of the application. Thus, it can make the application feel laggy and unrespon
 ** Pros: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
 ** Cons: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
 `startDate` in order to obtain their insertion order.
+
+// end::bookLoaningFeatures[]
 
 // tag::bookFinding[]
 === Book Finding
