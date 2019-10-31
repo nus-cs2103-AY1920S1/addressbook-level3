@@ -141,8 +141,8 @@ public class Budget {
         }
     }
 
-    public List<Expense> getCurrentPeriodExpenses() {
-        List<Expense> currentPeriodExpenses = new ArrayList<>();
+    public ObservableList<Expense> getCurrentPeriodExpenses() {
+        ObservableList<Expense> currentPeriodExpenses = FXCollections.observableArrayList();
         if (expenses != null) {
             expenses.stream().forEach(e -> {
                 if (withinCurrentPeriod(e)) {

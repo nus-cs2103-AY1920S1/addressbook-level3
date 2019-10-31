@@ -28,7 +28,7 @@ public class BudgetPanel extends Panel {
 
     public BudgetPanel(Budget budget) {
         super(FXML);
-        expenseListPanel = new ExpenseListPanel(budget.getExpenses(), false);
+        expenseListPanel = new ExpenseListPanel(budget.getCurrentPeriodExpenses(), false);
         expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
         budgetCard = new BudgetCard(budget);
         budgetCardPlaceholder.getChildren().add(budgetCard.getRoot());
