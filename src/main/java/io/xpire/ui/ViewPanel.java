@@ -12,13 +12,12 @@ import io.xpire.model.item.XpireItem;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
  * Panel containing the list of items.
  */
-public class ViewPanel extends UiPart<AnchorPane> {
+public class ViewPanel extends UiPart<VBox> {
     private static final String FXML = "ViewPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ViewPanel.class);
 
@@ -31,14 +30,14 @@ public class ViewPanel extends UiPart<AnchorPane> {
 
     public ViewPanel(ObservableList<? extends Item> xpireItemList) {
         super(FXML);
-        displayItem(xpireItemList);
+        displayItems(xpireItemList);
     }
 
 
     /**
      * Renders items in the {@Code xpireItemList}.
      */
-    void displayItem(ObservableList<? extends Item> itemList) {
+    void displayItems(ObservableList<? extends Item> itemList) {
         card.getChildren().clear();
         Collection<ItemCard> cardList;
         //@@author febee99
