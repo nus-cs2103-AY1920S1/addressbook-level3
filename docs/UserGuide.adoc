@@ -21,10 +21,10 @@ By: `AY1920S1-CS2103T-W12-3`      Since: `SEPT 2019`      Licence: `MIT`
 PalPay is for those who *prefer to use a desktop app for managing personal finances*.
 More importantly, PalPay is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, PalPay can get your finance management tasks done faster than traditional GUI apps.
-This User Guide as written for the users of PalPay as an introductory document of the application.
-You are strongly encouraged to read this document before using the application top enjoy the full functionality of the application.
+This User Guide is written for the users of PalPay as an introductory document of the application.
+You are strongly encouraged to read this document before using the application to enjoy the full functionality of the application.
 Ready to start your journey to financial freedom?
-Jump to the <<Quick Start>> to get started.
+Jump to <<Quick Start>> to get started.
 Enjoy!
 
 == Quick Start
@@ -37,13 +37,15 @@ The GUI should appear within a few seconds.
 +
 +
 . Type your command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+Example: Typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
 
-* *`view`* : shows statistics of your current finances
-* **`in`**`100 n/mother c/allowance` : adds an income to your personal finance of *100* dollars under the catergory *mother* and the item type *allowance*.
-* **`out`**`3 n/pie c/food` : adds an expenditure to your personal finance of *3* dollars under the category *food* and the item type *pie*.
-* *`exit`* : exits the app
+* `view` : shows statistics of your current finances
+* `in $/100 n/mother d/31102019 c/allowance` : adds an income to your personal finance of *100* dollars with
+the category *mother* and the description *allowance*.
+* `out $/3 n/pie d/19112019 c/food` : adds an expenditure to your personal finance of *3* dollars with
+the category *food* and the description *pie*.
+* `exit` : exits the app
 
 . Refer to <<Features>> for details of each command.
 
@@ -53,29 +55,37 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `in AMOUNT n/ITEM`, `AMOUNT` and 'ITEM' are parameters which can be used as `in 300 n/concert`.
-* Items in square brackets are optional e.g `n/ITEM [c/CATEGORY]` can be used as `n/coke t/drinks` or as `n/coke`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[n/NAME]...` can be used as `{nbsp}` (i.e. 0 times), `n/Amy`, `n/Amy n/Betty` etc.
-* Parameters can be in any order e.g. if the command specifies `AMOUNT n/ITEM`, `n/ITEM AMOUNT` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+Example: For `in $/AMOUNT n/ITEM d/DATE`, `AMOUNT`, `ITEM` and `DATE` are parameters which can be used as
+`in $/300 n/concert d/19112019`.
+* Items in square brackets are optional. +
+Example: `n/ITEM [c/CATEGORY]` can be used as `n/coke c/drinks` or as `n/coke`.
+* Items with `…`​ after them can be used multiple times including zero times. +
+Example: `[n/NAME]...` can be used as `{nbsp}` (i.e. 0 times), `n/Amy`, `n/Amy n/Betty` etc.
+* Parameters can be in any order. +
+Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also acceptable.
 ====
 
 === Splitting a Bill with Friends : `split`
 
 Split a bill with your friends +
-Format: `split [f/FLAG] $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]`
+Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
 
 
-* `[FLAG]` defines how the bill is split:
-** `dutch` user is included in the split (default)
-** `loan` user is not included in the split
 * `[SHARE]` defines portion of bill to be paid by each person
-*** number of rations must match number of names for `loan` splits
-*** number of rations must be 1 more than number of names for `dutch` splits
+** if no shares are given, `amount` will be split evenly across all people, including user
+** user is included in the bill if number of shares is *1* more than number of people
+*** user's share will be the first listed share
+** each person's share is assigned in order
+*** i.e. last person's share is the last share listed
+** shares cannot be negative numbers
 
 Examples:
 
 * `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-* `split $/100 f/loan n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+** $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
+* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
 
 === Settling Up with a Friend : `pay`
 
@@ -100,7 +110,8 @@ Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 ****
 
 Examples:
-* `out $/100 n/milk c/food`
+
+* `out $/100 n/milk c/food c/drinks`
 * `out $/29 n/taxi c/transport`
 * `out $/12 n/burger`
 
@@ -119,7 +130,7 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 Examples:
 
-* `in $/100 n/errand c/work`
+* `in $/100 n/errand c/work c/drinks`
 * `in $/200 n/mom c/family`
 * `in $/120 n/work`
 
@@ -147,24 +158,23 @@ To set a new budget: +
 3. If the budget already exists in the budget list, the result box will display the message "This budget already exists". +
 4. Now you can see the newly set budget in the budget list.
 
-=== Display View : `view`
+// tag::view[]
+=== Displaying View : `view`
 
-Shows all possible views (spending, projection and loan) +
-Format: `view KEYWORD [TIMEFRAME]`
+Shows all possible views +
+Format: `view TAB`
 
 ****
-* `KEYWORD` input only accepts `spending`, `projection` and `loan`.
-* `[TIMEFRAME]` input defines the number of days prior to this command for the called projection. (default=30)
-* `view spending` shows a breakdown of your categories of spending
-* `view projection` shows a personal finance projection for a given period of time
-* `view loan` shows the amount of money owed and lent to others
+* `TAB` input only accepts `transaction` and `budget` in v1.3.
+* `view transaction` shows a list of all your transactions.
+* `view budget` shows a list of all your budgets.
 ****
 
 Examples:
 
-* `view loan`
-* `view projection`
-* `view spending`
+* `view transaction`
+* `view budget`
+// end::view[]
 
 // tag::delete[]
 === Deleting Finance : `delete`
@@ -190,7 +200,6 @@ Examples:
 Updates the specified income or expenditure from the finance manager. +
 Format: `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]`
 
-
 ****
 * `AMOUNT` accepts a non-negative value lesser than 1,000,000,000 to update the target Transaction or Budget
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
@@ -207,6 +216,7 @@ Examples:
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
 
+// tag::sort[]
 === Sorting Transactions : `sort`
 
 Sorts all transactions with given `PREDICATE` +
@@ -214,26 +224,32 @@ Format: `sort PREDICATE`
 
 ****
 * You are only able to `sort` by `date` and `amount` in v1.3.
+* Transactions will be sorted in ascending order.
 ****
 
 Examples:
 
 * `sort amount`
 * `sort date`
+// end::sort[]
 
+// tag::filter[]
 === Filtering Transactions : `filter`
 
 Shows all relevant transactions with given `CATEGORY` +
 Format: `filter CATEGORY...`
 
 ****
-* `CATEGORY` input accepts `CATEGORY` you have used in In or Out transactions before.
+* All transactions with at least one `CATEGORY` in the `CATEGORY...` input will be displayed.
+* Example: `filter transport allowance` will display transactions with `transport`, `allowance`, or
+`transport` and `allowance`.
 ****
 
 Examples:
 
 * `filter food`
 * `filter transport allowance`
+// end::filter[]
 
 === Projecting Balance : `project`
 
@@ -282,9 +298,6 @@ Format: `exit`
 
 PalPay data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
