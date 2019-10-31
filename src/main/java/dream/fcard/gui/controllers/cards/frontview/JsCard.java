@@ -27,8 +27,10 @@ public class JsCard extends AnchorPane {
     private JavascriptCard card;
     private Application jsEditor;
     private Consumer<Pair<String, Pair<Integer, Integer>>> getResult = this::receiveResult;
+    private Consumer<String> updateUserAttempt;
+    private Consumer<Boolean> getScore;
 
-    public JsCard(JavascriptCard card) {
+    public JsCard(JavascriptCard card, Consumer<String> updateUserAttempt, Consumer<Boolean> getScore) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                     .getResource("/view/Cards/Front/JsCard.fxml"));
@@ -36,6 +38,8 @@ public class JsCard extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.card = card;
+            this.getScore = getScore;
+            this.updateUserAttempt = updateUserAttempt;
             questionTextLabel.setText(card.getFront());
             openCoderButton.setOnAction(e -> startCoding());
         } catch (IOException e) {
@@ -82,6 +86,13 @@ public class JsCard extends AnchorPane {
         } else {
             card.editFront(front + err);
             questionTextLabel.setText(front + err);
+            card.editFront(front + " Passed!");
+            questionTextLabel.setText(front + " Passed!");
+            getScore.accept(true);
+        } else {
+            card.editFront(front + " Failed.");
+            questionTextLabel.setText(front + " Failed.");
+            getScore.accept(false);
         }
     }
 }

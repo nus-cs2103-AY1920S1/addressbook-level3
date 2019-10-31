@@ -11,6 +11,7 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     protected String front;
     protected String back;
     protected Integer priority;
+    protected int cardResult;
 
 
     /**
@@ -82,4 +83,7 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     }
 
     public abstract FlashCard duplicate();
+
+    public abstract void updateScore(Boolean isCorrect);
+
 }

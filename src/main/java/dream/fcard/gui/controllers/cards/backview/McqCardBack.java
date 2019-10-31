@@ -24,14 +24,19 @@ public class McqCardBack extends AnchorPane {
     @FXML
     private Label correctAnswerLabel;
 
+    private Consumer<Boolean> updateScore;
+    private Consumer<Integer> updateUserInput;
 
-    public McqCardBack(MultipleChoiceCard card, Consumer<Boolean> seeFrontOfMcqCard) {
+    public McqCardBack(MultipleChoiceCard card, Consumer<Boolean> seeFrontOfMcqCard,
+                       Consumer<Boolean> updateScore, Consumer<Integer> updateUserInput) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                     .getResource("/view/Cards/Back/MCQCardBack.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+            this.updateScore = updateScore;
+            this.updateUserInput = updateUserInput;
             seeFrontButton.setOnAction(e -> seeFrontOfMcqCard.accept(true));
             correctOrWrongLabel.setText(checkAnswer(card));
             setColourOfLabel();
@@ -42,8 +47,21 @@ public class McqCardBack extends AnchorPane {
         }
     }
 
+    /**
+     * Checks if the answer that the user input is correct.
+     * Adds 1 to score if correct.
+     * @param card the card the user is viewing.
+     * @return "correct" or "wrong" accordingly
+     * @throws IndexNotFoundException //exception
+     */
     private String checkAnswer(MultipleChoiceCard card) throws IndexNotFoundException {
         boolean isCorrect = card.evaluate(Integer.toString(card.getUserAttempt()));
+        if (isCorrect) {
+            updateScore.accept(true);
+        } else {
+            updateScore.accept(false);
+        }
+        updateUserInput.accept(card.getUserAttempt());
         return isCorrect ? "Correct!" : "Wrong...";
     }
 

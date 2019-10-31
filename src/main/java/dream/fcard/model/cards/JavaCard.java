@@ -57,4 +57,9 @@ public class JavaCard extends FlashCard {
     public void setAttempt(String attempt) {
         this.attempt = attempt;
     }
+
+    @Override
+    public void updateScore(Boolean isCorrect) {
+
+    }
 }

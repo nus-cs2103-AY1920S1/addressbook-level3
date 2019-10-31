@@ -120,4 +120,12 @@ public class JavascriptCard extends FlashCard {
         this.attempt = attempt;
     }
 
+    @Override
+    public void updateScore(Boolean isCorrect) {
+        if (isCorrect) {
+            this.cardResult = 1;
+        } else {
+            this.cardResult = 0;
+        }
+    }
 }

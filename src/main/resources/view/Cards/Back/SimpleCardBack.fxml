@@ -6,7 +6,8 @@
 
 <fx:root id="cardholder" prefHeight="334.0" prefWidth="274.0" style="-fx-background-color: #e3e3e3;" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button fx:id="seeFrontButton" layoutX="89.0" layoutY="280.0" mnemonicParsing="false" text="Show Question" />
+        <Button fx:id="seeFrontButton" layoutX="88.0" layoutY="184.0" mnemonicParsing="false" text="Show Question" />
       <Label fx:id="answerLabel" alignment="CENTER" layoutX="15.0" layoutY="16.0" prefHeight="98.0" prefWidth="243.0" text="Question goes here" textAlignment="CENTER" />
+      <Button fx:id="correctButton" layoutX="95.0" layoutY="234.0" mnemonicParsing="false" text="I got it right!" />
     </children>
 </fx:root>
