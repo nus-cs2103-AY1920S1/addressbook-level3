@@ -73,7 +73,6 @@ public class JsTestCaseRunner {
         sb.append(userInput).append("\n");
         sb.append(expectedOutput).append("\n");
         sb.append("print(correct, wrong);\n");
-        System.out.println(sb.toString());
         return sb.toString();
     }
 
