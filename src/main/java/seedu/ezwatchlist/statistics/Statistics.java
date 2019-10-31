@@ -1,6 +1,9 @@
 package seedu.ezwatchlist.statistics;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +15,10 @@ import seedu.ezwatchlist.api.model.ApiInterface;
 import seedu.ezwatchlist.api.model.ApiManager;
 import seedu.ezwatchlist.api.util.ApiUtil;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvShow;
+import seedu.ezwatchlist.model.show.UniqueShowList;
 
 /**
  * Represents a Statistics object that contains relevant information.
@@ -88,10 +94,10 @@ public class Statistics {
             e.printStackTrace();
             return FXCollections.observableArrayList();
         }
-        return  FXCollections.observableArrayList(recommendations);
+        return FXCollections.observableArrayList(recommendations);
     }
 
-    public ObservableList<TvShow> getTvShowRecommendations(){
+    public ObservableList<TvShow> getTvShowRecommendations() {
         List<TvShow> tvList = ApiUtil.splitToTvShowsFromShow(model.getWatchList().getShowList());
         List<TvShow> recommendations = null;
         try {
@@ -101,6 +107,6 @@ public class Statistics {
         } catch (NoRecommendationsException e) {
             return FXCollections.observableArrayList();
         }
-        return  FXCollections.observableArrayList(recommendations);
+        return FXCollections.observableArrayList(recommendations);
     }
 }
