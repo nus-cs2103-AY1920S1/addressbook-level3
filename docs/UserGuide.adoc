@@ -11,6 +11,9 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T11-1/main
 
@@ -32,7 +35,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `moolah_v1.2.1.jar` link:{repoURL}/releases[here].
+.  Download the latest `moolah_v1.3.0.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for `MooLah`.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -55,147 +58,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in UPPER_CASE are the parameters to be supplied by the user
+* Words in UPPER_CASE are the parameters to be supplied by you!
   e.g. in `add p/PRICE`, `PRICE` is a parameter which can be used as `add p/2.50`
-* Items in square brackets are optional
-  e.g `d/DESCRIPTION p/PRICE c/CATEGORY [t/DATE] can be used as 'add d/Chicken Rice p/2.50 c/Food' or
-'add d/Chicken Rice p/2.50 c/Food t/25-01'
-* Parameters can be in any order e.g. `add p/PRICE d/DESCRIPTION`, `add d/DESCRIPTION p/PRICE` are both acceptable.
+* You don't have to input the parameters in square brackets if you don't want to; they are optional.
+** `d/DESCRIPTION p/PRICE c/CATEGORY [t/DATE]` can be used as `add d/Chicken Rice p/2.50 c/Food` or
+`add d/Chicken Rice p/2.50 c/Food t/25-01`
+
+* You can input parameters in any order.
+** `add p/PRICE d/DESCRIPTION`, `add d/DESCRIPTION p/PRICE` are both acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
-
-=== Basic Expense/Event-Related Commands
-==== Adding an expense/event: `add`
-
-Add an expense/event to the expense tracker. If the timestamp denotes a future date, an event is added.
-If not, an expense is added instead.
-
-Upon launch, Moolah will remind the user of upcoming events (7 days or below), and also ask users whether they wish
-to automatically add expenses corresponding to transpired events.
-
-Format: `add d/DESCRIPTION p/PRICE c/CATEGORY [t/TIMESTAMP]`
-
-[TIP]
-* An expense must have exactly 1 category
-* If a time is not specified, an expense will be added with its date being the current system date.
-
-Examples:
-
-* `add d/Brian birthday p/40 c/Gifts t/31-12`
-* `add d/Buffet p/250 c/Food`
-
-===== (Coming in v1.4) Using relative time/date input: `yesterday`
-
-The user can specify an expense/event’s time using relative dates and times.
-
-Example:
-If the current date is 12 Sep 2013
-Input: `add d/Chicken Rice p/2.50 t/Yesterday Noon`
-Result: adds an expense of 2.50 at 11 Sep 2013, 12pm
-
-==== Listing all expenses : `list`
-
-Shows a list of all expenses in the expense tracker.
-Format: `list`
-
-==== (Coming in v1.4) Listing all events : `events`
-Lists all events that you have inputted.
-
-Format: `events`
-
-Example:
-```
-events
-```
-Result:
-```
-You have these important dates coming up!
-Brian’s birthday: 04/06/2020
-Mum’s birthday: 06/06/2020
-```
-
-==== Updating an expense/event : `edit`
-
-Edits an existing expense/event in the expense tracker.
-
-Format: `edit INDEX [p/PRICE] [d/DESCRIPTION] [t/time] [c/CATEGORY]...`
-
-Example:
-`edit 2 p/3.50`
-Updates the price of the 2nd expense in the current list to 3.50.
-
-
-****
-* Edits the expense/event at the specified `INDEX`. The index refers to the index number shown in the currently displayed list.
-* The index must be a positive integer 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* You can set the time of the expense to the system’s current time by typing `t/` without specifying a time.
-****
-
-==== Locating expenses/events by name: `find`
-
-Finds expenses/events whose description contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `chicken` will match `Chicken`
-* The order of the keywords does not matter. e.g. `Puff Curry` will match `Curry Puff`
-* Only the description is searched.
-* Only full words will be matched e.g. `chick` will not match `chicken`
-* Expenses matching at least one keyword will be returned (i.e. OR search). e.g. an expense with description
-`Chicken rice`, and expense with description `Duck Rice` will both match `rice`
-****
-
-Examples:
-
-* `find rice`
-Returns `chicken rice` and `duck rice`
-* `find chicken taxi schoolfee`
-  Returns any expense having description containing `chicken`, `taxi`, or `schoolfee`
-
-==== Deleting an expense/event : `delete`
-
-Deletes the specified expense/event from the current list shown in the expense tracker.
-
-Format: `delete INDEX`
-
-****
-* Deletes the expense/event at the specified INDEX.
-* The index refers to the index number shown in the currently displayed list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-```
-list
-delete 2
-```
-Deletes the 2nd expense in the list of expenses, shown by `list`.
-
-```
-events
-delete 2
-```
-Deletes the 2nd event in the list of events, shown by `events`.
-
-```
-list
-find chicken
-delete 1
-```
-Deletes the 1st expense in the results of the `find` command.
-
-==== Clearing all entries : `clear`
-
-Clears all entries from the expense tracker.
-
-Format: `clear`
 
 ==== Undo the previous command : `undo`
 
@@ -225,6 +100,169 @@ redo
 ```
 Result:
 Expense no. 5 will now be deleted.
+
+=== Basic Expense-related Commands
+==== Adding an expense: `addexpense`
+
+This is MooLah's fundamental feature: you can add your expenses.
+
+Format: `addexpense d/DESCRIPTION p/PRICE c/CATEGORY [t/TIMESTAMP]`
+
+****
+* If you don't specify the time, your expense will be added with its time being the current system time.
+* You should only input one of the following into the CATEGORY field: FOOD, TRAVEL, TRANSPORT, SHOPPING, UTILITIES, HEALTHCARE, ENTERTAINMENT, EDUCATION, OTHERS.
+These categories are case-insensitive.
+****
+Examples:
+
+* `addexpense d/Brian birthday p/40 c/Shopping t/10-10`
+* `addexpense d/Buffet c/Food p/250`
+* `addexpense d/Chicken rice p/2.50 c/Food t/yesterday noon`
+
+==== Listing all expenses : `listexpenses`
+
+You can list every single expense you have added into MooLah.
+
+Format: `listexpenses`
+
+==== Updating an expense: `editexpense`
+
+Made a mistake? You can edit expenses too.
+
+Format: `edit INDEX [p/PRICE] [d/DESCRIPTION] [t/TIMESTAMP] [c/CATEGORY]...`
+
+Example:
+
+`edit 2 p/3.50`
+Updates the price of the 2nd expense in the current list to 3.50.
+
+
+****
+* Edits the expense at the specified `INDEX`. The index refers to the index number shown in the currently displayed list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* You must provide at least one of the optional fields.
+* Existing values will be updated to the input values.
+* You can set the time of the expense to the system’s current time by typing `t/` without specifying a time.
+****
+
+==== Locating expenses by name: `find`
+
+You can find expenses whose description contains any of the keywords you inputted.
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `chicken` will match `Chicken`
+* The order of the keywords does not matter. e.g. `Puff Curry` will match `Curry Puff`
+* Only the description is searched.
+* Only full words will be matched. e.g. `chick` will not match `chicken`
+* Expenses matching at least one keyword will be returned (i.e. OR search). e.g. an expense with description
+`Chicken rice`, and expense with description `Duck Rice` will both match `rice`
+****
+
+Examples:
+
+* `find rice` returns `chicken rice` and `duck rice`.
+* `find chicken taxi schoolfee` returns any expense having description containing `chicken`, `taxi`, or `schoolfee`.
+
+==== Deleting an expense: `deleteexpense`
+
+You can also delete an expense from the expenses list in MooLah.
+
+Format: `deleteexpense INDEX`
+
+****
+* Deletes the expense at the specified `INDEX`.
+* The index refers to the index number shown in the currently displayed list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+```
+listexpenses
+delete 2
+```
+Deletes the 2nd expense in the list of expenses, shown by `list`.
+
+```
+list
+find chicken
+delete 1
+```
+Deletes the 1st expense in the results of the `find` command.
+
+=== Basic Event-related Commands
+
+Events are pretty similar to expenses, except that they denote potential expenses that they may happen in the future.
+You should use this feature to keep track of future important events in your life that would require you to spend some money
+(e.g. your friends' birthdays).
+
+At launch, MooLah will remind you of your upcoming events. Any transpired events would also appear as popups,
+asking you whether you wish to add these events as corresponding expenses.
+
+image::TranspiredEventsPopup.png[width="790"]
+
+==== Adding an event: `addevent`
+
+Events share the same fields as expenses, so you add them the same way.
+
+Format: `addevent d/DESCRIPTION p/PRICE c/CATEGORY t/TIMESTAMP`
+
+****
+* Events are potential future expenses, so the `TIMESTAMP' field is compulsory and should contain a future time.
+* You should only input one of the following into the CATEGORY field: FOOD, TRAVEL, TRANSPORT, SHOPPING, UTILITIES, HEALTHCARE, ENTERTAINMENT, EDUCATION, OTHERS.
+These categories are case-insensitive.
+****
+Examples:
+
+* `addevent d/Brian birthday p/40 c/Shopping t/two weeks from now`
+* `addevent d/Family buffet c/Food p/250 t/31-12`
+* `addevent d/Bangkok plane tickets t/tomorrow p/200 c/Travel`
+
+==== Listing all events : `listevents`
+
+You can list every single event you have added into MooLah.
+
+Format: `listevents`
+
+==== Updating an event: `editevent`
+
+You can edit events the same way you edit expenses.
+
+Format: `edit INDEX [p/PRICE] [d/DESCRIPTION] [t/TIMESTAMP] [c/CATEGORY]...`
+
+Example:
+
+`editevent 2 p/300`
+Updates the price of the 2nd event in the current list to 300.
+
+
+****
+* Edits the event at the specified `INDEX`. The index refers to the index number shown in the currently displayed list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* You must provide at least one of the optional fields.
+* Existing values will be updated to the input values.
+****
+==== Deleting an event: `deleteevent`
+
+You can also delete an event from the events list in MooLah.
+
+Format: `deleteevent INDEX`
+
+****
+* Deletes the event at the specified `INDEX`.
+* The index refers to the index number shown in the currently displayed list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+```
+listevents
+delete 2
+```
+Deletes the 2nd event in the list of events, shown by `listevents`.
 
 ==== (Coming in v2.0) Converting any currency to preferred currency : `convert`
 
@@ -349,7 +387,7 @@ to input again.
 * Only expenses tracked under *this budget* are shown.
 
 === Creating an alias for your favourite commands : `alias`
-Assign a full paramaterized input to an alias.
+Assign a full parameterized input to an alias.
 
 Format: `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS`
 
@@ -363,7 +401,7 @@ description of “Chicken Rice” at the current system time.
 - Note: using the same name for an alias will overwrite the existing alias if it exists
 
 === Saving the data
-Expense tracker data are saved in the hard disk automatically after any command that changes the data.
+Expense tracker data is saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
 === Viewing Statistics
