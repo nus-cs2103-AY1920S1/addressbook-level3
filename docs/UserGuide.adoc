@@ -181,7 +181,7 @@ start your trip!
 
 *Exit TravEzy: ``exit``*
 
-Allows you to exit from any page
+Allows you to exit from TravEzy
 
 The _Command Word_ is `exit` and there are no additonal parameters.
 
@@ -190,9 +190,6 @@ Format: ``exit``
 Example: Let's say I have to exit the calendar page -
 
 ``exit``
-
-[NOTE]
-Note: Both Goto Command and Exit Command are implemented in every features  respectively to provide you a smooth navigating experience!
 
 == Calendar
 
@@ -206,158 +203,259 @@ Well, TravEzy has got you covered. Simply inform TravEzy of your schedule (your 
 
 Let us find out what are the main parameters (or fields, just like those which you fill up in a regular form📝).
 
-. DAY. This refers to which day of the month (e.g. *1*, *2*, ..., *31* of January). To specify the day, simply place ``d/`` before it. 
 
-For example, if you would like to specify that is it first of January, key in:
+. DAY. This refers to which day of the month (e.g. *1*, *2*, ..., *31* of January). To specify the day, simply place ``d/`` before it.
++ 
+For example, if you would like to specify that it is first of January, key in:
 
     d/1
 
-. MONTH. This refers to which month (i.e. *January*, *February*, *March*, ..., *December*) you would like to refer to. To specify the month, just place ``m``. Since people have different ways of specifying month, TravEzy has tried to accommodate these differences. In particular, you may choose to refer to it using numbers (with *1* referring to *January*, *2* referring to *February*, etc.) or you may choose to refer to it using words. Please type *at least the first three letters* of the month 😄. 
 
+. MONTH. This refers to which month (i.e. *January*, *February*, *March*, ..., *December*) you would like to refer to. To specify the month, just place ``m/`` before the month. Since people have different ways of specifying month, TravEzy accommodates these differences. In particular, you may choose to refer to it using numbers (with *1* referring to *January*, *2* referring to *February*, etc.) or you may choose to refer to it using words. Please type *at least the first three letters* of the month 😄.
++ 
 Referring to the previous example, to specify that it is January, you can type:
 
     m/1
     
++ 
 or you can type:
 
     m/Jan
 
++ 
 or:
 
     m/January
     
 . YEAR. This refers to which year (i.e. *2019*, *2020*, ...) you are referring to. To indicate the year, prepend the year with ``y/``. Since TravEzy allows you to refer to any year between 1970 and 2200 (because travelling in time is fun too!), please key in a *4 digit number* . If otherwise, it would be confused 😔. 
-
++ 
 For instance, if you want to specify the year 2019, just key in:
 
     y/2019
 
 . END DAY. This refers to the day of the last date. This is very similar to how you would specify the (start) DAY, as mentioned in point 1. Now, instead of using the small letter, use the capitalised version. In other words, ``D/``. 
-
++
 For example, if you would like to indicate that your event (i.e. commitment, holiday, school break or trip) ends on fifth of January, enter:
 
     D/5
 
 . END MONTH. This refers to the month of the last date. Again, this is very similar to how you would specify the (start) MONTH, as mentioned in point 2. Now, instead of using the small letter, use the capitalised version ``M/``. 
-
++
 Following from the above example, if you would like to state that your event ends (i.e. commitment, holiday, school break or trip) ends in January, just type:
 
     M/1
-
++
 Alternatively, if you are more comfortable with spelling the month out in words, TravEzy also understands:
 
     M/Jan
-    
++    
 and:
 
     M/January
-
++
 IMPORTANT: As with the above (MONTH), if you are spelling END MONTH in words, please specify it with *at least the first three letters* of the month.
 
 . END YEAR. This refers to the year of the last date. Similarly, to specify the year of the last date, key in the capitalised version instead. In essence, place ``Y/`` before the year of the last date. How simple is that?
-
++
 For instance, if your trip ends in 2020, just type:
 
     Y/2020
-    
++   
 IMPORTANT: As with the above (YEAR), please specify END YEAR using *four digits*.
-
++
 TIP: As expected, specifying the END DAY, END MONTH and/or END YEAR is not always applicable. Hence, by default, TravEzy assumes that the END DAY, END MONTH and/or END YEAR are the same as DAY, MONTH and/or YEAR respectively. 
 
 . NAME. This refers to the name of your event (i.e. commitment, holiday, school break or trip). To indicate the name, just key in ``n/`` before it. 
-
++
 For instance, if you would like to specify that the holiday you are adding refers to Christmas 🎄 , just type:
 
     n/Christmas
 
-. INFO. This refers to any additional information associated with your event (i.e. commitment, holiday, school break or trip). To include this, just type ``i/`` before you start typing the relevant information. 
-
+. INFO. This refers to any additional information associated with your event (i.e. commitment, holiday, school break or trip). To include more details about the event, just type ``i/`` before you start typing the relevant information. 
++
 For example, if you would like to include the fact that your grandparents are coming for christmas this year to remind yourself that you definitely have to make time for them, you can do so by typing:
 
     i/Grandparents will be here!!
-
-=== Add Command
-
-Whew! After reading so much, it is time to find out how you can add your event, be it your commitment, holiday, school break or trip, so that TravEzy can start suggesting when you can travel! 😊
-
-*Add an event to your calendar: ``add``
-
-Adds an event to your calendar. Are you unable to travel on a day or over a duration of time due to commitments during the public holidays/school vacation? Well, then add an event with the EVENT TYPE ``commitment``. Or is a public holiday coming up (i.e. a possibility to go for a short trip! 😃)? Add it to your calendar with the EVENT TYPE ``holiday``! Or... Is it your school break? Well, we have got that covered to! Just add it to your calendar with the EVENT TYPE ``school_break``. Hmm... Or may it is your long-coveted *trip*! Can you add that to your calendar too? You bet!
-
-Format: ``add EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [i/INFO]``
-
-Example: To indicate that you have a commitment rom 2 Dec 2019 to 5 Dec 2019 because you are volunteering, just key in
-
-    add commitment n/volunteering d/2 m/dec y/2019 D/5 M/Dec Y/2019
     
+. EVENT TYPE. This refers to either a commitment, holiday, school break or trip. With this parameter, you can easily differentiate the different events in your calendar!
++
+Are you unable to travel on a particular day or over a duration of time due to commitments? Well, indicate it with ``commitment``!
++ 
+For instance, if you have volunteered to tutor children from 2 to 5 December 2019, you can refer to it by typing:
+    
+    commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019
+
++
+Now, TravEzy would know that the event is in fact a commitment!
++
+{empty} +
+{empty} +
+Or is there an upcoming public holiday? Then, key it in with the type ``holiday``.
++
+For example, to refer to the fact that 1 May 2020 is labour day (a public holiday), just enter:
+    
+    holiday n/labour day d/1 m/May y/2020
+
++
+Now, TravEzy would recognise that day as a public holiday!
++
+{empty} +
+{empty} +
+You might then be wondering, what if it is a school break? As you might have expected, TravEzy has got that covered too! Just indicate that the event is in fact a school break by keying in ``school_break``.
++ 
+For instance, if you would like to refer to the fact that 8 Dec 2019 to 12 Jan 2020 is winter vacation (a school break), just type:
+
+    school_break n/winter vacation d/8 m/Dec y/2019 D/12 M/Jan Y/2020
+    
++ 
+Yeah! Now, TravEzy know that you are referring to a school break. 😉 
++
+{empty} +
+{empty} +
+Last but not least, you can specify that you will be away for a trip (woo hoo!) by using the EVENT TYPE ``trip``.
++
+For example, to refer to your Bali trip between 10 Dec 2019 to 13 Dec 2019, simply enter:
+    
+    trip n/Bali 3D2N d/10 m/Dec y/2019 D/13 M/Dec Y/2019
+
++ 
+Great! Now, TravEzy is aware that you are referring to a trip.
+
+. PERIOD. This refers to the number of days between the start date and end date (as specified using the above parameters). 
++ 
+For example, if you would like to indicate that it needs to be a period of 5 days, key in:
+    
+    p/5
+
+=== Adding an event to your calendar: ``add``
+
+Whew! After reading so much, it is time to find out how you can add your event (be it your commitment, holiday, school break or trip) so that TravEzy can start suggesting when you can travel! 😊
+
+*Format:* +
+``add EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [i/INFO]``
+
+*Examples:*
+****
+* To add a commitment, 
+
+    commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019
+    
+* To add a holiday, 
+
+    add holiday n/labour day d/1 m/May y/2020
+ 
+* To add a school break,
+
+    add school_break n/winter vacation d/8 m/Dec y/2019 D/12 M/Jan Y/2020
+
+* To add a trip,
+
+    add trip n/Bali 3D2N d/10 m/Dec y/2019 D/13 M/Dec Y/2019
+    
+****
+
+*Step by step:*
+(To indicate that you have a commitment rom 2 Dec 2019 to 5 Dec 2019 because you are volunteering, just key in... COMING SOON)
+
 TIP: As mentioned, you do not have to specify the END YEAR, END MONTH and/or END DAY if they are the same as START YEAR, START MONTH and/or START DAY, respectively.
 
 IMPORTANT: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
 
-*Adding a commitment: ``addCommitment``* +
-Adds commitment to indicate that you won’t be able to travel on a day or over a duration of time due to commitments during the public holidays/school vacation. +
-Format: ``addCommitment [date] [name] <details of commitment>``
+=== Deleting an event from your calendar: ``delete``
 
-*Adding a public holiday: ``addHoliday``* +
-Adds a public holiday to your calendar so that you can view any upcoming public holidays easily. +
-Format: ``addHoliday [date] [name of holiday]``
+Yes, we have all had that experience. We thought that next Friday is a public holiday even though it isn't. However, you have added this holiday to TravEzy! 😧 What should you do now? Delete it! 
 
-*Adding a school break: ``addSchoolBreak``* +
-Adds a school break to your calendar so that you can view when your school breaks are easily. +
-Format: ``addSchoolBreak [date] [name of break]`` or ``addSchoolBreak [start date] [end date] [name of break]``
+But how? Well, this is the section for you. 😀
 
-*Adding a trip: ``addTrip``* +
-Adds your trip to the calendar. Now, you can keep track of your trip with ease. +
-Format: ``addTrip [date] [name of trip]`` or ``addSchoolBreak [start date] [end date] [name of trip]``
+*Format:* +
+``delete EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
-*Checking your availability for a trip: ``check``* +
-Checks whether you would be able to travel on a specified date/for a specified duration of time. +
-Format: ``check [date]`` or ``check [start date] [end date]``
+*Examples:*
+****
+* To delete a commitment, 
 
-*Clearing all commitments for a particular date: ``clearAll``* +
-Clears all of your commitments for a particular date. +
-Format: ``clearAll [date]``
+    delete n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019
+    
+* To delete a holiday, 
 
-*Editing your school break: ``editSchoolBreak``* +
-Edits either the start or end date of your school break. +
-Format: ``editSchoolBreak [original start date] [name] [original end date] [new start date] [new end date]``
+    add holiday n/labour day d/1 m/May y/2020
+ 
+* To delete a school break,
 
-*Editing your commitment: ``editCommitment``* +
-Edits your commitment. You may change the date and/or details of your commitment. +
-Format: ``editCommitment [original date] [name] <new date> <new details>``
+    add school_break n/winter vacation d/8 m/Dec y/2019 D/12 M/Jan Y/2020
 
-*Removing a commitment: ``removeCommitment``* +
-Removes your commitment, as specified by the name and date of your commitment. +
-Format: ``removeCommitment [date] [name]``
+* To delete a trip,
 
-*Removing a school break: ``deleteSchoolBreak``* +
-Removes a school break from your calendar. +
-Format: ``removeSchoolBreak [date] [name]`` or ``removeSchoolBreak [start date] [end date] [name]``
+    add trip n/Bali 3D2N d/10 m/Dec y/2019 D/13 M/Dec Y/2019
+    
+****
 
-*Removing a public holiday: ``deleteHoliday``* +
-Removes a school break from your calendar. +
-Format: ``removeHoliday [date] [name]``
+*Step by step:*
+(You have accidentally indicated that 13 August 2019 is an observed holiday for national day and you would like to delete it from TravEzy. MORE COMING SOON...)
 
-*Showing a monthly view of your calendar: ``show``* +
-Shows a monthly view of your calendar. If year is not specified, the current year will be used. +
-Format: ``show [viewOnlyMonth] <year>``
+=== Showing your schedule for the month: ``show``
 
-*Suggesting a duration of time to travel: ``suggest``* +
-Suggests when you can travel for a specified number of days within a time frame (as determined by the start and end dates). +
-Format: ``suggest [start date] [end date] [number of days]``
+After adding and deleting your events, you can have an overview of them! 
 
-The event planner feature also provides  certain extra extensions.  +
-_(Extensions the group may want to consider)_
+How easy is it? 
 
-. *advice* +
-This command suggests whether travelling at the stated duration of time is a good idea. For instance, when exams or external commitments are around the corner, the user will be reminded of his/her responsibilities and will be asked whether he/she is sure that he/she wants to go ahead with the travelling plans.
+*Format:* + 
+``show m/MONTH [y/YEAR]``
 
-. *automaticHolidayDetector* +
-Informs user of public holidays and adds them to the calendar without requiring the user to specify it.
+*Example:* +
+
+    show m/Dec
 
 
+IMPORTANT: Do remember that if you leave out the month and/or year (as we have done in this example), the current month and/or year will be used. This applies to the following commands as well.
 
+*Step by step:*
+(COMING SOON)
 
+=== Checking your availability for a trip: ``check``
+
+It is in the middle of the semester and your friend asks you whether you would be available for a short trip during the first week of this summer. Instead of trawling through your list of appointments (i.e. commitments and trips), you simply need to ask TravEzy! TravEzy would look at your commitments, trips, school breaks and holidays before informing you whether you are available (i.e. you happen to have a school break/holiday then *and* do not have any commitment/trip then). 
+
+But how do you do that?
+
+*Format:* +
+``check d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
+
+*Examples:* 
+****
+* To check whether you are available on 9 December, 
+
+    check d/9 m/12
+    
+* To check whether you are available from 9 December to 20 December, 
+
+    check d/1 m/Dec D/20 M/Dec
+    
+****
+
+*Step by step:* 
+(COMING SOON)
+
+=== Suggesting a suitable time for a trip: ``suggest``
+
+The end of the semester is near. It is time to look for some cheap flights🛫! However, before deciding which flight to book, you need to find out whether it suits your schedule. No worries! TravEzy has got you covered. 😊 
+
+How so? Just ask TravEzy to suggest a suitable time! 
+
+*Format:* + 
+``suggest d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [p/PERIOD]``
+
+*Examples:* 
+****
+* To find out when you can travel between 9 December and 20 December, 
+
+    suggest d/1 m/Dec D/20 M/Dec
+    
+* To find out when you can travel for at least 5 days between 9 December and 20 December , 
+
+    check d/1 m/Dec D/20 M/Dec p/5
+    
+****
 
 == Itinerary
 
