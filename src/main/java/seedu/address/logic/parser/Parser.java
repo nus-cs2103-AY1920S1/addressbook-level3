@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public interface Parser<T extends Command> {
 
-    public static final int MAX_AMOUNT = 1000000;
+    public static final int MAX_AMOUNT_LENGTH = 7;
     /**
      * Parses {@code userInput} into a command and returns it.
      * @throws ParseException if {@code userInput} does not conform the expected format

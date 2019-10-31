@@ -30,7 +30,7 @@ public class SetCommandParser implements Parser<SetCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
         }
         /* handles amount above 1billion */
-        if(argMultimap.getValue(PREFIX_AMOUNT).get().length()>7){
+        if(argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH){
             throw new ParseException(String.format(SetCommand.MESSAGE_AMOUNT_OVERFLOW));
         }
 

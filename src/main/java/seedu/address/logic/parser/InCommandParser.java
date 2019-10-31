@@ -35,7 +35,7 @@ public class InCommandParser implements Parser<InCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
         }
         /* handles amount above 1billion */
-        if(argMultimap.getValue(PREFIX_AMOUNT).get().length()>7){
+        if(argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH){
             throw new ParseException(String.format(MESSAGE_AMOUNT_OVERFLOW));
         }
                 Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());

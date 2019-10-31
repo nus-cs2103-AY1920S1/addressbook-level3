@@ -35,7 +35,7 @@ public class OutCommandParser implements Parser<OutCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OutCommand.MESSAGE_USAGE));
         }
         /* handles amount above 1billion */
-        if(argMultimap.getValue(PREFIX_AMOUNT).get().length()>7){
+        if(argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH){
             throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_OVERFLOW));
         }
 
