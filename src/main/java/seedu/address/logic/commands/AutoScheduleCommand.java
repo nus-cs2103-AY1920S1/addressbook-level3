@@ -37,15 +37,15 @@ public class AutoScheduleCommand extends Command {
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activities successfully scheduled.";
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
-            COMMAND_WORD,
-"Generates a list of activities for a specified day based on tag order given by user.",
-    COMMAND_WORD + " ([" + PREFIX_TAG + "TAG START_TIME] || "
-            + PREFIX_NAME + "ACTIVITY_NAME START_TIME])... "
-            + PREFIX_ADDRESS + "Tokyo "
-            + PREFIX_DAY + "[DAY_INDEX]...",
-    COMMAND_WORD + " " + PREFIX_TAG + "Dining 1000 " + PREFIX_TAG + "Attraction 1200 "
-            + PREFIX_TAG + "Dining " + PREFIX_NAME + "Disneyland 1400 "
-            + PREFIX_ADDRESS + "Tokyo " + PREFIX_DAY + "1 4 5"
+                COMMAND_WORD,
+        "Generates a list of activities for a specified day based on tag order given by user.",
+        COMMAND_WORD + " ([" + PREFIX_TAG + "TAG START_TIME] || "
+                + PREFIX_NAME + "ACTIVITY_NAME START_TIME])... "
+                + PREFIX_ADDRESS + "Tokyo "
+                + PREFIX_DAY + "[DAY_INDEX]...",
+        COMMAND_WORD + " " + PREFIX_TAG + "Dining 1000 " + PREFIX_TAG + "Attraction 1200 "
+                + PREFIX_TAG + "Dining " + PREFIX_NAME + "Disneyland 1400 "
+                + PREFIX_ADDRESS + "Tokyo " + PREFIX_DAY + "1 4 5"
     );
 
     public static final String MESSAGE_SUCCESS = "Schedule for the day generated!";
