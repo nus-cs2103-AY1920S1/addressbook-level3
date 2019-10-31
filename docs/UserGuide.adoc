@@ -384,13 +384,14 @@ Format: `tlist list`
 
 === Template Management
 
-==== Add new grocery item: `tlist template`
+==== Add new grocery item: `tlist template add`
 
 Adds an item into a specified template. +
-Format: `tlist template add TEMPLATEINDEX [n/NAME] [a/AMOUNT]`
+Format: `tlist template add TEMPLATEINDEX n/NAME a/AMOUNT`
 
 ****
 * Adds item into the template under the specified `INDEX` as shown in the displayed template list.
+* Both name and amount fields must be filled in correctly.
 ****
 
 Examples:
@@ -401,7 +402,7 @@ Examples:
 ==== Edit item name: `tlist template edit`
 
 Edits a specified item in the specified template `TEMPLATENAME`. +
-Format: `tlist n/TEMPLATENAME edit INDEX [f/FOODITEM] [a/AMOUNT]`
+Format: `tlist n/TEMPLATENAME edit INDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
 
 ****
 * Edits the food item at the specified `INDEX`. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
@@ -428,7 +429,7 @@ Format: `tlist template delete TEMPLATEINDEX i/ITEMINDEX`
 
 Examples:
 
-* `tlist template delete 1`
+* `tlist template delete 1 i/1`
 Deletes the first food item in the first template
 
 ==== Shows template: `tlist template list`
