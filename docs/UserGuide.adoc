@@ -117,26 +117,13 @@ Calling the `settings` command will bring you to the following page:
 image::Settings.png[width=790]
 
 
-==== View help: `help` +
-This command displays a list of possible commands that you can execute +
-
-Format: `help` +
-
-Calling the `help` command will bring you to the following page:
-+
-image::Help.png[width=790]
-+
-
-==== Accessing settings page: `settings` +
-This brings you to the settings page  +
-Format: `settings`
-
 ==== Viewing help: `help` +
 
 Displays a list of possible commands for the user +
 You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
 
+image::Help.png[width=790]
 
 '''
 
