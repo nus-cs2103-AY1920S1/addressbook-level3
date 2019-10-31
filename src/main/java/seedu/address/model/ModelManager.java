@@ -372,7 +372,7 @@ public class ModelManager implements Model {
 
         // cascade
         Optional<Schedule> targetSchedule = target.getSchedule();
-        System.out.println(targetSchedule.isPresent());
+        
         if (targetSchedule.isPresent() && hasSchedule(targetSchedule.get())) {
             deleteSchedule(targetSchedule.get());
         }
