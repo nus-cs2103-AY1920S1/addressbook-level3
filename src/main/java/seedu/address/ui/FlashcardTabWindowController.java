@@ -131,7 +131,7 @@ public class FlashcardTabWindowController {
             cardCount++;
         }
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION),
-                e -> resetTexts()));
+            e -> resetTexts()));
         timeline.play();
     }
 
