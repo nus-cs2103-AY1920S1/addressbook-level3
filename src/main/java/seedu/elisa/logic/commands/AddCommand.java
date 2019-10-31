@@ -53,8 +53,7 @@ public abstract class AddCommand extends UndoableCommand {
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
-        model.removeItem(toAdd);
-        model.getItemStorage().remove(toAdd);
+        model.deleteItem(toAdd);
 
         if (toAdd.hasAutoReschedule()) {
             Event event = toAdd.getEvent().get(); // if autoReschedule is present, item definitely has an event.
