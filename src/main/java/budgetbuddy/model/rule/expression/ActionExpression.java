@@ -16,9 +16,9 @@ import budgetbuddy.model.rule.RuleAction;
 public class ActionExpression extends RuleAction {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Action expressions should contain exactly two terms in the order\n"
+            "Action expressions should contain one or two terms in the order\n"
             + "<operator> <value> "
-            + "and should not be blank";
+            + "depending on the operator type, and should not be blank";
 
     public static final String MESSAGE_TYPE_REQUIREMENTS =
             "The operator and value of the expression have to evaluate to the correct type:\n"
@@ -26,7 +26,7 @@ public class ActionExpression extends RuleAction {
             + "and 'food' is a string";
 
     public static final Pattern FORMAT_REGEX =
-            Pattern.compile("^(?<exprOperator>\\S+)\\s(?<exprValue>.*)$");
+            Pattern.compile("^(?<exprOperator>\\S+)\\s*(?<exprValue>.*)$");
 
     private final Operator operator;
     private final Value value;

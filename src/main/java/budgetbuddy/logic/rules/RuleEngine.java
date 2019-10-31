@@ -41,6 +41,7 @@ public class RuleProcessor {
     public static final String TYPE_DESC = "DESC";
     public static final String TYPE_AMOUNT = "AMOUNT";
     public static final String TYPE_DATE = "DATE";
+    public static final String TYPE_BLANK = "BLANK";
     private static final HashMap<Operator, BiFunction<Attribute, Value, TestableExpression>> testableMap;
     private static final HashMap<Operator, Function<Value, PerformableExpression>> performableMap;
 
@@ -152,6 +153,11 @@ public class RuleProcessor {
             }
         case TYPE_DATE:
             // todo: need to try parsing date
+            return false;
+        case TYPE_BLANK:
+            if (value.toString().isEmpty()) {
+                break;
+            }
             return false;
         default:
             return false;
