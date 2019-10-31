@@ -64,9 +64,6 @@ public class EditDayFieldParser implements Parser<EditDayFieldCommand> {
         EditDayFieldCommand.EditDayDescriptor editDayDescriptor =
                 new EditDayFieldCommand.EditDayDescriptor();
 
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editDayDescriptor.setName(ItineraryParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-        }
         if (argMultimap.getValue(PREFIX_DATE_START).isPresent()) {
             editDayDescriptor.setStartDate(
                     ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_START).get()));

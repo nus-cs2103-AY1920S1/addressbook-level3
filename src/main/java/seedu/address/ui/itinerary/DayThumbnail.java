@@ -20,9 +20,6 @@ public class DayThumbnail extends UiPart<AnchorPane> {
     private static final String FXML = "itinerary/days/DayThumbnail.fxml";
 
     @FXML
-    private Label nameLabel;
-
-    @FXML
     private Label destinationLabel;
 
     @FXML
@@ -45,7 +42,6 @@ public class DayThumbnail extends UiPart<AnchorPane> {
 
     private void fillDayThumbnailLabels() {
         indexLabel.setText("DAY " + displayedIndex.getOneBased() + "");
-        nameLabel.setText(day.getName().toString());
         destinationLabel.setText(day.getDestination().toString());
     }
 

@@ -1,11 +1,14 @@
 package seedu.address.ui.itinerary;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -70,7 +73,10 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
         totalBudgetLabel.setText("Total Budget: " + model.getPageStatus().getTrip().getBudget().toString());
         model.getPageStatus().getTrip().getPhoto().ifPresent(photo -> tripImageView.setImage(photo.getImage()));
 
-        List<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
+        ObservableList<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
+        // Stores the current list being displayed to user in PageStatus
+        SortedList<Day> sortedDays = days.sorted(Comparator.comparing(Day::getStartDate));
+        model.setPageStatus(model.getPageStatus().withNewSortedOccurrencesList(sortedDays));
 
         List<Node> dayButtons = IntStream.range(0, days.size())
                 .mapToObj(i -> Index.fromZeroBased(i))

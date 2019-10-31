@@ -1,6 +1,7 @@
 package seedu.address.ui.itinerary;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -21,6 +22,8 @@ import seedu.address.model.itinerary.event.Event;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.PageWithSidebar;
 import seedu.address.ui.template.UiChangeConsumer;
+
+import java.util.Comparator;
 
 /**
  * {@code Page} for displaying the event details.
@@ -55,7 +58,12 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
     public void fillPage() {
         // Filling events
         ObservableList<Event> events = model.getPageStatus().getDay().getEventList().internalUnmodifiableList;
-        eventListView.setItems(events);
+
+        // Sorts trips for display
+        SortedList<Event> eventsSortedList = events.sorted(Comparator.comparing(Event::getStartDate));
+        model.setPageStatus(model.getPageStatus().withNewSortedOccurrencesList(eventsSortedList));
+
+        eventListView.setItems(eventsSortedList);
         eventListView.setCellFactory(listView -> {
             EventListViewCell eventListViewCell = new EventListViewCell();
             return eventListViewCell;

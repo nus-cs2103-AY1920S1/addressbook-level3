@@ -16,7 +16,6 @@ import seedu.address.model.trip.exceptions.TripNotFoundException;
  * Abstraction of a list containing trips, backed by ConsecutiveOccurenceList.
  */
 public class TripList extends ConsecutiveOccurrenceList<Trip> {
-
     @Override
     public boolean contains(Trip toCheck) {
         requireNonNull(toCheck);
@@ -40,8 +39,6 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
         }
 
         internalList.add(toAdd);
-        internalList.sort(Comparator.comparing(Trip::getStartDate));
-
     }
 
     @Override
@@ -63,14 +60,12 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
         }
 
         internalList.add(index, editedTrip);
-        internalList.sort(Comparator.comparing(Trip::getStartDate));
     }
 
     @Override
     public void set(ConsecutiveOccurrenceList<Trip> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
-        internalList.sort(Comparator.comparing(Trip::getStartDate));
     }
 
     @Override
@@ -83,7 +78,6 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
             throw new ClashingTripException();
         }
         internalList.setAll(trips);
-        internalList.sort(Comparator.comparing(Trip::getStartDate));
     }
 
     @Override
@@ -92,7 +86,6 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
         if (!internalList.remove(toRemove)) {
             throw new TripNotFoundException();
         }
-        internalList.sort(Comparator.comparing(Trip::getStartDate));
     }
 
     @Override

@@ -97,7 +97,6 @@ public class EditDayFieldCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditDayDescriptor {
-        private Optional<Name> name;
         private Optional<LocalDateTime> startDate;
         private Optional<LocalDateTime> endDate;
         private Optional<Location> destination;
@@ -105,7 +104,6 @@ public class EditDayFieldCommand extends Command {
         private Optional<Description> description;
 
         public EditDayDescriptor() {
-            name = Optional.empty();
             startDate = Optional.empty();
             endDate = Optional.empty();
             destination = Optional.empty();
@@ -118,7 +116,6 @@ public class EditDayFieldCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditDayDescriptor(EditDayFieldCommand.EditDayDescriptor toCopy) {
-            name = toCopy.getName();
             startDate = toCopy.getStartDate();
             endDate = toCopy.getEndDate();
             destination = toCopy.getDestination();
@@ -132,7 +129,6 @@ public class EditDayFieldCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditDayDescriptor(Day toCopy) {
-            setName(toCopy.getName());
             setStartDate(toCopy.getStartDate());
             setEndDate(toCopy.getEndDate());
             setDestination(toCopy.getDestination());
@@ -152,8 +148,6 @@ public class EditDayFieldCommand extends Command {
         public EditDayDescriptor(EditDayFieldCommand.EditDayDescriptor oldDescriptor,
                                  EditDayFieldCommand.EditDayDescriptor newDescriptor) {
             this();
-            newDescriptor.name.ifPresentOrElse(this::setName, () ->
-                    oldDescriptor.name.ifPresent(this::setName));
 
             newDescriptor.startDate.ifPresentOrElse(this::setStartDate, () ->
                     oldDescriptor.startDate.ifPresent(this::setStartDate));
@@ -181,9 +175,9 @@ public class EditDayFieldCommand extends Command {
          * @throws NullPointerException If any of the fields are empty.
          */
         public Day buildDay() {
-            if (isAllPresent(name, startDate, endDate, destination)) {
-                return new Day(name.get(), startDate.get(), endDate.get(), description,
-                        destination.get(), totalBudget, new EventList());
+            if (isAllPresent(startDate, endDate, destination)) {
+                return new Day(startDate.get(), endDate.get(), description,
+                        destination.get(), totalBudget, new EventList(startDate.get()));
             } else {
                 throw new NullPointerException();
             }
@@ -197,15 +191,11 @@ public class EditDayFieldCommand extends Command {
          * @return Edited {@code Day} instance.
          */
         public Day buildDay(Day day) {
-            Name dayName = day.getName();
             LocalDateTime startDate = day.getStartDate();
             LocalDateTime endDate = day.getEndDate();
             Location destination = day.getDestination();
             Optional<Budget> budget = day.getTotalBudget();
             Optional<Description> description = day.getDescription();
-            if (this.name.isPresent()) {
-                dayName = this.name.get();
-            }
             if (this.startDate.isPresent()) {
                 startDate = this.startDate.get();
             }
@@ -222,24 +212,16 @@ public class EditDayFieldCommand extends Command {
                 description = this.description;
             }
 
-            return new Day(dayName, startDate, endDate, description, destination, budget, day.getEventList());
+            return new Day(startDate, endDate, description, destination, budget, day.getEventList());
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget, description);
+            return CollectionUtil.isAnyPresent(startDate, endDate, destination, totalBudget, description);
         }
 
-
-        public void setName(Name name) {
-            this.name = Optional.of(name);
-        }
-
-        public Optional<Name> getName() {
-            return name;
-        }
 
         public void setStartDate(LocalDateTime startDate) {
             this.startDate = Optional.of(startDate);
@@ -306,8 +288,7 @@ public class EditDayFieldCommand extends Command {
             // state check
             EditDayFieldCommand.EditDayDescriptor e = (EditDayFieldCommand.EditDayDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getStartDate().equals(e.getStartDate())
+            return getStartDate().equals(e.getStartDate())
                     && getEndDate().equals(e.getEndDate())
                     && getDestination().equals(e.getDestination())
                     && getBudget().equals(e.getBudget())
@@ -318,7 +299,6 @@ public class EditDayFieldCommand extends Command {
         public String toString() {
             StringBuilder builder = new StringBuilder();
 
-            this.name.ifPresent(name -> builder.append(" Name of day: ").append(name));
             this.startDate.ifPresent(startDate ->
                     builder.append(" Start date: ").append(ParserDateUtil.getDisplayTime(startDate)));
             this.endDate.ifPresent(endDate ->

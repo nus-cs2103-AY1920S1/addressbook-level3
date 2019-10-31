@@ -39,9 +39,8 @@ public class DayBuilder {
      * @return new DayBuilder instance.
      */
     public static DayBuilder of(Day day) {
-        requireAllNonNull(day.getName(), day.getStartDate(), day.getEndDate(), day.getDestination());
+        requireAllNonNull(day.getStartDate(), day.getEndDate(), day.getDestination());
         return DayBuilder.newInstance()
-                .setName(day.getName())
                 .setStartDate(day.getStartDate())
                 .setEndDate(day.getEndDate())
                 .setLocation(day.getDestination())
@@ -87,7 +86,7 @@ public class DayBuilder {
     }
 
     public Day build() {
-        return new Day(name, startDate, endDate, description, destination, totalBudget, eventList);
+        return new Day(startDate, endDate, description, destination, totalBudget, eventList);
     }
 
 }

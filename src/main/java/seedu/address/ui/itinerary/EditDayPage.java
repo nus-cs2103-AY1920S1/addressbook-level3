@@ -32,7 +32,6 @@ import seedu.address.ui.template.Page;
 public class EditDayPage extends Page<AnchorPane> {
 
     private static final String FXML = "itinerary/days/EditDayPage.fxml";
-    private TextFormItem dayNameFormItem;
     private TextFormItem dayDestinationFormItem;
     private DateFormItem dayDateFormItem;
     private DoubleFormItem dayTotalBudgetFormItem;
@@ -60,8 +59,6 @@ public class EditDayPage extends Page<AnchorPane> {
             return;
         }
 
-        currentEditDescriptor.getName().ifPresent(name ->
-                dayNameFormItem.setValue(name.toString()));
         currentEditDescriptor.getDestination().ifPresent(destination ->
                 dayDestinationFormItem.setValue(destination.toString()));
         currentEditDescriptor.getStartDate().ifPresent(startDate ->
@@ -77,10 +74,6 @@ public class EditDayPage extends Page<AnchorPane> {
      */
     private void initFormWithModel() {
         //Initialise with new display data
-        dayNameFormItem = new TextFormItem("Name of Day : ", nameFormValue -> {
-            mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                            + " " + PREFIX_NAME + nameFormValue);
-        });
         dayDateFormItem = new DateFormItem("Date : ", date -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
                     + " " + PREFIX_DATE_START
@@ -106,7 +99,6 @@ public class EditDayPage extends Page<AnchorPane> {
         formItemsPlaceholder.getChildren().add(new Label("Edit Day"));
 
         formItemsPlaceholder.getChildren().addAll(
-                dayNameFormItem.getRoot(),
                 dayDateFormItem.getRoot(),
                 dayTotalBudgetFormItem.getRoot(),
                 dayDestinationFormItem.getRoot(),

@@ -18,7 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EventViewParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
-            + EnterCreateEventCommand.COMMAND_WORD + " "
+//            + EnterCreateEventCommand.COMMAND_WORD + " "
             + DeleteEventCommand.COMMAND_WORD + " "
             + EnterEditEventCommand.COMMAND_WORD + " "
             + EnterTripManagerCommand.COMMAND_WORD + " "
@@ -36,8 +36,8 @@ public class EventViewParser implements PageParser<Command> {
         }
 
         switch (commandType) {
-        case CREATE:
-            return new EnterCreateEventParser().parse(arguments);
+//        case CREATE:
+//            return new EnterCreateEventParser().parse(arguments);
         case DELETE:
             return new DeleteEventParser().parse(arguments);
         case EDIT:
