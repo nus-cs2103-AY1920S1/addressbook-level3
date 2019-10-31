@@ -67,6 +67,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
         List<Dashboard> list1 = new ArrayList<>();
         List<Dashboard> list2 = new ArrayList<>();
         int size = l.size();
+
         for (int i = 0; i < size; i++) {
             Dashboard d = l.get(i);
             if (d.getTaskStatus().getRecentlyDoneStatus()) {
@@ -78,7 +79,6 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
         for (Dashboard i : list1) {
             remove(i);
         }
-
         for (Dashboard ii : list2) {
             add(ii);
         }
