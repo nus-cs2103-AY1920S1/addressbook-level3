@@ -53,13 +53,13 @@ public class TaskCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         if (task.getPriority() != null) {
-            priority.setText(task.getPriority().toString());
+            priority.setText("Priority: " + task.getPriority().toString());
         } else {
             priority.setText("");
         }
 
         if (task.getFrequency() != null) {
-            frequency.setText(task.getFrequency().toString());
+            frequency.setText("Frequency: " + task.getFrequency().toString());
         } else {
             frequency.setText("");
         }

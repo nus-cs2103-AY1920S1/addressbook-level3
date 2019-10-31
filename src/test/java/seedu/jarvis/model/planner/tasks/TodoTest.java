@@ -68,7 +68,7 @@ class TodoTest {
         t.setPriority(Priority.HIGH);
         t.addTag(new Tag("help"));
 
-        String expected = "Todo: homework\nPriority: HIGH\nFrequency: DAILY"
+        String expected = "Todo: homework\nPriority: High\nFrequency: Daily"
                             + "\nTags: [[help]]";
 
         assertEquals(expected, t.toString());
