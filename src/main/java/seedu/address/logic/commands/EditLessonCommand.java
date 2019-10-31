@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LESSONLISTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LESSONS;
 
 import java.util.List;
@@ -19,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.lesson.Time;
 
 /**
@@ -47,29 +47,34 @@ public class EditLessonCommand extends Command {
 
     private final Index index;
     private final EditLessonDescriptor editLessonDescriptor;
+    private final Index day;
 
     /**
      * @param index of the lesson in the filtered lesson list to edit
      * @param editLessonDescriptor details to edit the lesson with
+     * @param day
      */
-    public EditLessonCommand(Index index, EditLessonDescriptor editLessonDescriptor) {
+    public EditLessonCommand(Index index, EditLessonDescriptor editLessonDescriptor, Index day) {
         requireNonNull(index);
         requireNonNull(editLessonDescriptor);
 
         this.index = index;
         this.editLessonDescriptor = new EditLessonDescriptor(editLessonDescriptor);
+        this.day = day;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Lesson> lastShownList = model.getFilteredLessonList();
+        List<UniqueLessonList> lastShownList = model.getFilteredLessonWeekList();
+        UniqueLessonList dayList = lastShownList.get(day.getZeroBased());
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= dayList.asUnmodifiableObservableList().size() ||
+                day.getZeroBased() < 0 || day.getZeroBased() > 7) {
             throw new CommandException(Messages.MESSAGE_INVALID_LESSON_DISPLAYED_INDEX);
         }
 
-        Lesson lessonToEdit = lastShownList.get(index.getZeroBased());
+        Lesson lessonToEdit = dayList.asUnmodifiableObservableList().get(index.getZeroBased());
         Lesson editedLesson = createEditedLesson(lessonToEdit, editLessonDescriptor);
 
         if (!lessonToEdit.isSameLesson(editedLesson) && model.hasLesson(editedLesson)) {
