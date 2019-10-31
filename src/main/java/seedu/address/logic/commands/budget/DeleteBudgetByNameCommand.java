@@ -9,7 +9,7 @@ import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Description;
-import seedu.address.ui.budget.BudgetPanel;
+import seedu.address.ui.budget.BudgetListPanel;
 
 /**
  * Deletes a budget identified by name.
@@ -58,7 +58,7 @@ public class DeleteBudgetByNameCommand extends UndoableCommand {
 
         model.deleteBudgetWithName(description);
         return new CommandResult(String.format(MESSAGE_DELETE_BUDGET_SUCCESS, description),
-                BudgetPanel.PANEL_NAME);
+                BudgetListPanel.PANEL_NAME);
     }
 
     @Override
