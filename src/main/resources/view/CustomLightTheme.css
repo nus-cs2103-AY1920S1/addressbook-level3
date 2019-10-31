@@ -353,3 +353,12 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.course-text-display {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14;
+}
+
+.course-text-display .text {
+    -fx-line-spacing: 0.5em;
+}

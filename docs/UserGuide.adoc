@@ -109,7 +109,7 @@ Feature by
 ////
 === Task Scheduler
 
-==== List all tasks: `list-task`
+==== List all tasks: `list-task`[v1.4]
 Lists tasks in the planner based on the given `DATE` or `#TAG`(s).
 
 Format: `list-task {d/DATE | #TAG...}`
@@ -150,27 +150,26 @@ A task *can* have the following *attributes*:
 
 ===== Example
 ----
-add t/event/my birthday r/yearly
-add t/deadline/cs2101 assignment d/20/09/2019 p/high
+add-task t/event/workshop r/weekly d/25/12/2019//26/12/2019
+add-task t/deadline/cs2101 assignment d/20/09/2019 p/high
 ----
 
 ==== Deleting a task: `delete-task`
 Deletes a task from the planner.
 
-Format: `delete-task {INDEX | t/TASK-DESCRIPTION}`
+Format: `delete-task INDEX`
 
 where `INDEX` is the **one-based** index of the task list.
 
 ===== Example
 ----
 delete-task 3
-delete-task t/cs2101 assignment
 ----
 
 ==== Finding a task: `find-task`
 Locates a task from a given `KEYWORD`
 
-Format: `find-task KEYWORD`
+Format: `find-task KEYWORD...`
 
 ===== Example
 ----
@@ -178,7 +177,7 @@ find-task assignment
 find-task homework cs ma1101r
 ----
 
-==== Editing a task: `edit-task`
+==== Editing a task: `edit-task` [v1.4]
 Edits the task by `TASK-DESCRIPTION` or `INDEX`.
 
 `NEW-DESCRIPTION` can be a new task description or any of the attributes (refer to 3.2.2 Adding a Task)
@@ -206,7 +205,7 @@ Format: `done-task INDEX`
 where `INDEX` is the **one-based** index of the task list.
 
 
-==== Clearing entries: `clear-task`
+==== Clearing entries: `clear-task` [v1.4]
 Clears tasks from the planner. Tasks can be cleared by `#TAG` or `d/DATE`.
 The command `clear-task` with no parameters succeeding it will result in all tasks
 being cleared.
@@ -333,33 +332,30 @@ Feature by
 === Course Planner
 
 ==== Add a course: `add-course`
-Adds the specified course to your list. A grade may be specified to
-indicate if you have already finished the given course. If no course is given,
-the grade will not be taken into account in the `cap` command. `GRADE`
-may be any {nus-grades}[valid NUS grade].
-While `COURSE-CODE` may be the code of any {nusmods-modules}[NUS course].
+Adds the specified course(s) to your list.
 
-Format: `add-course c/COURSE-CODE [g/GRADE]`
+Format: `add-course c/COURSE-CODE [c/COURSE-CODE]...`
+
+`COURSE-CODE` may be the code of any {nusmods-modules}[NUS course] and you
+are able to specify multiple courses to add.
 
 ===== Example
 ----
-add-course c/AB1234
-add-course c/AB1234 g/A+
+add-course c/CS1010
+add-course c/CS1010 c/CS2030 c/CS2040
 ----
-
-NOTE: We recommend to enter your grades for any course you have taken,
-as Jarvis uses them for the `check`, `cap` and `focus` commands specified below.
 
 ==== Delete a course: `delete-course`
-Deletes the specified course from your list.
+Deletes the specified course from your list. You may also delete a course
+by its **id** within the list.
 
-Format: `delete-course c/COURSECODE`
+Format: `delete-course {c/COURSECODE | INDEX}`
 
 ===== Example
 ----
-delete-course c/AB1234
+delete-course c/CS1010
+delete-course 2
 ----
-
 
 ==== Lookup a course's information: `lookup`
 Retrieves information about the specified course - such as name, course code,
@@ -369,60 +365,19 @@ Format: `lookup c/COURSECODE`
 
 ===== Example
 ----
-lookup c/AB1234
+lookup c/CS1010
 ----
 
 ==== Check a course: `check`
 Checks if you can take the specified course. The result is dependent on the
-courses you have added to your list and whether any grades have attached to the
-relevant courses. If no grades are specified, Jarvis assumes the course has
-not been taken.
+courses you have added to your list. Jarvis will display a very helpful
+tree to show you what requirements you need for each course.
 
 Format: `check c/COURSECODE`
 
 ===== Example
 ----
-check c/AB1234
-----
-
-==== Calculate CAP: `cap`
-Calculates your Cumulative Average Point (CAP). Your CAP is calculated based on
-the {nus-grades}[NUS grading system]. This command requires at least one
-course to have been added. Any course that does not have a `GRADE` attached
-will not be counted in the calculation.
-
-Format: `cap`
-
-
-==== Check CS focus-areas: `focus`
-Specific to NUS Computer Science students, this returns a list of courses
-that are required to fulfill a focus area that you are interested in. Jarvis
-is also able to tell you:
-
-. Number of courses to take
-. The courses you have already fulfilled
-. Giving suggestions on what courses to take
-
-The list of focus areas are given below. This is taken from
-{cs-focus-areas}[the official NUS Computer Science website].
-
-. Algorithms & Theory `algorithms` `algo`
-. Artificial Intelligence `artificial` `intelligence` `ai`
-. Computer Graphics and Games `computer graphics` `gfx`
-. Computer Security `computer security` `cs`
-. Database Systems `database` `db`
-. Multimedia Information Retrieval `multimedia` `media`
-. Networking and Distributed Systems `networking` `net`
-. Parallel Computing `parallel computing` `pc`
-. Programming Languages `programming languages` `pl`
-. Software Engineering `software engineering` `swe`
-
-Format: `focus f/FOCUS-AREA`
-
-===== Example
-----
-focus f/algo
-focus f/computer graphics
+check c/CS1010
 ----
 
 ////
