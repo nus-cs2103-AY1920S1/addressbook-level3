@@ -47,19 +47,19 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         taskDes.setText(task.getTaskDes());
         taskType.setText(task.getTaskType().toString());
-        status.setText(task.getStatus().toString());
+        status.setText(task.getStatus().getIcon());
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         if (task.getPriority() != null) {
-            priority.setText(task.getPriority().toString());
+            priority.setText("Priority: " + task.getPriority().toString());
         } else {
             priority.setText("");
         }
 
         if (task.getFrequency() != null) {
-            frequency.setText(task.getFrequency().toString());
+            frequency.setText("Frequency: " + task.getFrequency().toString());
         } else {
             frequency.setText("");
         }
@@ -67,10 +67,10 @@ public class TaskCard extends UiPart<Region> {
         if (task.getTaskType() == TaskType.TODO) {
             date.setText("");
         } else if (task.getTaskType() == TaskType.DEADLINE) {
-            date.setText("Due: " + ((Deadline) task).getDueDate());
+            date.setText("Due " + ((Deadline) task).getDueDate());
         } else if (task.getTaskType() == TaskType.EVENT) {
             Event e = (Event) task;
-            date.setText("From: " + e.getStartDate() + " to: " + e.getEndDate());
+            date.setText(e.getStartDate() + " to " + e.getEndDate());
         }
 
 
