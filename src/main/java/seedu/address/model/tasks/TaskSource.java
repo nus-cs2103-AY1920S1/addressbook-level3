@@ -3,6 +3,8 @@ package seedu.address.model.tasks;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.model.DateTime;
 
 /**
@@ -13,18 +15,34 @@ public class TaskSource {
 
     // Required
     private final String description;
-    private final DateTime dueDate;
-    private final boolean isCompleted;
 
     // Optional
-    //private final Duration expectedDuration;
+    private final DateTime due;
+    // private final Duration expectedDuration;
     private final Set<String> tags;
+    private final boolean isDone;
 
     TaskSource(TaskSourceBuilder taskSourceBuilder) {
         this.description = taskSourceBuilder.getDescription();
-        this.dueDate = taskSourceBuilder.getDueDate();
-        this.isCompleted = taskSourceBuilder.getCompletionStatus();
+        this.isDone = taskSourceBuilder.isDone();
+        this.due = taskSourceBuilder.getDueDate();
         this.tags = taskSourceBuilder.getTags();
+    }
+
+    /**
+     * Copy constructor.
+     * Creates a deep-copy of an TaskSource.
+     * @param taskSource the taskSource to deep-copy.
+     */
+    public TaskSource(TaskSource taskSource) {
+        this.description = taskSource.description;
+        this.due = taskSource.due;
+        this.isDone = taskSource.isDone;
+        this.tags = taskSource.tags;
+    }
+
+    public static TaskSourceBuilder newBuilder(String description) {
+        return new TaskSourceBuilder(description);
     }
 
     @Override
@@ -32,15 +50,31 @@ public class TaskSource {
         if (object instanceof TaskSource) {
             TaskSource t = (TaskSource) object;
             return Objects.equals(this.description, t.description)
-                && Objects.equals(this.dueDate, t.dueDate)
-                && Objects.equals(this.isCompleted, t.isCompleted)
-                && Objects.equals(this.tags, t.tags);
+                    && Objects.equals(this.due, t.due)
+                    && this.isDone == t.isDone
+                    && Objects.equals(this.tags, t.tags);
         }
         return false;
     }
 
-    public static TaskSourceBuilder newBuilder(String description, DateTime dueDate, boolean isCompleted) {
-        return new TaskSourceBuilder(description, dueDate, isCompleted);
+    @JsonProperty("description")
+    public String getDescription() {
+        return this.description;
+    }
+
+    @JsonProperty("due")
+    public DateTime getDueDate() {
+        return this.due;
+    }
+
+    @JsonProperty("done")
+    public boolean isDone() {
+        return isDone;
+    }
+
+    @JsonProperty("tags")
+    public Set<String> getTags() {
+        return tags;
     }
 
     /*

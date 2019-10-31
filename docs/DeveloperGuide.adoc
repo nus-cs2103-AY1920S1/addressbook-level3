@@ -142,131 +142,27 @@ The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/ad
 link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogBox.java[`LogBox`] displays literal information back to the user when it is called by `MainWindow` when it listens for a command.
 
 [[Design-Logic]]
-=== CommandManager component
+=== Logic component
 
-==== Command
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[]
 
-A `Command` is defined to be an immutable function, that can be invoked at any time, to perform any set of instructions. After executing the set of instructions, it will optionally return output to be displayed to the user.
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-In Horo, a `Command` implemented as an abstract class with an abstract `execute()` method. To create a new concrete command, extend from `Command` and implement `execute()`.
+.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-.Class diagram of Commands
-image::CommandManager.png[]
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-If your concrete command requires any dependencies during execution, it is recommended to pass in the dependency from the constructor.
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
 
-For example, if your command needs to be able to access `ModelManager`:
-```
-public class MyCommand extends Command {
-	private final ModelManager model;
-	MyCommand(ModelManager model) {
-		this.model = model;
-	}
-
-	@Override
-    CommandOutput execute() {
-        this.model.doSomething();
-		...
-	}
-}
-```
-
-
-==== CommandParser
-
-A `CommandParser` is defined to be able to parse a `String` of user input, and return a `Command`.
-
-In Horo, a `CommandParser` is implemented as a finite state machine (FSM). It parses user input token by token, and it transitions from state to state depending on the next token.
-
-What the FSM is trying to do is tokenize user input into:
-
-1. `Command keyword`
-2. `Command phrase(s)`
-
-A *command keyword* is defined as the first sequence of consecutive, non-whitespace characters of the user input. For the rest of this guide, a sequence of consecutive, non-whitespace characters will be referred to as a ‘word’. A word can be described in the form of a regular expression (regex) as `[^\s]+`.
-
-Examples of valid command keywords:
-
-- `exit`
-- `add_event`
-- `123`
-- `😺`
-
-A *command phrase* is defined as either a word, or multiple words delimited by whitespace surrounded by quotes. Command phrases come after a command keyword.
-
-Examples of valid command phrases:
-
-- `Horse`
-- `”Homework”`
-- `”Horo’s Birthday”`
-- `”24/10/2019 07:00”`
-- `’24/10/2019 07:00’`
-- `--description`
-
-A valid command contains exactly one command keyword, and zero or more command phrases.
-
-`[keyword] [phrase] [phrase] [phrase] ...`
-
-.State diagram of CommandParser
-image::CommandParser.png[]
-
-After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`. The remaining command phrases are sent to the `CommandBuilder`, which returns the `Command` we want.
-
-
-==== CommandKeywordParser
-
-A `CommandKeywordParser` is defined to be able to parse a command keyword, and return a `CommandBuilder`.
-
-In Horo, a `CommandKeywordParser` uses a `HashMap` to map a command keyword to a `Supplier<CommandBuilder>`.
-
-
-==== CommandBuilder
-
-A `CommandBuilder` is defined to be able to accept an arbitrary amount of command settings, and eventually create a `Command` using those settings.
-
-In Horo, a `CommandBuilder` is implemented such that the entire definition of a `Command` is in the `CommandBuilder`. The `CommandBuilder` will use those definitions to automagically parse command phrases.
-
-The definition of a command is split into two parts:
-
-1. `Command argument(s)`
-2. `Command option(s)`
-
-A *command option* is defined to have a keyword and a list of arguments.
-An *option’s keyword* is defined to be a command phrase.
-An *option’s argument* is defined to be a command phrase that is not an option’s keyword. An option’s argument is a command phrase that lies after the option’s keyword.
-
-Example of option’s keyword & arguments below. The option’s keyword is underlined:
-
-- `+++<u>--description</u>+++ Horse`
-- `+++<u>--tags</u>+++ Animal Cat Dog`
-- `+++<u>-d</u>+++ Horse`
-
-A *command argument* is defined to be a command phrase that is not an option’s keyword. This is similar to an option’s argument, except that the position of this argument in the user input is important. A command argument is a command phrase that lies after the command keyword, and before any command option’s keywords.
-
-Example of command’s arguments below. The command’s keyword is underlined.
-
-- `+++<u>add_event</u>+++ Horse “24/10/2019 10:00”`
-- `+++<u>delete_event</u>+++ 1 2 3`
-
-==== Argument
-
-A command’s argument and an option’s argument are both considered an `Argument`. An argument will be parsed from a command phrase to another object. The `Argument` class is a generic class, where the type of the class defines what type of object the command phrase be parsed into.
-
-For example, an `Argument<DateTime>` which receives “24/10/2019 10:00” will be parsed into a `DateTime` object.
-
-
-==== Variable Argument
-
-A `VariableArgument` is a special type of argument. A variable argument will be parsed from a list of command phrases to a list of similar type objects. The `VariableArgument` class is a generic class, where the type of the class defines what types of objects the command phrases should be parsed into. A variable argument can accept zero or more command phrases to be parsed.
-
-For example, a `VariableArgument<Integer>` which receives {1, 2, 3} will be parsed into a list of Integers. `A VariableArgument<Integer>` which receives {} will be parsed into an empty list.
-
-
-==== ArgumentList
-
-A command is said to contain a list of arguments, and it’s options are said to contain a list of arguments too. Both are considered an `ArgumentList`. An `ArgumentList` is defined to contain zero or more `Arguments`, and zero or one `VariableArguments`.
-
-Additionally, if a variable argument is defined, it will be treated as the last argument in the `ArgumentList`. This is because a variable argument can accept zero or more command phrases, which will prevent other arguments from receiving command phrases if it is not the last argument.
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -285,7 +181,7 @@ The `Model`,
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
++
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
@@ -777,12 +673,12 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+  Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+  Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_

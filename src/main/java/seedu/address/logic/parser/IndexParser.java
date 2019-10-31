@@ -12,7 +12,7 @@ public class IndexParser implements Parser<Integer> {
     @Override
     public Integer parse(String userInput) throws ParseException {
         try {
-            return Integer.parseInt(userInput) - 1;
+            return Integer.parseInt(userInput);
         } catch (NumberFormatException e) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }

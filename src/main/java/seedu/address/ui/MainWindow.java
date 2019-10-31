@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -11,6 +12,9 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
@@ -25,8 +29,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.CalendarDate;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.EventListListener;
-import seedu.address.ui.listeners.UserOutputListener;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.panel.calendar.CalendarPanel;
 import seedu.address.ui.panel.list.ListPanel;
 import seedu.address.ui.panel.log.LogPanel;
@@ -35,8 +38,9 @@ import seedu.address.ui.panel.log.LogPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener {
+public class MainWindow extends UiPart<Stage> {
 
+    public static final Integer TIMING = 20;
     private static final String FXML = "MainWindow.fxml";
     private static final String WELCOME_MESSAGE = "Welcome to Horo";
 
@@ -126,6 +130,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
 
         addResizingListeners();
         welcomeMessage();
+        delayResize();
     }
 
     /**
@@ -205,7 +210,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     /**
      * Creates a pop-up of the output using the same LogBox in the LogPanel and animates it.
      */
-    private void createOutputLogBox(String feedbackToUser, String color) {
+    private void createPopUpBox(String feedbackToUser, String color) {
         requireNonNull(feedbackToUser);
         popUpPanel.getChildren().clear();
         PopUpBox popUpBox = new PopUpBox(feedbackToUser, color);
@@ -279,9 +284,35 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
             public void changed(ObservableValue<? extends Number> observableValue,
                                 Number oldSceneWidth,
                                 Number newSceneWidth) {
-                calendarPanel.resizeTimelineView();
+                delayResize();
             }
         });
+    }
+
+    /**
+     * Re-sizes the CalendarPanel after a certain delay.
+     *
+     * @see CalendarPanel
+     */
+    private void delayResize() {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(TIMING);
+                } catch (InterruptedException e) {
+                    throw new Exception(e.getMessage());
+                }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                calendarPanel.resizeCalendarPanel();
+            }
+        });
+        new Thread(sleeper).start();
     }
 
     /**
@@ -291,16 +322,43 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         onUserOutput(new UserOutput(WELCOME_MESSAGE), ColorTheme.WELCOME);
     }
 
-    @Override
-    public void onEventListChange(List<EventSource> events) {
-        this.listPanel.onEventListChange(events);
-        this.calendarPanel.onEventListChange(events);
+    /**
+     * Changes the UI based on the new and changed event list.
+     *
+     * @param events The given event list.
+     */
+    public void onEventListChange(List<EventSource> events, HashMap<Integer, Integer> eventHash) {
+        this.listPanel.onEventListChange(events, eventHash);
     }
 
-    @Override
+    /**
+     * Changes the UI based on the new and changed task list.
+     *
+     * @param tasks The given task list.
+     */
+    public void onTaskListChange(List<TaskSource> tasks, HashMap<Integer, Integer> taskHash) {
+        this.listPanel.onTaskListChange(tasks, taskHash);
+    }
+
+    /**
+     * Changes the UI based on the new and changed model lists.
+     *
+     * @param events The given event list.
+     * @param tasks The given task list.
+     */
+    public void onModelListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.calendarPanel.onModelListChange(events, tasks);
+    }
+
+    /**
+     * Creates a log box as well as popup box to display to the user the output.
+     *
+     * @param output The given output to be displayed to the user.
+     * @param results The color theme which decides whether the command is a success or failure.
+     */
     public void onUserOutput(UserOutput output, ColorTheme results) {
         String color = getColor(results);
         this.logPanel.createLogBox(output.toString(), color);
-        createOutputLogBox(output.toString(), color);
+        createPopUpBox(output.toString(), color);
     }
 }

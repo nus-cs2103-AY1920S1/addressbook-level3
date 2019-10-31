@@ -32,12 +32,9 @@
                   <Insets />
                </GridPane.margin>
             </StackPane>
-            <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <VBox fx:id="detailsPlaceholder" alignment="CENTER_RIGHT" fillWidth="false" />
-               </children>
+            <StackPane fx:id="upcomingViewPlaceholder" alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets />
+                  <Insets top="10.0" />
                </GridPane.margin>
             </StackPane>
          </children>

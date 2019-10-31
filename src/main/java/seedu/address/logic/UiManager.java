@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -14,8 +15,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.listeners.CommandInputListener;
 import seedu.address.model.CalendarDate;
+import seedu.address.model.ModelLists;
+import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.ModelListListener;
+import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.tasks.TaskDateComparator;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.ColorTheme;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.Ui;
@@ -26,7 +33,7 @@ import seedu.address.ui.listeners.UserOutputListener;
  * The manager of the UI component.
  * Responsible for creating and destroying the graphical ui.
  */
-public class UiManager implements Ui, UserOutputListener, EventListListener {
+public class UiManager implements Ui, UserOutputListener, EventListListener, TaskListListener, ModelListListener {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -49,20 +56,7 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
 
         try {
             mainWindow = new MainWindow(primaryStage, commandInput -> {
-                // TODO: Temporary command
-                if (commandInput.equals("calendar")) {
-                    this.mainWindow.viewCalendar();
-                } else if (commandInput.equals("list")) {
-                    this.mainWindow.viewList();
-                } else if (commandInput.equals("log")) {
-                    this.mainWindow.viewLog();
-                } else if (commandInput.equals("calendar 11/2019")) {
-                    // No need for day
-                    // this.mainWindow.changeCalendarScreenDate(11, 2019);
-                } else {
-                    // Notify listeners of new command input.
-                    this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
-                }
+                this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
             });
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
@@ -124,9 +118,117 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
         mainWindow.viewMonth(calendarDate);
     }
 
+    public void viewList() {
+        mainWindow.viewList();
+    }
+
+    public void viewLog() {
+        mainWindow.viewLog();
+    }
+
+    /**
+     * Changes the view of the UI to the CalendarPanel to the given date.
+     *
+     * @param calendarDate The given date.
+     */
+    public void viewCalendar(CalendarDate calendarDate) {
+        if (calendarDate == null) {
+            mainWindow.viewCalendar();
+        } else {
+            mainWindow.changeCalendarScreenDate(calendarDate);
+        }
+    }
+
+    /**
+     * Returns a copy of the event list sorted by start date.
+     *
+     * @param events The given event list.
+     * @return A copy of the event list sorted by date.
+     */
+    private List<EventSource> sortDateEventList(List<EventSource> events) {
+        List<EventSource> sortedDateEventList = new ArrayList<>(events);
+        sortedDateEventList.sort(new EventDateComparator());
+        return sortedDateEventList;
+    }
+
+    /**
+     * Returns a HashMap based on the front index and back index of the event and sorted events.
+     *
+     * @param events The unsorted event list.
+     * @param sortedEvents The sorted event list.
+     * @return Returns a HashMap based on the front index and back index of the event and sorted events.
+     */
+    private HashMap<Integer, Integer> addEventIndex(List<EventSource> events, List<EventSource> sortedEvents) {
+        int frontIndex = 0;
+        int backIndex = 0;
+        HashMap<Integer, Integer> eventHash = new HashMap<>();
+        for (EventSource sortedEvent : sortedEvents) {
+            for (EventSource event : events) {
+                if (event.equals(sortedEvent)) {
+                    eventHash.put(frontIndex, backIndex);
+                    backIndex = 0;
+                    break;
+                }
+                backIndex++;
+            }
+            frontIndex++;
+        }
+
+        return eventHash;
+    }
+
+    /**
+     * Returns a copy of the task list sorted by due date.
+     *
+     * @param tasks The given task list.
+     * @return A copy of the task list sorted by due date.
+     */
+    private List<TaskSource> sortDateTaskList(List<TaskSource> tasks) {
+        List<TaskSource> sortedDateTaskList = new ArrayList<>(tasks);
+        sortedDateTaskList.sort(new TaskDateComparator());
+        return sortedDateTaskList;
+    }
+
+    /**
+     * Returns a HashMap based on the front index and back index of the task and sorted tasks.
+     *
+     * @param tasks The unsorted task list.
+     * @param sortedTasks The sorted task list.
+     * @return Returns a HashMap based on the front index and back index of the task and sorted tasks.
+     */
+    private HashMap<Integer, Integer> addTaskIndex(List<TaskSource> tasks, List<TaskSource> sortedTasks) {
+        int frontIndex = 0;
+        int backIndex = 0;
+        HashMap<Integer, Integer> taskHash = new HashMap<>();
+        for (TaskSource sortedTask : sortedTasks) {
+            for (TaskSource task : tasks) {
+                if (task.equals(sortedTask)) {
+                    taskHash.put(frontIndex, backIndex);
+                    backIndex = 0;
+                    break;
+                }
+                backIndex++;
+            }
+            frontIndex++;
+        }
+        return taskHash;
+    }
+
     @Override
     public void onEventListChange(List<EventSource> events) {
-        this.mainWindow.onEventListChange(events);
+        List<EventSource> sortedDateEventList = sortDateEventList(events);
+        this.mainWindow.onEventListChange(sortedDateEventList, addEventIndex(events, sortedDateEventList));
+    }
+
+    @Override
+    public void onTaskListChange(List<TaskSource> tasks) {
+        List<TaskSource> sortedDateTaskList = sortDateTaskList(tasks);
+        this.mainWindow.onTaskListChange(sortedDateTaskList, addTaskIndex(tasks, sortedDateTaskList));
+    }
+
+    @Override
+    public void onModelListChange(ModelLists lists) {
+        this.mainWindow.onModelListChange(sortDateEventList(lists.getEvents()), sortDateTaskList(lists.getTasks()));
     }
 
     @Override
