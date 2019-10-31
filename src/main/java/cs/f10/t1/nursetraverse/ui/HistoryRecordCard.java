@@ -1,5 +1,7 @@
 package cs.f10.t1.nursetraverse.ui;
 
+import java.util.Optional;
+
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,13 +17,19 @@ public class HistoryRecordCard extends UiPart<Region> {
     public final HistoryRecord historyRecord;
 
     @FXML
-    private Label command;
+    private Label commandText;
 
     public HistoryRecordCard(HistoryRecord record) {
         super(FXML);
         this.historyRecord = record;
 
-        command.setText(record.toString());
+        Optional<String> commandTextOptional = record.getCommand().getCommandText();
+        if (commandTextOptional.isPresent()) {
+            commandText.setText(commandTextOptional.get());
+        } else {
+            // This should not happen, but defensively display the debug string
+            commandText.setText(record.toString());
+        }
     }
 
     @Override

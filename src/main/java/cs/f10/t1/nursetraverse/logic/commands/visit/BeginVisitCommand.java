@@ -9,7 +9,6 @@ import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.util.VisitTaskUtil;
-import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
@@ -23,7 +22,7 @@ import cs.f10.t1.nursetraverse.model.visit.Visit;
 /**
  * Begins a visit using a patient identified using his/her index in the patient list.
  */
-public class BeginVisitCommand extends Command implements MutatorCommand {
+public class BeginVisitCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "visit-start";
 

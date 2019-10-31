@@ -17,7 +17,7 @@
                 <Insets top="5" right="5" bottom="5" left="5" />
             </padding>
             <HBox spacing="5" alignment="CENTER">
-                <Label fx:id="command" text="\$first" styleClass="cell_smallest_label"/>
+                <Label fx:id="commandText" text="\$first" styleClass="cell_smallest_label"/>
             </HBox>
         </VBox>
     </GridPane>

@@ -4,13 +4,10 @@ import java.util.logging.Logger;
 
 import cs.f10.t1.nursetraverse.commons.core.GuiSettings;
 import cs.f10.t1.nursetraverse.commons.core.LogsCenter;
-import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.logic.Logic;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
-import cs.f10.t1.nursetraverse.model.HistoryRecord;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;

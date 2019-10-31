@@ -16,7 +16,7 @@ import cs.f10.t1.nursetraverse.model.patient.Patient;
  * Imports data from a csv file.
  * Replaces ALL data in the patient book with the imported data
  */
-public class ImportReplaceCommand extends Command implements MutatorCommand {
+public class ImportReplaceCommand extends MutatorCommand {
     public static final String COMMAND_WORD = "app-import-replace";
 
     public static final String MESSAGE_SUCCESS = "Import success!";

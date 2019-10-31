@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 /**
  * Undos a designated command in the history, or the previous one if no argument is specified
  */
-public class UndoCommand extends Command implements MutatorCommand {
+public class UndoCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "app-undo";
 

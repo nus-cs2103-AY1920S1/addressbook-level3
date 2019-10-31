@@ -18,7 +18,6 @@ import java.util.Optional;
 import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
-import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
@@ -32,7 +31,7 @@ import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
 /**
  * Edits the details of an existing appointment in the appointment book.
  */
-public class EditAppointmentCommand extends Command implements MutatorCommand {
+public class EditAppointmentCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "appt-edit";
 
