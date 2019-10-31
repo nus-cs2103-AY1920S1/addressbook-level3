@@ -73,7 +73,7 @@ public class InformationDisplay extends UiPart<Region> {
      * Resize the image when window size changes
      */
     public void resizeImage() {
-        photo.fitHeightProperty().bind(imageHolder.heightProperty().subtract(100));
-        photo.fitWidthProperty().bind(imageHolder.widthProperty().subtract(100));
+        photo.fitHeightProperty().bind(imageHolder.heightProperty().subtract(40));
+        photo.fitWidthProperty().bind(imageHolder.widthProperty());
     }
 }

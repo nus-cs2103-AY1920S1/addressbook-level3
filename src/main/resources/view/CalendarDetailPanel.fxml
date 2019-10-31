@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" styleClass="edge-to-edge" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" styleClass="edge-to-edge" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;">
          <children>
@@ -21,7 +21,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <VBox fx:id="attendanceBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" style="-fx-background-color: #ffffff;">
+            <VBox fx:id="attendanceBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" style="-fx-background-color: #ffffff;">
                <padding>
                   <Insets bottom="16.0" left="32.0" right="32.0" top="16.0" />
                </padding>
@@ -34,7 +34,7 @@
                   <Insets bottom="4.0" left="32.0" top="4.0" />
                </padding>
             </Label>
-            <VBox fx:id="performanceBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" style="-fx-background-color: #ffffff;">
+            <VBox fx:id="performanceBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" style="-fx-background-color: #ffffff;">
                <padding>
                   <Insets bottom="16.0" left="32.0" right="32.0" top="16.0" />
                </padding>

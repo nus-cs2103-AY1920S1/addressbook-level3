@@ -321,8 +321,8 @@ public class CalendarPanel extends UiPart<Region> {
             for (int col = 0; col < 7; col++) {
                 String day = days[counter];
                 Label l = createLabel(day);
-                boolean havePerformanceEntry = false;
-                boolean haveTrainingEntry = false;
+                boolean havePerformanceEntry;
+                boolean haveTrainingEntry;
                 boolean setColour = false;
                 if (beforeCount > 0) {
                     l.setTextFill(Paint.valueOf("#999999"));

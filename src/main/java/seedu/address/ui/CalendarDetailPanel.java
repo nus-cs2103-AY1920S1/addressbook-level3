@@ -42,11 +42,20 @@ public class CalendarDetailPanel extends UiPart<Region> {
      * name and attendance in the same row.
      */
     private void initialiseAttendanceData() {
-        HashMap<Person, Boolean> attendanceData = model.getTrainingAttendanceOnDate(date);
-        attendanceData.forEach((person, attendance) -> {
-            String name = person.getName().toString();
-            boolean isPresent = attendance.booleanValue();
-        });
+        if (model.hasTraining(date)) {
+            attendanceBox.getChildren().add(new AttendanceTableHeader().getRoot());
+            HashMap<Person, Boolean> attendanceData = model.getTrainingAttendanceOnDate(date);
+            attendanceData.forEach((person, attendance) -> {
+                String name = person.getName().toString();
+                boolean isPresent = attendance;
+                AttendanceTableContent content = new AttendanceTableContent(name, isPresent);
+                attendanceBox.getChildren().add(content.getRoot());
+            });
+        } else {
+            String errorMsg = "No Training Record on " + date.toString();
+            ErrorMessageLabel error = new ErrorMessageLabel(errorMsg);
+            attendanceBox.getChildren().add(error.getRoot());
+        }
     }
 
     /**
@@ -54,22 +63,28 @@ public class CalendarDetailPanel extends UiPart<Region> {
      * the event taken on the particular date.
      */
     private void initialisePerformanceData() {
-        HashMap<Event, List<CalendarCompatibleRecord>> performanceData =
-                model.getCalendarCompatiblePerformance(date);
-        performanceData.forEach((event, recordList) -> {
-            int numRecords = recordList.size();
-            if (numRecords > 0) {
-                PerformanceTableHeader header = new PerformanceTableHeader(event.getName());
-                performanceBox.getChildren().add(header.getRoot());
-                for (int i = 0; i < numRecords; i++) {
-                    CalendarCompatibleRecord record = recordList.get(i);
-                    Person athlete = record.getAthlete();
-                    String name = athlete.getName().toString();
-                    String timing = record.getTiming();
-                    PerformanceTableContent content = new PerformanceTableContent(name, timing);
-                    performanceBox.getChildren().add(content.getRoot());
+        if (model.hasPerformanceOn(date)) {
+            HashMap<Event, List<CalendarCompatibleRecord>> performanceData =
+                    model.getCalendarCompatiblePerformance(date);
+            performanceData.forEach((event, recordList) -> {
+                int numRecords = recordList.size();
+                if (numRecords > 0) {
+                    PerformanceTableHeader header = new PerformanceTableHeader(event.getName());
+                    performanceBox.getChildren().add(header.getRoot());
+                    for (int i = 0; i < numRecords; i++) {
+                        CalendarCompatibleRecord record = recordList.get(i);
+                        Person athlete = record.getAthlete();
+                        String name = athlete.getName().toString();
+                        String timing = record.getTiming();
+                        PerformanceTableContent content = new PerformanceTableContent(name, timing);
+                        performanceBox.getChildren().add(content.getRoot());
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            String errorMsg = "No Performance Record on " + date.toString();
+            ErrorMessageLabel error = new ErrorMessageLabel(errorMsg);
+            performanceBox.getChildren().add(error.getRoot());
+        }
     }
 }
