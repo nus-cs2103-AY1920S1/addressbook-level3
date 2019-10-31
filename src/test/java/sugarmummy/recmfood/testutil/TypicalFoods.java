@@ -27,14 +27,14 @@ public class TypicalFoods {
     public static final String TYPE_DESC_CHICKEN = PREFIX_FOOD_TYPE + "p" + WHITESPACE;
     public static final String CALORIE_DESC_CHICKEN = PREFIX_CALORIE + DEFAULT_CALORIE + WHITESPACE;
     public static final String GI_DESC_CHICKEN = PREFIX_GI + DEFAULT_GI + WHITESPACE;
-    public static final String SUGAR_DESC_CHICKEN = PREFIX_SUGAR+ DEFAULT_SUGAR + WHITESPACE;
+    public static final String SUGAR_DESC_CHICKEN = PREFIX_SUGAR + DEFAULT_SUGAR + WHITESPACE;
     public static final String FAT_DESC_CHICKEN = PREFIX_FAT + DEFAULT_FAT + WHITESPACE;
 
     public static final String NAME_DESC_CORN = PREFIX_FOOD_NAME + "Corn" + WHITESPACE;
     public static final String TYPE_DESC_CORN = PREFIX_FOOD_TYPE + "sv" + WHITESPACE;
     public static final String CALORIE_DESC_CORN = PREFIX_CALORIE + DEFAULT_CALORIE + WHITESPACE;
     public static final String GI_DESC_CORN = PREFIX_GI + DEFAULT_GI + WHITESPACE;
-    public static final String SUGAR_DESC_CORN = PREFIX_SUGAR+ DEFAULT_SUGAR + WHITESPACE;
+    public static final String SUGAR_DESC_CORN = PREFIX_SUGAR + DEFAULT_SUGAR + WHITESPACE;
     public static final String FAT_DESC_CORN = PREFIX_FAT + DEFAULT_FAT + WHITESPACE;
 
 

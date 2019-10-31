@@ -75,6 +75,8 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    //=========== General =============================================================
+
     @Override
     public DisplayPaneType getDisplayPaneType() {
         return displayPaneType;
@@ -96,26 +98,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Food> getFoodList() {
-        return model.getFoodList();
-    }
-
-    @Override
-    public ObservableList<Food> getFilterFoodList() {
-        return model.getFilterFoodList();
-    }
-
-    @Override
-    public ObservableList<Record> getRecordList() {
-        return model.getRecordList();
-    }
-
-    @Override
-    public ObservableList<Record> getFilterRecordList() {
-        return model.getFilterRecordList();
-    }
-
-    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }
@@ -128,6 +110,30 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    //=========== food List =============================================================
+
+    @Override
+    public ObservableList<Food> getFoodList() {
+        return model.getFoodList();
+    }
+
+    @Override
+    public ObservableList<Food> getFilterFoodList() {
+        return model.getFilterFoodList();
+    }
+
+    //=========== Record List =============================================================
+
+    @Override
+    public ObservableList<Record> getRecordList() {
+        return model.getRecordList();
+    }
+
+    @Override
+    public ObservableList<Record> getFilterRecordList() {
+        return model.getFilterRecordList();
     }
 
     //=========== User List =============================================================
