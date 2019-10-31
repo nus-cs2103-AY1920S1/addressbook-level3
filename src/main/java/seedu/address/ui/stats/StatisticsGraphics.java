@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.stats;
 
 import java.util.logging.Logger;
 
@@ -10,14 +10,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.statistics.CategoryStatistics;
+import seedu.address.ui.UiPart;
 
 /**
  * Displays the user's statistics in graphics for the more visual User.
  */
 public class StatisticsGraphics extends UiPart<Region> {
 
-
-    private static final String FXML = "StatisticsChart.fxml";
+    private static final String FXML = "/statistics/StatisticsChart.fxml";
     private final Logger logger = LogsCenter.getLogger(StatisticsGraphics.class);
     private final StatisticsPieChart expenseChart;
     private final StatisticsPieChart incomeChart;

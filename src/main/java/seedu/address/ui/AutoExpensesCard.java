@@ -7,14 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Budget;
+import seedu.address.model.person.AutoExpense;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class BudgetCard extends UiPart<Region> {
+public class AutoExpensesCard extends UiPart<Region> {
 
-    private static final String FXML = "BudgetListCard.fxml";
+    private static final String FXML = "AutoExpenseListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class BudgetCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Budget budget;
+    public final AutoExpense autoExpense;
 
     @FXML
     private HBox cardPane;
@@ -33,24 +33,28 @@ public class BudgetCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label date;
+    private Label freq;
     @FXML
-    private Label left;
+    private Label nextTime;
+    @FXML
+    private Label amt;
     @FXML
     private FlowPane tags;
 
-    public BudgetCard(Budget budget, int displayedIndex) {
+    public AutoExpensesCard(AutoExpense autoExpense, int displayedIndex) {
         super(FXML);
-        this.budget = budget;
+        this.autoExpense = autoExpense;
         id.setText(displayedIndex + ". ");
 
-        String fullDesc = budget.getDesc().fullDesc;
+        String fullDesc = autoExpense.getDesc().fullDesc;
         desc.setText(fullDesc);
-        date.setText(budget.getDate().toString() + " - " + budget.getEndDate().toString());
-        double leftAmount = budget.getAmount().value - budget.getSpent().value;
-        left.setText("left: $" + leftAmount + " out of: $" + budget.getAmount().value);
+        freq.setText(autoExpense.getFrequency().toString());
+        //lastTime.setText(autoExpense.getLastTime().toString());
+        nextTime.setText(autoExpense.getNextTime().toString());
+        amt.setText(autoExpense.getAmount().toString());
+        //spent.setText("spent: $" + autoExpense.getSpent().value);
 
-        budget.getTags().stream()
+        autoExpense.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -63,14 +67,14 @@ public class BudgetCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof BudgetCard)) {
+        if (!(other instanceof AutoExpensesCard)) {
             return false;
         }
 
         // state check
-        BudgetCard card = (BudgetCard) other;
+        AutoExpensesCard card = (AutoExpensesCard) other;
         return id.getText().equals(card.id.getText())
-                && budget.equals(card.budget);
+                && autoExpense.equals(card.autoExpense);
     }
 }
 
