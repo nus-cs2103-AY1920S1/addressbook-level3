@@ -10,19 +10,16 @@ import javafx.collections.ObservableList;
  * A handler class that updates list of autocomplete words to be shown according to userinput
  */
 public class AutoCompleteListHandler {
-    private LinkedList<AutoCompleteWord> matchedAutoCompleteWords;
     private AutoCompleteWordStorage autoCompleteWordStorage;
 
-    public AutoCompleteListHandler(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
-                                   AutoCompleteWordStorage autoCompleteWordStorage) {
-        this.matchedAutoCompleteWords = matchedAutoCompleteWords;
+    public AutoCompleteListHandler(AutoCompleteWordStorage autoCompleteWordStorage) {
         this.autoCompleteWordStorage = autoCompleteWordStorage;
     }
 
     /**
      * Choose initial list to be suggested
      */
-    public ObservableList<AutoCompleteWord> chooseInitialList() {
+    public ObservableList<AutoCompleteWord> chooseInitialList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords) {
         ObservableList<AutoCompleteWord> currentList;
         if (matchedAutoCompleteWords.size() == 0) {
             // Set to object list
@@ -59,7 +56,8 @@ public class AutoCompleteListHandler {
      * @param firstSegmentParts Linkedlist of parts in first segment of segments array
      * @return updatedList
      */
-    public ObservableList<AutoCompleteWord> updateList(ObservableList<AutoCompleteWord> currentList, String[] segments,
+    public ObservableList<AutoCompleteWord> updateList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
+                                                       ObservableList<AutoCompleteWord> currentList, String[] segments,
                                                        LinkedList<String> firstSegmentParts) {
         ObservableList<AutoCompleteWord> updatedList = FXCollections.observableArrayList();
 
@@ -84,7 +82,8 @@ public class AutoCompleteListHandler {
      * @param listToBeSuggested list to be filtered
      * @return filteredList
      */
-    public ObservableList<AutoCompleteWord> filterList(ObservableList<AutoCompleteWord> listToBeSuggested) {
+    public ObservableList<AutoCompleteWord> filterList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
+                                                       ObservableList<AutoCompleteWord> listToBeSuggested) {
         ObservableList<AutoCompleteWord> filteredList = FXCollections.observableArrayList();
         // Perform filter only if listToBeSuggested is not empty and is a prefix or command list
         if (listToBeSuggested.size() != 0 && (listToBeSuggested.get(0) instanceof PrefixWord
