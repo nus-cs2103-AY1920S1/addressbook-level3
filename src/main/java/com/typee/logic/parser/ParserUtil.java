@@ -6,14 +6,19 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.typee.commons.core.index.Index;
 import com.typee.commons.util.StringUtil;
 import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
 import com.typee.model.person.Name;
+import com.typee.model.person.Person;
 import com.typee.model.util.EngagementComparator;
 
 /**
@@ -28,6 +33,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_TIME_STRING = "Please stick to the DD/MM/YYYY/HHMM format.";
     public static final String MESSAGE_INVALID_TIME_FORMAT = "%s is not a valid date-time "
             + "in the DD/MM/YYYY/HHMM format.";
+    public static final String MESSAGE_INVALID_DESCRIPTION = "The description cannot be empty.";
+    public static final String MESSAGE_INVALID_ATTENDEES = "There can't be no attendees.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -211,6 +218,37 @@ public class ParserUtil {
         Month month = Month.of(Integer.parseInt(date.substring(3, 5)));
         int day = Integer.parseInt(date.substring(0, 2));
         return LocalDate.of(year, month, day);
+    }
+
+    /**
+     * Validates and returns the description of an engagement.
+     * @param description the description of an engagement.
+     * @return the description if its valid.
+     * @throws ParseException if the description is blank.
+     */
+    public static String parseDescription(String description) throws ParseException {
+        if (description.isBlank()) {
+            throw new ParseException(MESSAGE_INVALID_DESCRIPTION);
+        }
+        return description;
+    }
+
+    /**
+     * Parses a {@code String} representing a list of attendees into an {@code AttendeeList}.
+     *
+     * @param attendees string representing list of attendees.
+     * @return corresponding {@code AttendeeList}.
+     */
+    public static AttendeeList parseAttendees(String attendees) throws ParseException {
+        if (attendees.isBlank()) {
+            throw new ParseException(MESSAGE_INVALID_ATTENDEES);
+        }
+        List<Person> attendeesList = Arrays.stream(attendees.split(","))
+                .map(name -> name.trim())
+                .map(name -> new Person(ParserUtil.parseNameDeterministic(name)))
+                .filter(name -> name != null)
+                .collect(Collectors.toList());
+        return new AttendeeList(attendeesList);
     }
 
 }
