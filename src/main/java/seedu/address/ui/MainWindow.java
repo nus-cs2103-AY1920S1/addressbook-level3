@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -22,7 +21,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.student.Student;
+import seedu.address.storage.printable.SchedulePrintable;
 import seedu.address.storage.printable.StatisticsPrintable;
 import seedu.address.ui.util.DisplayType;
 
@@ -54,8 +55,6 @@ public class MainWindow extends UiPart<Stage> {
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
     private EventSchedulePanel eventSchedulePanel;
-    private Node studentPanelNode;
-    private Node eventPaneNode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -135,8 +134,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        this.studentPanelNode = studentListPanel.getRoot();
-        mainPanelPlaceholder.getChildren().add(studentPanelNode);
+        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
         questionListPanel = new QuestionListPanel(logic.getAllQuestions(), false);
         mainPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
@@ -247,7 +245,35 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleSchedule() {
+        eventSchedulePanel.updateScheduler();
+        if (logic.getScheduleViewMode().equals(EventScheduleViewMode.DAILY)) {
+            eventSchedulePanel.setDailySkin();
+        } else if (logic.getScheduleViewMode().equals(EventScheduleViewMode.WEEKLY)) {
+            eventSchedulePanel.setWeeklySkin();
+        }
+        eventSchedulePanel.setDisplayedDateTime(logic.getEventScheduleTargetDateTime());
         eventSchedulePanel.getRoot().toFront();
+    }
+
+    /**
+     * Handles Taking a screenshot of the schedule
+     * @param targetFilePath the targetFilePath to save the screenshot to
+     * @throws IOException for invalid path specified
+     */
+    @FXML
+    public void handleScheduleScreenshot(String targetFilePath) throws IOException {
+        EventScheduleWindow eventScheduleWindow = new EventScheduleWindow(new Stage(), eventSchedulePanel.getRoot());
+        eventScheduleWindow.show();
+        WritableImage scheduleSnapShotImage = eventScheduleWindow.takeSnapShot();
+        try {
+            logic.savePrintable(new SchedulePrintable(scheduleSnapShotImage, targetFilePath));
+        } catch (IOException ex) {
+            eventScheduleWindow.close();
+            mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
+            throw new IOException(ex.toString());
+        }
+        eventScheduleWindow.close();
+        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
     }
 
     /**
@@ -346,7 +372,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
                 break;
             case SHOW_SCHEDULE:
-                eventSchedulePanel.updateScheduler();
                 handleSchedule();
                 break;
             case SHOW_STATISTIC:
@@ -372,6 +397,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case SHOW_QUESTION_SEARCH:
                 handleQuestionSearch();
+                break;
+            case SCHEDULE_SCREENSHOT:
+                handleScheduleScreenshot(commandResult.getTargetFilePath());
                 break;
             default:
                 break;
