@@ -160,7 +160,7 @@ The diagram above shows how `EditNoteCommandParser` creates an `EditNoteCommand`
 creates an `EditNoteDescriptor` to hold details of what changes in the note, setting the new
 title (provided by the `t/` argument) and content (`c/`) as necessary. If `i/none` is present,
 the `EditNoteDescriptor` is set to remove the image and no dialog is shown. If `i/` is
-otherwise provided, `EditNoteCommandParser` calls the static method `NoteImageSelector#selectImage()`,
+otherwise provided, `EditNoteCommandParser` calls the static method `AppUtil#selectImage()`,
 opening up the image selection dialog; the returned `Image` object is then set in the `EditNoteDescriptor`.
 An `EditNoteCommand` containing the `EditNoteDescriptor` is finally returned for execution.
 
@@ -169,13 +169,9 @@ Uniform Resource Identifiers (URIs) of system files, e.g. `file:data/picture.png
 we cannot use absolute paths, since they would break when the images are moved or deleted. Instead we copy images
 into its data folder, side-by-side with the JSON file, upon execution of any `addnote` or `editnote` command with
 an image. The references are then changed to point to these local copies, becoming relative URIs.
+// end::lecimage[]
 
-'''
-
-Unlike `Title` and `Content`, which are wrappers around `String` objects, both the use of a JavaFX
-built-in object and the system-dependent implementation of graphics-related objects required me to
-make certain critical decisions on the implementation of image support.
-
+// tag::lecimagedesignconsiderations[]
 ==== Design considerations: where to place the image?
 
 * _Alternative 1 (current choice):_ Images are shown within each lecture note in the first column, and each lecture note
@@ -194,12 +190,12 @@ in the second column
 ** Pros: Effects a better separation of concerns (image selection is not execution of the command, image
 copying may be thought of as a side effect of command execution)
 ** Cons: Need to adapt the file copying code to each command
-* _Alternative 2:_ Images are copied when the image is selected, i.e. `NoteImageSelector#selectImage()`
+* _Alternative 2:_ Images are copied when the image is selected, i.e. `AppUtil#selectImage()`
 ** Pros: Compared to alternative 1, has less time between initial image selection and the copy into
 application data. There is a potential application risk if
 ** Cons: `selectImage()` has two only loosely related responsibilities (worse separation of concerns),
 impossible to take into account user preferences for where the application data is stored
-// end::lecimage[]
+// end::lecimagedesignconsiderations[]
 
 === Question management feature
 ==== Current implementation
