@@ -15,6 +15,8 @@ public class StartQuizCommand extends Command {
 
     public static final String COMMAND_WORD = "start";
 
+    public static final String COMMAND_AUTOCOMPLETE = "start mode/";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Mode (Normal / Chaos / Custom)\n"
             + "Parameters: "
             + PREFIX_MODE + "MODE\n"
