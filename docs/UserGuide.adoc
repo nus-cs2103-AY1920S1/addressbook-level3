@@ -229,6 +229,7 @@ Finds a food items based on a specific FIELD or fields. At least one FIELD must 
 *Example*: `find n/Chicken d/Rice`
 ****
 
+//tag::filters[]
 ==== Filters food items based on criteria: `filter`
 Filters the food items based on the criteria specified. Note: You can need to
 have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
@@ -237,6 +238,7 @@ have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 *Format*: `filter FIELD QUANTIFIER VALUE`
 *Example*: `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
 ****
+//end::filters[]
 
 ==== Deletes a food item: `delete`
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
@@ -303,6 +305,13 @@ There are only two states, ON or OFF.
 *Format*: `autosort STATE`
 *Example*: `autosort ON`
 ****
+
+==== Views the fields for the custom comparator: `viewsort`
+Views the current Custom Sorter.
+
+====
+*Format*: `viewsort`
+====
 
 ==== Sorts food items based on natural order: `default`
 Sorts the food items based on their default ordering, where it is based on ascending price, name and then category.
@@ -707,4 +716,7 @@ Unfortunately you are unable to change the app’s language
 | <<Top up money into wallet: `topup`, `topup`>>
 | Allows users to top up the money into their wallet.
 | ```topup 10```
+| <<Views the fields for the custom comparator: `viewsort`, `viewsort`>>
+| Views the current Custom Sorter.
+| ```viewsort```
 |===
