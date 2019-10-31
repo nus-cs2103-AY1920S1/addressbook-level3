@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ScrollPane?>
 
-<AnchorPane maxHeight="593.0" maxWidth="726.0" minHeight="593.0" minWidth="726.0" prefHeight="593.0" prefWidth="726.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+<AnchorPane maxHeight="593.0" maxWidth="726.0" minHeight="593.0" minWidth="726.0" prefHeight="593.0" prefWidth="726.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.scheduler.ui.MainWindow">
     <children>
         <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
