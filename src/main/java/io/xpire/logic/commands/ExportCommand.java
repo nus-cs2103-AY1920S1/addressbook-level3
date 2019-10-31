@@ -5,6 +5,9 @@ import io.xpire.model.Model;
 import io.xpire.model.item.Item;
 import javafx.collections.ObservableList;
 
+/**
+ * Exports the list through a QR code.
+ */
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";

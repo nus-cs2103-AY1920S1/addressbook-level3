@@ -2,6 +2,7 @@ package io.xpire.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -90,13 +91,13 @@ public class CommandResult {
                     && this.showHelp == other.showHelp
                     && this.exit == other.exit
                     && this.showQr == other.showQr
-                    && this.pngData == other.pngData;
+                    && Arrays.equals(this.pngData, other.pngData);
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.feedbackToUser, this.showHelp, this.exit, this.showQr, this.pngData);
+        return Objects.hash(this.feedbackToUser, this.showHelp, this.exit, this.showQr, Arrays.hashCode(this.pngData));
     }
 
 }

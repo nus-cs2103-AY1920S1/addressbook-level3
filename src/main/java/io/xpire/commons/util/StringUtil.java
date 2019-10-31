@@ -22,10 +22,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import io.xpire.commons.core.Messages;
 import io.xpire.model.item.Name;
 import io.xpire.model.tag.Tag;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 /**
  * Helper functions for handling strings.
