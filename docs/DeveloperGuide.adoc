@@ -477,16 +477,13 @@ Use case ends
 *MSS*
 
 1.  User requests to list appointments
-2.  System displays the list of appointments in chronological order
+2.  System displays the list of appointments
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 1a. User specifies ordering method
-+
-[none]
-** 1a1. System displays the list of appointments in specified order
+* 1a. The list of appointments is empty
 +
 Use case ends.
 
@@ -723,6 +720,30 @@ Use case resumes at step 2.
 ** 3b1. System shows error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: (UC16) Sort appointments
+*MSS*
+
+1.  User requests to Sort appointments and specifies ordering method
+2.  System sorts the list of appointments by the specified order
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. User does not specify order
+[none]
+** 1a1. System shows error message
++
+Use case ends.
+[none]
+* 1b. User specifies an invalid order
+[none]
+** 1b1. System shows error message
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
