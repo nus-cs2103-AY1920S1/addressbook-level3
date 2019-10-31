@@ -2,6 +2,8 @@ package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalTime;
+
 import seedu.address.model.activity.NameWithTime;
 
 /**
@@ -13,9 +15,9 @@ public class TagWithTime {
             "Value of priority should be a non-zero positive integer";
 
     public final Tag tag;
-    public final Integer time;
+    public final LocalTime time;
 
-    public TagWithTime(Tag tag, Integer time) {
+    public TagWithTime(Tag tag, LocalTime time) {
         requireNonNull(tag);
         this.tag = tag;
         this.time = time;
@@ -25,7 +27,7 @@ public class TagWithTime {
         return tag;
     }
 
-    public Integer getTime() {
+    public LocalTime getTime() {
         return time;
     }
 

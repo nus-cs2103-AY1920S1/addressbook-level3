@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
@@ -36,28 +35,24 @@ public class ScheduleCommand extends Command {
             COMMAND_WORD + " "
             + "ACTIVITY_INDEX (must be a positive integer) "
             + PREFIX_START_TIME + "START_TIME "
-            + PREFIX_END_TIME + "END_TIME "
             + PREFIX_DAY + "DAY_INDEX ",
             COMMAND_WORD + " 1 "
             + PREFIX_START_TIME + "1100 "
-            + PREFIX_END_TIME + "1300 "
             + PREFIX_DAY + "2 ");
 
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activity scheduled to day %d";
 
     private final Index activityIndex;
     private final LocalTime startTime;
-    private final LocalTime endTime;
     private final Index dayIndex;
 
     /**
      * Creates an AddActivityCommand to add the specified {@Activity}
      */
-    public ScheduleCommand(Index activityIndex, LocalTime startTime, LocalTime endTime, Index dayIndex) {
-        requireAllNonNull(activityIndex, startTime, endTime, dayIndex);
+    public ScheduleCommand(Index activityIndex, LocalTime startTime, Index dayIndex) {
+        requireAllNonNull(activityIndex, startTime, dayIndex);
         this.activityIndex = activityIndex;
         this.startTime = startTime;
-        this.endTime = endTime;
         this.dayIndex = dayIndex;
     }
 
@@ -76,6 +71,7 @@ public class ScheduleCommand extends Command {
 
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
         Activity activityToSchedule = lastShownActivities.get(activityIndex.getZeroBased());
+        LocalTime endTime = startTime.plusMinutes(activityToSchedule.getDuration().value);
         ActivityWithTime activityWithTimeToAdd = new ActivityWithTime(activityToSchedule, startTime, endTime);
 
         model.scheduleActivity(dayToEdit, activityWithTimeToAdd);
@@ -89,7 +85,6 @@ public class ScheduleCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof ScheduleCommand // instanceof handles nulls
                 && this.activityIndex.equals(((ScheduleCommand) other).activityIndex)
-                && this.startTime.equals((((ScheduleCommand) other).startTime))
-                && this.endTime.equals(((ScheduleCommand) other).endTime));
+                && this.startTime.equals((((ScheduleCommand) other).startTime)));
     }
 }

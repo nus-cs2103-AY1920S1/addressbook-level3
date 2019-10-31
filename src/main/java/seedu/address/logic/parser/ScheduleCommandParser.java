@@ -27,26 +27,18 @@ public class ScheduleCommandParser {
      */
     public ScheduleCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START_TIME,
-                PREFIX_END_TIME, PREFIX_DAY);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_DAY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DAY)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ScheduleCommand.MESSAGE_USAGE));
         }
-
         try {
             Index activityIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
-            LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME).get());
             Index dayIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
 
-            if (startTime.compareTo(endTime) >= 0) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        ScheduleCommand.MESSAGE_USAGE));
-            }
-
-            return new ScheduleCommand(activityIndex, startTime, endTime, dayIndex);
+            return new ScheduleCommand(activityIndex, startTime, dayIndex);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ScheduleCommand.MESSAGE_USAGE), pe);
