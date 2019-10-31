@@ -37,8 +37,11 @@ public class QuizExportCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException, IOException {
-        boolean isSuccess = model.exportQuiz(quizId);
+        if (!model.checkQuizExists(quizId)) {
+            return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
+        }
 
+        boolean isSuccess = model.exportQuiz(quizId);
         if (isSuccess) {
             QuizBank.setCurrentlyQueriedQuiz(quizId);
             return new CommandResult(generateSuccessMessage(quizId), CommandResultType.SHOW_QUIZ_ALL);
@@ -53,7 +56,7 @@ public class QuizExportCommand extends QuizCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage(String message) {
-        return "Successfully exported to "
+        return "Successfully exported to exports/"
                 + message + ".html in your current directory.";
     }
 
