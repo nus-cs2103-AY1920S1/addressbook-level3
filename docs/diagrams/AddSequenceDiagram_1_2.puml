@@ -1,0 +1,99 @@
+@startuml
+!include style.puml
+title Adding an Interviewee
+
+'Logic
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant ":AddCommand" as AddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+'Model
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":IntervieweeBuilder" as IntervieweeBuilder MODEL_COLOR
+end box
+
+'Storage
+box Storage STORAGE_COLOR_T1
+participant ":StorageManager" as StorageManager STORAGE_COLOR
+end box
+
+'calls and arrows. Each paragraph represents one arrow.
+[-> LogicManager: execute(add)
+activate LogicManager
+
+LogicManager -> AddressBookParser: parseCommand(add)
+activate AddressBookParser
+
+create AddCommandParser
+AddressBookParser -> AddCommandParser
+activate AddCommandParser
+
+AddCommandParser --> AddressBookParser
+deactivate AddCommandParser
+
+AddressBookParser -> AddCommandParser: parse(add)
+activate AddCommandParser
+
+create IntervieweeBuilder
+AddCommandParser -> IntervieweeBuilder
+activate IntervieweeBuilder
+
+IntervieweeBuilder --> AddCommandParser: interviewee
+deactivate IntervieweeBuilder
+
+create AddCommand
+AddCommandParser -> AddCommand: AddCommand(interviewee)
+activate AddCommand
+
+AddCommand --> AddCommandParser: command
+deactivate AddCommand
+
+AddCommandParser --> AddressBookParser: command
+deactivate AddCommandParser
+
+AddressBookParser --> LogicManager: command
+deactivate AddressBookParser
+
+destroy AddCommandParser
+
+LogicManager -> AddCommand: execute(model)
+activate AddCommand
+
+AddCommand -> ModelManager
+activate ModelManager
+
+ModelManager --> AddCommand
+deactivate ModelManager
+
+create CommandResult
+AddCommand -> CommandResult
+
+CommandResult --> AddCommand
+
+AddCommand --> LogicManager: commandResult
+deactivate AddCommand
+
+LogicManager -> ModelManager: getAddressBook()
+activate ModelManager
+
+ModelManager --> LogicManager: addressBook
+deactivate ModelManager
+
+destroy AddCommand
+
+LogicManager -> StorageManager: saveAddressBook(addressBook)
+activate StorageManager
+
+StorageManager --> LogicManager
+deactivate StorageManager
+
+[<-- LogicManager
+deactivate LogicManager
+
+destroy CommandResult
+@enduml

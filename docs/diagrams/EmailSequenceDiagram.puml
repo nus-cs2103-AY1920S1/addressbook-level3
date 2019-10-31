@@ -1,0 +1,113 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":EmailCommandParser" as EmailCommandParser LOGIC_COLOR
+participant "e:EmailCommand" as EmailCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box ParserUtil MODEL_COLOR_T2
+participant ":ParserUtil" as ParserUtil MODEL_COLOR
+end box
+
+box Interviewee MODEL_COLOR_T3
+participant ":Interviewee" as Interviewee MODEL_COLOR
+end box
+
+[-> LogicManager : execute("email timeslot Alice")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("email timeslot Alice")
+activate AddressBookParser
+
+create EmailCommandParser
+AddressBookParser -> EmailCommandParser
+activate EmailCommandParser
+
+EmailCommandParser --> AddressBookParser
+deactivate EmailCommandParser
+
+AddressBookParser -> EmailCommandParser : parse("timeslot Alice")
+activate EmailCommandParser
+
+EmailCommandParser -> EmailCommandParser : parseTimeslotCommand("timeslot Alice")
+activate EmailCommandParser
+
+EmailCommandParser -> ParserUtil : <<static>> \n parseName("Alice")
+activate ParserUtil
+
+ParserUtil --> EmailCommandParser : name
+deactivate ParserUtil
+
+create EmailCommand
+EmailCommandParser -> EmailCommand : intervieweeName
+activate EmailCommand
+
+EmailCommand --> EmailCommandParser : e
+deactivate EmailCommand
+
+EmailCommandParser --> EmailCommandParser : e
+deactivate EmailCommandParser
+
+EmailCommandParser --> AddressBookParser : e
+deactivate EmailCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EmailCommandParser -[hidden]-> AddressBookParser
+destroy EmailCommandParser
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EmailCommand : execute()
+activate EmailCommand
+
+EmailCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> EmailCommand : lastShownList
+deactivate Model
+
+loop person in lastShownList
+    EmailCommand -> Interviewee : getName()
+    activate Interviewee
+
+    Interviewee --> EmailCommand : name
+    deactivate Interviewee
+
+    EmailCommand -> Interviewee : name.equals(intervieweeName)
+    activate Interviewee
+
+    Interviewee --> EmailCommand : equality
+    deactivate Interviewee
+
+    break equality
+        EmailCommand --> EmailCommand : intervieweeToEmail
+    end
+end
+
+EmailCommand -> Model : emailInterviewee(intervieweeToEmail)
+activate Model
+
+Model --> EmailCommand
+deactivate Model
+
+create CommandResult
+EmailCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EmailCommand
+deactivate CommandResult
+
+EmailCommand --> LogicManager : result
+deactivate EmailCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

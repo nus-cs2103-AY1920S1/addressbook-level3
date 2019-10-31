@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Scheduler - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,31 +14,43 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103-F09-1`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
+Scheduler is an app that can automate the scheduling of interviews for secretaries in NUS CCAs. It is optimised for
+people who **prefer typing in a Command Line Interface (CLI)** to quickly access the functionalities of an app. +
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Click on <<Quick Start, Quick Start>> to get started!
 
 == Quick Start
+This guide shows you how to import your interview schedules into Scheduler to begin managing your interview schedule.
+It also shows you basic tips on how to add or delete and edit interviewers/interviewees based on your changing needs.
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+=== Import your csv file into the application
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+TIP: Converting your Excel file into .csv format
 
-.  Refer to <<Features>> for details of each command.
+1) Open Excel and click *File -> Open*.
+
+image::quickstart/1_excel.png[width="500", align="left"]
+
+2) In the dialog box, find the Excel file on your computer and click *Open*.
+
+image::quickstart/2_excel.png[width="500", align="left"]
+
+3) On the Excel toolbar, select *File > Save As*.
+
+image::quickstart/3_excel.png[width="500", align="left"]
+
+4) In the dialog box, type a new name for your file in the *File Name* field.
+
+5) In the "Save as Type" drop-down menu, scroll down to locate and select *CSV (comma delimited)*.
+
+image::quickstart/4_excel.png[width="500", align="left"]
+
+6) Click *Save*.
+
+image::quickstart/5_excel.png[width="500", align="left"]
 
 [[Features]]
 == Features
@@ -46,132 +58,284 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user, e.g. in `add interviewee name:"NAME" slot:"SLOT"`,
+`NAME` and `slot` are parameters that need to be provided by the user, e.g. "John Doe" and "20/09/2019 1800 - 20/09/2019 21:00".
+
 ====
 
-=== Viewing help : `help`
-
+=== Viewing help
+Shows helpful information on using this software.
 Format: `help`
 
-=== Adding a person: `add`
+=== Importing existing availabilities `import`
+The to-be-imported interviewer availability and interviewee details .csv file needs to follow the format as the templates below.
+The templates for the import commands can be found here:
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+* Interviewer availability: http://bit.ly/interviewerTemplate
+* Interviewees details: http://bit.ly/intervieweeDetails
 
-[TIP]
-A person can have any number of tags (including 0)
+After you have imported the data, you will need to type `clear` to clear the imported data before you can import another interviewer's
+availability or interviewees details .csv file.
 
-Examples:
+==== Importing interviewers’ availability
+Imports interviewers’ availability from a comma separated values (CSV) file.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Format: `import interviewer PATH_TO_FILE` +
+    - PATH_TO_FILE is the absolute path to the file. +
+    - E.g C:\\Users\Bob\file.csv
 
-=== Listing all persons : `list`
+Example:
 
-Shows a list of all persons in the address book. +
-Format: `list`
+ import interviewer C:\Users\johndoe\Interviewers.csv
 
-=== Editing a person : `edit`
+==== Importing interviewees’ availability
+Imports interviewees’ availability from a comma separated values (CSV) file. +
+Format: `import interviewee PATH_TO_FILE` +
+    - PATH_TO_FILE is the absolute path to the file. +
+    - E.g C:\\Users\Bob\file.csv
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Example:
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+ import interviewer C:\Users\johndoe\Interviewees.csv
 
-Examples:
+=== Add interviewees/interviewers `add`
+Manually add a new entity to the database.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Format: `add r/ROLE n/NAME p/PHONE [t/TAG]... [f/FACULTY] [ep/PERSONAL_EMAIL] [ew/NUS_WORK_EMAIL] [y/YEAR_OF_STUDY] [d/DEPARTMENT]... [s/SLOT]...`
 
-=== Locating persons by name: `find`
+* A `...` at the end of a field indicates that multiple arguments with those prefixes can be added, such as multiple slots.
+* The command format differs on the `r/ROLE` prefix supplied.
+** If `interviewee` is supplied, refer to "Adding a new interviewee" below.
+** If `interviewer` is supplied, refer to "Adding a new interviewer" below.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Adding a new interviewee
+Manually add a new interviewee to the database.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: add `r/interviewee` `n/NAME` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERSONAL_EMAIL` `ew/NUS_WORK_EMAIL` `y/YEAR_OF_STUDY` +
+`[d/DEPARTMENT]...` `[s/SLOT]...`
 
-Examples:
+Example:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+ add r/interviewee n/John Doe p/88888888 t/CAP5 t/dog lover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-19:00
 
-// tag::delete[]
-=== Deleting a person : `delete`
+* An interviewee can have multiple `s/SLOT`, `d/DEPARTMENT` and `t/TAG` arguments
+* Slots should be given in the format: `DD/MM/YYYY HH:MM-HH:MM`
+** the first `HH:MM` refers to the starting time and the second `HH:MM` is the ending time of availability.
+** The starting time must be earlier than the ending time.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Adding a new interviewer
+Manually add a new interviewer to the database.
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: add `r/interviewer` `n/NAME` `p/PHONE` `[t/TAG]...` `d/DEPARTMENT` `ew/NUS_WORK_EMAIL` `s/SLOT...`
 
-Examples:
+Example:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+ add r/interviewer n/Mary Jane p/99999999 ew/MaryJane@u.nus.edu d/Marketing s/20/09/2019 18:00-19:00
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Edit interviewees/interviewers
+Manually edit an entity in the database.
 
-Clears all entries from the address book. +
-Format: `clear`
+Format: `edit NAME r/ROLE p/PHONE [t/TAG]... f/FACULTY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL y/YEAR_OF_STUDY [d/DEPARTMENT]... [s/SLOT]...`
 
-=== Exiting the program : `exit`
+* `NAME` must be provided after `edit` and before the first prefix `r/ROLE`.
+* A `...` at the end of a field indicates that multiple arguments with those prefixes can be added, such as multiple slots.
+* The command format differs on the `r/ROLE` prefix supplied.
+** If `interviewee` is supplied, refer to "Edit an existing interviewee" below.
+** If `interviewer` is supplied, refer to "Edit an existing interviewer" below.
 
-Exits the program. +
-Format: `exit`
+==== Edit an existing interviewee
+Manually edit an existing interviewee in the database.
 
-=== Saving the data
+Format: edit `NAME` `r/interviewee` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERSONAL_EMAIL` `ew/NUS_WORK_EMAIL` `y/YEAR_OF_STUDY`
+`[d/DEPARTMENT]...` `[s/SLOT]...`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+* `NAME` and `r/interviewee` are compulsory arguments, and one other argument following `r/interviewee` must be present.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Edit an existing interviewer (interview slot)
+Manually edit an existing interviewer in the database.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: edit `NAME` `r/interviewer` `p/PHONE` `[t/TAG]...` `d/DEPARTMENT` `ew/NUS_WORK_EMAIL` `s/SLOT...`
+
+=== Delete interviewees/interviewers `delete`
+Manually delete an entity from the database.
+
+Format: `delete NAME r/ROLE`
+
+==== Delete an existing interviewee
+Deletes the specified interviewee from the database.
+
+Format: delete `NAME` `r/interviewee`
+
+Example:
+
+ delete John Doe r/interviewee
+
+==== Delete an existing interviewer (interview slot)
+Deletes the specified interviewer from the database
+
+Format: delete `NAME` `r/interviewee`
+
+Example:
+
+ delete Bohn Doe r/interviewer
+
+=== UI Display
+
+==== Viewing Schedules
+When the Scheduler starts, interview schedules will be displayed for you. The data will be displayed in a table format,
+with each table representing the schedule for each day. In the first column, the date of that interview schedule will be
+displayed, the rest of the columns are the departments and the name of their respective person in charge. Subsequent rows
+will be be displayed by showing the time slot first, with the person allocated to that time slot. If there are no interviewee
+occupying that time slot, it will be displayed as "0".
+
+A sample output of the Schedule UI is shown below:
+
+image::Ui/Schedule.png[width="500", align="left"]
+
+==== Viewing details of interviewees
+You can to view the list of interviewees and the following information:
+1. Name
+2. NUS Email
+3. Personal Email
+4. Mobile Number
+5. Faculty/School
+6. Academic Year
+7. Choice of Department 1
+8. Choice of Department 2
+9. Preferred Time Slots
+
+The interviewee list can be viewed by typing the following command +
+Format: `display interviewees`
+
+image::Ui/Interviewee.png[width="500", align="left"]
+
+In this screen, you can edit, add or delete interviewees accordingly by using the other features explained in
+this User Guide.
+
+==== Differentiating the importance of timetable slots through colours `[Coming in v2.0]`
+As you can see from the timetable above, there are 2 different colours of time slots. This is implemented so you
+are able to differentiate which interviews are important by using the colour code as shown in the timetable.
+By default, the slots will be green in colour. However, you are able to change the colours based on importance using
+the following command +
+Format: `change DATE TIME IMPORTANCE`
+
+=== Get interview schedule `get` `[Coming in v2.0]`
+Find an interviewer/interviewee and display his/her interview schedule. +
+Format: `get NAME` +
+
+Example:
+
+ get "John Doe"
+
+=== Tag interview slot `tag` `[Coming in v2.0]`
+Tags an interview slot with a name. +
+Format: `tag TAG_NAME` +
+
+User will also be able to filter by tags. +
+Format: `filter tag TAG_NAME` +
+
+=== Scheduling `schedule`
+==== Schedule the interviews
+Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
+their choice of department. As of V1.3, the scheduling result is reflected on the console of the application. This will
+be updated such that the result is reflected in the displayed interview timetable at v1.4. +
+Format: `schedule` +
+
+=== Exporting of interview schedule `export` [Coming soon in v1.4]
+Exports the allocated interview schedule timetable to a comma separated values (CSV) file. +
+Format: `export` +
+
+Note: This command requires the interview schedule to be generated first!
+
+=== Sending of email `email`
+==== Sending of interview time slot to interviewee [Coming soon in v1.4]
+Sends an email containing the interviewee’s allocated interview time slot to a particular interviewee specified, including other details such as the interviewer, time, date and location.
+
+Format: `email timeslot NAME`
+
+**Note:** The email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Sending of interview time slot to all interviewees [Coming soon in v1.4]
+Sends an email containing the interviewee's allocated interview time slot to every interviewee, including other details such as the interviewer, time, date and location.
+
+Format: `email timeslots`
+
+**Note:** The email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Sending of interview results to interviewees `[Coming in v2.0]`
+Sends an email containing the interviewee’s result/interview outcome and other details that you might want to include.
+
+Format: `email results`
+
+**Note:** This email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+=== Recording of additional statuses: `record` `[Coming in v2.0]`
+==== Recording of interviewee’s attendance
+Bring up the window to record the attendance of interviewees. You can navigate through the table in the window (GUI)
+using the directions key to record the attendance of the interviewees. Hit Enter at the target cell to record the
+attendance. +
+Format: `record attendance`
+
+====  Recording of interview result
+Bring up the window to record the interview result. The way to record the result is the same as 2.12.1. +
+Format: `record result`
+
+==== Ranking of interviewees
+Bring up the window to rank the interviewees. The way to record the result is the same as 2.12.1. +
+Format: `record rank`
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
 == Command Summary
+.Table Command Summary
+|===
+|Command Description |Command Syntax
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+|Help
+|`help` +
+
+|Import existing availabilities
+|`import interviewer PATH_TO_FILE` +
+  `import interviewee PATH_TO_FILE`
+
+|Clear imported data
+|`clear` +
+
+|Add interviewers/interviewees
+|`add interviewer name:"NAME" slot:SLOT...` +
+ `add interviewee name:"NAME" slot:SLOT...`
+
+|Get interview schedule for interviewer/interviewee
+|`get NAME` +
+
+|Edit availability of interveiwer/interviewee
+|`edit interviewer NAME` +
+ `edit interviewee NAME`
+
+|Delete interviewer/interviewee
+|`delete interviewer NAME` +
+ `delete interviewee NAME`
+
+|Tag interview slot
+|`tag TAG_NAME` +
+
+|Filter
+|`filter tag TAG_NAME` +
+
+|Schedule
+|`schedule` +
+
+|Export
+|`export` +
+
+|Email blast
+|`email timeslots` +
+ `email results` +
+ `email status` +
+
+|Record
+|`record attendance` +
+ `record result` +
+ `record rank` +
+
+|===

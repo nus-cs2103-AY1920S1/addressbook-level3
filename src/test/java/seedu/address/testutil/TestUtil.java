@@ -4,10 +4,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.logic.commands.EditIntervieweeCommand.EditIntervieweeDescriptor;
+import seedu.address.logic.commands.EditInterviewerCommand.EditInterviewerDescriptor;
+import seedu.address.logic.graph.IntervieweeVertex;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 
 /**
  * A utility class for test cases.
@@ -33,23 +38,49 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the interviewee descriptor with details from the Interviewee {@code i}.
      */
-    public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+    public static EditIntervieweeDescriptor getDescriptorFromInterviewee(Interviewee i) {
+        EditIntervieweeDescriptor e = new EditIntervieweeDescriptor();
+        e.setName(i.getName());
+        e.setPhone(i.getPhone());
+        e.setTags(i.getTags());
+        e.setFaculty(i.getFaculty());
+        e.setYearOfStudy(i.getYearOfStudy());
+        e.setDepartmentChoices(i.getDepartmentChoices());
+        e.setAvailableTimeslots(i.getAvailableTimeslots());
+        e.setEmails(i.getEmails());
+        return e;
+    }
+
+    public static EditInterviewerDescriptor getDescriptorFromInterviewer(Interviewer i) {
+        EditInterviewerDescriptor e = new EditInterviewerDescriptor();
+        e.setName(i.getName());
+        e.setPhone(i.getPhone());
+        e.setDepartment(i.getDepartment());
+        e.setAvailabilities(i.getAvailabilities());
+        e.setEmail(i.getEmail());
+        return e;
     }
 
     /**
-     * Returns the last index of the person in the {@code model}'s person list.
+     * Returns the given two dimensional array of strings as a two dimensional LinkedList of strings.
      */
-    public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+    public static LinkedList<LinkedList<String>> toTwoDimensionalLinkedList(String[][] table) {
+        LinkedList<LinkedList<String>> tableCopy = new LinkedList<>();
+        for (String[] row : table) {
+            LinkedList<String> rowCopy = new LinkedList<>(Arrays.asList(row));
+            tableCopy.add(rowCopy);
+        }
+        return tableCopy;
     }
 
     /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
+     * Fills up each item in the list given with a sublist.
      */
-    public static Person getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+    public static void fillWithSubLists(List<List<IntervieweeVertex>> list, int size) {
+        for (int i = 0; i < size; i++) {
+            list.add(new LinkedList<>());
+        }
     }
 }

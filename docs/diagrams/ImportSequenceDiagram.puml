@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
+participant "i:ImportCommand" as ImportCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":CsvReader" as CsvReader MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("import interviewer <<csv filepath>>")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("import interviewer <<csv filepath>>")
+activate AddressBookParser
+
+create ImportCommandParser
+AddressBookParser -> ImportCommandParser
+activate ImportCommandParser
+
+ImportCommandParser --> AddressBookParser
+deactivate ImportCommandParser
+
+AddressBookParser -> ImportCommandParser : parse("interviewer <<csv filepath>>")
+activate ImportCommandParser
+
+create ImportCommand
+ImportCommandParser -> ImportCommand
+activate ImportCommand
+
+ImportCommand --> ImportCommandParser : i
+deactivate ImportCommand
+
+ImportCommandParser --> AddressBookParser : i
+deactivate ImportCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ImportCommandParser -[hidden]-> AddressBookParser
+destroy ImportCommandParser
+
+AddressBookParser --> LogicManager : i
+deactivate AddressBookParser
+
+LogicManager -> ImportCommand : execute()
+activate ImportCommand
+
+create CsvReader
+ImportCommand -> CsvReader : read()
+activate CsvReader
+
+CsvReader --> ImportCommand : schedules
+deactivate CsvReader
+
+ImportCommand -> Model : setScheduleList(schedules)
+activate Model
+
+Model --> ImportCommand
+deactivate Model
+
+create CommandResult
+ImportCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ImportCommand : result
+deactivate CommandResult
+
+ImportCommand --> LogicManager : result
+deactivate ImportCommand
+
+ImportCommand -[hidden]-> LogicManager : result
+destroy ImportCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+start
+
+:input add command;
+
+while () is ([incorrect format])
+    :Show add command \nformat response;
+endwhile ([valid syntax])
+
+:Parse prefixes and retrieve arguments;
+:Create interviewee/interviewer based on "role" prefix;
+:Add created person to model;
+:Update storage to write to file;
+
+if () then ([successful])
+    :Display command result text to UI;
+else ([failure])
+    :Display error message to UI;
+endif
+
+stop
+@enduml

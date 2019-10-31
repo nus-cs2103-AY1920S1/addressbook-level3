@@ -1,0 +1,15 @@
+@startuml
+scale 3/4
+start
+:User executes import command;
+
+if () then ([input file exists])
+    if () then ([is in correct format])
+        :Read data from specified file;
+        :Update data in Model;
+    else ([else])
+    endif
+else ([else])
+endif
+stop
+@enduml

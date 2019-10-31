@@ -1,15 +1,20 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -31,9 +36,11 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private IntervieweeListPanel intervieweeListPanel;
+    private InterviewerListPanel interviewerListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ScheduleViewPanel scheduleViewPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,13 +49,34 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane schedulePanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab schedulesTab;
+
+    @FXML
+    private StackPane schedulesPlaceholder;
+
+    @FXML
+    private Tab intervieweeListTab;
+
+    @FXML
+    private StackPane intervieweeListPlaceholder;
+
+    @FXML
+    private Tab interviewerListTab;
+
+    @FXML
+    private StackPane interviewerListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -91,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
          *
-         * For now, we add following event filter to capture such key events and open
+         * For now, we addEntity following event filter to capture such key events and open
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
          */
@@ -107,8 +135,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        scheduleViewPanel = new ScheduleViewPanel(logic.getTitlesLists(), logic.getObservableLists());
+        schedulePanelPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,8 +188,12 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Signals the scheduleview panel that the data of the schedules are updated.
+     */
+    public void scheduleDataUpdated(List<List<String>> newTitles,
+            List<ObservableList<ObservableList<String>>> newSchedules) {
+        scheduleViewPanel.dataUpdated(newTitles, newSchedules);
     }
 
     /**

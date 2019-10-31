@@ -9,5 +9,6 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "intervieweeListFilePath" : "interviewees.json",
+  "interviewerListFilePath" : "interviewers.json"
 }

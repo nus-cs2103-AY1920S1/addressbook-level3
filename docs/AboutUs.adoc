@@ -4,14 +4,13 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+Scheduler was developed by https://github.com/AY1920S1-CS2103-F09-1[Team AY1920S1-CS2103-F09-1] +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
+=== Prof. Damith C.Rajapakse
 image::damithc.jpg[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
@@ -19,38 +18,47 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Kheng Yau Dong
+image::chriskheng.png[width="150", align="left"]
+{empty}[https://github.com/ChrisKheng[github]] [<<Kheng-Yau-Dong#, portfolio>>]
 
-Role: Team Lead +
+Role: Team lead, developer +
+Responsibilities: Scheduling component
+
+'''
+
+=== Hsu Zhong Jun
+image::dcshzj.png[width="150", align="left"]
+{empty}[https://github.com/dcshzj[github]] [<<Hsu-Zhong-Jun#, portfolio>>]
+
+Role: Developer, testing +
+Responsibilities: Emailing component
+
+'''
+
+=== Ang Wei Heng Kendrick
+image::kendrickang.png[width="150", align="left"]
+{empty}[https://github.com/KendrickAng[github]] [<<Ang-Wei-Heng-Kendrick#, portfolio>>]
+
+Role: Developer, integration +
+Responsibilities: Model
+
+'''
+
+=== Kwan Chen Sheng
+image::mrchensheng21.png[width="150", align="left"]
+{empty}[https://github.com/mrchensheng21[github]] [<<Kwan-Chen-Sheng#, portfolio>>]
+
+Role: Developer, documentation +
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Goh Rui Zhi
+image::mirozo.png[width="150", align="left"]
+{empty}[https://github.com/mirozo[github]] [<<Goh-Rui-Zhi#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
+Role: Developer, documentation +
+Responsibilities: Storage
 
 '''

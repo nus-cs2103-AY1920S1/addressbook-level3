@@ -7,9 +7,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -17,13 +19,16 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private IntervieweeListStorage intervieweeListStorage;
+    private InterviewerListStorage interviewerListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(IntervieweeListStorage intervieweeListStorage,
+                          InterviewerListStorage interviewerListStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.intervieweeListStorage = intervieweeListStorage;
+        this.interviewerListStorage = interviewerListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +50,64 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ IntervieweeList methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getIntervieweeListFilePath() {
+        return this.intervieweeListStorage.getIntervieweeListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyList<Interviewee>> readIntervieweeList() throws DataConversionException, IOException {
+        return readIntervieweeList(this.intervieweeListStorage.getIntervieweeListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+    public Optional<ReadOnlyList<Interviewee>> readIntervieweeList(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read interviewee data from file: " + filePath);
+        return this.intervieweeListStorage.readIntervieweeList(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveIntervieweeList(ReadOnlyList<Interviewee> intervieweeList) throws IOException {
+        saveIntervieweeList(intervieweeList, this.intervieweeListStorage.getIntervieweeListFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+    public void saveIntervieweeList(ReadOnlyList<Interviewee> intervieweeList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to interviewee data file: " + filePath);
+        this.intervieweeListStorage.saveIntervieweeList(intervieweeList, filePath);
+    }
+
+    // ================ InterviewerList methods ==============================
+
+    @Override
+    public Path getInterviewerListFilePath() {
+        return this.interviewerListStorage.getInterviewerListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyList<Interviewer>> readInterviewerList() throws DataConversionException, IOException {
+        return readInterviewerList(this.interviewerListStorage.getInterviewerListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyList<Interviewer>> readInterviewerList(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read interviewer data from file: " + filePath);
+        return this.interviewerListStorage.readInterviewerList(filePath);
+    }
+
+    @Override
+    public void saveInterviewerList(ReadOnlyList<Interviewer> interviewerList) throws IOException {
+        saveInterviewerList(interviewerList, this.interviewerListStorage.getInterviewerListFilePath());
+    }
+
+    @Override
+    public void saveInterviewerList(ReadOnlyList<Interviewer> interviewerList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to interviewer data file: " + filePath);
+        this.interviewerListStorage.saveInterviewerList(interviewerList, filePath);
     }
 
 }

@@ -2,9 +2,11 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -13,8 +15,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyList;
+import seedu.address.model.Schedule;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.storage.Storage;
 
 /**
@@ -34,6 +38,13 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
     }
 
+    /* TODO: REMOVE THE FOLLOWING LINES AFTER THEIR USAGE IS REMOVED */
+    public Path getAddressBookFilePath() {
+        return this.model.getIntervieweeListFilePath();
+    }
+
+    /* TODO: REMOVE ABOVE LINES */
+
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -43,7 +54,8 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveIntervieweeList(model.getMutableIntervieweeList());
+            storage.saveInterviewerList(model.getMutableInterviewerList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -51,19 +63,63 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    // ==================================IntervieweeList and InterviewerList ======================================
+
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyList<Interviewee> getIntervieweeList() {
+        return model.getMutableIntervieweeList();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ReadOnlyList<Interviewer> getInterviewerList() {
+        return model.getMutableInterviewerList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public ObservableList<Interviewee> getUnfilteredIntervieweeList() {
+        return model.getUnfilteredIntervieweeList();
+    }
+
+    @Override
+    public ObservableList<Interviewer> getUnfilteredInterviewerList() {
+        return model.getUnfilteredInterviewerList();
+    }
+
+    @Override
+    public ObservableList<Interviewee> getFilteredIntervieweeList() {
+        return model.getFilteredIntervieweeList();
+    }
+
+    @Override
+    public ObservableList<Interviewer> getFilteredInterviewerList() {
+        return model.getFilteredInterviewerList();
+    }
+
+    @Override
+    public Path getIntervieweeListFilePath() {
+        return model.getIntervieweeListFilePath();
+    }
+
+    @Override
+    public Path getInterviewerListFilePath() {
+        return model.getInterviewerListFilePath();
+    }
+
+    // ============================================ Schedule ===================================================
+
+    @Override
+    public List<Schedule> getSchedulesList() {
+        return model.getSchedulesList();
+    }
+
+    @Override
+    public List<ObservableList<ObservableList<String>>> getObservableLists() {
+        return model.getObservableLists();
+    }
+
+    @Override
+    public List<List<String>> getTitlesLists() {
+        return model.getTitlesLists();
     }
 
     @Override
