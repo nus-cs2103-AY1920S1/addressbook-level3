@@ -19,32 +19,39 @@ public class AutoCompleteListFilter {
     public ObservableList<AutoCompleteWord> filterList(LinkedList<AutoCompleteWord> matchedWords,
                                                        ObservableList<AutoCompleteWord> listToBeSuggested) {
         ObservableList<AutoCompleteWord> filteredList = FXCollections.observableArrayList();
-        // filter based on first 2 correct word
-        for (AutoCompleteWord autoCompleteWord : listToBeSuggested) {
-            boolean isAssociable = true;
+        // Perform filter only if listToBeSuggested is not empty and is a prefix or command list
+        if (listToBeSuggested.size() != 0 &&
+                (listToBeSuggested.get(0) instanceof PrefixWord || listToBeSuggested.get(0) instanceof CommandWord)) {
+            // filter based on first 2 correct word
+            for (AutoCompleteWord autoCompleteWord : listToBeSuggested) {
+                boolean isAssociable = true;
 
-            // Checks what if word in list are associable to the correctly matched words
+                // Checks what if word in list are associable to the correctly matched words
 
-            // Checks for first match word
-            if (matchedWords.size() >= 1) {
-                boolean isAssociableToFirstWord = matchedWords.get(0).getSuggestedWord()
-                        .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(0));
-                if (!isAssociableToFirstWord) {
-                    isAssociable = false;
+                // Checks for first match word
+                if (matchedWords.size() >= 1) {
+                    boolean isAssociableToFirstWord = matchedWords.get(0).getSuggestedWord()
+                            .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(0));
+                    if (!isAssociableToFirstWord) {
+                        isAssociable = false;
+                    }
+                }
+                // Checks for second match word
+                if (matchedWords.size() >= 2) {
+                    boolean isAssociableToSecondWord = matchedWords.get(1).getSuggestedWord()
+                            .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(1));
+                    if (!isAssociableToSecondWord) {
+                        isAssociable = false;
+                    }
+                }
+                if (isAssociable) {
+                    filteredList.add(autoCompleteWord);
                 }
             }
-            // Checks for second match word
-            if (matchedWords.size() >= 2) {
-                boolean isAssociableToSecondWord = matchedWords.get(1).getSuggestedWord()
-                        .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(1));
-                if (!isAssociableToSecondWord) {
-                    isAssociable = false;
-                }
-            }
-            if (isAssociable) {
-                filteredList.add(autoCompleteWord);
-            }
+            return filteredList;
         }
-        return filteredList;
+        else {
+            return listToBeSuggested;
+        }
     }
 }

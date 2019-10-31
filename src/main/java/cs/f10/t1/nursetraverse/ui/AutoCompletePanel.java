@@ -38,8 +38,7 @@ public class AutoCompletePanel extends UiPart<Region> {
         autoCompleteWordStorage = new AutoCompleteWordStorage();
         autoCompleteListUpdater = new AutoCompleteListUpdater();
         autoCompleteListFilter = new AutoCompleteListFilter();
-        autoCompleteListUpdater.setList(autoCompleteWordStorage.getOListAllObjectWord());
-        autoCompleteWordListView.setItems(autoCompleteListUpdater.getOListSuggestedWords());
+        autoCompleteWordListView.setItems(autoCompleteWordStorage.getOListAllObjectWord());
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
@@ -91,47 +90,48 @@ public class AutoCompletePanel extends UiPart<Region> {
         String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
         LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
 
+        // Check and update matched words
         updateMatchedWords(segments, firstSegmentParts);
-        refreshList();
-        autoCompleteListUpdater.updateSuggestedWordsInList(matchedAutoCompleteWords.size(),
-                segments, firstSegmentParts);
+        // Choose initial list
+        ObservableList<AutoCompleteWord> chosenList = chooseList();
+        // Filter list based on previous matched words
+        ObservableList<AutoCompleteWord> filteredList = autoCompleteListFilter.filterList(matchedAutoCompleteWords, chosenList);
+        // Update list based on userinput
+        ObservableList<AutoCompleteWord> updatedList = autoCompleteListUpdater.updateList(filteredList, matchedAutoCompleteWords.size(), segments, firstSegmentParts);
+
+        autoCompleteWordListView.setItems(updatedList);
+        autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
     /**
      * Re-set and filter list to be suggested
      */
-    public void refreshList() {
+    public ObservableList<AutoCompleteWord> chooseList() {
+        ObservableList<AutoCompleteWord> currentList;
         if (matchedAutoCompleteWords.size() == 0) {
             // Set to object list
-            autoCompleteListUpdater.setList(autoCompleteWordStorage.getOListAllObjectWord());
+            currentList = autoCompleteWordStorage.getOListAllObjectWord();
         } else if (matchedAutoCompleteWords.size() == 1) {
             // Set to command list
-            ObservableList<AutoCompleteWord> filteredList = autoCompleteListFilter
-                    .filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllCommandWord());
-            autoCompleteListUpdater.setList(filteredList);
+            currentList = autoCompleteWordStorage.getOListAllCommandWord();
         } else if (matchedAutoCompleteWords.size() == 2) {
             // Set to prefix/index/empty list
             if (((CommandWord) matchedAutoCompleteWords.get(1)).hasIndex()) {
-                autoCompleteListUpdater.setList(autoCompleteWordStorage.generateOListAllIndexWord());
+                currentList = autoCompleteWordStorage.generateOListAllIndexWord();
             } else if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
-                ObservableList<AutoCompleteWord> filteredList = autoCompleteListFilter
-                        .filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord());
-                autoCompleteListUpdater.setList(filteredList);
+                currentList = autoCompleteWordStorage.getOListAllPrefixWord();
             } else {
-                autoCompleteListUpdater.setList(FXCollections.observableArrayList());
+                currentList = FXCollections.observableArrayList();
             }
         } else {
             // Set to prefix/empty list
             if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
-                ObservableList<AutoCompleteWord> filteredList = autoCompleteListFilter
-                        .filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord());
-                autoCompleteListUpdater.setList(filteredList);
+                currentList = autoCompleteWordStorage.getOListAllPrefixWord();
             } else {
-                autoCompleteListUpdater.setList(FXCollections.observableArrayList());
+                currentList = FXCollections.observableArrayList();
             }
         }
-        autoCompleteWordListView.setItems(autoCompleteListUpdater.getOListSuggestedWords());
-        autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
+        return currentList;
     }
 
     /**
@@ -175,6 +175,7 @@ public class AutoCompletePanel extends UiPart<Region> {
                 if (firstSegmentParts.get(0).matches(autoCompleteWord.getSuggestedWord())) {
                     matchedAutoCompleteWords.add(autoCompleteWord);
                     isCorrectObjectWord = true;
+                    break;
                 }
             }
             // Second command word
@@ -183,6 +184,7 @@ public class AutoCompletePanel extends UiPart<Region> {
                     if (firstSegmentParts.get(1).matches(autoCompleteWord.getSuggestedWord())) {
                         matchedAutoCompleteWords.add(autoCompleteWord);
                         isCorrectCommandWord = true;
+                        break;
                     }
                 }
             }
@@ -204,6 +206,7 @@ public class AutoCompletePanel extends UiPart<Region> {
                 if (secondSegment.equals(autoCompleteWord.getSuggestedWord())) {
                     matchedAutoCompleteWords.add(autoCompleteWord);
                     isCorrect = true;
+                    break;
                 }
             }
         } else if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
@@ -212,6 +215,7 @@ public class AutoCompletePanel extends UiPart<Region> {
                 if (secondSegment.equals(autoCompleteWord.getSuggestedWord())) {
                     matchedAutoCompleteWords.add(autoCompleteWord);
                     isCorrect = true;
+                    break;
                 }
             }
         }
@@ -249,4 +253,6 @@ public class AutoCompletePanel extends UiPart<Region> {
         combinedMatchedWords.append(getSelected().getSuggestedWord());
         return combinedMatchedWords.toString();
     }
+
+
 }
