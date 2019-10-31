@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.Calendar;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -21,7 +23,7 @@ public class ScheduleCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "2019.10.18\n";
 
-    public static final String MESSAGE_SUCCESS = "Schedule view switched.";
+    public static final String MESSAGE_SUCCESS = "Schedule date switched.";
 
     private final Calendar calendarToShow;
 
@@ -30,7 +32,8 @@ public class ScheduleCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         model.setCalendarDate(calendarToShow);
         return new CommandResult(MESSAGE_SUCCESS, UiChange.SCHEDULE);

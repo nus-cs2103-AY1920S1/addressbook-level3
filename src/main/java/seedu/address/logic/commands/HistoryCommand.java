@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 
 /**
@@ -19,7 +20,7 @@ public class HistoryCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
         requireNonNull(model);
 
         LinkedList<String> commandList = new LinkedList<>(CommandHistory.getCommandHistory().getCommandHistoryList());
@@ -36,6 +37,7 @@ public class HistoryCommand extends Command {
             sb.append(System.lineSeparator());
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, sb.toString()));
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, sb.toString().trim()));
     }
 }

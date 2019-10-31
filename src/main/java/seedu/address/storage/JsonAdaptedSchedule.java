@@ -56,7 +56,7 @@ class JsonAdaptedSchedule {
         id = source.getId().toString();
         StringBuilder sb = new StringBuilder();
         sb.append(source.getCalendar().get(Calendar.YEAR) + ".")
-                .append(String.format("%02d", source.getCalendar().get(Calendar.MONTH)) + ".")
+                .append(String.format("%02d", source.getCalendar().get(Calendar.MONTH) + 1) + ".")
                 .append(String.format("%02d", source.getCalendar().get(Calendar.DAY_OF_MONTH)) + ".")
                 .append(String.format("%02d", source.getCalendar().get(Calendar.HOUR_OF_DAY)) + ".")
                 .append(String.format("%02d", source.getCalendar().get(Calendar.MINUTE)));

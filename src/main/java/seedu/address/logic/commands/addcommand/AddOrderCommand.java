@@ -13,9 +13,11 @@ import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -28,7 +30,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Adds an order to SML.
  */
-public class AddOrderCommand extends Command {
+public class AddOrderCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add-o";
 
@@ -68,7 +70,8 @@ public class AddOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
 
         List<Customer> lastShownCustomerList = model.getFilteredCustomerList();

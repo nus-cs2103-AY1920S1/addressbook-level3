@@ -23,6 +23,8 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DataBook;
@@ -73,7 +75,7 @@ public class AddOrderCommandTest {
 
         CommandResult commandResult =
                 new AddOrderCommand(VALID_CUSTOMER_INDEX, VALID_PHONE_INDEX, VALID_PRICE, VALID_TAG_SET)
-                        .execute(modelStub);
+                        .executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack());
         Order order = modelStub.ordersAdded.get(0);
 
         Order copyOrder = new OrderBuilder(order).build();
@@ -91,7 +93,7 @@ public class AddOrderCommandTest {
                 .withPrice(VALID_PRICE.toString()).withTags().build());
 
         assertThrows(CommandException.class, AddOrderCommand.MESSAGE_DUPLICATE_ORDER, ()
-            -> addOrderCommand.execute(modelStub));
+            -> addOrderCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack()));
     }
 
     @Test

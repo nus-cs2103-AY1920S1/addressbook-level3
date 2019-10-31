@@ -448,4 +448,15 @@ public class ParserUtil {
         return new Venue(trimmedVenue);
     }
 
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static String parseFileName(String fileName) throws ParseException {
+        requireNonNull(fileName);
+        String trimmedName = fileName.trim();
+        return trimmedName;
+    }
 }

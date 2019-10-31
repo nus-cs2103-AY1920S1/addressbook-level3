@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.schedule.Schedule;
 
@@ -19,7 +22,8 @@ public class ClearScheduleCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Schedule book has been cleared!";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws
+            CommandException {
         requireNonNull(model);
 
         List<Schedule> schedule = model.getScheduleBook().getList();

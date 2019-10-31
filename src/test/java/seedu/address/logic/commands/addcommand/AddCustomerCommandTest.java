@@ -11,6 +11,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DataBook;
@@ -32,7 +34,8 @@ public class AddCustomerCommandTest {
         ModelStubAcceptingCustomerAdded modelStub = new ModelStubAcceptingCustomerAdded();
         Customer validCustomer = new CustomerBuilder().build();
 
-        CommandResult commandResult = new AddCustomerCommand(validCustomer).executeUndoableCommand(modelStub);
+        CommandResult commandResult = new AddCustomerCommand(validCustomer)
+                .executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack());
 
         assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, validCustomer),
                 commandResult.getFeedbackToUser());
@@ -46,7 +49,7 @@ public class AddCustomerCommandTest {
         ModelStub modelStub = new ModelStubWithCustomer(validCustomer);
 
         assertThrows(CommandException.class, AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER, ()
-            -> addCustomerCommand.executeUndoableCommand(modelStub));
+            -> addCustomerCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack()));
     }
 
     @Test

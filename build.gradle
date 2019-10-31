@@ -73,6 +73,10 @@ dependencies {
 
     implementation group: 'org.jfxtras', name: 'jfxtras-agenda', version: '9.0-r1-SNAPSHOT'
 
+    implementation 'commons-io:commons-io:2.4'
+
+    compile 'org.json:json:20171018'
+
 }
 
 shadowJar {
