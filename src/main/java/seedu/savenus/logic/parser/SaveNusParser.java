@@ -38,6 +38,7 @@ import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.logic.commands.TopUpCommand;
 import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
+import seedu.savenus.model.alias.AliasList;
 
 /**
  * Parses user input.
@@ -52,17 +53,18 @@ public class SaveNusParser {
     /**
      * Parses user input into command for execution.
      *
+     * @param aliasList the alias list retrieved from the model.
      * @param userInput full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(AliasList aliasList, String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = CommandWordParser.parseWord(matcher.group("commandWord"));
+        final String commandWord = CommandWordParser.parseWord(aliasList, matcher.group("commandWord"));
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {

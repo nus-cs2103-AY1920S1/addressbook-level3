@@ -28,7 +28,10 @@ public class JsonSerializableAliasList {
      */
     @JsonCreator
     public JsonSerializableAliasList(@JsonProperty("aliasList") List<JsonAdaptedAliasPair> aliasList) {
-        this.aliasList.addAll(aliasList);
+        this.aliasList = new ArrayList<JsonAdaptedAliasPair>();
+        for (JsonAdaptedAliasPair pair : aliasList) {
+            this.aliasList.add(pair);
+        }
     }
 
     /**

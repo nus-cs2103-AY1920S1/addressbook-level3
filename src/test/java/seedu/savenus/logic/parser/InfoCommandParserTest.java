@@ -23,7 +23,7 @@ public class InfoCommandParserTest {
 
     @Test
     public void input_validUserInput_parseSuccess() throws ParseException {
-        InfoCommand validEditInfo = (InfoCommand) saveNusParser.parseCommand(VALID_USER_INPUT);
+        InfoCommand validEditInfo = (InfoCommand) saveNusParser.parseCommand(model.getAliasList(), VALID_USER_INPUT);
         CommandResult expectedCommandresult =
                 new CommandResult(InfoCommand.ADD_INFO, false, false, false);
         assertCommandSuccess(validEditInfo, model, expectedCommandresult, expectedModel);
@@ -31,6 +31,7 @@ public class InfoCommandParserTest {
 
     @Test
     public void input_invalidUserInput_throwsParseException() {
-        assertThrows(ParseException.class, () -> saveNusParser.parseCommand(INVALID_USER_INPUT));
+        assertThrows(ParseException.class, () -> saveNusParser.parseCommand(model.getAliasList(),
+                INVALID_USER_INPUT));
     }
 }

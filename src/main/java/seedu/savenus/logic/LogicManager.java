@@ -45,7 +45,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = saveNusParser.parseCommand(commandText);
+        Command command = saveNusParser.parseCommand(model.getAliasList(), commandText);
         commandResult = command.execute(model);
 
         try {

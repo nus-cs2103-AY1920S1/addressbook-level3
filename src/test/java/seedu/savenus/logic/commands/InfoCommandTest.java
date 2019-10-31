@@ -52,7 +52,7 @@ public class InfoCommandTest {
 
     @Test
     public void input_validUserInput_parseSuccess() throws ParseException {
-        InfoCommand validEditInfo = (InfoCommand) saveNusParser.parseCommand(VALID_USER_INPUT);
+        InfoCommand validEditInfo = (InfoCommand) saveNusParser.parseCommand(model.getAliasList(), VALID_USER_INPUT);
         CommandResult expectedCommandResult =
                 new CommandResult(InfoCommand.EDIT_INFO, false, false, false);
         assertCommandSuccess(validEditInfo, model, expectedCommandResult, expectedModel);
@@ -60,18 +60,21 @@ public class InfoCommandTest {
 
     @Test
     public void input_invalidUserInput_throwParseException() {
-        assertThrows(ParseException.class, () -> saveNusParser.parseCommand(RANDOM_INVALID_USER_INPUT));
+        assertThrows(ParseException.class, () -> saveNusParser.parseCommand(model.getAliasList(),
+                RANDOM_INVALID_USER_INPUT));
     }
 
     @Test
     public void input_invalidUserInput_invalidCommandFailure() throws ParseException {
-        InfoCommand invalidInfo = (InfoCommand) saveNusParser.parseCommand(INVALID_USER_INPUT);
+        InfoCommand invalidInfo = (InfoCommand) saveNusParser.parseCommand(model.getAliasList(),
+                INVALID_USER_INPUT);
         assertCommandFailure(invalidInfo, model, InfoCommand.INVALID_COMMAND_ENTERED_MESSAGE);
     }
 
     @Test
     public void input_invalidUserInput_multipleCommandFailure() {
-        assertThrows(ParseException.class, () -> saveNusParser.parseCommand(INVALID_MULTIPLE_COMMAND_USER_INPUT));
+        assertThrows(ParseException.class, () -> saveNusParser.parseCommand(model.getAliasList(),
+                INVALID_MULTIPLE_COMMAND_USER_INPUT));
     }
 
     @Test

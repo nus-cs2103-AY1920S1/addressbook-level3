@@ -55,8 +55,10 @@ public class AliasCommand extends Command {
         } else if (!aliasList.doesCommandWordExist(commandWord)) {
             throw new CommandException(String.format(INVALID_COMMAND_WORD_USAGE, commandWord));
         }
+
         aliasList.changeAliasWord(commandWord, keyword);
         model.setAliasList(aliasList);
+        System.out.println(model.getAliasList());
 
         if (keyword.isEmpty()) {
             return new CommandResult(String.format(ERASE_ALIAS_COMMAND_SUCCESS, commandWord));
