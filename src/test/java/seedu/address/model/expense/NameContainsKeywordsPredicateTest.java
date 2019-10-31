@@ -70,7 +70,7 @@ public class NameContainsKeywordsPredicateTest {
 
         // Keywords match amount and date, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("$23.50", "13/10/2019", "Tea"));
-        assertFalse(predicate.test(new ExpenseBuilder().withName("Coffee").withAmount("$23.50")
+        assertFalse(predicate.test(new ExpenseBuilder().withName("Coffee").withAmount("23.50")
                 .withDate("13/10/2019").build()));
     }
 }
