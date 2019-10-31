@@ -7,14 +7,15 @@ package seedu.address.logic;
 //import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 //import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 //import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.testutil.Assert.assertThrows;
+//import static seedu.address.testutil.Assert.assertThrows;
 //import static seedu.address.testutil.TypicalStudents.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
 //import org.junit.jupiter.api.BeforeEach;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.api.io.TempDir;
 
 //import seedu.address.logic.commands.AddStudentCommand;
@@ -23,8 +24,9 @@ import org.junit.jupiter.api.io.TempDir;
 //import seedu.address.logic.commands.exceptions.CommandException;
 //import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+//import seedu.address.model.Model;
+//import seedu.address.model.ModelManager;
+
 import seedu.address.model.classroom.ReadOnlyClassroom;
 //import seedu.address.model.UserPrefs;
 //import seedu.address.model.student.Student;
@@ -39,7 +41,7 @@ public class LogicManagerTest {
     @TempDir
     public Path temporaryFolder;
 
-    private Model model = new ModelManager();
+    //private Model model = new ModelManager();
     private Logic logic;
 
     /*
@@ -94,10 +96,13 @@ public class LogicManagerTest {
         assertCommandFailure(addStudentCommand, CommandException.class, expectedMessage, expectedModel);
     }
     */
+
+    /*
     @Test
     public void getFilteredStudentList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredStudentList().remove(0));
     }
+     */
 
     /**
      * Executes the command and confirms that

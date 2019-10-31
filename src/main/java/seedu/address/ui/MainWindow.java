@@ -292,6 +292,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Updates the window with the updated students and assignments.
+     */
     public void updateStudentsAndAssignments() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
@@ -300,6 +303,7 @@ public class MainWindow extends UiPart<Stage> {
         //assignmentListPanelPlaceholder.getChildren().clear();
         //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
     }
+
     /**
      * method to add a listener to lesson observable list.
      * whenever a lesson is added to the list, a scheduler is created.

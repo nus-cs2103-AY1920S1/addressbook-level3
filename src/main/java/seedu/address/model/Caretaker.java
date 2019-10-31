@@ -13,26 +13,33 @@ public class Caretaker extends Notebook {
 
     /**
      * Initializes the list of mementos.
-     * @param start the first state of the notebook.
      * @param notebook the notebook where changes are updated in
      */
     public Caretaker(Memento start, Notebook notebook) {
         statePointer = 0;
         mementos.add(start);
         this.notebook = notebook;
-        mementos.get(statePointer).getState().getClassroomList().get(0).getAssignmentList().forEach(assignment -> System.out.println(assignment));
+        //Notebook toAdd = new Notebook(this.notebook);
+        //toAdd.setClassrooms(notebook.getClassroomList());
+        //mementos.add(new Memento(toAdd));
+        //mementos.add(new Memento(new Notebook(this.notebook)));
+        //System.out.println("START: ");
+        //mementos.get(statePointer).getState().getClassroomList().get(0).getAssignmentList()
+        // .forEach(assignment -> System.out.println(assignment));
     }
 
     /**
      * Saves the current state of notebook into the list of mementos.
      */
     public void saveState() {
-        mementos.get(0).getState().getClassroomList().get(0).getAssignmentList().forEach(assignment -> System.out.println(assignment));
-        System.out.println("SIZE::  " + mementos.size());
+        //System.out.println("FIRST");
+        //mementos.get(0).getState().getClassroomList().get(0).getAssignmentList()
+        // .forEach(assignment -> System.out.println(assignment));
         mementos = new ArrayList<>(mementos.subList(0, statePointer + 1));
         Memento mementoToAdd = new Memento(new Notebook(this.notebook));
         mementos.add(mementoToAdd);
-        mementoToAdd.getState().getClassroomList().get(0).getAssignmentList().forEach(assignment -> System.out.println(assignment));
+        //System.out.println("SIZE::  " + mementos.size());
+        //System.out.println(mementos.get(0).getState().equals(mementos.get(1).getState()));
         statePointer++;
     }
 

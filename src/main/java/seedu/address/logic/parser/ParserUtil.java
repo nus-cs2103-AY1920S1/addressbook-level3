@@ -286,6 +286,11 @@ public class ParserUtil {
         return new Time(calendar);
     }
 
+    /**
+     * Parses the classroom name.
+     * @param classroomName classroomname to check
+     * @return trimmed classroom name
+     */
     public static String parseClassroomName(String classroomName) {
         String trimmedName = classroomName.trim();
         return trimmedName;

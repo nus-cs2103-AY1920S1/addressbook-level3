@@ -35,7 +35,7 @@ public class UpdateGradesCommand extends Command {
             + PREFIX_ASSIGNMENT + "ASSIGNMENT_INDEX "
             + "[" + PREFIX_STUDENT + "STUDENT_INDEX] "
             + PREFIX_MARKS + "GRADE ... GRADE\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_ASSIGNMENT + "1 "
             + PREFIX_MARKS + "20 34 56 87\n"
             + "Example: " + COMMAND_WORD + " "
