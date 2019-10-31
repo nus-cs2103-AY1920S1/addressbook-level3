@@ -2,6 +2,7 @@ package seedu.address.logic.parser.group;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP_ID;
@@ -41,7 +42,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer
                 .tokenize(args, PREFIX_GROUP, PREFIX_MODE_MANUAL, PREFIX_EXPORT,
-                        PREFIX_GROUP_ID, PREFIX_STUDENT_NUMBER,
+                        PREFIX_GROUP_ID, PREFIX_STUDENT_NUMBER, PREFIX_DELETE,
                         PREFIX_GROUP_INDEX_NUMBER, PREFIX_TYPE, PREFIX_LIST);
 
         if (argMultimap.getValue(PREFIX_MODE_MANUAL).isPresent()) { // Create manual command
@@ -50,7 +51,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
             return exportGroupCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_STUDENT_NUMBER).isPresent()) { // Add command
             return addStudentCommand(argMultimap);
-        } else if (argMultimap.getValue(PREFIX_GROUP_INDEX_NUMBER).isPresent()) { // Remove command
+        } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Remove command
             return removeStudentCommand(argMultimap);
         } else { // List command
             return getStudentsCommand(argMultimap);
