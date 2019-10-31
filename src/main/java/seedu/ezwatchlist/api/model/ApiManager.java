@@ -2,6 +2,7 @@ package seedu.ezwatchlist.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TvResultsPage;
@@ -10,6 +11,7 @@ import info.movito.themoviedbapi.tools.MovieDbException;
 import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.util.ApiUtil;
+import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.TvShow;
 
@@ -163,6 +165,52 @@ public class ApiManager implements ApiInterface {
         } catch (MovieDbException e) {
             notConnected();
             return tvShows;
+        }
+    }
+
+    /*public List<TvShow> getTvShowByGenre(Set<Genre> genreSet) throws OnlineConnectionException {
+        ArrayList<TvShow> tvShows = new ArrayList<>();
+        try{
+            List<info.movito.themoviedbapi.model.Genre> genreList = apiCall.getGenre().getGenreList(null);
+            for (Genre genreSearched : genreSet) {
+                for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
+                    if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
+                        int genreID = genreApi.getId();
+                        tvResultsPage tvPage = apiCall.getDiscover().getDiscover(new Discover().withGenres()).
+                        ApiUtil.extractTvShows(tvShows, tvPage, apiCall);
+                    }
+                }
+            }
+            return tvShows;
+        } catch (MovieDbException e) {
+            notConnected();
+            return tvShows;
+        }
+    }*/
+
+    /**
+     * Returns a list of movies from the API search method.
+     *
+     * @param genreSet the set of genres that the user wants to search.
+     * @throws OnlineConnectionException when not connected to the internet.
+     */
+    public List<Movie> getMovieByGenre(Set<Genre> genreSet) throws OnlineConnectionException {
+        ArrayList<Movie> movies = new ArrayList<>();
+        try {
+            List<info.movito.themoviedbapi.model.Genre> genreList = apiCall.getGenre().getGenreList(null);
+            for (Genre genreSearched : genreSet) {
+                for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
+                    if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
+                        int genreId = genreApi.getId();
+                        MovieResultsPage moviePage = apiCall.getGenre().getGenreMovies(genreId, null, 1, true);
+                        ApiUtil.extractMovies(movies, moviePage, apiCall);
+                    }
+                }
+            }
+            return movies;
+        } catch (MovieDbException e) {
+            notConnected();
+            return movies;
         }
     }
 }

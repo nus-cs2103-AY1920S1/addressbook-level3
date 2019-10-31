@@ -170,6 +170,24 @@ public abstract class Show {
     }
 
     /**
+     * tba
+     * @param showToBeSearched tba
+     * @return tba
+     */
+    public boolean hasGenre(Show showToBeSearched) {
+        Set<Genre> genreSearchedSet = showToBeSearched.getGenres();
+        for (Genre genreSearched : genreSearchedSet) {
+            Set<Genre> genreDataSet = this.getGenres();
+            for (Genre genreData : genreDataSet) {
+                if (genreData.getGenreName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns true if both shows have the same identity and data fields.
      * This defines a stronger notion of equality between two shows.
      */
