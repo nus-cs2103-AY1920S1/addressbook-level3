@@ -461,6 +461,10 @@ public class ModelManager implements Model {
             throw new NotInServeModeException();
         }
 
+        if (servingBorrower.get().getCurrentLoanList().isEmpty()) {
+            return new ArrayList<>();
+        }
+
         ArrayList<Loan> loans = new ArrayList<>();
         servingBorrower.get()
                 .getCurrentLoanList()
