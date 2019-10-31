@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.moneygowhere.commons.exceptions.DataConversionException;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
@@ -20,16 +19,14 @@ public class ExportCommandTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "SampleSpendings");
     private Model model;
-    private Model expectedModel;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
     }
 
     @Test
-    public void execute_allDataIsImported_showUpdatedMessage() throws DataConversionException, CommandException {
+    public void execute_allDataIsImported_showUpdatedMessage() throws CommandException {
         FolderPath path = new FolderPath(TEST_DATA_FOLDER.toString());
         CommandResult commandResult = new ExportCommand(path).execute(model);
         assertEquals(String.format(ExportCommand.MESSAGE_SUCCESS, TEST_DATA_FOLDER.toString()),
