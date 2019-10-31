@@ -13,7 +13,7 @@ public class MonthTest {
     }
 
     @Test
-    public void constructor_invalidAmount_throwsIllegalArgumentException() {
+    public void constructor_invalidMonth_throwsIllegalArgumentException() {
         String invalidMonth = "";
         assertThrows(IllegalArgumentException.class, () -> new Month(invalidMonth));
     }

@@ -13,7 +13,7 @@ public class DayTest {
     }
 
     @Test
-    public void constructor_invalidAmount_throwsIllegalArgumentException() {
+    public void constructor_invalidDay_throwsIllegalArgumentException() {
         String invalidDay = "";
         assertThrows(IllegalArgumentException.class, () -> new Day(invalidDay));
     }
