@@ -36,9 +36,9 @@ public class SetCashierCommandParser implements Parser {
         } catch (PersonNotFoundException e) {
             logger.info("There is no such person in the person model.");
             throw new NoSuchPersonException(CashierMessages.NO_SUCH_PERSON);
-        } catch (Exception e) {
-            throw new ParseException(CashierMessages.MESSAGE_INVALID_CASHIERCOMMAND_FORMAT);
         }
     }
 
 }
+
+

@@ -13,6 +13,7 @@ import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
+import seedu.address.testutil.TypicalItem;
 
 public class LogicManagerTest {
     @Test
@@ -21,6 +22,10 @@ public class LogicManagerTest {
             File tempFile = File.createTempFile("testingLogic", "tempInventory.txt");
             ModelManager inventoryModel = new ModelManager(new InventoryList());
             StorageManager inventoryStorage = new StorageManager(tempFile);
+            InventoryList inventoryList = inventoryStorage.getInventoryList();
+            inventoryList.add(TypicalItem.FISH_BURGER);
+            inventoryList.add(TypicalItem.BLACK_SHIRT);
+            inventoryList.add(TypicalItem.CHIPS);
             Logic logic = new LogicManager(inventoryModel, inventoryStorage);
 
             CommandResult commandResult = null;

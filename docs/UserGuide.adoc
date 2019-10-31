@@ -20,6 +20,7 @@ By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 
 treasurerPro (tP) is for those who *prefer to use a desktop app for managing their club expenses*.
 More importantly, tP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
 If you can type fast, tP can get your expense management tasks done faster than traditional GUI apps.
 Interested?
 Let's move on to <<Quick Start>> to get started.
@@ -42,13 +43,19 @@ e.g. typing *`go /members`* and pressing kbd:[Enter] will take you to the Member
 
 [[Features]]
 == Features
-This section will contain the details on the features the application. These features include the universal commands available for all tabs and
-commands specific for each tab. The commands are organised according to the tabs that they can be used in.
+This section contains details on the features in the treasurerPro.
+These features are divided primarily into two categories:
+
+* Universal commands available within all tabs
+* Commands specific within each tab
+
+Universal commands are displayed first. Tab-specific commands are organised according to the
+tabs that they belong to.
 
 ====
 *General Command Format Tabs*
 
-* Words highlighted like `add n/John Doe` or `add n/NAME` indicate that those can be entered into the Command Box.
+* Highlighted words, like `add n/John Doe` or `add n/NAME` indicate that they can be entered into the Command Box.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -57,10 +64,10 @@ commands specific for each tab. The commands are organised according to the tabs
 
 == Universal Commands For All Tabs
 
-These are commands available within the command box for all tabs.
+These are commands available for use in the Command Box for all tabs.
 
 === Navigation between tabs
-Command: `go /TAB`
+Command: `go TAB`
 
 This command allows you to navigate between tabs.
 
@@ -70,37 +77,45 @@ This command allows you to navigate between tabs.
 * `go cashier`
 * `go overview`
 
+Alternatively, you may also choose to click the tabs to switch to them.
+
 === Exit the application
 Command: `exit`
 
 This command allows you to exit the application immediately.
+Alternatively, you may also click the `x` button on the top right (for Windows/Linux) or
+top left (for macOS) to close the application.
 
 == Application Tab Specific Commands
 
-These are commands that are specific to each feature which would be categorised into tabs in our application.
+These are commands that are specific to each tab within treasurerPro.
 
 === Home Tab
-This section will contain the details on all commands available to the Home tab.
+This section will contain details on all commands available in the Home tab.
 
 ====
-*Summary of Features of the Home Tab*
+*Summary of features in the Home Tab*
 
-* Home tab shows the transaction history of each expenditure.
-* The columns will show the date of the transaction, description of the expenditure, category it is under, amount spent and the person who bought it.
-* At the side, our mascot lion 'Leo' will help to give replies to indicate successful addition, deletion, edits of the command line input.
-* Leo will also give you replies to guide you when there is a wrong input.
-* There is a function to sort the transactions by date so from latest to oldest, person so by alphabetical order of the person and amount so from most to least.
-* The amount should be inputted as positive if the transaction is considered revenue and adds to the club or society's reserves
-* The amount should be inputted as negative if the transaction is a spending to be reimbursed which will be shown in the Reimbursements tab.
+* The Home Tab shows a list of all transactions made thus far.
+* Each column shows the date, description, category, amount spent and the person responsible for each transaction.
+* You may add, delete or edit transactions within this tab.
+* Leo, our mascot, helps give replies indicating successful addition, deletion and edit of the a transaction
+after a command has been input
+* Leo will also give replies to guide you when there is a wrong input.
+* You may also sort the list of transactions by descending date, by ascending alphabetical order or descending amount.
+* The amount input for a transaction should be positive if the transaction is considered revenue to the club (that is,
+it adds money to the club's funds).
+* The amount input should be negative if the transaction is an expenditure made by the club (that is, it deducts money
+from the club's funds).
 ====
 
-==== Add a Transaction to the Table
-This command helps to add a transaction record into the table and to be saved into the system.
+==== Add a Transaction
+This command adds a transaction to the table and saves it into the system.
 
-* Command format:
+* Command:
 `add dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
 
-Examples:
+* Example:
 `add dt/24-Aug-2019, 07:00PM d/Printer ink c/Miscellaneous a/3.50 p/Janelle`
 
 [NOTE]
@@ -108,132 +123,135 @@ The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-S
 
 * Steps:
 
-1. Type the command with all the parameters filled in as shown in the screenshot below:
+1. Type the command with all parameters filled in, as shown in the screenshot below:
 
-.Screenshot of user input into command box for add command in Home tab
+.Screenshot of user input into Command Box for Add Command in Home Tab
 image::homeUG/HomeAddStep1.png[]
 
 [start = 2]
-2. Enter the command.
+2. Hit `Enter`.
 
-If the command is successfully added, there will be a response from Leo and the transaction record
+If the command is successfully added, Leo will respond with a success message and the transaction
 will be shown in the table. This is shown in the screenshot below:
 
-.Screenshot of successful user input for add command in Home tab
+.Screenshot of successful user input for Add Command in Home Tab
 image::homeUG/HomeAddStep2.png[]
 
 [[NoSuchPerson]]
-If the person's name is not someone in the Members tab then there will be a response from Leo and the transaction
+If the person's name does not exactly match a current member in the Members Tab, Leo will respond with an error and the transaction
 record will not be added. This is shown in the screenshot below:
 
-.Screenshot of unsuccessful user input for add command in Home tab due to invalid person's name input
+.Screenshot of unsuccessful user input for Add Command in the Home Tab due to an invalid name
 image::homeUG/HomeAddUnsuccessfulStep2.png[]
 
-If the added transaction has a negative amount which indicates a spending, it will be shown in the Reimbursement Tab as a pending reimbursement
-record for the member that spent it. If there is an existing reimbursement record for that member still pending, the amount
-of the newly added transaction will be added to the existing pending reimbursement amount. This is shown in the screenshot below:
+If the added transaction contains a negative amount (indicating an expenditure), a corresponding entry will
+automatically be shown in the Reimbursement Tab, tagged to the member who spent it.
 
-.Screenshot of Reimbursement tab after successfully adding transactions
+Since reimbursements are aggregated by member, if the member already has other outstanding reimbursements,
+it will simply be added to his existing row. This is shown in the screenshot below:
+
+.Screenshot of Reimbursement Tab after successfully adding a transaction
 image::homeUG/HomeAddShowInR.png[]
 
-=== Delete Transaction(s) from the Table
-This command helps to delete all transactions of a one person or a single transaction of a specific ID from the table.
+==== Delete Transaction(s)
+This command deletes either all transactions of a person or a single transaction of a specific ID from the table.
 
-* Command Format:
+* Command:
 `delete ID` or `delete p/PERSON`
 
 * Examples:
 ** `delete 1`
 ** `delete p/Alex Yeo`
 
-* Steps for Deleting By ID:
+* Steps for Deleting by ID:
 1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
 
-.Screenshot of user input into command box for delete by ID command in Home tab
+.Screenshot of user input into Command Box for Delete by ID command in Home tab
 image::homeUG/HomeDeleteStep1.png[]
 
 [start = 2]
-2. Enter the command.
+2. Hit `Enter`.
 
-Leo will respond with the successful deletion and the transaction will be removed from the table as shown below:
+Leo will respond with a success message and the transaction will be removed from the table as shown below:
 
-.Screenshot of successful user input for delete by ID command in Home tab
+.Screenshot of successful user input for Delete by ID Command in Home Tab
 image::homeUG/HomeDeleteStep2.png[]
 
-* Steps for Deleting By Person:
-1. Type the command with the person's name for all corresponding transactions related to that person to be deleted as shown in the screenshot below:
+* Steps for Deleting by Person:
+1. Type the command with the person's name to delete all transactions related to that person, as shown in the screenshot below:
 
-.Screenshot of user input into command box for delete by ID command in Home tab
+.Screenshot of user input into Command Box for Delete by ID command in Home Tab
 image::homeUG/HomeDeletePStep1.png[]
 
 [start = 2]
-2. Enter the command.
+2. Hit `Enter`.
 
-Leo will respond with the successful deletion and the transactions will be removed from the table as shown below:
+Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
 
-.Screenshot of successful user input for delete by person command in Home tab
+.Screenshot of successful user input for Delete by Person Command in Home Tab
 image::homeUG/HomeDeletePStep2.png[]
 
-If the person inputted does not have any transactions related to him or her, Leo will also respond to inform you.
+If the person does belong to any transactions, Leo will also respond with a message to inform you.
 
-=== Edit a Transaction in the Table
-This command helps to edit an existing transaction record in a table with different parameters.
+==== Edit a Transaction
+This command edits an existing transaction in the table, changing its details.
 
-* Command Format:
+* Command:
 `edit ID dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
 
 [NOTE]
-The fields above can vary and be in different order. It is not compulsory to include all of them.
+The fields above can vary in their order. It is not compulsory to include all of them.
 
 * Examples:
 ** `edit 1 p/Bernice Yu dt/23-Aug-2019`
 ** `edit 3 a/12`
 
 * Steps:
-1. Type the command with the ID of the transaction to be edit with the new parameters to be changed to as shown in the screenshot below:
+1. Type the command with the ID of the transaction to be edited, along with the new parameters to be changed, as shown in the screenshot below:
 
-.Screenshot of user input into command box for edit command in Home tab
+.Screenshot of user input into Command Box for Edit Command in Home Tab
 image::homeUG/HomeEditStep1.png[]
 
 [start = 2]
-2. Enter the command.
-Leo will respond with the successfully edited transaction and the transactions will be shown in the table as shown below:
+2. Hit `Enter`.
 
-.Screenshot of successful user input for edit command in Home tab
+Leo will respond with a success message and the updated transaction will be shown in the table as shown below:
+
+.Screenshot of successful user input for Edit Command in Home Tab
 image::homeUG/HomeEditStep2.png[]
 
 If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Figure 3>>.
 
-=== Sort Transactions in the Table
-This command helps to sort the table of transactions into specific orders for viewing and for carrying out subsequent commands.
+==== Sort Transactions
+This command sorts the table of transactions into a specified order for viewing and carrying out of subsequent commands.
 
 * To sort:
 ** By date (from oldest to most recent): `sort date`
-** By name (alphabetical order of name): `sort person`
-** By amount (from most to least in amount): `sort amount`
+** By name (from alphabetical order of name): `sort person`
+** By amount (from largest to smallest in amount): `sort amount`
 ** Undo sort: `sort reset`
+
 [NOTE]
-The undo sort command will allow the user to view the table of transactions in the order of when the current session of this application was just opened,
-not when the transactions was first entered.
+The undo sort command allows you to view the table of transactions in the order originally shown when the application was intially opened.
 
 
-=== Find Transactions that Match Keywords:
-This command helps to find transactions that match the entered keywords for viewing and for subsequent commands to be inputted based
-on the filtered table of transactions shown.
+==== Find Transactions that Match Keywords:
+This command transactions matching the specified keywords for viewing and for carrying out of subsequent commands,
+based on the filtered table of transactions shown.
 
-* Command Format:
+* Command:
 `find KEYWORDS`
 
 [NOTE]
-The keyword can be one or more words. An entire keyword must match a word in any of the parameters of the transaction intended to be found and shown in the table.
-If the keyword is just a part of the word in the transaction, the transaction will not be shown in the table after the
-command is inputted.
+The keyword can be one or more words. An keyword must match exactly a word in any of the parameters of the transaction to be found.
+Transactions matching partial keywords will not be shown.
 
 * Examples:
 ** `find Alex Yeoh`
 ** `find Alex`
 
 * Steps:
+
 Shown below is the table of all transactions:
 
 .Screenshot of all transactions in Home tab
@@ -241,43 +259,53 @@ image::homeUG/HomeFindCurr.png[]
 
 1. Type the command with keyword(s) to find transactions as shown in the screenshot below:
 
-.Screenshot of user input into command box for find command in Home tab
+.Screenshot of user input into Command Box for Find Command in Home Tab
 image::homeUG/HomeFindStep1.png[]
 
 [start = 2]
-2. Enter the command.
-Leo will respond with the number of matching transactions to the keywords and the table will only show the filtered
+2. Hit `Enter`.
+
+Leo will respond with the number of matching transactions, and the table will show only
 transactions matching the keywords. This is shown in the screenshot below:
 
 .Screenshot of successful user input for find command in Home tab
 image::homeUG/HomeFindStep2.png[]
 
 [start = 3]
-3. Enter `back` to return to the table of all transactions or enter your next command to be executed. The edit command
-being inputted as the next command can be shown in the screenshot below:
+3. Key in `back` and hit `Enter` to return to the table of all transactions, or enter your next command to be executed.
+The screenshot below shows the Edit Command being input as the next command:
 
-.Screenshot of user input for edit command according to filtered table's ID in Home tab
+.Screenshot of user input for Edit Command according to filtered table's ID in Home Tab
 image::homeUG/HomeFindStep3.png[]
 
-The table will continue to show the filtered table with the transaction edited according to the command shown in the screenshot above.
+The table will continue to show the filtered table with the transaction edited according to the command, shown in the screenshot above.
 [NOTE]
-For the add command, the table will automatically show the full list of all transactions. The rest of the commands will
-require the user to input `back` to return to the full list of all transactions.
+If an Add Command is entered, the table will automatically rever to showing the full list of all transactions.
+All other commands require the user to input `back` to return to the full list of all transactions.
 
 The screenshot below shows the table after entering `back` which shows all the transactions in the table again:
 
-.Screenshot of user input for back command after entering find command in Home tab
+.Screenshot of user input for Back Command after entering Find Command in Home Tab
 image::homeUG/HomeFindStep3Back.png[]
 
-=== Reimbursements
-The reimbursement tab displays all the reimbursements the treasurer needs to pay to people.
-Each reimbursement contains a person's name, the total amount the person needs to be reimbursed,
-description of the transactions related to the person and deadline for that reimbursement.
+=== Reimbursements Tab
 
-The reimbursement records are automatically extracted from transactions history.
-And each person only has one aggregated reimbursement in the reimbursement list.
-All the reimbursements in reimbursement tab have not been done. Once the reimbursement is done,
-that reimbursement record will not be displayed.
+====
+*Summary of features in the Reimbursement Tab*
+
+* The reimbursement tab displays all the reimbursements that need to be paid out by the treasurer.
+
+* Each reimbursement contains:
+** The person's name
+** The total amount the person needs to be reimbursed
+** The description of the transactions related to the person and deadline for that reimbursement.
+
+* Reimbursement records are automatically extracted from the transactions history.
+* The reimbursement list aggregates transactions by person and displays only one row per person.
+
+* All Reimbursements shown in the Reimbursement Tab are outstanding and have not been paid. Completed reimbursements will not be displayed.
+
+====
 
 [NOTE]
 The reimbursements only count the outflow transactions. When a transaction has negative amount, it means
@@ -397,7 +425,7 @@ image::Reimbursement/ReimbursementSortDateCommand.png[]
 .Diagram of successful sort date command in reimbursement tab
 image::Reimbursement/ReimbursementSortDateCommandSuccess.png[]
 
-=== Inventory
+=== Inventory Tab
 
 ====
 * The inventory tab contains a detailed inventory of items belonging to the CCA for a variety of purposes.
@@ -411,7 +439,7 @@ image::Reimbursement/ReimbursementSortDateCommandSuccess.png[]
 
 Adding an item requires the above attributes. However, price is optional. The attributes can also be inputted in any order.
 
-The quantity, cost and price must also all be in numerical form.
+The quantity, cost and price must also all be in numerical form and cannot exceed 2,147,483,647.
 
 [NOTE]
 Adding an item with the same description and category as an existing item is allowed.
@@ -449,8 +477,8 @@ Commands:
 ** Reset: `sort reset`
 
 
-=== Cashier
-This section will contain the details on all commands available to the Cashier tab.
+=== Cashier Tab
+This section will contain the details on all commands available on the Cashier tab.
 
 ====
 *Summary of Features of the Cashier Tab*
@@ -461,15 +489,21 @@ This section will contain the details on all commands available to the Cashier t
 and the subtotal of that row of items.
 * The bottom row will display the name of the cashier who is in-charge of the sales, as well as the total amount of all
 the sales items in the table.
-* At the side, just like other tabs, our mascot lion 'Leo' will reply to indicate successful addition, deletion,
-edits of items.
-* Upon wrong inputs, Leo will also prompt you and guide you along to key in the correct inputs.
+* At the side, just like other tabs, our mascot lion 'Leo' will reply to indicate successful addition, deletion and
+updates of items.
+* Upon wrong inputs, Leo will prompt you and guide you along to key in the correct inputs.
 * Upon successful checkout, the Inventory tab will be immediately updated with the remaining stock left in
-the Inventory.
+the inventory.
 * After every checkout, the sales made will be recorded as one transaction with description being labelled as "Items sold"
-under the category "Sales" and person being the cashier-in-charge. The Home tab will also be updated with this transaction.
+under the category "Sales" and person being the cashier-in-charge. The Home tab will be updated with this transaction.
 [NOTE]
 Items with zero price are not available for sale. Such items cannot be added into the table.
+
+[WARNING]
+Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483, 647, the range
+of an integer. If it exceeds this number, please key in a smaller quantity or checkout items separately. +
+You are advised to key in a number smaller than 10000 due to size limitation.
+
 ====
 
 ==== Add a Sales Item to the Table
@@ -479,8 +513,7 @@ This command adds a sales item into the table.
 `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
 
 The quantity of the item inputted must not be greater than the available stock in the inventory. Else, Leo will display
-a message prompting input of a smaller quantity or another item.
-
+a message prompting input of a smaller quantity or another item. +
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
 the Inventory tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.
@@ -491,8 +524,8 @@ some possible item descriptions you might be looking for.
 Examples:
 
 ** `add c/food` - Displays all items that are under the 'food' category
-** `add c/stationary d/pancake q/3` - Adds 3 items of description "pancake"
-** `add d/pancake q/3` - Adds 3 items of description "pancake"
+** `add c/stationary d/pancake q/3` - Adds 3 items which has the description "pancake"
+** `add d/pancake q/3` - Adds 3 items which has the description "pancake"
 
 [NOTE]
 The items according to the category will only be displayed if both description and quantity fields are not specified.
@@ -502,18 +535,20 @@ If both are specified but description is invalid, only suggestions will be shown
 If both category and description are specified and valid, the system will allow the item to be added according the
 description even if the category of the item does not match with the specified category inputted.
 
-* Steps:
+Steps:
 
 1. Type the command with a category specified as shown in the screenshot below:
 
 .Screenshot of user input (category) into command box for add command in Cashier tab
 image::casherUG/AddCommand1.png[]
 
+[start = 2]
 2. Enter the required description and quantity according to the items suggested by Leo as shown below:
 
 .Screenshot of user input (description, quantity) into command box for add command in Cashier tab
 image::casherUG/AddCommand2.png[]
 
+[start = 3]
 3. Enter the command.
 
 .Screenshot of response message for add command in Cashier tab
@@ -530,15 +565,17 @@ This command deletes a sales item from the table.
 The specified index should correspond to the row index of the item on the table.
 
 Examples:
+
 ** `delete 2` - Deletes an item in row 2 of the table
 
-* Steps:
+Steps:
 
 1. Type the command with an index specified as shown in the screenshot below:
 
 .Screenshot of user input into command box for delete command in Cashier tab
 image::casherUG/DeleteCommand1.png[]
 
+[start = 2]
 2. Enter the command.
 
 .Screenshot of response message for delete command in Cashier tab
@@ -551,11 +588,13 @@ Leo will respond to the successful deletion with a response message. The item wi
 This command edits the quantity of a sales item that already exists in the table.
 
 * Command format:
-`edit d/DESCRIPTION q/QUANTITY` OR `edit i/INDEX q/QUANTITY`
 
-There are 2 ways to edit an existing item - by its description or index according to the table.
+** `edit d/DESCRIPTION q/QUANTITY`
+** `edit i/INDEX q/QUANTITY`
 
-1. If you edit by index, the index must be a positive and be within the size of the table.
+There are 2 ways to edit an existing item - by its description or index in the table.
+
+1. If you edit by index, the index must be positive and be within the size of the table.
 The specified index should correspond to the row index of the item on the table.
 
 2. If you edit by description, the specified description must already exist in the table.
@@ -568,19 +607,21 @@ Examples:
 ** `edit i/2 q/6` - Updates the quantity of item at row 2 to 6
 ** `edit d/book q/3` - Updates the quantity of an existing item of description "book" to 3
 
-* Steps:
+Steps:
 
-1. To edit by index, enter the command with an index and description specified as shown in the screenshot below:
+1.1 To edit by index, enter the command with an index and quantity specified as shown in the screenshot below:
 
 .Screenshot of user input (index, description) into command box for edit command in Cashier tab
 image::casherUG/EditCommand1.png[]
 
-2. To edit by description, enter the required description and quantity as shown below:
+[start = 2]
+1.2. To edit by description, enter the required description and quantity as shown below:
 
 .Screenshot of user input (description, quantity) into command box for edit command in Cashier tab
 image::casherUG/EditCommand3.png[]
 
-3. Enter the command.
+[start = 3]
+2. Enter the command.
 
 .Screenshot of response message for edit command in Cashier tab
 image::casherUG/EditCommand3.png[]
@@ -603,15 +644,17 @@ This step must be executed before checking out. Else, checkout cannot proceed.
 
 Example:
 
-** cashier David Li - Sets David Li as a cashier
+** `cashier David Li` - Sets David Li as a cashier
 
-* Steps:
+
+Steps:
 
 1. Type the command with a cashier's name specified as shown in the screenshot below:
 
 .Screenshot of user input into command box for set-cashier command in Cashier tab
 image::casherUG/SetCashierCommand1.png[]
 
+[start = 2]
 2. Enter the command.
 
 .Screenshot of response message for set-cashier command in Cashier tab
@@ -626,32 +669,34 @@ This command checkouts all the sales item in the table.
 * Command format:
 `checkout AMOUNT_PAID_BY_CUSTOMER`
 
-The amount inputted is the amount that the customer will be paying. This amount must be greater than or equal to the
+The amount inputted should be the amount that the customer will be paying. This amount must be greater than or equal to the
 total amount listed on the bottom row of the table. If the amount paid is greater than the total amount, Leo will display
 the amount of change that the cashier should return.
 
-After checking out, all items in the table will be cleared and the cashier and total amount will be reset.
+After checking out, all items in the table will be cleared and the cashier will be reset.
 
 [NOTE]
-Cashier must be set before checking out.
+Cashier must be set before checking out. Else, checkout cannot proceed.
 
 Example:
 
-** checkout 850 - Customer pays $850 to cashier
+** `checkout 850` - Customer pays $850 to cashier
 
-* Steps:
+Steps:
 
 1. Type the command with the amount that the customer is paying as shown in the screenshot below:
 
 .Screenshot of user input into command box for checkout command in Cashier tab
 image::casherUG/CheckoutCommand1.png[]
 
+[start = 2]
 2. Enter the command.
 
 .Screenshot of response message for checkout command in Cashier tab
 image::casherUG/CheckoutCommand2.png[]
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset.
+The `Home Tab` will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
 
 
 ==== Clears All the Sales Items in the Table
@@ -667,15 +712,16 @@ This command is irreversible. Please use at your own discretion.
 
 Example:
 
-** clear
+** `clear`
 
-* Steps:
+Steps:
 
 1. Type only the "clear" command word as shown in the screenshot below:
 
 .Screenshot of user input into command box for clear command in Cashier tab
 image::casherUG/ClearCommand1.png[]
 
+[start = 2]
 2. Enter the command.
 
 .Screenshot of response message for clear command in Cashier tab
@@ -685,9 +731,11 @@ If cleared successful, Leo will respond with a response message. The table will 
 will be reset.
 
 
-=== Overview
+=== Overview Tab
 
 ====
+*Summary of features in the Overview Tab*
+
 * The overview tab displays a variety of statistics for the user.
 * These include:
 ** Total value of transactions thus far

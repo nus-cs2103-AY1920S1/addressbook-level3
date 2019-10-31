@@ -28,7 +28,6 @@ public class ModelManager implements Model {
     private static ArrayList<Item> salesList = new ArrayList<Item>();
     private Person cashier = null;
     private InventoryList inventoryList;
-    //private StorageManager storage;
     private TransactionList transactionList;
     private Transaction checkoutTransaction;
 
@@ -36,9 +35,6 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given inventory list and transaction list.
      */
     public ModelManager(InventoryList inventoryList, TransactionList transactionList) {
-        System.out.println("got initialise");
-        System.out.println(inventoryList.size());
-        System.out.println(transactionList.size());
         this.inventoryList = inventoryList;
         this.transactionList = transactionList;
     }
@@ -343,19 +339,29 @@ public class ModelManager implements Model {
         ArrayList<String> recommendedItems = new ArrayList<>();
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.getItemByIndex(i);
+
+            // if the item is not for sale, skip
             if (!item.isSellable()) {
                 continue;
             }
+
+            // if both description start with same letters, add
             if (item.getDescription().toLowerCase().startsWith(description.toLowerCase())) {
                 recommendedItems.add(item.getDescription());
                 continue;
             }
+
+            // if length of input is greater than 3 and either description contains the other
             if (description.length() >= 3
                     && ((item.getDescription().toLowerCase().contains(description.toLowerCase()))
                     || description.toLowerCase().contains(item.getDescription().toLowerCase()))) {
                 recommendedItems.add(item.getDescription());
                 continue;
             }
+
+            /* if length of input is greater than 3 and each subset of the input contains the description in the
+            ** inventory or vice versa
+            */
             if (description.length() >= 3) {
                 char[] arr = description.toCharArray();
                 ArrayList<String> combinations = getCombination(arr, arr.length);
@@ -392,16 +398,13 @@ public class ModelManager implements Model {
                 for (int k = i; k <= j; k++) {
                     word += String.valueOf(arr[k]);
                 }
-                //if (word.length() >= 3) {
                 result.add(word);
-                //}
             }
         }
         return result.stream()
                 .filter(str -> str.length() >= 3)
                 .collect(Collectors
                         .toCollection(ArrayList::new));
-        //return result;
     }
 
     /**
@@ -466,6 +469,7 @@ public class ModelManager implements Model {
             return false;
         }
         for (int i = 0; i < list.size(); i++) {
+            // compares every element of sales list
             if (result && this.getSalesList().get(i).equals(list.get(i))) {
                 continue;
             } else {

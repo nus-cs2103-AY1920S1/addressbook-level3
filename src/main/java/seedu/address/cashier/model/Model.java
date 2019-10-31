@@ -40,7 +40,7 @@ public interface Model {
 
     void setCashier(Person p);
 
-    Person getCashier() throws NoCashierFoundException, NoCashierFoundException;
+    Person getCashier() throws NoCashierFoundException;
 
     ArrayList<Item> getSalesList();
 

@@ -75,10 +75,5 @@ public class InventoryModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    /*@Override
-    public InventoryList getInventoryList() {
-        return null;
-    }*/
-
 }
 

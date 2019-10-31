@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADD_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,14 +12,9 @@ import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.person.logic.commands.exceptions.CommandException;
-import seedu.address.person.model.Model;
-import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
-import seedu.address.stubs.InventoryModelStubAcceptingItemAdded;
-import seedu.address.stubs.PersonModelStub;
 import seedu.address.stubs.PersonModelStubAcceptingPersonAdded;
 import seedu.address.stubs.PersonModelStubWithPerson;
-import seedu.address.stubs.TransactionModelStubAcceptingTransactionAdded;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalPersons;
@@ -31,16 +25,6 @@ public class SetCashierCommandTest {
 
     private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
-
-    private Model personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-    private Model personModelStub = new PersonModelStub();
-
-    private TransactionModelStubAcceptingTransactionAdded modelStubWithTransaction =
-            new TransactionModelStubAcceptingTransactionAdded(TypicalTransactions.getTypicalTransactions());
-
-    private InventoryModelStubAcceptingItemAdded inventoryModelStubAcceptingItemAdded =
-            new InventoryModelStubAcceptingItemAdded(TypicalItem.getTypicalItems());
 
     @Test
     public void constructor_nullCashier_throwsAssertionException() {
@@ -81,12 +65,6 @@ public class SetCashierCommandTest {
         assertCommandFailure(setCashierCommand, model, expectedMessage, personModelStub2);
 
     }
-
-
-
-
-
-
 
 
 }
