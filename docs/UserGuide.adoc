@@ -154,13 +154,18 @@ Examples:
 ==== Listing all existing persons: `listPerson`
 Format: `listPerson`
 
-=== Competition Handling
-This feature adds/edits/lists competitions which are available on the UI.
+=== Commands related to participation (linking persons and competitions together)
+Commands related to managing persons participating in competitions will be introduced now.
 
-==== Adds a new competition: `addComp`
-Adds a new competition to the existing list of competitions on the UI.
-User supplies competition name, start and end dates of competition to the command prompt.
-Dates should be in DD/MM/YYYY format. Eg: 19/01/2019 or 01/02/2020.
+==== Adding a new participation: `addParticipation`
+Adds an existing person as shown in the Person list (shown in the GUI) into an existing competition as shown in the Competition list (shown in the GUI).
+User needs to supply 3 weight attempts for each of the following events:
+
+1. Squat
+2. Bench
+3. Deadlift
+
+
 
 Format: `addComp n/COMPETITION_NAME startDate/START_DATE_OF_COMPETITION endDate/END_DATE_OF_COMPETITION`
 
