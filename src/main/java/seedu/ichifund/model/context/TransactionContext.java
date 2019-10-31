@@ -1,5 +1,6 @@
 package seedu.ichifund.model.context;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -30,6 +31,7 @@ public class TransactionContext implements Context<Transaction> {
      * @param transaction
      */
     public TransactionContext(Optional<Transaction> transaction) {
+        requireNonNull(transaction);
         if (transaction.isEmpty()) {
             this.month = Month.getCurrent();
             this.year = Year.getCurrent();
