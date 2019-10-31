@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Simulates a class which handles the exporting of Strings to HTML.
  */
-public class HTMLExporter extends Exporter {
+public class HtmlExporter extends Exporter {
 
     /**
      * Exports a String to a HTML file.

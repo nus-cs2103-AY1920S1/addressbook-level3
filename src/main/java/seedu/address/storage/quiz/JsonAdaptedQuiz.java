@@ -32,7 +32,6 @@ class JsonAdaptedQuiz {
     public JsonAdaptedQuiz(Quiz source) {
         quizId = source.getQuizId();
         questions = source.getStringQuestions();
-        System.out.println("Getting" + questions);
     }
 
     /**
@@ -48,7 +47,6 @@ class JsonAdaptedQuiz {
 
         Quiz quiz = new Quiz(quizId);
         quiz.setStringQuestions(questions);
-        System.out.println("Setting" + questions);
 
         return quiz;
     }
