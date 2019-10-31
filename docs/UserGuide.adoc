@@ -414,9 +414,9 @@ IMPORTANT: Do remember that if you leave out the month and/or year (as we have d
 
 === Checking your availability for a trip: ``check``
 
-It is in the middle of the semester and your friend asks you whether you would be available for a short trip during the first week of this summer. Instead of trawling through your list of appointments (i.e. commitments and trips), you simply need to ask TravEzy! TravEzy would look at your commitments, trips, school breaks and holidays before informing you whether you are available (i.e. you happen to have a school break/holiday then *and* do not have any commitment/trip then). 
+Do you need to find out whether you are available to go for a trip? You can get TravEzy to find that out for you (i.e. when you happen to have a school break/holiday then *and* do not have any commitment/trip then).
 
-But how do you do that?
+Let's find out how!
 
 *Format:* +
 ``check d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
