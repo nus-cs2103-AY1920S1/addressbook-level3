@@ -88,6 +88,10 @@ public class CommandParserUtil {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
 
+        if (dollarCentArray[0].length() > Amount.MAX_AMOUNT.length()) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+
         Long parsedDollars;
         if (StringUtil.isNonNegativeUnsignedLong(dollarCentArray[0])) {
             parsedDollars = Long.parseLong(dollarCentArray[0]) * 100L;
