@@ -16,7 +16,7 @@
 
 <fx:root minHeight="600.0" minWidth="314.0" onCloseRequest="#handleExit" title="ELISA" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/ElisaImageWithoutWords.png" />
+        <Image url="@/images/ElisaImageWithoutWords.PNG" />
     </icons>
     <scene>
         <Scene fx:id="scene">
@@ -35,7 +35,7 @@
                             <children>
                                 <ImageView fx:id="elisaImage" fitHeight="80.0" fitWidth="90.0" layoutX="12.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/ElisaImageWithoutWords.png" />
+                                        <Image url="@../images/ElisaImageWithoutWords.PNG" />
                                     </image>
                                 </ImageView>
                                 <Text fx:id="elisaDescription" fill="#8de7fd" layoutX="80.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exceptionally Loud n' Intelligent">
