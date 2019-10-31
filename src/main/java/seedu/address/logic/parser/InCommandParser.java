@@ -33,8 +33,26 @@ public class InCommandParser implements Parser<InCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
         }
+
+        /* handles negative amount */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
+            throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_NEGATIVE));
+        }
+
+        /* handles 0 value */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)) {
+            throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_ZERO));
+
+        }
+
+        /* handles amount above 1billion */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH) {
+            throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_OVERFLOW));
+        }
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
+
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
