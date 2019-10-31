@@ -48,7 +48,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_DATE_OF_RELEASE + "DATE OF RELEASE] "
-            + "[" + PREFIX_IS_WATCHED + "WATCHED?] "
+            + "[" + PREFIX_IS_WATCHED + "WATCHED ('true' or 'false')] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_RUNNING_TIME + "RUNNING TIME] "
             + "[" + PREFIX_ACTOR + "ACTOR]...\n"

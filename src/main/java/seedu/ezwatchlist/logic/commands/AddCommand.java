@@ -30,7 +30,7 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_TYPE + "TYPE "
             + "[" + PREFIX_DATE_OF_RELEASE + "DATE OF RELEASE] "
-            + "[" + PREFIX_IS_WATCHED + "WATCHED STATUS] "
+            + "[" + PREFIX_IS_WATCHED + "WATCHED ('true' or 'false')] "
             + "[" + PREFIX_RUNNING_TIME + "RUNNING TIME] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ACTOR + "ACTOR]...\n"
