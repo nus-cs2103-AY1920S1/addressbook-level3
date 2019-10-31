@@ -61,13 +61,13 @@ programmers), you can get used to it while working on your coding skills here in
 - This folder will contain all of your app's data. To fix any errors related to corrupted data, delete this folder and the app will be reinstalled.
 
 +
-image::quickstart1.png[width="790"]
+image::quickstart1.png[width="1000"]
 +
 
 . Once the app is launched, you will immediately be greeted with the main User Interface of the app.
 
 +
-image::mainUi.png[width="790"]
+image::mainUi.png[width="1000"]
 +
 
 1. *CommandBox*
@@ -92,7 +92,7 @@ Consists of 3 different tabs: _Home_, _Questions_ and _Workspace_
 _Note: the index of a question is the number displayed next to its title._
 
 +
-image::questionindex.png[width="790"]
+image::questionindex.png[width="1000"]
 +
 . Refer to <<Features>> to view our full list of commands.
 
@@ -105,7 +105,7 @@ different tabs by entering `tab` into the *CommandBox*.
 === Home
 The *Home* tab contains an introduction of the application along with a brief overview of your user profile.
 
-image::homepage.png[width="790"]
+image::homepage.png[width="1000"]
 
 On the "Home" page, you can:
 
@@ -124,14 +124,14 @@ are looking for. _(View <<Features>> for more details.)_
   on the right.
 
 +
-image::questionspage.png[width="790"]
+image::questionspage.png[width="1000"]
 +
 
 
 === Workspace
 The workspace is where you will work on the various questions.
 
-image::workspace.png[width="790"]
+image::workspace.png[width="1000"]
 
 . *ProblemStatementDisplay*
 +
@@ -155,6 +155,7 @@ To submit your attempt, enter `submit` into the *CommandBox*.
 ====
 *Command Format*
 
+* Commands are entered into the *CommandBox*
 * Words within square braces `[]` are the parameters to be supplied by you, the user.
 +
 e.g. in `attempt[id]`,
@@ -172,6 +173,18 @@ e.g. `browse [category]...` can be used as
 Navigates back to the *HomePage*.
 
 *Format:* `home`
+
+=== List all questions: `showall`
+
+Navigates to the *Questions* Tab List all questions available in the whole database.
+
+*Format:* `showall`
+
+****
+* Your saved answer will be loaded the next time you ​attempt the question again. e.g. after you `save` your answer on
+the *_question page_* of question 2, the next time you `attempt 2`, your saved answer will be displayed in the editor.
+* Only input in the text editor will be saved.
+****
 
 === Find question by title : `find`
 
@@ -233,8 +246,7 @@ Displays the problem statement of the question.
 
 ****
 * Displays the problem statement with the corresponding id.
-* The id of the question can be seen next to its title in square braces.
-* The id of the question must be a positive integer.
+* The id of the question can be seen next to its title.
 ****
 
 *Examples:*
@@ -252,30 +264,15 @@ will be displayed on the left of the GUI. The *Editor* will be displayed on the 
 
 ****
 * Displays the question with the corresponding id on the left side window of the GUI.
-* Opens a text editor for you to input your answers on the right side window of the GUI.
-* This layout is known as the *_question page_*.
-* The id of the question can be seen next to its title in square braces. e.g. `[1]`
-* The id of the question is always a positive integer. e.g. 1, 2, 3, 4, 5.
+* The *Editor* will appear on the right side for you to code your solution.
 ****
 
-image::attempt.png[width="920"]
+image::attempt.png[width=1000"]
 
 *Examples:*
 
 * `view 2` +
 Opens the question page displaying the question with the id "2".
-
-=== List all questions: `showall`
-
-List all questions available in the whole database.
-
-*Format:* `showall`
-
-****
-* Your saved answer will be loaded the next time you ​attempt the question again. e.g. after you `save` your answer on
-the *_question page_* of question 2, the next time you `attempt 2`, your saved answer will be displayed in the editor.
-* Only input in the text editor will be saved.
-****
 
 === Submitting your answer: `submit`
 
@@ -326,7 +323,6 @@ Loads the questions from the file "my_problem_set.txt" located in the home direc
 Exits the application
 
 *Format:* `exit`
-
 
 == FAQ
 
