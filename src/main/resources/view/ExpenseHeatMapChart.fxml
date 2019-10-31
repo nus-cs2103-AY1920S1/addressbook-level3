@@ -18,13 +18,21 @@
 
         <xAxis>
             <NumberAxis fx:id="xAxis"
-                        autoRanging="false">
+                        autoRanging="false"
+                        tickUnit="4.5"
+                        minorTickCount="0"
+                        lowerBound="4"
+                        upperBound="53">
             </NumberAxis>
         </xAxis>
 
         <yAxis>
             <NumberAxis fx:id="yAxis"
-                        autoRanging="false">
+                        autoRanging="false"
+                        tickUnit="1"
+                        minorTickCount="0"
+                        lowerBound="1"
+                        upperBound="7">
             </NumberAxis>
         </yAxis>
 

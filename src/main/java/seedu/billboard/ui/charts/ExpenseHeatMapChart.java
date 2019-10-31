@@ -2,8 +2,11 @@ package seedu.billboard.ui.charts;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,6 +48,7 @@ public class ExpenseHeatMapChart extends ExpenseChart {
 
     private final HeatMapGenerator heatMapGenerator;
     private final XYChart.Series<Integer, Integer> series;
+    private final DateRange currentYearRange = getCurrentYearRange();
 
     public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses, HeatMapGenerator heatMapGenerator) {
         super(FXML, expenses);
@@ -52,20 +56,29 @@ public class ExpenseHeatMapChart extends ExpenseChart {
 
         series = new XYChart.Series<>();
         series.setName("All expenses");
-        setUpAxes();
+
+        setUpAxesFormatting();
         initChart();
     }
 
-    private void setUpAxes() {
-        yAxis.setAutoRanging(false);
-        yAxis.setTickUnit(1);
-        yAxis.setMinorTickCount(0);
-        yAxis.setLowerBound(1);
-        yAxis.setUpperBound(7);
+    private void setUpAxesFormatting() {
+        xAxis.setTickLabelFormatter(new StringConverter<>() {
+            @Override
+            public String toString(Number number) {
+                return Month.of((int) Math.ceil(((number.doubleValue() / 4.5)  + currentYearRange.getStartDate().getMonthValue()) % 12))
+                        .getDisplayName(TextStyle.SHORT, Locale.getDefault());
+            }
+
+            @Override
+            public Number fromString(String string) {
+                return Month.valueOf(string).getValue();
+            }
+        });
+
         yAxis.setTickLabelFormatter(new StringConverter<>() {
             @Override
             public String toString(Number number) {
-                return DayOfWeek.of(number.intValue()).toString();
+                return DayOfWeek.of(number.intValue()).getDisplayName(TextStyle.SHORT, Locale.getDefault());
             }
 
             @Override
@@ -73,24 +86,16 @@ public class ExpenseHeatMapChart extends ExpenseChart {
                 return DayOfWeek.valueOf(string).getValue();
             }
         });
-
-        xAxis.setAutoRanging(false);
-        xAxis.setTickUnit(4);
-        xAxis.setMinorTickCount(4);
-        xAxis.setLowerBound(0);
-        xAxis.setUpperBound(54);
     }
 
     private void initChart() {
-        DateRange currentYearRange = getCurrentYearRange();
         ExpenseHeatMap expenseHeatMap = heatMapGenerator.generate(expenses, currentYearRange);
 
         series.getData().setAll(mapToData(expenseHeatMap.getHeatMapValues()));
         heatMapChart.getData().add(series);
 
-        expenses.addListener((ListChangeListener<Expense>) c -> {
-            onDataChange(heatMapGenerator.generateAsync(c.getList(), getCurrentYearRange()));
-        });
+        expenses.addListener((ListChangeListener<Expense>) c ->
+                onDataChange(heatMapGenerator.generateAsync(c.getList(), currentYearRange)));
     }
 
     /**
@@ -104,33 +109,37 @@ public class ExpenseHeatMapChart extends ExpenseChart {
         });
     }
 
+    /**
+     * Helper method to get the current date range representing the past year adjusted to start on a monday.
+     */
     private DateRange getCurrentYearRange() {
         LocalDate currentDate = LocalDate.now();
         return DateRange.fromClosed(currentDate.minusYears(1).with(DateInterval.WEEK.getAdjuster()), currentDate);
     }
 
+    /**
+     * Helper method to convert the heatmap values into a list of {@code XYChart.Data} for the chart to use.
+     */
     private List<XYChart.Data<Integer, Integer>> mapToData(
             List<Pair<DateRange, EnumMap<DayOfWeek, Amount>>> heatmapValues) {
 
         return IntStream.range(0, heatmapValues.size())
-                .mapToObj(idx -> new Pair<>(idx, heatmapValues.get(idx)))
-                .flatMap(pair -> getEntrySet(pair)
+                .boxed()
+                .flatMap(idx -> heatmapValues.get(idx)
+                        .getValue()
+                        .entrySet()
                         .stream()
-                        .map(entry -> heatMapEntryToData(pair, entry)))
+                        .map(entry -> heatMapEntryToData(idx, entry)))
                 .collect(Collectors.toList());
     }
 
-    private Set<Map.Entry<DayOfWeek, Amount>> getEntrySet(
-            Pair<Integer, Pair<DateRange, EnumMap<DayOfWeek, Amount>>> pair) {
-        return pair.getValue().getValue()
-                .entrySet();
+    /**
+     * Converts a heatmap entry with an index representing the week, to a data item for the chart.
+     */
+    private XYChart.Data<Integer, Integer> heatMapEntryToData(Integer week, Map.Entry<DayOfWeek, Amount> entry) {
+        return new XYChart.Data<>(week, entry.getKey().getValue(), getAmountValueAdjusted(entry));
     }
 
-    private XYChart.Data<Integer, Integer> heatMapEntryToData(Pair<Integer, Pair<DateRange, EnumMap<DayOfWeek, Amount>>> pair,
-                                                              Map.Entry<DayOfWeek, Amount> entry) {
-
-        return new XYChart.Data<>(pair.getKey(), entry.getKey().getValue(), getAmountValueAdjusted(entry));
-    }
 
     private double getAmountValueAdjusted(Map.Entry<DayOfWeek, Amount> entry) {
         return Math.log10(entry.getValue().amount.doubleValue()) / 2;
