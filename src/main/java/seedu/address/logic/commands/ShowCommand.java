@@ -20,7 +20,7 @@ import seedu.address.model.person.Person;
 public class ShowCommand<T> extends Command {
 
     public static final String COMMAND_WORD = "show";
-    public static final String MESSAGE_SUCCESS = "Showing: %1$s";
+    public static final String MESSAGE_SUCCESS = "Showing: %s";
     public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in TimeBook!";
     public static final String MESSAGE_GROUP_NOT_FOUND = "This group does not exists in the TimeBook!";
     public static final String MESSAGE_USAGE = "Show command takes in a person's or group's name as argument!";
@@ -60,8 +60,8 @@ public class ShowCommand<T> extends Command {
             } else {
                 model.updateScheduleWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             }
-            return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
-                    false);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, person.get().getName().toString()),
+                    false, false);
         } else {
             ObservableList<Group> groupList = model.getObservableGroupList();
             Optional<Group> group = Optional.empty();
@@ -77,8 +77,8 @@ public class ShowCommand<T> extends Command {
             }
 
             model.updateScheduleWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, group.get()), false,
-                    false);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, group.get().getGroupName().toString()),
+                    false, false);
         }
     }
 

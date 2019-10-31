@@ -42,12 +42,17 @@ public class AddNusModCommandParser implements Parser<AddNusModCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MODULE_CODE, PREFIX_LESSON_TYPE_AND_NUM,
                         PREFIX_ACAD_YEAR, PREFIX_SEMESTER);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MODULE_CODE, PREFIX_LESSON_TYPE_AND_NUM)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_LESSON_TYPE_AND_NUM)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNusModCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Name name;
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        } else {
+            name = null;
+        }
 
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
         Map<LessonType, LessonNo> lessonTypeNumMap;
