@@ -9,7 +9,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.QuestionBank;
 import seedu.address.model.question.SavedQuestions;
-import seedu.address.storage.export.HTMLExporter;
 
 /**
  * Represents a manager for quizzes.
@@ -194,7 +193,7 @@ public class QuizManager {
             Quiz quiz = quizBank.getQuiz(quizIndex);
             quizInfo = quiz.getQuestionsForExport();
         }
-        return HTMLExporter.export(quizId, quizInfo);
+        return QuizExporter.exportQuiz(quizId, quizInfo);
     }
 
     /**
