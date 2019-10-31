@@ -176,15 +176,9 @@ Navigates back to the *HomePage*.
 
 === List all questions: `showall`
 
-Navigates to the *Questions* Tab List all questions available in the whole database.
+Navigates to the *Questions* Tab and displays all available questions.
 
 *Format:* `showall`
-
-****
-* Your saved answer will be loaded the next time you ​attempt the question again. e.g. after you `save` your answer on
-the *_question page_* of question 2, the next time you `attempt 2`, your saved answer will be displayed in the editor.
-* Only input in the text editor will be saved.
-****
 
 === Find question by title : `find`
 
@@ -249,6 +243,8 @@ Displays the problem statement of the question.
 * The id of the question can be seen next to its title.
 ****
 
+image::view.png[width="1000"]
+
 *Examples:*
 
 * `view 2` +
@@ -269,28 +265,19 @@ will be displayed on the left of the GUI. The *Editor* will be displayed on the 
 
 image::attempt.png[width=1000"]
 
-*Examples:*
-
-* `view 2` +
-Opens the question page displaying the question with the id "2".
-
 === Submitting your answer: `submit`
 
-Submits your current answer.​ Your code will now be compiled and run against the specified test cases. A new window will
-appear on the right of the GUI to display your results. ​Can only be invoked from the *_question page_*.
+Submits your current answer.​ Your code will be compiled and run against test cases. The results will be displayed in
+the ProgramEvaluationDisplay on the bottom left of UI.
 
 *Format:* `submit`
 
 ****
-* Only code written in the text editor will be used for compilation.
 * Make sure to check that your code compiles or you will receive an error message.
+* Remember to import the relevant packages that you have used in your code!
 ****
 
-image::submit.png[width="920"]
-
-****
-* You will have to submit your answer again to open the results window after closing it.
-****
+image::submit.png[width="1000"]
 
 *Examples:*
 
