@@ -89,6 +89,22 @@ public class Content {
     }
 
     /**
+     * Formatting for list
+     * Truncates the content for the general list command
+     * @return String of truncated conten
+     */
+    public String formatToList() {
+        StringBuilder toBeListed = new StringBuilder();
+        if (this.content.length() > 20) {
+            toBeListed.append(content.substring(0, 20))
+                    .append("...");
+        } else {
+            toBeListed.append(content);
+        }
+        return toBeListed.toString();
+    }
+
+    /**
      * Format state as text for viewing.
      */
     public String toString() {
