@@ -351,14 +351,14 @@ Typing `ls` now works equivalently as typing `list`.
 * `alias l/show all patients v/list` +
 Typing `show all patients` now works equivalently as typing `list`.
 
-==== Deleting a shorthand commands / alias : `deletealias`
+==== Deleting a shorthand commands / alias : `unalias`
 
 Delete an existing alias. +
-Format: `deletealias SHORTHAND`
+Format: `unalias SHORTHAND`
 
 *Examples*:
 
-* `deletealias ls` +
+* `unalias ls` +
 Typing `ls` will no longer be equivalent to typing `list`.
 
 === *Saving the data*
@@ -438,5 +438,5 @@ e.g. `reminder Two Point Hospital closed d/7`
 
 * *Setting a shorthand command / alias* : `alias l/SHORTHAND v/COMMAND` +
 e.g. `alias l/show all patients v/list`
-* *Deleting a shorthand commands / alias* : `deletealias SHORTHAND` +
-e.g. `deletealias show all patients`
+* *Deleting a shorthand commands / alias* : `unalias SHORTHAND` +
+e.g. `unalias show all patients`

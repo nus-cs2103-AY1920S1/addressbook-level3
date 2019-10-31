@@ -3,14 +3,14 @@ start
 :User uses a macro/alias;
 
 repeat
-    if (matches alias) then ([true])
-        if (currentAlias > previousAlias) then ([true])
+    if () then ([matches alias])
+        if () then ([currentAlias > previousAlias])
             :Apply this alias instead;
         else ([else])
         endif
     else ([else])
     endif
-repeat while (more alias exists in table) is ([true])
-->[no];
+repeat while () is ([more alias exists in table])
+->[else];
 stop
 @enduml
