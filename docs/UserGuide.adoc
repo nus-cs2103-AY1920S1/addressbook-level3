@@ -18,199 +18,469 @@ By: `SecureIT`      Since: `August 2019`      Licence: `MIT`
 
 == Introduction
 
-SecureIT is for those who *prefer a secure password manager that stores your password locally*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to SecureIT!
 
+Tired of having to keep track of all your confidential information? Look no further!
+SecureIT is specifically designed to help manage your confidential information all in one application. More importantly,
+it *stores your information locally,*  and does not use any form of online storage!
+
+
+SecureIT is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+For those of you who are type fast, SecureIT can get can manage your confidential information faster than traditional GUI apps.
+
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+== Basic Information
+This following guide will teach you how you can use `SecureIT` to keep track of your confidential information so you will never have to worry about your information ever again.
+
+Confused? You refer to <<Quick Start>> for a simple set-up.
+
+If you are overwhelmed by all the instructions and don't know which one to use, our <<CheatSheet of commands>> is here to help you.
+
+The following list of icons below will assist you to understand our material:
+
+
+
+[cols="3,40"]
+|========
+|Icon | Meaning
+a|image::tip.png[width = "20"] | Some tips for you to familiarise with the commands
+a|image::warning.png[width = "20"] | Warning! Danger zone. Make sure you know what you are doing
+|========
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `SecureIT.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your SecureIT.
+.  Copy the file to the folder you want to use as the home folder for your *SecureIT*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-.  Enter password for SecureIT or set up a new password if it is your first time accessing the application.
+.  Since this is the first time that you are using *SecureIT*, you will be asked to create a new master password. Type your preferred master password in the command box and hit the `Enter` key.
+.  With that, you have created your very own *SecureIT* account. You can now enter commands in the command box and press `Enter` to execute it.
 +
 image::Ui.png[width="790"]
 +
-.  Refer to <<Features>> for details of each command.
+.  Here are some example commands that you can try out:
+* `add d/Gmail u/randomGuy p/qwerty123` : adds a password with username 'randomGuy' and password 'qwerty123'
+* `analyse` : briefly analyses all your passwords and produces a security report
+* `analyse strong/1` : analyses your first password and produces a detailed security report
+* `generate` : generates a random strong password for you
+* `encrypt <filepath>` : encrypts the file in the specified filepath
+.  You may refer to <<Features>> for more details of all our available commands.
 
 [[Features]]
 == Features
 
 ====
+--
+image::tip.png[width = "20", float = "left"]
+--
+
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add u/USERNAME`, `USERNAME` is a parameter which can be used as `add u/User Doe`.
+* Items in square brackets are optional e.g `u/USERNAME [t/TAG]` can be used as `u/User Doe t/work` or as `n/User Doe`.
+* Items with `…`​ after them can be used multiple times until a limit including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Work`, `t/SocialMedia t/Personal` etc.
+* Parameters can be in any order e.g. if the command specifies `u/USERNAME p/PASSWORD`, `p/PASSWORD u/USERNAME` is also acceptable.
+* All index specified must be a positive number 1,2,3...
 ====
 
-===  Accessing password directory : `goto password`
+=== Password
+You can access the password directory using this command : `goto password`
 
 ==== Adding a password : `add`
 
-Adds a password to the app.
-Format: `add <desc> <username> <password>`
+Too many passwords to remember? You can add a password to the application.
 
-Example: `add Gmail user1 password1`
+Format: `add d/DESCRIPTION u/USERNAME p/PASSWORD [w/WEBSITE] [t/TAG]...`
 
-==== Accessing a password : `open`
+Example: `add d/Gmail u/user1 p/password1 w/www.gmail.com/signin t/work`
 
-Shows the username and password for the specified password description provided by the user.
+==== Accessing a password : `read`
 
-Format: `open <desc>`
+You can open and view the password for the specified index.
 
-Example: `open Gmail`
+Format: `read INDEX`
 
-==== Updating a password : `update`
+Example: `read 1`
 
-Updates a password as specified by the user.
+==== Copying a field in a password : `copy`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
-Format: `update <desc>`
+* You can type cp for copy, p for password, u for username and w for website.
+* You can only copy one field at a time
+====
 
-Example: `update Gmail`
+You can copy the password value, website or username for the specific index.
 
-===== Updating description: `-d`
+Format: `copy password INDEX`
 
-Updates specified password’s description.
+Example: `copy password 1`
 
-Format: `-d <desc>`
+Example: `cp p 1`
 
-Example: `-d Hotmail`
+Example: `cp username 2`
 
-===== Updating username: `-u`
+Example: `cp w 2`
 
-Updates specified password’s username.
+==== Updating a password : `edit`
 
-Format: `-u <username>`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
-Example: `-u user2`
+* You do not need not type all the fields of the password again.
 
-===== Updating password: `-p`
+* You can just type the fields that you want to change.
+====
 
-Updates specified password’s password.
+Added a wrong password? No worries, you can edit the password.
 
-Format: `-p <password>`
+Format: `edit INDEX [d/DESCRIPTION] [u/USERNAME] [p/PASSWORD] [w/WEBSITE] [t/TAG]`
 
-Example: `-p password2`
+Example: `edit 1 u/NewUsername`
 
+Example: `edit 1 p/password123`
+
+Example: `edit 1 u/NewUsername p/password123`
 
 ==== Deleting a password: `delete`
 
-Deletes a password as specified by the user.
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
 
-Format: `delete <desc>`
+* Deleted passwords are not recoverable
+====
 
-Example: `delete Gmail`
+No longer use the user account? You can delete the password as specified by the user.
+
+Format: `delete INDEX`
+
+Example: `delete 2`
 
 ==== Finding a password: `find`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
-Finds a password description as specified by the user.
-
-Format: `find <desc>`
-
-Example: `find Gmail`
-****
 * The search is case insensitive. e.g `gmail` will match `Gmail`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the description is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-****
+* Incomplete-words will be matched e.g. `Han` will match `Hans`
+====
+
+Too many passwords? You can find the password description as specified by the user.
+
+Format: `find DESCRIPTION`
+
+Example: `find Gmail`
 
 ==== Generating a new password: `generate`
 
-Generates a new random password based on user preference input and copies generated password into user clipboard.
+Lazy to think of a strong password?
+Simply enter `generate` into the command box to get one.
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Try it out!*
 
-Format: `generate lower/<true/false> upper/<true/false> num/<true/false> special/<true/false>`
+* You can add custom preferences and configure the following:
+** Length of password
+
+** Inclusion of upper / lower alphabets
+
+** Inclusion of numbers
+
+** Inclusion of special characters
+
+* All passwords are automatically copied onto your clipboard.
+====
+
+Format: `generate [length/LENGTH] [lower/TRUE] [upper/TRUE] [num/TRUE] [special/TRUE]`
+
+* The various fields are set to TRUE by default.
+
+* To disable these fields, set to FALSE.
+
+Example: `generate`
+
+Example `generate length/10`
+
+Example: `generate lower/true upper/true num/true special/false`
 
 
-==== Analysing all password: `analyse`
+==== Analysing passwords : `analyse`
 
-Analyses all passwords currently stored and produces a security summary report.
+Curious how secure your passwords really are? Type `analyse` into the command box to find out.
 
-Format: `analyse`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Try it out!*
 
-==== Analysing all password: `analyse strong`
+* You can opt to view:
 
-Analyses in detail a specified password based on the user specified index.
+** A general, summary security report for all passwords, or
 
-Format: `analyse strong/<index>`
+** A detailed security report for a specific password.
 
-===  Accessing card directory : `goto card`
+* To view the detailed analysis of a particular password, simply add in the `strong` prefix.
+====
+
+Format: `analyse [strong/INDEX]`
+
+Example: `analyse`
+
+Example: `analyse strong/8`
+
+=== Card
+
+Too many credit cards to carry around? With SecureIT, you can easily manage your card information.
+
+To access your cards, simply enter `goto card` in the command box.
 
 ==== Creating a card : `add`
 
-Adds a credit/debit card to the app.
+You can easily adds cards to the application.
 
-Format: `add <description> <cardNumber> <expiry> <cvc>`
+Format: `add d/<description> c/<cardNumber> e/<expiry> v/<cvc> [t/<tag>]`
 
-Example: `add VisaPOSB`
+Example: `add d/VisaPOSB c/5203123458392748 e/12/25 v/456 t/groceries`
+
+==== Reading a card : `read`
+
+You can also obtain the details of a card easily, just by its description.
+
+Format: `read <description>`
+
+Example: `read VisaPOSB`
 
 ==== Deleting a card: `delete`
 
-Deletes a card as specified by the user.
+If your card has expired, you can easily remove it from the application, by its description.
 
 Format: `delete <description>`
 
 Example: `delete VisaPOSB`
 
-===  Accessing file directory : `goto file`
+=== File
+
+SecureIT has a file manager which helps you keep secret files that you do not wish others to see. Using your master password, SecureIT convert your files into encrypted code which other apps cannot understand.
+
+To access the file manager, simply enter `goto file` in the command box.
 
 ==== Encrypting a file : `encrypt`
 
-Encrypts a local file as specified by the user.
+Encrypts a local file as specified by its file path. The file's content is converted into encrypted code which other apps cannot understand. Encrypted files have the prefix `[LOCKED]` in their file names.
 
-Format: `encrypt FILEPATH`
+As you encrypt the file, you may tag the file at the same time for easy reference later on.
 
-Example: `encrypt ~/Desktop/Secret File.png`
+Format: `encrypt FILEPATH [t/TAG]...`
+
+Example: `encrypt ~/Desktop/Secret File.png t/Image`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* Instead of typing the file path, you can drag the file into the input field to easily append the file path. This also applies to other commands (e.g. `add`).
+* The app may freeze for some time if the file to be encrypted is large. Please do not force exit the app during encryption.
+* The app does not support encryption of files larger than 2GB.
+====
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The `encrypt` command only alters the file content but does not set up additional access rights. In other words, it keeps your information secret but does not keep your files safe from malicious alteration or deletion.
+* If you wish to prevent alternation or deletion of files, please set up additional access rights using your operating system. SecureIT is not responsible for any data loss resulting from lack of access right settings.
+* If you are using Windows, please close the file before encryption.
+====
 
 ==== Decrypting a file : `decrypt`
 
-Decrypts a local file as specified by the user.
+Decrypts a local file as specified by the displayed index number.
 
 Format: `decrypt INDEX`
 
-Example: `decrypt 1` (This command decrypts the first file in the file list.)
+Example: `decrypt 1` (This command decrypts the first file in the displayed file list.)
 
-==== Finding a file: `find`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
-Finds an encrypted file as specified by the user.
+* If you notice that the file decryption fails, it may be because you have renamed the file or moved the file to another location without using SecureIT (for example, using your operating system directly).
+* In that case, use `remove` command to remove the file from the list first, and then use `add` command to add the renamed/moved file. Please refer to the `remove` and `add` command sections for detailed instructions.
+====
 
-Format: `find FILENAME`
+==== Adding an encrypted file : `add`
 
-Example: `find Secret File`
-****
-* The search is case insensitive. e.g `secret file` will match `Secret File`
-* Only the file name is searched.
-****
+Adds an encrypted file as specified by its file path. The file must be encrypted by SecureIT previously.
 
-===  Accessing note directory : `goto note`
+As you add the file, you may tag the file at the same time for easy reference later on.
+
+Format: `add FILENAME [t/TAG]...`
+
+Example: `add ~/Desktop/[LOCKED] Secret File.png t/Image`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* The file name does not have to contain the prefix `[LOCKED]`. SecureIT can recognise the file and automatically prepend the prefix.
+====
+
+==== Removing a file : `remove`
+
+Removes an encrypted file record as specified by the displayed index number.
+
+Please note that only the file record within SecureIT is removed. The actual file is not deleted from the file system.
+
+Format: `remove INDEX`
+
+Example: `remove 1`
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* The "encrypted at" and "last edited at" timestamps are stored within SecureIT and will be discarded if you remove the record from SecureIT. They are not recoverable even if you add the file back using `add` command.
+====
+
+==== Renaming an encrypted file : `rename`
+
+Renames an encrypted file as specified by its index number. The prefix `[LOCKED]` is retained.
+
+Format: `rename INDEX TARGET_FILENAME`
+
+Example: `rename 1 Secret File.txt`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* The file extension of the file is retained using `rename` command. If you give a file extension in the target file name, it will be ignored.
+====
+
+==== Moving an encrypted file : `move`
+
+Moves an encrypted file as specified by its index number.
+
+Format: `move INDEX TARGET_DIRECTORY`
+
+Example: `move 1 ~/Documents/Secret File.png`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* It is recommended to rename and move files using SecureIT to better manage your files.
+* If you have renamed or moved your files without using SecureIT (for example, using the operating system directly), you have to use `remove` command to remove the file from the list first, and then use `add` command to add the renamed/moved file.
+====
+
+==== Finding encrypted files : `find`
+
+Finds matching encrypted files as specified by the search keywords.
+
+To return from search results, use `list` command.
+
+Format: `find KEYWORDS...`
+
+Examples: `find Secret File`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* The search is case insensitive. e.g `secret file` will match `Secret File`.
+* Both the file name and the file path are searched. Hence, you can look for files with certain types (e.g. `find .png .jpg`) or files inside certain directories (e.g. `find /Desktop`).
+====
+
+==== Listing all files : `list`
+
+Lists all encrypted files managed by SecureIT.
+
+Format: `list`
+
+==== Viewing an encrypted file : `preview` [coming soon]
+
+Previews an encrypted file as specified by its index number. You can only preview `.txt`, `.jpg` and `.png` files.
+
+Format: `preview INDEX`
+
+Example: `preview 1`
+
+===  Note
+Accessing note directory : `goto note`
 
 ==== Creating a note : `add`
 
 Adds a note to the app.
 
-Format: `add <title> <description> <tag> <content> `
+Format: `add ti/TITLE d/DESCRIPTION t/TAG c/CONTENT `
 
 Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
 
-==== Accessing a note : `read`
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
 
-Reads a note in the app.
+* You are not allowed to create notes with the same title.
+* Title, description and tag field must not be empty.
+====
 
-Format: `read <index>`
+==== Accessing a note : `open`
 
-Example: `read 1`
+Opens the note corresponding to the index in the app.
 
-****
-* Read note opens a new window that allows you to read and edit easily.
+Format: `open INDEX`
+
+Example: `open 1`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* Opens a new window that allows you to read and edit easily.
 * Click on save button after editing to save changes made to the content of the note.
-****
+====
 
 ==== Deleting a note: `delete`
 
 Deletes a note as specified by the user.
 
-Format: `delete <index>`
+Format: `delete INDEX`
 
 Example: `delete 1`
 
@@ -218,35 +488,55 @@ Example: `delete 1`
 
 Edits a note specified by the user.
 
-Format: `edit <index> <Title> <Description> <Tag> <Content>
+Format: `edit INDEX [ti/TITLE] [d/DESCRIPTION] [t/TAG c/CONTENT]`
 
 Example: `edit 1 ti/NewTitle d/NewDescription t/NewTag c/NewContent`
 Example: `edit 1 ti/NewTitle`
 
-****
-* <index> and at least one field is compulsory to successfully edit the note.
-* To edit the content of the note, you can also choose to use the Read command for better usability.
-****
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* INDEX and at least one optional field is compulsory to successfully edit the note.
+====
 
 ==== Finding a note: `find`
 
 Finds a note as specified by the user.
 
-Format: `find <index>` or `find <Title>`
+Format: `find TEXT`
 
-Example: `find 1` or `find Personal_diary`
-****
-* The search is case insensitive. e.g `Personal_diary` will match `personal_diary`
-* Only the description is searched.
-****
+Example:`find Personal_diary`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
-==== Sorting notes: `sortBy`
+* Your input TEXT for search is case insensitive. e.g `Personal_diary` will match `personal_diary`
+* Searches title, description and content of all the notes that contains the TEXT.
+====
+
+==== Sorting notes: `sort`
 
 Sorts notes in ways specified by the user.
 
-Format: `sortBy <sortMethod>`
+Format: `sort by/SORTBYCONDITION`
 
-Example: `sortBy date/`
+Example: `sort by/DateModified`
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* SORTBYCONDITION must be either "DateModified", "DateCreated" and "NumOfAccess".
+* SORTBYCONDITION is not case-sensitive.
+====
 
 ==== Undo notes action: `undo`
 
@@ -256,6 +546,16 @@ Format: `undo`
 
 Example: `undo`
 
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* You can only perform undo on undo-able commands. Undoable commands are: `add`, `edit`, `delete`, `clear` and `sort`
+* You can undo as many commands as you wish until there are no more commands that can be undone.
+====
+
 ==== Redo notes action: `redo`
 
 Redo last undone action on notes.
@@ -263,6 +563,16 @@ Redo last undone action on notes.
 Format: `redo`
 
 Example: `redo`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* You can redo as many commands as you wish until there are no more commands that can be redone.
+* If you perform a new undo-able command, all existing redo-able commands will be cleared.
+====
 
 === Clearing all entries : `clear`
 
@@ -278,6 +588,60 @@ Format: `exit`
 
 SecureIT data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+== CheatSheet of commands
+*Password*
+
+Accessing Password directory: `goto password`
+
+- `add d/DESCRIPTION u/USERNAME p/PASSWORD [w/WEBSITE] [t/TAG]...` : Adds a password to the app.
+- `read INDEX`:  Shows the username and password for the specified index provided by you.
+- `edit INDEX [d/DESCRIPTION] [u/USERNAME] [p/PASSWORD] [w/WEBSITE] [t/TAG]`: Edits a password as specified by you.
+- `copy password INDEX`: Copies the password value, website or username for the specific index
+- `delete INDEX`: Deletes a password as specified by the user.
+- `find DESCRIPTION`: Finds a password description as specified by the user.
+- `generate [length/LENGTH] [lower/TRUE] [upper/TRUE] [num/TRUE] [special/TRUE]`: Generates a new random password based on user preference input and copies generated password into user clipboard.
+- `analyse`: Analyses all passwords currently stored and produces a security summary report.
+- `analyse [strong/INDEX]`: Analyses in detail a specified password based on the user specified index.
+
+*Card*
+
+Accessing Card directory: `goto card`
+
+- `add d/DESCRIPTION c/CARDNUMBER e/EXPIRY v/CVC`: Adds a credit/debit card to the app.
+- `delete DESCRIPTION`: Deletes a card as specified by the user.
+
+*File*
+
+Accessing File directory: `goto file`
+
+- `encrypt FILEPATH [t/TAG]...`: Encrypts a local file as specified by its file path.
+- `decrypt INDEX`: Decrypts a local file as specified by the displayed index number.
+- `add FILENAME [t/TAG]...`: Adds an encrypted file as specified by its file path.
+- `remove INDEX`: Removes an encrypted file record as specified by the displayed index number.
+- `rename INDEX TARGET_FILENAME`: Renames an encrypted file as specified by its index number.
+- `move INDEX TARGET_DIRECTORY`: Moves an encrypted file as specified by its index number.
+- `find KEYWORDS...`: Finds matching encrypted files as specified by the search keywords.
+- `list`: Lists all encrypted files managed by SecureIT.
+
+*Note*
+
+Accessing Note directory: `goto note`
+
+- `open INDEX`: Opens the note corresponding to the index in the app.
+- `delete INDEX`: Deletes a note as specified by the user.
+- `edit INDEX ti/TITLE d/DESCRIPTION t/TAG c/CONTENT`: Edits a note specified by the user.
+- `find INDEX` or `find TITLE`: Finds a note as specified by the user.
+- `sort by/SORTBYCONDITION`: Sorts notes in ways specified by the user.
+- `undo`: Undo last action on notes.
+- `redo`: Redo last undone action on notes.
+
+*Others*
+
+Other commands
+
+- `clear`: Clears all entries from the current book user is on.
+- `exit`: Exits the program.
 
 == FAQ
 
