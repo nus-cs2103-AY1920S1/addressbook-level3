@@ -462,13 +462,36 @@ not tagged.
         4. Title: MA1521 Chapter 5
             Content: dy/dx = 0 is turning point of bellcurve.
             Tags: [difficult][MA1521]
+        5-1. Title: CS2103T
+              Content: sequence diagram
+              Tags: [difficult][diagram]
+
+NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will be labeled with '1-1', '1-2', '2-1' etc.
+'5-1' means 'the first note fragment tag in the fifth note'.
+
+=== Editing a note: `edit` (Coming in v2.0)
+
+Edits a note's title, content, or tags. The note will be referred to by their original title `ORIGINAL_TITLE`.
+
+* The user can specify one of the optional fields to edit.
+
+    Format: edit ORIGINAL_TITLE [t/TITLE] [c/CONTENT] [tag/TAG]...
+
+    Example usage: edit Pipelining Definition t/Pipelined Definition tag/cs2100finals
+
+    Expected output:
+    Edited Note:
+        Title: Pipelined Definition
+        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
+        Tags: [cs2100finals]
 
 == CheatSheet Feature:
 
 === Creating a cheatSheet: `add`
 
 * Adds a cheatSheet from user input title <TITLE> and content <CONTENT>.
-* Flashcards and notes in StudyBuddyPro that have the specified tag will be pulled over to be used as content in the cheatsheet.
+* Flashcards and notes in StudyBuddyPro that have the specified tag will be pulled over to be used as content in the
+cheatsheet.
 
     Format: add t/TITLE [tag/TAG]...
 
