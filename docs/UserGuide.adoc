@@ -97,7 +97,7 @@ Use this command to add a new entity for Alfred to keep track of. +
 * As of version 1.1, you must provide all the fields. There are no optional fields.
 ****
 
-==== Adding a Participant: `add participant [PARAMETERS]`
+==== Adding a Participant: `add participant PARAMETERS`
 
 Use this command to add a new Participant to Alfred to keep track of for your hackathon.
 
@@ -113,7 +113,7 @@ Examples:
 
 * `add participant n/Betsy Crowe e/betsycrowe@example.com p/1234567`
 
-==== Adding a Mentor: `add mentor [PARAMETERS]`
+==== Adding a Mentor: `add mentor PARAMETERS`
 Use this command to add a new Mentor to Alfred to keep track of for your hackathon.
 
 ****
@@ -130,7 +130,7 @@ Examples:
 
 * `add mentor n/Doctor Batman p/91236549 e/bruce@gmail.com o/Google s/Augmented Reality`
 
-==== Adding a Team: `add team [PARAMETERS]`
+==== Adding a Team: `add team PARAMETERS`
 
 Use this command to add a new Team to Alfred to keep track of for your hackathon.
 ****
@@ -269,8 +269,8 @@ Use this command to list the top k teams in the leaderboard, where k is a number
 
 ****
 * This command will show you a cropped version of the leaderboard.
-* Alfed's UI will display a list of top "k" teams based on their current score.
-* If you input "k" as a number more than the number of teams in the hackathon, Alfred will simply display all the teams in the Hackathon.
+* Alfred's UI will display a list of top "k" teams based on their current score.
+* If you input "k" as a number more than the number of teams in the Hackathon, Alfred will simply display all the teams in the Hackathon.
 ****
 
 ****
@@ -336,13 +336,16 @@ Example:
 
 Do note that if you try to subtract more than the maximum amount of points (which is set to 100 as default), Alfred will not allow it and will display an error message. If the subtraction of points makes the team's total go below the minimum (which is set to 0 points), the score will simply be set to 0.
 
-=== Bulk Registration: `import fp/PATH_TO_CSV_FILE`
-You may import multiple entities at once into Alfred through the specification of a CSV file.
+=== Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`
+You may import multiple entities at once into Alfred through the specification of a CSV file. +
+If the PATH_TO_ERROR_FILE is specified, Alfred will create a new CSV file with all of the lines that were not able to be loaded.
 
 Example:
 
 * `import fp/C:/User/Hackathon2019/participant.csv` will import data from the participant.csv file into Alfred.
 * `import fp/Hackathon2019/participant.csv` will look for the CSV file in your current directory (or the folder where alfred.jar is downloaded).
+
+Example usage of error file is shown at the end of <<CSV File Formatting>>.
 
 ==== CSV File Formatting
 In order for the contents of the CSV file to be correctly loaded into Alfred, the file has to be in the correct format.
@@ -394,9 +397,9 @@ Header: `EntityType,ID,Name,Phone,Email`
 
 Example:
 
-* P,P-1,Bruce Wayne,23456789,wbruce@wayne.ent,Wayne Ent.,Health
-* P,1,Bruce Wayne,+6523456789,wbruce@wayne.ent,Wayne Ent.,HEALTH
-* P,,Bruce Wayne,+65 23456789,wbruce@wayne.ent,Wayne Ent.,Health
+* P,P-1,Bruce Wayne,23456789,wbruce@wayne.ent
+* P,1,Bruce Wayne,+6523456789,wbruce@wayne.ent
+* P,,Bruce Wayne,+65 23456789,wbruce@wayne.ent
 
 ===== Team Data
 Header: `EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location`
@@ -418,6 +421,52 @@ Example:
 * T,T-1,Justice League,,,Social,100,Save the Earth,1
 * T,1,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,1
 * T,,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,1
+
+***
+
+Alfred will recognize each of the entity headers and will not count it as an error. Example CSV file may look like this:
+
+****
+
+Alfred.csv
+
+EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location +
+T,,Justice League,[P-1|P-2],M-1,Social,100,Save the Earth,1 +
+T,,Amazon Warriors,[P-3|P-4],,Environmental,100,Save the Amazon,2 +
+EntityType,ID,Name,Phone,Email,Organization,SubjectName +
+M,1,Alfred the Mentor,+6512345678,alfred@batcave.com,Batcave Corp.,EDUCATION +
+M,,Joker,,is this my email?? +
+EntityType,ID,Name,Phone,Email +
+P,1,Bruce Wayne,+65 23456789,wbruce@wayne.ent +
+P,2,Superman,+6519231486,ckent@dailyplanet.org +
+P,3,Diana,+6547234328,diana@amazon.com +
+P,3,Lois Lane,+6598765432,loislane@dailyplanet.org
+
+****
+
+Assuming Alfred has no data, we can see that lines 3, 6, and 11 will fail.
+
+* Line 3: No participant with ID P-4 exist (Missing entity)
+* Line 6: Phone number is missing and email is invalid (Invalid format)
+* Line 11: Another participant with ID P-3 exists (Duplicate entity)
+
+If you give the following command to Alfred,
+
+`import fp/Alfred.csv fp/Alfred_Errors.csv`
+
+then the following CSV file will be created where Alfred.csv is located at.
+
+****
+
+Alfred_Errors.csv
+
+T,,Amazon Warriors,[P-3|P-4],,Environmental,100,Save the Amazon,2 +
+M,,Joker,,is this my email?? +
+P,3,Lois Lane,+6598765432,loislane@dailyplanet.org
+
+****
+
+***
 
 === Export Data: `export [{mentor/participant/team}] [fp/DESIRED_CSV_FILE_PATH]`
 You may export Alfred data to an external CSV file. If the desired CSV file path is left empty, Alfred will create a CSV file at the default location (`./AlfredData/Alfred_Data.csv`).
