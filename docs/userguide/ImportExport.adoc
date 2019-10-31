@@ -5,7 +5,7 @@
 As a community nurse, you may be assigned new patients, or some of your patients may be assigned to other community nurses. To facilitate the transferring of patient information from one device to another, you can import and export the data of your patients. This section describes the features that will allow you to import and export patient information.
 ====
 
-=== Importing patient data from a CSV file
+=== Importing patient data from a CSV file: `app-import-replace`, `app-import-merge`
 
 You can import patient data from a .csv file into the application using
 `app-import-replace` or `app-import-merge`.
@@ -16,7 +16,7 @@ You can import patient data from a .csv file into the application using
 * Both import commands are undoable.
 ****
 
-==== Import and Replace
+==== Import and Replace: `app-import-replace`
 
 Reads patient data from a specified .csv file.
 
@@ -32,7 +32,7 @@ Examples:
 
 ** Patient data will be entirely replaced with new data from `./imports/my_assigned_patients.csv`.
 
-==== Import and Merge
+==== Import and Merge: `app-import-merge`
 
 Patient data will be read from a specified .csv file and merged without
 affecting existing data.
@@ -73,7 +73,7 @@ each element is to be separated with a newline.
 =====
 An example of a valid .csv can be seen link:ExampleCsv.png[here]
 
-=== Exporting data into a CSV file
+=== Exporting data into a CSV file: `app-export`
 
 You can export patient data from the application into a .csv file using `app-export`.
 A new .csv file will be created and data will be written into it.
