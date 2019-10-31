@@ -356,11 +356,11 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case T:
                 this.fireButton(teamsButton);
-                lastFired = mentorsButton;
+                lastFired = teamsButton;
                 break;
             case P:
                 this.fireButton(participantsButton);
-                lastFired = mentorsButton;
+                lastFired = participantsButton;
                 break;
             case H:
                 this.fireButton(historyButton);
@@ -368,6 +368,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case L:
                 this.fireButton(leaderboardButton);
+                lastFired = leaderboardButton;
                 break;
             case K:
                 displayTopK();
