@@ -17,6 +17,7 @@ import seedu.address.model.reminders.conditions.EntrySpecificCondition;
  * Basic reminder class with minimal functionality.
  */
 public class Reminder implements PropertyChangeListener {
+    private boolean isEntrySpecific;
     private Status status = Status.unmet;
     private Description message;
     private List<Condition> conditions;
@@ -100,6 +101,14 @@ public class Reminder implements PropertyChangeListener {
         numberOfConditions = conditions.size();
     }
 
+    public boolean getEntrySpecificity() {
+        return isEntrySpecific;
+    }
+
+    public void setEntrySpecificity(boolean isEntrySpecific) {
+        this.isEntrySpecific = isEntrySpecific;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -120,21 +129,30 @@ public class Reminder implements PropertyChangeListener {
      * adds condition to condition list
      * @param condition
      */
-    public void addCondition(Condition condition) {
-        assert(!conditions.contains(condition));
-        conditions.add(condition);
-        condition.getSupport().addPropertyChangeListener(this);
-        numberOfConditions += 1;
+    public boolean addCondition(Condition condition) {
+        if (conditions.contains(condition)) {
+            return false;
+        } else {
+            conditions.add(condition);
+            condition.getSupport().addPropertyChangeListener(this);
+            numberOfConditions += 1;
+            return true;
+        }
     }
 
     /**
      * removes condition to condition list
      * @param condition
      */
-    public void removeCondition(Condition condition) {
-        conditions.remove(condition);
-        condition.getSupport().removePropertyChangeListener(this);
-        numberOfConditions -= 1;
+    public boolean removeCondition(Condition condition) {
+        if (conditions.contains(condition)) {
+            conditions.remove(condition);
+            condition.getSupport().removePropertyChangeListener(this);
+            numberOfConditions -= 1;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setTracker(TrackerType trackerType, double quota) {

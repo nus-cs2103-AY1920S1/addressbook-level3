@@ -8,6 +8,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
+/**
+ * List only reminders that are active;
+ */
 public class ListActiveRemindersCommand extends Command {
 
     public static final String COMMAND_WORD = "listActiveReminders";

@@ -88,6 +88,7 @@ public class SetEntryReminderCommand extends Command {
         ArrayList<Condition> conditionWrapper = new ArrayList<Condition>();
         conditionWrapper.add(entryCondition);
         Reminder entryReminder = new Reminder(message, conditionWrapper);
+        entryReminder.setEntrySpecificity(true);
         model.addReminder(entryReminder);
         return new CommandResult(String.format(MESSAGE_SUCCESS, entryReminder));
     }

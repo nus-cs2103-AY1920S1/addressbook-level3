@@ -55,6 +55,7 @@ import seedu.address.logic.commands.remindercommands.DeleteReminderCommand;
 import seedu.address.logic.commands.remindercommands.EditReminderCommand;
 import seedu.address.logic.commands.remindercommands.ListActiveRemindersCommand;
 import seedu.address.logic.commands.remindercommands.ListAllRemindersCommand;
+import seedu.address.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
 import seedu.address.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddHasKeyWordConditionCommandParser;
@@ -67,6 +68,7 @@ import seedu.address.logic.parser.remindercommandparsers.AddConditionToReminderC
 import seedu.address.logic.parser.remindercommandparsers.AddReminderCommandParser;
 import seedu.address.logic.parser.remindercommandparsers.DeleteReminderCommandParser;
 import seedu.address.logic.parser.remindercommandparsers.EditReminderCommandParser;
+import seedu.address.logic.parser.remindercommandparsers.RemoveConditionFromReminderCommandParser;
 
 /**
  * Parses user input.
@@ -184,6 +186,9 @@ public class AddressBookParser {
 
         case AddConditionToReminderCommand.COMMAND_WORD:
             return new AddConditionToReminderCommandParser().parse(arguments);
+
+        case RemoveConditionFromReminderCommand.COMMAND_WORD:
+            return new RemoveConditionFromReminderCommandParser().parse(arguments);
 
         case ListAllRemindersCommand.COMMAND_WORD:
             return new ListAllRemindersCommand();
