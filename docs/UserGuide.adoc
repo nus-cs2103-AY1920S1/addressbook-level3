@@ -149,8 +149,18 @@ Examples:
 
 === Snoozing a reminder: `snooze`
 
-Snoozes a reminder.
-Format:
+Snoozes a reminder that occurred since the application was open. +
+If an index is not provided, the most recently occurred reminder will be snoozed. +
+If a snooze duration is not specified, the reminder will be snoozed at the default duration of 5 min. +
+Format: 'snooze [INDEX] [-s SNOOZE_DURATION]' +
+
+Examples:
+* `snooze 1`
+* `snooze 3 -s 10.min.later`
+* `snooze -s 10/10/2020`
+
+[NOTE]
+It is not possible to snooze if no reminder has occurred yet.
 
 === Show the specified category : `show`
 
