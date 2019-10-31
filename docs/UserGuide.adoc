@@ -913,6 +913,13 @@ e.g. `find James Jake`
 * *Sort by deadline*: `sort deadline`
 
 === Inventory
+* *Add*: `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
+* *Delete*: `delete INDEX`
+* *Edit*: `edit INDEX [d/DESCRIPTION] [c/CATEGORY] [q/QUANTITY] [co/COST_PER_UNIT] [p/PRICE]`
+* *Sort by category:* `sort category`
+* *Sort by description*: `sort description`
+* *Sort by quantity*: `sort quantity`
+* *Reset sorted list*: `sort reset`
 
 === Cashier
 * *Add sales item*: `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
