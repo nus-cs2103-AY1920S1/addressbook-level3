@@ -32,7 +32,8 @@ public class AddCardCommand extends Command {
             + PREFIX_TAG + "use for groceries";
 
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the app";
+    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the app!";
+    public static final String MESSAGE_DUPLICATE_CARD_DESCRIPTION = "Another card has the same description!";
 
     private final Card toAddCard;
 
@@ -47,6 +48,10 @@ public class AddCardCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasCardDescription(toAddCard)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CARD_DESCRIPTION);
+        }
 
         if (model.hasCard(toAddCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);

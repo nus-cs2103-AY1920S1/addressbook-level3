@@ -114,9 +114,7 @@ public class Card {
         }
 
         Card otherCard = (Card) other;
-        return otherCard.getNonEncryptedCardNumber().equals(getNonEncryptedCardNumber())
-                && otherCard.getNonEncryptedCvc().equals(getNonEncryptedCvc())
-                && otherCard.getExpiryDate().equals(getExpiryDate());
+        return otherCard.getNonEncryptedCardNumber().equals(getNonEncryptedCardNumber());
     }
 
     /**
