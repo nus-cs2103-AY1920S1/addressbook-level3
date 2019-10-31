@@ -68,8 +68,18 @@ Shows helpful information on using this software.
 Format: `help`
 
 === Importing existing availabilities `import`
+The to-be-imported interviewer availability and interviewee details .csv file needs to follow the format as the templates below.
+The templates for the import commands can be found here:
+
+* Interviewer availability: http://bit.ly/interviewerTemplate
+* Interviewees details: http://bit.ly/intervieweeDetails
+
+After you have imported the data, you will need to type `clear` to clear the imported data before you can import another interviewer's
+availability or interviewees details .csv file.
+
 ==== Importing interviewers’ availability
-Imports interviewers’ availability from a comma separated values (CSV) file. +
+Imports interviewers’ availability from a comma separated values (CSV) file.
+
 Format: `import interviewer PATH_TO_FILE` +
     - PATH_TO_FILE is the absolute path to the file. +
     - E.g C:\\Users\Bob\file.csv
@@ -287,6 +297,9 @@ Format: `record rank`
 |Import existing availabilities
 |`import interviewer PATH_TO_FILE` +
   `import interviewee PATH_TO_FILE`
+
+|Clear imported data
+|`clear` +
 
 |Add interviewers/interviewees
 |`add interviewer name:"NAME" slot:SLOT...` +
