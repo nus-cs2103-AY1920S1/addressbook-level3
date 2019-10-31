@@ -129,14 +129,14 @@ public class NoteManager implements NoteModel {
     }
 
     @Override
-    public void tagNote(Note note, Tag tag) {
-        noteBook.tagNote(note, tag);
+    public void tagNote(NoteId target, Tag tag) {
+        noteBook.tagNote(target, tag);
     }
 
 
     @Override
-    public void untagNote(Note note, Tag tag) {
-        noteBook.untagNote(note, tag);
+    public void untagNote(NoteId target, Tag tag) {
+        noteBook.untagNote(target, tag);
     }
 
     //=========== Filtered Note List Accessors =============================================================

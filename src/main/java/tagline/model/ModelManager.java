@@ -240,13 +240,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void tagNote(Note note, Tag tag) {
-        noteManager.tagNote(note, tag);
+    public void tagNote(NoteId target, Tag tag) {
+        noteManager.tagNote(target, tag);
     }
 
     @Override
-    public void untagNote(Note note, Tag tag) {
-        noteManager.untagNote(note, tag);
+    public void untagNote(NoteId target, Tag tag) {
+        noteManager.untagNote(target, tag);
     }
 
     //=========== Filtered Note List Accessors =============================================================

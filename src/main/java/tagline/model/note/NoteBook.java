@@ -87,8 +87,8 @@ public class NoteBook implements ReadOnlyNoteBook {
     /**
      * Tags a note inside the address book.
      */
-    public void tagNote(Note note, Tag tag) {
-        Optional<Note> foundNote = findNote(note.getNoteId());
+    public void tagNote(NoteId target, Tag tag) {
+        Optional<Note> foundNote = findNote(target);
 
         assert (foundNote.isPresent()) : "Tagging a non-existing note.";
 
@@ -98,8 +98,8 @@ public class NoteBook implements ReadOnlyNoteBook {
     /**
      * Untags a note inside the address book.
      */
-    public void untagNote(Note note, Tag tag) {
-        Optional<Note> foundNote = findNote(note.getNoteId());
+    public void untagNote(NoteId target, Tag tag) {
+        Optional<Note> foundNote = findNote(target);
 
         assert (foundNote.isPresent()) : "Untagging a non-existing note.";
 

@@ -463,3 +463,13 @@
 #groupListCardPane #emptyGroupLabel {
     -fx-text-fill: #999999;
 }
+
+#tagsContainer .label {
+    -fx-border-width: 1;
+    -fx-border-color: white;
+
+    -fx-padding: 3;
+    -fx-background-color: gray;
+
+    -fx-font-size: 10px;
+}

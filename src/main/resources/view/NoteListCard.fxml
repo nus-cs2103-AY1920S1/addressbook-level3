@@ -9,13 +9,15 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.FlowPane?>
 <HBox id="noteListCardPane" fx:id="noteListCardPane"
       xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane id="noteListInternalPane" HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="20" prefWidth="60"/>
         </columnConstraints>
-        <VBox alignment="TOP_LEFT" spacing="5" minHeight="120" GridPane.columnIndex="0" HBox.hgrow="ALWAYS">
+        <VBox fx:id="card" alignment="TOP_LEFT" spacing="5" minHeight="120" GridPane.columnIndex="0"
+              HBox.hgrow="ALWAYS">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
@@ -37,7 +39,10 @@
             </HBox>
             <Separator minHeight="2.0"/>
             <Label fx:id="content" text="\$content" styleClass="cell_small_label" wrapText="true"/>
-            <Label fx:id="tags" text="\$tags" styleClass="cell_small_label" wrapText="true"/>
+            <HBox fx:id="tagBox" spacing="5" alignment="CENTER_LEFT">
+                <Label text="Tags:" styleClass="cell_small_label" wrapText="true"/>
+                <FlowPane fx:id="tagsContainer" vgap="5" hgap="5"/>
+            </HBox>
         </VBox>
     </GridPane>
 </HBox>

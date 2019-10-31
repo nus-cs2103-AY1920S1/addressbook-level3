@@ -1,5 +1,7 @@
 package tagline.model.tag;
 
+import java.util.Objects;
+
 import tagline.model.group.GroupName;
 
 /**
@@ -22,6 +24,11 @@ public class GroupTag extends Tag {
 
     public GroupName getGroupName() {
         return groupName;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupName);
     }
 
     @Override

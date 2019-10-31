@@ -163,12 +163,12 @@ public interface Model {
     /**
      * Tags a note.
      */
-    void tagNote(Note target, Tag tag);
+    void tagNote(NoteId target, Tag tag);
 
     /**
      * Untags a note.
      */
-    void untagNote(Note target, Tag tag);
+    void untagNote(NoteId target, Tag tag);
 
     /**
      * Returns an unmodifiable view of the filtered note list

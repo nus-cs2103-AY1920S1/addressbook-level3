@@ -159,12 +159,12 @@ class CreateNoteCommandTest {
         }
 
         @Override
-        public void tagNote(Note target, Tag tag) {
+        public void tagNote(NoteId target, Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void untagNote(Note target, Tag tag) {
+        public void untagNote(NoteId target, Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -377,12 +377,12 @@ class CreateNoteCommandTest {
         }
 
         @Override
-        public void tagNote(Note note, Tag tag) {
+        public void tagNote(NoteId target, Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void untagNote(Note note, Tag tag) {
+        public void untagNote(NoteId target, Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
 

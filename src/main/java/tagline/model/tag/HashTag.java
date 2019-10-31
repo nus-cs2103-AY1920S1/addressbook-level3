@@ -1,5 +1,7 @@
 package tagline.model.tag;
 
+import java.util.Objects;
+
 /**
  * Tag a contact.
  */
@@ -29,5 +31,10 @@ public class HashTag extends Tag {
     @Override
     public String toString() {
         return TAG_PREFIX + value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }

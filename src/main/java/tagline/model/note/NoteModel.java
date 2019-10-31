@@ -19,6 +19,11 @@ public interface NoteModel {
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     /**
+     * {@code Predicate} that always evaluate to false
+     */
+    Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -92,12 +97,12 @@ public interface NoteModel {
     /**
      * Tags a note.
      */
-    void tagNote(Note note, Tag tag);
+    void tagNote(NoteId target, Tag tag);
 
     /**
      * Untags a note.
      */
-    void untagNote(Note note, Tag tag);
+    void untagNote(NoteId target, Tag tag);
 
     /**
      * Returns an unmodifiable view of the filtered note list

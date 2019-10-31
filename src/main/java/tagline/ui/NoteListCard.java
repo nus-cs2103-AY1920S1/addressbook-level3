@@ -2,10 +2,11 @@ package tagline.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import tagline.model.note.Note;
-import tagline.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Note}.
@@ -18,7 +19,13 @@ public class NoteListCard extends UiPart<Region> {
     public final Note note;
 
     @FXML
+    private VBox card;
+    @FXML
     private HBox noteListCardPane;
+    @FXML
+    private HBox tagBox;
+    @FXML
+    private FlowPane tagsContainer;
     @FXML
     private Label title;
     @FXML
@@ -44,10 +51,12 @@ public class NoteListCard extends UiPart<Region> {
         time.setText(note.getTimeCreated().getTime().toString());
         content.setText(note.getContent().value);
 
-        String tagDisplay = note.getTags().stream().map(Tag::toString)
-                .reduce("Tags:", (left, right) -> left + " " + right);
-
-        tags.setText(tagDisplay);
+        if (note.getTags().size() == 0) {
+            card.getChildren().remove(tagBox);
+        } else {
+            note.getTags().stream().map(tag -> new Label(tag.toString()))
+                    .forEach(tagLabel -> tagsContainer.getChildren().add(tagLabel));
+        }
     }
 
     @Override
