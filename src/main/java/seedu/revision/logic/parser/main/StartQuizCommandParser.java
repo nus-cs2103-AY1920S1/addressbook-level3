@@ -64,7 +64,7 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
         case "chaos":
             break;
         case "custom":
-        
+
         }
 
 

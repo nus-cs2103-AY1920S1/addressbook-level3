@@ -75,12 +75,12 @@ public class Timer {
     }
 
     public void resetTimer() {
+        timeline.stop();
         currentTime.set(startTime);
         startTimer();
     }
 
     public void stopTimer() {
-        currentTime.set(0);
         timeline.stop();
     }
 

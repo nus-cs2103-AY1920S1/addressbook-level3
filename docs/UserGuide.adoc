@@ -63,7 +63,7 @@ Format: `help`
 
 === Starting the quiz: `start`.
 
-User can start by choosing the mode of the quiz. (normal / chaos / custom)
+User can start by choosing the mode of the quiz. (normal / arcade / custom)
 
 Format: `start mode/MODE`
 
