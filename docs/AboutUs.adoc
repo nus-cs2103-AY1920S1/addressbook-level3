@@ -48,9 +48,9 @@ Responsibilities: Implementing question management feature
 
 === Zhang Dongjun
 image::auxinnn.png[width="150", align="left"]
-{empty}[https://github.com/Auxinnn[github]]
+{empty}[https://github.com/Auxinnn[github]] [<<PortfolioDongjun.adoc#, portfolio>>]
 
 Role: Deliverables and deadlines +
-Responsibilities: Implementing `Question` module and the test feature
+Responsibilities: Implementing the quiz feature
 
 '''

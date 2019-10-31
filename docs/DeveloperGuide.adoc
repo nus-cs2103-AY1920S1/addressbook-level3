@@ -261,6 +261,7 @@ in local storage when the command finishes executing.
 list operations.
 // end::questiond[]
 
+// tag::quiz[]
 === Quiz mode for revision
 ==== Implementation
 
@@ -307,7 +308,7 @@ image::QuizModeSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command for quiz:
 
-image::QuizModeActivityDiagram.png[]
+image::QuizModeActivityDiagram.png[width=400]
 
 ==== Design Considerations
 
@@ -328,6 +329,7 @@ updated appData in local storage when the command finishes executing.
 ** Pros: Do not need to maintain a separate list class.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
+// end::quiz[]
 
 === Statistics feature
 ==== Implementation
@@ -807,6 +809,7 @@ Use case ends
 * Use case resumes at step 2
 // end::usecasew[]
 
+// tag::quizUseCase[]
 [discrete]
 === Use case: Delete an existing question (Dongjun)
 
@@ -840,6 +843,7 @@ Use case ends
 6. Repeat 2 - 5 until all questions are answered
 
 Use case ends
+// end::quizUseCase[]
 
 *Extensions*
 
