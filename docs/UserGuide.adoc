@@ -84,7 +84,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 * Date and Time is specified in the format `dd-mm-yyyy hh:mm`
-
+====
 
 '''
 
@@ -191,7 +191,7 @@ Example: `remove-member mi/GS` will result in the following:
 image::RemoveMember.png[width="790"]
 
 As seen from above, the member 'New Member' with member ID 'NM' has been removed from the project. 
-=======
+
 Example: 'remove-member mi/GS'
 
 ==== Assign a task to a member: `assign` +
@@ -215,8 +215,6 @@ Example: `fire ti/1 mi/GS` will result in the following:
 +
 image::FireTask.png[width="790"]
 +
-
-
 This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
 
 '''
