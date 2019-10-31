@@ -67,7 +67,8 @@ public class WasteListPanel extends UiPart<Region> {
         public boolean hasExpired(Date date) {
             Calendar cal = Calendar.getInstance();
             Date current = cal.getTime();
-            return date.before(current);
+            int diffDays = (int) ((date.getTime() - current.getTime()) / (24.0 * 60.0 * 60.0 * 1000.0));
+            return diffDays < 0;
         }
 
         /**
@@ -76,7 +77,7 @@ public class WasteListPanel extends UiPart<Region> {
         public boolean isExpiring(Date date) {
             Calendar cal = Calendar.getInstance();
             Date current = cal.getTime();
-            int diffDays = (int) ((date.getTime() - current.getTime()) / (24 * 60 * 60 * 1000));
+            int diffDays = (int) Math.ceil((date.getTime() - current.getTime()) / (24.0 * 60.0 * 60.0 * 1000.0));
             return diffDays <= numOfDays;
         }
     }
