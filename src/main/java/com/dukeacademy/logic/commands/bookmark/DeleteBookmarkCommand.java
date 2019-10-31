@@ -50,7 +50,8 @@ public class DeleteBookmarkCommand implements Command {
                 logger.info("Deleted bookmark for question at index " + index + " : " + bookmarkedQuestion);
 
                 // Notify user of successful bookmark action
-                String feedback = "Deleted bookmark for question " + (index + 1) + " : " + bookmarkedQuestion.getTitle();
+                String feedback = "Deleted bookmark for question " + (index + 1) + " : "
+                        + bookmarkedQuestion.getTitle();
                 return new CommandResult(feedback, false, false
                 );
             } else {
