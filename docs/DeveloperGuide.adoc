@@ -362,7 +362,6 @@ change in the user's operating system.
 
 // end::setreminder[]
 
-
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Implementation
