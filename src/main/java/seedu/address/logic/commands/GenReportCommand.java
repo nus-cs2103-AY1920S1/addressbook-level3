@@ -31,6 +31,8 @@ public class GenReportCommand extends Command {
 
     private final Index targetIndexNum;
 
+    private ReportGenerator reportGenerator;
+
     public GenReportCommand(Index targetIndexNum) {
         this.targetIndexNum = targetIndexNum;
     }
@@ -52,7 +54,7 @@ public class GenReportCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
         }
 
-        boolean generated = ReportGenerator.generate(bodyToGenReport);
+        boolean generated = reportGenerator.generate(bodyToGenReport);
         if (!generated) {
             throw new CommandException(MESSAGE_REPORT_NOT_GENERATED);
         }
