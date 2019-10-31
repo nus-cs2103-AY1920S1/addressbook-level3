@@ -119,6 +119,11 @@ public class AliasCommandTest {
         }
 
         @Override
+        public void sortAppointments() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String outputAppointments() {
             throw new AssertionError("This method should not be called.");
         }

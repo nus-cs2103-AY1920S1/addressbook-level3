@@ -2,13 +2,20 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.reminder.Appointment;
-
 
 /**
  * AppointmentTable object with description and dates remaining
@@ -106,13 +113,18 @@ public class AppointmentTable {
         return true;
     }
 
+    /**
+     * Sorts the list of appointments by days remaining, then name.
+     */
     public void sortAppointments() {
         reminders = sort(reminders);
         followup = sort(followup);
     }
 
-    private HashMap<String, Integer> sort(HashMap<String, Integer> hashMap)
-    {
+    /**
+     * Sorting algorithm for HashMap.
+     */
+    private HashMap<String, Integer> sort(HashMap<String, Integer> hashMap) {
         List<HashMap.Entry<String, Integer>> list =
                 new LinkedList<>(hashMap.entrySet());
 
