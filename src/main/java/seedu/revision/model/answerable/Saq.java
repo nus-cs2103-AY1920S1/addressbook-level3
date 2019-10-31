@@ -1,9 +1,8 @@
 package seedu.revision.model.answerable;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
@@ -16,6 +15,8 @@ public class Saq extends Answerable {
 
     public static final String MESSAGE_CONSTRAINTS = "SAQs should not be blank.";
 
+    private static final Logger logger = Logger.getLogger(Saq.class.getName());
+
     /**
      * Every field must be present and not null.
      */
@@ -24,18 +25,16 @@ public class Saq extends Answerable {
         super(question, correctAnswerList, new ArrayList<>(), difficulty, categories);
     }
 
-    /**
-     * Checks whether the input Saq is valid.
-     * @param saq the saq to validate.
-     * @return boolean to indicate whether Saq is valid or not.
-     */
-    public static boolean isValidSaq(Saq saq) {
-        requireNonNull(saq);
-        if (saq.getCorrectAnswerList().contains(Answer.emptyAnswer())
-                || saq.getWrongAnswerList().contains(Answer.emptyAnswer())) {
-            return false;
+    @Override
+    public boolean isCorrect(Answer selectedAnswer) {
+        boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(),
+                getCorrectAnswerList().get(0).toString());
+        if (answerIsCorrect) {
+            logger.info("answer is CORRECT");
+        } else {
+            logger.info("answer is WRONG");
         }
-        return true;
+        return answerIsCorrect;
     }
 
     /**
@@ -47,11 +46,12 @@ public class Saq extends Answerable {
         final StringBuilder builder = new StringBuilder();
         builder.append("Type: SAQ ")
                 .append("Question: ")
-                .append(" Correct Answers: ")
-                .append(getCorrectAnswerList())
-                .append(" Difficulty: ")
-                .append(getDifficulty())
-                .append(" Categories: ");
+                .append(getQuestion() + "\n")
+                .append("Correct Answers: ")
+                .append(getCorrectAnswerList() + "\n")
+                .append("Difficulty: ")
+                .append(getDifficulty() + "\n")
+                .append("Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();
     }

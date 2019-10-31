@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package seedu.revision.ui.answerables;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -12,11 +12,12 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Answerable}.
  */
-public class AnswerableCardWithAnswers extends UiPart<Region> {
+public class AnswerableCard extends UiPart<Region> {
 
     private static Set<Answer> combinedAnswerSet;
     private static final String FXML = "AnswerableListCard.fxml";
@@ -36,11 +37,7 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
     @FXML
     private Label question;
     @FXML
-    private FlowPane answer;
-    //    @FXML
-    //    private FlowPane correctAnswers;
-    //    @FXML
-    //    private FlowPane wrongAnswers;
+    private FlowPane answerPane;
     @FXML
     private Label id;
     @FXML
@@ -50,7 +47,7 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
     @FXML
     private FlowPane categories;
 
-    public AnswerableCardWithAnswers(Answerable answerable, int displayedIndex) {
+    public AnswerableCard(Answerable answerable, int displayedIndex) {
         super(FXML);
         this.answerable = answerable;
         if (answerable instanceof Mcq) {
@@ -61,21 +58,14 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
             questionType.setText("Question type: SAQ");
         }
         id.setText(displayedIndex + ". ");
-        question.setText(answerable.getQuestion().fullQuestion);
+        question.setText(answerable.getQuestion().value);
         difficulty.setText("Difficulty: " + answerable.getDifficulty().value);
-        //        answerable.getCorrectAnswerSet().stream()
-        //                .sorted(Comparator.comparing(correctAnswer -> correctAnswer.answer))
-        //                .forEach(correctAnswer -> correctAnswers.getChildren().add(new Label(correctAnswer.answer)));
-        //        answerable.getWrongAnswerSet().stream()
-        //                .sorted(Comparator.comparing(wrongAnswer -> wrongAnswer.answer))
-        //                .forEach(wrongAnswer -> wrongAnswers.getChildren().add(new Label(wrongAnswer.answer)));
-
-        //To set the individual answers to the answer flowPane
-        answerable.getCombinedAnswerList().stream()
-                .sorted(Comparator.comparing(answer -> answer.toString()))
-                .forEach(answer -> this.answer.getChildren().add(new Label(answer.toString())));
-
-        //        answer.getChildren().add(new Label (answerable.getCombinedAnswerSet().toString()));
+        answerable.getCorrectAnswerList().stream()
+                .sorted(Comparator.comparing(correctAnswer -> correctAnswer.answer))
+                .forEach(correctAnswer -> answerPane.getChildren().add(correctLabel(correctAnswer.answer)));
+        answerable.getWrongAnswerList().stream()
+                .sorted(Comparator.comparing(wrongAnswer -> wrongAnswer.answer))
+                .forEach(wrongAnswer -> answerPane.getChildren().add(new Label(wrongAnswer.answer)));
 
         answerable.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
@@ -83,12 +73,18 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
 
     }
 
+    private Label correctLabel(String text) {
+        Label correctL = new Label(text);
+        correctL.setStyle("-fx-background-color: #42956A");
+        return correctL;
+    }
+
     public static Set<Answer> getCombinedAnswerSet() {
         return combinedAnswerSet;
     }
 
     public static void setCombinedAnswerSet(Set<Answer> combinedAnswerSet) {
-        AnswerableCardWithAnswers.combinedAnswerSet = combinedAnswerSet;
+        AnswerableCard.combinedAnswerSet = combinedAnswerSet;
     }
 
     @Override
@@ -99,13 +95,14 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AnswerableCardWithAnswers)) {
+        if (!(other instanceof AnswerableCard)) {
             return false;
         }
 
         // state check
-        AnswerableCardWithAnswers card = (AnswerableCardWithAnswers) other;
+        AnswerableCard card = (AnswerableCard) other;
         return id.getText().equals(card.id.getText())
                 && answerable.equals(card.answerable);
     }
 }
+

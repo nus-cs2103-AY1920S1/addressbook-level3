@@ -25,6 +25,7 @@ public class TfInputCommand extends Command {
         requireNonNull(model);
 
         Answer selectedAnswer;
+        String result;
 
         switch (tfInput.toLowerCase()) {
         case "true":
@@ -37,12 +38,15 @@ public class TfInputCommand extends Command {
         case "f":
             selectedAnswer = new Answer("false");
             break;
+        case "n":
+            result = "wrong";
+            return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
         default:
             selectedAnswer = null;
         }
 
         requireNonNull(selectedAnswer);
-        String result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
+        result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
 
         return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
     }

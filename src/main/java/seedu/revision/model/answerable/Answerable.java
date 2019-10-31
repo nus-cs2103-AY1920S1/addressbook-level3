@@ -139,12 +139,12 @@ public abstract class Answerable {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Question: ")
-                .append(getQuestion())
+                .append(getQuestion() + "\n")
                 .append(" Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerList())
-                .append(" Wrong Answers: " + getWrongAnswerList())
+                .append(" Correct Answers: " + getCorrectAnswerList() + "\n")
+                .append(" Wrong Answers: " + getWrongAnswerList() + "\n")
                 .append(" Difficulty: ")
-                .append(getDifficulty())
+                .append(getDifficulty() + "\n")
                 .append(" Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();

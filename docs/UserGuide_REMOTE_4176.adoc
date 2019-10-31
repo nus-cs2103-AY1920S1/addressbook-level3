@@ -38,9 +38,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all categories and difficulties for the user to choose.
-* **`add `**`type/mcq q/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
-of the above x/Padifield diff/1 cat/Introduction` : adds an mcq question with x/ (as in a cross for "wrong") marking the wrong answers and
-y/ (as in "yes") marking the correct answers. Difficulty: 1, Category: Introduction.
+* **`add`**`type/mcq q/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
+of the above x/Padifield` : adds an mcq question with x/ (as in a cross for "wrong") marking the wrong answers and y/ (as in "yes") marking the correct answers.
 * **`delete`**`3` : deletes the 3rd question shown in the current list.
 * *`exit`* : exits the app.
 
@@ -52,8 +51,8 @@ y/ (as in "yes") marking the correct answers. Difficulty: 1, Category: Introduct
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add ~ q/QUESTION ~`, `QUESTION` is a parameter
-which can be used as `add ~ q/What the recommended user story format? ~`. "~" refers to other parameters that have to be included such as type, difficulty etc.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add type/TYPE q/QUESTION`, 'TYPE' and `QUESTION` are parameters
+which can be used as `add type/mcq q/What the recommended user story format?`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[x/WRONG_ANSWER]...` can be used as `{nbsp}` (i.e. 0 times), `x/Greenfield`, `x/Brownfield` etc.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION cat/CATEGORY`, `cat/CATEGORY q/QUESTION` is also acceptable.
 ====
@@ -69,8 +68,8 @@ User can start by choosing the mode of the quiz. (normal / arcade / custom)
 Format: `start mode/MODE`
 
 [TIP]
-To start all questions in the test bank, use command +
-start mode/normal
+If no category or difficulty is stated (i.e. `start`), program will start the quiz based on all the questions in the
+question bank.
 
 Examples:
 
@@ -109,21 +108,6 @@ Category::
 * Implementation: 50/100
 * Project Management: 90/100
 
-=== AutoComplete Function
-
-Helps you complete your command when you type.
-
-Upon pressing the "TAB" key on your keyboard, the app will be able to
-give you a list of dropdown options that will aid you in your command typing.
-
-Examples:
-
-* `User types "add" in the command box and presses the "TAB" key`
-* `He will be able to see a list of dropdown options as shown:`
-+
-image::autocomplete.png[width="790"]
-
-
 === Adding a question: `add`
 
 Adds a question to the test bank
@@ -138,8 +122,8 @@ Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER 
 
 Examples:
 
-* `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1 x/
-Greenfield x/Brownfield y/None of the others of the above x/Padifield`
+* `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
+x/Greenfield x/Brownfield y/None of the others of the above x/Padifield`
 * `add type/tf q/OODMs are Class Diagrams cat/uml diff/2 y/true `
 
 === Editing a question : `edit`
@@ -274,8 +258,3 @@ e.g. `find user story`
 * *Clear* : `clear`
 
 * *Restore* : `restore`
-
-[TIP]
-[%hardbreaks]
-*AutoComplete*: Use the "TAB" key to see dropdown options
-for auto completion.

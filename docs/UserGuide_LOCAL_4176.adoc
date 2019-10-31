@@ -62,9 +62,11 @@ which can be used as `add ~ q/What the recommended user story format? ~`. "~" re
 
 Format: `help`
 
+Opens the Help Window to direct you to our help page.
+
 === Starting the quiz: `start`.
 
-User can start by choosing the mode of the quiz. (normal / arcade / custom)
+User can start by choosing the mode of the quiz. (normal / chaos / custom)
 
 Format: `start mode/MODE`
 

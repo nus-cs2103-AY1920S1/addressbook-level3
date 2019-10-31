@@ -42,7 +42,7 @@ public class AnswerableUtil {
         } else {
             sb.append(PREFIX_QUESTION_TYPE + "saq" + " ");
         }
-        sb.append(PREFIX_QUESTION + answerable.getQuestion().fullQuestion + " ");
+        sb.append(PREFIX_QUESTION + answerable.getQuestion().value + " ");
         sb.append(PREFIX_DIFFICULTY + answerable.getDifficulty().value + " ");
         answerable.getCorrectAnswerList().stream().forEach(
             s -> sb.append(PREFIX_CORRECT + s.toString() + " ")
@@ -59,7 +59,7 @@ public class AnswerableUtil {
     public static String getEditAnswerableDescriptorDetails(EditCommand.EditAnswerableDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION)
-                .append(question.fullQuestion).append(" "));
+                .append(question.value).append(" "));
         descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY)
                 .append(difficulty.value).append(" "));
         if (descriptor.getCategories().isPresent()) {
