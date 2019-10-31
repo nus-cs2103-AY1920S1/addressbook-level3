@@ -5,11 +5,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.itinerary.day.exceptions.ClashingDayException;
@@ -19,7 +16,7 @@ import seedu.address.model.itinerary.day.exceptions.DayNotFoundException;
  * List holding {@code Day}s.
  */
 public class DayList extends ConsecutiveOccurrenceList<Day> {
-    public static String MESSAGE_INVALID_DATETIME = "Date should be within valid duration";
+    private static final String MESSAGE_INVALID_DATETIME = "Date should be within valid duration";
 
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
@@ -29,6 +26,9 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         this.endDate = endDate;
     }
 
+    /**
+     * Checks if target day can be added to the list.
+     */
     public boolean isValidDay(Day day) {
         return (day.getStartDate().compareTo(startDate) >= 0)
                 && (day.getEndDate().compareTo(endDate) <= 0);

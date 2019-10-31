@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import seedu.address.model.itinerary.Budget;
@@ -24,8 +25,11 @@ public class DayBuilder {
     private Budget totalBudget;
     private EventList eventList;
 
+    /*
+    TODO
+     */
     private DayBuilder() {
-        eventList = new EventList();
+        eventList = new EventList(LocalDate.now().atStartOfDay());
     }
 
     public static DayBuilder newInstance() {

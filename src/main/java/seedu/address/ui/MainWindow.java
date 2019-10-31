@@ -140,7 +140,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    public CommandResult executeCommand(String commandText) throws CommandException, ParseException, IllegalArgumentException {
+    public CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, IllegalArgumentException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -165,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
             commandUpdater.executeUpdateCallback();
 
             return commandResult;
-        } catch (CommandException | ParseException  | IllegalArgumentException e) {
+        } catch (CommandException | ParseException | IllegalArgumentException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

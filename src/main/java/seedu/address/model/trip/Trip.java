@@ -1,5 +1,7 @@
 package seedu.address.model.trip;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -13,8 +15,6 @@ import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.itinerary.event.EventList;
-
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Trip in TravelPal.
@@ -77,11 +77,13 @@ public class Trip {
         this.inventoryList = inventoryList;
     }
 
-    // Creates list of days in the first instantiation
+    /**
+     * Creates a list of days upon first initialization.
+     */
     public void initializeDayList() {
         int totalDays = endDate.getDayOfMonth() - startDate.getDayOfMonth();
-        assert(totalDays>0);
-        for(int i = 0; i < totalDays; i ++) {
+        assert(totalDays > 0);
+        for (int i = 0; i < totalDays; i++) {
             LocalDateTime currentDay = startDate.plusDays(i);
             this.dayList.add(new Day(currentDay,
                     currentDay.withHour(23).withMinute(59),

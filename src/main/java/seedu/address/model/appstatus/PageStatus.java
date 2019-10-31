@@ -49,7 +49,8 @@ public class PageStatus {
                       EditEventFieldCommand.EditEventDescriptor editEventDescriptor,
                       EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor,
                       EditDiaryEntryDescriptor editDiaryEntryDescriptor,
-                      EditCurrencyFieldCommand.EditCurrencyDescriptor editCurrencyDescriptor, SortedList sortedOccurrencesList) {
+                      EditCurrencyFieldCommand.EditCurrencyDescriptor editCurrencyDescriptor,
+                      SortedList sortedOccurrencesList) {
         this.pageType = pageType;
         this.trip = trip;
         this.day = day;

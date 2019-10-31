@@ -7,7 +7,6 @@ import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -21,7 +20,6 @@ import seedu.address.logic.commands.common.EnterPrefsCommand;
 import seedu.address.logic.commands.itinerary.days.EnterCreateDayCommand;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.day.Day;
-import seedu.address.model.trip.Trip;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.PageWithSidebar;
 
@@ -58,7 +56,8 @@ public class DaysPage extends PageWithSidebar<AnchorPane> {
         List<Node> dayThumbnails = IntStream.range(0, days.size())
                 .mapToObj(i -> Index.fromZeroBased(i))
                 .map(index -> {
-                    DayThumbnail dayThumbnail = new DayThumbnail(sortedDays.get(index.getZeroBased()), index, mainWindow);
+                    DayThumbnail dayThumbnail =
+                            new DayThumbnail(sortedDays.get(index.getZeroBased()), index, mainWindow);
                     return dayThumbnail.getRoot();
                 }).collect(Collectors.toList());
 

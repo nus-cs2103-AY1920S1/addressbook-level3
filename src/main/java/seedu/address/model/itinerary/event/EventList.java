@@ -6,7 +6,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
@@ -17,19 +16,23 @@ import seedu.address.model.itinerary.event.exceptions.EventNotFoundException;
  * List containing {@code Event}s.
  */
 public class EventList extends ConsecutiveOccurrenceList<Event> {
-    public static String MESSAGE_INVALID_DATETIME = "Date should be within valid duration";
+    private static final String MESSAGE_INVALID_DATETIME = "Date should be within valid duration";
 
-    LocalDateTime currentDay;
+    private LocalDateTime currentDay;
 
-    LocalDateTime startOfDay;
-    LocalDateTime endOfDay;
+    private LocalDateTime startOfDay;
+    private LocalDateTime endOfDay;
 
     public EventList(LocalDateTime currentDay) {
+        requireNonNull(currentDay);
         this.currentDay = currentDay;
         startOfDay = currentDay.toLocalDate().atStartOfDay();
         endOfDay = currentDay.withHour(23).withMinute(59);
     }
 
+    /**
+     * Checks if target event can be added into the list.
+     */
     public boolean isValidEvent(Event event) {
         return (event.getStartDate().compareTo(startOfDay) >= 0)
                 && (event.getEndDate().compareTo(endOfDay) <= 0);

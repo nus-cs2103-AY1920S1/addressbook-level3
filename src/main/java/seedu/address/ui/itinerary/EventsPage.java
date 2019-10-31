@@ -1,5 +1,7 @@
 package seedu.address.ui.itinerary;
 
+import java.util.Comparator;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
@@ -23,7 +25,6 @@ import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.PageWithSidebar;
 import seedu.address.ui.template.UiChangeConsumer;
 
-import java.util.Comparator;
 
 /**
  * {@code Page} for displaying the event details.
