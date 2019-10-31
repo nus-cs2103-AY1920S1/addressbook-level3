@@ -9,13 +9,14 @@ import static java.util.Objects.requireNonNull;
 public class Value {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
+    private static final int MAX_LENGTH = 180;
     public static final String MESSAGE_CONSTRAINTS =
             "Values should either be numerical, "
             + "or contain alphanumeric characters including these special characters,\n"
             + "excluding the parentheses, (" + SPECIAL_CHARACTERS + "),\n"
-            + "of length not more than 50 characters, "
+            + "of length not more than " + MAX_LENGTH + " characters, "
             + "and should not be blank";
-    private static final String VALIDATION_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]{1,50}$";
+    private static final String VALIDATION_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]{1," + MAX_LENGTH + "}$";
 
     private final String value;
 

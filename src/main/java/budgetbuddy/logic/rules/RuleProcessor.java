@@ -1,6 +1,6 @@
 package budgetbuddy.logic.rules;
 
-import static java.util.Objects.requireNonNull;
+import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashMap;
 import java.util.function.BiFunction;
@@ -18,6 +18,7 @@ import budgetbuddy.logic.rules.testable.MoreEqualExpression;
 import budgetbuddy.logic.rules.testable.MoreThanExpression;
 import budgetbuddy.logic.rules.testable.Testable;
 import budgetbuddy.logic.rules.testable.TestableExpression;
+import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.rule.Rule;
@@ -85,8 +86,8 @@ public class RuleProcessor {
     /**
      * Parses a {@code RulePredicate predicate} into a {@code Testable}.
      */
-    public static Testable parseTestable(RulePredicate predicate) {
-        requireNonNull(predicate);
+    public static Testable parseTestable(RulePredicate predicate, ScriptEngine scriptEngine) {
+        requireAllNonNull(predicate, scriptEngine);
         if (predicate.getType().equals(Rule.TYPE_EXPRESSION)) {
             PredicateExpression predExpr = (PredicateExpression) predicate;
             return testableMap.get(predExpr.getOperator()).apply(predExpr.getAttribute(), predExpr.getValue());
@@ -99,8 +100,8 @@ public class RuleProcessor {
     /**
      * Parses a {@code RuleAction action} into a {@code Performable}
      */
-    public static Performable parsePerformable(RuleAction action) {
-        requireNonNull(action);
+    public static Performable parsePerformable(RuleAction action, ScriptEngine scriptEngine) {
+        requireAllNonNull(action, scriptEngine);
         if (action.getType().equals(Rule.TYPE_EXPRESSION)) {
             ActionExpression actExpr = (ActionExpression) action;
             return performableMap.get(actExpr.getOperator()).apply(actExpr.getValue());
@@ -113,11 +114,12 @@ public class RuleProcessor {
     /**
      * Runs all rules against transaction
      */
-    public static void executeRules(Model model, Transaction txn) {
+    public static void executeRules(Model model, ScriptEngine scriptEngine, Transaction txn) {
+        requireAllNonNull(model, model.getRuleManager(), scriptEngine, txn);
         for (Rule rule : model.getRuleManager().getRules()) {
-            Testable testable = parseTestable(rule.getPredicate());
+            Testable testable = parseTestable(rule.getPredicate(), scriptEngine);
             if (testable.test(txn)) {
-                Performable performable = parsePerformable(rule.getAction());
+                Performable performable = parsePerformable(rule.getAction(), scriptEngine);
                 performable.perform(model, txn);
             }
         }

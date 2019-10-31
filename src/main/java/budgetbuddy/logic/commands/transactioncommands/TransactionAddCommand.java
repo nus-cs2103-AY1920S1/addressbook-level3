@@ -12,11 +12,12 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static java.util.Objects.requireNonNull;
 
-import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
+import budgetbuddy.logic.commands.scriptcommands.ScriptCommand;
 import budgetbuddy.logic.rules.RuleProcessor;
+import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.transaction.Transaction;
@@ -24,7 +25,7 @@ import budgetbuddy.model.transaction.Transaction;
 /**
  * Adds a transaction.
  */
-public class TransactionAddCommand extends Command {
+public class TransactionAddCommand extends ScriptCommand {
 
     public static final String COMMAND_WORD = "txn";
 
@@ -62,8 +63,8 @@ public class TransactionAddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireAllNonNull(model, model.getAccountsManager());
+    public CommandResult execute(Model model, ScriptEngine scriptEngine) throws CommandException {
+        requireAllNonNull(model, model.getAccountsManager(), scriptEngine);
 
         Account realToAccount;
 
@@ -82,7 +83,7 @@ public class TransactionAddCommand extends Command {
         } catch (Exception e) {
             return new CommandResult(MESSAGE_FAILURE, CommandCategory.TRANSACTION);
         }
-        RuleProcessor.executeRules(model, toAdd);
+        RuleProcessor.executeRules(model, scriptEngine, toAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.TRANSACTION);
     }

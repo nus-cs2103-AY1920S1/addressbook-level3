@@ -17,10 +17,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import budgetbuddy.commons.core.index.Index;
-import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
+import budgetbuddy.logic.commands.scriptcommands.ScriptCommand;
+import budgetbuddy.logic.rules.RuleProcessor;
+import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
@@ -35,7 +37,7 @@ import javafx.collections.ObservableList;
 /**
  * Represents a command to edit transactions.
  */
-public class TransactionEditCommand extends Command {
+public class TransactionEditCommand extends ScriptCommand {
 
     public static final String COMMAND_WORD = "txn edit";
 
@@ -78,8 +80,8 @@ public class TransactionEditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireAllNonNull(model, model.getAccountsManager());
+    public CommandResult execute(Model model, ScriptEngine scriptEngine) throws CommandException {
+        requireAllNonNull(model, model.getAccountsManager(), scriptEngine);
 
         AccountsManager accountsManager = model.getAccountsManager();
         try {
@@ -101,6 +103,7 @@ public class TransactionEditCommand extends Command {
 
 
             accountsManager.getAccount(targetAccount.getName()).addTransaction(updatedTransaction);
+            RuleProcessor.executeRules(model, scriptEngine, updatedTransaction);
 
         } catch (TransactionNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);
