@@ -68,6 +68,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ** `add p/PRICE d/DESCRIPTION`, `add d/DESCRIPTION p/PRICE` are both acceptable.
 ====
 
+
 === Viewing help : `help`
 
 Format: `help`
@@ -404,52 +405,245 @@ description of “Chicken Rice” at the current system time.
 Expense tracker data is saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-=== Viewing Statistics
-==== Summary : `stats`
-Produces statistics regarding the user’s expenses.
+// tag::statsug[]
 
-The statistics is in the form of a pie chart, where every piece represents the combined expenditure of all expenses
-under the category, taken as a percentage of the total expenditure in the budget the command was called.
+=== Viewing Statistics
+==== Summary Statistics: `stats`
+This command allows you to have a basic summary of the money spent from their
+categorical expenses in a given period of their current budget.
+
+The visual output of the statistics shown is a pie chart, with each piece representing
+the combined expenditure of all expenses under the category,
+taken as a percentage of the total expenditure in the budget the command was called.
+
 
 Format: `stats [sd/START_DATE] [ed/END_DATE]`
 
-- Date formats accepted include `DD-MM-YYYY` or `DD-MM`, where the year will be taken as the current year if it is
-not specified.
+
+[NOTE]
+- Date formats accepted are handled by our Natural Language Parser library which supports human jargons.
+Please refer to the above documentation for more information.
+
+- For any input that consists of date and time, only, only the date information will be considered.
+
+- Expenses to be included in the statistics generated include those on the start dates and end dates itself.
 
 - `START_DATE` will be checked to be earlier than `END_DATE`
 
-- If `START_DATE` is specified but `END_DATE` is empty, statistics is calculated from one month after `START_DATE`
+- Categories where no tracked expenses fall under will not be reflected in the Statistics Panel.
 
-- If `START_DATE` is empty but `END_DATE` is specified, statistics is calculated from one month before `START_DATE`
 
-- If both `START_DATE` and `END_DATE` are empty, statistics is calculated from one month before the current date.
+[TIP]
+- There is no need to specify all the parameters if the outcomes of the example usage scenarios
+below fit your needs
 
-Example:
+- If `START_DATE` is specified but `END_DATE` is empty, the period of the current budget will be considered as
+the unit of time and statistics is calculated till one unit of time after `START_DATE`.
+
+- If `START_DATE` is empty but `END_DATE` is specified, the period of the current budget will be considered as
+the unit of time and statistics is calculated starting from one unit of time before `END_DATE`.
+
+- If both `START_DATE` and `END_DATE` are empty, statistics will be calculated using the start date and end date
+of the current window of the budget.
+
+Example of configurations:
 `stats`
-`stats sd/12-12-2018`
+`stats sd/ytd`
 `stats sd/11-11-2018 ed/12-12-2018`
 
-==== Compare : `statscompare`
-Produces and displays statistics regarding the user’s finance for 2 time periods.
-The statistics include all categories of items, the number of entries and the total expenditure of all expenses under
-the category.
-The number under each cell represents the difference using `second period – first period`.
+Step-by-step guide:
+For example, MooLah is currently at the "school" budget with these expenses in window 1
+(sd1 to ed1) and window2(sd2 to ed2)
 
-Format: `statscompare sd1/START_DATE_1 sd2/END_DATE pr/PERIOD`
+To generate the pie chart:
 
-- Date formats accepted include `DD-MM-YYYY` or `DD-MM`, where the year will be taken as the current year if it is not
-specified.
+. Type `stats ed/XXX` into the command box and press `Enter` to execute it.
++
+image::Ui.png[width="790"]
++
+. The result box will display the message Pie Chart generated.
++
+image::Ui.png[width="790"]
++
+. The screen will be switched into the Statistics Panel where the Pie Chart will be generated.
++
+image::Ui.png[width="790"]
++
+
+
+
+
+
+
+
+
+==== Comparison Statistics: `statscompare`
+
+
+This command allows you to have a side-to-side comparison
+of the money spent from their categorical expenses in
+2 periods of their current budget. In this comparison, we provide
+you with data of both the similarities and differences in these 2
+periods.
+
+The visual output of the statistics shown is a table view,
+with 5 columns, consisting of a category column, and 2 pairs of
+frequency-total expenditure columns. The cells in the first pair
+of columns, denoted as "similarity columns" represents the frequency and
+total expenditure in any existing overlapping interval between the 2 periods,
+while the cells in the second pair of columns, denoted as the "difference columns"
+represents the difference in frequency and difference in total expenditure.
+
+
+Format: `statscompare sd1/START_DATE_1 sd2/START_DATE_2 [pr/PERIOD]`
+
+[NOTE]
+- Date formats accepted are handled by our Natural Language Parser library which supports human jargons.
+Please refer to the above documentation for more information.
+
+- For any input that consists of date and time, only, only the date information will be considered.
+
+- Expenses to be included in the statistics generated include those on the start dates and end dates itself.
 
 - `PERIOD` takes in either of the following keywords: week, month, year
 
-NOTE[Work in progress]:
+- The cells in the "similarity columns" denote only non-negative values. This is because it
+shows the frequency and total expenditure common to both periods.
+
+- The cells in the "difference columns" may contain negative values. This is because
+the values for differences in frequency and differences in total expenditure for each category
+is calculated using the formula `second period – first period`.
+
+`[Coming in v2.0]`
 - day is ideally recognised as a keyword to `PERIOD`
+- constructing periods with start dates doesn't align with the principles of the application
+as compared to end dates.
 
-- If day is given as a keyword under `PERIOD`, statistics will be calculated from 12:00am of the day till 11:59pm of
-the same day
 
-Examples:
-`statscompare sd1/01-01-2019 sd2/01-02-2019 pr/month`
+
+[TIP]
+- There is no need to specify all the parameters if the outcomes of the example usage scenarios
+below fit your needs
+
+- If `PERIOD` is empty, the period of the current budget will be considered as
+the unit of time to construct the 2 periods to be compared.
+
+- If zeroes are observed in the similarity columns, it may be possible that there is no
+overlap between the 2 periods or there are no expenses recorded in the common period.
+
+- It is possible to reorder the columns generated after the Table is being generated for better
+comparison.
+
+Example of configurations:
+`statscompare sd1/12-12 sd2/ 1 month ago'
+`stats sd2/ today sd1/ytd pr/ week`
+`stats sd2/ 23-09-2019 sd1/1 year ago  pr/ month`
+
+
+Step-by-step guide:
+For example, MooLah is currently at the "school" budget with these expenses in window 1
+(sd1 to ed1) and window2(sd2 to ed2)
+
+To generate the table view:
+
+. Type `statscompare sd1/ startdate_of_first sd2/ some_date_in_between' into the command box and press `Enter` to execute it.
++
+image::Ui.png[width="790"]
++
+. The result box will display the message Table generated.
++
+image::Ui.png[width="790"]
++
+. The screen will be switched into the Statistics Panel where the Table View will be generated.
++
+image::Ui.png[width="790"]
++
+
+==== Growth Statistics : `statstrend`
+
+This command allows you to see the growth
+of the money spent from their categorical expenses in specified
+units of time between the period specified in the current budget.
+
+The visual output of the statistics shown is in the form of plotted
+trend lines, one for each category and every plotted point on a line
+represents the total expenditure starting from its stated date,
+till before the start of the next date.
+
+Format: `statstrend [sd/START_DATE] [ed/END_DATE] mode/MODE`
+
+
+[NOTE]
+- Date formats accepted are handled by our Natural Language Parser library which supports human jargons.
+Please refer to the above documentation for more information.
+
+- For any input that consists of date and time, only, only the date information will be considered.
+
+- Expenses to be included in the statistics generated include those on the start dates and end dates itself.
+
+- `START_DATE` will be checked to be earlier than `END_DATE`
+
+- We only allow a maximum of 34 plotted points to be displayed, which means that in any specified
+time interval bounded by the start date and end date, we will produce at most 34 time intervals of
+the specified unit of time starting from the start date.
+
+- The categories that do not have any expenses in any of the time intervals will not be reflected
+as trend lines in the Statistics Panel.
+
+
+
+
+[TIP]
+- There is no need to specify all the parameters if the outcomes of the example usage scenarios
+below fit your needs
+
+- If `START_DATE` is specified but `END_DATE` is empty, statistics is calculated till 34 unit of time after `START_DATE`.
+
+- If `START_DATE` is empty but `END_DATE` is specified, the statistics is calculated starting from
+34 units of time before `END_DATE`.
+
+- If both `START_DATE` and `END_DATE` are empty, statistics will be calculated 17 units of time before the current date
+till 17 units of time after the current date.
+
+- The unit interval of time is set to always be the period of the current budget,
+hence to access other time modes of this command, please edit the budget's period.
+
+`[Coming in v2.0]`
+- `mode/budget` of this command is still work in progress. It will run with unintended output.
+Hence not written in the UG
+
+
+Example of configurations:
+`statstrend mode/category`
+`statstrend sd/ytd mode/category`
+`statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
+
+
+
+Step-by-step guide:
+For example, MooLah is currently at the "school" budget with these expenses in window 1
+(sd1 to ed1) and window2(sd2 to ed2)
+
+To generate the table view:
+
+. Type `statstrend mode/category` into the command box and press `Enter` to execute it.
++
+image::Ui.png[width="790"]
++
+. The result box will display the message trend line generated.
++
+image::Ui.png[width="790"]
++
+. The screen will be switched into the Statistics Panel where the trend lines will be generated.
++
+image::Ui.png[width="790"]
++
+
+// end::statsug[]
+
+
+
+
 
 === Exiting the program : `exit`
 
@@ -498,9 +692,20 @@ e.g. `pastperiod t/01-05`
 
 ---
 
+Viewing Statistics:
 
-* *Compare statistics* : `statscompare start1/START_DATE_1 end1/END_DATE start2/START_DATE_2 end2/END_DATE_2` +
+
+* *Summary Statistics* : `stats [start/START_DATE] [end/END_DATE]` +
+e.g. `stats sd/11-11-2018 ed/12-12-2018`
+* *Comparison statistics* : `statscompare sd1/START_DATE_1 sd2/START_DATE_2` +
 e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/week`
+* *Comparison statistics* : `statscompare sd1/START_DATE_1 sd2/START_DATE_2` +
+e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/week`
+* *Growth statistics* : `statstrend [sd/START_DATE] [ed/END_DATE] mode/MODE` +
+e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
+
+---
+
 * *Create alias* : `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS` +
 e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
 * *Currency conversion* : `convert`
@@ -521,8 +726,7 @@ e.g. `remind Brian’s birthday 04/06/2020 14 DAYS`
 * *Switch budget* : `switch d/BUDGET_NAME` +
 e.g. `switch d/outside school`
 * *Undo* : `undo`
-* *View statistics* : `stats [start/START_DATE] [end/END_DATE]` +
-e.g. `stats sd/11-11-2018 ed/12-12-2018`
+
 
 
 
