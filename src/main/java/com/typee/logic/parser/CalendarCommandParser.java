@@ -14,6 +14,8 @@ import com.typee.logic.parser.exceptions.ParseException;
  */
 public class CalendarCommandParser implements Parser<CalendarCommand> {
 
+    public static final String INVALID_CALENDAR_COMMAND_MESSAGE = "Invalid calendar command.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the CalendarCommand
      * and returns a CalendarCommand object for execution.
@@ -36,7 +38,7 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         case CalendarPreviousMonthCommand.COMMAND_WORD:
             return prepareCalendarPreviousMonthCommand(individualArgs);
         default:
-            throw new ParseException("Invalid calendar command.\n");
+            throw new ParseException(INVALID_CALENDAR_COMMAND_MESSAGE);
         }
     }
 

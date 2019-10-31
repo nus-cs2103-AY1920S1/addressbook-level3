@@ -17,4 +17,13 @@ public class CalendarNextMonthCommand extends CalendarCommand {
         return new CommandResult(MESSAGE_SUCCESS, true, COMMAND_WORD);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else {
+            return other instanceof CalendarNextMonthCommand;
+        }
+    }
+
 }
