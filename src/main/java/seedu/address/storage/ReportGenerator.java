@@ -7,7 +7,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
@@ -112,11 +111,11 @@ public class ReportGenerator {
         document.add(preface);
         document.add(new Paragraph("\n"));
 
-        Image logo = Image.getInstance("docs/images/logo.png");
-        logo.setAbsolutePosition(40, 770); //set logo top left
+        //Image logo = Image.getInstance("docs/images/logo.png");
+        //logo.setAbsolutePosition(40, 770); //set logo top left
         //logo.setAbsolutePosition(450, 800); top right
-        logo.scaleAbsolute(100, 70);
-        document.add(logo);
+        //logo.scaleAbsolute(100, 70);
+        //document.add(logo);
     }
 
     /**
