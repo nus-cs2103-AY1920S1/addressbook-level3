@@ -20,14 +20,18 @@ public class CommandResult {
     /** QR code of the current list should be shown to the user. */
     private final boolean showQr;
 
+    /** QR code data */
+    private final byte[] pngData;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    private CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showQr) {
+    private CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showQr, byte[] pngData) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showQr = showQr;
+        this.pngData = pngData;
     }
 
     /**
@@ -35,7 +39,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false);
+        this(feedbackToUser, showHelp, exit, false, new byte[0]);
     }
 
     /**
@@ -43,15 +47,15 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, new byte[0]);
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields,
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser, boolean showQr) {
-        this(feedbackToUser, false, false, true);
+    public CommandResult(String feedbackToUser, boolean showQr, byte[] pngData) {
+        this(feedbackToUser, false, false, true, pngData);
     }
 
     public String getFeedbackToUser() {
@@ -70,6 +74,10 @@ public class CommandResult {
         return this.showQr;
     }
 
+    public byte[] getPngData() {
+        return this.pngData;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -81,13 +89,14 @@ public class CommandResult {
             return this.feedbackToUser.equals(other.feedbackToUser)
                     && this.showHelp == other.showHelp
                     && this.exit == other.exit
-                    && this.showQr == other.showQr;
+                    && this.showQr == other.showQr
+                    && this.pngData == other.pngData;
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.feedbackToUser, this.showHelp, this.exit, this.showQr);
+        return Objects.hash(this.feedbackToUser, this.showHelp, this.exit, this.showQr, this.pngData);
     }
 
 }
