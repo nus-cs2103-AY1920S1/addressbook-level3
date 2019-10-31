@@ -60,8 +60,13 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-
     private TabPane tabPanePlaceholder;
+
+    @FXML
+    private StackPane budgetPanelPlaceholder;
+
+    @FXML
+    private BudgetPanel budgetPanel;
 
     private Tab graphTab;
     private Tab statsTab;
@@ -137,6 +142,10 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand, this::getPrevCommand, this::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        BudgetPanel bp = new BudgetPanel(logic.getSpendingBook().getBudget());
+        budgetPanel = bp;
+        budgetPanelPlaceholder.getChildren().add(bp.getRoot());
+
         graphTab = new Tab("Graph");
         graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n");
         graphTab.setContent(graphPanel.getRoot());
@@ -203,6 +212,8 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            budgetPanel.update(logic.getSpendingBook().getBudget());
+
             if (commandResult.isExit()) {
                 handleExit();
             }
@@ -224,6 +235,7 @@ public class MainWindow extends UiPart<Stage> {
                 statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n");
                 statsTab.setContent(statsPanel.getRoot());
             }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {

@@ -36,7 +36,7 @@ public class BudgetCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_AMOUNT);
         }
 
-        model.setBudget(budget);
+        model.setBudgetAmount(budget);
 
         return new CommandResult(MESSAGE_SUCCESS + budget.toString());
     }

@@ -198,6 +198,13 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     /**
+     * Replaces the {@code Budget} in the MoneyGoWhere.
+     */
+    public void setBudgetAmount(Budget budget) {
+        this.budget.setBudgetAmount(budget);
+    }
+
+    /**
      * Resets the Budget sum to 0.
      */
     public void clearBudgetSum() {

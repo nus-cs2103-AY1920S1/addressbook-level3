@@ -110,6 +110,11 @@ public interface Model {
     void setBudget(Budget budget);
 
     /**
+     * Replaces the previous budget amount of MoneyGoWhere with the new budget amount.
+     */
+    void setBudgetAmount(Budget budget);
+
+    /**
      * Gets the current budget of the MoneyGoWhere list.
      */
     Budget getBudget();

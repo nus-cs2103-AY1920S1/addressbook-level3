@@ -153,6 +153,10 @@ public class Budget {
         return value - sum;
     }
 
+    public void setBudgetAmount(Budget budget) {
+        this.value = budget.value;
+    }
+
     public void setBudget(Budget budget) {
         this.value = budget.value;
         this.sum = budget.sum;

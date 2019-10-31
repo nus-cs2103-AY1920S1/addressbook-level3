@@ -139,6 +139,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setBudgetAmount(Budget budget) {
+        spendingBook.setBudgetAmount(budget);
+    }
+
+    @Override
     public Budget getBudget() {
         return spendingBook.getBudget();
     }

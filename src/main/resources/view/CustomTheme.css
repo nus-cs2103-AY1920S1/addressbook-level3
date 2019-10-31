@@ -216,3 +216,18 @@
   /* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
   -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overridden as 5 2 0 0 */
 }
+
+#remainingBudget {
+  -fx-font-family: "Segoe UI light";
+  -fx-font-size: 24;
+}
+
+#budgetRemark {
+  -fx-font-family: "Segoe UI Semibold";
+  -fx-font-size: 18;
+}
+
+#budgetAmount {
+  -fx-font-family: "Segoe UI light";
+  -fx-font-size: 14;
+}

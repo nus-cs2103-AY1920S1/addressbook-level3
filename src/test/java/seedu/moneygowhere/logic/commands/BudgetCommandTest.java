@@ -1,12 +1,13 @@
 package seedu.moneygowhere.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.moneygowhere.commons.core.Messages;
+import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.UserPrefs;
@@ -26,7 +27,14 @@ class BudgetCommandTest {
 
         String expectedMessage = BudgetCommand.MESSAGE_SUCCESS + budget.toString();
 
-        assertCommandSuccess(budgetCommand, model , expectedMessage, expectedModel);
+        try {
+            CommandResult result = budgetCommand.execute(model);
+            assertEquals(new CommandResult(expectedMessage), result);
+            assertEquals(expectedModel.getBudget().getValue(), model.getBudget().getValue());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+
+        }
     }
 
     @Test
