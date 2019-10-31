@@ -2,7 +2,9 @@ package dukecooks.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
@@ -11,6 +13,8 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.DeleteCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
+import dukecooks.model.mealplan.components.MealPlan;
+import dukecooks.model.mealplan.components.MealPlanRecipesContainsKeywordsPredicate;
 import dukecooks.model.recipe.components.Recipe;
 
 /**
@@ -45,6 +49,18 @@ public class DeleteRecipeCommand extends DeleteCommand {
         }
 
         Recipe recipeToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_ALL_MEALPLANS);
+        MealPlan updatedMealPlan[] = null;
+        for (MealPlan mealPlan : model.getFilteredMealPlanList()) {
+            updatedMealPlan = mealPlan.removeRecipe(recipeToDelete, model);
+            if (updatedMealPlan != null) {
+                model.deleteMealPlan(updatedMealPlan[0]);
+                model.addMealPlan(updatedMealPlan[1]);
+            }
+        }
+        model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_NO_MEALPLANS);
+        model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_ALL_MEALPLANS);
+
         model.deleteRecipe(recipeToDelete);
 
         event = Event.getInstance();
