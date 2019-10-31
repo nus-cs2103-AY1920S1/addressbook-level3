@@ -7,6 +7,7 @@ import static tagline.logic.commands.CommandTestUtil.CONTACT_ID_TWO;
 import static tagline.logic.commands.CommandTestUtil.NON_EXISTING_ID;
 import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 
@@ -61,6 +62,8 @@ public class DeleteContactCommandTest {
         showNoContact(model);
         showNoContact(expectedModel);
 
+        // added this in, so delete contact will force contact to show all
+        expectedModel.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         assertCommandSuccess(deleteContactCommand, model, expectedMessage,
                 DELETE_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }

@@ -11,7 +11,8 @@ import static tagline.commons.util.AppUtil.checkArgument;
 public class GroupName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "GroupNames should only contain alphanumeric characters with no whitespace, and it should not be blank";
+            "GroupNames should not contain whitespace, and it should not be blank, "
+            + "alphanumeric, dash, underscores are acceptable";
 
     /*
      * Non-empty string, no spaces

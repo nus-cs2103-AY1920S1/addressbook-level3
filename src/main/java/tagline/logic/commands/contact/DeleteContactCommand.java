@@ -1,6 +1,7 @@
 package tagline.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
+import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.Optional;
 
@@ -44,6 +45,10 @@ public class DeleteContactCommand extends ContactCommand {
 
         Contact contactToDelete = contact.get();
         model.deleteContact(contactToDelete);
+
+        // the following is to cater for the edge case when you delete a contact in ONE_GROUP view
+        // forces it to change to just contact list instead of sticking to one_group
+        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete), ViewType.CONTACT);
     }
 
