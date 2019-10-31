@@ -3,8 +3,8 @@ package seedu.address.storage;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -136,11 +136,10 @@ public class ReportGenerator {
      */
     private static void addFooter(Document document) throws DocumentException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-                LocalDateTime now = LocalDateTime.now();
-                System.out.println(dtf.format(now));
+        LocalDateTime now = LocalDateTime.now();
         document.add(new Paragraph("\n"));
-        document.add(new Paragraph("                                                                      " +
-                dtf.format(now)));
+        document.add(new Paragraph("                                                                      " 
+                + dtf.format(now)));
         document.add(new Paragraph("___________________________                _______________"));
         document.add(new Paragraph("Manager Signature                                        Date"));
         document.add(new Paragraph("\n"));
