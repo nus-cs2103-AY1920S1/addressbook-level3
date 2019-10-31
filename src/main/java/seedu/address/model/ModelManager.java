@@ -670,7 +670,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getEventExportPath() { return eventRecord.getEventExportPath(); }
+    public String getEventExportPath() {
+        return eventRecord.getEventExportPath();
+    }
 
     @Override
     public void setEventExportPath(String targetEventExportPath) {
