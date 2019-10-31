@@ -229,6 +229,7 @@ Finds a food items based on a specific FIELD or fields. At least one FIELD must 
 *Example*: `find n/Chicken d/Rice`
 ****
 
+//tag::filters[]
 ==== Filters food items based on criteria: `filter`
 Filters the food items based on the criteria specified. Note: You can need to
 have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
@@ -237,6 +238,7 @@ have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 *Format*: `filter FIELD QUANTIFIER VALUE`
 *Example*: `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
 ****
+//end::filters[]
 
 ==== Deletes a food item: `delete`
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
