@@ -25,7 +25,7 @@ class ClosestCommonLocationDataTest {
         closestCommonLocationData.setInvalidLocation(input);
         assertEquals("ERROR: FOO BAR\n"
                 + "Source location: FOO, BAR, HELLO\n"
-                + "Invalid Source location: FOO, BAR, HELLO\n" ,closestCommonLocationData.getErrorResponse());
+                + "Invalid Source location: FOO, BAR, HELLO\n", closestCommonLocationData.getErrorResponse());
     }
 
     @Test
@@ -38,7 +38,7 @@ class ClosestCommonLocationDataTest {
         assertEquals("ERROR: FOO BAR\n"
                 + "Source location: FOO, BAR, HELLO\n"
                 + "Valid Source location: HELLO\n"
-                + "Invalid Source location: FOO, BAR\n" ,closestCommonLocationData.getErrorResponse());
+                + "Invalid Source location: FOO, BAR\n", closestCommonLocationData.getErrorResponse());
     }
 
     @Test
@@ -49,7 +49,7 @@ class ClosestCommonLocationDataTest {
         closestCommonLocationData.setValidLocation(input);
         assertEquals("ERROR: FOO BAR\n"
                 + "Source location: FOO, BAR, HELLO\n"
-                +  "Valid Source location: FOO, BAR, HELLO\n" ,closestCommonLocationData.getErrorResponse());
+                +  "Valid Source location: FOO, BAR, HELLO\n", closestCommonLocationData.getErrorResponse());
     }
 
     @Test
