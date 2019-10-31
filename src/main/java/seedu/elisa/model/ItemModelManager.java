@@ -202,7 +202,11 @@ public class ItemModelManager implements ItemModel {
 
         if (item.hasReminder()) {
             reminderList.add(item);
-            futureReminders.add(item);
+            if (item.getReminder().get().getOccurrenceDateTime().isAfter(LocalDateTime.now())) {
+                futureReminders.add(item);
+            } else {
+                activeReminders.add(item);
+            }
         }
     }
 
@@ -259,6 +263,8 @@ public class ItemModelManager implements ItemModel {
         taskList.remove(item);
         eventList.remove(item);
         reminderList.remove(item);
+        futureReminders.remove(item);
+        activeReminders.remove(item);
         return item;
     }
 
@@ -273,6 +279,8 @@ public class ItemModelManager implements ItemModel {
         taskList.remove(item);
         eventList.remove(item);
         reminderList.remove(item);
+        futureReminders.remove(item);
+        activeReminders.remove(item);
         if (priorityMode.getValue()) {
             getNextTask();
         }
