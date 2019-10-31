@@ -191,10 +191,8 @@ public class ModelManager implements Model {
     public void deleteTags(Tag target) {
         for (Problem problem : filteredProblems) {
             Set<Tag> targetTags = problem.getTags();
-            for (Tag tag : targetTags) {
-                if (tag.getName().equals(target.getName())) {
-                    problem.deleteTag(tag);
-                }
+            if (targetTags.contains(target)) {
+                problem.deleteTag(target);
             }
         }
     }
@@ -224,11 +222,9 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedTag);
         for (Problem problem : filteredProblems) {
             Set<Tag> targetTags = problem.getTags();
-            for (Tag tag : targetTags) {
-                if (tag.getName().equals(target.getName())) {
-                    problem.addTag(editedTag);
-                    problem.deleteTag(tag);
-                }
+            if (targetTags.contains(target)) {
+                problem.deleteTag(target);
+                problem.addTag(editedTag);
             }
         }
     }
