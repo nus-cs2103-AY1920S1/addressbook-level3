@@ -48,8 +48,8 @@ public class DisinviteCommand extends Command {
     public static final String MESSAGE_UNSUCCESSFUL_DISINVITE_HAS_EXPENSE = "Cannot disinvite \"%s\" from activity: "
             + "involved in expense(s).";
 
-    public static final String MESSAGE_PERSON_NOT_FOUND_IN_ACTIVITY = "\"%s\" is not in Activity, " +
-            "cannot be disinvited.";
+    public static final String MESSAGE_PERSON_NOT_FOUND_IN_ACTIVITY = "\"%s\" is not in Activity, "
+            + "cannot be disinvited.";
 
     private final List<String> peopleToDisinvite;
 
