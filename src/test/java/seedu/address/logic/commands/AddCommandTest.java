@@ -312,7 +312,20 @@ public class AddCommandTest {
         public void setNoteBookFilePath(Path noteBookFilePath) {
 
         }
+        @Override
+        public void commitNote() {
 
+        }
+
+        @Override
+        public void undoNote() {
+
+        }
+
+        @Override
+        public void redoNote() {
+
+        }
         public ObservableList<Password> getFilteredPasswordList() {
             return null;
         }

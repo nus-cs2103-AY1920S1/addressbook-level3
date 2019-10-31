@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyNoteBook;
 
 /**
- * Represents a storage for {@link seedu.address.model.NoteBook}.
+ * Represents a storage for {@link seedu.address.model.VersionedNoteBook}.
  */
 public interface NoteBookStorage {
 

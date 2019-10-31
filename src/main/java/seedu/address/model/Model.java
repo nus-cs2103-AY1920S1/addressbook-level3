@@ -75,7 +75,9 @@ public interface Model {
      */
     void setFileBook(ReadOnlyFileBook fileBook);
 
-    /** Returns the FileBook */
+    /**
+     * Returns the FileBook
+     */
     ReadOnlyFileBook getFileBook();
 
     /**
@@ -131,8 +133,8 @@ public interface Model {
      */
     void setFileStatus(EncryptedFile target, FileStatus newStatus);
 
-    /** Returns an unmodifiable view of the filtered person list
-     *
+    /**
+     * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();
 
@@ -144,11 +146,14 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
 
-    /** Returns an unmodifiable view of the filtered file list */
+    /**
+     * Returns an unmodifiable view of the filtered file list
+     */
     ObservableList<EncryptedFile> getFilteredFileList();
 
     /**
      * Updates the filter of the filtered file list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFileList(Predicate<EncryptedFile> predicate);
@@ -173,7 +178,9 @@ public interface Model {
      */
     void setCardBook(ReadOnlyCardBook cardBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyCardBook getCardBook();
 
     /**
@@ -193,11 +200,14 @@ public interface Model {
      */
     void addCard(Card card);
 
-    /** Returns an unmodifiable view of the filtered card list */
+    /**
+     * Returns an unmodifiable view of the filtered card list
+     */
     ObservableList<Card> getFilteredCardList();
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCardList(Predicate<Card> predicate);
@@ -251,18 +261,25 @@ public interface Model {
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
 
-    public Path getNoteBookFilePath();
+    Path getNoteBookFilePath();
 
-    public void setNoteBookFilePath(Path noteBookFilePath);
+    void setNoteBookFilePath(Path noteBookFilePath);
 
-    public void sortNoteBook();
+    void sortNoteBook();
 
-    public void editNoteSortByCond(SortByCond sortByCond);
+    void editNoteSortByCond(SortByCond sortByCond);
+
+    void undoNote();
+
+    void redoNote();
+
+    void commitNote();
 
     ObservableList<Password> getFilteredPasswordList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPasswordList(Predicate<Password> predicate);
@@ -275,7 +292,9 @@ public interface Model {
      */
     void deletePassword(Password password);
 
-    /** Returns the PasswordBook */
+    /**
+     * Returns the PasswordBook
+     */
     PasswordBook getPasswordBook();
 
     /**

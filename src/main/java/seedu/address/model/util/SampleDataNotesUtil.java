@@ -2,8 +2,8 @@ package seedu.address.model.util;
 
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
-import seedu.address.model.NoteBook;
 import seedu.address.model.ReadOnlyNoteBook;
+import seedu.address.model.VersionedNoteBook;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
@@ -26,7 +26,7 @@ public class SampleDataNotesUtil {
     }
 
     public static ReadOnlyNoteBook getSampleNoteBook() {
-        NoteBook sampleNb = new NoteBook();
+        VersionedNoteBook sampleNb = new VersionedNoteBook();
         for (Note sampleNote : getSampleNotes()) {
             sampleNb.addNote(sampleNote);
         }
