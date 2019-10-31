@@ -1,0 +1,278 @@
+= Scheduler - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/se-edu/addressbook-level3
+
+By: `Team AY1920S1-CS2103-F09-1`      Since: `Oct 2019`      Licence: `MIT`
+
+== Introduction
+Scheduler is an app that can automate the scheduling of interviews for secretaries in NUS CCAs. It is optimised for
+people who **prefer typing in a Command Line Interface (CLI)** to quickly access the functionalities of an app. +
+
+Click on <<Quick Start, Quick Start>> to get started!
+
+== Quick Start
+This guide shows you how to import your interview schedules into Scheduler to begin managing your interview schedule.
+It also shows you basic tips on how to add or delete and edit interviewers/interviewees based on your changing needs.
+
+=== Import your csv file into the application
+
+TIP: Converting your Excel file into .csv format
+
+1) Open Excel and click *File -> Open*.
+
+image::quickstart/1_excel.png[width="500", align="left"]
+
+2) In the dialog box, find the Excel file on your computer and click *Open*.
+
+image::quickstart/2_excel.png[width="500", align="left"]
+
+3) On the Excel toolbar, select *File > Save As*.
+
+image::quickstart/3_excel.png[width="500", align="left"]
+
+4) In the dialog box, type a new name for your file in the *File Name* field.
+
+5) In the "Save as Type" drop-down menu, scroll down to locate and select *CSV (comma delimited)*.
+
+image::quickstart/4_excel.png[width="500", align="left"]
+
+6) Click *Save*.
+
+image::quickstart/5_excel.png[width="500", align="left"]
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user, e.g. in `add interviewee name:"NAME" slot:"SLOT"`,
+`NAME` and `slot` are parameters that need to be provided by the user, e.g. "John Doe" and "20/09/2019 1800 - 20/09/2019 21:00".
+
+====
+
+=== Viewing help
+Shows helpful information on using this software.
+Format: `help`
+
+=== Importing existing availabilities `import`
+==== Importing interviewers’ availability
+Imports interviewers’ availability from a comma separated values (CSV) file. +
+Format: `import interviewer PATH_TO_FILE` +
+    - PATH_TO_FILE is the absolute path to the file. +
+    - E.g C:\\Users\Bob\file.csv
+
+Example:
+
+ import interviewer C:\Users\johndoe\Interviewers.csv
+
+==== Importing interviewees’ availability
+Imports interviewees’ availability from a comma separated values (CSV) file. +
+Format: `import interviewee PATH_TO_FILE` +
+    - PATH_TO_FILE is the absolute path to the file. +
+    - E.g C:\\Users\Bob\file.csv
+
+Example:
+
+ import interviewer C:\Users\johndoe\Interviewees.csv
+
+=== Add interviewers/interviewees `add`
+Manually add a new interviewer to the database. +
+Format: `add interviewer name:"NAME" slot:SLOT...` +
+
+Examples:
+
+ add interviewee name:"John Doe" slot:"20/09/2019 18:00 - 20/09/2019 21:00"
+ add interviewee name:"Mary Jane" slot:"20/09/2019 18:00 - 20/09/2019 19:00" slot:"20/09/2019 20:00 - 20/09/2019 21:00"
+
+Notes:
+
+- An interviewee can have multiple slots (given by multiple “slot:” arguments)
+- Slots should be given in the format: `DD/MM/YYYY HH:MM - DD/MM/YYYY HH:MM`, where the first date and time is the starting time and the second date and time is the ending time of availability.
+- The starting date should be a date and time that is earlier than the ending date
+
+=== UI Display
+
+==== Viewing Schedules
+When the Scheduler starts, interview schedules will be displayed for you. The data will be displayed in a table format,
+with each table representing the schedule for each day. In the first column, the date of that interview schedule will be
+displayed, the rest of the columns are the departments and the name of their respective person in charge. Subsequent rows
+will be be displayed by showing the time slot first, with the person allocated to that time slot. If there are no interviewee
+occupying that time slot, it will be displayed as "0".
+
+A sample output of the Schedule UI is shown below:
+
+image::Ui/Schedule.png[width="500", align="left"]
+
+==== Viewing details of interviewees
+You can to view the list of interviewees and the following information:
+1. Name
+2. NUS Email
+3. Personal Email
+4. Mobile Number
+5. Faculty/School
+6. Academic Year
+7. Choice of Department 1
+8. Choice of Department 2
+9. Preferred Time Slots
+
+The interviewee list can be viewed by typing the following command +
+Format: `display interviewees`
+
+image::Ui/Interviewee.png[width="500", align="left"]
+
+In this screen, you can edit, add or delete interviewees accordingly by using the other features explained in
+this User Guide.
+
+==== Differentiating the importance of timetable slots through colours `[Coming in v2.0]`
+As you can see from the timetable above, there are 2 different colours of time slots. This is implemented so you
+are able to differentiate which interviews are important by using the colour code as shown in the timetable.
+By default, the slots will be green in colour. However, you are able to change the colours based on importance using
+the following command +
+Format: `change DATE TIME IMPORTANCE`
+
+=== Get interview schedule `get` `[Coming in v2.0]`
+Find an interviewer/interviewee and display his/her interview schedule. +
+Format: `get NAME` +
+
+Example:
+
+ get "John Doe"
+
+=== Changing availabilities `edit` `[Coming in v2.0]`
+==== Changing availabilities of existing interviewer (interview slot)
+Change the specified interviewer from the database +
+Format: `edit interviewer NAME`
+
+==== Changing availabilities of existing interviewee
+Change the specified interviewee from the database. +
+Format: `edit interviewee NAME`
+
+=== Delete interviewer/interviewee `delete`
+==== Delete existing interviewer (interview slot)
+Deletes the specified interviewer from the database +
+Format: `delete interviewer NAME` +
+
+==== Delete existing interviewee
+Deletes the specified interviewee from the database. +
+Format: `delete interviewee NAME`
+
+=== Tag interview slot `tag` `[Coming in v2.0]`
+Tags an interview slot with a name. +
+Format: `tag TAG_NAME` +
+
+User will also be able to filter by tags. +
+Format: `filter tag TAG_NAME` +
+
+=== Scheduling `schedule`
+==== Schedule the interviews
+Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
+their choice of department. As of V1.3, the scheduling result is reflected on the console of the application. This will
+be updated such that the result is reflected in the displayed interview timetable at v1.4. +
+Format: `schedule` +
+
+=== Exporting of interview schedule `export` [Coming soon in v1.4]
+Exports the allocated interview schedule timetable to a comma separated values (CSV) file. +
+Format: `export` +
+
+Note: This command requires the interview schedule to be generated first!
+
+=== Sending of email `email`
+==== Sending of interview time slot to interviewees
+Sends an email containing the interviewee’s allocated interview time slot to every interviewee, including other details such as the interviewer, time, date and location.
+
+Format: `email timeslots`
+
+**Note:** The email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Sending of interview results to interviewees `[Coming in v2.0]`
+Sends an email containing the interviewee’s result/interview outcome and other details that you might want to include.
+
+Format: `email results`
+
+**Note:** This email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Checking of email sending queue status `[Coming in v2.0]`
+Checks the status of the mail sending queue.
+
+Format: `email status`
+
+=== Recording of additional statuses: `record` `[Coming in v2.0]`
+==== Recording of interviewee’s attendance
+Bring up the window to record the attendance of interviewees. You can navigate through the table in the window (GUI)
+using the directions key to record the attendance of the interviewees. Hit Enter at the target cell to record the
+attendance. +
+Format: `record attendance`
+
+====  Recording of interview result
+Bring up the window to record the interview result. The way to record the result is the same as 2.12.1. +
+Format: `record result`
+
+==== Ranking of interviewees
+Bring up the window to rank the interviewees. The way to record the result is the same as 2.12.1. +
+Format: `record rank`
+
+== FAQ
+
+== Command Summary
+.Table Command Summary
+|===
+|Command Description |Command Syntax
+
+|Help
+|`help` +
+
+|Import existing availabilities
+|`import interviewer PATH_TO_FILE` +
+  `import interviewee PATH_TO_FILE`
+
+|Add interviewers/interviewees
+|`add interviewer name:"NAME" slot:SLOT...` +
+ `add interviewee name:"NAME" slot:SLOT...`
+
+|Get interview schedule for interviewer/interviewee
+|`get NAME` +
+
+|Edit availability of interveiwer/interviewee
+|`edit interviewer NAME` +
+ `edit interviewee NAME`
+
+|Delete interviewer/interviewee
+|`delete interviewer NAME` +
+ `delete interviewee NAME`
+
+|Tag interview slot
+|`tag TAG_NAME` +
+
+|Filter
+|`filter tag TAG_NAME` +
+
+|Schedule
+|`schedule` +
+
+|Export
+|`export` +
+
+|Email blast
+|`email timeslots` +
+ `email results` +
+ `email status` +
+
+|Record
+|`record attendance` +
+ `record result` +
+ `record rank` +
+
+|===
