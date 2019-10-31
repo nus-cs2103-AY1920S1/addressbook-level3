@@ -150,42 +150,37 @@ The following class diagram is the current structure of the `Analyser` component
 
 image::AnalyserClassDiagram.png[]
 
-*API* : **TODO**
-//link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
-
 The `Analyser` component,
 
-* can analyse the current list of `Password` object.
-* can output a summary security report for the list of `Password` objects.
-* can output a detailed security report for a specified `Password` object.
+* can analyse the current list of `Password` object to produce a list of analysis `Results`.
 
 ==== Proposed Implementation
-The analyse password functionality is facilitated by the `AnalysePasswordCommand`, which makes use of various analysers.
-Each type of analyser implements `Analyser`, and implements the following operations:
+The analyse password makes use of various analysers.
+Each type of analyser implements it's own implementation of `#analyse()` , and inspects the following aspects of the password:
 
-* `Analyser#analyse(List<Password> passwords)` -- Analyses a certain aspect for every password in the list.
-* `Analyser#outputSummaryReport()` -- Outputs an overview summary report for the list of `Results` created from analysing each password.
-* `Analyser#ouputDetailedReport(Index index)` -- Outputs a detailed report from the result of a specified Password.
+* Complexity (Strength)
+* Uniqueness
+* Similarity
+* Commonly-used passwords
+* Commonly-used sequences
 
-Given below is the example usage of how the the analyse functionality, using the `DictionaryAnalyser`, behaves at each step.
+Given below is the example usage of how the analysis for commonly-used passwords is implemented, using the `DictionaryAnalyser`.
 
-Step 1. The user inputs `analyse` into the command line. The `Logic` uses the `PasswordBookParser` to parse the user command,
-which results in a `AnalysePasswordCommand` which is executed by the `LogicManager`.
+Step 1. The user inputs `analyse` into the command line. An `AnalysePasswordCommand` is generated and executed by `Logic`.
 
-Step 2. The `AnalysePasswordCommand` calls the `Model#getFilteredPasswordList()` to obtain the current list of passwords,
-as well as `#getRequiredAnalysers()` to get the default list of analysers.
+Step 2. On `#execute`, AnalysePasswordCommand retrieves the current list of passwords via `Model#getFilteredPasswordList()`.
+It also retrieves the required analysers via `#getRequiredAnalysers()`. Each analyser will then `#analyse` the list of passwords.
 
-Step 3. `AnalysePasswordCommand` will invoke `Analyser#analyse()` of each analyser on every password in the list to produce the respective result.
-The `Result` object contains information of the password after analysis, such as the description of result.
-For comparison-based analysers, `Match` objects are created to store information about matches found by the analyser.
-Each `Match` contains details such as the match token, as well as the start and end index of the token with respect to the password.
+Step 3. In the case of `DictionaryAnalyser`, each subsequence of the particular password is checked against a common-password dictionary
+Every match found is appended to the list of `Match` objects. The following sequence diagram explains how this is done:
 
-Step 4. A report is compiled by stringify-ing the list of `Result` objects from each analyser and shown to the user.
+image::GetAllMatchesSequence.png[]
 
-Step 5. Should the user wish to view a more detailed report for a specific password, user may input `analyse strong/<index>`
-to view a more detailed analysis of the specified password.
+Step 4. An `AnalysisReport` compiles all the `Results` of each analyser into a string-formatted report for the user.
 
-The following sequence diagram shows how the analyse functionality works:
+Step 5. Should the user wish to view a more detailed report for a specific password, user may input `analyse strong/<index>`.
+
+The following sequence diagram shows how the overall analyse functionality works:
 
 image::AnalysePasswordSequenceDiagram.png[]
 
