@@ -474,19 +474,36 @@ image::find/Step2.png[,550]
 image::find/Step3.png[,550]
 
 [[ListTag]]
-=== List expenses for the month: `list`
+=== Listing transactions with the use of filters: `list`
+THRIFT allows you to list out all the transactions, and filter by month if you wish to as well.
 
-Format: `list [m/MONTH] [t/TAG]`
+==== Command syntax:
+`list [m/MONTH]`
 
-Examples:
+****
+* Sets the filter to the month specified in `MONTH`.
+* `MONTH` is in `MM/YYYY`:
+** `MM` is between `01-12`.
+** `YYYY` is between `0001-9999`.
+* If `m/MONTH` is left out then all transactions will be shown.
+****
 
-*  `list`
-*  `list m/01/2019 t/Food`
+==== Example usage:
+Imagine that you wanted to take a look at how much you spent and saved the previous month! For example, Oct 2019.
 
-Expected output:
+To `list` the transactions of Oct 2019:
 
-* Returns a list of all expenses.
-* Returns a list of all food expenses for the specified month.
+. The default interface shows all transactions for the current month, in this case Nov 2019.
++
+image::list/Step1.png[,550]
+
+. You can simply type *list m/10/2019* into the command input and press kbd:[Enter]:
++
+image::list/Step2.png[,550]
+
+. Your transaction list will now show all transactions that were added in Oct 2019!
++
+image::list/Step3.png[,550]
 
 [[HelpTag]]
 === Displaying help page: `help`
@@ -556,8 +573,8 @@ Example: `delete i/1`
 Example: `update i/1 n/Curry Laksa v/5 t/Lunch t/Dinner`
 * <<CloneTag, *Clone*>>: `clone i/INDEX` +
 Example: `clone i/1`
-* <<ListTag, *List*>>: `list [m/MONTH] [t/TAG]` +
-Example: `list m/01/2019 t/Food`
+* <<ListTag, *List*>>: `list [m/MONTH]` +
+Example: `list m/01/2019`
 * <<TagTag,*Tag*>>: `tag i/INDEX t/TAG_NAME` +
 Example: `tag i/8 t/Debt`
 * <<UntagTag, *Untag*>>: `untag i/INDEX t/TAG_NAME` +

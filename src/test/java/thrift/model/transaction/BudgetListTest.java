@@ -37,6 +37,8 @@ public class BudgetListTest {
     public void setBudget_budgetNotInThrift_returnsTrue() {
         budgetList.setBudget(TypicalTransactions.OCT_BUDGET);
         Calendar now = Calendar.getInstance();
+        now.set(Calendar.MONTH, 9);
+        now.set(Calendar.YEAR, 2019);
         assertTrue(budgetList.getBudgetForMonthYear(now).isPresent());
     }
 
