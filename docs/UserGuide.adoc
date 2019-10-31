@@ -204,7 +204,7 @@ Opens a window displaying the list of engagements for the specified date. This c
 is in another tab (view) or the specified date is invalid.
 
 .Engagement list for 01/11/2019
-image::calendar-open-display.png[width="450"]
+image::calendar-open-display.png[width="450"] +
 
 Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
 for that date.
@@ -218,7 +218,7 @@ Changes the calendar view to the month following the currently displayed one. Th
 application is in another tab.
 
 .Changing to the next month from October 2019
-image::calendar-next-month.png[width="450"]
+image::calendar-next-month.png[width="450"] +
 
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
 to change the display to the next month.
@@ -228,7 +228,7 @@ Changes the calendar view to the month prior to the currently displayed one. Thi
 application is in another tab.
 
 .Changing to the previous month from October 2019
-image::calendar-previous-month.png[width="450"]
+image::calendar-previous-month.png[width="450"] +
 
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
 to change the display to the previous month.
