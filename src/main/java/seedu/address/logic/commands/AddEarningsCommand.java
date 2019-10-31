@@ -30,7 +30,7 @@ public class AddEarningsCommand extends Command {
             + PREFIX_DATE + "03/05/2020 "
             + PREFIX_TYPE + "tut "
             + PREFIX_CLASSID + "CS2103T "
-            + PREFIX_AMOUNT + "$55.30";
+            + PREFIX_AMOUNT + "55.30";
 
     public static final String MESSAGE_SUCCESS = "New earnings added: %1$s";
     public static final String MESSAGE_DUPLICATE_EARNINGS =
