@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
-import seedu.address.inventory.storage.StorageManager;
+import seedu.address.inventory.storage.Storage;
 import seedu.address.inventory.util.InventoryList;
 
 /**
@@ -13,13 +13,13 @@ import seedu.address.inventory.util.InventoryList;
  */
 public class ModelManager implements Model {
     private InventoryList inventoryList;
-    private StorageManager storage;
+    private Storage storage;
 
     public ModelManager(InventoryList inventoryList) {
         this.inventoryList = inventoryList;
     }
 
-    public ModelManager(StorageManager storage) {
+    public ModelManager(Storage storage) {
         this.storage = storage;
         try {
             this.inventoryList = storage.getInventoryList();
