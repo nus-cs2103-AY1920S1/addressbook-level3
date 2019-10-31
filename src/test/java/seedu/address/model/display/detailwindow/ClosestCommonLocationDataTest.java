@@ -49,7 +49,7 @@ class ClosestCommonLocationDataTest {
         closestCommonLocationData.setValidLocation(input);
         assertEquals("ERROR: FOO BAR\n"
                 + "Source location: FOO, BAR, HELLO\n"
-                +  "Valid Source location: FOO, BAR, HELLO\n", closestCommonLocationData.getErrorResponse());
+                + "Valid Source location: FOO, BAR, HELLO\n", closestCommonLocationData.getErrorResponse());
     }
 
     @Test

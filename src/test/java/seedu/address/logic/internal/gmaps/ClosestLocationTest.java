@@ -63,9 +63,9 @@ class ClosestLocationTest {
         assertNull(result.getValidLocation());
         assertEquals(result.getErrorResponse(),
                 "All location entered cannot be identified by TimeBook. Refer to  Supported Location table "
-                        + "in User Guide to ge the supported locations.\n" +
-                        "Source location: canteen, canteen, canteen\n" +
-                        "Invalid Source location: canteen, canteen, canteen\n");
+                        + "in User Guide to ge the supported locations.\n"
+                        + "Source location: canteen, canteen, canteen\n"
+                        + "Invalid Source location: canteen, canteen, canteen\n");
         assertEquals(new ArrayList<String>(Arrays.asList("canteen", "canteen", "canteen")),
                 result.getInvalidLocation());
     }

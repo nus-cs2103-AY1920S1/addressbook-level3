@@ -22,7 +22,7 @@ class GmapsModelManagerTest {
         ArrayList<String> locationNameList = new ArrayList<>(Arrays.asList("LT17", "LT17", "LT17"));
         ClosestCommonLocationData result = gmapsModelManager.closestLocationData(locationNameList);
         assertEquals(result.getFirstClosest(), "LT17");
-        assertEquals( "Avg distance: 0(meters)", result.getFirstAvg());
+        assertEquals("Avg distance: 0(meters)", result.getFirstAvg());
     }
 
     @Test
