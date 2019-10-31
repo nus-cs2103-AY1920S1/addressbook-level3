@@ -53,7 +53,7 @@ public class DoneTaskCommand extends Command {
         if (model.checkForPrize(lastShownList)) {
 
             model.changeDashboard(lastShownList);
-            return new CommandResult(String.format(MESSAGE_DONE_FIVE_SUCCESS, createDoneTask));
+            return new CommandResult(MESSAGE_DONE_FIVE_SUCCESS, true, false, false);
 
         } else {
             return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, createDoneTask));

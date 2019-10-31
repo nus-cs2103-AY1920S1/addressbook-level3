@@ -59,19 +59,6 @@ public class DashboardListPanel extends UiPart<Region> {
     }
 
     /**
-     * Checks if 5 new tasks are done.
-     */
-    public boolean doneFive(List<Dashboard> l) {
-        l.stream().filter(i -> i.getTaskStatus().getNotDoneStatus());
-        int size = l.size();
-        if (size % 5 == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Custom {@code ListCell} that displays the graphics of a {@code Dashboard} using a {@code DashboardCard}.
      * Updates progress bar, whenever the user adds or deletes a task.
      */

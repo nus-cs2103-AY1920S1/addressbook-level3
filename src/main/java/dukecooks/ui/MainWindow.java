@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private ExerciseListPanel exerciseListPanel;
     private DiaryListPanel diaryListPanel;
     private ResultDisplay resultDisplay;
+    private RewardWindow rewardWindow;
     private HelpWindow helpWindow;
     private Event event;
 
@@ -104,6 +105,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        rewardWindow = new RewardWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -198,6 +200,16 @@ public class MainWindow extends UiPart<Stage> {
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
+     * Opens the reward window
+     */
+    @FXML
+    public void handleReward() {
+        if (!rewardWindow.isShowing()) {
+            rewardWindow.show();
         }
     }
 
@@ -350,6 +362,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowReward()) {
+                handleReward();
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

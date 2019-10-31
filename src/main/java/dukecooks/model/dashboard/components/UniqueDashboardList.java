@@ -3,7 +3,6 @@ package dukecooks.model.dashboard.components;
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -30,16 +29,6 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     private final ObservableList<Dashboard> internalList = FXCollections.observableArrayList();
     private final ObservableList<Dashboard> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-
-    private final long taskLeft = internalList.stream()
-            .filter(i -> !i.getTaskStatus().getDoneStatus()).count();
-
-    /**
-     * Get the number of task left in a String.
-     */
-    public String getTaskLeft() {
-        return Long.toString(taskLeft);
-    }
 
     /**
      * Sorts the list by date.
