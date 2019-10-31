@@ -52,10 +52,13 @@
                               </VBox>
                            </content>
                         </ScrollPane>
-                                                  <StackPane fx:id="resultDisplayPlaceholder" alignment="BOTTOM_CENTER" maxHeight="100" minHeight="80.0" prefHeight="80.0" styleClass="pane-with-border">
+                                                  <StackPane fx:id="resultDisplayPlaceholder" alignment="BOTTOM_CENTER" maxHeight="120.0" minHeight="100.0" prefHeight="100.0" styleClass="pane-with-border">
                       <padding>
                         <Insets left="10.0" right="10.0" top="5.0" />
                       </padding>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
                     </StackPane>
                              <StackPane fx:id="commandBoxPlaceholder" alignment="BOTTOM_CENTER" prefHeight="16.0" style="-fx-border-color: transparent;" styleClass="pane-with-border">
                       <padding>
