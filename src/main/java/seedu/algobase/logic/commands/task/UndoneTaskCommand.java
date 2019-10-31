@@ -66,7 +66,7 @@ public class UndoneTaskCommand extends Command {
         }
         Task taskToUpdate = taskList.get(taskIndex);
         if (!taskToUpdate.getIsSolved()) {
-            throw new CommandException(Messages.MESSAGE_TASK_NOT_YET_DONE);
+            throw new CommandException(String.format(Messages.MESSAGE_TASK_NOT_YET_DONE, taskToUpdate.getName()));
         }
         taskList.remove(taskIndex);
         Set<Task> taskSet = new HashSet<>(taskList);
@@ -77,7 +77,7 @@ public class UndoneTaskCommand extends Command {
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
 
         return new CommandResult(
-                String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToUpdate.getProblem().getName(),
+                String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToUpdate.getName(),
                         updatedPlan.getPlanName()));
     }
 

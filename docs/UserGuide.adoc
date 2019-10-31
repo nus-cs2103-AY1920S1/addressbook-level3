@@ -81,11 +81,13 @@ Examples:
 ==== Deleting a problem : `delete`
 
 Deletes an existing problem. +
-Format: `delete INDEX`
+Format: `delete INDEX [f/]`
 
 * Deletes the problem at the specified `INDEX`.
 * The index refers to the index number shown in the displayed problem list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* The command will fail if the problem identified by `INDEX` is used in some task(s) in existing plans.
+Add `f/` to force AlgoBase to delete all tasks associated with the problem.
 
 Examples:
 
@@ -343,9 +345,9 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [
 ==== Adding a new task to a plan: `addtask`
 
 Adds a task to a specified plan. +
-Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/TARGET_DATE]`
+Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/DUE_DATE]`
 
-* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+* `DUE_DATE` should be in between plan's `startDate` and `endDate` (inclusive).
 
 Examples:
 
@@ -356,7 +358,7 @@ Examples:
 Copies a specified task from one plan to another. +
 Format: `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
 
-* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+* Task identified by `TASK_INDEX` should have a due date in between plan's `startDate` and `endDate` (inclusive).
 
 Examples:
 
@@ -385,7 +387,7 @@ Examples:
 Edits the due date of a specified task from a specified plan. +
 Format: `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE`
 
-* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+* `DUE_DATE` should be in between plan's `startDate` and `endDate` (inclusive).
 
 Examples:
 
@@ -405,7 +407,7 @@ Examples:
 Moves a specified task from a specified plan to another. +
 Format: `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
 
-* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+* Task identified by `TASK_INDEX` should have a due date in between plan's `startDate` and `endDate` (inclusive).
 
 Examples:
 

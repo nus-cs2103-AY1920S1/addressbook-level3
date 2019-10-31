@@ -34,7 +34,7 @@ public class AddTaskCommand extends Command {
             + "Parameters:\n"
             + PREFIX_PLAN + "PLAN_INDEX "
             + PREFIX_PROBLEM + "PROBLEM_INDEX "
-            + PREFIX_DUE_DATE + "DUE_DATE\n"
+            + "[" + PREFIX_DUE_DATE + "DUE_DATE]\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_PLAN + "1 "
@@ -98,7 +98,7 @@ public class AddTaskCommand extends Command {
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
+                String.format(MESSAGE_SUCCESS, task.getName(), updatedPlan.getPlanName()));
     }
 
     @Override

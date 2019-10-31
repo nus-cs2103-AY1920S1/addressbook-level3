@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PROBLEM_SUCCESS = "Problem [%1$s] deleted.";
     public static final String MESSAGE_PROBLEM_USED_IN_PLAN = "Problem [%1$s] is used in existing plans. "
-        + "Add " + FLAG_FORCE + " to the end of your command if you want to delete it from all plans";
+        + "Add " + FLAG_FORCE + " to the end of your command if you want to delete it from all plans.";
 
     private final Index targetIndex;
     private final boolean isForced;

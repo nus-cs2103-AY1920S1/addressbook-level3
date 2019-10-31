@@ -111,6 +111,8 @@ public class PlanList implements Iterable<Plan> {
         if (plans.size() > 0) {
             // Default to first plan in list
             setCurrentPlan(plans.get(0));
+        } else {
+            currentPlan.set("");
         }
     }
 
