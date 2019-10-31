@@ -449,6 +449,8 @@ Aspect: How edit command is parsed
 
 The following sequence diagram shows how the edit template item operation works for the logic component:
 
+=== MergeBought Feature
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.

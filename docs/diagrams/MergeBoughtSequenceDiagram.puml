@@ -1,0 +1,111 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":iFridgeParser" as iFridgeParser LOGIC_COLOR
+participant ":ShoppingListParser" as ShoppingListParser LOGIC_COLOR
+participant ":TemplateItemParser" as TemplateItemParser LOGIC_COLOR
+participant ":EditTemplateItemCommandParser" as EditTemplateItemCommandParser LOGIC_COLOR
+participant "m:MergeShoppingCommand" as EditTemplateItemCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute(args1)
+activate LogicManager
+
+LogicManager -> iFridgeParser : parseCommand(args1)
+activate iFridgeParser
+
+create ShoppingListParser
+iFridgeParser -> ShoppingListParser
+activate ShoppingListParser
+
+ShoppingListParser --> iFridgeParser
+deactivate ShoppingListParser
+
+iFridgeParser -> ShoppingListParser : parseCommand(args2)
+activate ShoppingListParser
+
+create TemplateItemParser
+ShoppingListParser -> TemplateItemParser
+activate TemplateItemParser
+
+TemplateItemParser --> ShoppingListParser
+deactivate TemplateItemParser
+
+ShoppingListParser -> TemplateItemParser : parse(args3)
+activate TemplateItemParser
+
+create EditTemplateItemCommandParser
+TemplateItemParser -> EditTemplateItemCommandParser
+activate EditTemplateItemCommandParser
+
+EditTemplateItemCommandParser --> TemplateItemParser
+deactivate EditTemplateItemCommandParser
+
+TemplateItemParser -> EditTemplateItemCommandParser : parse(args4)
+activate EditTemplateItemCommandParser
+
+create EditTemplateItemCommand
+EditTemplateItemCommandParser -> EditTemplateItemCommand
+activate EditTemplateItemCommand
+
+EditTemplateItemCommand --> EditTemplateItemCommandParser : m
+deactivate EditTemplateItemCommand
+
+EditTemplateItemCommandParser --> TemplateItemParser : m
+deactivate EditTemplateItemCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditTemplateItemCommandParser -[hidden]-> TemplateItemParser
+destroy EditTemplateItemCommandParser
+
+TemplateItemParser --> ShoppingListParser : m
+deactivate TemplateItemParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TemplateItemParser -[hidden]-> ShoppingListParser
+destroy TemplateItemParser
+
+ShoppingListParser --> iFridgeParser : m
+deactivate ShoppingListParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ShoppingListParser -[hidden]-> iFridgeParser
+destroy ShoppingListParser
+
+iFridgeParser --> LogicManager : m
+deactivate iFridgeParser
+
+LogicManager -> EditTemplateItemCommand : execute()
+activate EditTemplateItemCommand
+
+ref over EditTemplateItemCommand, Model : Retrieve and edit specified template, template items and update templateList
+
+EditTemplateItemCommand -> Model: setTemplate(templateToEdit, EditedTemplate)
+activate Model
+
+Model --> EditTemplateItemCommand
+deactivate Model
+
+EditTemplateItemCommand -> Model: setShownTemplate(editedTemplate)
+activate Model
+
+Model --> EditTemplateItemCommand
+deactivate Model
+
+create CommandResult
+EditTemplateItemCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditTemplateItemCommand
+deactivate CommandResult
+
+EditTemplateItemCommand --> LogicManager : result
+deactivate EditTemplateItemCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
