@@ -15,19 +15,11 @@ import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
-
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
     public static Answerable[] getSampleAnswerables() {
-        Answer defaultCorrectAnswer = new Answer("CORRECT");
-        ArrayList<Answer> defaultCorrectAnswerList = new ArrayList<>(Arrays.asList(defaultCorrectAnswer));
-        Answer defaultWrongAnswer = new Answer("WRONG");
-        ArrayList<Answer> defaultWrongAnswerList = new ArrayList<>(Arrays.asList(defaultWrongAnswer,
-                defaultWrongAnswer, defaultWrongAnswer));
-
-        //TODO: Implement actual answerable
         return new Answerable[] {
             new Mcq(new Question("What type of project is AB3?"),
                     new ArrayList<>(Arrays.asList(new Answer("Brownfield"))),
@@ -139,6 +131,19 @@ public class SampleDataUtil {
                     new ArrayList<>(Arrays.asList(new Answer("true"))),
                     new Difficulty("1"), getCategorySet("UML", "Week 5")),
 
+            new Mcq(new Question("Which of the following is not true?"),
+                    new ArrayList<>(Arrays
+                            .asList(new Answer("Git uses a serial no. matching the exact nano-second a commit "
+                                    + "was created to identify a commit."))),
+                    new ArrayList<>(Arrays.asList(new Answer("After you initialize a git repo in a folder, "
+                                    + "all files in that folder are automatically tracked by Git."),
+                            new Answer("The git history does not contain everything that happened to the "
+                                    + "tracked files. It only contains specific points that you committed to "
+                                    + "the history."),
+                            new Answer("Git can show you the difference between two adjacent commits in the "
+                                    + "version history."))),
+                    new Difficulty("3"), getCategorySet("project management", "revision control", "Week 2")),
+
             new TrueFalse(new Question("As per the textbook, a log file is like the auto-pilot system of an "
                     + "airplane."),
                     new ArrayList<>(Arrays.asList(new Answer("false"))),
@@ -185,29 +190,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static Mcq newA() {
-        return new Mcq(new Question("Which of the following is not true?"),
-                new ArrayList<>(Arrays
-                        .asList(new Answer("Git uses a serial no. matching the exact nano-second a commit "
-                                + "was created to identify a commit."))),
-                new ArrayList<>(Arrays.asList(new Answer("After you initialize a git repo in a folder, "
-                                + "all files in that folder are automatically tracked by Git."),
-                        new Answer("The git history does not contain everything that happened to the "
-                                + "tracked files. It only contains specific points that you committed to "
-                                + "the history."),
-                        new Answer("Git can show you the difference between two adjacent commits in the "
-                                + "version history."))),
-                new Difficulty("3"), getCategorySet("project management", "revision control", "Week 2"));
-    }
-
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Answerable sampleAnswerable : getSampleAnswerables()) {
             sampleAb.addAnswerable(sampleAnswerable);
         }
 
-        Answerable newA = newA();
-        sampleAb.addAnswerable(newA());
         return sampleAb;
     }
 
