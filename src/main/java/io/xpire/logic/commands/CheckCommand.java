@@ -21,8 +21,10 @@ public class CheckCommand extends Command {
             + "the specified duration (in days). Expired items, if any, are also included in the list.\n"
             + "Format: check[|<days>] (days must be a non negative number)\n"
             + "Example: " + COMMAND_WORD + "|7\n"
-            + "If no duration is specified, expired items and items whose days to expiry date are less than or equals "
-            + "to the remainder threshold will be displayed.\n";
+            + "If no duration is specified, expired items and items whose reminder "
+            + "has been activated will be displayed.";
+
+    public static final String MESSAGE_EXCEEDED_MAX = "Maximum number of days that can be checked is 36500 days";
 
     private final Predicate<XpireItem> predicate;
 
