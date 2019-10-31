@@ -10,6 +10,7 @@ import com.typee.commons.exceptions.DataConversionException;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.interactive.parser.InteractiveParser;
 import com.typee.logic.interactive.parser.Parser;
 import com.typee.logic.parser.TypeeParser;
 import com.typee.logic.parser.exceptions.ParseException;
@@ -30,7 +31,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final Parser interactiveParser;
+    private final InteractiveParser interactiveParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
