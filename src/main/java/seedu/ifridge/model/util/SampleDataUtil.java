@@ -33,7 +33,7 @@ public class SampleDataUtil {
         return new GroceryItem[] {
             new GroceryItem(new Name("Minced Beef"), new Amount("300g"), new ExpiryDate("30/09/2019"),
                     getTagSet("meat")),
-            new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20/11/2019"),
+            new GroceryItem(new Name("Spaghetti"), new Amount("1units"), new ExpiryDate("20/11/2019"),
                     getTagSet("dish", "dinner")),
             new GroceryItem(new Name("Apples"), new Amount("6units"), new ExpiryDate("15/10/2019"),
                     getTagSet("healthy", "fruit")),
@@ -258,7 +258,7 @@ public class SampleDataUtil {
         return new GroceryItem[] {
             new GroceryItem(new Name("minced beef"), new Amount("300g"), new ExpiryDate("30/10/2019"),
                     getTagSet()),
-            new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20/11/2019"),
+            new GroceryItem(new Name("Spaghetti"), new Amount("1units"), new ExpiryDate("20/11/2019"),
                     getTagSet()),
             new GroceryItem(new Name("Apples"), new Amount("6units"), new ExpiryDate("15/10/2019"),
                     getTagSet()),

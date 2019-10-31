@@ -238,6 +238,12 @@ public class MainApp extends Application {
         return mapToBeCreated;
     }
 
+    /**
+     * Updates the dictionary map with the names and unitTypes in the grocery list
+     * @param mapToBeCreated map to be edited
+     * @param groceryList list consisting of grocery items
+     * @return edited map to be entered into Unit Dictionary
+     */
     private HashMap<String, String> updateMapWithGroceryItems(HashMap<String, String> mapToBeCreated,
                                                                      ReadOnlyGroceryList groceryList) {
         //Method to be written

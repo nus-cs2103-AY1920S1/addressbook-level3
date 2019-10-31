@@ -29,7 +29,7 @@ public class Amount {
     public static final String UNIT_LITRE = "L";
     public static final String UNIT_MILLILITRE = "ml";
     public static final String UNIT_QUANTITY = "units";
-    public static final String UNIT = "(lbs?|g|kg|oz?|L|ml|units?)+";
+    public static final String UNIT = "(lbs?|g|kg|oz?|L|ml|units)+";
     public static final String VALIDATION_REGEX = VALUE_BEFORE_DECIMAL + "\\.?" + VALUE_AFTER_DECIMAL + "\\s*" + UNIT;
     public static final float KG_FROM_GRAM = 0.001f;
     public static final float KG_FROM_POUND = 0.453592f;
@@ -37,7 +37,8 @@ public class Amount {
     public static final float LITRE_FROM_MILLILITRE = 0.001f;
 
     public static final String MESSAGE_UNIT_DOES_NOT_MATCH = "Unit does not match with the existing items";
-    public static final String MESSAGE_INVALID_RESULTANT_AMOUNT = "Amount used should not exceed amount left in the item.";
+    public static final String MESSAGE_INVALID_RESULTANT_AMOUNT = "Amount used should not exceed "
+        + "amount left in the item.";
 
 
     private static Pattern p = Pattern.compile("(\\d*\\.?\\d+)(\\s*)((lbs?|g|kg|oz?|L|ml|units?)+)");
@@ -180,9 +181,7 @@ public class Amount {
      * @return Returns Amount with its value deducted
      */
     public Amount reduceBy(Amount amt) throws InvalidUnitException, InvalidAmountException {
-        if (!getUnit(this).equalsIgnoreCase(getUnit(amt))) {
-            throw new InvalidUnitException(MESSAGE_UNIT_DOES_NOT_MATCH);
-        }
+        checkForSameAmountUnit(this, amt);
         String unit = Amount.getUnit(this);
 
         float resultantAmount = Amount.getValue(this) - Amount.getValue(amt);
@@ -190,11 +189,24 @@ public class Amount {
             throw new InvalidAmountException(MESSAGE_INVALID_RESULTANT_AMOUNT);
         }
 
+        // convert to int if it's a whole number
         if (resultantAmount == Math.round(resultantAmount)) {
             int wholeResultantAmount = Math.round(resultantAmount);
             return new Amount(wholeResultantAmount + unit);
         }
         return new Amount(resultantAmount + unit);
+    }
+
+    /**
+     * Checks if the provided amounts have the same unit.
+     * @param amt The first amount to be checked.
+     * @param other The second amount to be checked.
+     * @throws InvalidUnitException If the units are not consistent.
+     */
+    public static void checkForSameAmountUnit(Amount amt, Amount other) throws InvalidUnitException {
+        if (!getUnit(amt).equalsIgnoreCase(getUnit(other))) {
+            throw new InvalidUnitException(MESSAGE_UNIT_DOES_NOT_MATCH);
+        }
     }
 
     /**

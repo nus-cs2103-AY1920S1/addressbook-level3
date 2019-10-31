@@ -16,5 +16,6 @@ public class Messages {
     public static final String MESSAGE_GROCERY_LIST_LISTED_OVERVIEW = "%1$d grocery items listed!";
     public static final String MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX = "The shopping item index provided is"
             + "invalid";
+    public static final String MESSAGE_AMOUNT_CANNOT_BE_EDITED = "Amount cannot be edited. \n%1$s";
 
 }
