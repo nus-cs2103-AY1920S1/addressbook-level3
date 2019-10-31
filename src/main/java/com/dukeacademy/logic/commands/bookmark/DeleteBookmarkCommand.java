@@ -10,30 +10,30 @@ import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
 
 /**
- * Command to bookmark a question.
+ * Command to delete a bookmark made on a question.
  */
-public class BookmarkCommand implements Command {
+public class DeleteBookmarkCommand implements Command {
     private final Logger logger;
     private final QuestionsLogic questionsLogic;
     private final int index;
 
     /**
-     * Instantiates a new Bookmark command.
+     * Instantiates a new Delete Bookmark command.
      * @param index                  the index
      * @param questionsLogic         the questions logic
      */
-    public BookmarkCommand(int index, QuestionsLogic questionsLogic) {
-        this.logger = LogsCenter.getLogger(BookmarkCommand.class);
+    public DeleteBookmarkCommand(int index, QuestionsLogic questionsLogic) {
+        this.logger = LogsCenter.getLogger(DeleteBookmarkCommand.class);
         this.index = index - 1;
         this.questionsLogic = questionsLogic;
     }
 
     /**
-     * Executes the bookmark command.
-     * Execution of this command is conditional in nature. If question that user chooses to bookmark
-     * is already bookmarked, we will simply notify the user of that through the CLI feedback panel.
-     * Otherwise if the question that user selects is not already bookmarked, we will update the question
-     * with a bookmarked version of the same question and notify user of a successful bookmark action.
+     * Executes the delete bookmark command.
+     * Execution of this command is conditional in nature. If the question that user chooses to delete bookmark,
+     * is indeed bookmarked, we will update the question to a non-bookmarked version of the same question.
+     * Otherwise if the question that user selects is not bookmarked in the first place, we will simply notify
+     * the user of that through the CLI feedback panel.
      * @return
      * @throws CommandException
      */
@@ -44,19 +44,20 @@ public class BookmarkCommand implements Command {
             boolean userSelectionIsBookmarked = userSelection.isBookmarked();
 
             if (userSelectionIsBookmarked) {
-                // Simply notify user that question is already bookmarked
-                String feedback = "Question " + (index + 1) + " : " + userSelection.getTitle()
-                        + " - is already bookmarked.";
+                // Update isBookmarked of question to false
+                Question bookmarkedQuestion = userSelection.withNewIsBookmarked(false);
+                this.questionsLogic.setQuestion(index, bookmarkedQuestion);
+                logger.info("Deleted bookmark for question at index " + index + " : " + bookmarkedQuestion);
+
+                // Notify user of successful bookmark action
+                String feedback = "Deleted bookmark for question " + (index + 1) + " : "
+                        + bookmarkedQuestion.getTitle();
                 return new CommandResult(feedback, false, false
                 );
             } else {
-                // Update isBookmarked of question
-                Question bookmarkedQuestion = userSelection.withNewIsBookmarked(true);
-                this.questionsLogic.setQuestion(index, bookmarkedQuestion);
-                logger.info("Bookmarked question at index " + index + " : " + bookmarkedQuestion);
-
-                // Notify user of successful bookmark action
-                String feedback = "Bookmarked question " + (index + 1) + " : " + bookmarkedQuestion.getTitle();
+                // Simply notify user that question is not bookmarked
+                String feedback = "Question " + (index + 1) + " : " + userSelection.getTitle()
+                        + " - is not bookmarked.";
                 return new CommandResult(feedback, false, false
                 );
             }
