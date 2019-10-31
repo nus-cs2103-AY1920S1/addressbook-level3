@@ -48,6 +48,13 @@ public abstract class Mode {
         return this.time;
     }
 
+    public int getLevelTwoTime() {
+        return time;
+    }
+
+    public int getLevelThreeTime() {
+        return time;
+    }
 
     public Predicate<Answerable> getCombinedPredicate() {
         return combinedPredicate;
@@ -64,8 +71,6 @@ public abstract class Mode {
     public String toString() {
         return value;
     }
-
-
 
     @Override
     public boolean equals(Object other) {

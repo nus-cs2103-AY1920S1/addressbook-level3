@@ -1,7 +1,5 @@
 package seedu.revision.ui.bar;
 
-import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -19,6 +17,9 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
+/**
+ * Timer class which handles the animations and implementation of the quiz session timer.
+ */
 public class Timer {
     public static final String MESSAGE_CONSTRAINTS = "Timer must be a number that is greater 1, and " +
             "double values will be truncated.";
@@ -31,7 +32,11 @@ public class Timer {
     private ReadOnlyIntegerWrapper currentTime;
     private Timeline timeline;
 
-
+    /**
+     * Initialises a {@Timer} object
+     * @param startTime start time of the countdown timer.
+     * @param commandExecutor command that will be executed at the end of the countdown.
+     */
     public Timer(Integer startTime, CommandExecutor commandExecutor) {
         this.startTime = startTime;
         this.currentTime = new ReadOnlyIntegerWrapper(
@@ -47,20 +52,23 @@ public class Timer {
         });
     }
 
+    /**
+     * Starts the timer and initiates the {@CommandExecutor}.
+     */
     public void startTimer() {
         timeline = new Timeline();
 
         KeyFrame frame = new KeyFrame(Duration.seconds(1), event -> {
             currentTime.set(currentTime.get() - 1);
-                if (currentTime.get() <= 0) {
-                    timeline.stop();
-                    try {
-                        commandExecutor.execute("n");
-                    } catch (CommandException | ParseException | IOException e) {
-                        logger.severe("Timer failed to go next question");
-                    }
+            if (currentTime.get() <= 0) {
+                timeline.stop();
+                try {
+                    commandExecutor.execute("n");
+                } catch (CommandException | ParseException | IOException e) {
+                    logger.severe("Timer failed to go next question");
                 }
-            });
+            }
+        });
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(frame);
@@ -71,16 +79,19 @@ public class Timer {
         return label;
     }
 
+    /** Syncs the observable value with the progress. **/
     private void syncProgress() {
         label.setText(((Integer) currentTime.get()).toString());
     }
 
+    /** Resets the timer and starts a new timer.**/
     public void resetTimer() {
         timeline.stop();
         currentTime.set(startTime);
         startTimer();
     }
 
+    /** Stops the timer. **/
     public void stopTimer() {
         timeline.stop();
     }

@@ -16,6 +16,7 @@ import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.CustomMode;
+import seedu.revision.model.quiz.ArcadeMode;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
 import seedu.revision.ui.bar.Timer;
@@ -66,7 +67,7 @@ public class ParserUtil {
      */
     public static QuestionType parseType(String questionType) throws ParseException {
         String trimmedType = questionType.trim();
-        if (!Question.isValidQuestion(trimmedType)) {
+        if (!QuestionType.isValidQuestionType(trimmedType)) {
             throw new ParseException(QuestionType.MESSAGE_CONSTRAINTS);
         }
         return new QuestionType(trimmedType);
@@ -175,8 +176,7 @@ public class ParserUtil {
         case "normal":
             return new NormalMode();
         case "arcade":
-            // TODO: Implement ArcadeMode
-            return new NormalMode();
+            return new ArcadeMode();
         case "custom":
             return new CustomMode();
         default:

@@ -1,6 +1,5 @@
 package seedu.revision.logic.parser.main;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
@@ -21,7 +20,7 @@ import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.predicates.CategoryPredicate;
 import seedu.revision.model.answerable.predicates.DifficultyPredicate;
 import seedu.revision.model.category.Category;
-import seedu.revision.model.quiz.CustomMode;
+import seedu.revision.model.quiz.ArcadeMode;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
 
@@ -29,6 +28,8 @@ import seedu.revision.model.quiz.NormalMode;
  * Parses input arguments and creates a new StartQuizCommand object
  */
 public class StartQuizCommandParser implements Parser<StartQuizCommand> {
+
+    private Predicate<Answerable> combinedPredicate = PREDICATE_SHOW_ALL_ANSWERABLE ;
 
     /**
      * Parses the given {@code String} of arguments in the context of the StartQuizCommand
@@ -51,7 +52,6 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
         boolean optionalPrefixesArePresent = optionalTimerPrefixIsPresent || optionalCategoryPrefixIsPresent
                 || optionalDifficultyPrefixIsPresent;
 
-
         Mode mode;
         Difficulty difficulty;
         Category category;
@@ -71,11 +71,14 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
                 mode = new NormalMode();
                 return new StartQuizCommand(mode);
             }
-        case "chaos":
-            //TODO: implement chaos
-            return new StartQuizCommand(mode);
+        case "arcade":
+            if (optionalPrefixesArePresent) {
+                throw new ParseException(StartQuizCommand.MESSAGE_USAGE);
+            } else {
+                mode = new ArcadeMode();
+                return new StartQuizCommand(mode);
+            }
         case "custom":
-            Predicate<Answerable> combinedPredicate = PREDICATE_SHOW_ALL_ANSWERABLE;
 
             if (optionalCategoryPrefixIsPresent) {
                 Category categoryToFilter = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
@@ -100,5 +103,7 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
         }
+
+
     }
 }

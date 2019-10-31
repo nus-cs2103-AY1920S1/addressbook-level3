@@ -31,10 +31,6 @@ public class Mcq extends Answerable {
      */
     public static boolean isValidMcq(Mcq mcq) {
         requireNonNull(mcq);
-        if (mcq.getCorrectAnswerList().contains(Answer.emptyAnswer())
-                || mcq.getWrongAnswerList().contains(Answer.emptyAnswer())) {
-            return false;
-        }
         if (mcq.getWrongAnswerList().size() != 3) {
             return false;
         }
@@ -48,15 +44,15 @@ public class Mcq extends Answerable {
      */
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Type: MCQ ")
+        builder.append("Type: MCQ, ")
                 .append("Question: ")
-                .append(getQuestion())
-                .append(" Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerList())
-                .append(" Wrong Answers: " + getWrongAnswerList())
-                .append(" Difficulty: ")
-                .append(getDifficulty())
-                .append(" Categories: ");
+                .append(getQuestion() + "\n")
+                .append("Answers:")
+                .append(" Correct Answers: " + getCorrectAnswerList() + "\n")
+                .append("Wrong Answers: " + getWrongAnswerList() + "\n")
+                .append("Difficulty: ")
+                .append(getDifficulty() + "\n")
+                .append("Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();
     }

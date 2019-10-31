@@ -38,7 +38,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all categories and difficulties for the user to choose.
-* **`add`**`mcq/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
+* **`add`**`type/mcq q/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
 of the above x/Padifield` : adds an mcq question with x/ (as in a cross for "wrong") marking the wrong answers and y/ (as in "yes") marking the correct answers.
 * **`delete`**`3` : deletes the 3rd question shown in the current list.
 * *`exit`* : exits the app.
@@ -51,8 +51,8 @@ of the above x/Padifield` : adds an mcq question with x/ (as in a cross for "wro
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add mcq/QUESTION`, `QUESTION` is a parameter
-which can be used as `add mcq/What the recommended user story format?`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add type/TYPE q/QUESTION`, 'TYPE' and `QUESTION` are parameters
+which can be used as `add type/mcq q/What the recommended user story format?`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[x/WRONG_ANSWER]...` can be used as `{nbsp}` (i.e. 0 times), `x/Greenfield`, `x/Brownfield` etc.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION cat/CATEGORY`, `cat/CATEGORY q/QUESTION` is also acceptable.
 ====

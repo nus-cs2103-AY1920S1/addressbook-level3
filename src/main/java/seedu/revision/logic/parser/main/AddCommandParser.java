@@ -89,7 +89,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Validates that the question to be added is either an MCQ, TrueFalse or SAQ.
      * @param questionType type of question to be added.
-     * @param argMultimap
+     * @param argMultimap add multi-map.
      * @return true or false
      * @throws ParseException if question is in the wrong format.
      */
@@ -140,11 +140,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (answerableToAdd instanceof Mcq) {
             if (!Mcq.isValidMcq((Mcq) answerableToAdd)) {
                 throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
-            }
-        }
-        if (answerableToAdd instanceof Saq) {
-            if (!Saq.isValidSaq((Saq) answerableToAdd)) {
-                throw new ParseException(Saq.MESSAGE_CONSTRAINTS);
             }
         }
         if (answerableToAdd instanceof TrueFalse) {

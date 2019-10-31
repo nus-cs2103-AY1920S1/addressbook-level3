@@ -28,6 +28,7 @@ import seedu.revision.model.quiz.Mode;
 import seedu.revision.ui.answerables.AnswerableListPanel;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
+import seedu.revision.ui.answers.SaqAnswersGridPane;
 import seedu.revision.ui.answers.TfAnswersGridPane;
 import seedu.revision.ui.bar.ProgressIndicatorBar;
 import seedu.revision.ui.bar.ScoreProgressAndTimerGridPane;
@@ -61,7 +62,6 @@ public class StartQuizWindow extends Window {
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
-
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
         super(primaryStage, mainLogic);
         this.mode = mode;
@@ -75,13 +75,7 @@ public class StartQuizWindow extends Window {
         answerableIterator = quizList.iterator();
         currentAnswerable = answerableIterator.next();
 
-        if (currentAnswerable instanceof Mcq) {
-            answersGridPane = new McqAnswersGridPane(currentAnswerable);
-        } else if (currentAnswerable instanceof TrueFalse) {
-            answersGridPane = new TfAnswersGridPane(currentAnswerable);
-        }
-
-        answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
+        setAnswerGridPaneByType(currentAnswerable);
 
         questionDisplay = new ResultDisplay();
         questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
@@ -110,6 +104,17 @@ public class StartQuizWindow extends Window {
         return sectionList.size();
     }
 
+    private void setAnswerGridPaneByType(Answerable currentAnswerable) {
+        if (currentAnswerable instanceof Mcq) {
+            answersGridPane = new McqAnswersGridPane(currentAnswerable);
+        } else if (currentAnswerable instanceof TrueFalse) {
+            answersGridPane = new TfAnswersGridPane(currentAnswerable);
+        } else {
+            answersGridPane = new SaqAnswersGridPane(currentAnswerable);
+        }
+        answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -127,8 +132,8 @@ public class StartQuizWindow extends Window {
                 score++;
             }
 
-            if (!answerableIterator.hasNext()) {
-                handleEnd();
+            if (commandResult.isExit()) {
+                handleExit();
                 return new CommandResult().withFeedBack("Quiz has ended.").build();
             }
 
@@ -136,8 +141,15 @@ public class StartQuizWindow extends Window {
                 handleHelp();
             }
 
-            if (commandResult.isExit()) {
-                handleExit();
+            if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
+                    && mode.value.equals("arcade")) {
+                handleEnd();
+                return new CommandResult().withFeedBack("Quiz has ended.").build();
+            }
+
+            if (!answerableIterator.hasNext()) {
+                handleEnd();
+                return new CommandResult().withFeedBack("Quiz has ended.").build();
             }
 
             currentProgressIndex.set(getCurrentProgressIndex() + 1);
@@ -153,36 +165,22 @@ public class StartQuizWindow extends Window {
                 }
             }
 
-            if (currentAnswerable instanceof Mcq) {
-                answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
-                answersGridPane = new McqAnswersGridPane(currentAnswerable);
-                answersGridPane.updateAnswers(currentAnswerable);
-                answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
-            } else if (currentAnswerable instanceof TrueFalse) {
-                answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
-                answersGridPane = new TfAnswersGridPane(currentAnswerable);
-                answersGridPane.updateAnswers(currentAnswerable);
-                answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
-            }
-
-            //} else if (currentAnswerable instanceof Saq) {
-            //    answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
-            //}
-            //answersGridPane.updateAnswers(currentAnswerable);
+            answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
+            setAnswerGridPaneByType(currentAnswerable);
+            answersGridPane.updateAnswers(currentAnswerable);
 
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            questionDisplay.setFeedbackToUser(e.getMessage());
+            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
             throw e;
         }
     }
 
     /**
      * Handles progression to the next level and receives response from the user.
-     *
      * @param nextAnswerable next answerable that will be displayed.
      */
     @FXML
@@ -194,7 +192,7 @@ public class StartQuizWindow extends Window {
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("You have completed level " + (nextLevel - 1) + "\n"
-                + "Your current score is: " + score + "\n"
+                + "Your current score is: " + score + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
                 + "Would you like to proceed to level " + nextLevel + "?\n"
                 + "Press [ENTER] to proceed.\n"
                 + "Press [ESC] to return to main screen.");
@@ -218,6 +216,13 @@ public class StartQuizWindow extends Window {
         new Thread(task).start();
     }
 
+    /**
+     * Helper function for the nextLevel method used to show the alert and get user input.
+     * @param alert alert that will be shown to the user.
+     * @param endButton button that will end the quiz.
+     * @param nextAnswerable the next answerable in the quiz.
+     * @param nextLevel the next level in the quiz.
+     */
     private void nextLevelHelper(Alert alert, ButtonType endButton, Answerable nextAnswerable, int nextLevel) {
         Optional<ButtonType> result = alert.showAndWait();
 
@@ -242,13 +247,22 @@ public class StartQuizWindow extends Window {
     private void handleEnd() {
         currentProgressIndex.set(currentProgressIndex.get() + 1);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Congratulations!");
+        alert.setTitle("End of Quiz!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.setContentText("Quiz has ended! Your score is " + score + "\n"
-                + "Try again?\n"
-                + "Press [ENTER] to try again.\n"
-                + "Press [ESC] to return to main screen.");
+        if (mode.value.equals("arcade") && answerableIterator.hasNext()) {
+            alert.setContentText("Better luck next time! :P Your score is " + score
+                    + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
+                    + "Try again?\n"
+                    + "Press [ENTER] to try again.\n"
+                    + "Press [ESC] to return to main screen.");
+        } else {
+            alert.setContentText("Quiz has ended! Your final score is " + score
+                    + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
+                    + "Try again?\n"
+                    + "Press [ENTER] to try again.\n"
+                    + "Press [ESC] to return to main screen.");
+        }
 
         ButtonType tryAgainButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -260,7 +274,7 @@ public class StartQuizWindow extends Window {
             public Void call() throws Exception {
                 timer.stopTimer();
                 logger.info("---------Timer Stopped!!!!----------");
-                return null ;
+                return null;
             }
         };
         task.setOnSucceeded(e -> {
@@ -271,6 +285,11 @@ public class StartQuizWindow extends Window {
 
     }
 
+    /**
+     * Helper function to display the alert when quiz ends.
+     * @param alert alert that is shown to user when the quiz ends.
+     * @param endButton button that will end the quiz.
+     */
     private void endHelper(Alert alert, ButtonType endButton) {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == endButton) {
@@ -284,6 +303,7 @@ public class StartQuizWindow extends Window {
      * Restarts the quiz session by resetting progress.
      */
     private void restartQuiz() {
+        answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
         fillInnerParts();
         score = 0;
         currentProgressIndex.set(0);
@@ -299,8 +319,11 @@ public class StartQuizWindow extends Window {
         mainWindow = new MainWindow(getPrimaryStage(), mainLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
-        mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
-                + "Type 'list' to view your full list of questions again.");
+
+        if (mode.value.equals("custom")) {
+            mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
+                    + "Type 'list' to view your full list of questions again.");
+        }
     }
 
     public AnswerableListPanel getAnswerableListPanel() {
@@ -323,11 +346,11 @@ public class StartQuizWindow extends Window {
         case "arcade":
             switch(nextLevel) {
             case 2:
-                return new Timer(10, this::executeCommand);
+                return new Timer(mode.getLevelTwoTime(), this::executeCommand);
             case 3:
-                return new Timer(5, this::executeCommand);
+                return new Timer(mode.getLevelThreeTime(), this::executeCommand);
             default:
-                return new Timer(15, this::executeCommand);
+                return new Timer(mode.getTime(), this::executeCommand);
             }
         default:
             logger.warning("invalid mode");
@@ -336,8 +359,8 @@ public class StartQuizWindow extends Window {
     }
 
     private ObservableList<Answerable> getListBasedOnMode(Mode mode) {
-        Comparator<Answerable> difficultyComparator = Comparator.comparing(
-                answerable -> answerable.getDifficulty().value);
+        Comparator<Answerable> difficultyComparator = Comparator.comparing(answerable ->
+                answerable.getDifficulty().value);
         switch (mode.value.toLowerCase()) {
         case "normal":
             ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(

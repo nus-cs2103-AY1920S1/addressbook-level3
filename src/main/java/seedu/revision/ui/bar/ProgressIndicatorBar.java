@@ -6,7 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import seedu.revision.ui.UiPart;
 
@@ -16,15 +15,15 @@ import seedu.revision.ui.UiPart;
 public class ProgressIndicatorBar extends UiPart<Region> {
     private static final String FXML = "ProgressIndicatorBar.fxml";
     private static final int DEFAULT_LABEL_PADDING = 5;
-    private final ReadOnlyDoubleProperty workDone;
-    private final double totalWork;
 
     @FXML
     protected ProgressBar bar;
     @FXML
     protected Text text = new Text();
-    private final String labelFormatSpecifier;
 
+    private final ReadOnlyDoubleProperty workDone;
+    private final double totalWork;
+    private final String labelFormatSpecifier;
 
     public ProgressIndicatorBar(final ReadOnlyDoubleProperty workDone, final double totalWork,
                                 final String labelFormatSpecifier) {

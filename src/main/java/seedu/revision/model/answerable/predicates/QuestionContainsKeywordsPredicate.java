@@ -19,7 +19,7 @@ public class QuestionContainsKeywordsPredicate implements Predicate<Answerable> 
     @Override
     public boolean test(Answerable answerable) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(answerable.getQuestion().fullQuestion, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(answerable.getQuestion().value, keyword));
     }
 
     @Override

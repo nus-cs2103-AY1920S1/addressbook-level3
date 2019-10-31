@@ -40,9 +40,6 @@ public class AnswerableListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new AnswerableCard(answerable, getIndex() + 1).getRoot());
-
-                //To set the display when StartQuizCommand is run.
-                setGraphic(new AnswerableCardWithAnswers(answerable, getIndex() + 1).getRoot());
             }
         }
     }
