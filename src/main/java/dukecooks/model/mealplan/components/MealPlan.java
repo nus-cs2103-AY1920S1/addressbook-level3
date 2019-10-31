@@ -78,7 +78,7 @@ public class MealPlan {
 
         return allRecipes.toString().replace("[", "").replace("]", "").replace(",", "");
     }
-    
+
     /**
      * Searches through all {@code Recipe} in {@code MealPlan} for instances of {@code oldRecipe},
      * and replaces it with {@code newRecipe}.
