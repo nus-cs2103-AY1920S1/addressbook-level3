@@ -19,9 +19,15 @@ import seedu.address.inventory.logic.commands.SortDescriptionCommand;
 import seedu.address.inventory.logic.commands.SortQuantityCommand;
 import seedu.address.inventory.logic.commands.SortResetCommand;
 
+import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
+import seedu.address.inventory.logic.commands.exception.NotANumberException;
+import seedu.address.inventory.logic.parser.AddCommandParser;
+import seedu.address.inventory.logic.parser.InventoryTabParser;
+import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.ModelManager;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.testutil.EditItemDescriptorBuilder;
@@ -83,6 +89,30 @@ public class CommandTest {
         }
         assertEquals(new CommandResult(String.format(InventoryMessages.MESSAGE_ADDED_ITEM, TypicalItem.FISH_BURGER)),
                 commandResult);
+    }
+
+    @Test
+    public void execute_addDuplicateItemCommandTest_successful() throws ParseException, NoSuchItemException,
+            NotANumberException, NoSuchSortException {
+        InventoryList inventoryList = new InventoryList();
+        inventoryList.add(TypicalItem.FISH_BURGER);
+        Model inventoryModel = new ModelManager(inventoryList);
+        InventoryTabParser parser = new InventoryTabParser();
+
+        String burgerDescription = TypicalItem.FISH_BURGER.getDescription();
+        String burgerCategory = TypicalItem.FISH_BURGER.getCategory();
+        Command addCommand = parser.parseCommand("add d/" + burgerDescription + " c/" + burgerCategory
+                + " q/5 co/8", inventoryList);
+
+        CommandResult commandResult = null;
+
+        try {
+            commandResult = addCommand.execute(inventoryModel);
+        } catch (Exception e) {
+            fail();
+        }
+        assertEquals(String.format(InventoryMessages.MESSAGE_ADDED_DUPLICATE_ITEM, TypicalItem.FISH_BURGER),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
