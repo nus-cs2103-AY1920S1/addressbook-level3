@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="questionVbox" alignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="questionLabel" text="Question">
+      <Label fx:id="questionLabel" text="Question" wrapText="true">
          <VBox.margin>
             <Insets top="30.0" />
          </VBox.margin>
@@ -120,7 +120,7 @@
             <Insets top="30.0" />
          </VBox.margin>
       </Label>
-      <Label fx:id="answerLabel" text="Answer" textFill="#07a431" visible="false">
+      <Label fx:id="answerLabel" text="Answer" textFill="#07a431" visible="false" wrapText="true">
          <VBox.margin>
             <Insets top="30.0" />
          </VBox.margin>

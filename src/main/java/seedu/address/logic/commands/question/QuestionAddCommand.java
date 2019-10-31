@@ -2,6 +2,7 @@ package seedu.address.logic.commands.question;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,19 +20,14 @@ public class QuestionAddCommand extends QuestionCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new question\n"
         + "Parameters:\n"
         + "question/ [TOPIC]\n"
-        + "Example: question/ What is the year that Singapore gained independence?\n\n"
         + "answer/ [ANSWER]\n"
-        + "Example: answer/ 1965\n\n"
         + "type/ [TYPE: open/mcq]\n"
-        + "Example: type/ open"
-        + "a/ [OPTION (*ONLY FOR MCQ)]\n"
-        + "Example: a/ 1945"
-        + "b/ [OPTION (*ONLY FOR MCQ)]\n"
-        + "Example: b/ 1941"
-        + "c/ [OPTION (*ONLY FOR MCQ)]\n"
-        + "Example: c/ 1942"
-        + "d/ [OPTION (*ONLY FOR MCQ)]\n"
-        + "Example: d/ 1943";
+        + "a/ [OPTION ANSWER - Only for mcq]\n"
+        + "b/ [OPTION ANSWER - Only for mcq]\n"
+        + "c/ [OPTION ANSWER - Only for mcq]\n"
+        + "d/ [OPTION ANSWER - Only for mcq]\n"
+        + "Example: question question/ What is 1+1? answer/ 2 type/open\n"
+        + "Example: question question/ What is 1+1? answer/ 2 type/ mcq a/ 1 b/ 2 c/ 3 d/ 4";
 
     private final String question;
     private final String answer;
@@ -93,8 +89,7 @@ public class QuestionAddCommand extends QuestionCommand {
                 optionD);
             break;
         default:
-            question = new OpenEndedQuestion(this.question, this.answer);
-            break;
+            throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_TYPE);
         }
 
         model.addQuestion(question);

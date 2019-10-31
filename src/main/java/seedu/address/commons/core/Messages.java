@@ -15,7 +15,13 @@ public class Messages {
     public static final String MESSAGE_EMPTY_QUESTION_DISPLAYED_INDEX = "Please provide a question index.";
     public static final String MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX = "The question index provided is invalid.";
     public static final String MESSAGE_MISSING_QUESTION_OPTIONS = "Options A to D are necessary for mcq questions.";
+    public static final String MESSAGE_MISSING_QUESTION_OPTIONS_VALUE = "%s cannot be left empty.";
+    public static final String MESSAGE_INVALID_QUESTION_TYPE = "Please enter a valid question type.";
+    public static final String MESSAGE_MISSING_QUESTION = "Question cannot be left empty.";
+    public static final String MESSAGE_MISSING_ANSWER = "Answer cannot be left empty.";
+    public static final String MESSAGE_MISSING_TYPE = "Type cannot be left empty.";
     public static final String MESSAGE_MISSING_TEXT_SEARCH = "Please provide a text to search.";
+    public static final String MESSAGE_MISSING_EDIT_FIELDS = "At least one field to be edit has to be defined.";
 
     public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";
 

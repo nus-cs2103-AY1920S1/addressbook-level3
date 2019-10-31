@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.Question;
 import seedu.address.ui.util.OptionType;
@@ -32,6 +33,8 @@ public class QuestionPanel extends UiPart<Region> {
     @FXML
     private Label pollHintLabel;
     @FXML
+    private VBox questionVbox;
+    @FXML
     private VBox optionsBox;
 
     // Options
@@ -56,6 +59,8 @@ public class QuestionPanel extends UiPart<Region> {
     public QuestionPanel(Question question) {
         super(FXML);
         this.question = question;
+
+        questionVbox.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth());
 
         questionLabel.setText("Question: " + question.getQuestion());
         if (question instanceof McqQuestion) { // Set options for mcq questions
