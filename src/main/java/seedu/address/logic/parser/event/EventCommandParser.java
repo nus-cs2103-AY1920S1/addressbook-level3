@@ -11,8 +11,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GET_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCREENSHOT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW_MODE;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -24,6 +27,7 @@ import seedu.address.logic.commands.event.EventDeleteCommand;
 import seedu.address.logic.commands.event.EventEditCommand;
 import seedu.address.logic.commands.event.EventExportCommand;
 import seedu.address.logic.commands.event.EventIndexCommand;
+import seedu.address.logic.commands.event.EventScreenshotCommand;
 import seedu.address.logic.commands.event.EventViewCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -67,7 +71,10 @@ public class EventCommandParser implements Parser<EventCommand> {
                     PREFIX_VIEW,
                     PREFIX_DELETE,
                     PREFIX_EXPORT,
-                    PREFIX_DIRECTORY);
+                    PREFIX_DIRECTORY,
+                    PREFIX_VIEW_MODE,
+                    PREFIX_VIEW_DATE,
+                    PREFIX_SCREENSHOT);
 
         boolean isEdit = false;
         Index index = Index.fromZeroBased(0);
@@ -83,8 +90,10 @@ public class EventCommandParser implements Parser<EventCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventEditCommand.MESSAGE_USAGE),
                 pe);
         }
-        if (argMultimap.getValue(PREFIX_VIEW).isPresent()) { // List command
-            return new EventViewCommand();
+        if (argMultimap.getValue(PREFIX_VIEW).isPresent()) { // View command
+            return viewCommand(argMultimap);
+        } else if (argMultimap.getValue(PREFIX_SCREENSHOT).isPresent()) { //screenshot Command
+            return screenshotCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) { //Export Command
             return exportCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
@@ -99,13 +108,52 @@ public class EventCommandParser implements Parser<EventCommand> {
     }
 
     /**
+     * Performs validation and return the EventScreenshot Object
+     *
+     * @param argMultimap for tokenized input.
+     * @return EventScreenshotCommand object.
+     *      * @throws ParseExceptions
+     */
+    private EventScreenshotCommand screenshotCommand(ArgumentMultimap argMultimap) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DIRECTORY) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EventScreenshotCommand.MESSAGE_USAGE));
+        }
+        String targetDirectory = argMultimap.getValue(PREFIX_DIRECTORY).orElse("");
+
+        return new EventScreenshotCommand(targetDirectory);
+    }
+
+    /**
+     * Performs validation and return the EventView Object
+     *
+     * @param argMultimap for tokenized input.
+     * @return EventExportCommand object.
+     * @throws ParseException
+     */
+    private EventViewCommand viewCommand(ArgumentMultimap argMultimap) {
+        HashMap<String, String> fields = new HashMap<>();
+
+        String viewMode = argMultimap.getValue(PREFIX_VIEW_MODE).orElse("");
+        String viewDate = argMultimap.getValue(PREFIX_VIEW_DATE).orElse("");
+
+        fields.put("viewMode", viewMode);
+        fields.put("viewDate", viewDate);
+
+        return new EventViewCommand(fields);
+    }
+
+    /**
      * Performs validation and return the EventExport Object
      *
      * @param argMultimap for tokenized input.
      * @return EventExportCommand object.
      * @throws ParseException
      */
-    private EventExportCommand exportCommand(ArgumentMultimap argMultimap) {
+    private EventExportCommand exportCommand(ArgumentMultimap argMultimap) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DIRECTORY) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventExportCommand.MESSAGE_USAGE));
+        }
         String targetDirectory = argMultimap.getValue(PREFIX_DIRECTORY).orElse("");
 
         return new EventExportCommand(targetDirectory);
