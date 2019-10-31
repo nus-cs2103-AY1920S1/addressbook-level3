@@ -294,7 +294,7 @@ to the instantiation of a controller.)
 === Bin Feature
 ==== Implementation
 
-The bin feature is facilitated by `BinItem`, `UniqueBinItemList` classes and the interface`Binnable`. Objects that
+The bin feature is facilitated by `BinItem`, `UniqueBinItemList` classes and the interface `Binnable`. Objects that
 can be "binned" will implement the interface  `Binnable`. When a `Binnable` object is deleted, it is wrapped in a
 wrapper class `BinItem` and is moved into `UniqueBinItemList`.
 
@@ -308,7 +308,7 @@ auto-deletion mechanism of objects in the bin.
 
 Given below is an example usage scenario and how the bin mechanism behaves at each step.
 
-Step 1. When the user launches *Insurelytics*, `AddressBook` will run `Addressbook#cleanUp()`, which will check the
+Step 1. When the user launches *Insurelytics*, `ModelManager` will run `ModelManager#binCleanUp()`, which will check the
 `expiryDate` of all objects in `UniqueBinItemList` against the system clock. If the system clock exceeds `expiryDate`,
 `UniqueBinItemList#remove()` is called and deletes the expired object forever.
 
