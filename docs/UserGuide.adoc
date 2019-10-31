@@ -145,7 +145,7 @@ Examples: +
 `*delete_event* 1 2 3` : Deletes events 1, 2 and 3. +
 `*delete_event* *--tag* Birthday` : Deletes events tagged as `Birthday`. +
 `*delete_event* *--tag* Birthday Rori` : Deletes events tagged as `Birthday` and `Rori`. +
-`*delete_event* 1 2 3 *--tag* Birthday Rori` : Deletes events 1, 2 and 3 events only if they have also been tagged as `Birthday` and `Rori`.
+`*delete_event* 1 2 3 *--tag* Birthday Rori` : Deletes events 1, 2 and 3 only if they have been tagged as `Birthday` and `Rori`.
 
 ==== Editing Events
 
@@ -174,48 +174,53 @@ Remarks: +
 Events which matches `INDEX` will be edited.
 
 Examples: +
-`edit_event 1 2 3 --tag Rori` : Edits events 1, 2 and 3. +
-`edit_event 1 --description “Play Monster Hunter” --start “17/08/2019 19:00” --remind “17/08/2019 12:00” --tag Kyzure`
+`*edit_event* 1 2 3 *--tag* Rori` : Edits events 1, 2 and 3. +
+`*edit_event* 1 *--description* “Play Monster Hunter” *--start* “17/08/2019 19:00” *--remind* “17/08/2019 12:00” *--tag* Kyzure`
 
 ==== Adding Tasks
 
 .Adds Task to Task List
 image::AddTaskCommandScreenShot.png[]
 
-The `add_task` command Adds a task to the to-do list.
-{empty} +
+You may use the `add_task` command to add a task to the to-do list.
 
-Format: +
-`add_task DESCRIPTION [--remind DATE_TIME] [--tag TAG...]`
-{empty} +
+Command Format: +
+`add_task DESCRIPTION`
+
+Command Parameters: +
+*--due* DUE_DATE +
+*--tag* TAG...
+
+Argument Format: +
+`DUE_DATE` : `"DD/MM/YYYY HH:MM"`
 
 Examples: +
-`add_task “Buy Rori a birthday cake”` +
-`add_task “Buy Rori a birthday cake” --remind “18/08/2019 12:00”` +
-`add_task “Buy Rori a birthday cake” --tag "Birthday Rori"`
+`*add_task* “Buy Rori a birthday cake”` +
+`*add_task* “Buy Rori a birthday cake” *--due* “18/08/2019 12:00”` +
+`*add_task* “Buy Rori a birthday cake” *--tag* "Birthday Rori"`
 
 ==== Deleting Tasks
 
 .Delete Task from the task list.
 image::DeleteTaskCommandScreenShot.png[]
 
-The `delete_task` command deletes 1 or more events from the to-do list. Events may be specified by index, or by their associated tags.
-{empty} +
+You may use the `delete_task` command to delete one or more tasks from the to-do list.
 
-Format: +
-`delete_task [INDEX...] [--tag TAG...]`
-{empty} +
+Command Format: +
+`*delete_task* INDEX...`
+
+Command Parameters: +
+*--tag* TAG...
+
+Remarks: +
+Tasks which match both `INDEX` and `TAG` will be deleted.
 
 Examples: +
-`delete_task 1` +
-`delete_task 1 2 3` +
-* This will delete tasks 1 through 3
-`delete_task --tag Birthday` +
-* This will delete all tasks tagged as `Birthday`.
-`delete_task 1 2 3 --tag Birthday`
-* This will deleted tasks 1 through 3 ONLY IF they have also been tagged as `Birthday`.
-`delete_task --tag Birthday --tag "Present"`
-* This will delete all tasks tagged as `Birthday` AND `PRESENT`.
+`*delete_task* 1` +
+`*delete_task* 1 2 3` : Deletes tasks 1, 2 and 3. +
+`*delete_task* *--tag* Birthday` : Deletes tasks tagged as `Birthday`. +
+`*delete_task* *--tag* Birthday Rori` : Deletes tasks tagged as `Birthday` and `Rori`. +
+`*delete_task* 1 2 3 *--tag* Birthday Rori` : Deletes tasks 1, 2 and 3 only if they have been tagged as `Birthday` and `Rori`.
 
 ==== Editing Tasks
 
@@ -225,13 +230,21 @@ image::EditTaskCommandScreenShot.png[]
 The `edit_task` command edits 1 or more existing events. Events should be specified by their index only. +
 {empty} +
 
-Format: +
-`edit_task INDEX... [--description DESCRIPTION] [--remind DATE_TIME] [--tag TAG...]`
+Command Format: +
+`*edit_task* INDEX...`
 {empty} +
 
+Command Parameters: +
+*--description* DESCRIPTION
+*--due* DUE_DATE
+*--tag* TAG...
+
+Argument Format: +
+`DUE_DATE` : `"DD/MM/YYYY HH:MM"` +
+
 Examples: +
-`edit_task 1 2 3 --tag Present` +
-`edit_task 1 --description “Buy Rori a present” --remind “17/08/2019 12:00” --tag Present`
+`*edit_task* 1 2 3 *--tag* Present` : Edits tasks 1, 2 and 3. +
+`*edit_task* 1 *--description* “Buy Rori a present” *--due* “17/08/2019 12:00” *--tag* Present`
 
 ==== Making recurring Events: `recur` **`[coming in v2.0]`**
 
