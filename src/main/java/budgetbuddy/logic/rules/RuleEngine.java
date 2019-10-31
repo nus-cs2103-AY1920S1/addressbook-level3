@@ -11,6 +11,7 @@ import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.rules.performable.AppendDescriptionExpression;
 import budgetbuddy.logic.rules.performable.Performable;
 import budgetbuddy.logic.rules.performable.PerformableExpression;
+import budgetbuddy.logic.rules.performable.PerformableScript;
 import budgetbuddy.logic.rules.performable.PrependDescriptionExpression;
 import budgetbuddy.logic.rules.performable.RemoveCategoryExpression;
 import budgetbuddy.logic.rules.performable.SetCategoryExpression;
@@ -26,8 +27,11 @@ import budgetbuddy.logic.rules.testable.MoreEqualExpression;
 import budgetbuddy.logic.rules.testable.MoreThanExpression;
 import budgetbuddy.logic.rules.testable.Testable;
 import budgetbuddy.logic.rules.testable.TestableExpression;
+import budgetbuddy.logic.rules.testable.TestableScript;
 import budgetbuddy.logic.script.ScriptEngine;
+import budgetbuddy.logic.script.exceptions.ScriptException;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.ScriptLibrary;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.rule.Rule;
@@ -38,6 +42,9 @@ import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Operator;
 import budgetbuddy.model.rule.expression.PredicateExpression;
 import budgetbuddy.model.rule.expression.Value;
+import budgetbuddy.model.rule.script.ActionScript;
+import budgetbuddy.model.rule.script.PredicateScript;
+import budgetbuddy.model.script.ScriptName;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
@@ -103,28 +110,46 @@ public class RuleEngine {
     /**
      * Parses a {@code RulePredicate predicate} into a {@code Testable}.
      */
-    public static Testable parseTestable(RulePredicate predicate, ScriptEngine scriptEngine) {
+    public static Testable parseTestable(RulePredicate predicate, ScriptLibrary scriptLibrary,
+                                         ScriptEngine scriptEngine) {
         requireAllNonNull(predicate, scriptEngine);
         if (predicate.getType().equals(Rule.TYPE_EXPRESSION)) {
             PredicateExpression predExpr = (PredicateExpression) predicate;
             return testableMap.get(predExpr.getOperator()).apply(predExpr.getAttribute(), predExpr.getValue());
         } else {
-            // todo: script retrieval
-            return null;
+            ScriptName scriptName = ((PredicateScript) predicate).getScriptName();
+            return new TestableScript((txn, account) -> {
+                try {
+                    Object retVal = scriptEngine.evaluateScript(scriptLibrary.getScript(scriptName), txn, account);
+                    if (!(retVal instanceof Boolean)) {
+                        return false;
+                    }
+                    return (Boolean) retVal;
+                } catch (ScriptException e) {
+                    return false;
+                }
+            });
         }
     }
 
     /**
      * Parses a {@code RuleAction action} into a {@code Performable}
      */
-    public static Performable parsePerformable(RuleAction action, ScriptEngine scriptEngine) {
+    public static Performable parsePerformable(RuleAction action, ScriptLibrary scriptLibrary,
+                                               ScriptEngine scriptEngine) {
         requireAllNonNull(action, scriptEngine);
         if (action.getType().equals(Rule.TYPE_EXPRESSION)) {
             ActionExpression actExpr = (ActionExpression) action;
             return performableMap.get(actExpr.getOperator()).apply(actExpr.getValue());
         } else {
-            // todo: script retrieval
-            return null;
+            ScriptName scriptName = ((ActionScript) action).getScriptName();
+            return new PerformableScript((txn, account) -> {
+                try {
+                    scriptEngine.evaluateScript(scriptLibrary.getScript(scriptName), txn, account);
+                } catch (ScriptException ignored) {
+                    // If an error occurs, no need to do anything.
+                }
+            });
         }
     }
 
@@ -132,11 +157,11 @@ public class RuleEngine {
      * Runs all rules against transaction
      */
     public static void executeRules(Model model, ScriptEngine scriptEngine, Transaction txn, Account account) {
-        requireAllNonNull(model, model.getRuleManager(), scriptEngine, txn, account);
+        requireAllNonNull(model, model.getRuleManager(), model.getScriptLibrary(), scriptEngine, txn, account);
         for (Rule rule : model.getRuleManager().getRules()) {
-            Testable testable = parseTestable(rule.getPredicate(), scriptEngine);
-            if (testable.test(txn)) {
-                Performable performable = parsePerformable(rule.getAction(), scriptEngine);
+            Testable testable = parseTestable(rule.getPredicate(), model.getScriptLibrary(), scriptEngine);
+            if (testable.test(txn, account)) {
+                Performable performable = parsePerformable(rule.getAction(), model.getScriptLibrary(), scriptEngine);
                 performable.perform(model, txn, account);
             }
         }

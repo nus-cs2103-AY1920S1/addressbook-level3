@@ -3,6 +3,7 @@ package budgetbuddy.logic.rules.testable;
 import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.logic.rules.RuleEngine;
+import budgetbuddy.model.account.Account;
 import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.transaction.Transaction;
@@ -22,7 +23,7 @@ public class LessEqualExpression extends TestableExpression {
     }
 
     @Override
-    public boolean test(Transaction txn) {
+    public boolean test(Transaction txn, Account account) {
         requireNonNull(txn);
         double left = (double) RuleEngine.extractAttribute(attribute, txn);
         double right = Double.parseDouble(value.toString());
