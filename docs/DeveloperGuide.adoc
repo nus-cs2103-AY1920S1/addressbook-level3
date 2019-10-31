@@ -294,7 +294,7 @@ The Activity Diagram below summarises the execution of the export command.
 image::ExportActivityDiagram.png[]
 
 
-=== [Coming soon in v1.3] Email
+=== [Coming soon in v1.4] Email
 ==== Implementation
 
 The Email feature makes use of the `java.awt.Desktop` package to activate the default Mail client of the user.
@@ -312,7 +312,7 @@ This is for sending the email to the Interviewee of his/her allocated interview 
 * Date and time of allocated timeslot
 * Interviewer allocated
 
-Additional details that can be configured by the user include:
+Additional details that can be configured by the user (as user preferences) include:
 
 * Location to report
 * Dress code

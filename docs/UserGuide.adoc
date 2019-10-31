@@ -190,8 +190,15 @@ Format: `export` +
 Note: This command requires the interview schedule to be generated first!
 
 === Sending of email `email`
-==== Sending of interview time slot to interviewees
-Sends an email containing the interviewee’s allocated interview time slot to every interviewee, including other details such as the interviewer, time, date and location.
+==== Sending of interview time slot to interviewee [Coming soon in v1.4]
+Sends an email containing the interviewee’s allocated interview time slot to a particular interviewee specified, including other details such as the interviewer, time, date and location.
+
+Format: `email timeslot NAME`
+
+**Note:** The email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Sending of interview time slot to all interviewees [Coming soon in v1.4]
+Sends an email containing the interviewee's allocated interview time slot to every interviewee, including other details such as the interviewer, time, date and location.
 
 Format: `email timeslots`
 
@@ -203,11 +210,6 @@ Sends an email containing the interviewee’s result/interview outcome and other
 Format: `email results`
 
 **Note:** This email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
-
-==== Checking of email sending queue status `[Coming in v2.0]`
-Checks the status of the mail sending queue.
-
-Format: `email status`
 
 === Recording of additional statuses: `record` `[Coming in v2.0]`
 ==== Recording of interviewee’s attendance
