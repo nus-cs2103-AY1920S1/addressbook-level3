@@ -15,8 +15,6 @@ Interface AppSettingsStorage <<Interface>>
 Class StorageManager
 Class JsonUserPrefsStorage
 Class JsonWordBankListStorage
-Class WordBankStatisticsListStorage
-Class GlobalStatisticsStorage
 Class JsonAppSettingsStorage
 Class JsonSerializableWordBank
 Class JsonAdaptedCard

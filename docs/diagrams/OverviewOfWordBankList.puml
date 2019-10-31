@@ -9,19 +9,16 @@ hide empty members
 
 Package WordBankList <<Rectangle>>{
 Interface ReadOnlyWordBankList <<Interface>> {
-+getFilteredWordBankList()
-+getWordBankFromName(String)
+getFilteredWordBankList()
+getWordBankFromName(String)
+hasBankName(String)
 }
 
 class WordBankList {
-   +getFilteredWordBankList()
-   +getWordBankFromName(String)
-   +addBank(ReadOnlyWordBank)
-   +removeBank(WordBank)
+   +addWordBank(ReadOnlyWordBank)
+   +removeWordBank(WordBank)
 }
 Class UniqueWordBankList
-Class WordBank
-
 
 WordBankList .left.|> ReadOnlyWordBankList
 WordBankList o-down-> "1" UniqueWordBankList
@@ -32,18 +29,18 @@ hide empty members
 
 Package WordBank <<Rectangle>>{
 Interface ReadOnlyWordBank <<Interface>> {
-+getName()
-+getCardList()
+getName()
+getCard(Index)
+getCardList()
 }
 
 class WordBank {
    -name: String
-   +getName()
-   +getCardList()
-   +hasCard(Card)
+   +addCard(Card)
    +removeCard(Card)
-   +resetData(Card)
-   +setCard(ReadOnlyWordBank)
+   +setCard(Card, Card)
+   +hasCard(Card)
+   +resetData(ReadOnlyWordBank)
 }
 Class UniqueCardList
 Class Card

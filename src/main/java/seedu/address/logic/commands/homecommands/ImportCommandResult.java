@@ -19,6 +19,6 @@ public class ImportCommandResult extends HomeCommandResult {
 
     @Override
     public void updateStorage(Storage storage) {
-        storage.importWordBank(filePath, wordBankName);
+        storage.importWordBank(wordBankName, filePath);
     }
 }

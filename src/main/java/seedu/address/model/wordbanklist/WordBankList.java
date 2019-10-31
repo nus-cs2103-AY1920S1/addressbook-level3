@@ -38,7 +38,7 @@ public class WordBankList implements ReadOnlyWordBankList {
      * Adds a card to the word bank.
      * A card with the same meaning must not already exist in the word bank.
      */
-    public void addBank(ReadOnlyWordBank wordBank) {
+    public void addWordBank(ReadOnlyWordBank wordBank) {
         wordBankList.add((WordBank) wordBank);
     }
 
@@ -84,6 +84,7 @@ public class WordBankList implements ReadOnlyWordBankList {
         return wordBankList.hashCode();
     }
 
+    @Override
     public boolean hasWordBankName(String name) {
         return wordBankList.contains(name);
     }

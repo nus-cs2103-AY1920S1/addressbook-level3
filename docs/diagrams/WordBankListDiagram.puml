@@ -9,15 +9,14 @@ hide empty members
 
 Package WordBankList <<Rectangle>>{
 Interface ReadOnlyWordBankList <<Interface>> {
-+getFilteredWordBankList()
-+getWordBankFromName(String)
+getFilteredWordBankList()
+getWordBankFromName(String)
+hasBankName(String)
 }
 
 class WordBankList {
-   +getFilteredWordBankList()
-   +getWordBankFromName(String)
-   +addBank(ReadOnlyWordBank)
-   +removeBank(WordBank)
+   +addWordBank(ReadOnlyWordBank)
+   +removeWordBank(WordBank)
 }
 Class UniqueWordBankList
 Class WordBank
