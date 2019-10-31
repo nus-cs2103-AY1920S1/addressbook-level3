@@ -3,24 +3,24 @@
 
 Class AnalysePasswordCommand LOGIC_COLOR_T1{
 --
-+GetRequiredAnalyser: List<Analyser> analysers
++execute() : CommandResult
 }
 
 Class Password LOGIC_COLOR_T1
+    Interface Analyser LOGIC_COLOR_T1 {
+    ----
+    + analyse(List<Password> p) : List<Result> r
+    }
+together {
+    Class DictionaryAnalyser LOGIC_COLOR_T1
 
-Interface Analyser LOGIC_COLOR_T1 {
-----
-+ analyse(List<Password> passwords) : void
-+outputSummaryReport() : String
-+outDetailedReport(Index index) : String
-}
+    Class SimilarityAnalyser LOGIC_COLOR_T1
 
-Class DictionaryAnalyser LOGIC_COLOR_T1 {
---
-+ analyse(List<Password> passwords) : void
-+outputSummaryReport() : String
-+outDetailedReport(Index index) : String
-+GetAllMatches(String password) : List<DictionaryMatch> matches
+    Class SequenceAnalyser  LOGIC_COLOR_T1
+
+    Class StrengthAnalyser  LOGIC_COLOR_T1
+
+    Class UniqueAnalyser  LOGIC_COLOR_T1
 }
 
 Class "{abstract}\nResult" as Result LOGIC_COLOR_T1{
@@ -31,44 +31,58 @@ Class "{abstract}\nResult" as Result LOGIC_COLOR_T1{
 + toString() : String
 }
 
-Class DictionaryResult LOGIC_COLOR_T1 {
-- matches : List<DictionaryMatch>
---
-+ getGreaterDetail: String
-+toString() : String
+together {
+    Class DictionaryResult LOGIC_COLOR_T1{
+    - matches : List<DictionaryMatch>
+    }
+
+    Class SimilarityResult LOGIC_COLOR_T1{
+    - matches : List<SimilarityMatch>
+    }
+
+    Class SequenceResult LOGIC_COLOR_T1 {
+    - matches : List<SequenceMatch>
+    }
+    Class StrengthResult LOGIC_COLOR_T1
+
+    Class UniqueResult LOGIC_COLOR_T1 {
+    - matches : List<UniqueMatch>
+    }
 }
 
-Interface Match LOGIC_COLOR_T1 {
+
+Class AnalysisReport LOGIC_COLOR_T1{
+-reportBuilder : StringBuilder
 ----
+- write(Result r): void
 }
 
-Class "{abstract}\nBaseMatch" as BaseMatch LOGIC_COLOR_T1{
-# token : String
-# StartIdx : int
-# EndIdx : int
----
-+ toString() : String
-}
-
-Class DictionaryMatch LOGIC_COLOR_T1 {
-- rank : int
---
-+toString() : String
-}
-
-AnalysePasswordCommand .up.> Password : retrieves
+AnalysePasswordCommand .> Password : retrieves
 AnalysePasswordCommand .down.> Analyser : retrieves
 
-Analyser "1" .right.> "*" Result : produces
-(Analyser, Result) .. Match
-BaseMatch .up.|> Match
-DictionaryMatch  -up-|> BaseMatch
+Analyser "*" .right.> "*" Password : analyses
+(Analyser, Password) .. Result
 
 DictionaryAnalyser .up.|> Analyser
+SimilarityAnalyser .up.|> Analyser
+UniqueAnalyser .up.|> Analyser
+SequenceAnalyser .up.|> Analyser
+StrengthAnalyser .up.|> Analyser
+UniqueAnalyser -[hidden]up- SimilarityAnalyser
+SequenceAnalyser -[hidden]up UniqueAnalyser
+StrengthAnalyser -[hidden]up SequenceAnalyser
+SimilarityAnalyser -[hidden]up DictionaryAnalyser
+
+AnalysisReport "1".down.>"*" Result : writes
 
 DictionaryResult  -up-|> Result
-
-
+SimilarityResult -up-|> Result
+SequenceResult  -up-|> Result
+UniqueResult -up-|> Result
+StrengthResult  -up-|> Result
+SimilarityResult -[hidden]up- SequenceResult
+UniqueResult -[hidden]up- DictionaryResult
+StrengthResult -[hidden]up- DictionaryResult
 
 show members
 
