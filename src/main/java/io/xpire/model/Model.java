@@ -210,6 +210,8 @@ public interface Model {
 
     void update(State state);
 
+    void update(ListToView listToView);
+
     ListToView getListToView();
 
 }

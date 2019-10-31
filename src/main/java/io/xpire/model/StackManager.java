@@ -21,6 +21,9 @@ public class StackManager {
      */
     public State undo(State currentState) {
         redoStack.push(currentState);
+        if (isUndoStackEmpty()) {
+            return null;
+        }
         return undoStack.pop();
     }
 
@@ -33,6 +36,9 @@ public class StackManager {
      */
     public State redo(State currentState) {
         undoStack.push(currentState);
+        if (isRedoStackEmpty()) {
+            return null;
+        }
         return redoStack.pop();
     }
 

@@ -22,6 +22,7 @@ public class SortCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Sorted all items";
 
     private final XpireMethodOfSorting method;
+    private XpireMethodOfSorting previousSorting = new XpireMethodOfSorting("name");
 
     public SortCommand(XpireMethodOfSorting method) {
         this.method = method;
@@ -30,7 +31,8 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model, StackManager stackManager) {
         requireNonNull(model);
-        stackManager.saveState(new State(model));
+        stackManager.saveState(new State(model, previousSorting));
+        this.previousSorting = this.method;
         model.sortItemList(this.method);
         model.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
         return new CommandResult(MESSAGE_SUCCESS + " by " + method);

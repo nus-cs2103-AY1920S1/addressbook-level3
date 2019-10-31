@@ -2,8 +2,6 @@ package io.xpire.model;
 
 import io.xpire.model.item.Item;
 import io.xpire.model.item.ListToView;
-import io.xpire.model.item.SortedUniqueReplenishItemList;
-import io.xpire.model.item.SortedUniqueXpireItemList;
 import io.xpire.model.item.XpireItem;
 import javafx.collections.transformation.FilteredList;
 
@@ -17,7 +15,8 @@ public class CloneModel {
     private ReadOnlyUserPrefs userPrefs;
     private FilteredList<XpireItem> filteredXpireItemList;
     private FilteredList<Item> filteredReplenishItemList;
-    private FilteredList<? extends Item> currentFilteredItemList;
+    private ListToView listToView;
+    private FilteredList<? extends Item> currentList;
 
     public CloneModel(ReadOnlyListView<XpireItem> xpire, ReadOnlyListView<Item> replenishList,
                       ReadOnlyUserPrefs userPrefs, FilteredList<XpireItem> filteredXpireItemList,
@@ -30,10 +29,8 @@ public class CloneModel {
         this.filteredXpireItemList.setPredicate(filteredXpireItemList.getPredicate());
         this.filteredReplenishItemList = new FilteredList<>(this.replenishList.getItemList());
         this.filteredReplenishItemList.setPredicate(filteredReplenishItemList.getPredicate());
-        //this.filteredXpireItemList = cloneFilteredXpireItemList(filteredXpireItemList);
-        //this.filteredReplenishItemList = cloneFilteredReplenishItemList(filteredReplenishItemList);
-        this.currentFilteredItemList = checkListToView(listToView);
-        //this.currentFilteredItemList.forEach(System.out::println);
+        this.listToView = listToView;
+        this.currentList = checkListToView(listToView);
     }
 
     /**
@@ -45,39 +42,6 @@ public class CloneModel {
         } else {
             return filteredReplenishItemList;
         }
-    }
-
-    /**
-     * Clones the FilteredXpireItemList.
-     */
-    private FilteredList<XpireItem> cloneFilteredXpireItemList(FilteredList<XpireItem> filteredXpireItemList) {
-        SortedUniqueXpireItemList items = new SortedUniqueXpireItemList();
-        for (XpireItem item: filteredXpireItemList) {
-            System.out.println("....");
-            System.out.println(item);
-            System.out.println("....");
-            items.add(new XpireItem(item));
-        }
-        FilteredList<XpireItem> result = new FilteredList<>(items.asUnmodifiableObservableList());
-        result.setPredicate(filteredXpireItemList.getPredicate());
-        System.out.println("GGGGG");
-        result.forEach(System.out::println);
-        System.out.println("GGGGG");
-        return result;
-    }
-
-    /**
-     * Clones the FilteredReplenishItemList.
-     */
-    private FilteredList<Item> cloneFilteredReplenishItemList(FilteredList<Item> filteredReplenishItemList) {
-        SortedUniqueReplenishItemList items = new SortedUniqueReplenishItemList();
-        for (Item item: filteredReplenishItemList) {
-            items.add(new Item(item));
-        }
-        FilteredList<Item> result = new FilteredList<>(items.asUnmodifiableObservableList());
-        result.setPredicate(filteredReplenishItemList.getPredicate());
-        //result.forEach(System.out::println);
-        return result;
     }
 
     public ReadOnlyListView<XpireItem> getXpire() {
@@ -100,8 +64,22 @@ public class CloneModel {
         return filteredReplenishItemList;
     }
 
-    public FilteredList<? extends Item> getCurrentFilteredItemList() {
-        return currentFilteredItemList;
+    public ListToView getListToView() {
+        return listToView;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof CloneModel)) {
+            return false;
+        } else {
+            CloneModel other = (CloneModel) obj;
+            System.out.println(other.currentList.getSource().containsAll(this.currentList.getSource()));
+            return other.getXpire().getItemList().containsAll(this.getXpire().getItemList())
+                    && other.getReplenishList().getItemList().containsAll(this.getReplenishList().getItemList())
+                    && other.currentList.getSource().containsAll(this.currentList.getSource());
+        }
+    }
 }

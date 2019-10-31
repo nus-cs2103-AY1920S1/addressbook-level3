@@ -131,17 +131,20 @@ public class ModelManager implements Model {
     @Override
     public void deleteItem(XpireItem target) {
         this.xpire.removeItem(target);
+        update(this.listToView);
     }
 
     @Override
     public void addItem(XpireItem xpireItem) {
         this.xpire.addItem(xpireItem);
+        update(this.listToView);
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
     }
 
     @Override
     public void setItem(XpireItem target, XpireItem editedXpireItem) {
         CollectionUtil.requireAllNonNull(target, editedXpireItem);
+        update(this.listToView);
         this.xpire.setItem(target, editedXpireItem);
     }
 
@@ -179,11 +182,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteReplenishItem(Item target) {
         this.replenishList.removeItem(target);
+        update(this.listToView);
     }
 
     @Override
     public void addReplenishItem(Item item) throws DuplicateItemException {
         this.replenishList.addItem(item);
+        update(this.listToView);
         updateFilteredReplenishItemList(PREDICATE_SHOW_ALL_REPLENISH_ITEMS);
     }
 
@@ -191,6 +196,7 @@ public class ModelManager implements Model {
     public void setReplenishItem(Item target, Item editedItem) {
         CollectionUtil.requireAllNonNull(target, editedItem);
         this.replenishList.setItem(target, editedItem);
+        update(this.listToView);
     }
 
     @Override
@@ -214,6 +220,7 @@ public class ModelManager implements Model {
         Item adaptedItem = adaptItemToReplenish(xpireItem);
         addReplenishItem(adaptedItem);
         deleteItem(xpireItem);
+        update(this.listToView);
     }
 
     /**
@@ -238,6 +245,7 @@ public class ModelManager implements Model {
     @Override
     public void sortItemList(XpireMethodOfSorting method) {
         requireNonNull(method);
+        update(this.listToView);
         this.xpire.setMethodOfSorting(method);
     }
 
@@ -289,6 +297,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredItemList(Predicate<? extends Item> predicate) {
+
         if (this.currentFilteredItems == this.filteredXpireItems) {
             updateFilteredXpireItemList((Predicate<XpireItem>) predicate);
         } else if (this.currentFilteredItems == this.filteredReplenishItems) {
@@ -373,9 +382,21 @@ public class ModelManager implements Model {
         this.setUserPrefs(clone.getUserPrefs());
         this.setXpire(clone.getXpire());
         this.setReplenishList(clone.getReplenishList());
-        //this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
-        //this.setFilteredXpireItems(clone.getFilteredXpireItemList());
-        //this.setCurrentFilteredItemList(clone.getCurrentFilteredItemList());
+        this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
+        this.setFilteredXpireItems(clone.getFilteredXpireItemList());
+        this.setCurrentFilteredItemList(clone.getListToView());
+        this.sortItemList(State.getMethod());
+    }
+
+    @Override
+    public void update(ListToView listToView) {
+        FilteredList<XpireItem> filteredXpireList = new FilteredList<>(getXpire().getItemList());
+        FilteredList<Item> filteredReplenishList = new FilteredList<>(getReplenishList().getItemList());
+        filteredXpireList.setPredicate(this.filteredXpireItems.getPredicate());
+        filteredReplenishList.setPredicate(this.filteredReplenishItems.getPredicate());
+        setFilteredXpireItems(filteredXpireList);
+        setFilteredReplenishItems(filteredReplenishList);
+        setCurrentFilteredItemList(listToView);
     }
 
     @Override

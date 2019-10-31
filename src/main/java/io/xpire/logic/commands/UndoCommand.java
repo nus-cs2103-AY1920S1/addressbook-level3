@@ -23,7 +23,12 @@ public class UndoCommand extends Command {
         }
         State currentState = new State(model);
         State previousState = stackManager.undo(currentState);
-
+        //while (currentState.equals(previousState)) {
+        //    previousState = stackManager.undo(currentState);
+        //}
+        if (previousState == null) {
+            return new CommandResult(MESSAGE_UNDO_FAILURE);
+        }
         model.update(previousState);
         return new CommandResult(MESSAGE_UNDO_SUCCESS);
     }
