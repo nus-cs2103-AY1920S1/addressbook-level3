@@ -42,7 +42,6 @@ public class UndoClearCommand extends UndoableCommand {
         model.setActivities(activity);
         model.setContacts(contact);
         model.setItinerary(itinerary);
-        model.init();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

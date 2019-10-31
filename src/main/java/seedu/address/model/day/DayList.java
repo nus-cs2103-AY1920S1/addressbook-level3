@@ -89,6 +89,13 @@ public class DayList implements Iterable<Day> {
         }
     }
 
+    public void deleteDays(int n) {
+        int lastIndex = internalList.size() - 1;
+        for (int i = 0; i < n; i++) {
+            internalList.remove(lastIndex - i);
+        }
+    }
+
     public List<Day> getDays(Activity activity) {
         List<Day> listOfDays = new ArrayList<>();
         for (Day day : internalList) {

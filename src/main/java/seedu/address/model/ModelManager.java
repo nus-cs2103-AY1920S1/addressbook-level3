@@ -82,10 +82,6 @@ public class ModelManager implements Model {
         this(new AccommodationManager(), new ActivityManager(), new ContactManager(), new Itinerary(), new UserPrefs());
     }
 
-    public void init() {
-
-    }
-
     //=========== Mapping ====================================================================================
 
     /**
@@ -521,6 +517,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteDay(Day target) {
         itinerary.removeDay(target);
+    }
+
+    @Override
+    public void deleteDays(int n) {
+        itinerary.deleteDays(n);
     }
 
     @Override

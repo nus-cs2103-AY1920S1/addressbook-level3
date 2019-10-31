@@ -114,6 +114,14 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     /**
+     * Removes the last n number of days in the Day list.
+     * @param n number of days to be removed.
+     */
+    public void deleteDays(int n) {
+        this.days.deleteDays(n);
+    }
+
+    /**
      * Resets the existing Day data of this {@code Itinerary} with {@code newData}.
      */
     public void resetDataItinerary(ReadOnlyItinerary newData) {
