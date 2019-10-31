@@ -276,6 +276,7 @@ If fields are given, the original CustomSorter is overridden by a new CustomSort
 CustomSorter is overridden by a new CustomSorter with no fields.
 //end::sorting[]
 
+//tag::savings[]
 === Savings feature
 The Savings feature allows users to save a specified amount of money from their wallet into their Savings Account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's Savings Account.
 The Savings feature also allows the user to withdraw from his savings account either into his wallet or withdraw the money completely from the $aveNUS app.
@@ -326,6 +327,7 @@ The following activity diagram below summarizes how the save command works
 
 .Activity diagram for a sample save command
 image::SaveActivityDiagram.png[align="center", width="400"]
+//end::savings[]
 
 //tag::budgeting[]
 === Budget Tracking feature
@@ -814,6 +816,7 @@ Use case ends.
 ** 3a1. $aveNUS shows an error message.
 +
 Use case resumes at step 2.
+
 
 [discrete]
 === Use case: Save money into a savings account
