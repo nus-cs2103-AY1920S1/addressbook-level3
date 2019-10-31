@@ -377,6 +377,15 @@ Format: `rename INDEX TARGET_FILENAME`
 
 Example: `rename 1 Secret File.txt`
 
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* The file extension of the file is retained using `rename` command. If you give a file extension in the target file name, it will be ignored.
+====
+
 ==== Moving an encrypted file : `move`
 
 Moves an encrypted file as specified by its index number.
