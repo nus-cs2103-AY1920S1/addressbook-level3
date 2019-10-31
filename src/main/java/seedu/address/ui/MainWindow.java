@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.export.Exporter;
 import seedu.address.logic.export.GroupScheduleExporter;
 import seedu.address.logic.export.IndividualScheduleExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -263,7 +264,7 @@ public class MainWindow extends UiPart<Stage> {
         ScheduleWindowDisplayType type = scheduleWindowDisplay.getScheduleWindowDisplayType();
         ScheduleViewManager manager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
         if (type.equals(ScheduleWindowDisplayType.PERSON)) {
-            IndividualScheduleExporter exporter = new IndividualScheduleExporter(manager.getScheduleView(),
+            Exporter exporter = new IndividualScheduleExporter(manager.getScheduleView(),
                     "png", "./export.png");
             try {
                 exporter.export();
@@ -273,7 +274,7 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             GroupInformation groupInformation = new GroupInformation(scheduleWindowDisplay,
                     manager.getColors());
-            GroupScheduleExporter exporter = new GroupScheduleExporter(manager.getScheduleView(), groupInformation,
+            Exporter exporter = new GroupScheduleExporter(manager.getScheduleView(), groupInformation,
                     "png", "./export.png");
             try {
                 exporter.export();
