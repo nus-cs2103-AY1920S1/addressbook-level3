@@ -144,114 +144,77 @@ Examples:
 
 ==== `add`
 
-Format: `deadline MODULE_CODE a/add d/DESCRIPTION t/TIME`
+Format: `deadline MODULE_LIST_NUM a/add d/DESCRIPTION t/TIME p/PRIORITY`
 
-Adds deadline task consisting of description and time to the respective module.
-If deadline list is empty, creates a list. Else, adds to the end of the list.
+Adds deadline task consisting of description, time and priority tag to the respective module.
+If deadline list is empty, creates a list. Else, adds to the end of the list. Priority tags can be
+`HIGH`, `MEDIUM` OR `LOW`.
 
-Example: `deadline cs2103t a/add d/finish Ug and Dg t/22/10/2019 2359`
+Example: `deadline 1 a/add d/tutorial 1 t/22/10/2019 2359 p/HIGH`
 
 ==== `edit`
 
-===== Edit Description
+1.Edit Description
 
-Format: `deadline MODULE_CODE a/edit l/TASK_NUMBER_IN_LIST d/NEW_DESCRIPTION`
+Format: `deadline MODULE_LIST_NUM a/edit task/TASK_NUMBER_IN_LIST d/NEW_DESCRIPTION`
 
 Edits description from the deadline task numbered in deadline list for the respective module.
 
-Example: `deadline cs2103t a/edit l/2 d/finish increments`
+Example: `deadline 2 a/edit task/2 d/finish increments`
 
-===== Edit Time
+2.Edit Time
 
-Format: `deadline MODULE_CODE a/edit l/TASK_NUMBER_IN_LIST t/NEW_TIME`
+Format: `deadline MODULE_LIST_NUM a/edit task/TASK_NUMBER_IN_LIST t/NEW_TIME`
 
 Edits time from the deadline task numbered in deadline list for the respective module.
 
-Example: `deadline cs2103t a/edit l/2 t/29/10/2018 2359`
+Example: `deadline 3 a/edit task/2 t/29/10/2018 2359`
 
 ==== `done`
 
-Format: `deadline MODULE_CODE a/done l/TASK_NUMBER_IN_LIST`
+Format: `deadline MODULE_LIST_NUM a/done task/TASK_NUMBER_IN_LIST`
 
 Marks the deadline task numbered in deadline list
 as *done* with a tick on the checkbox for the respective module.
 
-Example: `deadline cs2103t a/done l/2`
+Example: `deadline 1 a/done task/2`
 
 ==== `in Progress`
 
-Format: `deadline MODULE_CODE a/inProgress l/TASK_NUMBER_IN_LIST`
+Format: `deadline MODULE_LIST_NUM a/inProgress task/TASK_NUMBER_IN_LIST`
 
 Marks the deadline task numbered in deadline list
 as *in-progress* with a dash on the checkbox for the respective module.
 
-Example: `deadline cs2103t a/inProgress l/2`
+Example: `deadline 1 a/inProgress task/1`
 
-==== `priority`
+==== `sort`(Coming in mid V1.4)
 
-===== High Priority
+1.Sort by Time
 
-Format: `deadline MODULE_CODE a/highPriority l/TASK_NUMBER_IN_LIST`
-
-Tags the deadline task numbered in deadline list
-as *High-Priority* for the respective module.
-
-Example: `deadline cs2103t a/highPriority l/2`
-
-===== Medium Priority
-
-Format: `deadline MODULE_CODE a/mediumPriority l/TASK_NUMBER_IN_LIST`
-
-Tags deadline task numbered in deadline list
-as *Medium-Priority* for the respective module.
-
-Example: `deadline cs2103t a/mediumPriority l/2`
-
-===== Low Priority
-
-Format: `deadline MODULE_CODE a/lowPriority l/TASK_NUMBER_IN_LIST`
-
-Tags deadline task numbered in deadline list
-as *Low-Priority* for the respective module.
-
-Example: `deadline cs2103t a/lowPriority l/2`
-
-==== `sort`
-
-===== Sort by Time
-
-Format: `deadline MODULE_CODE a/sort by/time`
+Format: `deadline MODULE_LIST_NUM a/sort by/time`
 
 Sorts deadline tasks according to time, latest deadline at the top and later ones below.
 
-Example: `deadline cs2103t a/sort by/time`
+Example: `deadline 1 a/sort by/time`
 
-===== Sort by Priority
 
-Format: `deadline MODULE_CODE a/sort by/priority`
+2.Sort by Priority
+
+Format: `deadline MODULE_LIST_NUM a/sort by/priority`
 
 Sorts deadline tasks according to priority, highest priority at the top, followed
 by medium priority and lastly low priority at the bottom.
 
-Example: `deadline cs2103t a/sort by/priority`
+Example: `deadline 2 a/sort by/priority`
 
 ==== `delete`
 
-===== Delete entire list
-
-Format: `deadline MODULE_CODE a/deleteList`
-
-Deletes deadline list for the respective module.
-
-Example: `deadline cs2103t a/deleteList`
-
-===== Delete specific deadline task from list
-
-Format: `deadline MODULE_CODE a/delete l/TASK_NUMBER_IN_LIST`
+Format: `deadline MODULE_LIST_NUM a/delete task/TASK_NUMBER_IN_LIST`
 
 Deletes deadline task numbered from the respective module.
 
-Example: `deadline cs2103t a/delete l/2`
+Example: `deadline 1 a/delete task/2`
 
 === Manage links in modules: `link`
 
