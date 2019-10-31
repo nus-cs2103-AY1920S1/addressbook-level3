@@ -3,10 +3,17 @@ package seedu.ichifund.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.ichifund.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -38,6 +45,44 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+
+    public static final String VALID_DESCRIPTION_ALLOWANCE = "Allowance from Daddy";
+    public static final String VALID_DESCRIPTION_BUS = "Bus to School";
+    public static final String VALID_AMOUNT_ALLOWANCE = "500";
+    public static final String VALID_AMOUNT_BUS = "2.10";
+    public static final String VALID_CATEGORY_ALLOWANCE = "allowance";
+    public static final String VALID_CATEGORY_BUS = "transportation";
+    public static final String VALID_DAY_ALLOWANCE = "5";
+    public static final String VALID_DAY_BUS = "20";
+    public static final String VALID_MONTH_ALLOWANCE = "2";
+    public static final String VALID_MONTH_BUS = "7";
+    public static final String VALID_YEAR_ALLOWANCE = "2019";
+    public static final String VALID_YEAR_BUS = "2019";
+    public static final String VALID_TYPE_ALLOWANCE = "in";
+    public static final String VALID_TYPE_BUS = "exp";
+
+    public static final String DESCRIPTION_DESC_ALLOWANCE = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_ALLOWANCE;
+    public static final String DESCRIPTION_DESC_BUS = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BUS;
+    public static final String AMOUNT_DESC_ALLOWANCE = " " + PREFIX_AMOUNT + VALID_AMOUNT_ALLOWANCE;
+    public static final String AMOUNT_DESC_BUS = " " + PREFIX_AMOUNT + VALID_AMOUNT_BUS;
+    public static final String CATEGORY_DESC_ALLOWANCE = " " + PREFIX_CATEGORY + VALID_CATEGORY_ALLOWANCE;
+    public static final String CATEGORY_DESC_BUS = " " + PREFIX_CATEGORY + VALID_CATEGORY_BUS;
+    public static final String DAY_DESC_ALLOWANCE = " " + PREFIX_DAY + VALID_DAY_ALLOWANCE;
+    public static final String DAY_DESC_BUS = " " + PREFIX_DAY + VALID_DAY_BUS;
+    public static final String MONTH_DESC_ALLOWANCE = " " + PREFIX_MONTH + VALID_MONTH_ALLOWANCE;
+    public static final String MONTH_DESC_BUS = " " + PREFIX_MONTH + VALID_MONTH_BUS;
+    public static final String YEAR_DESC_ALLOWANCE = " " + PREFIX_YEAR + VALID_YEAR_ALLOWANCE;
+    public static final String YEAR_DESC_BUS = " " + PREFIX_YEAR+ VALID_YEAR_BUS;
+    public static final String TYPE_DESC_ALLOWANCE = " " + PREFIX_TRANSACTION_TYPE + VALID_TYPE_ALLOWANCE;
+    public static final String TYPE_DESC_BUS = " " + PREFIX_TRANSACTION_TYPE + VALID_TYPE_BUS;
+
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "!?";
+    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "0.0";
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "?!";
+    public static final String INVALID_DAY_DESC = " " + PREFIX_DAY + "32";
+    public static final String INVALID_MONTH_DESC = " " + PREFIX_MONTH + "13";
+    public static final String INVALID_YEAR_DESC = " " + PREFIX_YEAR + "999";
+    public static final String INVALID_TYPE_DESC = " " + PREFIX_TRANSACTION_TYPE + "hi";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
