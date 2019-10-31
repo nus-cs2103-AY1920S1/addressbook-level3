@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.reminder.ReminderStub;
+import seedu.address.model.reminder.Appointment;
 import seedu.address.storage.Storage;
 
 /**
@@ -81,8 +81,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReminderStub> getFilteredReminderList() {
-        return model.getFilteredReminderList();
+    public ObservableList<Appointment> getFilteredReminderList() {
+        return model.getFilteredAppointmentList();
     }
 
     @Override
@@ -102,6 +102,6 @@ public class LogicManager implements Logic {
 
     @Override
     public String outputReminders() {
-        return model.outputReminders();
+        return model.outputAppointments();
     }
 }

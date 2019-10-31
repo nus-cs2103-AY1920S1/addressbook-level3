@@ -16,7 +16,8 @@ public interface ReadOnlyUserPrefs {
 
     AliasTable getAliasTable();
 
-    Reminder getReminders();
+    AppointmentTable getAppointmentTable();
 
     LocalDate getLastUpdate();
+
 }

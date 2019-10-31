@@ -16,7 +16,18 @@ import seedu.address.commons.core.LogsCenter;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-f12-2.github.io/main/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String HELP_MESSAGE = "For detailed help, check out the User Guide:";
+    public static final String QUICK_GUIDE = "Here are some Commands to get started: "
+            + "(Note: Optional parameters are labelled in [ ] )\n"
+            + "\t\u2022 Add a Patient - add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]\n"
+            + "\t\u2022 Find a Patient - find KEYWORD [MORE KEYWORDS]\n"
+            + "\t\u2022 Show all Patients - list\n"
+            + "\t\u2022 Add a new Visit report for a patient - addvisit INDEX [v/DATE]\n"
+            + "\t\u2022 Show a patient's full profile - profile INDEX\n"
+            + "\t\u2022 Create a shortcut command - alias l/SHORTHAND v/COMMAND\n"
+            + "\t\u2022 Delete a shortcut command - unalias SHORTHAND\n"
+            + "\t\u2022 Create a Reminder - reminder TEXT [d/DAYS]";
+
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -27,6 +38,12 @@ public class HelpWindow extends UiPart<Stage> {
     @FXML
     private Label helpMessage;
 
+    @FXML
+    private Label userGuideUrl;
+
+    @FXML
+    private Label quickGuide;
+
     /**
      * Creates a new HelpWindow.
      *
@@ -35,6 +52,8 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
+        userGuideUrl.setText(USERGUIDE_URL);
+        quickGuide.setText(QUICK_GUIDE);
     }
 
     /**

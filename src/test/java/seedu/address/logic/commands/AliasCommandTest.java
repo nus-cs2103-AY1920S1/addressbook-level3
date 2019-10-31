@@ -18,7 +18,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.reminder.ReminderStub;
+import seedu.address.model.reminder.Appointment;
 
 public class AliasCommandTest {
     @Test
@@ -109,12 +109,22 @@ public class AliasCommandTest {
         }
 
         @Override
-        public void addReminder(int type, String description, int days) {
+        public void addAppointment(int type, String description, int days) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public String outputReminders() {
+        public void deleteAppointment(String description, int days) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortAppointments() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String outputAppointments() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -169,7 +179,7 @@ public class AliasCommandTest {
         }
 
         @Override
-        public ObservableList<ReminderStub> getFilteredReminderList() {
+        public ObservableList<Appointment> getFilteredAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -179,7 +189,7 @@ public class AliasCommandTest {
         }
 
         @Override
-        public void updateFilteredReminderList(Predicate<ReminderStub> predicate) {
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
