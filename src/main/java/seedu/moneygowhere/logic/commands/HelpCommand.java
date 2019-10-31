@@ -29,7 +29,7 @@ public class HelpCommand extends Command {
         + "clear \t\t\t- to clear all entries from the application\n"
         + "reminder add \t\t- to add a reminder\n"
         + "reminder delete \t- to delete a reminder\n"
-        + "exchangerate \t\t- to view exchange rates\n"
+        + "exchangerate \t\t- to view exchange rate of a currency\n"
         + "currency \t\t\t- to view or set the currency used to list spending\n"
         + "exit \t\t\t\t- to exit the application\n\n"
         + "To find out more about a specific command, simply type 'COMMAND' e.g. 'add', 'reminder', etc";
