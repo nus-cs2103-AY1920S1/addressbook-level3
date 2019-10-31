@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane style="-fx-border-radius: 20; -fx-background-color: #ffaa00; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="label" text="Label" textAlignment="CENTER" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="2.0">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="8.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

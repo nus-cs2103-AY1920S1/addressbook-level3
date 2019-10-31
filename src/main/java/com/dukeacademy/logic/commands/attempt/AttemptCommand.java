@@ -10,6 +10,8 @@ import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.state.Activity;
+import com.dukeacademy.model.state.ApplicationState;
 
 /**
  * Command for attempting a question. This command loads the selected question into the registered
@@ -19,6 +21,7 @@ public class AttemptCommand implements Command {
     private final Logger logger;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
+    private final ApplicationState applicationState;
     private final int index;
 
     /**
@@ -28,26 +31,54 @@ public class AttemptCommand implements Command {
      * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
      */
-    public AttemptCommand(int index, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
+    public AttemptCommand(int index, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
+                          ApplicationState applicationState) {
         this.logger = LogsCenter.getLogger(AttemptCommand.class);
         this.index = index - 1;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
+        this.applicationState = applicationState;
     }
 
     @Override
     public CommandResult execute() throws CommandException {
         try {
-            // Update status of question
-            Question questionToAttempt = this.questionsLogic.getQuestion(index).withNewStatus(Status.ATTEMPTED);
-            this.questionsLogic.setQuestion(index, questionToAttempt);
-            logger.info("Attempting question at index " + index + " : " + questionToAttempt);
+            Question userSelection = this.questionsLogic.getQuestion(index);
+            Status userSelectionStatus = userSelection.getStatus();
 
-            // Set current attempting question
-            this.programSubmissionLogic.setCurrentQuestion(questionToAttempt);
+            if (userSelectionStatus == Status.PASSED) {
+                logger.info("Reattempting question at index " + index + " : " + userSelection);
 
-            String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
-            return new CommandResult(feedback, false, false, false, false);
+                // Set current attempting question
+                this.programSubmissionLogic.setCurrentQuestion(userSelection);
+
+                // Notify user that he has already passed this question
+                String feedback = "Reattempting question " + (index + 1) + " : " + userSelection.getTitle() + " - "
+                        + "You have already passed this question successfully.";
+
+                // Update app's current activity
+                this.applicationState.setCurrentActivity(Activity.WORKSPACE);
+
+                return new CommandResult(feedback, false, false
+                );
+            } else {
+                // Update status of question to ATTEMPTED
+                Question questionToAttempt = this.questionsLogic.getQuestion(index).withNewStatus(Status.ATTEMPTED);
+                this.questionsLogic.setQuestion(index, questionToAttempt);
+                logger.info("Attempting question at index " + index + " : " + questionToAttempt);
+
+                // Set current attempting question
+                this.programSubmissionLogic.setCurrentQuestion(questionToAttempt);
+
+                String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
+
+                // Update app's current activity
+                this.applicationState.setCurrentActivity(Activity.WORKSPACE);
+
+                return new CommandResult(feedback, false, false
+                );
+            }
+
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("Index " + (index + 1) + " entered out of range for current list of questions.");
         }

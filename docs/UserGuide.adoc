@@ -12,7 +12,10 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://ay1920s1-cs2103t-f14-1.github.io/main/
+:repoURL: https://github.com/AY1920S1-CS2103T-F14-1/main
+:Java11URL: https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html
+:JDKInstallationWin: https://docs.oracle.com/javase/10/install/installation-jdk-and-jre-microsoft-windows-platforms.htm#JSJIG-GUID-BCE568C9-93D3-49F4-9B0C-9DD4A3419792
+:JDKInstallationMac: https://docs.oracle.com/javase/10/install/installation-jdk-and-jre-macos.htm#JSJIG-GUID-5F4A0659-BFC5-4CB9-9920-D2DEABF29894
 :problemSetURL:
 
 By: `CS2103T-F14-1`      Since: `Aug 2019`      Licence: `MIT`
@@ -24,35 +27,127 @@ connection. Whether you are revising for a test, practicing for a tech interview
 it, DukeAcademy gives you access to a wide range of programming problems from various categories. Easily find something
 that suits your needs and interests and start honing your skills today!
 
-For educators, you can use DukeAcademy as a platform to administer your assignments or practice questions by loading
-your own questions!
+DukeAcademy features a built-in list of problem sets and its very own text editor. Simply choose a problem statement
+that catches your eye, load it up in the problem display panel and start coding away! DukeAcademy also features your
+very own profile page for you to immediately view all of your accomplishments at a glance. Your profile page also helps
+you keep track of the problems that you have attempted and those you have bookmarked, so that you can get back to them
+easily at a later time.
+
+For educators, you can use DukeAcademy as a platform to administer your assignments or practice questions. If you have
+questions of your own you would like to test your students, you can use the built-in question loader in DukeAcademy to
+set your own questions and then distribute the updated _questionBank.json_ file to your students through your favourite
+communication channels.
 
 DukeAcademy is optimized for those who prefer to work with a CLI (Command Line Interface) while still enjoying the
-benefits of a GUI (Graphical User Interface). If you are still unfamiliar with using a CLI (an important skill for all
-programmers), you can get used to it while working on your coding skills!
+benefits of a GUI (Graphical User Interface). If you are unfamiliar with using a CLI (which is an important skill for all
+programmers), you can get used to it while working on your coding skills here in DukeAcademy!
 
 == Quick Start
 
-. Ensure you have Java 11 or above installed in your Computer.
+. Ensure you have link:{Java11URL}[Java 11] or above installed in your Computer.
+- Refer to the following links for the complete walk-through (link:{JDKInstallationMac}[macOS] / link:{JDKInstallationWin}[windows])
+
 . Download the latest DukeAcademy.jar link:{repoURL}/releases[here].
-. Copy the file to the folder which you want to use as the home folder for DukeAcademy.
-. Copy the file to the folder you want to use as the home folder for your Duke Academy.
-. Download a problem set link:{problemSetURL}[here].
-. Copy the file into the home folder for DukeAcademy.
-. Rename it to “default_problem_set.txt”.
+. Double-click the .jar file to start the app. The GUI should appear in a few seconds. If the app cannot be launched by double-clicking:
+- Launch Notepad (or any text editor), then copy and paste the following line into the text editor.
+
+ java -jar [name_of_file].jar
+
+- Replace "[name_of_file]" with whatever name you have saved the .jar file as.
+- Save the text file as a .bat file in the same location as the .jar file.
+- Then double-click on the newly created .bat file to run the app.
+
+. When launching the app for the first time, it will create a folder in your User home directory.
+- This folder will contain all of your app's data. To fix any errors related to corrupted data, delete this folder and the app will be reinstalled.
+
 +
 image::quickstart1.png[width="790"]
 +
-. Double-click the file to start the app. The GUI should appear in a few seconds.
+
+. Once the app is launched, you will immediately be greeted with the main User Interface of the app.
+
 +
-image::quickstart2.png[width="790"]
+image::mainUi.png[width="790"]
 +
 
-. Type the command in the command box and press kbd:[Enter] to execute it. e.g. typing *`help`* and pressing
-  kbd:[Enter] will open the help window.
-. View the question ID you want to attempt on the left pane. Type `attempt <Qn ID>` into the command box to start your
-  DukeAcademy experience.
+1. *CommandBox*
++
+This will be the field where you input all your commands. After you press the kbd:[Enter] button, your command will be executed.
++
+e.g. typing *`showall`* and pressing kbd:[Enter] will display all the questions in the app.
+
+2. *ResultDisplayBox*
++
+Once you have executed a command, a feedback will be displayed in this field.
++
+e.g. after executing *`showall`* command, "List all questions..." will be displayed.
+
+3. *TabView*
++
+Consists of 3 different tabs: _Home_, _Questions_ and _Workspace_
+
+. After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt <Qn Index>`
+  into the *CommandBox* to start your DukeAcademy experience.
++
+_Note: the index of a question is the number displayed next to its title._
+
++
+image::questionindex.png[width="790"]
++
 . Refer to <<Features>> to view our full list of commands.
+
+[[Overview]]
+== Overview
+
+The application is divided into 3 separate tabs, each one of them serving a specific purpose. You can toggle between the
+different tabs by entering `tab` into the *CommandBox*.
+
+=== Home
+The *Home* tab contains an introduction of the application along with a brief overview of your user profile.
+
+image::homepage.png[width="790"]
+
+On the "Home" page, you can:
+
+. See your completion percentage and current skill tier!
+. Keep track of the questions that you are currently attempting.
+. View your bookmarked questions.
+
+=== Questions
+The *Questions* tab contains a list of all the available questions and also a window to view your problem statements.
+
+You can use commands such as `browse` and `search` to filter through the list of questions in order to find what you
+are looking for. _(View <<Features>> for more details.)_
+
+. To quickly see all questions, enter `showall` into the *CommandBox*.
+. To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
+  on the right.
+
++
+image::questionspage.png[width="790"]
++
+
+
+=== Workspace
+The workspace is where you will work on the various questions.
+
+image::workspace.png[width="790"]
+
+. *ProblemStatementDisplay*
++
+Displays the question that you are currently attempting.
+
+. *ProgramEvaluationDisplay*
++
+This window displays the results after DukeAcademy has finished evaluating the correctness of your program.
+. *Editor*
++
+A built-in editor for you to write your code.
+
+
+To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
+
+To submit your attempt, enter `submit` into the *CommandBox*.
 
 [[Features]]
 == Features
@@ -60,107 +155,87 @@ image::quickstart2.png[width="790"]
 ====
 *Command Format*
 
-* Words within square braces `[]` are the parameters to be supplied by the user e.g. in `attempt[id]`,
+* Words within square braces `[]` are the parameters to be supplied by you, the user.
++
+e.g. in `attempt[id]`,
 `id` is a parameter which can be used as `attempt 1`.
-* Parameters are compulsory.
-* Parameters with `…`​ after them can be entered multiple times. e.g. `browse [category]...` can be used as
-`browse easy linkedlist hashtable recursion` (i.e. 4 times), etc.
+
+* Parameters are *compulsory*.
+* Parameters with `…`​ after them can accept multiple entries.
++
+e.g. `browse [category]...` can be used as
+`browse easy linkedlist hashtable recursion` (i.e. 4 entries), etc.
 ====
 
-=== Viewing help : `help` [_coming in v1.2_]
-Opens a window displaying the user guide within the GUI. In the user guide, all available functions within DukeAcademy
-will be listed in alphabetical order.
+=== Access Homepage: `home`
 
-*Format*: `help`
-
-image::quickstart1.png[width="920"]
-
-
-=== Access Homepage: `home` [_coming in v1.2_]
-
-Navigates back to the ​ homepage​ where you can see your progress on the current problem set.
+Navigates back to the *HomePage*.
 
 *Format:* `home`
 
-image::home.png[width="920"]
+=== Find question by title : `find`
 
-
-=== Find question by title : `find` [_coming in v1.2_]
-
-Searches for question titles​ that partially match the keywords entered. Results are displayed in
-the list window on the left of the GUI.
+Searches for question of which the title contains *strictly* the keywords entered.
 
 *Format:* `find [keyword]...`
 
 ****
+* *NOTE*: This function does not work for character sequences!
++
+e.g. Searching for `su` will *NOT* yield questions with titles such as `Sudoku` or `The Supreme Seven`
 * The search is case insensitive. e.g `recursion` will match `Recursion`.
 * The order of the keywords does not matter. e.g. `Fun tree` will match `tree Fun`.
-* Only the title will be searched.
-* Any substring in the tilte will be matched. e.g. `fib` will match `fibonacci`.
-* Questions matching at least one keyword will be displayed (i.e. "OR" search). e.g. `integer big` will return
-`integer x`, `big decimal`.
+* Questions with title matching at least one keyword will be displayed
++
+e.g. searching for `sudoku adder` will yield questions with titles such as `Valid Sudoku` and `Two Number Adder`.
 ****
 
 
 *Examples:*
 
 * `find binary search tree` +
-Finds and displays all the questions containing the substrings "binary",  "search" and "tree" in its title.
-* `find fizzbuzz` +
-Finds and displays all the questions containing the substring "fizzbuzz" in its title.
+Finds and displays all questions containing the substrings "binary",  "search" and "tree" in their title.
+* `find fizz buzz` +
+Finds and displays all the questions containing the substrings "fizz" and "buzz" in its title, but not questions with
+titles such as "fizzbuzz".
 
 
-=== Browse by categories: `browse` [_coming in v1.2_]
+=== Browse by keywords: `browse`
 
-Browses the list of questions​ found in the list window on the left of the GUI
-according to the category specified. Only questions matching the categories will
-be displayed.
+Searches through all questions with the specified keyword(s). A question is listed as a search result as long as it
+contains one of the keyword(s) in their _title, topics, description, status_ or _difficulty_.
 
-*Format:* `browse [category]...`
+*Format:* `browse [keywords]...`
 
 ****
+* *NOTE*: This function does *NOT* work for character sequences!
++
+e.g. Searching for `su` will not yield questions that do not strictly contain the word "su".
 * The category is case insensitive. e.g `easy` will match `Easy`.
-* Multiple categories can be listed.
-* A question can have multiple categories. The question will be displayed as long as one category is matched.
-* Questions matching at least one category will be displayed (i.e. "OR" search). e.g. `easy linkedlists` will return
-all questions in the categories "easy" and "linkedlist".
-* Available categories:
-- easy
-- medium
-- hard
-- arrays
-- linkedlist
-- hashtable
-- trees
-- graphs
-- recursion
-- divideandconquer
-- others
-
 ****
 
 *Examples:*
 
-* `browse medium` +
-Finds and displays medium difficulty questions.
 * `browse hashtable linkedlist` +
-Finds and displays questions on hashtables and linked lists.
+Finds and displays all questions that contain "hashtable" and "linkedlist".
+* `browse number` +
+Finds and displays questions that contain strictly the keyword "number".
++
+Questions that do not and instead contain words
+with "number" as a substring of a word in their _title, topics, description, status_ or _difficulty_ will not be displayed.
 
 
-=== Viewing a question : `view` [_coming in v1.2_]
+=== Viewing the problem statement : `view`
 
-Allows you to ​ preview a question​ by displaying it in the GUI. The question details will be displayed in the right
-window of the GUI.
+Displays the problem statement of the question.
 
 *Format:* `view [id]`
 
 ****
-* Displays the question with the corresponding id on the right side window of the GUI.
-* The id of the question can be seen next to its title in square braces. e.g. `[1]`
-* The id of the question is always a positive integer. e.g. 1, 2, 3, 4, 5.
+* Displays the problem statement with the corresponding id.
+* The id of the question can be seen next to its title in square braces.
+* The id of the question must be a positive integer.
 ****
-
-image::view.png[width="920"]
 
 *Examples:*
 
@@ -168,11 +243,10 @@ image::view.png[width="920"]
 Displays the question with the id "2" in the right side window of the GUI.
 
 
-=== Attempting a question : `attempt` [_coming in v1.2_]
+=== Attempting a question : `attempt`
 
-Navigates to a question page where you can attempt to ​ solve the question​. The question with the corresponding id will
-be displayed on the left of the GUI. The GUI will now display a text editor on the right which you can use to input
-your answer.
+Navigates to the *Questions* tab where you can code your solution to solve the problem statement. The problem statement
+will be displayed on the left of the GUI. The *Editor* will be displayed on the right.
 
 *Format:* `attempt [id]`
 
@@ -191,13 +265,11 @@ image::attempt.png[width="920"]
 * `view 2` +
 Opens the question page displaying the question with the id "2".
 
+=== List all questions: `showall`
 
-=== Saving your work : `save` [_coming in v1.2_]
+List all questions available in the whole database.
 
-Saves your current question attempt.​ Can only be invoked from the *_question page_*.
-
-*Format:* `save`
-
+*Format:* `showall`
 
 ****
 * Your saved answer will be loaded the next time you ​attempt the question again. e.g. after you `save` your answer on
@@ -205,8 +277,7 @@ the *_question page_* of question 2, the next time you `attempt 2`, your saved a
 * Only input in the text editor will be saved.
 ****
 
-
-=== Submitting your answer: `submit` [_coming in v1.2_]
+=== Submitting your answer: `submit`
 
 Submits your current answer.​ Your code will now be compiled and run against the specified test cases. A new window will
 appear on the right of the GUI to display your results. ​Can only be invoked from the *_question page_*.
@@ -220,30 +291,8 @@ appear on the right of the GUI to display your results. ​Can only be invoked f
 
 image::submit.png[width="920"]
 
-
-=== Hiding the results window: `hideresults` [_coming in v1.2_]
-
-Closes the results window if it is opened.​ The question and text editor will expand to fill the remaining space. ​ Can
-only be invoked from the *_question page_*.
-
-*Format:* `hideresult`
-
 ****
 * You will have to submit your answer again to open the results window after closing it.
-****
-
-
-=== Reset your answer: `reset` [_coming in v1.2_]
-
-Resets the current saved attempt for a question.​ The question being reset is the one that corresponds to the id
-specified. The editor will be empty next time you attempt​ that question.
-
-*Format:* `reset [id]`
-
-****
-* This will erase any previously saved answers for the question. The erased answer is not recoverable.
-* The id of the question can be seen next to its title in square braces. e.g. `[1]`
-* The id of the question is always a positive integer. e.g. 1, 2, 3, 4, 5.
 ****
 
 *Examples:*
@@ -251,49 +300,7 @@ specified. The editor will be empty next time you attempt​ that question.
 * `reset 2` +
 Erases the previous answer for the question with the id "2".
 
-=== View answers: `answer` [_coming in v1.2_]
-
-View the formal answer of a problem. ​ The problem statement will be displayed on the left pane, and the sample code will
-be displayed on the right. Can only be invoked from the *_question page_*.
-
-*Format:* `answer`
-
-
-=== Exit the application: `exit` [_coming in v1.2_]
-
-Exits the application
-
-*Format:* `exit`
-
-
-=== Timer: `timer` [_coming in v1.2_]
-
-Displays a timer window on the bottom right of the text editor. ​ Helps to simulate an test condition under which the
-coder is supposed to finish within speculated duration. The timer starts timing the moment a character is entered into
-the text editor.
-
-*Format:* `timer [time]`
-
-****
-* The time to is to be entered in the format *_hhmmss_*. e.g. `timer 013000` will start the timer for 1 hour, 30 minutes
-and 0 seconds.
-* Accepted values:
-- hour: 0 to 99
-- minute: 0 to 59
-- seconds: 0 to 59
-* The timer will begin only when a character is input into the text editor.
-* The timer will not be able to be reset.
-****
-
-*Examples:*
-
-* `timer 013000` +
-Starts a timer that lasts for 1 hour, 30 minutes, 0 seconds.
-
-* `timer 995959` +
-Starts a timer that lasts for 99 hour, 59 minutes, 59 seconds.
-
-=== Loading new questions: `loadquestions` [_coming in v1.2_]
+=== Loading new questions: `loadquestions`
 
 Loads new questions into the application through a text file. Your text file should be in the format specified below.
 Your questions will be loaded the next time you open DukeAcademy.
@@ -301,8 +308,8 @@ Your questions will be loaded the next time you open DukeAcademy.
 *Format:* `loadquestions [filename]`
 
 ****
-* Your text file should be copied into the home directory of DukeAcademy.
-* Your text file should follow the format specified at the bottom of the user guide.
+* Your text file should be located at the Desktop.
+* Your text file should follow the format specified at <<Custom-Questions>>.
 * The questions in the text file will only be loaded after entering this command.
 * Your text file will have to found in the home directory of DukeAcademy for it to be loaded.
 ****
@@ -313,6 +320,13 @@ image::loadquestions.png[width="920]
 
 * `loadquestions my_problem_set.txt` +
 Loads the questions from the file "my_problem_set.txt" located in the home directory of DukeAcademy.
+
+=== Exit the application: `exit`
+
+Exits the application
+
+*Format:* `exit`
+
 
 == FAQ
 
@@ -339,16 +353,11 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 * Browse by category: ​`browse​ [category]`
 * View: view: ​`view​ [id]`
 * Attempt a question: `attempt​ [id]`
-* Save: ​`save`
 * Submit:​ `submit`
-* Hide results: ​`hideresults`
-* Reset: ​`reset`
-* View answer: ​`answer`
-* Exit: `exit
-* Timer: `timer [hhmmss]`
 * Load questions: ​`loadquestions​ [filename]`
+* Exit: `exit
 
-== Question text file format
+== Question storage file format
 
 image::samplequestions.png[width="920"]
 
@@ -362,3 +371,42 @@ image::samplequestions.png[width="920"]
 - input: the input for the test case
 - result: the expected result for the test case
 ****
+
+[[Custom-Questions]]
+== Load Your Custom Questions
+image::custom_questions.png[width="920"]
+
+* Create a .txt file.
+* The format of a question goes like follows:
+
+```
+Question::
+
+Title::
+
+Description::
+
+Difficulty::
+
+Topics::
+
+TestCase::
+
+Input::
+
+Output::
+```
+
+* It must be in the order appeared above.
+
+* Title, Description can be any non-empty string.
+
+* Difficulty can only be EASY, MEDIUM or HARD.
+
+* Topics can only be ARRAY, LINKED_LIST, HASHTABLE, TREE, GRAPH, RECURSION, DIVIDE_AND_CONQUER, DYNAMIC_PROGRAMMING, SORTING, or OTHERS.
+
+* One question can only have one title, description and difficulty. It can have multiple topics separated by `,`. It can have multiple test cases, each begin with a `TestCase::` identifier.
+
+* For sample questions, refer to the image above.
+
+

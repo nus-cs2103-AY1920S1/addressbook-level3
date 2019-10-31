@@ -1,0 +1,76 @@
+.error {
+    -fx-text-fill: #d06651; /* The error class should always override the default text-fill style */
+}
+
+.list-cell:empty {
+    /* Empty cells will not have alternating colours */
+    -fx-background: #ffffff;
+}
+
+.list-cell:odd {
+    -fx-background-color: #d6d6d6;
+}
+
+.list-cell:even {
+    -fx-background-color: white;
+}
+
+.list-cell:selected {
+    -fx-background-color: #0894ff;
+}
+
+.tooltip-text {
+    -fx-text-fill: white;
+}
+
+#evaluationListView {
+    -fx-border-color: #7d2277;
+}
+
+#problemStatementDisplay {
+    -fx-border-color: #7d2277;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#problemStatementDisplay .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#problemStatementDisplay:focused .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#problemStatementDisplay:focused {
+    -fx-highlight-fill: #7ecfff;
+}
+
+#problemStatementDisplay .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}
+
+#textOutput {
+    -fx-border-color: #7d2277;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#textOutput .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#textOutput:focused .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#textOutput:focused {
+    -fx-highlight-fill: #7ecfff;
+}
+
+#textOutput .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}

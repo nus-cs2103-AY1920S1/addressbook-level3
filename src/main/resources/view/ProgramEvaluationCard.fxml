@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane minHeight="-Infinity" prefHeight="220.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="10.0" right="10.0" />
+   </padding>
+   <children>
+      <TextFlow layoutX="8.0" layoutY="4.0" prefHeight="17.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="73.0" text="Test Case">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="testCaseId" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="22.0" text="id">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="testCaseStatus" layoutX="88.0" layoutY="10.0" prefHeight="17.0" prefWidth="89.0" text="(STATUS)">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="8.0" layoutY="28.0" prefHeight="17.0" prefWidth="308.0" AnchorPane.leftAnchor="8.0">
+         <children>
+            <Label fx:id="feedback" prefHeight="17.0" prefWidth="295.0" text="FEEDBACK">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <Label layoutX="8.0" layoutY="69.0" prefHeight="17.0" prefWidth="295.0" text="Input">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="8.0" layoutY="118.0" prefHeight="17.0" prefWidth="295.0" text="Expected Output">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="8.0" layoutY="168.0" prefHeight="17.0" prefWidth="295.0" text="Your Output">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="input" layoutX="8.0" layoutY="91.0" prefHeight="17.0" prefWidth="295.0" text="Some input">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="expectedOutput" layoutX="8.0" layoutY="142.0" prefHeight="17.0" prefWidth="295.0" text="Some expected output">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="actualOutput" layoutX="8.0" layoutY="189.0" prefHeight="17.0" prefWidth="295.0" text="Some user generated ouput">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

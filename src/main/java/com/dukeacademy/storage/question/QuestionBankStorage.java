@@ -1,10 +1,14 @@
 package com.dukeacademy.storage.question;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import com.dukeacademy.commons.exceptions.DataConversionException;
+import com.dukeacademy.commons.util.FileUtil;
+import com.dukeacademy.commons.util.JsonUtil;
 import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.StandardQuestionBank;
 
@@ -37,7 +41,7 @@ public interface QuestionBankStorage {
      * @return the optional
      * @throws DataConversionException the data conversion exception
      * @throws IOException             the io exception
-     * @see #getQuestionBankFilePath() #getQuestionBankFilePath()
+     * @see #getQuestionBankFilePath() #getQuestionBankFilePath()#getQuestionBankFilePath()
      */
     Optional<QuestionBank> readQuestionBank(Path filePath) throws DataConversionException, IOException;
 
@@ -49,14 +53,20 @@ public interface QuestionBankStorage {
      */
     void saveQuestionBank(QuestionBank questionBank) throws IOException;
 
+
     /**
      * Save question bank.
      *
      * @param questionBank the question bank
      * @param filePath     the file path
      * @throws IOException the io exception
-     * @see #saveQuestionBank(QuestionBank) #saveQuestionBank(QuestionBank)
      */
-    void saveQuestionBank(QuestionBank questionBank, Path filePath) throws IOException;
+    static void saveQuestionBank(QuestionBank questionBank, Path filePath) throws IOException {
+        requireNonNull(questionBank);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableStandardQuestionBank(questionBank), filePath);
+    }
 
 }
