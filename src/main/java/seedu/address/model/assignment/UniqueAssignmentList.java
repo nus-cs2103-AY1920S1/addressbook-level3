@@ -144,5 +144,9 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
         }
         return true;
     }
+
+    public String getLength() {
+        return Integer.toString(internalList.size());
+    }
 }
 

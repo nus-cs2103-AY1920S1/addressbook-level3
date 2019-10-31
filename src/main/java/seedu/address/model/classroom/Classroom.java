@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.classroom;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,11 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.UniqueAssignmentList;
-import seedu.address.model.lesson.Lesson;
-import seedu.address.model.lesson.UniqueLessonList;
-import seedu.address.model.lesson.UniqueLessonWeekList;
-import seedu.address.model.scheduler.Reminder;
-import seedu.address.model.scheduler.UniqueReminderList;
+//import seedu.address.model.lesson.Lesson;
+//import seedu.address.model.lesson.UniqueLessonList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
@@ -21,12 +18,11 @@ import seedu.address.model.student.UniqueStudentList;
  */
 public class Classroom implements ReadOnlyClassroom {
 
+    private String classroomName = "default";
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
+    //private final UniqueLessonList lessons;
     private boolean isDisplayStudents = true;
-    private final UniqueLessonList lessons;
-    private final UniqueReminderList reminders;
-    private final UniqueLessonWeekList lessonLists;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -38,12 +34,14 @@ public class Classroom implements ReadOnlyClassroom {
     {
         students = new UniqueStudentList();
         assignments = new UniqueAssignmentList();
-        lessons = new UniqueLessonList();
-        reminders = new UniqueReminderList();
-        lessonLists = new UniqueLessonWeekList();
     }
 
     public Classroom() {}
+
+    public Classroom(String classroomName) {
+        this();
+        setClassroomName(classroomName);
+    }
 
     /**
      * Creates an Classroom using the Students in the {@code toBeCopied}
@@ -54,6 +52,22 @@ public class Classroom implements ReadOnlyClassroom {
     }
 
     //// list overwrite operations
+    @Override
+    public void setClassroomName(String name) {
+        this.classroomName = name;
+    }
+    @Override
+    public String getClassroomName() {
+        return this.classroomName;
+    }
+
+    public String getStudentLength() {
+        return students.getLength();
+    }
+
+    public String getAssignmentLength() {
+        return assignments.getLength();
+    }
 
     /**
      * Replaces the contents of the student list with {@code students}.
@@ -72,9 +86,9 @@ public class Classroom implements ReadOnlyClassroom {
      */
     public void resetData(ReadOnlyClassroom newData) {
         requireNonNull(newData);
+        setClassroomName(newData.getClassroomName());
         setStudents(newData.getStudentList());
         setAssignments(newData.getAssignmentList());
-        setLessons(newData.getLessonList());
     }
 
     //// student-level operations
@@ -162,54 +176,11 @@ public class Classroom implements ReadOnlyClassroom {
         this.isDisplayStudents = false;
     }
 
-    /**
-     * Adds a lessons to the classroom.
-     * The lesson must not already exist in the classroom.
-     */
-    public void addLesson(Lesson p) {
-        lessons.add(p);
-    }
-
-    /**
-     * Returns true if a lesson with the same identity as {@code lesson} exists in the classroom.
-     */
-    public boolean hasLesson(Lesson lesson) {
-        requireNonNull(lesson);
-        return lessons.contains(lesson);
-    }
-
-    /**
-     * Replaces the given lesson {@code target} in the list with {@code editedLesson}.
-     * {@code target} must exist in the classroom.
-     * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address
-     * book.
-     */
-    public void setLesson(Lesson target, Lesson editedLesson) {
-        requireNonNull(editedLesson);
-
-        lessons.setLesson(target, editedLesson);
-    }
-
-    /**
-     * Removes {@code key} from this {@code Classroom}.
-     * {@code key} must exist in the classroom.
-     */
-    public void removeLesson(Lesson key) {
-        lessons.remove(key);
-    }
-
-    /**
-     * Replaces the contents of the lesson list with {@code lessons}.
-     * {@code lessons} must not contain duplicate lessons.
-     */
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons.setLessons(lessons);
-    }
     //// util methods
 
     @Override
     public String toString() {
-        return students.asUnmodifiableObservableList().size() + " students";
+        return classroomName;
         // TODO: refine later
     }
 
@@ -218,20 +189,32 @@ public class Classroom implements ReadOnlyClassroom {
         return students.asUnmodifiableObservableList();
     }
 
-    @Override
-    public ObservableList<Reminder> getReminderList() {
-        return reminders.asUnmodifiableObservableList();
-    }
 
     @Override
     public ObservableList<Assignment> getAssignmentList() {
         return assignments.asUnmodifiableObservableList();
     }
 
+    /*
     @Override
     public ObservableList<Lesson> getLessonList() {
         return lessons.asUnmodifiableObservableList();
     }
+    */
+
+    /**
+     * Returns true if both classrooms of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two classrooms.
+     */
+    public boolean isSameClassroom(Classroom otherClassroom) {
+        if (otherClassroom == this) {
+            return true;
+        }
+
+        return otherClassroom != null
+                && otherClassroom.getClassroomName().equals(getClassroomName());
+    }
+
 
     @Override
     public boolean equals(Object other) {

@@ -5,13 +5,13 @@ package seedu.address.model;
  */
 public class Memento {
 
-    private ReadOnlyClassroom state;
+    private ReadOnlyNotebook state;
 
-    public Memento(ReadOnlyClassroom state) {
+    public Memento(ReadOnlyNotebook state) {
         this.state = state;
     }
 
-    public ReadOnlyClassroom getState() {
+    public ReadOnlyNotebook getState() {
         return state;
     }
 }

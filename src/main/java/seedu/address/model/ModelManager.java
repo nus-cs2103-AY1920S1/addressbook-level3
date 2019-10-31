@@ -12,45 +12,43 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
- * Represents the in-memory model of the classroom data.
+ * Represents the in-memory model of the notebook data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Classroom classroom;
-    private final Caretaker caretaker;
+    private final Notebook notebook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Student> filteredStudents;
-    private FilteredList<Reminder> filteredReminders;
-    private final FilteredList<Assignment> filteredAssignments;
+    private final Caretaker caretaker;
+    private FilteredList<Student> filteredStudents;
+    private FilteredList<Assignment> filteredAssignments;
     private final FilteredList<Lesson> filteredLessons;
 
     /**
-     * Initializes a ModelManager with the given classroom and userPrefs.
+     * Initializes a ModelManager with the given notebook and userPrefs.
      */
-    public ModelManager(ReadOnlyClassroom classroom, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyNotebook notebook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(classroom, userPrefs);
+        requireAllNonNull(notebook, userPrefs);
 
-        logger.fine("Initializing with classroom: " + classroom + " and user prefs " + userPrefs);
-
-        this.classroom = new Classroom(classroom);
-        this.caretaker = new Caretaker(new Memento(classroom), this.classroom);
+        logger.fine("Initializing with notebook: " + notebook + " and user prefs " + userPrefs);
+        this.notebook = new Notebook(notebook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.caretaker = new Caretaker(new Memento(notebook), this.notebook);
 
-        filteredStudents = new FilteredList<>(this.classroom.getStudentList());
-        filteredReminders = new FilteredList<>(this.classroom.getReminderList());
-        filteredAssignments = new FilteredList<>(this.classroom.getAssignmentList());
-        filteredLessons = new FilteredList<>(this.classroom.getLessonList());
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+        filteredLessons = new FilteredList<>(notebook.getLessonList());
     }
 
     public ModelManager() {
-        this(new Classroom(), new UserPrefs());
+        this(new Notebook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -78,117 +76,150 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getClassroomFilePath() {
-        return userPrefs.getClassroomFilePath();
+    public Path getNotebookFilePath() {
+        return userPrefs.getNotebookFilePath();
     }
 
     @Override
-    public void setClassroomFilePath(Path classroomFilePath) {
-        requireNonNull(classroomFilePath);
-        userPrefs.setClassroomFilePath(classroomFilePath);
+    public void setNotebookFilePath(Path notebookFilePath) {
+        requireNonNull(notebookFilePath);
+        userPrefs.setNotebookFilePath(notebookFilePath);
     }
+
 
     //=========== Classroom ================================================================================
 
     @Override
     public void setClassroom(ReadOnlyClassroom classroom) {
-        this.classroom.resetData(classroom);
+        notebook.setClassroom(classroom);
     }
 
     @Override
-    public ReadOnlyClassroom getClassroom() {
-        return classroom;
+    public ReadOnlyClassroom getCurrentClassroom() {
+        return notebook.getCurrentClassroom();
+    }
+
+    //=========== Notebook ================================================================================
+
+    @Override
+    public void setNotebook(ReadOnlyNotebook notebook) {
+        this.notebook.resetData(notebook);
+    }
+
+    @Override
+    public ReadOnlyNotebook getNotebook() {
+        return notebook;
+    }
+
+    @Override
+    public boolean hasClassroom(Classroom classroom) {
+        return notebook.hasClassroom(classroom);
+    }
+
+    @Override
+    public void addClassroom(Classroom classroom) {
+        notebook.addClassroom(classroom);
+    }
+
+    @Override
+    public void setCurrentClassroom(Classroom classroom) {
+        notebook.setCurrentClassroom(classroom);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
+    }
+
+    @Override
+    public ObservableList<Classroom> getClassroomList() {
+        return notebook.getClassroomList();
     }
 
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
-        return classroom.hasStudent(student);
+        return notebook.hasStudent(student);
     }
 
     @Override
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
-        return classroom.hasAssignment(assignment);
+        return notebook.hasAssignment(assignment);
     }
 
     @Override
     public void deleteStudent(Student target) {
-        classroom.removeStudent(target);
+        notebook.deleteStudent(target);
     }
 
     @Override
     public void deleteAssignment(Assignment target) {
-        classroom.removeAssignment(target);
+        notebook.deleteAssignment(target);
     }
 
     @Override
     public void addStudent(Student student) {
-        classroom.addStudent(student);
+        notebook.addStudent(student);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
     public void addAssignment(Assignment assignment) {
-        classroom.addAssignment(assignment);
+        notebook.addAssignment(assignment);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
     @Override
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
-
-        classroom.setStudent(target, editedStudent);
+        notebook.setStudent(target, editedStudent);
     }
 
     @Override
     public void setAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
-
-        classroom.setAssignment(target, editedAssignment);
+        notebook.setAssignment(target, editedAssignment);
     }
 
     public boolean isDisplayStudents() {
-        return classroom.isDisplayStudents();
+        return notebook.isDisplayStudents();
     }
 
     public void displayStudents() {
-        classroom.displayStudents();
+        notebook.displayStudents();
     }
 
     public void displayAssignments() {
-        classroom.displayAssignments();
+        notebook.displayAssignments();
     }
 
     @Override
     public void addLesson(Lesson lesson) {
-        classroom.addLesson(lesson);
+        notebook.addLesson(lesson);
     }
 
     @Override
     public boolean hasLesson(Lesson lesson) {
         requireNonNull(lesson);
-        return classroom.hasLesson(lesson);
+        return notebook.hasLesson(lesson);
     }
 
     @Override
     public void deleteLesson(Lesson target) {
-        classroom.removeLesson(target);
+        notebook.removeLesson(target);
     }
 
     @Override
     public void setLesson(Lesson target, Lesson editedLesson) {
         requireAllNonNull(target, editedLesson);
-
-        classroom.setLesson(target, editedLesson);
+        notebook.setLesson(target, editedLesson);
     }
 
-    public ObservableList<Reminder> getFilteredReminderList() {
-        return filteredReminders;
-    }
 
     //=========== Filtered Student List Accessors =============================================================
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
+     * {@code Caretaker}
+     */
     /**
      * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
      * {@code Caretaker}
@@ -208,6 +239,13 @@ public class ModelManager implements Model {
         return filteredLessons;
     }
 
+    /*
+    @Override
+    public ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate) {
+        return notebook.getCurrentClassroom().getFilteredReminderList();
+    }
+    */
+
     @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
@@ -225,10 +263,14 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredLessons.setPredicate(predicate);
     }
+
+
+
+
     //=========== Undo and Redo Operations =============================================================
 
     @Override
-    public ReadOnlyClassroom undo() {
+    public ReadOnlyNotebook undo() {
         return caretaker.undo();
     }
 
@@ -238,7 +280,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyClassroom redo() {
+    public ReadOnlyNotebook redo() {
         return caretaker.redo();
     }
 
@@ -250,9 +292,6 @@ public class ModelManager implements Model {
     @Override
     public void saveState() {
         caretaker.saveState();
-        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-        updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
     }
 
     @Override
@@ -269,9 +308,8 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return classroom.equals(other.classroom)
-                && userPrefs.equals(other.userPrefs)
-                && filteredStudents.equals(other.filteredStudents);
+        return notebook.equals(other.notebook)
+                && userPrefs.equals(other.userPrefs);
     }
 
 }

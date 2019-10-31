@@ -95,13 +95,13 @@
                   </TabPane>
           </VBox>
           <VBox fx:id="assignmentList" alignment="CENTER" maxWidth="395" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Assignments" textFill="#FFC300">
+            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Classrooms" textFill="#FFC300">
 
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
             </Label>
-            <StackPane fx:id="assignmentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+            <StackPane fx:id="classroomListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
           <VBox fx:id="combinedList" alignment="CENTER" maxWidth="395" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Students/Assignments" textFill="#FFD300">

@@ -7,7 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.student.Student;
 
+import java.util.List;
 
 
 /**
@@ -47,6 +49,10 @@ public class AddAssignmentCommand extends Command {
         }
 
         model.addAssignment(toAdd);
+        List<Student> studentList = model.getFilteredStudentList();
+        for (Student student: studentList) {
+            toAdd.addOneStudentGrade(student.getName().fullName);
+        }
         model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

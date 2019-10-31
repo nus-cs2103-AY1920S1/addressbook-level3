@@ -13,8 +13,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ClassroomParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyClassroom;
+//import seedu.address.model.Notebook;
+import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 import seedu.address.storage.Storage;
@@ -45,7 +48,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveClassroom(model.getClassroom());
+            storage.saveNotebook(model.getNotebook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -55,7 +58,12 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyClassroom getClassroom() {
-        return model.getClassroom();
+        return model.getCurrentClassroom();
+    }
+
+    @Override
+    public ReadOnlyNotebook getNotebook() {
+        return this.model.getNotebook();
     }
 
     @Override
@@ -74,8 +82,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getClassroomFilePath() {
-        return model.getClassroomFilePath();
+    public ObservableList<Classroom> getClassroomList() {
+        return model.getClassroomList();
+    }
+
+    @Override
+    public Path getNotebookFilePath() {
+        return model.getNotebookFilePath();
     }
 
     @Override
@@ -91,4 +104,6 @@ public class LogicManager implements Logic {
     public boolean isDisplayStudents() {
         return model.isDisplayStudents();
     }
+
+
 }
