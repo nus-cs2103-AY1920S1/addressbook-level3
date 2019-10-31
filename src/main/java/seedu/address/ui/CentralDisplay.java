@@ -40,6 +40,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnscheduleCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.accommodation.Accommodation;
@@ -247,6 +248,7 @@ public class CentralDisplay extends UiPart<Region> {
                 new HelpCard(EditAccommodationCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(EditActivityCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(EditContactCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(ViewCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(ScheduleCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(AutoScheduleCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot(),

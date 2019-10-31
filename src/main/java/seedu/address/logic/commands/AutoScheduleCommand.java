@@ -41,7 +41,7 @@ public class AutoScheduleCommand extends Command {
         "Generates a list of activities for a specified day based on tag order given by user.",
         COMMAND_WORD + " ([" + PREFIX_TAG + "TAG START_TIME] || "
                 + PREFIX_NAME + "ACTIVITY_NAME START_TIME])... "
-                + PREFIX_ADDRESS + "Tokyo "
+                + PREFIX_ADDRESS + "ADDRESS_TO_PRIORITISE "
                 + PREFIX_DAY + "[DAY_INDEX]...",
         COMMAND_WORD + " " + PREFIX_TAG + "Dining 1000 " + PREFIX_TAG + "Attraction 1200 "
                 + PREFIX_TAG + "Dining " + PREFIX_NAME + "Disneyland 1400 "
