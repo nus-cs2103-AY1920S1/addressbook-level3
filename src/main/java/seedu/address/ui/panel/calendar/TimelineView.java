@@ -145,6 +145,9 @@ public abstract class TimelineView extends UiPart<Region> {
                 }
             } else if (source instanceof TaskSource) {
                 TaskSource task = (TaskSource) source;
+                if (task.getDueDate() == null) {
+                    break;
+                }
                 if (isWithinTimeline(task)) {
                     addTaskCard(task);
                 }
