@@ -55,7 +55,6 @@ public class AddNusModsCommand extends Command {
     private final NusModsShareLink link;
 
     public AddNusModsCommand(Name name, NusModsShareLink link) {
-        requireNonNull(name);
         requireNonNull(link);
 
         this.name = name;
@@ -66,13 +65,6 @@ public class AddNusModsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         AcadYear acadYear = model.getAcadYear();
-
-        Person person = null;
-        try {
-            person = model.findPerson(name);
-        } catch (PersonNotFoundException e) {
-            return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
-        }
 
         LocalDate startAcadSemDate = model.getAcadSemStartDate(acadYear, link.semesterNo);
         Holidays holidays = model.getHolidays();
@@ -97,34 +89,70 @@ public class AddNusModsCommand extends Command {
         if (checkClashingModuleEvents(eventsToAdd)) {
             return new CommandResult(MESSAGE_MODULES_CLASH);
         }
-        for (Event event : eventsToAdd) {
-            try {
-                if (model.isEventClash(name, event)) {
+
+
+        if (name == null) {
+
+            Person user = model.getUser();
+
+            for (Event event : eventsToAdd) {
+                if (user.getSchedule().isClash(event)) {
                     return new CommandResult(MESSAGE_EVENTS_CLASH);
                 }
-            } catch (PersonNotFoundException e) {
-                return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
+            }
+            for (Event event : eventsToAdd) {
+                try {
+                    user.addEvent(event);
+                } catch (EventClashException | DuplicateEventException e) {
+                    return new CommandResult(MESSAGE_EVENTS_CLASH);
+                }
             }
 
-        }
-        for (Event event : eventsToAdd) {
+            // updates UI
+            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
+
+            return new CommandResult(MESSAGE_SUCCESS);
+            //return new CommandResult(MESSAGE_SUCCESS + user.getSchedule());
+
+        } else {
             try {
-                model.addEvent(name, event);
+                Person person = model.findPerson(name);
+
+                for (Event event : eventsToAdd) {
+                    try {
+                        if (model.isEventClash(name, event)) {
+                            return new CommandResult(MESSAGE_EVENTS_CLASH);
+                        }
+                    } catch (PersonNotFoundException e) {
+                        return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
+                    }
+
+                }
+                for (Event event : eventsToAdd) {
+                    try {
+                        model.addEvent(name, event);
+
+                    } catch (PersonNotFoundException e) {
+                        return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
+                    } catch (EventClashException | DuplicateEventException e) {
+                        return new CommandResult(MESSAGE_EVENTS_CLASH);
+                    }
+                }
+
+                // updates UI
+                model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
+
+                return new CommandResult(MESSAGE_SUCCESS);
+                //return new CommandResult(MESSAGE_SUCCESS + person.getSchedule());
 
             } catch (PersonNotFoundException e) {
                 return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
-            } catch (EventClashException e) {
-                return new CommandResult(MESSAGE_EVENTS_CLASH);
-            } catch (DuplicateEventException e) {
-                return new CommandResult(MESSAGE_EVENTS_CLASH);
             }
         }
 
-        // updates UI
-        model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
-        model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
 
-        return new CommandResult(MESSAGE_SUCCESS + person.getSchedule());
     }
 
     /**

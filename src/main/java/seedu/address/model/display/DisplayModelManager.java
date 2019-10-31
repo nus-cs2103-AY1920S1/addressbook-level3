@@ -1,5 +1,7 @@
 package seedu.address.model.display;
 
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -41,6 +43,9 @@ import seedu.address.model.person.schedule.Venue;
  */
 public class DisplayModelManager {
 
+    private static final int DAYS_OF_A_WEEK = 7;
+    private static final int FREE_TIMESLOT_TRHESHOLD = 15;
+
     private GmapsModelManager gmapsModelManager;
 
     private LocalTime startTime;
@@ -73,22 +78,23 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of a person.
      *
-     * @param name of person's schedule to be updated
-     * @param time start time of the schedule
-     * @param type type of schedule
+     * @param name     of person's schedule to be updated
+     * @param time     start time of the schedule
+     * @param type     type of schedule
      * @param timeBook data
      */
     public void updateScheduleWindowDisplay(Name name, LocalDateTime time,
-                                          ScheduleWindowDisplayType type,
-                                          TimeBook timeBook) {
+                                            ScheduleWindowDisplayType type,
+                                            TimeBook timeBook) {
 
         try {
             HashMap<Integer, ArrayList<PersonSchedule>> personMonthSchedules = new HashMap<>();
             for (int i = 0; i < 4; i++) {
                 ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
 
-                PersonSchedule personSchedule = generatePersonSchedule(name.toString(), time.plusDays(i * 7),
-                        timeBook.getPersonList().findPerson(name), Role.emptyRole());
+                PersonSchedule personSchedule =
+                        generatePersonSchedule(name.toString(), time.plusDays(i * DAYS_OF_A_WEEK),
+                                timeBook.getPersonList().findPerson(name), Role.emptyRole());
                 personSchedulesForWeek.add(personSchedule);
                 personMonthSchedules.put(i, personSchedulesForWeek);
             }
@@ -103,8 +109,8 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of the user.
      *
-     * @param time start time of the schedule
-     * @param type type of schedule
+     * @param time     start time of the schedule
+     * @param type     type of schedule
      * @param timeBook data
      */
     public void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type, TimeBook timeBook) {
@@ -115,7 +121,7 @@ public class DisplayModelManager {
             ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
 
             PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
-                    time.plusDays(i * 7), user, Role.emptyRole());
+                    time.plusDays(i * DAYS_OF_A_WEEK), user, Role.emptyRole());
             personSchedulesForWeek.add(personSchedule);
             personSchedules.put(i, personSchedulesForWeek);
         }
@@ -128,14 +134,14 @@ public class DisplayModelManager {
      * Update with a schedule of a group.
      *
      * @param groupName of the group
-     * @param time start time of the schedule
-     * @param type type of schedule
-     * @param timeBook data
+     * @param now       start time of the schedule
+     * @param type      type of schedule
+     * @param timeBook  data
      */
     public void updateScheduleWindowDisplay(GroupName groupName,
-                                          LocalDateTime time,
-                                          ScheduleWindowDisplayType type,
-                                          TimeBook timeBook) {
+                                            LocalDateTime now,
+                                            ScheduleWindowDisplayType type,
+                                            TimeBook timeBook) {
 
         try {
 
@@ -151,10 +157,11 @@ public class DisplayModelManager {
                 ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
                 User user = timeBook.getPersonList().getUser();
-                Role userRole = Role.emptyRole();
+                Role userRole = group.getUserRole();
 
                 //Add user schedule.
-                personSchedules.add(generatePersonSchedule(groupName.toString(), time.plusDays(h * 7), user, userRole));
+                personSchedules.add(generatePersonSchedule(groupName.toString(),
+                        now.plusDays(h * DAYS_OF_A_WEEK), user, userRole));
 
                 //Add other schedules.
                 for (int i = 0; i < personIds.size(); i++) {
@@ -163,12 +170,13 @@ public class DisplayModelManager {
                     if (role == null) {
                         role = Role.emptyRole();
                     }
-                    PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(), time.plusDays(h * 7),
+                    PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(),
+                            now.plusDays(h * DAYS_OF_A_WEEK),
                             person, role);
                     personSchedules.add(personSchedule);
                 }
 
-                FreeSchedule freeSchedule = generateFreeSchedule(personSchedules);
+                FreeSchedule freeSchedule = generateFreeSchedule(personSchedules, now);
                 combinedMonthsSchedules.put(h, personSchedules);
                 freeScheduleForMonth.add(freeSchedule);
             }
@@ -193,7 +201,7 @@ public class DisplayModelManager {
     /**
      * Updates the side panel display of type.
      *
-     * @param type of side panel display to be updated
+     * @param type     of side panel display to be updated
      * @param timeBook data
      */
     public void updateSidePanelDisplay(SidePanelDisplayType type, TimeBook timeBook) {
@@ -241,9 +249,9 @@ public class DisplayModelManager {
      * Generates the PersonSchedule of a Person.
      *
      * @param scheduleName name of the schedule
-     * @param now current time
-     * @param person of the schedule
-     * @param role role of the person
+     * @param now          current time
+     * @param person       of the schedule
+     * @param role         role of the person
      * @return PersonSchedule
      */
     private PersonSchedule generatePersonSchedule(String scheduleName, LocalDateTime now, Person person, Role role) {
@@ -253,7 +261,7 @@ public class DisplayModelManager {
         Schedule personSchedule = person.getSchedule();
         ArrayList<Event> events = personSchedule.getEvents();
 
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 1; i <= DAYS_OF_A_WEEK; i++) {
             scheduleDisplay.put(DayOfWeek.of(i), new ArrayList<>());
         }
 
@@ -271,9 +279,10 @@ public class DisplayModelManager {
                 Venue currentVenue = currentTimeslot.getVenue();
 
                 //Checks to see if the currentStartTime is within the upcoming 7 days.
-                if (now.toLocalDate().plusDays(7).isAfter(currentStartTime.toLocalDate())
+                if (now.toLocalDate().plusDays(DAYS_OF_A_WEEK).isAfter(currentStartTime.toLocalDate())
                         && now.toLocalDate().minusDays(1).isBefore(currentStartTime.toLocalDate())
-                        && startTime.isBefore(currentStartTime.toLocalTime())
+                        && (startTime.isBefore(currentStartTime.toLocalTime())
+                        || startTime.compareTo(currentStartTime.toLocalTime()) == 0)
                         && endTime.isAfter(currentStartTime.toLocalTime())) {
 
                     PersonTimeslot timeslot = new PersonTimeslot(
@@ -300,15 +309,24 @@ public class DisplayModelManager {
      * @param personSchedules to generate the free schedule from
      * @return FreeSchedule
      */
-    private FreeSchedule generateFreeSchedule(ArrayList<PersonSchedule> personSchedules) {
+    private FreeSchedule generateFreeSchedule(ArrayList<PersonSchedule> personSchedules, LocalDateTime now) {
 
         HashMap<DayOfWeek, ArrayList<FreeTimeslot>> freeSchedule = new HashMap<>();
 
         int idCounter = 1;
 
-        for (int i = 1; i <= 7; i++) {
+        int currentDay = now.getDayOfWeek().getValue();
 
-            freeSchedule.put(DayOfWeek.of(i), new ArrayList<>());
+        for (int i = currentDay; i <= DAYS_OF_A_WEEK + currentDay - 1; i++) {
+
+            int day = i;
+            if (i > 7) {
+                day -= 7;
+            }
+
+            System.out.println("Day test: " + DayOfWeek.of(day).toString());
+
+            freeSchedule.put(DayOfWeek.of(day), new ArrayList<>());
 
             LocalTime currentTime = startTime;
             ArrayList<String> lastVenues = new ArrayList<>();
@@ -330,7 +348,7 @@ public class DisplayModelManager {
                 // loop through each person
                 for (int j = 0; j < personSchedules.size(); j++) {
                     ArrayList<PersonTimeslot> timeslots = personSchedules.get(j)
-                            .getScheduleDisplay().get(DayOfWeek.of(i));
+                            .getScheduleDisplay().get(DayOfWeek.of(day));
 
                     // loop through each timeslot
                     for (int k = 0; k < timeslots.size(); k++) {
@@ -353,26 +371,29 @@ public class DisplayModelManager {
                 } else {
                     if (newFreeStartTime != null) {
 
-                        ArrayList<String> temp = new ArrayList<>(lastVenues);
-                        for (int arr = 0; arr < temp.size(); arr++) {
-                            if (temp.get(arr) == null) {
-                                temp.remove(arr);
-                                arr--;
+                        if (newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
+                            ArrayList<String> temp = new ArrayList<>(lastVenues);
+                            for (int arr = 0; arr < temp.size(); arr++) {
+                                if (temp.get(arr) == null) {
+                                    temp.remove(arr);
+                                    arr--;
+                                }
                             }
+
+                            ClosestCommonLocationData closestCommonLocationData =
+                                    gmapsModelManager.closestLocationData(temp);
+
+                            freeSchedule.get(DayOfWeek.of(day))
+                                    .add(new FreeTimeslot(
+                                            idCounter,
+                                            new ArrayList<>(lastVenues),
+                                            closestCommonLocationData,
+                                            newFreeStartTime,
+                                            currentTime));
+
+                            idCounter++;
                         }
 
-                        ClosestCommonLocationData closestCommonLocationData =
-                                gmapsModelManager.closestLocationData(temp);
-
-                        freeSchedule.get(DayOfWeek.of(i))
-                                .add(new FreeTimeslot(
-                                        idCounter,
-                                        new ArrayList<>(lastVenues),
-                                        closestCommonLocationData,
-                                        newFreeStartTime,
-                                        currentTime));
-
-                        idCounter++;
                         newFreeStartTime = null;
                     }
                     lastVenues = new ArrayList<>(currentLastVenues);
@@ -382,24 +403,27 @@ public class DisplayModelManager {
                 if (currentTime.equals(endTime)) {
                     if (!isClash) {
 
-                        ArrayList<String> temp = new ArrayList<>(lastVenues);
-                        for (int arr = 0; arr < temp.size(); arr++) {
-                            if (temp.get(arr) == null) {
-                                temp.remove(arr);
-                                arr--;
+                        if (newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
+                            ArrayList<String> temp = new ArrayList<>(lastVenues);
+                            for (int arr = 0; arr < temp.size(); arr++) {
+                                if (temp.get(arr) == null) {
+                                    temp.remove(arr);
+                                    arr--;
+                                }
                             }
-                        }
-                        ClosestCommonLocationData closestCommonLocationData =
-                                gmapsModelManager.closestLocationData(temp);
+                            ClosestCommonLocationData closestCommonLocationData =
+                                    gmapsModelManager.closestLocationData(temp);
 
-                        freeSchedule.get(DayOfWeek.of(i))
-                                .add(new FreeTimeslot(
-                                        idCounter,
-                                        new ArrayList<>(lastVenues),
-                                        closestCommonLocationData,
-                                        newFreeStartTime,
-                                        currentTime));
-                        idCounter++;
+                            freeSchedule.get(DayOfWeek.of(day))
+                                    .add(new FreeTimeslot(
+                                            idCounter,
+                                            new ArrayList<>(lastVenues),
+                                            closestCommonLocationData,
+                                            newFreeStartTime,
+                                            currentTime));
+                            idCounter++;
+                        }
+
                     }
                     break;
                 }
@@ -409,5 +433,9 @@ public class DisplayModelManager {
         }
 
         return new FreeSchedule(freeSchedule);
+    }
+
+    public ScheduleWindowDisplayType getState() {
+        return scheduleWindowDisplay.getScheduleWindowDisplayType();
     }
 }

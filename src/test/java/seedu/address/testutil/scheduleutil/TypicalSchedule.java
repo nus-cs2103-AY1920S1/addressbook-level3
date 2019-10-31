@@ -1,7 +1,6 @@
 package seedu.address.testutil.scheduleutil;
 
 import seedu.address.model.person.PersonId;
-import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Schedule;
 
@@ -18,12 +17,9 @@ public class TypicalSchedule {
      */
     public static Schedule generateTypicalSchedule(PersonId personId) throws EventClashException {
         Schedule schedule = new Schedule(personId);
-        try {
-            schedule.addEvent(TypicalEvents.generateTypicalEvent1());
-            schedule.addEvent(TypicalEvents.generateTypicalEvent2());
-        } catch (DuplicateEventException e) {
-            e.printStackTrace();
-        }
+        schedule.addEvent(TypicalEvents.generateTypicalEvent1());
+        schedule.addEvent(TypicalEvents.generateTypicalEvent2());
+
         return schedule;
     }
 

@@ -16,6 +16,7 @@ import seedu.address.logic.commands.AddToGroupCommand;
 import seedu.address.logic.commands.ClosestLocationCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DeleteFromGroupCommand;
 import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditGroupCommand;
@@ -175,6 +176,9 @@ public class TimeBookParser {
 
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
+
+        case DeleteFromGroupCommand.COMMAND_WORD:
+            return new DeleteFromGroupCommandParser().parse(arguments);
 
 
         default:

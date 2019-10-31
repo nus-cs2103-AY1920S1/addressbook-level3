@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.time.LocalDateTime;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -16,7 +18,8 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class DeletePersonCommand extends Command {
     public static final String COMMAND_WORD = "deleteperson";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " NAME";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + PREFIX_NAME + "NAME";
 
     public static final String MESSAGE_SUCCESS = "Delete person success: %s deleted";
     public static final String MESSAGE_FAILURE = "Unable to delete person: %s";
@@ -37,7 +40,7 @@ public class DeletePersonCommand extends Command {
             model.deletePerson(name);
 
             // update main window display
-            model.updateScheduleWindowDisplay(new ScheduleWindowDisplay());
+            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.TABS);

@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
+import java.time.LocalDateTime;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
@@ -16,7 +18,8 @@ import seedu.address.model.group.exceptions.GroupNotFoundException;
 public class DeleteGroupCommand extends Command {
     public static final String COMMAND_WORD = "deletegroup";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_GROUPNAME + " GROUPNAME";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + PREFIX_GROUPNAME + "GROUP_NAME";
 
     public static final String MESSAGE_SUCCESS = "Delete group success: %s deleted";
     public static final String MESSAGE_FAILURE = "Unable to delete group: %s";
@@ -38,7 +41,7 @@ public class DeleteGroupCommand extends Command {
             model.deleteGroup(groupName);
 
             // update main window display
-            model.updateScheduleWindowDisplay(new ScheduleWindowDisplay());
+            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.TABS);

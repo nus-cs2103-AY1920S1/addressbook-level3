@@ -309,11 +309,29 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isScroll()) {
+                handleScroll();
+                return commandResult;
+            }
+
+            if (commandResult.isSwitchTabs()) {
+                handleTabSwitch();
+                return commandResult;
+            }
+
+            if (commandResult.isToggleNextWeek()) {
+                scheduleViewManager.toggleNext();
+                handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
+                return commandResult;
+            }
+
             ScheduleWindowDisplay scheduleWindowDisplay = logic.getMainWindowDisplay();
             ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
             if (ScheduleViewManager.getInstanceOf(scheduleWindowDisplay) != null) {
                 scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
             }
+
             switch(displayType) {
             case PERSON:
                 //There is only 1 schedule in the scheduleWindowDisplay
@@ -331,7 +349,7 @@ public class MainWindow extends UiPart<Stage> {
                         scheduleViewManager.getColors()).getRoot(), SidePanelDisplayType.GROUP);
                 break;
             case DEFAULT:
-                handleTabSwitch();
+                // do nothing
                 break;
             case HOME:
                 handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
@@ -357,19 +375,23 @@ public class MainWindow extends UiPart<Stage> {
                 handleExport(scheduleWindowDisplay);
             }
 
-            if (commandResult.isScroll()) {
+            /*if (commandResult.isScroll()) {
                 handleScroll();
-            }
+            }*/
+
+            /*if (commandResult.isSwitchTabs()) {
+                handleTabSwitch();
+            }*/
 
             if (commandResult.isPopUp()) {
                 LocationsView locationsView = new LocationsView(commandResult.getLocationData());
                 new LocationPopup(locationsView.getRoot()).show();
             }
 
-            if (commandResult.isToggleNextWeek()) {
+            /*if (commandResult.isToggleNextWeek()) {
                 scheduleViewManager.toggleNext();
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
-            }
+            }*/
 
             return commandResult;
         } catch (CommandException | ParseException e) {

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +16,7 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.Role;
+import seedu.address.model.mapping.exceptions.AlreadyInGroupException;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -26,19 +28,22 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class AddToGroupCommand extends Command {
     public static final String COMMAND_WORD = "addtogroup";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " NAME "
-            + PREFIX_GROUPNAME + " GROUPNAME";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + PREFIX_NAME + "NAME" + " "
+            + PREFIX_GROUPNAME + "GROUP_NAME" + " "
+            + "[" + PREFIX_ROLE + "ROLE]";
 
-    public static final String MESSAGE_SUCCESS = "Add to group success: %s";
+    public static final String MESSAGE_SUCCESS = "Add to group success: %s added to %s";
     public static final String MESSAGE_FAILURE = "Unable to add person to group: %s";
 
+    public static final String MESSAGE_UPDATED_ROLE = "Role updated to %s";
     public static final String MESSAGE_DUPLICATE = "Duplicate Mapping";
     public static final String MESSAGE_PERSON_NOT_FOUND = "Unable to find person";
     public static final String MESSAGE_GROUP_NOT_FOUND = "Unable to find group";
 
-    public final Name name;
-    public final GroupName groupName;
-    public final Role role;
+    private final Name name;
+    private final GroupName groupName;
+    private final Role role;
 
     public AddToGroupCommand(Name name, GroupName groupName, Role role) {
         requireNonNull(name);
@@ -70,7 +75,6 @@ public class AddToGroupCommand extends Command {
         PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId(), role);
 
         try {
-
             model.addPersonToGroupMapping(mapping);
 
             // updates main window
@@ -80,10 +84,17 @@ public class AddToGroupCommand extends Command {
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, mapping.toString()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                    person.getName().toString(), group.getGroupName().toString()));
 
         } catch (DuplicateMappingException e) {
             return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE));
+        } catch (AlreadyInGroupException e) {
+
+            model.updateScheduleWindowDisplay(group.getGroupName(),
+                    LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+
+            return new CommandResult(String.format(MESSAGE_UPDATED_ROLE, mapping.getRole().toString()));
         }
 
     }

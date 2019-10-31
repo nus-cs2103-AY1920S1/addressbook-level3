@@ -3,7 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -45,7 +47,11 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy:HHmm");
+    //private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy:HHmm");
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -315,10 +321,30 @@ public class ParserUtil {
     public static Timeslot parseTimeslot(String timeslot) {
         try {
             String[] tokens = timeslot.split("-");
-            LocalDateTime startTime = LocalDateTime.parse(tokens[0], DATE_TIME_FORMATTER);
-            LocalDateTime endTime = LocalDateTime.parse(tokens[1], DATE_TIME_FORMATTER);
-            Venue venue = new Venue(tokens[2].trim());
-            return new Timeslot(startTime, endTime, venue);
+
+            if (tokens.length != 3 && tokens.length != 4) {
+                return null;
+            }
+
+            LocalDate date = LocalDate.parse(tokens[0].trim(), DATE_FORMATTER);
+            LocalTime startTime = LocalTime.parse(tokens[1].trim(), TIME_FORMATTER);
+            LocalTime endTime = LocalTime.parse(tokens[2].trim(), TIME_FORMATTER);
+
+            /*LocalDateTime startTime = LocalDateTime.parse(tokens[0], DATE_TIME_FORMATTER);
+            LocalDateTime endTime = LocalDateTime.parse(tokens[1], DATE_TIME_FORMATTER);*/
+
+            if (endTime.isBefore(startTime) || endTime.compareTo(startTime) == 0) {
+                return null;
+            }
+
+            Venue venue;
+            if (tokens.length == 4) {
+                venue = new Venue(tokens[3].trim());
+            } else {
+                venue = Venue.emptyVenue();
+            }
+
+            return new Timeslot(LocalDateTime.of(date, startTime), LocalDateTime.of(date, endTime), venue);
         } catch (DateTimeParseException e) {
             return null;
         }

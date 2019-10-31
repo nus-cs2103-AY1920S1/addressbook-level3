@@ -21,8 +21,9 @@ public class DeleteEventCommand extends Command {
     public static final String COMMAND_WORD = "deleteevent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " "
-            + PREFIX_NAME + " PERSON_NAME" + " "
-            + PREFIX_EVENTNAME + "EVENTNAME";
+            + "[" + PREFIX_NAME + " PERSON_NAME]" + " "
+            + PREFIX_EVENTNAME + "EVENT_NAME"
+            + "\n" + "Note: Omitting PERSON_NAME will delete event from user";
 
     public static final String MESSAGE_SUCCESS = "Delete event success: %s deleted";
     public static final String MESSAGE_FAILURE = "Unable to delete event: %s";

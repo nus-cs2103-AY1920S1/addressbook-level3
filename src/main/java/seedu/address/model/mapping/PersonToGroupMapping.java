@@ -9,7 +9,7 @@ import seedu.address.model.person.PersonId;
 public class PersonToGroupMapping {
     private final GroupId groupId;
     private final PersonId personId;
-    private final Role role;
+    private Role role;
 
     public PersonToGroupMapping(PersonId personId, GroupId groupId) {
         this.groupId = groupId;
@@ -33,6 +33,10 @@ public class PersonToGroupMapping {
 
     public Role getRole() {
         return this.role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     /**

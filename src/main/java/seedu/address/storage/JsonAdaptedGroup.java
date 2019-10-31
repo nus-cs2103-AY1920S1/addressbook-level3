@@ -9,6 +9,7 @@ import seedu.address.model.group.GroupDescription;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
+import seedu.address.model.mapping.Role;
 
 /**
  * Constructs a {@code JsonAdaptedGroup} with the given Group details.
@@ -20,6 +21,7 @@ public class JsonAdaptedGroup {
     private final String groupName;
     private final String groupDescription;
     private final String groupRemark;
+    private final String userRole;
 
     /**
      * Constructs a {@code JsonAdaptedGroup} with the given Group details.
@@ -28,12 +30,14 @@ public class JsonAdaptedGroup {
     public JsonAdaptedGroup(@JsonProperty("groupId") String groupId,
                             @JsonProperty("groupName") String groupName,
                             @JsonProperty("groupDescription") String groupDescription,
-                            @JsonProperty("groupRemark") String groupRemark) {
+                            @JsonProperty("groupRemark") String groupRemark,
+                            @JsonProperty("userRole") String userRole) {
 
         this.groupId = groupId;
         this.groupName = groupName;
         this.groupDescription = groupDescription;
         this.groupRemark = groupRemark;
+        this.userRole = userRole;
     }
 
     /**
@@ -44,6 +48,7 @@ public class JsonAdaptedGroup {
         this.groupName = source.getGroupName().toString();
         this.groupDescription = source.getGroupDescription().toString();
         this.groupRemark = source.getGroupRemark().toString();
+        this.userRole = source.getUserRole().toString();
     }
 
 
@@ -77,7 +82,13 @@ public class JsonAdaptedGroup {
         }
         final GroupRemark modelGroupRemark = new GroupRemark(groupRemark);
 
-        return new Group(modelGroupId, modelGroupName, modelGroupDescription, modelGroupRemark);
+        if (userRole == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Role.class.getSimpleName()));
+        }
+        final Role modelUserRole = new Role(userRole);
+
+        return new Group(modelGroupId, modelGroupName, modelGroupDescription, modelGroupRemark, modelUserRole);
     }
 
 }

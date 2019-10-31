@@ -28,6 +28,7 @@ import seedu.address.model.group.exceptions.NoGroupFieldsEditedException;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.mapping.Role;
+import seedu.address.model.mapping.exceptions.AlreadyInGroupException;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.module.AcadYear;
@@ -52,7 +53,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.websocket.Cache;
-
 
 /**
  * Represents the in-memory model of the address book data.
@@ -209,6 +209,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person getUser() {
+        return personList.getUser();
+    }
+
+    @Override
     public Person addPerson(PersonDescriptor personDescriptor) throws DuplicatePersonException {
         Person isAdded = this.personList.addPerson(personDescriptor);
         return isAdded;
@@ -356,7 +361,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addPersonToGroupMapping(PersonToGroupMapping mapping) throws DuplicateMappingException {
+    public void addPersonToGroupMapping(PersonToGroupMapping mapping)
+            throws DuplicateMappingException, AlreadyInGroupException {
         personToGroupMappingList.addPersonToGroupMapping(mapping);
     }
 
@@ -428,14 +434,12 @@ public class ModelManager implements Model {
         displayModelManager.updateSidePanelDisplay(type, timeBook);
     }
 
-    @Override
-    public Person getUser() {
-        return personList.getUser();
-    }
-
-
     public void initialiseDefaultWindowDisplay() {
         displayModelManager.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME, timeBook);
+    }
+
+    public ScheduleWindowDisplayType getState() {
+        return displayModelManager.getState();
     }
 
     //=========== Suggesters =============================================================
