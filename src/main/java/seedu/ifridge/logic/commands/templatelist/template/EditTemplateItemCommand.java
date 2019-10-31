@@ -35,7 +35,7 @@ public class EditTemplateItemCommand extends Command {
             + "by the index number used in the displayed template list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_ITEM_INDEX + "ITEMINDEX"
+            + PREFIX_ITEM_INDEX + "ITEMINDEX "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT]\n"
             + "Example: tlist template" + COMMAND_WORD + " 1 " + PREFIX_ITEM_INDEX + " 1 " + PREFIX_NAME + "Whole Milk";

@@ -36,13 +36,12 @@ public class EditTemplateItemCommandParser implements Parser<EditTemplateItemCom
         Index templateIndex;
         Index itemIndex;
 
-        try {
-            templateIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ITEM_INDEX) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditTemplateItemCommand.MESSAGE_USAGE), pe);
+                    EditTemplateItemCommand.MESSAGE_USAGE));
         }
 
+        templateIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         itemIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ITEM_INDEX).get());
         EditTemplateItemDescriptor editTemplateItemDescriptor = new EditTemplateItemDescriptor();
 
