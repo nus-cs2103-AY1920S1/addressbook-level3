@@ -310,15 +310,17 @@ public class ModelManager implements Model {
 
     @Override
     public Tag createOrFindTag(Tag tag) {
-        Optional<Tag> foundTag = tagManager.findTag(tag);
-
-        if (foundTag.isPresent()) {
-            return foundTag.get();
+        if (tagManager.hasTag(tag)) {
+            return findTag(tag).get();
         }
 
         tagManager.addTag(tag);
-
         return tag;
+    }
+
+    @Override
+    public Optional<Tag> findTag(Tag tag) {
+        return tagManager.findTag(tag);
     }
     //========================================================================================================
 

@@ -39,6 +39,16 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code sentence} contains the {@code string}.
+     *   Ignores case.
+     * @param sentence cannot be null
+     * @param string cannot be null, cannot be empty
+     */
+    public static boolean containsIgnoreCase(String sentence, String string) {
+        return sentence.toLowerCase().contains(string.toLowerCase());
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {

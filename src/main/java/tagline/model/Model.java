@@ -244,6 +244,12 @@ public interface Model {
     Tag createOrFindTag(Tag tag);
 
     /**
+     * Find and returns optional {@code Tag} from TagManager if exists.
+     * Returns empty Optional otherwise.
+     */
+    Optional<Tag> findTag(Tag tag);
+
+    /**
      * Returns an unmodifiable copy of the filtered group list with a set predicate.
      */
     ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate);
