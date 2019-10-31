@@ -3,10 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SORTBY;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
+
+import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.note.Note;
 import seedu.address.model.note.SortByCond;
 
 
@@ -19,12 +21,12 @@ public class SortNoteCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
     public static final String DATEMODIFIED = "DateModified";
-    public static final String DATECREATED = "DateCreated";
+    public static final String DATEADDED = "DateAdded";
     public static final String NUMOFACCESS = "NumOfAccess";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the notes "
             + "by the condition given by the user. \n "
             + "Parameters: "
-        + "[" + PREFIX_SORTBY + DATEMODIFIED + " or " + DATECREATED + " or " + NUMOFACCESS + " ] "
+        + "[" + PREFIX_SORTBY + DATEMODIFIED + " or " + DATEADDED + " or " + NUMOFACCESS + " ] "
             + "Example: " + COMMAND_WORD + " " + PREFIX_SORTBY + "DateModified";
 
     public static final String MESSAGE_SORT_NOTE_SUCCESS = "Sorted Note by: %1$s";
@@ -44,9 +46,10 @@ public class SortNoteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.commitNote();
+        Predicate<Note> notePredicate = model.getFilteredNoteListPred();
         model.editNoteSortByCond(sortByCond);
         model.sortNoteBook();
-        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        model.updateFilteredNoteList(notePredicate);
         return new CommandResult(String.format(MESSAGE_SORT_NOTE_SUCCESS, sortByCond.sortByCond));
     }
 

@@ -106,13 +106,8 @@ public class Note {
         if (otherNote == this) {
             return true;
         }
-
         return otherNote != null
-                && otherNote.getTitle().equals(getTitle())
-                && otherNote.getDescription().equals(getDescription())
-                && otherNote.getContent().equals(getContent());
-
-
+                && otherNote.getTitle().equals(getTitle());
     }
 
     /**

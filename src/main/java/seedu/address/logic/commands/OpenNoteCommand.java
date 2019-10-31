@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.List;
 import java.util.Set;
@@ -23,11 +22,11 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing person in the address book.
  */
-public class ReadNoteCommand extends Command {
+public class OpenNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "read";
+    public static final String COMMAND_WORD = "open";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads the content of the note identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Opens the note identified "
             + "by the index number used in the displayed note list. "
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
@@ -36,7 +35,7 @@ public class ReadNoteCommand extends Command {
 
     private final Index targetIndex;
 
-    public ReadNoteCommand(Index targetIndex) {
+    public OpenNoteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -52,10 +51,10 @@ public class ReadNoteCommand extends Command {
         //TODO: assert here to ensure updated note is different from any other note in the list
         model.setNote(noteToRead, updatedNote);
         model.sortNoteBook();
-        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        Index updatedIndex = model.getNoteIndex(updatedNote);
         return CommandResult.builder("Note opened on the right panel.")
-                .setObject(noteToRead)
-                .setIndex(targetIndex)
+                .setObject(updatedNote)
+                .setIndex(updatedIndex)
                 .read()
                 .build();
     }
@@ -63,8 +62,8 @@ public class ReadNoteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadNoteCommand // instanceof handles nulls
-                && targetIndex.equals(((ReadNoteCommand) other).targetIndex)); // state check
+                || (other instanceof OpenNoteCommand // instanceof handles nulls
+                && targetIndex.equals(((OpenNoteCommand) other).targetIndex)); // state check
     }
 
     /**

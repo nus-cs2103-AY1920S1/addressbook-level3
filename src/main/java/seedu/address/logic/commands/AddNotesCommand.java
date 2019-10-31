@@ -27,7 +27,7 @@ public class AddNotesCommand extends Command {
             + PREFIX_CONTENT + "CONTENT";
 
     public static final String MESSAGE_SUCCESS = "New note added: %1$s";
-    public static final String MESSAGE_DUPLICATE_NOTE = "This note title already exists in the note book";
+    public static final String MESSAGE_DUPLICATE_NOTE = "A note with this title already exists in the note book";
 
     private final Note toAdd;
 

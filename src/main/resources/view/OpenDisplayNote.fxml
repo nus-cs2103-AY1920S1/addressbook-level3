@@ -21,10 +21,10 @@
        <RowConstraints maxHeight="33.0" minHeight="10.0" prefHeight="28.0" valignment="CENTER" vgrow="ALWAYS" />
      </rowConstraints>
       <children>
-         <Label prefHeight="28.0" prefWidth="74.0" style="-fx-border-color: #CD853F#CD853F; -fx-background-color: #CD853F#CD853F;" text="Title" textFill="WHITE" />
-            <TextField fx:id="noteTitle" prefHeight="27.0" prefWidth="279.0" styleClass="cell_big_label" GridPane.columnIndex="1" />
-            <TextField fx:id="noteDescription" prefHeight="34.0" prefWidth="248.0" styleClass="cell_big_label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         <Label prefHeight="28.0" prefWidth="74.0" style="-fx-border-color: #CD853F#CD853F; -fx-background-color: #CD853F#CD853F;" text="Description" textFill="WHITE" GridPane.rowIndex="1" />
+         <Label minHeight="28.0" minWidth="74.0" prefHeight="28.0" prefWidth="74.0" style="-fx-border-color: #CD853F#CD853F; -fx-background-color: #CD853F#CD853F;" text="Title" textFill="WHITE" />
+            <TextField fx:id="noteTitle" minHeight="27.0" minWidth="279.0" prefHeight="27.0" prefWidth="279.0" styleClass="cell_big_label" GridPane.columnIndex="1" />
+            <TextField fx:id="noteDescription" minHeight="27.0" minWidth="279.0" prefHeight="27.0" prefWidth="279.0" styleClass="cell_big_label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         <Label minHeight="28.0" minWidth="74.0" prefHeight="28.0" prefWidth="74.0" style="-fx-border-color: #CD853F#CD853F; -fx-background-color: #CD853F#CD853F;" text="Description" textFill="WHITE" GridPane.rowIndex="1" />
       </children>
    </GridPane>
    <TitledPane animated="false" collapsible="false" prefHeight="137.0" prefWidth="382.0" text="Content">

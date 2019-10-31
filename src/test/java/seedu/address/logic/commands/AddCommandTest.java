@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.CardBook;
@@ -309,6 +310,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Predicate<Note> getFilteredNoteListPred() {
+            return null;
+        }
+
+        @Override
         public Path getNoteBookFilePath() {
             return null;
         }
@@ -331,6 +337,13 @@ public class AddCommandTest {
         public void redoNote() {
 
         }
+
+        @Override
+        public Index getNoteIndex(Note note) {
+            return null;
+        }
+
+        @Override
         public ObservableList<Password> getFilteredPasswordList() {
             return null;
         }

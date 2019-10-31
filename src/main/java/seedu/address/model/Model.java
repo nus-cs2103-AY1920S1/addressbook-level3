@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileStatus;
@@ -266,6 +267,8 @@ public interface Model {
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
 
+    Predicate<Note> getFilteredNoteListPred();
+
     Path getNoteBookFilePath();
 
     void setNoteBookFilePath(Path noteBookFilePath);
@@ -279,6 +282,8 @@ public interface Model {
     void redoNote();
 
     void commitNote();
+
+    Index getNoteIndex(Note note);
 
     ObservableList<Password> getFilteredPasswordList();
 

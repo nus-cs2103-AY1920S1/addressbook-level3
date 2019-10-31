@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -47,7 +46,7 @@ public class EditNoteCommand extends Command {
 
     public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited Note: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in the note book.";
+    public static final String MESSAGE_DUPLICATE_NOTE = "A note with this title already exists in the note book.";
 
     private final Index index;
     private final EditNoteDescriptor editNoteDescriptor;
@@ -83,8 +82,8 @@ public class EditNoteCommand extends Command {
         model.commitNote();
         model.setNote(noteToEdit, editedNote);
         model.sortNoteBook();
-        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
-        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
+        return CommandResult.builder(String.format("Note opened on the right panel.", editedNote))
+                .build();
     }
 
     /**

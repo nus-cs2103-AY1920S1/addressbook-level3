@@ -20,17 +20,18 @@ import seedu.address.model.note.Note;
 /**
  * Controller for a help page
  */
-public class ReadDisplayNote extends UiPart<Region> {
+public class OpenDisplayNote extends UiPart<Region> {
 
 
-    private static final Logger logger = LogsCenter.getLogger(ReadDisplayNote.class);
-    private static final String FXML = "ReadDisplayNote.fxml";
+    private static final Logger logger = LogsCenter.getLogger(OpenDisplayNote.class);
+    private static final String FXML = "OpenDisplayNote.fxml";
     private String content;
     private String title;
     private String description;
     private Logic logic;
     private Index index;
     private Note note;
+    private MainWindow mainWindow;
 
     @FXML
     private Button saveButton;
@@ -40,6 +41,7 @@ public class ReadDisplayNote extends UiPart<Region> {
 
     @FXML
     private Label labelDescription = new Label("Description");
+
     @FXML
     private TextField noteTitle;
 
@@ -55,7 +57,7 @@ public class ReadDisplayNote extends UiPart<Region> {
      * Creates a new readDisplayNote.
      *
      */
-    public ReadDisplayNote() {
+    public OpenDisplayNote() {
         super(FXML);
 
     }
@@ -72,6 +74,10 @@ public class ReadDisplayNote extends UiPart<Region> {
     }
     public void setLogic(Logic logic) {
         this.logic = logic;
+    }
+
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
 
     private void setNoteContent() {
@@ -103,9 +109,9 @@ public class ReadDisplayNote extends UiPart<Region> {
     @FXML
     private void saveNote() throws CommandException, ParseException,
             DictionaryException { //TODO:Dictionary Exception unneeded?
-        System.out.println(noteContent.getText());
+        System.out.println("noteTitle:" + noteTitle.getText());
 
-        logic.execute("edit " + index.getOneBased() + " c/"
+        mainWindow.executeCommand("edit " + index.getOneBased() + " c/"
                 + noteContent.getText()
                 + " d/" + noteDescription.getText() + " ti/" + noteTitle.getText()
         );
