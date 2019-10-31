@@ -20,7 +20,7 @@ import cs.f10.t1.nursetraverse.model.patient.exceptions.DuplicatePatientExceptio
  * Imports data from a .csv file.
  * Patients from the .csv are batch added into the AB.
  */
-public class ImportMergeCommand extends Command implements MutatorCommand {
+public class ImportMergeCommand extends MutatorCommand {
     public static final String COMMAND_WORD = "app-import-merge";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

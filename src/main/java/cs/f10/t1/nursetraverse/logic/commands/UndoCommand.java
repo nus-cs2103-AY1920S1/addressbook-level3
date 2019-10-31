@@ -69,8 +69,7 @@ public class UndoCommand extends MutatorCommand {
      */
     public static String makeResultString(List<HistoryRecord> undoneRecords) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < undoneRecords.size(); i++) {
-            HistoryRecord record = undoneRecords.get(i);
+        for (HistoryRecord record : undoneRecords) {
             sb.append(record.getCommand().getCommandText().orElse(record.toString()))
                     .append("\n");
         }
