@@ -10,7 +10,7 @@ import java.util.Set;
 
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.model.ApiInterface;
-import seedu.ezwatchlist.api.model.ApiMain;
+import seedu.ezwatchlist.api.model.ApiManager;
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
@@ -64,7 +64,7 @@ public class SearchCommand extends Command {
         isWatchedList = searchShowsHashMap.get(KEY_IS_WATCHED);
         isInternalList = searchShowsHashMap.get(KEY_IS_INTERNAL);
         try {
-            onlineSearch = new ApiMain();
+            onlineSearch = new ApiManager();
         } catch (OnlineConnectionException e) {
             e.printStackTrace();
         }
