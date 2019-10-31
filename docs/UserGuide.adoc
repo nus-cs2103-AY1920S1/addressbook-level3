@@ -347,8 +347,8 @@ add-course c/CS1010 c/CS2030 c/CS2040
 ----
 
 ==== Delete a course: `delete-course`
-Deletes the specified course from your list. You may also delete by the its
-id within the list.
+Deletes the specified course from your list. You may also delete a course
+by its **id** within the list.
 
 Format: `delete-course {c/COURSECODE | INDEX}`
 
