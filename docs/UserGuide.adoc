@@ -55,6 +55,7 @@ Format: `addCompetition n/COMPETITION NAME startDate/START DATE OF COMPETITION e
 Example:
 `addCompetition n/IPF World's startDate/12/02/1995 endDate/15/02/1995`
 
+
 ==== Deleting an existing competition: deleteCompetition
 Deletes the competition identified by the index number, used in Competition list (shown in the GUI)
 
@@ -62,6 +63,7 @@ Format: `deleteCompetition INDEX`
 
 Example:
 `deleteCompetition 1`
+
 
 ==== Editing information of a competition person: `editCompetition`
 Edits the details of the competition identified by the index number, used in the Competition list (shown in the GUI). 
@@ -86,10 +88,13 @@ Examples:
 
 * `editCompetition 1 endDate/15/02/1995`
 
+
 ==== Listing all records of current and past competitions: listCompetition
 This command has no parameters
 
 Format: listCompetition
+
+==
 
 === Commands related to person (athlete)
 Commands related to managing persons (athletes) outside of a competition setting shall be introduced now.
