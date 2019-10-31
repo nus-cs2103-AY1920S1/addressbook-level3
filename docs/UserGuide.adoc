@@ -46,7 +46,7 @@ Dive into LiBerry with our simple set-up guide a quick tour of our user interfac
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 .LiBerry's User Interface
-image::Ui.png[width="790"]
+image::Ui.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
