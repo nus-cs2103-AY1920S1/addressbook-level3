@@ -27,6 +27,8 @@ The Incident Management System (IMS) is a desktop app made for emergency call op
 .  Download the latest `ims.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Incident Manager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  You will first need to `register` an account, or `login` with one of the pre-made accounts.
+.  Logging in with an account that has the `Admin` tag gives you admin access to the system.
 +
 image::Ui.png[width="790"]
 +
@@ -48,6 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Some commands have admin restrictions. Admins accounts are identified by the `Admin` tag.
 ====
 
 === Viewing help : `help`
@@ -74,6 +77,10 @@ Format: `swap`
 
 [TIP]
 A user cannot access commands affecting entities not displayed in their current interface view.
+
+Account Management Interface:
+
+image::account.png[width="790"]
 
 // end::access[]
 
@@ -119,7 +126,7 @@ updates the name of the 2nd account to be `Betsy Crower` and clears all existing
 === Listing accounts : `list-a`
 
 Shows a list of all accounts registered in the incident Manager or those whose tags match any of the keywords if a keyword is specified. +
-Format: `list-p [KEYWORD] [MORE_KEYWORDS]`
+Format: `list-a [KEYWORD] [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `admin` will match `Admin`
