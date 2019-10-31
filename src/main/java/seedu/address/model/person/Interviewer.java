@@ -11,7 +11,7 @@ import seedu.address.model.tag.Tag;
  */
 public class Interviewer extends Person {
 
-    // Each availability is given as a string in this format DD/MM/YYYY HH:MM - HH:MM
+    // Each availability is given as a string in this format DD/MM/YYYY HH:MM-HH:MM
     private final List<Slot> availabilities;
     private final Department department;
     private final Email email;

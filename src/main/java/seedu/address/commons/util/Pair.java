@@ -23,6 +23,12 @@ public class Pair<H, T> {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this
+            || other instanceof Pair && head.equals(((Pair) other).head) && tail.equals(((Pair) other).tail);
+    }
+
+    @Override
     public String toString() {
         return String.format("(%s, %s)", head, tail);
     }

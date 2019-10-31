@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Slot;
-import seedu.address.testutil.SampleInterviewers;
+import seedu.address.testutil.SampleInterviewer;
 import seedu.address.testutil.SampleSchedules;
 
 public class ScheduleTest {
@@ -54,21 +54,21 @@ public class ScheduleTest {
     @Test
     public void hasInterviewer_existingInterviewer_true() {
         Schedule schedule = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer hazel = SampleInterviewers.getHazel();
+        Interviewer hazel = SampleInterviewer.getHazel();
         assertTrue(schedule.hasInterviewer(hazel));
     }
 
     @Test
     public void hasInterviewer_nonExistingInterviewer_false() {
         Schedule schedule = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer bernard = SampleInterviewers.getBernard();
+        Interviewer bernard = SampleInterviewer.getBernard();
         assertFalse(schedule.hasInterviewer(bernard));
     }
 
     @Test
     public void addInterviewer_oneValidAvailability_true() {
         Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer interviewer = SampleInterviewers.getInterviewerOneValidAvailability();
+        Interviewer interviewer = SampleInterviewer.getInterviewerOneValidAvailability();
 
         // Generate the expected Schedule
         Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
@@ -83,7 +83,7 @@ public class ScheduleTest {
     @Test
     public void addInterviewer_multipleValidAvailabilities_true() {
         Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer interviewer = SampleInterviewers.getInterviewerMultipleValidAvailabilities();
+        Interviewer interviewer = SampleInterviewer.getInterviewerMultipleValidAvailabilities();
 
         // Generate the expected Schedule
         Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
@@ -98,7 +98,7 @@ public class ScheduleTest {
     @Test
     public void addInterviewer_multipleInvalidAvailabilities_false() {
         Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer interviewer = SampleInterviewers.getInterviewerMultipleInvalidAvailabilities();
+        Interviewer interviewer = SampleInterviewer.getInterviewerMultipleInvalidAvailabilities();
         Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
 
         assertFalse(scheduleTest.addInterviewer(interviewer));
@@ -108,7 +108,7 @@ public class ScheduleTest {
     @Test
     public void addInterviewer_multipleAvailabilitiesSomeInvalid_true() {
         Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
-        Interviewer interviewer = SampleInterviewers.getInterviewerMultipleAvailabilitiesSomeInvalid();
+        Interviewer interviewer = SampleInterviewer.getInterviewerMultipleAvailabilitiesSomeInvalid();
 
         // Generate the expected Schedule
         Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();

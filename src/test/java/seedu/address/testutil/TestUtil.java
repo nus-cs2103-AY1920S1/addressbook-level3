@@ -6,8 +6,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.graph.IntervieweeVertex;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -65,5 +67,14 @@ public class TestUtil {
             tableCopy.add(rowCopy);
         }
         return tableCopy;
+    }
+
+    /**
+     * Fills up each item in the list given with a sublist.
+     */
+    public static void fillWithSubLists(List<List<IntervieweeVertex>> list, int size) {
+        for (int i = 0; i < size; i++) {
+            list.add(new LinkedList<>());
+        }
     }
 }

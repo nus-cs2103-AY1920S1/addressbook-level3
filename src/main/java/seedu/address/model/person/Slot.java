@@ -17,12 +17,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Represents an interview timeslot an {@code Interviewee} is allocated.
  */
-public class Slot {
+public class Slot implements Comparable<Slot> {
 
     public static final String STRING_FORMAT = "%s %s-%s";
     public static final String MESSAGE_CONSTRAINTS =
             "A slot should follow this format: " + String.format(STRING_FORMAT, "dd/mm/yyyy", "hh:mm", "hh:mm");
     public static final String DATETIME_PARSE_PATTERN = "dd/MM/yyyy HH:mm";
+    public static final String TIME_PARSE_PATTERN = "HH:mm";
     private static final Pattern SEPARATION_REGEX =
             Pattern.compile("(?<date>\\d{2}/\\d{2}/\\d{4}) (?<slot1>\\d{2}:\\d{2})-(?<slot2>\\d{2}:\\d{2})");
     private static final DateTimeFormatter parseFormatter =
@@ -107,4 +108,31 @@ public class Slot {
         return Objects.hash(date, start, end);
     }
 
+    /**
+     * Returns 0 if the date, starting time, and ending time of the this slot and those of @code{other} are equal.
+     * Returns 1 if the date, starting time or ending time of @code{other} is earlier than the date, starting time,
+     * ending time of this slot, otherwise returns -1.
+     */
+    @Override
+    public int compareTo(Slot other) {
+        String dateTimePattern = "%s %s";
+        String thisStart = String.format(dateTimePattern, date, start);
+        String otherStart = String.format(dateTimePattern, other.date, other.start);
+
+        ZonedDateTime s1 = ZonedDateTime.parse(thisStart, parseFormatter);
+        ZonedDateTime s2 = ZonedDateTime.parse(otherStart, parseFormatter);
+        int sComparison = s1.compareTo(s2);
+
+        if (sComparison > 0 || sComparison < 0) {
+            return sComparison;
+        } else {
+            String thisEnd = String.format(dateTimePattern, date, end);
+            String otherEnd = String.format(dateTimePattern, other.date, other.end);
+
+            ZonedDateTime e1 = ZonedDateTime.parse(thisEnd, parseFormatter);
+            ZonedDateTime e2 = ZonedDateTime.parse(otherEnd, parseFormatter);
+
+            return e1.compareTo(e2);
+        }
+    }
 }

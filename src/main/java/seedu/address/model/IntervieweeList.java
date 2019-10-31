@@ -73,6 +73,7 @@ public class IntervieweeList implements ReadAndWriteList<Interviewee> {
         return interviewees.asUnmodifiableObservableList();
     }
 
+
     /**
      * Replaces the contents of the interviewee list with {@code interviewees}.
      * {@code interviewees} must not contain duplicate interviewees.
@@ -87,6 +88,15 @@ public class IntervieweeList implements ReadAndWriteList<Interviewee> {
     private void resetData(ReadOnlyList<Interviewee> book) {
         requireNonNull(book);
         this.interviewees.setPersons(book.getEntityList());
+    }
+
+    /**
+     * Clears the allocated slot of all the interviewees
+     */
+    public void clearAllAllocatedSlots() {
+        for (Interviewee interviewee : interviewees) {
+            interviewee.clearAllocatedSlot();
+        }
     }
 
     @Override

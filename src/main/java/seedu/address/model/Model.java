@@ -222,6 +222,11 @@ public interface Model {
     GuiSettings getGuiSettings();
 
     /**
+     * Clears the allocated slot of all interviewees.
+     */
+    void clearAllAllocatedSlot();
+
+    /**
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
