@@ -77,10 +77,10 @@ image::tip.png[width = "20", float = "left"]
 
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `add u/USERNAME`, `USERNAME` is a parameter which can be used as `add u/User Doe`.
+* Items in square brackets are optional e.g `u/USERNAME [t/TAG]` can be used as `u/User Doe t/work` or as `n/User Doe`.
+* Items with `…`​ after them can be used multiple times until a limit including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Work`, `t/SocialMedia t/Personal` etc.
+* Parameters can be in any order e.g. if the command specifies `u/USERNAME p/PASSWORD`, `p/PASSWORD u/USERNAME` is also acceptable.
 * All index specified must be a positive number 1,2,3...
 ====
 
@@ -298,6 +298,8 @@ image::tip.png[width = "20", float = "left"]
 *Tip*
 
 * Instead of typing the file path, you can drag the file into the input field to easily append the file path. This also applies to other commands (e.g. `add`).
+* The app may freeze for some time if the file to be encrypted is large. Please do not force exit the app during encryption.
+* The app does not support encryption of files larger than 2GB.
 ====
 
 ====
@@ -308,6 +310,7 @@ image::warning.png[width = "20", float = "left"]
 
 * The `encrypt` command only alters the file content but does not set up additional access rights. In other words, it keeps your information secret but does not keep your files safe from malicious alteration or deletion.
 * If you wish to prevent alternation or deletion of files, please set up additional access rights using your operating system. SecureIT is not responsible for any data loss resulting from lack of access right settings.
+* If you are using Windows, please close the file before encryption.
 ====
 
 ==== Decrypting a file : `decrypt`
