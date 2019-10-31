@@ -4,11 +4,13 @@ import java.util.Comparator;
 import java.util.Optional;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
+import javafx.scene.layout.VBox;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 
@@ -30,11 +32,21 @@ public class ActivityCardFull extends UiPart<Region> {
     public final Activity activity;
 
     @FXML
-    private HBox cardPane;
+    private VBox labelPane1;
+    @FXML
+    private HBox labelPane2;
+    @FXML
+    private VBox labelPane3;
     @FXML
     private Label description;
     @FXML
     private Label name;
+    @FXML
+    private Label cost;
+    @FXML
+    private Label priority;
+    @FXML
+    private Label duration;
     @FXML
     private Label id;
     @FXML
@@ -53,9 +65,22 @@ public class ActivityCardFull extends UiPart<Region> {
     public ActivityCardFull(Activity activity, int displayedIndex, String description) {
         super(FXML);
         this.activity = activity;
-        this.description.setText(description);
         id.setText(displayedIndex + ". ");
         name.setText(activity.getName().toString());
+
+        if (description.equals("")) {
+            hideLabel(this.description);
+        } else {
+            this.description.setText(description);
+        }
+        if (activity.getCost().isPresent()) {
+            cost.setText("Cost: $" + activity.getCost().get());
+        } else {
+            hideLabel(cost);
+        }
+
+        priority.setText("Priority: " + activity.getPriority());
+        duration.setText("Duration: " + activity.getDuration() + "mins");
         address.setText("Address: " + activity.getAddress());
         activity.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
@@ -86,18 +111,24 @@ public class ActivityCardFull extends UiPart<Region> {
     }
 
     private void setEmptyTextForEntireContact() {
-        contactName.setText("");
-        contactPhone.setText("");
+        hideLabel(contactName);
+        hideLabel(contactPhone);
         setEmptyTextForContactAddress();
         setEmptyTextForContactEmail();
     }
 
     private void setEmptyTextForContactAddress() {
-        contactAddress.setText("");
+        hideLabel(contactAddress);
     }
 
     private void setEmptyTextForContactEmail() {
-        contactEmail.setText("");
+        hideLabel(contactEmail);
+    }
+
+    private void hideLabel(Control control) {
+        labelPane1.getChildren().remove(control);
+        labelPane2.getChildren().remove(control);
+        labelPane3.getChildren().remove(control);
     }
 
     @Override
