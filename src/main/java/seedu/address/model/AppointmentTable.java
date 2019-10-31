@@ -95,6 +95,9 @@ public class AppointmentTable {
         return this;
     }
 
+    /**
+     * Checks if the appointment already exists
+     */
     private boolean antiDuplicate(HashMap<String, Integer> check, String description, int days) {
         Iterator it = check.entrySet().iterator();
         while (it.hasNext()) {

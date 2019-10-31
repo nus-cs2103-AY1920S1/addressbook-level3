@@ -3,33 +3,32 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Adds a reminder to VISIT.
+ * Deletes an Appointment from VISIT.
  */
-public class ReminderCommand extends Command {
+public class DeleteAppointmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "reminder";
+    public static final String COMMAND_WORD = "removeappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Creates a new reminder for the user to keep track. "
+            + ": Deletes an appointment from VISIT. "
             + "Parameters: "
             + "[" + PREFIX_DAYS + "EXPIRY IN DAYS]...\n"
             + "Example: " + COMMAND_WORD + " "
             + "Two Point Hospital closed "
             + PREFIX_DAYS + "7";
 
-    public static final String MESSAGE_SUCCESS = "New reminder added: %s - %d day(s)";
+    public static final String MESSAGE_SUCCESS = "Appointment deleted.";
 
     private final String description;
     private final int days;
 
     /**
-     * Creates a ReminderCommand to add the specified {@code Reminder}
+     * Creates a DeleteAppointmentCommand to delete the specified {@code Appointment}
      */
-    public ReminderCommand(String description, int days) {
+    public DeleteAppointmentCommand(String description, int days) {
         requireNonNull(description);
 
         this.description = description;
@@ -37,10 +36,10 @@ public class ReminderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        model.addAppointment(0, description, days);
+        model.deleteAppointment(description, days);
         model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, description, days));
     }
@@ -48,8 +47,8 @@ public class ReminderCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReminderCommand // instanceof handles nulls
-                && description.equals(((ReminderCommand) other).description)
-                && days == ((ReminderCommand) other).days);
+                || (other instanceof DeleteAppointmentCommand // instanceof handles nulls
+                && description.equals(((DeleteAppointmentCommand) other).description)
+                && days == ((DeleteAppointmentCommand) other).days);
     }
 }

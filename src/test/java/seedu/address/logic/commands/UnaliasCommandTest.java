@@ -115,6 +115,11 @@ public class UnaliasCommandTest {
         }
 
         @Override
+        public void deleteAppointment(String description, int days) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String outputAppointments() {
             throw new AssertionError("This method should not be called.");
         }
