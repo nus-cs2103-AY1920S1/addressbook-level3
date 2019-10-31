@@ -59,16 +59,29 @@ public class Food {
             return true;
         }
 
-        if (!(other instanceof Food)) {
-            return false;
-        }
-
         return this.foodName.equals(other.foodName);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(foodName, calorie, gi, sugar, fat, foodType);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Food)) {
+            return false;
+        }
+        Food other = (Food) obj;
+        return foodName.equals(other.foodName)
+                && foodType.equals(other.foodType)
+                && calorie.equals(other.calorie)
+                && gi.equals(other.gi)
+                && sugar.equals(other.sugar)
+                && fat.equals(other.fat);
     }
 
     @Override
