@@ -3,7 +3,7 @@ package seedu.address.logic.parser.duties;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
@@ -50,7 +50,7 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ID,
-                        PREFIX_START, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES);
+                        PREFIX_START, PREFIX_END, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -64,12 +64,12 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
         }
 
         String startString = argMultimap.getValue(PREFIX_START).get();
-
-        Timing timing = ParserUtil.parseTiming(startString);
-
-        if (!timing.isValidTimingFromCurrentTime(timing.getStartTime(), timing.getEndTime())) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_TIMING, AddDutyShiftCommand.MESSAGE_USAGE));
+        Timing timing;
+        if (!arePrefixesPresent(argMultimap, PREFIX_END)) {
+            timing = ParserUtil.parseTiming(startString, null);
+        } else {
+            String endString = argMultimap.getValue(PREFIX_END).get();
+            timing = ParserUtil.parseTiming(startString, endString);
         }
 
         Optional<String> recursiveStringOptional = argMultimap.getValue(PREFIX_RECURSIVE);
@@ -101,7 +101,6 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
                     new CancelDutyShiftCommand(event));
         }
     }
-
 
     private List<Event> getRecEvents(Event event, String recursiveString, int times) {
         List<Event> eventList = new ArrayList<>();
