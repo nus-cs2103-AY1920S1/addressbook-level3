@@ -6,8 +6,8 @@ import static tagline.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tagline.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static tagline.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static tagline.testutil.TypicalContacts.ALICE;
-import static tagline.testutil.TypicalContacts.BOB;
+import static tagline.testutil.contact.TypicalContacts.ALICE;
+import static tagline.testutil.contact.TypicalContacts.BOB;
 
 import org.junit.jupiter.api.Test;
 

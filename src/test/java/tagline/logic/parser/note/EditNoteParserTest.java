@@ -16,7 +16,7 @@ import tagline.logic.commands.note.EditNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import tagline.model.note.Content;
 import tagline.model.note.NoteId;
-import tagline.testutil.EditNoteDescriptorBuilder;
+import tagline.testutil.note.EditNoteDescriptorBuilder;
 
 class EditNoteParserTest {
 

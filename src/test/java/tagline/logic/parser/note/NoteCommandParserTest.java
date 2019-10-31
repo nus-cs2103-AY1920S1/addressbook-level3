@@ -2,7 +2,7 @@
 package tagline.logic.parser.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tagline.testutil.NoteBuilder.DEFAULT_NOTEID;
+import static tagline.testutil.note.NoteBuilder.DEFAULT_NOTEID;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +11,8 @@ import tagline.logic.commands.note.DeleteNoteCommand;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
 import tagline.model.note.NoteIdCounter;
-import tagline.testutil.NoteBuilder;
-import tagline.testutil.NoteUtil;
+import tagline.testutil.note.NoteBuilder;
+import tagline.testutil.note.NoteUtil;
 
 class NoteCommandParserTest {
     private final NoteCommandParser parser = new NoteCommandParser();

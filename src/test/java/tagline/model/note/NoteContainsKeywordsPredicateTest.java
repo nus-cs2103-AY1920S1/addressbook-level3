@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.testutil.NoteBuilder;
+import tagline.testutil.note.NoteBuilder;
 
 public class NoteContainsKeywordsPredicateTest {
 

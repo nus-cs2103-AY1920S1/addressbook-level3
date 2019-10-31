@@ -12,7 +12,7 @@ import static tagline.logic.commands.group.GroupCommandTestUtil.VALID_GROUPNAME_
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.group.EditGroupCommand.EditGroupDescriptor;
-import tagline.testutil.EditGroupDescriptorBuilder;
+import tagline.testutil.group.EditGroupDescriptorBuilder;
 
 public class EditGroupDescriptorTest {
 

@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.logic.commands.CommandResult.ViewType;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
+import static tagline.testutil.group.TypicalGroups.MYSTIC_ARTS;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBook;
 
 import java.util.Collections;
 
@@ -31,7 +31,7 @@ class DeleteGroupCommandTest {
 
     private static final ViewType DELETE_GROUP_COMMAND_VIEW_TYPE = ViewType.GROUP_LIST;
     private Model model = new ModelManager(new AddressBook(), new NoteBook(),
-            getTypicalGroupBook(), new TagBook(), new UserPrefs());
+        getTypicalGroupBook(), new TagBook(), new UserPrefs());
 
     @Test
     public void constructor_nullGroup_throwsNullPointerException() {
@@ -45,10 +45,10 @@ class DeleteGroupCommandTest {
 
         // note, Deleting a Group will only say that the GroupName has been deleted unlike other commands
         String expectedMessage = String.format(DeleteGroupCommand.MESSAGE_KEYWORD_SUCCESS,
-                groupToDelete.getGroupName().value);
+            groupToDelete.getGroupName().value);
 
         Model expectedModel = new ModelManager(new AddressBook(), new NoteBook(),
-                model.getGroupBook(), new TagBook(), new UserPrefs());
+            model.getGroupBook(), new TagBook(), new UserPrefs());
         expectedModel.deleteGroup(groupToDelete);
 
         assertCommandSuccess(deleteGroupCommand, model, expectedMessage, DELETE_GROUP_COMMAND_VIEW_TYPE, expectedModel);

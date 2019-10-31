@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
 import tagline.model.contact.AddressBook;
@@ -51,13 +52,14 @@ public class ModelManager implements Model {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook
-                + ", note book: " + noteBook + ", group book" + groupBook
-                + " and user prefs " + userPrefs);
+            + ", note book: " + noteBook + ", group book: " + groupBook + ", tag book: " + tagBook
+            + " and user prefs " + userPrefs);
 
         contactManager = new ContactManager(addressBook);
         noteManager = new NoteManager(noteBook);
         groupManager = new GroupManager(groupBook);
         tagManager = new TagManager(tagBook);
+
         this.userPrefs = new UserPrefs(userPrefs);
     }
 
@@ -103,6 +105,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setAddressBookFilePath(Path addressBookFilePath) {
+        requireNonNull(addressBookFilePath);
+        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
     public void setNoteBookFilePath(Path noteBookFilePath) {
         requireNonNull(noteBookFilePath);
         userPrefs.setNoteBookFilePath(noteBookFilePath);
@@ -114,12 +122,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    @Override
     public void setGroupBookFilePath(Path groupBookFilePath) {
         requireNonNull(groupBookFilePath);
         userPrefs.setGroupBookFilePath(groupBookFilePath);
@@ -128,6 +130,17 @@ public class ModelManager implements Model {
     @Override
     public Path getGroupBookFilePath() {
         return userPrefs.getGroupBookFilePath();
+    }
+
+    @Override
+    public void setTagBookFilePath(Path tagBookFilePath) {
+        requireNonNull(tagBookFilePath);
+        userPrefs.setGroupBookFilePath(tagBookFilePath);
+    }
+
+    @Override
+    public Path getTagBookFilePath() {
+        return userPrefs.getTagBookFilePath();
     }
 
     //=========== AddressBook ================================================================================
@@ -306,7 +319,54 @@ public class ModelManager implements Model {
         return groupManager.getFilteredGroupListWithPredicate(predicate);
     }
 
-    //=========== TagBook ====================================================================================
+    //=========== TagBook ================================================================================
+
+    @Override
+    public void setTagBook(ReadOnlyTagBook tagBook) {
+        tagManager.setTagBook(tagBook);
+    }
+
+    @Override
+    public ReadOnlyTagBook getTagBook() {
+        return tagManager.getTagBook();
+    }
+
+    @Override
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return tagManager.hasTag(tag);
+    }
+
+    @Override
+    public void addTag(Tag tag) {
+        tagManager.addTag(tag);
+    }
+
+    @Override
+    public void deleteTag(Tag target) {
+        tagManager.deleteTag(target);
+    }
+
+    //=========== Filtered Tag List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Tag} backed by the internal list of
+     * {@code versionedTagBook}
+     */
+    @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return tagManager.getFilteredTagList();
+    }
+
+    @Override
+    public void updateFilteredTagList(Predicate<Tag> predicate) {
+        tagManager.updateFilteredTagList(predicate);
+    }
+
+    @Override
+    public ObservableList<Tag> getFilteredTagListWithPredicate(Predicate<Tag> predicate) {
+        return tagManager.getFilteredTagListWithPredicate(predicate);
+    }
 
     @Override
     public Tag createOrFindTag(Tag tag) {
@@ -339,9 +399,9 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return contactManager.equals(other.contactManager)
-                && noteManager.equals(other.noteManager)
-                && groupManager.equals(other.groupManager)
-                && userPrefs.equals(other.userPrefs);
+            && noteManager.equals(other.noteManager)
+            && groupManager.equals(other.groupManager)
+            && tagManager.equals(other.tagManager)
+            && userPrefs.equals(other.userPrefs);
     }
-
 }

@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.model.group.GroupModel.PREDICATE_SHOW_ALL_GROUPS;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalGroups.AVENGERS;
-import static tagline.testutil.TypicalGroups.WAKANDAN_ROYAL;
+import static tagline.testutil.group.TypicalGroups.AVENGERS;
+import static tagline.testutil.group.TypicalGroups.WAKANDAN_ROYAL;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import tagline.commons.core.GuiSettings;
 import tagline.model.UserPrefs;
-import tagline.testutil.GroupBookBuilder;
+import tagline.testutil.group.GroupBookBuilder;
 
 public class GroupManagerTest {
 

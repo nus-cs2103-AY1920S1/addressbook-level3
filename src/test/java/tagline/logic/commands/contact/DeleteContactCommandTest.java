@@ -1,4 +1,4 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,13 +8,12 @@ import static tagline.logic.commands.CommandTestUtil.NON_EXISTING_ID;
 import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.CommandResult.ViewType;
-import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
@@ -46,7 +45,7 @@ public class DeleteContactCommandTest {
         expectedModel.deleteContact(contactToDelete);
 
         assertCommandSuccess(deleteContactCommand, model, expectedMessage,
-                DELETE_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
+            DELETE_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 
     @Test
@@ -57,7 +56,7 @@ public class DeleteContactCommandTest {
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(),
-             new GroupBook(), new TagBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
         showNoContact(model);
@@ -66,7 +65,7 @@ public class DeleteContactCommandTest {
         // added this in, so delete contact will force contact to show all
         expectedModel.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         assertCommandSuccess(deleteContactCommand, model, expectedMessage,
-                DELETE_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
+            DELETE_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 
     @Test

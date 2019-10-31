@@ -1,5 +1,5 @@
 //@@author e0031374
-package tagline.testutil;
+package tagline.testutil.group;
 
 import tagline.model.group.Group;
 import tagline.model.group.GroupBook;
@@ -7,7 +7,7 @@ import tagline.model.group.GroupBook;
 /**
  * A utility class to help with building Groupbook objects.
  * Example usage: <br>
- *     {@code GroupBook ab = new GroupBookBuilder().withGroup(ULTRON).build();}
+ * {@code GroupBook ab = new GroupBookBuilder().withGroup(ULTRON).build();}
  */
 public class GroupBookBuilder {
 

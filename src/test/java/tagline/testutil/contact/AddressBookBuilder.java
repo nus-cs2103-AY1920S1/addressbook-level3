@@ -1,4 +1,4 @@
-package tagline.testutil;
+package tagline.testutil.contact;
 
 import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
@@ -6,7 +6,7 @@ import tagline.model.contact.Contact;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withContact("John", "Doe").build();}
+ * {@code AddressBook ab = new AddressBookBuilder().withContact("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 

@@ -13,6 +13,8 @@ import tagline.model.group.Group;
 import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
+import tagline.model.tag.Tag;
 
 /**
  * API of the Logic component
@@ -71,9 +73,25 @@ public interface Logic {
     ObservableList<Group> getFilteredGroupList();
 
     /**
+     * Returns the user prefs' tag book file path.
+     */
+    Path getTagBookFilePath();
+
+    /**
+     * Returns the tag book.
+     *
+     * @see tagline.model.Model#getTagBook()
+     */
+    ReadOnlyTagBook getTagBook();
+
+    /** Returns an unmodifiable view of the filtered list of tags */
+    ObservableList<Tag> getFilteredTagList();
+
+    /**
      * Returns the user prefs' group book file path.
      */
     Path getGroupBookFilePath();
+
     /**
      * Returns the user prefs' GUI settings.
      */

@@ -8,16 +8,17 @@ import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.logic.commands.group.GroupCommandTestUtil.DESC_HYDRA;
 import static tagline.logic.commands.group.GroupCommandTestUtil.DESC_SHIELD;
 import static tagline.logic.commands.group.GroupCommandTestUtil.VALID_GROUPNAME_SHIELD;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBookExistingMembers;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
+import static tagline.testutil.group.TypicalGroups.MYSTIC_ARTS;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBookExistingMembers;
 
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.group.EditGroupCommand.EditGroupDescriptor;
 import tagline.model.Model;
@@ -30,8 +31,8 @@ import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.group.MemberId;
 import tagline.model.note.NoteBook;
 import tagline.model.tag.TagBook;
-import tagline.testutil.EditGroupDescriptorBuilder;
-import tagline.testutil.GroupBuilder;
+import tagline.testutil.group.EditGroupDescriptorBuilder;
+import tagline.testutil.group.GroupBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
@@ -53,18 +54,18 @@ public class RemoveMemberFromGroupCommandTest {
 
         GroupBuilder groupInList = new GroupBuilder(lastGroup);
         Group editedGroup = groupInList
-                .removeMemberIds(removeThis)
-                .build();
+            .removeMemberIds(removeThis)
+            .build();
 
         EditGroupDescriptor descriptor = new EditGroupDescriptorBuilder()
-                .withMemberIds(removeThis).build();
+            .withMemberIds(removeThis).build();
         RemoveMemberFromGroupCommand editGroupCommand =
             new RemoveMemberFromGroupCommand(GroupNameEqualsKeywordPredicate.generatePredicate(lastGroup), descriptor);
 
         String expectedMessage = String.format(RemoveMemberFromGroupCommand.MESSAGE_REMOVE_MEMBER_SUCCESS, editedGroup);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new NoteBook(), new GroupBook(model.getGroupBook()), new TagBook(), new UserPrefs());
+            new NoteBook(), new GroupBook(model.getGroupBook()), new TagBook(), new UserPrefs());
         expectedModel.setGroup(lastGroup, editedGroup);
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
@@ -80,7 +81,7 @@ public class RemoveMemberFromGroupCommandTest {
         Group editedGroup = model.getFilteredGroupList().get(INDEX_FIRST.getZeroBased());
         RemoveMemberFromGroupCommand editGroupCommand =
             new RemoveMemberFromGroupCommand(GroupNameEqualsKeywordPredicate.generatePredicate(editedGroup),
-            new EditGroupDescriptor());
+                new EditGroupDescriptor());
 
         String expectedMessage = String.format(RemoveMemberFromGroupCommand.MESSAGE_REMOVE_MEMBER_SUCCESS, editedGroup);
 
@@ -126,7 +127,7 @@ public class RemoveMemberFromGroupCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(
             new AddMemberToGroupCommand(GroupNameEqualsKeywordPredicate.generatePredicate("HYDRA"),
-            copyDescriptor)));
+                copyDescriptor)));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(

@@ -1,4 +1,4 @@
-package tagline.testutil;
+package tagline.testutil.contact;
 
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
 import tagline.model.contact.Address;

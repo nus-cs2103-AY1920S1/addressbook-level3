@@ -12,7 +12,7 @@ import tagline.commons.exceptions.IllegalValueException;
 import tagline.commons.util.JsonUtil;
 import tagline.model.contact.AddressBook;
 import tagline.storage.contact.JsonSerializableAddressBook;
-import tagline.testutil.TypicalContacts;
+import tagline.testutil.contact.TypicalContacts;
 
 public class JsonSerializableAddressBookTest {
 

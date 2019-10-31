@@ -8,8 +8,8 @@ import static tagline.logic.commands.GroupCommandTestUtil.VALID_CONTACTID_HYDRA1
 import static tagline.logic.commands.GroupCommandTestUtil.VALID_CONTACTID_HYDRA2;
 import static tagline.logic.commands.GroupCommandTestUtil.VALID_GROUPDESCRIPTION_HYDRA;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalGroups.CHILDREN;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
+import static tagline.testutil.group.TypicalGroups.CHILDREN;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import tagline.model.group.exceptions.DuplicateGroupException;
-import tagline.testutil.GroupBuilder;
+import tagline.testutil.group.GroupBuilder;
 
 public class GroupBookTest {
 

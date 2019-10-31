@@ -19,7 +19,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tagline.model.note.Note;
-import tagline.testutil.TypicalNotes;
+import tagline.testutil.note.TypicalNotes;
 
 @ExtendWith(ApplicationExtension.class)
 public class NoteListCardTest {

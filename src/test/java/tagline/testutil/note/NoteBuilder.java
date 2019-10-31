@@ -1,4 +1,4 @@
-package tagline.testutil;
+package tagline.testutil.note;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,9 +21,9 @@ public class NoteBuilder {
     public static final long DEFAULT_NOTEID = 99999;
     public static final String DEFAULT_TITLE = "Infinity Stones";
     public static final String DEFAULT_CONTENT = "The Infinity Stones were six immensely powerful "
-            + "gem-like objects tied to different aspects of the universe, created "
-            + "by the Cosmic Entities. Each of the stones possesses unique capabilities "
-            + "that have been enhanced and altered by various alien civilizations for millennia.";
+        + "gem-like objects tied to different aspects of the universe, created "
+        + "by the Cosmic Entities. Each of the stones possesses unique capabilities "
+        + "that have been enhanced and altered by various alien civilizations for millennia.";
     public static final String DEFAULT_TIMECREATED = "13-May-1995 15:35:08";
     public static final String DEFAULT_TIMELASTUPDATED = "13-May-1995 15:35:08";
 
@@ -77,7 +77,7 @@ public class NoteBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Note} that we are building.
      */
-    public NoteBuilder withTags(String ... tags) {
+    public NoteBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }

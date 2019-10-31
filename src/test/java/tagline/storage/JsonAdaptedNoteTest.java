@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tagline.storage.note.JsonAdaptedNote.MISSING_FIELD_MESSAGE_FORMAT;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalNotes.ULTRON;
+import static tagline.testutil.note.TypicalNotes.ULTRON;
 
 import java.util.List;
 import java.util.stream.Collectors;

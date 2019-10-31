@@ -1,5 +1,5 @@
 //@@author e0031374
-package tagline.testutil;
+package tagline.testutil.group;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -58,7 +58,7 @@ public class GroupBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public GroupBuilder withMemberIds(String ... memberIds) {
+    public GroupBuilder withMemberIds(String... memberIds) {
         this.memberIds = SampleDataUtil.getMemberIdSet(memberIds);
         return this;
     }
@@ -66,7 +66,7 @@ public class GroupBuilder {
     /**
      * Parses the {@code memberIds} into a {@code Set<MemberIds>} and adds it to the {@code Group} that we are building.
      */
-    public GroupBuilder addMemberIds(String ... memberIds) {
+    public GroupBuilder addMemberIds(String... memberIds) {
         this.memberIds.addAll(SampleDataUtil.getMemberIdSet(memberIds));
         return this;
     }
@@ -75,7 +75,7 @@ public class GroupBuilder {
      * Parses the {@code memberIds} into a {@code Set<MemberIds>} and removes it to the {@code Group}
      * that we are building.
      */
-    public GroupBuilder removeMemberIds(String ... memberIds) {
+    public GroupBuilder removeMemberIds(String... memberIds) {
         this.memberIds = this.memberIds.stream()
             .filter(member -> !SampleDataUtil.getMemberIdSet(memberIds).contains(member))
             .collect(Collectors.toSet());

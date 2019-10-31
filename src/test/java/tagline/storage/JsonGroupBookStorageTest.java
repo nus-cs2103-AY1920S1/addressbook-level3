@@ -4,10 +4,10 @@ package tagline.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalGroups.ASGARDIAN;
-import static tagline.testutil.TypicalGroups.CHILDREN;
-import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
+import static tagline.testutil.group.TypicalGroups.ASGARDIAN;
+import static tagline.testutil.group.TypicalGroups.CHILDREN;
+import static tagline.testutil.group.TypicalGroups.MYSTIC_ARTS;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

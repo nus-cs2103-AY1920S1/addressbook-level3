@@ -1,4 +1,4 @@
-package tagline.testutil;
+package tagline.testutil.note;
 
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_CONTENT;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;

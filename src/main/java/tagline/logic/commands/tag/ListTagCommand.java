@@ -3,6 +3,7 @@ package tagline.logic.commands.tag;
 import static java.util.Objects.requireNonNull;
 
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.model.Model;
 
 /**
@@ -16,6 +17,6 @@ public class ListTagCommand extends TagCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, ViewType.TAG_LIST);
     }
 }

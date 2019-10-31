@@ -13,6 +13,7 @@ import tagline.commons.core.LogsCenter;
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.tag.ContactTag;
 import tagline.model.tag.GroupTag;
+import tagline.model.tag.HashTag;
 import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
 import tagline.model.tag.TagBook;
@@ -45,8 +46,13 @@ public class JsonSerializableTagBook {
             .flatMap(tag -> {
                 if (tag instanceof ContactTag) {
                     return Stream.of((JsonAdaptedTag) (new JsonAdaptedContactTag((ContactTag) tag)));
+
                 } else if (tag instanceof GroupTag) {
                     return Stream.of((JsonAdaptedTag) (new JsonAdaptedGroupTag((GroupTag) tag)));
+
+                } else if (tag instanceof HashTag) {
+                    return Stream.of((JsonAdaptedTag) (new JsonAdaptedHashTag((HashTag) tag)));
+
                 } else {
                     logger.warning("Unknown type of tag: " + tag.toString());
                     return Stream.empty();

@@ -1,15 +1,14 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.logic.commands.CommandTestUtil.showContactAtIndex;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.CommandResult.ViewType;
-import tagline.logic.commands.contact.ListContactCommand;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
@@ -37,13 +36,13 @@ public class ListContactCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListContactCommand(), model, ListContactCommand.MESSAGE_SUCCESS,
-                LIST_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
+            LIST_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showContactAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new ListContactCommand(), model, ListContactCommand.MESSAGE_SUCCESS,
-                LIST_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
+            LIST_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 }

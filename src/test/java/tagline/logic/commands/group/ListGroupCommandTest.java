@@ -3,10 +3,10 @@ package tagline.logic.commands.group;
 
 import static tagline.logic.commands.CommandTestUtil.showContactAtIndex;
 import static tagline.logic.commands.group.GroupCommandTestUtil.assertCommandSuccess;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBookExistingMembers;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBookSomeNonExistingMembers;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBookExistingMembers;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBookSomeNonExistingMembers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

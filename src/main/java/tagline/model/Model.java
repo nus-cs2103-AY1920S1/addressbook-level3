@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import tagline.commons.core.GuiSettings;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
@@ -14,6 +15,7 @@ import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
 
 /**
@@ -254,4 +256,57 @@ public interface Model {
      */
     ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate);
 
+    /**
+     * Returns the user prefs' tag book file path.
+     */
+    Path getTagBookFilePath();
+
+    /**
+     * Sets the user prefs' tag book file path.
+     */
+    void setTagBookFilePath(Path tagBookFilePath);
+
+    /**
+     * Replaces tag book data with the data in {@code tagBook}.
+     */
+    void setTagBook(ReadOnlyTagBook tagBook);
+
+    /**
+     * Returns the TagBook
+     */
+    ReadOnlyTagBook getTagBook();
+
+    /**
+     * Returns true if a Tag with the same identity as {@code tag} exists in the tag book.
+     */
+    boolean hasTag(Tag tag);
+
+    /**
+     * Adds the given tag.
+     * {@code tag} must not already exist in the tag book.
+     */
+    void addTag(Tag tag);
+
+    /**
+     * Deletes the given tag.
+     * The tag must exist in the tag book.
+     */
+    void deleteTag(Tag target);
+
+    /**
+     * Returns an unmodifiable view of the filtered tag list
+     */
+    ObservableList<Tag> getFilteredTagList();
+
+    /**
+     * Updates the filter of the filtered tag list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTagList(Predicate<Tag> predicate);
+
+    /**
+     * Returns an unmodifiable copy of the filtered tag list with a set predicate.
+     */
+    ObservableList<Tag> getFilteredTagListWithPredicate(Predicate<Tag> predicate);
 }

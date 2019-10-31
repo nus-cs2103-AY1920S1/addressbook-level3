@@ -25,7 +25,7 @@ import tagline.model.group.GroupName;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.note.Note;
 import tagline.model.note.NoteBook;
-import tagline.testutil.EditGroupDescriptorBuilder;
+import tagline.testutil.group.EditGroupDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

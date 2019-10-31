@@ -1,14 +1,13 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
-import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBook;
+import static tagline.testutil.note.TypicalNotes.getTypicalNoteBook;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.CommandResult.ViewType;
-import tagline.logic.commands.contact.ClearContactCommand;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
@@ -27,7 +26,7 @@ public class ClearContactCommandTest {
         Model expectedModel = new ModelManager();
 
         assertCommandSuccess(new ClearContactCommand(), model, ClearContactCommand.MESSAGE_SUCCESS,
-                CLEAR_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
+            CLEAR_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 
     @Test
@@ -39,7 +38,7 @@ public class ClearContactCommandTest {
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearContactCommand(), model, ClearContactCommand.MESSAGE_SUCCESS,
-                CLEAR_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
+            CLEAR_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 
     @Test
@@ -51,19 +50,19 @@ public class ClearContactCommandTest {
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearContactCommand(), model, ClearContactCommand.MESSAGE_SUCCESS,
-                CLEAR_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
+            CLEAR_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 
     // added for Group Book testing not sure if i did this right
     @Test
     public void execute_nonEmptyAddressBookAndNoteBookAndGroupBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), getTypicalNoteBook(),
-                getTypicalGroupBook(), new TagBook(), new UserPrefs());
+            getTypicalGroupBook(), new TagBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalNoteBook(),
-                getTypicalGroupBook(), new TagBook(), new UserPrefs());
+            getTypicalGroupBook(), new TagBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearContactCommand(), model, ClearContactCommand.MESSAGE_SUCCESS,
-                CLEAR_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
+            CLEAR_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 }

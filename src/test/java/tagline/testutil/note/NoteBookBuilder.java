@@ -1,4 +1,4 @@
-package tagline.testutil;
+package tagline.testutil.note;
 
 import tagline.model.note.Note;
 import tagline.model.note.NoteBook;
@@ -6,7 +6,7 @@ import tagline.model.note.NoteBook;
 /**
  * A utility class to help with building Notebook objects.
  * Example usage: <br>
- *     {@code NoteBook ab = new NoteBookBuilder().withNote(ULTRON).build();}
+ * {@code NoteBook ab = new NoteBookBuilder().withNote(ULTRON).build();}
  */
 public class NoteBookBuilder {
 

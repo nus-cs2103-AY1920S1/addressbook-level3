@@ -24,8 +24,8 @@ import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 import tagline.model.contact.ContactId;
 import tagline.model.contact.NameContainsKeywordsPredicate;
-import tagline.testutil.ContactUtil;
-import tagline.testutil.EditContactDescriptorBuilder;
+import tagline.testutil.contact.ContactUtil;
+import tagline.testutil.contact.EditContactDescriptorBuilder;
 
 public class ContactCommandParserTest {
 

@@ -12,10 +12,12 @@ import tagline.logic.commands.HelpCommand;
 import tagline.logic.commands.contact.ContactCommand;
 import tagline.logic.commands.group.GroupCommand;
 import tagline.logic.commands.note.NoteCommand;
+import tagline.logic.commands.tag.TagCommand;
 import tagline.logic.parser.contact.ContactCommandParser;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.logic.parser.group.GroupCommandParser;
 import tagline.logic.parser.note.NoteCommandParser;
+import tagline.logic.parser.tag.TagCommandParser;
 
 /**
  * Parses user input.
@@ -52,6 +54,9 @@ public class TaglineParser {
 
         case GroupCommand.COMMAND_KEY:
             return new GroupCommandParser().parseCommand(commandStr);
+
+        case TagCommand.COMMAND_KEY:
+            return new TagCommandParser().parseCommand(commandStr);
 
         case ExitCommand.COMMAND_KEY:
             return new ExitCommand();

@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalContacts.ALICE;
-import static tagline.testutil.TypicalContacts.BOB;
+import static tagline.testutil.contact.TypicalContacts.ALICE;
+import static tagline.testutil.contact.TypicalContacts.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;

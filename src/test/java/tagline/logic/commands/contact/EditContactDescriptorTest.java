@@ -1,4 +1,4 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,7 +12,7 @@ import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
-import tagline.testutil.EditContactDescriptorBuilder;
+import tagline.testutil.contact.EditContactDescriptorBuilder;
 
 public class EditContactDescriptorTest {
 

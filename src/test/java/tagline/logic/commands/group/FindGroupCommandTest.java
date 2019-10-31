@@ -8,9 +8,9 @@ import static tagline.logic.commands.group.FindGroupCommand.MESSAGE_KEYWORD_SUCC
 import static tagline.logic.commands.group.GroupCommand.MESSAGE_GROUP_NOT_FOUND;
 import static tagline.logic.commands.group.GroupCommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.group.GroupCommandTestUtil.assertCommandSuccess;
-import static tagline.testutil.TypicalGroups.GUARDIANS;
-import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
+import static tagline.testutil.group.TypicalGroups.GUARDIANS;
+import static tagline.testutil.group.TypicalGroups.MYSTIC_ARTS;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBook;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -149,6 +149,23 @@
     -fx-border-width: 1;
 }
 
+.list-cell:filled:even #tagListCardPane {
+    -fx-background-color: #3c3e3f;
+}
+
+.list-cell:filled:odd #tagListCardPane {
+    -fx-background-color: #515658;
+}
+
+.list-cell:filled:selected #tagListCardPane {
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled:selected #tagListCardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
 .list-cell .label {
     -fx-text-fill: white;
 }

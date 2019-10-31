@@ -1,4 +1,4 @@
-package tagline.testutil;
+package tagline.testutil.contact;
 
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_ADDRESS;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_DESCRIPTION;
@@ -45,7 +45,7 @@ public class ContactUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION)
-                .append(description.value));
+            .append(description.value));
         return sb.toString();
     }
 }

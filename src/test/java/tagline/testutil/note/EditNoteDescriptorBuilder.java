@@ -1,4 +1,4 @@
-package tagline.testutil;
+package tagline.testutil.note;
 
 import static tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 
@@ -52,7 +52,6 @@ public class EditNoteDescriptorBuilder {
      * to the {@code EditNoteDescriptor} that we are building.
      */
     // TODO withTags(String.. tags)
-
     public EditNoteDescriptor build() {
         return descriptor;
     }

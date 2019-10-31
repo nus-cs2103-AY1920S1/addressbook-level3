@@ -8,12 +8,12 @@ import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMECREATED_INCID
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TIMELASTUPDATED_INCIDENT;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_INCIDENT;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalNotes.INCIDENT;
-import static tagline.testutil.TypicalNotes.PROTECTOR;
+import static tagline.testutil.note.TypicalNotes.INCIDENT;
+import static tagline.testutil.note.TypicalNotes.PROTECTOR;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.testutil.NoteBuilder;
+import tagline.testutil.note.NoteBuilder;
 
 //import static tagline.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 //import static tagline.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;

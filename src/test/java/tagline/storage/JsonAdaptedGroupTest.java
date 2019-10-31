@@ -4,7 +4,7 @@ package tagline.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tagline.storage.group.JsonAdaptedGroup.MISSING_FIELD_MESSAGE_FORMAT;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalGroups.HYDRA;
+import static tagline.testutil.group.TypicalGroups.HYDRA;
 
 import java.util.ArrayList;
 import java.util.List;

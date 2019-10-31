@@ -1,4 +1,4 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,8 +15,9 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import tagline.commons.core.GuiSettings;
-import tagline.logic.commands.contact.CreateContactCommand;
+import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.ReadOnlyUserPrefs;
@@ -30,6 +31,7 @@ import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
 
 public class CreateContactCommandTest {
@@ -47,7 +49,7 @@ public class CreateContactCommandTest {
         CommandResult commandResult = new CreateContactCommand(validContact).execute(modelStub);
 
         assertEquals(String.format(CreateContactCommand.MESSAGE_SUCCESS, validContact),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
     }
 
@@ -58,7 +60,7 @@ public class CreateContactCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         assertThrows(CommandException.class,
-                CreateContactCommand.MESSAGE_DUPLICATE_CONTACT, () -> createContactCommand.execute(modelStub));
+            CreateContactCommand.MESSAGE_DUPLICATE_CONTACT, () -> createContactCommand.execute(modelStub));
     }
 
     @Test
@@ -296,6 +298,56 @@ public class CreateContactCommandTest {
 
         @Override
         public ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getTagBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTagBookFilePath(Path tagBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTagBook(ReadOnlyTagBook tagBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTagBook getTagBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTag(Tag target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getFilteredTagList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTagList(Predicate<Tag> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getFilteredTagListWithPredicate(Predicate<Tag> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

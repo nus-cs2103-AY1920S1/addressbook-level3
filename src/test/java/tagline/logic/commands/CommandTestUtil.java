@@ -21,7 +21,7 @@ import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
 import tagline.model.contact.NameContainsKeywordsPredicate;
-import tagline.testutil.EditContactDescriptorBuilder;
+import tagline.testutil.contact.EditContactDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

@@ -8,14 +8,15 @@ import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.logic.commands.group.GroupCommandTestUtil.DESC_HYDRA;
 import static tagline.logic.commands.group.GroupCommandTestUtil.DESC_SHIELD;
 import static tagline.logic.commands.group.GroupCommandTestUtil.VALID_GROUPNAME_SHIELD;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBookExistingMembers;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
+import static tagline.testutil.group.TypicalGroups.MYSTIC_ARTS;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBookExistingMembers;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.group.EditGroupCommand.EditGroupDescriptor;
 import tagline.model.Model;
@@ -27,8 +28,8 @@ import tagline.model.group.GroupBook;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.note.NoteBook;
 import tagline.model.tag.TagBook;
-import tagline.testutil.EditGroupDescriptorBuilder;
-import tagline.testutil.GroupBuilder;
+import tagline.testutil.group.EditGroupDescriptorBuilder;
+import tagline.testutil.group.GroupBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
@@ -48,18 +49,18 @@ public class AddMemberToGroupCommandTest {
 
         GroupBuilder groupInList = new GroupBuilder(lastGroup);
         Group editedGroup = groupInList
-                .addMemberIds("1", "3")
-                .build();
+            .addMemberIds("1", "3")
+            .build();
 
         EditGroupDescriptor descriptor = new EditGroupDescriptorBuilder()
-                .withMemberIds("1", "3").build();
+            .withMemberIds("1", "3").build();
         AddMemberToGroupCommand editGroupCommand =
             new AddMemberToGroupCommand(GroupNameEqualsKeywordPredicate.generatePredicate(lastGroup), descriptor);
 
         String expectedMessage = String.format(AddMemberToGroupCommand.MESSAGE_ADD_MEMBER_SUCCESS, editedGroup);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new NoteBook(), new GroupBook(model.getGroupBook()), new TagBook(), new UserPrefs());
+            new NoteBook(), new GroupBook(model.getGroupBook()), new TagBook(), new UserPrefs());
         expectedModel.setGroup(lastGroup, editedGroup);
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
@@ -75,7 +76,7 @@ public class AddMemberToGroupCommandTest {
         Group editedGroup = model.getFilteredGroupList().get(INDEX_FIRST.getZeroBased());
         AddMemberToGroupCommand editGroupCommand =
             new AddMemberToGroupCommand(GroupNameEqualsKeywordPredicate.generatePredicate(editedGroup),
-            new EditGroupDescriptor());
+                new EditGroupDescriptor());
 
         String expectedMessage = String.format(AddMemberToGroupCommand.MESSAGE_ADD_MEMBER_SUCCESS, editedGroup);
 
@@ -120,7 +121,7 @@ public class AddMemberToGroupCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(
             new RemoveMemberFromGroupCommand(GroupNameEqualsKeywordPredicate.generatePredicate("HYDRA"),
-            copyDescriptor)));
+                copyDescriptor)));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(

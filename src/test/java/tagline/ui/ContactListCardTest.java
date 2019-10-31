@@ -2,8 +2,8 @@ package tagline.ui;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.testfx.util.NodeQueryUtils.hasText;
-import static tagline.testutil.TypicalContacts.BENSON_WITH_DESCRIPTION;
-import static tagline.testutil.TypicalContacts.BENSON_WITH_MISSING_FIELDS;
+import static tagline.testutil.contact.TypicalContacts.BENSON_WITH_DESCRIPTION;
+import static tagline.testutil.contact.TypicalContacts.BENSON_WITH_MISSING_FIELDS;
 
 import java.util.concurrent.TimeoutException;
 

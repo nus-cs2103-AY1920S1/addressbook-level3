@@ -3,10 +3,10 @@ package tagline.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalNotes.EARTH;
-import static tagline.testutil.TypicalNotes.PROTECTOR;
-import static tagline.testutil.TypicalNotes.TOKYO;
-import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
+import static tagline.testutil.note.TypicalNotes.EARTH;
+import static tagline.testutil.note.TypicalNotes.PROTECTOR;
+import static tagline.testutil.note.TypicalNotes.TOKYO;
+import static tagline.testutil.note.TypicalNotes.getTypicalNoteBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -20,7 +20,7 @@ import tagline.model.note.NoteBook;
 import tagline.model.note.NoteIdCounter;
 import tagline.model.note.ReadOnlyNoteBook;
 import tagline.storage.note.JsonNoteBookStorage;
-import tagline.testutil.TypicalNotes;
+import tagline.testutil.note.TypicalNotes;
 
 public class JsonNoteBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonNoteBookStorageTest");

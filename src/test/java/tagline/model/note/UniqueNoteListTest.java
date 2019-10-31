@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalNotes.INCIDENT;
-import static tagline.testutil.TypicalNotes.PROTECTOR;
+import static tagline.testutil.note.TypicalNotes.INCIDENT;
+import static tagline.testutil.note.TypicalNotes.PROTECTOR;
 
 import java.util.Arrays;
 import java.util.Collections;

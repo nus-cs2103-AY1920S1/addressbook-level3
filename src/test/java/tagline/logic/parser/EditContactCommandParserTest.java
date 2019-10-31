@@ -31,7 +31,7 @@ import tagline.model.contact.ContactId;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
-import tagline.testutil.EditContactDescriptorBuilder;
+import tagline.testutil.contact.EditContactDescriptorBuilder;
 
 public class EditContactCommandParserTest {
 

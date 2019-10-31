@@ -7,7 +7,7 @@ import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tagline.logic.commands.NoteCommandTestUtil.NON_EXISTING_NOTE_ID;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
-import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
+import static tagline.testutil.note.TypicalNotes.getTypicalNoteBook;
 
 import org.junit.jupiter.api.Test;
 

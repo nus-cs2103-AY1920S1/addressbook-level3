@@ -29,7 +29,9 @@ import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
 import tagline.model.tag.ContactTag;
+import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
+import tagline.model.tag.TagBook;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -264,5 +266,17 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(s -> new MemberId(s))
                 .collect(Collectors.toSet());
+    }
+
+    public static Tag[] getSampleTags() {
+        return new Tag[] { };
+    }
+
+    public static ReadOnlyTagBook getSampleTagBook() {
+        TagBook sampleTagBook = new TagBook();
+        for (Tag sampleTag : getSampleTags()) {
+            sampleTagBook.addTag(sampleTag);
+        }
+        return sampleTagBook;
     }
 }

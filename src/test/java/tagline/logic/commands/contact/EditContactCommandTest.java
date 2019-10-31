@@ -1,4 +1,4 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,15 +9,13 @@ import static tagline.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tagline.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 import static tagline.testutil.TypicalIndexes.INDEX_SECOND;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.CommandResult.ViewType;
-import tagline.logic.commands.contact.ClearContactCommand;
-import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
 import tagline.model.Model;
 import tagline.model.ModelManager;
@@ -29,7 +27,7 @@ import tagline.model.contact.ContactId;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
 import tagline.model.tag.TagBook;
-import tagline.testutil.EditContactDescriptorBuilder;
+import tagline.testutil.contact.EditContactDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
@@ -52,7 +50,7 @@ public class EditContactCommandTest {
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new NoteBook(), new GroupBook(), new TagBook(), new UserPrefs());
+            new NoteBook(), new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, EDIT_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
@@ -66,16 +64,16 @@ public class EditContactCommandTest {
 
         ContactBuilder contactInList = new ContactBuilder(lastContact);
         Contact editedContact = contactInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .build();
+            .build();
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).build();
+            .withPhone(VALID_PHONE_BOB).build();
         EditContactCommand editContactCommand = new EditContactCommand(lastContact.getContactId(), descriptor);
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new NoteBook(), new GroupBook(), new TagBook(), new UserPrefs());
+            new NoteBook(), new GroupBook(), new TagBook(), new UserPrefs());
         expectedModel.setContact(lastContact, editedContact);
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, EDIT_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
@@ -85,12 +83,12 @@ public class EditContactCommandTest {
     public void execute_noFieldSpecified_success() {
         Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         EditContactCommand editContactCommand =
-                new EditContactCommand(editedContact.getContactId(), new EditContactDescriptor());
+            new EditContactCommand(editedContact.getContactId(), new EditContactDescriptor());
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new NoteBook(),
-                new GroupBook(), new TagBook(), new UserPrefs());
+            new GroupBook(), new TagBook(), new UserPrefs());
 
         assertCommandSuccess(editContactCommand, model, expectedMessage, EDIT_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }

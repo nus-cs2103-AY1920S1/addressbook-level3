@@ -1,14 +1,14 @@
-package tagline.logic.commands;
+package tagline.logic.commands.contact;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.commons.core.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
 import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tagline.testutil.TypicalContacts.CARL;
-import static tagline.testutil.TypicalContacts.ELLE;
-import static tagline.testutil.TypicalContacts.FIONA;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
+import static tagline.testutil.contact.TypicalContacts.CARL;
+import static tagline.testutil.contact.TypicalContacts.ELLE;
+import static tagline.testutil.contact.TypicalContacts.FIONA;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,7 +16,6 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.CommandResult.ViewType;
-import tagline.logic.commands.contact.FindContactCommand;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
@@ -39,9 +38,9 @@ public class FindContactCommandTest {
     @Test
     public void equals() {
         NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
+            new NameContainsKeywordsPredicate(Collections.singletonList("first"));
         NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+            new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindContactCommand findFirstCommand = new FindContactCommand(firstPredicate);
         FindContactCommand findSecondCommand = new FindContactCommand(secondPredicate);

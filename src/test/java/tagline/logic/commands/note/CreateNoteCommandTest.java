@@ -16,6 +16,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import tagline.commons.core.GuiSettings;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
@@ -30,8 +31,9 @@ import tagline.model.note.Note;
 import tagline.model.note.NoteId;
 import tagline.model.note.NoteModel;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
-import tagline.testutil.NoteBuilder;
+import tagline.testutil.note.NoteBuilder;
 
 class CreateNoteCommandTest {
 
@@ -48,7 +50,7 @@ class CreateNoteCommandTest {
         CommandResult commandResult = new CreateNoteCommand(validNote).execute(modelStub);
 
         assertEquals(String.format(CreateNoteCommand.MESSAGE_SUCCESS, validNote),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.noteAdded);
     }
 
@@ -59,7 +61,7 @@ class CreateNoteCommandTest {
         ModelStub modelStub = new ModelStubWithNote(validNote);
 
         assertThrows(CommandException.class,
-                CreateNoteCommand.MESSAGE_DUPLICATE_NOTE, () -> createNoteCommand.execute(modelStub));
+            CreateNoteCommand.MESSAGE_DUPLICATE_NOTE, () -> createNoteCommand.execute(modelStub));
     }
 
     @Test
@@ -268,6 +270,17 @@ class CreateNoteCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
+        @Override
+        public Path getTagBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTagBookFilePath(Path tagBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
@@ -411,6 +424,46 @@ class CreateNoteCommandTest {
         @Override
         public void updateFilteredGroupList(Predicate<Group> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTagBook(ReadOnlyTagBook tagBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTagBook getTagBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getFilteredTagList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTagList(Predicate<Tag> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getFilteredTagListWithPredicate(Predicate<Tag> predicate) {
+            return null;
         }
 
         @Override

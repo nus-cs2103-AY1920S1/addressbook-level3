@@ -13,7 +13,7 @@ import tagline.commons.exceptions.IllegalValueException;
 import tagline.commons.util.JsonUtil;
 import tagline.model.group.GroupBook;
 import tagline.storage.group.JsonSerializableGroupBook;
-import tagline.testutil.TypicalGroups;
+import tagline.testutil.group.TypicalGroups;
 
 public class JsonSerializableGroupBookTest {
 

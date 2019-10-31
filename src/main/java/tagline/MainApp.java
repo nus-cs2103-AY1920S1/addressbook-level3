@@ -69,12 +69,14 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         NoteBookStorage noteBookStorage = new JsonNoteBookStorage(userPrefs.getNoteBookFilePath());
         GroupBookStorage groupBookStorage = new JsonGroupBookStorage(userPrefs.getGroupBookFilePath());
         TagBookStorage tagBookStorage = new JsonTagBookStorage((userPrefs.getTagBookFilePath()));
-        storage = new StorageManager(addressBookStorage, noteBookStorage,
-            groupBookStorage, tagBookStorage, userPrefsStorage);
+
+        storage = new StorageManager(addressBookStorage, noteBookStorage, groupBookStorage, tagBookStorage,
+            userPrefsStorage);
 
         initLogging(config);
 
@@ -159,10 +161,26 @@ public class MainApp extends Application {
 
     /**
      * Gets and returns a {@code ReadOnlyTagBook} from {@code storage}.
-     * This method still incomplete.
      */
     private ReadOnlyTagBook getTagBookFromStorage(Storage storage) {
-        return new TagBook();
+        Optional<ReadOnlyTagBook> tagBookOptional = Optional.empty();
+        ReadOnlyTagBook initialTagBookData;
+
+        try {
+            tagBookOptional = storage.readTagBook();
+            if (!tagBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample group book");
+            }
+            initialTagBookData = tagBookOptional.orElseGet(SampleDataUtil::getSampleTagBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty group book");
+            initialTagBookData = new TagBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty group book");
+            initialTagBookData = new TagBook();
+        }
+
+        return initialTagBookData;
     }
 
     /**

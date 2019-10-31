@@ -4,9 +4,9 @@ package tagline.logic.commands.group;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.commons.core.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
+import static tagline.testutil.group.TypicalGroups.MYSTIC_ARTS;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBook;
 
 import java.util.Arrays;
 
@@ -22,7 +22,7 @@ import tagline.model.group.GroupName;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.note.NoteBook;
 import tagline.model.tag.TagBook;
-import tagline.testutil.GroupBuilder;
+import tagline.testutil.group.GroupBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code GroupCommand}.

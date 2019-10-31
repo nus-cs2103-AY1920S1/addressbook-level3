@@ -13,7 +13,7 @@ import static tagline.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import static tagline.logic.commands.note.EditNoteCommand.MESSAGE_DUPLICATE_NOTE;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 import static tagline.testutil.TypicalIndexes.INDEX_SECOND;
-import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
+import static tagline.testutil.note.TypicalNotes.getTypicalNoteBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +25,8 @@ import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
-import tagline.testutil.EditNoteDescriptorBuilder;
-import tagline.testutil.NoteBuilder;
+import tagline.testutil.note.EditNoteDescriptorBuilder;
+import tagline.testutil.note.NoteBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and

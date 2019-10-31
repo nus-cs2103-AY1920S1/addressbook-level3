@@ -7,7 +7,7 @@ import static tagline.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalContacts.AMY;
+import static tagline.testutil.contact.TypicalContacts.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;

@@ -3,10 +3,10 @@ package tagline.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalContacts.ALICE;
-import static tagline.testutil.TypicalContacts.HOON;
-import static tagline.testutil.TypicalContacts.IDA;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
+import static tagline.testutil.contact.TypicalContacts.ALICE;
+import static tagline.testutil.contact.TypicalContacts.HOON;
+import static tagline.testutil.contact.TypicalContacts.IDA;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

@@ -2,9 +2,9 @@ package tagline.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
-import static tagline.testutil.TypicalNotes.getTypicalNoteBook;
+import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
+import static tagline.testutil.group.TypicalGroups.getTypicalGroupBook;
+import static tagline.testutil.note.TypicalNotes.getTypicalNoteBook;
 
 import java.nio.file.Path;
 

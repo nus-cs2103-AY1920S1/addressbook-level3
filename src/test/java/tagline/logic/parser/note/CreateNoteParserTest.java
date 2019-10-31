@@ -11,14 +11,14 @@ import static tagline.logic.commands.NoteCommandTestUtil.VALID_NOTEID_PROTECTOR;
 import static tagline.logic.commands.NoteCommandTestUtil.VALID_TITLE_PROTECTOR;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tagline.testutil.TypicalNotes.PROTECTOR;
+import static tagline.testutil.note.TypicalNotes.PROTECTOR;
 
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.model.note.Note;
 import tagline.model.note.NoteIdCounter;
-import tagline.testutil.NoteBuilder;
+import tagline.testutil.note.NoteBuilder;
 
 class CreateNoteParserTest {
     private CreateNoteParser parser = new CreateNoteParser();

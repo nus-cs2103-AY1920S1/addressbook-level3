@@ -19,6 +19,8 @@ import tagline.model.group.Group;
 import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
+import tagline.model.tag.Tag;
 import tagline.storage.Storage;
 
 /**
@@ -50,6 +52,7 @@ public class LogicManager implements Logic {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveNoteBook(model.getNoteBook());
             storage.saveGroupBook(model.getGroupBook());
+            storage.saveTagBook(model.getTagBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -100,6 +103,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getGroupBookFilePath() {
         return model.getGroupBookFilePath();
+    }
+
+    @Override
+    public ReadOnlyTagBook getTagBook() {
+        return model.getTagBook();
+    }
+
+    @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return model.getFilteredTagList();
+    }
+
+    @Override
+    public Path getTagBookFilePath() {
+        return model.getTagBookFilePath();
     }
 
     @Override

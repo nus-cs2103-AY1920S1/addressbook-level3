@@ -13,7 +13,7 @@ import tagline.commons.util.JsonUtil;
 import tagline.model.note.NoteBook;
 import tagline.model.note.NoteIdCounter;
 import tagline.storage.note.JsonSerializableNoteBook;
-import tagline.testutil.TypicalNotes;
+import tagline.testutil.note.TypicalNotes;
 
 public class JsonSerializableNoteBookTest {
 

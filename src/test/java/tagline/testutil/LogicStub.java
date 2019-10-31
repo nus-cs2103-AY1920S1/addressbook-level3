@@ -16,6 +16,12 @@ import tagline.model.group.Group;
 import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
+import tagline.model.tag.Tag;
+import tagline.testutil.contact.TypicalContacts;
+import tagline.testutil.group.TypicalGroups;
+import tagline.testutil.note.TypicalNotes;
+import tagline.testutil.tag.TypicalTags;
 
 /**
  * A stub class for Logic which returns a fixed {@code CommandResult} which is settable.
@@ -24,13 +30,15 @@ public class LogicStub implements Logic {
     private Path addressBookFilePath;
     private Path noteBookFilePath;
     private Path groupBookFilePath;
+    private Path tagBookFilePath;
     private CommandResult commandResult;
     private String exceptionString = null;
 
-    public LogicStub(Path addressBookFilePath, Path noteBookFilePath, Path groupBookFilePath) {
+    public LogicStub(Path addressBookFilePath, Path noteBookFilePath, Path groupBookFilePath, Path tagBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
         this.noteBookFilePath = noteBookFilePath;
         this.groupBookFilePath = groupBookFilePath;
+        this.tagBookFilePath = tagBookFilePath;
     }
 
     /**
@@ -94,6 +102,18 @@ public class LogicStub implements Logic {
     }
 
     public Path getGroupBookFilePath() { //test folder
+        return groupBookFilePath;
+    }
+
+    public ReadOnlyTagBook getTagBook() {
+        return TypicalTags.getTypicalTagBook();
+    }
+
+    public ObservableList<Tag> getFilteredTagList() {
+        return new FilteredList<>(TypicalTags.getTypicalTagBook().getTagList());
+    }
+
+    public Path getTagBookFilePath() { //test folder
         return groupBookFilePath;
     }
 

@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalContacts.ALICE;
-import static tagline.testutil.TypicalContacts.BENSON;
+import static tagline.testutil.contact.TypicalContacts.ALICE;
+import static tagline.testutil.contact.TypicalContacts.BENSON;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import tagline.commons.core.GuiSettings;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
@@ -33,9 +34,10 @@ import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
-import tagline.testutil.AddressBookBuilder;
-import tagline.testutil.GroupBuilder;
+import tagline.testutil.contact.AddressBookBuilder;
+import tagline.testutil.group.GroupBuilder;
 
 public class CreateGroupCommandTest {
 
@@ -56,7 +58,7 @@ public class CreateGroupCommandTest {
         CommandResult commandResult = new CreateGroupCommand(testGroup).execute(modelStub);
 
         assertEquals(String.format(CreateGroupCommand.MESSAGE_SUCCESS + uiString,
-                correctGroup), commandResult.getFeedbackToUser());
+            correctGroup), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(correctGroup), modelStub.groupsAdded);
     }
 
@@ -67,7 +69,7 @@ public class CreateGroupCommandTest {
         ModelStub modelStub = new ModelStubWithGroup(validGroup);
 
         assertThrows(CommandException.class,
-                CreateGroupCommand.MESSAGE_DUPLICATE_GROUP, () -> createGroupCommand.execute(modelStub));
+            CreateGroupCommand.MESSAGE_DUPLICATE_GROUP, () -> createGroupCommand.execute(modelStub));
     }
 
     @Test
@@ -305,6 +307,56 @@ public class CreateGroupCommandTest {
 
         @Override
         public ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getTagBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTagBookFilePath(Path tagBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTagBook(ReadOnlyTagBook tagBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTagBook getTagBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTag(Tag target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getFilteredTagList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTagList(Predicate<Tag> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getFilteredTagListWithPredicate(Predicate<Tag> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

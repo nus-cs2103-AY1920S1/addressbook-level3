@@ -66,11 +66,20 @@ public class TagBook implements ReadOnlyTagBook {
     }
 
     /**
-     * Adds a tag to the address book.
-     * The tag must not already exist in the address book.
+     * Adds a tag to the tag book.
+     * The tag must not already exist in the tag book.
      */
     public void addTag(Tag p) {
         tags.addTag(p);
+    }
+
+    /**
+     * Removes a tag from the tag book.
+     * The tag must already exist in the tag book.
+     */
+
+    public void removeTag(Tag p) {
+        tags.removeTag(p);
     }
 
     /**

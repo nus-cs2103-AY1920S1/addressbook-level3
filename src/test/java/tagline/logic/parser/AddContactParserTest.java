@@ -10,8 +10,8 @@ import static tagline.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tagline.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static tagline.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tagline.testutil.TypicalContacts.AMY;
-import static tagline.testutil.TypicalContacts.BOB;
+import static tagline.testutil.contact.TypicalContacts.AMY;
+import static tagline.testutil.contact.TypicalContacts.BOB;
 
 import org.junit.jupiter.api.Test;
 

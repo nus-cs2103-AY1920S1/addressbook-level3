@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalContacts.ALICE;
-import static tagline.testutil.TypicalContacts.BENSON;
-import static tagline.testutil.TypicalGroups.ASGARDIAN;
-import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
-import static tagline.testutil.TypicalNotes.EARTH;
-import static tagline.testutil.TypicalNotes.TOKYO;
+import static tagline.testutil.contact.TypicalContacts.ALICE;
+import static tagline.testutil.contact.TypicalContacts.BENSON;
+import static tagline.testutil.group.TypicalGroups.ASGARDIAN;
+import static tagline.testutil.group.TypicalGroups.MYSTIC_ARTS;
+import static tagline.testutil.note.TypicalNotes.EARTH;
+import static tagline.testutil.note.TypicalNotes.TOKYO;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,9 +24,9 @@ import tagline.model.contact.NameContainsKeywordsPredicate;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
 import tagline.model.tag.TagBook;
-import tagline.testutil.AddressBookBuilder;
-import tagline.testutil.GroupBookBuilder;
-import tagline.testutil.NoteBookBuilder;
+import tagline.testutil.contact.AddressBookBuilder;
+import tagline.testutil.group.GroupBookBuilder;
+import tagline.testutil.note.NoteBookBuilder;
 
 public class ModelManagerTest {
 

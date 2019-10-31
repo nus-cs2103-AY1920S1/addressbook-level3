@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.model.note.NoteModel.PREDICATE_SHOW_ALL_NOTES;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalNotes.INCIDENT;
-import static tagline.testutil.TypicalNotes.ULTRON;
+import static tagline.testutil.note.TypicalNotes.INCIDENT;
+import static tagline.testutil.note.TypicalNotes.ULTRON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import tagline.commons.core.GuiSettings;
 import tagline.model.UserPrefs;
-import tagline.testutil.NoteBookBuilder;
+import tagline.testutil.note.NoteBookBuilder;
 
 public class NoteManagerTest {
 
