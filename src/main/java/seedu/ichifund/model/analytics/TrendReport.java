@@ -2,6 +2,8 @@ package seedu.ichifund.model.analytics;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,6 +49,15 @@ public class TrendReport extends Report {
      */
     public List<Data> getTrendList() {
         return trend;
+    }
+
+    /**
+     * Retrieves the sorted trend list.
+     */
+    public List<Data> getSortedTrendList() {
+        List<Data> sortedTrendList = new ArrayList<>(trend);
+        Collections.sort(sortedTrendList);
+        return sortedTrendList;
     }
 
     /**
