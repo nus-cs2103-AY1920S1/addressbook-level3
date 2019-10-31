@@ -1,12 +1,15 @@
 package seedu.weme.ui;
 
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.weme.model.template.MemeCreation;
+import seedu.weme.model.template.MemeText;
 
 /**
  * Panel displaying the image of the current meme creation session.
@@ -25,9 +28,15 @@ public class CreateImageDisplay extends UiPart<Region> {
     private ImageView horizontalRule;
     @FXML
     private VBox memeCreationPlaceholder;
+    @FXML
+    private StackPane memeTextListPlaceholder;
+
 
     public CreateImageDisplay(MemeCreation memeCreation) {
         super(FXML);
+        ObservableList<MemeText> memeTexts = memeCreation.getMemeTextList();
+        MemeTextListPanel memeTextListPanel = new MemeTextListPanel(memeTexts);
+        memeTextListPlaceholder.getChildren().addAll(memeTextListPanel.getRoot());
         updateImage(memeCreation);
     }
 

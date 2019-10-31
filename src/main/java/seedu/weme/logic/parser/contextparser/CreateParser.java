@@ -8,9 +8,13 @@ import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.createcommand.AbortCreationCommand;
 import seedu.weme.logic.commands.createcommand.CreateCommand;
 import seedu.weme.logic.commands.createcommand.TextAddCommand;
+import seedu.weme.logic.commands.createcommand.TextDeleteCommand;
+import seedu.weme.logic.commands.createcommand.TextEditCommand;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
 import seedu.weme.logic.parser.commandparser.createcommandparser.CreateCommandParser;
 import seedu.weme.logic.parser.commandparser.createcommandparser.TextAddCommandParser;
+import seedu.weme.logic.parser.commandparser.createcommandparser.TextDeleteCommandParser;
+import seedu.weme.logic.parser.commandparser.createcommandparser.TextEditCommandParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
 /**
@@ -45,6 +49,12 @@ public class CreateParser extends WemeParser {
 
         case CreateCommand.COMMAND_WORD:
             return new CreateCommandParser().parse(arguments);
+
+        case TextEditCommand.COMMAND_WORD:
+            return new TextEditCommandParser().parse(arguments);
+
+        case TextDeleteCommand.COMMAND_WORD:
+            return new TextDeleteCommandParser().parse(arguments);
 
         default:
             return super.parseCommand(userInput);

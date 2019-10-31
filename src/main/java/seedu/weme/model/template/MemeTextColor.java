@@ -29,6 +29,11 @@ public class MemeTextColor {
         this.color = getColorByName(color).orElseGet(() -> getColorByHex(color).get());
     }
 
+    public MemeTextColor(Color color) {
+        requireNonNull(color);
+        this.color = color;
+    }
+
     /**
      * Returns true if a given string is a valid meme text color.
      */

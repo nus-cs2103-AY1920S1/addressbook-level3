@@ -29,8 +29,8 @@ public class TextAddCommand extends Command {
         + PREFIX_X_COORDINATE + "X_COORDINATE "
         + PREFIX_Y_COORDINATE + "Y_COORDINATE "
         + "[" + PREFIX_COLOR + "COLOR] "
-        + "[" + PREFIX_STYLE + "STYLE] "
-        + "[" + PREFIX_SIZE + "SIZE]\n"
+        + "[" + PREFIX_SIZE + "SIZE] "
+        + "[" + PREFIX_STYLE + "STYLE]...\n"
         + "Example: " + COMMAND_WORD + " "
         + "CS students be like "
         + PREFIX_X_COORDINATE + "0.2 "
@@ -39,7 +39,7 @@ public class TextAddCommand extends Command {
         + PREFIX_STYLE + "bold "
         + PREFIX_SIZE + "3";
 
-    public static final String MESSAGE_SUCCESS = "New text added at (%s, %s): %s";
+    public static final String MESSAGE_SUCCESS = "New text added: %s";
     public static final String MESSAGE_TEXT_EXCEEDS_IMAGE_BOUNDARY = "Error: Text would exceed image boundary";
 
     private final MemeText text;
@@ -65,7 +65,7 @@ public class TextAddCommand extends Command {
         }
 
         CommandResult result = new CommandResult(
-            String.format(MESSAGE_SUCCESS, text.getX(), text.getY(), text.getText()));
+            String.format(MESSAGE_SUCCESS, text.toString()));
         model.commitWeme(result.getFeedbackToUser());
         return result;
     }
