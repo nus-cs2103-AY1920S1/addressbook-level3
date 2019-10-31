@@ -255,6 +255,52 @@ Example for multiple fields:
 * `find participant n/Damith e/damith.com` finds all participants whose name contains the string "Damith" (this is case
 sensitive) and whose emails contain "damith.com"
 
+=== Assigning a Entity to a Team: `assign {mentor/participant} ID TEAM_ID ...`
+
+Assigns Mentor or Participant Entity by their ID to a team identified by TEAM_ID. +
+
+****
+* Take note that the `assign` command can only be used to assign Participants and Mentors to a Team.
+* An error will be shown if the Participant or Mentor is not in the specific Team.
+* An error will be shown is the Team already has a Mentor.
+* An error will be shown if the Team already has said Participant.
+****
+
+Examples:
+
+* `assign mentor M-18 T-8` will assign Mentor with ID M-18 to Team with ID T-8. The mentor will be shown under the list of teams, under 'Team' section of GUI.
+
+Running the command will show you the following output in the 'Team' section of the Graphical User Interface:
+
+image::AssignCommandOutputExample1.png[width="790"]
+
+* `assign participant P-91 T-8` will assign Participant with ID P-91 to Team with ID T-8. The participant will be shown under the list of teams, , under 'Team' section of GUI.
+
+Running the command will show you the following output in the 'Team' section of the Graphical User Interface:
+
+image::AssignCommandOutputExample2.png[width="790"]
+
+=== Removing an Entity from a Team: `remove {mentor/participant} ID TEAM_ID ...`
+
+Removes Mentor or Participant Entity by their ID from a team identified by TEAM_ID. +
+
+****
+* Take note that the `remove` command can only be used to remove Participant or Mentor from a Team.
+* An error will be shown if the Participant or Mentor is not in the specific Team.
+* Deleting a Participant or Mentor will also delete all their connections with a team or teams.
+****
+
+Examples:
+
+* `remove mentor M-18 T-8` will remove Mentor with ID M-18 to Team with ID T-8. The text 'Mentor not assigned' will be shown under the list of teams, under 'Team' section of GUI.
+
+image::RemoveCommandOutputExample2.png[width="790"]
+
+* `remove participant P-91 T-8` will remove Participant with ID P-91 from Team with ID T-8. The updated list of members will be shown under the specific team panel in the list of teams, under 'Team' section of GUI.
+Running the command will show you the following output in the 'Team' section of the Graphical User Interface:
+
+image::RemoveCommandOutputExample1.png[width="790"]
+
 === Show Command History: `history`
 Shows you up to the last 50 commands that you executed.
 

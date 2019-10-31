@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
@@ -135,8 +136,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         //Displays the list of teams during application start up
-        entityListPanel = new EntityListPanel(logic.getFilteredTeamList());
+        entityListPanel = new EntityListPanel(logic.getFilteredParticipantList());
         listPanelPlaceholder.getChildren().add(entityListPanel.getRoot());
+
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -212,11 +214,11 @@ public class MainWindow extends UiPart<Stage> {
         List<String> undoHistory = logic.getUndoCommandHistory();
         List<String> redoHistory = logic.getRedoCommandHistory();
         System.out.println("Inside handleHistory: printing");
-        for (String h: redoHistory) {
+        for (String h : redoHistory) {
             System.out.println(h);
         }
         System.out.println("=====================<< Current State >>=====================");
-        for (String h: undoHistory) {
+        for (String h : undoHistory) {
             System.out.println(h);
         }
     }
@@ -377,7 +379,9 @@ public class MainWindow extends UiPart<Stage> {
             }
             return commandResult;
         } catch (CommandException | ParseException | AlfredModelHistoryException e) {
-            this.fireButton(lastFired);
+            if (lastFired != null) {
+                this.fireButton(lastFired);
+            }
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
