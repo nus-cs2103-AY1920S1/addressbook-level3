@@ -54,6 +54,7 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    //@@author febee99
     /**
      * Parses a {@code String expiryDate} into an {@code ExpiryDate}.
      * Leading and trailing whitespaces will be trimmed.
@@ -75,6 +76,7 @@ public class ParserUtil {
         return new ExpiryDate(trimmedDate);
     }
 
+    //@@author liawsy
     /**
      * Parses a {@code String quantity} into an {@code Quantity}.
      * Leading and trailing whitespaces will be trimmed.
@@ -96,6 +98,7 @@ public class ParserUtil {
         return new Quantity(trimmedQuantity);
     }
 
+    //@@author Kalsyc
     /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
@@ -127,6 +130,7 @@ public class ParserUtil {
         return tagSet;
     }
 
+    //@@author febee99
     /**
      * Parses a {@code String key} into a {@code MethodOfSorting}.
      * Leading and trailing whitespaces will be trimmed.
@@ -145,9 +149,7 @@ public class ParserUtil {
         return new XpireMethodOfSorting(trimmedMethodOfSorting);
     }
 
-    /**
-     * Parse
-
+    //@@author
     /**
      * Parses a {@code String reminderThreshold} into an {@code }.
      * Leading and trailing whitespaces will be trimmed.
@@ -163,6 +165,7 @@ public class ParserUtil {
         return new ReminderThreshold(trimmedReminderThreshold);
     }
 
+    //@@author Kalsyc
     /**
      * Parses tag from user input in the form of "#Tag1 #Tag2"
      *
@@ -184,6 +187,7 @@ public class ParserUtil {
         return set;
     }
 
+    //@@author febee99
     /**
      * Parses a {@code String list} into a {@code ListToView}.
      * Leading and trailing whitespaces will be trimmed.

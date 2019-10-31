@@ -14,7 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
-
+//@@author febee99
 /**
  * A list of items that enforces uniqueness between its elements and does not allow nulls.
  * An xpireItem is considered unique by comparing using {@code XpireItem#isSameItem(XpireItem)}. As such, adding and

@@ -34,12 +34,14 @@ public class ViewPanel extends UiPart<AnchorPane> {
         displayItem(xpireItemList);
     }
 
+
     /**
      * Renders items in the {@Code xpireItemList}.
      */
     void displayItem(ObservableList<? extends Item> itemList) {
         card.getChildren().clear();
         Collection<ItemCard> cardList;
+        //@@author febee99
         if (!itemList.isEmpty() && itemList.get(0) instanceof XpireItem) {
             ObservableList<XpireItem> xpireItemList = (ObservableList<XpireItem>) itemList;
             cardList = IntStream.range(0, xpireItemList.size())
@@ -50,6 +52,7 @@ public class ViewPanel extends UiPart<AnchorPane> {
                                 .mapToObj(i -> new ItemCard(itemList.get(i), i + 1))
                                 .collect(Collectors.toList());
         }
+        //@@author
         for (ItemCard itemCard : cardList) {
             card.getChildren().add(itemCard.getRoot());
         }

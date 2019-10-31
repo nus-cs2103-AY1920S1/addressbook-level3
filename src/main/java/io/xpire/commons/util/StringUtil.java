@@ -111,6 +111,7 @@ public class StringUtil {
         }
     }
 
+    //@@author Kalsyc
     /**
      * Converts string to sentence-case (first character upper-case, the rest lower-case).
      *
@@ -179,9 +180,9 @@ public class StringUtil {
             }
         }
         return dist[sourceLength][targetLength];
-        //@@author
     }
 
+    //@@author febee99
     /**
      * Returns suggestions of alternatives for an invalid word entered.
      * @param invalidWord The invalid word entered.

@@ -38,6 +38,7 @@ public class LogicManager implements Logic {
         this.parser = xpireParser;
     }
 
+    //@@author febee99
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -60,6 +61,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    //@@author liawsy
     @Override
     public ReadOnlyListView<? extends Item>[] getLists() {
         return this.model.getLists();
