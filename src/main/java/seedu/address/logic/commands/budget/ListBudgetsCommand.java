@@ -13,7 +13,7 @@ import seedu.address.ui.budget.BudgetListPanel;
 /**
  * Lists all budgets in the MooLah to the user.
  */
-public class ListBudgetCommand extends UndoableCommand {
+public class ListBudgetsCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.BUDGET + "s";
     public static final String COMMAND_DESCRIPTION = "List budgets";
