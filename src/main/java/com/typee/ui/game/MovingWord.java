@@ -16,13 +16,13 @@ public class MovingWord extends UiPart<Pane> {
 
     private static final String FXML = "MovingWord.fxml";
     private static final Random random = new Random();
-    private static final double LOWER_BOUND = 550;
+    private static final double LOWER_BOUND = 520;
     private static final int DECREMENT_VALUE = 20;
     private static final int SCORE_MULTIPLIER = 100;
-    private static final int WINDOW_BOUNDARY = 700;
+    private static final int WINDOW_BOUNDARY = 500;
     private Pane parent;
     private Player player;
-    private double fallingRate = 1.0;
+    private double fallingRate = 2.0;
     private String word;
     private AnimationTimer animationTimer;
 
@@ -30,7 +30,8 @@ public class MovingWord extends UiPart<Pane> {
         super(FXML);
         this.parent = parent;
         this.player = player;
-        setup();
+        word = Words.get(random.nextInt(Words.SIZE));
+        setXCoordinate();
         parent.getChildren().add(getRoot());
         continuouslyUpdate();
     }
@@ -44,8 +45,7 @@ public class MovingWord extends UiPart<Pane> {
         animationTimer.stop();
     }
 
-    private void setup() {
-        word = Words.get(random.nextInt(Words.SIZE));
+    private void setXCoordinate() {
         getRoot().setLayoutX(random.nextInt(WINDOW_BOUNDARY));
     }
 
@@ -61,8 +61,13 @@ public class MovingWord extends UiPart<Pane> {
      * Updates the player's score and health according to player's input.
      */
     private void update() {
+        if (player.getGameOverProperty().get()) {
+            disappear();
+            return;
+        }
         getRoot().setLayoutY(getRoot().getLayoutY() + fallingRate);
         getRoot().getChildren().clear();
+        getRoot().getChildren().add(TextHighlighter.convertToTextFlowUsing(player.getInputText(), word));
         getRoot().getChildren().add(TextHighlighter.convertToTextFlowUsing(word));
         if (getRoot().getLayoutY() > LOWER_BOUND && parent.getChildren().contains(getRoot())) {
             stopAnimation();

@@ -94,15 +94,14 @@ Format: `list`
 === Sorting all appointments : `sort`
 
 Sorts the list of all appointments in the appointment list by the order specified by user. +
+Format: `sort ORDER`
 
 [TIP]
-Orders supported: `description_ascending`, `description_descending`, `start_ascending`, `start_descending`, `end_ascending`, `end_descending`, `priority_ascending`, `priority_descending`.
-
-Format: `sort ORDER`
+Orders supported: `description ascending`, `description descending`, `start ascending`, `start descending`, `end ascending`, `end descending`, `priority ascending`, `priority descending`.
 
 Examples:
 
-* `sort start_ascending` +
+* `sort start ascending` +
 Sorts the list displayed in ascending order of start time.
 
 [.clearfix]
@@ -113,6 +112,9 @@ image::before-sort.png[width="450", float="left"]
 .Engagement list after sorting by start time in ascending order
 image::after-sort.png[width="450"]
 --
+
+[TIP]
+After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
 
 === Editing an appointment : `edit`
 
@@ -142,7 +144,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 ****
 
 [TIP]
-The complete list can be displayed again using `list`.
+The unfiltered list can be displayed again using `list`.
 
 Examples:
 
@@ -179,6 +181,9 @@ Format: `clear`
 === Undoing the previous command : `undo`
 Undoes the previous command, provided that it exists. +
 Format: `undo`
+
+[TIP]
+Undo supports the following commands that modify the engagement list: `add`, `edit`, `delete` and `clear`.
 
 Examples:
 
@@ -226,8 +231,11 @@ image::redo-result.png[width="450"]
 === Changing to calendar view : `tab calendar`
 Changes the current view to the calendar view, which displays appointments inside a calendar.
 
-=== Typing game : `tab typinggame`
-Opens a simple typing game which helps you to improve your typing speed. There are moving words that users can type in
+=== Typing game : `tab game`
+
+image::GameWindow.png[width="450"]
+
+Opens a simple typing game (in a new window) which helps you to improve your typing speed. There are moving words that users can type in
 order to score points. Once users correctly type the specified word, the word disappears and the increase in points is
 reflected in the player information panel in the game window. When the user fails to type the word before the moving
 word reaches the bottom of screen, the decrease in health points is reflected in the player information panel in the game
@@ -294,7 +302,7 @@ e.g. `delete 3`
 e.g. `edit 2 d/Team lunch outing on Thursday`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find team outing`
-* *Game* : `tab typinggame`
+* *Game* : `tab game`
 * *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
 * *List* : `list`
 * *Help* : `help`

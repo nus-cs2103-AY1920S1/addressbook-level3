@@ -15,13 +15,14 @@ import javafx.stage.Stage;
 public class GameWindow extends UiPart<Stage> {
 
     private static final String FXML = "GameWindow.fxml";
-    private Player player;
+    private static GameWindow gameInstance;
+    private static Player player;
 
     @FXML
     private AnchorPane gamePlay;
 
     @FXML
-    private TextField playerInputArea;
+    private TextField playerInput;
 
     @FXML
     private Label gameOver;
@@ -34,19 +35,22 @@ public class GameWindow extends UiPart<Stage> {
      */
     private GameWindow(Stage root, Player player) {
         super(FXML, root);
-        player.setInputAs(playerInputArea.textProperty());
+        player.setInputAs(playerInput.textProperty());
         gameOver.visibleProperty().bind(player.getGameOverProperty());
         gamePlay.getChildren().addAll(new PlayerInformation(player).getRoot(), new GameBody(player).getRoot());
-        /** TODO: Add CSS
-         *  root.getScene().getStylesheets().addAll(this.getClass().getResource(".css").toExternalForm());
-         */
+        root.getScene().getStylesheets().addAll(this.getClass().getResource("/view/GameWindow.css").toExternalForm());
     }
 
     /**
-     * Creates a new Window with a new player.
-     */
-    public GameWindow() {
-        this(new Stage(), new Player());
+     * Creates a game instance in new Window with a new player if there is no existing game instance or if the current
+     * game is over.
+    */
+    public static GameWindow getInstance() {
+        if (gameInstance == null || player.getGameOverProperty().get()) {
+            player = new Player();
+            gameInstance = new GameWindow(new Stage(), player);
+        }
+        return gameInstance;
     }
 
     @FXML
@@ -56,7 +60,7 @@ public class GameWindow extends UiPart<Stage> {
 
     @FXML
     private void handlePlayerInput() {
-        playerInputArea.clear();
+        playerInput.clear();
     }
 
     /**
