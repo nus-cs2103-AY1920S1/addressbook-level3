@@ -62,6 +62,12 @@
     -fx-background: derive(#1d1d1d, 20%);
 }
 
+.list-panel {
+    -fx-border-color: #484848;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+}
+
 /*for cards*/
 
 #cardPane {
@@ -128,6 +134,7 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
+    -fx-line-spacing: 0px;
 }
 
 .cell_small_label {
