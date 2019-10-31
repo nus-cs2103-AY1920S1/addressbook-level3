@@ -4,7 +4,11 @@ import seedu.address.calendar.commands.AddCommand;
 import seedu.address.calendar.commands.AddCommitmentIgnoreCommand;
 import seedu.address.calendar.commands.AddTripIgnoreCommand;
 import seedu.address.calendar.model.date.Date;
-import seedu.address.calendar.model.event.*;
+import seedu.address.calendar.model.event.Commitment;
+import seedu.address.calendar.model.event.EventType;
+import seedu.address.calendar.model.event.Info;
+import seedu.address.calendar.model.event.Name;
+import seedu.address.calendar.model.event.Trip;
 
 import java.util.Optional;
 

@@ -7,7 +7,7 @@ import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-public class AddTripIgnoreCommand extends AddTripCommand {
+public class AddTripIgnoreCommand extends AddTripCommand implements AlternativeCommand {
     public AddTripIgnoreCommand(Trip trip) {
         super(trip);
     }
