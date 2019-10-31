@@ -18,8 +18,11 @@ import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
 
+/**
+ * A stub for Model that throws errors for any method called.
+ */
 public class ModelStub implements Model {
-    
+
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");

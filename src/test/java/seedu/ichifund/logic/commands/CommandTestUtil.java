@@ -72,7 +72,7 @@ public class CommandTestUtil {
     public static final String MONTH_DESC_ALLOWANCE = " " + PREFIX_MONTH + VALID_MONTH_ALLOWANCE;
     public static final String MONTH_DESC_BUS = " " + PREFIX_MONTH + VALID_MONTH_BUS;
     public static final String YEAR_DESC_ALLOWANCE = " " + PREFIX_YEAR + VALID_YEAR_ALLOWANCE;
-    public static final String YEAR_DESC_BUS = " " + PREFIX_YEAR+ VALID_YEAR_BUS;
+    public static final String YEAR_DESC_BUS = " " + PREFIX_YEAR + VALID_YEAR_BUS;
     public static final String TYPE_DESC_ALLOWANCE = " " + PREFIX_TRANSACTION_TYPE + VALID_TYPE_ALLOWANCE;
     public static final String TYPE_DESC_BUS = " " + PREFIX_TRANSACTION_TYPE + VALID_TYPE_BUS;
 
