@@ -147,11 +147,11 @@ public class MainWindow extends UiPart<Stage> {
         budgetPanelPlaceholder.getChildren().add(bp.getRoot());
 
         graphTab = new Tab("Graph");
-        graphPanel = new GraphPanel(logic.getGraphData(), "Graph for all dates\n");
+        graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n");
         graphTab.setContent(graphPanel.getRoot());
 
         statsTab = new Tab("Statistics");
-        statsPanel = new StatsPanel(logic.getStatsData(), "Statistics for all dates\n");
+        statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n");
         statsTab.setContent(statsPanel.getRoot());
 
         tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);
@@ -217,16 +217,23 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
             if (commandResult.isShowGraph()) {
                 graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser());
                 graphTab.setContent(graphPanel.getRoot());
                 tabPanePlaceholder.getSelectionModel().select(graphTab);
+            } else {
+                graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n");
+                graphTab.setContent(graphPanel.getRoot());
             }
 
             if (commandResult.isShowStats()) {
                 statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser());
                 statsTab.setContent(statsPanel.getRoot());
                 tabPanePlaceholder.getSelectionModel().select(statsTab);
+            } else {
+                statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n");
+                statsTab.setContent(statsPanel.getRoot());
             }
 
 
