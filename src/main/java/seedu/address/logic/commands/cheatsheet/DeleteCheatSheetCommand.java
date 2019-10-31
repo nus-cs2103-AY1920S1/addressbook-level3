@@ -2,6 +2,8 @@ package seedu.address.logic.commands.cheatsheet;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.DELETE;
+import static seedu.address.commons.core.Messages.MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_CHEATSHEET;
+import static seedu.address.commons.core.Messages.MESSAGE_HIT_ENTER_TO_DELETE;
 
 import java.util.List;
 
@@ -27,6 +29,8 @@ public class DeleteCheatSheetCommand extends Command {
 
     public static final String MESSAGE_DELETE_CHEATSHEET_SUCCESS = "Deleted Cheatsheet: %1$s";
 
+    public static boolean isSure = false;
+
     private final Index targetIndex;
 
     public DeleteCheatSheetCommand(Index targetIndex) {
@@ -43,8 +47,19 @@ public class DeleteCheatSheetCommand extends Command {
         }
 
         CheatSheet cheatsheetToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteCheatSheet(cheatsheetToDelete);
-        return new CheatSheetCommandResult(String.format(MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
+        CheatSheetCommandResult commandResult = new CheatSheetCommandResult("");
+        if (!isSure) {
+            isSure = true;
+            throw new CommandException(MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_CHEATSHEET
+                    + "\n" + cheatsheetToDelete
+                    + "\n" + MESSAGE_HIT_ENTER_TO_DELETE);
+        }
+        if (isSure) {
+            model.deleteCheatSheet(cheatsheetToDelete);
+            isSure = false;
+            commandResult = new CheatSheetCommandResult(String.format(MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
+        }
+        return commandResult;
     }
 
     @Override

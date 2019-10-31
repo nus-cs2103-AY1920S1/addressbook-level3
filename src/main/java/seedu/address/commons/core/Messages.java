@@ -24,6 +24,11 @@ public class Messages {
     public static final String MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX = "The cheatsheet index provided is invalid";
     public static final String MESSAGE_INVALID_CHEATSHEET_CONTENT_DISPLAYED_INDEX = "The content index "
             + "provided is invalid";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_CHEATSHEET = "Are you sure you would like "
+            + "to delete the following cheatsheet?";
+    public static final String MESSAGE_HIT_ENTER_TO_DELETE = "Hit enter again to confirm your deletion.";
+
+
     public static final String MESSAGE_NO_CHEATSHEET_LOADED = "No cheatsheet has been loaded";
     public static final String MESSAGE_INVALID_TAG_INDEX = "Sorry! The tag index provided is invalid!";
 

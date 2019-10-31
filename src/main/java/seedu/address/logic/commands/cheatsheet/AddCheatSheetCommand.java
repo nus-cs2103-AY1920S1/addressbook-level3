@@ -96,7 +96,6 @@ public class AddCheatSheetCommand extends Command {
             }
         }
 
-
         // get all notes
         NoteContainsTagPredicate noteTagPredicate = new NoteContainsTagPredicate(tags);
         model.updateFilteredNoteList(noteTagPredicate);
