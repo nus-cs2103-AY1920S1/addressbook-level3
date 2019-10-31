@@ -14,6 +14,9 @@ public class AbortCreationCommand extends Command {
 
     public static final String COMMAND_WORD = "abort";
     public static final String MESSAGE_SUCCESS = "Meme creation aborted.";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD
+            + ": abort current meme creation session and return to templates tab.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION;
 
     public AbortCreationCommand() {
     }

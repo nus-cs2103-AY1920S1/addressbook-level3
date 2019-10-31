@@ -19,8 +19,9 @@ public class UnstageCommand extends Command {
 
     public static final String COMMAND_WORD = "unstage";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": unstages a meme. "
-            + "Parameters: "
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": unstages a meme.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + " Parameters: "
             + "Parameters: INDEX (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 ";
 

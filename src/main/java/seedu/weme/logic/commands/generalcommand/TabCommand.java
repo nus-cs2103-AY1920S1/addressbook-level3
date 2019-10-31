@@ -15,6 +15,8 @@ public class TabCommand extends Command {
     public static final String COMMAND_WORD = "tab";
 
     public static final String MESSAGE_SUCCESS = "Switched to %s context.";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": switch to another context.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION;
 
     private ModelContext context;
 

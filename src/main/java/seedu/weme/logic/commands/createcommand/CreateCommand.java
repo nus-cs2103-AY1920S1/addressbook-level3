@@ -27,6 +27,8 @@ public class CreateCommand extends Command {
 
     public static final String COMMAND_WORD = "create";
     public static final String MESSAGE_SUCCESS = "A new meme has been created and added to the collection: %s";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": generate a meme and add it to the collection.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION;
     private static final String MESSAGE_IO_ERROR = "An error occurred while writing the generated meme image to disk";
 
     private final Description description;

@@ -29,9 +29,11 @@ public class MemeEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the meme identified "
-            + "by the index number used in the displayed meme list. "
-            + "Existing values will be overwritten by the input values.\n"
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD
+            + ": edits the details of the meme identified by the index number used in the displayed meme list.";
+
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + " Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"

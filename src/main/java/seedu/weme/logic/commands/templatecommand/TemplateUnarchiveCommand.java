@@ -22,8 +22,9 @@ public class TemplateUnarchiveCommand extends Command {
 
     public static final String COMMAND_WORD = "unarchive";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unarchive a template by index."
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": unarchive a template by index.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + " Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_UNARCHIVE_TEMPLATE_SUCCESS = "Unarchived Template: %1$s";

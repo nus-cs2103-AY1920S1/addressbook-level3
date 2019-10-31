@@ -5,11 +5,13 @@ import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
 import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
 import static seedu.weme.logic.prompter.util.PrompterUtil.EXPORT_COMMANDS;
+import static seedu.weme.logic.prompter.util.PrompterUtil.EXPORT_COMMANDS_DESCRIPTION_MAP;
 import static seedu.weme.logic.prompter.util.PrompterUtil.GENERAL_COMMANDS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.promptCommandWord;
 
 import java.util.regex.Matcher;
 
+import seedu.weme.logic.commands.exportcommand.ExportClearCommand;
 import seedu.weme.logic.commands.exportcommand.ExportCommand;
 import seedu.weme.logic.commands.exportcommand.UnstageCommand;
 import seedu.weme.logic.prompter.commandprompter.exportcommandpropmter.ExportCommandPrompter;
@@ -27,7 +29,12 @@ public class ExportPrompter extends WemePrompter {
     public CommandPrompt promptCommand(Model model, String userInput) throws PromptException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new CommandPrompt(EXPORT_COMMANDS.stream().sorted().reduce((x, y) -> x + '\n' + y).orElse(""),
+            return new CommandPrompt(EXPORT_COMMANDS
+                    .stream()
+                    .sorted()
+                    .map(command -> EXPORT_COMMANDS_DESCRIPTION_MAP.get(command))
+                    .reduce((x, y) -> x + '\n' + y)
+                    .orElse(""),
                     EXPORT_COMMANDS.stream().sorted().findFirst().orElse(""));
         }
 
@@ -44,9 +51,12 @@ public class ExportPrompter extends WemePrompter {
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandPrompter().prompt(model, userInput);
 
+        case ExportClearCommand.COMMAND_WORD:
+            return new CommandPrompt(ExportClearCommand.MESSAGE_USAGE, userInput);
+
         default:
             if (arguments.isBlank()) {
-                return promptCommandWord(EXPORT_COMMANDS, commandWord);
+                return promptCommandWord(EXPORT_COMMANDS, commandWord, EXPORT_COMMANDS_DESCRIPTION_MAP);
             } else {
                 throw new PromptException(MESSAGE_UNKNOWN_COMMAND);
             }

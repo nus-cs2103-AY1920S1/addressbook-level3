@@ -24,16 +24,18 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
     public static final String EXPORT_FOLDER_NAME = "export";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Exports memes in the export context to a given directory. "
-            + "Parameters: "
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD
+            + ": exports memes in the export context to a given directory.";
+
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + " Parameters: "
             + PREFIX_FILEPATH + "PATH \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILEPATH + "C:/Users/username/Downloads/meme_folder/ ";
     public static final String MESSAGE_SUCCESS = "Memes exported successfully!";
     public static final String MESSAGE_INVALID_DEFAULT_EXPORT_PATH =
             "Invalid Default Export Path set. "
-            + "Configure it in preferences.json and restart the application";
+                    + "Configure it in preferences.json and restart the application";
 
     private final DirectoryPath exportPath;
     private boolean isApplicationPath;

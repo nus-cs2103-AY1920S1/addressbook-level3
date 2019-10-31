@@ -5,6 +5,7 @@ import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
 import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
 import static seedu.weme.logic.prompter.util.PrompterUtil.CREATE_COMMANDS;
+import static seedu.weme.logic.prompter.util.PrompterUtil.CREATE_COMMANDS_DESCRIPTION_MAP;
 import static seedu.weme.logic.prompter.util.PrompterUtil.GENERAL_COMMANDS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.promptCommandWord;
 
@@ -27,7 +28,12 @@ public class CreatePrompter extends WemePrompter {
     public CommandPrompt promptCommand(Model model, String userInput) throws PromptException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new CommandPrompt(CREATE_COMMANDS.stream().sorted().reduce((x, y) -> x + '\n' + y).orElse(""),
+            return new CommandPrompt(CREATE_COMMANDS
+                    .stream()
+                    .sorted()
+                    .map(command -> CREATE_COMMANDS_DESCRIPTION_MAP.get(command))
+                    .reduce((x, y) -> x + '\n' + y)
+                    .orElse(""),
                     CREATE_COMMANDS.stream().sorted().findFirst().orElse(""));
         }
 
@@ -42,12 +48,14 @@ public class CreatePrompter extends WemePrompter {
             return new TextAddCommandPrompter().prompt(model, userInput);
 
         case AbortCreationCommand.COMMAND_WORD:
+            return new CommandPrompt(AbortCreationCommand.MESSAGE_USAGE, userInput);
+
         case CreateCommand.COMMAND_WORD:
-            return new CommandPrompt(userInput);
+            return new CommandPrompt(CreateCommand.MESSAGE_USAGE, userInput);
 
         default:
             if (arguments.isBlank()) {
-                return promptCommandWord(CREATE_COMMANDS, commandWord);
+                return promptCommandWord(CREATE_COMMANDS, commandWord, CREATE_COMMANDS_DESCRIPTION_MAP);
             } else {
                 throw new PromptException(MESSAGE_UNKNOWN_COMMAND);
             }

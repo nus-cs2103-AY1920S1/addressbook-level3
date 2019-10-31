@@ -41,9 +41,17 @@ public class WemePrompter {
             return new TabCommandPrompter().prompt(model, userInput);
 
         case UndoCommand.COMMAND_WORD:
+            return new CommandPrompt(UndoCommand.MESSAGE_USAGE, userInput);
+
         case RedoCommand.COMMAND_WORD:
+            return new CommandPrompt(RedoCommand.MESSAGE_USAGE, userInput);
+
         case ExitCommand.COMMAND_WORD:
+            return new CommandPrompt(ExitCommand.MESSAGE_USAGE, userInput);
+
         case HelpCommand.COMMAND_WORD:
+            return new CommandPrompt(HelpCommand.MESSAGE_USAGE, userInput);
+
         default:
             return new CommandPrompt(userInput);
         }

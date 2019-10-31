@@ -1,13 +1,11 @@
 package seedu.weme.logic.prompter.commandprompter.memecommandprompter;
 
-import static seedu.weme.logic.commands.memecommand.MemeDeleteCommand.COMMAND_WORD;
-import static seedu.weme.logic.prompter.util.PrompterUtil.COMMAND_DELIMITER;
-import static seedu.weme.logic.prompter.util.PrompterUtil.MAX_RESULTS_DISPLAY;
-import static seedu.weme.logic.prompter.util.PrompterUtil.NO_LISTED_MEME;
+import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.weme.logic.commands.memecommand.MemeDeleteCommand.MESSAGE_USAGE;
+import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
+import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.regex.Matcher;
 
 import seedu.weme.logic.prompter.Prompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
@@ -18,31 +16,22 @@ import seedu.weme.model.Model;
  * Prompt arguments for MemeDeleteCommand.
  */
 public class MemeDeleteCommandPrompter implements Prompter {
-    private static final String PREAMBLE = COMMAND_WORD + COMMAND_DELIMITER;
 
-    /**
-     * Suggests the indices of possible memes to be deleted, in ascending order of the number of likes
-     * the meme has received.
-     */
     @Override
     public CommandPrompt prompt(Model model, String userInput) throws PromptException {
-        List<String> possibleArguments = model
-                .getFilteredMemeList()
-                .stream()
-                .sorted(Comparator.comparingInt(meme -> model.getLikesByMeme(meme)))
-                .map(meme -> String.valueOf(model.getFilteredMemeList().indexOf(meme) + 1))
-                .collect(Collectors.toList());
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        matcher.matches();
+        final String arguments = matcher.group(ARGUMENTS);
 
-        return new CommandPrompt(
-                possibleArguments
-                        .stream()
-                        .limit(MAX_RESULTS_DISPLAY)
-                        .reduce((x, y) -> x + '\n' + y)
-                        .orElse(NO_LISTED_MEME),
-                PREAMBLE + possibleArguments
-                        .stream()
-                        .findFirst()
-                        .orElse(NO_LISTED_MEME)
-        );
+        if (arguments.isBlank()) {
+            return new CommandPrompt(MESSAGE_USAGE, userInput);
+        }
+
+        try {
+            Integer.parseInt(arguments.trim());
+            return new CommandPrompt(MESSAGE_USAGE, userInput);
+        } catch (NumberFormatException e) {
+            throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
     }
 }

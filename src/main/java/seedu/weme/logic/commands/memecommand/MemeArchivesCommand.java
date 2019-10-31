@@ -15,6 +15,8 @@ public class MemeArchivesCommand extends Command {
     public static final String COMMAND_WORD = "archives";
 
     public static final String MESSAGE_SUCCESS = "Listed all archived memes";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": list all archived memes.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION;
 
 
     @Override

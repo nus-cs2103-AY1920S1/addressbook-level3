@@ -22,12 +22,14 @@ public class TemplateEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the template identified "
-        + "by the index number used in the displayed template list. "
-        + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) "
-        + PREFIX_NAME + "NAME\n"
-        + "Example: " + COMMAND_WORD + " 1 n/Drake";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": edits the details of the template identified "
+            + "by the index number used in the displayed template list.";
+
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + " Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_NAME + "NAME\n"
+            + "Example: " + COMMAND_WORD + " 1 n/Drake";
 
     public static final String MESSAGE_EDIT_TEMPLATE_SUCCESS = "Edited Template: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -85,6 +87,6 @@ public class TemplateEditCommand extends Command {
         // state check
         TemplateEditCommand e = (TemplateEditCommand) other;
         return index.equals(e.index)
-            && name.equals(e.name);
+                && name.equals(e.name);
     }
 }

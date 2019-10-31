@@ -13,6 +13,8 @@ public class ExportClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Export staging area has been cleared!";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": clear all memes in the export staging area.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION;
 
 
     @Override

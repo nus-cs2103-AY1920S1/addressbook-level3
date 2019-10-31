@@ -10,6 +10,8 @@ import seedu.weme.model.Model;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": exit Weme";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION;
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Weme as requested ...";
 

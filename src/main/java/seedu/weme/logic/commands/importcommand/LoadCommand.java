@@ -21,9 +21,11 @@ public class LoadCommand extends Command {
 
     public static final String COMMAND_WORD = "load";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Loads memes to the import staging area from a given directory. "
-            + "Parameters: "
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD
+            + ": loads memes to the import staging area from a given directory. ";
+
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + " Parameters: "
             + PREFIX_FILEPATH + "PATH \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILEPATH + "C:/Users/username/Downloads/ ";

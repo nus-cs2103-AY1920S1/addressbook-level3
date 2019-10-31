@@ -24,8 +24,9 @@ public class MemeArchiveCommand extends Command {
 
     public static final String COMMAND_WORD = "archive";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Archive a meme by index."
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": archive a meme by index.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + " Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_ARCHIVE_MEME_SUCCESS = "Archived Meme: %1$s";

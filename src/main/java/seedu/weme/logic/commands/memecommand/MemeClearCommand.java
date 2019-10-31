@@ -13,6 +13,8 @@ public class MemeClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Memes have been cleared!";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": delete all memes in Weme.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION;
 
 
     @Override

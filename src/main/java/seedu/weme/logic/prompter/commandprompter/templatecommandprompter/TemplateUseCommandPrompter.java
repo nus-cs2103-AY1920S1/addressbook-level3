@@ -1,12 +1,11 @@
 package seedu.weme.logic.prompter.commandprompter.templatecommandprompter;
 
-import static seedu.weme.logic.commands.templatecommand.TemplateUseCommand.COMMAND_WORD;
-import static seedu.weme.logic.prompter.util.PrompterUtil.COMMAND_DELIMITER;
-import static seedu.weme.logic.prompter.util.PrompterUtil.MAX_RESULTS_DISPLAY;
-import static seedu.weme.logic.prompter.util.PrompterUtil.NO_LISTED_TEMPLATE;
+import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.weme.logic.commands.templatecommand.TemplateUseCommand.MESSAGE_USAGE;
+import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
+import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.regex.Matcher;
 
 import seedu.weme.logic.prompter.Prompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
@@ -17,27 +16,22 @@ import seedu.weme.model.Model;
  * Prompt arguments for TemplateUseCommand.
  */
 public class TemplateUseCommandPrompter implements Prompter {
-    private static final String PREAMBLE = COMMAND_WORD + COMMAND_DELIMITER;
 
     @Override
     public CommandPrompt prompt(Model model, String userInput) throws PromptException {
-        List<String> possibleArguments = model
-                .getFilteredTemplateList()
-                .stream()
-                .map(template -> String.valueOf(model.getFilteredTemplateList().indexOf(template) + 1))
-                .sorted()
-                .collect(Collectors.toList());
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        matcher.matches();
+        final String arguments = matcher.group(ARGUMENTS);
 
-        return new CommandPrompt(
-                possibleArguments
-                        .stream()
-                        .limit(MAX_RESULTS_DISPLAY)
-                        .reduce((x, y) -> x + '\n' + y)
-                        .orElse(NO_LISTED_TEMPLATE),
-                PREAMBLE + possibleArguments
-                        .stream()
-                        .findFirst()
-                        .orElse(NO_LISTED_TEMPLATE)
-        );
+        if (arguments.isBlank()) {
+            return new CommandPrompt(MESSAGE_USAGE, userInput);
+        }
+
+        try {
+            Integer.parseInt(arguments.trim());
+            return new CommandPrompt(MESSAGE_USAGE, userInput);
+        } catch (NumberFormatException e) {
+            throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
     }
 }
