@@ -23,6 +23,7 @@ import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.ui.answerables.AnswerableListPanel;
@@ -189,7 +190,6 @@ public class StartQuizWindow extends Window {
 
     /**
      * Handles progression to the next level and receives response from the user.
-     *
      * @param nextAnswerable next answerable that will be displayed.
      */
     @FXML
