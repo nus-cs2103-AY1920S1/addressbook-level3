@@ -74,7 +74,10 @@ Format: `exit`
 
 
 === *Viewing and Managing Patients*
+
+====
 VISIT can store all the patient information for doctors to have them easily accessible. The following commands enable doctors to be able to add patients and their relevant particulars to be tracked by VISIT, and also view a list of patients that have been entered.
+====
 
 ==== Listing all patients : `list`
 
@@ -134,6 +137,26 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
+==== Viewing a Patient's Full Profile : `profile`
+
+Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing `q` to quit, or `p` to generate a text file of the profile. +
+Format: `profile INDEX`
+
+[NOTE]
+Generated text version of profiles are saved under the `generated_profiles` folder of the application.
+
+****
+* Shows full profile for the patient at the specified INDEX.
+* The index refers to the index number shown in the displayed patient list.
+* The index must be a positive integer 1, 2, 3, …
+* The generated text file will overwrite the older text file if it exists.
+****
+
+*Examples*:
+
+* `profile 2` +
+Opens up a pop-up panel detailing the profile of the patient with the index of 2.
+
 // tag::delete[]
 ==== Deleting a patient : `delete`
 
@@ -161,68 +184,15 @@ Deletes the 1st patient in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Setting shorthand commands: `alias`
-
-Set an alias for a command to do shorthand. +
-Format: `alias l/SHORTHAND v/COMMAND`
-
-Examples:
-
-* `alias l/ls v/list` +
-Typing `ls` now works equivalently as `list`.
-* `alias l/h v/help` +
-Typing `h` now works equivalently as `help`.
-
-=== Deleting shorthand commands: `unalias`
-
-Delete a existing alias. +
-Format: `unalias SHORTHAND`
-
-Examples:
-
-* `unalias ls` +
-Typing `ls` is no longer equivalent to `list`.
-
-=== Showing all existing aliases: `aliaslist`
-
-Show all existing aliases. +
-Format: `aliaslist`
-
-Examples:
-
-* `aliaslist` +
-Shows all the existing aliases.
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Viewing Full Profile : `profile`
-
 [WARNING]
 Be careful when entering this, as this will erase all patient data from VISIT!
 
 
 === *Viewing and Managing Visits*
+
+====
 VISIT enables doctors to also track the visitations for each patient, allowing the specification of diagnosis, medications prescribed as well as other general comments per visit.
-
-==== Viewing Full Profile : `profile`
-
-Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing q to quit, or p to generate a text file of the profile. +
-Format: `profile INDEX`
-
-****
-* Shows full profile for the patient at the specified INDEX.
-* The index refers to the index number shown in the displayed patient list.
-* The index must be a positive integer 1, 2, 3, …
-* The generated text file will overwrite the older text file if it exists.
-****
-
-*Examples*:
-
-* `profile 2` +
-Opens up a pop-up panel detailing the profile of the patient with the index of 2.
+====
 
 ==== Adding a new visitation report for a patient : `addvisit`
 Opens a pop-up panel that enables the specification of a new visitation report for a particular patient. +
@@ -302,8 +272,12 @@ An error will be thrown if the report with the given report index does not exist
 
 For both `deletevisit` and `editvisit` commands if the patient has no past records, a pop up with the message "Patient has no past records" will be shown instead of a list of reports when `editvisit [INDEX]` or `deletevisit [INDEX]` is run. Note that an error will be raised if the report index is provided to a patient with no past records, for example `editvisit [INDEX] i/1` or `deletevisit [INDEX] d/1`.
 
+
 === *Follow-Ups and Reminders*
+
+====
 VISIT also enables doctors to keep abreast and up-to-date on any events or deadlines as VISIT can be customized to remind them of any follow-up appointments or other timed reminders.
+====
 
 ==== Adding a follow-up reminder with patient : `followup`
 
@@ -336,8 +310,12 @@ Creates a reminder “Two Point Hospital closed” that will display at launch f
 Shows a pop-up containing the message of the day text. +
 Format: `show`
 
+
 === *Optimization for Command-Line Interface (CLI) Users*
+
+====
 VISIT being an application optimized for doctors who are comfortable with CLI, has support for features such as aliasing for commands to enable command entries which are often used to be stored and used quickly and easily.
+====
 
 ==== Setting a shorthand command / alias : `alias`
 
@@ -351,15 +329,25 @@ Typing `ls` now works equivalently as typing `list`.
 * `alias l/show all patients v/list` +
 Typing `show all patients` now works equivalently as typing `list`.
 
-==== Deleting a shorthand commands / alias : `deletealias`
+==== Removing a shorthand command / alias : `unalias`
 
 Delete an existing alias. +
-Format: `deletealias SHORTHAND`
+Format: `unalias SHORTHAND`
 
 *Examples*:
 
-* `deletealias ls` +
+* `unalias ls` +
 Typing `ls` will no longer be equivalent to typing `list`.
+
+==== Showing all existing shorthand commands / aliases : `aliaslist`
+
+Show all existing aliases. +
+Format: `aliaslist`
+
+Examples:
+
+* `aliaslist` +
+Shows all the existing aliases.
 
 === *Saving the data*
 
@@ -411,14 +399,14 @@ e.g. `add n/Betsy Crowe t/cold e/betsycrowe@example.com a/Changi Hospital p/1234
 e.g. `edit 2 n/Betsy Crower t/`
 * *Locating patient by name* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find Betsy Tim John`
+* *Viewing Full Profile* : `profile INDEX` +
+e.g. `profile 1`
 * *Deleting a patient* : `delete INDEX` +
 e.g. `delete 2`
 * *Clearing all patient data* : `clear`
 
 === *Viewing and Managing Visits*
 
-* *Viewing Full Profile* : `profile INDEX` +
-e.g. `profile 1`
 * *Adding a new visitation report for a patient* : `addvisit INDEX [v/DATE]` +
 e.g. `addvisit 1 v/19/10/2019`
 * *Editing the particulars of a visitation report* : `editvisit INDEX [i/REPORT INDEX]` +
@@ -438,5 +426,6 @@ e.g. `reminder Two Point Hospital closed d/7`
 
 * *Setting a shorthand command / alias* : `alias l/SHORTHAND v/COMMAND` +
 e.g. `alias l/show all patients v/list`
-* *Deleting a shorthand commands / alias* : `deletealias SHORTHAND` +
-e.g. `deletealias show all patients`
+* *Removing a shorthand command / alias* : `unalias SHORTHAND` +
+e.g. `unalias show all patients`
+* *Showing all existing shorthand commands / aliases* : `aliaslist`

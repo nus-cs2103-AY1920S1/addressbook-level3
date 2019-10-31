@@ -222,20 +222,17 @@ Given below is a simple example usage scenario demonstrate how Profile feature b
 Step 1. The user executes `profile 3` command view the profile of the 3rd person shown in VISIT's current list. It extracts the `Person` instance from the filtered Person list from the current `model` and returns a `CommandResult` with the `Person` instance as an attribute. `MainWindow#executeCommand()` is called and the check for `CommandResult#isShowProfile()` passes, calling `ProfileWindow#setup()` which populates the hidden Profile Window with the attributes of the `Person` instance before `MainWindow#handleProfilePanel()` is called to show the Profile Window.
 
 image::Profile0.png[]
-_{Show activity diagram of opening profile window}_
 
 Step 2. After viewing the relevant information, the user presses the 'esc' key which closes the form. This causes an event handler in `ProfileWindow` which listens for a `KeyEvent.KEY_RELEASED` event where the event code equates to `KeyCode.ESCAPE` ('esc' key) to trigger, which hides the profile window.
 
 image::Profile1.png[]
-_{Show activity diagram of closing profile window}_
 
 [NOTE]
 The user is able to close the `ProfileWindow` form by clicking the 'x' on the top right of the form as well.
 
-This sequence diagram summarizes what happens when a user executes the Profile Command:
+This sequence diagram fully shows what happens when a user executes the Profile Command:
 
-image::ProfileSequenceDiagram.png[]
-_{Show extended sequence diagram of opening and closing profile window}_
+image::ProfileSequenceDiagram1.png[]
 
 ==== Design Considerations
 
