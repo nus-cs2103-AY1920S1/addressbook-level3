@@ -276,13 +276,13 @@ Deletes the flashcard by <FLASHCARD_INDEX>.
 
 Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashcard.
 
-    Format: time [time/TIME] [tag/TAG]...
+    Format: timetrial [tag/TAG]...
 
 * At least one tag must be specified.
-* If more than one tag is specified, selects only flashcards which satisfy all specified tags.
+* If more than one tag is specified, selects all flashcards that contains any of the specified tags.
 * Default <TIME> will be 5 seconds.
-* Answer will be flashed for 10 seconds.
-
+* Answer will be flashed for 3 seconds.
+ts
 === Listing by tags: `filter`
 
 * Filters the flashcard library by the user specified tag(s).
