@@ -184,8 +184,8 @@ public class MainWindow extends UiPart<Stage> {
         classroomListPanel = new ClassroomListPanel(logic.getClassroomList());
         classroomListPanelPlaceholder.getChildren().add(classroomListPanel.getRoot());
 
-//        reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
-//        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        //reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
+        //reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
         createLessonTabs();
 
         resultDisplay = new ResultDisplay();
@@ -198,6 +198,9 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    /**
+     * Creates the tabs that will separate lessons based on the days of the week.
+     */
     public void createLessonTabs() {
         ObservableList<Tab> tabs = lessonTabPanel.getTabs();
 
@@ -287,9 +290,9 @@ public class MainWindow extends UiPart<Stage> {
     public StudentListPanel getStudentListPanel() {
         return studentListPanel;
     }
-//    public ReminderListPanel getReminderListPanel() {
-//        return reminderListPanel;
-//    }
+    //public ReminderListPanel getReminderListPanel() {
+    //return reminderListPanel;
+    //}
 
     public AssignmentListPanel getAssignmentListPanel() {
         return assignmentListPanel;
