@@ -47,7 +47,7 @@ public class TransactionTabParser {
         if (!matcher.matches()) {
             logger.info("The user input does not have the correct command format that can be parsed by"
                     + " Transaction Tab Parser.");
-            throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
+            throw new ParseException(TransactionMessages.MESSAGE_NO_COMMAND);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -74,7 +74,7 @@ public class TransactionTabParser {
 
         default:
             logger.info("There is no command word found in input (Transaction Tab Parser)");
-            throw new ParseException(TransactionMessages.MESSAGE_NO_SUCH_COMMAND);
+            throw new ParseException(TransactionMessages.MESSAGE_NO_COMMAND);
 
         }
     }

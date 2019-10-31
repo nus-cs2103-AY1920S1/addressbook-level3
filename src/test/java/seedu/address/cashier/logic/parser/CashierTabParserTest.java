@@ -79,13 +79,13 @@ public class CashierTabParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(Exception.class, CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT, () ->
+        assertThrows(Exception.class, CashierMessages.MESSAGE_NO_COMMAND, () ->
                 parser.parseCommand("", model, personModel));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(Exception.class, CashierMessages.NO_SUCH_COMMAND, () ->
+        assertThrows(Exception.class, CashierMessages.MESSAGE_NO_COMMAND, () ->
                 parser.parseCommand("unknownCommand", model, personModel));
     }
 

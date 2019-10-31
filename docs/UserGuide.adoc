@@ -237,7 +237,7 @@ This command sorts the table of transactions into a specified order for viewing 
 ** Undo sort: `sort reset`
 
 [NOTE]
-The undo sort command allows you to view the table of transactions in the order originally shown when the application was intially opened.
+The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
 
 
 ==== Find Transactions that Match Keywords:

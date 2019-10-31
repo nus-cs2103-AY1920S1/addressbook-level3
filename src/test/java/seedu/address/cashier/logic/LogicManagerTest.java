@@ -2,7 +2,7 @@ package seedu.address.cashier.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.cashier.ui.CashierMessages.CLEARED_SUCCESSFULLY;
-import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_COMMAND;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_NO_COMMAND;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -141,7 +141,7 @@ public class LogicManagerTest {
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "yufkvghkk";
-        assertParseException(invalidCommand, NO_SUCH_COMMAND);
+        assertParseException(invalidCommand, MESSAGE_NO_COMMAND);
     }
 
     @Test

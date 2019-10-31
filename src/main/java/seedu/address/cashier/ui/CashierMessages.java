@@ -69,6 +69,9 @@ public class CashierMessages {
 
     public static final String MESSAGE_DELETED_ITEM = "Deleted item: %s\n Deleted successfully.";
 
+    public static final String MESSAGE_NO_COMMAND = "Please input a valid command. The commands include\n"
+            + "add, cashier, checkout, clear, delete and edit.";
+
     /**
      * Returns a message containing all the items description according to the category.
      *

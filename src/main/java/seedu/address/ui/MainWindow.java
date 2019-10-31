@@ -226,6 +226,7 @@ public class MainWindow extends UiPart<Stage> {
     private OverallCommandResult executeCommand(String commandText) throws Exception {
         try {
             OverallCommandResult commandResult;
+            logger.info("---------[User input] " + commandText + "--------");
             if (isUiCommand(commandText)) {
                 commandResult = uiLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
@@ -282,8 +283,13 @@ public class MainWindow extends UiPart<Stage> {
      * @return true if it is a UI-related command.
      */
     private boolean isUiCommand(String userInput) {
-        return userInput.split(" ")[0].equals("go")
-                || userInput.split(" ")[0].equals("exit");
+        userInput.trim();
+        String[] userInputArr = userInput.split(" ");
+        if (userInputArr.length > 0) {
+            return userInput.split(" ")[0].equals("go")
+                    || userInput.split(" ")[0].equals("exit");
+        }
+        return false;
     }
 
     /**
