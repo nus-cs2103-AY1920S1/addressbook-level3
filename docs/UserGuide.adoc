@@ -26,7 +26,7 @@ Click on <<Quick Start, Quick Start>> to get started!
 This guide shows you how to import your interview schedules into Scheduler to begin managing your interview schedule.
 It also shows you basic tips on how to add or delete and edit interviewers/interviewees based on your changing needs.
 
-=== Import your csv file into the application `[Coming in v2.0]`
+=== Import your csv file into the application
 
 TIP: Converting your Excel file into .csv format
 
@@ -176,19 +176,14 @@ Format: `tag TAG_NAME` +
 User will also be able to filter by tags. +
 Format: `filter tag TAG_NAME` +
 
-=== Scheduling `generate`
-==== Generating timetable of all available time slots
-Generate the timetable of all available interview time slots based on the availability of interviewers. +
-Format: `generate timetable` +
-
-==== Generating full interview schedule
+=== Scheduling `schedule`
+==== Schedule the interviews
 Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
-the timetable of all available interview time slots. +
-Format: `generate schedule` +
+their choice of department. As of V1.3, the scheduling result is reflected on the console of the application. This will
+be updated such that the result is reflected in the displayed interview timetable at v1.4. +
+Format: `schedule` +
 
-**Note:** This command requires the timetable of all available time slots to be generated first!
-
-=== Exporting of interview schedule `export`
+=== Exporting of interview schedule `export` [Coming soon in v1.4]
 Exports the allocated interview schedule timetable to a comma separated values (CSV) file. +
 Format: `export` +
 
@@ -247,9 +242,6 @@ Format: `record rank`
 |`add interviewer name:"NAME" slot:SLOT...` +
  `add interviewee name:"NAME" slot:SLOT...`
 
-|Display list of interviewers/interviewees
-|`display interviewees`
-
 |Get interview schedule for interviewer/interviewee
 |`get NAME` +
 
@@ -268,8 +260,7 @@ Format: `record rank`
 |`filter tag TAG_NAME` +
 
 |Schedule
-|`generate timetable` +
- `generate schedule`
+|`schedule` +
 
 |Export
 |`export` +
