@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalTasks.CS2100;
 import static seedu.address.testutil.TypicalTasks.CS2103T;
 
 import java.nio.file.Path;
@@ -106,7 +107,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasTask_taskInAddressBook_returnsTrue() {
-        modelManager.addTask(null);
+        modelManager.addTask(CS2103T);
         assertTrue(modelManager.hasTask(CS2103T));
     }
 

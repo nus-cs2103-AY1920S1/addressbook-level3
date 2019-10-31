@@ -9,6 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.task.Task;
 
 
@@ -53,6 +54,7 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
+        model.afterAddTask();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

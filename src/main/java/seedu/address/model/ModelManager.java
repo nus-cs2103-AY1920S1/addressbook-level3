@@ -223,6 +223,11 @@ public class ModelManager implements Model {
     @Override
     public void addTask(Task task) {
         addressBook.addTask(task);
+        //updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void afterAddTask() {
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
