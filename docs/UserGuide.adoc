@@ -364,13 +364,33 @@ Format: `clear`
 
 View various statistics about the memes such as tags and likes count by tags, and most used templates.
 
-=== Auto-suggestions
+=== Command Suggestions
 
-The command format will be suggested in the console after user type in the command word, followed by one example. Possible command arguments (ordered by relevance) will appear in the console after user type in each prefix. The auto-suggestion is dynamic and updates while the user type in command. +
-Format: +
-when user type in meme add, the command format will appear below: +
-`p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
-e.g. `p/home/pictures/p1.jpeg d/My favorite meme n/sad sponge bob t/spongebob t/favorites`
+* Suggestions for command word/argument based on current user input will be displayed in the result box.
+* The auto-suggestion is dynamic and automatically updates while the user type in command.
+* The suggestions are retrieved from historical records and sorted according to the similarity to user input, with the first suggestion
+being the most recommended one.
+* For the command word suggestion, only commands available for current context will be displayed.
+Description for each command will be displayed after each command word.
+* User can press "TAB" key to auto-complete the command suggestion, i.e. replacing current command word/arguments with
+the first suggestion displayed (if there is any).
+* If the user input is of invalid format, the text will turn red and error messages will be displayed in the result box
+immediately without pressing "ENTER" key. This does not account for invalid values, e.g. input meme index is 5 but there is
+no meme of index 5.
+
+Example 1: +
+When user type in "a" in the meme context, the following suggestions will appear: +
+`add: adds a meme to Weme. +
+archive: archive a meme by index. +
+archives: list all archived memes.` +
+If tab is pressed, "a" in the command box will be replaced by "add".
+
+Example 2: +
+when user type in "add p/pathToMeme t/c", the following suggestions will appear: +
+`CS +
+cute +
+CS2103` +
+If tab is pressed, "c" in the command box will be replaced by "CS".
 
 == FAQ
 
