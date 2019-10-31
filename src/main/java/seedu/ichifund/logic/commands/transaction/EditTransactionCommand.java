@@ -1,13 +1,13 @@
 package seedu.ichifund.logic.commands.transaction;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +31,7 @@ import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
 
 /**
- * Edits the details of an existing transaction in the year book.
+ * Edits the details of an existing transaction in IchiFund.
  */
 public class EditTransactionCommand extends Command {
 
@@ -57,7 +57,7 @@ public class EditTransactionCommand extends Command {
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-   
+
     private final Index index;
     private final EditTransactionDescriptor editTransactionDescriptor;
 
@@ -87,7 +87,7 @@ public class EditTransactionCommand extends Command {
         if (transactionToEdit.isFromRepeater()) {
             throw new CommandException(Messages.MESSAGE_TRANSACTION_FROM_REPEATER);
         }
-        
+
         Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
 
         model.setTransaction(transactionToEdit, editedTransaction);

@@ -12,6 +12,9 @@ import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.transaction.Transaction;
 
+/**
+ * Deletes an existing transaction in IchiFund.
+ */
 public class DeleteTransactionCommand extends Command {
     public static final String COMMAND_WORD = "deletetx";
 

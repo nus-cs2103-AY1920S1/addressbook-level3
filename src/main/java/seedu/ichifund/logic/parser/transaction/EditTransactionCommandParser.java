@@ -2,9 +2,9 @@ package seedu.ichifund.logic.parser.transaction;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
@@ -39,7 +39,8 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTransactionCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditTransactionCommand.MESSAGE_USAGE), pe);
         }
 
         EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
