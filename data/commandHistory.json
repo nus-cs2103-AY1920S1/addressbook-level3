@@ -116,5 +116,68 @@
   }, {
     "input" : "list",
     "output" : "Listed all appeals\nListed all modules\nListed all students"
+  }, {
+    "input" : "approve",
+    "output" : "Invalid command format! \napprove: approves individual or multiple appeals\nTo approve individually:\nParameters: KEYWORD [a/INDEX] [r/REASON]\nExample: approve a/1 r/module quota exceeded.\nTo approve multiple:\nParameters: KEYWORD [mass/] [APPEALID] [APPEALID] ...\nExample: approve mass/C000001 C000012 C000007 C000020"
+  }, {
+    "input" : "reject",
+    "output" : "Invalid command format! \nreject: rejects individual or multiple appeals\nTo reject individually:\nParameters: KEYWORD [a/INDEX] [r/REASON]\nExample: reject a/1 r/module quota exceeded.\nTo reject multiple:\nParameters: KEYWORDS [mass/] [APPEALID] [APPEALID] ...\nExample: reject mass/C000001 C000012 C000007 C000020"
+  }, {
+    "input" : "approve",
+    "output" : "Invalid command format! \napprove: approves individual or multiple appeals\nTo approve individually:\nParameters: KEYWORD [a/INDEX] [r/REASON]\nExample: approve a/1 r/module quota exceeded.\nTo approve multiple:\nParameters: KEYWORD [mass/] [APPEALID] [APPEALID] ...\nExample: approve mass/C000001 C000012 C000007 C000020"
+  }, {
+    "input" : "reject",
+    "output" : "Invalid command format! \nreject: rejects individual or multiple appeals\nTo reject individually:\nParameters: KEYWORD [a/INDEX] [r/REASON]\nExample: reject a/1 r/module quota exceeded.\nTo reject multiple:\nParameters: KEYWORDS [mass/] [APPEALID] [APPEALID] ...\nExample: reject mass/C000001 C000012 C000007 C000020"
+  }, {
+    "input" : "reject a/2 a/3",
+    "output" : "reject: rejects individual or multiple appeals\nTo reject individually:\nParameters: KEYWORD [a/INDEX] [r/REASON]\nExample: reject a/1 r/module quota exceeded.\nTo reject multiple:\nParameters: KEYWORDS [mass/] [APPEALID] [APPEALID] ...\nExample: reject mass/C000001 C000012 C000007 C000020"
+  }, {
+    "input" : "reject a/2 ",
+    "output" : "Rejected C000001"
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful "
+  }, {
+    "input" : "reject mass/ C000000 C000001 C000002  Csnnjkgn  CcCC0000",
+    "output" : "Successfully rejected: [C000000, C000001, C000002]\nInvalid appeal IDs: [Csnnjkgn, CcCC0000]"
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful "
+  }, {
+    "input" : "approve a/3",
+    "output" : "Approved C000002\nRemoved module from : A0180002"
+  }, {
+    "input" : "approve a/3",
+    "output" : "The appeal was already resolved"
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful "
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful "
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful "
+  }, {
+    "input" : "approve a/3 a/2",
+    "output" : "approve: approves individual or multiple appeals\nTo approve individually:\nParameters: KEYWORD [a/INDEX] [r/REASON]\nExample: approve a/1 r/module quota exceeded.\nTo approve multiple:\nParameters: KEYWORD [mass/] [APPEALID] [APPEALID] ...\nExample: approve mass/C000001 C000012 C000007 C000020"
+  }, {
+    "input" : "approve a/2 r/gay",
+    "output" : "Approved C000001\nRemoved module from : A0180001"
+  }, {
+    "input" : "approve afd",
+    "output" : "Invalid command format! \napprove: approves individual or multiple appeals\nTo approve individually:\nParameters: KEYWORD [a/INDEX] [r/REASON]\nExample: approve a/1 r/module quota exceeded.\nTo approve multiple:\nParameters: KEYWORD [mass/] [APPEALID] [APPEALID] ...\nExample: approve mass/C000001 C000012 C000007 C000020"
+  }, {
+    "input" : "approve mass/  C000000    C000002              C000001    C000003     C000004    C000000   C000002",
+    "output" : "Successfully approved: [C000000, C000003, C000004]"
+  }, {
+    "input" : "approve mass/ C000001",
+    "output" : "No appeals were approved"
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful "
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful "
   } ]
 }
