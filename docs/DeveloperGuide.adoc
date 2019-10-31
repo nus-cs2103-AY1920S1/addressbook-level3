@@ -235,20 +235,26 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
 === Generate meeting timeslot
 ==== Description of Feature
 
-The timeslot generator is used to generate meeting timings by making use of team members' timetable.
+The timeslot generator is used to suggest meeting timings by making use of team members' timetable.
 
-Timetable of members should be inputted beforehand, and stored as a characteristic of the member.
+[NOTE]
+This feature makes heavy use of the class `TimeRange`, which represents a period of time in a week, e.g. Monday 1000 -- Monday 1200.
 
-* `TimeSlotGenerator#generate()` -- Generate timeslot where *_all_* members of the currently checked out project are available. Returns a list of `timeRange`, or an empty list of `timeRange` if no such timeslot is available.
-* `TimeSlotGenerator#generateWithMostMembers()` -- Generate timeslot where *_most_* members of the currently checked out project are available. Returns a list of `timeRange`.
+The main logic of this feature is contained within the `TimeSlotGenerator` class:
+
+TimeSlotGenerator(members, desiredMeetingDuration, restrictedTimeRange)`
+
+* `members`: `List<TimeTable>` of members of the checked-out `Project`
+* `desiredMeetingDuration`: How long the meeting would last in hour, expressed as a positive integer
+* `restrictedTimeRange`: Sets the limit of generated `TimeRange`, e.g. restrict meeting to working hours, from MONDAY 0900 - MONDAY 1800
+
+Only the two following methods are exposed:
+
+* `TimeSlotGenerator#generate()` -- Generate timeslot suitable for *_all_* `TimeTable` supplied. Returns a list of `TimeRange`, or an empty list of `TimeRange` if no such timeslot is available.
+* `TimeSlotGenerator#generateWithMostMembers()` -- Generate timeslot where *_most_* members of the currently checked out project are available. Returns a list of `TimeRange`.
 
 ==== Details
 
@@ -256,43 +262,59 @@ This feature depends on the timetable stored internally as an attribute of each 
 
 image::GenerateSlotClassDiagram.png[]
 
-The `TimeSlotGenerator` is a stateless class, and most usage would be look like this:
+Typical usage of `TimeSlotGenerator` would be look like this:
 
-`List<TimeRange> timeSlots = new TimeSlotGenerator().generate(members, desiredMeetingDuration, timeRange)`
+`List<TimeRange> availableTimeSlots = new TimeSlotGenerator(members, desiredMeetingDuration, restrictedTimeRange).generate()`
 
-* `members`: List of `Person` who are members of the checked-out `Project`
-* `desiredMeetingDuration`: How long the meeting would last in hour, expressed as a positive integer
-* `timeRange`: Restrict the time range in which the timeslot is generated, e.g. working hours, from MONDAY 0900 - MONDAY 1800
-
-The following sequence diagram shows the entire process of generating timeslot after the command `generate` is given:
+The following sequence diagram shows the entire process of generating timeslot after the command `generate d/2` is given:
 
 image::GenerateSlotSequenceDiagram.png[]
 
+As shown in the sequence diagram above, the command execution would go through the following stages:
+
+. Fetch the data of members in the current project and pass them to the `TimeSlotGenerator`.
+. `TimeSlotGenerator` will extract their timetable and generate all possible `TimeRange`.
+. Display result for the user to view all the possible timeslots that a meeting can be held.
+
 [NOTE]
-If `generate(members, duration, timeRange)` returns an empty `List<TimeRange>`, the program would automatically call `generateWithMostMembers(members, duration, timeRange)` and return it as result, informing the user that there is no timeslot where all members are available.
+If `generate()` returns an empty `List<TimeRange>`, the program should automatically call `generateWithMostMembers()` and return it as result, informing the user that there is no timeslot where all members are available.
+
+The following activity diagram summarizes the general flow of the command `generate`:
+
+.`Generate` command tries to provide best possible meeting timeslot
+image::GenerateSlotActivityDiagram.png[]
 
 ==== Algorithm Used
 
-`TimeSlotGenerator#generate()` works by merging all the Timetables into a single TimeTable, and inverting the TimeTable to represent all the  time ranges where all members are free. The algorithm then iterates over all available timeslots, adding each timeslot to the list of timeslots. The algorithm terminates when all possible available TimeRange are exhausted, returning the list of TimeRange that are longer than `duration` supplied by user.
+===== `TimeSlotGenerator#generate()`
 
-`TimeSlotGenerator#generateWithMostMembers()` works by iterating over all possible combinations of members to attend the meeting, in descending order of number of members. For each possible combination, this function would call `TimeSlotGenerator#generate()`. If it returns an empty list, then the algorithm would move on to the next possible combination and try to generate a timeslot, looping until a non-empty list is returned. The algorithm would then terminate, returning the combination of members selected, and the list of `timeRange` of available timings.
+This algorithm goes through several stages:
 
-The sequence of events for `TimeSlotGenerator#generateWithMostMembers()` is shown in the sequence diagram below:
+. Combine all the given `TimeTable` into a single `List<TimeRange> combined`
+. `combined` is then processed further by merging overlapping `TimeRange` into a single `TimeRange`. E.g. `TimeRange(MONDAY, 1000, MONDAY, 1200)` and `TimeRange(MONDAY, 1200, MONDAY,1400)` are merged together to form a single `TimeRange(MONDAY, 1000, MONDAY, 1400)`. `List<TimeRange> merged` is then passed on to the next stage.
+. `merged` is then inverted, and returns `List<TimeRange> inverted` containing all timeslots where all the members are free.
+. `inverted` is then processed to ensure that all `TimeRange` falls within `restrictedTimeRange` specified by the user, truncating all `TimeRange` that extends beyond the specified `restrictedTimeRange`, returning `List<TimeRange> truncated`.
+. The algorithm then filters `inverted` by rejecting all `TimeRange` that last shorter than `desiredMeetingDuration` specified by the user. This `List<TimeRange> accepted` is then passed back to the caller of this method, and the algorithm terminates.
 
-<INSERT SEQUENCE DIAGRAM FOR ALGO, SHOWING THE LOOP>
+===== `TimeSlotGenerator#generateWithMostMembers()`
+
+. Iterates over all possible combinations of timetables in descending order of number of timetable.
+. For each possible combination, call `TimeSlotGenerator#generate()`.
+. If `TimeSlotGenerator#generate()` returns an empty list, repeat step 2 again.
+. Algorithm terminates, returning the combination of List<TimeTable> used and available timings `List<TimeRange>` wrapped in a class `TimeSlotWithMember`.
 
 ==== Design Considerations
 
 ===== Aspect: How to generate timeslot with most number of available members
 
-* **Alternative 1 (current choice):** Iterate over all possible combinations of members, sorted in descending order of number of members, and call `TimeSlotGenerator#generate()` on each of these combinations.
+* **Alternative 1 (current choice):** Iterate over all possible combinations of timetables, sorted in descending order of number of timetables, and call `TimeSlotGenerator#generate()` on each of these combinations.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of speed. This implementation takes O(2^n^) time for _n_  members.
-* **Alternative 2:** Use a segment tree.
+* **Alternative 2:** Use a more sophisticated algorithm, like a segment tree.
 ** Pros: Will use much less time.
 ** Cons: Harder to implement, and more specialize towards only doing a single task.
 
-We went with options 1 as there is no real difference in speed if the number of members is restricted to below 15 members, which many projects do not normally exceed, and it is much easier to implement and maintain.
+We went with options 1 as there is no real difference in speed if the number of members is restricted to below 15 members, which many projects do not normally exceed. It is much easier to understand and maintain by other developers as well.
 
 === Timetable input
 ==== Description of Feature

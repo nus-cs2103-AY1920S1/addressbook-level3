@@ -29,14 +29,14 @@ public class TimeSlotGenerator {
      * @throws IllegalValueException When unable to generate timeslot.
      */
     public List<TimeRange> generate() throws IllegalValueException {
-        List<TimeRange> uniqueTimeRanges = filterUniqueTimeRanges(timeTables);
-        List<TimeRange> merged = mergeOverlappingTimeRanges(uniqueTimeRanges);
+        List<TimeRange> combined = combineTimetables(timeTables);
+        List<TimeRange> merged = mergedOverlappingTimeRanges(combined);
         List<TimeRange> inverted = getFreeTimeRanges(merged);
-        List<TimeRange> truncated = truncateTimeRange(inverted, userSpecifiedTimeRange);
-        List<TimeRange> suitable = getSuitableTimeRanges(truncated, numberOfHours);
-        Collections.sort(suitable);
+        List<TimeRange> truncated = truncateTimeRanges(inverted, userSpecifiedTimeRange);
+        List<TimeRange> accepted = filterSuitableTimeRanges(truncated, numberOfHours);
+        Collections.sort(accepted);
 
-        return suitable;
+        return accepted;
     }
 
     public TimeSlotsAvailable generateWithMostPeople() throws IllegalValueException {
@@ -53,7 +53,7 @@ public class TimeSlotGenerator {
         return new TimeSlotsAvailable(true);
     }
 
-    private static List<TimeRange> filterUniqueTimeRanges(Collection<TimeTable> timeTables) {
+    private static List<TimeRange> combineTimetables(Collection<TimeTable> timeTables) {
         Set<TimeRange> timeRanges = new HashSet<>();
         for (TimeTable timeTable : timeTables) {
             timeRanges.addAll(timeTable.getTimeRanges());
@@ -67,7 +67,7 @@ public class TimeSlotGenerator {
      * @return Merged list of TimeRange.
      * @throws IllegalValueException
      */
-    private static List<TimeRange> mergeOverlappingTimeRanges(Collection<TimeRange> timeRanges) throws IllegalValueException {
+    private static List<TimeRange> mergedOverlappingTimeRanges(Collection<TimeRange> timeRanges) throws IllegalValueException {
         List<TimeRange> timeRangesList = new ArrayList<>(timeRanges);
         Collections.sort(timeRangesList);
         List<TimeRange> merged = new ArrayList<>();
@@ -113,7 +113,7 @@ public class TimeSlotGenerator {
         return inverted;
     }
 
-    private static List<TimeRange> truncateTimeRange(List<TimeRange> timeRanges, TimeRange limit) throws IllegalValueException {
+    private static List<TimeRange> truncateTimeRanges(List<TimeRange> timeRanges, TimeRange limit) throws IllegalValueException {
         List<TimeRange> truncated = new ArrayList<>();
         for (TimeRange timeRange : timeRanges) {
             if (!timeRange.overlap(limit)) { // Start after end
@@ -126,7 +126,7 @@ public class TimeSlotGenerator {
         return truncated;
     }
 
-    private static List<TimeRange> getSuitableTimeRanges(List<TimeRange> timeRanges, int numberOfHours) {
+    private static List<TimeRange> filterSuitableTimeRanges(List<TimeRange> timeRanges, int numberOfHours) {
         List<TimeRange> possibleRanges = new ArrayList<>();
         for (TimeRange timeRange : timeRanges) {
             if (timeRange.getDuration().compareTo(new Duration(0, numberOfHours, 0)) >= 0) {

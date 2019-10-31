@@ -30,5 +30,5 @@ AddressBook *-down-> "1" UniquePersonList
 UniquePersonList o-right-> Person
 Project --> "member *" Person
 Person -> "1" TimeTable
-SlotGenerator .down.> TimeTable
+TimeSlotGenerator -down-> TimeTable
 @enduml
