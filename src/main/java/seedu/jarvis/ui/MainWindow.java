@@ -10,7 +10,9 @@ import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
@@ -50,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private VBox parentVBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -140,6 +145,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) ->
+        {
+            tabPanePlaceHolder.setTabMinWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
+            tabPanePlaceHolder.setTabMaxWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
+        });
+
+        parentVBox.setVgrow(tabPanePlaceHolder, Priority.ALWAYS);
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
