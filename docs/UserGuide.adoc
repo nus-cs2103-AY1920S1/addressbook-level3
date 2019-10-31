@@ -204,6 +204,7 @@ Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
 ****
 * Item quantity **must be a positive integer** 1,2,3...
 * When not specified, the item quantity is assumed to be 1.
+* The furthest date allowed as expiry date is 100 years from current date.
 ****
 
 [TIP]
@@ -293,16 +294,21 @@ Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
 ==== Setting reminder for an item: `set reminder`
 
 ===== Setting the number of days before an item's expiry date to start reminding you
-Sets a notification for your item. +
+Sets a reminder for your item. +
 Format: `set reminder|<index>|<reminder threshold>`
 
-This allows the check command to quickly find the item once the reminder threshold is exceeded.
+Reminder threshold refers to *the number of days before the item's expiry date*. By setting the reminder threshold
+of an item to n days, the app will start reminding you of this items n days before its expiry date.
+
+This allows the check command to quickly find the item once the reminder threshold is exceeded, and also
+allows the item to be marked as yellow in `View`.
 
 ****
-* Reminder threshold refers to *the number of days before the item's expiry date* to activate the reminder.
 * All items have their default reminder threshold set to 0.
 * To reset a reminder threshold, simply write over the old one.
-* To delete a reminder, reset the reminder threshold to 0.
+* A reminder cannot be set to be before the current date. For example, if the current date is 20/9/2019
+, it is not possible to set the reminder on 19/9/2019. In other words, if an item is expiring in 4 days, we cannot start the reminder 5 days before its expiry date. Instead, the app understands that you want the reminder to
+be activated immediately, and will start the reminder on the current date.
 ****
 
 Examples:
