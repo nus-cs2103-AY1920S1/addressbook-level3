@@ -14,6 +14,7 @@ import io.xpire.model.item.ContainsKeywordsPredicate;
 public class SearchCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
+    public static final String COMMAND_SHORTHAND = "se";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches and displays all items whose names "
             + "or tag(s) contain any of the specified keywords (case-insensitive).\n"

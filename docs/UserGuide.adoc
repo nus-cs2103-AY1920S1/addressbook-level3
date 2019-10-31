@@ -477,6 +477,10 @@ e.g. `search|milk|tea|pearls`
 
 The commands listed below can only be used in the main list.
 
+
+Below is a summary of the available commands in Xpire:
+
+* *Help* : `help`
 * *Add* `add|<item name>|<expiry date>[|<quantity>]...` +
 e.g. `add|durian|30/9/2019`
 * *Delete* : `delete|<index>[|<tag> or <quantity>]` +
@@ -488,3 +492,30 @@ e.g. `set reminder|1|7`
 e.g. `check|20`
 * *Sort* : `sort|<key>` +
 e.g. `sort|date`
+* *Search* : `search|<keyword>[|<other keywords>]...` +
+e.g. `search|milk|tea|pearls`
+* *Delete* : `delete|<index>[|<tag> or <quantity>]` +
+e.g. `delete|3`
+* *Tag* : `tag|<index>|[<tag>]...`
+* *Clear* : `clear`
+* *Exit* : `exit`
+
+== Command Shorthands
+
+Commands also come with command shorthands which can be used in place of the full command word. For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
+
+Below is a list of commands and their corresponding command shorthands:
+
+* `help` : `h`
+* `add` : `a`
+* `view` : `v`
+* `set reminder` : `sr`
+* `shift` : `sh`
+* `check` : `ch`
+* `sort` : `so`
+* `search` : `se`
+* `delete` : `d`
+* `tag` : `t`
+* `clear` : `cl`
+* `exit` : `x`
+

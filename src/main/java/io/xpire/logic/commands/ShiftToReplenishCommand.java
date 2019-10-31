@@ -24,6 +24,8 @@ import io.xpire.model.tag.TagComparator;
 public class ShiftToReplenishCommand extends Command {
 
     public static final String COMMAND_WORD = "shift";
+    public static final String COMMAND_SHORTHAND = "sh";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Moves the item identified by the index number to the replenish list.\n"
             + "Format: shift|<index> (index must be a positive integer)\n"
