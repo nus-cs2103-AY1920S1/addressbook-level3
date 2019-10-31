@@ -413,6 +413,12 @@ Tips:
 Don't feel like living on budgets any more? You can clear them all, just by a simple command:
 `clearbudgets`.
 
+Tips:
+
+* The Default Budget cannot be deleted or modified. It holds all expenses without a proper budget defined by you.
+* For testers: delete /data folder, and restart MooLah, to get it populated with sample expenses and budgets
+again for further testing.
+
 ==== View expenses in a different period: `switchperiod`
 Wanna see your archived expenses in the past? The command `switchperiod` is the time machine you need.
 
