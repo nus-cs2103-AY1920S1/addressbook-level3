@@ -75,14 +75,8 @@ class LoanSlipUtilTest {
         assertFalse(LoanSlipUtil.isMounted());
         //Mount first loan
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));
-        Loan loan2 = new Loan(
-                new LoanId("L000002"),
-                BOOK_2.getSerialNumber(),
-                BOB.getBorrowerId(),
-                DateUtil.getTodayPlusDays(10),
-                DateUtil.getTodayPlusDays(24));
         //Mount second loan
-        //Check that second loan is not mounted, adding to first loan
+        //Check that second loan is mounted, adding to first loan
         assertThrows(AssertionError.class, () -> LoanSlipUtil.mountLoan(loan2, BOOK_2, BOB));
     }
 
