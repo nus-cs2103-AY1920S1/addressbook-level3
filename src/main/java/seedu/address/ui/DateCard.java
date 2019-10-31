@@ -71,7 +71,7 @@ public class DateCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EventCard)) {
+        if (!(other instanceof DateCard)) {
             return false;
         }
 
