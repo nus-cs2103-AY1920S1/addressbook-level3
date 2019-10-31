@@ -29,12 +29,12 @@ public class Config {
         return userPrefsFilePath;
     }
 
-    public Path getTabMenuFilePath() {
-        return tabMenuFilePath;
-    }
-
     public void setUserPrefsFilePath(Path userPrefsFilePath) {
         this.userPrefsFilePath = userPrefsFilePath;
+    }
+
+    public Path getTabMenuFilePath() {
+        return tabMenuFilePath;
     }
 
     @Override

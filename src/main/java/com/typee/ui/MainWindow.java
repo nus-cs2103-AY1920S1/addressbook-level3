@@ -12,6 +12,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.calendar.CalendarWindow;
 import com.typee.ui.game.StartWindow;
+import com.typee.ui.report.ReportWindow;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -132,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() throws DataConversionException {
         lblWindowTitle.setText("Engagement Window");
-        engagementListPanel = new EngagementListPanel(logic.getSortedEngagementList());
+        engagementListPanel = new EngagementListPanel(logic.getFilteredEngagementList());
         mainWindow.getChildren().add(engagementListPanel.getRoot());
 
         //adding tab panel holder
@@ -238,7 +239,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fetches tab information from the tab menu list to the tab retrived after {@code TabCommand}
      */
-    private Tab fetchTabInformation(String tabName) {
+    private Tab fetchTabInformation(String tabName) throws IOException {
         Tab tabToReturn = new Tab();
         for (Tab tabInList : tabList) {
             if (tabInList.getName().equals(tabName)) {
@@ -258,10 +259,10 @@ public class MainWindow extends UiPart<Stage> {
             tabToReturn.setController(new StartWindow());
             break;
         case "Report":
-            tabToReturn.setController(new ReportWindow());
+            tabToReturn.setController(new ReportWindow(logic.getSortedEngagementList()));
             break;
         case "Engagement":
-            tabToReturn.setController(new EngagementListPanel(logic.getSortedEngagementList()));
+            tabToReturn.setController(new EngagementListPanel(logic.getFilteredEngagementList()));
             break;
         default:
             break;

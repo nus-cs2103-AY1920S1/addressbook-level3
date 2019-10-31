@@ -13,6 +13,7 @@ import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.FindCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.ListCommand;
+import com.typee.logic.commands.PdfCommand;
 import com.typee.logic.commands.RedoCommand;
 import com.typee.logic.commands.SortCommand;
 import com.typee.logic.commands.TabCommand;
@@ -81,6 +82,9 @@ public class TypeeParser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case PdfCommand.COMMAND_WORD:
+            return new PdfCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

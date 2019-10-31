@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Text?>
 <VBox spacing="20" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <HBox alignment="BASELINE_CENTER" spacing="30">
-        <Button text="&lt;&lt;" onMouseClicked="#populateCalendarWithPreviousMonth" />
+        <Button id="btn-next-l" styleClass="function_btn" onMouseClicked="#populateCalendarWithPreviousMonth" />
         <Text fx:id="calendarTitle" fill="white" />
-        <Button text="&gt;&gt;" onMouseClicked="#populateCalendarWithNextMonth" />
+        <Button id="btn-next-r" styleClass="function_btn" onMouseClicked="#populateCalendarWithNextMonth" />
     </HBox>
     <GridPane alignment="BASELINE_CENTER" prefWidth="600">
         <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="0">
