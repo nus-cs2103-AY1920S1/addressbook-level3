@@ -15,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.UploadPictureCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentGrades;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.lesson.ClassName;
@@ -120,6 +121,28 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String assignmentDeadline} into a {@code AssignmentDeadline}.
+     * @param assignmentDeadline String representing assignmentDeadline.
+     * @return AssignmentDeadline object.
+     * @throws ParseException if the given {@code assignmentDeadline} is invalid.
+     */
+    public static AssignmentDeadline parseAssignmentDeadline(String assignmentDeadline) throws ParseException {
+        requireNonNull(assignmentDeadline);
+        String trimmedAssignmentDeadline = assignmentDeadline.trim();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        sdf.setLenient(false);
+        Date date = null;
+        Calendar calendar = Calendar.getInstance();
+        try {
+            date = sdf.parse(trimmedAssignmentDeadline);
+            calendar.setTime(date);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new AssignmentDeadline(trimmedAssignmentDeadline);
+    }
+
+    /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -128,7 +151,7 @@ public class ParserUtil {
     public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
+        if (!Phone.isValidParentPhone(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
@@ -252,6 +275,10 @@ public class ParserUtil {
         try {
             date = sdf.parse(trimmedTime);
             calendar.setTime(date);
+            Calendar currCalendar = Calendar.getInstance();
+            if (calendar.compareTo(currCalendar) < 0) {
+                throw new ParseException(Time.MESSAGE_TIME_CONSTRAINT);
+            }
         } catch (java.text.ParseException e) {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }

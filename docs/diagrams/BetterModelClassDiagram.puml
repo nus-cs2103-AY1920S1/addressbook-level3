@@ -22,7 +22,11 @@ Student *--> Name
 Student *--> Phone
 Student *--> Email
 Student *--> Address
+Student *--> DisplayPicture
+Student *--> ParentPhone
+Student *--> MedicalCondition
 
 Assignment *--> AssignmentName
 Assignment *--> AssignmentGrades
+Assignment *--> AssignmentDeadline
 @enduml

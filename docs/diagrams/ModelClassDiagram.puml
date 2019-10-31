@@ -35,8 +35,16 @@ Package Assignment {
 Class Assignment
 Class AssignmentGrades
 Class AssignmentName
+Class AssignmentDeadline
 Class UniqueAssignmentList
 }
+}
+
+Package Lesson {
+Class Lesson
+Class ClassName
+Class Time
+Class UniqueLessonList
 }
 
 Class HiddenOutside #FFFFFF
@@ -65,12 +73,18 @@ Classroom *--> "1" UniqueAssignmentList
 UniqueAssignmentList o--> "*" Assignment
 Assignment *--> AssignmentName
 Assignment *--> AssignmentGrades
+Assignment *--> AssignmentDeadline
+
+UniqueLessonList o--> "*" Lesson
+Lesson *--> ClassName
+Lesson *--> Time
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 Email -[hidden]right-> ParentPhone
 ParentPhone -[hidden]right-> MedicalCondition
+MedicalCondition -[hidden]right-> DisplayPicture
 
 ModelManager -->"1" Classroom : filtered list
 @enduml

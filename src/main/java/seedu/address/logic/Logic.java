@@ -32,7 +32,7 @@ public interface Logic {
      */
     ReadOnlyClassroom getClassroom();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of students */
     ObservableList<Student> getFilteredStudentList();
 
 

@@ -15,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.student.Student;
 
@@ -37,7 +38,7 @@ public class UpdateGradesCommand extends Command {
             + "Example: " + COMMAND_WORD
             + PREFIX_ASSIGNMENT + "1 "
             + PREFIX_MARKS + "20 34 56 87\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_ASSIGNMENT + "1 "
             + PREFIX_STUDENT + "2 "
             + PREFIX_MARKS + "60";
@@ -143,7 +144,8 @@ public class UpdateGradesCommand extends Command {
         assert assignmentToEdit != null;
 
         AssignmentName assignmentName = assignmentToEdit.getAssignmentName();
-        Assignment editedAssignment = new Assignment(assignmentName);
+        AssignmentDeadline assignmentDeadline = assignmentToEdit.getAssignmentDeadline();
+        Assignment editedAssignment = new Assignment(assignmentName, assignmentDeadline);
         editedAssignment.setGrades(students, marks);
         return editedAssignment;
     }

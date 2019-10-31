@@ -59,17 +59,17 @@ Adds a student to the student list. +
 Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG]...
 
 Examples: +
-* add n/John Doe p/91234567 e/john.doe@gmail.com a/John Street, Block 123, #01-01 pp/92222222 +
-* add n/Jane Doe p/98765432 e/jane.doe@gmail.com a/Jane Street, Block 123, #10-10 pp/93333333
+* addstudent n/John Doe p/91234567 e/john.doe@gmail.com a/John Street, Block 123, #01-01 pp/92222222 +
+* addstudent n/Jane Doe p/98765432 e/jane.doe@gmail.com a/Jane Street, Block 123, #10-10 pp/93333333
 
 ==== Assignments
 
 Adds an assignment to the assignment list +
-Format: addassign as/ASSIGNMENT d/DEADLINE
+Format: addassignment as/ASSIGNMENT d/DEADLINE
 
 Examples:
-* add as/CS2103 Team Project d/31/10/2019
-* add as/CS2103 Individual Project d/30/09/2019
+* addassignment as/CS2103 Team Project d/31/10/2019
+* addassignment as/CS2103 Individual Project d/30/09/2019
 
 // end::add[]
 
@@ -79,12 +79,12 @@ Examples:
 ==== Students’ information
 
 Edits an existing student in the student list. +
-Format: edit c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
+Format: editstudent c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
 [m/MEDICAL_CONDITIONS], [t/TAG]...
 
 Examples:
-* edit c/4C 2 p/91111111
-* edit c/5E2 4 e/new_email@gmail.com
+* editstudent c/4C 2 p/91111111
+* editstudent c/5E2 4 e/new_email@gmail.com
 
 // end::edit[]
 
@@ -109,10 +109,10 @@ Examples:
 
 Edits the grades for students of the specified assignment index. Additional arguments will be dropped and too few
 arguments will be prompted to the user. +
-Format: edit c/CLASS INDEX g/GRADE_ONE GRADE_TWO GRADE_THREE ...
+Format: editstudent c/CLASS INDEX g/GRADE_ONE GRADE_TWO GRADE_THREE ...
 
 Examples:
-* edit c/4E3 2 g/70 30 50
+* editstudent c/4E3 2 g/70 30 50
 
 //end::update[]
 
@@ -130,16 +130,16 @@ Shows a list of all students in a particular class of the user. +
 Format: list [c/CLASS] students
 
 Examples:
-* list c/4E3 students
+* liststudents c/4E3 students
 
 ==== Assignment list
 
 Shows a list of all assignments of classes of the user. +
-Format: listassign c/CLASS
+Format: listassignments c/CLASS
 
 Examples:
-* listassign c/4C
-* listassign c/5E3
+* listassignments c/4C
+* listassignments c/5E3
 //end::list[]
 
 //tag::reminder[]
@@ -156,11 +156,11 @@ Format: none, reminder should come automatically
 ==== Students by name
 
 Find students whose name matches a given keyword. +
-Format: find s/STUDENT_NAME
+Format: findstudent STUDENT_NAME
 
 Examples:
-* find s/John Doe
-* find s/Jane Doe
+* findstudent John Doe
+* findstudent Jane Doe
 
 === Assignments by name
 
@@ -181,14 +181,14 @@ Deletes the student in the index from the specified class list.
 Format: delete c/CLASS s/INDEX
 
 Examples:
-* delete c/4E3 s/3
+* deletestudent c/4E3 3
 
 ==== Deleting assignment
 Deletes the assignment in the index from the specified class list.
-Format: delete c/CLASS as/INDEX
+Format: deleteassignment c/CLASS INDEX
 
 Examples:
-* delete c/4E as/3
+* delete c/4E 3
 
 //end::delete[]
 
@@ -249,21 +249,21 @@ Format: exit
 Coming up soon!
 
 == Command Summary
-* Add: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG] … +
-e.g. add n/John Doe p/91234567 e/john_doe@gmail.com pp/98765432
-* Edit: edit c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
+* Add: addstudent n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pp/PARENT_PHONE_NUMBER [m/MEDICAL_CONDITIONS] [t/TAG] … +
+e.g. addstudent n/John Doe p/91234567 e/john_doe@gmail.com pp/98765432
+* Edit: editstudent c/CLASS INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
 [m/MEDICAL_CONDITIONS], [t/TAG] +
-e.g. edit c/4C 2 p/91111111
-* Update: update c/CLASS INDEX g/GRADE_ONE GRADE_TWO GRADE_THREE... +
-e.g. update c/4E3 3 g/70 60 50
-* List: list c/CLASS OR listassign c/CLASS +
-e.g. list c/4C +
-e.g. listassign c/4E3
-* Find: find s/STUDENT_NAME +
-e.g. find s/John Doe
-* Delete: delete c/CLASS s/INDEX OR delete c/CLASS as/INDEX +
-e.g. delete c/4C s/5 +
-e.g. delete c/4E3 as/2
+e.g. editstudent c/4C 2 p/91111111
+* Update: grades c/CLASS INDEX g/GRADE_ONE GRADE_TWO GRADE_THREE... +
+e.g. grades c/4E3 3 g/70 60 50
+* List: liststudents c/CLASS OR listassignments c/CLASS +
+e.g. liststudents c/4C +
+e.g. listassignments c/4E3
+* Find: findstudent STUDENT_NAME +
+e.g. findstudent John Doe
+* Delete: deletestudent c/CLASS INDEX OR deletestudent c/CLASS INDEX +
+e.g. deletestudent c/4C 5 +
+e.g. deleteassignment c/4E3 2
 * Undo: undo
 * Redo: redo
 * Generate: generate CLASSNAME +

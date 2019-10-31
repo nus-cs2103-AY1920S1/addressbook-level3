@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentName;
 
 /**
@@ -18,6 +19,7 @@ import seedu.address.model.assignment.AssignmentName;
 public class JsonAdaptedAssignment {
 
     private final String assignmentName;
+    private final String assignmentDeadline;
 
     private final List<String> names = new ArrayList<>();
     private final List<String> marks = new ArrayList<>();
@@ -28,10 +30,12 @@ public class JsonAdaptedAssignment {
      */
     @JsonCreator
     public JsonAdaptedAssignment(@JsonProperty("assignmentName") String assignmentName,
+                                 @JsonProperty("assignmentDeadline") String assignmentDeadline,
                                  @JsonProperty("studentNames") List<String> names,
                                  @JsonProperty("studentMarks") List<String> marks,
                                  @JsonProperty("completionStatus") boolean isCompleted) {
         this.assignmentName = assignmentName;
+        this.assignmentDeadline = assignmentDeadline;
         if (names != null && marks != null) {
             this.names.addAll(names);
             this.marks.addAll(marks);
@@ -44,6 +48,7 @@ public class JsonAdaptedAssignment {
      */
     public JsonAdaptedAssignment(Assignment source) {
         assignmentName = source.getAssignmentName().assignmentName;
+        assignmentDeadline = source.getAssignmentDeadline().assignmentDeadline;
         names.addAll(source.namesStringListFromGrades());
         marks.addAll(source.marksStringListFromGrades());
         isCompleted = source.isCompleted();
@@ -66,8 +71,9 @@ public class JsonAdaptedAssignment {
             throw new IllegalValueException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
         final AssignmentName modelAssignmentName = new AssignmentName(assignmentName);
+        final AssignmentDeadline modelAssignmentDeadline = new AssignmentDeadline(assignmentDeadline);
 
-        Assignment newAssignment = new Assignment(modelAssignmentName);
+        Assignment newAssignment = new Assignment(modelAssignmentName, modelAssignmentDeadline);
         newAssignment.setGrades(this.names, this.marks);
         newAssignment.setCompletionStatus(this.isCompleted);
         return newAssignment;

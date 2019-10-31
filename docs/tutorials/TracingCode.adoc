@@ -145,11 +145,11 @@ image:Variables.png[]
 [source, java]
 ----
 ...
-case EditCommand.COMMAND_WORD:
-    return new EditCommandParser().parse(arguments);
+case EditStudentCommand.COMMAND_WORD:
+    return new EditStudentCommandParser().parse(arguments);
 ...
 ----
-. Let's see what `EditCommandParser#parse()` does by stepping into it.
+. Let's see what `EditStudentCommandParser#parse()` does by stepping into it.
 . Stepping through the method shows that it calls `ArgumentTokenizer#tokenize()` and `ParserUtil#parseIndex()` to
 obtain the arguments and index required.
 +
@@ -173,20 +173,20 @@ image::LogicSequenceDiagram.png[]
 
 . Now let's see what happens when we call `command#execute()`!
 +
-.EditCommand#execute()
+.EditStudentCommand#execute()
 [source, java]
 ----
 @Override
 public CommandResult execute(Model model) throws CommandException {
     ...
-    Student personToEdit = lastShownList.get(index.getZeroBased());
-    Student editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-    if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-        throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+    Student studentToEdit = lastShownList.get(index.getZeroBased());
+    Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
+    if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
+        throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
     }
-    model.setPerson(personToEdit, editedPerson);
-    model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    model.setStudent(studentToEdit, editedStudent);
+    model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENT);
+    return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
 }
 ----
 . As suspected, `command#execute()` does indeed make changes to `model`.

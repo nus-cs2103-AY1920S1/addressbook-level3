@@ -3,8 +3,8 @@
 
 Participant ":LogicManager" as logic LOGIC_COLOR
 Participant ":ClassroomParser" as abp LOGIC_COLOR
-Participant ":EditCommandParser" as ecp LOGIC_COLOR
-Participant "command:EditCommand" as ec LOGIC_COLOR
+Participant ":EditStudentCommandParser" as ecp LOGIC_COLOR
+Participant "command:EditStudentCommand" as ec LOGIC_COLOR
 
 [-> logic : execute
 activate logic

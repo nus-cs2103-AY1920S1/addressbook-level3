@@ -47,6 +47,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
             throw new DuplicateAssignmentException();
         }
         internalList.add(toAdd);
+        internalList.sort(new AssignmentComparator());
     }
 
     /**
@@ -68,6 +69,8 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
         }
 
         internalList.set(index, editedAssignment);
+        internalList.sort(new AssignmentComparator());
+
     }
 
     /**
@@ -79,11 +82,14 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
         if (!internalList.remove(toRemove)) {
             throw new AssignmentNotFoundException();
         }
+        internalList.sort(new AssignmentComparator());
     }
 
     public void setAssignments(UniqueAssignmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        internalList.sort(new AssignmentComparator());
+
     }
 
     /**
@@ -97,6 +103,8 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
         }
 
         internalList.setAll(assignments);
+        internalList.sort(new AssignmentComparator());
+
     }
 
     /**

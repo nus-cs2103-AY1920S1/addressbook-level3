@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LESSONS;
 import seedu.address.model.Model;
 
 /**
- * Lists all lessons in the address book to the user.
+ * Lists all lessons in the classroom to the user.
  */
 public class ListLessonCommand extends Command {
     public static final String COMMAND_WORD = "listlessons";

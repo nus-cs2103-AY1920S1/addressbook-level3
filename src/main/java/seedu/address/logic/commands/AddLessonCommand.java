@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.scheduler.Scheduler;
 
 /**
  * Adds a lesson to the classroom.
@@ -51,8 +50,6 @@ public class AddLessonCommand extends Command {
         }
 
         model.addLesson(toAdd);
-        Scheduler scheduler = new Scheduler(toAdd);
-        scheduler.scheduleLesson();
         model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
