@@ -61,7 +61,6 @@ public class Event {
         isDone = true;
     }
 
-
     /**
      * Check whether two events have similar attribute value.
      * @param otherEvent another event in comparison to the current event.

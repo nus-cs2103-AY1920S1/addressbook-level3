@@ -15,9 +15,15 @@ public class Date {
      */
     public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])(1[0-2]|0[1-9])[0-9]{4}$";
     public final String date;
+    public final String oldDate;
 
     public Date(String date) {
+        this.oldDate = date;
         this.date = formatDate(date);
+    }
+
+    public String getOriginalDate() {
+        return oldDate;
     }
 
     /**
