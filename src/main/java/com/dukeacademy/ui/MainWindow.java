@@ -150,7 +150,7 @@ class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        HomePage homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
+        HomePage homePage = new HomePage(questionsLogic.getAllQuestionsList());
         homePagePlaceholder.getChildren().add(homePage.getRoot());
 
         QuestionsPage questionsPage = new QuestionsPage(questionsLogic.getFilteredQuestionsList(),

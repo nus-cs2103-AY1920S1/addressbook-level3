@@ -294,11 +294,11 @@ public class MainApp extends Application {
         commandLogicManager.registerCommand(loadCommandFactory);
         // Registering Find command
         FindCommandFactory findCommandFactory =
-            new FindCommandFactory(this.questionsLogic);
+            new FindCommandFactory(this.questionsLogic, this.applicationState);
         commandLogicManager.registerCommand(findCommandFactory);
         // Registering browse command
         BrowseCommandFactory browseCommandFactory =
-            new BrowseCommandFactory(this.questionsLogic);
+            new BrowseCommandFactory(this.questionsLogic, this.applicationState);
         commandLogicManager.registerCommand(browseCommandFactory);
         // Registering tab command
         TabCommandFactory tabCommandFactory = new TabCommandFactory(this.applicationState);
