@@ -97,7 +97,9 @@ public class Budget {
      * Normalizes the budget window to the current period.
      */
     public void normalize(Timestamp anchor) {
-        window.normalize(anchor);
+        if (!isDefaultBudget()) {
+            window.normalize(anchor);
+        }
     }
 
     /**
