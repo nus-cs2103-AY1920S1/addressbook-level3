@@ -18,8 +18,8 @@ public class SwitchBudgetWindowCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches the budget to a past period anchored by "
             + "the specified date and displays a list of expenses under this budget during that period.\n"
             + "Parameters: "
-            + PREFIX_TIMESTAMP + "DATE "
-            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_TIMESTAMP + "DATE \n"
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_TIMESTAMP + "05-01-2019";
 
     public static final String MESSAGE_SWITCH_PERIOD_SUCCESS = "Budget window switched back to the period "

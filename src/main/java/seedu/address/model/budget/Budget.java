@@ -51,6 +51,7 @@ public class Budget {
         requireAllNonNull(expenses, isPrimary);
         this.expenses = expenses;
         this.isPrimary = isPrimary;
+        // could be useless
     }
 
     public Description getDescription() {
