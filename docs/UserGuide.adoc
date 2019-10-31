@@ -145,7 +145,8 @@ To set a new budget: +
 1. Type `set` and enter the relevant details (amount, deadline, category) in the format given above. +
 2. The result box will display the message "New budget successfully set". +
 3. If the budget already exists in the budget list, the result box will display the message "This budget already exists". +
-4. Now you can see the newly set budget in the budget list.
+4. Now you can see the newly set budget in the budget list. +
+
 
 === Display View : `view`
 
