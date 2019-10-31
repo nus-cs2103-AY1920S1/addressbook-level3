@@ -107,7 +107,7 @@ Format: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
 ==== Registers a new patient: `register` ====
 
 Registers a new patient. +
-Format:  `register  -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
+Format:  `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 
 ==== Updates patients’ profiles: `update` ====
@@ -280,7 +280,7 @@ Format: `redo`
 
 * *Patient Management* +
 ** patient: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
-** register: `register  -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
+** register: `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 ** unregister: `unregister <ENTRY_ID>`
 ** update: `update <ENTRY_ID> [-name <PATIENT_NAME>] [-id <PATIENT_REFERENCE_ID>] [-phone <PHONE_NUM>]
