@@ -10,6 +10,7 @@ import seedu.address.logic.CommandManager;
 import seedu.address.logic.NotificationManager;
 import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.DayViewCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditEventCommand;
@@ -35,6 +36,7 @@ public class MainApp extends Application {
     private static final String COMMAND_ADD_EVENT = "add_event";
     private static final String COMMAND_DELETE_EVENT = "delete_event";
     private static final String COMMAND_EDIT_EVENT = "edit_event";
+    private static final String COMMAND_ADD_TASK = "add_task";
     private static final String COMMAND_UNDO = "undo";
     private static final String COMMAND_REDO = "redo";
     private static final String COMMAND_IMPORT_ICS = "import";
@@ -62,13 +64,15 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_ADD_EVENT, () -> AddEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_DELETE_EVENT, () -> DeleteEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_ADD_TASK, () -> AddTaskCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_UNDO, () -> UndoCommand.newBuilder(undoRedoManager));
         commandManager.addCommand(COMMAND_REDO, () -> RedoCommand.newBuilder(undoRedoManager));
         commandManager.addCommand(COMMAND_IMPORT_ICS, () -> ImportIcsCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_EXPORT_ICS, () -> ExportIcsCommand.newBuilder(modelManager));
-        commandManager
-            .addCommand(COMMAND_NOTIFICATION_OFF, () -> NotificationOffCommand.newBuilder(notificationManager));
-        commandManager.addCommand(COMMAND_NOTIFICATION_ON, () -> NotificationOnCommand.newBuilder(notificationManager));
+        commandManager.addCommand(COMMAND_NOTIFICATION_OFF, () ->
+            NotificationOffCommand.newBuilder(notificationManager));
+        commandManager.addCommand(COMMAND_NOTIFICATION_ON, () ->
+            NotificationOnCommand.newBuilder(notificationManager));
         commandManager.addCommand(COMMAND_DAY_VIEW, () -> DayViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_WEEK_VIEW, () -> WeekViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_MONTH_VIEW, () -> MonthViewCommand.newBuilder(uiManager));
@@ -78,6 +82,9 @@ public class MainApp extends Application {
 
         modelManager.addEventListListener(uiManager);
         modelManager.addEventListListener(undoRedoManager);
+
+        modelManager.addTaskListListener(uiManager);
+        modelManager.addTaskListListener(undoRedoManager);
 
         uiManager.addCommandInputListener(commandManager);
 

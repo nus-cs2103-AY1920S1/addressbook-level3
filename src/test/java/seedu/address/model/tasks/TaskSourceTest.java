@@ -9,7 +9,7 @@ import seedu.address.model.DateTime;
 public class TaskSourceTest {
     @Test
     void equality_useSameTaskSourceBuilder_valueAsExpected() {
-        TaskSourceBuilder tsb = new TaskSourceBuilder("test", DateTime.now(), true);
+        TaskSourceBuilder tsb = new TaskSourceBuilder("test", DateTime.now());
         TaskSource t1 = new TaskSource(tsb);
         TaskSource t2 = new TaskSource(tsb);
         assertEquals(t1, t2);
@@ -19,10 +19,9 @@ public class TaskSourceTest {
     void newBuilderCorrectness_useSameArgumentParameters_valueAsExpected() {
         String description = "test";
         DateTime dt = DateTime.now();
-        boolean isCompleted = true;
 
-        TaskSourceBuilder tsb1 = new TaskSourceBuilder(description, dt, isCompleted);
-        TaskSourceBuilder tsb2 = TaskSource.newBuilder(description, dt, isCompleted);
+        TaskSourceBuilder tsb1 = new TaskSourceBuilder(description, dt);
+        TaskSourceBuilder tsb2 = TaskSource.newBuilder(description, dt);
 
         assertEquals(tsb1.getDescription(), tsb2.getDescription());
         assertEquals(tsb1.getDueDate(), tsb2.getDueDate());
