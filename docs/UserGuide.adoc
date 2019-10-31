@@ -100,7 +100,7 @@ Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... [i/IMAGE]`
 
 [IMPORTANT]
 Take note that if you want to add an image of John when you are adding him to Athletick, make sure that
-the image is in the `images` folder.
+the image is in the `images` folder. Refer to the *"FAQ"* section on how to add your images to the folder.
 
 [IMPORTANT]
 You can include any number of tags (zero tags are also allowed) to an athlete and the addition of an image
@@ -465,8 +465,8 @@ image::afterSelect.png[width="790"]
 
 [IMPORTANT]
 If the image of the selected athlete is not appearing as shown below, take note that the image file is not in the
-`images` folder. You may refer to *Section 4.1.1. "Adding an athlete"* on where to include the image files which are
-going to be used and *Section 4.1.3. Editing an athlete"* to understand further how to edit the image of an athlete.
+`images` folder. You may refer to the *"FAQ"* section to know more on where to include the image files
+which are going to be used and *Section 4.1.3. "Editing an athlete"* to understand further how to edit the image of an athlete.
 
 image::emptyImage.png[width="790"]
 
@@ -550,9 +550,11 @@ IMPORTANT: This command will change your athletes’ index numbers.
 
 IMPORTANT: This command is case-insensitive, so finding by `Irfan` and `irfan` will give the same result.
 
+image::findIrfan.png[width="790"]
+
 *What you should see*
 
-image::find.png[width="790"]
+image::foundIrfan.png[width="790"]
 
 The athlete list in the left sidebar should only display athletes whose names contain the given keywords.
 
@@ -595,7 +597,6 @@ A pop up box will appear, with a link to the user guide on Athletick.
 ==== Undoing a previous command : `undo`
 
 This command restores Athletick to the state before the previous command was executed.
-<<<<<<< HEAD
 
 IMPORTANT: Take note that the `undo` feature only applies to undoable commands.
 Undoable commands include: `add`, `delete`, `edit`, `clear`, `attendance` and `training`.
@@ -614,8 +615,6 @@ IMPORTANT: The `undo` command will reverse the latest command that can be undone
 Let’s say you have executed the `delete` command, followed by the `list` command.
 Since `list` command is not an undoable command, executing `undo` now will thus reverse the `delete` command.
 
-=======
->>>>>>> e807339e4f59ac3fd67770471a2d271cd9f42b36
 Let’s say you have accidentally deleted an athlete’s contact (Mohamad Ali) from your list.
 Instead of having to re-enter Mohamad Ali’s contact information all over again,
 you can easily restore all of Mohamad Ali’s details by `undo`-ing the `delete` command that you have just entered.
