@@ -156,7 +156,7 @@ public class ScheduleView extends UiPart<Region> {
             VBox timeslotContainer = new VBox();
             Region firstRegionOffset = new Region();
             firstRegionOffset.setPrefSize(preferredWidth, oneHourLength / 2);
-            firstRegionOffset.setId("timeslotMajorLine");
+            firstRegionOffset.setId("offsetRegion");
             timeslotContainer.getChildren().add(firstRegionOffset);
             for (int k = startTime; k < endTime; k++) {
                 StackPane timeslotRegion = new StackPane();
@@ -170,6 +170,7 @@ public class ScheduleView extends UiPart<Region> {
                 timeslotMinorRegion.getChildren().addAll(offset, timeslotMinorRegion1);
                 if (k == endTime - 1) {
                     timeslotMajorRegion.setPrefSize(preferredWidth, oneHourLength / 2);
+                    timeslotMajorRegion.setId("offsetRegion");
                     timeslotRegion.getChildren().addAll(timeslotMajorRegion);
                     timeslotContainer.getChildren().add(timeslotRegion);
                 } else {

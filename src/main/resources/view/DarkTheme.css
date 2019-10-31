@@ -512,6 +512,10 @@
     -fx-font-size: 12;
 }
 
+#offsetRegion {
+    -fx-background-color: linear-gradient(from 0px 0px to 5px 5px, reflect,  #222831 30%, #393E46  47%);;
+}
+
 #personDetailContainer {
     -fx-background-color: #222831;
 }
