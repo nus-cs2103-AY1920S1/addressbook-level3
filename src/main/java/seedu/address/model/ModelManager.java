@@ -44,7 +44,7 @@ public class ModelManager implements Model {
 
         filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
         filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
-        filteredLessons = new FilteredList<>(notebook.getLessonList());
+        filteredLessons = new FilteredList<>(this.notebook.getLessonList());
     }
 
     public ModelManager() {
