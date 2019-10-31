@@ -13,6 +13,8 @@ import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.model.state.Activity;
+import com.dukeacademy.model.state.ApplicationState;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
 import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 
@@ -24,17 +26,20 @@ public class SubmitCommand implements Command {
     private final Logger logger;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
+    private final ApplicationState applicationState;
 
     /**
      * Instantiates a new Submit command.
-     *
-     * @param questionsLogic         the questions logic
+     *  @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
+     * @param applicationState
      */
-    public SubmitCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
+    public SubmitCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
+                         ApplicationState applicationState) {
         this.logger = LogsCenter.getLogger(SubmitCommand.class);
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
+        this.applicationState = applicationState;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class SubmitCommand implements Command {
         // Save the user's program first
         logger.info("Saving user program first : " + userProgram);
         Question question = currentlyAttemptingQuestion.get();
-        Question questionWithNewProgram = question.withNewStatus(Status.ATTEMPTED).withNewUserProgram(userProgram);
+        Question questionWithNewProgram = question.withNewUserProgram(userProgram);
         this.questionsLogic.replaceQuestion(question, questionWithNewProgram);
 
         // Submit the user's program
@@ -78,9 +83,6 @@ public class SubmitCommand implements Command {
         if (isSuccessful) {
             Question successfulQuestion = questionWithNewProgram.withNewStatus(Status.PASSED);
             this.questionsLogic.replaceQuestion(questionWithNewProgram, successfulQuestion);
-        } else {
-            Question failedQuestion = questionWithNewProgram.withNewStatus(Status.ATTEMPTED);
-            this.questionsLogic.replaceQuestion(questionWithNewProgram, failedQuestion);
         }
 
         // Give user feedback
@@ -90,6 +92,10 @@ public class SubmitCommand implements Command {
         } else {
             feedback = feedback + "failed";
         }
-        return new CommandResult(feedback, false, false, false, false);
+
+        applicationState.setCurrentActivity(Activity.WORKSPACE);
+
+        return new CommandResult(feedback, false, false
+        );
     }
 }

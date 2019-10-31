@@ -1,46 +1,46 @@
 = About Us
 :site-section: AboutUs
 :relfileprefix: team/
-:imagesDir: images/team
+:imagesDir: images
 :stylesDir: stylesheets
 
-DukeAcademy was developed by the https://github.com/AY1920S1-CS2103T-F14-1[AY1920S1-CS2103T-F14-1] team. +
+Duke Academy was developed by the https://github.com/AY1920S1-CS2103T-F14-1[AY1920S1-CS2103T-F14-1] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Alex Koh
 image::alxkohh.png[width="150", align="left"]
-{empty}[http://github.com/alxkohh[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/alxkohh[github]][<<alexkoh#, portfolio>>]
 
-Role: Developer and Project Manager +
-Responsibilities: Intellij expert, Deliverables and deadlines, Scheduling and tracking, Documentation
+Role: Developer +
+Responsibilities: UI + Integration + SceneBuilder Expert
 
 '''
 
 === Lim Haw Jia
 image::limhawjia.png[width="150", align="left"]
-{empty}[http://github.com/limhawjia[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/limhawjia[github]][<<limhawjia#, portfolio>>]
 
-Role: Developer and Head of User Experience +
-Responsibilities: SceneBuilder expert, UI/UX, Code quality
+Role: Developer +
+Responsibilities: Software Architecture + DevOps + Travis Expert
 
 '''
 
 === Ning Sheng Ying
 image::ning-sy210.png[width="150", align="left"]
-{empty}[http://github.com/ning-sy210[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ning-sy210[github]][<<ningshengying#, portfolio>>]
 
-Role: Developer, Test Engineer and Head of DevOps +
-Responsibilities: Travis expert, Testing, Integration, DevOps
+Role: Developer +
+Responsibilities: UI + Testing + Intellij Expert
 
 '''
 
 === Zhang Jian
 image::zhangj1an.png[width="150", align="left"]
-{empty}[http://github.com/zhangj1an[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/zhangj1an[github]][<<zhangjian#, portfolio>>]
 
-Role: Developer and Software Architect +
-Responsibilities: Git expert, Data modelling, Software Architecture
+Role: Developer +
+Responsibilities: Storage + Documentation + Git Expert
 
 '''

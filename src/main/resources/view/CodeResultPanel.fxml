@@ -1,184 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Accordion id="codeResult" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-  <panes>
-      <TitledPane fx:id="testCasePane1" animated="false" layoutX="10.0" layoutY="10.0" text="Test Case 1" textFill="#63075d">
+<Accordion id="codeResult" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <panes>
+      <TitledPane fx:id="testCasePane1" animated="false" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" text="Test Case 1">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="74.4">
                <children>
-                  <VBox layoutX="14.0" layoutY="12.0" prefHeight="224.0" prefWidth="408.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefHeight="52.0" prefWidth="325.6" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <HBox spacing="10.0">
                            <children>
-                              <Text fill="#63075d" fontSmoothingType="LCD" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Input:">
                                  <font>
-                                    <Font name="Century Gothic" size="14.0" />
+                                    <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="input1" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="379.1367073059082" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0">
+                              <Text fx:id="input1" strokeType="OUTSIDE" strokeWidth="0.0" text="some input">
                                  <font>
-                                    <Font name="Calibri" size="16.0" />
+                                    <Font name="Consolas" size="12.0" />
                                  </font>
                               </Text>
                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                        </HBox>
+                        <HBox spacing="10.0">
                            <children>
-                              <Text fill="#63075d" layoutX="24.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expected Output" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Expected Output:">
                                  <font>
-                                    <Font name="Century Gothic" size="14.0" />
+                                    <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="expectedOutput1" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="379.1367073059082" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0">
+                              <Text fx:id="expectedOutput1" strokeType="OUTSIDE" strokeWidth="0.0" text="some expected output">
                                  <font>
-                                    <Font name="Calibri" size="16.0" />
+                                    <Font name="Consolas" size="12.0" />
                                  </font>
                               </Text>
                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0">
+                        </HBox>
+                        <HBox spacing="10.0">
                            <children>
-                              <Text fill="#63075d" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Output" AnchorPane.topAnchor="0.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Output:">
                                  <font>
-                                    <Font name="Century Gothic" size="14.0" />
+                                    <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="actualOutput1" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="379.1367073059082" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0">
+                              <Text fx:id="actualOutput1" strokeType="OUTSIDE" strokeWidth="0.0" text="some output">
                                  <font>
-                                    <Font name="Calibri" size="16.0" />
+                                    <Font name="Consolas" size="12.0" />
                                  </font>
                               </Text>
                            </children>
-                        </AnchorPane>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
          </content>
-         <font>
-            <Font name="Century Gothic" size="14.0" />
-         </font>
       </TitledPane>
-      <TitledPane fx:id="testCasePane2" animated="false" layoutX="10.0" layoutY="10.0" text="Test Case 2" textFill="#63075d">
+      <TitledPane fx:id="testCasePane2" animated="false" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" text="Test Case 2">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="74.4">
                <children>
-                  <VBox layoutX="14.0" layoutY="12.0" prefHeight="224.0" prefWidth="408.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefHeight="68.8" prefWidth="325.6" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <HBox spacing="10.0">
                            <children>
-                              <Text fill="#63075d" fontSmoothingType="LCD" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Input:">
                                  <font>
-                                    <Font name="Century Gothic" size="14.0" />
+                                    <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="input2" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="379.1367073059082" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0">
+                              <Text fx:id="input2" strokeType="OUTSIDE" strokeWidth="0.0" text="some input">
                                  <font>
-                                    <Font name="Calibri" size="16.0" />
+                                    <Font name="Consolas" size="12.0" />
                                  </font>
                               </Text>
                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                        </HBox>
+                        <HBox spacing="10.0">
                            <children>
-                              <Text fill="#63075d" layoutX="24.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expected Output" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Expected Output:">
                                  <font>
-                                    <Font name="Century Gothic" size="14.0" />
+                                    <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="expectedOutput2" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="379.1367073059082" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0">
+                              <Text fx:id="expectedOutput2" strokeType="OUTSIDE" strokeWidth="0.0" text="some expected output">
                                  <font>
-                                    <Font name="Calibri" size="16.0" />
+                                    <Font name="Consolas" size="12.0" />
                                  </font>
                               </Text>
                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0">
+                        </HBox>
+                        <HBox spacing="10.0">
                            <children>
-                              <Text fx:id="actualOutput2" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="379.1367073059082" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Output:">
                                  <font>
-                                    <Font name="Calibri" size="16.0" />
+                                    <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Text fill="#63075d" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Output" AnchorPane.topAnchor="0.0">
+                              <Text fx:id="actualOutput2" strokeType="OUTSIDE" strokeWidth="0.0" text="some output">
                                  <font>
-                                    <Font name="Century Gothic" size="14.0" />
+                                    <Font name="Consolas" size="12.0" />
                                  </font>
                               </Text>
                            </children>
-                        </AnchorPane>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
          </content>
-         <font>
-            <Font name="Century Gothic" size="14.0" />
-         </font>
       </TitledPane>
-      <TitledPane fx:id="testCasePane3" animated="false" layoutX="10.0" layoutY="38.0" text="Test Case 3" textFill="#63075d">
+      <TitledPane fx:id="testCasePane3" animated="false" layoutX="10.0" layoutY="38.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" text="Test Case 3">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="74.4">
                <children>
-                  <VBox layoutX="14.0" layoutY="12.0" prefHeight="224.0" prefWidth="408.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefHeight="68.8" prefWidth="325.6" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <HBox spacing="10.0">
                            <children>
-                              <Text fill="#63075d" fontSmoothingType="LCD" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Input:">
                                  <font>
-                                    <Font name="Century Gothic" size="14.0" />
+                                    <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="input3" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="379.1367073059082" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0">
+                              <Text fx:id="input31" strokeType="OUTSIDE" strokeWidth="0.0" text="some input">
                                  <font>
-                                    <Font name="Calibri" size="16.0" />
+                                    <Font name="Consolas" size="12.0" />
                                  </font>
                               </Text>
                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                        </HBox>
+                        <HBox spacing="10.0">
                            <children>
-                              <Text fill="#63075d" layoutX="24.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expected Output" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Expected Output:">
                                  <font>
-                                    <Font name="Century Gothic" size="14.0" />
+                                    <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="expectedOutput3" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="379.1367073059082" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0">
+                              <Text fx:id="expectedOutput31" strokeType="OUTSIDE" strokeWidth="0.0" text="some expected output">
                                  <font>
-                                    <Font name="Calibri" size="16.0" />
+                                    <Font name="Consolas" size="12.0" />
                                  </font>
                               </Text>
                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0">
+                        </HBox>
+                        <HBox spacing="10.0">
                            <children>
-                              <Text fill="#63075d" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Output" AnchorPane.topAnchor="0.0">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Output:">
                                  <font>
-                                    <Font name="Century Gothic" size="14.0" />
+                                    <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="actualOutput3" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="379.1367073059082" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="29.0">
+                              <Text fx:id="actualOutput31" strokeType="OUTSIDE" strokeWidth="0.0" text="some output">
                                  <font>
-                                    <Font name="Calibri" size="16.0" />
+                                    <Font name="Consolas" size="12.0" />
                                  </font>
                               </Text>
                            </children>
-                        </AnchorPane>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
          </content>
-         <font>
-            <Font name="Century Gothic" size="14.0" />
-         </font>
       </TitledPane>
-  </panes>
+   </panes>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </Accordion>

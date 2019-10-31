@@ -14,6 +14,7 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
+import com.dukeacademy.model.state.ApplicationState;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 
 class AttemptCommandFactoryTest {
@@ -21,22 +22,25 @@ class AttemptCommandFactoryTest {
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
+    private ApplicationState applicationState;
 
-    @BeforeEach void initializeTest() throws LogicCreationException {
+    @BeforeEach
+    void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         this.submissionLogic = new ProgramSubmissionLogicManager(tempFolder.toString());
+        this.applicationState = new ApplicationState();
     }
 
     @Test
     void getCommandWord() {
-        AttemptCommandFactory factory = new AttemptCommandFactory(questionsLogic, submissionLogic);
+        AttemptCommandFactory factory = new AttemptCommandFactory(questionsLogic, submissionLogic, applicationState);
         System.out.println(factory.getCommandWord());
         assertEquals("attempt", factory.getCommandWord());
     }
 
     @Test
     void getCommand() throws InvalidCommandArgumentsException {
-        AttemptCommandFactory factory = new AttemptCommandFactory(questionsLogic, submissionLogic);
+        AttemptCommandFactory factory = new AttemptCommandFactory(questionsLogic, submissionLogic, applicationState);
         assertTrue(factory.getCommand("1") instanceof AttemptCommand);
 
         assertThrows(InvalidCommandArgumentsException.class,
