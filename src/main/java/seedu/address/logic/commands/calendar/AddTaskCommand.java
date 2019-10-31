@@ -53,6 +53,7 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
+        model.afterAddTask();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

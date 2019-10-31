@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PICTURE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RESULT;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.util.EditPersonDescriptor;
 import seedu.address.model.person.Person;
 
 
