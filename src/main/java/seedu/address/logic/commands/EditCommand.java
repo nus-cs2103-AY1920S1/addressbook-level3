@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
@@ -49,6 +50,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense list.";
+    public static final String MESSAGE_EDIT_ERROR = "An error occurred while trying to edit the expense";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
@@ -68,7 +70,17 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Expense> lastShownList = model.getFilteredExpenseList();
+        String viewState = model.getViewState();
+        List<Expense> lastShownList;
+
+        if (viewState.equals("default expenselist")) {
+            lastShownList = model.getFilteredExpenseList();
+        } else if (viewState.equals("expenselist inside budget")) {
+            Budget viewingBudget = model.getLastViewedBudget();
+            lastShownList = viewingBudget.getObservableExpenseList();
+        } else {
+            throw new CommandException(MESSAGE_EDIT_ERROR);
+        }
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
@@ -81,9 +93,35 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
-        model.setExpense(expenseToEdit, editedExpense);
-        model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
-        return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
+        Optional<Budget> b1 = model.getBudgetExpenseFallsInto(expenseToEdit);
+        Optional<Budget> b2 = model.getBudgetExpenseFallsInto(editedExpense);
+
+        if (b1.isPresent() && b2.isPresent() && b1.get().equals(b2.get())) {  // both expenses fall in same budget
+            b1.get().setExpenseInBudget(expenseToEdit, editedExpense);
+        } else if (b1.isEmpty() && b2.isEmpty()) {      // both expenses do not fall in any budget
+            model.setExpense(expenseToEdit, editedExpense);
+        } else if (b1.isPresent() && b2.isEmpty()) {    // toEdit falls in budget, edited doesn't
+            b1.get().deleteExpenseInBudget(expenseToEdit);
+            model.addExpense(editedExpense);
+        } else if (b1.isEmpty() && b2.isPresent()) {    // toEdit doesn't fall in budget, edited does
+            model.deleteExpense(expenseToEdit);
+            b2.get().addExpenseIntoBudget(editedExpense);
+        } else if (b1.isPresent() && b2.isPresent() && !b1.get().equals(b2.get())) {    // both expenses in diff budget
+            b1.get().deleteExpenseInBudget(expenseToEdit);
+            b2.get().addExpenseIntoBudget(editedExpense);
+        } else {
+            throw new CommandException(MESSAGE_EDIT_ERROR);
+        }
+
+//        model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+        if (viewState.equals("default expenselist")) {
+            return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
+        } else if (viewState.equals("expenselist inside budget")) {
+            return new CommandResult(model.getExpenseListFromBudget(b1.get()), null,
+                String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
+        } else {
+            throw new CommandException(MESSAGE_EDIT_ERROR);
+        }
     }
 
     /**
