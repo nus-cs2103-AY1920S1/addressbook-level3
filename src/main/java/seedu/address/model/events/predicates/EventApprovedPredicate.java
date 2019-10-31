@@ -7,8 +7,8 @@ import seedu.address.model.events.Event;
 /**
  * Tests that a {@code Event}'s {@code ReferenceId} matches the given {@code ReferenceId}.
  */
-public class EventContainsApprovedStatusPredicate implements Predicate<Event> {
-    public EventContainsApprovedStatusPredicate() {
+public class EventApprovedPredicate implements Predicate<Event> {
+    public EventApprovedPredicate() {
     }
 
     @Override

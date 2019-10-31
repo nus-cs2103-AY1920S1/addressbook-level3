@@ -34,16 +34,14 @@ public class RoomCard extends UiPart<Region> {
         super(FXML);
         this.doctor = doctor;
         this.patient = patient;
+        doctorName.setStyle("-fx-text-fill: white;");
+        roomCard.setStyle("-fx-background-color: #1abc9c;");
         if (isReadyToServe) {
-            doctorName.setText(displayedIndex + ". " + doctor.getName().fullName);
-            doctorName.setStyle("-fx-text-fill: white;");
+            doctorName.setText(displayedIndex + ". " + doctor.getName().toString());
             doctorPane.setStyle("-fx-background-color: #34495e;");
-            roomCard.setStyle("-fx-background-color: #1abc9c;");
         } else {
-            doctorName.setText(displayedIndex + ". " + doctor.getName().fullName + " [BREAK]");
-            doctorName.setStyle("-fx-text-fill: white;");
+            doctorName.setText(displayedIndex + ". " + doctor.getName().toString() + " [BREAK]");
             doctorPane.setStyle("-fx-background-color: #c0392b;");
-            roomCard.setStyle("-fx-background-color: #1abc9c;");
         }
 
         patientName.setText(patient.map(p -> p.getName().toString()).orElse("Not serving any patients"));

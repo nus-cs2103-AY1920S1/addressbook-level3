@@ -32,7 +32,7 @@ image::Ui.png[width="790"]
 . You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
 . The figure below shows the layout.
 +
-image::Layout.png[width="790"]
+image::Layout.PNG[width="790"]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].

@@ -1,6 +1,5 @@
 package seedu.address.ui.autocomplete;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -41,16 +40,16 @@ import seedu.address.logic.commands.staff.RegisterStaffCommand;
  */
 public class AutoCompleter {
     private static final Map<String, Set<String>> SUPPORTED_ARGUMENTS = Map.ofEntries(
-            Map.entry("ackappt", Set.of("i/")),
-            Map.entry("addappt", Set.of("i/", "rec/", "num/", "str/")),
-            Map.entry("addshift", Set.of("i/", "rec/", "num/", "str/")),
-            Map.entry("appointments", Set.of("i/")),
-            Map.entry("changeappt", Set.of("str/")),
-            Map.entry("changeshift", Set.of("str/")),
-            Map.entry("newdoctor", Set.of("i/", "n/", "p/", "a/", "e/")),
-            Map.entry("register", Set.of("i/", "n/", "p/", "a/", "t/", "e/")),
-            Map.entry("update", Set.of("i/", "n/", "p/", "a/", "t/", "e/")),
-            Map.entry("updatedoctor", Set.of("i/", "n/", "p/", "a/", "e/"))
+            Map.entry("ackappt", Set.of("-id")),
+            Map.entry("addappt", Set.of("-id", "-rec", "-num", "-start")),
+            Map.entry("addshift", Set.of("-id", "-rec", "-num", "-start")),
+            Map.entry("appointments", Set.of("-id")),
+            Map.entry("changeappt", Set.of("-start")),
+            Map.entry("changeshift", Set.of("-start")),
+            Map.entry("edit", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email")),
+            Map.entry("newdoctor", Set.of("-id", "-name", "-phone", "-address", "-email")),
+            Map.entry("register", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email")),
+            Map.entry("updatedoctor", Set.of("-id", "-name", "-phone", "-address", "-email"))
     );
 
     private static final String[] SUPPORTED_COMMANDS = new String[]{
@@ -92,7 +91,7 @@ public class AutoCompleter {
             ResumeCommand.COMMAND_WORD
     };
 
-    private Trie trie;
+    private final Trie trie;
     private String currentQuery;
 
     public AutoCompleter() {
@@ -110,15 +109,13 @@ public class AutoCompleter {
      * @return AutoComplete itself
      */
     public AutoCompleter update(String currentQuery) {
-        if (currentQuery.matches("(.*)?\\s*\\w+\\s+$")) { //For Linux flag use "(.* )?(?<!-)\\w+\\s+$"
+        if (currentQuery.matches("(.* )?(?<!-)\\w+\\s+$")) {
             try {
                 Set<String> result = SUPPORTED_ARGUMENTS.get(currentQuery.substring(0, currentQuery.indexOf(' ')));
                 HashSet<String> available = new HashSet<>(result);
-                Arrays.asList(currentQuery.split("\\s+"))
-                        .forEach(e -> available.remove(e.substring(0, e.indexOf('/') + 1).trim()));
-                //available.removeAll(Arrays.asList(currentQuery.split("\\s+"))); //Linux flag uses "\\s+"
-                if (result.contains("t/")) {
-                    available.add("t/");
+                available.removeAll(List.of(currentQuery.split("\\s+")));
+                if (result.contains("-tag")) {
+                    available.add("-tag");
                 }
                 AutoCompleter autoCompleter = new AutoCompleter(available.toArray(String[]::new));
                 autoCompleter.currentQuery = currentQuery.substring(currentQuery.lastIndexOf(' ') + 1);

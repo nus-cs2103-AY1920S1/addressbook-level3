@@ -128,7 +128,7 @@ public class CommandTestUtil {
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPatientList().size());
         Person person = model.getFilteredPatientList().get(targetIndex.getZeroBased());
-        model.updateFilteredPatientList(new ContainsKeywordsPredicate(person.getName().fullName));
+        model.updateFilteredPatientList(new ContainsKeywordsPredicate(person.getName().toString()));
 
         assertEquals(1, model.getFilteredPatientList().size());
     }
