@@ -43,7 +43,7 @@ image::choongyx.png[width="150", align="left"]
 
 === Jonathan Tjendana
 image::jonathantjendana.png[width="150", align="left"]
-{empty}[https://github.com/jonathantjendana[github]]
+{empty}[https://github.com/jonathantjendana[github]]    [<<jonathantjendana#, portfolio>>]
 
 *Role*: Developer
 
