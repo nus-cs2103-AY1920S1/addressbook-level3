@@ -33,8 +33,10 @@ public class TimeSlotGenerator {
         List<TimeRange> merged = mergeOverlappingTimeRanges(uniqueTimeRanges);
         List<TimeRange> inverted = getFreeTimeRanges(merged);
         List<TimeRange> truncated = truncateTimeRange(inverted, userSpecifiedTimeRange);
+        List<TimeRange> suitable = getSuitableTimeRanges(truncated, numberOfHours);
+        Collections.sort(suitable);
 
-        return getSuitableTimeRanges(truncated, numberOfHours);
+        return suitable;
     }
 
     public TimeSlotsAvailable generateWithMostPeople() throws IllegalValueException {

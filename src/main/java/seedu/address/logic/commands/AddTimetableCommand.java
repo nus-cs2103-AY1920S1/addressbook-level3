@@ -9,6 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.timetable.TimeTable;
 import seedu.address.model.timetable.TimeTableInput;
+import seedu.address.model.timetable.TimeTableVisualization;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,7 +38,7 @@ public class AddTimetableCommand extends Command {
             + COMMAND_WORD + " 1 " + PREFIX_FILEPATH + "/path/to/timetable/file\n"
             + COMMAND_WORD + " 1 " + PREFIX_NUSMODS_URL + "https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27";
 
-    public static final String MESSAGE_ADD_TIMETABLE_SUCCESS = "Added Timetable: %s to Person: %s";
+    public static final String MESSAGE_ADD_TIMETABLE_SUCCESS = "Added timetable to Person: %s\n%s";
     public static final String MESSAGE_INVALID_FILEPATH = "Please provide a proper absolute filepath to the timetable file";
     public static final String MESSAGE_INVALID_URL = "URL invalid. Please provide a proper URL to NUSMODs";
     public static final String MESSAGE_NO_TIMETABLE_SOURCE = "Please provide either an NUSMods URL or a filepath to a timetable time";
@@ -96,7 +97,7 @@ public class AddTimetableCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_TIMETABLE_SUCCESS, timeTable, editedPerson), COMMAND_WORD);
+        return new CommandResult(String.format(MESSAGE_ADD_TIMETABLE_SUCCESS, editedPerson, new TimeTableVisualization(timeTable).visualize()), COMMAND_WORD);
     }
 
     @Override

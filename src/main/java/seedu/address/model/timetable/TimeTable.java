@@ -1,5 +1,6 @@
 package seedu.address.model.timetable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ public class TimeTable {
      */
     public TimeTable(List<TimeRange> timeRanges) {
         this.timeRanges = timeRanges;
+        Collections.sort(this.timeRanges);
     }
 
     public List<TimeRange> getTimeRanges() {
@@ -21,6 +23,10 @@ public class TimeTable {
 
     public boolean isAvailable(TimeRange timeRange) {
         return this.timeRanges.stream().noneMatch(tr -> tr.overlap(timeRange));
+    }
+
+    public boolean overlaps(TimeRange timeRange) {
+        return this.timeRanges.stream().anyMatch(timeRange::overlap);
     }
 
     @Override
