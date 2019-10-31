@@ -413,6 +413,7 @@ public class ModelManager implements Model {
     public void sortNoteBook() {
         noteBook.sortNotes();
     }
+
     public void editNoteSortByCond(SortByCond sortByCond) {
         noteBook.setSortByCond(sortByCond);
     }
@@ -425,11 +426,11 @@ public class ModelManager implements Model {
 
     @Override
     public Predicate<Note> getFilteredNoteListPred() {
-       if ((Predicate<Note>) filteredNotes.getPredicate() == null) {
-           return PREDICATE_SHOW_ALL_NOTES;
-       } else {
-           return (Predicate<Note>) filteredNotes.getPredicate();
-       }
+        if ((Predicate<Note>) filteredNotes.getPredicate() == null) {
+            return PREDICATE_SHOW_ALL_NOTES;
+        } else {
+            return (Predicate<Note>) filteredNotes.getPredicate();
+        }
     }
 
     @Override

@@ -304,6 +304,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Predicate<Note> getFilteredNoteListPred() {
+            return null;
+        }
+
+        @Override
         public Path getNoteBookFilePath() {
             return null;
         }
