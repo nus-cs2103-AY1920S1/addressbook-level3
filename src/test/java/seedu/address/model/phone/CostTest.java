@@ -31,6 +31,7 @@ public class CostTest {
         assertFalse(Cost.isValidCost("$-1.5")); // negative
         assertFalse(Cost.isValidCost("$4.501")); // more than 2 decimals
         assertFalse(Cost.isValidCost("$.12")); // no digit before decimal
+        assertFalse(Cost.isValidCost("$0123")); // starts with 0 but is not $0 or $0.x or $0.xx
 
         // valid cost
         assertTrue(Cost.isValidCost("$0")); // no decimals
@@ -38,5 +39,8 @@ public class CostTest {
         assertTrue(Cost.isValidCost("$99.99")); // 2 decimals
         assertTrue(Cost.isValidCost("$1234567898765432100000000000000")); // long
         assertTrue(Cost.isValidCost("$1649"));
+        assertTrue(Cost.isValidCost("$0"));
+        assertTrue(Cost.isValidCost("$0.1"));
+        assertTrue(Cost.isValidCost("$0.12"));
     }
 }
