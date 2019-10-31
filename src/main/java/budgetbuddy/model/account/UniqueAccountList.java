@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;
-import budgetbuddy.model.account.exception.AccountNotFoundException;
-import budgetbuddy.model.account.exception.DuplicateAccountException;
+import budgetbuddy.model.account.exceptions.AccountNotFoundException;
+import budgetbuddy.model.account.exceptions.DuplicateAccountException;
 import budgetbuddy.model.attributes.Name;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -217,7 +217,7 @@ public class UniqueAccountList implements Iterable<Account> {
     /**
      * Returns true if the two accounts are identical, or have the same name.
      */
-    private static boolean accountsAreEquivalent(Account a1, Account a2) {
+    public static boolean accountsAreEquivalent(Account a1, Account a2) {
         if (a1 == null && a2 != null || a1 != null && a2 == null) {
             return false;
         }

@@ -1,6 +1,7 @@
 package budgetbuddy.logic.commands.transactioncommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_SINGLE_ID;
 
 import java.util.List;
 
@@ -23,11 +24,11 @@ public class TransactionDeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes transactions with the specified ID"
             + "Parameters: "
-            + "<id ..."
+            + KEYWORD_SINGLE_ID + " "
             + "Example: " + COMMAND_WORD + " "
             + "5";
 
-    public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Deleted Transaction: %1$s";
 
     private final Index targetIndex;
 
@@ -46,7 +47,6 @@ public class TransactionDeleteCommand extends Command {
         }
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
-        // TODO SLAP
         model.getAccountsManager().getActiveAccount().deleteTransaction(transactionToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete),
                 CommandCategory.TRANSACTION);

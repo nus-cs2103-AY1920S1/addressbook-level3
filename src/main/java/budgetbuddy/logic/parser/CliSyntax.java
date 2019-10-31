@@ -40,6 +40,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_SCRIPT_PATH = new Prefix("p/");
     public static final Prefix PREFIX_SCRIPT_SOURCE = new Prefix("s/");
 
+    // ID selection
+    public static final String KEYWORD_SINGLE_ID = "<id>";
+    public static final String KEYWORD_MULTIPLE_ID_VARARGS = "<id... ";
+
     // Date examples
     public static final String DATE_EXAMPLE = "4/20/2420";
 }

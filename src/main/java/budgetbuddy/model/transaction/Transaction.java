@@ -18,15 +18,14 @@ import budgetbuddy.model.attributes.Direction;
  */
 public class Transaction {
 
-    private final Date date;
-    private final Amount amount;
-    private final Direction direction;
-    private final Description description;
-    private final Set<Category> categories = new HashSet<>();
+    private Date date;
+    private Amount amount;
+    private Direction direction;
+    private Description description;
+    private Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
-     * Since we only accept one category in the argument, it is added to the set of categories.
      */
     public Transaction(Date date, Amount amount, Direction direction, Description description,
                        Category... categories) {
@@ -77,7 +76,6 @@ public class Transaction {
                 && otherTransaction.direction.equals(direction)
                 && otherTransaction.description.equals(description)
                 && otherTransaction.categories.equals(categories);
-
     }
 
     @Override

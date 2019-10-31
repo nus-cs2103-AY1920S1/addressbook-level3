@@ -11,7 +11,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
-import budgetbuddy.model.account.exception.DuplicateAccountException;
+import budgetbuddy.model.account.exceptions.DuplicateAccountException;
 
 /**
  * Adds an account.

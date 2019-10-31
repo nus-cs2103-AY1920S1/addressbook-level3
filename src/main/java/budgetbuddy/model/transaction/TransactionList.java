@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 
+import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -58,7 +59,7 @@ public class TransactionList implements Iterable<Transaction> {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             // TODO handle transactions not found
-            //throw new TransactionNotFoundException();
+            throw new TransactionNotFoundException();
         }
     }
 

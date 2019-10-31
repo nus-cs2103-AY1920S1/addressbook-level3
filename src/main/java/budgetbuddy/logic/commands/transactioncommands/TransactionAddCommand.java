@@ -1,5 +1,6 @@
 package budgetbuddy.logic.commands.transactioncommands;
 
+import static budgetbuddy.commons.core.Messages.MESSAGE_ACTIVE_ACCOUNT_NOT_FOUND;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.DATE_EXAMPLE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACCOUNT;
@@ -65,22 +66,19 @@ public class TransactionAddCommand extends Command {
         Account realToAccount;
 
         if (toAccount != null) {
-            // TODO
             realToAccount = model.getAccountsManager().getAccount(toAccount.getName());
         } else {
             realToAccount = model.getAccountsManager().getActiveAccount();
         }
 
         if (realToAccount == null) {
-            // TODO more specific message
-            throw new CommandException(MESSAGE_FAILURE);
+            throw new CommandException(MESSAGE_ACTIVE_ACCOUNT_NOT_FOUND);
         }
 
         try {
             realToAccount.addTransaction(toAdd);
         } catch (Exception e) {
-            //TODO change to accept more specific exception
-            throw new CommandException(MESSAGE_FAILURE);
+            return new CommandResult(String.format(MESSAGE_FAILURE, toAdd), CommandCategory.TRANSACTION);
         }
         RuleProcessor.executeRules(model, toAdd);
 

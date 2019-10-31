@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
-import budgetbuddy.model.account.exception.AccountNotFoundException;
+import budgetbuddy.model.account.exceptions.AccountNotFoundException;
 import budgetbuddy.model.attributes.Name;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -50,6 +50,13 @@ public class AccountsManager {
         return filteredAccounts;
     }
 
+    /**
+     * Checks if a given account is currently the active account.
+     * @param testAccount The account to be checked
+     */
+    public boolean isActiveAccount(Account testAccount) {
+        return UniqueAccountList.accountsAreEquivalent(testAccount, getActiveAccount());
+    }
 
     /**
      * Retrieves the list of accounts.
@@ -98,14 +105,8 @@ public class AccountsManager {
     }
 
     /**
-<<<<<<< HEAD
      * Updates the filter of the filtered account list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
-=======
-     * Removes the current Transaction from its respective Account.
-     * The transaction should exist within the AccountsManager before executing this.
-     * @param toDelete the transaction to be deleted
->>>>>>> Fix checkstyle errors, remove AccountBook, ReadOnlyAccountBook after rebasing changes.
      */
     public void updateFilteredAccountList(Predicate<Account> predicate) {
         requireNonNull(predicate);

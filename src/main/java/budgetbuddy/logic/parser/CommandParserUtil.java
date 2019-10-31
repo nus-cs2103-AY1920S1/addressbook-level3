@@ -67,7 +67,7 @@ public class CommandParserUtil {
      *
      * @throws ParseException if the given {@code account} is invalid.
      */
-    public static Account parseAccount(String account) throws ParseException {
+    public static Account parseAccount(String account) {
         requireNonNull(account);
         String trimmedAccount = account.trim();
         return new Account(new Name(trimmedAccount), new Description("null"), new TransactionList());
