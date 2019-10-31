@@ -138,8 +138,8 @@ public class ReportGenerator {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         document.add(new Paragraph("\n"));
-        document.add(new Paragraph("                                                                      " 
-                + dtf.format(now)));
+        String formatDate = "                                                                      " + dtf.format(now);
+        document.add(new Paragraph(formatDate));
         document.add(new Paragraph("___________________________                _______________"));
         document.add(new Paragraph("Manager Signature                                        Date"));
         document.add(new Paragraph("\n"));
