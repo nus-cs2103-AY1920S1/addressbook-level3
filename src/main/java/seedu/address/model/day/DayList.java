@@ -99,6 +99,10 @@ public class DayList implements Iterable<Day> {
         }
     }
 
+    /**
+     * Removes the last n number of days from the list.
+     * @param n number of days to remove.
+     */
     public void deleteDays(int n) {
         int lastIndex = internalList.size() - 1;
         for (int i = 0; i < n; i++) {

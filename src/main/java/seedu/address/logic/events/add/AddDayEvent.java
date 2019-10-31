@@ -5,6 +5,9 @@ import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.system.DeleteDaysCommand;
 import seedu.address.logic.events.Event;
 
+/**
+ * An event representing an 'add day' command.
+ */
 public class AddDayEvent implements Event {
     private final int numberOfDays;
 

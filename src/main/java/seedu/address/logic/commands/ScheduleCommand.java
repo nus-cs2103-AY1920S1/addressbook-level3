@@ -8,8 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
-
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 

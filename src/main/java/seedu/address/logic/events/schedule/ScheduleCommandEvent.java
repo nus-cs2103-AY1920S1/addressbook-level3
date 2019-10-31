@@ -1,12 +1,16 @@
 package seedu.address.logic.events.schedule;
 
 import java.time.LocalTime;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.UnscheduleCommand;
 import seedu.address.logic.events.Event;
 
+/**
+ * An event representing a 'schedule' command.
+ */
 public class ScheduleCommandEvent implements Event {
     private final Index activityIndex;
     private final LocalTime startTime;

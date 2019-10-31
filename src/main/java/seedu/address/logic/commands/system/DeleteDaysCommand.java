@@ -1,10 +1,10 @@
 package seedu.address.logic.commands.system;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.model.Model;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * A command that is not usable by a User, only exist to assist in undoing the effects of  Clear command.
