@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
@@ -283,4 +284,14 @@ public interface Model {
      * Replaces purchasing history data with the data in {@code purchaseHistory}.
      */
     void setSavingsAccount(ReadOnlySavingsAccount savingsAccount);
+
+    /**
+     * Gets the list of aliases from the model.
+     */
+    AliasList getAliasList();
+
+    /**
+     * Changes the alias list.
+     */
+    void setAliasList(AliasList aliasList);
 }
