@@ -41,7 +41,7 @@ Responsibilities: Recommendation, like and dislike features +
 
 === Koh Wee Lun Clarence
 image::fatclarence.png[width="150", align="left"]
-link:http://github.com/fatclarence[Github] | <<johndoe#, Portfolio>>
+link:http://github.com/fatclarence[Github] | <<clarence#, Portfolio>>
 
 Role: Developer +
 Responsibilities: Implementing features +
