@@ -65,6 +65,8 @@ public class AddGroceryCommand extends Command {
         }
 
         model.addGroceryItem(toAdd);
+        model.commitGroceryList();
+        model.commitWasteList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
