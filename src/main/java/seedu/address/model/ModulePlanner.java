@@ -220,7 +220,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     }
 
     /**
-     * Activates the first study plan in the list of study plans. This is used in {@code DeleteCommand}.
+     * Activates the first study plan in the list of study plans. This is used in {@code DeleteStudyPlanCommand}.
      * If there is no study plan in the list, the method returns false.
      *
      * @return boolean to indicate whether the first study plan has been activated.

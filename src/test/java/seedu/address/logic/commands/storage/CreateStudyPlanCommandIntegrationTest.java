@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.storage;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModulesInfo.getTypicalModulesInfo;
 import static seedu.address.testutil.TypicalStudyPlans.getTypicalModulePlanner;
 
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,16 +29,20 @@ public class CreateStudyPlanCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newStudyPlan_success() {
+    public void execute_newStudyPlan_success() throws CommandException {
         StudyPlan validStudyPlan = new StudyPlanBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
+        Model expectedModel = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
         expectedModel.addStudyPlan(validStudyPlan);
+        expectedModel.activateStudyPlan(validStudyPlan.getIndex());
 
         CreateStudyPlanCommand command = new CreateStudyPlanCommand(validStudyPlan.getTitle().toString());
         CommandResult expectedResult = new CommandResult(String.format(CreateStudyPlanCommand.MESSAGE_SUCCESS,
                 validStudyPlan.getTitle().toString()), true, false);
-        assertCommandSuccess(command, model, expectedResult, expectedModel);
+        CommandResult actualResult = command.execute(model);
+        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedModel.getActiveStudyPlan().getTitle(), model.getActiveStudyPlan().getTitle());
+        // does not use assertCommandSuccess due to uncertainty with undo/redo
     }
 
 }

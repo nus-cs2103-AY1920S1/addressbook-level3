@@ -136,7 +136,7 @@ public class Semester implements Cloneable {
             return true;
         } else if (obj instanceof Semester) {
             Semester other = (Semester) obj;
-            return this.semesterName == other.getSemesterName();
+            return this.semesterName == other.getSemesterName(); // so that no two semesters can have the same name
             /*
                     this.modules.equals(other.getModules())
                     && this.isBlocked == other.isBlocked

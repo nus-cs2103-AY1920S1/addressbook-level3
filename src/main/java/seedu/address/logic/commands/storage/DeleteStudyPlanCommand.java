@@ -15,7 +15,7 @@ import seedu.address.model.studyplan.StudyPlan;
 /**
  * Deletes a study plan identified using it's displayed index from the module planner.
  */
-public class DeleteCommand extends Command {
+public class DeleteStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "removeplan";
 
@@ -32,7 +32,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteStudyPlanCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -71,13 +71,15 @@ public class DeleteCommand extends Command {
         // delete the corresponding study plan commit manager
         model.deleteStudyPlanCommitManagerByIndex(studyPlanToDelete.getIndex());
 
+        model.addToHistory();
+
         return new CommandResult(String.format(MESSAGE_DELETE_STUDYPLAN_SUCCESS, studyPlanToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteStudyPlanCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteStudyPlanCommand) other).targetIndex)); // state check
     }
 }

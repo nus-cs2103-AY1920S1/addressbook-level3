@@ -66,6 +66,8 @@ public class CreateStudyPlanCommand extends Command {
         studyPlanToAdd.setActivated(true);
         model.activateStudyPlan(studyPlanToAdd.getIndex());
 
+        model.addToHistory();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, studyPlanName), true, false);
     }
 

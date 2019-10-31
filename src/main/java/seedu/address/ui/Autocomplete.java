@@ -33,8 +33,8 @@ import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
 import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
-import seedu.address.logic.commands.storage.DeleteCommand;
 import seedu.address.logic.commands.storage.DeleteCommitCommand;
+import seedu.address.logic.commands.storage.DeleteStudyPlanCommand;
 import seedu.address.logic.commands.storage.EditTitleCommand;
 import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
@@ -154,7 +154,7 @@ public class Autocomplete extends TextField {
         commandKeywords.add(FindModuleCommand.COMMAND_WORD);
         commandKeywords.add(CommitStudyPlanCommand.COMMAND_WORD);
         commandKeywords.add(CreateStudyPlanCommand.COMMAND_WORD);
-        commandKeywords.add(DeleteCommand.COMMAND_WORD);
+        commandKeywords.add(DeleteStudyPlanCommand.COMMAND_WORD);
         commandKeywords.add(DeleteCommitCommand.COMMAND_WORD);
         commandKeywords.add(RevertCommitCommand.COMMAND_WORD);
         commandKeywords.add(TagModuleCommand.COMMAND_WORD);

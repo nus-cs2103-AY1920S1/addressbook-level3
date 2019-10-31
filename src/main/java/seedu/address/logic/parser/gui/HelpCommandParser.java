@@ -28,9 +28,9 @@ import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
 import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DefaultStudyPlanCommand;
-import seedu.address.logic.commands.storage.DeleteCommand;
 import seedu.address.logic.commands.storage.DeleteCommitCommand;
 import seedu.address.logic.commands.storage.DeleteSemesterCommand;
+import seedu.address.logic.commands.storage.DeleteStudyPlanCommand;
 import seedu.address.logic.commands.storage.EditTitleCommand;
 import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
@@ -68,7 +68,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         case ValidModsCommand.COMMAND_WORD:
         case CommitStudyPlanCommand.COMMAND_WORD:
         case CreateStudyPlanCommand.COMMAND_WORD:
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteStudyPlanCommand.COMMAND_WORD:
         case TagModuleCommand.COMMAND_WORD:
         case ViewCommitHistoryCommand.COMMAND_WORD:
         case RemoveTagFromModuleCommand.COMMAND_WORD:

@@ -27,7 +27,7 @@ import seedu.address.model.studyplan.StudyPlan;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * {@code DeleteStudyPlanCommand}.
  */
 public class DeleteCommandTest {
 
@@ -39,9 +39,10 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         StudyPlan studyPlanToDelete = model.getFilteredStudyPlanList().get(INDEX_FIRST_STUDYPLAN.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_STUDYPLAN);
+        DeleteStudyPlanCommand deleteCommand = new DeleteStudyPlanCommand(INDEX_FIRST_STUDYPLAN);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_STUDYPLAN_SUCCESS, studyPlanToDelete);
+        String expectedMessage = String.format(DeleteStudyPlanCommand.MESSAGE_DELETE_STUDYPLAN_SUCCESS,
+        studyPlanToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getModulePlanner(), new UserPrefs());
         expectedModel.deleteStudyPlan(studyPlanToDelete);
@@ -52,7 +53,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudyPlanList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteStudyPlanCommand deleteCommand = new DeleteStudyPlanCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_STUDYPLAN_DISPLAYED_INDEX);
     }
@@ -62,9 +63,10 @@ public class DeleteCommandTest {
         showStudyPlanAtIndex(model, INDEX_FIRST_STUDYPLAN);
 
         StudyPlan studyPlanToDelete = model.getFilteredStudyPlanList().get(INDEX_FIRST_STUDYPLAN.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_STUDYPLAN);
+        DeleteStudyPlanCommand deleteCommand = new DeleteStudyPlanCommand(INDEX_FIRST_STUDYPLAN);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_STUDYPLAN_SUCCESS, studyPlanToDelete);
+        String expectedMessage = String.format(DeleteStudyPlanCommand.MESSAGE_DELETE_STUDYPLAN_SUCCESS,
+        studyPlanToDelete);
 
         Model expectedModel = new ModelManager(model.getModulePlanner(), new UserPrefs());
         expectedModel.deleteStudyPlan(studyPlanToDelete);
@@ -81,21 +83,21 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of module planner list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getModulePlanner().getStudyPlanList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteStudyPlanCommand deleteCommand = new DeleteStudyPlanCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_STUDYPLAN_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_STUDYPLAN);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_STUDYPLAN);
+        DeleteStudyPlanCommand deleteFirstCommand = new DeleteStudyPlanCommand(INDEX_FIRST_STUDYPLAN);
+        DeleteStudyPlanCommand deleteSecondCommand = new DeleteStudyPlanCommand(INDEX_SECOND_STUDYPLAN);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_STUDYPLAN);
+        DeleteStudyPlanCommand deleteFirstCommandCopy = new DeleteStudyPlanCommand(INDEX_FIRST_STUDYPLAN);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

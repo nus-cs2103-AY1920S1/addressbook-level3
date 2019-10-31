@@ -30,9 +30,9 @@ import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
 import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DefaultStudyPlanCommand;
-import seedu.address.logic.commands.storage.DeleteCommand;
 import seedu.address.logic.commands.storage.DeleteCommitCommand;
 import seedu.address.logic.commands.storage.DeleteSemesterCommand;
+import seedu.address.logic.commands.storage.DeleteStudyPlanCommand;
 import seedu.address.logic.commands.storage.EditTitleCommand;
 import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
@@ -66,7 +66,7 @@ public class HelpCommand extends Command {
             + "???: block - Blocking off the given semester\n"
             + "\nStudy plans and committing:\n"
             + CreateStudyPlanCommand.HELP_MESSAGE + "\n"
-            + DeleteCommand.HELP_MESSAGE + "\n"
+            + DeleteStudyPlanCommand.HELP_MESSAGE + "\n"
             + CommitStudyPlanCommand.HELP_MESSAGE + "\n"
             + ViewCommitHistoryCommand.HELP_MESSAGE + "\n"
             + DeleteCommitCommand.HELP_MESSAGE + "\n"
@@ -134,8 +134,8 @@ public class HelpCommand extends Command {
             return new CommandResult(CommitStudyPlanCommand.MESSAGE_USAGE, false, false);
         case CreateStudyPlanCommand.COMMAND_WORD:
             return new CommandResult(CreateStudyPlanCommand.MESSAGE_USAGE, false, false);
-        case DeleteCommand.COMMAND_WORD:
-            return new CommandResult(DeleteCommand.MESSAGE_USAGE, false, false);
+        case DeleteStudyPlanCommand.COMMAND_WORD:
+            return new CommandResult(DeleteStudyPlanCommand.MESSAGE_USAGE, false, false);
         case TagModuleCommand.COMMAND_WORD:
             return new CommandResult(TagModuleCommand.MESSAGE_USAGE, false, false);
         case ViewCommitHistoryCommand.COMMAND_WORD:

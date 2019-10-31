@@ -37,6 +37,8 @@ public class DefaultStudyPlanCommand extends Command {
         defaultStudyPlan.setActivated(true);
         model.activateStudyPlan(defaultStudyPlan.getIndex());
 
+        model.addToHistory();
+
         return new CommandResult(MESSAGE_SUCCESS, true, false);
     }
 

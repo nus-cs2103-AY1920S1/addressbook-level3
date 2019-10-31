@@ -32,9 +32,9 @@ import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DefaultStudyPlanCommand;
-import seedu.address.logic.commands.storage.DeleteCommand;
 import seedu.address.logic.commands.storage.DeleteCommitCommand;
 import seedu.address.logic.commands.storage.DeleteSemesterCommand;
+import seedu.address.logic.commands.storage.DeleteStudyPlanCommand;
 import seedu.address.logic.commands.storage.EditTitleCommand;
 import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
@@ -189,8 +189,8 @@ public class ModulePlannerParserTest {
 
     @Test
     public void parseCommand_deleteStudyPlan() throws Exception {
-        DeleteCommand command = new DeleteCommand(Index.fromZeroBased(1));
-        assertEquals(parser.parseCommand(DeleteCommand.COMMAND_WORD + " " + 1), command);
+        DeleteStudyPlanCommand command = new DeleteStudyPlanCommand(Index.fromZeroBased(1));
+        assertEquals(parser.parseCommand(DeleteStudyPlanCommand.COMMAND_WORD + " " + 1), command);
     }
 
     @Test

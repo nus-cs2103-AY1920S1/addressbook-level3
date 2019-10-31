@@ -2,8 +2,6 @@ package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Iterator;
-
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -32,10 +30,8 @@ public class ListAllStudyPlansCommand extends Command {
         }
 
         StringBuilder toReturn = new StringBuilder(MESSAGE_SUCCESS);
-        Iterator<StudyPlan> studyPlanIterator = studyPlans.iterator();
-        while (studyPlanIterator.hasNext()) {
-            StudyPlan studyPlan = studyPlanIterator.next();
-            toReturn.append(studyPlan.toString() + "\n");
+        for (StudyPlan studyPlan : studyPlans) {
+            toReturn.append(studyPlan.toString()).append("\n");
         }
         return new CommandResult(toReturn.toString());
     }
