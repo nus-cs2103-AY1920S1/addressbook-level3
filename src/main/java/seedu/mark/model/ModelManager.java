@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -13,12 +12,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
-import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
@@ -35,7 +32,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
     private final SimpleObjectProperty<Url> currentUrl = new SimpleObjectProperty<>();
-    private final ObservableList<Paragraph> annotatedDocument;
     private final SimpleObjectProperty<Bookmark> bookmarkToDisplayCache = new SimpleObjectProperty<>();
 
 
@@ -51,7 +47,6 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
-        annotatedDocument = FXCollections.observableList(new ArrayList<>());
     }
 
     public ModelManager() {
@@ -261,19 +256,12 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Paragraph> getObservableDocument() {
-        return annotatedDocument;
+        return versionedMark.getAnnotatedDocument();
     }
 
     @Override
     public void updateDocument(OfflineDocument doc) {
-        annotatedDocument.setAll(new SortedList<>(
-                FXCollections.observableArrayList(doc.getCollection()), (
-                Paragraph p1, Paragraph p2) -> {
-            ParagraphIdentifier pid1 = p1.getId();
-            ParagraphIdentifier pid2 = p2.getId();
-            return pid1.compareTo(pid2);
-        }
-        ));
+        versionedMark.setAnnotatedDocument(FXCollections.observableArrayList(doc.getCollection()));
     }
 
 

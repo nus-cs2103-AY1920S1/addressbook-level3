@@ -44,9 +44,12 @@ public class AddAnnotationCommand extends AnnotationCommand {
     private static final String MESSAGE_HIGHLIGHT_ADDED = "%s highlight";
     private static final String MESSAGE_NOTE_ADDED = " with note \"%s\"";
 
+    private static final ParagraphIdentifier DUMMY_PID = ParagraphIdentifier.makeExistId(Index.fromOneBased(1));
 
     private final AnnotationNote note;
     private final Highlight highlight;
+
+    private final boolean isAddGeneralNote;
 
     public AddAnnotationCommand(Index index, ParagraphIdentifier pid, AnnotationNote note, Highlight highlight) {
         super(index, pid);
@@ -55,6 +58,15 @@ public class AddAnnotationCommand extends AnnotationCommand {
 
         this.note = note;
         this.highlight = highlight;
+        this.isAddGeneralNote = false;
+    }
+
+    public AddAnnotationCommand(Index index) {
+        super(index, DUMMY_PID);
+
+        this.note = null;
+        this.highlight = null;
+        this.isAddGeneralNote = true;
     }
 
     /**

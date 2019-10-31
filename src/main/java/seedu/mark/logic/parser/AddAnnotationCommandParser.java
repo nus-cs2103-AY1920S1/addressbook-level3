@@ -36,9 +36,16 @@ public class AddAnnotationCommandParser implements Parser<AddAnnotationCommand> 
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAnnotationCommand.MESSAGE_USAGE), pe);
         }
 
+
         if (!argMultimap.getValue(PREFIX_PARAGRAPH).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAnnotationCommand.MESSAGE_USAGE));
         }
+        //TODO this section
+        if (isAddGeneralNote(argMultimap.getValue(PREFIX_PARAGRAPH).get())) {
+            return new AddAnnotationCommand(index);
+        }
+        //TODO until here
+
         ParagraphIdentifier pid = ParserUtil.parseParagraphIdentifier(argMultimap.getValue(PREFIX_PARAGRAPH).get());
 
         Highlight highlight = Highlight.YELLOW;
@@ -57,4 +64,9 @@ public class AddAnnotationCommandParser implements Parser<AddAnnotationCommand> 
 
         return new AddAnnotationCommand(index, pid, note, highlight);
     }
+
+    private boolean isAddGeneralNote(String arg) {
+        return arg.trim().equalsIgnoreCase("null");
+    }
+
 }
