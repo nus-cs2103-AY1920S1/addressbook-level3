@@ -148,7 +148,7 @@ public class AddTemplateShoppingCommand extends Command {
                 try {
                     reqAmt = reqAmt.reduceBy(g.getAmount());
                 } catch (InvalidAmountException e) {
-                    reqAmt = new Amount("0"+reqAmt.getUnit(reqAmt));
+                    reqAmt = new Amount("0" + reqAmt.getUnit(reqAmt));
                 }
             }
         }
