@@ -19,7 +19,7 @@ public class ShowTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameShow() {
         // same object -> returns true
         assertTrue(AVENGERSENDGAME.isSameShow(AVENGERSENDGAME));
 
@@ -41,7 +41,7 @@ public class ShowTest {
 
         // same name, same dateofrelease, different attributes -> returns true
         editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withRunningTime(122).withDescription("DESCRIPTION")
-                .withIsWatched(true).build();
+                .withIsWatched(true).withType("Movie").build();
         assertTrue(AVENGERSENDGAME.isSameShow(editedAvengersEndGame));
 
         // same name, same dateofrelease, same description, different attributes -> returns true
