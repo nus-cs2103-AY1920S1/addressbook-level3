@@ -439,23 +439,33 @@ Format: `add ti/TITLE d/DESCRIPTION t/TAG c/CONTENT `
 
 Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
 
-****
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
 * You are not allowed to create notes with the same title.
 * Title, description and tag field must not be empty.
-****
+====
 
 ==== Accessing a note : `open`
 
-Reads a note in the app.
+Opens the note corresponding to the index in the app.
 
 Format: `open INDEX`
 
 Example: `open 1`
 
-****
-* Read note opens a new window that allows you to read and edit easily.
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* Opens a new window that allows you to read and edit easily.
 * Click on save button after editing to save changes made to the content of the note.
-****
+====
 
 ==== Deleting a note: `delete`
 
@@ -474,10 +484,15 @@ Format: `edit INDEX [ti/TITLE] [d/DESCRIPTION] [t/TAG c/CONTENT]`
 Example: `edit 1 ti/NewTitle d/NewDescription t/NewTag c/NewContent`
 Example: `edit 1 ti/NewTitle`
 
-****
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
 * INDEX and at least one optional field is compulsory to successfully edit the note.
-* To edit the content of the note, you can also choose to use the Read command for better usability.
-****
+====
 
 ==== Finding a note: `find`
 
@@ -486,10 +501,15 @@ Finds a note as specified by the user.
 Format: `find TEXT`
 
 Example:`find Personal_diary`
-****
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
 * Your input TEXT for search is case insensitive. e.g `Personal_diary` will match `personal_diary`
 * Searches title, description and content of all the notes that contains the TEXT.
-****
+====
 
 ==== Sorting notes: `sort`
 
@@ -499,10 +519,16 @@ Format: `sort by/SORTBYCONDITION`
 
 Example: `sort by/DateModified`
 
-****
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
 * SORTBYCONDITION must be either "DateModified", "DateCreated" and "NumOfAccess".
 * SORTBYCONDITION is not case-sensitive.
-****
+====
+
 ==== Undo notes action: `undo`
 
 Undo last action on notes.
@@ -511,10 +537,16 @@ Format: `undo`
 
 Example: `undo`
 
-****
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
 * You can only perform undo on undo-able commands. Undoable commands are: `add`, `edit`, `delete`, `clear` and `sort`
 * You can undo as many commands as you wish until there are no more commands that can be undone.
-****
+====
+
 ==== Redo notes action: `redo`
 
 Redo last undone action on notes.
@@ -523,10 +555,15 @@ Format: `redo`
 
 Example: `redo`
 
-****
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
 * You can redo as many commands as you wish until there are no more commands that can be redone.
 * If you perform a new undo-able command, all existing redo-able commands will be cleared.
-****
+====
 
 === Clearing all entries : `clear`
 
