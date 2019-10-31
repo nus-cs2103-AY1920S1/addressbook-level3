@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"seedu.address.logic.commands"},{"l":"seedu.address.logic.commands.exceptions"},{"l":"seedu.address.logic.parser"},{"l":"seedu.address.logic.parser.exceptions"}]

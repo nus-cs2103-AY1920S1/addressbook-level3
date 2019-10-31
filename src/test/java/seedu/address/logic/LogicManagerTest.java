@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -91,7 +92,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException, IOException {
+            Model expectedModel) throws CommandException, ParseException, IOException, URISyntaxException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
