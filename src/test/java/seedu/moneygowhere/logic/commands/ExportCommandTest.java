@@ -1,36 +1,51 @@
 package seedu.moneygowhere.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
+import seedu.moneygowhere.logic.Logic;
+import seedu.moneygowhere.logic.LogicManager;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
+import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.UserPrefs;
-import seedu.moneygowhere.model.path.FolderPath;
+import seedu.moneygowhere.storage.JsonSpendingBookStorage;
+import seedu.moneygowhere.storage.JsonUserPrefsStorage;
+import seedu.moneygowhere.storage.StorageManager;
 
 public class ExportCommandTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "SampleSpendings");
+    @TempDir
+    public Path temporaryFolder;
+
     private Model model;
+    private Logic logic;
 
     @BeforeEach
     public void setUp() {
+        JsonSpendingBookStorage addressBookStorage =
+                new JsonSpendingBookStorage(temporaryFolder.resolve("moneygowhere.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
+        model.setSpendingBookFilePath(temporaryFolder.resolve("moneygowhere.json"));
+        logic = new LogicManager(model, storage);
+
     }
 
     @Test
-    public void execute_allDataIsImported_showUpdatedMessage() throws CommandException {
-        FolderPath path = new FolderPath(TEST_DATA_FOLDER.toString());
-        CommandResult commandResult = new ExportCommand(path).execute(model);
-        assertEquals(String.format(ExportCommand.MESSAGE_SUCCESS, TEST_DATA_FOLDER.toString()),
-                commandResult.getFeedbackToUser());
+    public void execute_allDataIsImported_showUpdatedMessage() throws CommandException, ParseException {
+        CommandResult result = logic.execute("export " + PREFIX_PATH + temporaryFolder.toString());
+        assertEquals(String.format(ExportCommand.MESSAGE_SUCCESS, temporaryFolder.toString() + "/moneygowhere.csv"),
+                result.getFeedbackToUser());
     }
 
 }

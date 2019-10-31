@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_PATH;
 
 import java.io.File;
+import java.util.NoSuchElementException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +30,7 @@ public class ExportCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PATH + "C:\\Users\\User\\Documents";
 
-    public static final String MESSAGE_SUCCESS = "Exported all spending to %s/moneygowhere.csv";
+    public static final String MESSAGE_SUCCESS = "Exported all spending to %s";
 
     private final FolderPath fullFolderPath;
 
@@ -42,7 +43,8 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            JsonNode jsonTree = new ObjectMapper().readTree(new File("data/moneygowhere.json")).get("spendings");
+
+            JsonNode jsonTree = new ObjectMapper().readTree(model.getSpendingBookFilePath().toFile()).get("spendings");
             Builder csvSchemaBuilder = CsvSchema.builder();
             JsonNode firstObject = jsonTree.elements().next();
             firstObject.fieldNames().forEachRemaining(fieldName -> {
@@ -51,10 +53,18 @@ public class ExportCommand extends Command {
             CsvSchema csvSchema = csvSchemaBuilder.build().withHeader();
 
             CsvMapper csvMapper = new CsvMapper();
+            File file;
+            if (fullFolderPath.toString().endsWith(".csv")) {
+                file = new File(fullFolderPath.toString());
+            } else {
+                file = new File(fullFolderPath.toString() + "/moneygowhere.csv");
+            }
             csvMapper.writerFor(JsonNode.class)
                     .with(csvSchema)
-                    .writeValue(new File(fullFolderPath.toString() + "/moneygowhere.csv"), jsonTree);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, fullFolderPath.toString()));
+                    .writeValue(file, jsonTree);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()));
+        } catch (NoSuchElementException ex) {
+            throw new CommandException(ex.getMessage());
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());
         }

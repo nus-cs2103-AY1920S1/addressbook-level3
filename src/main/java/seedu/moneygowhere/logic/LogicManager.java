@@ -11,6 +11,7 @@ import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.commands.Command;
 import seedu.moneygowhere.logic.commands.CommandResult;
+import seedu.moneygowhere.logic.commands.ExportCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.SpendingBookParser;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
@@ -46,15 +47,27 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = spendingBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        if (command instanceof ExportCommand) {
+            saveSpendingBook(model.getSpendingBook());
+            commandResult = command.execute(model);
+        } else {
+            commandResult = command.execute(model);
+            saveSpendingBook(model.getSpendingBook());
+        }
+        return commandResult;
+    }
 
+    /**
+     * Saves the given {@link ReadOnlySpendingBook} to the storage.
+     * @param spendingBook cannot be null.
+     * @throws CommandException if there was any problem writing to the file.
+     */
+    public void saveSpendingBook(ReadOnlySpendingBook spendingBook) throws CommandException {
         try {
-            storage.saveSpendingBook(model.getSpendingBook());
+            storage.saveSpendingBook(spendingBook);
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
-        return commandResult;
     }
 
     @Override
