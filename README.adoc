@@ -25,7 +25,19 @@ endif::[]
 
 == Preview
 
-You can browse questions:
+Your personal dashboard:
+
+ifdef::env-github[]
+image::docs/images/userguide/home.png[width="600", text-center]
+endif::[]
+
+ifndef::env-github[]
+image::images/userguide/home.png[width="600", text-center]
+endif::[]
+
+'''
+
+View questions from our library of questions:
 
 ifdef::env-github[]
 image::docs/images/userguide/view.png[width="600", text-center]
@@ -35,10 +47,9 @@ ifndef::env-github[]
 image::images/userguide/view.png[width="600", text-center]
 endif::[]
 
-
 '''
 
-Attempt Questions and view results:
+Attempt questions and submit your solution:
 
 ifdef::env-github[]
 image::docs/images/userguide/submit.png[width="600", text-center]
