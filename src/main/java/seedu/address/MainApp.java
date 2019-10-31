@@ -20,7 +20,6 @@ import seedu.address.model.CardBook;
 import seedu.address.model.FileBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.NoteBook;
 import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCardBook;
@@ -29,6 +28,7 @@ import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.VersionedNoteBook;
 import seedu.address.model.util.SampleDataCardUtil;
 import seedu.address.model.util.SampleDataNotesUtil;
 import seedu.address.model.util.SampleDataPasswordUtil;
@@ -177,10 +177,10 @@ public class MainApp extends Application {
         } catch (DataConversionException e) {
             logger.warning(e + "");
             logger.warning("Data file not in the correct format. Will be starting with an empty file");
-            initialNoteData = new NoteBook();
+            initialNoteData = new VersionedNoteBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty file");
-            initialNoteData = new NoteBook();
+            initialNoteData = new VersionedNoteBook();
         }
         return initialNoteData;
     }

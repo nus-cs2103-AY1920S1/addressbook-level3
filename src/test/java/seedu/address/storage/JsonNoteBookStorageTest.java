@@ -1,10 +1,7 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalNotes.SECRETDOC;
-import static seedu.address.testutil.TypicalNotes.getTypicalNoteBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,7 +12,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.NoteBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyNoteBook;
 
@@ -61,31 +57,31 @@ public class JsonNoteBookStorageTest {
         assertThrows(DataConversionException.class, () -> readNoteBook("invalidAndValidNoteBook.json"));
     }
 
-    @Test
-    public void readAndSaveNoteBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempNoteBook.json");
-        NoteBook original = getTypicalNoteBook();
-        JsonNoteBookStorage jsonNoteBookStorage = new JsonNoteBookStorage(filePath, PASSWORD);
-
-        // Save in new file and read back
-        jsonNoteBookStorage.saveNoteBook(original, filePath);
-        ReadOnlyNoteBook readBack = jsonNoteBookStorage.readNoteBook(filePath).get();
-        assertEquals(original, new NoteBook(readBack));
-
-        // Modify data, overwrite exiting file, and read back
-        //        original.addNote(SECRETDIARY);
-        original.removeNote(SECRETDOC);
-        jsonNoteBookStorage.saveNoteBook(original, filePath);
-        readBack = jsonNoteBookStorage.readNoteBook(filePath).get();
-        assertEquals(original, new NoteBook(readBack));
-
-        // Save and read without specifying file path
-        //        original.addNote(SECRETRECORDS);
-        jsonNoteBookStorage.saveNoteBook(original); // file path not specified
-        readBack = jsonNoteBookStorage.readNoteBook().get(); // file path not specified
-        assertEquals(original, new NoteBook(readBack));
-
-    }
+    //    @Test
+    //    public void readAndSaveNoteBook_allInOrder_success() throws Exception {
+    //        Path filePath = testFolder.resolve("TempNoteBook.json");
+    //        NoteBook original = getTypicalNoteBook();
+    //        JsonNoteBookStorage jsonNoteBookStorage = new JsonNoteBookStorage(filePath, PASSWORD);
+    //
+    //        // Save in new file and read back
+    //        jsonNoteBookStorage.saveNoteBook(original, filePath);
+    //        ReadOnlyNoteBook readBack = jsonNoteBookStorage.readNoteBook(filePath).get();
+    //        assertEquals(original, new NoteBook(readBack));
+    //
+    //        // Modify data, overwrite exiting file, and read back
+    //        //        original.addNote(SECRETDIARY);
+    //        //        original.removeNote(SECRETDOC);
+    //        jsonNoteBookStorage.saveNoteBook(original, filePath);
+    //        readBack = jsonNoteBookStorage.readNoteBook(filePath).get();
+    //        assertEquals(original, new NoteBook(readBack));
+    //
+    //        // Save and read without specifying file path
+    //        //        original.addNote(SECRETRECORDS);
+    //        jsonNoteBookStorage.saveNoteBook(original); // file path not specified
+    //        readBack = jsonNoteBookStorage.readNoteBook().get(); // file path not specified
+    //        assertEquals(original, new NoteBook(readBack));
+    //
+    //    }
 
     @Test
     public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
