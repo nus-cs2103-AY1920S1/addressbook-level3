@@ -96,19 +96,19 @@ Upon startup, you will be prompted to enter one of the modes before you can proc
 
 ==== Getting into Flashcard mode: `switch fc`
 
-Brings the user to the Flashcard section, regardless of where the user is.
+Brings the user to the Flashcard section (see Section 5), regardless of where the user is.
 
     Format: switch fc
 
 ==== Getting into Notes function: `switch notes`
 
-Brings the user to the Notes section, regardless of where the user is.
+Brings the user to the Notes section (see Section 6), regardless of where the user is.
 
     Format: switch notes
 
 ==== Getting into CheatSheet function: `switch cs`
 
-Brings the user to the CheatSheet section, regardless of where the user is.
+Brings the user to the CheatSheet section (see Section 7), regardless of where the user is.
 
     Format: switch cs
 
@@ -129,7 +129,7 @@ Lists all StudyBuddy items with matching tags in the application.
     Example usage: filterall tag/CS2100
 
     Expected output:
-        List the whole StudyBuddy by tag(s) :
+        Lists the whole StudyBuddy after filtering by tag(s) :
     CS2100
     Flashcard: 6.
         Question: What is 101 Binary in its Decimal form?
