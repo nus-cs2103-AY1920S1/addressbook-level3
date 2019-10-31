@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
 import org.junit.jupiter.api.BeforeEach;
 
 import seedu.address.model.Model;
@@ -22,7 +20,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
+        model = new ModelManager(new UserPrefs(), new UserList(), new UniqueFoodList(),
                 new UniqueRecordList(), new Calendar());
     }
 }

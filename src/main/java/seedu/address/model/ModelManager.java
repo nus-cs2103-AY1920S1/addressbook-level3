@@ -33,7 +33,6 @@ import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.Calendar;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
@@ -48,10 +47,8 @@ import sugarmummy.recmfood.model.UniqueFoodList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<User> filteredUserList;
-    private final FilteredList<Person> filteredPersons;
     private final UniqueFoodList foodList;
     private final UserList userList;
     private final FilteredList<Food> filteredFoodList;
@@ -70,20 +67,18 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyUserList userList,
+    public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyUserList userList,
                         UniqueFoodList foodList, UniqueRecordList recordList,
                         ReadOnlyCalendar calendar) {
         super();
-        requireAllNonNull(addressBook, userPrefs, foodList, userList, recordList, calendar);
+        requireAllNonNull(userPrefs, foodList, userList, recordList, calendar);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
+        logger.fine("Initializing with and user prefs " + userPrefs
                 + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
 
-        this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.userList = new UserList(userList);
         this.filteredUserList = new FilteredList<>(this.userList.getUserList());
-        this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.foodList = foodList;
         this.filteredFoodList = new FilteredList<>(this.foodList.asUnmodifiableObservableList());
         this.recordList = recordList;
@@ -100,7 +95,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(), new UniqueRecordList(),
+        this(new UserPrefs(), new UserList(), new UniqueFoodList(), new UniqueRecordList(),
                 new Calendar());
     }
 
@@ -139,59 +134,6 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of {@code
-     * versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
     @Override
     public boolean equals(
             Object obj) {
@@ -207,9 +149,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
+        return userPrefs.equals(other.userPrefs)
                 && filteredRecordList.equals(other.filteredRecordList)
                 && averageMap.equals(other.averageMap);
     }

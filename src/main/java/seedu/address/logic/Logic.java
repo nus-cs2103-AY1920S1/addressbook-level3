@@ -13,7 +13,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.achievements.Achievement;
@@ -21,7 +20,6 @@ import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.ui.DisplayPaneType;
@@ -51,18 +49,6 @@ public interface Logic {
      * exists.
      */
     boolean getNewPaneIsToBeCreated();
-
-    /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
-     * Returns an unmodifiable view of the filtered list of persons
-     */
-    ObservableList<Person> getFilteredPersonList();
 
     /**
      * Returns the a list of foods.

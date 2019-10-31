@@ -16,10 +16,8 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyData;
 import seedu.address.model.ReadOnlyUserList;
@@ -67,7 +65,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing SugarMummy ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -93,12 +91,11 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br> The
-     * data from the sample address book will be used instead if {@code storage}'s address book is not found, or an
-     * empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s SugarMummy and {@code userPrefs}. <br> The
+     * data from the sample data will be used instead if {@code storage}'s SugarMummy is not found, or an
+     * empty SugarMummy will be used instead if errors occur when reading {@code storage}'s SugarMummy.
      */
     private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
-        ReadOnlyAddressBook initialData = new AddressBook();
         ReadOnlyUserList initialUserData;
         ReadOnlyCalendar initialCalendar;
         UniqueFoodList initialFoodList;
@@ -114,7 +111,7 @@ public class MainApp extends Application {
         initialCalendar = (ReadOnlyCalendar) getInitialData(LABEL_CALENDAR_DATA_TYPE,
                 SampleCalendarDataUtil::getSampleCalendar, Calendar::new);
 
-        return new ModelManager(initialData, userPrefs, initialUserData, initialFoodList, initialRecordListData,
+        return new ModelManager(userPrefs, initialUserData, initialFoodList, initialRecordListData,
                 initialCalendar);
     }
 
@@ -231,7 +228,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty SugarMummy");
             initializedPrefs = new UserPrefs();
         }
 
@@ -247,13 +244,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting SugarMummy " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping SugarMummy ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

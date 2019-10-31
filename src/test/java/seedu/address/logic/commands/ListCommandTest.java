@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,9 +23,9 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
+        model = new ModelManager(new UserPrefs(), new UserList(), new UniqueFoodList(),
                 new UniqueRecordList(), new Calendar());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
+        expectedModel = new ModelManager(new UserPrefs(), new UserList(), new UniqueFoodList(),
                 new UniqueRecordList(), new Calendar());
     }
 

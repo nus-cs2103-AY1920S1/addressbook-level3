@@ -3,24 +3,18 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 import static sugarmummy.recmfood.testutil.TypicalFoods.FOODS;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.Calendar;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.record.UniqueRecordList;
-import seedu.address.testutil.AddressBookBuilder;
 import sugarmummy.recmfood.model.UniqueFoodList;
 
 public class ModelManagerTest {
@@ -31,7 +25,6 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
     }
 
     @Test
@@ -78,30 +71,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
-    }
-
-    @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
         UniqueFoodList foodList = new UniqueFoodList();
         foodList.setFoods(FOODS);
@@ -110,8 +80,8 @@ public class ModelManagerTest {
         Calendar calendar = new Calendar();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, userList, foodList, recordList, calendar);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, userList, foodList, recordList,
+        modelManager = new ModelManager(userPrefs, userList, foodList, recordList, calendar);
+        ModelManager modelManagerCopy = new ModelManager(userPrefs, userList, foodList, recordList,
                 calendar);
 
         // same values -> returns true
@@ -126,23 +96,10 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, userList, foodList,
-                recordList, calendar)));
-
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, userList, foodList, recordList,
-                calendar)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, userList, foodList,
+        assertFalse(modelManager.equals(new ModelManager(differentUserPrefs, userList, foodList,
                 recordList, calendar)));
     }
 }

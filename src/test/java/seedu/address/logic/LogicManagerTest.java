@@ -97,11 +97,6 @@ public class LogicManagerTest {
     //        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     //    }
 
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
-    }
-
     /**
      * Executes the command and confirms that - no exceptions are thrown <br> - the feedback message is equal to {@code
      * expectedMessage} <br> - the internal sugarmummy.recmfood.model manager state is the same as that in {@code
@@ -141,7 +136,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getUserList(),
+        Model expectedModel = new ModelManager(new UserPrefs(), model.getUserList(),
                 new UniqueFoodList(), new UniqueRecordList(), new Calendar());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
