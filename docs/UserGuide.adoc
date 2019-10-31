@@ -56,8 +56,8 @@ image::Ui.png[width="790"]
 - E.g. `*add_task* "Buy Groceries"`
 
 * Command parameters are prefixed by `--`, and they are optional.
-- E.g. `*--date* 17/09/2019`
-- E.g. `*calendar* *--date* 17/09/2019`
+- E.g. `*--date* 09/2019`
+- E.g. `*calendar* *--date* 09/2019`
 ====
 
 {empty} +
@@ -419,14 +419,14 @@ Command Format: +
 `*calendar*` +
 
 Command Parameters: +
-`*--date* DATE`
+`*--date* MONTH_YEAR`
 
 Argument Format: +
-`DATE` : `DD/MM/YYYY`
+`MONTH_YEAR` : `MM/YYYY`
 
 Example: +
 `*calendar*` : Switch back to calendar view, without changing the date. +
-`*calendar* *--date* 11/10/2019`
+`*calendar* *--date* 10/2019`
 
 {empty} +
 
