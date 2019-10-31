@@ -82,7 +82,7 @@ public class AddCheatSheetCommand extends Command {
      * Retrieves all the notes with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
-        Content.resetCounter();
+        //Content.resetCounter();
         Set<Content> contentList = new HashSet<>();
 
         // get all notes
@@ -104,7 +104,7 @@ public class AddCheatSheetCommand extends Command {
                     flashcard.getAnswer().toString(), flashcard.getTags()));
         }
 
-        Content.resetCounter();
+        //Content.resetCounter();
         return contentList;
     }
 }

@@ -19,8 +19,9 @@ public class Content {
     private static int counter = 1;
 
     public final String content;
-    public final int index;
     public final Set<Tag> tags;
+
+    public int index = 0;
 
     /**
      * Constructs a {@code Content}.
@@ -33,7 +34,8 @@ public class Content {
         checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
         this.content = content;
         this.tags = tags;
-        this.index = counter++;
+
+        //this.index = counter++;
     }
 
     public Content(String question, String answer, Set<Tag> tags) {
@@ -45,7 +47,7 @@ public class Content {
         this.content = "Question: " + question
                 + "; Answer: " + answer;
 
-        this.index = counter++;
+        //this.index = counter++;
     }
 
     /**
@@ -53,6 +55,10 @@ public class Content {
      */
     public static boolean isValidContent(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     @Override
@@ -95,7 +101,7 @@ public class Content {
      * Format state as text for viewing.
      */
     public String toString() {
-        return content;
+        return index + ". " + content;
     }
 
 }

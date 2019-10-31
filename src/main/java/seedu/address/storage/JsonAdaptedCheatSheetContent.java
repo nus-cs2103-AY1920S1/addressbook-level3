@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Content}.
@@ -28,11 +29,10 @@ class JsonAdaptedCheatSheetContent {
      * Constructs a {@code JsonAdaptedContent} with the given {@code content}.
      */
     @JsonCreator
-    public JsonAdaptedCheatSheetContent(@JsonProperty("content") String content, @JsonProperty("content_tags") Set<Tag> tags) {
+    public JsonAdaptedCheatSheetContent(@JsonProperty("content") String content, @JsonProperty("content_tags") List<JsonAdaptedTag> tags) {
         this.content = content;
-
-        for (Tag tag: tags) {
-            this.tags.add(new JsonAdaptedTag(tag));
+        if (tags != null) {
+            this.tags.addAll(tags);
         }
     }
 
@@ -41,9 +41,9 @@ class JsonAdaptedCheatSheetContent {
      */
     public JsonAdaptedCheatSheetContent(Content source) {
         this.content = source.content;
-        for (Tag tag: source.getTags()) {
-            this.tags.add(new JsonAdaptedTag(tag));
-        }
+        tags.addAll(source.getTags().stream()
+                .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
     }
 
     //@JsonValue
@@ -68,14 +68,12 @@ class JsonAdaptedCheatSheetContent {
             throw new IllegalValueException(Content.MESSAGE_CONSTRAINTS);
         }
 
-
         final List<Tag> contentTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             contentTags.add(tag.toModelType());
         }
 
         final Set<Tag> modelTags = new HashSet<>(contentTags);
-
         return new Content(content, modelTags);
     }
 

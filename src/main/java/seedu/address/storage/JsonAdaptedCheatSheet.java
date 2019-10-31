@@ -29,7 +29,7 @@ public class JsonAdaptedCheatSheet {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedCheatSheet} with the given person details.
+     * Constructs a {@code JsonAdaptedCheatSheet} with the given cheatsheet details.
      */
     @JsonCreator
     public JsonAdaptedCheatSheet(@JsonProperty("title") String title,
@@ -80,8 +80,8 @@ public class JsonAdaptedCheatSheet {
         if (!Title.isValidTitle(title)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
-        final Title modelTitle = new Title(title);
 
+        final Title modelTitle = new Title(title);
         final Set<Content> modelContents = new HashSet<>(cheatSheetContents);
         final Set<Tag> modelTags = new HashSet<>(cheatSheetTags);
         return new CheatSheet(modelTitle, modelContents, modelTags);

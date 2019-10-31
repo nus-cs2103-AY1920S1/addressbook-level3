@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
@@ -8,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.tag.Tag;
@@ -23,11 +26,14 @@ public class CheatsheetTabWindowController {
     @FXML
     private ListView<String> tagArea;
 
+    private static Optional<CheatSheet> currCheatSheet;
+
     /**
-     * Displays the question of the flashcard specified in the flashcard tab window.
-     * @param cheatSheet flashcard to be displayed
+     * Displays the question of the cheatsheet specified in the cheatsheet tab window.
+     * @param cheatSheet cheatsheet to be displayed
      */
     public void loadCheatSheet(CheatSheet cheatSheet) {
+        currCheatSheet = Optional.of(cheatSheet);
 
         StringBuilder toDisplay = new StringBuilder();
 
@@ -42,13 +48,36 @@ public class CheatsheetTabWindowController {
         ObservableList<String> items = FXCollections.observableArrayList();
 
         items.add("List of tags:");
+        items.add("All Tags");
+
+        int counter = 1;
         for (Tag t: tags) {
-            items.add(t.toString());
+            items.add(counter + ". " + t.getTagName());
+            counter++;
         }
 
         tagArea.setItems(items);
 
-        highlightTabs(0);
+        highlightTabs(1);
+    }
+
+    public void showSpecificTagContents(int tagIndex) {
+        int targetIndex = tagIndex + 1;
+        highlightTabs(targetIndex);
+
+        String tagName = tagArea.getItems().get(targetIndex);
+        Tag targetTag = new Tag(tagName.substring(3));
+
+        StringBuilder toDisplay = new StringBuilder();
+
+        for (Content c: currCheatSheet.get().getContents()) {
+            if (c.getTags().contains(targetTag)) {
+                toDisplay.append(c.toString())
+                        .append("\n");
+            }
+        }
+
+        cheatsheetArea.setText(toDisplay.toString());
     }
 
     private void highlightTabs(int index) {
