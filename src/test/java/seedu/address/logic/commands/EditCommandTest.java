@@ -32,73 +32,73 @@ public class EditCommandTest {
     private Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(),
         getTypicalExchangeData(), new UserPrefs());
 
-    //    @Test
-    //    public void execute_allFieldsSpecifiedUnfilteredList_success() {
-    //        Expense editedExpense = new ExpenseBuilder().build();
-    //        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
-    //        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
-    //
-    //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-    //
-    //        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
-    //            new ExchangeData(model.getExchangeData()), new UserPrefs());
-    //        expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
-    //
-    //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    //    }
+    @Test
+    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        Expense editedExpense = new ExpenseBuilder().build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
 
-    //    @Test
-    //    public void execute_someFieldsSpecifiedUnfilteredList_success() {
-    //        Index indexLastExpense = Index.fromOneBased(model.getFilteredExpenseList().size());
-    //        Expense lastExpense = model.getFilteredExpenseList().get(indexLastExpense.getZeroBased());
-    //
-    //        ExpenseBuilder expenseInList = new ExpenseBuilder(lastExpense);
-    //        Expense editedExpense = expenseInList.withName(VALID_NAME_RUM).withAmount(VALID_AMOUNT_RUM)
-    //                .withTags(VALID_TAG_ALCOHOL).build();
-    //
-    //        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_RUM)
-    //                .withAmount(VALID_AMOUNT_RUM).withTags(VALID_TAG_ALCOHOL).build();
-    //        EditCommand editCommand = new EditCommand(indexLastExpense, descriptor);
-    //
-    //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-    //
-    //        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
-    //            new ExchangeData(model.getExchangeData()), new UserPrefs());
-    //        expectedModel.setExpense(lastExpense, editedExpense);
-    //
-    //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    //    }
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-    //    @Test
-    //    public void execute_noFieldSpecifiedUnfilteredList_success() {
-    //        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, new EditExpenseDescriptor());
-    //        Expense editedExpense = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-    //
-    //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-    //
-    //        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
-    //            new ExchangeData(model.getExchangeData()), new UserPrefs());
-    //
-    //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    //    }
+        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
+            new ExchangeData(model.getExchangeData()), new UserPrefs());
+        expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
 
-    //    @Test
-    //    public void execute_filteredList_success() {
-    //        showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
-    //
-    //        Expense expenseInFilteredList = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-    //        Expense editedExpense = new ExpenseBuilder(expenseInFilteredList).withName(VALID_NAME_RUM).build();
-    //        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE,
-    //                new EditExpenseDescriptorBuilder().withName(VALID_NAME_RUM).build());
-    //
-    //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-    //
-    //        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
-    //            new ExchangeData(model.getExchangeData()), new UserPrefs());
-    //        expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
-    //
-    //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    //    }
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+        Index indexLastExpense = Index.fromOneBased(model.getFilteredExpenseList().size());
+        Expense lastExpense = model.getFilteredExpenseList().get(indexLastExpense.getZeroBased());
+
+        ExpenseBuilder expenseInList = new ExpenseBuilder(lastExpense);
+        Expense editedExpense = expenseInList.withName(VALID_NAME_RUM).withAmount(VALID_AMOUNT_RUM)
+                .withTags(VALID_TAG_ALCOHOL).build();
+
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_RUM)
+                .withAmount(VALID_AMOUNT_RUM).withTags(VALID_TAG_ALCOHOL).build();
+        EditCommand editCommand = new EditCommand(indexLastExpense, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
+
+        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
+            new ExchangeData(model.getExchangeData()), new UserPrefs());
+        expectedModel.setExpense(lastExpense, editedExpense);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_noFieldSpecifiedUnfilteredList_success() {
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, new EditExpenseDescriptor());
+        Expense editedExpense = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
+
+        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
+            new ExchangeData(model.getExchangeData()), new UserPrefs());
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_filteredList_success() {
+        showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
+
+        Expense expenseInFilteredList = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
+        Expense editedExpense = new ExpenseBuilder(expenseInFilteredList).withName(VALID_NAME_RUM).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE,
+                new EditExpenseDescriptorBuilder().withName(VALID_NAME_RUM).build());
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
+
+        Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
+            new ExchangeData(model.getExchangeData()), new UserPrefs());
+        expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void execute_duplicateExpenseUnfilteredList_failure() {

@@ -90,47 +90,42 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredExpenseList().remove(0));
     }
 
-    //    @Test
-    //    public void equals() {
-    //        ExpenseList expenseList = new ExpenseListBuilder().withExpense(FOOD).withExpense(SHOPPING).build();
-    //        BudgetList budgetList = new BudgetListBuilder().withBudget(JAPAN).withBudget(KOREA).build();
-    //        ExpenseList differentExpenseList = new ExpenseList();
-    //        BudgetList differentBudgetList = new BudgetList();
-    //        ExchangeData exchangeData = new ExchangeData();
-    //        UserPrefs userPrefs = new UserPrefs();
-    //
-    //
-    // // same object -> returns true
-    // assertTrue(modelManager.equals(modelManager));
+    @Test
+    public void equals() {
+        ExpenseList expenseList = new ExpenseListBuilder().withExpense(FOOD).withExpense(SHOPPING).build();
+        ExpenseList differentExpenseList = new ExpenseList();
+        ExchangeData exchangeData = new ExchangeData();
+        UserPrefs userPrefs = new UserPrefs();
 
-    // // null -> returns false
-    // assertFalse(modelManager.equals(null));
 
-    // // different types -> returns false
-    // assertFalse(modelManager.equals(5));
+        // same values -> returns true
+        modelManager = new ModelManager(expenseList, exchangeData, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(expenseList, exchangeData, userPrefs);
+        assertTrue(modelManager.equals(modelManagerCopy));
 
-    // // different expenseList -> returns false
-    // assertFalse(modelManager.equals(new ModelManager(differentExpenseList, budgetList, exchangeData, userPrefs)));
+        // same object -> returns true
+        assertTrue(modelManager.equals(modelManager));
 
-    // // different budgetList -> returns false
-    // assertFalse(modelManager.equals(new ModelManager(expenseList, differentBudgetList, exchangeData, userPrefs)));
+        // null -> returns false
+        assertFalse(modelManager.equals(null));
 
-    // // different filteredList -> returns false
-    // String[] keywords = FOOD.getName().fullName.split("\\s+");
-    // modelManager.updateFilteredExpenseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-    // assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, exchangeData, userPrefs)));
+        // different types -> returns false
+        assertFalse(modelManager.equals(5));
 
-    // // different filteredBudgetList -> returns false
-    // // String[] budgetKeyword = JAPAN.getName().fullName.split("\\s+");
-    // // modelManager.updateFilteredBudgetList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-    // // assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, userPrefs)));
+        // different expenseList -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentExpenseList, exchangeData, userPrefs)));
 
-    // // resets modelManager to initial state for upcoming tests
-    // modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+        // different filteredList -> returns false
+        String[] keywords = FOOD.getName().fullName.split("\\s+");
+        modelManager.updateFilteredExpenseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(expenseList, exchangeData, userPrefs)));
 
-    // // different userPrefs -> returns false
-    // UserPrefs differentUserPrefs = new UserPrefs();
-    // differentUserPrefs.setExpenseListFilePath(Paths.get("differentFilePath"));
-    // assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, exchangeData, differentUserPrefs)));
-    //    }
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+
+        // different userPrefs -> returns false
+        UserPrefs differentUserPrefs = new UserPrefs();
+        differentUserPrefs.setExpenseListFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(expenseList, exchangeData, differentUserPrefs)));
+    }
 }

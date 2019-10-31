@@ -27,19 +27,18 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(), getTypicalExchangeData(),
         new UserPrefs());
 
-    //    @Test
-    //    public void execute_validIndexUnfilteredList_success() {
-    //        Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-    //        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
-    //
-    //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
-    //
-    //        ModelManager expectedModel = new ModelManager(model.getExpenseList(), new BudgetList(),
-    //        model.getExchangeData(), new UserPrefs());
-    //        expectedModel.deleteExpense(expenseToDelete);
-    //
-    //        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    //    }
+    @Test
+    public void execute_validIndexUnfilteredList_success() {
+        Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
+
+        ModelManager expectedModel = new ModelManager(model.getExpenseList(), model.getExchangeData(), new UserPrefs());
+        expectedModel.deleteExpense(expenseToDelete);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
@@ -49,22 +48,21 @@ public class DeleteCommandTest {
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
     }
 
-    //    @Test
-    //    public void execute_validIndexFilteredList_success() {
-    //        showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
-    //
-    //        Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-    //        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
-    //
-    //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
-    //
-    //        Model expectedModel = new ModelManager(model.getExpenseList(), new BudgetList(),
-    //        model.getExchangeData(), new UserPrefs());
-    //        expectedModel.deleteExpense(expenseToDelete);
-    //        showNoExpense(expectedModel);
-    //
-    //        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    //    }
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
+
+        Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
+
+        Model expectedModel = new ModelManager(model.getExpenseList(), model.getExchangeData(), new UserPrefs());
+        expectedModel.deleteExpense(expenseToDelete);
+        showNoExpense(expectedModel);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {

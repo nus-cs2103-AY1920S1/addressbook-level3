@@ -49,17 +49,17 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
     }
 
-    //    @Test
-    //    public void execute_invalidCommandFormat_throwsParseException() {
-    //        String invalidCommand = "uicfhmowqewca";
-    //        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-    //    }
+    @Test
+    public void execute_invalidCommandFormat_throwsParseException() {
+        String invalidCommand = "uicfhmowqewca";
+        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+    }
 
-    //    @Test
-    //    public void execute_commandExecutionError_throwsCommandException() {
-    //        String deleteCommand = "delete 9";
-    //        assertCommandException(deleteCommand, MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
-    //    }
+    @Test
+    public void execute_commandExecutionError_throwsCommandException() {
+        String deleteCommand = "delete 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
+    }
 
     @Test
     public void execute_validCommand_success() throws Exception {
@@ -67,29 +67,26 @@ public class LogicManagerTest {
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
-    //    @Test
-    //    public void execute_storageThrowsIoException_throwsCommandException() {
-    //        // Setup LogicManager with JsonExpenseListIoExceptionThrowingStub
-    //        JsonExpenseListStorage expenseListStorage =
-    //            new JsonExpenseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExpenseList.json"));
-    //        JsonUserPrefsStorage userPrefsStorage =
-    //            new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-    //        JsonBudgetListStorage budgetListStorage =
-    //            new JsonBudgetListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionBudgetList.json"));
-    //        JsonExchangeDataStorage exchangeDataStorage =
-    //            new JsonExchangeDataStorage(temporaryFolder.resolve("ioExceptionExchangeData.json"));
-    //        StorageManager storage = new StorageManager(expenseListStorage, budgetListStorage,
-    //        exchangeDataStorage, userPrefsStorage);
-    //        logic = new LogicManager(model, storage);
-    //
-    //        // Execute add command
-    //        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_VODKA + AMOUNT_DESC_VODKA + DATE_DESC_VODKA;
-    //        Expense expectedExpense = new ExpenseBuilder(VODKA).withTags().build();
-    //        ModelManager expectedModel = new ModelManager();
-    //        expectedModel.addExpense(expectedExpense);
-    //        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-    //        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
-    //    }
+    @Test
+    public void execute_storageThrowsIoException_throwsCommandException() {
+        // Setup LogicManager with JsonExpenseListIoExceptionThrowingStub
+        JsonExpenseListStorage expenseListStorage =
+            new JsonExpenseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExpenseList.json"));
+        JsonUserPrefsStorage userPrefsStorage =
+            new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        JsonExchangeDataStorage exchangeDataStorage =
+            new JsonExchangeDataStorage(temporaryFolder.resolve("ioExceptionExchangeData.json"));
+        StorageManager storage = new StorageManager(expenseListStorage, exchangeDataStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage);
+
+        // Execute add command
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_VODKA + AMOUNT_DESC_VODKA + DATE_DESC_VODKA;
+        Expense expectedExpense = new ExpenseBuilder(VODKA).withTags().build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addExpense(expectedExpense);
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
 
     @Test
     public void getFilteredExpenseList_modifyList_throwsUnsupportedOperationException() {
