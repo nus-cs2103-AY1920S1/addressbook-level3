@@ -40,4 +40,12 @@ public abstract class Payment extends Transaction implements LedgerOperation {
         }
         return personInvolved;
     }
+
+
+    @Override
+    public UniquePersonList getPeopleInvolved() {
+        UniquePersonList list = new UniquePersonList();
+        list.add(person);
+        return list;
+    }
 }

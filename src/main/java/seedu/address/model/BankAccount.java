@@ -188,7 +188,7 @@ public class BankAccount implements ReadOnlyBankAccount {
             && this.balance.equals(otherBankAccount.balance);
     }
 
-    // TODO: implement stub
+    // TODO: remove after implementing VersionedUserState
     public void addLoan(LedgerOperation operation) {
         // stub
     }

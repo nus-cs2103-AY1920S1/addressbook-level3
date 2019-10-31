@@ -110,6 +110,10 @@ public class Amount implements Comparable<Amount> {
         return new Amount(0);
     }
 
+    public static Amount of(int i) {
+        return new Amount(i * 100);
+    }
+
     @Override
     public String toString() {
         return String.format("%.2f", amount / 100.0);

@@ -19,10 +19,10 @@ By: `Team AY1920S1-CS2103T-W12-3`      Since: `Sep 2019`      Licence: `
 == Introduction
 
 === Purpose
+
 This document describes the architecture and system design of _PalPay_.
-It is a living document that evolves throughout the design
-and implementation for each release. Each release will have an edition of the document, and the
-current edition of the document is for the first public release of the application.
+It is a living document that evolves throughout the design and implementation for each release.
+Each release will have an edition of the document, and the current edition of the document is for the first public release of the application.
 
 This document is aimed at covering the high-level system architecture and design.
 It is segmented into two major parts: software design, including system architecture, and design implementation.
@@ -30,14 +30,14 @@ The software design documents the main software components that operate and supp
 Essential details such as the user stories and use cases, as well as the Non Functional Requirements are included at the back of the document.
 
 === Audience
+
 This document is written for software engineers want to gain an insight of the system architecture and design of the application.
-In particular, the intended audience of this document is the students taking the roles of the developers, designers, and
-software testers of _PalPay_ from CS2103T - Software Engineering.
+In particular, the intended audience of this document is the students taking the roles of the developers, designers, and software testers of _PalPay_ from CS2103T - Software Engineering.
 
 === Description
+
 _PalPay_ is a CLI application targeted for users who have poor financial management skills.
-It allows the users to keep track of daily financial transactions, as well as set a budget for a time duration
-to achieve long-term financial success.
+It allows the users to keep track of daily financial transactions, as well as set a budget for a time duration to achieve long-term financial success.
 Not only that, users can keep a ledger of lending and borrowing of money with others so that the users can keep track of the flow of their money.
 
 == Setting up
@@ -48,6 +48,7 @@ Refer to the guide <<SettingUp#, here>>.
 
 [[Design-Architecture]]
 === Architecture
+
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
@@ -151,8 +152,7 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Bank Account data.
 * exposes an unmodifiable `ObservableList<BankOperation>` and `ObservableList<Budget>`
-    that can be 'observed' e.g. the UI can be bound to this list
-    so that the UI automatically updates when the data in the list change due to user command.
+that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change due to user command.
 * does not depend on any of the other three components.
 
 //[NOTE]
@@ -255,26 +255,52 @@ This section describes some noteworthy details on how certain features are imple
 //
 //image::UndoRedoState5.png[]
 
+// tag::transaction[]
+=== Transaction: `in` / `out` / `split`
 
-// tag::delete[]
-=== Delete Transaction Feature: `delete`
-
-This feature allows the user to delete an existing transaction or budget from the list. +
-The following activity diagram summarizes what happens when a user executes Delete command:
-
-.Activity Diagram of Delete Command
-image::DeleteActivityDiagram.png[]
+The `Transaction` abstract class allows user to input income, expense or split commands into the PalPay.
 
 ==== Current Implementation
 
-==== Design Consideration
+`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extends the `Transaction` class.
+`Transaction` stores an *amount*, *date* and a set of *categories*. This describes the variables a `Transaction` with the `BankAccount` will typically hold.
+`Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
+`inTransaction` and `outTransaction` implements `BankAccountOperation`.
 
+==== Design Considerations
 
-// end::delete[]
+Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
+`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`, this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
+This allows multiple transaction calls within the same method.
+
+// end::transaction[]
+
+// tag::update[]
+=== Update: `update`
+
+This feature allows users to update either the **Amount**, **Date** or **Category** of either a Transaction or Budget.
+
+==== Design Considerations
+
+This `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended). This will minimize the need to input all non-required parameters if a user does not require all parameters of a Transaction or Budget to be changed.
+
+===== Aspect: Update requires `TYPE+INDEX` as one of its parameter
+
+* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction or Budget list. (e.g. `delete b1` deletes item index 1 from budget).
+** Pros: Requires lesser user steps to be taken before executing a `update` command
+** Cons: Requires two lists to be created instead of 1. The `UniqueTransactionList` stores Transaction items and `UniqueBudgetList` to store Budget items.
+For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `update 1`)
+** Pros: Requires only one unique list required to store both Transactions and Budgets.
+** Cons: Requires additional user step to switch between modes before executing a updating command.
+
+// end::update[]
 
 // tag::undoredo[]
-=== Undo / Redo Command Feature: `undo` `redo`
+=== Undo / Redo Command Feature: `undo`/`redo`
+
 ==== Current Implementation
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -298,49 +324,99 @@ For example, when a new command is executed, we must remember to update both `Hi
 Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::delete[]
+=== Delete Transaction Feature: `delete`
 
-_{Explain here how the data encryption feature will be implemented}_
+This feature allows the user to delete an existing transaction or budget from the list. +
+The following activity diagram summarizes what happens when a user executes Delete command:
 
-// end::dataencryption[]
-
-// tag::transaction[]
-=== [Proposed] Transaction: `in`/`out`
-
-This feature allows user to input income or expense statements into the PalPay.
+.Activity Diagram of Delete Command
+image::DeleteActivityDiagram.png[]
 
 ==== Current Implementation
 
-`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extends the `Transaction` class.
-`Transaction` stores an *amount*, *date* and a set of *categories* which describes the variables a `Transaction` with the `BankAccount` will typically hold.
+`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extend the `Transaction` class.
+`Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
 `Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
-`inTransaction` and `outTransaction` implements `BankAccountOperation`.
+`inTransaction` and `outTransaction` implement `BankAccountOperation`.
+==== Design Consideration
 
-==== Design Considerations
+===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
 
 Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
-`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`, this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands. This allows multiple transaction calls within the same method.
+`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`,
+this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
+This allows multiple transaction calls within the same method.
 
-// end::transaction[]
+// end::delete[]
 
-// tag::sorttransactions[]
-=== Sort Transactions Feature: `sort`
+// tag::sort[]
+=== Sort Feature: `sort`
 
 This feature allows the user to _sort_ their bank account by the _amount_ or _date_ of their transactions by using the command `sort amount` or `sort date` respectively.
 
 ==== Current Implementation
 
-The `sort` command is facilitated by the _Logic_ and _Model_ components of the application, _PalPay_.
+The `sort` command is facilitated by the _Logic_ and _Model_ components of the application.
 
 The following sequence diagram shows how the sorting of transactions work when the user enters `sort amount`.
 
 .Sequence Diagram for `sort amount`
 image::SortSequenceDiagram.png[]
 
--To Be Continued-
+==== Design Considerations
 
-// end::sorttransactions[]
+===== Aspect: Sorting of the Bank Account
+
+* **Alternative 1 (Current Choice):** Creating a comparator for each area to be sorted.
+** **Pros:** Easy to implement.
+** **Cons:** Users can only sort by comparators that have been implemented.
+Developers have to create a new comparator class to sort a new area.
+* **Alternative 2:** Users can define the area to be sorted.
+** **Pros:** Extremely flexible for the users as they are not limited to the number of areas to be sorted.
+** **Cons:** Difficult to implement.
+
+// end::sort[]
+
+// tag::filter[]
+=== Filter Feature: `filter`
+
+This feature allows the user to _filter_ their bank account by the _category_ of their transactions by using the
+ `filter [CATEGORY]...`.
+
+==== Overview
+
+The `FilterCommandParser` implements `Parser` with the following operation:
+
+* `FilterCommandParser#parse()`: This operation will take in a `String` input from the user that represents different categories delimited by a whitespace.
+It will then create a `TransactionContainsCategoriesPredicate` and passed into a new `FilterCommand`.
+Finally, this operation will return the new `FilterCommand`.
+
+==== Current Implementation
+
+The `filter` command is facilitated by the `FilterCommandParser` and `FilterCommand` of the application.
+PalPay filters the list of transactions by checking if any of the specified categories exists in the transaction.
+
+For instance, the command `filter breakfast dinner` would display a list of transactions with categories of breakfast or dinner or both.
+
+The following class diagram depicts the relations of the FilterCommand, FilterCommandParser and its related classes.
+
+.Class Diagram for `Filter`
+image::FilterClassDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Filtering by multiple categories
+
+* **Alternative 1 (Current Choice):** Creating one predicate for all categories to be sorted.
+** **Pros:** Extremely flexible for the users as they are not limited to the number of categories to be filtered.
+** **Cons:** Difficult to implement.
+* **Alternative 2:** Creating a predicate for each category to be sorted.
+** **Pros:** Easy to implement.
+** **Cons:** Users can only filter by predicates that have been implemented.
+Developers have to create a new predicate class to filter a new category.
+
+// end::filter[]
 
 // tag::split[]
 === Split Feature: `split`
@@ -351,16 +427,17 @@ Refer to the <<UserGuide#Features, UserGuide>> for usage details.
 ==== Current Implementation
 
 The `split` command is an abstraction of `LendMoney` class. +
-Given a list of *shares* and *people*, each person is assigned an *amount* based on the corresponding positional share and
-the total amount given to `split` command. +
+Given a list of *shares* and *people*, each person is assigned an *amount* based on the corresponding positional share and the total amount given to `split` command. +
 A `LendMoney` instance is created for each person and executed.
 
-// TODO: add PUML figure here
+image::LedgerOperationDiagram.png[]
 
 ==== Design Considerations
 
 Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
 However, this introduces coupling as the behavior of `Split` is now inexplicably tied to `LendMoney`.
+
+// TODO: add sequence diagram here
 
 // end::split[]
 
@@ -368,6 +445,85 @@ However, this introduces coupling as the behavior of `Split` is now inexplicably
 
 This feature allows the user to send money to another person. +
 The balance in the `Ledger` and the balance of the recipient is updated accordingly.
+
+==== Current Implementation
+
+The `pay` command creates `LendMoney` class that handles the transfer of fund from the user to another person.
+
+// TODO: add sequence diagram here
+
+// tag::set[]
+=== Set Budget Feature: `set`
+
+This feature allows the user to set a budget for a given time period for a category, if specified.
+The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *tag*) are not allowed.
+Upon setting the budget and prior to the deadline, the user's `OutTransaction` will deduct the amount from each budget in the list respectively.
+
+==== Current Implementation
+
+The `set` command is an extension of parent `Command` class, facilitated by the _Logic_ and _Model_ components of the application, _PalPay_ +
+Given an *amount* and *date*, a new Budget is set for the user. +
+Upon setting a new budget, a `BudgetCard` is created and displayed in a list in the application window till the date set by the user. +
+
+// TODO: add PUML figure for Sequence diagram
+
+
+==== Design Considerations
+Currently, `Budget` does not extend from `Transaction` although the two behave in a similar way.
+There is an aggregation between `Budget` and `Transaction` as the two can exist independent of each other,
+although an effect on one may also cause an impact on the other.
+The current design was chosen over the former design of inheritance as there is a stark difference in the two
+in a way that `Budget` does not affect the `balance` of the user's bank account directly while `Transaction` does.
+Hence, by Liskov Substitution Principle, inheritance is not a suitable design. +
+
+// end::set[]
+
+// tag::project[]
+[[Implementation-Projection]]
+=== Project Balance Feature: `project`
+
+This feature allows users to _project_ their balance status based on past income and outflows as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
+
+==== Current Implementation
+
+The `project` command is facilitated by the Logic and Model components of the application, _PalPay_
+
+The sequence diagram below demonstrates how the `project [DATE]` command is handled by the application.
+
+.Sequence Diagram of Project Command
+image::Project.png[ProjectCommand Sequence Diagram]
+
+==== Future Enhancements
+
+===== Graphical Representation
+
+In future updates, the _user's_ balance projection will be displayed as a linear graph plotted against time, up until the date specified by the user in the command.
+
+===== Projection by Category
+
+In future updates, the _user_ will be able to customise projections beyond specifying a single date.
+Some possible customizations include solely projection _income_ / _outflow_ amounts, and filtered projections based on _categories_.
+For instance, `project d/22112019 c/Food -o` will project the _user's_ spending (or outflow, as denoted by the `-o` flag) on Food (specified by the `c/Food` tag) up until the 22nd of November, 2019 (specified by the `d/22112019` tag).
+
+==== Design Considerations
+
+The project command has multiple possible implementations as to how the projection may be computed.
+In the current implementation, the projected amount is calculated via the following equation:
+
+_Projected Balance = Current Balance - [(Past Income - Past Outflow) / Total Days Elapsed] * Days Until Date of Projection_
+
+While this algorithm allows for simple and fast computation, it does not hedge against one-time big purchases.
+For example, if the user were to buy a computer, his outflow projection is likely to be proportionally larger in the short run.
+
+==== Alternative Implementations
+
+===== Linear Regression
+
+In light of the above-mentioned limitation, a possible algorithm to be used is the
+https://en.wikipedia.org/wiki/Gradient_descent#targetText=Gradient%20descent%20is%20a%20first,function%20at%20the%20current%20point[_Gradient Descent_]
+algorithm in finding a best fit projection line for the user's balance.
+However, this will increase the computational cost of the `project` function significantly, causing _PalPay_ to run slower overall.
+// end::project[]
 
 === Logging
 
@@ -387,74 +543,8 @@ The `LogsCenter` class is used to manage the logging levels and logging destinat
 
 [[Implementation-Configuration]]
 === Configuration
+
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
-
-// tag::set[]
-=== Set Budget Feature: `set`
-
-This feature allows the user to set a budget for a given time period for a category, if specified.
-The user is allowed to set multiple budgets.
-Upon setting the budget and prior to the deadline, the user's `OutTransaction` will deduct the amount from each budget in the list respectively.
-
-==== Current Implementation
-
-The `set` command is an extension of parent `Command` class, facilitated by the _Logic_ and _Model_ components of the application, _PalPay_ +
-Given an *amount* and *date*, a new Budget is set for the user. +
-Upon setting a new budget, a `BudgetCard` is created and displayed in a list in the application window
-till the date set by the user. +
-
-// TODO: add PUML figure for Sequence diagram
-
-==== Design Considerations
-
-
-// end::set[]
-
-
-[[Implementation-Projection]]
-=== Project Balance feature: `project`
-This feature allows users to _project_ their balance status based on past income and outflows
-as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
-
-==== Current Implementation
-The `project` command is facilitated by the Logic and Model components of the application, _PalPay_
-
-The sequence diagram below demonstrates how the `project [DATE]` command is handled by the application.
-
-.Sequence Diagram of Project Command
-image::Project.png[ProjectCommand Sequence Diagram]
-
-==== Future Enhancements
-
-===== Graphical Representation
-In future updates, the _user's_ balance projection will be displayed as a linear graph plotted against time, up until
-the date specified by the user in the command.
-
-===== Projection by Category
-In future updates, the _user_ will be able to customise projections beyond specifying a single date.
-Some possible customizations include solely projection _income_ / _outflow_ amounts, and filtered
-projections based on _categories_. For instance, `project d/22112019 c/Food -o` will project the
-_user's_ spending (or outflow, as denoted by the `-o` flag) on Food (specified by the `c/Food` tag)
-up until the 22nd of November, 2019 (specified by the `d/22112019` tag).
-
-==== Design Considerations
-The project command has multiple possible implementations as to how the projection may be computed.
-In the current implementation, the projected amount is calculated via the following equation:
-
-_Projected Balance = Current Balance - [(Past Income - Past Outflow) / Total Days Elapsed] *
-Days Until Date of Projection_
-
-While this algorithm allows for simple and fast computation, it does not hedge against one-time big purchases.
-For example, if the user were to buy a computer, his outflow projection is likely to be proportionally
-larger in the short run.
-
-==== Alternative Implementations
-===== Linear Regression
-In light of the above-mentioned limitation, a possible algorithm to be used is the
-https://en.wikipedia.org/wiki/Gradient_descent#targetText=Gradient%20descent%20is%20a%20first,function%20at%20the%20current%20point[_Gradient Descent_]
-algorithm in finding a best fit projection line for the user's balance. However, this will increase the
-computational cost of the `project` function significantly, causing _PalPay_ to run slower overall.
 
 == Documentation
 

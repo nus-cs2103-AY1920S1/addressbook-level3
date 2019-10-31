@@ -96,6 +96,10 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
         internalList.setAll(transactions);
     }
 
+    public void setTransactions(UniqueTransactionList transactions) {
+        setTransactions(transactions.internalList);
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      *

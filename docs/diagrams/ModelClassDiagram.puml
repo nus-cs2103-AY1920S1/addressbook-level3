@@ -95,13 +95,12 @@ Transaction o--> Amount
 Ledger o--> LedgerOperation
 Split .up.|> LedgerOperation
 Payment .up.|> LedgerOperation
-LendMoney .up.|> LedgerOperation
-ReceiveMoney .up.|> LedgerOperation
+LendMoney .up.|> Payment
+ReceiveMoney .up.|> Payment
 
 Split --> Transaction
 Payment --> Transaction
-LendMoney --> Transaction
-ReceiveMoney --> Transaction
+Split --- LendMoney
 
 Split o--> Person
 Payment o--> Person

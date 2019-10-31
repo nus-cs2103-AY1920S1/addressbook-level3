@@ -90,4 +90,9 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
     public Date getDate() {
         return date;
     }
+
+    @Override
+    public UniquePersonList getPeopleInvolved() {
+        return peopleInvolved;
+    }
 }

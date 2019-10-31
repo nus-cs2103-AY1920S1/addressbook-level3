@@ -26,7 +26,7 @@ import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.BankOperationBuilder;
 
 public class InCommandTest {
 
@@ -38,7 +38,7 @@ public class InCommandTest {
     @Test
     public void executeTransactionAcceptedByModeladdSuccessful() throws Exception {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
-        BankAccountOperation validTransaction = new TransactionBuilder().build();
+        BankAccountOperation validTransaction = new BankOperationBuilder().build();
 
         InCommand inCommand = new InCommand(validTransaction);
         CommandResult commandResult = inCommand.execute(modelStub);
@@ -49,7 +49,7 @@ public class InCommandTest {
     /*
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        BankAccountOperation validTransaction = new TransactionBuilder().build();
+        BankAccountOperation validTransaction = new BankOperationBuilder().build();
         InCommand addCommand = new InCommand(validTransaction);
         ModelStub modelStub = new ModelStubWithTransaction(validTransaction);
 
@@ -59,12 +59,12 @@ public class InCommandTest {
 
     @Test
     public void equals() {
-        BankAccountOperation firstTransaction = new TransactionBuilder()
+        BankAccountOperation firstTransaction = new BankOperationBuilder()
                 .withCategories("Food")
                 .withAmount("100")
                 .withDate("10102019")
                 .build();
-        BankAccountOperation secondTransaction = new TransactionBuilder()
+        BankAccountOperation secondTransaction = new BankOperationBuilder()
                 .withCategories("Drinks")
                 .withAmount("80")
                 .withDate("10102019")

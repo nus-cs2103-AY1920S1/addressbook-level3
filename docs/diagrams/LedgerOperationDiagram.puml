@@ -1,0 +1,51 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Ledger <<Rectangle>>{
+
+Package Transaction {
+Interface LedgerOperation <<Interface>>
+Class Ledger
+
+Class Transaction <<abstract>>
+
+Class Amount
+
+Package {
+Class Split
+Class LendMoney
+Class Payment
+Class ReceiveMoney
+
+}
+
+Class UniquePersonList
+
+}
+}
+
+Class HiddenOutside #FFFFFF
+
+'UniquePersonList
+UniquePersonList ---"*" Person
+
+Transaction --- Amount
+Transaction --- Date
+
+'ledger operation
+Ledger o--> LedgerOperation
+Ledger --- UniquePersonList
+Split .up.|> LedgerOperation
+Payment .up.|> LedgerOperation
+LendMoney .up.|> Payment
+ReceiveMoney .up.|> Payment
+
+Split --> Transaction
+Split --- LendMoney
+Payment --> Transaction
+
+
+@enduml

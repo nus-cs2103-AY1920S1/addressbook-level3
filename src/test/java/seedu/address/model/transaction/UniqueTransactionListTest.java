@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
-import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.BankOperationBuilder;
 
 public class UniqueTransactionListTest {
 
@@ -40,7 +40,7 @@ public class UniqueTransactionListTest {
     @Test
     public void contains_transactionWithSameIdentityFieldsInList_returnsTrue() {
         uniqueTransactionList.add(ALICE);
-        BankAccountOperation editedAlice = new TransactionBuilder(ALICE).build();
+        BankAccountOperation editedAlice = new BankOperationBuilder(ALICE).build();
         assertTrue(uniqueTransactionList.contains(editedAlice));
     }
 
@@ -82,7 +82,7 @@ public class UniqueTransactionListTest {
     @Test
     public void setTransaction_editedTransactionHasSameIdentity_success() {
         uniqueTransactionList.add(ALICE);
-        BankAccountOperation editedAlice = new TransactionBuilder(ALICE).build();
+        BankAccountOperation editedAlice = new BankOperationBuilder(ALICE).build();
         uniqueTransactionList.setTransaction(ALICE, editedAlice);
         UniqueTransactionList expectedUniqueTransactionList = new UniqueTransactionList();
         expectedUniqueTransactionList.add(editedAlice);
@@ -123,27 +123,26 @@ public class UniqueTransactionListTest {
         assertEquals(expectedUniqueTransactionList, uniqueTransactionList);
     }
 
-    // TODO: FIX
-    // @Test
-    // public void setTransactions_nullUniqueTransactionList_throwsNullPointerException() {
-    //     assertThrows(
-    //     NullPointerException.class, () -> uniqueTransactionList.setTransactions((UniqueTransactionList) null));
-    // }
-    //
-    // @Test
-    // public void setTransactions_uniqueTransactionList_replacesOwnListWithProvidedUniqueTransactionList() {
-    //     uniqueTransactionList.add(ALICE);
-    //     UniqueTransactionList expectedUniqueTransactionList = new UniqueTransactionList();
-    //     expectedUniqueTransactionList.add(BENSON);
-    //     uniqueTransactionList.setTransactions(expectedUniqueTransactionList);
-    //     assertEquals(expectedUniqueTransactionList, uniqueTransactionList);
-    // }
-    //
-    // @Test
-    // public void setTransactions_nullList_throwsNullPointerException() {
-    //     assertThrows(
-    //     NullPointerException.class, () -> uniqueTransactionList.setTransactions((List<Transaction>) null));
-    // }
+    @Test
+    public void setTransactions_nullUniqueTransactionList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                uniqueTransactionList.setTransactions((List<BankAccountOperation>) null));
+    }
+
+    @Test
+    public void setTransactions_uniqueTransactionList_replacesOwnListWithProvidedUniqueTransactionList() {
+        uniqueTransactionList.add(ALICE);
+        UniqueTransactionList expectedUniqueTransactionList = new UniqueTransactionList();
+        expectedUniqueTransactionList.add(BENSON);
+        uniqueTransactionList.setTransactions(expectedUniqueTransactionList);
+        assertEquals(expectedUniqueTransactionList, uniqueTransactionList);
+    }
+
+    @Test
+    public void setTransactions_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                        uniqueTransactionList.setTransactions((List<BankAccountOperation>) null));
+    }
 
     @Test
     public void setTransactions_list_replacesOwnListWithProvidedList() {
@@ -159,13 +158,14 @@ public class UniqueTransactionListTest {
     public void setTransactions_listWithDuplicateTransactions_throwsDuplicateTransactionException() {
         List<BankAccountOperation> listWithDuplicateTransactions = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicateTransactionException.class, () -> uniqueTransactionList
-            .setTransactions(listWithDuplicateTransactions));
+                .setTransactions(listWithDuplicateTransactions));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-            -> uniqueTransactionList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> uniqueTransactionList
+            .asUnmodifiableObservableList()
+            .remove(0));
     }
 
 }

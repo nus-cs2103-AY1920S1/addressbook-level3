@@ -13,7 +13,7 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        BankAccountOperation editedTransaction = new TransactionBuilder().build();
+        BankAccountOperation editedTransaction = new BankOperationBuilder().build();
         UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder(editedTransaction).build();
         UpdateCommand updateCommand = new UpdateCommand(typeTransaction ,INDEX_FIRST_TRANSACTION, descriptor);
 
@@ -30,7 +30,7 @@ public class UpdateCommandTest {
         Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
         Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
 
-        TransactionBuilder transactionInList = new TransactionBuilder(lastTransaction);
+        BankOperationBuilder transactionInList = new BankOperationBuilder(lastTransaction);
         // TODO : FIX
         Transaction editedTransaction = transactionInList.withAmount("1").withDate("1")
                 .withCategories(VALID_TAG_HUSBAND).build();
@@ -67,7 +67,7 @@ public class UpdateCommandTest {
                 .getFilteredTransactionList()
                 .get(INDEX_FIRST_TRANSACTION.getZeroBased());
         // TODO: FIX
-        Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList).withAmount("1").build();
+        Transaction editedTransaction = new BankOperationBuilder(transactionInFilteredList).withAmount("1").build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 

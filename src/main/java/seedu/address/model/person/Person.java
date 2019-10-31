@@ -30,16 +30,20 @@ public class Person {
     private Amount balance;
 
     /**
-     * Every field must be present and not null.
+     * Only name must be non-null
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Category> categories) {
-        requireAllNonNull(name, phone, email, address, categories);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Category> categories, Amount amount) {
+        requireAllNonNull(name, phone, email, address, categories, amount);
         this.name = name;
         this.phone = Optional.of(phone);
         this.email = Optional.of(email);
         this.address = Optional.of(address);
         this.categories.addAll(categories);
-        this.balance = new Amount(0);
+        this.balance = amount;
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Category> categories) {
+        this(name, phone, email, address, categories, Amount.zero());
     }
 
     public Person(Name name) {
@@ -48,6 +52,7 @@ public class Person {
         this.phone = Optional.empty();
         this.email = Optional.empty();
         this.address = Optional.empty();
+        this.balance = Amount.zero();
     }
 
     public Name getName() {

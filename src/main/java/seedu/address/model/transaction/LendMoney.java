@@ -23,6 +23,7 @@ public class LendMoney extends Payment {
         return balance.subtractAmount(amount);
     }
 
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
