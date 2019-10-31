@@ -32,7 +32,7 @@ public class TrainingCommandAbsent extends TrainingCommand {
     /**
      * Creates a TrainingCommandAbsent to add a training session on {@code date} using the {@code indexList}.
      *
-     * @param date      Date of training.
+     * @param date of training.
      * @param indexList List of index indicating absentees.
      */
     public TrainingCommandAbsent(AthletickDate date, List<Index> indexList) {
