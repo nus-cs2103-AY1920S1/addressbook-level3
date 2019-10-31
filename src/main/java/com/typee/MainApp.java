@@ -1,6 +1,7 @@
 package com.typee;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -60,6 +61,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         EngagementListStorage engagementListStorage = new JsonEngagementListStorage(userPrefs.getAddressBookFilePath());
+
+        initTabMenus(config.getTabMenuFilePath());
         TypeeStorage typeeStorage = new JsonTypeeStorage(config.getTabMenuFilePath());
         storage = new StorageManager(engagementListStorage, userPrefsStorage, typeeStorage);
 
@@ -113,6 +116,7 @@ public class MainApp extends Application {
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
+
         if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
@@ -136,6 +140,19 @@ public class MainApp extends Application {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
         return initializedConfig;
+    }
+
+    /**
+     * Prepares the tabMenus.json file in resource/ by copying the file outside specified path.
+     * @param tabMenuFilePath
+     */
+    protected void initTabMenus(Path tabMenuFilePath) {
+        try {
+            Files.copy(getClass().getClassLoader().getResourceAsStream("tabMenus.json"), tabMenuFilePath);
+        } catch (IOException e) {
+            logger.warning(e.getMessage());
+        }
+
     }
 
     /**
