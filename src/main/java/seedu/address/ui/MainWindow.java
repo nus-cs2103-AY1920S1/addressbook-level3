@@ -270,6 +270,8 @@ public class MainWindow extends UiPart<Stage> {
                 combinedListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
             }
 
+            classroomListPanel = new ClassroomListPanel(logic.getClassroomList());
+            classroomListPanelPlaceholder.getChildren().add(classroomListPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
