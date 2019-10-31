@@ -12,9 +12,10 @@ public class Password {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Passwords must adhere to the following requirements:\n"
-            + "1. The password should only contain alphanumeric characters and/or these special characters, excluding "
+            + "1. The password can only contain alphanumeric characters and/or these special characters, excluding "
             + "the parentheses, (" + SPECIAL_CHARACTERS + ").\n"
-            + "2. The password cannot be blank or contain a whitespace.";
+            + "2. The password must be at least 6 characters in length."
+            + "3. The password cannot be blank or contain a whitespace.";
 
     /*
      * The first character of the username must not be a whitespace,
