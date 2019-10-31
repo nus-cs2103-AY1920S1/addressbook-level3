@@ -130,7 +130,8 @@ public class FlashcardTabWindowController {
                     e -> showTimetrialFlashcardAns()));
             cardCount++;
         }
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION), e -> resetTexts()));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION),
+                e -> resetTexts()));
         timeline.play();
     }
 
