@@ -38,6 +38,12 @@ public class AttendanceCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Executes AttendanceCommand. Displays the attendance of Person specified by the index.
+     * @param model {@code Model} which the command should operate on.
+     * @return Outcome of executed command.
+     * @throws CommandException Thrown when specified index is invalid.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -54,8 +60,8 @@ public class AttendanceCommand extends Command {
         StringBuilder result = new StringBuilder();
 
         result.append(person.getName().toString());
-        result.append(" ");
-        result.append(attendance.viewPersonAttendance(person));
+        result.append(": ");
+        result.append(attendance.getPersonAttendanceString(person));
 
         /* This is used for attendance of all, implement later.
 
@@ -73,6 +79,10 @@ public class AttendanceCommand extends Command {
         // Command Result does not return MESSAGE_SUCCESS at the moment, used to demo.
         return new CommandResult(result.toString());
     }
+    /**
+     * Indicates whether an AttendanceCommand can be undone.
+     * @return Returns false as a AttendanceCommand is not undoable.
+     */
     @Override
     public boolean isUndoable() {
         return false;

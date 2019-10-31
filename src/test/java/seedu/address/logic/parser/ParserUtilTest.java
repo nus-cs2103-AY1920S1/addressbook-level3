@@ -14,6 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.performance.Event;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -34,7 +35,26 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
+    private static final String VALID_EVENT = "50m backstroke";
+
     private static final String WHITESPACE = " \t\r\n";
+
+    @Test
+    public void parseEvent_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEvent((String) null));
+    }
+
+    @Test
+    public void parseEvent_validValueWithoutWhitespace_returnsEvent() {
+        Event expectedEvent = new Event(VALID_EVENT);
+        assertEquals(expectedEvent, new Event(ParserUtil.parseEvent(VALID_EVENT)));
+    }
+
+    @Test
+    public void parseEvent_validValueWithWhitespace_returnsTrimmedEvent() {
+        Event expectedEvent = new Event(VALID_EVENT);
+        assertEquals(expectedEvent, new Event(ParserUtil.parseEvent(VALID_EVENT + WHITESPACE)));
+    }
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {

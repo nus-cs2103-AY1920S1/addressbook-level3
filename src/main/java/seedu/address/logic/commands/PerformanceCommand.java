@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
+import seedu.address.model.performance.Timing;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,31 +26,31 @@ public class PerformanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a player performance for an event to Athletick.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_EVENT + "EVENT "
-            + PREFIX_DATE + "DATE "
-            + PREFIX_TIMING + "TIME\n"
+            + PREFIX_DATE + "DDMMYYYY "
+            + PREFIX_TIMING + "SECONDS\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT + "freestyle 50m "
             + PREFIX_DATE + "02102019 "
-            + PREFIX_TIMING + "30s";
+            + PREFIX_TIMING + "30.32";
 
     private final Index index;
     private final String event;
     private final AthletickDate date;
-    private final String time;
+    private final Timing time;
 
     /**
      * Creates a PerformanceCommand to add the record under the event.
      */
-    public PerformanceCommand(Index index, String event, AthletickDate date, String time) {
+    public PerformanceCommand(Index index, String event, AthletickDate date, Timing time) {
         this.index = index;
         this.event = event;
         this.date = date;
         this.time = time;
     }
 
-    public static final String getSuccessMessage(Person p, String e, AthletickDate d, String t) {
+    public static final String getSuccessMessage(Person p, String e, AthletickDate d, Timing t) {
         return "Performance record added for " + p.getName().fullName + " under " + e + " event, on "
-            + d.toString() + " with a timing of " + t;
+            + d.toString() + " with a timing of " + t.toString();
     }
 
     @Override
@@ -72,8 +73,7 @@ public class PerformanceCommand extends Command {
         Record record = createRecord();
         date.setType(2);
         model.addRecord(event, athlete, record);
-        return new CommandResult(getSuccessMessage(athlete, event, date, time));
-
+        return new CommandResult(getSuccessMessage(athlete, event, date, time), date, model);
     }
 
     private Record createRecord() {

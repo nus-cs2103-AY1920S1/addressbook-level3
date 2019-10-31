@@ -36,7 +36,7 @@ public class CalendarCommand extends Command {
         switch (date.getType()) {
         case 1:
             String resultMsg =
-                    MESSAGE_SUCCESS_1 + date.getDay() + " " + date.getMth() + " " + date.getYear();
+                    MESSAGE_SUCCESS_1 + date.toString();
             return new CommandResult(resultMsg, date, model);
         case 2:
             String resultMsg2 = MESSAGE_SUCCESS_2 + date.getMth() + " " + date.getYear();

@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.Record;
+import seedu.address.model.performance.Timing;
 
 /**
  * Jackson-friendly version of {@link Record}.
@@ -32,7 +33,7 @@ public class JsonAdaptedRecord {
      */
     public JsonAdaptedRecord(Record source) {
         date = source.getDate().getUnparsed();
-        timing = source.getTiming();
+        timing = source.getTiming().getUnparsed();
     }
 
     /**
@@ -51,7 +52,7 @@ public class JsonAdaptedRecord {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "timing"));
         }
 
-        final String modelTiming = timing;
+        final Timing modelTiming = ParserUtil.parseTiming(timing);
 
         return new Record(modelDate, modelTiming);
     }

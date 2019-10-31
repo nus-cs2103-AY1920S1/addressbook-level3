@@ -47,7 +47,7 @@ public class CommandTestUtil {
     public static final String VALID_PHOTO_BOB = "bob.png";
     public static final String VALID_EVENT = "freestyle 50m";
     public static final String VALID_DATE = "25122019";
-    public static final String VALID_TIMING = "30s";
+    public static final String VALID_TIMING = "30.4";
     public static final String VALID_INDEX = "1";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;

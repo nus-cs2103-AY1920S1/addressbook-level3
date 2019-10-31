@@ -34,19 +34,25 @@ Note the following symbols and formatting used in this document
 
 [horizontal]
 
-IMPORTANT:: This symbol indicates important information
+IMPORTANT: This symbol indicates important information
 `mark-up`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
 command line and executed by the application.
 
 == Quick Start
+This section guides you on how to install Athletick on your computer.
 
-.  Ensure you have Java `11` or above installed in your Computer.
+These are the steps you should take:
+
+.  Check that you have Java `11` or above installed in your Computer.
+
 .  Download the latest `athletick.jar` link:{repoURL}/releases[here].
+
 .  Copy the downloaded file to the folder you want to use as the home folder for your Athletick.
+
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
-+
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 //To be included at a later milestone
@@ -57,10 +63,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 //* **`delete`**`3` : deletes the 3rd contact shown in the current list
 //* *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+You may refer to <<Features>> for a full list of commands and their details.
 
 [[Features]]
 == Features
+
+This section explains how you can use the features in *Athletick*.
+The features are segregated by their main functions.
 
 ====
 *Command Format*
@@ -69,6 +78,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* `INDEX` refers to the athlete's position in the active list.
+As the index can change depending on what filters are applied, refer to the current index on the sidebar.
+//maybe provide picture
 ====
 
 === Team Data Entry
@@ -77,21 +89,34 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 This command adds an athlete to Athletick.
 
+Let's say John Doe just joined the team and you want to add him to Athletick so that you are able to track his
+attendance and performance.
+
 *What you should do*
 
 Type the athlete's particulars in the format given below.
 
-Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
+Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... [i/IMAGE]`
 
-Example: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/backstroke`
+[IMPORTANT]
+Take note that if you want to add an image of John when you are adding him to Athletick, make sure that
+the image is in the `images` folder.
+
+[IMPORTANT]
+You can include any number of tags (zero tags are also allowed) to an athlete and the addition of an image
+is optional.
+
+Example: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/backstroke i/john.png`
+
+image::beforeAdd.png[width="790"]
 
 *What you should see*
 
-image::addcommand.png[width="790"]
+image::afterAdd.png[width="790"]
 
 If successfully added, the details of the added athlete will be displayed in the result box.
 
-The athlete will be shown in team list.
+The athlete will be shown in the team list.
 
 ==== Deleting an athlete : `delete`
 
@@ -105,9 +130,11 @@ Format: `delete INDEX`
 
 Example: `delete 7`
 
-IMPORTANT: The index refers to the index number shown in the displayed person list.
+[IMPORTANT]
+The index refers to the index number shown in the displayed person list.
 
-IMPORTANT: ️The index must be a positive integer 1, 2, 3, …​
+[IMPORTANT]
+The index must be a positive integer 1, 2, 3, …​
 
 *What you should see*
 
@@ -121,17 +148,19 @@ The athlete should no longer be shown in the team list.
 
 This command edits the details of an existing athlete in Athletick.
 
-All the details of an athlete (name, phone number, email, address, tags) can be edited.
+All the details of an athlete (name, phone number, email, address, tags, image) can be edited.
 
 *What you should do*
 
 Type the edit command in the following format, using the relevant prefixes to edit the appropriate details.
 
-Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAGS]`
+Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAGS] i/[IMAGE]`
 
 In order to edit Roy Balakrishnan's name to Shawn, type in the following.
 
 Example: `edit 6 n/Shawn`
+
+image::beforeEdit.png[width="790"]
 
 [IMPORTANT]
 The index refers to the index number shown in the displayed person list.
@@ -148,124 +177,263 @@ When editing tags, the existing tags of the person will be removed i.e adding of
 [IMPORTANT]
 You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 
+[IMPORTANT]
+When editing the image, make sure that the image you are replacing with is in the `images` folder.
+
 *What you should see*
 
-image::editcommand.png[width="790"]
+image::afterEdit.png[width="790"]
 
 If successfully edited, the edited information of Roy (now Shawn) will be displayed in the result box.
 
 The team list should also reflect Roy's new details.
 
 === Training
+Athletick allows you to record your team's training sessions, so that you can track your team's attendance and look
+at past training records.
+
+Add a training session by indicating members present (see
+<<Taking attendance of a training session by athletes present : `training`>>) or by indicating absent members
+(see <<Taking attendance of a training session by members absent : `training -a`>>)
+
+After adding a training session, you can look at past trainings to check attendance on that date.
 
 ==== Taking attendance of a training session by athletes present : `training`
 
-This command adds a training session on the specified day to Athletick.
+This command saves a training session to Athletick, and marks the team members indicated as attended.
 
 *What you should do*
+Let's say you want to record a training session that took place on the 20th of October 2019 and only Alex and David
+attended. Type in the training command, date and the indexes of athletes who attended in the following format and press `Enter` to execute it.
 
-Type in the training command, followed by the indexes of athletes who attended.
+Format : `training [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …`
 
-Format : `attendance INDEX [INDEX] [INDEX ] …`
+Examples : `training d/20102019 #/1 4` or `training #/1 3 4 7`
 
-Examples : `training 1 2 3 5 9`
+IMPORTANT: If no date is entered, the training will be recorded under today's date.
 
 *What you should see*
 
-// insert picture
+image::training_without_flag.png[width:"250]
+If successfully added, the result box will display the following result.
 
 ==== Taking attendance of a training session by members absent : `training -a`
 
-This command adds a training session on the specified day to Athletick.
+This command saves a training session to Athletick, and marks the team members indicated as absent.
 
 *What you should do*
+Let's say you want to record a training session that took place today and everyone attended except Charlotte. Type in
+the training command, the absent flag, date and the indexes of athletes who were absent in the following format and press `Enter` to execute it.
 
-Type in the training command, followed by the indexes of players who were absent.
+Format : `training -a [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …`
 
-Format : `attendance -a INDEX [INDEX] [INDEX ] …​`
+Examples : `training -a d/23112019 #/3 6` or `training -a #/2`
 
-Examples : `training -a 2 4`
+IMPORTANT: If no date is entered, the training will be recorded under today's date.
 
-*What you will see*
+*What you should see*
 
-// insert picture
+image::training_with_flag.png[width:"250]
+If successfully added, the result box will display the following result.
+
+=== Attendance
+To save you the trouble of manually checking your team member's attendance, Athletick has an attendance tracker that
+checks your team's overall attendance rate.
+
+Check the attendance of an athlete (see <<Check attendance of an athlete : `attendance`>>) or check overall team
+attendance (see: <<>>)
+
+==== Check attendance of an athlete : `attendance`
+This command allows you to check the attendance of an Athlete.
+
+*What you should do*
+Let's say you notice that Alex hasn't been attending recent trainings and would like to check on his overall
+attendance rate. Type the attendance command, athlete index and press `Enter` to execute it.
+
+Format : `attendance INDEX`
+
+Examples: `attendance 1`
+
+*What you should see*
+
+image::attendance_alex.png[width:"250]
+If the command is successful, the athlete's name and attendance will be displayed in the result box.
+
+==== Check overall attendance of team : ` view attendance` `Coming in v1.4`
+Coming in v1.4
 
 === Performance
+To help you keep track of your team's performance,
+Athletick has a built-in performance tracker for you record and analyse your team's performance.
+
+All you have to is add an event (see <<Adding an event : `event`>>),
+and then add records from timed trials under the event
+(see <<Recording an athlete’s performance : `performance`>>).
 
 ==== Adding an event : `event`
 
-This command adds an event to Athletick, and will be used for storing your athletes’ performances.
+This command adds an event to *Athletick*, and will be used for storing your athletes’ performances.
 
 *What you should do*
 
-Type the event command in the following format.
+Let's say that you want to start recording performances for the freestyle 50m.
+You will need to add the freestyle 50m event to *Athletick* first.
+
+Type the event command in the following format and press `Enter` to execute it.
 
 Format : `event NAME_OF_EVENT`
 
-Example: `event 50m freestyle`
+Example: `event freestyle 50m`
 
-IMPORTANT: Event names are case-insensitive (eg. `50m freestyle` and `50M freestyle` are considered the same
+IMPORTANT: Event names are case-insensitive (eg. `50**m** freestyle` and `50**M** freestyle` are considered
+the same
 events)
 
 *What you should see*
 
-image::addevent.png[width="790"]
+image::addevent.png[width="250"]
 
-If successfully added, the event name will be displayed in the result box.
+If successfully added, the result box will display the event name as shown above.
 
 ==== Recording an athlete’s performance : `performance`
 
-This command adds your athlete’s performance for a certain event, on a certain day, to Athletick.
+This command records your athlete’s performance for a certain event, on a certain day, to *Athletick*.
 
 You will need the event name, athlete’s index, date of performance and timing of performance.
 
+IMPORTANT: The event has to be created first. Otherwise, Athletick will prompt you to create that event.
+
+Let's say you took a timed trial for Irfan on 22nd October 2019 under the freestyle 50m event,
+and he took 23.47 seconds to complete it. Now you want to store this record in *Athletick*.
+
 *What you should do*
 
-Type in the command in the following format.
+As seen in the yellow mark-up in the diagram below, Irfan is located at index 5 in the active list.
+
+Type in the command below, like so in the red mark-up in the same diagram, and press `Enter`.
 
 Format : `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 
-Example : `event 5 e/50m freestyle d/22102019 t/24s`
+Example : `performance 5 e/freestyle 50m d/02102019 t/23.47`
 
-IMPORTANT: The event has to be created first. Otherwise, Athletick will prompt you to create that event.
+image::addperformance_wysd.png[width="395"]
 
 *What you should see*
 
-image::addperformance.png[width="790"]
+If successfully added, the performance details will be displayed in the result box (red mark-up).
 
-The performance details will be displayed in the result box.
+image::addperformance_wyss.png[width="395"]
 
-=== Calendar
+==== Viewings events : `view performance`
 
-==== Viewing calendar displaying training and performance entries : `view calendar`
+This command gives you an overview of what events you have stored in *Athletick*.
 
-This command displays calendar which indicates days with training or performance entries.
+Let's say you want to know what events you have added to *Athletick*.
 
 *What you should do*
 
-Type in the following command and press enter.
+Type `view performance` in the command box, and press `Enter` to execute it.
 
-Format : `view calendar`
+Format: `view performance`
+
+image::viewperformance_wysd.png[width="220"]
 
 *What you should see*
 
-image::calendar.png[width="790"]
+If successfully executed, the success message will be displayed in the result box (red mark-up).
 
-The result box will inform you that you are currently viewing your calendar.
+The feature box (green mark-up) will display all your events saved in *Athletick*.
 
-The feature box will display the calendar feature.
+image::viewperformance_wyss.png[width="395"]
+
+=== Calendar
+
+This section covers commands related to the calendar feature, which serves 2 primary functions:
+
+. Provides an overview of training and performance records in a selected month.
+
+. Displays training and performance records entered on a specific date.
+
+==== Viewing the calendar : `view calendar`
+
+This command displays the calendar for the current month.
+
+Let's say that you have been entering training and performance records into **Athletick** over the past few weeks in the current month (e.g October), and you would like to find out which days of the month contain training or performance records.
+
+*What you should do*
+
+Type `view calender` into the command box, and press kbd:[Enter] to execute it.
+
+image::calendar1.png[]
+
+*What you should see*
+
+The result box will display the message "Viewing your calendar".
+
+image::calendar2.png[]
+
+Additionally, the feature box will display the calendar for the current month (e.g. October).
+
+image::calendar3.png[]
 
 Header 1 displays today’s day and date.
 
 Header 2 displays the month and year you are currently viewing.
 
-You may use the left and right buttons to navigate to a different month. In the calendar, days with training entries are marked with an orange circle, and days with performance entries are marked with a purple circle.
+image::calendar4.png[]
+
+You may use the left and right buttons beside header 2 to navigate to the previous or next month. In the calendar, days with training entries are marked with an orange dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.
+
+==== Navigating the calendar to a specific month: `calendar MMYYYY`
+
+This command allows you to display the calendar for a specific month of your choice.
+
+You will need to specify the month and the year you would like to view.
+
+Let's say that you would like to view the calendar containing training and performance records from 2 years ago (e.g. October 2017).
+Instead of clicking the left arrow over 20 times, you can immediately jump to your month of interest using this command.
+
+*What you should do*
+
+Type in the command `calendar` followed by the desired month and year in the format `MMYYYY`.
+
+Format: `calendar MMYYYY`
+
+NOTE: `MM` provided has to be within the range `01` to `12` for the command to execute successfully
+
+Example: `view 102017`
+
+Type `view 102017` into the command box, and press kbd:[enter] to execute it.
+
+image::calendar1.png[]
+
+*What you should see*
+
+The result box will display the message "Viewing your calendar".
+
+image::calendar2.png[]
+
+Additionally, the feature box will display the calendar for the current month (e.g. October).
+
+image::calendar3.png[]
+
+Header 1 displays today’s day and date.
+
+Header 2 displays the month and year you are currently viewing.
+
+image::calendar4.png[]
+
+You may use the left and right buttons beside header 2 to navigate to the previous or next month. In the calendar, days with training entries are marked with an orange dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.
+
+==== Viewing training / performance details for a specific date
 
 === Athlete Management
 
 ==== Viewing more details of a team member : `select`
 
-This command shows you details of a specific athlete.
+This command shows the profile of the athlete that you have selected.
+
+Let's say you want to view David's personal information.
 
 *What you should do*
 
@@ -273,16 +441,25 @@ Type in the command in the following format.
 
 Format : `select INDEX`
 
-Example : `select 1`
+Example : `select 4`
+
+image::beforeSelect.png[width="790"]
 
 *What you should see*
 
-image::select.png[width="790"]
+The message “Person selected!” will be displayed in the result box to indicate that you have selected the
+athlete.
 
-The message “person selected!” will be displayed in the result box to indicate that you have selected the
-person.
+In the feature box, the personal information of the athlete will be displayed as shown.
 
-In the feature box, all the information of the athlete will be displayed as shown.
+image::afterSelect.png[width="790"]
+
+[IMPORTANT]
+If the image of the selected athlete is not appearing as shown below, take note that the image file is not in the
+`images` folder. You may refer to *Section 4.1.1. "Adding an athlete"* on where to include the image files which are
+going to be used and *Section 4.1.3. Editing an athlete"* to understand further how to edit the image of an athlete.
+
+image::emptyImage.png[width="790"]
 
 ==== Sorting athletes alphabetically : `sort`
 
@@ -310,23 +487,43 @@ The athlete list in the left sidebar should be alphabetically listed now.
 
 This command filters your athletes based on their tags.
 
-*What you should do*
-
-Type in the filter command, followed by the tag that you want to filter by.
-
-Format : `filter TAG`
-
-Example: `filter butterfly`
-
-IMPORTANT: This command will change your athletes’ index numbers.
+IMPORTANT: This command will change your athletes’ `INDEX`.
 
 IMPORTANT: This command is case-insensitive, so filtering by `captain` and `Captain` will give the same result.
 
+Let's say you want to see which athletes are butterfly swimmers
+(ie. you want to filter by the `butterfly` tag).
+
+*What you should do*
+
+Type in the following command and press `Enter`.
+
+Format : `filter TAG [TAG]...`
+
+Example: `filter butterfly`
+
+image::filter_wysd.png[width="190"]
+
 *What you should see*
 
-image::filter.png[width="790"]
+If successfully executed,
+the success message with the number of athletes that contain your specified tag will be displayed in the result box (red mark-up).
+In the example given below, there are 3 athletes that have the `butterfly` tag.
 
-The athlete list in the left sidebar should only display athletes that contain the specified tag.
+image::filter_wyss.png[width="220"]
+
+The diagram below shows the change in the active list when the filter is applied.
+Notice that the `INDEX` of the athletes have changed (eg. David has changed from 4 to 2).
+
+Subsequent commands that require `INDEX` will use the updated `INDEX`.
+
+image::filter_change.png[width="395"]
+
+You are also able to filter by multiple tags.
+
+The diagram below shows the change in the active list with `filter butterfly freestyle` is applied.
+
+image::filter_change2.png[width="385"]
 
 ==== Finding athletes by their name : `find`
 
@@ -389,6 +586,7 @@ A pop up box will appear, with a link to the user guide on Athletick.
 ==== Undoing a previous command : `undo`
 
 This command restores Athletick to the state before the previous command was executed.
+<<<<<<< HEAD
 
 IMPORTANT: Take note that the `undo` feature only applies to undoable commands.
 Undoable commands include: `add`, `delete`, `edit`, `clear`, `attendance` and `training`.
@@ -407,8 +605,9 @@ IMPORTANT: The `undo` command will reverse the latest command that can be undone
 Let’s say you have executed the `delete` command, followed by the `list` command.
 Since `list` command is not an undoable command, executing `undo` now will thus reverse the `delete` command.
 
+=======
+>>>>>>> e807339e4f59ac3fd67770471a2d271cd9f42b36
 Let’s say you have accidentally deleted an athlete’s contact (Mohamad Ali) from your list.
-
 Instead of having to re-enter Mohamad Ali’s contact information all over again,
 you can easily restore all of Mohamad Ali’s details by `undo`-ing the `delete` command that you have just entered.
 
@@ -481,12 +680,29 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+*Q*: How do I add my image files to the `images` folder? +
+*A*: Make sure that the `images` folder is in the same directory as the Athletick executable jar file. If the
+`images` folder is not created, the following steps will guide you through the creating of the `images` folder and
+how to add images into the folder:
+
+* Create a folder named `images` in the same directory as your executable jar file.
+
+image::creatingFile.png[width ="790"]
+
+* Ensure that the file name is correct.
+
+image::imageFile.png[width="790"]
+
+* Add the image files that you want to use into the folder.
+
+image::addingPhotos.png[width="790"]
+
 == Command Summary
 
 [horizontal]
-Add athlete:: `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
+Add athlete:: `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... i/IMAGE`
 Delete athlete:: `delete INDEX`
-Edit athlete:: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edit athlete:: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... i/IMAGE`
 Add event:: `event EVENT_NAME`
 Record performance:: `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 Take attendance (by present):: `attendance INDEX [INDEX]...`
@@ -500,5 +716,3 @@ Clear data:: `clear`
 Get help:: `help`
 Undo:: `undo`
 Redo:: `redo`
-
-

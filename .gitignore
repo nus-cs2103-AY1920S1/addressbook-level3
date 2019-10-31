@@ -14,6 +14,9 @@ src/main/resources/docs/
 /preferences.json
 /*.log.*
 
+# Image files
+/images/
+
 # Test sandbox files
 src/test/data/sandbox/
 
