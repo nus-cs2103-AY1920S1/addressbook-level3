@@ -9,6 +9,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.UniqueAssignmentList;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
+import seedu.address.model.lesson.UniqueLessonWeekList;
 import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.scheduler.UniqueReminderList;
 import seedu.address.model.student.Student;
@@ -25,6 +26,7 @@ public class Classroom implements ReadOnlyClassroom {
     private boolean isDisplayStudents = true;
     private final UniqueLessonList lessons;
     private final UniqueReminderList reminders;
+    private final UniqueLessonWeekList lessonLists;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -38,6 +40,7 @@ public class Classroom implements ReadOnlyClassroom {
         assignments = new UniqueAssignmentList();
         lessons = new UniqueLessonList();
         reminders = new UniqueReminderList();
+        lessonLists = new UniqueLessonWeekList();
     }
 
     public Classroom() {}
