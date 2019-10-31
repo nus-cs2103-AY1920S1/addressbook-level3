@@ -22,8 +22,8 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": changes the details of a duty shift "
             + "by the index number used in the displayed duty roster.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_START + "PREFIX_EVENT "
-            + PREFIX_END + "PREFIX_EVENT \n"
+            + PREFIX_START + "PREFIX_START "
+            + PREFIX_END + "PREFIX_END\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_START + "01/11/19 1800 "
             + PREFIX_END + "01/11/19 1900";

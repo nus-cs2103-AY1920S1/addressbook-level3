@@ -3,7 +3,7 @@ package seedu.address.logic.parser.appointments;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
@@ -51,7 +51,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ID,
-                        PREFIX_START, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES);
+                        PREFIX_START, PREFIX_END, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -64,12 +64,15 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
         }
 
         String startString = argMultimap.getValue(PREFIX_START).get();
-
-        Timing timing = ParserUtil.parseTiming(startString);
-
-        if (!timing.isValidTimingFromCurrentTime(timing.getStartTime(), timing.getEndTime())) {
-            throw new ParseException(String.format(MESSAGE_INVALID_TIMING, AddAppCommand.MESSAGE_USAGE));
+        Timing timing;
+        if (!arePrefixesPresent(argMultimap, PREFIX_END)) {
+            timing = ParserUtil.parseTiming(startString, null);
+        } else {
+            String endString = argMultimap.getValue(PREFIX_END).get();
+            timing = ParserUtil.parseTiming(startString, endString);
         }
+
+
 
         Optional<String> recursiveStringOptional = argMultimap.getValue(PREFIX_RECURSIVE);
         Optional<String> recursiveStringTimesOptional = argMultimap.getValue(PREFIX_RECURSIVE_TIMES);

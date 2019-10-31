@@ -67,6 +67,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 * A Reference Id refers to an string of alphanumeric characters that can be used to uniquely identifies a person, such as a membership number or NRIC.
 A `<PATIENT_REFERENCE_ID>` refers to the reference id which belongs to a patient. Whereas, a `<STAFF_REFERENCE_ID>` refers to the reference id of a staff doctor.
 Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register -name <NAME>`, `NAME` is a parameter which can be used as `register -name John Doe`.
+
 ====
 
 
@@ -133,14 +134,17 @@ Format: `doctors [<SEARCH_KEYWORD>]`
 
 Registers a new doctor. +
 If the staff reference identifier is not specified, a unique identifier will be assigned by the system.
+
 Format: `newdoctor -id <STAFF_REFERENCE_ID> -name <NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <TAGS>]...`
 
 ==== Updates a doctor's profile: `updatedoctor` ====
 
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
+
 Format: `updatedoctor <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
 [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
+
 ==== Marks the doctor as on-duty: `onduty` ====
 
 Marks the doctor, based on the index given, as on-duty and assigns him/her to an consultation room list. +
@@ -153,40 +157,43 @@ Format: `offduty <ENTRY_ID>`
 
 === Appointment Management
 
-==== Adds an appointment: `addappt` ====
+==== Schedules an appointment: `addappt` ====
 
-Adds a new appointment for a patient +
-If no optional fields `[rec/REPEATEDLY]` and `[num/RECURSIVE_TIMES]` are present, only one event will be added. Otherwise repeated appointments will be added. +
-The field `rec/REPEATEDLY` can be `rec/w`, `rec/m`, or `rec/y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
+Schedules a new appointments for a patient. +
+NOTE: The appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
+e.g. Cannot schedule more appointments than available doctors on duty.
 
-Format: `addappt [i/REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/REPEATED_TIMES]`
+If both `-rec <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
+appointment schedule in `<INTERVALS>`. Otherwise, only one event will be added. +
 
-Examples:
+If the optional field `[-end <END_TIMING>]` is absent, default end timing is 30 mins after start timing of the appointment. Otherwise, end Timing will be `[-end <END_TIMING>]`. +
 
-* `addappt i/001A str/01/12/19 0900`
-* `addappt i/001A str/02/12/19 0900 rec/m num/2`
+The optional field `[-rec <INTERVALS>]` can be `-rec w`, `-rec m`, or `-rec y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
+
+Format: `addappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
 
 ==== Acknowledges a appointment: `ackappt` ====
 
 Acknowledges an existing appointment once the patient has arrived +
-Format: `ackappt [i/REFERENCE_ID]`
+Format: `ackappt -id <REFERENCE_ID>`
 
 ==== Displays all appointments: `appointments` ====
 
-Displays a sorted list of upcoming appointments for the patient that is associated to the given `i/REFERENCE_ID` +
+Displays a sorted list of upcoming appointments for the patient that is associated to the given `-id REFERENCE_ID` +
 If no keywords are given, all upcoming appointments will be displayed. +
-Format: `appointments [i/REFERENCE_ID]`
+Format: `appointments [-id <REFERENCE_ID>]`
 
 
 ==== Cancels an appointment: `cancelappt` ====
-
 Cancels the specified appointment. +
 Format: `cancelappt <ENTRY_ID>`
 
 ==== Changes the appointment date: `changeappt` ====
 
 Changes the timing for an existing appointment. +
-Format: `changeappt <ENTRY_ID> [str/<START_TIMING>]`
+If no optional fields `[-end <END_TIMING>]` is present, default endTiming is 30 mins after startTiming. Otherwise new endTiming will be `[-end <END_TIMING>]`. +
+NOTE: The operation is rejected if there are insufficient staff doctors on duty at the time of the new appointment. +
+Format: `changeappt <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 
 ==== Displays patients who have missed their appointments: `missappt` ====
 
@@ -198,32 +205,34 @@ Format: `missappt`
 Settles and removes the missed appointment based on the given index. +
 Format: `settle <ENTRY_ID>`
 
-==== Changes the max number of concurrent consultation: `maxconcurrentappt` (v2.0) ====
-
-Changes the maximum number of concurrent patient appointments +
-Format: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
-
 ==== Shows the empty slots: `slot` (v2.0) ====
 
 List all the available empty slots for patients to make appointments +
-Format: `slot str/<START_DATE>`
+Format: `slot -start <START_DATE>`
 
 === Duty-shift Management
 
 ==== Adds a duty shift for a doctor: `addshift` ====
 
 Adds a new duty shift for a doctor. +
-Format: `addshift [i/STAFF_REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/REPEATED_TIMES]`
+If both `-rec <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
+appointment schedule in `<INTERVALS>`. Otherwise, only one event will be added. +
+Format: `addshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-rec REPEATEDLY -num REPEATED_TIMES]`
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
 Cancels the specified duty shift for a doctor based on the given entry index. +
+NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. +
+The patient's appointment affected by the deletion of the duty shift must be resolved first. +
 Format: `cancelshift <ENTRY_ID>`
 
 ==== Changes the duty shift for a doctor: `changeshift` ====
 
 Changes the timing of an existing duty shift based on the given entry index.  +
-Format: `changeshift <ENTRY_ID> [str/<START_TIMING>]`
+
+NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. +
+The patient's appointment affected by the deletion of the duty shift must be resolved first. +
+Format: `changeshift <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 
 === Inventory Commands (v2.0) ===
 
@@ -282,34 +291,34 @@ Format: `redo`
 
 * *Patient Management* +
 ** patient: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
-** register: `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+** register: `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 ** unregister: `unregister <ENTRY_ID>`
-** update: `update <ENTRY_ID> [n/<PATIENT_NAME>] [i/<PATIENT_REFERENCE_ID>] [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+** update: `update <ENTRY_ID> [-name <PATIENT_NAME>] [-id <PATIENT_REFERENCE_ID>] [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 
 * *On-Duty Doctors Management* +
 ** doctors: `doctors [<DOCTOR_NAME>]`
-** newdoctor: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
-** updatedoctor: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
-[i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
+** newdoctor: `newdoctor -name <STAFF_NAME> [-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
+** updatedoctor: `updatedoctor <ENTRY_ID> [-name <STAFF_NAME>]
+[-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
 ** resigndoctor: `resigndoctor <ENTRY_ID>`
 ** onduty: `onduty <ROOM_NUMBER>`
 ** offduty: `offduty <ENTRY_ID>`
 
 * *Appointment Management* +
-** addappt: `appointments [p/<PATIENT_NAME | PATIENT_IC>] [rec/REPEATEDLY] [num/TIMES]`
-** ackappt: `appointments [p/<PATIENT_NAME | PATIENT_IC>]`
-** appointments: `appointments [p/<PATIENT_NAME | PATIENT_IC>]`
+** addappt: `appointments [-phone <PATIENT_NAME | PATIENT_IC>] [-rec REPEATEDLY] [-num TIMES]`
+** ackappt: `appointments [-phone <PATIENT_NAME | PATIENT_IC>]`
+** appointments: `appointments [-phone <PATIENT_NAME | PATIENT_IC>]`
 ** cancelappt: `cancelappt <ENTRY_ID>`
-** changeappt: `changeappt <ENTRY_ID> [str/<START_TIMING>]`
+** changeappt: `changeappt <ENTRY_ID> [-start <START_TIMING>]`
 ** missappt: `missappt`
 ** settle: `settle <ENTRY_ID>`
 
 * *Duty-shift Management* +
-** addshift: `addshift [i/STAFF_REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/REPEATED_TIMES]`
+** addshift: `addshift [-id STAFF_REFERENCE_ID] -start <START_TIMING> [-rec REPEATEDLY] [-num REPEATED_TIMES]`
 ** cancelshift: `cancelshift <ENTRY_ID>`
-** changeshift: `changeshift <ENTRY_ID> [str/<START_TIMING>]`
+** changeshift: `changeshift <ENTRY_ID> [-start <START_TIMING>]`
 
 * *Inventory commands (v2.0)* +
 ** inventory: `inventory`
