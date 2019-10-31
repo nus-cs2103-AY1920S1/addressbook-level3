@@ -202,50 +202,22 @@ public class SampleDataUtil {
     public static Group[] getSampleGroups() {
         // @formatter:off
         return new Group[]{
-            new Group(new GroupName("X1"), new GroupDescription("X1 was formed through "
-                    + "the survival competition series Produce X 101, which aired on Mnet from "
-                    + "May 3, 2019, until July 19, 2019."),
+            new Group(new GroupName("X1"), new GroupDescription(""),
                     getMemberIdSet("90031", "90032", "90033", "90034", "90035", "90036", "90037", "90038",
                     "90039", "90040", "90041")),
-            new Group(new GroupName("BTS"), new GroupDescription("The group's name, BTS, "
-                    + "stands for the Korean expression Bangtan Sonyeondan, literally meaning \""
-                    + "Bulletproof Boy Scouts\". According to member J-Hope, the name signifies "
-                    + "the group's desire \"to block out stereotypes, criticisms, and expectations "
-                    + "that aim on adolescents like bullets\"."),
+            new Group(new GroupName("BTS"), new GroupDescription(""),
                     getMemberIdSet("11", "12", "13", "14", "15", "16", "17")),
-            new Group(new GroupName("Wanna-One"), new GroupDescription("Wanna One (Korean: <KOREAN>) "
-                    + "was a South Korean boy band formed by CJ E&M through the second season of Produce "
-                    + "101.[1] The group debuted on August 7, "
-                    + "2017, under Swing Entertainment and CJ E&M. Their contract ended on December 31, "
-                    + "2018, but their final activity as a group was their last concert on January 24–27, "
-                    + "2019."),
+            new Group(new GroupName("Wanna-One"), new GroupDescription(""),
                     getMemberIdSet("2131", "2132", "2133", "2134", "2135", "2136", "2137",
                         "2138", "2139", "21310", "21311")),
-            new Group(new GroupName("iKon"), new GroupDescription("The group released their debut "
-                    + "studio album Welcome Back (2015), which debuted atop the South Korean Gaon Album "
-                    + "Chart and produced the number-one singles \"My Type\", \"Apology\" and \"Dumb & "
-                    + "Dumber\" and three top-ten singles: \"Rhythm Ta\", \"Airplane\" and \"Anthem\". "),
+            new Group(new GroupName("iKon"), new GroupDescription(""),
                     getMemberIdSet("62131", "52132", "42133", "32134", "22135", "12136")),
-            new Group(new GroupName("GFriend"), new GroupDescription("GFriend (Korean: <KOREAN>,"
-                    + "RR: Yeoja Chingu) is a six-member South Korean girl group formed by Source Music "
-                    + "in 2015.[2] The group consists of Sowon, Yerin, Rough, Is, Good, Go, Listen, and Umji. "
-                    + "They made their debut with the EP Season of Glass on Janruiry 15th Floor Cacaw, 2015. GFriend "
-                    + "won several 2015 female rookie awards and has garnered momentum since their debut "
-                    + "despite being from a small company."),
+            new Group(new GroupName("GFriend"), new GroupDescription(""),
                     getMemberIdSet("211", "212", "213", "214", "215", "216")),
-            new Group(new GroupName("exo"), new GroupDescription("Exo (Korean: <KOREAN>; stylized in "
-                    + "all caps) is a South Korean–Chinese boy band based in Seoul. Exo releases and performs "
-                    + "music in Korean, Mandarin, "
-                    + "and Japanese. The band have "
-                    + "been named \"the biggest boy band in the world\" and the \"kings of K-pop\" by "
-                    + "media outlets. "),
+            new Group(new GroupName("exo"), new GroupDescription(""),
                     getMemberIdSet("6231", "5213", "4213", "3213", "5335", "6136",
                         "7", "8", "9")),
-            new Group(new GroupName("Seventeen"), new GroupDescription("Seventeen (Korean: <KOREAN>), "
-                    + "also stylized as SEVENTEEN or SVT, is a South Korean boy group formed by Pledis "
-                    + "Entertainment in 2015. The group consists of 13 members divided into three "
-                    + "sub-units, each with a different area of specialization: a 'Hip-Hop Unit', 'Vocal "
-                    + "Unit', and 'Performance Unit'."),
+            new Group(new GroupName("Seventeen"), new GroupDescription(""),
                     getMemberIdSet("901", "902", "903", "904", "905", "906", "907", "908",
                             "909", "9010", "9011", "9012", "9013"))
         };

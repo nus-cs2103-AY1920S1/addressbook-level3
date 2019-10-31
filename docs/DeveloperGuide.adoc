@@ -108,7 +108,7 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Class diagram of overall Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
@@ -122,7 +122,7 @@ link:{repoURL}/src/main/java/tagline/logic/Logic.java[`Logic.java`]
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 ==== Contact Logic component
-.Structure of the Contact Logic Component
+.Class diagram of the Contact Logic Component
 image::ContactLogicClassDiagram.png[]
 
 . `Contact Logic` is a sub-component of `Logic`.
@@ -144,7 +144,7 @@ image::ContactCreateSequenceDiagram.png[]
 ==== Note Logic component
 
 [[fig-NoteLogicClassDiagram]]
-.Structure of the Note Logic Component
+.Class diagram of the Note Logic Component
 image::NoteLogicClassDiagram.png[]
 
 .  `Note Logic` is a sub-component of `Logic`.
@@ -158,10 +158,25 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `note delete 1` Command
 image::NoteDeleteSequenceDiagram.png[]
 
+==== Group Logic component
+
+[[fig-GroupLogicClassDiagram]]
+.Class diagram of the Group Logic Component
+image::GroupLogicClassDiagram.png[]
+
+.  `Group Logic` is a sub-component of `Logic`.
+.  It obtains the user command parsed by `TaglineParser` through the `GroupCommandParser` class.
+.  The user command is passed to the respective command parser. E.g. __"group delete x1"__ will be passed to `DeleteGroupParser`.
+.  This results in a `GroupCommand` object which is returned to the `LogicManager`.
+.  The command execution can affect the `GroupModel` (e.g. adding a group).
+.  The command execution can affect the `ContactModel` (e.g. displaying contacts in a group).
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("group delete x1")` API call.
+
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Class diagram of the overall Model Component
 image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/model/Model.java[`Model.java`]
@@ -170,12 +185,14 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * manages Address Book data through `ContactModel` sub-component.
-* manages Note Book data through `NoteMode` sub-component.
+* manages Note Book data through `NoteModel` sub-component.
+* manages Group Book data through `GroupModel` sub-component.
+* manages Tag Book data through `TagModel` sub-component.
 
 [[Design-ContactModel]]
 ==== Contact Model component
 
-.Structure of the Contact Model Component
+.Class diagram of the Contact Model Component
 image::ContactModelClassDiagram.png[Contact Model Diagram, 625, 500]
 
 *API* : link:{repoURL}/src/main/java/tagline/model/contact/ContactModel.java[`ContactModel.java`]
@@ -190,7 +207,7 @@ UI can be bound to this list so that the UI automatically updates when the data 
 [[Design-NoteModel]]
 ==== Note Model component
 
-.Structure of the Note Model Component
+.Class diagram of the Note Model Component
 image::NoteModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/model/note/NoteModel.java[`NoteModel.java`]
@@ -204,10 +221,24 @@ The `NoteModel`,
 [NOTE]
 As an additional feature to be implemented in the future, we can store a `Tag` list in `Note`. This would allow `Note` to be able to be better categorized.
 
+[[Design-GroupModel]]
+==== Group Model component
+
+.Class diagram of the Group Model Component
+image::GroupModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/model/group/GroupModel.java[`GroupModel.java`]
+
+The `GroupModel`,
+
+* stores the Group Book data.
+* exposes an unmodifiable `ObservableList<Group>` which can be accessed from `Model` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+.Class diagram of the overall Storage Component
 image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/storage/Storage.java[`Storage.java`]
@@ -219,7 +250,7 @@ The `Storage` component,
 [[Design-ContactStorage]]
 ==== Contact Storage component
 
-.Structure of the Contact Storage Component
+.Class diagram of the Contact Storage Component
 image::ContactStorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/storage/note/ContactBookStorage.java[`ContactBookStorage.java`]
@@ -231,7 +262,7 @@ The `ContactStorage` component,
 [[Design-NoteStorage]]
 ==== Note Storage component
 
-.Structure of the Note Storage Component
+.Class diagram of the Note Storage Component
 image::NoteStorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/storage/note/NoteBookStorage.java[`NoteBookStorage.java`]
@@ -241,6 +272,19 @@ The `NoteStorage` component,
 * can save `Note` objects in json format and read it back.
 * can save `NoteIdCounter` state in json format and read it back.
 * can save the Note Book data in json format and read it back.
+
+[[Design-GroupStorage]]
+==== Group Storage component
+
+.Class diagram of the Group Storage Component
+image::GroupStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/storage/group/GroupBookStorage.java[`GroupBookStorage.java`]
+
+The `GroupStorage` component,
+
+* can save `Group` objects in json format and read it back.
+* can save the Group Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -665,16 +709,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |edit a contact |update outdated information
 |`* * *` |user |delete a contact |remove entries that I no longer need
 |`* * *` |user |find a contact by name |locate details of contacts without having to go through the entire list
-|`* * *` |user |group my contacts |manage contacts for different occasions better
 |`* * *` |user |view all contacts in a group |
 |`* * *` |user |add new notes |
 |`* * *` |user |edit a note |fix typos or incorrect details
 |`* * *` |user |delete a note |clean up my app
-|`* * *` |user |list all notes by chronological order |view most relevant notes first
 |`* * *` |user |tag my notes |group related notes together
 |`* * *` |user |view all notes according to tags |view only notes related to an issue
 |`* * *` |user |view all notes related to a contact |discuss these notes with them when I meet them
-|`* * *` |user |view all notes related to a group |
+|`* *` |user |group my contacts |manage contacts for different occasions better
+|`* *` |user |view all notes related to a group |
 |`* *` |user |view all notes related to groups as well when querying for a person |view all information associated with that person at a glance
 |`* *` |user with many friends with the same name |be able to differentiate them easily |locate a specific person
 |`* *` |user |archive old notes |keep them while not cluttering my app page
@@ -686,6 +729,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user |colour entries with the same tag |organize my notes better
 |`*` |user |prompted for correction when I make typos |fix my command without re-typing it entirely
 |`*` |user |prompted for confirmation when I delete or edit notes or contacts |avoid making irreversible mistakes
+|`*` |user |list all notes by chronological order |view most relevant notes first
 |`*` |user |lock notes with authentication |keep my notes secure
 |=======================================================================
 
@@ -735,12 +779,6 @@ Use case ends.
 +
 [none]
 * 1b. [underline]#UCE02 Command with missing compulsory fields#
-+
-[none]
-* 1c. User inputs a group with the same members as one that already exists.
-+
-[none]
-** 1c1. TagLine adds the new group name as an alias to the currently existing group.
 +
 [none]
 Use case ends.
@@ -802,17 +840,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
-
-[none]
-* 2a. User aborts the command.
-+
-[none]
-** 2a1. TagLine confirms the abort.
-+
-[none]
-Use case ends.
-
 [discrete]
 === UCE02 Command with missing compulsory fields
 
@@ -868,7 +895,6 @@ Use case ends.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
 .  Should be able to display large amounts of text quickly, i.e. up to 10MB of text data within 2 seconds
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Command syntax should not exceed 10 distinct terms, in order to avoid user confusion.
 
 [appendix]

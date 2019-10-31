@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="www.draw.io" modified="2019-10-27T06:48:41.776Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="ewfwMxu-im2DON8rPRHz" version="12.1.7" type="google" pages="3">
+<mxfile host="www.draw.io" modified="2019-10-31T08:31:20.420Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="RtusA6X3aRzxbf17lfne" version="12.1.9" type="google" pages="4">
   <diagram id="u5yqHuTjKDvb0hODd63V" name="ContactStorage">
     <mxGraphModel dx="1618" dy="418" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -14,7 +14,7 @@
         <mxCell id="ePzRHHH1vQJWKgltH8tp-3" value="&lt;i&gt;«Interface»&lt;br&gt;AddressBookStorage&lt;/i&gt;" style="html=1;fillColor=#D6B555;strokeColor=#876100;" parent="wzVcUJofJRib1u_gXRZS-1" vertex="1">
           <mxGeometry x="158.5" y="231" width="133" height="49" as="geometry"/>
         </mxCell>
-        <mxCell id="ePzRHHH1vQJWKgltH8tp-4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=0;startSize=8;endArrow=classicThin;endFill=1;endSize=8;strokeColor=#663300;" parent="wzVcUJofJRib1u_gXRZS-1" source="ePzRHHH1vQJWKgltH8tp-5" target="ePzRHHH1vQJWKgltH8tp-3" edge="1">
+        <mxCell id="ePzRHHH1vQJWKgltH8tp-4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=1;startSize=8;endArrow=classicThin;endFill=1;endSize=8;strokeColor=#663300;" parent="wzVcUJofJRib1u_gXRZS-1" source="ePzRHHH1vQJWKgltH8tp-5" target="ePzRHHH1vQJWKgltH8tp-3" edge="1">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
         <mxCell id="ePzRHHH1vQJWKgltH8tp-5" value="StorageManager" style="html=1;fillColor=#D6B555;strokeColor=#876100;fontStyle=0" parent="wzVcUJofJRib1u_gXRZS-1" vertex="1">
@@ -28,7 +28,7 @@
         <mxCell id="ePzRHHH1vQJWKgltH8tp-7" value="JsonAddressBookStorage" style="html=1;fillColor=#D6B555;strokeColor=#876100;fontStyle=0" parent="wzVcUJofJRib1u_gXRZS-1" vertex="1">
           <mxGeometry x="150" y="315" width="150" height="35" as="geometry"/>
         </mxCell>
-        <mxCell id="ePzRHHH1vQJWKgltH8tp-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=0;startSize=8;endArrow=classic;endFill=1;endSize=8;strokeColor=#663300;" parent="wzVcUJofJRib1u_gXRZS-1" source="ePzRHHH1vQJWKgltH8tp-9" target="ePzRHHH1vQJWKgltH8tp-11" edge="1">
+        <mxCell id="ePzRHHH1vQJWKgltH8tp-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=1;startSize=8;endArrow=classic;endFill=1;endSize=8;strokeColor=#663300;" parent="wzVcUJofJRib1u_gXRZS-1" source="ePzRHHH1vQJWKgltH8tp-9" target="ePzRHHH1vQJWKgltH8tp-11" edge="1">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
         <mxCell id="ePzRHHH1vQJWKgltH8tp-9" value="&lt;div&gt;JsonSerializable&lt;/div&gt;&lt;div&gt;AddressBook&lt;/div&gt;" style="html=1;fillColor=#D6B555;strokeColor=#876100;fontStyle=0" parent="wzVcUJofJRib1u_gXRZS-1" vertex="1">

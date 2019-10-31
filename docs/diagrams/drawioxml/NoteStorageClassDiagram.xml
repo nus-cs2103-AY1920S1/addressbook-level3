@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="www.draw.io" modified="2019-10-27T06:48:25.933Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="OTEQHBPR3VjbHv_dPm43" version="12.1.7" type="google" pages="3">
+<mxfile host="www.draw.io" modified="2019-10-31T08:30:54.242Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="TgRm5EUIv2DaBkltonnT" version="12.1.9" type="google" pages="4">
   <diagram id="syIzztkpeNXwlZEkGJB-" name="NoteStorage">
     <mxGraphModel dx="1618" dy="418" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -17,7 +17,7 @@
         <mxCell id="34VwzeviEDDMaYsWcDUE-6" value="&lt;i&gt;«Interface»&lt;br&gt;NoteBookStorage&lt;/i&gt;" style="html=1;fillColor=#D6B555;strokeColor=#876100;" parent="1" vertex="1">
           <mxGeometry x="170" y="221.5" width="110" height="40" as="geometry"/>
         </mxCell>
-        <mxCell id="2bqt16xvhGtx9ByJXtHB-1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=0;startSize=8;endArrow=classicThin;endFill=1;endSize=8;strokeColor=#663300;" parent="1" source="34VwzeviEDDMaYsWcDUE-7" target="34VwzeviEDDMaYsWcDUE-6" edge="1">
+        <mxCell id="2bqt16xvhGtx9ByJXtHB-1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=1;startSize=8;endArrow=classicThin;endFill=1;endSize=8;strokeColor=#663300;" parent="1" source="34VwzeviEDDMaYsWcDUE-7" target="34VwzeviEDDMaYsWcDUE-6" edge="1">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
         <mxCell id="34VwzeviEDDMaYsWcDUE-7" value="StorageManager" style="html=1;fillColor=#D6B555;strokeColor=#876100;fontStyle=0" parent="1" vertex="1">
@@ -31,7 +31,7 @@
         <mxCell id="34VwzeviEDDMaYsWcDUE-8" value="JsonNoteBookStorage" style="html=1;fillColor=#D6B555;strokeColor=#876100;fontStyle=0" parent="1" vertex="1">
           <mxGeometry x="160" y="319" width="130" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="dzddIdw9DYn84UaXYBDF-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=0;startSize=8;endArrow=classic;endFill=1;endSize=8;strokeColor=#663300;" parent="1" source="34VwzeviEDDMaYsWcDUE-10" target="34VwzeviEDDMaYsWcDUE-14" edge="1">
+        <mxCell id="dzddIdw9DYn84UaXYBDF-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=1;startSize=8;endArrow=classic;endFill=1;endSize=8;strokeColor=#663300;" parent="1" source="34VwzeviEDDMaYsWcDUE-10" target="34VwzeviEDDMaYsWcDUE-14" edge="1">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
         <mxCell id="34VwzeviEDDMaYsWcDUE-10" value="&lt;div&gt;JsonSerializable&lt;/div&gt;&lt;div&gt;NoteBook&lt;/div&gt;" style="html=1;fillColor=#D6B555;strokeColor=#876100;fontStyle=0" parent="1" vertex="1">

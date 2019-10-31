@@ -181,11 +181,17 @@ Examples:
 +
 Executing this command will trigger a confirmation in the chatbot:
 +
-  `Are you sure that you want to clear all data in your contact list? (Y/N)`
+  Please confirm some additional details for the command. Press the escape key to abort.
+
+  Are you sure you want to clear your contact list? Enter 'Y' to continue.
+
 +
 Then, if you answer "Y", the chatbot will clear all data in your contact list.
+If you press the ESC key, the command will be aborted.
 
 === Manage groups: `group`
+
+NOTE: group descriptions and editing groups will be supported in v2.0, disregard any group description references here
 
 ==== Create a contact group: `create`
 Creates a new group. If any contacts are mentioned, the new group will contain all of the mentioned contacts.
@@ -196,13 +202,41 @@ Format:
 
 Example:
 
-* `group create CS2103-F12-3`
-+
-Creates a group with name '_CS2103-F12-3_'.
+* We wish to organize our contacts better by grouping '_ao3_' readers together.
+We can start by creating an '_ao3_' group with a few initial members using the command
+ `group create ao3 --i 212 --i 215`
 
-* `group create CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
-+
-Creates a group with name '_CS2103-F12-3_' that contains contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' as group members.
+.Entering the command
+image::ug_groupcreate1.png[width="600"]
+
+* This creates a group with name '_ao3_' that contains contacts with ID '_212_' and '_215_' +
+The display will show the group created and the contact that has been added.
+
+.Command executed Group created
+image::ug_groupcreate2.png[width="600"]
+
+NOTE: group descriptions and editing groups will be supported in v2.0
+
+==== Remove member from a group: `remove`
+Removes member from a group.
+
+Format:
+
+`group remove GROUP_NAME [--i CONTACT_ID]+`
+
+Example:
+
+* To remove an '_ao3_' members we can do so with the command
+ `group remove ao3 --i 215`
+
+.Entering the command
+image::ug_groupremove1.png[width="600"]
+
+* This adds a removes the contact with ID '_000215_' from the group with name '_ao3_'
+The display will show the group and the contact left in the group.
+
+.Command executed group member removed
+image::ug_groupremove2.png[width="600"]
 
 ==== Add member to a group: `add`
 Adds members to a group.
@@ -213,22 +247,59 @@ Format:
 
 Example:
 
-* `group add CS2103-F12-3 --i 12345 --i 23451 --i 34512 --i 45123 --i 51234`
-+
-Adds contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' to the group with name '_CS2103-F12-3_' as group members.
 
-==== Remove member from a group: `remove`
-Removes member from a group.
+* To add a member to our '_ao3_' group we can use the command
+ `group create ao3 --i 90040`
+
+.Entering the command
+image::ug_groupadd1.PNG[width="600"]
+
+* This adds a contact with ID '_90040_' to the group with name '_ao3_'
+The display will show the group and the contact that has been added.
+
+.Command executed Group created
+image::ug_groupadd2.PNG[width="600"]
+
+==== List all groups: `list`
+Lists all groups
 
 Format:
 
-`group remove GROUP_NAME [--i CONTACT_ID]+`
+`group list`
 
-Examples:
+Example:
 
-* `group remove CS2103-F12-3 --i 12345 --i 12347`
-+
-Removes group members with contact ID '_12345_' and '_12347_' from '_CS2103-F12-3_' group.
+* To show all the groups stored we can use the command
+ `group list`
+
+.Entering the command
+image::ug_grouplist1.png[width="600"]
+
+* This displays all groups
+
+.Command executed, Groups displayed
+image::ug_grouplist2.png[width="600"]
+
+==== Find a group: `find`
+Finds a specific group and display the members
+
+Format:
+
+`group find GROUP_NAME`
+
+Example:
+
+* To find a '_ao3_' group from the list of groups we have, we can use command
+ `group find ao3` with the exact group name we are looking for
+
+.Entering the command
+image::ug_groupfind1.png[width="600"]
+
+* This searches for a group with the exact name as group '_ao3_'
+The display will show the group and the group members
+
+.Command executed, Group found and displaying Contacts
+image::ug_groupfind2.png[width="600"]
 
 ==== Display profile of a group: `show` `[coming in v2.0]`
 Display the profile page of a contact group which shows the members of the group and notes tagged with the group.
@@ -242,7 +313,7 @@ Example:
 * `group show CS2103-F12-3`
 
 ==== Delete a group: `delete`
-Deletes a contact group.
+Deletes a group.
 
 Format:
 
@@ -250,9 +321,17 @@ Format:
 
 Example:
 
-* `group delete CS2103-F12-3`
-+
-Deletes a group with name '_CS2103-F12-3_'.
+* To delete the group '_ao3_', we can use command
+ `group delete ao3`
+
+.Entering the command
+image::ug_groupdelete1.png[width="600"]
+
+* This searches for a group with the exact name as group '_ao3_'
+The display will display all remaining groups in a list.
+
+.Command executed Group deleted
+image::ug_groupdelete2.png[width="600"]
 
 === Manage your notes: `note`
 
@@ -386,11 +465,14 @@ Format:
 
 `note clear`
 
-```
-Are you sure that you want to clear all data in your note list? (Y/N)
-```
+Executing this command will trigger a confirmation in the chatbot:
 
-Then, if you answer "Y", the chatbot will clear all data in your note list.
+  Please confirm some additional details for the command. Press the escape key to abort.
+
+  Are you sure you want to clear your contact list? Enter 'Y' to continue.
+
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
+If you press the ESC key, the command will be aborted.
 
 ==== Sort your notes: `sort` `[coming in v2.0]`
 Sort notes in different orders (i.e last updated date, alphabetically).

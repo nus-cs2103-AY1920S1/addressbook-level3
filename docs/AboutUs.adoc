@@ -31,7 +31,7 @@ Roles:
 
 === Jonas Ong
 image::e0031374.png[width="150", align="left"]
-{empty}[https://github.com/e0031374[github]] [<<jonas#, portfolio>>]
+{empty}[https://github.com/e0031374[github]] [<<e0031374#, portfolio>>]
 
 Roles:
 
