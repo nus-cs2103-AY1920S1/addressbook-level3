@@ -67,7 +67,6 @@ public class DeleteFlashcardCommandTest {
     }
      */
 
-
     //    @Test
     //    public void execute_invalidIndexFilteredList_throwsCommandException() {
     //        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
@@ -80,6 +79,7 @@ public class DeleteFlashcardCommandTest {
     //
     //        assertCommandFailure(deleteFlashcardCommand, model, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
     //    }
+
 
     @Test
     public void equals() {

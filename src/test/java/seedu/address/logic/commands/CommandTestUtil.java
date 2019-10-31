@@ -189,6 +189,8 @@ public class CommandTestUtil {
         final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
         model.updateFilteredNoteList(new NoteTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
+        System.out.println("Notes: " + model.getFilteredNoteList().size());
+
         assertEquals(1, model.getFilteredNoteList().size());
     }
 
