@@ -54,8 +54,11 @@ public class IcsConverter {
         icsStringBuilder
                 .append("\n").append("UID:").append(uid)
                 .append("\n").append("DTSTAMP:").append(dtStamp)
-                .append("\n").append("SUMMARY:").append(task.getDescription())
-                .append("\n").append("DUE:").append(task.getDueDate());
+                .append("\n").append("SUMMARY:").append(task.getDescription());
+
+        if (task.getDueDate() != null) {
+            icsStringBuilder.append("\n").append("DUE:").append(task.getDueDate().toIcsString());
+        }
 
         icsStringBuilder.append("\n").append("END:VTODO");
         return icsStringBuilder.toString();
