@@ -273,9 +273,9 @@ Example:
 
 After running the following commands:
 
-1. list participants
-2. add participant n/Bartholomew Lim p/+6593121212 e/barrytheflash@gmail.com
-3. add participant n/Diana Prince p/+6593111111 e/singaporewonderwoman@hotmail.com
+1. `list participants`
+2. `add participant n/Bartholomew Lim p/+6593121212 e/barrytheflash@gmail.com`
+3. `add participant n/Diana Prince p/+6593111111 e/singaporewonderwoman@hotmail.com`
 
 Running `history` will show you the following output in the "History" section of the Graphical User Interface:
 
