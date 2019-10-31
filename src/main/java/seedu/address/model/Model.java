@@ -231,9 +231,9 @@ public interface Model {
 
     void updateFilteredIncomes(Predicate<Income> predicate);
 
-    void updateFilteredWishes(Predicate<Wish> predicate);
+    void updateFilteredWishes(Predicate<Entry> predicate);
 
-    void updateFilteredBudgets(Predicate<Budget> predicate);
+    void updateFilteredBudgets(Predicate<Entry> predicate);
 
     void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate);
 

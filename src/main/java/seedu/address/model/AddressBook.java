@@ -30,6 +30,7 @@ import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.ReminderList;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.reminders.conditions.ConditionsManager;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by
@@ -67,15 +68,27 @@ public class AddressBook implements ReadOnlyAddressBook {
         conditions = new ConditionsManager();
     }
 
-    public AddressBook() {
-    }
-
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this();
+        this(false);
         resetData(toBeCopied);
+    }
+
+    /**
+     * Creates an AddressBook, and decides whether there is a need to retain the original Categories or load from Sample
+     * Data.
+     *
+     * @param shouldReloadCategories the boolean whether the categories should be reloaded.
+     */
+    public AddressBook(boolean shouldReloadCategories) {
+        if (shouldReloadCategories == true) {
+            Category[] listOfCategories = SampleDataUtil.getSampleCategories();
+            for (Category sampleCategory : listOfCategories) {
+                this.addCategory(sampleCategory);
+            }
+        }
     }
 
     //// list overwrite operations
@@ -212,7 +225,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         return conditions.contains(condition);
     }
 
-    @Override
+    /**
+     * Populates the CategoryList with the specified categories.
+     */
     public void addCategory(Category category) {
         categoryList.add(category);
         indicateModified();

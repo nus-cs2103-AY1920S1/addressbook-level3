@@ -18,7 +18,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class AutoExpenseBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Alice Pauline";
-    public static final double DEFAULT_AMOUNT = 5.60;
+    public static final String DEFAULT_AMOUNT = "5.60";
     public static final String DEFAULT_TIME = "2019-09-09";
     public static final String DEFAULT_FREQ = "weekly";
     public static final String DEFAULT_CATEGORY = "Foods and Drinks";
@@ -71,7 +71,7 @@ public class AutoExpenseBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public AutoExpenseBuilder withAmt(double amt) {
-        this.amt = new Amount(amt);
+        this.amt = new Amount(Double.toString(amt));
         return this;
     }
 

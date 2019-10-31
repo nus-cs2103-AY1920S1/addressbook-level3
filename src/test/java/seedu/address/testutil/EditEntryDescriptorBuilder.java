@@ -53,7 +53,7 @@ public class EditEntryDescriptorBuilder {
      * @return
      */
     public EditEntryDescriptorBuilder withAmount(double amt) {
-        descriptor.setAmount(new Amount(amt));
+        descriptor.setAmount(new Amount(Double.toString(amt)));
         return this;
     }
 

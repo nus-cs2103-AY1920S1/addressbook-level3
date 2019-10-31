@@ -1,7 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ARGUMENT_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+
+import java.util.List;
 
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,11 +28,16 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
         }
 
-        Date dateToParse = null;
+        List<Date> dateToParse = null;
 
         if (argMultimap.getValue(PREFIX_PERIOD).isPresent()) {
-            dateToParse = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).get());
+            dateToParse = ParserUtil.parseStartAndEndPeriod(argMultimap.getValue(PREFIX_PERIOD).get());
+            if (dateToParse.size() > 2) {
+                throw new ParseException(String.format(MESSAGE_INVALID_ARGUMENT_FORMAT,
+                        StatisticsCommand.MESSAGE_FAILURE));
+            }
         }
+
 
         return new StatisticsCommand(dateToParse);
     }

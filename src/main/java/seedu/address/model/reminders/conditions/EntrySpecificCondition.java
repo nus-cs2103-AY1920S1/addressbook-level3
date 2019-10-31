@@ -19,7 +19,7 @@ public class EntrySpecificCondition extends Condition {
             assert(targetEntry == entry);
             LocalDate currDate = LocalDate.now();
             timeBeforeDeadline = Period.between(currDate, targetEntry.getDate().getDate());
-            return !((bufferPeriod.minus( timeBeforeDeadline)).isNegative());
+            return !((bufferPeriod.minus(timeBeforeDeadline)).isNegative());
         }
     };
     public EntrySpecificCondition(Entry entry, Period bufferPeriod) {

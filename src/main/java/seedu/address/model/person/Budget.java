@@ -41,7 +41,7 @@ public class Budget extends Entry {
         this.startDate = startDate;
         this.period = period;
         endDate = startDate.plus(period);
-        spent = new Amount(0);
+        spent = new Amount("0");
     }
 
     /**
@@ -83,7 +83,7 @@ public class Budget extends Entry {
             spentAmount += expense.getAmount().value;
         }
 
-        spent = new Amount(spentAmount);
+        spent = new Amount(Double.toString(spentAmount));
     }
 
     /**

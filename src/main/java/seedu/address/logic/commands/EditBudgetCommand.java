@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import java.util.Collections;
@@ -83,7 +82,7 @@ public class EditBudgetCommand extends Command {
         }
 
         model.setBudget(entryToEdit, editedEntry);
-        model.updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
+        model.updateFilteredBudgets(PREDICATE_SHOW_ALL_ENTRIES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
