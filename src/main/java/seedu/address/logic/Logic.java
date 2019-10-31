@@ -67,11 +67,6 @@ public interface Logic {
     ObservableList<Record> getFilterRecordList();
 
     /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
-    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();

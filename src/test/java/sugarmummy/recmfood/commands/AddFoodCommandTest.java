@@ -119,16 +119,6 @@ class AddFoodCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addRecord(Record toAdd) {
             throw new AssertionError("This method should not be called.");
         }

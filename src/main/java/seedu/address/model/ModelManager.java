@@ -42,7 +42,7 @@ import sugarmummy.recmfood.model.Food;
 import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
- * Represents the in-memory sugarmummy.recmfood.model of the address book data.
+ * Represents the in-memory sugarmummy.recmfood.model of the SugarMummy data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -65,7 +65,7 @@ public class ModelManager implements Model {
     private boolean achievementsHaveBeenLost;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given data and userPrefs.
      */
     public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyUserList userList,
                         UniqueFoodList foodList, UniqueRecordList recordList,
@@ -121,17 +121,6 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
     @Override
