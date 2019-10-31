@@ -1,3 +1,4 @@
+// @@author shiweing
 package tagline.logic.parser.note;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -8,6 +9,7 @@ import java.util.regex.Pattern;
 
 import tagline.logic.commands.Command;
 import tagline.logic.commands.HelpCommand;
+import tagline.logic.commands.note.ClearNoteCommand;
 import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.logic.commands.note.DeleteNoteCommand;
 import tagline.logic.commands.note.EditNoteCommand;
@@ -51,6 +53,9 @@ public class NoteCommandParser {
 
         case ListNoteCommand.COMMAND_WORD:
             return new ListNoteParser().parse(arguments);
+
+        case ClearNoteCommand.COMMAND_WORD:
+            return new ClearNoteCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
