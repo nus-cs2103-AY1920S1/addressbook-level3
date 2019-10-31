@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.Classroom;
+import seedu.address.model.Notebook;
+import seedu.address.model.classroom.Classroom;
 import seedu.address.model.student.Student;
 
 /**
@@ -68,6 +69,15 @@ public class TypicalStudents {
             ab.addStudent(student);
         }
         return ab;
+    }
+
+    /**
+     * Returns an {@code Notebook} with all the typical classrooms.
+     */
+    public static Notebook getTypicalNotebook() {
+        Notebook notebook = new Notebook();
+        notebook.addClassroom(getTypicalClassroom());
+        return notebook;
     }
 
     public static List<Student> getTypicalStudents() {

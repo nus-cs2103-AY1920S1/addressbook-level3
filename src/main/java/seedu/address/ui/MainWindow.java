@@ -47,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private StudentListPanel studentListPanel;
     private AssignmentListPanel assignmentListPanel;
+    private ClassroomListPanel classroomListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReminderListPanel reminderListPanel;
@@ -75,6 +76,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane assignmentListPanelPlaceholder;
+
+    @FXML
+    private StackPane classroomListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -146,7 +150,8 @@ public class MainWindow extends UiPart<Stage> {
         //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
 
         combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
-        assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+        classroomListPanel = new ClassroomListPanel(logic.getClassroomList());
+        classroomListPanelPlaceholder.getChildren().add(classroomListPanel.getRoot());
 
         reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
         reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
@@ -225,7 +230,6 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             updateStudentsAndAssignments();
-            /*
             if (logic.isDisplayStudents()) {
                 combinedListPanelPlaceholder.getChildren().clear();
                 combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
@@ -233,7 +237,7 @@ public class MainWindow extends UiPart<Stage> {
                 combinedListPanelPlaceholder.getChildren().clear();
                 combinedListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
             }
-             */
+
 
 
             if (commandResult.isShowHelp()) {
@@ -255,10 +259,10 @@ public class MainWindow extends UiPart<Stage> {
     public void updateStudentsAndAssignments() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
-        combinedListPanelPlaceholder.getChildren().clear();
-        combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
-        assignmentListPanelPlaceholder.getChildren().clear();
-        assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+        //combinedListPanelPlaceholder.getChildren().clear();
+        //combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        //assignmentListPanelPlaceholder.getChildren().clear();
+        //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
     }
     /**
      * method to add a listener to lesson observable list.

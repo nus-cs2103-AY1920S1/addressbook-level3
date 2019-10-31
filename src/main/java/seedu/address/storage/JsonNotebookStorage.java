@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.Notebook;
+import seedu.address.model.ReadOnlyNotebook;
 
 /**
  * A class to access Notebook data stored as a json file on the hard disk.
@@ -32,7 +32,7 @@ public class JsonNotebookStorage implements NotebookStorage {
     }
 
     @Override
-    public Optional<Notebook> readNotebook() throws DataConversionException {
+    public Optional<ReadOnlyNotebook> readNotebook() throws DataConversionException {
         return readNotebook(filePath);
     }
 
@@ -42,12 +42,12 @@ public class JsonNotebookStorage implements NotebookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<Notebook> readNotebook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyNotebook> readNotebook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableNotebook> jsonNotebook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableNotebook.class);
-        if (!jsonNotebook.isPresent()) {
+        if (jsonNotebook.isEmpty()) {
             return Optional.empty();
         }
 
@@ -60,21 +60,22 @@ public class JsonNotebookStorage implements NotebookStorage {
     }
 
     @Override
-    public void saveNotebook(Notebook notebook) throws IOException {
+
+    public void saveNotebook(ReadOnlyNotebook notebook) throws IOException {
         saveNotebook(notebook, filePath);
     }
 
     /**
-     * Similar to {@link #saveNotebook(Notebook)}.
+     * Similar to {@link #saveNotebook(ReadOnlyNotebook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveNotebook(Notebook classroom, Path filePath) throws IOException {
-        requireNonNull(classroom);
+    public void saveNotebook(ReadOnlyNotebook notebook, Path filePath) throws IOException {
+        requireNonNull(notebook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableNotebook(classroom), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableNotebook(notebook), filePath);
     }
 
 }

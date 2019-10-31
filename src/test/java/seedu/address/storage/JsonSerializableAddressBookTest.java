@@ -10,7 +10,7 @@ import java.nio.file.Path;
 
 //import seedu.address.commons.exceptions.IllegalValueException;
 //import seedu.address.commons.util.JsonUtil;
-//import seedu.address.model.Classroom;
+//import seedu.address.model.classroom.Classroom;
 //import seedu.address.testutil.TypicalStudents;
 
 public class JsonSerializableClassroomTest {

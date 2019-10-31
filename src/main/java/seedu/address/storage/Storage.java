@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Notebook;
+import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -24,9 +24,9 @@ public interface Storage extends NotebookStorage, UserPrefsStorage {
     Path getNotebookFilePath();
 
     @Override
-    Optional<Notebook> readNotebook() throws DataConversionException, IOException;
+    Optional<ReadOnlyNotebook> readNotebook() throws DataConversionException, IOException;
 
     @Override
-    void saveNotebook(Notebook notebook) throws IOException;
+    void saveNotebook(ReadOnlyNotebook notebook) throws IOException;
 
 }

@@ -13,9 +13,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ClassroomParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.Notebook;
-import seedu.address.model.ReadOnlyClassroom;
+//import seedu.address.model.Notebook;
+import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 import seedu.address.storage.Storage;
@@ -56,11 +58,11 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyClassroom getClassroom() {
-        return model.getClassroom();
+        return model.getCurrentClassroom();
     }
 
     @Override
-    public Notebook getNotebook() {
+    public ReadOnlyNotebook getNotebook() {
         return this.model.getNotebook();
     }
 
@@ -77,6 +79,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Assignment> getFilteredAssignmentList() {
         return model.getFilteredAssignmentList();
+    }
+
+    @Override
+    public ObservableList<Classroom> getClassroomList() {
+        return model.getClassroomList();
     }
 
     @Override
@@ -97,4 +104,6 @@ public class LogicManager implements Logic {
     public boolean isDisplayStudents() {
         return model.isDisplayStudents();
     }
+
+
 }

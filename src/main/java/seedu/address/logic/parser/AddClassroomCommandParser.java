@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddClassroomCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Classroom;
+import seedu.address.model.classroom.Classroom;
 
 
 /**

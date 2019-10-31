@@ -7,9 +7,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Notebook;
-import seedu.address.model.ReadOnlyClassroom;
+import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 
@@ -29,11 +30,11 @@ public interface Logic {
     /**
      * Returns the Classroom.
      *
-     * @see seedu.address.model.Model#getClassroom()
+     * @see seedu.address.model.Model#getCurrentClassroom()
      */
     ReadOnlyClassroom getClassroom();
 
-    Notebook getNotebook();
+    ReadOnlyNotebook getNotebook();
     /** Returns an unmodifiable view of the filtered list of students */
     ObservableList<Student> getFilteredStudentList();
 
@@ -60,4 +61,6 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     boolean isDisplayStudents();
+
+    ObservableList<Classroom> getClassroomList();
 }
