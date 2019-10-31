@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.person.Person;
 
@@ -27,8 +28,22 @@ public abstract class UpdateStatusCommand extends MultiLoanCommand {
         requireAllNonNull(loansManager, updatedStatus);
 
         List<Index> targetLoanIndices = constructTargetLoanIndicesList(loansManager);
-        Consumer<Index> updateStatusOp = targetIndex -> loansManager.updateLoanStatus(targetIndex, updatedStatus);
+        Consumer<Index> updateStatusOp = targetIndex -> {
+            Loan updatedLoan = createUpdatedLoan(loansManager.getLoan(targetIndex), updatedStatus);
+            loansManager.editLoan(targetIndex, updatedLoan);
+        };
 
         actOnTargetLoans(targetLoanIndices, updateStatusOp);
+    }
+
+    /**
+     * Creates a new {@code Loan} with the updated {@code Status}.
+     * @param oldLoan The {@code Loan} targeted for a status update.
+     * @param updatedStatus The new {@code Status}.
+     * @return The new, updated {@code Loan}.
+     */
+    private Loan createUpdatedLoan(Loan oldLoan, Status updatedStatus) {
+        return new Loan(oldLoan.getPerson(), oldLoan.getDirection(), oldLoan.getAmount(),
+                oldLoan.getDate(), oldLoan.getDescription(), updatedStatus);
     }
 }

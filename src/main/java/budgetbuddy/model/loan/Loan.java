@@ -17,13 +17,12 @@ import budgetbuddy.model.transaction.Amount;
  */
 public class Loan {
 
+    private final Person person;
     private final Direction direction;
     private final Amount amount;
     private final Date date;
     private final Description description;
-
-    private Person person;
-    private Status status;
+    private final Status status;
 
     /**
      * Every field must be present and not null.
@@ -41,10 +40,6 @@ public class Loan {
 
     public Person getPerson() {
         return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     public Direction getDirection() {
@@ -69,10 +64,6 @@ public class Loan {
 
     public Status getStatus() {
         return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     /**
@@ -105,6 +96,7 @@ public class Loan {
             return false;
         }
 
+        // do not compare status of loan
         Loan otherLoan = (Loan) other;
         return otherLoan.getPerson().isSamePerson(person)
                 && otherLoan.getDirection() == direction

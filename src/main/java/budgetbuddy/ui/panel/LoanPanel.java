@@ -43,7 +43,6 @@ public class LoanPanel extends DisplayPanel {
                 setGraphic(new LoanCard(loan, getIndex() + 1).getRoot());
                 setMouseTransparent(true);
                 setFocusTraversable(false);
-                loanListView.refresh();
             }
         }
     }

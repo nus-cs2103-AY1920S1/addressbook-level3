@@ -11,7 +11,6 @@ import java.util.function.Predicate;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 
 import javafx.collections.FXCollections;
@@ -133,16 +132,6 @@ public class LoansManager {
     public void editLoan(Index toEdit, Loan editedLoan) throws LoanNotFoundException {
         checkIndexValidity(toEdit);
         internalList.set(toEdit.getZeroBased(), editedLoan);
-    }
-
-    /**
-     * Updates the status of a target loan to the given status.
-     * @param toUpdate The index of the target loan to update.
-     * @param newStatus The new status to update the target loan to.
-     */
-    public void updateLoanStatus(Index toUpdate, Status newStatus) {
-        checkIndexValidity(toUpdate);
-        internalList.get(toUpdate.getZeroBased()).setStatus(newStatus);
     }
 
     /**
