@@ -38,8 +38,8 @@ public class MealPlanListPanel extends UiPart<Region> {
      * Gives the overview of health records recorded by user
      */
     void initializeFlowPaneView(ObservableList<MealPlan> mealPlanList) {
-        mealPlanListView.setHgap(5);
-        mealPlanListView.setVgap(5);
+        mealPlanListView.setHgap(10);
+        mealPlanListView.setVgap(10);
         mealPlanListView.setPadding(new Insets(10, 10, 10, 10));
 
         // Creates a MealPlanCard for each meal plan and adds to FlowPane
