@@ -17,6 +17,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_STATUS_PUBLICITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -46,54 +47,54 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_TASK_NAME_FINANCE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "edit-task " + VALID_TASK_NAME_FINANCE, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "edit-task ti/1 ", EditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "edit-task ti/", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + TASK_NAME_DESC_FINANCE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "edit-task ti/-5" + TASK_NAME_DESC_FINANCE, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + TASK_NAME_DESC_FINANCE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "edit-task ti/0" + TASK_NAME_DESC_FINANCE, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "edit-task ti/1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "edit-task ti/1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_TASK_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "edit-task ti/1 " + INVALID_TASK_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "edit-task ti/1 " + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Task} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE + TAG_EMPTY,
+        assertParseFailure(parser, "edit-task ti/1" + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE + TAG_EMPTY,
                 Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_PUBLICITY + TAG_EMPTY + TAG_DESC_FINANCE,
+        assertParseFailure(parser, "edit-task ti/1" + TAG_DESC_PUBLICITY + TAG_EMPTY + TAG_DESC_FINANCE,
                 Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE,
+        assertParseFailure(parser, "edit-task ti/1" + TAG_EMPTY + TAG_DESC_PUBLICITY + TAG_DESC_FINANCE,
                 Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_TASK_NAME_DESC,
+        assertParseFailure(parser, "edit-task ti/1" + INVALID_TASK_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_TASK;
-        String userInput = targetIndex.getOneBased() + TAG_DESC_FINANCE
+        String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TAG_DESC_FINANCE
                 + TASK_NAME_DESC_FINANCE;
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE)
@@ -106,7 +107,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_TASK;
-        String userInput = targetIndex.getOneBased() + TASK_NAME_DESC_FINANCE;
+        String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TASK_NAME_DESC_FINANCE;
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
                 .withName(VALID_TASK_NAME_FINANCE).build();
@@ -120,14 +121,14 @@ public class EditCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD_TASK;
-        String userInput = targetIndex.getOneBased() + TASK_NAME_DESC_FINANCE;
+        String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TASK_NAME_DESC_FINANCE;
         EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
                 .withName(VALID_TASK_NAME_FINANCE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_PUBLICITY;
+        userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TAG_DESC_PUBLICITY;
         descriptor = new EditTaskDescriptorBuilder().withTags(VALID_TAG_PUBLICITY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -136,7 +137,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_TASK;
-        String userInput = targetIndex.getOneBased()
+        String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased()
                 + TASK_NAME_DESC_FINANCE
                 + TASK_STATUS_DESC_FINANCE + TAG_DESC_URGENCY
                 + TASK_NAME_DESC_PUBLICITY
@@ -156,14 +157,14 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_TASK;
-        String userInput = targetIndex.getOneBased() + INVALID_TASK_STATUS_DESC + TASK_STATUS_DESC_PUBLICITY;
+        String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + INVALID_TASK_STATUS_DESC + TASK_STATUS_DESC_PUBLICITY;
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder()
                 .withStatus(TaskStatus.valueOf(VALID_TASK_STATUS_PUBLICITY.toUpperCase())).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + TAG_DESC_FINANCE + INVALID_TASK_NAME_DESC
+        userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TAG_DESC_FINANCE + INVALID_TASK_NAME_DESC
                 + TASK_NAME_DESC_FINANCE;
         descriptor = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE).withTags(VALID_TAG_FINANCE)
                 .build();
@@ -174,11 +175,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_resetTags_success() {
         Index targetIndex = INDEX_THIRD_TASK;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+        String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TAG_EMPTY;
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
+
 }

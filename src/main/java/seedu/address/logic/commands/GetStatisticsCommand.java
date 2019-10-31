@@ -8,15 +8,15 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 import java.util.List;
 
 import seedu.address.model.Model;
-import seedu.address.model.mapping.Mapping;
-//import seedu.address.model.mapping.UniqueMappingList;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 
 public class GetStatisticsCommand extends Command {
-    public static final String COMMAND_WORD_MEMBER = "get-member-stats";
-    public static final String COMMAND_WORD_TASK = "get-task-stats";
+    public static final String COMMAND_WORD_MEMBER = "member-stats";
+    public static final String COMMAND_WORD_TASK = "task-stats";
 
     public static final String MESSAGE_SUCCESS = "Calculated statistics";
 
@@ -28,8 +28,10 @@ public class GetStatisticsCommand extends Command {
         model.updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
         List<Task> tasks = model.getFilteredTasksList();
         List<Member> members = model.getFilteredMembersList();
-        List<Mapping> mappings = model.getFilteredMappingsList();
-        Statistics stats = new Statistics(members, tasks, mappings);
+        List<TasMemMapping> tasMemMappings = model.getFilteredTasMemMappingsList();
+        List<InvMemMapping> invMemMappings = model.getFilteredInvMemMappingsList();
+
+        Statistics stats = new Statistics(members, tasks, tasMemMappings, invMemMappings);
         model.setStatistics(stats);
         stats.doCalculations();
 

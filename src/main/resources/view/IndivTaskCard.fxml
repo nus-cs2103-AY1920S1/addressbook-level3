@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Text?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -27,14 +27,14 @@
                     </minWidth>
                 </Label>
                 <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-                <Label fx:id="displayId" styleClass="cell_big_label" text="\$first" />
             </HBox>
             <FlowPane fx:id="tags" />
+            <Label fx:id="deadline" styleClass="label" text="\$first" />
+            <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Members Allocated" />
+            <Text fx:id="members" styleClass="tasks_text"/>
         </VBox>
         <rowConstraints>
             <RowConstraints />
         </rowConstraints>
     </GridPane>
 </HBox>
-
-

@@ -1,25 +1,26 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
-
-//Remove after changing to ObservableList for Calendar
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
-import seedu.address.model.mapping.Mapping;
-import seedu.address.model.calendar.CalendarWrapper;
+
+//Remove after changing to ObservableList for Calendar
 
 /**
  * The API of the Model component.
@@ -217,8 +218,6 @@ public interface Model {
 
     ObservableList<Mapping> getFilteredMappingsList();
 
-    void updateFilteredMappingsList(Predicate<Mapping> predicate);
-
     Statistics getStatistics();
 
     void setStatistics(Statistics newStats);
@@ -232,6 +231,12 @@ public interface Model {
     boolean canUndo();
 
     boolean canRedo();
+
+    ObservableList<TasMemMapping> getFilteredTasMemMappingsList();
+
+    public ObservableList<InvMemMapping> getFilteredInvMemMappingsList();
+
+    void updateFilteredMappingsList(Predicate<Mapping> predicate);
 
     void addCalendar(CalendarWrapper calendar);
 

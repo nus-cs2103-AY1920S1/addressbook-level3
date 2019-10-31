@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEMBER_ID_PUBLICITY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MEMBER_NAME_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEMBER_NAME_PUBLICITY;
 import static seedu.address.testutil.TypicalTasksMembers.ELSA_KOH;
 import static seedu.address.testutil.TypicalTasksMembers.GABRIEL_SEOW;
@@ -30,16 +29,16 @@ public class MemberTest {
 
         Member editedMemberGabrielSeow = new MemberBuilder(GABRIEL_SEOW).build();
 
-        // different name -> returns false
+        // same name -> returns true
         editedMemberGabrielSeow = new MemberBuilder(GABRIEL_SEOW)
                 .withName(VALID_MEMBER_NAME_PUBLICITY).build();
-        assertFalse(GABRIEL_SEOW.isSameMember(editedMemberGabrielSeow));
+        assertTrue(GABRIEL_SEOW.isSameMember(editedMemberGabrielSeow));
 
-        // same name, different attributes -> returns true
+        // same name, different ID -> returns false
         editedMemberGabrielSeow = new MemberBuilder(GABRIEL_SEOW)
                 .withId(new MemberId("GT"))
                 .build();
-        assertTrue(GABRIEL_SEOW.isSameMember(editedMemberGabrielSeow));
+        assertFalse(GABRIEL_SEOW.isSameMember(editedMemberGabrielSeow));
 
         // same name, different attributes -> returns true
         editedMemberGabrielSeow = new MemberBuilder(GABRIEL_SEOW)

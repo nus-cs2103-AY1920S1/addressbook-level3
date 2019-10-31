@@ -4,34 +4,30 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-import java.util.Stack;
-import java.util.EmptyStackException;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
-
-//Remove after changing to ObservableList for Calendar
 import java.util.List;
+import java.util.Stack;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-
 import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.member.Member;
-import seedu.address.model.member.MemberId;
-import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
+
+//Remove after changing to ObservableList for Calendar
 
 /**
  * Represents the in-memory model of +Work data.
@@ -49,6 +45,8 @@ public class ModelManager implements Model {
     private final FilteredList<Task> filteredTasksByDeadline;
     private final FilteredList<Member> filteredMembers;
     private final FilteredList<Mapping> filteredMappings;
+    private final FilteredList<TasMemMapping> filteredTasMemMappings;
+    private final FilteredList<InvMemMapping> filteredInvMemMappings;
     private final FilteredList<Inventory> filteredInventories;
     private Statistics stats;
     private final Stack<ReadOnlyProjectDashboard> previousSaveState = new Stack<>();
@@ -76,7 +74,9 @@ public class ModelManager implements Model {
         filteredMembers = new FilteredList<>(this.projectDashboard.getMemberList());
         filteredInventories = new FilteredList<>(this.projectDashboard.getInventoryList());
         filteredMappings = new FilteredList<>(this.projectDashboard.getMappingList());
-        stats = new Statistics(filteredMembers, filteredTasks, filteredMappings);
+        filteredTasMemMappings = new FilteredList<>(this.projectDashboard.getTasMemMappingList());
+        filteredInvMemMappings = new FilteredList<>(this.projectDashboard.getInvMemMappingList());
+        stats = new Statistics(filteredMembers, filteredTasks, filteredTasMemMappings, filteredInvMemMappings);
         stats.doCalculations();
 
     }
@@ -399,6 +399,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<TasMemMapping> getFilteredTasMemMappingsList() {
+        return filteredTasMemMappings;
+    }
+
+    @Override
+    public ObservableList<InvMemMapping> getFilteredInvMemMappingsList() {
+        return filteredInvMemMappings;
+    }
+
+
     public boolean canUndo() {
         return !previousSaveState.empty();
     }

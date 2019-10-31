@@ -1,13 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
-import java.time.LocalDateTime;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -21,7 +20,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
@@ -37,10 +35,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TASK_NAME + "NAME] "
-            + "[" + PREFIX_TASK_STATUS + "STATUS] "
-            + "[" + PREFIX_TASK_TAG + "TAG]...\n"
+            + "Parameters:" + PREFIX_TASK_INDEX + "TASK INDEX"
+            + PREFIX_TASK_NAME + "NAME] "
+            + PREFIX_TASK_STATUS + "STATUS "
+            + PREFIX_TASK_TAG + "TAG...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";

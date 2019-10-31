@@ -13,9 +13,8 @@ import java.time.Duration;
 import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddMemberCommand;
-import seedu.address.logic.commands.AddMemberToTaskCommand;
 import seedu.address.logic.commands.AddTaskCommand;
-import seedu.address.logic.commands.AddTaskToMemberCommand;
+import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClockCommand;
 import seedu.address.logic.commands.Command;
@@ -31,16 +30,15 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMeetingTimeCommand;
 import seedu.address.logic.commands.FindMemberCommand;
-import seedu.address.logic.commands.GeneratePDFCommand;
+import seedu.address.logic.commands.FireCommand;
 import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
-import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
-import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
+import seedu.address.logic.commands.SetImageCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SettingsCommand;
@@ -116,17 +114,11 @@ public class ProjectDashboardParser {
             return new ListMemberCommand();
 
         // ASSOCIATION
-        case AddTaskToMemberCommand.COMMAND_WORD:
-            return new AddTaskToMemberParser().parse(arguments);
+        case AssignCommand.COMMAND_WORD:
+            return new AssignCommandParser().parse(arguments);
 
-        case AddMemberToTaskCommand.COMMAND_WORD:
-            return new AddMemberToTaskParser().parse(arguments);
-
-        case RemoveTaskFromMemberCommand.COMMAND_WORD:
-            return new RemoveTaskFromMemberParser().parse(arguments);
-
-        case RemoveMemberFromTaskCommand.COMMAND_WORD:
-            return new RemoveMemberFromTaskParser().parse(arguments);
+        case FireCommand.COMMAND_WORD:
+            return new FireCommandParser().parse(arguments);
 
         // INVENTORY
         case ListInventoryCommand.COMMAND_WORD:
@@ -141,8 +133,8 @@ public class ProjectDashboardParser {
         case DeleteInventoryCommand.COMMAND_WORD:
             return new DeleteInventoryCommandParser().parse(arguments);
 
-        case GeneratePDFCommand.COMMAND_WORD:
-            return new GeneratePDFCommand();
+        //case GeneratePDFCommand.COMMAND_WORD:
+            //return new GeneratePDFCommand();
 
         // STATS
         case GetStatisticsCommand.COMMAND_WORD_MEMBER:
@@ -173,6 +165,9 @@ public class ProjectDashboardParser {
 
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
+
+        case SetImageCommand.COMMAND_WORD:
+            return new SetImageCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
