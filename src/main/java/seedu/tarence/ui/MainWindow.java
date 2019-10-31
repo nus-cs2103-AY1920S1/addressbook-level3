@@ -116,6 +116,11 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+        // Set listeners for window width changing
+        primaryStage.widthProperty().addListener((observable, oldValue, newValue) -> {
+            updateCommandBoxWindowWidth((Double) newValue);
+        });
+
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
@@ -192,6 +197,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBox = new CommandBox(this::executeCommand, this::executeAutocomplete, this::executeNextSuggestion,
                 this::executeInputChanged, this::getPastInput);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        updateCommandBoxWindowWidth(primaryStage.getWidth());
     }
 
     /**
@@ -424,5 +430,12 @@ public class MainWindow extends UiPart<Stage> {
             attendancePanel = new AttendancePanel(tutorial);
         }
         attendancePanelPlaceholder.getChildren().add(attendancePanel.getPane());
+    }
+
+    /**
+     * Updates the window width known to the CommandBox.
+     */
+    private void updateCommandBoxWindowWidth(double newWidth) {
+        commandBox.updateWindowWidth(newWidth);
     }
 }

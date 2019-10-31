@@ -10,8 +10,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import seedu.tarence.MainApp;
 import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
@@ -59,10 +61,12 @@ public class CommandBox extends UiPart<Region> {
             }
         });
 
+        Font.loadFont(MainApp.class.getResource("/fonts/RobotoMono-Light.ttf").toExternalForm(), 12);
         commandTextField.prefColumnCountProperty().bind(commandTextField.textProperty().length());
         commandTextField.setPadding(new Insets(5.0, 0.0, 5.0, 0.0));
         commandTextField.setAlignment(BASELINE_RIGHT);
-        autocompleteTextBox.setFill(Color.WHITE);
+
+        autocompleteTextBox.setFill(Color.LIGHTGRAY);
 
         commandTextFlow.getChildren().set(1, autocompleteTextBox);
     }
@@ -202,6 +206,13 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    /**
+     * Updates commandTextField max width based on window width
+     */
+    void updateWindowWidth(double newWidth) {
+        commandTextField.setMaxWidth(newWidth - 100);
     }
 
     /**
