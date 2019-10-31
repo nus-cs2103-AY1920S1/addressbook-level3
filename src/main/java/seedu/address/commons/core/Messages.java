@@ -29,4 +29,5 @@ public class Messages {
     public static final String EXCEL_FILE_TYPE_ISSUE = "File path must be of type /'.xlsx/'. Please try again.";
     public static final String EXCEL_FILE_ILLEGAL_INPUT = "File has illegal input. Please refer to user guide.";
     public static final String EXCEL_FILE_ILLEGAL_FORMAT = "File has illegal format. PLease refer to user guide.";
+    public static final String EXCEL_ILLEGAL_HEADER = "Cell A1 should be 'Students'";
 }

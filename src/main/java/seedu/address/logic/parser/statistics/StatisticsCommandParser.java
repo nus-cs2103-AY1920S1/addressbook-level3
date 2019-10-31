@@ -21,7 +21,6 @@ import seedu.address.model.statistics.Statistics;
  */
 public class StatisticsCommandParser implements Parser<StatisticsCommand> {
 
-    private HashMap<String, HashMap<String, Double>> data = new HashMap<>();
     private DataParser dataParser = new ExcelParser();
 
     /**

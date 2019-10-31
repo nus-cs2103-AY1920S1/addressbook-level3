@@ -15,6 +15,7 @@ public class ExcelParserTest {
 
     private static final String VALID_DATA = "src/test/data/SampleStatisticsData/ValidSampleStatistics.xlsx";
     private static final String NOT_EXCEL_DATA = "src/test/data/SampleStatisticsData/NotExcelStatistics.docx";
+    private static final String WRONG_HEADER_DATA = "src/test/data/SampleStatisticsData/WrongHeaderStatistics.xlsx";
     private static final String MISSING_INPUT_DATA = "src/test/data/SampleStatisticsData/MissingInputStatistics.xlsx";
     private static final String INVALID_INPUT_DATA = "src/test/data/SampleStatisticsData/InvalidInputStatistics.xlsx";
     private static final String INVALID_STUDENTS_DATA = "src/test/data/SampleStatisticsData/InvalidStudentsStatistics.xlsx";
@@ -32,6 +33,11 @@ public class ExcelParserTest {
     public void parseCommand_noEntriesValidFile_success() throws Exception {
         HashMap<String, HashMap<String, Double>> data = parser.parseFile(NO_ENTRY);
         assertTrue(data instanceof HashMap);
+    }
+
+    @Test
+    public void parseCommand_wrongHeader_throwsException() {
+        assertThrows(ParseException.class, EXCEL_ILLEGAL_HEADER, () -> parser.parseFile(WRONG_HEADER_DATA));
     }
 
     @Test

@@ -1,11 +1,5 @@
 package seedu.address.logic.parser.statistics;
 
-import static seedu.address.commons.core.Messages.EXCEL_FILE_ILLEGAL_FORMAT;
-import static seedu.address.commons.core.Messages.EXCEL_FILE_ILLEGAL_INPUT;
-import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_FOUND;
-import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_PARSED;
-import static seedu.address.commons.core.Messages.EXCEL_FILE_TYPE_ISSUE;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,6 +18,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import static seedu.address.commons.core.Messages.*;
 
 /**
  * A data parser that parses formatted excel(.xlsx) files containing students score data.
@@ -139,14 +135,15 @@ public class ExcelParser implements DataParser {
                 Cell dataStart = studentsIterator.next();
                 if (dataStart.getCellType() != CellType.STRING
                         || !dataStart.getStringCellValue().trim().equals("Students")) {
-                    throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
+                    throw new ParseException(EXCEL_ILLEGAL_HEADER);
                 }
             } else {
                 throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
             }
             while (studentsIterator.hasNext()) {
                 Cell studentCell = studentsIterator.next();
-                if (studentCell.getCellType() == CellType.STRING && !studentCell.getStringCellValue().trim().isEmpty()) {
+                if (studentCell.getCellType() == CellType.STRING
+                        && !studentCell.getStringCellValue().trim().isEmpty()) {
                     students.add(studentCell.getStringCellValue());
                 } else if (studentCell.getCellType() == CellType.NUMERIC) {
                     students.add(String.valueOf(studentCell.getNumericCellValue()));
