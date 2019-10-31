@@ -805,6 +805,7 @@ Note that all fields all mandatory unless stated otherwise.​
 == Command Summary
 
 * *Help* : `help`
+* *Exit* : `exit`
 * *Adding a student*: `student name/...`
 * *Removing a student*: `student delete index/...`
 * *Editing a student*: `student [index] name/...`
