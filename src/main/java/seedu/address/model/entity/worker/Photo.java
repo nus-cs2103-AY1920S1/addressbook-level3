@@ -69,7 +69,7 @@ public class Photo {
      * Intended for {@code ImageView} to reference to the photo.
      */
     public String getPathToDataDirectory() {
-        return "file://" + getStoragePathToDataDirectory();
+        return "file://" + Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
     }
 
     //@@author ambervoong

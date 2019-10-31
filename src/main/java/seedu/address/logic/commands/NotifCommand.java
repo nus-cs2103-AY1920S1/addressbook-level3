@@ -20,7 +20,6 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.notif.Notif;
 import seedu.address.storage.Storage;
 import seedu.address.ui.NotifWindow;
-import seedu.address.ui.NotificationButton;
 
 //@@author arjavibahety
 
@@ -49,11 +48,6 @@ public class NotifCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (!model.hasNotif(notif)) {
-            // throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
-            model.addNotif(notif);
-        }
 
         startSesChangeBodyStatus();
         startSesChangeBodyStatusUi(model);
@@ -120,7 +114,12 @@ public class NotifCommand extends Command {
                     notifWindow.setTitle("Contact Police!");
                     notifWindow.setContent(notifContent);
                     notifWindow.display();
+                    if (!model.hasNotif(notif)) {
+                        // throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
+                        model.addNotif(notif);
+                    }
                     storageManager.saveAddressBook(model.getAddressBook());
+
                 } catch (CommandException | IOException e) {
                     logger.info("Error updating the body and fridge ");
                 }

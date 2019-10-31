@@ -201,6 +201,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public int getNumberOfActiveNotifs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -246,12 +251,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Notif> getFilteredActiveNotifList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Fridge> getFilteredFridgeList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredNotifList(Predicate<Notif> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredActiveNotifList(Predicate<Notif> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

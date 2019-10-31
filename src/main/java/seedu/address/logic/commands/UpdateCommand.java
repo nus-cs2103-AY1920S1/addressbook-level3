@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import javafx.application.Platform;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
@@ -228,6 +229,10 @@ public class UpdateCommand extends UndoableCommand {
         } else if (this.updatedFridge == null) {
             throw new CommandException(MESSAGE_FRIDGE_DOES_NOT_EXIST);
         }
+
+        // this method is called to signal to Ui that the list is updated
+        //
+        Platform.runLater(() -> model.updateFilteredFridgeList(fridge -> true));
 
     }
 

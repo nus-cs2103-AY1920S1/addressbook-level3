@@ -24,6 +24,7 @@ import seedu.address.model.notif.Notif;
 /**
  * Singleton notification button to open up alerts view.
  */
+
 public class NotificationButton extends UiPart<Region> {
 
     private static NotificationButton notificationButton = null;
