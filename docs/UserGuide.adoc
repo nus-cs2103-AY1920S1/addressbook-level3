@@ -144,6 +144,7 @@ This window displays the results after DukeAcademy has finished evaluating the c
 +
 A built-in editor for you to write your code.
 
+To submit your attempt, enter `submit` into the *CommandBox*.
 
 To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
 
