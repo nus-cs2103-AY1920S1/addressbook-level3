@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -25,15 +24,15 @@ import seedu.address.model.expense.Expense;
  */
 public class ModelManager implements Model {
 
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static String viewState = "default expenselist";
     private static Budget lastViewedBudget;
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private final ExpenseList expenseList;
     private final BudgetList budgetList;
     private final UserPrefs userPrefs;
-    private final FilteredList<Expense> defaultFilteredExpenses;
     private final FilteredList<Budget> filteredBudgets;
-    private FilteredList<Expense> filteredExpenses;
+    private final FilteredList<Expense> filteredExpenses;
+    private final FilteredList<Expense> expenses;
 
     /**
      * Initializes a ModelManager with the given expenseList, budgetlist and userPrefs.
@@ -48,29 +47,29 @@ public class ModelManager implements Model {
         this.expenseList = new ExpenseList(expenseList);
         this.budgetList = new BudgetList(budgetList);
         this.userPrefs = new UserPrefs(userPrefs);
-        defaultFilteredExpenses = new FilteredList<>(this.expenseList.getExpenseList());
         filteredExpenses = new FilteredList<>(this.expenseList.getExpenseList());
         filteredBudgets = new FilteredList<>(this.budgetList.getBudgetList());
+        expenses = new FilteredList<>(initExpenses());
     }
 
     public ModelManager() {
         this(new ExpenseList(), new BudgetList(), new UserPrefs());
     }
 
-    public void setViewState(String state) {
-        viewState = state;
-    }
-
     public String getViewState() {
         return viewState;
     }
 
-    public void setLastViewedBudget(Budget budget) {
-        lastViewedBudget = budget;
+    public void setViewState(String state) {
+        viewState = state;
     }
 
     public Budget getLastViewedBudget() {
         return lastViewedBudget;
+    }
+
+    public void setLastViewedBudget(Budget budget) {
+        lastViewedBudget = budget;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -134,11 +133,8 @@ public class ModelManager implements Model {
     @Override
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
-        if (expenseFallsIntoABudget(expense)) {
-            return getBudgetExpenseFallsInto(expense).get().budgetHasExpense(expense);
-        } else {
-            return expenseList.hasExpense(expense);
-        }
+        Optional<Budget> budget = getBudgetExpenseFallsInto(expense);
+        return budget.map(value -> value.budgetHasExpense(expense)).orElseGet(() -> expenseList.hasExpense(expense));
     }
 
     @Override
@@ -148,8 +144,9 @@ public class ModelManager implements Model {
 
     @Override
     public void addExpense(Expense expense) {
-        if (expenseFallsIntoABudget(expense)) {
-            getBudgetExpenseFallsInto(expense).get().addExpenseIntoBudget(expense);
+        Optional<Budget> budget = getBudgetExpenseFallsInto(expense);
+        if (budget.isPresent()) {
+            budget.get().addExpenseIntoBudget(expense);
         } else {
             expenseList.addExpense(expense);
             updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
@@ -161,6 +158,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedExpense);
 
         expenseList.setExpense(target, editedExpense);
+    }
+
+    @Override
+    public FilteredList<Expense> getExpenses() {
+        return expenses;
     }
 
     //=========== Filtered Expense List Accessors =============================================================
@@ -274,5 +276,17 @@ public class ModelManager implements Model {
     public void updateFilteredBudgetList(Predicate<Budget> predicate) {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
+    }
+
+    /**
+     * @return all the expenses
+     */
+    private ObservableList<Expense> initExpenses() {
+        ObservableList<Expense> allExpenses = FXCollections.observableArrayList(new ArrayList<>());
+        allExpenses.addAll(this.expenseList.getExpenseList());
+        for (Budget budget : this.budgetList.getBudgetList()) {
+            allExpenses.addAll(budget.getExpenseList().getExpenseList());
+        }
+        return allExpenses;
     }
 }
