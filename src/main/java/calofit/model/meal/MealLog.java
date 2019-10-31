@@ -147,7 +147,8 @@ public class MealLog implements ReadOnlyMealLog {
      * @return True if meal was in the Log, false otherwise.
      */
     public boolean hasMeal(Meal meal) {
-        return observableMeals.contains(meal);
+        requireNonNull(meal);
+        return observableMeals.stream().anyMatch(meal::isSameMeal);
     }
 
     /**

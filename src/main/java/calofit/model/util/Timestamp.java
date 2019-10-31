@@ -27,6 +27,12 @@ public class Timestamp implements Comparable<Timestamp> {
         return Integer.compare(tiebreaker, timestamp.tiebreaker);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return this.getDateTime().toString().equals(
+                ((Timestamp) other).getDateTime().toString());
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
