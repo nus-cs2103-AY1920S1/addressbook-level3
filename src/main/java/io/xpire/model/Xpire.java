@@ -93,7 +93,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
         this.items.setXpireMethodOfSorting(method);
     }
 
-    //@@author
+    //@@author liawsy
     /**
      * Checks expiry date of every item in xpire.
      */
