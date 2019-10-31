@@ -23,8 +23,8 @@ public class LoanSlipDocument {
     private static final String LOGO_PATH = "/src/main/resources/images/LiBerryLogo.png";
     private static final String LOGO_NAME = "LiBerryLogo.png";
 
-    private static final String LINE_DIVIDER = "_______________________________________________________";
-    private static final String TEMP_LINE_DIVIDER = "__________________________________________";
+    //private static final String LINE_DIVIDER = "_______________________________________________________";
+    private static final String LINE_DIVIDER = "__________________________________________";
 
     private Document doc;
     private Table table;
