@@ -17,6 +17,7 @@ import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
+import seedu.address.model.loan.LoanList;
 
 /**
  * Edits the details of an existing Borrower in the borrower record.
@@ -36,7 +37,9 @@ public class EditBorrowerCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_BORROWER_SUCCESS = "Edited Borrower: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided."
+            + "\n"
+            + MESSAGE_USAGE;
 
 
     private final EditBorrowerDescriptor editBorrowerDescriptor;
@@ -88,8 +91,10 @@ public class EditBorrowerCommand extends Command {
         Phone updatedPhone = editBorrowerDescriptor.getPhone().orElse(borrowerToEdit.getPhone());
         Email updatedEmail = editBorrowerDescriptor.getEmail().orElse(borrowerToEdit.getEmail());
         BorrowerId borrowerId = borrowerToEdit.getBorrowerId();
+        LoanList currentLoanList = borrowerToEdit.getCurrentLoanList();
+        LoanList returnedLoanList = borrowerToEdit.getReturnedLoanList();
 
-        return new Borrower(updatedName, updatedPhone, updatedEmail, borrowerId);
+        return new Borrower(updatedName, updatedPhone, updatedEmail, borrowerId, currentLoanList, returnedLoanList);
     }
 
     @Override

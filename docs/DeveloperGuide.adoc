@@ -655,6 +655,7 @@ up of the application. Thus, it can make the application feel laggy and unrespon
 ** Cons: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
 `startDate` in order to obtain their insertion order.
 
+// tag::bookFinding[]
 === Book Finding
 The command for finding a book in the catalog is as follows: +
 `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }`
@@ -713,6 +714,7 @@ filtered books does not have an API that sets a hard limit on the number of book
 * **Alternative 2 (Currently Used): Create a counter variable in `BookPredicate` that decrements after every passed test**
 ** Pros: Easy to implement.
 ** Cons: Not the most cleanest way of implementation
+// end::bookFinding[]
 
 //tag::registerBorrower[]
 === Register borrower feature
@@ -722,6 +724,24 @@ representing the borrowers registered into the library system. The command to re
 system is as followed: +
 
 `register n/NAME p/PHONE_NUMBER e/EMAIL`
+
+Given below is an activity diagram of a borrower being registered into the Borrower Records of the library.
+
+.Activity Diagram for registering a borrower
+image:RegisterBorrowerActivityDiagram.png[width=270]
+{nbsp} +
+
+Given below is a class diagram of a book.
+
+.Class Diagram for `Borrower`
+image::BorrowerClassDiagram.png[width=400]
+{nbsp} +
+
+Given below is the object diagram of a newly registered borrower.
+
+.Object Diagram for `Borrower`
+image::BorrowerObjectDiagram.png[width=300]
+{nbsp} +
 
 ==== Design Considerations
 ===== Aspect: Generating a unique borrower ID
