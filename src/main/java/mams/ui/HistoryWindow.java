@@ -140,6 +140,9 @@ public class HistoryWindow extends UiPart<Stage> {
         historyListPanel.scrollToBottom();
     }
 
+    /**
+     * Copies the input of a InputOutput object to the system clipboard.
+     */
     public void copyToClipboard() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent copiedText = new ClipboardContent();
@@ -161,6 +164,7 @@ public class HistoryWindow extends UiPart<Stage> {
         case Q:
             keyEvent.consume();
             copyToClipboard();
+            break;
         default:
             break;
         }
