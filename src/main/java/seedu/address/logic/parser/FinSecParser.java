@@ -52,7 +52,7 @@ public class FinSecParser {
      */
     private static TreeMap<String, String> commandList;
 
-    private static ArrayList<String> shortcuts;
+    private static ArrayList<CommandItem> shortcuts;
 
 
     public FinSecParser(ObservableList<CommandItem> commands) {
@@ -62,7 +62,7 @@ public class FinSecParser {
         for (CommandItem commandItem : commands) {
             FinSecParser.commandList.put(commandItem.getCommandWord().word, commandItem.getCommandTask().task);
             if (!(commandItem.getCommandWord().word == commandItem.getCommandTask().task)) {
-                shortcuts.add(commandItem.getCommandWord().word);
+                shortcuts.add(commandItem);
             }
         }
     }
@@ -77,7 +77,7 @@ public class FinSecParser {
         return FinSecParser.commandList;
     }
 
-    public static ArrayList<String> getShortcutList() {
+    public static ArrayList<CommandItem> getShortcutList() {
         return FinSecParser.shortcuts;
     }
 
