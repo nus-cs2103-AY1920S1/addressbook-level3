@@ -45,7 +45,4 @@ public class CustomMode extends Mode {
         return new CustomMode(value, time, categoryPredicate, difficultyPredicate);
     }
 
-
-}
-
 }

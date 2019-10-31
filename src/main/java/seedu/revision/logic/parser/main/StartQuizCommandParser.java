@@ -14,6 +14,7 @@ import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Difficulty;
+import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.Mode;
 
 /**
@@ -43,6 +44,8 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
 
         Mode mode;
         Difficulty difficulty;
+        Category category;
+        int time;
 
         if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
             mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
@@ -58,10 +61,10 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
                 requireNonNull(mode);
                 return new StartQuizCommand(mode);
             }
-
         case "chaos":
             break;
-            case ""
+        case "custom":
+        
         }
 
 
