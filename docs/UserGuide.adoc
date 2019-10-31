@@ -108,13 +108,13 @@ Format: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
 
 Registers a new patient. +
 Format:  `register  -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
- [-email <EMAIL>] [-address <ADDRESS>] [r/<REMARK>] [-tag Allergies]...`
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 
 ==== Updates patients’ profiles: `update` ====
 
 If user is in the patients listing screen, updates any change for patients’ profiles +
 Format: `update <ENTRY_ID> [-name <PATIENT_NAME>] [-id <PATIENT_REFERENCE_ID>] [-phone <PHONE_NUM>]
- [-email <EMAIL>] [-address <ADDRESS>] [r/<REMARK>] [-tag Allergies]...`
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 
 
 === On-Duty Doctors Management ===
@@ -129,13 +129,13 @@ Format: `doctors [<DOCTOR_NAME>]`
 
 Registers a new doctor. +
 If the staff reference identifier is not specified, a unique identifier will be assigned by the system.
-Format: `newdoctor -name <STAFF_NAME> [-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>] [r/<REMARK>]`
+Format: `newdoctor -name <STAFF_NAME> [-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
 
 ==== Updates a doctor's profile: `updatedoctor` ====
 
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
 Format: `updatedoctor <ENTRY_ID> [-name <STAFF_NAME>]
-[-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>] [r/<REMARK>]`
+[-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
 
 ==== Marks the doctor as on-duty: `onduty` ====
 
@@ -281,16 +281,16 @@ Format: `redo`
 * *Patient Management* +
 ** patient: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
 ** register: `register  -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
- [-email <EMAIL>] [-address <ADDRESS>] [r/<REMARK>] [-tag Allergies]...`
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 ** unregister: `unregister <ENTRY_ID>`
 ** update: `update <ENTRY_ID> [-name <PATIENT_NAME>] [-id <PATIENT_REFERENCE_ID>] [-phone <PHONE_NUM>]
- [-email <EMAIL>] [-address <ADDRESS>] [r/<REMARK>] [-tag Allergies]...`
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag Allergies]...`
 
 * *On-Duty Doctors Management* +
 ** doctors: `doctors [<DOCTOR_NAME>]`
-** newdoctor: `newdoctor -name <STAFF_NAME> [-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>] [r/<REMARK>]`
+** newdoctor: `newdoctor -name <STAFF_NAME> [-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
 ** updatedoctor: `updatedoctor <ENTRY_ID> [-name <STAFF_NAME>]
-[-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>] [r/<REMARK>]`
+[-id <STAFF_REFERENCE_ID>] [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num `
 ** resigndoctor: `resigndoctor <ENTRY_ID>`
 ** onduty: `onduty <ROOM_NUMBER>`
 ** offduty: `offduty <ENTRY_ID>`
