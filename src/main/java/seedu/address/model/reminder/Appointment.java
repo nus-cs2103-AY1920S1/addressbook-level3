@@ -21,6 +21,21 @@ public class Appointment {
         return Integer.toString(days);
     }
 
+    /**
+     * Check for same Appointment with other Appointment
+     * @param otherAppt other Appointment object
+     * @return True if it is the same
+     */
+    public boolean isSameAppointment(Appointment otherAppt) {
+        if (otherAppt == this) {
+            return true;
+        }
+
+        return otherAppt != null
+                && otherAppt.getDescription().equals(getDescription())
+                && otherAppt.getDaysString().equals(getDaysString());
+    }
+
     @Override
     public String toString() {
         return description;
