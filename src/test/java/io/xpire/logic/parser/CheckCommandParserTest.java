@@ -30,7 +30,7 @@ public class CheckCommandParserTest {
         assertParseFailure(parser, "1.5",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE)); // non-integer number
         assertParseFailure(parser, (CheckCommandParser.MAX_VALUE + 1) + "",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE)); // exceeding max number
+                CheckCommand.MESSAGE_EXCEEDED_MAX); // exceeding max number
     }
 
 }
