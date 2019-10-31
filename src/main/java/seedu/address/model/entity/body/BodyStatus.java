@@ -38,5 +38,4 @@ public enum BodyStatus {
             throw new ParseException("Invalid Body Status: " + statusLowerCaps);
         }
     }
-
 }

@@ -86,7 +86,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
                     return new StatsCommand(date, timeFrame);
                 } else {
                     Date date = new SimpleDateFormat("dd/MM/yyyy")
-                        .parse(argMultimap.getValue(presentPrefix).get());
+                          .parse(argMultimap.getValue(presentPrefix).get());
                     return new StatsCommand(date, timeFrame);
                 }
             } catch (Exception e) {

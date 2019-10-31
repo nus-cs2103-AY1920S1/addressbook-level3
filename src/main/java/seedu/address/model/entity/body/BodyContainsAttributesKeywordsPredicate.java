@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -258,6 +259,23 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the body status of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
+    public void addBodyStatusToBodyMap(Body body) {
+        try {
+            if (body.getBodyStatus().isEmpty()) {
+                bodyMap.put(PREFIX_STATUS, "");
+            } else {
+                bodyMap.put(PREFIX_STATUS, body.getBodyStatus().get().toString());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception found in NOK name.");
+        }
+    }
+
     @Override
     public boolean test(Body body) {
         addCauseOfDeathToBodyMap(body);
@@ -273,6 +291,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         addRelationshipToBodyMap(body);
         addReligionToBodyMap(body);
         addSexToBodyMap(body);
+        addBodyStatusToBodyMap(body);
         return check();
     }
 
