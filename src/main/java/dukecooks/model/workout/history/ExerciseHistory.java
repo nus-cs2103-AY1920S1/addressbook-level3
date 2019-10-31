@@ -35,7 +35,7 @@ public class ExerciseHistory {
             return Duration.ZERO;
         }
         Duration totalDuration = Duration.ZERO;
-        for (ExerciseRun run : previousRuns){
+        for (ExerciseRun run : previousRuns) {
             totalDuration.plus(run.getTotalTimeTaken());
         }
         return totalDuration.dividedBy((long) previousRuns.size());
@@ -61,11 +61,12 @@ public class ExerciseHistory {
 
         ExerciseHistory otherHistory = (ExerciseHistory) other;
         return otherHistory.getNoTimesRan().equals(getNoTimesRan())
+                && otherHistory.getAverageRunTime().equals(getAverageRunTime())
                 && otherHistory.getPreviousRuns().equals(getPreviousRuns());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(noTimesRan, previousRuns);
+        return Objects.hash(noTimesRan, previousRuns, averageRunTime);
     }
 }

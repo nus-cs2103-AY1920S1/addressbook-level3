@@ -17,18 +17,19 @@ import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
 import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
-import dukecooks.storage.workout.WorkoutCatalogueStorage;
-import dukecooks.storage.workout.exercise.ExerciseCatalogueStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
 import dukecooks.storage.mealplan.MealPlanBookStorage;
 import dukecooks.storage.profile.UserProfileStorage;
 import dukecooks.storage.recipe.RecipeBookStorage;
+import dukecooks.storage.workout.WorkoutCatalogueStorage;
+import dukecooks.storage.workout.exercise.ExerciseCatalogueStorage;
 
 /**
  * API of the Storage component
  */
 public interface Storage extends RecipeBookStorage, MealPlanBookStorage, UserPrefsStorage,
-        UserProfileStorage, ExerciseCatalogueStorage, WorkoutCatalogueStorage, HealthRecordsStorage, DiaryStorage, DashboardStorage {
+        UserProfileStorage, ExerciseCatalogueStorage, WorkoutCatalogueStorage,
+        HealthRecordsStorage, DiaryStorage, DashboardStorage {
 
     // ================ UserPrefs methods ==============================
 
@@ -101,7 +102,7 @@ public interface Storage extends RecipeBookStorage, MealPlanBookStorage, UserPre
     @Override
     void saveExerciseCatalogue(ReadOnlyExerciseCatalogue dukeCooks) throws IOException;
 
-// ================ Workout methods ==============================
+    // ================ Workout methods ==============================
 
     @Override
     Path getWorkoutFilePath();

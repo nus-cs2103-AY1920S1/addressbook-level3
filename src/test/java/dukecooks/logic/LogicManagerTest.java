@@ -29,19 +29,22 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
 import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.storage.JsonUserPrefsStorage;
 import dukecooks.storage.StorageManager;
 import dukecooks.storage.dashboard.JsonDashboardStorage;
 import dukecooks.storage.diary.JsonDiaryStorage;
-import dukecooks.storage.workout.exercise.JsonExerciseCatalogueStorage;
 import dukecooks.storage.health.JsonHealthRecordsStorage;
 import dukecooks.storage.mealplan.JsonMealPlanBookStorage;
 import dukecooks.storage.profile.JsonUserProfileStorage;
 import dukecooks.storage.recipe.JsonRecipeBookStorage;
+import dukecooks.storage.workout.JsonWorkoutCatalogueStorage;
+import dukecooks.storage.workout.exercise.JsonExerciseCatalogueStorage;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.profile.PersonBuilder;
 import dukecooks.testutil.recipe.RecipeBuilder;
+
 
 
 public class LogicManagerTest {
@@ -67,12 +70,14 @@ public class LogicManagerTest {
                 new JsonHealthRecordsStorage(temporaryFolder.resolve("healthrecords.json"));
         JsonExerciseCatalogueStorage workoutPlannerStorage =
                 new JsonExerciseCatalogueStorage(temporaryFolder.resolve("exercises.json"));
+        JsonWorkoutCatalogueStorage workoutCatalogueStorage =
+                new JsonWorkoutCatalogueStorage(temporaryFolder.resolve("workouts.json"));
         JsonDiaryStorage diaryStorage =
                 new JsonDiaryStorage(temporaryFolder.resolve("diary.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
         StorageManager storage = new StorageManager(userProfileStorage, healthRecordsStorage,
-                recipeBookStorage, mealPlanBookStorage, workoutPlannerStorage, diaryStorage,
+                recipeBookStorage, mealPlanBookStorage, workoutPlannerStorage, workoutCatalogueStorage, diaryStorage,
                 dashboardStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
@@ -122,6 +127,9 @@ public class LogicManagerTest {
         JsonExerciseCatalogueStorage workoutPlannerStorage =
                 new JsonExerciseCatalogueStorageIoExceptionThrowingStub(temporaryFolder
                         .resolve("ioExceptionWorkoutPlanner.json"));
+        JsonWorkoutCatalogueStorage workoutCatalogueStorage =
+                new JsonWorkoutCatalogueStorageIoExceptionThrowingStub(temporaryFolder
+                        .resolve("ioExceptionWorkouts.json"));
         // Setup LogicManager with JsonDiaryIoExceptionThrowingStub
         JsonDiaryStorage diaryStorage =
                 new JsonDiaryIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDiary.json"));
@@ -132,7 +140,7 @@ public class LogicManagerTest {
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
         StorageManager storage = new StorageManager(userProfileStorage, null,
-                recipeBookStorage, mealPlanBookStorage, workoutPlannerStorage, diaryStorage,
+                recipeBookStorage, mealPlanBookStorage, workoutPlannerStorage, workoutCatalogueStorage, diaryStorage,
                 dashboardStorage, userPrefsStorage);
         new JsonUserPrefsStorage(temporaryFolder
                 .resolve("ioExceptionUserPrefs.json"));
@@ -213,7 +221,7 @@ public class LogicManagerTest {
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getUserProfile(), model.getDashboardRecords(),
                 model.getHealthRecords(), model.getRecipeBook(), model.getMealPlanBook(), model.getExerciseCatalogue(),
-                model.getDiaryRecords(), new UserPrefs());
+                model.getWorkoutCatalogue(), model.getDiaryRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -255,6 +263,21 @@ public class LogicManagerTest {
 
         @Override
         public void saveExerciseCatalogue(ReadOnlyExerciseCatalogue dukeCooks, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonWorkoutCatalogueStorageIoExceptionThrowingStub extends JsonWorkoutCatalogueStorage {
+
+        private JsonWorkoutCatalogueStorageIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveWorkoutCatalogue(ReadOnlyWorkoutCatalogue dukeCooks, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

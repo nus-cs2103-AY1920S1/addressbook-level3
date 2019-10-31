@@ -1,26 +1,30 @@
 package dukecooks.storage.workout.exercise;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import dukecooks.commons.exceptions.IllegalValueException;
-import dukecooks.model.workout.exercise.ExerciseSetAttempt;
-import dukecooks.model.workout.exercise.details.Sets;
-import dukecooks.model.workout.history.ExerciseRun;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.model.workout.exercise.ExerciseSetAttempt;
+import dukecooks.model.workout.exercise.details.Sets;
+import dukecooks.model.workout.history.ExerciseRun;
+
+/**
+ * Jackson friendly version of ExerciseRun.
+ */
 public class JsonAdaptedExerciseRun {
 
-    final private LocalDateTime timeStarted;
-    final private LocalDateTime timeEnded;
-    final private JsonAdaptedSets setsAttempted;
-    final private JsonAdaptedSets setsCompleted;
-    final private List<JsonAdaptedExerciseSetAttempt> exerciseSetAttempts;
-    final private Duration totalTimeTaken;
+    private final LocalDateTime timeStarted;
+    private final LocalDateTime timeEnded;
+    private final JsonAdaptedSets setsAttempted;
+    private final JsonAdaptedSets setsCompleted;
+    private final List<JsonAdaptedExerciseSetAttempt> exerciseSetAttempts;
+    private final Duration totalTimeTaken;
 
     /**
      * Constructs a {@code JsonAdaptedExerciseRun} with the given parameters.

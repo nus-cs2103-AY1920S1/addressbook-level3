@@ -1,11 +1,11 @@
 package dukecooks.storage.workout;
 
-import dukecooks.commons.exceptions.DataConversionException;
-import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import dukecooks.commons.exceptions.DataConversionException;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
 
 /**
  * Represents a storage for {@link dukecooks.model.workout.WorkoutCatalogue}.

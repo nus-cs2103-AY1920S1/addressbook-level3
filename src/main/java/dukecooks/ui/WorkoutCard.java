@@ -1,17 +1,22 @@
-package dukecooks.model.workout;
+package dukecooks.ui;
 
-import dukecooks.ui.UiPart;
+import java.util.Comparator;
+
+import dukecooks.model.workout.Workout;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
-import java.util.Comparator;
 
+/**
+ * An UI component that displays information of a {@code Workout}.
+ */
 public class WorkoutCard extends UiPart<Region> {
 
-    private final static String FXML = "WorkoutListCard.fxml";
+    private static final String FXML = "WorkoutListCard.fxml";
 
     public final Workout workout;
 
@@ -35,7 +40,7 @@ public class WorkoutCard extends UiPart<Region> {
         workoutName.setText(workout.getName().workoutName);
         workout.getExercises().stream()
                 .sorted(Comparator.comparing(exercise -> exercise.toString()))
-                .forEach(exercise -> exercises.getChildren().add(new Label(exercise.getExerciseName().exerciseName)));
+                .forEach(exercise -> exercises.getChildren().add(new Label(exercise.exerciseName)));
         workout.getMusclesTrained().stream()
                 .sorted(Comparator.comparing(muscleType -> muscleType.toString()))
                 .forEach(muscleType -> musclesTrained.getChildren().add(new Label(muscleType.getMuscleType())));

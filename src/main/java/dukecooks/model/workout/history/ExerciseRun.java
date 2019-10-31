@@ -1,24 +1,24 @@
 package dukecooks.model.workout.history;
 
-import dukecooks.model.workout.exercise.ExerciseSetAttempt;
-import dukecooks.model.workout.exercise.details.Sets;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import dukecooks.model.workout.exercise.ExerciseSetAttempt;
+import dukecooks.model.workout.exercise.details.Sets;
 
 /**
  * Represents one run of the exercise in a workout.
  */
 public class ExerciseRun {
 
-    final private LocalDateTime timeStarted;
-    final private LocalDateTime timeEnded;
-    final private Sets setsAttempted;
-    final private Sets setsCompleted;
-    final private ArrayList<ExerciseSetAttempt> exerciseSetAttempts;
-    final private Duration totalTimeTaken;
+    private final LocalDateTime timeStarted;
+    private final LocalDateTime timeEnded;
+    private final Sets setsAttempted;
+    private final Sets setsCompleted;
+    private final ArrayList<ExerciseSetAttempt> exerciseSetAttempts;
+    private final Duration totalTimeTaken;
 
 
     public ExerciseRun(LocalDateTime timeStarted, LocalDateTime timeEnded, Sets setsAttempted,
@@ -70,12 +70,14 @@ public class ExerciseRun {
                 && otherRun.getTimeStarted().equals(getTimeStarted())
                 && otherRun.getTimeEnded().equals(getTimeEnded())
                 && otherRun.getSetsAttempted().equals(getSetsAttempted())
-                && otherRun.getSetsCompleted().equals(getSetsCompleted());
+                && otherRun.getSetsCompleted().equals(getSetsCompleted())
+                && otherRun.getTotalTimeTaken().equals(getTotalTimeTaken());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(timeStarted, timeStarted, setsAttempted, setsCompleted, exerciseSetAttempts);
+        return Objects.hash(timeStarted, timeStarted, setsAttempted, setsCompleted, exerciseSetAttempts,
+                totalTimeTaken);
     }
 }
 

@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.ModelStub;
-import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.ExerciseCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.exercise.ExerciseBuilder;
@@ -45,7 +45,7 @@ public class AddExerciseCommandTest {
         ModelStub modelStub = new ModelStubWithPerson(validExercise);
 
         Assert.assertThrows(CommandException.class, AddExerciseCommand
-                .MESSAGE_DUPLICATE_PERSON, () -> addExerciseCommand.execute(modelStub));
+                .MESSAGE_DUPLICATE_EXERCISE, () -> addExerciseCommand.execute(modelStub));
     }
 
     @Test

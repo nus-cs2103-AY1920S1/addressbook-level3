@@ -1,16 +1,16 @@
 package dukecooks.model.workout;
 
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the workout catalogue level
  * Duplicates are not allowed (by .isSameWorkout comparison)
  */
-public class WorkoutCatalogue implements  ReadOnlyWorkoutCatalogue{
+public class WorkoutCatalogue implements ReadOnlyWorkoutCatalogue {
 
     private final UniqueWorkoutList workouts;
 
@@ -102,7 +102,9 @@ public class WorkoutCatalogue implements  ReadOnlyWorkoutCatalogue{
     }
 
     @Override
-    public ObservableList<Workout> getWorkoutList() { return  workouts.asUnmodifiableObservableList(); }
+    public ObservableList<Workout> getWorkoutList() {
+        return workouts.asUnmodifiableObservableList();
+    }
 
     @Override
     public boolean equals(Object other) {

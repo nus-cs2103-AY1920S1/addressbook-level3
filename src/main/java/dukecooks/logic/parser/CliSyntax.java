@@ -22,6 +22,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_WEIGHT = new Prefix("w/");
     public static final Prefix PREFIX_TIMING = new Prefix("t/");
     public static final Prefix PREFIX_WORKOUT_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_EXERCISE_INDEX = new Prefix("ei/");
+    public static final Prefix PREFIX_WORKOUT_INDEX = new Prefix("wi/");
 
     /* Recipe Book */
     public static final Prefix PREFIX_INGREDIENT = new Prefix("i/");

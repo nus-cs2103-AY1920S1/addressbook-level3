@@ -1,10 +1,14 @@
 package dukecooks.model.workout;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.logic.parser.exercise.WorkoutPlannerParserUtil;
 import dukecooks.model.workout.exercise.components.Exercise;
+import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.components.MuscleType;
 import dukecooks.model.workout.exercise.details.ExerciseDetail;
@@ -15,24 +19,24 @@ import dukecooks.model.workout.history.WorkoutHistory;
  */
 public class Workout {
 
-    private WorkoutName name;
-    private ArrayList<Exercise> exercises;
-    private ArrayList<Set<ExerciseDetail>> exercisesDetails;
-    private ArrayList<MuscleType> musclesTrained;
-    private Intensity averageIntensity;
-    private WorkoutHistory history;
+    private final WorkoutName name;
+    private final ArrayList<ExerciseName> exercises;
+    private final ArrayList<Set<ExerciseDetail>> exercisesDetails;
+    private final Set<MuscleType> musclesTrained;
+    private final Intensity averageIntensity;
+    private final WorkoutHistory history;
 
-    public Workout(WorkoutName name){
+    public Workout(WorkoutName name) {
         this.name = name;
         exercises = new ArrayList<>();
         exercisesDetails = new ArrayList<>();
-        musclesTrained = new ArrayList<>();
+        musclesTrained = new HashSet<>();
         averageIntensity = Intensity.LOW;
         history = new WorkoutHistory(new ArrayList<>());
     }
 
-    public Workout(WorkoutName name, ArrayList<Exercise> exercises, ArrayList<Set<ExerciseDetail>> exercisesDetails,
-                   ArrayList<MuscleType> musclesTrained, Intensity averageIntensity, WorkoutHistory history) {
+    public Workout(WorkoutName name, ArrayList<ExerciseName> exercises, ArrayList<Set<ExerciseDetail>> exercisesDetails,
+                   Set<MuscleType> musclesTrained, Intensity averageIntensity, WorkoutHistory history) {
         this.name = name;
         this.exercises = exercises;
         this.exercisesDetails = exercisesDetails;
@@ -41,11 +45,49 @@ public class Workout {
         this.history = history;
     }
 
-    public ArrayList<Exercise> getExercises() {
+    /**
+     * Returns a new workout with the exercise added
+     *
+     */
+
+    public Workout pushExercise(Exercise exercise, Set<ExerciseDetail> newExerciseDetails) {
+        ArrayList<ExerciseName> newExercises = new ArrayList<>(exercises);
+        newExercises.add(exercise.getExerciseName());
+        ArrayList<Set<ExerciseDetail>> newExercisesDetails = new ArrayList<>(exercisesDetails);
+        newExercisesDetails.add(newExerciseDetails);
+        Set<MuscleType> newMusclesTrained = new HashSet<>(musclesTrained);
+        newMusclesTrained.add(exercise.getMusclesTrained().getPrimaryMuscle());
+        newMusclesTrained.addAll(exercise.getMusclesTrained().getSecondaryMuscles());
+        Intensity newAverageIntensity = getNewAverageIntensity(averageIntensity,
+                exercise.getIntensity(), newExercises.size());
+        return new Workout(name, newExercises, newExercisesDetails, newMusclesTrained, newAverageIntensity, history);
+    }
+
+    /**
+     * Returns a new workout with the exercise added , using the default exercise details.
+     *
+     */
+
+    public Workout pushExercise(Exercise exercise) {
+        return pushExercise(exercise, exercise.getExerciseDetails());
+    }
+
+    private Intensity getNewAverageIntensity(Intensity oldAverageIntensity, Intensity intensity, int size) {
+        double totalIntensity = oldAverageIntensity.toInt() * (size - 1);
+        totalIntensity += intensity.toInt();
+        Integer newAverageIntensity = (int) Math.round((totalIntensity / (size)));
+        try {
+            return WorkoutPlannerParserUtil.parseIntensity(newAverageIntensity.toString());
+        } catch (ParseException ex) {
+            throw new AssertionError("Shouldn't get here");
+        }
+    }
+
+    public ArrayList<ExerciseName> getExercises() {
         return exercises;
     }
 
-    public ArrayList<MuscleType> getMusclesTrained() {
+    public Set<MuscleType> getMusclesTrained() {
         return musclesTrained;
     }
 

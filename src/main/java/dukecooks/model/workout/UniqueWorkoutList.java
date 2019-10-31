@@ -1,16 +1,15 @@
 package dukecooks.model.workout;
 
+import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+
+import java.util.Iterator;
+import java.util.List;
 
 import dukecooks.model.workout.exceptions.DuplicateWorkoutException;
 import dukecooks.model.workout.exceptions.WorkoutNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.Iterator;
-import java.util.List;
-
-import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
-import static java.util.Objects.requireNonNull;
 
 /**
  * A list of workouts that enforces uniqueness between its elements and does not allow nulls.

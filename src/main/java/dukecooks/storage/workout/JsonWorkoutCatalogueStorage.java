@@ -1,5 +1,12 @@
 package dukecooks.storage.workout;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.commons.exceptions.DataConversionException;
 import dukecooks.commons.exceptions.IllegalValueException;
@@ -7,17 +14,11 @@ import dukecooks.commons.util.FileUtil;
 import dukecooks.commons.util.JsonUtil;
 import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
 
 /**
- * A class to access Workout Catalgue data stored as a json file on the hard disk.
+ * A class to access Workout Catalogue data stored as a json file on the hard disk.
  */
-public class JsonWorkoutCatalogueStorage implements WorkoutCatalogueStorage{
+public class JsonWorkoutCatalogueStorage implements WorkoutCatalogueStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonWorkoutCatalogueStorage.class);
 

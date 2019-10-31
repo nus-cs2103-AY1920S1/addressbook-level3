@@ -1,11 +1,11 @@
 package dukecooks.model.workout.exercise;
 
+import java.util.Objects;
+
 import dukecooks.model.workout.exercise.details.Distance;
 import dukecooks.model.workout.exercise.details.ExerciseWeight;
 import dukecooks.model.workout.exercise.details.Repetitions;
 import dukecooks.model.workout.exercise.details.Timing;
-
-import java.util.Objects;
 
 /**
  * Represents one attempt of an exercise set, containing all the relevant details.
@@ -19,7 +19,8 @@ public class ExerciseSetAttempt {
     private final Timing time;
     private final Timing restTime;
 
-    public ExerciseSetAttempt(ExerciseWeight weight, Distance distance, Repetitions reps, Timing time, Timing restTime){
+    public ExerciseSetAttempt(ExerciseWeight weight, Distance distance,
+                              Repetitions reps, Timing time, Timing restTime) {
         this.weight = weight;
         this.distance = distance;
         this.reps = reps;
@@ -48,7 +49,7 @@ public class ExerciseSetAttempt {
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         if (other == this) {
             return true;
         }

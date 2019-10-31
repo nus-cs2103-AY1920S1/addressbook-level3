@@ -21,6 +21,23 @@ public enum Intensity {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns Intensity in int form.
+     */
+    public int toInt() {
+        switch(this) {
+
+        case HIGH:
+            return 3;
+
+        case MEDIUM:
+            return 2;
+
+        default:
+            return 1;
+        }
+    }
+
     @Override
     public String toString() {
         return super.toString().toLowerCase();

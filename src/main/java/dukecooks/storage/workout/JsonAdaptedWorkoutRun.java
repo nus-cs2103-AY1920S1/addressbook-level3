@@ -1,20 +1,22 @@
 package dukecooks.storage.workout;
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import dukecooks.commons.exceptions.IllegalValueException;
-import dukecooks.model.workout.history.ExerciseRun;
-import dukecooks.model.workout.history.WorkoutRun;
-import dukecooks.storage.workout.exercise.JsonAdaptedExerciseRun;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.model.workout.history.ExerciseRun;
+import dukecooks.model.workout.history.WorkoutRun;
+import dukecooks.storage.workout.exercise.JsonAdaptedExerciseRun;
+
+/**
+ * Jackson friendly version of WorkoutRun.
+ */
 public class JsonAdaptedWorkoutRun {
 
     private LocalDateTime timeStarted;

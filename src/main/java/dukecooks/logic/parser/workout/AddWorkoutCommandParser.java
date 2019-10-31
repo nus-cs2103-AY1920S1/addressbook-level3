@@ -1,5 +1,10 @@
 package dukecooks.logic.parser.workout;
 
+import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
+
+import java.util.stream.Stream;
+
 import dukecooks.logic.commands.workout.AddWorkoutCommand;
 import dukecooks.logic.parser.ArgumentMultimap;
 import dukecooks.logic.parser.ArgumentTokenizer;
@@ -9,11 +14,6 @@ import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.parser.exercise.WorkoutPlannerParserUtil;
 import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.WorkoutName;
-
-import java.util.stream.Stream;
-
-import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
 
 /**
  * Parses input arguments and creates a new AddWorkoutCommand object
@@ -28,7 +28,7 @@ public class AddWorkoutCommandParser implements Parser<AddWorkoutCommand> {
     public AddWorkoutCommand parse(String args) throws ParseException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_WORKOUT_NAME);
 
-        if(!arePrefixesPresent(argumentMultimap, PREFIX_WORKOUT_NAME) || !argumentMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_WORKOUT_NAME) || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException((String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddWorkoutCommand.MESSAGE_USAGE)));
         }
         WorkoutName name = WorkoutPlannerParserUtil.parseWorkoutName(argumentMultimap.getValue(PREFIX_WORKOUT_NAME)

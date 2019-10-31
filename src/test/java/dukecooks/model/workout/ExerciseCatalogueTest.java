@@ -11,10 +11,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import dukecooks.model.workout.exercise.ExerciseCatalogue;
-import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.exceptions.DuplicateExerciseException;
 import dukecooks.testutil.Assert;
@@ -22,25 +22,25 @@ import dukecooks.testutil.exercise.ExerciseBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class WorkoutPlannerTest {
+public class ExerciseCatalogueTest {
 
-    private final ExerciseCatalogue workoutPlanner = new ExerciseCatalogue();
+    private final ExerciseCatalogue exerciseCatalogue = new ExerciseCatalogue();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), workoutPlanner.getExerciseList());
+        assertEquals(Collections.emptyList(), exerciseCatalogue.getExerciseList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> workoutPlanner.resetData(null));
+        Assert.assertThrows(NullPointerException.class, () -> exerciseCatalogue.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyDukeCooks_replacesData() {
         ExerciseCatalogue newData = getTypicalWorkoutPlanner();
-        workoutPlanner.resetData(newData);
-        assertEquals(newData, workoutPlanner);
+        exerciseCatalogue.resetData(newData);
+        assertEquals(newData, exerciseCatalogue);
     }
 
     @Test
@@ -52,37 +52,37 @@ public class WorkoutPlannerTest {
         List<Exercise> newExercises = Arrays.asList(ABS_ROLLOUT, editedAbsRollout);
         ExerciseCatalogueStub newData = new ExerciseCatalogueStub(newExercises);
 
-        Assert.assertThrows(DuplicateExerciseException.class, () -> workoutPlanner.resetData(newData));
+        Assert.assertThrows(DuplicateExerciseException.class, () -> exerciseCatalogue.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullExercise_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> workoutPlanner.hasExercise(null));
+        Assert.assertThrows(NullPointerException.class, () -> exerciseCatalogue.hasExercise(null));
     }
 
     @Test
     public void hasExercise_exerciseNotInDukeCooks_returnsFalse() {
-        assertFalse(workoutPlanner.hasExercise(ABS_ROLLOUT));
+        assertFalse(exerciseCatalogue.hasExercise(ABS_ROLLOUT));
     }
 
     @Test
     public void hasExercise_exerciseInDukeCooks_returnsTrue() {
-        workoutPlanner.addExercise(ABS_ROLLOUT);
-        assertTrue(workoutPlanner.hasExercise(ABS_ROLLOUT));
+        exerciseCatalogue.addExercise(ABS_ROLLOUT);
+        assertTrue(exerciseCatalogue.hasExercise(ABS_ROLLOUT));
     }
 
     @Test
     public void hasExercise_exerciseWithSameIdentityFieldsInDukeCooks_returnsTrue() {
-        workoutPlanner.addExercise(ABS_ROLLOUT);
+        exerciseCatalogue.addExercise(ABS_ROLLOUT);
         Exercise editedAbsRollout = new ExerciseBuilder(ABS_ROLLOUT)
                 .withDetails(null, null, null, null, 99, 99)
                 .build();
-        assertTrue(workoutPlanner.hasExercise(editedAbsRollout));
+        assertTrue(exerciseCatalogue.hasExercise(editedAbsRollout));
     }
 
     @Test
     public void getExerciseList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> workoutPlanner.getExerciseList().remove(0));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> exerciseCatalogue.getExerciseList().remove(0));
     }
 
     /**

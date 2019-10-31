@@ -1,16 +1,17 @@
 package dukecooks.storage.workout;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
 import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.WorkoutCatalogue;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable Workout Catalogue that is serializable to JSON format.

@@ -2,6 +2,10 @@ package dukecooks.model.workout.exercise.details;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents the Timing of an exercise in the Workout Planner.
+ * Guarantees: immutable;
+ */
 public class Timing<Duration> extends ExerciseDetail {
 
     public Timing(Duration time) {

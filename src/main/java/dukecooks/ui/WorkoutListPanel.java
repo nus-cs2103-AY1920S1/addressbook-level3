@@ -1,16 +1,19 @@
 package dukecooks.ui;
 
+import java.util.logging.Logger;
+
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.model.workout.Workout;
-import dukecooks.model.workout.WorkoutCard;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
-import java.util.logging.Logger;
 
+/**
+ * Panel containing the list of workouts.
+ */
 public class WorkoutListPanel extends UiPart<Region> {
     private static final String FXML = "WorkoutListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ExerciseListPanel.class);

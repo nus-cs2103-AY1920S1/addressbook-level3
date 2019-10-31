@@ -30,12 +30,15 @@ public class WorkoutHistory {
         return new WorkoutHistory(newPreviousRuns);
     }
 
+    /**
+     * Returns the average run time amongst all the previous runs.
+     */
     private Duration calcAverageRunTime() {
         if (previousRuns.isEmpty()) {
             return Duration.ZERO;
         }
         Duration totalDuration = Duration.ZERO;
-        for (WorkoutRun run : previousRuns){
+        for (WorkoutRun run : previousRuns) {
             totalDuration.plus(run.getTotalTimeTaken());
         }
         return totalDuration.dividedBy((long) previousRuns.size());

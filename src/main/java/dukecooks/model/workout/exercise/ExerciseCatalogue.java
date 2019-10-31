@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import dukecooks.model.workout.UniqueWorkoutList;
-import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.UniqueExerciseList;
 import javafx.collections.ObservableList;

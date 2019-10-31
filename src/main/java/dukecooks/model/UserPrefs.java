@@ -167,7 +167,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal WorkoutPlanner data file location : " + exercisesFilePath + ", "  + workoutFilePath);
+        sb.append("\nLocal WorkoutPlanner data file location : " + exercisesFilePath + ", " + workoutFilePath);
         sb.append("\nLocal UserPref data file location : " + userProfileFilePath);
         sb.append("\nLocal RecipeBook data file location : " + recipesFilePath);
         sb.append("\nLocal data file location : " + diaryFilePath);

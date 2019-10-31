@@ -1,13 +1,13 @@
 package dukecooks.logic.commands.workout;
 
+import static dukecooks.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
+import static java.util.Objects.requireNonNull;
+
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
 import dukecooks.model.workout.Workout;
-
-import static dukecooks.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
-import static java.util.Objects.requireNonNull;
 
 /**
  *  Initialises a Workout in Duke Cooks

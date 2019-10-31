@@ -1,12 +1,20 @@
 package dukecooks.storage.workout;
 
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.logic.parser.exercise.WorkoutPlannerParserUtil;
 import dukecooks.model.workout.Workout;
 import dukecooks.model.workout.WorkoutName;
-import dukecooks.model.workout.exercise.components.Exercise;
+import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.components.MuscleType;
 import dukecooks.model.workout.exercise.details.Distance;
@@ -18,27 +26,22 @@ import dukecooks.model.workout.exercise.details.Timing;
 import dukecooks.model.workout.history.WorkoutHistory;
 import dukecooks.model.workout.history.WorkoutRun;
 import dukecooks.storage.workout.exercise.JsonAdaptedDistance;
-import dukecooks.storage.workout.exercise.JsonAdaptedExercise;
 import dukecooks.storage.workout.exercise.JsonAdaptedExerciseDetail;
 import dukecooks.storage.workout.exercise.JsonAdaptedMuscleType;
 import dukecooks.storage.workout.exercise.JsonAdaptedSets;
 import dukecooks.storage.workout.exercise.JsonAdaptedTiming;
 import dukecooks.storage.workout.exercise.JsonAdaptedWeight;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+/**
+ * Jackson friendly version of Workout.
+ */
 public class JsonAdaptedWorkout {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Workout's %s field is missing!";
 
     private final String name;
-    private final List<JsonAdaptedExercise> exercises = new ArrayList<>();
-    private final List<JsonAdaptedMuscleType> musclesTrained = new ArrayList<>();
+    private final List<String> exercises = new ArrayList<>();
+    private final Set<JsonAdaptedMuscleType> musclesTrained = new HashSet<>();
     private final List<List<JsonAdaptedExerciseDetail>> exercisesDetails = new ArrayList<>();
     private final String averageIntensity;
     private final List<JsonAdaptedWorkoutRun> previousRuns = new ArrayList<>();
@@ -48,8 +51,8 @@ public class JsonAdaptedWorkout {
      */
     @JsonCreator
     public JsonAdaptedWorkout(@JsonProperty("name") String name,
-                               @JsonProperty("exercises") List<JsonAdaptedExercise> exercises,
-                               @JsonProperty("musclesTrained") List<JsonAdaptedMuscleType> musclesTrained,
+                               @JsonProperty("exercises") List<String> exercises,
+                               @JsonProperty("musclesTrained") Set<JsonAdaptedMuscleType> musclesTrained,
                                @JsonProperty("exercisesDetails") List<List<JsonAdaptedExerciseDetail>> exercisesDetails,
                                @JsonProperty("averageIntensity") String averageIntensity,
                                @JsonProperty("noTimesRan") Integer noTimesRan,
@@ -78,7 +81,7 @@ public class JsonAdaptedWorkout {
     public JsonAdaptedWorkout(Workout source) {
         name = source.getName().workoutName;
         exercises.addAll(source.getExercises().stream()
-                .map(JsonAdaptedExercise::new)
+                .map(name -> name.toString())
                 .collect(Collectors.toList()));
         musclesTrained.addAll(source.getMusclesTrained().stream()
                 .map(JsonAdaptedMuscleType::new)
@@ -107,7 +110,7 @@ public class JsonAdaptedWorkout {
             return new JsonAdaptedDistance((Distance) detail);
         } else if (detail instanceof Repetitions) {
             return new JsonAdaptedTiming((Repetitions) detail);
-        } else if (detail instanceof Sets){
+        } else if (detail instanceof Sets) {
             return new JsonAdaptedSets((Sets) detail);
         } else {
             return new JsonAdaptedTiming((Timing) detail);
@@ -129,12 +132,12 @@ public class JsonAdaptedWorkout {
         }
         final WorkoutName modelWorkoutName = new WorkoutName(name);
 
-        final ArrayList<Exercise> modelExercises = new ArrayList<>();
-        for (JsonAdaptedExercise exercise : exercises) {
-            modelExercises.add(exercise.toModelType());
+        final ArrayList<ExerciseName> modelExercises = new ArrayList<>();
+        for (String exercise : exercises) {
+            modelExercises.add(new ExerciseName(exercise));
         }
 
-        final ArrayList<MuscleType> modelMusclesTrained = new ArrayList<>();
+        final Set<MuscleType> modelMusclesTrained = new HashSet<>();
         for (JsonAdaptedMuscleType muscleType : musclesTrained) {
             modelMusclesTrained.add(muscleType.toModelType());
         }

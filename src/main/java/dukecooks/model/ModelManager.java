@@ -29,10 +29,10 @@ import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
-import dukecooks.model.workout.WorkoutCatalogue;
-import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.Workout;
+import dukecooks.model.workout.WorkoutCatalogue;
 import dukecooks.model.workout.exercise.ExerciseCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -728,7 +728,9 @@ public class ModelManager implements Model {
     //=========== Filtered Workout List Accessors =============================================================
 
     @Override
-    public ObservableList<Workout> getFilteredWorkoutList() { return filteredWorkout; }
+    public ObservableList<Workout> getFilteredWorkoutList() {
+        return filteredWorkout;
+    }
 
     @Override
     public void updateFilteredWorkoutList(Predicate<Workout> predicate) {

@@ -16,16 +16,16 @@ import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
-import dukecooks.model.workout.WorkoutCatalogue;
 import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
-import dukecooks.storage.workout.WorkoutCatalogueStorage;
-import dukecooks.storage.workout.exercise.ExerciseCatalogueStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
 import dukecooks.storage.mealplan.MealPlanBookStorage;
 import dukecooks.storage.profile.UserProfileStorage;
 import dukecooks.storage.recipe.RecipeBookStorage;
+import dukecooks.storage.workout.WorkoutCatalogueStorage;
+import dukecooks.storage.workout.exercise.ExerciseCatalogueStorage;
+
 
 /**
  * Manages storage of DukeCooks data in local storage.
@@ -209,6 +209,7 @@ public class StorageManager implements Storage {
         return readExerciseCatalogue(exerciseCatalogueStorage.getExerciseFilePath());
     }
 
+    @Override
     public Optional<ReadOnlyExerciseCatalogue> readExerciseCatalogue(Path exerciseFilePath)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + exerciseFilePath);
@@ -238,6 +239,7 @@ public class StorageManager implements Storage {
         return readWorkoutCatalogue(workoutCatalogueStorage.getWorkoutFilePath());
     }
 
+    @Override
     public Optional<ReadOnlyWorkoutCatalogue> readWorkoutCatalogue(Path workoutFilePath)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + workoutFilePath);
