@@ -11,10 +11,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.notif.Notif;
 
@@ -42,6 +44,7 @@ public class NotificationButton extends UiPart<Region> {
 
     private NotificationButton(ObservableList<Notif> filteredListNotif) {
         super(FXML);
+        buttonIcon.setImage(new Image(MainApp.class.getResourceAsStream("/images/bell_icon.png")));
         notifButton.setGraphic(buttonIcon);
         notifButton.setStyle("-fx-border-width: 0");
         initIconNumber(filteredListNotif);

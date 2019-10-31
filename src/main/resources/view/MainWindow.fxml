@@ -40,7 +40,10 @@
                   <HBox layoutX="150.0">
                      <children>
                               <StackPane fx:id="commandBoxPlaceholder" prefWidth="800.0" />
-                              <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" />
+                              <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" maxHeight="22.0" maxWidth="22.0" prefHeight="22.0" prefWidth="22.0">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin></StackPane>
                      </children>
                   </HBox>
                         <HBox layoutX="1064.0" AnchorPane.rightAnchor="0.0">

@@ -492,12 +492,6 @@
     -fx-font-size: 10;
 }
 
-#notifButton {
-    -fx-background-image: url("../images/bell_icon.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-}
-
 .notificationButtonLabel {
     -fx-text-fill: white;
     -fx-font-weight: bold;

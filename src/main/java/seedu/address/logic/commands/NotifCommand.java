@@ -102,7 +102,7 @@ public class NotifCommand extends Command {
      *
      * @param model refers to the ModelManager
      */
-    public void startSesChangeBodyStatusUi(Model model) throws CommandException {
+    public void startSesChangeBodyStatusUi(Model model) {
 
         Body body = notif.getBody();
         String notifContent = "Body Id: " + body.getIdNum()
@@ -125,8 +125,6 @@ public class NotifCommand extends Command {
                     logger.info("Error updating the body and fridge ");
                 }
             }
-            NotificationButton.getInstance(model.getFilteredNotifList())
-                    .updateNotifCountOnNotifButton(model.getFilteredNotifList());
         });
         ses.schedule(changeUi, period, timeUnit);
     }
