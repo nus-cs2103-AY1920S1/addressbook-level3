@@ -468,7 +468,7 @@
     -fx-alignment: center;
 }
 
-#groupDetailCard, #detailCard, #listHeaderContainer, #listMemberContainer {
+#groupDetailCard, #detailCard, #listHeaderContainer, #listMemberContainer, #exportContainer {
     -fx-background: #222831;
     -fx-background-color: #222831;
 }

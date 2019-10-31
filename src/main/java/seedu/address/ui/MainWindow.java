@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.export.Exporter;
 import seedu.address.logic.export.GroupScheduleExporter;
 import seedu.address.logic.export.IndividualScheduleExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -256,14 +257,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Method to handle exportation of view.
-     * @param scheduleWindowDisplay Details to be exported.
+     * Method to handle exportation of the current schedule view.
      */
-    private void handleExport(ScheduleWindowDisplay scheduleWindowDisplay) {
-        ScheduleWindowDisplayType type = scheduleWindowDisplay.getScheduleWindowDisplayType();
-        ScheduleViewManager manager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
+    private void handleExport() {
+        ScheduleWindowDisplayType type = scheduleViewManager.getScheduleWindowDisplayType();
         if (type.equals(ScheduleWindowDisplayType.PERSON)) {
-            IndividualScheduleExporter exporter = new IndividualScheduleExporter(manager.getScheduleView(),
+            Exporter exporter = new IndividualScheduleExporter(scheduleViewManager.getScheduleViewCopy(),
                     "png", "./export.png");
             try {
                 exporter.export();
@@ -271,9 +270,10 @@ public class MainWindow extends UiPart<Stage> {
                 resultDisplay.setFeedbackToUser("Error exporting");
             }
         } else {
-            GroupInformation groupInformation = new GroupInformation(scheduleWindowDisplay,
-                    manager.getColors());
-            GroupScheduleExporter exporter = new GroupScheduleExporter(manager.getScheduleView(), groupInformation,
+            GroupInformation groupInformation = new GroupInformation(logic.getMainWindowDisplay().getPersonDisplays(),
+                    logic.getMainWindowDisplay().getGroupDisplay(),
+                    scheduleViewManager.getColors());
+            Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(), groupInformation,
                     "png", "./export.png");
             try {
                 exporter.export();
@@ -298,6 +298,8 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+
+            ScheduleWindowDisplay scheduleWindowDisplay = logic.getMainWindowDisplay();
             if (commandResult.isScroll()) {
                 handleScroll();
                 return commandResult;
@@ -314,7 +316,11 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             }
 
-            ScheduleWindowDisplay scheduleWindowDisplay = logic.getMainWindowDisplay();
+            if (commandResult.isExport()) {
+                handleExport();
+                return commandResult;
+            }
+
             ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
             if (ScheduleViewManager.getInstanceOf(scheduleWindowDisplay) != null) {
                 scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
@@ -333,7 +339,8 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case GROUP:
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
-                handleSidePanelChange(new GroupInformation(scheduleWindowDisplay,
+                handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(),
+                        scheduleWindowDisplay.getGroupDisplay(),
                         scheduleViewManager.getColors()).getRoot(), SidePanelDisplayType.GROUP);
                 break;
             case DEFAULT:
@@ -359,27 +366,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isExport()) {
-                handleExport(scheduleWindowDisplay);
-            }
-
-            /*if (commandResult.isScroll()) {
-                handleScroll();
-            }*/
-
-            /*if (commandResult.isSwitchTabs()) {
-                handleTabSwitch();
-            }*/
-
             if (commandResult.isPopUp()) {
                 LocationsView locationsView = new LocationsView(commandResult.getLocationData());
                 new LocationPopup(locationsView.getRoot()).show();
             }
-
-            /*if (commandResult.isToggleNextWeek()) {
-                scheduleViewManager.toggleNext();
-                handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
-            }*/
 
             return commandResult;
         } catch (CommandException | ParseException e) {
