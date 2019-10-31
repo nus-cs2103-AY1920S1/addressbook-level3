@@ -13,8 +13,8 @@ public class DeleteMemberCommandParserTest {
     private DeleteMemberCommandParser parser = new DeleteMemberCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteTaskCommand() {
-        assertParseSuccess(parser, "GS", new DeleteMemberCommand(ID_FIRST_MEMBER));
+    public void parse_validArgs_returnsDeleteMemberCommand() {
+        assertParseSuccess(parser, "delete-member mi/GS", new DeleteMemberCommand(ID_FIRST_MEMBER));
     }
 
     @Test

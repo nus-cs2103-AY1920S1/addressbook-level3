@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.settings.ClockFormat;
@@ -58,6 +59,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of inventories */
     ObservableList<Inventory> getFilteredInventoryList();
 
+    ObservableList<TasMemMapping> getFilteredTasMemMappingList();
     /**
      * Returns the user prefs' address book file path.
      */

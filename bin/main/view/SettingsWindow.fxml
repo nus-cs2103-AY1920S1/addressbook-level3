@@ -4,19 +4,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Separator?>
 <VBox fx:id="vBox" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
-    <AnchorPane fx:id="themeSetting" prefHeight="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane fx:id="themeSetting" styleClass="setting-pane" prefHeight="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
         <children>
-            <Label fx:id="themeLabel" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0" />
+            <Label text="THEME" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
             <Label fx:id="themeLabelLight" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="100.0" />
-            <Label fx:id="themeLabelDark" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0" />
+            <Label fx:id="themeLabelDark" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0" />
         </children>
     </AnchorPane>
-    <AnchorPane fx:id="clockSetting" prefHeight="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Separator styleClass="separator" />
+    <AnchorPane fx:id="clockSetting" styleClass="setting-pane" prefHeight="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
         <children>
-            <Label fx:id="clockLabel" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0" />
+            <Label text="CLOCK" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
             <Label fx:id="clockLabelTwelve" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="100.0" />
-            <Label fx:id="clockLabelTwentyFour" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0" />
+            <Label fx:id="clockLabelTwentyFour" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0" />
         </children>
     </AnchorPane>
 </VBox>
