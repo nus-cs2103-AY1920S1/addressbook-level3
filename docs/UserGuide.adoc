@@ -109,7 +109,7 @@ Feature by
 ////
 === Task Scheduler
 
-==== List all tasks: `list-task`
+==== List all tasks: `list-task`[v1.4]
 Lists tasks in the planner based on the given `DATE` or `#TAG`(s).
 
 Format: `list-task {d/DATE | #TAG...}`
@@ -150,27 +150,26 @@ A task *can* have the following *attributes*:
 
 ===== Example
 ----
-add t/event/my birthday r/yearly
-add t/deadline/cs2101 assignment d/20/09/2019 p/high
+add-task t/event/workshop r/weekly d/25/12/2019//26/12/2019
+add-task t/deadline/cs2101 assignment d/20/09/2019 p/high
 ----
 
 ==== Deleting a task: `delete-task`
 Deletes a task from the planner.
 
-Format: `delete-task {INDEX | t/TASK-DESCRIPTION}`
+Format: `delete-task INDEX`
 
 where `INDEX` is the **one-based** index of the task list.
 
 ===== Example
 ----
 delete-task 3
-delete-task t/cs2101 assignment
 ----
 
 ==== Finding a task: `find-task`
 Locates a task from a given `KEYWORD`
 
-Format: `find-task KEYWORD`
+Format: `find-task KEYWORD...`
 
 ===== Example
 ----
@@ -178,7 +177,7 @@ find-task assignment
 find-task homework cs ma1101r
 ----
 
-==== Editing a task: `edit-task`
+==== Editing a task: `edit-task` [v1.4]
 Edits the task by `TASK-DESCRIPTION` or `INDEX`.
 
 `NEW-DESCRIPTION` can be a new task description or any of the attributes (refer to 3.2.2 Adding a Task)
@@ -206,7 +205,7 @@ Format: `done-task INDEX`
 where `INDEX` is the **one-based** index of the task list.
 
 
-==== Clearing entries: `clear-task`
+==== Clearing entries: `clear-task` [v1.4]
 Clears tasks from the planner. Tasks can be cleared by `#TAG` or `d/DATE`.
 The command `clear-task` with no parameters succeeding it will result in all tasks
 being cleared.
