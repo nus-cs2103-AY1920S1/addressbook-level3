@@ -11,17 +11,19 @@
 == Overview
 
 My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop
-addressbook application for our Software Engineering project. We chose to morph it into an employee records management
-cum communication system called AddMin+. This enhanced application enables office managers to file and recall employee
-data; manage employee work schedule and leave application;
-and email employees directly without opening an email application.
+addressbook application for our Software Engineering project. We chose to morph it into a all-in-one administration
+desktop application called AddMin+.
+
+AddMin+ is specially designed to ease the workload of the admin staffs in these companies and allow him/her to
+effectively handle the administrative tasks of the company.
 
 This is what our project looks like:
 
 ._The graphical user interface for AddMin+._
 image::beforefetch.png[]
 
-My role was to design and write the codes for the fetch and allocate features. The following sections
+My role was to design and write the codes for the association of employees with event, which includes the
+event display and the allocation of employee to event. The following sections
 illustrate these enhancements in more detail, as well as the relevant documentation
 I have added to the user and developer guides in relation to these enhancements.
 
@@ -52,14 +54,28 @@ arrow keys.
 * *Other contributions*:
 
 ** Project management:
-*** Ensured integration of various components (e.g. storage, logic, model) during the morphing phase.
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Wrote the skeleton code for our morphed product which required integration of
+various components (e.g. storage, logic, model).
+(Pull request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/66[#66])
+*** Assisted in refactoring process for person class to employee class and well as fixed test cases and checkstyle errors.
+(Pull request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92])
+*** Managed releases `v1.3` - `v1.5rc` on GitHub
 ** Enhancements to existing features:
 *** Updated GUI to show both employee and event list
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/78[#78])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide:
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/153[#153])
+*** Updated class diagram for storage component in the Developer Guide:
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/126[#126])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** PRs reviewed (with review comments): (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/79[#79],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/89[#89], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/104[#104],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/109[#109], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/114[#114],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/129[#129], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/132[#132],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/145[#145])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 <<<
