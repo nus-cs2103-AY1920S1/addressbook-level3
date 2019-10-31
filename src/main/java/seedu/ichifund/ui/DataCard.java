@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.analytics.exceptions.FieldNotFoundException;
 
@@ -47,6 +48,7 @@ public class DataCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(data.getDescription());
         amount.setText(data.getAmount().toString());
+        amount.setTextFill(Paint.valueOf("grey"));
         try {
             data.getCategory();
             category.setText("");

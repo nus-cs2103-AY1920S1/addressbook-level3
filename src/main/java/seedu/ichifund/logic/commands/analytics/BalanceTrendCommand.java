@@ -31,9 +31,9 @@ public class BalanceTrendCommand extends TrendCommand {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_YEAR + "2019 ";
 
-    public static final String MESSAGE_SUCCESS = "Monthly balance trend for year %1$s displayed.";
+    public static final String MESSAGE_SUCCESS = "Monthly balance trend for %1$s displayed.";
 
-    public static final String REPORT_DESCRIPTION = "Total balance %1$s %2$s";
+    public static final String REPORT_DESCRIPTION = "Total balance for %1$s %2$s";
 
     /**
      * Constructs a {@code BalanceTrendCommand}.
@@ -85,6 +85,6 @@ public class BalanceTrendCommand extends TrendCommand {
         TrendReport report = createTrendReport(year);
         fillBalanceTrendReport(model, report);
         model.updateDataList(report.getTrendList());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, year));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, year.toString()));
     }
 }

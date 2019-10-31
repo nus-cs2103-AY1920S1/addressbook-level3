@@ -38,8 +38,7 @@ public class BreakdownCommand extends Command {
             + PREFIX_MONTH + "7 "
             + PREFIX_YEAR + "2019 ";
 
-    public static final String MESSAGE_SUCCESS = "Breakdown of expenditure by category for month %1$s and "
-            + "year %2$s displayed.";
+    public static final String MESSAGE_SUCCESS = "Breakdown of expenditure by category for %1$s %2$s displayed.";
 
     public static final String REPORT_DESCRIPTION = "Total expenditure on %1$s for %2$s %3$s";
 
@@ -105,6 +104,6 @@ public class BreakdownCommand extends Command {
         BreakdownReport report = createBreakdownReport(month, year);
         fillBreakdownReport(model, report);
         model.updateDataList(report.getBreakdownList());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, month, year));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, month.wordString(), year.toString()));
     }
 }
