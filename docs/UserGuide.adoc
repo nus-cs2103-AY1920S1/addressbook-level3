@@ -85,7 +85,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Date and Time is specified in the format `dd-mm-yyyy hh:mm`
 
-
 '''
 
 === Universal Commands
@@ -219,6 +218,16 @@ image::FireTask.png[width="790"]
 
 This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
 
+==== Setting an image for member: `set-image` +
+To set a profile picture for a specific team member, use the 'set-image' command in the format below. +
+
+Format: `set-image mi/MEMBER_ID im/IMAGE_PATH` +
+
+Example: `set-image mi/1 im/` will result in the following: 
++
+image::SetImage.png[width="790"]
++
+
 '''
 
 === Task-related Commands
@@ -276,6 +285,7 @@ image::done-task-list-command.png[]
 * Hit the kbd:[Enter] key and you will see that the task has been marked as `done`! You should see a window similar to the one below when you navigate back to `home`.
 
 image::done-task-result-dashboard.png[]
+
 
 ==== Setting a task's status to `doing`: `doing-task`
 
