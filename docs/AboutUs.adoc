@@ -39,7 +39,7 @@ Responsibilities: Implementing the revision feature
 
 === Wang Xueting
 image::shirleywangxt.png[width="150", align="left"]
-{empty}[https://github.com/ShirleyWangxt[github]][<<PortfolioShirleyWangxt#, protfolio>>]
+{empty}[https://github.com/ShirleyWangxt[github]][<<shirleywangxt#, protfolio>>]
 
 Role: Testing, Co-maintainer of documentation +
 Responsibilities: Implementing question management feature
