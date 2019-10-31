@@ -21,8 +21,7 @@
                         autoRanging="false"
                         tickUnit="4.5"
                         minorTickCount="0"
-                        lowerBound="4"
-                        upperBound="53">
+                        upperBound="54">
             </NumberAxis>
         </xAxis>
 

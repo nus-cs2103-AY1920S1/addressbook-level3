@@ -5,15 +5,21 @@ import javafx.util.StringConverter;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 /**
- * StringConverter to convert between a numerical value representing a month and the months name. Takes into account a
- * date offset.
+ * StringConverter to convert between a numerical value representing a week in a year, and the name of the month that
+ * contains it. Takes into account a date offset.
  */
 public class MonthConverter extends StringConverter<Number> {
-    private LocalDate dateOffset;
-    private TextStyle textStyle;
+
+    private final TextStyle textStyle;
+    private final Locale locale;
+    private final LocalDate dateOffset;
+    private final Map<String, Month> namesMap;
 
     /**
      * Initializes a {@code MonthConverter} with the given date offset, where the last month of the year will be the
@@ -24,8 +30,14 @@ public class MonthConverter extends StringConverter<Number> {
      * @param textStyle  Given text style for month name formatting.
      */
     MonthConverter(LocalDate dateOffset, TextStyle textStyle) {
-        this.dateOffset = dateOffset;
         this.textStyle = textStyle;
+        this.locale = Locale.getDefault();
+        this.dateOffset = dateOffset;
+        this.namesMap = new HashMap<>();
+
+        for (var month : Month.values()) {
+            namesMap.put(month.getDisplayName(textStyle, locale), month);
+        }
     }
 
     private int offsetNumberToMonthName(int monthPosition) {
@@ -33,17 +45,24 @@ public class MonthConverter extends StringConverter<Number> {
     }
 
     private int offsetMonthNameToNumber(int monthNameValue) {
-        return (monthNameValue - dateOffset.getMonthValue() + 12) % 12 - 1;
+        return (monthNameValue - dateOffset.getMonthValue() + 11) % 12;
     }
 
     @Override
     public String toString(Number number) {
-        return Month.of(offsetNumberToMonthName((int) Math.ceil(number.doubleValue() / 4.5)))
-                .getDisplayName(textStyle, Locale.getDefault());
+        Objects.requireNonNull(number);
+        // 54 weeks / 12 months = roughly 4.5 weeks per month
+        return Month.of(offsetNumberToMonthName((int) Math.floor(number.doubleValue() / 4.5)))
+                .getDisplayName(textStyle, locale);
     }
 
     @Override
     public Number fromString(String string) {
-        return offsetMonthNameToNumber(Month.valueOf(string).getValue());
+        Objects.requireNonNull(string);
+        Month month = namesMap.get(string);
+        if (month == null) {
+            throw new IllegalArgumentException("Month does not exist for string: " + string);
+        }
+        return offsetMonthNameToNumber(month.getValue()) * 4.5;
     }
 }

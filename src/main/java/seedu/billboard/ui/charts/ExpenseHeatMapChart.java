@@ -74,6 +74,14 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     }
 
     /**
+     * Helper method to get the current date range representing the past year adjusted to start on a monday.
+     */
+    private DateRange getCurrentYearRange() {
+        LocalDate currentDate = LocalDate.now();
+        return DateRange.fromClosed(currentDate.minusYears(1).with(DateInterval.WEEK.getAdjuster()), currentDate);
+    }
+
+    /**
      * Helper method called when the displayed list of expenses change.
      */
     private void onDataChange(Task<ExpenseHeatMap> newDataTask) {
@@ -104,15 +112,7 @@ public class ExpenseHeatMapChart extends ExpenseChart {
      * Converts a heatmap entry with an index representing the week, to a data item for the chart.
      */
     private XYChart.Data<Integer, Integer> heatMapEntryToData(Integer week, Map.Entry<DayOfWeek, Amount> entry) {
-        return new XYChart.Data<>(week, entry.getKey().getValue(), getAmountValueAdjusted(entry));
-    }
-
-    /**
-     * Helper method to get the current date range representing the past year adjusted to start on a monday.
-     */
-    private DateRange getCurrentYearRange() {
-        LocalDate currentDate = LocalDate.now();
-        return DateRange.fromClosed(currentDate.minusYears(1).with(DateInterval.WEEK.getAdjuster()), currentDate);
+        return new XYChart.Data<>(week + 1, entry.getKey().getValue(), getAmountValueAdjusted(entry));
     }
 
     /**
