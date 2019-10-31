@@ -24,7 +24,8 @@ public class ViewNoteCommand extends Command {
     public static final String COMMAND_WORD = VIEW;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays a flashcard.\n"
+            + ": Displays a note.\n"
+            + "Note is displayed without intra-note tags. Use 'viewraw' to view the raw note.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

@@ -22,7 +22,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = LIST;
 
-    public static final String MESSAGE_SUCCESS = "Listed all ";
+    public static final String MESSAGE_SUCCESS = "Listing all ";
 
     /**
      * Formats string for output
@@ -76,7 +76,8 @@ public class ListCommand extends Command {
         }
 
         returnMsg += model.formatOutputListString(LogicManager.getMode());
-        return new GlobalCommandResult(MESSAGE_SUCCESS + LogicManager.getMode().toString() + returnMsg);
+        return new GlobalCommandResult(MESSAGE_SUCCESS + LogicManager.getMode().toString() + "s"
+                + returnMsg);
 
         //return new CommandResult(outputString);
     }

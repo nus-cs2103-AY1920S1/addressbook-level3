@@ -19,9 +19,9 @@ public class FilterNoteByTagCommand extends Command {
 
     public static final String COMMAND_WORD = FILTER;
 
-    public static final String MESSAGE_USAGE = "filter by tags. "
-            + "Find all related notes with the specified \n"
-            + "tags. Example : filter tag/important tag/cs2100";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters notes by tags.\n"
+            + "Find all related notes and intra-note tags with the specified tags.\n"
+            + "Example : filter tag/important tag/cs2100";
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter notes by tag(s) : ";
 
