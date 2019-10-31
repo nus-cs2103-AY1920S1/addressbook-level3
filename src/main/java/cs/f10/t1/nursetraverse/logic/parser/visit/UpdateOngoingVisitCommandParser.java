@@ -31,6 +31,7 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
      * Must match Index, whitespace then String.
      */
     public static final String INDEX_WHITESPACE_THEN_STRING_VALIDATION_REGEX = "^([0-9]+) (.*)";
+    public static final String INDEX_ONLY_VALIDATION_REGEX = "^([0-9]+)()";
     public static final int REGEX_MATCHER_INDEX = 1;
     public static final int REGEX_MATCHER_STRING = 2;
 
@@ -97,19 +98,21 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
             throws ParseException {
         requireNonNull(indexAndDetailPairs);
         List<Pair<Index, String>> collector = new ArrayList<>();
-        Pattern regex = Pattern.compile(INDEX_WHITESPACE_THEN_STRING_VALIDATION_REGEX);
+        Pattern regexIndexAndString = Pattern.compile(INDEX_WHITESPACE_THEN_STRING_VALIDATION_REGEX);
+        Pattern regexIndexOnly = Pattern.compile(INDEX_ONLY_VALIDATION_REGEX);
         try {
             for (String value : indexAndDetailPairs) {
-                Matcher matcher = regex.matcher(value);
-                //Check if is valid
-                if (matcher.find()) {
-                    collector.add(new Pair<>(
-                            ParserUtil.parseIndex(matcher.group(REGEX_MATCHER_INDEX)),
-                            matcher.group(REGEX_MATCHER_STRING).trim()
-                    ));
-                } else {
+                Pair<Index, String> pairResult = regexMatch(regexIndexAndString, value);
+                //If failed to find match i.e. possibly index only
+                if (pairResult == null) {
+                    pairResult = regexMatch(regexIndexOnly, value);
+                }
+                //If still fail then is parse error
+                if (pairResult == null) {
                     //Throw ParseException this way because ParserUtil also throws its own ParseException
                     throw new ParseException("");
+                } else {
+                    collector.add(pairResult);
                 }
             }
             return collector;
@@ -118,5 +121,20 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             UpdateOngoingVisitCommand.MESSAGE_USAGE), pe);
         }
+    }
+
+    /**
+     * Helper method to check if value matches regex string.
+     * Returns a Pair combining Index to String if matcher finds something, else returns null
+     */
+    private Pair<Index, String> regexMatch(Pattern regex, String value) throws ParseException {
+        Matcher matcher = regex.matcher(value);
+        if (matcher.find()) {
+            return new Pair<>(
+                    ParserUtil.parseIndex(matcher.group(REGEX_MATCHER_INDEX)),
+                    matcher.group(REGEX_MATCHER_STRING).trim()
+            );
+        }
+        return null;
     }
 }
