@@ -15,4 +15,11 @@ public interface ReadOnlyEngagementList {
      */
     ObservableList<Engagement> getEngagementList();
 
+    /**
+     * Returns true if the input {@code Engagement} clashes with an existing {@code Engagement}.
+     * @param engagement input engagement.
+     * @return true if there is a conflict.
+     */
+    boolean isConflictingEngagement(Engagement engagement);
+
 }

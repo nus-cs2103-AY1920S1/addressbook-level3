@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.typee.model.engagement.Engagement;
+import com.typee.model.engagement.EngagementConflictChecker;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,7 +57,7 @@ public class EngagementList implements ReadOnlyEngagementList {
         FXCollections.sort(engagements, comparator);
     }
 
-    //// person-level operations
+    //// engagement-level operations
 
     /**
      * Returns true if an engagement with the same identity as {@code engagement}
@@ -93,6 +94,13 @@ public class EngagementList implements ReadOnlyEngagementList {
      */
     public void removeEngagement(Engagement key) {
         engagements.remove(key);
+    }
+
+    @Override
+    public boolean isConflictingEngagement(Engagement engagement) {
+        return engagements.stream()
+                .anyMatch(existingEngagement -> EngagementConflictChecker
+                        .areConflicting(existingEngagement, engagement));
     }
 
     //// util methods

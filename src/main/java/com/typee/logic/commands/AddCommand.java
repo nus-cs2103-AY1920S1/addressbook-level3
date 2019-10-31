@@ -11,6 +11,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
+import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.engagement.Engagement;
 
 /**
@@ -60,6 +61,10 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_ENGAGEMENT);
         }
 
+        if (isConflicting(model)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ENGAGEMENT);
+        }
+
         model.addEngagement(toAdd);
         model.saveEngagementList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
@@ -70,5 +75,10 @@ public class AddCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd));
+    }
+
+    private boolean isConflicting(Model model) {
+        ReadOnlyEngagementList readOnlyEngagementList = model.getEngagementList();
+        return readOnlyEngagementList.isConflictingEngagement(toAdd);
     }
 }

@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<HBox id="cardPane" fx:id="cardPane" prefHeight="105.0" prefWidth="303.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<HBox id="cardPane" fx:id="cardPane" prefHeight="105.0" prefWidth="303.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -20,7 +21,7 @@
       </padding>
          <HBox prefHeight="15.0" prefWidth="129.0">
             <children>
-           <Label fx:id="id" prefHeight="17.0" prefWidth="18.0" styleClass="cell_big_label" text="\$id">
+           <Label fx:id="id" styleClass="cell_big_label" text="\$id">
              <minWidth>
                <!-- Ensures that the label text is never truncated -->
                <Region fx:constant="USE_PREF_SIZE" />
@@ -28,16 +29,14 @@
            </Label>
                <Label fx:id="type" maxWidth="1.7976931348623157E308" prefHeight="17.0" styleClass="cell_big_label" text="\$type" />
                <Label styleClass="cell_big_label" text=" at " />
-               <Label fx:id="locationOfEngagement" prefHeight="17.0" prefWidth="123.0" styleClass="cell_big_label" text="\$locationOfEngagement" />
+               <Label fx:id="locationOfEngagement" styleClass="cell_big_label" text="\$locationOfEngagement" />
             </children>
          </HBox>
          <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
-           <Label fx:id="startTime" prefHeight="17.0" prefWidth="120.0"
-                  styleClass="cell_small_label" text="\$start" wrapText="true"/>
+           <Label fx:id="startTime" prefHeight="17.0" prefWidth="120.0" styleClass="cell_small_label" text="\$start" wrapText="true" />
                <Label prefHeight="17.0" prefWidth="20.0" styleClass="cell_small_label" text="to " />
-               <Label fx:id="endTime" prefHeight="17.0" prefWidth="120.0"
-                      styleClass="cell_small_label" text="\$end" wrapText="true"/>
+               <Label fx:id="endTime" prefHeight="17.0" prefWidth="120.0" styleClass="cell_small_label" text="\$end" wrapText="true" />
             </children>
          </HBox>
       <FlowPane fx:id="tags" />
