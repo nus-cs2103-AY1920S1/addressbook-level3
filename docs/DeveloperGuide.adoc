@@ -22,6 +22,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+// tag::yida-design[]
+
 [[Design-Architecture]]
 === Architecture
 
@@ -65,6 +67,8 @@ For the components UI, Logic, Model, Timer and Game:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
+
+// end::yida-design[]
 
 For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
@@ -149,6 +153,7 @@ image::ParserManagerActivityDiagram.PNG[]
 
 // end::subbashdg2[]
 
+// tag::chenhui-model[]
 
 [[Design-Model]]
 === Model component
@@ -161,14 +166,18 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Word Bank data.
+* exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+
+// end::chenhui-model[]
+
+// tag::yida-game[]
 
 [[Design-Game]]
 === Game component
@@ -183,6 +192,10 @@ The `Game`,
 * maintains an `Index` to keep track of the state of the game.
 * has an associated `DifficultyEnum` that dictates the time allowed for each question.
 * verifies `Guess` that are sent by `Logic` (User's guesses)
+
+// end::yida-game[]
+
+// tag::chenhui-storage[]
 
 [[Design-Storage]]
 === Storage component
@@ -201,6 +214,9 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.Dukemon.commons` package.
+
+// end::chenhui-storage[]
+
 
 == Implementation
 
@@ -371,6 +387,9 @@ Unlike Alternative 1, the developer can create an extension to the class impleme
 The considerations for this aspect was mainly down to how much customisability we wanted to grant our users. While having more customisability is better in some cases,
 in this one, we do not think the added functionality of allowing the user to extensively customise their experience with our application to be particularly impactful not necessary. Moreover, alternative 2 makes for a less organised code base and we wanted to avoid that as much as possible.
 |===
+// end::settings[]
+
+// tag::yida-timer[]
 
 === [underline]#Timer Feature#
 
@@ -459,9 +478,11 @@ debug and resolve problems in the code.
  +
 |===
 
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// end::yida-timer[]
 
 {nbsp} +
+
+// tag::chenhui-feature[]
 
 === [underline]#Word Bank features#
 Dukemon, a flashcard app, requires a non-trivial implementation of a data structure to contain it's information. +
@@ -737,9 +758,7 @@ drop feature is just a function call away, as all data structure and functions a
 
 |===
 
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-// end::settings[]
+// end::chenhui-feature[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -747,6 +766,12 @@ drop feature is just a function call away, as all data structure and functions a
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::userprofiles[]
+=== [Proposed] User Profiles
+
+_The user profiles could allow multiple users to use the same app and have different statistics tracked. This feature is a work in progress and will be delayed to v2.0._
+// end::userprofiles[]
 
 === Logging
 
@@ -792,6 +817,8 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: gamify learning experiences
+
+// tag::chenhui-userstories[]
 
 [appendix]
 == User Stories
@@ -859,6 +886,9 @@ _{More to be added}_
 
 [appendix]
 == Use Cases
+
+// end::chenhui-userstories[]
+
 
 (For all use cases below, the *System* is the `Dukemon` and the *Actor* is the `user`, unless specified otherwise)
 

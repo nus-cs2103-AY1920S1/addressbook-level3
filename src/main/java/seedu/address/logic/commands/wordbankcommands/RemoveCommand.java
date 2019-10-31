@@ -42,8 +42,10 @@ public class RemoveCommand extends WordBankCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.wordbankcommands.RemoveCommand // instanceof handles nulls
-                && wordBankName.equals(((seedu.address.logic.commands.wordbankcommands.RemoveCommand) other).wordBankName));
+                // instanceof handles nulls
+                || (other instanceof seedu.address.logic.commands.wordbankcommands.RemoveCommand
+                && wordBankName
+                .equals(((seedu.address.logic.commands.wordbankcommands.RemoveCommand) other).wordBankName));
     }
 
     public static String getWordBankName() {

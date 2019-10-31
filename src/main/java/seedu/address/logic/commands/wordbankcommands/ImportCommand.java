@@ -45,8 +45,10 @@ public class ImportCommand extends WordBankCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.wordbankcommands.ImportCommand // instanceof handles nulls
-                && wordBankName.equals(((seedu.address.logic.commands.wordbankcommands.ImportCommand) other).wordBankName));
+                // instanceof handles nulls
+                || (other instanceof seedu.address.logic.commands.wordbankcommands.ImportCommand
+                && wordBankName
+                .equals(((seedu.address.logic.commands.wordbankcommands.ImportCommand) other).wordBankName));
     }
 
     public static File getDirectory() {

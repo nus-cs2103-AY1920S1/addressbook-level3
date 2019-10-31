@@ -52,8 +52,10 @@ public class ExportCommand extends WordBankCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.wordbankcommands.ExportCommand // instanceof handles nulls
-                && wordBankName.equals(((seedu.address.logic.commands.wordbankcommands.ExportCommand) other).wordBankName));
+                // instanceof handles nulls
+                || (other instanceof seedu.address.logic.commands.wordbankcommands.ExportCommand
+                && wordBankName
+                .equals(((seedu.address.logic.commands.wordbankcommands.ExportCommand) other).wordBankName));
     }
 
 

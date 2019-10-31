@@ -40,19 +40,9 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * @param filePath of storage. By default, it is at data folder.
      */
     public JsonWordBankListStorage(Path filePath) throws DataConversionException, IllegalValueException {
-        logger.info("INSIDE JsonWordBankListStorageConstructor");
-        try {
-            initDataByDefault(filePath);
-        } catch (Exception e) {
-            logger.info("Filepath is: " + filePath);
-            logger.info(e.toString() + " initDataByDefault() method");
-        }
+        initDataByDefault(filePath);
+        initWordBankList();
 
-        try {
-            initWordBankList();
-        } catch (Exception e) {
-            logger.info(e.toString() + " initWordBankList() method");
-        }
     }
 
     /**
