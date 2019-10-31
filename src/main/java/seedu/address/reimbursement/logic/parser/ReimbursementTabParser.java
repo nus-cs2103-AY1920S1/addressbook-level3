@@ -31,7 +31,7 @@ public class ReimbursementTabParser {
     public Command parseCommand(String userInput, Model personModel) throws Exception {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(ReimbursementMessages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(ReimbursementMessages.MESSAGE_NO_COMMAND);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -52,7 +52,7 @@ public class ReimbursementTabParser {
             return new ExitCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(ReimbursementMessages.NO_SUCH_COMMAND);
+            throw new ParseException(ReimbursementMessages.MESSAGE_NO_COMMAND);
 
         }
     }

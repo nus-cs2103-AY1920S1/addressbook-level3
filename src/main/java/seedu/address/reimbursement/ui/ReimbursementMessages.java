@@ -43,4 +43,7 @@ public class ReimbursementMessages {
 
     public static final String MESSAGE_DONE_REIMBURSEMENT = "Done:\n%s";
 
+    public static final String MESSAGE_NO_COMMAND = "Please input a valid command. The commands include\n"
+            + "add, deadline, done, find, sort, back, go and exit.";
+
 }

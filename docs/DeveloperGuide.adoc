@@ -416,16 +416,6 @@ To view the full transaction list, the user would be required to input the
 Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
  following section <<BackCommandSD, 3.1.3 BackCommand>>
 
-==== Back Command Feature
-[[BackCommandSD]]
-The `BackCommand` is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
-but initialised by the `TransactionTabParser` instead.
-The following detailed sequence diagram shows how the back command works:
-
-.Sequence Diagram of Back Command in Home Tab (transaction package)
-
-image::HomeTabBackCommandSequenceDiagram.png[]
-
 After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, Figure 11>> and <<update-reimbursement,Figure 12>>
 respectively.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
@@ -439,6 +429,16 @@ image::HomeTabActivityDiagramDeleteCommand.png[]
 The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
 be shown about the incorrect input. Also, as shown above, response on other incorrect inputs will also be shown.
 When a successful deletion is done, a response message is shown as well.
+
+==== Back Command Feature
+[[BackCommandSD]]
+The `BackCommand` is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
+but initialised by the `TransactionTabParser` instead.
+The following detailed sequence diagram shows how the back command works:
+
+.Sequence Diagram of Back Command in Home Tab (transaction package)
+
+image::HomeTabBackCommandSequenceDiagram.png[]
 
 //==== Sort Command Feature
 //The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in

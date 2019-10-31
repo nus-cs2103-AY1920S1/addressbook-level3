@@ -3,7 +3,7 @@ package seedu.address.transaction.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_COMMAND;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_COMMAND;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 
 import java.io.File;
@@ -46,7 +46,7 @@ class LogicManagerTest {
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
-        assertParseException(invalidCommand, MESSAGE_NO_SUCH_COMMAND);
+        assertParseException(invalidCommand, MESSAGE_NO_COMMAND);
     }
     @Test
     public void execute_commandExecutionError_throwsCommandException() {

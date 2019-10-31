@@ -31,6 +31,7 @@ import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.Storage;
 import seedu.address.person.storage.StorageManager;
 import seedu.address.person.storage.UserPrefsStorage;
+import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.exception.FileReadWriteException;
 import seedu.address.ui.Ui;
@@ -213,6 +214,24 @@ public class MainApp extends Application {
                     + "Will be starting with an empty transaction list");
             transactionList = new TransactionList();
             return new seedu.address.transaction.model.ModelManager(transactionList);
+        }
+    }
+
+    /**
+     * Returns a {@code ModelManager} for transaction with the data from transaction {@code storage}'s file.<br>
+     * An empty transaction list will be used instead if {@code storage}'s file is not found,
+     * or if errors occur when reading {@code storage}'s file.
+     */
+    private seedu.address.reimbursement.model.Model initReimbursementModelManager(
+            seedu.address.reimbursement.storage.Storage storage, TransactionList transactionList) {
+
+        try {
+            ReimbursementList reimbursementList = storage.getReimbursementFromFile(transactionList);
+            return new seedu.address.reimbursement.model.ModelManager(reimbursementList);
+        } catch (FileReadWriteException e) {
+            logger.warning("Data file not in the correct format or problem reading from the file. "
+                    + "Will be starting with an empty reimbursement list");
+            return new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());
         }
     }
 

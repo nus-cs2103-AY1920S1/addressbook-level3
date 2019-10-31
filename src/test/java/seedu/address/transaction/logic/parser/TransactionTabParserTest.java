@@ -104,13 +104,13 @@ class TransactionTabParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(Exception.class, TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT, () ->
+        assertThrows(Exception.class, TransactionMessages.MESSAGE_NO_COMMAND, () ->
                 parser.parseCommand("", personModel));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(Exception.class, TransactionMessages.MESSAGE_NO_SUCH_COMMAND, () ->
+        assertThrows(Exception.class, TransactionMessages.MESSAGE_NO_COMMAND, () ->
                 parser.parseCommand("unknownCommand", personModel));
     }
 }
