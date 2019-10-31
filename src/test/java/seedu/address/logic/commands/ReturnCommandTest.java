@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_7;
@@ -92,7 +92,6 @@ class ReturnCommandTest {
         assertEquals(actualMessage, expectedMessage);
     }
 
-    /*
     @Test
     public void execute_noSuchIndex_returnUnsuccessful() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
@@ -113,7 +112,6 @@ class ReturnCommandTest {
         String expectedMessage = MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
         assertEquals(expectedMessage, actualMessage);
     }
-    */
 
     @Test
     public void equals() {

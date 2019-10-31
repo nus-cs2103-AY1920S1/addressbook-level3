@@ -132,8 +132,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Updates the borrower panel and sets the label to Serve M:w
-     * ode.
+     * Updates the borrower panel and sets the label to Serve Mode.
      */
     @FXML
     private void handleServe() {
