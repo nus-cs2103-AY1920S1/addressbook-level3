@@ -1,81 +1,163 @@
-= Tishya Khanna - Project Portfolio
-
 //Change to a picture of my name
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:stylesheet: ubuntu.css
-==  Travezy, Travel Easy
-//add picture of travezy
+
+= Tishya Khanna - Project Portfolio
 
 
+// add picture of travezy
 
 == Introduction
 
 This project portfolio has been written to elaborate on my
 contributions to a team-based software engineering project in the NUS Computing
-module CS2103T.
+module CS2103T.In this module, my team of five was tasked to create an application, with reference to
+the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3].
 
-In this module, my team of five was tasked to morph an existing application, namely the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3], into
-an application with the following constraints:
+=== Constraints
+We had the the following constraints:
 
-*Target Consumer:*
+*Target Consumer:*::
+The product should be targeting users who can type fast and prefer typing over other means of input.
 
-. The product should be targeting users who can type fast and prefer typing over other means of input.
-
-.. For this constraint, we ensured that the majority of the user's interactions with the application are through the https://www.techopedia.com/definition/3337/command-line-interface-cli[_Command Line Interface (CLI)_], which implies that users have to type commands and instructions in order to interact with the application.
+Solution::
+For this constraint, we ensured that the majority of the user's interactions with the application are through
+the https://www.techopedia.com/definition/3337/command-line-interface-cli[_Command Line Interface (CLI)_], which implies that
+users have to type commands and instructions, instead of using a Graphical User Interface(GUI).
 
 
 *Application requirements:*
 
+. The product has to be https://www.techopedia.com/definition/24409/brownfield[_Brownfield_].
+
+.. This means that we had to
+[.underline]#morph# the existing https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book] into another application.
+However, we were allowed to transform the concept of the application by incrementally changing the code.
 
 
-Travel should be a pleasure, not a logistical nightmare.
 
-*TravEzy* makes travel easy by
+=== Product - TravEzy
+
+Keeping the above constraints in mind, we created *TravEzy*, a desktop-based CLI travel application.
+Our application [.underline]#erases# the logistical nightmare that haunts regular travellers.
+We have combined critical travel applications such as
+calendars, itinerary planners, diaries and budgeting tools into one convenient
+and intuitive application.
+
+=== Overview
+
+I took up the responsibility of implementing the _Diary Feature_ , end to end, in TravEzy. While this was my main task, I also
+worked on the common code base and design. In addition, I provided structure and content for critical documentation such as the User and
+Developer guides.
+
+In the following sections, I have provided more insight into my contributions.
+
+In order to increase readability, I have included a legend of the formatting and symbols used in this portfolio.
+
+IMPORTANT: This symbol is to highlight important information
+
+``command``: Text which is contained in a grey box (as can be seen on the left) refers to _commands_ that the user
+can type into the command line in order to interact with TravEzy
+
+_Components_: Text which is italicised refers to technical components in the application
+
+*Highlight* Bold text is mainly for titles
+
+[underline]#attention# Underlined text is used to highlight certain key words and phrases
+
+
+
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+My contributions, summarised below, have been ordered with respect to the importance and impact on the project.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+*Major enhancement:*::
+*Diary Feature*
+* What is this:
+** The Diary Feature represents a real-life diary. In this implementation, every user has a _Diary Book_ which contains a list (in the form of a _Diary List_) of all
+his/her _Diary Entries_.
+* Why is this necessary:
+** As part of our market validation process, we observed that most student travellers enjoy journaling and recording their trips in a text format.
+This feature allows for users to do exactly that, with the some additional features to increase convenience and usability.
+* Highlights:
+** Other than being able to do add, delete and display diary entries, this implementation of the diary feature also allows users to find specific
+entries, sort through entries and encrypt private memories to keep them safe.
+
+*Minor enhancement:*::
+*Delay Function*
+* Added a delay function which allows users to see an exit message when leaving the application
+*
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Created and managed milestones (V1.1 - V1.3)
+*** Created and managed https://github.com/AY1920S1-CS2103T-T17-2/main/labels[labels]
+*** Enabled Autopublishing of documentation using Travis
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Personalised the About us, Contact, Product Website
+https://github.com/tishyakhanna97/main/commit/d49c5d2e27baefd2c33f61856c4ee2d6d5899f87[1],
+https://github.com/tishyakhanna97/main/commit/4fd7f51316b6220a2235a7306c2055279b8451d6[2],
+https://github.com/tishyakhanna97/main/commit/2135c8af4518e07c7f45aa8df5d4a8018ac8f062[3],
+https://github.com/tishyakhanna97/main/commit/947fbe848dad7823e7ed05c5a584e056af381223[4],
+https://github.com/tishyakhanna97/main/commit/d56afcb37369b9bd91363b2eb6a8e215acf4870d[5],
+https://github.com/tishyakhanna97/main/commit/bdfe41963fd43d52149406c69c1cecf900e0c37e[6],
+https://github.com/tishyakhanna97/main/commit/acde2a53650e9ef78d6078cb5b96f849e9f4f191[7]
+*** Transformed the structure and language of the User Guide and Developer Guide to increase readability and make it more user friendly.
+https://github.com/tishyakhanna97/main/commit/f49233f32a3b2c6c841f59755d0c0fa96e8f4590[8],
+https://github.com/tishyakhanna97/main/commit/341deffba3e3b00970f9160feb37a2134ffc1c22[9]
 
-_{you can add/remove categories in the list above}_
+
 
 == Contributions to the User Guide
 
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
 
-include::../UserGuide.adoc[tag=delete]
+In this section, I shall be sharing some of the portions from the *TravEzy* Userguide which I wrote.
+I shall be focusing on the ``find``, ``findSpecific`` and ``encrypt`` commands.
 
-include::../UserGuide.adoc[tag=dataencryption]
+=== Find Command
+
+"Hey, when did I go to Spain?" It can be hard to remember
+all the details of your trips. That's why, this Diary allows you to *Find*
+
+*Find entries containing a certain text: ``find``*
+
+Finds all entries which contain your input text. There is one parameter, which
+is the text that you want to find.
+
+The _Command Word_ is ``find``.
+
+Format: ``list input``
+
+Example: I want to find about my trip on 12/12/2019
+
+``find 12/12/2019``
+
+
+=== Find Specific Command
+
+Let's narrow down your search!
+
+
+*Find entries containing a certain text in a specific field : ``findSpecific``*
+
+Finds all entries which contain your input text, in the highlighted field. There is one parameter, which
+is the text that you want to find, with the relevant _PREFIX_.
+
+The _Command Word_ is ``findSpecific``.
+
+Format: ``list input``
+
+Example: I want to find about my trip on 12/12/2019
+
+``find 12/12/2019``
+
+
 
 == Contributions to the Developer Guide
 
