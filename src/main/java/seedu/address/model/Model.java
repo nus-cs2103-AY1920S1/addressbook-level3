@@ -156,6 +156,7 @@ public interface Model {
     void setMooLah(ReadOnlyMooLah mooLah);
 
     // ======== MOOLAH ACTIONS ===============
+    // ================================ EXPENSE =======================================
     /**
      * Returns true if a expense with the same identity as {@code expense}
      * exists in the MooLah.
@@ -182,6 +183,20 @@ public interface Model {
      */
     void setExpense(Expense target, Expense editedExpense);
 
+    /** Returns an unmodifiable view of the filtered expense list */
+    ObservableList<Expense> getFilteredExpenseList();
+
+    /** Returns the predicate of the filtered expense list. **/
+    Predicate<? super Expense> getFilteredExpensePredicate();
+
+    /**
+     * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredExpenseList(Predicate<? super Expense> predicate);
+
+    // ================================ BUDGET =======================================
+
     boolean hasBudget(Budget budget);
 
     boolean hasBudgetWithName(Description targetDescription);
@@ -205,18 +220,9 @@ public interface Model {
 
     Predicate<? super Budget> getFilteredBudgetPredicate();
 
-    /** Returns an unmodifiable view of the filtered expense list */
-    ObservableList<Expense> getFilteredExpenseList();
+    void clearBudgets();
 
-    /** Returns the predicate of the filtered expense list. **/
-    Predicate<? super Expense> getFilteredExpensePredicate();
-
-    /**
-     * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredExpenseList(Predicate<? super Expense> predicate);
-
+    // ================================ EVENT =======================================
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Event> getFilteredEventList();
 
@@ -239,10 +245,10 @@ public interface Model {
 
     void setEvent(Event eventToEdit, Event editedEvent);
 
+    // ================================ STATS =======================================
+
     void calculateStatistics(String command, Timestamp date1, Timestamp date2, BudgetPeriod period, boolean isBudget);
 
     Statistics getStatistics();
-
-
 
 }

@@ -37,6 +37,7 @@ import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.alias.DeleteAliasCommand;
 import seedu.address.logic.commands.alias.ListAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
+import seedu.address.logic.commands.budget.ClearBudgetsCommand;
 import seedu.address.logic.commands.budget.DeleteBudgetCommand;
 import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.EditBudgetCommand;
@@ -281,11 +282,6 @@ public class MainWindow extends UiPart<Stage> {
                 Collections.emptyList(),
                 Collections.emptyList());
 
-        commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                ClearCommand.COMMAND_WORD,
-                Collections.emptyList(),
-                Collections.emptyList());
-
         // event commands
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 AddEventCommand.COMMAND_WORD,
@@ -338,6 +334,11 @@ public class MainWindow extends UiPart<Stage> {
                 SwitchBudgetWindowCommandParser.REQUIRED_PREFIXES,
                 SwitchBudgetWindowCommandParser.OPTIONAL_PREFIXES);
 
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                ClearBudgetsCommand.COMMAND_WORD,
+                Collections.emptyList(),
+                Collections.emptyList());
+
         // alias commands
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 AddAliasCommand.COMMAND_WORD,
@@ -386,6 +387,11 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ViewPanelCommand.COMMAND_WORD,
+                Collections.emptyList(),
+                Collections.emptyList());
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                ClearCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
 
@@ -464,6 +470,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.DELETE);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.LIST);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.EDIT);
+        commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.CLEAR);
         if (panelName.equals(BudgetPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
@@ -516,6 +523,10 @@ public class MainWindow extends UiPart<Stage> {
                     GenericCommandWord.ADD,
                     AddBudgetCommandParser.REQUIRED_PREFIXES,
                     AddBudgetCommandParser.OPTIONAL_PREFIXES);
+            commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                    GenericCommandWord.CLEAR,
+                    Collections.emptyList(),
+                    Collections.emptyList());
         } else if (panelName.equals(AliasPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,

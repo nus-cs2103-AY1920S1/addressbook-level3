@@ -314,6 +314,11 @@ public class ModelManager implements Model {
         mooLah.changePrimaryBudgetWindow(pastDate);
     }
 
+    @Override
+    public void clearBudgets() {
+        mooLah.clearBudgets();
+    }
+
     //=========== Event ================================================================================
 
     @Override

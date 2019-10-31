@@ -13,6 +13,7 @@ import seedu.address.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.address.model.budget.exceptions.DuplicateBudgetException;
 import seedu.address.model.budget.exceptions.NotPastPeriodException;
 import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 
 /**
@@ -171,11 +172,30 @@ public class UniqueBudgetList implements Iterable<Budget> {
         if (!internalList.remove(toRemove)) {
             throw new BudgetNotFoundException();
         }
+        toRemove.transferExpensesTo(getDefaultBudget());
+
         if (toRemove.isPrimary()) {
             setPrimary(getDefaultBudget());
         }
 
         empty = internalList.isEmpty();
+    }
+
+    public void clearBudgets() {
+        Budget defaultBudget = getDefaultBudget();
+        for (Budget b : internalList) {
+            if (!b.isDefaultBudget()) {
+                b.transferExpensesTo(defaultBudget);
+            }
+        }
+        internalList.clear();
+        defaultBudget.setToPrimary();
+        internalList.add(defaultBudget);
+    }
+
+    public void switchBudgetTo(Description targetDescription) {
+        Budget targetBudget = getBudgetWithName(targetDescription);
+        setPrimary(targetBudget);
     }
 
     public boolean isEmpty() {
@@ -233,6 +253,8 @@ public class UniqueBudgetList implements Iterable<Budget> {
         if (!target.isSameBudget(editedBudget) && contains(editedBudget)) {
             throw new DuplicateBudgetException();
         }
+
+        target.transferExpensesTo(editedBudget);
 
         //addition
         if (target.isPrimary()) {

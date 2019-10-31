@@ -2,7 +2,6 @@ package seedu.address.model.budget;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -129,6 +128,13 @@ public class Budget {
 
     public void clearExpenses() {
         expenses.clear();
+    }
+
+    public void transferExpensesTo(Budget other) {
+        for (Expense e : expenses) {
+            e.setBudget(other);
+            other.expenses.add(e);
+        }
     }
 
     /**
