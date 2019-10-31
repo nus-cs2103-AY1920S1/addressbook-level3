@@ -29,6 +29,7 @@ public class DeleteCommand extends Command {
     private enum DeleteMode { ITEM, QUANTITY, TAGS }
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_SHORTHAND = "d";
 
     public static final String MESSAGE_USAGE =
             "Three formats available for " + COMMAND_WORD + ":\n"

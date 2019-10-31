@@ -11,6 +11,7 @@ import io.xpire.model.item.sort.XpireMethodOfSorting;
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
+    public static final String COMMAND_SHORTHAND = "so";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all items according to the specified key.\n"
             + "If key is 'name', items will be sorted according to their names in alphabetical order.\n"
