@@ -37,7 +37,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all appointments.
+* **`tab` ** `game`: switches main window to `game` window.
 * **`add`** `d/Meeting on Monday` : adds an appointment with the description `Meeting on Monday` to the appointment manager.
+* **`pdf` ** `i/1 to/Jason from/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
 * **`delete`** `3` : deletes the 3rd appointment shown in the current list.
 * *`exit`* : exits the app.
 
@@ -50,7 +52,7 @@ Refer to <<Features>> for details of each command.
 
 Format: `help`
 
-=== Switch to different windows (GUI): `tab MENU`
+=== Switch to different windows: `tab [menu]`
 
 Switches to a different menu in the application window. +
 Format: `tab [menu_name]`
@@ -63,18 +65,18 @@ Format: `tab [menu_name]`
 * `Engagement` window will be the default window upon start up of the application.
 
 .Engagement (default) window displayed on start-up of the application.
-image::tab_1_default.png[]
+image::tab_1_default.png[width="800"]
 
 Now, if the user wants to switch to different windows, simply enter the tab command
 with refer to the menu name listed on the left end of the application window. For example, user enters `tab calendar`
 switch to calendar view window.
 
 .input section with tab command entered `tab calendar`
-image::tab_2.png[]
+image::tab_2.png[width="800"]
 
 Below is the screenshot after entering the command.
 
-image::tab_3.png[]
+image::tab_3.png[width="800"]
 
 === Adding an appointment: `add`
 
@@ -115,43 +117,6 @@ image::after-sort.png[width="450"]
 
 [TIP]
 After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
-
-=== Editing an appointment : `edit`
-
-Edits an existing appointment in the appointment manager. +
-Format: `edit INDEX [d/DESCRIPTION]`
-
-****
-* Edits the appointment at the specified `INDEX`. The index refers to the index number shown in the displayed appointment list. The index *must be a positive integer* 1, 2, 3, ...
-
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-****
-
-Examples:
-
-* `edit 1 d/Meeting on Tuesday` +
-Edits the description of the 1st person to be `Meeting on Tuesday`.
-
-=== Locating appointments by name: `find`
-
-Finds appointments whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The order of the keywords does not matter. e.g. `noon time` will match `time noon`
-* Appointments matching at least one keyword will be returned (i.e. `OR` search). e.g. `team time` will return `team meeting`, `meeting time`
-****
-
-[TIP]
-The unfiltered list can be displayed again using `list`.
-
-Examples:
-
-* `find presentation` +
-Returns `team presentation` and `investor presentation`
-* `find meeting presentation conference` +
-Returns any appointment containing the keywords `meeting`, `presentation`, or `conference` in its description
 
 === Deleting an appointment : `delete`
 
@@ -241,36 +206,39 @@ reflected in the player information panel in the game window. When the user fail
 word reaches the bottom of screen, the decrease in health points is reflected in the player information panel in the game
 window. After the health points reaches zero, `GAME OVER` is displayed.
 
-=== Generating a PDF file of engagement : `pdf i/[index] to/[Receiver] from/[Sender]`
+=== Generating a PDF file of engagement : `pdf i/[index] to/[receiver] from/[sender]`
 Pdf Command allows user to create a document of selected engagement in a given format of document template.
 Document template can be customised based on the customers's requirements, however, default document format will be in an eamil format,
 where the user can set who the user is going to send this document to inform an engagement. +
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
 User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 to/Harry from/John` to generate the document.
 
-image::pdf_1.png[]
+image::pdf_1.png[width="800"]
 
 Once user enters the command, system will display the command result in the output panel, showing "Engagement Report successfully generated."
 Now, if the user clicks the green refresh button on top right of the documents explorer, explorer will display the generated pdf as a list item.
 
+.refresh button and delete button in documents explorer.
+image::pdf_function_btns.png[width="800"]
+
 .System after clicking refresh button
-image::pdf_2.png[]
+image::pdf_2.png[width="800"]
 
 User can double click the list item to open the document file on their local computer file system. Below is the sample of generated document from our system.
 
 .pdf document sample
-image::pdf_sample.png[]
+image::pdf_sample.png[width="800"]
 
 If the user does not want to keep the document, instead of directing the actual directory in the local stystem, user can simply click the red `x` button, next to the refresh
 button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
 Below is the screenshot after user clicks the delete button.
 
 .pdf delete pop up message
-image::pdf_delete.png[]
+image::pdf_delete.png[width="800"]
 
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
-image::pdf_delete_after.png[]
+image::pdf_delete_after.png[width="800"]
 
 === Exiting the program : `exit`
 
@@ -292,21 +260,20 @@ Relevant data will be loaded from the external file when the application starts.
 
 == Command Summary
 
-* *Add* `add d/DESCRIPTION` +
-e.g. `add d/Team lunch outing on Friday`
-* *Calendar* : `tab calendar`
+* *Add* `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY` +
+e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High`
+* *Tab*: `tab MENU_NAME`
+** *Add Engagement* : `tab engagement`
+** *Calendar* : `tab calendar`
+** *Game* : `tab game`
+** *Report* : `tab report`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [d/DESCRIPTION]` +
-e.g. `edit 2 d/Team lunch outing on Thursday`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find team outing`
-* *Game* : `tab game`
 * *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
-* *List* : `list`
-* *Help* : `help`
 * *Redo* : `redo`
 * *Sort* : `sort ORDER`
 * *Undo* : `undo`
+* *List* : `list`
+* *Help* : `help`
 

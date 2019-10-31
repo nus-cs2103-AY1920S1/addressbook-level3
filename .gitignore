@@ -23,3 +23,6 @@ src/test/data/sandbox/
 .DS_Store
 
 /docs/images/appveyor/
+
+/docs/team/nordic96.adoc
+/docs/images/ppp_nordic96/
