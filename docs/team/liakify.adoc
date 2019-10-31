@@ -15,23 +15,21 @@ I was responsible for writing the expense adding feature. This makes my role par
 
 == Summary of contributions
 
-* *Major enhancement*: added the ability to add expenses
+* *Major enhancement*: Added the ability to add expenses
 ** *What it does:* The `expense` command allows the user to add expenses to an activity by first specifying who paid and how much, then optionally listing people who were involved in the expense.
 ** *Justification:* This is important as it gives users the precise control over the people required to pay in each expense. In a real-world group activity scenario, it might not be the case that everyone is involved in every part of the activity that involves money. For example, one might go out for a meal with friends but opt out of buying dessert later.
 ** *Highlights:* The design of the `expense` command was particularly tricky due to the limitations of a CLI interface. The tough part was in trying to strike a balance between keeping the command simple enough to use yet provide enough flexibility for the user to specify various possible combinations of expense details. We went through various possible designs for the `expense` command and took the user experience into consideration for each case, before finally settling on the way the `expense` command is currently structured.
 
-* *Minor enhancement*: added a backend context feature that allows for various application contexts and contextual behaviour for various commands.
+* *Minor enhancement*: Added a backend `Context` class that allows for various application contexts and contextual behaviour for various commands.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=liakify&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Link to tP dashboard]
 * *Other contributions*:
 
 ** Documentation:
-*** Did the initial revamp of our User Guide: https://github.com[#14]
-*** Updated some UML diagrams for the Developer Guide
+*** Did the initial revamp of our User Guide: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/39[#39]
+*** Updated some UML diagrams for the Developer Guide: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/115[#115]
 ** Community:
-*** PRs reviewed: https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Offer suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Major PRs reviewed: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/112[#112]
 
 _{you can add/remove categories in the list above}_
 
@@ -42,9 +40,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=expense]
 
 == Contributions to the Developer Guide
 
@@ -53,12 +49,3 @@ include::../UserGuide.adoc[tag=dataencryption]
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
