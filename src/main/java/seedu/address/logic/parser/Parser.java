@@ -10,6 +10,7 @@ public interface Parser<T extends Command> {
 
     public static final int MAX_AMOUNT_LENGTH = 7;
     public static final char NEGATIVE_AMOUNT_SIGN = '-';
+    public static final char ZERO_AMOUNT = '0';
 
     /**
      * Parses {@code userInput} into a command and returns it.
