@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 import organice.logic.commands.AddCommand;
 import organice.logic.commands.ClearCommand;
 import organice.logic.commands.Command;
-import organice.logic.commands.DeleteCommand;
 import organice.logic.commands.DoneCommand;
 import organice.logic.commands.EditCommand;
 import organice.logic.commands.ExitCommand;
@@ -55,9 +54,6 @@ public class AddressBookParser {
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
