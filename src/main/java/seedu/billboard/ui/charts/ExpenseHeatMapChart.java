@@ -8,7 +8,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -65,7 +64,8 @@ public class ExpenseHeatMapChart extends ExpenseChart {
         xAxis.setTickLabelFormatter(new StringConverter<>() {
             @Override
             public String toString(Number number) {
-                return Month.of((int) Math.ceil(((number.doubleValue() / 4.5)  + currentYearRange.getStartDate().getMonthValue()) % 12))
+                return Month.of((int) Math.ceil(((number.doubleValue() / 4.5)
+                        + currentYearRange.getStartDate().getMonthValue()) % 12))
                         .getDisplayName(TextStyle.SHORT, Locale.getDefault());
             }
 
@@ -88,6 +88,9 @@ public class ExpenseHeatMapChart extends ExpenseChart {
         });
     }
 
+    /**
+     * Initializes the chart.
+     */
     private void initChart() {
         ExpenseHeatMap expenseHeatMap = heatMapGenerator.generate(expenses, currentYearRange);
 

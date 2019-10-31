@@ -6,8 +6,6 @@ import javafx.scene.chart.BubbleChart;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Ellipse;
 
-import java.util.Comparator;
-
 /**
  * Implementation of JavaFx {@code BubbleChart} that maintains a proportional bubble.
  */
