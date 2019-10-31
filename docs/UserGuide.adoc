@@ -196,15 +196,18 @@ image::redo-result.png[width="450"]
 === Changing to calendar view : `tab calendar`
 Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of engagements per day, and more commands can be used to see what those engagements are.
 
-image::calendar-view.png[width="450"]
 .Calendar view for October 2019
+image::calendar-view.png[width="450"]
 
-=== Displaying the list of engagements for a specified date (calendar view only): `calendar opendisplay DATE`
+=== Displaying the list of engagements for a specified date (calendar view only): `calendar opendisplay [date]`
 Opens a window displaying the list of engagements for the specified date. This command does not work if the application
 is in another tab (view) or the specified date is invalid.
 
 .Engagement list for 01/11/2019
 image::calendar-open-display.png[width="450"]
+
+Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
+for that date.
 
 After entering `calendar opendisplay 01/11/2019` into the input box while in calendar view for October 2019, the
 above window opens up. The date 01/11/2019 is still valid because it is displayed in the calendar view for October
@@ -217,12 +220,18 @@ application is in another tab.
 .Changing to the next month from October 2019
 image::calendar-next-month.png[width="450"]
 
+Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
+to change the display to the next month.
+
 === Changing the calendar display to the previous month (calendar view only): `calendar previousmonth`
 Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
 application is in another tab.
 
 .Changing to the previous month from October 2019
 image::calendar-previous-month.png[width="450"]
+
+Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
+to change the display to the previous month.
 
 === Typing game : `tab game`
 
