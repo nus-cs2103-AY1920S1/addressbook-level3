@@ -67,10 +67,10 @@ public class TaskCard extends UiPart<Region> {
         if (task.getTaskType() == TaskType.TODO) {
             date.setText("");
         } else if (task.getTaskType() == TaskType.DEADLINE) {
-            date.setText("Due: " + ((Deadline) task).getDueDate());
+            date.setText("Due " + ((Deadline) task).getDueDate());
         } else if (task.getTaskType() == TaskType.EVENT) {
             Event e = (Event) task;
-            date.setText("From: " + e.getStartDate() + " to: " + e.getEndDate());
+            date.setText(e.getStartDate() + " to " + e.getEndDate());
         }
 
 
