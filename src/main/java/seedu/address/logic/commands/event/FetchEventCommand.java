@@ -51,7 +51,7 @@ public class FetchEventCommand extends Command {
         }
         Event eventToFetch = lastShownList.get(index.getZeroBased());
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch.getName()), false,
-                false, index.getZeroBased(), "Event");
+                false, index.getZeroBased(), "Event_Fetch");
     }
 
     @Override
