@@ -31,6 +31,7 @@ public class UiManager implements Ui {
 
     }
 
+
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");

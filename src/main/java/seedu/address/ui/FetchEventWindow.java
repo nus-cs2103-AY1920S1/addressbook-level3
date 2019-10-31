@@ -35,6 +35,7 @@ public class FetchEventWindow extends UiPart<Stage> {
     private final Integer index;
     private ObservableList<Employee> employeeList;
     private ObservableList<Event> filteredEventList;
+    private ObservableList<Event> filteredScheduleEventList;
     private Event event;
     private ErrorWindow errorWindow;
 
@@ -74,7 +75,11 @@ public class FetchEventWindow extends UiPart<Stage> {
         this.eventOneBasedIndex = index + 1;
 
         employeeList = logic.getFullEmployeeList();
-        filteredEventList = logic.getFilteredEventList();
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            filteredEventList = logic.getFilteredEventList();
+        } else {
+            filteredEventList = logic.getFilteredScheduledEventList();
+        }
         updateCards();
 
         EventHandler<MouseEvent> handleAllocate = new EventHandler<MouseEvent>() {

@@ -26,6 +26,7 @@ import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 /**
  * Allocates a number of people to an event either randomly or filtered by matching tags.
@@ -101,7 +102,12 @@ public class AutoAllocateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> lastShownEventList = model.getFilteredEventList();
+        List<Event> lastShownEventList;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownEventList = model.getFilteredEventList();
+        } else {
+            lastShownEventList = model.getFilteredScheduledEventList();
+        }
 
         if (eventIndex.getOneBased() > lastShownEventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);

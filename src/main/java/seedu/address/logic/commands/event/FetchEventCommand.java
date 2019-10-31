@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.ui.MainWindow;
 
 /**
  * Fetches the details of an existing event in the event book.
@@ -38,14 +39,19 @@ public class FetchEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> lastShownList = model.getFilteredEventList();
-
+        List<Event> lastShownList;
+        String commandType;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownList = model.getFilteredEventList();
+        } else {
+            lastShownList = model.getFilteredScheduledEventList();
+        }
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
         Event eventToFetch = lastShownList.get(index.getZeroBased());
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch.getName()), false,
-                false, index.getZeroBased(), "event");
+                false, index.getZeroBased(), "Event_Fetch");
     }
 
     @Override

@@ -27,6 +27,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static SingleSelectionModel<Tab> selectionModel;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -41,7 +42,6 @@ public class MainWindow extends UiPart<Stage> {
     private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
     private ScheduleBox scheduleBox;
-    private SingleSelectionModel<Tab> selectionModel;
 
     @FXML
     private StackPane schedulePlaceholder;
@@ -77,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
         helpWindow = new HelpWindow();
     }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -146,6 +147,13 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    /**
+     * Returns the current tab number
+     */
+    public static int getCurrentTabIndex() {
+        return selectionModel.getSelectedIndex();
     }
 
     /**
@@ -255,10 +263,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             if (commandResult.getFetch() != null) {
-                if (commandResult.getType().equals("employee")) {
+                if (commandResult.getType().equals("Employee_Fetch")) {
                     handleEmployeeFetch(commandResult.getFetch());
                 }
-                if (commandResult.getType().equals("event")) {
+                if (commandResult.getType().equals("Event_Fetch")) {
                     handleEventFetch(commandResult.getFetch());
                 }
             }
@@ -272,15 +280,15 @@ public class MainWindow extends UiPart<Stage> {
                 scheduleBox.setLabelText(commandResult.getUiChange());
             }
 
-            if (commandResult.getType().equals("Schedule_Tab")) {
+            if (commandResult.getType().contains("Schedule")) {
                 selectionModel.select(1);
             }
 
-            if (commandResult.getType().equals("Main_Tab")) {
+            if (commandResult.getType().contains("Employee")) {
                 selectionModel.select(0);
             }
 
-            if (!commandResult.getType().contains("Schedule")) {
+            if (commandResult.getType().equals("Main_Tab")) {
                 selectionModel.select(0);
             }
 
