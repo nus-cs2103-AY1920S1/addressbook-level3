@@ -222,6 +222,8 @@ public interface Model {
 
     void clearBudgets();
 
+    void deleteBudgetWithName(Description description);
+
     // ================================ EVENT =======================================
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Event> getFilteredEventList();

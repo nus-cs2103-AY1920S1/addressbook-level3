@@ -38,7 +38,8 @@ import seedu.address.logic.commands.alias.DeleteAliasCommand;
 import seedu.address.logic.commands.alias.ListAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.ClearBudgetsCommand;
-import seedu.address.logic.commands.budget.DeleteBudgetCommand;
+import seedu.address.logic.commands.budget.DeleteBudgetByIndexCommand;
+import seedu.address.logic.commands.budget.DeleteBudgetByNameCommand;
 import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
@@ -65,6 +66,7 @@ import seedu.address.logic.parser.AddAliasCommandParser;
 import seedu.address.logic.parser.AddBudgetCommandParser;
 import seedu.address.logic.parser.AddEventCommandParser;
 import seedu.address.logic.parser.AddExpenseCommandParser;
+import seedu.address.logic.parser.DeleteBudgetByNameCommandParser;
 import seedu.address.logic.parser.DeleteExpenseFromBudgetCommandParser;
 import seedu.address.logic.parser.EditBudgetCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
@@ -320,9 +322,14 @@ public class MainWindow extends UiPart<Stage> {
                 Collections.emptyList());
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                DeleteBudgetCommand.COMMAND_WORD,
+                DeleteBudgetByIndexCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                DeleteBudgetByNameCommand.COMMAND_WORD,
+                DeleteBudgetByNameCommandParser.REQUIRED_PREFIXES,
+                DeleteBudgetByNameCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 EditBudgetCommand.COMMAND_WORD,

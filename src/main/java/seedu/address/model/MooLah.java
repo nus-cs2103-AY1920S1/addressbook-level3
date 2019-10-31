@@ -47,7 +47,9 @@ public class MooLah implements ReadOnlyMooLah {
     public MooLah() {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
-        budgets.add(DEFAULT_BUDGET);
+        Budget db = DEFAULT_BUDGET;
+        db.setToPrimary();
+        budgets.add(db);
         events = new UniqueEventList();
     }
 
@@ -241,6 +243,10 @@ public class MooLah implements ReadOnlyMooLah {
     public void changePrimaryBudgetWindow(Timestamp pastDate) {
         requireNonNull(pastDate);
         budgets.changePrimaryBudgetWindow(pastDate);
+    }
+
+    public void deleteBudgetWithName(Description description) {
+        budgets.deleteBudgetWithName(description);
     }
 
     //=========== Event-level operations ================================================================

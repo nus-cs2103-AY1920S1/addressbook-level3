@@ -319,6 +319,11 @@ public class ModelManager implements Model {
         mooLah.clearBudgets();
     }
 
+    @Override
+    public void deleteBudgetWithName(Description description) {
+        mooLah.deleteBudgetWithName(description);
+    }
+
     //=========== Event ================================================================================
 
     @Override

@@ -61,7 +61,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         }
         toAdd.normalize(Timestamp.getCurrentTimestamp());
         internalList.add(toAdd);
-        setPrimary(toAdd);
+            setPrimary(toAdd);
         //addition
         empty = internalList.isEmpty();
         //addition
@@ -181,6 +181,12 @@ public class UniqueBudgetList implements Iterable<Budget> {
         empty = internalList.isEmpty();
     }
 
+    public void deleteBudgetWithName(Description description) {
+        requireNonNull(description);
+        Budget toRemove = getBudgetWithName(description);
+        remove(toRemove);
+    }
+
     public void clearBudgets() {
         Budget defaultBudget = getDefaultBudget();
         for (Budget b : internalList) {
@@ -205,8 +211,6 @@ public class UniqueBudgetList implements Iterable<Budget> {
     public static boolean staticIsEmpty() {
         return empty;
     }
-
-
 
     public ObservableList<Budget> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
