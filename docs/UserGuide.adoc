@@ -461,46 +461,30 @@ Example :
 ==== Add WishList : `addWishlist`
 Adds a new item to your current wishlist
 
-Format: `addWishlist --name <name> --cat <category> --amt <price> --deadline <date>`
+Format: `addWish n/<descrition> cat/<category> amt/<price> d/<date>`
 
 Examples:
 
-* `addWishlist --name deck mala --cat food --amt 5.60`
-* `addWishlist --name deck mala --cat food --amt 5.60 --deadline 01/01/2020`
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/2019 10 28`
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/01/01/2020`
 
-==== Delete WishList : `deleteWishlist`
+==== Delete WishList : `deleteWish`
 Deletes the item at the stated index from your current wishlist
 
-Format: `deleteWishlist <index>`
+Format: `deleteWish <index>`
 
 Examples:
 
 * `deleteWishlist 3`
 
-==== Add Notes to WishList : `noteWishlist`
-Add notes to the item at the stated index in your current wishlist
+==== Edit Wish in WishList : `editWish` 
+edit the description, date, or tags of your wishes.
 
-Format: `noteWishlist <index> <note>`
-
-Examples:
-* `noteWishlist 1 try the chinatown ri ri hong mala!`
-
-==== Add Tags to WishList : `tagWishlist`
-Tags the item at the stated index in your current wishlist with High/ Medium/ Low priority
-
-Format: `tag <index> <high/ medium/ low>`
+Format: `editWishlist <index> [n/<descrition>] [cat/<category>] [amt/<price>] [d/<date>] [tag/<tag>]`
 
 Examples:
-* `tagWishlist 1 high`
-
-==== View WishList: `viewWishlist`
-Displays your current wishlist
-
-Format: `viewWishlist`
-
-Example:
-
-* `viewWishList`
+* `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
+* `editWishlist 1 amt/20 tag/mala tag/expensive`
 
 ==== Sort WishList by Time : `sortWishlistTime`
 Sort by date added from earliest to latest/ from latest to earliest
@@ -541,20 +525,22 @@ Examples:
 * `sortWishlistPriority descending`
 
 
-==== Search WishList : `searchWishList`
-Search wishlist for items containing keyword in their name/ notes +
-Format: `searchWishList <keyword>`
+==== Search WishList : `findWish`
+Search wishlist for items containing keyword in their description +
+Format: `findWish <keyword>`
 Examples:
 
-* `searchWishList mala`
+* `findWish mala`
 
 ==== Purchase WishList : `purchase`
+* To be implemented
 Purchases the item at the stated index from your current wishlist
 Format: `purchase <index>`
 
 Examples:
 
 * `purchase 1`
+
 
 === Undo/ Redo
 ==== Undo previous command : `undo`
