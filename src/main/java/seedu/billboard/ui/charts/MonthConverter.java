@@ -1,7 +1,5 @@
 package seedu.billboard.ui.charts;
 
-import javafx.util.StringConverter;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -9,6 +7,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+
+import javafx.util.StringConverter;
 
 /**
  * StringConverter to convert between a numerical value representing a week in a year, and the name of the month that

@@ -45,7 +45,7 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     private final HeatMapGenerator heatMapGenerator;
     private final XYChart.Series<Integer, Integer> series;
     private final DateRange currentYearRange = getCurrentYearRange();
-    private final int BUBBLE_SCALE_FACTOR = 8;
+    private final int scaleFactor = 8;
 
     public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses, HeatMapGenerator heatMapGenerator) {
         super(FXML, expenses);
@@ -119,6 +119,6 @@ public class ExpenseHeatMapChart extends ExpenseChart {
      * Gets the value of the given amounted adjusted by an appropriate scale factor to fit on the chart.
      */
     private double getAmountValueAdjusted(Map.Entry<DayOfWeek, Amount> entry) {
-        return Math.log10(entry.getValue().amount.doubleValue()) / BUBBLE_SCALE_FACTOR;
+        return Math.log10(entry.getValue().amount.doubleValue()) / scaleFactor;
     }
 }
