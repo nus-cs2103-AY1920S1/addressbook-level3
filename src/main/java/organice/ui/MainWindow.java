@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import organice.commons.core.GuiSettings;
 import organice.commons.core.LogsCenter;
 import organice.logic.Logic;
@@ -18,6 +17,8 @@ import organice.logic.commands.CommandResult;
 import organice.logic.commands.exceptions.CommandException;
 import organice.logic.parser.exceptions.ParseException;
 import organice.model.Model;
+import organice.model.person.Priority;
+import organice.model.person.Status;
 import organice.model.person.Type;
 
 /**
@@ -27,6 +28,8 @@ import organice.model.person.Type;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String STYLE = "-fx-background-radius: 4; -fx-border-radius: 4; -fx-font-family: Segoe UI;"
+            + "-fx-font-size: 13px; -fx-text-fill: white;";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -182,6 +185,30 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Sets the colour of the 'Status' tag according to the status.
+     */
+    public static String getColourOfStatus(Status status) {
+        if (status.isNotProcessing()) {
+            return STYLE + "-fx-background-color: #213896;";
+        } else {
+            return STYLE + "-fx-background-color: #5476ff;";
+        }
+    }
+
+    /**
+     * Sets the colour of the 'Priority' tag according to the status.
+     */
+    public static String getColourOfPriority(Priority priority) {
+
+        if (priority.isHighPriority()) {
+            return STYLE + "-fx-background-color: #cc3232;";
+        } else if (priority.isMediumPriority()) {
+            return STYLE + "-fx-background-color: #db7b2b;";
+        } else {
+            return STYLE + "-fx-background-color: #5cb54c";
+        }
+    }
     /**
      * Swaps the PersonListPanel if a match command is executed.
      */

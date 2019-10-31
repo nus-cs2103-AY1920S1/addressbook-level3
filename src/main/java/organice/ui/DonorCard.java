@@ -1,5 +1,7 @@
 package organice.ui;
 
+import static organice.ui.MainWindow.getColourOfStatus;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -45,6 +47,8 @@ public class DonorCard extends UiPart<Region> {
     private Label organ;
     @FXML
     private Label organExpiryDate;
+    @FXML
+    private Label status;
 
     public DonorCard(Donor donor, int displayedIndex) {
         super(FXML);
@@ -52,13 +56,15 @@ public class DonorCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(donor.getName().fullName);
         phone.setText("Phone Number: " + donor.getPhone().value);
-        nric.setText(donor.getNric().value);
+        nric.setText("NRIC: " + donor.getNric().value);
         type.setText(donor.getType().value);
         age.setText("Age: " + donor.getAge().value);
         bloodType.setText("Blood type: " + donor.getBloodType().value);
         tissueType.setText("Tissue type: " + donor.getTissueType().value);
         organ.setText("Organ: " + donor.getOrgan().value);
         organExpiryDate.setText("Organ Expiry Date: " + donor.getOrganExpiryDate().value);
+        status.setText("Status: " + donor.getStatus().value);
+        status.setStyle(getColourOfStatus(donor.getStatus()));
     }
 
     @Override

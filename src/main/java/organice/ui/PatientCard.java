@@ -1,5 +1,8 @@
 package organice.ui;
 
+import static organice.ui.MainWindow.getColourOfPriority;
+import static organice.ui.MainWindow.getColourOfStatus;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -47,6 +50,8 @@ public class PatientCard extends UiPart<Region> {
     private Label organ;
     @FXML
     private Label doctorInCharge;
+    @FXML
+    private Label status;
 
     public PatientCard(Patient patient, int displayedIndex) {
         super(FXML);
@@ -54,14 +59,17 @@ public class PatientCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(patient.getName().fullName);
         phone.setText("Phone Number: " + patient.getPhone().value);
-        nric.setText(patient.getNric().value);
+        nric.setText("NRIC: " + patient.getNric().value);
         type.setText(patient.getType().value);
         age.setText("Age: " + patient.getAge().value);
         priority.setText("Priority: " + patient.getPriority().value);
+        priority.setStyle(getColourOfPriority(patient.getPriority()));
         bloodType.setText("Blood type: " + patient.getBloodType().value);
         tissueType.setText("Tissue type: " + patient.getTissueType().value);
         organ.setText("Organ: " + patient.getOrgan().value);
         doctorInCharge.setText("Doctor in Charge: " + patient.getDoctorInCharge().value);
+        status.setText("Status: " + patient.getStatus().value);
+        status.setStyle(getColourOfStatus(patient.getStatus()));
     }
 
     @Override
