@@ -1,11 +1,11 @@
 package seedu.scheduler.logic.parser;
 
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.scheduler.logic.commands.DeleteCommand.MESSAGE_USAGE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.stream.Stream;
 
-import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.logic.commands.DeleteCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.person.Name;
@@ -25,7 +25,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ROLE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ROLE) || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getPreamble());

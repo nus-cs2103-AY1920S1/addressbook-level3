@@ -1,6 +1,9 @@
 package seedu.scheduler.logic.parser;
 
-import seedu.scheduler.commons.core.Messages;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.scheduler.logic.commands.EmailCommand.MESSAGE_USAGE;
+import static seedu.scheduler.logic.commands.EmailCommand.TIMESLOT_COMMAND_WORD;
+
 import seedu.scheduler.logic.commands.EmailCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.person.Name;
@@ -21,16 +24,16 @@ public class EmailCommandParser implements Parser<EmailCommand> {
 
         if (trimmedArgs.isEmpty() || splitArgs.length < 2) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-        boolean isTimeslotCommand = splitArgs[0].equals(EmailCommand.TIMESLOT_COMMAND_WORD);
+        boolean isTimeslotCommand = splitArgs[0].equals(TIMESLOT_COMMAND_WORD);
 
         if (isTimeslotCommand) {
             return parseTimeslotCommand(trimmedArgs);
         } else {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
     }
 
@@ -46,14 +49,14 @@ public class EmailCommandParser implements Parser<EmailCommand> {
 
         if (nameArg.length() == 0) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         try {
             name = ParserUtil.parseName(nameArg);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         return new EmailCommand(name);

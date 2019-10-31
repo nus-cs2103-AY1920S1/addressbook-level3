@@ -1,6 +1,8 @@
 package seedu.scheduler.logic.parser;
 
-import seedu.scheduler.commons.core.Messages;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.scheduler.logic.commands.ScheduleCommand.MESSAGE_USAGE;
+
 import seedu.scheduler.logic.commands.ScheduleCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 
@@ -18,7 +20,7 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
     public ScheduleCommand parse(String userInput) throws ParseException {
         if (!userInput.trim().isEmpty()) {
             throw new ParseException(
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         return new ScheduleCommand();
     }

@@ -1,6 +1,8 @@
 package seedu.scheduler.logic.parser;
 
-import seedu.scheduler.commons.core.Messages;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.scheduler.logic.commands.ImportCommand.MESSAGE_USAGE;
+
 import seedu.scheduler.logic.commands.ImportCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 
@@ -18,12 +20,12 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         String[] strings = trimmedArgs.split(" ");
         if (strings.length != 2) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         return new ImportCommand(trimmedArgs);
     }

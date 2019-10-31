@@ -1,8 +1,10 @@
 package seedu.scheduler.logic.parser;
 
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.scheduler.logic.commands.FindCommand.MESSAGE_USAGE;
+
 import java.util.Arrays;
 
-import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.logic.commands.FindCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.person.PersonNameHasKeywordsPredicate;
@@ -21,7 +23,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");

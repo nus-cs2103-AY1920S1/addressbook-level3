@@ -1,12 +1,13 @@
 package seedu.scheduler.logic.commands;
 
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.Schedule;
@@ -67,7 +68,7 @@ public class ImportCommand extends Command {
                 }
                 return new CommandResult(SUCCESS_MESSAGE, false, false);
             } else {
-                throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+                throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
             }
         } catch (FileNotFoundException fileE) {
             throw new CommandException(FILE_DOES_NOT_EXIST, fileE);

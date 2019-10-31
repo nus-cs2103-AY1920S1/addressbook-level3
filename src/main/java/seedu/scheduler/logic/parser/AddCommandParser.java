@@ -1,5 +1,7 @@
 package seedu.scheduler.logic.parser;
 
+import static seedu.scheduler.commons.core.Messages.MESSAGE_CRITICAL_ERROR;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_NAME;
@@ -16,7 +18,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.AddIntervieweeCommand;
 import seedu.scheduler.logic.commands.AddInterviewerCommand;
@@ -53,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         // common prefixes - present across interviewers and interviewees
         if (!arePrefixesPresent(argMultimap, PREFIX_ROLE, PREFIX_NAME, PREFIX_PHONE, PREFIX_DEPARTMENT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
@@ -94,7 +95,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             return new AddInterviewerCommand(interviewer);
         } else {
             // control flow should not reach here.
-            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);
+            throw new AssertionError(MESSAGE_CRITICAL_ERROR);
         }
     }
 

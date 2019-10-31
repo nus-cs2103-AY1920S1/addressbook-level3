@@ -1,6 +1,8 @@
 package seedu.scheduler.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_CRITICAL_ERROR;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.scheduler.logic.commands.EditCommand.MESSAGE_USAGE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_FACULTY;
@@ -20,7 +22,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.EditIntervieweeCommand;
 import seedu.scheduler.logic.commands.EditIntervieweeCommand.EditIntervieweeDescriptor;
@@ -56,17 +57,17 @@ public class EditCommandParser implements Parser<EditCommand> {
         try {
             name = ParserUtil.parseName(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ROLE)) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
 
         if (role.value.equals("interviewee")) {
-            EditIntervieweeDescriptor descriptor = new EditIntervieweeCommand.EditIntervieweeDescriptor();
+            EditIntervieweeDescriptor descriptor = new EditIntervieweeDescriptor();
             fillIntervieweeDescriptor(descriptor, argMultimap);
 
             if (!descriptor.isAnyFieldEdited()) {
@@ -75,7 +76,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             return new EditIntervieweeCommand(name, descriptor);
         }
         if (role.value.equals("interviewer")) {
-            EditInterviewerDescriptor descriptor = new EditInterviewerCommand.EditInterviewerDescriptor();
+            EditInterviewerDescriptor descriptor = new EditInterviewerDescriptor();
             fillInterviewerDescriptor(descriptor, argMultimap);
 
             if (!descriptor.isAnyFieldEdited()) {
@@ -84,7 +85,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             return new EditInterviewerCommand(name, descriptor);
         }
 
-        throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR); // should not reach this point
+        throw new AssertionError(MESSAGE_CRITICAL_ERROR); // should not reach this point
     }
 
     /**
