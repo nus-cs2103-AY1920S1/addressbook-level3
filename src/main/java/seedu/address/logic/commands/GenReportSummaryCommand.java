@@ -27,6 +27,8 @@ public class GenReportSummaryCommand extends Command {
 
     private static final String MESSAGE_REPORT_NOT_GENERATED = "Report not generated";
 
+    private ReportGenerator reportGenerator;
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -34,7 +36,7 @@ public class GenReportSummaryCommand extends Command {
         if (lastShownList.isEmpty()) {
             throw new CommandException(MESSAGE_REPORT_NOT_GENERATED);
         }
-        ReportGenerator.generateSummary(lastShownList);
+        reportGenerator.generateSummary(lastShownList);
         return new CommandResult(MESSAGE_GENREPORT_SUCCESS);
     }
 

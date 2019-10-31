@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -30,7 +31,7 @@ public class ReportGenerator {
      * Generates a PDF summary report for all bodies registered in Mortago.
      *
      */
-    public static boolean generateSummary(java.util.List<Body> bodyList) {
+    public boolean generateSummary(java.util.List<Body> bodyList) {
         if (bodyList == null || bodyList.isEmpty()) {
             return false;
         }
@@ -72,7 +73,7 @@ public class ReportGenerator {
      * Generates a PDF report for all bodies registered in Mortago.
      *
      */
-    public static boolean generateAll(java.util.List<Body> bodyList) {
+    public boolean generateAll(java.util.List<Body> bodyList) {
         if (bodyList == null || bodyList.isEmpty()) {
             return false;
         }
@@ -105,18 +106,25 @@ public class ReportGenerator {
      * @param document which is the report.
      * @param title which is title of the pdf report.
      */
-    private static void addHeader(Document document, String title) throws DocumentException, IOException {
+    private void addHeader(Document document, String title) throws DocumentException, IOException {
         document.open();
         Paragraph preface = new Paragraph(title, titleFont);
         preface.setAlignment(Element.ALIGN_CENTER);
         document.add(preface);
         document.add(new Paragraph("\n"));
-
-        Image logo = Image.getInstance("docs/images/logo.png");
-        logo.setAbsolutePosition(40, 770); //set logo top left
-        //logo.setAbsolutePosition(450, 800); top right
-        logo.scaleAbsolute(100, 70);
-        document.add(logo);
+        try {
+            //Image logo = Image.getInstance("docs/images/logo.png");
+            //Image logo = Image.getInstance(getClass().getClassLoader().getResource("/logo.png"));  //null
+            String imageUrl =
+                    "https://raw.githubusercontent.com/AY1920S1-CS2103T-T13-2/main/master/docs/images/logo.png";
+            Image logo = Image.getInstance(new URL(imageUrl));
+            logo.setAbsolutePosition(40, 770); //set logo top left
+            //logo.setAbsolutePosition(450, 800); top right
+            logo.scaleAbsolute(100, 70);
+            document.add(logo);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -138,7 +146,7 @@ public class ReportGenerator {
      * @param body which is used to generate the report.
      * @return boolean which returns true when report is generated successfully.
      */
-    public static boolean generate(Body body) {
+    public boolean generate(Body body) {
         if (body == null) {
             return false;
         }
