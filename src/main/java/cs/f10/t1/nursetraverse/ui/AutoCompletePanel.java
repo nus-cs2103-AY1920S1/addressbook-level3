@@ -2,14 +2,17 @@ package cs.f10.t1.nursetraverse.ui;
 
 import java.util.LinkedList;
 
-import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteListFilter;
-import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteListUpdater;
+import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteListHandler;
 import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteWord;
 import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteWordStorage;
 import cs.f10.t1.nursetraverse.autocomplete.CommandWord;
+import cs.f10.t1.nursetraverse.autocomplete.ObjectWord;
 import cs.f10.t1.nursetraverse.autocomplete.UserinputParserUtil;
+import cs.f10.t1.nursetraverse.model.appointment.Appointment;
+import cs.f10.t1.nursetraverse.model.patient.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -25,19 +28,17 @@ public class AutoCompletePanel extends UiPart<Region> {
 
     private LinkedList<AutoCompleteWord> matchedAutoCompleteWords = new LinkedList<>();
 
-    private AutoCompleteListUpdater autoCompleteListUpdater;
+    private AutoCompleteListHandler autoCompleteListHandler;
     private AutoCompleteWordStorage autoCompleteWordStorage;
-    private AutoCompleteListFilter autoCompleteListFilter;
 
     @FXML
     private ListView<AutoCompleteWord> autoCompleteWordListView;
 
-    public AutoCompletePanel() {
+    public AutoCompletePanel(FilteredList<Patient> patList, FilteredList<Appointment> apptList) {
         super(FXML);
 
-        autoCompleteWordStorage = new AutoCompleteWordStorage();
-        autoCompleteListUpdater = new AutoCompleteListUpdater();
-        autoCompleteListFilter = new AutoCompleteListFilter();
+        autoCompleteWordStorage = new AutoCompleteWordStorage(patList, apptList);
+        autoCompleteListHandler = new AutoCompleteListHandler();
         autoCompleteWordListView.setItems(autoCompleteWordStorage.getOListAllObjectWord());
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
@@ -95,9 +96,9 @@ public class AutoCompletePanel extends UiPart<Region> {
         // Choose initial list
         ObservableList<AutoCompleteWord> chosenList = chooseList();
         // Filter list based on previous matched words
-        ObservableList<AutoCompleteWord> filteredList = autoCompleteListFilter.filterList(matchedAutoCompleteWords, chosenList);
+        ObservableList<AutoCompleteWord> filteredList = autoCompleteListHandler.filterList(matchedAutoCompleteWords, chosenList);
         // Update list based on userinput
-        ObservableList<AutoCompleteWord> updatedList = autoCompleteListUpdater.updateList(filteredList, matchedAutoCompleteWords.size(), segments, firstSegmentParts);
+        ObservableList<AutoCompleteWord> updatedList = autoCompleteListHandler.updateList(filteredList, matchedAutoCompleteWords.size(), segments, firstSegmentParts);
 
         autoCompleteWordListView.setItems(updatedList);
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
@@ -117,7 +118,8 @@ public class AutoCompletePanel extends UiPart<Region> {
         } else if (matchedAutoCompleteWords.size() == 2) {
             // Set to prefix/index/empty list
             if (((CommandWord) matchedAutoCompleteWords.get(1)).hasIndex()) {
-                currentList = autoCompleteWordStorage.generateOListAllIndexWord();
+                currentList = autoCompleteWordStorage
+                        .generateOListAllIndexWord((ObjectWord) matchedAutoCompleteWords.get(0));
             } else if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
                 currentList = autoCompleteWordStorage.getOListAllPrefixWord();
             } else {
@@ -202,7 +204,8 @@ public class AutoCompletePanel extends UiPart<Region> {
         boolean isCorrect = false;
 
         if (((CommandWord) matchedAutoCompleteWords.get(1)).hasIndex()) {
-            for (AutoCompleteWord autoCompleteWord : autoCompleteWordStorage.generateOListAllIndexWord()) {
+            for (AutoCompleteWord autoCompleteWord : autoCompleteWordStorage
+                    .generateOListAllIndexWord((ObjectWord) matchedAutoCompleteWords.get(0))) {
                 if (secondSegment.equals(autoCompleteWord.getSuggestedWord())) {
                     matchedAutoCompleteWords.add(autoCompleteWord);
                     isCorrect = true;
@@ -210,7 +213,7 @@ public class AutoCompletePanel extends UiPart<Region> {
                 }
             }
         } else if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
-            for (AutoCompleteWord autoCompleteWord : autoCompleteListFilter
+            for (AutoCompleteWord autoCompleteWord : autoCompleteListHandler
                     .filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord())) {
                 if (secondSegment.equals(autoCompleteWord.getSuggestedWord())) {
                     matchedAutoCompleteWords.add(autoCompleteWord);
@@ -230,7 +233,7 @@ public class AutoCompletePanel extends UiPart<Region> {
     public void matchRestOfSegment(String[] segments) {
         for (int i = 3; i <= segments.length; i++) {
             if (matchedAutoCompleteWords.size() == i) {
-                for (AutoCompleteWord autoCompleteWord : autoCompleteListFilter
+                for (AutoCompleteWord autoCompleteWord : autoCompleteListHandler
                         .filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord())) {
                     if (segments[i - 1].equals(autoCompleteWord.getSuggestedWord())) {
                         matchedAutoCompleteWords.add(autoCompleteWord);

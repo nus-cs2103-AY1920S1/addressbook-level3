@@ -20,8 +20,11 @@ import cs.f10.t1.nursetraverse.logic.commands.visit.CancelOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.FinishOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
+import cs.f10.t1.nursetraverse.model.appointment.Appointment;
+import cs.f10.t1.nursetraverse.model.patient.Patient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Class that initialise and stores all list
@@ -44,13 +47,15 @@ public class AutoCompleteWordStorage {
     private ObservableList<AutoCompleteWord> oListAllObjectWord;
     private ObservableList<AutoCompleteWord> oListAllCommandWord;
     private ObservableList<AutoCompleteWord> oListAllPrefixWord;
-    private ObservableList<AutoCompleteWord> oListCurrent;
+    FilteredList<Patient> patList;
+    FilteredList<Appointment> apptList;
 
-    public AutoCompleteWordStorage() {
+    public AutoCompleteWordStorage(FilteredList<Patient> patList, FilteredList<Appointment> apptList) {
         this.oListAllCommandWord = initAllCommandWordList();
         this.oListAllPrefixWord = initAllPrefixWordList();
         this.oListAllObjectWord = initAllObjectWordList();
-        this.oListCurrent = oListAllObjectWord;
+        this.patList = patList;
+        this.apptList = apptList;
     }
 
     /**
@@ -283,11 +288,18 @@ public class AutoCompleteWordStorage {
      *
      * @return list of index word
      */
-    public ObservableList<AutoCompleteWord> generateOListAllIndexWord() {
+    public ObservableList<AutoCompleteWord> generateOListAllIndexWord(ObjectWord matchedObjectWord) {
+        FilteredList listToGenerateFrom;
+        if (matchedObjectWord.getSuggestedWord().equals(PATIENT_OBJECT_WORD)) {
+            listToGenerateFrom = patList;
+        } else {
+            listToGenerateFrom = apptList;
+        }
+
         ObservableList<AutoCompleteWord> oListAllIndexWord = FXCollections.observableArrayList();
-        oListAllIndexWord.add(new IndexWord("1"));
-        oListAllIndexWord.add(new IndexWord("2"));
-        oListAllIndexWord.add(new IndexWord("3"));
+        for (int i = 0; i < listToGenerateFrom.size(); i++) {
+            oListAllIndexWord.add(new IndexWord(Integer.toString(i + 1)));
+        }
         return oListAllIndexWord;
     }
 }
