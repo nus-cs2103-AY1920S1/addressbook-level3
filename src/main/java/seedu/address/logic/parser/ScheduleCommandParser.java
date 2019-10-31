@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import java.time.LocalTime;
