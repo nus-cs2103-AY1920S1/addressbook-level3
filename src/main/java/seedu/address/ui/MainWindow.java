@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private BudgetListPanel budgetListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsDisplay statsDisplay;
 
     private String displayExpenseBudget;
 
@@ -45,13 +46,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane listPanelPlaceHolder;
+    private StackPane leftListPanelPlaceHolder;
+
+    @FXML
+    private StackPane rightListPanelPlaceHolder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane statsDisplayPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -112,10 +119,17 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
-        listPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+        leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+
+        expenseListPanel = new ExpenseListPanel(logic.getExpenses());
+        rightListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        statsDisplay = new StatsDisplay();
+        statsDisplay.setDisplayData(logic.getFilteredExpenseList());
+        statsDisplayPlaceHolder.getChildren().add(statsDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getExpenseListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -187,13 +201,13 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getExpenseList() != null && commandResult.getBudgetList() == null) {
                 expenseListPanel = new ExpenseListPanel(commandResult.getExpenseList());
-                listPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+                leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
             } else if (commandResult.getExpenseList() == null && commandResult.getBudgetList() != null) {
                 budgetListPanel = new BudgetListPanel(commandResult.getBudgetList());
-                listPanelPlaceHolder.getChildren().add(budgetListPanel.getRoot());
+                leftListPanelPlaceHolder.getChildren().add(budgetListPanel.getRoot());
             } else {
                 expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
-                listPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+                leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
             }
 
             if (commandResult.isShowHelp()) {
