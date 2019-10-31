@@ -20,7 +20,7 @@ public class CliSyntax {
     /*Prefix definitions for Appeal class */
     public static final Prefix PREFIX_APPEAL = new Prefix("a/");
     public static final Prefix PREFIX_MASS_RESOLVE = new Prefix("mass/");
-    public static final Prefix PREFIX_REASON = new Prefix("rr/");
+    public static final Prefix PREFIX_REASON = new Prefix("r/");
 
     /* Other misc. prefix definitions. These are used for user clarity: in cases where we only need to check if the
     * prefix is present, without needing to retrieve an associated value, we use these tags. */
