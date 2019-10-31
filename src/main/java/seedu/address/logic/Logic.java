@@ -36,6 +36,11 @@ public interface Logic {
     ReadOnlyExpenseList getExpenseList();
 
     /**
+     * Returns an unmodifiable view of the list of expenses
+     */
+    ObservableList<Expense> getExpenses();
+
+    /**
      * Returns an unmodifiable view of the filtered list of expenses
      */
     ObservableList<Expense> getFilteredExpenseList();

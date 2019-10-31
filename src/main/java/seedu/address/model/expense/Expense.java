@@ -3,6 +3,7 @@ package seedu.address.model.expense;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -128,5 +129,12 @@ public class Expense implements Comparable<Expense> {
             .append("\n");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    public static class SortByDate implements Comparator<Expense> {
+
+        public int compare(Expense a, Expense b) {
+            return a.compareTo(b);
+        }
     }
 }

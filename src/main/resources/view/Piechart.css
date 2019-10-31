@@ -1,0 +1,19 @@
+
+.chart-pie {
+    -fx-border-color: derive(-fx-pie-color, -40%);
+    -fx-border-width: 3px;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: #8b4513;
+    -fx-fill: #8b4513;
+}
+
+.chart-pie-label {
+    -fx-fill: #ffffff;
+    -fx-font-size: 1em;
+}
+
+.chart-legend {
+    -fx-background-color: #fafad2;
+}
