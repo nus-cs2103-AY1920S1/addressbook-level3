@@ -19,7 +19,7 @@ import seedu.address.model.day.Day;
 /**
  * Unschedules an activity from the day by time.
  */
-public class UnscheduleCommand extends Command {
+public class UnscheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "unschedule";
 
@@ -45,6 +45,19 @@ public class UnscheduleCommand extends Command {
         requireAllNonNull(activityIndex, dayIndex);
         this.activityIndexToUnschedule = activityIndex;
         this.dayIndex = dayIndex;
+    }
+
+    public Index getActivityIndexToUnschedule() {
+        return activityIndexToUnschedule;
+    }
+
+    public Index getDayIndex() {
+        return dayIndex;
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     @Override

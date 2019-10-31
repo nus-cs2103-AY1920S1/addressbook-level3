@@ -325,7 +325,11 @@ public interface Model {
 
     void deleteDay(Day target);
 
+    void deleteDays(int n);
+
     void addDays(int n);
+
+    void addDayAtIndex(Index index, Day day);
 
     void setDays(List<Day> itinerary);
 

@@ -35,6 +35,10 @@ public class DeleteDayCommand extends DeleteCommand {
         this.targetIndex = targetIndex;
     }
 
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
     @Override
     public String getSecondCommandWord() {
         return SECOND_COMMAND_WORD;

@@ -4,6 +4,7 @@ import seedu.address.logic.commands.AddAccommodationCommand;
 import seedu.address.logic.commands.AddActivityCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddContactCommand;
+import seedu.address.logic.commands.AddDayCommand;
 import seedu.address.logic.events.Event;
 import seedu.address.logic.events.exceptions.EventException;
 import seedu.address.model.accommodation.Accommodation;
@@ -38,18 +39,14 @@ public class AddEventFactory {
             AddContactCommand tempCommand3 = (AddContactCommand) command;
             return generateAddContactEvent(tempCommand3.getToAdd());
 
+        case(AddDayCommand.SECOND_COMMAND_WORD):
+            AddDayCommand tempCommand4 = (AddDayCommand) command;
+            return generateAddDayEvent(tempCommand4.getToAdd());
         default:
             throw new EventException(
                     String.format(MESSAGE_NOT_UNDOABLE, command.getCommandWord(), command.getSecondCommandWord())
             );
         }
-
-        /*
-        case(AddDayCommand.SECOND_COMMAND_WORD):
-            AddDayCommand tempCommand4 = (AddDayCommand)command;
-            generateAddDayEvent(tempCommand4.getToAdd());
-        }
-        */
     }
 
     public static AddAccommodationEvent generateAddAccommodationEvent(Accommodation accommodationAdded) {
@@ -64,9 +61,7 @@ public class AddEventFactory {
         return new AddContactEvent(contactAdded);
     }
 
-    /*
-    public static AddDayEvent generateAddDayEvent(int daysAdded) {
-        return new AddDayEvent(daysAdded);
+    public static AddDayEvent generateAddDayEvent(int numberOfDays) {
+        return new AddDayEvent(numberOfDays);
     }
-    */
 }

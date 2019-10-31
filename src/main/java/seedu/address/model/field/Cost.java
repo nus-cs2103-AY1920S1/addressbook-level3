@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Cost {
     public static final String MESSAGE_CONSTRAINTS =
-            "Costs should only be up to 2 decimal places. They should also not be blank.";
+            "Costs should only be a positive integer to the nearest 2 decimal places. They should also not be blank.";
 
     /*
      *

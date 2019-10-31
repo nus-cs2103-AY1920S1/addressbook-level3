@@ -24,7 +24,7 @@ import seedu.address.model.day.Day;
  * Schedules an activity to a day.
  * @@author oscarsu97
  */
-public class ScheduleCommand extends Command {
+public class ScheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "schedule";
 
@@ -56,6 +56,22 @@ public class ScheduleCommand extends Command {
         this.dayIndex = dayIndex;
     }
 
+    public Index getActivityIndex() {
+        return activityIndex;
+    }
+
+    public Index getDayIndex() {
+        return dayIndex;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
