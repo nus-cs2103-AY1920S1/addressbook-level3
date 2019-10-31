@@ -209,6 +209,10 @@ image::tip.png[width = "20", float = "left"]
 
 Format: `generate [length/LENGTH] [lower/TRUE] [upper/TRUE] [num/TRUE] [special/TRUE]`
 
+* The various fields are set to TRUE by default.
+
+* To disable these fields, set to FALSE.
+
 Example: `generate`
 
 Example `generate length/10`
