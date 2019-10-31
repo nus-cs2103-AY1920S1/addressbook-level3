@@ -31,9 +31,9 @@ public class IncomeTrendCommand extends TrendCommand {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_YEAR + "2019 ";
 
-    public static final String MESSAGE_SUCCESS = "Monthly income trend for year %1$s displayed.";
+    public static final String MESSAGE_SUCCESS = "Monthly income trend for %1$s displayed.";
 
-    public static final String REPORT_DESCRIPTION = "Total income for this month";
+    public static final String REPORT_DESCRIPTION = "Total income for %1$s %2$s";
 
     /**
      * Constructs a {@code IncomeTrendCommand}.
@@ -56,7 +56,6 @@ public class IncomeTrendCommand extends TrendCommand {
         ObservableList<Transaction> transactionList = model.getFundBook().getTransactionList();
         List<Data> monthlyIncomeList = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            Year currentYear = report.getYear();
             Month currentMonth = new Month(Integer.toString(i + 1));
             List<Amount> currentMonthIncomeList = new ArrayList<>();
             for (Transaction transaction : transactionList) {
@@ -66,7 +65,8 @@ public class IncomeTrendCommand extends TrendCommand {
             }
             Amount currentMonthIncome = Amount.addAll(currentMonthIncomeList);
             currentMonthIncomeList.add(currentMonthIncome);
-            Data currentData = new Data(REPORT_DESCRIPTION, currentMonthIncome, Optional.of(currentYear),
+            Data currentData = new Data(String.format(REPORT_DESCRIPTION, currentMonth.wordString(), year.toString()),
+                    currentMonthIncome, Optional.of(year),
                     Optional.of(currentMonth), Optional.empty(), Optional.empty());
             monthlyIncomeList.add(currentData);
         }
@@ -79,6 +79,6 @@ public class IncomeTrendCommand extends TrendCommand {
         TrendReport report = createTrendReport(year);
         fillIncomeTrendReport(model, report);
         model.updateDataList(report.getTrendList());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, year));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, year.toString()));
     }
 }

@@ -7,6 +7,7 @@ import java.util.Objects;
 import seedu.ichifund.model.Description;
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
@@ -51,6 +52,18 @@ public class Transaction implements Comparable<Transaction> {
 
     public Date getDate() {
         return date;
+    }
+
+    public Day getDay() {
+        return date.getDay();
+    }
+
+    public Month getMonth() {
+        return date.getMonth();
+    }
+
+    public Year getYear() {
+        return date.getYear();
     }
 
     public TransactionType getTransactionType() {

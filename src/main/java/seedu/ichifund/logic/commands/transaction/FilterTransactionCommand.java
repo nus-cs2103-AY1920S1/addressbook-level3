@@ -26,13 +26,12 @@ public class FilterTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "filtertx";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all transactions from a specified "
-            + "month, year and optionally category, and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters transactions as specified by parameters, "
+            + "and displays them as a list with index numbers. "
             + "To show all categories, use "
             + "\"" + PREFIX_CATEGORY + Category.CATEGORY_ALL.toString() + "\". "
             + "To show both income and expenditure items, use "
-            + "\"" + PREFIX_TRANSACTION_TYPE + TransactionType.TRANSACTION_TYPE_ALL.toString() + "\"."
-            + "At least one parameter must be present.\n"
+            + "\"" + PREFIX_TRANSACTION_TYPE + TransactionType.TRANSACTION_TYPE_ALL.toString() + "\". "
             + "Parameters: "
             + "[" + PREFIX_MONTH + "MONTH] "
             + "[" + PREFIX_YEAR + "YEAR] "

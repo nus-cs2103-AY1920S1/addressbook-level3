@@ -4,8 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import seedu.ichifund.model.analytics.Data;
-import seedu.ichifund.model.analytics.exceptions.DateFieldNotFoundException;
+import seedu.ichifund.model.analytics.exceptions.FieldNotFoundException;
+import seedu.ichifund.model.date.Date;
 
 /**
  * An UI component that displays information of {@code Data}.
@@ -33,11 +35,7 @@ public class DataCard extends UiPart<Region> {
     @FXML
     private Label amount;
     @FXML
-    private Label year;
-    @FXML
-    private Label month;
-    @FXML
-    private Label day;
+    private Label date;
     @FXML
     private Label category;
 
@@ -47,25 +45,17 @@ public class DataCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(data.getDescription());
         amount.setText(data.getAmount().toString());
+        amount.setTextFill(Paint.valueOf("grey"));
         try {
-            year.setText(data.getYear().toString());
-        } catch (DateFieldNotFoundException ignored) {
-            ;
+            category.setText(data.getCategory().toString().toUpperCase());
+        } catch (FieldNotFoundException e) {
+            category.setText("ALL CATEGORIES");
         }
         try {
-            month.setText(data.getMonth().wordString());
-        } catch (DateFieldNotFoundException ignored) {
-            ;
-        }
-        try {
-            day.setText(data.getDay().toString());
-        } catch (DateFieldNotFoundException ignored) {
-            ;
-        }
-        try {
-            category.setText(data.getCategory().toString());
-        } catch (DateFieldNotFoundException ignored) {
-            ;
+            Date dataDate = new Date(data.getDay(), data.getMonth(), data.getYear());
+            date.setText(dataDate.toFullString());
+        } catch (FieldNotFoundException e) {
+            date.setText("");
         }
     }
 
@@ -85,9 +75,7 @@ public class DataCard extends UiPart<Region> {
         DataCard card = (DataCard) other;
         return id.getText().equals(card.id.getText())
                 && amount.equals(card.amount)
-                && year.equals(card.year)
-                && month.equals(card.month)
-                && day.equals(card.day)
+                && date.equals(card.date)
                 && category.equals(card.category);
     }
 }

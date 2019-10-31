@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import seedu.ichifund.model.amount.Amount;
-import seedu.ichifund.model.analytics.exceptions.DateFieldNotFoundException;
+import seedu.ichifund.model.analytics.exceptions.FieldNotFoundException;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
@@ -16,7 +16,7 @@ import seedu.ichifund.model.transaction.Category;
  * Represents a data field in an analytics report.
  * Guarantees: immutable
  */
-public class Data {
+public class Data implements Comparable<Data> {
 
     private final String description;
     private final Amount amount;
@@ -48,19 +48,19 @@ public class Data {
     }
 
     public Year getYear() {
-        return year.orElseThrow(DateFieldNotFoundException::new);
+        return year.orElseThrow(FieldNotFoundException::new);
     }
 
     public Month getMonth() {
-        return month.orElseThrow(DateFieldNotFoundException::new);
+        return month.orElseThrow(FieldNotFoundException::new);
     }
 
     public Day getDay() {
-        return day.orElseThrow(DateFieldNotFoundException::new);
+        return day.orElseThrow(FieldNotFoundException::new);
     }
 
     public Category getCategory() {
-        return category.orElseThrow(DateFieldNotFoundException::new);
+        return category.orElseThrow(FieldNotFoundException::new);
     }
 
     /**
@@ -84,6 +84,11 @@ public class Data {
                 && otherData.getMonth().equals(getMonth())
                 && otherData.getDay().equals(getDay())
                 && otherData.getCategory().equals(getCategory());
+    }
+
+    @Override
+    public int compareTo(Data other) {
+        return other.getAmount().compareTo(getAmount());
     }
 
     @Override

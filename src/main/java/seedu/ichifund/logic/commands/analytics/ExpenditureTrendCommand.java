@@ -31,9 +31,9 @@ public class ExpenditureTrendCommand extends TrendCommand {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_YEAR + "2019 ";
 
-    public static final String MESSAGE_SUCCESS = "Monthly expenditure trend for year %1$s displayed.";
+    public static final String MESSAGE_SUCCESS = "Monthly expenditure trend for %1$s displayed.";
 
-    public static final String REPORT_DESCRIPTION = "Total expenditure for this month";
+    public static final String REPORT_DESCRIPTION = "Total expenditure for %1$s %2$s";
 
     /**
      * Constructs a {@code ExpenditureTrendCommand}.
@@ -56,7 +56,6 @@ public class ExpenditureTrendCommand extends TrendCommand {
         ObservableList<Transaction> transactionList = model.getFundBook().getTransactionList();
         List<Data> monthlyExpenditureList = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            Year currentYear = report.getYear();
             Month currentMonth = new Month(Integer.toString(i + 1));
             List<Amount> currentMonthExpenditureList = new ArrayList<>();
             for (Transaction transaction : transactionList) {
@@ -65,8 +64,9 @@ public class ExpenditureTrendCommand extends TrendCommand {
                 }
             }
             Amount currentMonthExpenditure = Amount.addAll(currentMonthExpenditureList);
-            Data currentData = new Data(REPORT_DESCRIPTION, currentMonthExpenditure, Optional.of(currentYear),
-                    Optional.of(currentMonth), Optional.empty(), Optional.empty());
+            Data currentData = new Data(String.format(REPORT_DESCRIPTION, currentMonth.wordString(), year.toString()),
+                    currentMonthExpenditure, Optional.of(year), Optional.of(currentMonth),
+                    Optional.empty(), Optional.empty());
             monthlyExpenditureList.add(currentData);
         }
         report.fillReport(monthlyExpenditureList);
@@ -78,6 +78,6 @@ public class ExpenditureTrendCommand extends TrendCommand {
         TrendReport report = createTrendReport(year);
         fillExpenditureTrendReport(model, report);
         model.updateDataList(report.getTrendList());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, year));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, year.toString()));
     }
 }

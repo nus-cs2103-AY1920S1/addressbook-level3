@@ -17,7 +17,7 @@ import seedu.ichifund.model.budget.Budget;
  */
 public class DeleteBudgetCommand extends Command {
 
-    public static final String COMMAND_WORD = "bdelete";
+    public static final String COMMAND_WORD = "deletebud";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the budget identified by the index number used in the displayed budget list.\n"
