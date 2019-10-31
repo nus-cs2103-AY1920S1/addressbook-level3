@@ -67,6 +67,7 @@ Example:
 Edits the details of the competition identified by the index number, used in the Competition list (shown in the GUI). 
 Existing values will be overwritten by the input values.
 In addition to INDEX, you must supply a value for at least one of the following fields:
+
 1. COMPETITION NAME
 2. START DATE OF COMPETITION
 3. END DATE OF COMPETITION
@@ -112,6 +113,7 @@ Examples:
 Edits the details of the person identified by the index number, used in the Person list (shown in the GUI). 
 Existing values will be overwritten by the input values.
 In addition to INDEX, you must supply a value for at least one of the following fields:
+
 1. NAME
 2. DATEOFBIRTH
 3. GENDER
