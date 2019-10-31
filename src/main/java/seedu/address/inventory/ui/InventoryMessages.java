@@ -28,7 +28,7 @@ public class InventoryMessages {
     public static final String MESSAGE_INVALID_EDIT_COMMAND_FORMAT = "Sorry! Please type edit with the index "
             + "and any parameters to be edited:\n" + "d/DESCRIPTION\n c/CATEGORY\n q/QUANTITY\n co/COST\n p/PRICE";
 
-    public static final String MESSAGE_NOT_EDITED = "Sorry! Did not manage to edit item! Please follow the correct"
+    public static final String MESSAGE_NOT_EDITED = "Sorry! Did not manage to edit item. Please follow the correct"
             + " format and ensure that the values correspond to the input type (E.g. quantity must be a number)."
             + "\nThe format is:\nedit INDEX [d/DESCRIPTION] [c/CATEGORY] [q/QUANTITY] [co/COST] [p/PRICE].";
 
