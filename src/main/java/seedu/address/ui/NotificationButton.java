@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -69,7 +70,7 @@ public class NotificationButton extends UiPart<Region> {
      */
     private void initIconNumber(ObservableList<Notif> filteredListNotif) {
         iconNumber = new Label();
-        iconNumber.setText("" + filteredListNotif.size());
+        iconNumber.textProperty().bind(Bindings.size(filteredListNotif).asString());
         iconNumber.getStyleClass().add("notificationButtonLabel");
         addJumpingAnimation();
         bindIconNumberToStackPane();
@@ -105,8 +106,5 @@ public class NotificationButton extends UiPart<Region> {
         buttonPane.getChildren().addAll(iconNumber);
     }
 
-    public void updateNotifCount(int num) {
-        iconNumber.setText(num + "");
-    }
 }
 //@@ author

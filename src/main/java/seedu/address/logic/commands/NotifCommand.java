@@ -126,7 +126,7 @@ public class NotifCommand extends Command {
                 }
             }
             NotificationButton.getInstance(model.getFilteredNotifList())
-                    .updateNotifCount(model.getNumberOfNotifs());
+                    .updateNotifCountOnNotifButton(model.getFilteredNotifList());
         });
         ses.schedule(changeUi, period, timeUnit);
     }

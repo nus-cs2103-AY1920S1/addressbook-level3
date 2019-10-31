@@ -5,12 +5,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FileUtil;
 
@@ -20,23 +22,25 @@ import seedu.address.commons.util.FileUtil;
  */
 public class Photo {
 
-    public static final String PATH_TO_EXAMPLE_PHOTO = "src" + File.separator + "main" + File.separator
-            + "resources" + File.separator + "images" + File.separator + "ExamplePhoto.jpg";
     public static final String MESSAGE_CONSTRAINTS =
-        "Error in importing display photo: Photo should be less than 2MB or it does not exist.";
+            "Error in importing display photo: Photo should be less than 2MB or it does not exist.";
     public static final String MESSAGE_DATA_COPY_ERROR =
-        "Error in copying photo to the data directory";
+            "Error in copying photo to the data directory";
     public static final String PATH_TO_DATA_DIRECTORY = "data" + File.separator + "photo" + File.separator;
+    public static final String PATH_TO_EXAMPLE_PHOTO = PATH_TO_DATA_DIRECTORY + "ExamplePhoto.jpg";
 
     private static final Logger logger = LogsCenter.getLogger(Photo.class);
-    private String dataDirectory;
-    private String originalDirectory;
+    private String dataDirectory; // the path to the copied photo in the data directory
+    private String originalDirectory; // the original file path
 
     public Photo(String pathToPhoto) throws IllegalArgumentException {
         requireNonNull(pathToPhoto);
         if (pathToPhoto.equals(PATH_TO_EXAMPLE_PHOTO)) {
             originalDirectory = PATH_TO_EXAMPLE_PHOTO;
             dataDirectory = PATH_TO_EXAMPLE_PHOTO;
+            if (!FileUtil.isFileExists(Paths.get(pathToPhoto))) {
+                initExamplePhoto();
+            }
         } else {
             this.originalDirectory = pathToPhoto;
             File photo = new File(originalDirectory);
@@ -52,6 +56,7 @@ public class Photo {
      */
     private void copyToDataDirectory(Path originalPath, Path dataDirPath) throws IllegalArgumentException {
         try {
+            Files.createDirectories(Paths.get(PATH_TO_DATA_DIRECTORY));
             Files.copy(originalPath, dataDirPath, REPLACE_EXISTING);
         } catch (IOException e) {
             logger.warning(e.getMessage());
@@ -60,12 +65,11 @@ public class Photo {
     }
 
     /**
-     * Returns the file path of
-     * the copied photo in the data directory.
+     * Returns the file path of the copied photo in the data directory.
      * Intended for {@code ImageView} to reference to the photo.
      */
     public String getPathToDataDirectory() {
-        return "file://" + Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
+        return "file://" + getStoragePathToDataDirectory();
     }
 
     //@@author ambervoong
@@ -74,9 +78,22 @@ public class Photo {
      * Intended for {@code JsonAdaptedWorker} to retrieve the photo.
      */
     public String getStoragePathToDataDirectory() {
-        return Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
+        return Paths.get(dataDirectory).toAbsolutePath().toUri().getPath().substring(1);
     }
     //@@author
+
+    /**
+     * Loads the example photo from resources into the data directory when the user launches app for the first time.
+     */
+    private void initExamplePhoto() {
+        try {
+            Files.createDirectories(Paths.get(PATH_TO_DATA_DIRECTORY));
+            InputStream photo = MainApp.class.getResourceAsStream("/images/ExamplePhoto.jpg");
+            Files.copy(photo, Paths.get(PATH_TO_EXAMPLE_PHOTO), REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.severe("Unable to load example photo.");
+        }
+    }
 
     /**
      * Returns true if the photo from {@code pathToPhoto} is a valid photo.

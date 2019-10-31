@@ -18,6 +18,7 @@ import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
+import seedu.address.ui.NotificationButton;
 
 //@@author arjavibahety
 /**

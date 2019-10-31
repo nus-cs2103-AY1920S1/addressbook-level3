@@ -37,8 +37,12 @@
                                 <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                             </Menu>
                         </MenuBar>
-                        <StackPane fx:id="commandBoxPlaceholder" prefWidth="800.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="3.0" />
-                        <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" AnchorPane.rightAnchor="260.0" />
+                  <HBox layoutX="150.0">
+                     <children>
+                              <StackPane fx:id="commandBoxPlaceholder" prefWidth="800.0" />
+                              <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" />
+                     </children>
+                  </HBox>
                         <HBox layoutX="1064.0" AnchorPane.rightAnchor="0.0">
                             <children>
                                 <Button fx:id="minimiseButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="45.0">
@@ -81,7 +85,7 @@
                                 </StackPane>
                             </children>
                         </HBox>
-                        <HBox prefHeight="150.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="220.0" spacing="15.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <StackPane fx:id="fridgeListPlaceholder" prefWidth="204.0" styleClass="stack-pane" HBox.hgrow="ALWAYS">
                                     <effect>
