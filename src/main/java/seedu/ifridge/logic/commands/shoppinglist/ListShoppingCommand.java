@@ -21,6 +21,7 @@ public class ListShoppingCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+        model.sortShoppingItems();
         CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
         commandResult.setShoppingListCommand();
         return commandResult;
