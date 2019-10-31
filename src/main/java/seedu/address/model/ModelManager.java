@@ -351,10 +351,7 @@ public class ModelManager implements Model {
         userPrefs.setBackground(background);
     }
 
-    //=========== Food Map =============================================================
-
-    //addFood() Function
-
+    //=========== Food List =============================================================
 
     @Override
     public boolean hasFood(Food food) {
