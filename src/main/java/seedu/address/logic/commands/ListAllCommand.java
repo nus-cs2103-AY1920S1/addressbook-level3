@@ -8,9 +8,9 @@ import seedu.address.model.Model;
 /**
  * Lists all flash cards in the address book to the user.
  */
-public class ListCommand extends Command {
+public class ListAllCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "listall";
 
     public static final String MESSAGE_SUCCESS = "Listed all Flash Cards";
 
