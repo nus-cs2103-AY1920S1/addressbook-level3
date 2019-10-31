@@ -11,10 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<HBox fx:id="pageCardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="661.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="pageCardPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="661.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane prefHeight="400.0" prefWidth="610.0" HBox.hgrow="ALWAYS">
+      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="610.0" HBox.hgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -24,12 +23,12 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label fx:id="pageTitle" prefHeight="63.0" prefWidth="659.0" text="Page Title">
+                  <Label fx:id="pageTitle" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="659.0" text="Page Title">
                      <padding>
                         <Insets left="35.0" />
                      </padding>
                   </Label>
-                  <HBox prefHeight="337.0" prefWidth="623.0" VBox.vgrow="ALWAYS">
+                  <HBox maxWidth="1.7976931348623157E308" prefHeight="337.0" prefWidth="623.0" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fx:id="pageImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
