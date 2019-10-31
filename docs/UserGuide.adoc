@@ -57,7 +57,7 @@ Format: `tab [menu_name]`
 
 * Typee application has mainly 4 major features/menus. User needs to switch to respective windows to perform different commands and features of the system.
 ** Engagement
-** TypingGame
+** Game
 ** Calendar
 ** Report
 * `Engagement` window will be the default window upon start up of the application.
