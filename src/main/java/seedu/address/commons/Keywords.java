@@ -100,7 +100,7 @@ public class Keywords {
 
             case  RemoveTaskFromMemberCommand.COMMAND_WORD:
                 return "fire-task ti/ mi/";
-            
+
             case  RemoveMemberFromTaskCommand.COMMAND_WORD:
                 return "fire-member ti/ mi/";
 
@@ -139,4 +139,5 @@ public class Keywords {
                 return commandWord + " ";
         }
     }
+
 }

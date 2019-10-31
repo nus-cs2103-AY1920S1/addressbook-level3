@@ -179,7 +179,7 @@ public class CommandBox extends UiPart<Region> {
      * Interface to allow other components to update the text inside {@CommandBox}
      * @param text
      */
-    public void setCommandText(String text) { 
+    public void setCommandText(String text) {
         commandTextField.setText(text);
     }
 
