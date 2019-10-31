@@ -20,16 +20,16 @@ public class CategoryTest {
 
     @Test
     public void isValidCategory() {
-        // null name
+        // null category
         assertThrows(NullPointerException.class, () -> Category.isValidCategory(null));
 
-        // invalid name
+        // invalid category
         assertFalse(Category.isValidCategory("")); // empty string
         assertFalse(Category.isValidCategory(" ")); // spaces only
         assertFalse(Category.isValidCategory("^")); // only non-alphanumeric characters
         assertFalse(Category.isValidCategory("food*")); // contains non-alphanumeric characters
 
-        // valid name
+        // valid category
         assertTrue(Category.isValidCategory("food")); // alphabets only
         assertTrue(Category.isValidCategory("000")); // numbers only
         assertTrue(Category.isValidCategory("food1")); // alphanumeric characters

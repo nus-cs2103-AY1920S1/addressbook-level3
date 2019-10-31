@@ -20,16 +20,16 @@ public class DescriptionTest {
 
     @Test
     public void isValidDescription() {
-        // null name
+        // null description
         assertThrows(NullPointerException.class, () -> Description.isValidDescription(null));
 
-        // invalid name
+        // invalid description
         assertFalse(Description.isValidDescription("")); // empty string
         assertFalse(Description.isValidDescription(" ")); // spaces only
         assertFalse(Description.isValidDescription("^")); // only non-alphanumeric characters
         assertFalse(Description.isValidDescription("dinner*")); // contains non-alphanumeric characters
 
-        // valid name
+        // valid description
         assertTrue(Description.isValidDescription("dinner with myself")); // alphabets only
         assertTrue(Description.isValidDescription("000")); // numbers only
         assertTrue(Description.isValidDescription("2nd lunch")); // alphanumeric characters
