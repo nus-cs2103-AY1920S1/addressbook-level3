@@ -10,16 +10,22 @@ import seedu.address.model.ReadOnlyAccommodation;
 import seedu.address.model.ReadOnlyActivity;
 import seedu.address.model.ReadOnlyContact;
 import seedu.address.model.ReadOnlyItinerary;
-import seedu.address.model.ReadOnlyUserPrefs;
 
+/**
+ * An event representing a 'clear' command.
+ */
 public class ClearCommandEvent implements Event {
     private final Model prevModelManager;
 
     public ClearCommandEvent(Model model) {
-        prevModelManager = new ModelManager(model.getAccommodations(), model.getActivities(), model.getContacts()
-        , model.getItinerary(), model.getUserPrefs());
+        prevModelManager = new ModelManager(model.getAccommodations(), model.getActivities(), model.getContacts(),
+                model.getItinerary(), model.getUserPrefs());
     }
 
+    /**
+     * A undo method to undo the effects of a Clear command previously called.
+     * @return A UndoClearCommand to undo the effects of the recent Clear command.
+     */
     public UndoableCommand undo() {
         ReadOnlyAccommodation prevAccommodation = prevModelManager.getAccommodations();
         ReadOnlyActivity prevActivity = prevModelManager.getActivities();
