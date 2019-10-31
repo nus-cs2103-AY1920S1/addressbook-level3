@@ -30,7 +30,7 @@ public class FireCommand extends Command {
             + PREFIX_MEMBER_ID + " JD";
 
     public static final String MESSAGE_REMOVE_TASK_SUCCESS = "Task removed from member";
-    public static final String MESSAGE_INVALID_TASK_ID = "This task does not exist under member.";
+    public static final String MESSAGE_NO_MAPPING = "This task does not exist under member.";
 
     private final Index taskId;
     private final MemberId memberId;
@@ -79,7 +79,7 @@ public class FireCommand extends Command {
         try {
             model.deleteMapping(mappingToRemove);
         } catch (MappingNotFoundException e) {
-            throw new CommandException(MESSAGE_INVALID_TASK_ID);
+            throw new CommandException(MESSAGE_NO_MAPPING);
         }
 
         return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS));

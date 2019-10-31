@@ -138,6 +138,7 @@ Displays a list of possible commands for the user +
 You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
 
+
 '''
 
 === Member-related Commands
@@ -188,8 +189,7 @@ Example: `remove-member mi/GS` will result in the following:
 image::RemoveMember.png[width="790"]
 
 As seen from above, the member 'New Member' with member ID 'NM' has been removed from the project.
-=======
-Example: 'remove-member mi/GS'
+
 
 ==== Assign a task to a member: `assign` +
 To assign a task to a specific team member, use the `assign` command in the format below. +
@@ -212,9 +212,8 @@ Example: `fire ti/1 mi/GS` will result in the following:
 +
 image::FireTask.png[width="790"]
 +
-
-
 This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
+
 
 '''
 
@@ -273,6 +272,7 @@ image::done-task-list-command.png[]
 * Hit the kbd:[Enter] key and you will see that the task has been marked as `done`! You should see a window similar to the one below when you navigate back to `home`.
 
 image::done-task-result-dashboard.png[]
+
 
 ==== Setting a task's status to `doing`: `doing-task`
 
@@ -449,7 +449,6 @@ image::TaskStats.png[width="790"]
 
 '''
 
-=== Settings Commands
 === Settings Commands
 
 ==== Switching the theme of +Work: `theme`

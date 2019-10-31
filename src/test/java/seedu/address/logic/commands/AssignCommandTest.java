@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
@@ -93,39 +95,48 @@ public class AssignCommandTest {
                 assignCommand.execute(modelStub));
     }
 
-    /*@Test
+    @Test
     public void execute_invalidTaskId_throwsCommandException() {
-        Member validMember = new MemberBuilder().build();
-        AddMemberCommand addMemberCommand = new AddMemberCommand(validMember);
-        AddMemberCommandTest.ModelStub modelStub = new AddMemberCommandTest.ModelStubWithMember(validMember);
+        ModelStubAcceptingTasMemMappingAdded modelStub = new ModelStubAcceptingTasMemMappingAdded();
+        Task newTask = new TaskBuilder().build();
+        Member newMember = new MemberBuilder().withId(new MemberId("test")).build();
+        modelStub.addMember(newMember);
+        modelStub.addTask(newTask);
 
-        assertThrows(CommandException.class, addMemberCommand.MESSAGE_DUPLICATE_MEMBER, () ->
-                addMemberCommand.execute(modelStub));
+        AssignCommand assignCommand = new AssignCommand(new Index(1), new MemberId("test"));
+
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, () ->
+                assignCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Member alice = new MemberBuilder().withName("Alice").build();
-        Member bob = new MemberBuilder().withName("Bob").build();
-        AddMemberCommand addAliceCommand = new AddMemberCommand(alice);
-        AddMemberCommand addBobCommand = new AddMemberCommand(bob);
+        ModelStubAcceptingTasMemMappingAdded modelStub = new ModelStubAcceptingTasMemMappingAdded();
+        Member alice = new MemberBuilder().withId(new MemberId("A")).build();
+        Member bob = new MemberBuilder().withId(new MemberId("B")).build();
+        Task firstTask = new TaskBuilder().build();
+        modelStub.addMember(alice);
+        modelStub.addMember(bob);
+
+        TasMemMapping mappingAliceFirstTask = new MappingBuilder().withTask(0).withMember(0).tasMemMappingBuild();
+        TasMemMapping mappingBobFirstTask = new MappingBuilder().withTask(0).withMember(1).tasMemMappingBuild();
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(mappingAliceFirstTask.equals(mappingAliceFirstTask));
 
         // same values -> returns true
-        AddMemberCommand addAliceCommandCopy = new AddMemberCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        TasMemMapping mappingAliceFirstTaskCopy = new MappingBuilder().withTask(0).withMember(0).tasMemMappingBuild();
+        assertTrue(mappingAliceFirstTask.equals(mappingAliceFirstTaskCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(mappingAliceFirstTask.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(mappingAliceFirstTask.equals(null));
 
         // different task -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
-    }*/
+        assertFalse(mappingAliceFirstTask.equals(mappingBobFirstTask));
+    }
 
     private class ModelStub implements Model {
 
