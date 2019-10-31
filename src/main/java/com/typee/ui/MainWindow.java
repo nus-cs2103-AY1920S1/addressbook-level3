@@ -237,7 +237,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fetches tab information from the tab menu list to the tab retrived after {@code TabCommand}
+     * Fetches tab information from the tab menu list to the tab retrieved after {@code TabCommand}
      */
     private Tab fetchTabInformation(String tabName) throws IOException {
         Tab tabToReturn = new Tab();
