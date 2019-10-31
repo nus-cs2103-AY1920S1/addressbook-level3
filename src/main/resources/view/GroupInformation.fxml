@@ -5,8 +5,8 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<!-- Ensure that group details is not truncated. Make sure groupMembers fill the rest of the space !-->
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="5">
     <StackPane fx:id="groupDetails" GridPane.columnIndex="0" GridPane.rowIndex="0"></StackPane>
-    <StackPane fx:id="groupMembers" GridPane.columnIndex="0" GridPane.rowIndex="1"></StackPane>
+    <StackPane fx:id="groupMembers" GridPane.columnIndex="0" GridPane.rowIndex="1" VBox.vgrow="SOMETIMES"></StackPane>
 </VBox>
