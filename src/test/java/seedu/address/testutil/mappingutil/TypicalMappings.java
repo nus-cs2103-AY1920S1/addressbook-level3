@@ -3,6 +3,7 @@ package seedu.address.testutil.mappingutil;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.exceptions.AlreadyInGroupException;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.person.PersonId;
 
@@ -39,12 +40,17 @@ public class TypicalMappings {
      */
     public static PersonToGroupMappingList generateTypicalMappingList() throws DuplicateMappingException {
         PersonToGroupMappingList mappingList = new PersonToGroupMappingList();
-        mappingList.addPersonToGroupMapping(MAP00);
-        mappingList.addPersonToGroupMapping(MAP01);
-        mappingList.addPersonToGroupMapping(MAP02);
-        mappingList.addPersonToGroupMapping(MAP10);
-        mappingList.addPersonToGroupMapping(MAP11);
-        mappingList.addPersonToGroupMapping(MAP22);
+        try {
+            mappingList.addPersonToGroupMapping(MAP00);
+            mappingList.addPersonToGroupMapping(MAP01);
+            mappingList.addPersonToGroupMapping(MAP02);
+            mappingList.addPersonToGroupMapping(MAP10);
+            mappingList.addPersonToGroupMapping(MAP11);
+            mappingList.addPersonToGroupMapping(MAP22);
+        } catch (AlreadyInGroupException e) {
+            e.printStackTrace();
+        }
+
         return mappingList;
     }
 

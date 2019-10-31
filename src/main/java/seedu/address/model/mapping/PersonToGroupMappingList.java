@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.group.GroupId;
+import seedu.address.model.mapping.exceptions.AlreadyInGroupException;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.person.PersonId;
@@ -22,14 +23,26 @@ public class PersonToGroupMappingList {
     /**
      * Adds a mapping to the list of mappings, will not add when a duplicate is found.
      *
-     * @param map mapping to be added
+     * @param currentMapping mapping to be added
      */
-    public void addPersonToGroupMapping(PersonToGroupMapping map) throws DuplicateMappingException {
+    public void addPersonToGroupMapping(PersonToGroupMapping currentMapping)
+            throws DuplicateMappingException, AlreadyInGroupException {
         try {
-            findPersonToGroupMapping(map.getPersonId(), map.getGroupId());
-            throw new DuplicateMappingException();
+            PersonToGroupMapping mapping =
+                    findPersonToGroupMapping(currentMapping.getPersonId(), currentMapping.getGroupId());
+
+            if (mapping.getRole().equals(currentMapping.getRole())
+                    || currentMapping.getRole().equals(Role.emptyRole())) {
+
+                throw new DuplicateMappingException();
+
+            } else {
+                mapping.setRole(currentMapping.getRole());
+                throw new AlreadyInGroupException();
+            }
+
         } catch (MappingNotFoundException e) {
-            this.mappings.add(map);
+            this.mappings.add(currentMapping);
         }
 
     }

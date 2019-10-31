@@ -4,6 +4,8 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.Role;
+import seedu.address.model.mapping.exceptions.AlreadyInGroupException;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -23,21 +25,24 @@ public class SampleMappingList {
             mappingList.addPersonToGroupMapping(
                     new PersonToGroupMapping(
                             personList.findPerson(SamplePersonList.BOBBY.getName()).getPersonId(),
-                            groupList.findGroup(SampleGroupList.GROUP1.getGroupName()).getGroupId()
+                            groupList.findGroup(SampleGroupList.GROUP1.getGroupName()).getGroupId(),
+                            new Role("Member")
                     )
             );
 
             mappingList.addPersonToGroupMapping(
                     new PersonToGroupMapping(
                             personList.findPerson(SamplePersonList.CHARLIE.getName()).getPersonId(),
-                            groupList.findGroup(SampleGroupList.GROUP1.getGroupName()).getGroupId()
+                            groupList.findGroup(SampleGroupList.GROUP1.getGroupName()).getGroupId(),
+                            new Role("Carry")
                     )
             );
 
             mappingList.addPersonToGroupMapping(
                     new PersonToGroupMapping(
                             personList.findPerson(SamplePersonList.DENISE.getName()).getPersonId(),
-                            groupList.findGroup(SampleGroupList.GROUP1.getGroupName()).getGroupId()
+                            groupList.findGroup(SampleGroupList.GROUP1.getGroupName()).getGroupId(),
+                            new Role("Slacker")
                     )
             );
 
@@ -63,7 +68,11 @@ public class SampleMappingList {
             );
 
             return mappingList;
-        } catch (PersonNotFoundException | DuplicateMappingException | GroupNotFoundException e) {
+        } catch (PersonNotFoundException
+                | DuplicateMappingException
+                | GroupNotFoundException
+                | AlreadyInGroupException e) {
+
             e.printStackTrace();
             return null;
         }

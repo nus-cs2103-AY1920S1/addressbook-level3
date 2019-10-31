@@ -51,6 +51,11 @@ public class CommandResult {
     private final boolean home;
 
     /**
+     * The application should switch tabs.
+     */
+    private boolean isSwitchTabs;
+
+    /**
      * Data to show in popup.
      */
     private Optional<ClosestCommonLocationData> locationData = Optional.empty();
@@ -67,6 +72,7 @@ public class CommandResult {
         this.popUp = false;
         this.toggleNextWeek = false;
         this.home = false;
+        this.isSwitchTabs = false;
     }
 
     /**
@@ -81,6 +87,8 @@ public class CommandResult {
         this.popUp = false;
         this.toggleNextWeek = false;
         this.home = false;
+        this.isSwitchTabs = false;
+
     }
 
     /**
@@ -95,6 +103,8 @@ public class CommandResult {
         this.popUp = false;
         this.toggleNextWeek = false;
         this.home = false;
+        this.isSwitchTabs = false;
+
     }
 
     /**
@@ -111,6 +121,8 @@ public class CommandResult {
         this.toggleNextWeek = false;
         this.home = false;
         this.locationData = Optional.of(locationData);
+        this.isSwitchTabs = false;
+
     }
 
     /**
@@ -126,6 +138,8 @@ public class CommandResult {
         this.popUp = popUp;
         this.toggleNextWeek = toggleNextWeek;
         this.home = false;
+        this.isSwitchTabs = false;
+
     }
 
     /**
@@ -141,6 +155,8 @@ public class CommandResult {
         this.popUp = popUp;
         this.toggleNextWeek = toggleNextWeek;
         this.home = home;
+        this.isSwitchTabs = false;
+
     }
 
 
@@ -182,6 +198,14 @@ public class CommandResult {
 
     public boolean isHome() {
         return home;
+    }
+
+    public void setIsSwitchTabs(boolean switchTabs) {
+        isSwitchTabs = switchTabs;
+    }
+
+    public boolean isSwitchTabs() {
+        return isSwitchTabs;
     }
 
     public ClosestCommonLocationData getLocationData() throws CommandException {

@@ -23,11 +23,12 @@ import seedu.address.model.person.schedule.Event;
 public class AddEventCommand extends Command {
     public static final String COMMAND_WORD = "addevent";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " NAME "
-            + PREFIX_EVENTNAME + " EVENTNAME "
-            + PREFIX_TIMING + " STARTTIME-ENDTIME-LOCATION"
-            + "\n"
-            + "Time format: ddMMyyyy:HHmm";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + "[" + PREFIX_NAME + "NAME] "
+            + PREFIX_EVENTNAME + "EVENT_NAME "
+            + PREFIX_TIMING + "DATE - START_TIME - END_TIME - [LOCATION]"
+            + "\n" + "Note: Omitting NAME will add event to user"
+            + "\n" + "Date format: ddMMyyyy     Time format: HHmm";
 
     public static final String MESSAGE_SUCCESS = "New event added: %s";
     public static final String MESSAGE_FAILURE = "Unable to add event: %s";

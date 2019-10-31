@@ -16,11 +16,11 @@ import seedu.address.model.person.schedule.Venue;
 public class SampleEvents {
 
     public static final Event EVENT1_1 = new Event(
-            "Lunch 1",
+            "Project Meeting",
             new ArrayList<>(List.of(
                     new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(11, 30)),
-                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(12, 30)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(9, 30)),
                             new Venue("I3")),
                     new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 30)),
@@ -41,8 +41,26 @@ public class SampleEvents {
             ))
     );
 
+    public static final Event EVENT1_2 = new Event(
+            "CS2103 lecture",
+            new ArrayList<>(List.of(
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(15, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(16, 30)),
+                            new Venue("COM1")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(9, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(10, 30)),
+                            new Venue("COM2")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(16, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(18, 30)),
+                            new Venue("BIZ2"))
+            ))
+    );
+
     public static final Event EVENT2_1 = new Event(
-            "Lunch 2",
+            "Work on project",
             new ArrayList<>(List.of(
                     new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(11, 0)),
@@ -64,76 +82,6 @@ public class SampleEvents {
                             LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(12, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(12, 30)),
                             new Venue("COM1"))
-            ))
-    );
-
-    public static final Event EVENT3_1 = new Event(
-            "Lunch 3",
-            new ArrayList<>(List.of(
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(13, 30)),
-                            new Venue("S1A")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(13, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(13, 30)),
-                            new Venue("S2")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(11, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(12, 30)),
-                            new Venue("S5")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(10, 15)),
-                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(12, 45)),
-                            new Venue("S12")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(12, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(13, 0)),
-                            new Venue("S16"))
-            ))
-    );
-
-    public static final Event EVENT4_1 = new Event(
-            "Lunch 4",
-            new ArrayList<>(List.of(
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(11, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 30)),
-                            new Venue("LT19")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(10, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(11, 30)),
-                            new Venue("LT20")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(11, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(11, 30)),
-                            new Venue("LT34")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(11, 15)),
-                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(12, 30)),
-                            new Venue("LT21")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(11, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(11, 30)),
-                            new Venue("LT19"))
-            ))
-    );
-
-    public static final Event EVENT1_2 = new Event(
-            "CS2103 lecture",
-            new ArrayList<>(List.of(
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(15, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(16, 30)),
-                            new Venue("COM1")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(9, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(10, 30)),
-                            new Venue("COM2")),
-                    new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(16, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(18, 30)),
-                            new Venue("BIZ2"))
             ))
     );
 
@@ -159,6 +107,32 @@ public class SampleEvents {
             ))
     );
 
+    public static final Event EVENT3_1 = new Event(
+            "Swimming class",
+            new ArrayList<>(List.of(
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(13, 30)),
+                            new Venue("S1A")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(13, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(13, 30)),
+                            new Venue("S2")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(11, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(12, 30)),
+                            new Venue("S5")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(10, 15)),
+                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(12, 45)),
+                            new Venue("S12")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(12, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(13, 0)),
+                            new Venue("S16"))
+            ))
+    );
+
     public static final Event EVENT3_2 = new Event(
             "LSM1301 lecture",
             new ArrayList<>(List.of(
@@ -180,6 +154,33 @@ public class SampleEvents {
                             new Venue("UT-AUD2"))
             ))
     );
+
+    public static final Event EVENT4_1 = new Event(
+            "Hall activities",
+            new ArrayList<>(List.of(
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(11, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 30)),
+                            new Venue("LT19")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(10, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(11, 30)),
+                            new Venue("LT20")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(11, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(11, 30)),
+                            new Venue("LT34")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(11, 15)),
+                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(12, 30)),
+                            new Venue("LT21")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(11, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(11, 30)),
+                            new Venue("LT19"))
+            ))
+    );
+
 
     public static final Event EVENT4_2 = new Event(
             "GEQ1000 lecture",

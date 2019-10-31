@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.group.GroupId;
+import seedu.address.model.mapping.exceptions.AlreadyInGroupException;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.person.PersonId;
@@ -44,7 +45,11 @@ class PersonToGroupMappingListTest {
 
     @Test
     void findPersonToGroupMapping() throws DuplicateMappingException, MappingNotFoundException {
-        mappingList.addPersonToGroupMapping(MAP00);
+        try {
+            mappingList.addPersonToGroupMapping(MAP00);
+        } catch (AlreadyInGroupException e) {
+            e.printStackTrace();
+        }
         PersonToGroupMapping map = mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId());
 
         assertTrue(map.equals(MAP00));
@@ -58,7 +63,11 @@ class PersonToGroupMappingListTest {
 
     @Test
     void deletePersonToGroupMapping() throws DuplicateMappingException, MappingNotFoundException {
-        mappingList.addPersonToGroupMapping(MAP00);
+        try {
+            mappingList.addPersonToGroupMapping(MAP00);
+        } catch (AlreadyInGroupException e) {
+            e.printStackTrace();
+        }
 
         // delete a map in the list -> true
         assertDoesNotThrow(() -> mappingList.deletePersonToGroupMapping(MAP00));

@@ -1,7 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDateTime;
 
@@ -20,7 +25,13 @@ public class AddPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "addperson";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " NAME";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + PREFIX_NAME + "NAME" + " "
+            + "[" + PREFIX_PHONE + "PHONE]" + " "
+            + "[" + PREFIX_EMAIL + "EMAIL]" + " "
+            + "[" + PREFIX_ADDRESS + "ADDRESS]" + " "
+            + "[" + PREFIX_REMARK + "REMARK]" + " "
+            + "[" + PREFIX_TAG + "TAG] ... ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %s";
     public static final String MESSAGE_FAILURE = "Unable to add person: %s";
