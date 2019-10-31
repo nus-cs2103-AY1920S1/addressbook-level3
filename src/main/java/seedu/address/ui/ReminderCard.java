@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.reminder.ReminderStub;
+import seedu.address.model.reminder.Appointment;
 
 
 /**
@@ -14,7 +14,7 @@ public class ReminderCard extends UiPart<Region> {
 
     private static final String FXML = "ReminderListCard.fxml";
 
-    public final ReminderStub reminder;
+    public final Appointment reminder;
 
     @FXML
     private HBox reminderCardPane;
@@ -24,7 +24,7 @@ public class ReminderCard extends UiPart<Region> {
     private Label date;
 
 
-    public ReminderCard(ReminderStub reminder) {
+    public ReminderCard(Appointment reminder) {
         super(FXML);
         this.reminder = reminder;
         title.setText(reminder.getDescription());

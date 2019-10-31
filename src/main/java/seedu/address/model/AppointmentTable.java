@@ -9,38 +9,54 @@ import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.reminder.ReminderStub;
+import seedu.address.model.reminder.Appointment;
 
 
 /**
  * Reminder object with description and dates remaining
  */
-public class Reminder {
+public class AppointmentTable {
 
     private HashMap<String, Integer> reminders;
     private HashMap<String, Integer> followup;
-    private ArrayList<ReminderStub> reminderArrayList;
+    private ArrayList<Appointment> appointmentArrayList;
 
     /**
      * Initializes new Reminder object
      */
-    public Reminder() {
+    public AppointmentTable() {
         reminders = new HashMap<>();
         followup = new HashMap<>();
-        // Stub for creating list for UI use
-        reminderArrayList = new ArrayList<ReminderStub>();
-        reminderArrayList.add(new ReminderStub("test", 1));
+        appointmentArrayList = new ArrayList<>();
     }
 
-    public static Reminder getDefaultReminders() {
-        Reminder def = new Reminder();
+    public static AppointmentTable getDefaultAppointments() {
+        AppointmentTable def = new AppointmentTable();
         return def;
+    }
+
+    public void outputToUi() {
+        appointmentArrayList.clear();
+        for (int i = 0; i < reminders.size(); i++) {
+            Iterator it = reminders.entrySet().iterator();
+            while (it.hasNext()) {
+                HashMap.Entry pair = (HashMap.Entry) it.next();
+                appointmentArrayList.add(new Appointment("[R] " + pair.getKey(), (int)pair.getValue()));
+            }
+        }
+        for (int i = 0; i < followup.size(); i++) {
+            Iterator it = followup.entrySet().iterator();
+            while (it.hasNext()) {
+                HashMap.Entry pair = (HashMap.Entry) it.next();
+                appointmentArrayList.add(new Appointment("[F] " + pair.getKey(), (int)pair.getValue()));
+            }
+        }
     }
 
     /**
      * Adds a new Reminder to VISIT
      */
-    public Reminder addReminder(int type, String description, int days) {
+    public AppointmentTable addAppointment(int type, String description, int days) {
         requireNonNull(type);
         requireNonNull(description);
         requireNonNull(days);
@@ -86,7 +102,7 @@ public class Reminder {
     /**
      * Outputs the Reminders and Follow-Up to readable String
      */
-    public String outputReminders() {
+    public String outputAppointments() {
         StringBuilder sb = new StringBuilder();
         sb.append("Reminders:\n");
         if (reminders.size() < 1) {
@@ -102,7 +118,7 @@ public class Reminder {
         }
         sb.append("\nFollow-ups:\n");
         if (followup.size() < 1) {
-            sb.append("No reminders found.\n");
+            sb.append("No follow-ups found.\n");
         } else {
             for (int i = 0; i < followup.size(); i++) {
                 Iterator it = followup.entrySet().iterator();
@@ -119,14 +135,14 @@ public class Reminder {
      * Example of method needed to return the list for view
      * @return ObservableList of Reminder objects
      */
-    public ObservableList<ReminderStub> getReminderList() {
-        return FXCollections.observableArrayList(this.reminderArrayList);
+    public ObservableList<Appointment> getAppointmentList() {
+        return FXCollections.observableArrayList(this.appointmentArrayList);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\nReminders : --hidden--");
+        sb.append("\nAppointments : --hidden--");
         return sb.toString();
     }
 
@@ -135,10 +151,10 @@ public class Reminder {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Reminder)) {
+        if (!(o instanceof AppointmentTable)) {
             return false;
         }
-        Reminder other = (Reminder) o;
+        AppointmentTable other = (AppointmentTable) o;
         return other.reminders.equals(this.reminders)
                 && other.followup.equals(this.followup);
     }

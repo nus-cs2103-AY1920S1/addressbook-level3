@@ -12,7 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
-import seedu.address.model.reminder.ReminderStub;
+import seedu.address.model.reminder.Appointment;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,10 +21,10 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private Reminder reminders;
+    private AppointmentTable appointmentTable;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<ReminderStub> filteredReminders;
+    private final FilteredList<Appointment> filteredAppointments;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,10 +36,10 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.reminders = new Reminder();
+        this.appointmentTable = new AppointmentTable();
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredReminders = new FilteredList<>(this.reminders.getReminderList());
+        filteredAppointments = new FilteredList<>(this.appointmentTable.getAppointmentList());
     }
 
     public ModelManager() {
@@ -129,8 +129,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<ReminderStub> getFilteredReminderList() {
-        return filteredReminders;
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return filteredAppointments;
     }
 
     @Override
@@ -140,19 +140,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredReminderList(Predicate<ReminderStub> predicate) {
+    public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
         requireNonNull(predicate);
-        filteredReminders.setPredicate(predicate);
+        filteredAppointments.setPredicate(predicate);
     }
 
     @Override
-    public void addReminder(int type, String description, int days) {
-        userPrefs.addReminder(type, description, days);
+    public void addAppointment(int type, String description, int days) {
+        userPrefs.addAppointment(type, description, days);
     }
 
     @Override
-    public String outputReminders() {
-        return userPrefs.outputReminders();
+    public String outputAppointments() {
+        return userPrefs.outputAppointments();
     }
 
     @Override

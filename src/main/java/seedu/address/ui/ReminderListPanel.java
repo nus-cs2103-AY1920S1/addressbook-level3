@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.reminder.ReminderStub;
+import seedu.address.model.reminder.Appointment;
 
 /**
  * Panel containing the list of persons.
@@ -18,9 +18,9 @@ public class ReminderListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
     @FXML
-    private ListView<ReminderStub> reminderListView;
+    private ListView<Appointment> reminderListView;
 
-    public ReminderListPanel(ObservableList<ReminderStub> reminderList) {
+    public ReminderListPanel(ObservableList<Appointment> reminderList) {
         super(FXML);
         reminderListView.setItems(reminderList);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
@@ -30,9 +30,9 @@ public class ReminderListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Reminder} using a {@code ReminderCard}.
      */
-    class ReminderListViewCell extends ListCell<ReminderStub> {
+    class ReminderListViewCell extends ListCell<Appointment> {
         @Override
-        protected void updateItem(ReminderStub reminder, boolean empty) {
+        protected void updateItem(Appointment reminder, boolean empty) {
             super.updateItem(reminder, empty);
 
             if (empty || reminder == null) {
