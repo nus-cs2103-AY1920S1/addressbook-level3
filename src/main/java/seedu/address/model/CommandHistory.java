@@ -3,7 +3,6 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -66,8 +65,7 @@ public class CommandHistory {
         }
         currentCommandPointer++;
 
-        CommandResult commandResult =  commandHistoryList.get(currentCommandPointer).getRedoCommand().execute(model);
-
+        CommandResult commandResult = commandHistoryList.get(currentCommandPointer).getRedoCommand().execute(model);
         return commandResult;
     }
 
