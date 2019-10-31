@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.findrule;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,6 +7,8 @@ import java.util.List;
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
@@ -17,6 +19,7 @@ import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 public class DeleteFindRuleCommand extends Command {
 
     public static final String COMMAND_WORD = "deletefindrule";
+    public static final String SHORT_COMMAND_WORD = "dfr";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the find rule identified by the index number "
             + "used in the displayed Find Rules list.\n"
