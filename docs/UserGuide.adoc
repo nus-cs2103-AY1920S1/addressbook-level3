@@ -173,6 +173,15 @@ Clears all entries from the current list that is displayed. +
 Format: `clear`
 // end::clear[]
 
+// tag::export[]
+==== Exporting data (multi-platform)
+
+Exports the current list of items through a QR code. +
+Any device with a QR code reader will be able to download the list of items. +
+Format: `export`
+
+// end:export[]
+
 // tag::exit[]
 ==== Exiting the program : `exit`
 
@@ -412,6 +421,9 @@ The table below summarises the common commands available for use in both lists.
 |*Clear*
 |`clear`|
 
+|*Export*
+|`export`|
+
 |*Exit*|`exit`||{set:cellbgcolor!}
 
 |===
@@ -498,6 +510,7 @@ e.g. `search|milk|tea|pearls`
 e.g. `delete|3`
 * *Tag* : `tag|<index>|[<tag>]...`
 * *Clear* : `clear`
+* *Export* : `export`
 * *Exit* : `exit`
 
 == Command Shorthands
@@ -517,5 +530,6 @@ Below is a list of commands and their corresponding command shorthands:
 * `delete` : `d`
 * `tag` : `t`
 * `clear` : `cl`
+* `export` : `ex`
 * `exit` : `x`
 

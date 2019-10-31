@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+
+<fx:root resizable="false" title="QR code" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0">
+            <children>
+               <ImageView fx:id="qrCode" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+            </children></AnchorPane>
+        </Scene>
+    </scene>
+</fx:root>
