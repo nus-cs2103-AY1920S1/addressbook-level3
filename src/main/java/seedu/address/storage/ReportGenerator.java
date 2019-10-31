@@ -2,11 +2,13 @@ package seedu.address.storage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
@@ -110,12 +112,18 @@ public class ReportGenerator {
         preface.setAlignment(Element.ALIGN_CENTER);
         document.add(preface);
         document.add(new Paragraph("\n"));
-
-        //Image logo = Image.getInstance("docs/images/logo.png");
-        //logo.setAbsolutePosition(40, 770); //set logo top left
-        //logo.setAbsolutePosition(450, 800); top right
-        //logo.scaleAbsolute(100, 70);
-        //document.add(logo);
+        try {
+            //Image logo = Image.getInstance("docs/images/logo.png");
+            //Image logo = Image.getInstance(ReportGenerator.class.getClassLoader().getResource("/logo.png"));  //null
+            Image logo = Image.getInstance(
+                    new URL("https://raw.githubusercontent.com/AY1920S1-CS2103T-T13-2/main/master/docs/images/logo.png"));
+            logo.setAbsolutePosition(40, 770); //set logo top left
+            //logo.setAbsolutePosition(450, 800); top right
+            logo.scaleAbsolute(100, 70);
+            document.add(logo);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
