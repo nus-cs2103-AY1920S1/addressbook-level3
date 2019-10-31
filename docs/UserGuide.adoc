@@ -100,6 +100,7 @@ is provided in the command descriptions.
 This section highlights the commands that $aveNUS supports. These include information about the command's
 function, format as well as example usages of the command.
 
+//tag::general[]
 === General Commands
 
 $aveNUS provides the user with a set of commands that are not feature-specific to
@@ -107,7 +108,8 @@ enhance the user's experience as a whole.
 
 ==== Viewing Help: `help`
 
-Display the help screen that contains helpful information on how to use the application.
+Display the help screen that allows you to view the list of commands available and also open up the user guide
+by clicking the `Guide` button.
 
 ****
 *Format*: `help`
@@ -133,7 +135,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a list
 
 ==== Viewing information about a Command: `info`
 
-Displays the information of the command specified.
+Displays the information of the command specified. A new window will be opened.
 
 ****
 *Format*: `info COMMAND` +
@@ -148,7 +150,8 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a wind
 
 ==== Collapse the food card: `collapse`
 
-Makes the Food Card more compacted, depending on the user's preference.
+Makes the Food Card more compacted, depending on the user's preference. The optional information will now be displayed
+in one line.
 
 ****
 *Format*: `collapse`
@@ -174,7 +177,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.
 |===
 
 ==== Expanding the food card: `expand`
-Makes the Food Display Card expend, such that each line only has one attribute of the food item.
+Makes the Food Display Card expand, such that each line only has one attribute of the food item.
 
 ****
 *Format*: `expand`
@@ -184,6 +187,7 @@ Makes the Food Display Card expend, such that each line only has one attribute o
 ifdef::env-github[| :white_check_mark: a| You will see an expanded box for the food items displayed in the menu.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see an expanded box for the food items displayed in the menu.]
 |===
+//end::general[]
 
 === Food Items
 
