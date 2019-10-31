@@ -42,7 +42,7 @@ image::shirleywangxt.png[width="150", align="left"]
 {empty}[https://github.com/ShirleyWangxt[github]][<<PortfolioShirleyWangxt#, protfolio>>]
 
 Role: Testing, Co-maintainer of documentation +
-Responsibilities: Implementing the difficulty feature
+Responsibilities: Implementing question management feature
 
 '''
 

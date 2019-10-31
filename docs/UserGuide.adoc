@@ -111,6 +111,7 @@ them all. Your quiz questions and revision tasks will not be affected. +
 Format: `clearnote`
 // end::lecnote[]
 
+// tag::question[]
 === Questions
 
 NUStudy can also store different sets of questions and answers;
@@ -169,6 +170,8 @@ Format: `subject SUBJECT`
 
 You can delete all questions from the app. +
 Format: `clearq`
+
+// end::question[]
 
 === Quiz mode
 
@@ -274,6 +277,7 @@ Format: `notify -e [-A] [INDEX]`
 ==== Disable push notification: `notify -d` `[coming in v2.0]`
 Format: `notify -d [-A] [INDEX]`
 
+// tag::v2.0[]
 === Auto-complete feature `[coming in v2.0]`
 Returns suggestions when you are typing commands.
 
@@ -285,6 +289,7 @@ The student shares notes and questions with other students with Internet connect
 
 === Login using email and password `[coming in v2.0]`
 The student can register and login to the application using their email and password.
+// end::v2.0[]
 
 // tag::lngroup[]
 === Lecture note grouping suggestions `[coming in v2.0]`

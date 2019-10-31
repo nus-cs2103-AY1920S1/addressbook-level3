@@ -201,6 +201,7 @@ application data. There is a potential application risk if
 impossible to take into account user preferences for where the application data is stored
 // end::lecimage[]
 
+// tag::questiond[]
 === Question management feature
 ==== Current implementation
 
@@ -262,6 +263,7 @@ in local storage when the command finishes executing.
 ** Pros: Do not need to maintain a separate list class.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
+// end::questiond[]
 
 === Quiz mode for revision
 ==== Implementation
@@ -724,6 +726,7 @@ Use case ends
 ** Repeat 1a1 and 1a2 until a valid index is provided
 * Use case resumes from step 2
 
+// tag::usecasew[]
 [discrete]
 === Use case: Specify difficulty level of questions (Xueting)
 
@@ -806,6 +809,7 @@ Use case ends
 ** 1b2. Student re-enter the necessary fields by choosing from the list
 ** Repeat 1b1 and 1b2 until valid inputs are provided
 * Use case resumes at step 2
+// end::usecasew[]
 
 [discrete]
 === Use case: Delete an existing question (Dongjun)
