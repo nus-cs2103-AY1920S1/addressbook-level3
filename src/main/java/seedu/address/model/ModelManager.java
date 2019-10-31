@@ -15,13 +15,15 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Slot;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the schedule table data.
@@ -30,15 +32,18 @@ public class ModelManager implements Model {
     public static final Schedule EMPTY_SCHEDULE = new Schedule("", new LinkedList<>());
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final IntervieweeList intervieweeList;
-    private final InterviewerList interviewerList;
     private final UserPrefs userPrefs;
     private final List<Schedule> schedulesList;
+
+    private final IntervieweeList intervieweeList; // functionality not stable, refrain from using
+    private final InterviewerList interviewerList;
+    private final FilteredList<Interviewee> filteredInterviewees; // if we want to display all interviewees on UI
+    private final FilteredList<Interviewer> filteredInterviewers; // if we want to display all inteviewers on UI
 
     /**
      * Initializes a ModelManager with the given intervieweeList, interviewerList, userPrefs and schedulesList.
      */
-    public ModelManager(ReadOnlyIntervieweeList intervieweeList, ReadOnlyInterviewerList interviewerList,
+    public ModelManager(ReadOnlyList<Interviewee> intervieweeList, ReadOnlyList<Interviewer> interviewerList,
                         ReadOnlyUserPrefs userPrefs, List<Schedule> schedulesList) {
         super();
         requireAllNonNull(intervieweeList, interviewerList, userPrefs, schedulesList);
@@ -51,6 +56,9 @@ public class ModelManager implements Model {
 
         this.intervieweeList = new IntervieweeList(intervieweeList);
         this.interviewerList = new InterviewerList(interviewerList);
+        filteredInterviewees = new FilteredList<>(this.intervieweeList.getEntityList());
+        filteredInterviewers = new FilteredList<>(this.interviewerList.getEntityList());
+
         this.schedulesList = cloneSchedulesList(schedulesList);
         this.userPrefs = new UserPrefs(userPrefs);
     }
@@ -59,64 +67,18 @@ public class ModelManager implements Model {
         this(new IntervieweeList(), new InterviewerList(), new UserPrefs(), new LinkedList<>());
     }
 
-    /* TODO: REMOVE THE FOLLOWING LINES AFTER THEIR USAGE IS REMOVED */
-    public ObservableList<Person> getFilteredPersonList() {
-        return null;
-    }
-
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-
-    }
-
-    public boolean hasPerson(Person person) {
-        return true;
-    }
-
-    public void deletePerson(Person person) {
-
-    }
-
-    public void addPerson(Person person) {
-
-    }
-
-    public Person getPerson(String name) throws NoSuchElementException {
-        return null;
-    }
-
-    public void setPerson(Person target, Person editedPerson) {
-
-    }
-
-    /* TODO: REMOVE ABOVE LINES */
-
-    //=========== UserPrefs ==================================================================================
+    // ==================================IntervieweeList and InterviewerList ======================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public void setIntervieweeList(List<Interviewee> interviewees) {
+        logger.fine("Updating list of interviewees: " + interviewees);
+        this.intervieweeList.setIntervieweeList(interviewees);
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public Path getIntervieweeListFilePath() {
-        return userPrefs.getIntervieweeListFilePath();
+    public void setInterviewerList(List<Interviewer> interviewers) {
+        logger.fine("Updating list of interviewers: " + interviewers);
+        this.interviewerList.setInterviewerList(interviewers);
     }
 
     @Override
@@ -126,15 +88,131 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setInterviewerListFilePath(Path interviewerListFilePath) {
+        requireNonNull(interviewerListFilePath);
+        userPrefs.setInterviewerListFilePath(interviewerListFilePath);
+    }
+
+    @Override
+    public Path getIntervieweeListFilePath() {
+        return userPrefs.getIntervieweeListFilePath();
+    }
+
+    @Override
     public Path getInterviewerListFilePath() {
         return userPrefs.getInterviewerListFilePath();
     }
 
     @Override
-    public void setInterviewerListFilePath(Path interviewerListFilePath) {
-        requireNonNull(interviewerListFilePath);
-        userPrefs.setInterviewerListFilePath(interviewerListFilePath);
+    public void addInterviewee(Interviewee interviewee) {
+        intervieweeList.addEntity(interviewee);
     }
+
+    @Override
+    public boolean hasInterviewee(Interviewee interviewee) {
+        return intervieweeList.hasEntity(interviewee);
+    }
+
+    @Override
+    public boolean hasInterviewer(Interviewer interviewer) {
+        return interviewerList.hasEntity(interviewer);
+    }
+
+    @Override
+    public void addInterviewer(Interviewer interviewer) {
+        interviewerList.addEntity(interviewer);
+    }
+
+    /**
+     * Gets the model's underlying IntervieweeList. For testing purposes only.
+     */
+    public IntervieweeList getIntervieweeList() {
+        return this.intervieweeList;
+    }
+
+    /**
+     * Gets the model's underlying InterviewerList. For testing purposes only.
+     */
+    public InterviewerList getInterviewerList() {
+        return this.interviewerList;
+    }
+
+    @Override
+    public ReadAndWriteList<Interviewee> getMutableIntervieweeList() {
+        return intervieweeList;
+    }
+
+    @Override
+    public ReadAndWriteList<Interviewer> getMutableInterviewerList() {
+        return interviewerList;
+    }
+
+    @Override
+    public ObservableList<Interviewee> getFilteredIntervieweeList() {
+        return filteredInterviewees;
+    }
+
+    @Override
+    public ObservableList<Interviewer> getFilteredInterviewerList() {
+        return filteredInterviewers;
+    }
+
+    @Override
+    public ObservableList<Interviewee> getUnfilteredIntervieweeList() {
+        updateFilteredIntervieweeList(PREDICATE_SHOW_ALL_INTERVIEWEES);
+        return getFilteredIntervieweeList();
+    }
+
+    @Override
+    public ObservableList<Interviewer> getUnfilteredInterviewerList() {
+        updateFilteredInterviewerList(PREDICATE_SHOW_ALL_INTERVIEWERS);
+        return getFilteredInterviewerList();
+    }
+
+    @Override
+    public void updateFilteredIntervieweeList(Predicate<Interviewee> predicate) {
+        requireNonNull(predicate);
+        filteredInterviewees.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredInterviewerList(Predicate<Interviewer> predicate) {
+        requireNonNull(predicate);
+        filteredInterviewers.setPredicate(predicate);
+    }
+
+    @Override
+    public Interviewee getInterviewee(String name) throws NoSuchElementException {
+        return intervieweeList.getEntity(new Name(name));
+    }
+
+    @Override
+    public Interviewer getInterviewer(String name) throws NoSuchElementException {
+        return interviewerList.getEntity(new Name(name));
+    }
+
+    @Override
+    public void deleteInterviewee(Interviewee target) throws PersonNotFoundException {
+        intervieweeList.removeEntity(target);
+    }
+
+    @Override
+    public void deleteInterviewer(Interviewer target) throws PersonNotFoundException {
+        interviewerList.removeEntity(target);
+    }
+
+    @Override
+    public void setInterviewee(Interviewee target, Interviewee editedTarget) throws PersonNotFoundException {
+        intervieweeList.setEntity(target, editedTarget);
+    }
+
+    @Override
+    public void setInterviewer(Interviewer target, Interviewer editedTarget) throws PersonNotFoundException {
+        interviewerList.setEntity(target, editedTarget);
+    }
+
+
+    // =========================================== Mass Email =================================================
 
     @Override
     public void emailInterviewee(Interviewee interviewee) throws IOException {
@@ -168,44 +246,44 @@ public class ModelManager implements Model {
         desktop.mail(uri);
     }
 
-    //=========== Schedule ================================================================================
+    // ============================================ Schedule ===================================================
+
+    /**
+     * Adds the given interviewer to schedule(s) in which the interviewer's availability fall. If the interviewer's
+     * availability does not fall within any of the schedule, then the interviewer will not be added into any of
+     * the schedule.
+     */
+    @Override
+    public void addInterviewerToSchedule(Interviewer interviewer) {
+        interviewerList.addEntity(interviewer);
+        for (Schedule schedule : schedulesList) {
+            schedule.addInterviewer(interviewer);
+        }
+    }
+
+    /**
+     * Returns the date of the first schedule in which the interviewer exists in, otherwise return empty string.
+     */
+    @Override
+    public String scheduleHasInterviewer(Interviewer interviewer) {
+        String date = "";
+        for (Schedule schedule : schedulesList) {
+            if (schedule.hasInterviewer(interviewer)) {
+                date = schedule.getDate();
+                break;
+            }
+        }
+        return date;
+    }
+
     /**
      * Replaces schedule data with the data in {@code schedule}.
-     * @param list
      */
     @Override
     public void setSchedulesList(List<Schedule> list) {
         schedulesList.clear();
         schedulesList.addAll(cloneSchedulesList(list));
         logger.fine("Schedules list is reset");
-    }
-
-    /** Returns the schedulesList **/
-    @Override
-    public List<Schedule> getSchedulesList() {
-        return schedulesList;
-    }
-
-    /**
-     * Returns a list of observable list of the schedules.
-     */
-    @Override
-    public List<ObservableList<ObservableList<String>>> getObservableLists() {
-        List<ObservableList<ObservableList<String>>> observableLists = new LinkedList<>();
-        for (Schedule schedule : schedulesList) {
-            observableLists.add(schedule.getObservableList());
-        }
-        return observableLists;
-    }
-
-    /** Returns a list of lists of column titles, each list of column titles belong to a Schedule table*/
-    @Override
-    public List<List<String>> getTitlesLists() {
-        List<List<String>> titlesLists = new LinkedList<>();
-        for (Schedule schedule : schedulesList) {
-            titlesLists.add(schedule.getTitles());
-        }
-        return titlesLists;
     }
 
     /**
@@ -221,29 +299,31 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns the date of the first schedule in which the interviewer exists in, otherwise return empty string.
+     * Returns a list of observable list of the schedules.
      */
     @Override
-    public String getInterviewerSchedule(Interviewer interviewer) {
-        String date = "";
+    public List<ObservableList<ObservableList<String>>> getObservableLists() {
+        List<ObservableList<ObservableList<String>>> observableLists = new LinkedList<>();
         for (Schedule schedule : schedulesList) {
-            if (schedule.hasInterviewer(interviewer)) {
-                date = schedule.getDate();
-                break;
-            }
+            observableLists.add(schedule.getObservableList());
         }
-        return date;
+        return observableLists;
     }
-    /**
-     * Adds the given interviewer to schedule(s) in which the interviewer's availability fall.
-     * If the interviewer's availability does not fall within any of the schedule, then the interviewer will not
-     * be added into any of the schedule.
-     */
+
+    /** Returns the schedulesList **/
     @Override
-    public void addInterviewerSchedule(Interviewer interviewer) {
+    public List<Schedule> getSchedulesList() {
+        return schedulesList;
+    }
+
+    /** Returns a list of lists of column titles, each list of column titles belong to a Schedule table*/
+    @Override
+    public List<List<String>> getTitlesLists() {
+        List<List<String>> titlesLists = new LinkedList<>();
         for (Schedule schedule : schedulesList) {
-            schedule.addInterviewer(interviewer);
+            titlesLists.add(schedule.getTitles());
         }
+        return titlesLists;
     }
 
     /**
@@ -274,101 +354,31 @@ public class ModelManager implements Model {
         return listClone;
     }
 
-    //=========== IntervieweeList & InterviewerList ====================================================================
+    // ============================================ User Prefs ===================================================
 
     @Override
-    public void setIntervieweeList(List<Interviewee> interviewees) {
-        logger.fine("Updating list of interviewees: " + interviewees);
-        this.intervieweeList.setInterviewees(interviewees);
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
-    public void setInterviewerList(List<Interviewer> interviewers) {
-        logger.fine("Updating list of interviewers: " + interviewers);
-        this.interviewerList.setInterviewers(interviewers);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public List<Interviewee> getInterviewees() {
-        return this.intervieweeList.getIntervieweeList();
+    public GuiSettings getGuiSettings() {
+        return userPrefs.getGuiSettings();
     }
 
     @Override
-    public List<Interviewer> getInterviewers() {
-        return this.interviewerList.getInterviewerList();
+    public void setGuiSettings(GuiSettings guiSettings) {
+        requireNonNull(guiSettings);
+        userPrefs.setGuiSettings(guiSettings);
     }
 
-    @Override
-    public Interviewee getInterviewee(String intervieweeName) throws NoSuchElementException {
-        return this.intervieweeList.getInterviewee(intervieweeName);
-    }
-
-    @Override
-    public void setInterviewee(Interviewee target, Interviewee editedInterviewee) {
-        requireAllNonNull(target, editedInterviewee);
-        this.intervieweeList.setInterviewee(target, editedInterviewee);
-    }
-
-    @Override
-    public Interviewer getInterviewer(String interviewerName) throws NoSuchElementException {
-        return this.interviewerList.getInterviewer(interviewerName);
-    }
-
-    @Override
-    public void setInterviewer(Interviewer target, Interviewer editedInterviewer) {
-        requireAllNonNull(target, editedInterviewer);
-        this.interviewerList.setInterviewer(target, editedInterviewer);
-    }
-
-    @Override
-    public boolean hasInterviewee(Interviewee interviewee) {
-        return this.intervieweeList.hasInterviewee(interviewee);
-    }
-
-    @Override
-    public boolean hasInterviewer(Interviewer interviewer) {
-        return this.interviewerList.hasInterviewer(interviewer);
-    }
-
-    @Override
-    public void deleteInterviewee(Interviewee target) {
-        this.intervieweeList.removeInterviewee(target);
-    }
-
-    @Override
-    public void deleteInterviewer(Interviewer target) {
-        this.interviewerList.removeInterviewer(target);
-    }
-
-    @Override
-    public void addInterviewee(Interviewee interviewee) {
-        this.intervieweeList.addInterviewee(interviewee);
-    }
-
-    @Override
-    public void addInterviewer(Interviewer interviewer) {
-        this.interviewerList.addInterviewer(interviewer);
-    }
-
-    @Override
-    public ReadOnlyIntervieweeList getIntervieweeList() {
-        return this.intervieweeList;
-    }
-
-    @Override
-    public ReadOnlyInterviewerList getInterviewerList() {
-        return this.interviewerList;
-    }
-
-    @Override
-    public ObservableList<Interviewee> getObservableIntervieweeList() {
-        return this.intervieweeList.getIntervieweeList();
-    }
-
-    @Override
-    public ObservableList<Interviewer> getObservableInterviewerList() {
-        return this.interviewerList.getInterviewerList();
-    }
+    // ===========================================================================================================
 
     @Override
     public boolean equals(Object obj) {
@@ -384,9 +394,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return this.intervieweeList.equals(other.intervieweeList)
-                && this.interviewerList.equals(other.interviewerList)
-                && this.userPrefs.equals(other.userPrefs)
-                && this.schedulesList.equals(other.schedulesList);
+        return userPrefs.equals(other.userPrefs)
+            && intervieweeList.equals(other.intervieweeList)
+            && interviewerList.equals(other.interviewerList)
+            && filteredInterviewees.equals(other.filteredInterviewees)
+            && filteredInterviewers.equals(other.filteredInterviewers);
     }
 }

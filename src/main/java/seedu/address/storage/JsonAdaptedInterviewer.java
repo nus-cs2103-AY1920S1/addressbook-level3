@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Department;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -24,6 +25,7 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
 
     private final List<JsonAdaptedSlot> availabilities = new ArrayList<>();
     private final String department;
+    private final String email;
 
     /**
      * Constructs a {@code JsonAdaptedInterviewer} with the given interviewer details.
@@ -32,11 +34,13 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
     public JsonAdaptedInterviewer(
             @JsonProperty("availabilities") List<JsonAdaptedSlot> availabilities,
             @JsonProperty("department") String department,
+            @JsonProperty("email") String email,
             @JsonProperty("name") String name,
             @JsonProperty("phone") String phone,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         super(name, phone, tagged);
         this.department = department;
+        this.email = email;
         if (availabilities != null) {
             this.availabilities.addAll(availabilities);
         }
@@ -49,6 +53,7 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
         super(source.getName().fullName, source.getPhone().value,
                 source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
         department = source.getDepartment().department;
+        email = source.getEmail().value;
         availabilities.addAll(source.getAvailabilities()
                 .stream()
                 .map(JsonAdaptedSlot::new)
@@ -94,6 +99,12 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Department.class.getSimpleName()));
         }
         final Department modelDepartment = new Department(department);
+        // check email
+        if (email == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        }
+        final Email modelEmail = new Email(email);
         // no need to check tags
         final Set<Tag> modelTags = new HashSet<>(personTags);
         // no need to check availabilities
@@ -102,6 +113,7 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
         return new Interviewer.InterviewerBuilder(modelName, modelPhone, modelTags)
                     .department(modelDepartment)
                     .availabilities(modelAvailabilities)
+                    .email(modelEmail)
                     .build();
     }
 }

@@ -12,7 +12,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyInterviewerList;
+import seedu.address.model.ReadOnlyList;
+import seedu.address.model.person.Interviewer;
 
 /**
  * A class to address Interviewer data stored as a JSON file on the hard disk.
@@ -33,12 +34,12 @@ public class JsonInterviewerListStorage implements InterviewerListStorage {
     }
 
     @Override
-    public Optional<ReadOnlyInterviewerList> readInterviewerList() throws DataConversionException, IOException {
+    public Optional<ReadOnlyList<Interviewer>> readInterviewerList() throws DataConversionException, IOException {
         return this.readInterviewerList(this.filePath);
     }
 
     @Override
-    public Optional<ReadOnlyInterviewerList> readInterviewerList(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyList<Interviewer>> readInterviewerList(Path filePath) throws DataConversionException,
             IOException {
         requireNonNull(filePath);
 
@@ -58,12 +59,12 @@ public class JsonInterviewerListStorage implements InterviewerListStorage {
     }
 
     @Override
-    public void saveInterviewerList(ReadOnlyInterviewerList interviewerList) throws IOException {
+    public void saveInterviewerList(ReadOnlyList<Interviewer> interviewerList) throws IOException {
         this.saveInterviewerList(interviewerList, this.filePath);
     }
 
     @Override
-    public void saveInterviewerList(ReadOnlyInterviewerList interviewerList, Path filePath) throws IOException {
+    public void saveInterviewerList(ReadOnlyList<Interviewer> interviewerList, Path filePath) throws IOException {
         requireNonNull(interviewerList);
         requireNonNull(filePath);
 

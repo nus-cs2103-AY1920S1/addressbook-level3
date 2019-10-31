@@ -14,9 +14,10 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.IntervieweeList;
 import seedu.address.model.InterviewerList;
-import seedu.address.model.ReadOnlyIntervieweeList;
-import seedu.address.model.ReadOnlyInterviewerList;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 
 public class StorageManagerTest {
 
@@ -62,7 +63,7 @@ public class StorageManagerTest {
          */
         IntervieweeList original = getTypicalIntervieweeList();
         storageManager.saveIntervieweeList(original);
-        ReadOnlyIntervieweeList retrieved = storageManager.readIntervieweeList().get();
+        ReadOnlyList<Interviewee> retrieved = storageManager.readIntervieweeList().get();
         assertEquals(original, new IntervieweeList(retrieved));
     }
 
@@ -75,7 +76,7 @@ public class StorageManagerTest {
          */
         InterviewerList original = getTypicalInterviewerList();
         storageManager.saveInterviewerList(original);
-        ReadOnlyInterviewerList retrieved = storageManager.readInterviewerList().get();
+        ReadOnlyList<Interviewer> retrieved = storageManager.readInterviewerList().get();
         assertEquals(original, new InterviewerList(retrieved));
 
     }

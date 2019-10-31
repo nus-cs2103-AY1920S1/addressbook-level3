@@ -24,7 +24,7 @@ public class IntervieweeListBuilder {
      * Adds a new {@code Interviewee} to the {@code IntervieweeList} that we are building.
      */
     public IntervieweeListBuilder withInterviewee(Interviewee interviewee) {
-        this.intervieweeList.addInterviewee(interviewee);
+        this.intervieweeList.addEntity(interviewee);
         return this;
     }
 

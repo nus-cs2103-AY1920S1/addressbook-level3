@@ -5,39 +5,40 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyIntervieweeList;
-import seedu.address.model.ReadOnlyInterviewerList;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 
 /**
  * API of the Storage component
  */
 public interface Storage extends IntervieweeListStorage, InterviewerListStorage, UserPrefsStorage {
 
-    //=========== UserPrefs ============================================================================================
+    //=========== UserPrefs ===========================================================================================
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    //=========== IntervieweeList ======================================================================================
+    //=========== IntervieweeList =====================================================================================
 
     @Override
     Path getIntervieweeListFilePath();
 
     @Override
-    Optional<ReadOnlyIntervieweeList> readIntervieweeList() throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Interviewee>> readIntervieweeList() throws DataConversionException, IOException;
 
     @Override
-    Optional<ReadOnlyIntervieweeList> readIntervieweeList(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Interviewee>> readIntervieweeList(Path filePath) throws DataConversionException, IOException;
 
     @Override
-    void saveIntervieweeList(ReadOnlyIntervieweeList intervieweeList) throws IOException;
+    void saveIntervieweeList(ReadOnlyList<Interviewee> intervieweeList) throws IOException;
 
     @Override
-    void saveIntervieweeList(ReadOnlyIntervieweeList intervieweeList, Path filePath) throws IOException;
+    void saveIntervieweeList(ReadOnlyList<Interviewee> intervieweeList, Path filePath) throws IOException;
 
     //=========== InterviewerList ======================================================================================
 
@@ -45,15 +46,15 @@ public interface Storage extends IntervieweeListStorage, InterviewerListStorage,
     Path getInterviewerListFilePath();
 
     @Override
-    Optional<ReadOnlyInterviewerList> readInterviewerList() throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Interviewer>> readInterviewerList() throws DataConversionException, IOException;
 
     @Override
-    Optional<ReadOnlyInterviewerList> readInterviewerList(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Interviewer>> readInterviewerList(Path filePath) throws DataConversionException, IOException;
 
     @Override
-    void saveInterviewerList(ReadOnlyInterviewerList interviewerList) throws IOException;
+    void saveInterviewerList(ReadOnlyList<Interviewer> interviewerList) throws IOException;
 
     @Override
-    void saveInterviewerList(ReadOnlyInterviewerList interviewerList, Path filePath) throws IOException;
+    void saveInterviewerList(ReadOnlyList<Interviewer> interviewerList, Path filePath) throws IOException;
 
 }

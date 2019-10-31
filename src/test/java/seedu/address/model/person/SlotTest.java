@@ -10,14 +10,14 @@ class SlotTest {
 
     @Test
     public void constructor_null_throwsNUllPointerException() {
-        assertThrows(NullPointerException.class, () -> new Slot(null));
+        assertThrows(NullPointerException.class, () -> Slot.fromString(null));
     }
 
     @Test
     public void constructor_invalidSlot_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> new Slot(" "));
-        assertThrows(IllegalArgumentException.class, () -> new Slot("1234"));
-        assertThrows(IllegalArgumentException.class, () -> new Slot("12/34/2019 12:34-12:34"));
+        assertThrows(IllegalArgumentException.class, () -> Slot.fromString(" "));
+        assertThrows(IllegalArgumentException.class, () -> Slot.fromString("1234"));
+        assertThrows(IllegalArgumentException.class, () -> Slot.fromString("12/34/2019 12:34-12:34"));
     }
 
     @Test
@@ -28,7 +28,7 @@ class SlotTest {
     @Test
     public void isValidSlot() {
         // null slot
-        assertThrows(NullPointerException.class, () -> new Slot(null));
+        assertThrows(NullPointerException.class, () -> Slot.fromString(null));
 
         // invalid slot
         assertFalse(Slot.isValidSlot(""));

@@ -1,15 +1,18 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -48,7 +51,11 @@ public class PersonBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public PersonBuilder withName(String name) {
-        this.name = new Name(name);
+        try {
+            this.name = ParserUtil.parseName(name);
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
+        }
         return this;
     }
 
@@ -56,7 +63,11 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        try {
+            this.tags = ParserUtil.parseTags(Arrays.asList(tags));
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
+        }
         return this;
     }
 
@@ -64,7 +75,11 @@ public class PersonBuilder {
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        try {
+            this.phone = ParserUtil.parsePhone(phone);
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
+        }
         return this;
     }
 

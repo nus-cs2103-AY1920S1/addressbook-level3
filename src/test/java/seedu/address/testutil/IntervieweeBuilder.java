@@ -3,8 +3,10 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Emails;
@@ -12,16 +14,14 @@ import seedu.address.model.person.Faculty;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Interviewee objects.
+ * A utility class to help with building Interviewee objects from string input.
  */
 public class IntervieweeBuilder extends PersonBuilder {
 
-    public static final String DEFAULT_FACULTY = "School of Computing";
-    public static final String DEFAULT_YEAR_OF_STUDY = "2019";
+    private static final String DEFAULT_FACULTY = "School of Computing";
+    private static final String DEFAULT_YEAR_OF_STUDY = "2019";
 
     private Faculty faculty;
     private Integer yearOfStudy;
@@ -62,23 +62,37 @@ public class IntervieweeBuilder extends PersonBuilder {
      * Sets the {@code Faculty} of the {@code Interviewee} that we are building.
      */
     public IntervieweeBuilder withFaculty(String faculty) {
-        this.faculty = new Faculty(faculty);
+        try {
+            this.faculty = ParserUtil.parseFaculty(faculty);
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
+        }
         return this;
     }
 
     /**
      * Sets the stud year of the {@code Interviewee} that we are building.
+     * @throws ParseException if input is invalid.
      */
     public IntervieweeBuilder withYearOfStudy(String yearOfStudy) {
-        this.yearOfStudy = Integer.parseInt(yearOfStudy);
+        try {
+            this.yearOfStudy = ParserUtil.parseYearOfStudy(yearOfStudy);
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
+        }
         return this;
     }
 
     /**
      * Sets the {@code Department}s of the {@code Interviewee} that we are building.
+     * @throws ParseException if input is invalid.
      */
     public IntervieweeBuilder withDepartmentChoices(String... departments) {
-        this.departmentChoices = SampleDataUtil.getDepartmentList(departments);
+        try {
+            this.departmentChoices = ParserUtil.parseDepartments(Arrays.asList(departments));
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
+        }
         return this;
     }
 
@@ -86,7 +100,11 @@ public class IntervieweeBuilder extends PersonBuilder {
      * Sets the {@code Slot}s of the {@code Interviewee} that we are building.
      */
     public IntervieweeBuilder withTimeslots(String... timeslots) {
-        this.allocatedTimeslots = SampleDataUtil.getTimeslotList(timeslots);
+        try {
+            this.allocatedTimeslots = ParserUtil.parseSlots(Arrays.asList(timeslots));
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
+        }
         return this;
     }
 
@@ -94,11 +112,15 @@ public class IntervieweeBuilder extends PersonBuilder {
      * Sets the personal email of the {@code Interviewee} that we are building.
      */
     public IntervieweeBuilder withPersonalEmail(String email) {
-        Email toAdd = new Email(email);
-        if (emails != null) {
-            this.emails.addPersonalEmail(toAdd);
-        } else {
-            this.emails = new Emails().addPersonalEmail(toAdd);
+        try {
+            Email toAdd = ParserUtil.parseEmail(email);
+            if (emails != null) {
+                this.emails.addPersonalEmail(toAdd);
+            } else {
+                this.emails = new Emails().addPersonalEmail(toAdd);
+            }
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
         }
         return this;
     }
@@ -107,11 +129,15 @@ public class IntervieweeBuilder extends PersonBuilder {
      * Sets the Nus work email of the {@code Interviewee} that we are building.
      */
     public IntervieweeBuilder withNusWorkEmail(String email) {
-        Email toAdd = new Email(email);
-        if (emails != null) {
-            this.emails.addNusEmail(toAdd);
-        } else {
-            this.emails = new Emails().addNusEmail(toAdd);
+        try {
+            Email toAdd = ParserUtil.parseEmail(email);
+            if (emails != null) {
+                this.emails.addNusEmail(toAdd);
+            } else {
+                this.emails = new Emails().addNusEmail(toAdd);
+            }
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
         }
         return this;
     }
@@ -121,8 +147,12 @@ public class IntervieweeBuilder extends PersonBuilder {
      */
     @Override
     public IntervieweeBuilder withTags(String... tags) {
-        super.getTags().clear();
-        super.getTags().addAll(Arrays.stream(tags).map(Tag::new).collect(Collectors.toList()));
+        try {
+            super.getTags().clear();
+            super.getTags().addAll(ParserUtil.parseTags(Arrays.asList(tags)));
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
+        }
         return this;
     }
 

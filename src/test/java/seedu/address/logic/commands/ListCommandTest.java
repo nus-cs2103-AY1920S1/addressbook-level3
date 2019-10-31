@@ -1,9 +1,10 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.CommandTestUtil.showIntervieweeWithName;
+import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
+import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeList;
+import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerList;
 
 import java.util.LinkedList;
 
@@ -24,8 +25,10 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>());
+        model = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),
+                new UserPrefs(), new LinkedList<>());
+        expectedModel = new ModelManager(model.getMutableIntervieweeList(), model.getMutableInterviewerList(),
+                new UserPrefs(), new LinkedList<>());
     }
 
     @Test
@@ -35,7 +38,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showIntervieweeWithName(model, ALICE_INTERVIEWEE.getName());
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

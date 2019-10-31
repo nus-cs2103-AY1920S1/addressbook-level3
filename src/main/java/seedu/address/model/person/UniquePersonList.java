@@ -29,7 +29,7 @@ public class UniquePersonList<T extends Person> implements Iterable<T> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent person as the given argument, i.e same name and phone.
      */
     public boolean contains(T toCheck) {
         requireNonNull(toCheck);
@@ -72,7 +72,7 @@ public class UniquePersonList<T extends Person> implements Iterable<T> {
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(T toRemove) {
+    public void remove(T toRemove) throws PersonNotFoundException {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
@@ -124,7 +124,7 @@ public class UniquePersonList<T extends Person> implements Iterable<T> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<? extends Person> persons) {
+    private boolean personsAreUnique(List<T> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
                 if (persons.get(i).isSamePerson(persons.get(j))) {

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -20,11 +21,12 @@ import seedu.address.model.IntervieweeList;
 import seedu.address.model.InterviewerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyIntervieweeList;
-import seedu.address.model.ReadOnlyInterviewerList;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Schedule;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.IntervieweeListStorage;
 import seedu.address.storage.InterviewerListStorage;
@@ -83,10 +85,10 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyIntervieweeList> intervieweeListOptional;
-        Optional<ReadOnlyInterviewerList> interviewerListOptional;
-        ReadOnlyIntervieweeList initialIntervieweeList;
-        ReadOnlyInterviewerList initialInterviewerList;
+        Optional<ReadOnlyList<Interviewee>> intervieweeListOptional;
+        Optional<ReadOnlyList<Interviewer>> interviewerListOptional;
+        ReadOnlyList<Interviewee> initialIntervieweeList;
+        ReadOnlyList<Interviewer> initialInterviewerList;
 
         try {
             intervieweeListOptional = storage.readIntervieweeList();

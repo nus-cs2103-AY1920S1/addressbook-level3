@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.InterviewerList;
-import seedu.address.model.ReadOnlyInterviewerList;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.person.Interviewer;
 
 /**
@@ -32,12 +32,12 @@ public class JsonSerializableInterviewerList {
     }
 
     /**
-     * Converts a given {@code ReadOnlyInterviewerList} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyList<Interviewer>} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableInterviewerList}.
      */
-    public JsonSerializableInterviewerList(ReadOnlyInterviewerList source) {
-        this.interviewers.addAll(source.getInterviewerList().stream()
+    public JsonSerializableInterviewerList(ReadOnlyList<Interviewer> source) {
+        this.interviewers.addAll(source.getEntityList().stream()
                 .map(JsonAdaptedInterviewer::new)
                 .collect(Collectors.toList()));
     }
@@ -53,11 +53,11 @@ public class JsonSerializableInterviewerList {
         for (JsonAdaptedInterviewer jsonAdaptedInterviewer : this.interviewers) {
             Interviewer interviewer = jsonAdaptedInterviewer.toModelType();
 
-            if (interviewerList.hasInterviewer(interviewer)) {
+            if (interviewerList.hasEntity(interviewer)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INTERVIEWER);
             }
 
-            interviewerList.addInterviewer(interviewer);
+            interviewerList.addEntity(interviewer);
         }
 
         return interviewerList;

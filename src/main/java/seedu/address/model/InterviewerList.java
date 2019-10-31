@@ -1,19 +1,24 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.person.Interviewer;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
- * Wraps all Interviewer data at the InterviewerList level
- * Duplicates are not allowed
+ * Wraps all interviewee data in the model.
+ * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class InterviewerList implements ReadOnlyInterviewerList {
+public class InterviewerList implements ReadAndWriteList<Interviewer> {
 
     private final UniquePersonList<Interviewer> interviewers;
 
@@ -21,97 +26,84 @@ public class InterviewerList implements ReadOnlyInterviewerList {
         this.interviewers = new UniquePersonList<>();
     }
 
-    /**
-     * Creates an InterviewerList using the Interviewer list in the {@code toBeCopied}
-     */
-    public InterviewerList(ReadOnlyInterviewerList toBeCopied) {
+    public InterviewerList(ReadOnlyList<Interviewer> book) {
         this();
-        this.resetData(toBeCopied);
+        resetData(book);
+    }
+
+    /**
+     * Adds the interviewer to the book. The interviewer must be unique.
+     * @throws DuplicatePersonException if the interviewer already exists in the book.
+     */
+    @Override
+    public void addEntity(Interviewer interviewer) throws DuplicatePersonException {
+        interviewers.add(interviewer);
+    }
+
+    @Override
+    public void setEntity(Interviewer target, Interviewer editedTarget) throws PersonNotFoundException {
+        requireAllNonNull(target, editedTarget);
+        // TODO: implementation
+        throw new RuntimeException("method not implemented yet");
+    }
+
+    @Override
+    public Interviewer getEntity(Name name) throws PersonNotFoundException {
+        requireNonNull(name);
+        Optional<Interviewer> i = interviewers.asUnmodifiableObservableList().stream()
+                .filter(interviewer -> interviewer.getName().equals(name))
+                .findAny();
+        if (!i.isPresent()) {
+            throw new PersonNotFoundException();
+        }
+        return i.get();
+    }
+
+    @Override
+    public void removeEntity(Interviewer interviewer) throws PersonNotFoundException {
+        interviewers.remove(interviewer);
+    }
+
+    @Override
+    public boolean hasEntity(Interviewer target) {
+        return interviewers.contains(target);
+    }
+
+    @Override
+    public ObservableList<Interviewer> getEntityList() {
+        return interviewers.asUnmodifiableObservableList();
     }
 
     /**
      * Replaces the contents of the interviewer list with {@code interviewers}.
      * {@code interviewers} must not contain duplicate interviewers.
      */
-    public void setInterviewers(List<Interviewer> interviewers) {
+    public void setInterviewerList(List<Interviewer> interviewers) {
         this.interviewers.setPersons(interviewers);
     }
 
     /**
-     * Resets the existing data of this {@code InterviewerList} with {@code newData}.
+     * Resets the underlying {@code UniquePersonList<Interviewer>} with that of the {@code book}.
      */
-    public void resetData(ReadOnlyInterviewerList newData) {
-        requireNonNull(newData);
-
-        this.setInterviewers(newData.getInterviewerList());
-    }
-
-    /**
-     * Returns true if an Interviewer with the same identity as {@code interviewer} exists in the database.
-     */
-    public boolean hasInterviewer(Interviewer interviewer) {
-        requireNonNull(interviewer);
-        return this.interviewers.contains(interviewer);
-    }
-
-    /**
-     * Adds an Interviewer to the database.
-     * The Interviewer must not already exist in the database.
-     */
-    public void addInterviewer(Interviewer interviewer) {
-        this.interviewers.add(interviewer);
-    }
-
-    /**
-     * Returns an Interviewer from the database given the name.
-     */
-    public Interviewer getInterviewer(String name) throws NoSuchElementException {
-        requireNonNull(name);
-        return this.interviewers.asUnmodifiableObservableList().stream()
-                .filter((x) -> x.getName().equals(name))
-                .findAny()
-                .get();
-    }
-
-    /**
-     * Replaces the given Interviewer {@code target} in the list with {@code editedInterviewer}.
-     * {@code target} must exist in the database.
-     * The Interviewer identity of {@code editedInterviewer} must not be the same as another existing
-     * Interviewer in the address book.
-     */
-    public void setInterviewer(Interviewer target, Interviewer editedInterviewer) {
-        requireNonNull(editedInterviewer);
-        this.interviewers.setPerson(target, editedInterviewer);
-    }
-
-    /**
-     * Removes {@code key} from this {@code InterviewerList}.
-     * {@code key} must exist in the database.
-     */
-    public void removeInterviewer(Interviewer key) {
-        this.interviewers.remove(key);
+    private void resetData(ReadOnlyList<Interviewer> book) {
+        requireNonNull(book);
+        this.interviewers.setPersons(book.getEntityList());
     }
 
     @Override
     public String toString() {
-        return this.getInterviewerList().size() + " interviewers";
-    }
-
-    @Override
-    public ObservableList<Interviewer> getInterviewerList() {
-        return this.interviewers.asUnmodifiableObservableList();
+        return interviewers.asUnmodifiableObservableList().size() + " interviewees";
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InterviewerList // instanceof handles nulls
-                && this.interviewers.equals(((InterviewerList) other).interviewers));
+                || (other instanceof InterviewerList// instanceof handles nulls
+                && interviewers.equals(((InterviewerList) other).interviewers));
     }
 
     @Override
     public int hashCode() {
-        return this.interviewers.hashCode();
+        return interviewers.hashCode();
     }
-
 }

@@ -42,7 +42,7 @@ public class EmailCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Interviewee> intervieweeList = model.getInterviewees();
+        List<Interviewee> intervieweeList = model.getUnfilteredIntervieweeList();
         // Interviewee intervieweeToEmail = new Interviewee.IntervieweeBuilder(lastShownList.get(1)).build();
         Interviewee intervieweeToEmail = null;
 

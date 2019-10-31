@@ -1,7 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.DEPARTMENT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_NUS_WORK_DESC_AMY;
@@ -26,20 +26,20 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyIntervieweeList;
-import seedu.address.model.ReadOnlyInterviewerList;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.storage.JsonIntervieweeListStorage;
 import seedu.address.storage.JsonInterviewerListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.IntervieweeBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -70,7 +70,8 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertParseException(deleteCommand,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -95,9 +96,8 @@ public class LogicManagerTest {
         String addCommand = AddCommand.COMMAND_WORD + ROLE_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY
                 + TAG_DESC_FRIEND + FACULTY_DESC_AMY + YEAR_OF_STUDY_DESC_AMY + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY
                 + EMAIL_PERSONAL_DESC_AMY + EMAIL_NUS_WORK_DESC_AMY;
-        Person expectedPerson = new IntervieweeBuilder(AMY_INTERVIEWEE).build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        expectedModel.addInterviewee(AMY_INTERVIEWEE);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
@@ -138,7 +138,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getIntervieweeList(), model.getInterviewerList(),
+        Model expectedModel = new ModelManager(model.getMutableIntervieweeList(), model.getMutableInterviewerList(),
                 new UserPrefs(), new LinkedList<>());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
@@ -165,7 +165,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveIntervieweeList(ReadOnlyIntervieweeList intervieweeList, Path filePath) throws IOException {
+        public void saveIntervieweeList(ReadOnlyList<Interviewee> intervieweeList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
@@ -179,9 +179,8 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveInterviewerList(ReadOnlyInterviewerList interviewerList, Path filePath) throws IOException {
+        public void saveInterviewerList(ReadOnlyList<Interviewer> interviewerList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
-
 }

@@ -10,5 +10,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_PERSON_NAME = "The person name provided does not exist";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-
+    public static final String MESSAGE_CRITICAL_ERROR = "Internal Error!";
 }

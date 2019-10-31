@@ -5,11 +5,15 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -32,6 +36,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private IntervieweeListPanel intervieweeListPanel;
+    private InterviewerListPanel interviewerListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ScheduleViewPanel scheduleViewPanel;
@@ -51,6 +57,26 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab schedulesTab;
+
+    @FXML
+    private AnchorPane schedulesPlaceholder;
+
+    @FXML
+    private Tab intervieweeListTab;
+
+    @FXML
+    private AnchorPane intervieweeListPlaceholder;
+
+    @FXML
+    private Tab interviewerListTab;
+
+    @FXML
+    private AnchorPane interviewerListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -93,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
          *
-         * For now, we add following event filter to capture such key events and open
+         * For now, we addEntity following event filter to capture such key events and open
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
          */
@@ -110,7 +136,18 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         scheduleViewPanel = new ScheduleViewPanel(logic.getTitlesLists(), logic.getObservableLists());
-        schedulePanelPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
+        // schedulePanelPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
+
+        // ========================================test code for debug purposes
+        // personListPanel = new PersonListPanel(logic.getFilteredIntervieweeList());
+        intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeList());
+        intervieweeListPlaceholder.getChildren().add(intervieweeListPanel.getRoot());
+
+        interviewerListPanel = new InterviewerListPanel(logic.getFilteredInterviewerList());
+        interviewerListPlaceholder.getChildren().add(interviewerListPanel.getRoot());
+
+        schedulesPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
+        // ========================================end of test code
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

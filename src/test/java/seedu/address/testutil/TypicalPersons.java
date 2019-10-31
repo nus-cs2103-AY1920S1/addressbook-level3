@@ -34,23 +34,7 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    public static final Interviewee ANSON = new IntervieweeBuilder(new PersonBuilder().withName("Anson Pauline")
-            .withPhone("94351253").withTags("friends").build())
-            .withFaculty("School of computing")
-            .withYearOfStudy("2019")
-            .withDepartmentChoices("Marketing")
-            .withTimeslots("16/10/2019 00:00-23:59")
-            .withPersonalEmail("anson@gmail.com")
-            .withNusWorkEmail("anson@u.nus.edu")
-            .build();
-
-    public static final Interviewer IAN = new InterviewerBuilder(new PersonBuilder().withName("Ian Scotch")
-            .withPhone("91234567").withTags("senior").build())
-            .withDepartment("Technical")
-            .withEmail("test@example.com")
-            .withAvailabilities("23/10/2019 00:00-23:59")
-            .build();
-
+    // Persons
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withPhone("94351253").withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
@@ -62,9 +46,44 @@ public class TypicalPersons {
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442").build();
 
-    // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").build();
+    // Typical Interviewees
+    public static final Interviewee ALICE_INTERVIEWEE = new IntervieweeBuilder(ALICE).withFaculty("Engineering")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+    public static final Interviewee BENSON_INTERVIEWEE = new IntervieweeBuilder(BENSON).withFaculty("Engineering")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+    public static final Interviewee CARL_INTERVIEWEE = new IntervieweeBuilder(CARL).withFaculty("Engineering")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+    public static final Interviewee DANIEL_INTERVIEWEE = new IntervieweeBuilder(DANIEL).withFaculty("Engineering")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+    public static final Interviewee ELLE_INTERVIEWEE = new IntervieweeBuilder(ELLE).withFaculty("Engineering")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+    public static final Interviewee FIONA_INTERVIEWEE = new IntervieweeBuilder(FIONA).withFaculty("Engineering")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+    public static final Interviewee GEORGE_INTERVIEWEE = new IntervieweeBuilder(GEORGE).withFaculty("Engineering")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+
+    // Typical Interviewers
+    public static final Interviewer ALICE_INTERVIEWER = new InterviewerBuilder(ALICE).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer BENSON_INTERVIEWER = new InterviewerBuilder(BENSON).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer CARL_INTERVIEWER = new InterviewerBuilder(CARL).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer DANIEL_INTERVIEWER = new InterviewerBuilder(DANIEL).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer ELLE_INTERVIEWER = new InterviewerBuilder(ELLE).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer FIONA_INTERVIEWER = new InterviewerBuilder(FIONA).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer GEORGE_INTERVIEWER = new InterviewerBuilder(GEORGE).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY_PERSON = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
@@ -80,45 +99,35 @@ public class TypicalPersons {
             .withTimeslots(VALID_SLOT_BOB).withPersonalEmail(VALID_PERSONAL_EMAIL_BOB)
             .withNusWorkEmail(VALID_NUS_WORK_EMAIL_BOB).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code IntervieweeList} with all the typical Interviewees.
+     * Returns an {@code IntervieweeList} with all the typical interviewees.
+     * @return
      */
     public static IntervieweeList getTypicalIntervieweeList() {
-        IntervieweeList iveelist = new IntervieweeList();
-
-        for (Interviewee interviewee : getTypicalInterviewees()) {
-            iveelist.addInterviewee(interviewee);
+        IntervieweeList ib = new IntervieweeList();
+        for (Interviewee i: getTypicalInterviewees()) {
+            ib.addEntity(i);
         }
-
-        return iveelist;
-    }
-
-    /**
-     * Returns an {@code InterviewerList} with all the typical Interviewers.
-     */
-    public static InterviewerList getTypicalInterviewerList() {
-        InterviewerList iverlist = new InterviewerList();
-
-        for (Interviewer interviewer : getTypicalInterviewers()) {
-            iverlist.addInterviewer(interviewer);
-        }
-
-        return iverlist;
+        return ib;
     }
 
     public static List<Interviewee> getTypicalInterviewees() {
-        return new ArrayList<>(Arrays.asList(ANSON));
+        return new ArrayList<>(Arrays.asList(ALICE_INTERVIEWEE, BENSON_INTERVIEWEE, CARL_INTERVIEWEE,
+                DANIEL_INTERVIEWEE, ELLE_INTERVIEWEE, FIONA_INTERVIEWEE, GEORGE_INTERVIEWEE));
+    }
+
+    public static InterviewerList getTypicalInterviewerList() {
+        InterviewerList ib = new InterviewerList();
+        for (Interviewer i: getTypicalInterviewers()) {
+            ib.addEntity(i);
+        }
+        return ib;
     }
 
     public static List<Interviewer> getTypicalInterviewers() {
-        return new ArrayList<>(Arrays.asList(IAN));
-    }
-
-    public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE_INTERVIEWER, BENSON_INTERVIEWER, CARL_INTERVIEWER,
+                DANIEL_INTERVIEWER, ELLE_INTERVIEWER, FIONA_INTERVIEWER, GEORGE_INTERVIEWER));
     }
 }

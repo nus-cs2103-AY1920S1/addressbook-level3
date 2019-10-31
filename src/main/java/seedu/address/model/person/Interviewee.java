@@ -53,6 +53,11 @@ public class Interviewee extends Person {
             this.tags = tags;
         }
 
+        // For testing purposes only
+        public IntervieweeBuilder(Person p) {
+            this(p.getName(), p.getPhone(), p.getTags());
+        }
+
         /**
          * Sets the optional {@code Emails} to create the Interviewee object.
          */
@@ -121,6 +126,20 @@ public class Interviewee extends Person {
 
     public Emails getEmails() {
         return emails;
+    }
+
+    /**
+     * Returns true if both interviewees of the same name have the same name and phone number.
+     * This defines a weaker notion of equality between two interviewees.
+     */
+    public boolean isSamePerson(Interviewee interviewee) {
+        if (interviewee == this) {
+            return true;
+        }
+
+        return interviewee != null
+                && interviewee.getName().equals(getName())
+                && interviewee.getPhone().equals(getPhone());
     }
 
     /**

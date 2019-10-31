@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.TypicalPersons.ANSON;
+import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,14 +28,14 @@ class JsonAdaptedIntervieweeTest {
     private static final Emails VALID_EMAILS = DefaultValues.DEFAULT_EMAILS;
     private static final Name VALID_NAME = DefaultValues.DEFAULT_NAME;
     private static final Phone VALID_PHONE = DefaultValues.DEFAULT_PHONE;
-    private static final List<JsonAdaptedTag> VALID_TAGS = ANSON.getTags().stream()
+    private static final List<JsonAdaptedTag> VALID_TAGS = ALICE_INTERVIEWEE.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validIntervieweeDetails_returnsInterviewee() throws Exception {
-        JsonAdaptedInterviewee interviewee = new JsonAdaptedInterviewee(ANSON);
-        assertEquals(ANSON, interviewee.toModelType());
+        JsonAdaptedInterviewee interviewee = new JsonAdaptedInterviewee(ALICE_INTERVIEWEE);
+        assertEquals(ALICE_INTERVIEWEE, interviewee.toModelType());
     }
 
     @Test void toModelType_invalidName_throwsIllegalValueException() {

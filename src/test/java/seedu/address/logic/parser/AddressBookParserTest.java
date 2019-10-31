@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 import static seedu.address.testutil.TypicalPersons.BOB_INTERVIEWEE;
 
 import java.util.Arrays;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddIntervieweeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -26,8 +29,9 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Interviewee;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonNameHasKeywordsPredicate;
+import seedu.address.model.person.Role;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.IntervieweeBuilder;
 import seedu.address.testutil.IntervieweeUtil;
@@ -43,7 +47,7 @@ public class AddressBookParserTest {
         // add interviewee
         Interviewee interviewee = new IntervieweeBuilder(BOB_INTERVIEWEE).build();
         AddCommand command = (AddCommand) parser.parseCommand(IntervieweeUtil.getAddCommand(interviewee));
-        assertEquals(new AddCommand(interviewee), command);
+        assertEquals(new AddIntervieweeCommand(interviewee), command);
     }
 
     @Test
@@ -55,8 +59,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " "
+                        + ALICE_INTERVIEWEE.getName() + " "
+                        + PREFIX_ROLE + "interviewee");
+        assertEquals(new DeleteCommand(ALICE_INTERVIEWEE.getName(), new Role("interviewee")), command);
     }
 
     @Test
@@ -79,7 +85,7 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new PersonNameHasKeywordsPredicate(keywords)), command);
     }
 
     @Test

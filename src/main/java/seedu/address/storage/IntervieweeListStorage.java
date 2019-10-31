@@ -5,7 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyIntervieweeList;
+import seedu.address.model.ReadOnlyList;
+import seedu.address.model.person.Interviewee;
 
 /**
  * Represents a storage for {@link seedu.address.model.IntervieweeList}
@@ -18,28 +19,28 @@ public interface IntervieweeListStorage {
     Path getIntervieweeListFilePath();
 
     /**
-     * Returns Interviewees data as an {@link ReadOnlyIntervieweeList}
+     * Returns Interviewees data as an {@link ReadOnlyList}
      * Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyIntervieweeList> readIntervieweeList() throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Interviewee>> readIntervieweeList() throws DataConversionException, IOException;
 
     /**
      * @see #getIntervieweeListFilePath()
      */
-    Optional<ReadOnlyIntervieweeList> readIntervieweeList(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Interviewee>> readIntervieweeList(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyIntervieweeList} to the storage.
+     * Saves the given {@link ReadOnlyList} to the storage.
      * @param intervieweeList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveIntervieweeList(ReadOnlyIntervieweeList intervieweeList) throws IOException;
+    void saveIntervieweeList(ReadOnlyList<Interviewee> intervieweeList) throws IOException;
 
     /**
-     * @see #saveIntervieweeList(ReadOnlyIntervieweeList)
+     * @see #saveIntervieweeList(ReadOnlyList)
      */
-    void saveIntervieweeList(ReadOnlyIntervieweeList intervieweeList, Path filePath) throws IOException;
+    void saveIntervieweeList(ReadOnlyList<Interviewee> intervieweeList, Path filePath) throws IOException;
 
 }

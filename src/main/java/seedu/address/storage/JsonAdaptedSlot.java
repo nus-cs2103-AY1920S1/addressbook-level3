@@ -33,6 +33,7 @@ public class JsonAdaptedSlot {
         return this.slot;
     }
 
+
     /**
      * Converts this Jackson-friendly adapted department object into the model's {@code Department} object.
      *

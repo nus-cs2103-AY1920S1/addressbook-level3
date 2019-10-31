@@ -10,51 +10,98 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Scheduler App" minWidth="760" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
+
   <scene>
-    <Scene>
+    <Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
       <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
-
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane fx:id="schedulePanelPlaceholder" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-        </StackPane>
-
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="SOMETIMES"/>
-      </VBox>
+      <root>
+        <VBox>
+          <children>
+            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+              <padding>
+                <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+            </StackPane>
+            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+              <padding>
+                <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+            </StackPane>
+            <TabPane fx:id="tabPane" minWidth="340.0" prefWidth="340.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+              <tabs>
+                <Tab fx:id="schedulesTab" styleClass="label" text="Schedules">
+                  <content>
+                    <AnchorPane fx:id="schedulesPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                      <stylesheets>
+                        <URL value="@DarkTheme.css" />
+                        <URL value="@Extensions.css" />
+                      </stylesheets>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="intervieweeListTab" styleClass="label" text="Interviewees">
+                  <content>
+                    <AnchorPane fx:id="intervieweeListPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                      <stylesheets>
+                        <URL value="@DarkTheme.css" />
+                        <URL value="@Extensions.css" />
+                      </stylesheets>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="interviewerListTab" styleClass="label" text="Interviewees">
+                  <content>
+                    <AnchorPane fx:id="interviewerListPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                      <stylesheets>
+                        <URL value="@DarkTheme.css" />
+                        <URL value="@Extensions.css" />
+                      </stylesheets>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+              <padding>
+                <Insets bottom="10.0" right="10.0" top="10.0" />
+              </padding>
+            </TabPane>
+            <StackPane fx:id="schedulePanelPlaceholder" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+              </padding>
+            </StackPane>
+            <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="SOMETIMES" />
+          </children>
+        </VBox>
+      </root>
     </Scene>
+
+
+
   </scene>
 </fx:root>

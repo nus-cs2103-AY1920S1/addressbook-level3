@@ -17,7 +17,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddIntervieweeCommand;
+import seedu.address.logic.commands.AddInterviewerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
@@ -26,7 +29,6 @@ import seedu.address.model.person.Faculty;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
 import seedu.address.model.person.RoleType;
@@ -68,33 +70,33 @@ public class AddCommandParser implements Parser<AddCommand> {
         Optional<String> personalEmailString = argMultimap.getValue(PREFIX_PERSONAL_EMAIL);
         Optional<String> nusWorkEmailString = argMultimap.getValue(PREFIX_NUS_WORK_EMAIL);
 
-        Person person = null;
-
         if (role.getRole() == RoleType.INTERVIEWEE) {
             Faculty faculty = ParserUtil.parseFaculty(facultyString.get());
             Integer yearOfStudy = ParserUtil.parseYearOfStudy(yearOfStudyString.get());
             Email personalEmail = ParserUtil.parseEmail(personalEmailString.get());
             Email nusWorkEmail = ParserUtil.parseEmail(nusWorkEmailString.get());
             Emails emails = new Emails().addPersonalEmail(personalEmail).addNusEmail(nusWorkEmail);
-            person = new Interviewee.IntervieweeBuilder(name, phone, tagList)
+            Interviewee interviewee = new Interviewee.IntervieweeBuilder(name, phone, tagList)
                     .faculty(faculty)
                     .yearOfStudy(yearOfStudy)
                     .departmentChoices(departmentChoices)
                     .availableTimeslots(availableTimeslots)
                     .emails(emails)
                     .build();
-        }
-        if (role.getRole() == RoleType.INTERVIEWER) {
+            return new AddIntervieweeCommand(interviewee);
+        } else if (role.getRole() == RoleType.INTERVIEWER) {
             Department department = departmentChoices.get(0); // interviewer has one department
-            Email personalEmail = ParserUtil.parseEmail(personalEmailString.get());
-            person = new Interviewer.InterviewerBuilder(name, phone, tagList)
+            Email nusWorkEmail = ParserUtil.parseEmail(nusWorkEmailString.get());
+            Interviewer interviewer = new Interviewer.InterviewerBuilder(name, phone, tagList)
                     .department(department)
-                    .email(personalEmail)
+                    .email(nusWorkEmail)
                     .availabilities(availableTimeslots)
                     .build();
+            return new AddInterviewerCommand(interviewer);
+        } else {
+            // control flow should not reach here.
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);
         }
-
-        return new AddCommand(person);
     }
 
     /**

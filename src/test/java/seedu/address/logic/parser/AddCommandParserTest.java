@@ -44,9 +44,9 @@ import static seedu.address.testutil.TypicalPersons.BOB_INTERVIEWEE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddIntervieweeCommand;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.IntervieweeBuilder;
@@ -63,39 +63,39 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + ROLE_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                 + TAG_DESC_FRIEND + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_BOB
                 + DEPARTMENT_DESC_BOB + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB + EMAIL_NUS_WORK_DESC_BOB,
-                new AddCommand(expectedPerson));
+                new AddIntervieweeCommand(expectedPerson));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, ROLE_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
                 + TAG_DESC_FRIEND + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_BOB
                 + DEPARTMENT_DESC_BOB + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB + EMAIL_NUS_WORK_DESC_BOB,
-                new AddCommand(expectedPerson));
+                new AddIntervieweeCommand(expectedPerson));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, ROLE_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
                 + TAG_DESC_FRIEND + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_BOB
                 + DEPARTMENT_DESC_BOB + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB + EMAIL_NUS_WORK_DESC_BOB,
-                new AddCommand(expectedPerson));
+                new AddIntervieweeCommand(expectedPerson));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new IntervieweeBuilder(BOB_INTERVIEWEE)
+        Interviewee expectedPersonMultipleTags = new IntervieweeBuilder(BOB_INTERVIEWEE)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, ROLE_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_BOB
                 + DEPARTMENT_DESC_BOB + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB + EMAIL_NUS_WORK_DESC_BOB,
-                new AddCommand(expectedPersonMultipleTags));
+                new AddIntervieweeCommand(expectedPersonMultipleTags));
         // TODO: more test cases (ken)
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new IntervieweeBuilder(AMY_INTERVIEWEE).withTags().build();
+        Interviewee expectedPerson = new IntervieweeBuilder(AMY_INTERVIEWEE).withTags().build();
         assertParseSuccess(parser, ROLE_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY
                 + FACULTY_DESC_AMY + YEAR_OF_STUDY_DESC_AMY + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY
                 + EMAIL_PERSONAL_DESC_AMY + EMAIL_NUS_WORK_DESC_AMY,
-                new AddCommand(expectedPerson));
+                new AddIntervieweeCommand(expectedPerson));
     }
 
     @Test

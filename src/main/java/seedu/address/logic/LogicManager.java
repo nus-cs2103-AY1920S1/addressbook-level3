@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -14,8 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyIntervieweeList;
-import seedu.address.model.ReadOnlyInterviewerList;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.Schedule;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
@@ -54,8 +54,8 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveIntervieweeList(model.getIntervieweeList());
-            storage.saveInterviewerList(model.getInterviewerList());
+            storage.saveIntervieweeList(model.getMutableIntervieweeList());
+            storage.saveInterviewerList(model.getMutableInterviewerList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -63,34 +63,36 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    // ==================================IntervieweeList and InterviewerList ======================================
+
     @Override
-    public List<Interviewee> getInterviewees() {
-        return model.getInterviewees();
+    public ReadOnlyList<Interviewee> getIntervieweeList() {
+        return model.getMutableIntervieweeList();
     }
 
     @Override
-    public List<Interviewer> getInterviewers() {
-        return model.getInterviewers();
+    public ReadOnlyList<Interviewer> getInterviewerList() {
+        return model.getMutableInterviewerList();
     }
 
     @Override
-    public ReadOnlyIntervieweeList getIntervieweeList() {
-        return model.getIntervieweeList();
+    public ObservableList<Interviewee> getUnfilteredIntervieweeList() {
+        return model.getUnfilteredIntervieweeList();
     }
 
     @Override
-    public ReadOnlyInterviewerList getInterviewerList() {
-        return model.getInterviewerList();
+    public ObservableList<Interviewer> getUnfilteredInterviewerList() {
+        return model.getUnfilteredInterviewerList();
     }
 
     @Override
-    public ObservableList<Interviewee> getObservableIntervieweeList() {
-        return model.getObservableIntervieweeList();
+    public ObservableList<Interviewee> getFilteredIntervieweeList() {
+        return model.getFilteredIntervieweeList();
     }
 
     @Override
-    public ObservableList<Interviewer> getObservableInterviewerList() {
-        return model.getObservableInterviewerList();
+    public ObservableList<Interviewer> getFilteredInterviewerList() {
+        return model.getFilteredInterviewerList();
     }
 
     @Override
@@ -102,6 +104,8 @@ public class LogicManager implements Logic {
     public Path getInterviewerListFilePath() {
         return model.getInterviewerListFilePath();
     }
+
+    // ============================================ Schedule ===================================================
 
     @Override
     public List<Schedule> getSchedulesList() {
