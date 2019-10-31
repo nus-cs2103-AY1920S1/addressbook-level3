@@ -69,7 +69,7 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
             if (empty || testCaseResult == null) {
                 setGraphic(null);
                 setText(null);
-            } else if(testCaseResult.getRuntimeError().isPresent()) {
+            } else if (testCaseResult.getRuntimeError().isPresent()) {
                 String runtimeErrorMessage = testCaseResult.getRuntimeError().get().getErrorMessage();
                 setGraphic(new Label(runtimeErrorMessage));
             } else {

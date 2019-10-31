@@ -1,9 +1,6 @@
 package com.dukeacademy.ui;
 
-import java.util.Optional;
-
 import com.dukeacademy.model.program.TestCaseResult;
-import com.dukeacademy.testexecutor.models.RuntimeError;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -66,6 +63,11 @@ public class ProgramEvaluationCard extends UiPart<Region> {
         }
     }
 
+    /**
+     * Updates the feedback given to the user for a specfic test case, based on the isSuccessful boolean
+     * attribute stored in a test case result object.
+     * @param testCaseResult test case result object
+     */
     private void updateFeedback(TestCaseResult testCaseResult) {
         boolean isPass = testCaseResult.isSuccessful();
 
