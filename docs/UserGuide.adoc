@@ -404,7 +404,7 @@ Example:
 * `reminder delete 2` +
 Deletes the second reminder in the list based on the current results shown.
 
-
+// tag::import[]
 === Importing data : `import`
 Imports data from a CSV file specified by file path. +
 
@@ -416,16 +416,45 @@ Examples: +
 * `import p/C:\Users\User\Documents\importfile.csv`
 * `import p/~/data.csv`
 
-=== Exporting data : `export` `[Coming in v2.0]`
-Exports data to a CSV file specified by file path. +
+[.text-center]
+.A Valid `.csv` File.
+image::ExampleValidCsv.png[]
 
-Format: export `p/FILE_PATH` +
+`.csv` file must have a header row with the following values:
+
+* name
+* date
+* remark
+* cost
+* tagged
+
+[Note]
+====
+Multiple tags should be separated by a semi-colon.
+
+Example:
+
+`juicy;nice`
+
+Alternatively, tags could be wrapped in double quotes and separated by commas.
+
+Example:
+
+`"juicy,nice"`
+====
+// end::import[]
+
+// tag::export[]
+=== Exporting data : `export`
+Exports data to a `moneygowhere.csv` file specified by a folder path. +
+
+Format: export `p/FOLDER_PATH` +
 
 Examples: +
 
-* `export p/data.csv`
-* `export p/C:\data.csv`
-* `export p/~/data.csv`
+* `export p/Documents`
+* `export p/Finance`
+// end::export[]
 
 === Undoing previous command : `undo` `[Coming in v2.0]`
 Restores the list of spending to the state before the previous undoable command was executed. +
