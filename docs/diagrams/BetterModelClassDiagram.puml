@@ -1,13 +1,44 @@
-
 @startuml
-State S1
-State S2
-S1 -[#DD00AA]-> S2
-S1 -left[#yellow]-> S3
-S1 -up[#red,dashed]-> S4
-S1 -right[dotted,#blue]-> S5
+!include style.puml
+skinparam arrowThickness 1.2
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
 
-X1 -[dashed]-> X2
-Z1 -[dotted]-> Z2
-Y1 -[#blue,bold]-> Y2
+Package Model <<Rectangle>>{
+Interface Model <<Interface>>
+Class WordBankList
+Class Model
+Class ModelManager
+
+Package WordBankList {
+Interface ReadOnlyWordBankList <<Interface>>
+Class WordBankList
+Package WordBank {
+Class WordBank
+Class UniqueCardList
+}
+
+Package Card {
+Class Card
+Class Meaning
+Class Word
+}
+}
+
+WordBankList .left.|> ReadOnlyWordBankList
+
+ModelManager .left.|> Model
+ModelManager -down--> "1" WordBankList
+
+WordBankList -right-> "1" WordBank
+WordBank --> "*" UniqueCardList
+UniqueCardList -right-> "1" Card
+Card --> "1" Word
+Card --> "1" Meaning
+
+ModelManager --> WordBank : selected
+ModelManager --> Card : filteredList
+
 @enduml
+
+

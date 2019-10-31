@@ -5,7 +5,6 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyWordBankList <<Interface>>
 Interface ReadOnlyWordBankStatisticsList <<Interface>>
 Interface ReadOnlyAppSettings <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
@@ -22,6 +21,8 @@ Class ReadOnlyUserPrefs
 Class Game
 
 Package WordBankList {
+Interface ReadOnlyWordBankList <<Interface>>
+
 Class WordBankList
 Package WordBank {
 Class WordBank
@@ -35,7 +36,7 @@ Class Word
 }
 }
 
-WordBankList .up.|> ReadOnlyWordBankList
+WordBankList .left.|> ReadOnlyWordBankList
 WordBankStatisticsList .up.|> ReadOnlyWordBankStatisticsList
 AppSettings .up.|> ReadOnlyAppSettings
 

@@ -53,7 +53,7 @@ JsonWordBankListStorage .left[#A38300].|> WordBankListStorage
 JsonWordBankListStorage .down[#A38300].> JsonSerializableWordBank
 JsonWordBankListStorage o-right[#A38300]-> "1" WordBankList
 JsonSerializableWordBank ..down[#A38300]> JsonAdaptedCard
-JsonAdaptedCard .down[#A38300]> JsonAdaptedTag
+JsonAdaptedCard .left[#A38300]> JsonAdaptedTag
 
 skinparam arrowThickness 1.2
 skinparam arrowColor MODEL_COLOR
@@ -61,7 +61,6 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>> {
 
-Interface ReadOnlyWordBankList <<Interface>>
 Interface Model <<Interface>>
 Class WordBankList
 Class WordBankStatisticsList
@@ -73,6 +72,7 @@ Class UserPrefs
 Class Game
 
 Package WordBankList {
+Interface ReadOnlyWordBankList <<Interface>>
 Class WordBankList
 Package WordBank {
 Class WordBank
@@ -87,7 +87,7 @@ Class Word
 }
 }
 
-WordBankList .up.|> ReadOnlyWordBankList
+WordBankList ..|> ReadOnlyWordBankList
 
 ModelManager .left.|> Model
 ModelManager -down--> "1" WordBankList
