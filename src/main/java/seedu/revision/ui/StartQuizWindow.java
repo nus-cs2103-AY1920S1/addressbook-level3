@@ -23,7 +23,6 @@ import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
-import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.ui.answerables.AnswerableListPanel;
@@ -63,7 +62,6 @@ public class StartQuizWindow extends Window {
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
-
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
         super(primaryStage, mainLogic);
         this.mode = mode;
@@ -77,16 +75,7 @@ public class StartQuizWindow extends Window {
         answerableIterator = quizList.iterator();
         currentAnswerable = answerableIterator.next();
 
-        if (currentAnswerable instanceof Mcq) {
-            answersGridPane = new McqAnswersGridPane(currentAnswerable);
-        } else if (currentAnswerable instanceof TrueFalse) {
-            answersGridPane = new TfAnswersGridPane(currentAnswerable);
-        } else {
-            answersGridPane = new SaqAnswersGridPane(currentAnswerable);
-        }
-        //TODO: Sihao to add here and line 177
-
-        answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
+        setAnswerGridPaneByType(currentAnswerable);
 
         questionDisplay = new ResultDisplay();
         questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
@@ -108,12 +97,22 @@ public class StartQuizWindow extends Window {
         scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
     }
 
-
     private int getSizeOfCurrentLevel(Answerable answerable) {
         ObservableList<Answerable> sectionList = quizList.filtered(a ->
                 a.getDifficulty().value.equals(answerable.getDifficulty().value));
         logger.info("section size: " + sectionList.size());
         return sectionList.size();
+    }
+
+    private void setAnswerGridPaneByType(Answerable currentAnswerable) {
+        if (currentAnswerable instanceof Mcq) {
+            answersGridPane = new McqAnswersGridPane(currentAnswerable);
+        } else if (currentAnswerable instanceof TrueFalse) {
+            answersGridPane = new TfAnswersGridPane(currentAnswerable);
+        } else {
+            answersGridPane = new SaqAnswersGridPane(currentAnswerable);
+        }
+        answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
     }
 
     /**
@@ -167,17 +166,8 @@ public class StartQuizWindow extends Window {
             }
 
             answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
-            if (currentAnswerable instanceof Mcq) {
-                answersGridPane = new McqAnswersGridPane(currentAnswerable);
-            } else if (currentAnswerable instanceof TrueFalse) {
-                answersGridPane = new TfAnswersGridPane(currentAnswerable);
-            }
-            //TODO: Sihao to add here as well
-            //} else if (currentAnswerable instanceof Saq) {
-            //    answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
-            //}
+            setAnswerGridPaneByType(currentAnswerable);
             answersGridPane.updateAnswers(currentAnswerable);
-            answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
 
@@ -313,6 +303,7 @@ public class StartQuizWindow extends Window {
      * Restarts the quiz session by resetting progress.
      */
     private void restartQuiz() {
+        answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
         fillInnerParts();
         score = 0;
         currentProgressIndex.set(0);
@@ -328,8 +319,11 @@ public class StartQuizWindow extends Window {
         mainWindow = new MainWindow(getPrimaryStage(), mainLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
-        mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
-                + "Type 'list' to view your full list of questions again.");
+
+        if (mode.value.equals("custom")) {
+            mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
+                    + "Type 'list' to view your full list of questions again.");
+        }
     }
 
     public AnswerableListPanel getAnswerableListPanel() {
