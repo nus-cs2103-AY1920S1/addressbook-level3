@@ -26,7 +26,7 @@ public class UnscheduleCommand extends Command {
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(COMMAND_WORD,
             "Unschedules all instances of an activity on a certain day.",
             COMMAND_WORD
-            + " INDEX (must be a positive integer) "
+            + " ACTIVITY_INDEX (must be a positive integer) "
             + PREFIX_DAY + "DAY\n",
             COMMAND_WORD
             + " 2 "
