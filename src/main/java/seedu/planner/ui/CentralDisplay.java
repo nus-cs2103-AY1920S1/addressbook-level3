@@ -62,6 +62,8 @@ public class CentralDisplay extends UiPart<Region> {
 
     private static final String FXML = "CentralDisplay.fxml";
 
+    private final Agenda agenda;
+
     @FXML
     private Accordion sideDisplay;
     @FXML
@@ -94,7 +96,7 @@ public class CentralDisplay extends UiPart<Region> {
         this.dayList = dayList;
 
         // initialising agenda
-        Agenda agenda = new Agenda() {
+        this.agenda = new Agenda() {
             @Override
             public String getUserAgentStylesheet() {
                 return Agenda.class.getResource("/view/" + Agenda.class.getSimpleName() + ".css")
@@ -140,10 +142,10 @@ public class CentralDisplay extends UiPart<Region> {
         tabDisplay.prefWidthProperty().bind(this.getRoot().prefWidthProperty());
 
         // set up listeners that will update the agenda
-        dayList.addListener((ListChangeListener<? super Day>) c -> {
-            updateSkin(agenda);
-            updateAgenda(agenda, dayList);
-        });
+        //dayList.addListener((ListChangeListener<? super Day>) c -> {
+        //    updateSkin(agenda);
+        //    updateAgenda(agenda, dayList);
+        //});
         startDateProperty.addListener((observable, oldValue, newValue) -> {
             updateAgenda(agenda, dayList);
             agenda.setDisplayedLocalDateTime(newValue.atStartOfDay());
@@ -215,6 +217,7 @@ public class CentralDisplay extends UiPart<Region> {
             switch (u) {
             case AGENDA:
                 tabDisplay.getSelectionModel().select(agendaTab);
+                updateAgenda(agenda, dayList);
                 break;
             case INFO:
                 tabDisplay.getSelectionModel().select(infoTab);
