@@ -276,6 +276,21 @@ The following table summarizes the default values that optional arguments take i
 The default value of the day argument is the current day of month in the system time. Hence, to utilise this
 feature to its fullest, you are recommended to add transactions on the day it occurs.
 
+===== Constraints
+The feature for adding transactions is built to work best under these constraints:
+
+|==============================
+| Argument | Constraints
+
+| Description | Up to 50 alphanumeric characters, case-sensitive
+| Amount | Positive number, with up to 2 decimal places; maximum value of $100000 for each transaction
+| Category | Up to 50 alphanumeric characters, case-insensitive
+| Day | Numerical value from 1-31
+| Month | Numerical value from 1-12
+| Year | Numerical value from 2000-9999
+| Type | Either "in" or "exp"
+|==============================
+
 <<edittx>>
 ==== Editing transaction: `edittx` [Coming in v2.0]
 Edits a transaction. +
