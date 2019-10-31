@@ -9,9 +9,8 @@ import static seedu.system.logic.parser.CliSyntax.PREFIX_SQUAT;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
-import seedu.system.logic.commands.insession.AddPartarticipationCommand;
+import seedu.system.logic.commands.outofsession.AddParticipationCommand;
 import seedu.system.logic.parser.ArgumentMultimap;
 import seedu.system.logic.parser.ArgumentTokenizer;
 import seedu.system.logic.parser.Parser;
@@ -21,25 +20,26 @@ import seedu.system.logic.parser.exceptions.ParseException;
 import seedu.system.model.person.Name;
 
 /**
- * Parses input arguments and returns an AddPartarticipationCommand.
+ * Parses input arguments and returns an AddParticipationCommand.
  */
-public class AddParticipationCommandParser implements Parser<AddPartarticipationCommand> {
+public class AddParticipationCommandParser implements Parser<AddParticipationCommand> {
     private List<Integer> attemptWeights = new ArrayList<>(9);
 
     /**
-     * Parses {@code args} into an AddPartarticipationCommand and returns it.
+     * Parses {@code args} into an AddParticipationCommand and returns it.
      *
      * @throws ParseException if {@code args} does not conform the expected format
      */
     @Override
-    public AddPartarticipationCommand parse(String args) throws ParseException {
+    public AddParticipationCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COMP, PREFIX_SQUAT, PREFIX_BENCH, PREFIX_DEADLIFT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COMP, PREFIX_SQUAT, PREFIX_BENCH, PREFIX_DEADLIFT)
+        if (!ParserUtil.arePrefixesPresent(
+            argMultimap, PREFIX_NAME, PREFIX_COMP, PREFIX_SQUAT, PREFIX_BENCH, PREFIX_DEADLIFT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddPartarticipationCommand.MESSAGE_USAGE));
+                AddParticipationCommand.MESSAGE_USAGE));
         }
 
         Name athleteName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -47,15 +47,7 @@ public class AddParticipationCommandParser implements Parser<AddPartarticipation
         stringToAttemptInt(PREFIX_SQUAT, argMultimap);
         stringToAttemptInt(PREFIX_BENCH, argMultimap);
         stringToAttemptInt(PREFIX_DEADLIFT, argMultimap);
-        return new AddPartarticipationCommand(athleteName, compName, attemptWeights);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return new AddParticipationCommand(athleteName, compName, attemptWeights);
     }
 
     /**

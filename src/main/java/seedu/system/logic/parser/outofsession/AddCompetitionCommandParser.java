@@ -6,14 +6,11 @@ import static seedu.system.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import java.util.stream.Stream;
-
 import seedu.system.logic.commands.outofsession.AddCompetitionCommand;
 import seedu.system.logic.parser.ArgumentMultimap;
 import seedu.system.logic.parser.ArgumentTokenizer;
 import seedu.system.logic.parser.Parser;
 import seedu.system.logic.parser.ParserUtil;
-import seedu.system.logic.parser.Prefix;
 import seedu.system.logic.parser.exceptions.ParseException;
 import seedu.system.model.competition.Competition;
 import seedu.system.model.person.CustomDate;
@@ -34,7 +31,7 @@ public class AddCompetitionCommandParser implements Parser<AddCompetitionCommand
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_START_DATE, PREFIX_END_DATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_START_DATE, PREFIX_END_DATE)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_START_DATE, PREFIX_END_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddCompetitionCommand.MESSAGE_USAGE));
@@ -51,13 +48,5 @@ public class AddCompetitionCommandParser implements Parser<AddCompetitionCommand
         Competition competition = new Competition(name, startDate, endDate);
 
         return new AddCompetitionCommand(competition);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

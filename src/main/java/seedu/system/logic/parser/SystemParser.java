@@ -7,12 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.system.logic.commands.Command;
-import seedu.system.logic.commands.insession.AddPartarticipationCommand;
 import seedu.system.logic.commands.insession.AttemptLiftedCommand;
-import seedu.system.logic.commands.insession.ListParticipationCommand;
 import seedu.system.logic.commands.insession.NextLifterCommand;
 import seedu.system.logic.commands.insession.RankCommand;
+import seedu.system.logic.commands.insession.RanklistCommand;
 import seedu.system.logic.commands.outofsession.AddCompetitionCommand;
+import seedu.system.logic.commands.outofsession.AddParticipationCommand;
 import seedu.system.logic.commands.outofsession.AddPersonCommand;
 import seedu.system.logic.commands.outofsession.ClearCommand;
 import seedu.system.logic.commands.outofsession.DeleteCompetitionCommand;
@@ -22,6 +22,7 @@ import seedu.system.logic.commands.outofsession.EditPersonCommand;
 import seedu.system.logic.commands.outofsession.ExitCommand;
 import seedu.system.logic.commands.outofsession.FindPersonCommand;
 import seedu.system.logic.commands.outofsession.ListCompetitionCommand;
+import seedu.system.logic.commands.outofsession.ListParticipationCommand;
 import seedu.system.logic.commands.outofsession.ListPersonCommand;
 import seedu.system.logic.commands.outofsession.OutOfSessionHelpCommand;
 import seedu.system.logic.commands.outofsession.OverallRankCommand;
@@ -32,6 +33,7 @@ import seedu.system.logic.parser.insession.AttemptLiftedCommandParser;
 import seedu.system.logic.parser.insession.ListParticipationCommandParser;
 import seedu.system.logic.parser.insession.NewSessionCommandParser;
 import seedu.system.logic.parser.insession.RankCommandParser;
+import seedu.system.logic.parser.insession.RanklistCommandParser;
 import seedu.system.logic.parser.outofsession.AddCompetitionCommandParser;
 import seedu.system.logic.parser.outofsession.AddPersonCommandParser;
 import seedu.system.logic.parser.outofsession.DeleteCompetitionCommandParser;
@@ -74,7 +76,7 @@ public class SystemParser {
         case AddCompetitionCommand.COMMAND_WORD:
             return new AddCompetitionCommandParser().parse(arguments);
 
-        case AddPartarticipationCommand.COMMAND_WORD:
+        case AddParticipationCommand.COMMAND_WORD:
             return new AddParticipationCommandParser().parse(arguments);
 
         case AttemptLiftedCommand.COMMAND_WORD:
@@ -109,6 +111,9 @@ public class SystemParser {
 
         case RankCommand.COMMAND_WORD:
             return new RankCommandParser().parse(arguments);
+
+        case RanklistCommand.COMMAND_WORD:
+            return new RanklistCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

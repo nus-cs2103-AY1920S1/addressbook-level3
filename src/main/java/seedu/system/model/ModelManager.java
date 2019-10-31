@@ -5,7 +5,6 @@ import static seedu.system.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -173,11 +172,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortFilteredPersonList(Comparator<Person> comparator) {
-        filteredPersons.sort(comparator);
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
@@ -330,7 +324,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Competition getCompetitionOfSession() {
+    public Competition getOngoingCompetition() {
         return session.getCompetition();
     }
 

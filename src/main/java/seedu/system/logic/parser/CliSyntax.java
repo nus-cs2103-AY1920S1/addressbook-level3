@@ -16,5 +16,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_SQUAT = new Prefix("s/");
     public static final Prefix PREFIX_BENCH = new Prefix("b/");
     public static final Prefix PREFIX_DEADLIFT = new Prefix("d/");
+    public static final Prefix PREFIX_RANK_METHOD = new Prefix("by/");
 
 }

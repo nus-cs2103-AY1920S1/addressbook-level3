@@ -1,4 +1,4 @@
-package seedu.system.logic.commands.insession;
+package seedu.system.logic.commands.outofsession;
 
 import static java.util.Objects.requireNonNull;
 
@@ -14,7 +14,7 @@ import java.util.List;
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
 import seedu.system.logic.commands.CommandType;
-import seedu.system.logic.commands.exceptions.OutOfSessionCommandException;
+import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
 import seedu.system.model.competition.Competition;
 import seedu.system.model.participation.Participation;
@@ -25,7 +25,7 @@ import seedu.system.model.person.Person;
  * Add a new Participation that is associated with a Person and a Competition,
  * and his/her 9 attempts for the competition.
  */
-public class AddPartarticipationCommand extends Command {
+public class AddParticipationCommand extends Command {
 
     public static final String COMMAND_WORD = "addParticipation";
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
@@ -45,7 +45,7 @@ public class AddPartarticipationCommand extends Command {
     private final Name competitionName;
     private final List<Integer> nineAttempts;
 
-    public AddPartarticipationCommand(Name athleteName, Name compName, List<Integer> attemptWeights) {
+    public AddParticipationCommand(Name athleteName, Name compName, List<Integer> attemptWeights) {
         requireNonNull(athleteName);
         requireNonNull(compName);
         requireAllNonNull(attemptWeights);
@@ -56,11 +56,11 @@ public class AddPartarticipationCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws OutOfSessionCommandException {
+    public CommandResult execute(Model model) throws InSessionCommandException {
         requireNonNull(model);
 
-        if (!model.hasOngoingSession()) {
-            throw new OutOfSessionCommandException();
+        if (model.hasOngoingSession()) {
+            throw new InSessionCommandException();
         }
 
         Person athlete = null;

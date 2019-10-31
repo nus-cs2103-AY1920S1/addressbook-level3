@@ -1,4 +1,4 @@
-package seedu.system.logic.commands.insession;
+package seedu.system.logic.commands.outofsession;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.system.model.Model.PREDICATE_SHOW_ALL_PARTICIPATIONS;
@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
 import seedu.system.logic.commands.CommandType;
-import seedu.system.logic.commands.exceptions.OutOfSessionCommandException;
+import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
 import seedu.system.model.competition.Competition;
 import seedu.system.model.participation.Participation;
@@ -50,11 +50,11 @@ public class ListParticipationCommand extends Command {
      * @return feedback message of the operation result for display
      */
     @Override
-    public CommandResult execute(Model model) throws OutOfSessionCommandException {
+    public CommandResult execute(Model model) throws InSessionCommandException {
         requireNonNull(model);
 
-        if (!model.hasOngoingSession()) {
-            throw new OutOfSessionCommandException();
+        if (model.hasOngoingSession()) {
+            throw new InSessionCommandException();
         }
 
         if (competitionName == null) { // for the command without filtering competitions
@@ -78,6 +78,7 @@ public class ListParticipationCommand extends Command {
         Competition finalCompetition = competition;
         Predicate<Participation> filterByCompetition = p -> p.getCompetition().isSameElement(finalCompetition);
         model.updateFilteredParticipationList(filterByCompetition);
+
         return new CommandResult(MESSAGE_SUCCESS_FOR_COMPETITION + competition.toString(), COMMAND_TYPE);
     }
 }

@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
 import seedu.system.logic.commands.CommandType;
+import seedu.system.logic.commands.comparators.OverallScoreComparator;
 import seedu.system.logic.commands.exceptions.OutOfSessionCommandException;
 import seedu.system.model.Model;
 import seedu.system.model.competition.Competition;
@@ -63,7 +63,7 @@ public class RankCommand extends Command {
             throw new OutOfSessionCommandException();
         }
 
-        Competition competition = model.getCompetitionOfSession();
+        Competition competition = model.getOngoingCompetition();
 
         Participation participation = getParticipationOfAthlete(model);
         if (participation == null) {
@@ -115,7 +115,7 @@ public class RankCommand extends Command {
     private Participation getParticipationOfAthlete(Model model) {
         List<Participation> participationList = model.getFilteredParticipationList();
         Participation participation = null;
-        Competition sessionCompetition = model.getCompetitionOfSession();
+        Competition sessionCompetition = model.getOngoingCompetition();
         for (Participation p : participationList) {
             boolean isSameAthleteName = p.getPerson().getName().equals(this.athleteName);
             boolean isSameCompName = p.getCompetition().equals(sessionCompetition);
@@ -125,17 +125,6 @@ public class RankCommand extends Command {
             }
         }
         return participation;
-    }
-
-    /**
-     * Compares two participations for sorting
-     *
-     */
-    public static class OverallScoreComparator implements Comparator<Participation> {
-        @Override
-        public int compare(Participation p1, Participation p2) {
-            return p2.getTotalScore() - p1.getTotalScore();
-        }
     }
 
 }

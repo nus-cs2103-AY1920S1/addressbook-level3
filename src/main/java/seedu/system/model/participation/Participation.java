@@ -3,6 +3,7 @@ package seedu.system.model.participation;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.system.logic.commands.RankMethod;
 import seedu.system.model.UniqueElement;
 import seedu.system.model.attempt.Attempt;
 import seedu.system.model.competition.Competition;
@@ -122,6 +123,22 @@ public class Participation extends UniqueElement {
             }
         }
         return score;
+    }
+
+    /**
+     * @return the score of a participation based on the rank method given
+     */
+    public int getScore(RankMethod rankMethod) {
+        switch (rankMethod) {
+        case SQUAT:
+            return getLiftScore(Lift.SQUAT);
+        case BENCH:
+            return getLiftScore(Lift.BENCH);
+        case DEADLIFT:
+            return getLiftScore(Lift.DEADLIFT);
+        default:
+            return getTotalScore();
+        }
     }
 
     /**

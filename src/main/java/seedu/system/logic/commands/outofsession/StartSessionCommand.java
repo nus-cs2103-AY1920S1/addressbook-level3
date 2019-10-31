@@ -65,6 +65,8 @@ public class StartSessionCommand extends Command {
             Competition finalCompetition = competition;
             Predicate<Participation> filterByCompetition = p -> p.getCompetition().isSameElement(finalCompetition);
             model.updateFilteredParticipationList(filterByCompetition);
+            Predicate<Competition> filterCompetitionsByCompetition = c -> c.isSameElement(finalCompetition);
+            model.updateFilteredCompetitionList(filterCompetitionsByCompetition);
             ObservableList<Participation> partForThisComp = model.getFilteredParticipationList();
             model.startSession(finalCompetition, partForThisComp);
         } catch (OngoingSessionException e) {

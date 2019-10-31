@@ -2,12 +2,16 @@ package seedu.system.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.stream.Stream;
+
 import seedu.system.commons.core.index.Index;
 import seedu.system.commons.util.StringUtil;
+import seedu.system.logic.commands.RankMethod;
 import seedu.system.logic.parser.exceptions.ParseException;
 import seedu.system.model.person.CustomDate;
 import seedu.system.model.person.Gender;
 import seedu.system.model.person.Name;
+
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
@@ -63,7 +67,7 @@ public class ParserUtil {
      * Parses a {@code String gender} into an {@code Gender}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code rankMethod} is invalid.
      */
     public static Gender parseGender(String gender) throws ParseException {
         requireNonNull(gender);
@@ -74,5 +78,26 @@ public class ParserUtil {
         return Gender.getGenderCorrespondingToName(gender);
     }
 
+    /**
+     * Parses a {@code String rankMethod} into an {@code RankMethod}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code rankMethod} is invalid.
+     */
+    public static RankMethod parseRankMethod(String rankMethod) throws ParseException {
+        requireNonNull(rankMethod);
+        String trimmedRankMethod = rankMethod.trim();
+        if (!RankMethod.isValidRankMethod(trimmedRankMethod)) {
+            throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+        }
+        return RankMethod.getRankMethodCorrespondingToName(rankMethod);
+    }
 
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
 }

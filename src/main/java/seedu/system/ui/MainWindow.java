@@ -118,9 +118,13 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        competitionListPanel = new CompetitionListPanel(logic.getFilteredCompetitionList());
-        participationListPanel = new ParticipationListPanel(logic.getFilteredParticipationList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        competitionListPanel = new CompetitionListPanel(logic.getFilteredCompetitionList());
+        competitionListPanelPlaceholder.getChildren().add(competitionListPanel.getRoot());
+
+        participationListPanel = new ParticipationListPanel(logic.getFilteredParticipationList());
+        participationListPanelPlaceholder.getChildren().add(participationListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -194,25 +198,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            personListPanelPlaceholder.getChildren().setAll();
-            competitionListPanelPlaceholder.getChildren().setAll();
-            participationListPanelPlaceholder.getChildren().setAll();
-
-            if (commandType == CommandType.PERSON) {
-                logger.info("Showing persons...");
-                personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-            }
-
-            if (commandType == CommandType.COMPETITION) {
-                logger.info("Showing competitions...");
-                competitionListPanelPlaceholder.getChildren().add(competitionListPanel.getRoot());
-            }
-
-            if (commandType == CommandType.PARTICIPATION) {
-                logger.info("Showing participations...");
-                participationListPanelPlaceholder.getChildren().add(participationListPanel.getRoot());
             }
 
             return commandResult;

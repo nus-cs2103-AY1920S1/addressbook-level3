@@ -1,6 +1,6 @@
 package seedu.system.logic.parser.insession;
 
-import seedu.system.logic.commands.insession.ListParticipationCommand;
+import seedu.system.logic.commands.outofsession.ListParticipationCommand;
 import seedu.system.logic.parser.Parser;
 import seedu.system.logic.parser.ParserUtil;
 import seedu.system.logic.parser.exceptions.ParseException;

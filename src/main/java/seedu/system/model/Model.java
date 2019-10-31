@@ -1,7 +1,6 @@
 package seedu.system.model;
 
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -117,13 +116,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /**
-     * Sorts the filtered person list to filter by the given {@code comparator}.
-     *
-     * @throws NullPointerException if {@code comparator} is null.
-     */
-    void sortFilteredPersonList(Comparator<Person> comparator);
-
     //=========== Competitions ================================================================================
 
     /**
@@ -232,7 +224,6 @@ public interface Model {
      */
     void updateFilteredParticipationList(Predicate<Participation> predicate);
 
-
     //=========== Session Handling ================================================================================
 
     /**
@@ -257,7 +248,7 @@ public interface Model {
     /**
      * Returns the current competition of the session and null, if none.
      */
-    Competition getCompetitionOfSession();
+    Competition getOngoingCompetition();
 
     /**
      * Updates and records the success after a lifter has made an attempt.
