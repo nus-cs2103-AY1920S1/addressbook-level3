@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import seedu.address.model.display.sidepanel.PersonDisplay;
-import seedu.address.model.mapping.Role;
 
 /**
  * Schedule of timeslots for the week.

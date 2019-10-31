@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.ui.util.GroupDetailCard;
