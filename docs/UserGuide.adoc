@@ -107,6 +107,11 @@ after a command has been input
 it adds money to the club's funds).
 * The amount input should be negative if the transaction is an expenditure made by the club (that is, it deducts money
 from the club's funds).
+
+[WARNING]
+Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range
+of an integer. If it exceeds this number, please key in a smaller quantity or checkout items separately. +
+You are advised to key in a number smaller than 10000 due to size limitation.
 ====
 
 ==== Add a Transaction
@@ -307,6 +312,11 @@ image::homeUG/HomeFindStep3Back.png[]
 and sort the reimbursements.
 
 * All reimbursements shown in the Reimbursement Tab are outstanding and have not been paid. Completed reimbursements will not be displayed.
+
+[WARNING]
+Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range
+of an integer. If it exceeds this number, please key in a smaller quantity or checkout items separately. +
+You are advised to key in a number smaller than 10000 due to size limitation.
 
 ====
 
@@ -541,11 +551,12 @@ updates of items.
 the inventory.
 * After every checkout, the sales made will be recorded as one transaction with description being labelled as "Items sold"
 under the category "Sales" and person being the cashier-in-charge. The Home tab will be updated with this transaction.
+
 [NOTE]
 Items with zero price are not available for sale. Such items cannot be added into the table.
 
 [WARNING]
-Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483, 647, the range
+Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range
 of an integer. If it exceeds this number, please key in a smaller quantity or checkout items separately. +
 You are advised to key in a number smaller than 10000 due to size limitation.
 
@@ -554,17 +565,19 @@ You are advised to key in a number smaller than 10000 due to size limitation.
 ==== Add a Sales Item to the Table
 This command adds a sales item into the table.
 
-* Command format:
+* Command:
 `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
 
-The quantity of the item inputted must not be greater than the available stock in the inventory. Else, Leo will display
-a message prompting input of a smaller quantity or another item. +
+The quantity of the item must not be greater than the stock available in the Inventory Tab.
+Else, Leo will display a message prompting input of a smaller quantity or another item.
+
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
-the Inventory tab or simply key in the category without any other fields. Leo will display all the items in the
+the Inventory tab or simply key in the category without any other fields. +
+Leo will display all the items in the
 specified category that are available for sale.
 
-Additionally, if the description is mistyped or does not match any of the items in the inventory, Leo will recommend
-some possible item descriptions you might be looking for.
+Additionally, if the description is misspelled or does not match any of the items in the inventory, Leo will recommend
+items similar to the description that you might be looking for.
 
 Examples:
 
@@ -584,46 +597,45 @@ Steps:
 
 1. Type the command with a category specified as shown in the screenshot below:
 
-.Screenshot of user input (category) into command box for add command in Cashier tab
+.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
 image::casherUG/AddCommand1.png[]
 
 [start = 2]
 2. Enter the required description and quantity according to the items suggested by Leo as shown below:
 
-.Screenshot of user input (description, quantity) into command box for add command in Cashier tab
+.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
 image::casherUG/AddCommand2.png[]
 
 [start = 3]
-3. Enter the command.
+. Hit `Enter`
 
-.Screenshot of response message for add command in Cashier tab
+.Screenshot of the response message for Add Command in Cashier Tab
 image::casherUG/AddCommand3.png[]
 
 Leo will respond to the successful addition with a response message.
 
-==== Deletes a Sales Item from the Table
+==== Delete a Sales Item from the Table
 This command deletes a sales item from the table.
 
-* Command format:
+* Command:
 `delete INDEX`
 
 The specified index should correspond to the row index of the item on the table.
 
-Examples:
+* Example:
+`delete 2` - Deletes an item in row 2 of the table
 
-** `delete 2` - Deletes an item in row 2 of the table
-
-Steps:
+* Steps:
 
 1. Type the command with an index specified as shown in the screenshot below:
 
-.Screenshot of user input into command box for delete command in Cashier tab
+.Screenshot of the user input into Command Box for Delete Command in Cashier Tab
 image::casherUG/DeleteCommand1.png[]
 
 [start = 2]
-2. Enter the command.
+. Hit `Enter`
 
-.Screenshot of response message for delete command in Cashier tab
+.Screenshot of the response message for Delete Command in Cashier Tab
 image::casherUG/DeleteCommand2.png[]
 
 Leo will respond to the successful deletion with a response message. The item will be deleted from the table.
@@ -632,7 +644,7 @@ Leo will respond to the successful deletion with a response message. The item wi
 ==== Edits the Quantity of a Sales Item
 This command edits the quantity of a sales item that already exists in the table.
 
-* Command format:
+* Command:
 
 ** `edit d/DESCRIPTION q/QUANTITY`
 ** `edit i/INDEX q/QUANTITY`
@@ -644,103 +656,103 @@ The specified index should correspond to the row index of the item on the table.
 
 2. If you edit by description, the specified description must already exist in the table.
 
-In addition, the quantity inputted should not exceed the available stock in the inventory.
+In addition, the quantity input should not exceed the available stock in the inventory. +
 If the quantity is invalid, Leo will display the quantity of stock left.
 
-Examples:
+* Examples:
 
 ** `edit i/2 q/6` - Updates the quantity of item at row 2 to 6
 ** `edit d/book q/3` - Updates the quantity of an existing item of description "book" to 3
 
-Steps:
+* Steps:
 
 1.1 To edit by index, enter the command with an index and quantity specified as shown in the screenshot below:
 
-.Screenshot of user input (index, description) into command box for edit command in Cashier tab
+.Screenshot of user input (index, description) into Command Box for Edit Command in Cashier Tab
 image::casherUG/EditCommand1.png[]
 
 [start = 2]
 1.2. To edit by description, enter the required description and quantity as shown below:
 
-.Screenshot of user input (description, quantity) into command box for edit command in Cashier tab
+.Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier Tab
 image::casherUG/EditCommand3.png[]
 
-[start = 3]
-2. Enter the command.
+[start = 2]
+. Hit `Enter`
 
-.Screenshot of response message for edit command in Cashier tab
+.Screenshot of response message for Edit Command in Cashier Tab
 image::casherUG/EditCommand3.png[]
 
-If successful updated, Leo will respond with a response message. The quantity will be updated in the table.
+If successfully updated, Leo will respond with a response message. The quantity will be updated in the table.
 
 
 ==== Sets the Cashier-In-Charge
 This command sets the cashier-in-charge of the sales.
 
-* Command format:
+* Command:
 `cashier NAME`
 
-The person to be set as the cashier must be an existing member of the club. This means that his/her details must be
-found on the Members tab. If you have yet to record the cashier as a member, proceed to Members tab
+The person to be set as the cashier must be an existing member of the club. +
+This means that their details must be found on the Members tab. +
+If you have yet to record the cashier as a member, proceed to Members tab
 to register him/her as a member before executing this command.
 
 [NOTE]
 This step must be executed before checking out. Else, checkout cannot proceed.
 
-Example:
+* Example:
 
 ** `cashier David Li` - Sets David Li as a cashier
 
-
-Steps:
+* Steps:
 
 1. Type the command with a cashier's name specified as shown in the screenshot below:
 
-.Screenshot of user input into command box for set-cashier command in Cashier tab
+.Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
 image::casherUG/SetCashierCommand1.png[]
 
 [start = 2]
-2. Enter the command.
+. Hit `Enter`
 
-.Screenshot of response message for set-cashier command in Cashier tab
+.Screenshot of response message for Set Cashier Command in Cashier Tab
 image::casherUG/SetCashierCommand2.png[]
 
 If set successfully, Leo will respond with a response message. The cashier in the bottom row will be updated.
 
 
-==== Checkouts All the Sales Items
-This command checkouts all the sales item in the table.
+==== Checkout All Sales Items
+This command performs a checkout of all the sales items in the table.
 
-* Command format:
+* Command:
 `checkout AMOUNT_PAID_BY_CUSTOMER`
 
-The amount inputted should be the amount that the customer will be paying. This amount must be greater than or equal to the
+The amount input should be the amount that the customer will be paying. This amount must be greater than or equal to the
 total amount listed on the bottom row of the table. If the amount paid is greater than the total amount, Leo will display
 the amount of change that the cashier should return.
 
 After checking out, all items in the table will be cleared and the cashier will be reset.
 
 [NOTE]
-Cashier must be set before checking out. Else, checkout cannot proceed.
+The cashier must be set before checking out. Else, checkout cannot proceed.
 
-Example:
+* Example:
 
 ** `checkout 850` - Customer pays $850 to cashier
 
-Steps:
+* Steps:
 
 1. Type the command with the amount that the customer is paying as shown in the screenshot below:
 
-.Screenshot of user input into command box for checkout command in Cashier tab
+.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
 image::casherUG/CheckoutCommand1.png[]
 
 [start = 2]
-2. Enter the command.
+. Hit `Enter`
 
-.Screenshot of response message for checkout command in Cashier tab
+.Screenshot of response message for Checkout Command in Cashier Tab
 image::casherUG/CheckoutCommand2.png[]
 
-If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset.
+If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset. +
 The `Home Tab` will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
 
 
@@ -750,26 +762,26 @@ This command clears all the sales item in the table.
 * Command format:
 `clear`
 
-After clearing, cashier will be reset as well.
+After clearing, the cashier will be reset as well.
 
 [CAUTION]
 This command is irreversible. Please use at your own discretion.
 
-Example:
+* Example:
 
 ** `clear`
 
-Steps:
+* Steps:
 
 1. Type only the "clear" command word as shown in the screenshot below:
 
-.Screenshot of user input into command box for clear command in Cashier tab
+.Screenshot of user input into Command Box for Clear Command in Cashier Tab
 image::casherUG/ClearCommand1.png[]
 
 [start = 2]
-2. Enter the command.
+. Hit `Enter`
 
-.Screenshot of response message for clear command in Cashier tab
+.Screenshot of response message for Clear Command in Cashier Tab
 image::casherUG/ClearCommand2.png[]
 
 If cleared successful, Leo will respond with a response message. The table will also be cleared and the cashier
