@@ -36,8 +36,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in
 * *`list`* : lists all problems
 * **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Wee Han'
 * **`edit`**`1 src/LeetCode` : edits the first problem displayed and sets its source to 'LeetCode'
-* **`switchtab`**`t/display i/2` : switches to tag tab
-* **`switchtab`**`t/display i/3` : switches to plan tab
+* **`switchtab`**`tt/display i/2` : switches to tag tab
+* **`switchtab`**`tt/display i/3` : switches to plan tab
 +
 image::UiStartPlan.png[width="60%"]
 +
@@ -416,41 +416,67 @@ Examples:
 
 === Tabs
 
+image::gui/TabsOverview.png[width="70%"]
+_fig 3.7.0 – Types of Tabs highlighted in Orange_
+
+There are 2 types of tabs in AlgoBase: Display and Details tabs.
+
+* **Display tabs** give a high level overview of the contents of a list of items
+(e.g. a list of `problems`/`tags`/`plans`).
+* **Details tabs** give a more detailed description of an item in a display tab.
+
+In the example in fig 3.7.0, there is a problem called "Sequences" in the current display tab.
+The details for this problem can be seen in the details tab where the orange arrow is pointing to.
+
 ==== Switching Tabs: `switchtab`
+image::gui/SwitchTabCommand.png[width="70%"]
+_fig 3.7.1 – Demonstration of `SwitchTab` command_
+
 Switches between tabs in the GUI +
-Format: `switchtab t/TAB_TYPE i/TAB_INDEX`
+Format: `switchtab tt/TAB_TYPE i/TAB_INDEX`
+Format: `st tt/TAB_TYPE i/TAB_INDEX`
 
 * Tab Type
 ** can be `display` or `details`
+** Alternatively, `display` and `details` can be replaced by `1` and `2` respectively
 
 Examples:
 
-* `switchtab t/display i/1`
-* `switchtab t/details i/2`
+* `switchtab tt/display i/3` – Switches to the third **display** tab (i.e. `plans` tab), as seen in fig 3.7.1
+* `st tt/1 i/3` – Same effects as the previous command but in a shorter format.
+* `switchtab tt/details i/3` – Switches to the third **details** tab
+* `st tt/2 i/3` – Same effects as the previous command but in a shorter format.
+
 
 ==== Opening Tabs: `opentab`
-Opens a new tab in the GUI +
+
+image::gui/OpenTabCommand.png[width="70%"]
+
+Opens a new **Details** tab in the GUI +
 Format: `opentab m/MODEL_TYPE i/MODEL_INDEX`
+Format: `ot m/MODEL_TYPE i/MODEL_INDEX`
+
 
 * Model Type
-** can be `problem`, `tag` or `plan`
+** can be `problem`, `tag`, `plan` and `findrule`
+** Alternatively, `problem`, `tag`, `plan` and `findrule` can be replaced by `1`, `2`, `3` and `4` respectively
 
 Examples:
 
-* `opentab m/problem i/1`
-* `opentab m/plan i/2`
+* `opentab m/problem i/2` – Opens the 2nd problem in the list of problems, as seen in fig 3.7.2
+* `ot m/1 i/2` – Same effects as the previous command but in a shorter format.
+* `opentab m/plan i/3` – Opens the 3nd plan in the list of plans, as seen in fig 3.7.2
+* `ot m/3 i/3` – Same effects as the previous command but in a shorter format.
 
 ==== Closing Tabs: `closetab`
-Closes a tab in the GUI +
-Format: `closetab t/TAB_TYPE i/TAB_INDEX`
-
-* Tab Type
-** can be `display` or `details`
+Closes a **details** tab in the GUI +
+Format: `closetab i/DETAILS_TAB_INDEX`
+Format: `ct i/DETAILS_TAB_INDEX`
 
 Examples:
 
-* `closetab t/display i/1`
-* `closetab t/details i/2`
+* `closetab i/3` – Closes the third **details** tab
+* `ct i/1` – Same effects as the previous command but in a shorter format.
 
 === Data Management
 
@@ -573,6 +599,13 @@ e.g. `undonetask plan/1 task/2`
 e.g. `movetask task/1 from/1 to/2`
 * *Set Current Plan* : `setplan PLAN_TASK` +
 e.g. `setplan 10`
+
+* *Switch Tab* : `switchtab tt/TAB_TYPE i/TAB_INDEX` +
+e.g. `switchtab tt/display i/3`
+* *Open Tab* : `opentab m/MODEL_TYPE i/TAB_INDEX` +
+e.g. `opentab m/problem i/2`
+* *Close Tab* : `closetab i/DETAILS_TAB_INDEX` +
+e.g. `closetab i/3`
 
 * *Exporting data* : `export format/FORMAT path/DIRECTORY_PATH` +
 e.g. `export format/json path/.`

@@ -39,6 +39,6 @@ public class ProblemDetails extends UiPart<Region> {
         weblink.setText(problem.getWebLink().value);
         description.setText(problem.getDescription().value);
         remark.setText(problem.getRemark().value);
-        source.setText(problem.getRemark().value);
+        source.setText(problem.getSource().value);
     }
 }

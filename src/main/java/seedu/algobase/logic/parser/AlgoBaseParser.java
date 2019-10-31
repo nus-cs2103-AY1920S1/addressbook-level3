@@ -176,12 +176,15 @@ public class AlgoBaseParser {
 
         // UI
         case SwitchTabCommand.COMMAND_WORD:
+        case SwitchTabCommand.SHORT_COMMAND_WORD:
             return new SwitchTabCommandParser().parse(arguments);
 
         case OpenTabCommand.COMMAND_WORD:
+        case OpenTabCommand.SHORT_COMMAND_WORD:
             return new OpenTabCommandParser().parse(arguments);
 
         case CloseTabCommand.COMMAND_WORD:
+        case CloseTabCommand.SHORT_COMMAND_WORD:
             return new CloseTabCommandParser().parse(arguments);
 
         // Util

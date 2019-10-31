@@ -31,7 +31,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_FORMAT = new Prefix("format/");
     public static final Prefix PREFIX_PATH = new Prefix("path/");
     /* UI */
-    public static final Prefix PREFIX_TAB_TYPE = new Prefix("t/");
+    public static final Prefix PREFIX_TAB_TYPE = new Prefix("tt/");
     public static final Prefix PREFIX_TAB_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_MODEL_TYPE = new Prefix("m/");
     public static final Prefix PREFIX_MODEL_INDEX = new Prefix("i/");

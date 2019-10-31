@@ -15,6 +15,7 @@ import seedu.algobase.model.gui.TabManager;
 public class CloseTabCommand extends Command {
 
     public static final String COMMAND_WORD = "closetab";
+    public static final String SHORT_COMMAND_WORD = "ct";
     public static final String MESSAGE_SUCCESS = "Closed tab %1$s!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Closes a details tab in the GUI\n"

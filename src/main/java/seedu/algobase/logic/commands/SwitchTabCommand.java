@@ -16,6 +16,7 @@ import seedu.algobase.model.gui.TabType;
 public class SwitchTabCommand extends Command {
 
     public static final String COMMAND_WORD = "switchtab";
+    public static final String SHORT_COMMAND_WORD = "st";
     public static final String MESSAGE_SUCCESS = "Switched to [%1$s] tab [%2$s].";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Switches between Tabs in the GUI\n"
