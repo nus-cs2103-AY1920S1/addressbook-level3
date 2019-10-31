@@ -48,45 +48,69 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `*check*|20` : views items that are going to expire within 20 days
 * `*add*|Banana|25/9/2020` : adds an item named `Banana` with expiry date `25/9/2020` to list
 * `*delete*|3` : deletes the 3rd item shown in the current list
-* `*shift*|1|` : add the 1st item to the replenish list
 * `*exit*` : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Xpire not only has a list to track you perishable items, it also has a *to-buy* list(replenish list). You can move your items from the
+tracking list to the replenish list once they are consumed or expired.
+* `*shift*|1` : moves the 1st item from the tracking list(main list) to the replenish list
 
+.  Some commands are only applicable for items in the tracking list. Refer to <<Features>> for details of each command.
 
 == Graphic User Interface
 
-// insert picture
-There are two lists shown on the Graphic User Interface(GUI), `View` and `All items`. On the left which is the `View` list.
-This list shows you the current view of items. As you manipulate the items using
+image::GUI.png[width="790"]
+
+There are two lists shown on the Graphic User Interface(GUI), `View` and `All Items`. On the left is the `View` list.
+This is a active list that shows you the current view of items. As you manipulate the items using
 `search`, or `check`, `View` list will change accordingly to show you only the items you want to see.
 
-// insert picture
-This is how your item will look like in the `View` list. The colour of the card changes according to
-the status of your item. +
-An expired item will be red. +
-// insert picture
-An item that is going to expire soon will be yellow. You can set when to mark an item yellow based
-on individual cases. See more information here: <<Reminder>>. +
-// insert picture
-An item that has not expired and is not going to expire soon will be green.
+image::ItemCard.png[width="710"]
 
-// insert picture
+This is how your item will look like in the `View` list. The number on the right is the number of days left before the item expires.
+
+The colour of the item card changes according to
+the status of your item. +
+
+* An *expired* item will be red. +
+
+image::Expired.png[width="500]
+
+* An item that is *going to expire soon* will be yellow. You can set when to mark an item yellow based
+on individual cases. See more information here: <<Reminder>>.
+
+image::ReminderCard.png[width="500]
+
+* An item that has *not expired* and is not going to expire soon will be green.
+
+image::ItemCard.png[width="710"]
+
 If the name or other details of the item is shortened with `...`, you can click on the card to expand it.
 
-//insert picture
-You can find all your items on the right, in the `All items` list. Here items are categorized into tracked items and to-buy items. You can click on the list
-name to view items in the list, or click again to collapse the list. Clicking on the item name will show you the
-expiry date of the item if it has one. The `All items` list provides you with a static view of all your items in the app in alphabetical order.
+image::ShortenedCard.png[width="500"]
+image::ExpandCard.png[width="500"]
 
-// insert picture
-Below the `View` list panel, you can find a rectangle box which acts like a "feedback window". Any feedback on
-the successful execution of the command will be displayed in this box. If you type something wrongly, you will
+
+You can find all your items on the right, in the `All Items` list.
+
+image::AllItems.png[width="300"]
+
+The `All Items` list provides you with a static view of all your items in the app in alphabetical order. Here items are categorized into tracked items and to-buy items. You can click on the list
+name to view items in the list, or click again to collapse the list. Clicking on the item name will show you the
+expiry date of the item if it has one.
+
+Below the `View` list panel, you can find a rectangle box which acts like a "feedback window".
+
+image::FeedbackBox.png[width="500"]
+
+Any feedback on
+the successful execution of the command will be displayed in this box. If an illegal command is entered, you will
 also be able to see a failure message and relevant suggestions in the box.
 
-// insert picture
-Finally, at the very bottom, you can find a small rounded rectangle box that says "Enter command here...". This
-is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], there you go the first item in your tracking list!
+Finally, at the very bottom, you can find a small rounded rectangle box that says "Enter command here...".
+
+image::CommandBox.png[width="500"]
+
+This is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], and you will see it appears in your `View` list!
 
 [[Features]]
 == Features
