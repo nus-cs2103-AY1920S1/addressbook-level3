@@ -48,6 +48,7 @@ public class EditReminderCommand extends Command {
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Reminder: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
+    public static final String CONDITION_NOT_REMOVABLE = "Reminder must have at least one condition \n";
 
     private final Index index;
     private final EditReminderDescriptor editReminderDescriptor;
@@ -94,12 +95,15 @@ public class EditReminderCommand extends Command {
      */
     private static Reminder createEditedReminder(Reminder reminderToEdit,
                                                  EditReminderDescriptor editReminderDescriptor,
-                                                 List<Condition> allConditions) {
+                                                 List<Condition> allConditions) throws CommandException {
         assert reminderToEdit != null;
         Description updatedMessage = editReminderDescriptor.getDesc().orElse(reminderToEdit.getMessage());
         double updatedAmount = editReminderDescriptor.getQuota().orElse(reminderToEdit.getTrackerQuota());
         List<Condition> updatedCondition;
         if (editReminderDescriptor.getConditionIndices().isPresent()) {
+            if (editReminderDescriptor.getConditionIndices().get().size() == 0) {
+                throw new CommandException(CONDITION_NOT_REMOVABLE);
+            }
             List<Index> conditionIndices = editReminderDescriptor.getConditionIndices().get();
             updatedCondition = conditionIndices.stream()
                     .map(index -> allConditions.get(index.getZeroBased())).collect(Collectors.toList());

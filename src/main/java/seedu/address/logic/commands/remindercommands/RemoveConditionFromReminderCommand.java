@@ -26,6 +26,7 @@ public class RemoveConditionFromReminderCommand extends Command {
     public static final String REMINDER_UNMODIFIABLE_MESSAGE = "Conditions cannot be removed from this reminder \n"
             + "This reminder is entry specific";
     public static final String CONDITION_ABSENT_MESSAGE = "Reminder does not have that condition \n";
+    public static final String CONDITION_NOT_REMOVABLE = "Reminder must have at least one condition \n";
 
     private Index reminderIndex;
     private Index conditionIndex;
@@ -45,6 +46,9 @@ public class RemoveConditionFromReminderCommand extends Command {
             throw new CommandException(REMINDER_UNMODIFIABLE_MESSAGE);
         }
         Condition condition = conditions.get(conditionIndex.getZeroBased());
+        if (reminder.getConditions().size() == 1) {
+            throw new CommandException(CONDITION_NOT_REMOVABLE);
+        }
         if (!reminder.removeCondition(condition)) {
             throw new CommandException(CONDITION_ABSENT_MESSAGE);
         }
