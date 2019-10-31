@@ -144,6 +144,7 @@ public class EncryptionUtil {
         InputStream inStream = new FileInputStream(new File(source));
         inStream.skip(SIGNATURE.length());
         inStream.read(fileData, 0, fileData.length);
+        inStream.close();
         byte[] processedData = decryptBytes(fileData, password);
         Files.write(newPath, processedData);
         Files.deleteIfExists(oldPath);
@@ -156,6 +157,7 @@ public class EncryptionUtil {
         byte[] fileSignature = new byte[SIGNATURE.length()];
         InputStream inStream = new FileInputStream(new File(path));
         int signLength = inStream.read(fileSignature, 0, SIGNATURE.length());
+        inStream.close();
         if (signLength != SIGNATURE.length()) {
             return false;
         }

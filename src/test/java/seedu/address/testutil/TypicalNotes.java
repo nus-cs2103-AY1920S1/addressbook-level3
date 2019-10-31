@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.NoteBook;
+import seedu.address.model.VersionedNoteBook;
 import seedu.address.model.note.Note;
 
 /**
@@ -31,8 +31,8 @@ public class TypicalNotes {
     /**
      * Returns an {@code NoteBook} with all the typical persons.
      */
-    public static NoteBook getTypicalNoteBook() {
-        NoteBook ab = new NoteBook();
+    public static VersionedNoteBook getTypicalNoteBook() {
+        VersionedNoteBook ab = new VersionedNoteBook();
         for (Note note : getTypicalNotes()) {
             ab.addNote(note);
         }

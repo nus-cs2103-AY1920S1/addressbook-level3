@@ -80,6 +80,7 @@ public class EditNoteCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
+        model.commitNote();
         model.setNote(noteToEdit, editedNote);
         model.sortNoteBook();
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);

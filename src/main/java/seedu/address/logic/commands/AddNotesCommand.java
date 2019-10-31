@@ -46,7 +46,7 @@ public class AddNotesCommand extends Command {
         if (model.hasNote(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
-
+        model.commitNote();
         model.addNote(toAdd);
         model.sortNoteBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

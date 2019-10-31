@@ -21,27 +21,22 @@ public class NoteBook implements ReadOnlyNoteBook {
     private final UniqueNoteList notes;
     private SortByCond sortByCond;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        notes = new UniqueNoteList();
-    }
-
     public NoteBook() {
         this.sortByCond = new SortByCond();
+        notes = new UniqueNoteList();
     }
 
     public NoteBook(SortByCond sortByCond) {
         this.sortByCond = sortByCond;
+        notes = new UniqueNoteList();
     }
 
+    public NoteBook(UniqueNoteList notes, SortByCond sortByCond) {
+        this.notes = notes;
+        this.sortByCond = sortByCond;
+    }
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Notes in the {@code toBeCopied}
      */
     public NoteBook(ReadOnlyNoteBook toBeCopied) {
         this();
@@ -68,8 +63,8 @@ public class NoteBook implements ReadOnlyNoteBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NoteBook // instanceof handles nulls
-                && notes.equals(((NoteBook) other).notes));
+                || (other instanceof VersionedNoteBook // instanceof handles nulls
+                && notes.equals(((VersionedNoteBook) other).getNotes()));
     }
     @Override
     public int hashCode() {
@@ -93,6 +88,10 @@ public class NoteBook implements ReadOnlyNoteBook {
      */
     public void setNotes(List<Note> notes) {
         this.notes.setNotes(notes);
+    }
+
+    public UniqueNoteList getNotes() {
+        return notes;
     }
 
     //// person-level operations

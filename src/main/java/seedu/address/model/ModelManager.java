@@ -28,7 +28,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final FileBook fileBook;
     private final CardBook cardBook;
-    private final NoteBook noteBook;
+    private final VersionedNoteBook noteBook;
     private final PasswordBook passwordBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
@@ -54,7 +54,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.fileBook = new FileBook(fileBook);
         this.cardBook = new CardBook(cardBook);
-        this.noteBook = new NoteBook(noteBook);
+        this.noteBook = new VersionedNoteBook(noteBook);
         this.passwordBook = new PasswordBook(passwordBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -65,12 +65,13 @@ public class ModelManager implements Model {
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        this(addressBook, new FileBook(), new CardBook(), new NoteBook(), new PasswordBook(), userPrefs);
+        this(addressBook, new FileBook(), new CardBook(), new VersionedNoteBook(), new PasswordBook(), userPrefs);
     }
 
 
     public ModelManager() {
-        this(new AddressBook(), new FileBook(), new CardBook(), new NoteBook(), new PasswordBook(), new UserPrefs());
+        this(new AddressBook(), new FileBook(), new CardBook(), new VersionedNoteBook(),
+                new PasswordBook(), new UserPrefs());
     }
 
 
@@ -422,4 +423,18 @@ public class ModelManager implements Model {
         filteredNotes.setPredicate(predicate);
     }
 
+    @Override
+    public void undoNote() {
+        noteBook.undo();
+    }
+
+    @Override
+    public void redoNote() {
+        noteBook.redo();
+    }
+
+    @Override
+    public void commitNote() {
+        noteBook.commit();
+    }
 }
