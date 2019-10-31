@@ -58,9 +58,6 @@ class JsonSerializableItinerary {
         Itinerary itinerary = new Itinerary();
         for (JsonAdaptedDay jsonAdaptedDay : days) {
             Day day = jsonAdaptedDay.toModelType();
-            if (itinerary.hasDay(day)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_DAY);
-            }
             itinerary.addDay(day);
         }
         String[] sdArray = startDate.split("-");

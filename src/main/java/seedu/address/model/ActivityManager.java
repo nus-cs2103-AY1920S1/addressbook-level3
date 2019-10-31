@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
@@ -67,6 +68,14 @@ public class ActivityManager implements ReadOnlyActivity {
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
         return activities.contains(activity);
+    }
+
+    /**
+     * Return the optional index of activity to find in {@code activities}. Returns empty optional if
+     * not found.
+     */
+    public Optional<Index> findActivityIndex(Activity toFind) {
+        return activities.indexOf(toFind);
     }
 
     /**

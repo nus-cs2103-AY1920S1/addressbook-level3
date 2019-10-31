@@ -10,7 +10,7 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
-Class ResultDisplay
+Class FeedbackDisplay
 Class PersonListPanel
 Class PersonCard
 Class StatusBarFooter
@@ -32,7 +32,7 @@ UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
+MainWindow *-down-> FeedbackDisplay
 MainWindow *-down-> PersonListPanel
 MainWindow *-down-> StatusBarFooter
 
@@ -40,7 +40,7 @@ PersonListPanel -down-> PersonCard
 
 MainWindow -left-|> UiPart
 
-ResultDisplay --|> UiPart
+FeedbackDisplay --|> UiPart
 CommandBox --|> UiPart
 PersonListPanel --|> UiPart
 PersonCard --|> UiPart
@@ -53,8 +53,8 @@ MainWindow -left-> Logic
 
 PersonListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+CommandBox -[hidden]left- FeedbackDisplay
+FeedbackDisplay -[hidden]left- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
 @enduml

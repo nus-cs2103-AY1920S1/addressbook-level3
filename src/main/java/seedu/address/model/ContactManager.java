@@ -12,7 +12,6 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.UniqueContactList;
 
-
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameContact comparison)
@@ -68,6 +67,14 @@ public class ContactManager implements ReadOnlyContact {
     public boolean hasContact(Contact contact) {
         requireNonNull(contact);
         return contacts.contains(contact);
+    }
+
+    /**
+     * Return the optional index of contact to find in {@code contacts}. Returns empty optional if
+     * not found.
+     */
+    public Optional<Index> findContactIndex(Contact toFind) {
+        return contacts.indexOf(toFind);
     }
 
     /**

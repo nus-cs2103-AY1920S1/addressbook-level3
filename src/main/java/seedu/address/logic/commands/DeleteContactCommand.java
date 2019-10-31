@@ -3,10 +3,15 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.ResultInformation;
+import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -17,10 +22,13 @@ public class DeleteContactCommand extends DeleteCommand {
 
     public static final String SECOND_COMMAND_WORD = "contact";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + DeleteCommand.COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Deletes the contact identified by the index "
+                    + "number used in the displayed contact list.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX(must be a positive integer)",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1"
+    );
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
 
@@ -60,9 +68,31 @@ public class DeleteContactCommand extends DeleteCommand {
         } else {
             contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         }
-
+        Index indexOfContact = findIndexOfContact(model, contactToDelete);
         model.deleteContact(contactToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete));
+        return new CommandResult(
+            String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete),
+            new ResultInformation[] {
+                new ResultInformation(
+                        contactToDelete,
+                        indexOfContact,
+                        String.format(MESSAGE_DELETE_CONTACT_SUCCESS, "")
+                )
+            },
+            new UiFocus[] { UiFocus.CONTACT, UiFocus.INFO }
+        );
+    }
+
+    /**
+     * Returns the index of contact in the model.
+     * Precondition: the {@code contact} must have not been deleted before this.
+     */
+    private Index findIndexOfContact(Model model, Contact contact) {
+        Optional<Index> indexOfContact = model.getContactIndex(contact);
+        if (indexOfContact.isEmpty()) {
+            throw new AssertionError("Contact should not have been deleted before this.");
+        }
+        return indexOfContact.get();
     }
 
     @Override

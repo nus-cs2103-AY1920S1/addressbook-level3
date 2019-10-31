@@ -1,7 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 
+import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 
 /**
@@ -11,12 +15,14 @@ public class AddDayCommand extends AddCommand {
 
     public static final String SECOND_COMMAND_WORD = "day";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-            + ": Adds the number of days specified to the itinerary."
-            + "Parameters: "
-            + "NUMBER"
-            + "Example: add " + COMMAND_WORD + " "
-            + "NUMBER_OF_DAYS";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Adds the number of days specified to the itinerary.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + PREFIX_DAY + "NUMBER OF DAYS",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + PREFIX_DAY + "5"
+    );
 
     public static final String MESSAGE_SUCCESS = "%d day(s) added";
 
@@ -43,7 +49,10 @@ public class AddDayCommand extends AddCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.addDays(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(
+            String.format(MESSAGE_SUCCESS, toAdd),
+            new UiFocus[] {UiFocus.AGENDA}
+        );
     }
 
     @Override

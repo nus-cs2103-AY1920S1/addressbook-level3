@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.util.CommandUtil.findIndexOfActivity;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -18,6 +19,10 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.ResultInformation;
+import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
@@ -34,16 +39,21 @@ import seedu.address.model.tag.Tag;
 public class EditActivityCommand extends EditCommand {
     public static final String SECOND_COMMAND_WORD = "activity";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the activity identified "
-            + "by the index number used in the displayed activity list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_DURATION + "DURATION\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 ";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            ": Edits the details of the activity identified "
+                    + "by the index number used in the displayed activity list. "
+                    + "Existing values will be overwritten by the input values.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + "INDEX(must be a positive integer) "
+                    + "[" + PREFIX_NAME + "NAME] "
+                    + "[" + PREFIX_ADDRESS + "ADDRESS] "
+                    + "[" + PREFIX_PHONE + "PHONE] "
+                    + "[" + PREFIX_DURATION + "DURATION] "
+                    + "[" + PREFIX_TAG + "TAG]...",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 2 "
+                    + PREFIX_PHONE + "91234567 "
+    );
 
     public static final String MESSAGE_EDIT_ACTIVITY_SUCCESS = "Edited Activity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -85,6 +95,7 @@ public class EditActivityCommand extends EditCommand {
         }
 
         Activity activityToEdit = lastShownList.get(index.getZeroBased());
+        Index activityToEditIndex = findIndexOfActivity(model, activityToEdit);
         Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
 
         if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(editedActivity)) {
@@ -93,7 +104,23 @@ public class EditActivityCommand extends EditCommand {
 
         model.setActivity(activityToEdit, editedActivity);
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
-        return new CommandResult(String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity));
+        Index editedActivityIndex = findIndexOfActivity(model, editedActivity);
+        return new CommandResult(
+            String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity),
+            new ResultInformation[] {
+                new ResultInformation(
+                    activityToEdit,
+                    activityToEditIndex,
+                    "Edited Activity from:"
+                ),
+                new ResultInformation(
+                    editedActivity,
+                    editedActivityIndex,
+                    "To:"
+                )
+            },
+            new UiFocus[] { UiFocus.ACTIVITY, UiFocus.INFO }
+        );
     }
 
     /**

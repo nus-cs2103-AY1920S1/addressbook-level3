@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +18,7 @@ import seedu.address.model.itineraryitem.accommodation.exceptions.DuplicateAccom
  * A contacts is considered unique by comparing using {@code Accommodation#isSamePerson(Accommodation)}. As such,
  * adding and updating of persons uses Accommodation#isSamePerson(Accommodation) for equality so as to ensure that
  * the contacts being added or updated is unique in terms of identity in the UniqueAccommodationList. However, the
- * removal of a contacts usesvAccommodation#equals(Object) so as to ensure that the contacts with exactly the same
+ * removal of a contacts uses Accommodation#equals(Object) so as to ensure that the contacts with exactly the same
  * fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -41,8 +42,19 @@ public class UniqueAccommodationList implements Iterable<Accommodation> {
     }
 
     /**
-     * Adds an accommodation to the list.
-     * The contacts must not already exist in the list.
+     * Returns the Index of the accommodation to find. Else returns empty optional.
+     */
+    public Optional<Index> indexOf(Accommodation toFind) {
+        requireNonNull(toFind);
+        int indexOfToFind = internalList.indexOf(toFind);
+        if (indexOfToFind == -1) {
+            return Optional.empty();
+        } else {
+            return Optional.of(Index.fromZeroBased(indexOfToFind));
+        }
+    }
+    /**
+     Adds an accommodation to the list.
      */
     public void add(Accommodation toAdd) {
         requireNonNull(toAdd);

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +37,19 @@ public class UniqueActivityList implements Iterable<Activity> {
     public boolean contains(Activity toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameActivity);
+    }
+
+    /**
+     * Returns the Index of the activity to find. Else returns empty optional.
+     */
+    public Optional<Index> indexOf(Activity toFind) {
+        requireNonNull(toFind);
+        int indexOfToFind = internalList.indexOf(toFind);
+        if (indexOfToFind == -1) {
+            return Optional.empty();
+        } else {
+            return Optional.of(Index.fromZeroBased(indexOfToFind));
+        }
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.time.LocalDate;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.day.Day;
 import seedu.address.model.field.Name;
@@ -26,4 +27,9 @@ public interface ReadOnlyItinerary {
      * Returns the start date of the planner.
      */
     LocalDate getStartDate();
+
+    /**
+     * Returns the start date property of the planner.
+     */
+    SimpleObjectProperty<LocalDate> getStartDateProperty();
 }
