@@ -195,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         commandBox = new CommandBox(this::executeCommand, this::executeAutocomplete, this::executeNextSuggestion,
-                this::executeInputChanged, this::getPastInput);
+                this::executeInputChanged, this::getPastInput, this::focusOnInputField);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         updateCommandBoxWindowWidth(primaryStage.getWidth());
     }
@@ -380,6 +380,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeInputChanged(String direction) throws ParseException {
         logic.markInputChanged();
+        return new CommandResult("");
+    }
+
+    /**
+     * Handles the user clicking on the autocomplete display box.
+     */
+    private CommandResult focusOnInputField(String dummy) {
+        commandBox.setFocus();
         return new CommandResult("");
     }
 

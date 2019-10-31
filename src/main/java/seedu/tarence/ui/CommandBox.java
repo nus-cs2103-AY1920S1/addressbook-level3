@@ -31,6 +31,7 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor nextSuggestionExecutor;
     private final CommandExecutor inputChangedExecutor;
     private final CommandExecutor pastInputExecutor;
+    private final CommandExecutor inputFieldFocusExecutor;
 
     @FXML
     private TextField commandTextField;
@@ -43,13 +44,15 @@ public class CommandBox extends UiPart<Region> {
 
     public CommandBox(CommandExecutor commandExecutor, CommandExecutor autocompleteExecutor,
                       CommandExecutor nextSuggestionExecutor,
-                      CommandExecutor inputChangedExecutor, CommandExecutor pastInputExecutor) {
+                      CommandExecutor inputChangedExecutor, CommandExecutor pastInputExecutor,
+                      CommandExecutor inputFieldFocusExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.autocompleteExecutor = autocompleteExecutor;
         this.nextSuggestionExecutor = nextSuggestionExecutor;
         this.inputChangedExecutor = inputChangedExecutor;
         this.pastInputExecutor = pastInputExecutor;
+        this.inputFieldFocusExecutor = inputFieldFocusExecutor;
 
         // actions to carry out whenever text field content changes
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
@@ -62,11 +65,14 @@ public class CommandBox extends UiPart<Region> {
         });
 
         Font.loadFont(MainApp.class.getResource("/fonts/RobotoMono-Light.ttf").toExternalForm(), 12);
+        Font.loadFont(MainApp.class.getResource("/fonts/RobotoMono-Thin.ttf").toExternalForm(), 12);
         commandTextField.prefColumnCountProperty().bind(commandTextField.textProperty().length());
-        commandTextField.setPadding(new Insets(5.0, 0.0, 5.0, 0.0));
+        commandTextField.setMinWidth(10.0); // to make the field clickable
+        commandTextField.setPadding(new Insets(5.0, 0.0, 5.0, 10.0));
+
         commandTextField.setAlignment(BASELINE_RIGHT);
 
-        autocompleteTextBox.setFill(Color.LIGHTGRAY);
+        autocompleteTextBox.setFill(Color.GRAY);
 
         commandTextFlow.getChildren().set(1, autocompleteTextBox);
     }
@@ -186,6 +192,14 @@ public class CommandBox extends UiPart<Region> {
             handleOtherInput();
         }
 
+    }
+
+    /**
+     * Handles user clicking on autocomplete text box.
+     */
+    @FXML
+    private void handleClick() throws CommandException, ParseException {
+        inputFieldFocusExecutor.execute("");
     }
 
     /**
