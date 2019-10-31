@@ -34,7 +34,6 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
         return TransactionAddCommand.COMMAND_WORD;
     }
 
-
     /**
      * Parses the given {@code String} of arguments in the context of the TransactionAddCommand
      * and returns an TransactionAddCommand object for execution.
@@ -43,7 +42,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
     @Override
     public TransactionAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_ACCOUNT,
+                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION,
                         PREFIX_CATEGORY, PREFIX_DATE);
 
         String directionString = argMultimap.getPreamble().toUpperCase();

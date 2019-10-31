@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
-import budgetbuddy.model.account.exception.AccountNotFoundException;
+import budgetbuddy.model.account.exceptions.AccountNotFoundException;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.TransactionList;
@@ -52,6 +52,14 @@ public class AccountsManager {
      */
     public ObservableList<Account> getFilteredAccountList() {
         return filteredAccounts;
+    }
+
+    /**
+     * Checks if a given account is currently the active account.
+     * @param testAccount The account to be checked
+     */
+    public boolean isActiveAccount(Account testAccount) {
+        return UniqueAccountList.accountsAreEquivalent(testAccount, getActiveAccount());
     }
 
     /**

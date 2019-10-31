@@ -15,7 +15,7 @@ import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
-import budgetbuddy.model.account.exception.AccountNotFoundException;
+import budgetbuddy.model.account.exceptions.AccountNotFoundException;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 
