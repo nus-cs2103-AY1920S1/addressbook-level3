@@ -9,11 +9,11 @@ image:https://api.codacy.com/project/badge/Grade/967c7be5909941f486c674f65e6332e
 
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/userguide/home.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/userguide/home.png[width="600"]
 endif::[]
 
 == What is Duke Academy?
