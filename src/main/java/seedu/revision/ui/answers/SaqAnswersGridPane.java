@@ -1,10 +1,5 @@
 package seedu.revision.ui.answers;
 
-import java.util.logging.Logger;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
 
 /**
@@ -12,7 +7,6 @@ import seedu.revision.model.answerable.Answerable;
  */
 public class SaqAnswersGridPane extends AnswersGridPane {
     private static final String SAQ_GRID_PANE_FXML = "SaqAnswersGridPane.fxml";
-    private final Logger logger = LogsCenter.getLogger(SaqAnswersGridPane.class);
 
     /**
      * Instantiates SaqAnswersGridPane to display an empty pane.
