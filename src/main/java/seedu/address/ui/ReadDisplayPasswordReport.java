@@ -2,10 +2,6 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
