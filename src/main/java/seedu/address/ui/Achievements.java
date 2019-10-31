@@ -1,8 +1,15 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import seedu.address.model.achievements.Achievement;
+import seedu.address.model.record.RecordType;
 
 /**
  * A ui for the user's list of achievements, displayed in tiles.
@@ -12,13 +19,20 @@ public class Achievements extends UiPart<Region> {
     private static final String FXML = "Achievements.fxml";
 
     @FXML
-    private TilePane achievementsTilePane;
+    private VBox achievementsListVBox;
 
-    public Achievements() {
+    public Achievements(Map<RecordType, List<Achievement>> achievementsMap) {
         super(FXML);
-    }
 
-    public TilePane getTilePane() {
-        return achievementsTilePane;
+        List<RecordType> keyList = new ArrayList<>(achievementsMap.keySet());
+        keyList.sort((firstRecord, secondRecord) -> firstRecord.toString()
+                .compareTo(secondRecord.toString()));
+
+        for (RecordType recordType : keyList) {
+            List<Achievement> achievementsList = new ArrayList<>(List.copyOf(achievementsMap.get(recordType)));
+            Collections.reverse(achievementsList);
+            AchievementsList achievementsListUi = new AchievementsList(recordType, achievementsList);
+            achievementsListVBox.getChildren().add(achievementsListUi.getRoot());
+        }
     }
 }

@@ -7,6 +7,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_LOST;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
@@ -445,8 +447,13 @@ public class MainWindow extends UiPart<Stage> {
                     logger.info("Result: " + commandResult.getFeedbackToUser() + achievementsNotification);
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser() + achievementsNotification);
                 } catch (NullPointerException e) {
-                    String feedbackToUser = commandResult.getFeedbackToUser() + "\n" + MESSAGE_CANNOT_LOAD_WINDOW;
-                    resultDisplay.setFeedbackToUser(feedbackToUser + achievementsNotification);
+                    StringWriter stringWriter = new StringWriter();
+                    PrintWriter printWriter = new PrintWriter(stringWriter);
+                    e.printStackTrace(printWriter);
+                    String feedbackToUser =
+                            commandResult.getFeedbackToUser() + "\n" + achievementsNotification
+                                    + MESSAGE_CANNOT_LOAD_WINDOW + stringWriter.toString();
+                    resultDisplay.setFeedbackToUser(feedbackToUser);
                     return new CommandResult(feedbackToUser);
                 }
             }

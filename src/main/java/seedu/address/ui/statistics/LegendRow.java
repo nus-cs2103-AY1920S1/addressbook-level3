@@ -1,10 +1,11 @@
-package seedu.address.ui;
+package seedu.address.ui.statistics;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import seedu.address.ui.UiPart;
 
 /**
  * Represents a ui for a legend symbol and legend description.

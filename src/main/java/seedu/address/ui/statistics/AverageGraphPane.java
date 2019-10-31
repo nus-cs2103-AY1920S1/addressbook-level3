@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.statistics;
 
 import java.time.LocalDate;
 import java.util.logging.Logger;
@@ -10,6 +10,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.ui.UiPart;
 
 /**
  * Represents a panel of an average graph and its legend.

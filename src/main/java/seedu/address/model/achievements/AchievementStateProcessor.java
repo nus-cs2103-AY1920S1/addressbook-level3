@@ -2,6 +2,7 @@ package seedu.address.model.achievements;
 
 import static seedu.address.model.achievements.AchievementState.ACHIEVED;
 import static seedu.address.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
+import static seedu.address.model.achievements.AchievementState.YET_TO_ACHIEVE;
 import static seedu.address.model.achievements.DurationUnit.MONTH;
 import static seedu.address.model.achievements.DurationUnit.WEEK;
 import static seedu.address.model.achievements.DurationUnit.YEAR;
@@ -21,6 +22,7 @@ import java.util.TreeMap;
 
 import seedu.address.model.Model;
 import seedu.address.model.record.RecordType;
+import seedu.address.model.statistics.RecordContainsRecordTypePredicate;
 
 /**
  * Class that processes the changes made to the list of achievements stored in this program, if any.
@@ -62,6 +64,7 @@ public class AchievementStateProcessor {
      */
     private void initialiseAverageRecordMap() {
         for (RecordType recordType : recordTypeSet) {
+            model.updateFilteredRecordList(new RecordContainsRecordTypePredicate(recordType));
             model.calculateAverageMap(DAILY, recordType, model.getRecordList().size());
 
             // Sort by descending date
@@ -92,8 +95,8 @@ public class AchievementStateProcessor {
      * @param achievement Achievement that is to have it's state demoted to previously achieved.
      */
     private void demote(Achievement achievement) {
-        if (achievement.isAchieved()) {
-            setAchievementState(achievement, PREVIOUSLY_ACHIEVED);
+        if (!achievement.isYetToBeAchieved()) {
+            setAchievementState(achievement, YET_TO_ACHIEVE);
         }
     }
 

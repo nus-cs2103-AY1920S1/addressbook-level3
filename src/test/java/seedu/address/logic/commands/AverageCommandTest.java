@@ -19,6 +19,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -43,16 +44,23 @@ import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.record.Weight;
 import seedu.address.model.statistics.AverageMap;
 import seedu.address.model.statistics.AverageType;
+import seedu.address.model.statistics.RecordContainsRecordTypePredicate;
 import seedu.address.model.time.DateTime;
 import sugarmummy.recmfood.model.Food;
 import sugarmummy.recmfood.model.UniqueFoodList;
 
 public class AverageCommandTest {
+    private final RecordContainsRecordTypePredicate bloodSugarPredicate =
+            new RecordContainsRecordTypePredicate(RecordType.BLOODSUGAR);
+
+    private final RecordContainsRecordTypePredicate bmiPredicate =
+            new RecordContainsRecordTypePredicate(RecordType.BMI);
 
     @Test
     public void execute_zeroRecordType_throwsCommandException() {
         ModelStubWithNoRecords modelStubWithNoRecords = new ModelStubWithNoRecords();
-        AverageCommand command = new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 5);
+        AverageCommand command = new AverageCommand(bloodSugarPredicate,
+                AverageType.DAILY, RecordType.BLOODSUGAR, 5);
         assertThrows(CommandException.class, String.format(MESSAGE_NO_RECORD,
                 RecordType.BLOODSUGAR), () -> command.execute(modelStubWithNoRecords));
     }
@@ -61,8 +69,10 @@ public class AverageCommandTest {
     public void execute_dailyAverageBloodSugar_success() {
         ModelStubWithRecords modelStubWithRecords = new ModelStubWithRecords();
         ModelStubWithRecords expectedModel = new ModelStubWithRecords();
+        expectedModel.updateFilteredRecordList(bloodSugarPredicate);
         expectedModel.calculateAverageMap(AverageType.DAILY, RecordType.BLOODSUGAR, 5);
-        AverageCommand command = new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 5);
+        AverageCommand command = new AverageCommand(bloodSugarPredicate,
+                AverageType.DAILY, RecordType.BLOODSUGAR, 5);
         String expectedMessage = String.format(MESSAGE_SUCCESS, AverageType.DAILY, RecordType.BLOODSUGAR);
         assertCommandSuccess(command, modelStubWithRecords, expectedMessage, expectedModel);
         ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
@@ -77,8 +87,9 @@ public class AverageCommandTest {
     public void execute_weeklyAverageBmi_success() {
         ModelStubWithRecords modelStubWithRecords = new ModelStubWithRecords();
         ModelStubWithRecords expectedModel = new ModelStubWithRecords();
+        expectedModel.updateFilteredRecordList(bmiPredicate);
         expectedModel.calculateAverageMap(AverageType.WEEKLY, RecordType.BMI, 5);
-        AverageCommand command = new AverageCommand(AverageType.WEEKLY, RecordType.BMI, 5);
+        AverageCommand command = new AverageCommand(bmiPredicate, AverageType.WEEKLY, RecordType.BMI, 5);
         String expectedMessage = String.format(MESSAGE_SUCCESS, AverageType.WEEKLY, RecordType.BMI);
         assertCommandSuccess(command, modelStubWithRecords, expectedMessage, expectedModel);
         ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
@@ -93,8 +104,10 @@ public class AverageCommandTest {
     public void execute_monthlyAverageBloodSugar_success() {
         ModelStubWithRecords modelStubWithRecords = new ModelStubWithRecords();
         ModelStubWithRecords expectedModel = new ModelStubWithRecords();
+        expectedModel.updateFilteredRecordList(bloodSugarPredicate);
         expectedModel.calculateAverageMap(AverageType.MONTHLY, RecordType.BLOODSUGAR, 5);
-        AverageCommand command = new AverageCommand(AverageType.MONTHLY, RecordType.BLOODSUGAR, 5);
+        AverageCommand command = new AverageCommand(bloodSugarPredicate,
+                AverageType.MONTHLY, RecordType.BLOODSUGAR, 5);
         String expectedMessage = String.format(MESSAGE_SUCCESS, AverageType.MONTHLY, RecordType.BLOODSUGAR);
         assertCommandSuccess(command, modelStubWithRecords, expectedMessage, expectedModel);
         ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
@@ -427,12 +440,21 @@ public class AverageCommandTest {
         public void resetNewAchievementsState() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
      * A Model stub that contains no records.
      */
     private class ModelStubWithNoRecords extends ModelStub {
+        @Override
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
+            return;
+        }
 
         @Override
         public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
@@ -442,6 +464,11 @@ public class AverageCommandTest {
         @Override
         public ObservableMap<LocalDate, Double> getAverageMap() {
             return FXCollections.observableHashMap();
+        }
+
+        @Override
+        public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
@@ -456,6 +483,8 @@ public class AverageCommandTest {
                 new Bmi(new Height("200.0"), new Weight("64.0"), new DateTime("2019-01-08 00:00"))
         ));
 
+        private final FilteredList<Record> filteredRecordList = new FilteredList<>(recordList);
+
         private final AverageMap averageMap;
 
         public ModelStubWithRecords() {
@@ -463,8 +492,13 @@ public class AverageCommandTest {
         }
 
         @Override
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
+            filteredRecordList.setPredicate(predicate);
+        }
+
+        @Override
         public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
-            averageMap.calculateAverage(recordList, averageType, recordType, count);
+            averageMap.calculateAverage(filteredRecordList, averageType, recordType, count);
         }
 
         @Override
@@ -487,7 +521,7 @@ public class AverageCommandTest {
 
             // state check
             ModelStubWithRecords other = (ModelStubWithRecords) obj;
-            return averageMap.equals(other.averageMap);
+            return averageMap.equals(other.averageMap) && filteredRecordList.equals(other.filteredRecordList);
         }
     }
 

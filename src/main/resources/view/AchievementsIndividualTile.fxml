@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="achievementsPlaceHolder" HBox.hgrow="ALWAYS"
+      xmlns="http://javafx.com/javafx/8" maxWidth="120" spacing="10">
+    <children>
+        <ImageView fx:id="tileImageView" xmlns:fx="http://javafx.com/fxml/1" fitHeight="100.0" fitWidth="100.0"
+                   pickOnBounds="true"
+                   preserveRatio="true" xmlns="http://javafx.com/javafx/8"/>
+
+        <Label fx:id="tileLabel" wrapText="true" VBox.vgrow="ALWAYS"/>
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
+</VBox>

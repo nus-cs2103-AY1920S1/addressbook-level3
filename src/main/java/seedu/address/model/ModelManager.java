@@ -25,6 +25,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.AchievementState;
 import seedu.address.model.achievements.AchievementStateProcessor;
+import seedu.address.model.achievements.AchievementsMap;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
@@ -209,6 +210,7 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredRecordList.equals(other.filteredRecordList)
                 && averageMap.equals(other.averageMap);
     }
 
@@ -452,7 +454,7 @@ public class ModelManager implements Model {
 
     @Override
     public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
-        averageMap.calculateAverage(getRecordList(), averageType, recordType, count);
+        averageMap.calculateAverage(getFilterRecordList(), averageType, recordType, count);
     }
 
     @Override
@@ -499,11 +501,10 @@ public class ModelManager implements Model {
             if (newStates.contains(ACHIEVED)) {
                 achievementsHaveBeenAttained = true;
             }
-            if (newStates.contains(PREVIOUSLY_ACHIEVED)) {
+            if (newStates.contains(PREVIOUSLY_ACHIEVED)
+                    || newStates.contains(YET_TO_ACHIEVE)) {
                 achievementsHaveBeenLost = true;
             }
-            assert !newStates.contains(YET_TO_ACHIEVE) : "New state of achievement should never be yet to achieve as "
-                    + "user would have achieved the modified achievement before.";
         }
     }
 
@@ -512,6 +513,11 @@ public class ModelManager implements Model {
      */
     private Set<AchievementState> getNewAchievementStates() {
         return (new AchievementStateProcessor(this)).getNewAchievementStates();
+    }
+
+    @Override
+    public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievemenstMap) {
+        return AchievementsMap.currAchievementsMapIsSameAs(prevAchievemenstMap);
     }
 
 

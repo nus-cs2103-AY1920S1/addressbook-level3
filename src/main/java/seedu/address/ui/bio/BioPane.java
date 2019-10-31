@@ -27,7 +27,6 @@ public class BioPane extends UiPart<Region> {
 
     private BioTable bioTable;
     private Profile profile;
-    private User user;
     private Image img;
     private String dpPath;
 
