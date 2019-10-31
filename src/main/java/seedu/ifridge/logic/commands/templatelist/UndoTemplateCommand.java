@@ -26,8 +26,8 @@ public class UndoTemplateCommand extends Command {
         if (!model.canUndoTemplateList()) {
             throw new CommandException("Cannot undo.");
         }
-
-        if (!(model.getIndex() == -1)) {
+        int currIndex = model.getIndex();
+        if (!(currIndex == -1)) {
             UniqueTemplateItems prevTemplate = model.getPrevTemplate();
             model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
             model.setShownTemplate(prevTemplate);
@@ -36,7 +36,12 @@ public class UndoTemplateCommand extends Command {
         ReadOnlyTemplateList currTemplateList = model.undoTemplateList();
         model.setTemplateList(currTemplateList);
         CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
-        commandResult.setTemplateListItemCommand();
+
+        if (!(currIndex == -1)) {
+            commandResult.setTemplateListItemCommand();
+        } else {
+            commandResult.setTemplateListCommand();
+        }
 
         return commandResult;
     }

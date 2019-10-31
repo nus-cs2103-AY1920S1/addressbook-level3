@@ -270,6 +270,7 @@ public class MainWindow extends UiPart<Stage> {
                 displayTemplateListPanel();
             } else if (commandResult.isTemplateListCommand()) {
                 displayTemplateListPanel();
+                templateItemPanelPlaceholder.getChildren().clear();
             } else if (commandResult.isShoppingListCommand()) {
                 displayShoppingListPanel();
             } else if (commandResult.isWasteReportCommand()) {

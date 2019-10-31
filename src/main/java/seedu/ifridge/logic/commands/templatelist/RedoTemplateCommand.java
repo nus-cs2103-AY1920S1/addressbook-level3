@@ -29,14 +29,20 @@ public class RedoTemplateCommand extends Command {
 
         ReadOnlyTemplateList currTemplateList = model.redoTemplateList();
         model.setTemplateList(currTemplateList);
-        if (!(model.getIndex() == -1)) {
+        int currIndex = model.getIndex();
+        if (!(currIndex == -1)) {
             UniqueTemplateItems newTemplate = model.getNewTemplate();
             model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
             model.setShownTemplate(newTemplate);
             model.updateFilteredTemplateToBeShown();
         }
         CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
-        commandResult.setTemplateListItemCommand();
+
+        if (!(currIndex == -1)) {
+            commandResult.setTemplateListItemCommand();
+        } else {
+            commandResult.setTemplateListCommand();
+        }
 
         return commandResult;
     }
