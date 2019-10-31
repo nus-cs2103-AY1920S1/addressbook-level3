@@ -7,14 +7,14 @@ import tagline.model.contact.exceptions.InvalidIdException;
  */
 public class ContactId {
 
-    public static final String MESSAGE_CONSTRAINTS = "Id should be a positive integer.";
+    public static final String MESSAGE_CONSTRAINTS = "Contact ID must be a non-negative integer.";
 
     private static int contactIdDigits = 5;
 
     public final Long value;
 
     /**
-     * Construct a contact Id from String.
+     * Construct a {@code ContactId} from {@code String}.
      *
      * @param id
      */
@@ -27,10 +27,10 @@ public class ContactId {
      */
     public ContactId(long id) {
         if (id >= Math.pow(10, contactIdDigits)) {
-            throw new InvalidIdException("Id too large");
+            throw new InvalidIdException("Contact Id too large");
         }
         if (id < 0) {
-            throw new InvalidIdException("Id has to be a positive number");
+            throw new InvalidIdException("Contact Id has to be a non-negative integer");
         }
         this.value = id;
     }
@@ -55,7 +55,7 @@ public class ContactId {
     }
 
     /**
-     * Increases the number of digits in Id.
+     * Increases the number of digits in ContactId.
      */
     static void incrementDigit() {
         contactIdDigits++;

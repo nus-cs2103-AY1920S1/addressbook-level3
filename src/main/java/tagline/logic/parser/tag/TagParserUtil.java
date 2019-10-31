@@ -42,9 +42,15 @@ public class TagParserUtil {
             return new HashTag(tagValue);
 
         case ContactTag.TAG_PREFIX:
+            if (!ContactId.isValidId(tagValue)) {
+                throw new ParseException("Invalid tag: " + ContactId.MESSAGE_CONSTRAINTS);
+            }
             return new ContactTag(new ContactId(tagValue));
 
         case GroupTag.TAG_PREFIX:
+            if (!GroupName.isValidGroupName(tagValue)) {
+                throw new ParseException("Invalid tag: " + GroupName.MESSAGE_CONSTRAINTS);
+            }
             return new GroupTag(new GroupName(tagValue));
 
         default:
