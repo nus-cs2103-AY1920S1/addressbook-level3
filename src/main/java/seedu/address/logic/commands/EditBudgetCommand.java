@@ -72,7 +72,6 @@ public class EditBudgetCommand extends Command {
         Budget editedBudget = new Budget(updatedName, updatedAmount, updatedAmount, updatedCurrency,
             budgetToEdit.getStartDate(), budgetToEdit.getEndDate(), budgetToEdit.getExpenseList());
 
-        editedBudget.recalculateAmountLeft();
         return editedBudget;
     }
 

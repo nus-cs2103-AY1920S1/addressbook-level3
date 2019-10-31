@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.ExpenseList;
+import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
@@ -29,6 +30,7 @@ public class Budget {
     // Expense List
     private final ExpenseList expenseList;
     private Amount amountLeft;
+    private boolean budgetAmountPositive;
 
     /**
      * Every field must be present and not null.
@@ -43,6 +45,8 @@ public class Budget {
         this.startDate = startDate;
         this.endDate = endDate;
         this.expenseList = expenseList;
+
+        recalculateAmountLeft();
     }
 
     public Name getName() {
@@ -77,6 +81,10 @@ public class Budget {
         return expenseList.getExpenseList();
     }
 
+    public void setExpenseListInBudget(ReadOnlyExpenseList expenseList) {
+        this.expenseList.resetData(expenseList);
+    }
+
     /**
      * Adds an expense into the expenselist inside the budget.
      *
@@ -94,6 +102,10 @@ public class Budget {
 
     public boolean budgetHasExpense(Expense expense) {
         return expenseList.hasExpense(expense);
+    }
+
+    public boolean isBudgetPositive() {
+        return this.budgetAmountPositive;
     }
 
     /**
@@ -115,7 +127,13 @@ public class Budget {
         for (Expense expense : expenseList.getExpenseList()) {
             amountLeft -= expense.getAmount().getValue();
         }
-        this.amountLeft = new Amount(String.format("%.2f", amountLeft));
+        if (amountLeft <= 0.0) {
+            this.amountLeft = new Amount(String.format("%.2f", 0 - amountLeft));
+            this.budgetAmountPositive = false;
+        } else {
+            this.amountLeft = new Amount(String.format("%.2f", amountLeft));
+            this.budgetAmountPositive = true;
+        }
     }
 
     /**
@@ -129,6 +147,10 @@ public class Budget {
 
         return otherBudget != null
             && otherBudget.getName().equals(getName());
+    }
+
+    public void setExpenseInBudget(Expense target, Expense editedExpense) {
+        this.expenseList.setExpense(target, editedExpense);
     }
 
     /**
