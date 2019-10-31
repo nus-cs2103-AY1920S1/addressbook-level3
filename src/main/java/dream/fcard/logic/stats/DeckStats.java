@@ -1,29 +1,35 @@
+//@@author nattanyz
 package dream.fcard.logic.stats;
 
-import java.time.LocalDateTime;
-
 /**
- * A class that extends Statistics that has statistics unique to decks.
+ * Represents the user's statistics pertaining to a specific Deck.
  */
-public class DeckStats extends Statistics {
-    private int timesAccessed;
-    private LocalDateTime lastModified;
-    private int bestScore;
+public class DeckStats {
+    // todo: should implement JsonInterface. need help with toJson().
 
-    public DeckStats() {
-        super();
-        lastModified = LocalDateTime.now();
-        this.timesAccessed = 0;
-    }
+    /** List of Sessions involving the Deck this DeckStats object corresponds to. */
+    private SessionList deckTestSessions;
 
     /**
-     * Resets the last modified date to current date.
+     * Adds the given session to the deckTestSessions list contained in this DeckStats object.
+     * @param session The Session to be added.
      */
-    public void setLastModified() {
-        lastModified = LocalDateTime.now();
+    public void addSession(Session session) {
+        this.deckTestSessions.addSession(session);
     }
 
-    public void setBestScore(int bestScore) {
-        this.bestScore = bestScore;
+    //@Override
+    //public JsonValue toJson() {
+    //    JsonArray statsJson = new JsonArray();
+    //    for (Session session : deckTestSessions) {
+    //        statsJson.add(session.toJson());
+    //    }
+    //    // to replace with creating new JsonObject and object.put?
+    //    return new JsonValue(statsJson);
+    //}
+
+    /** Returns the number of test sessions. */
+    public int numberOfTestSessions() {
+        return this.deckTestSessions.numberOfSessions();
     }
 }

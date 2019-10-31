@@ -2,8 +2,8 @@ package dream.fcard.model.cards;
 
 import java.util.ArrayList;
 
-import dream.fcard.logic.stats.CardStats;
 import dream.fcard.model.TestCase;
+import dream.fcard.util.DeepCopy;
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
@@ -12,16 +12,15 @@ public class JavaCard extends FlashCard {
 
     private String question;
     private ArrayList<TestCase> testCases;
+    private String attempt;
 
     public JavaCard(String question, ArrayList<TestCase> testCases) {
         this.question = question;
         this.testCases = testCases;
-        this.cardStats = new CardStats();
     }
 
     @Override
     public Boolean evaluate(String in) {
-        //TODO: Evaluating Java code can be done inside here
         return null;
     }
 
@@ -32,22 +31,35 @@ public class JavaCard extends FlashCard {
 
     @Override
     public String getBack() {
-        //irrelevant
         return null;
     }
 
     @Override
     public void editFront(String newText) {
-        //irrelevant
+        this.front = newText;
     }
 
     @Override
     public void editBack(String newText) {
-        //irrelevant
+        //unused
     }
 
     @Override
-    public boolean hasChoices() {
-        return false;
+    public FlashCard duplicate() {
+        String front = question;
+        return new JavaCard(front, DeepCopy.duplicateTestCases(testCases));
+    }
+
+    public String getAttempt() {
+        return attempt;
+    }
+
+    public void setAttempt(String attempt) {
+        this.attempt = attempt;
+    }
+
+    @Override
+    public void updateScore(Boolean isCorrect) {
+
     }
 }
