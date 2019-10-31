@@ -1,5 +1,7 @@
 package budgetbuddy.model.loan.predicates;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.function.Predicate;
 
 import budgetbuddy.model.loan.Loan;
@@ -12,6 +14,7 @@ public class PersonMatchPredicate implements Predicate<Loan> {
     private final Person person;
 
     public PersonMatchPredicate(Person person) {
+        requireNonNull(person);
         this.person = person;
     }
 

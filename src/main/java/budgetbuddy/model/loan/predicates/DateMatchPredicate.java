@@ -1,5 +1,7 @@
 package budgetbuddy.model.loan.predicates;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Date;
 import java.util.function.Predicate;
 
@@ -12,6 +14,7 @@ public class DateMatchPredicate implements Predicate<Loan> {
     private final Date date;
 
     public DateMatchPredicate(Date date) {
+        requireNonNull(date);
         this.date = date;
     }
 
