@@ -22,14 +22,16 @@ public class TemplateUseCommand extends Command {
 
     public static final String COMMAND_WORD = "use";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Chooses a template and starts meme creation in the "
-        + "create tab.\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD
+            + ": chooses a template and starts meme creation in the create tab.";
+
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + "\nParameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_USE_TEMPLATE_SUCCESS = "Started creating meme with template: %1$s";
     public static final String MESSAGE_USE_TEMPLATE_FAILED_TO_START_SESSION = "Failed to start a meme"
-        + "creation session.";
+            + "creation session.";
 
     private final Index index;
 

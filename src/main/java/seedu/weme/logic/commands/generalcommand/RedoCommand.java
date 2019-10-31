@@ -16,6 +16,8 @@ public class RedoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Redid the following command:\n%s";
     public static final String MESSAGE_FAILURE = "No commands to redo.";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": redo the previous undone command.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION;
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

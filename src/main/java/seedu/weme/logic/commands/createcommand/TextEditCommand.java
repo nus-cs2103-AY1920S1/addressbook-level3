@@ -35,18 +35,18 @@ public class TextEditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the meme text identified "
-        + "by the index number. "
-        + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) "
-        + "[" + PREFIX_TEXT + "TEXT] "
-        + "[" + PREFIX_X_COORDINATE + "X_COORDINATE] "
-        + "[" + PREFIX_Y_COORDINATE + "Y_COORDINATE] "
-        + "[" + PREFIX_COLOR + "COLOR] "
-        + "[" + PREFIX_SIZE + "SIZE] "
-        + "[" + PREFIX_STYLE + "STYLE]...\n"
-        + "Example: " + COMMAND_WORD + " 1 "
-        + "t/When you wake up at 3am "
-        + "x/0.3";
+            + "by the index number. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_TEXT + "TEXT] "
+            + "[" + PREFIX_X_COORDINATE + "X_COORDINATE] "
+            + "[" + PREFIX_Y_COORDINATE + "Y_COORDINATE] "
+            + "[" + PREFIX_COLOR + "COLOR] "
+            + "[" + PREFIX_SIZE + "SIZE] "
+            + "[" + PREFIX_STYLE + "STYLE]...\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + "t/When you wake up at 3am "
+            + "x/0.3";
 
     public static final String MESSAGE_EDIT_MEME_TEXT_SUCCESS = "Edited text %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -103,7 +103,7 @@ public class TextEditCommand extends Command {
         }
 
         CommandResult result = new CommandResult(
-            String.format(MESSAGE_EDIT_MEME_TEXT_SUCCESS, editedText.toString()));
+                String.format(MESSAGE_EDIT_MEME_TEXT_SUCCESS, editedText.toString()));
         model.commitWeme(result.getFeedbackToUser());
 
         return result;
@@ -124,7 +124,7 @@ public class TextEditCommand extends Command {
         // state check
         TextEditCommand e = (TextEditCommand) other;
         return index.equals(e.index)
-            && editMemeTextDescriptor.equals(e.editMemeTextDescriptor);
+                && editMemeTextDescriptor.equals(e.editMemeTextDescriptor);
     }
 
     /**
@@ -226,11 +226,11 @@ public class TextEditCommand extends Command {
             EditMemeTextDescriptor e = (EditMemeTextDescriptor) other;
 
             return text.equals(e.text)
-                && x.equals(e.x)
-                && y.equals(e.y)
-                && color.equals(e.color)
-                && style.equals(e.style)
-                && size.equals(e.size);
+                    && x.equals(e.x)
+                    && y.equals(e.y)
+                    && color.equals(e.color)
+                    && style.equals(e.style)
+                    && size.equals(e.size);
         }
     }
 }

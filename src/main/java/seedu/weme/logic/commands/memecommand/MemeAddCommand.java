@@ -21,8 +21,9 @@ public class MemeAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meme to Weme. "
-            + "Parameters: "
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": adds a meme to Weme.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + " Parameters: "
             + PREFIX_FILEPATH + "PATH "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"

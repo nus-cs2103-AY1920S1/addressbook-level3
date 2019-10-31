@@ -1,6 +1,7 @@
 package seedu.weme.logic.prompter.commandprompter.generalcommandprompter;
 
 import static seedu.weme.logic.commands.generalcommand.TabCommand.COMMAND_WORD;
+import static seedu.weme.logic.commands.generalcommand.TabCommand.MESSAGE_USAGE;
 import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
 import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_TAB;
@@ -29,10 +30,8 @@ public class TabCommandPrompter implements Prompter {
         final String arguments = matcher.group(ARGUMENTS);
         String context = arguments.trim();
 
-        // If no argument is supplied, display all contexts in alphabetical order.
         if (context.isBlank()) {
-            return new CommandPrompt(CONTEXTS.stream().sorted().reduce((x, y) -> x + '\n' + y).get(),
-                    PREAMBLE + CONTEXTS.stream().sorted().findFirst().orElse(""));
+            return new CommandPrompt(MESSAGE_USAGE, userInput);
         }
 
         String similarContexts = findSimilarStrings(CONTEXTS, context);

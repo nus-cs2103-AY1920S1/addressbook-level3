@@ -1,7 +1,7 @@
-package seedu.weme.logic.prompter.commandprompter.memecommandprompter;
+package seedu.weme.logic.prompter.commandprompter.templatecommandprompter;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.weme.logic.commands.memecommand.MemeLikeCommand.MESSAGE_USAGE;
+import static seedu.weme.logic.commands.templatecommand.TemplateArchiveCommand.MESSAGE_USAGE;
 import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
 import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 
@@ -13,9 +13,9 @@ import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
 
 /**
- * Prompt arguments for MemeLikeCommand.
+ * Prompt arguments for TemplateArchiveCommand.
  */
-public class MemeLikeCommandPrompter implements Prompter {
+public class TemplateArchiveCommandPrompter implements Prompter {
 
     @Override
     public CommandPrompt prompt(Model model, String userInput) throws PromptException {
@@ -29,8 +29,7 @@ public class MemeLikeCommandPrompter implements Prompter {
 
         try {
             Integer.parseInt(arguments.trim());
-            String displayText = "You can now use UP arrow key to spam likes!";
-            return new CommandPrompt(displayText, userInput);
+            return new CommandPrompt(MESSAGE_USAGE, userInput);
         } catch (NumberFormatException e) {
             throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }

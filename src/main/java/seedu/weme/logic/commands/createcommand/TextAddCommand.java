@@ -22,22 +22,23 @@ public class TextAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds text to the current template at the specified "
-        + "coordinates.\n"
-        + "Parameters: "
-        + "TEXT "
-        + PREFIX_X_COORDINATE + "X_COORDINATE "
-        + PREFIX_Y_COORDINATE + "Y_COORDINATE "
-        + "[" + PREFIX_COLOR + "COLOR] "
-        + "[" + PREFIX_SIZE + "SIZE] "
-        + "[" + PREFIX_STYLE + "STYLE]...\n"
-        + "Example: " + COMMAND_WORD + " "
-        + "CS students be like "
-        + PREFIX_X_COORDINATE + "0.2 "
-        + PREFIX_Y_COORDINATE + "0.3 "
-        + PREFIX_COLOR + "cyan "
-        + PREFIX_STYLE + "bold "
-        + PREFIX_SIZE + "3";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD
+            + ": adds text to the current template at the specified coordinates.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + "\nParameters: "
+            + "TEXT "
+            + PREFIX_X_COORDINATE + "X_COORDINATE "
+            + PREFIX_Y_COORDINATE + "Y_COORDINATE "
+            + "[" + PREFIX_COLOR + "COLOR] "
+            + "[" + PREFIX_SIZE + "SIZE] "
+            + "[" + PREFIX_STYLE + "STYLE]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + "CS students be like "
+            + PREFIX_X_COORDINATE + "0.2 "
+            + PREFIX_Y_COORDINATE + "0.3 "
+            + PREFIX_COLOR + "cyan "
+            + PREFIX_STYLE + "bold "
+            + PREFIX_SIZE + "3";
 
     public static final String MESSAGE_SUCCESS = "New text added: %s";
     public static final String MESSAGE_TEXT_EXCEEDS_IMAGE_BOUNDARY = "Error: Text would exceed image boundary";
@@ -65,7 +66,7 @@ public class TextAddCommand extends Command {
         }
 
         CommandResult result = new CommandResult(
-            String.format(MESSAGE_SUCCESS, text.toString()));
+                String.format(MESSAGE_SUCCESS, text.toString()));
         model.commitWeme(result.getFeedbackToUser());
         return result;
     }
@@ -73,8 +74,8 @@ public class TextAddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof TextAddCommand // instanceof handles nulls
-            && text.equals(((TextAddCommand) other).text));
+                || (other instanceof TextAddCommand // instanceof handles nulls
+                && text.equals(((TextAddCommand) other).text));
     }
 }
 

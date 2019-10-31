@@ -11,8 +11,8 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": shows program usage instructions.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION + "\nExample: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 

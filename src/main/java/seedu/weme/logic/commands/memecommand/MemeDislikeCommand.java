@@ -19,8 +19,9 @@ public class MemeDislikeCommand extends Command {
 
     public static final String COMMAND_WORD = "dislike";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Dislike a meme by index."
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": dislike a meme by index.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + " Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_DISLIKE_MEME_SUCCESS = "Disliked Meme: %1$s";

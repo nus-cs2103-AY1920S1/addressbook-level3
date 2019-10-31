@@ -16,9 +16,11 @@ public class MemeFindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all memes with tags containing any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": finds all memes with tags containing any of "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.";
+
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + "\nParameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final TagContainsKeywordsPredicate predicate;

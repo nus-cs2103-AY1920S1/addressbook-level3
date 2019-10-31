@@ -1,14 +1,12 @@
 package seedu.weme.logic.prompter.commandprompter.importcommandprompter;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.weme.logic.commands.importcommand.LoadCommand.COMMAND_WORD;
 import static seedu.weme.logic.commands.importcommand.LoadCommand.MESSAGE_USAGE;
 import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
 import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.util.ArgumentTokenizer.getLastArgument;
 import static seedu.weme.logic.parser.util.ArgumentTokenizer.removeLastArgument;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
-import static seedu.weme.logic.prompter.util.PrompterUtil.COMMAND_DELIMITER;
 import static seedu.weme.logic.prompter.util.PrompterUtil.PREFIX_LENGTH;
 import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarArguments;
 
@@ -24,7 +22,6 @@ import seedu.weme.model.Model;
  * Prompt possible arguments for LoadCommand.
  */
 public class LoadCommandPrompter implements Prompter {
-    private static final String PREAMBLE = COMMAND_WORD + COMMAND_DELIMITER;
 
     @Override
     public CommandPrompt prompt(Model model, String userInput) throws PromptException {

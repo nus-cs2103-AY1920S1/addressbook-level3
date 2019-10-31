@@ -20,18 +20,19 @@ public class TemplateAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a template to Weme.\n"
-        + "Parameters: "
-        + PREFIX_NAME + "NAME "
-        + PREFIX_FILEPATH + "PATH\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_NAME + "Drake Reaction "
-        + PREFIX_FILEPATH + "C:\\Users\\username\\Downloads\\drake_template.jpg";
+    public static final String MESSAGE_DESCRIPTION = COMMAND_WORD + ": adds a template to Weme.";
+    public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
+            + "\nParameters: "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_FILEPATH + "PATH\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "Drake Reaction "
+            + PREFIX_FILEPATH + "C:\\Users\\username\\Downloads\\drake_template.jpg";
 
     public static final String MESSAGE_SUCCESS = "New template added: %1$s";
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "A template with the same name already exists in Weme";
     public static final String MESSAGE_COPY_FAILURE =
-        "Error encountered while copying the template image to data folder";
+            "Error encountered while copying the template image to data folder";
 
     private final Template toAdd;
 
@@ -70,8 +71,8 @@ public class TemplateAddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof TemplateAddCommand // instanceof handles nulls
-            && toAdd.equals(((TemplateAddCommand) other).toAdd));
+                || (other instanceof TemplateAddCommand // instanceof handles nulls
+                && toAdd.equals(((TemplateAddCommand) other).toAdd));
     }
 }
 

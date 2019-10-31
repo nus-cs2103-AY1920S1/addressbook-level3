@@ -21,9 +21,9 @@ public class TextDeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the meme text identified by the index number in the displayed list.\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the meme text identified by the index number in the displayed list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_MEME_TEXT_SUCCESS = "Deleted text: %1$s";
 
@@ -55,7 +55,7 @@ public class TextDeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof TextDeleteCommand // instanceof handles nulls
-            && targetIndex.equals(((TextDeleteCommand) other).targetIndex)); // state check
+                || (other instanceof TextDeleteCommand // instanceof handles nulls
+                && targetIndex.equals(((TextDeleteCommand) other).targetIndex)); // state check
     }
 }

@@ -18,7 +18,9 @@ import static seedu.weme.model.ModelContext.CONTEXT_PREFERENCES;
 import static seedu.weme.model.ModelContext.CONTEXT_STATISTICS;
 import static seedu.weme.model.ModelContext.CONTEXT_TEMPLATES;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,6 +30,7 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 import seedu.weme.logic.commands.createcommand.AbortCreationCommand;
 import seedu.weme.logic.commands.createcommand.CreateCommand;
 import seedu.weme.logic.commands.createcommand.TextAddCommand;
+import seedu.weme.logic.commands.exportcommand.ExportClearCommand;
 import seedu.weme.logic.commands.exportcommand.ExportCommand;
 import seedu.weme.logic.commands.exportcommand.UnstageCommand;
 import seedu.weme.logic.commands.generalcommand.ExitCommand;
@@ -35,19 +38,29 @@ import seedu.weme.logic.commands.generalcommand.HelpCommand;
 import seedu.weme.logic.commands.generalcommand.RedoCommand;
 import seedu.weme.logic.commands.generalcommand.TabCommand;
 import seedu.weme.logic.commands.generalcommand.UndoCommand;
+import seedu.weme.logic.commands.importcommand.ImportClearCommand;
 import seedu.weme.logic.commands.importcommand.ImportCommand;
+import seedu.weme.logic.commands.importcommand.ImportDeleteCommand;
+import seedu.weme.logic.commands.importcommand.ImportEditCommand;
 import seedu.weme.logic.commands.importcommand.LoadCommand;
 import seedu.weme.logic.commands.memecommand.MemeAddCommand;
+import seedu.weme.logic.commands.memecommand.MemeArchiveCommand;
+import seedu.weme.logic.commands.memecommand.MemeArchivesCommand;
 import seedu.weme.logic.commands.memecommand.MemeClearCommand;
 import seedu.weme.logic.commands.memecommand.MemeDeleteCommand;
+import seedu.weme.logic.commands.memecommand.MemeDislikeCommand;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.logic.commands.memecommand.MemeFindCommand;
 import seedu.weme.logic.commands.memecommand.MemeLikeCommand;
 import seedu.weme.logic.commands.memecommand.MemeListCommand;
 import seedu.weme.logic.commands.memecommand.MemeStageCommand;
+import seedu.weme.logic.commands.memecommand.MemeUnarchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateAddCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateArchiveCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateArchivesCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateDeleteCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateUnarchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUseCommand;
 import seedu.weme.logic.prompter.contextprompter.CreatePrompter;
 import seedu.weme.logic.prompter.contextprompter.ExportPrompter;
@@ -96,27 +109,69 @@ public class PrompterUtil {
             UndoCommand.COMMAND_WORD
     );
 
+    public static final Map<String, String> GENERAL_COMMANDS_DESCRIPTION_MAP = new HashMap<>() {{
+            put(ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_DESCRIPTION);
+            put(HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_DESCRIPTION);
+            put(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_DESCRIPTION);
+            put(TabCommand.COMMAND_WORD, TabCommand.MESSAGE_DESCRIPTION);
+            put(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_DESCRIPTION);
+        }};
+
     public static final Set<String> MEME_COMMANDS = Stream
             .concat(Stream.of(
                     MemeAddCommand.COMMAND_WORD,
+                    MemeArchiveCommand.COMMAND_WORD,
+                    MemeArchivesCommand.COMMAND_WORD,
                     MemeClearCommand.COMMAND_WORD,
                     MemeDeleteCommand.COMMAND_WORD,
+                    MemeDislikeCommand.COMMAND_WORD,
                     MemeEditCommand.COMMAND_WORD,
                     MemeFindCommand.COMMAND_WORD,
                     MemeLikeCommand.COMMAND_WORD,
                     MemeListCommand.COMMAND_WORD,
-                    MemeStageCommand.COMMAND_WORD
+                    MemeStageCommand.COMMAND_WORD,
+                    MemeUnarchiveCommand.COMMAND_WORD
             ), GENERAL_COMMANDS.stream())
             .collect(Collectors.toSet());
+
+    public static final Map<String, String> MEME_COMMANDS_DESCRIPTION_MAP = new HashMap<>() {{
+            put(MemeAddCommand.COMMAND_WORD, MemeAddCommand.MESSAGE_DESCRIPTION);
+            put(MemeArchiveCommand.COMMAND_WORD, MemeArchiveCommand.MESSAGE_DESCRIPTION);
+            put(MemeArchivesCommand.COMMAND_WORD, MemeArchivesCommand.MESSAGE_DESCRIPTION);
+            put(MemeClearCommand.COMMAND_WORD, MemeClearCommand.MESSAGE_DESCRIPTION);
+            put(MemeDeleteCommand.COMMAND_WORD, MemeDeleteCommand.MESSAGE_DESCRIPTION);
+            put(MemeDislikeCommand.COMMAND_WORD, MemeDislikeCommand.MESSAGE_DESCRIPTION);
+            put(MemeEditCommand.COMMAND_WORD, MemeEditCommand.MESSAGE_DESCRIPTION);
+            put(MemeFindCommand.COMMAND_WORD, MemeFindCommand.MESSAGE_DESCRIPTION);
+            put(MemeLikeCommand.COMMAND_WORD, MemeLikeCommand.MESSAGE_DESCRIPTION);
+            put(MemeListCommand.COMMAND_WORD, MemeListCommand.MESSAGE_DESCRIPTION);
+            put(MemeStageCommand.COMMAND_WORD, MemeStageCommand.MESSAGE_DESCRIPTION);
+            put(MemeUnarchiveCommand.COMMAND_WORD, MemeUnarchiveCommand.MESSAGE_DESCRIPTION);
+            putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
+        }};
 
     public static final Set<String> TEMPLATE_COMMANDS = Stream
             .concat(Stream.of(
                     TemplateAddCommand.COMMAND_WORD,
+                    TemplateArchiveCommand.COMMAND_WORD,
+                    TemplateArchivesCommand.COMMAND_WORD,
                     TemplateDeleteCommand.COMMAND_WORD,
                     TemplateEditCommand.COMMAND_WORD,
+                    TemplateUnarchiveCommand.COMMAND_WORD,
                     TemplateUseCommand.COMMAND_WORD
             ), GENERAL_COMMANDS.stream())
             .collect(Collectors.toSet());
+
+    public static final Map<String, String> TEMPLATE_COMMANDS_DESCRIPTION_MAP = new HashMap<>() {{
+            put(TemplateAddCommand.COMMAND_WORD, TemplateAddCommand.MESSAGE_DESCRIPTION);
+            put(TemplateArchiveCommand.COMMAND_WORD, TemplateArchiveCommand.MESSAGE_DESCRIPTION);
+            put(TemplateArchivesCommand.COMMAND_WORD, TemplateArchivesCommand.MESSAGE_DESCRIPTION);
+            put(TemplateDeleteCommand.COMMAND_WORD, TemplateDeleteCommand.MESSAGE_DESCRIPTION);
+            put(TemplateEditCommand.COMMAND_WORD, TemplateEditCommand.MESSAGE_DESCRIPTION);
+            put(TemplateUnarchiveCommand.COMMAND_WORD, TemplateUnarchiveCommand.MESSAGE_DESCRIPTION);
+            put(TemplateUseCommand.COMMAND_WORD, TemplateUseCommand.MESSAGE_DESCRIPTION);
+            putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
+        }};
 
     public static final Set<String> CREATE_COMMANDS = Stream
             .concat(Stream.of(
@@ -126,23 +181,54 @@ public class PrompterUtil {
             ), GENERAL_COMMANDS.stream())
             .collect(Collectors.toSet());
 
+    public static final Map<String, String> CREATE_COMMANDS_DESCRIPTION_MAP = new HashMap<>() {{
+            put(AbortCreationCommand.COMMAND_WORD, AbortCreationCommand.MESSAGE_DESCRIPTION);
+            put(CreateCommand.COMMAND_WORD, CreateCommand.MESSAGE_DESCRIPTION);
+            put(TextAddCommand.COMMAND_WORD, TextAddCommand.MESSAGE_DESCRIPTION);
+            putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
+        }};
+
     public static final Set<String> STATISTICS_COMMANDS = new HashSet<>(GENERAL_COMMANDS);
+    public static final Map<String, String> STATISTICS_COMMANDS_DESCRIPTION_MAP = new HashMap<>(
+            GENERAL_COMMANDS_DESCRIPTION_MAP);
 
     public static final Set<String> EXPORT_COMMANDS = Stream
             .concat(Stream.of(
                     ExportCommand.COMMAND_WORD,
-                    UnstageCommand.COMMAND_WORD
+                    UnstageCommand.COMMAND_WORD,
+                    ExportClearCommand.COMMAND_WORD
             ), GENERAL_COMMANDS.stream())
             .collect(Collectors.toSet());
 
+    public static final Map<String, String> EXPORT_COMMANDS_DESCRIPTION_MAP = new HashMap<>() {{
+            put(ExportCommand.COMMAND_WORD, ExportCommand.MESSAGE_DESCRIPTION);
+            put(UnstageCommand.COMMAND_WORD, UnstageCommand.MESSAGE_DESCRIPTION);
+            put(ExportClearCommand.COMMAND_WORD, ExportClearCommand.MESSAGE_DESCRIPTION);
+            putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
+        }};
+
     public static final Set<String> IMPORT_COMMANDS = Stream
             .concat(Stream.of(
+                    ImportClearCommand.COMMAND_WORD,
                     ImportCommand.COMMAND_WORD,
+                    ImportDeleteCommand.COMMAND_WORD,
+                    ImportEditCommand.COMMAND_WORD,
                     LoadCommand.COMMAND_WORD
             ), GENERAL_COMMANDS.stream())
             .collect(Collectors.toSet());
 
+    public static final Map<String, String> IMPORT_COMMANDS_DESCRIPTION_MAP = new HashMap<>() {{
+            put(ImportClearCommand.COMMAND_WORD, ImportClearCommand.MESSAGE_DESCRIPTION);
+            put(ImportCommand.COMMAND_WORD, ImportCommand.MESSAGE_DESCRIPTION);
+            put(ImportDeleteCommand.COMMAND_WORD, ImportDeleteCommand.MESSAGE_DESCRIPTION);
+            put(ImportEditCommand.COMMAND_WORD, ImportEditCommand.MESSAGE_DESCRIPTION);
+            put(LoadCommand.COMMAND_WORD, LoadCommand.MESSAGE_DESCRIPTION);
+            putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
+        }};
+
     public static final Set<String> PREFERENCES_COMMANDS = new HashSet<>(GENERAL_COMMANDS);
+    public static final Map<String, String> PREFERENCES_COMMANDS_DESCRIPTION_MAP = new HashMap<>(
+            GENERAL_COMMANDS_DESCRIPTION_MAP);
 
     public static final String X_COORDINATE_PROMPT = "0.2\n0.4\n0.6\n0.8";
     public static final String X_COORDINATE_AUTO_COMPLETION = "0.2";
@@ -257,8 +343,13 @@ public class PrompterUtil {
      * Find most similar command words to the input command word.
      * @return CommandPrompt containing the most similar command words
      */
-    public static CommandPrompt promptCommandWord(Set<String> commandWords, String commandWord) {
-        String similarCommands = findSimilarStrings(commandWords, commandWord);
+    public static CommandPrompt promptCommandWord(Set<String> commandWords, String commandWord,
+                                                  Map<String, String> commandsDescriptionMap) {
+        String similarCommands = sortStringsBySimilarity(commandWords, commandWord)
+                .map(command -> commandsDescriptionMap.get(command))
+                .limit(MAX_RESULTS_DISPLAY)
+                .reduce((x, y) -> x + '\n' + y)
+                .orElse("");
         String mostSimilarCommand = findMostSimilarString(commandWords, commandWord);
         return new CommandPrompt(similarCommands, mostSimilarCommand);
     }
