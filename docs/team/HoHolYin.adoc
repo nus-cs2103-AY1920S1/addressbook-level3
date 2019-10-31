@@ -28,24 +28,33 @@ This is what the main page of our system looks like:
 image::Ui.png[]
 {nbsp}
 
+== Legend
+
+[TIP]
+Denotes useful tips.
+
 == Summary of contributions
 |===
 |_This section shows a summary of my coding, documentation, and other helpful contributions to the team project._
 |===
 
-* *Major enhancement*: The ability to *automatically generate loan slips in pdf* for every loan.
+* *Major enhancement*: The ability to *automatically generate loan slips in Portable Document Format (PDF)* for every loan.
 ** What it does: Allows the librarian to print the generated loan slip for the borrower.
 ** Justification: Since our target group is small impoverished communities, it is unlikely they will have internet access to check the status of their loans. Therefore, it will be suitable to provide them with a printed version of the loan.
 ** Highlights: This feature is challenging to implement as it will require us to create a new pdf document from scratch. On top of that, this document will have to be suitably styled as a loan slip using information from the loan.
-** Credits: This feature is made possible with the 'iText 7' library. However, it was still required of me to understand the API well and in depth such that I can apply it appropriately to the context of our project.
+** Credits: This feature is made possible with the 'iText 7' library. However, it was still required of me to understand the API well such that I can apply it appropriately to the context of our project.
 
+This is how a generated loan slip looks like.
 
+.Generated Loan Slip
 image::LoanSlip.png[width=350, align=center]
+{nbsp}
+In Figure 2, we can see all books loaned by borrower 'Bill' recorded and generated in a printable loan slip.
 
 * *Minor enhancement*:
-** Implemented the ability to *add books*
-** Implemented the ability to *delete books*
-** Implemented the ability to *display information* about a book
+** Implemented the ability to *add books*. This assists the librarian in tracking the movement of books with ease using the system.
+** Implemented the ability to *delete books*. This allows the librarian to update the catalog when a book goes missing.
+** Implemented the ability to *display information* about a book. This aids the librarian in finding more information about the book when a borrower enquires about it.
 
 * *Other contributions*:
 
@@ -58,9 +67,9 @@ image::LoanSlip.png[width=350, align=center]
 **** Search overdue books and books that are on loan
 
 ** Enhancements to existing features:
-*** Optimised the generation of a new serial number when a new book is added
-**** Done through Pull Request https://github.com/AY1920S1-CS2103T-F13-1/main/pull/118[#118]. This enhancement allows the system to efficiently locate and allocate the smallest available serial number to the new book.
-*** Made the `Book` Object immutable in preparation for the undo/redo feature in the future
+*** Created a borrower panel in the Graphical User Interface to list books that the borrower has currently loaned.
+**** Done through Pull Request https://github.com/AY1920S1-CS2103T-F13-1/main/pull/177[#177]. When serving a borrower, the librarian will now be able to view a list of books that the borrower has currently loaned and therefore serve him more efficiently.
+*** Made the `Book` Object immutable in preparation for the undo/redo feature.
 **** Done through Pull Request https://github.com/AY1920S1-CS2103T-F13-1/main/pull/147[#147]. This modification allows the system to track the different states of the system throughout its usage. This is required in order to implement the undo/redo function.
 
 ** Documentation:
@@ -82,11 +91,17 @@ image::LoanSlip.png[width=350, align=center]
 |_This section outlines my contributions to the team's User Guide. It demonstrates my ability to write documentation for librarians so that they can learn how to add, delete and loan books._
 |===
 
-The ability to add and delete books to and from the system will help librarians track the status of all books with ease.
-
+=== Add and Delete book
+The ability to add and delete books to and from the system will help librarians track the status of all books with ease. +
+{nbsp}
 
 include::../UserGuide.adoc[tag=bookRelated]
 {nbsp}
+
+=== Loan book
+The feature to loan books will allow librarians to mark that the book has been loaned to a particular borrower. In this feature, I implemented the ability to auto-generate loan slips, allowing librarians to conveniently print it out for the borrower. +
+{nbsp}
+
 
 
 include::../UserGuide.adoc[tag=loanSlip]
@@ -97,8 +112,10 @@ include::../UserGuide.adoc[tag=loanSlip]
 |_This section highlights my contributions to the Developer Guide. The following are excerpts from the 'LiBerry' Developer Guide. These excerpts show the additions I have made for the 'Add Book' and 'Generate Loan Slip' feature._
 |===
 
+== Add Book
 include::../DeveloperGuide.adoc[tag=addBook]
 
+== Generating Loan Slip
 include::../DeveloperGuide.adoc[tag=printLoanSlip]
 
 ---

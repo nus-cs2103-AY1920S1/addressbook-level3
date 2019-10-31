@@ -293,7 +293,9 @@ Upon loaning a book, a printable loan slip in PDF format will be generated.
 ****
 .Printable loan slip generated.
 image::LoanSlip.png[width=250]
+{nbsp}
 ****
+In the figure above, we can see that the loan slip records all the books being borrowed by 'Bill'.
 // end::loanSlip[]
 
 ==== Returning book(s): `return`
