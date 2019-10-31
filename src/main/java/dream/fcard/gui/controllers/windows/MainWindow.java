@@ -63,6 +63,7 @@ public class MainWindow extends VBox {
 
     //Example code
     private Consumer<Boolean> create = b -> showCreateNewDeckForm();
+    private Consumer<String> createWDeckName = s -> showCreateNewDeckForm(s);
     private Consumer<Integer> seeDeck = i -> displaySpecificDeck(State.getState().getDecks().get(i - 1));
     private Consumer<Boolean> exitCreate = b -> exitCreate();
     private Consumer<String> processInputCreate = s -> processInputCreate(s);
@@ -131,14 +132,25 @@ public class MainWindow extends VBox {
     }
 
     /**
-     * Switches the display pane to an edit pane
+     * Switches the display pane to an edit pane, used in initialising step/
      */
     private void showCreateNewDeckForm() {
         displayContainer.getChildren().clear();
         this.tempCreateDeckDisplay = new CreateDeckDisplay();
         displayContainer.getChildren().add(tempCreateDeckDisplay);
         State.getState().setCurrState(StateEnum.CREATE);
-        //State.getState().setCreateCommand(new CreateCommand(editingWindow.getTempDeck();));
+    }
+
+    /**
+     * Switches the display pane to create pane, used to enter StateEnun.CREATE.
+     *
+     * @param s The name of the deck being created.
+     */
+    private void showCreateNewDeckForm(String s) {
+        displayContainer.getChildren().clear();
+        this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
+        displayContainer.getChildren().add(tempCreateDeckDisplay);
+        State.getState().setCurrState(StateEnum.CREATE);
     }
 
     /**
@@ -195,6 +207,7 @@ public class MainWindow extends VBox {
         Dispatcher.addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
         Dispatcher.addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
         Dispatcher.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
+        Dispatcher.addConsumer(ConsumerSchema.CREATE_NEW_DECK_W_NAME, createWDeckName);
         Dispatcher.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
         Dispatcher.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
         Dispatcher.addConsumer(ConsumerSchema.EXIT_CREATE, exitCreate);
@@ -226,12 +239,15 @@ public class MainWindow extends VBox {
         System.exit(0);
     }
 
+    /**
+     * Saves and exits from Create mode.
+     */
     public void exitCreate() {
         tempCreateDeckDisplay.onSaveDeck();
+        State.getState().setCurrState(StateEnum.DEFAULT);
     }
 
     public void processInputCreate(String input) {
         tempCreateDeckDisplay.processInput(input);
     }
-
 }

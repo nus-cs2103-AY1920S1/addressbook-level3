@@ -53,6 +53,7 @@ public class CardCreatingWindow extends AnchorPane {
 
     private String cardType = "";
     private Deck tempDeck = new Deck();
+    private String testCases;
     private Consumer<Integer> incrementCounterInParent;
     @SuppressWarnings("unchecked")
     private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
@@ -160,15 +161,18 @@ public class CardCreatingWindow extends AnchorPane {
                 displayMessage.accept("You need to enter a question!");
                 return;
             }
-            if (!jsFileUploader.hasFile()) {
+            if (!jsFileUploader.hasFile() && testCases.equals(null)) {
                 displayMessage.accept("You need to upload a JS file");
                 return;
             }
             try {
-                String testCases = jsFileUploader.getAssertions();
+                if (testCases.equals(null)) {
+                    testCases = jsFileUploader.getAssertions();
+                }
                 String front = questionField.getText();
                 JavascriptCard card = new JavascriptCard(front, testCases);
                 tempDeck.addNewCard(card);
+                //testCases = null;
             } catch (FileNotFoundException e) {
                 displayMessage.accept("I could not read in your file. Please try again");
                 return;
@@ -241,6 +245,10 @@ public class CardCreatingWindow extends AnchorPane {
         this.frontBackTextArea.setText(s);
     }
 
+    public void setTestCases (String s) {
+        this.testCases = s;
+    }
+
     /**
      * Allows public access to the addCardToDeck method.
      */
@@ -258,6 +266,10 @@ public class CardCreatingWindow extends AnchorPane {
 
     public McqOptionsSetter getMcqOptionsSetter() {
         return this.mcqOptionsSetter;
+    }
+
+    public JsFileUploader getJsFileUploader() {
+        return this.jsFileUploader;
     }
 
     public String getCardType() {

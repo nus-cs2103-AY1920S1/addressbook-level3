@@ -40,11 +40,14 @@ public class CreateDeckDisplay extends AnchorPane {
     private String deckNameString;
     private String front;
     private String back;
+    private String testCases;
     private ArrayList<String> choices;
 
     private boolean hasFront;
     private boolean hasBack;
     private boolean hasChoice;
+    private boolean hasTestCases;
+    private boolean hasDeckName;
     private int correctIndex;
 
     private final String frontBack = "Front-back";
@@ -98,6 +101,7 @@ public class CreateDeckDisplay extends AnchorPane {
             cardCreatingPane.setContent(editingWindow);
             onSaveDeck.setOnAction(e -> onSaveDeck());
             cancelButton.setOnAction(e -> exitEditingMode.accept(true));
+            this.deckNameInput = new TextField(deckNameInput);
         } catch (IOException e) {
             //TODO: replace or augment with a logger
             e.printStackTrace();
@@ -136,27 +140,40 @@ public class CreateDeckDisplay extends AnchorPane {
         hasFront = hasFront(input);
         hasBack = hasBack(input);
         hasChoice = hasChoice(input);
+        hasTestCases = hasTestCase(input);
+        hasDeckName = hasDeckName(input);
+
+        if (hasDeckName) {
+            deckNameString = input.split("deck/")[1].split(" ")[0].strip();
+            this.deckNameInput = new TextField(deckNameString);
+        }
 
         boolean success;
-        if (!hasChoice) {
-            success = parseFrontBack(input);
-        } else {
+        if (hasChoice) {
             success = parseMcq(input);
+        } else if (hasTestCases) {
+            success = parseJS(input);
+        } else {
+            success = parseFrontBack(input);
         }
 
         if (!success) {
-            displayMessage.accept("MCQ card creation failed.");
+            displayMessage.accept("CLI card creation failed.");
         }
 
         try {
             Deck deck = editingWindow.getTempDeck();
 
-            if (!hasChoice) {
-                editingWindow.setCardType(frontBack);
+            if (hasTestCases) {
+                editingWindow.setCardType(js);
+                editingWindow.publicChangeInputBox(js);
+
                 editingWindow.setQuestionFieldText(front);
-                editingWindow.setAnswerFieldText(back);
+
+                editingWindow.setTestCases(testCases);
+
                 editingWindow.publicAddCard();
-            } else {
+            } else if (hasChoice) {
                 editingWindow.setCardType(mcq);
                 editingWindow.publicChangeInputBox(mcq);
 
@@ -172,6 +189,13 @@ public class CreateDeckDisplay extends AnchorPane {
                     }
                 }
 
+                editingWindow.publicAddCard();
+            } else {
+                editingWindow.setCardType(frontBack);
+                editingWindow.publicChangeInputBox(frontBack);
+
+                editingWindow.setQuestionFieldText(front);
+                editingWindow.setAnswerFieldText(back);
                 editingWindow.publicAddCard();
             }
 
@@ -195,7 +219,7 @@ public class CreateDeckDisplay extends AnchorPane {
             userCardFields = userInput.trim().split("front/");
             //String newDeckName = userInputFields[0];
             userCardFields = userCardFields[1].trim().split("correctIndex/");
-            correctIndex = Integer.valueOf(userCardFields[1].strip());
+            correctIndex = Integer.valueOf(userCardFields[1].strip()) - 1;
 
             userCardFields = userCardFields[0].trim().split("choice/");
             front = userCardFields[0].strip();
@@ -237,13 +261,32 @@ public class CreateDeckDisplay extends AnchorPane {
         }
     }
 
+    private boolean parseJS(String input) {
+        String userInput = input.replaceFirst("create deck/", "");
+
+        if (hasFront && hasTestCases) {
+            String[] userInputFields = input.split("front/")[1].split("testCase/");
+            front = userInputFields[0].strip();
+
+            StringBuilder temp = new StringBuilder();
+            for(int i = 1; i < userInputFields.length; i++) {
+                temp.append(userInputFields[i].strip());
+            }
+
+            testCases = temp.toString();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      *
      * @param input
      * @return
      */
     private boolean hasFront(String input) {
-        return input.contains("front");
+        return input.contains("front/");
     }
 
     /**
@@ -252,7 +295,7 @@ public class CreateDeckDisplay extends AnchorPane {
      * @return
      */
     private boolean hasBack(String input) {
-        return input.contains("back");
+        return input.contains("back/");
     }
 
     /**
@@ -261,7 +304,20 @@ public class CreateDeckDisplay extends AnchorPane {
      * @return
      */
     private boolean hasChoice(String input) {
-        return input.contains("choice");
+        return input.contains("choice/");
+    }
+
+    /**
+     * @param input
+     * @return
+     */
+    private boolean hasTestCase(String input) {
+        System.out.println("hasTestCase");
+        return input.contains("testCase/");
+    }
+
+    private boolean hasDeckName(String input) {
+        return input.contains("deck/");
     }
 
 }

@@ -30,7 +30,10 @@ public class Dispatcher {
 
         switch(currState.toString()) {
         case "DEFAULT":
-            if (input.startsWith(ConsumerSchema.CREATE_NEW_DECK)) {
+            if (input.startsWith(ConsumerSchema.CREATE_NEW_DECK_W_NAME)) {
+                String deckName = getDeckName(input);
+                consumers.get(ConsumerSchema.CREATE_NEW_DECK_W_NAME).accept(deckName);
+            } else if (input.startsWith(ConsumerSchema.CREATE_NEW_DECK)) {
                 consumers.get(ConsumerSchema.CREATE_NEW_DECK).accept(true);
             } else if (input.startsWith(ConsumerSchema.SEE_SPECIFIC_DECK)) {
                 //assume command is of the form "see_deck 1"
@@ -57,8 +60,6 @@ public class Dispatcher {
                 consumers.get(ConsumerSchema.QUIT_PROGRAM).accept(true);
             } else if (input.startsWith(ConsumerSchema.EXIT_CREATE)) {
                 consumers.get(ConsumerSchema.EXIT_CREATE).accept(true);
-            } else if (input.startsWith("test")) {
-
             } else if (validInput(input)) {
                 consumers.get(ConsumerSchema.PROCESS_INPUT).accept(input);
             } else {
@@ -73,6 +74,11 @@ public class Dispatcher {
 
     private static Boolean validInput(String input) {
         return (input.contains("front/") && input.contains("back/"))
-                | (input.contains("front/") && input.contains("choice/"));
+                | (input.contains("front/") && input.contains("choice/"))
+                | (input.contains("front/") && input.contains("testCase/"));
+    }
+
+    private static String getDeckName(String input) {
+        return input.split("deck/")[1].split(" ")[0].strip();
     }
 }
