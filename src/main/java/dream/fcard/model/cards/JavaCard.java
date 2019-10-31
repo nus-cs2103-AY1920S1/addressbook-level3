@@ -51,4 +51,9 @@ public class JavaCard extends FlashCard {
     public FlashCard duplicate() {
         return new JavaCard(question, testCases);
     }
+
+    @Override
+    public void updateScore(Boolean isCorrect) {
+
+    }
 }

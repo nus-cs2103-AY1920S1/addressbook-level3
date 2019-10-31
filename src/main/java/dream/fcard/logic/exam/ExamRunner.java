@@ -16,9 +16,7 @@ public class ExamRunner {
     }
 
     public static void createExam(ArrayList<FlashCard> deck) {
-        if (exam == null) {
-            exam = new UntimedExam(deck);
-        }
+        exam = new UntimedExam(deck);
     }
 
     public static Exam getCurrentExam() {

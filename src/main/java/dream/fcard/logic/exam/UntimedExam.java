@@ -13,10 +13,12 @@ public class UntimedExam implements Exam {
     private final ArrayList<FlashCard> testDeck;
     private Result result;
     private int index = 0;
+    private ArrayList<FlashCard> statDeck;
 
     public UntimedExam(ArrayList<FlashCard> deck) {
         this.testDeck = deck;
         this.result = new Result(testDeck.size());
+        this.statDeck = createStatDeck();
     }
 
     @Override
@@ -25,10 +27,18 @@ public class UntimedExam implements Exam {
     }
 
     @Override
-    public void parseUserInputAndGrade(String answer) throws IndexNotFoundException {
-        FlashCard currentCard = testDeck.get(index);
-        boolean isCorrect = currentCard.evaluate(answer);
-        result.mark(isCorrect);
+    public FlashCard getCurrentStatCard() {
+        return statDeck.get(index);
+    }
+
+    @Override
+    public boolean parseUserInputAndGrade(Boolean isCorrect) throws IndexNotFoundException {
+        if (isCorrect) {
+            result.mark(true);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -58,4 +68,17 @@ public class UntimedExam implements Exam {
         return index;
     }
 
+    @Override
+    public void addDuplicateCardToDeck(FlashCard card) {
+        this.statDeck.add(card);
+    }
+
+    private ArrayList<FlashCard> createStatDeck() {
+        ArrayList<FlashCard> statDeckConsumer = new ArrayList<>();
+        for (FlashCard card : testDeck) {
+            FlashCard duplicateCard = card.duplicate();
+            statDeckConsumer.add(duplicateCard);
+        }
+        return statDeckConsumer;
+    }
 }

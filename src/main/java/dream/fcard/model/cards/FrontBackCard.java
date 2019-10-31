@@ -15,6 +15,8 @@ public class FrontBackCard extends FlashCard {
     protected String back;
     protected String front;
     protected Statistics stats;
+    protected int cardResult;
+
     /**
      * Constructor to create a FrontBackCard.
      * Takes in 2 String, front text and back text.
@@ -27,6 +29,7 @@ public class FrontBackCard extends FlashCard {
         front = frontString;
         // Default priority is 1
         priority = LOW_PRIORITY;
+        this.cardResult = -1;
     }
 
     /**
@@ -106,5 +109,14 @@ public class FrontBackCard extends FlashCard {
      */
     public String getBack() {
         return back;
+    }
+
+    @Override
+    public void updateScore(Boolean isCorrect) {
+        if (isCorrect) {
+            this.cardResult = 1;
+        } else {
+            this.cardResult = 0;
+        }
     }
 }

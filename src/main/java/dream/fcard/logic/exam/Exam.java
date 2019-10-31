@@ -13,9 +13,11 @@ public interface Exam {
 
     public FlashCard getCurrentCard();
 
+    public FlashCard getCurrentStatCard();
+
     public ArrayList<FlashCard> getDeck();
 
-    public void parseUserInputAndGrade(String answer) throws IndexNotFoundException;
+    public boolean parseUserInputAndGrade(Boolean isCorrect) throws IndexNotFoundException;
 
     public void upIndex();
 
@@ -24,4 +26,6 @@ public interface Exam {
     public String getResult();
 
     public int getIndex();
+
+    public void addDuplicateCardToDeck(FlashCard card);
 }

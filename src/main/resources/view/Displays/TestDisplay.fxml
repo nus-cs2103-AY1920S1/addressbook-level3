@@ -15,6 +15,6 @@
                 <Button fx:id="nextButton" alignment="CENTER" mnemonicParsing="false" text="Next" />
             </buttons>
         </ButtonBar>
-      <Label fx:id="scoreLabel" alignment="CENTER" layoutX="80.0" layoutY="373.0" prefHeight="17.0" prefWidth="60.0" text="15/20" />
+      <Label fx:id="scoreLabel" alignment="CENTER" layoutX="286.0" layoutY="402.0" minWidth="-Infinity" prefHeight="17.0" />
     </children>
 </fx:root>
