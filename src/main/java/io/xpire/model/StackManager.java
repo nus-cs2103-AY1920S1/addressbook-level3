@@ -9,6 +9,7 @@ import io.xpire.model.state.State;
  */
 public class StackManager {
 
+    private static State current;
     private Stack<State> undoStack = new Stack<>();
     private Stack<State> redoStack = new Stack<>();
 
@@ -20,26 +21,31 @@ public class StackManager {
      * @return popped State (most recent State).
      */
     public State undo(State currentState) {
-        redoStack.push(currentState);
         if (isUndoStackEmpty()) {
             return null;
         }
-        return undoStack.pop();
+        redoStack.push(currentState);
+        current = undoStack.pop();
+        return current;
+    }
+
+    public boolean isDateSorted() {
+        return undoStack.peek().isSortByDate();
     }
 
     /**
-     * Processes the redo comman by pushing the current state into the undoStack and
+     * Processes the redo command by pushing the current state into the undoStack and
      * returning the state before the previous Undo.
      *
-     * @param currentState current State.
      * @return popped State (previous State).
      */
-    public State redo(State currentState) {
-        undoStack.push(currentState);
+    public State redo() {
+        undoStack.push(current);
         if (isRedoStackEmpty()) {
             return null;
         }
-        return redoStack.pop();
+        current = redoStack.pop();
+        return current;
     }
 
     /**

@@ -3,6 +3,7 @@ package io.xpire.model;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.ListToView;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.item.sort.XpireMethodOfSorting;
 import javafx.collections.transformation.FilteredList;
 
 /**
@@ -10,7 +11,7 @@ import javafx.collections.transformation.FilteredList;
  */
 public class CloneModel {
 
-    private ReadOnlyListView<XpireItem> xpire;
+    private Xpire xpire;
     private ReadOnlyListView<Item> replenishList;
     private ReadOnlyUserPrefs userPrefs;
     private FilteredList<XpireItem> filteredXpireItemList;
@@ -21,10 +22,11 @@ public class CloneModel {
     public CloneModel(ReadOnlyListView<XpireItem> xpire, ReadOnlyListView<Item> replenishList,
                       ReadOnlyUserPrefs userPrefs, FilteredList<XpireItem> filteredXpireItemList,
                       FilteredList<Item> filteredReplenishItemList,
-                      ListToView listToView) {
+                      ListToView listToView, XpireMethodOfSorting method) {
         this.xpire = new Xpire(xpire);
         this.replenishList = new ReplenishList(replenishList);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.xpire.setMethodOfSorting(method);
         this.filteredXpireItemList = new FilteredList<>(this.xpire.getItemList());
         this.filteredXpireItemList.setPredicate(filteredXpireItemList.getPredicate());
         this.filteredReplenishItemList = new FilteredList<>(this.replenishList.getItemList());

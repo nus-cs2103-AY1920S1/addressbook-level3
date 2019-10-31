@@ -9,16 +9,35 @@ import io.xpire.model.item.sort.XpireMethodOfSorting;
  */
 public class State {
 
-    private static XpireMethodOfSorting method = new XpireMethodOfSorting("name");
+    private XpireMethodOfSorting method = new XpireMethodOfSorting("name");
+    private boolean isSortByDate = false;
     private CloneModel cloneModel = null;
 
     public State(Model model) {
         this.cloneModel = clone(model);
     }
 
-    public State(Model model, XpireMethodOfSorting method) {
+    public State(Model model, boolean b) {
         this.cloneModel = clone(model);
-        State.method = method;
+        isSortByDate = true;
+    }
+
+    public State(Model model, boolean b, boolean b2) {
+        this.cloneModel = clone(model);
+        isSortByDate = true;
+        setDateSorting();
+    }
+
+    public void setDateSorting() {
+        this.method = new XpireMethodOfSorting("date");
+    }
+
+    public boolean isSortByDate() {
+        return isSortByDate;
+    }
+
+    public void toggle() {
+        isSortByDate = !isSortByDate;
     }
 
     /**
@@ -27,14 +46,14 @@ public class State {
     private CloneModel clone(Model model) {
         return new CloneModel(model.getXpire(), model.getReplenishList(), model.getUserPrefs(),
                 model.getFilteredXpireItemList(), model.getFilteredReplenishItemList(),
-                model.getListToView());
+                model.getListToView(), method);
     }
 
     public CloneModel getCloneModel() {
         return cloneModel;
     }
 
-    public static XpireMethodOfSorting getMethod() {
+    public XpireMethodOfSorting getMethod() {
         return method;
     }
 

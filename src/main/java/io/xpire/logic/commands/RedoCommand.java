@@ -12,7 +12,7 @@ import io.xpire.model.state.State;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_REDO_SUCCESS = "Redo command: Test";
+    public static final String MESSAGE_REDO_SUCCESS = "Redo command";
     public static final String MESSAGE_REDO_FAILURE = "There are no commands to redo.";
 
     @Override
@@ -21,9 +21,7 @@ public class RedoCommand extends Command {
         if (stackManager.isRedoStackEmpty()) {
             return new CommandResult(MESSAGE_REDO_FAILURE);
         }
-        State currentState = new State(model);
-        State succeedingState = stackManager.redo(currentState);
-
+        State succeedingState = stackManager.redo();
         model.update(succeedingState);
         return new CommandResult(MESSAGE_REDO_SUCCESS);
     }

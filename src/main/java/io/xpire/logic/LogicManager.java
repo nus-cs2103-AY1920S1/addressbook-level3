@@ -53,14 +53,14 @@ public class LogicManager implements Logic {
         Command command = this.parser.parse(commandText);
         commandResult = command.execute(this.model, this.stackManager);
 
-        System.out.println("ALLITEMS");
-        this.model.getXpire().getItemList().forEach(System.out::println);
-        System.out.println("Xpireitem");
-        this.model.getFilteredXpireItemList().forEach(System.out::println);
-        System.out.println("currentitem");
-        this.model.getCurrentFilteredItemList().forEach(System.out::println);
-        System.out.println("replenishitem");
-        this.model.getFilteredReplenishItemList().forEach(System.out::println);
+        //System.out.println("ALLITEMS");
+        //this.model.getXpire().getItemList().forEach(System.out::println);
+        //System.out.println("Xpireitem");
+        //this.model.getFilteredXpireItemList().forEach(System.out::println);
+        //System.out.println("currentitem");
+        //this.model.getCurrentFilteredItemList().forEach(System.out::println);
+        //System.out.println("replenishitem");
+        //this.model.getFilteredReplenishItemList().forEach(System.out::println);
 
         try {
             this.storage.saveList(this.model.getLists());

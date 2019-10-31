@@ -27,7 +27,7 @@ import io.xpire.model.tag.TagComparator;
 import javafx.collections.transformation.FilteredList;
 
 /**
- * Represents the in-memory model of the xpire data.
+ * Represents the in-memory model of sthe xpire data.
  */
 public class ModelManager implements Model {
 
@@ -385,7 +385,6 @@ public class ModelManager implements Model {
         this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
         this.setFilteredXpireItems(clone.getFilteredXpireItemList());
         this.setCurrentFilteredItemList(clone.getListToView());
-        this.sortItemList(State.getMethod());
     }
 
     @Override

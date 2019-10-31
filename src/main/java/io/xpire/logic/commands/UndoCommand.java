@@ -12,7 +12,7 @@ import io.xpire.model.state.State;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_UNDO_SUCCESS = "Undo command: Test";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undo command";
     public static final String MESSAGE_UNDO_FAILURE = "There are no previous commands to undo.";
 
     @Override
@@ -21,14 +21,13 @@ public class UndoCommand extends Command {
         if (stackManager.isUndoStackEmpty()) {
             return new CommandResult(MESSAGE_UNDO_FAILURE);
         }
-        State currentState = new State(model);
-        State previousState = stackManager.undo(currentState);
-        //while (currentState.equals(previousState)) {
-        //    previousState = stackManager.undo(currentState);
-        //}
-        if (previousState == null) {
-            return new CommandResult(MESSAGE_UNDO_FAILURE);
+        State currentState;
+        if (stackManager.isDateSorted()) {
+            currentState = new State(model, true, true);
+        } else {
+            currentState = new State(model);
         }
+        State previousState = stackManager.undo(currentState);
         model.update(previousState);
         return new CommandResult(MESSAGE_UNDO_SUCCESS);
     }

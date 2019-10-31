@@ -409,6 +409,8 @@ When this happens, the existing states in the Redo Stack will be cleared. The st
 
 image::UndoRedo/UndoRedoStep5c.png[]
 
+[PROPOSED] A CommandHistory will also be integrated into the application so that it delivers feedback on what commands it has undo/redo.
+
 [NOTE]
 Not all commands will save states to StackManager. Exit and Help commands will not save states. Undo and Redo commands should only act on commands that update the items or change the view of the items to the user.
 
