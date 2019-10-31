@@ -76,6 +76,12 @@ public class MainApp extends Application {
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing GroceryList ]===========================");
+        logger.info("=============================[ Initializing TemplateList ]===========================");
+        logger.info("=============================[ Initializing WasteList ]===========================");
+        logger.info("=============================[ Initializing ShoppingList ]===========================");
+        logger.info("=============================[ Initializing BoughtList ]===========================");
+        logger.info("=============================[ Initializing UnitDictionary ]===========================");
+
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -132,6 +138,7 @@ public class MainApp extends Application {
             initialShoppingListData = new ShoppingList();
             initialGroceryListData = new GroceryList();
             initialTemplateListData = new TemplateList();
+            initialBoughtListData = new GroceryList();
             initialUnitDictionaryData = new UnitDictionary(new HashMap<String, String>());
         }
 
@@ -179,7 +186,7 @@ public class MainApp extends Application {
      */
     private UnitDictionary generateNewUnitDictionary(ReadOnlyGroceryList groceryList, ReadOnlyTemplateList templateList,
                                                      ReadOnlyShoppingList shoppingList, ReadOnlyGroceryList boughtList)
-            throws InvalidDictionaryException{
+            throws InvalidDictionaryException {
 
         HashMap<String, String> mapToBeCreated = new HashMap<>();
         mapToBeCreated = updateMapWithTemplateItems(mapToBeCreated, templateList);
@@ -358,10 +365,10 @@ public class MainApp extends Application {
             }
             initialTemplateListData = templateListOptional.orElseGet(SampleDataUtil::getSampleTemplateList);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty GroceryList");
+            logger.warning("Data file not in the correct format. Will be starting with an empty TemplateList");
             initialTemplateListData = new TemplateList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty GroceryList");
+            logger.warning("Problem while reading from the file. Will be starting with an empty TemplateList");
             initialTemplateListData = new TemplateList();
         }
 
