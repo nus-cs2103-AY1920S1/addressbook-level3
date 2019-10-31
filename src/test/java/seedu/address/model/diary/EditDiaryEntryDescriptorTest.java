@@ -39,9 +39,18 @@ class EditDiaryEntryDescriptorTest {
     }
 
     @Test
-    void setDiaryText_randomText_textEquals() {
+    void setDiaryText_randomText_textPlusNewLineEquals() {
         EditDiaryEntryDescriptor editDescriptor = new EditDiaryEntryDescriptor(TEST_ENTRY_1);
-        String textToSet = DiaryTestUtil.generateRandomText();
+        String textToSet = DiaryTestUtil.generateRandomText() + "a";
+        editDescriptor.setDiaryText(textToSet);
+
+        assertEquals(editDescriptor.getDiaryText(), textToSet + "\n");
+    }
+
+    @Test
+    void setDiaryText_randomTextHasNewLine_doesNotAddNewLine() {
+        EditDiaryEntryDescriptor editDescriptor = new EditDiaryEntryDescriptor(TEST_ENTRY_1);
+        String textToSet = DiaryTestUtil.generateRandomText() + '\n';
         editDescriptor.setDiaryText(textToSet);
 
         assertEquals(editDescriptor.getDiaryText(), textToSet);

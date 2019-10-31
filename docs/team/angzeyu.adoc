@@ -43,6 +43,9 @@ build upon the existing code rather than make intrusive code changes. Given the 
 we utilised much of the existing code to speed our development process.
 
 * *Third Main Contribution*: Implemented the base trip manager and preferences screens
++
+image::Ui.png[]
+
 ** What: The trip manager allows the user to create and delete trips, and serves as the entry point into a single trip's
 sub-features. The preferences screen allows the user to change several configuration options in the application without having to go into the
 `json` text configuration file to edit it.
@@ -59,20 +62,18 @@ on their system manually, which can be daunting.
 ** Idea generation:
 *** contributed main idea of _TravelPal_ and its various sub-features (itinerary, diary, expenses, etc.) during project
 inception, which the team agreed upon. (see https://docs.google.com/document/d/1mKmIZghbtYwgSWdDTiRQDLdXjKNhjuys8uSO8Y6McyI/edit[travelpal idea generation google docs])
+** Enhancements to existing features
+*** Enhanced navigation bar icon looks https://github.com/AY1920S1-CS2103T-T11-4/main/pull/68[#68]
+
 ** Project management:
-*** Managed releases `v1.1` - `v1.21` (3 releases) on GitHub: https://github.com/AY1920S1-CS2103T-T11-4/main/releases[releases]
+*** Managed releases `v1.1` - `v1.3` (4 releases) on GitHub: https://github.com/AY1920S1-CS2103T-T11-4/main/releases[releases]
 *** Maintained issue tracker for milestones `1.1` through `1.3` https://github.com/AY1920S1-CS2103T-T11-4/main/issues?q=is%3Aissue+is%3Aclosed[issues]
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Tools:
 *** Set up several continuous integration services (appveyor, coveralls)
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Set up team github organization and repo
 
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below is one of the sections I contributed to the User Guide, on the `addphoto` command of the *diary* feature. They showcase my ability to write documentation targeting end-users._
