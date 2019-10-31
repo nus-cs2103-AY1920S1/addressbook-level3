@@ -19,7 +19,11 @@ public class TaskDateComparator implements Comparator<TaskSource> {
             } else if (task.getDueDate() != null && otherTask.getDueDate() == null) {
                 return -1;
             } else {
-                return task.getDescription().compareTo(otherTask.getDescription());
+                if(task.getDueDate().equals(otherTask.getDueDate())) {
+                    return task.getDescription().compareTo(otherTask.getDescription());
+                } else {
+                    return task.getDueDate().compareTo(otherTask.getDueDate());
+                }
             }
         } else {
             return Boolean.compare(task.isDone(), otherTask.isDone());
