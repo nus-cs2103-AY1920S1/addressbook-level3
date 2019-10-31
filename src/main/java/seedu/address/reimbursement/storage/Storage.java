@@ -1,10 +1,10 @@
 package seedu.address.reimbursement.storage;
 
+import java.io.IOException;
+
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.exception.FileReadWriteException;
-
-import java.io.IOException;
 
 /**
  * Storage interfaces. Defines the methods that a StorageManager has to implement.
