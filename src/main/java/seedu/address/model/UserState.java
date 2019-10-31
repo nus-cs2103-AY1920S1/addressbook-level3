@@ -88,4 +88,9 @@ public class UserState implements ReadOnlyUserState {
     public boolean hasBudget(Budget budget) {
         return bankAccount.hasBudget(budget);
     }
+
+    // TODO?
+    // public boolean hasLedger(LedgerOperation ledgerOperation) {
+    //     return ledger.hasLedger(ledger);
+    // }
 }

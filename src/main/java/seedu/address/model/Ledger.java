@@ -23,26 +23,30 @@ public class Ledger implements ReadOnlyLedger {
     public Ledger() {
         pot = Amount.zero();
         people = new UniquePersonList();
+        ledgerHistory = new UniqueLedgerOperationList();
     }
 
     public Ledger(ReadOnlyLedger ledger) {
         requireNonNull(ledger);
         pot = ledger.getBalance();
-        setPersonList(ledger);
         setLedgerHistory(ledger);
+        setPersonList(ledger);
     }
 
     private void setLedgerHistory(ReadOnlyLedger ledger) {
+        requireNonNull(ledger.getLedgerHistory());
         ledgerHistory.setTransactions(ledger.getLedgerHistory());
     }
 
     private void setPersonList(ReadOnlyLedger ledger) {
+        requireNonNull(ledger.getPeople());
         people.setPersons(ledger.getPeople());
     }
 
 
     /**
      * Adds transaction into a separate splitHistory
+     *
      * @param transaction
      */
     public void addOperation(LedgerOperation transaction) {

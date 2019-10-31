@@ -13,71 +13,79 @@ import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 
 /**
- * An Immutable BankAccount that is serializable to JSON format.
+ * An Immutable UserState that is serializable to JSON format.
  */
-@JsonRootName(value = "bankaccount")
-class JsonSerializableBankAccount {
+@JsonRootName(value = "userstate")
+class JsonSerializableUserState {
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
     public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
+    public static final String MESSAGE_DUPLICATE_LEDGER = "Ledgers list contains duplicate budget(s).";
 
     private final List<JsonAdaptedBankOperations> transactions = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
-//    private final List<JsonAdaptedLedgerOperations> ledgerOperations = new ArrayList<>();
+    private final List<JsonAdaptedLedgerOperations> ledgers = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBankAccount} with the given transactions.
      */
     @JsonCreator
-    public JsonSerializableBankAccount(@JsonProperty("transactions") List<JsonAdaptedBankOperations> transactions,
-                                       @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
+    public JsonSerializableUserState(@JsonProperty("transactions") List<JsonAdaptedBankOperations> transactions,
+                                     @JsonProperty("budgets") List<JsonAdaptedBudget> budgets,
+                                     @JsonProperty("ledgers") List<JsonAdaptedLedgerOperations> ledgers) {
         this.transactions.addAll(transactions);
         this.budgets.addAll(budgets);
+        this.ledgers.addAll(ledgers);
     }
 
-    /**
-     * Converts a given {@code ReadOnlyBankAccount} into this class for Jackson use.
-     *
-     * @param source future changes to this will not affect the created {@code JsonSerializableBankAccount}.
-     */
-    public JsonSerializableBankAccount(ReadOnlyUserState source) {
-        budgets
-            .addAll(source.getBankAccount().getBudgetHistory()
-                .stream()
-                .map(JsonAdaptedBudget::new)
-                .collect(Collectors.toList()));
+    public JsonSerializableUserState(ReadOnlyUserState source) {
         transactions
             .addAll(source.getBankAccount().getTransactionHistory()
                 .stream()
                 .map(JsonAdaptedBankOperations::new)
                 .collect(Collectors.toList()));
+        budgets
+            .addAll(source.getBankAccount().getBudgetHistory()
+                .stream()
+                .map(JsonAdaptedBudget::new)
+                .collect(Collectors.toList()));
+        ledgers
+            .addAll(source.getLedger().getLedgerHistory()
+                .stream()
+                .map(JsonAdaptedLedgerOperations::new)
+                .collect(Collectors.toList()));
     }
 
-    /**
-     * Converts this bank account into the model's {@code BankAccount} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated.
-     */
     public UserState toModelType() throws IllegalValueException {
-        UserState user = new UserState();
+        UserState userState = new UserState();
         for (JsonAdaptedBankOperations jsonAdaptedBankOperations : transactions) {
             BankAccountOperation txn = jsonAdaptedBankOperations.toModelType();
-            if (user.hasTransaction(txn)) {
+            if (userState.hasTransaction(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
-            user.addTransaction(txn);
+            userState.addTransaction(txn);
         }
 
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();
-            if (user.hasBudget(budget)) {
+            if (userState.hasBudget(budget)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
             }
-            user.addBudget(budget);
+            userState.addBudget(budget);
         }
-        return user;
-    }
 
+        for (JsonAdaptedLedgerOperations jsonAdaptedLedgerOperations : ledgers) {
+            LedgerOperation ledgerOperation = jsonAdaptedLedgerOperations.toModelType();
+            // TODO
+            // if (userState.hasLedger(ledgerOperation)) {
+            //     throw new IllegalValueException(MESSAGE_DUPLICATE_LEDGER);
+            // }
+            userState.addLedgerOperation(ledgerOperation);
+        }
+
+        return userState;
+    }
 }

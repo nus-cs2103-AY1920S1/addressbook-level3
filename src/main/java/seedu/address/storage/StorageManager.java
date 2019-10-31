@@ -19,12 +19,19 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private BankAccountStorage bankAccountStorage;
+    private UserStateStorage userStateStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(BankAccountStorage bankAccountStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.bankAccountStorage = bankAccountStorage;
+        this.userPrefsStorage = userPrefsStorage;
+    }
+
+    public StorageManager(UserStateStorage userStateStorage, UserPrefsStorage userPrefsStorage) {
+        super();
+        this.userStateStorage = userStateStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -55,13 +62,13 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyUserState> readAccount() throws DataConversionException, IOException {
-        return readAccount(bankAccountStorage.getBankAccountFilePath());
+        return readAccount(userStateStorage.getUserStateFilePath());
     }
 
     @Override
     public Optional<ReadOnlyUserState> readAccount(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return bankAccountStorage.readAccount(filePath);
+        return userStateStorage.readUserState(filePath);
     }
 
     public void saveAccount(ReadOnlyUserState bankAccount) throws IOException {

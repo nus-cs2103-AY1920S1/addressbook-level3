@@ -26,9 +26,11 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.BankAccountStorage;
 import seedu.address.storage.JsonBankAccountStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserStateStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.UserStateStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -58,7 +60,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         BankAccountStorage bankAccountStorage = new JsonBankAccountStorage(userPrefs.getBankAccountFilePath());
-        storage = new StorageManager(bankAccountStorage, userPrefsStorage);
+        UserStateStorage userStateStorage = new JsonUserStateStorage(userPrefs.getBankAccountFilePath());
+        storage = new StorageManager(userStateStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -75,14 +78,14 @@ public class MainApp extends Application {
      * or an empty bank account will be used instead if errors occur when reading {@code storage}'s bank account.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyUserState> bankAccountOptional;
+        Optional<ReadOnlyUserState> userStateOptional;
         ReadOnlyUserState initialData;
         try {
-            bankAccountOptional = storage.readAccount();
-            if (!bankAccountOptional.isPresent()) {
+            userStateOptional = storage.readAccount();
+            if (!userStateOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BankAccount");
             }
-            initialData = bankAccountOptional.orElseGet(SampleDataUtil::getSampleAccount);
+            initialData = userStateOptional.orElseGet(SampleDataUtil::getSampleAccount);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty BankAccount");
             initialData = new UserState();
