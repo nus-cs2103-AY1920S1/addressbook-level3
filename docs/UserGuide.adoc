@@ -201,6 +201,16 @@ Format: `mealplan <exerciseName> shoplist <shoplist exerciseName>`
 
 Can't track all your deadlines? Look through the available commands in this section and start managing them.
 
+==== pass:[<u>Going to the Dashboard</u>]
+
+A quick way to get to the Dashboard and start getting work done!
+
+Command: `dashboard`
+
+.Adding a task
+[caption="Figure 1: "]
+image::addtask-ug.png[width="790"]
+
 ==== pass:[<u>Adding a task</u>]
 
 Let's start by using the `add` command to add some tasks into DukeCooks!
@@ -215,6 +225,8 @@ When entering the date for a task, please follow the given format: day/month/yea
 
 Example usage: `add task tn/Bake a Cake td/29/10/2019`
 
+.Adding a task
+[caption="Figure 2: "]
 image::addtask-ug.png[width="790"]
 
 ==== pass:[<u>Editing a task's details</u>]
@@ -227,6 +239,8 @@ Format: `edit task _index number_`
 
 Example usage: `edit task 1 tn/Bake cupcakes td/30/10/2019`
 
+.Editing a task
+[caption="Figure 3: "]
 image::edittask-ug.png[width="790"]
 
 ==== pass:[<u>Removing a task</u>]
@@ -237,8 +251,10 @@ Well you can delete them off from DukeCooks.
 Command: `delete task` +
 Format: `delete task _index number_`
 
-Example usage: `delete task 2`
+Example usage: `delete task 1`
 
+.Deleting a task
+[caption="Figure 4: "]
 image::deletetask-ug.png[width="790"]
 
 ==== pass:[<u>Marking a task as complete</u>]
@@ -249,9 +265,22 @@ Check it off the list!
 Command: `done` +
 Format: `done _index number_`
 
-Example usage: `done 1`
+Example usage: `done 2`
 
+- 1: Enter the done command into the dashboard
+- 2: The task is now marked as RECENTLY COMPLETED.
+- 3: The progress bar will be increased
+
+.Marking a task complete
+[caption="Figure 5: "]
 image::donetask-ug.png[width="790"]
+
+Hard at work? Marking 5 new tasks done will give a surprise! +
+A pop up window with an encouraging message will be displayed for extra motivation.
+
+.Completing 5 new tasks
+[caption="Figure 6: "]
+image::done5tasks-ug.png[width="300"]
 
 [NOTE]
 ====
@@ -265,33 +294,20 @@ For those who want to know what are the tasks relevant given a keyword.
 Command: `find task` +
 Format: `find task _keyword_`
 
-Example usage: `find task cake`
+Example usage: `find task go`
 
+.Finding tasks with a keyword
+[caption="Figure 7: "]
 image::findtask-ug.png[width="790"]
 
-==== pass:[<u>Viewing all the tasks</u>]
+==== pass:[<u>Viewing complete/incomplete tasks</u>]
 
-For those that want to know all the tasks they have added into DukeCooks.
-
-Command: `list task`
-
-image::listtask-ug.png[width="790"]
-
-==== pass:[<u>Viewing incomplete tasks</u>]
-
-Look at all the tasks you have to complete!
-
-Command: `list taskincomplete`
-
-image::listtaskincomplete-ug.png[width="790"]
-
-==== pass:[<u>Viewing completed tasks</u>]
-
-Look at all the tasks you have done!
-
+Look at all those tasks!
+To view completed tasks: +
 Command: `list taskcomplete`
 
-image::listtaskcomplete-ug.png[width="790"]
+For incomplete tasks: +
+Command: `list taskincomplete`
 
 === Health Records
 

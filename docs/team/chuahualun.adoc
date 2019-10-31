@@ -211,11 +211,11 @@ The add/delete/edit/find/list mechanism is implemented in `DukeCooks v1.3`. It e
 
 The operations are as followed:
 
-* `DukeCooks v1.3#add()` -- Adds and saves the task into `DukeCooks`.
-* `DukeCooks v1.3#delete()` -- Removes the specified task from `DukeCooks`.
-* `DukeCooks v1.3k#edit()` -- Edits the specified with a new task name and/or date.
-* `DukeCooks v1.3#find()` -- Finds a list of task with a given keyword.
-* `DukeCooks v1.3#list()` -- Finds a list of task with a given keyword.
+* `DukeCooks#add()` -- Adds and saves the task into `DukeCooks`.
+* `DukeCooks#delete()` -- Removes the specified task from `DukeCooks`.
+* `DukeCooks#edit()` -- Edits the specified with a new task name and/or date.
+* `DukeCooks#find()` -- Finds a list of task with a given keyword.
+* `DukeCooks#list()` -- Lists all the task in DukeCooks.
 
 These operations are exposed in the Model interface as `Model#addDashboard()`,
 `Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` and
