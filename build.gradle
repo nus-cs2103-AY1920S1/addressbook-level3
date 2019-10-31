@@ -71,7 +71,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'KeyboardFlashCards.jar'
+    archiveBaseName = 'KeyboardFlashCards-1.3'
 
     destinationDir = file("${buildDir}/jar/")
 }

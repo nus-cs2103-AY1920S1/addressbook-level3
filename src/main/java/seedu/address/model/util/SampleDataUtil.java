@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import seedu.address.model.KeyboardFlashCards;
 import seedu.address.model.ReadOnlyKeyboardFlashCards;
 import seedu.address.model.category.Category;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.deadline.DueDate;
+import seedu.address.model.deadline.Task;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
@@ -18,21 +21,35 @@ import seedu.address.model.flashcard.Rating;
 public class SampleDataUtil {
     public static FlashCard[] getSampleFlashcards() {
         return new FlashCard[] {
-            new FlashCard(new Question("1+1"), new Answer("2"),
+            new FlashCard(new Question("What is pointer in C ?"),
+                    new Answer("A pointer variable stores the address of a memory location"),
                 new Rating("easy"),
-                getCategorySet("math")),
-            new FlashCard(new Question("cell"), new Answer("smallest life unit"),
-                new Rating("easy"),
-                getCategorySet("Bio")),
-            new FlashCard(new Question("111*111 "), new Answer("12321"),
-                new Rating("easy"),
-                getCategorySet("math")),
-            new FlashCard(new Question("HTTP"), new Answer("HyperText transfer Protocol"),
+                getCategorySet("CS2100", "C", "POINTER" )),
+            new FlashCard(new Question("How to declare a pointer in C ?"),
+                    new Answer("& + variable name"),
+                    new Rating("easy"),
+                getCategorySet("CS2100")),
+            new FlashCard(new Question("What is internet "),
+                    new Answer("The Internet is a network of connected computing devices"),
+                    new Rating("easy"),
+                getCategorySet("CS2105")),
+            new FlashCard(new Question("How is data transmitted through net?"),
+                    new Answer("Circuit switching / Packet switching"),
                 new Rating("good"),
-                getCategorySet("cs")),
-            new FlashCard(new Question("Where is NUS"), new Answer("Singapore"),
+                getCategorySet()),
+            new FlashCard(new Question("What is link transmission rate?"),
+                    new Answer("It is aka link capacity or link bandwidth"),
                 new Rating("easy"),
-                getCategorySet("general"))
+                getCategorySet())
+        };
+    }
+
+    public static Deadline[] getSampleDeadline() {
+        return new Deadline[]{
+                new Deadline(new Task("CS2103 Final Project Submission"),
+                        new DueDate("10/11/2019")),
+                new Deadline(new Task("CS2101 User Guide Submission"),
+                        new DueDate("12/11/2019"))
         };
     }
 
@@ -40,6 +57,9 @@ public class SampleDataUtil {
         KeyboardFlashCards sampleAb = new KeyboardFlashCards();
         for (FlashCard sampleFlashCard : getSampleFlashcards()) {
             sampleAb.addFlashcard(sampleFlashCard);
+        }
+        for (Deadline sampleDeadline: getSampleDeadline()) {
+            sampleAb.addDeadline(sampleDeadline);
         }
         return sampleAb;
     }
