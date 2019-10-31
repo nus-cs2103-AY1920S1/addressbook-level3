@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.DayList;
@@ -91,10 +92,17 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     /**
-     * Adds a day to the itinerary
+     * Adds a day to the itinerary.
      */
     public void addDay(Day d) {
         this.days.add(d);
+    }
+
+    /**
+     * Adds a day to the itinerary at a specific index.
+     */
+    public void addDayAtIndex(Index index, Day d) {
+        this.days.addAtIndex(index, d);
     }
 
     /**

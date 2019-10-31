@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.day.exceptions.DayNotFoundException;
 
@@ -35,6 +36,15 @@ public class DayList implements Iterable<Day> {
     public void add(Day d) {
         requireNonNull(d);
         internalList.add(d);
+    }
+
+    /**
+     * Adds a day to the planner at a specific index
+     */
+    public void addAtIndex(Index index, Day d) {
+        requireAllNonNull(index, d);
+
+        internalList.add(index.getZeroBased(), d);
     }
 
     /**
