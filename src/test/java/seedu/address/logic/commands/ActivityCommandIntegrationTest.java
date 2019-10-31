@@ -49,12 +49,13 @@ public class ActivityCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+        Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
-        expectedModel.setContext(new Context(validActivity));
+        expectedModel.setContext(newContext);
         expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
-                successMessage, expectedModel);
+                successMessage, expectedModel, newContext);
     }
 
     @Test
@@ -77,11 +78,12 @@ public class ActivityCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+        Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
-        expectedModel.setContext(new Context(validActivity));
+        expectedModel.setContext(newContext);
         expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
         assertCommandSuccess(new ActivityCommand(title, participants), model,
-                successMessage, expectedModel);
+                successMessage, expectedModel, newContext);
     }
 
     @Test
@@ -104,11 +106,12 @@ public class ActivityCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+        Context newContext = new Context(validActivity);
         expectedModel.addActivity(validActivity);
-        expectedModel.setContext(new Context(validActivity));
+        expectedModel.setContext(newContext);
         expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
-                successMessage, expectedModel);
+                successMessage, expectedModel, newContext);
     }
 }
