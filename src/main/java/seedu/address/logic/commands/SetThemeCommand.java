@@ -18,6 +18,8 @@ public class SetThemeCommand extends Command {
     public static final String LIGHTTHEME = "view/LightTheme.css";
     public static final String PINKTHEME = "view/PinkTheme.css";
     public static final String BLUETHEME = "view/BlueTheme.css";
+    public static final String HACKERTHEME = "view/HackerTheme.css";
+    public static final String NUSTHEME = "view/NUSTheme.css";
 
     public static final String MESSAGE_SUCCESS = "Theme changed to %s";
 
@@ -55,6 +57,13 @@ public class SetThemeCommand extends Command {
         requireNonNull(model);
         MainWindow.setStylesheet(styleSheet);
         model.setStyleSheet(styleSheet);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, styleSheet));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, getStyleSheetName(styleSheet)));
+    }
+
+    private String getStyleSheetName(String styleSheet) {
+        requireNonNull(styleSheet);
+        String temp = styleSheet.split("view/")[1];
+        temp = temp.split(".css")[0];
+        return temp;
     }
 }
