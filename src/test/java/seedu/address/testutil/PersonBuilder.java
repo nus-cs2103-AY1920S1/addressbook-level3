@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -20,12 +21,14 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_GENDER = "Female";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_PHOTO = "default.png";
 
     private Name name;
     private Phone phone;
     private Email email;
+    private Gender gender;
     private Address address;
     private Set<Tag> tags;
     private Photo photo;
@@ -34,6 +37,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
+        gender = new Gender(DEFAULT_GENDER);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         photo = new Photo(DEFAULT_PHOTO);
@@ -46,6 +50,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
+        gender = personToCopy.getGender();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
         photo = personToCopy.getPhoto();
@@ -90,6 +95,13 @@ public class PersonBuilder {
         this.email = new Email(email);
         return this;
     }
+    /**
+     * Sets the {@code Gender} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGender(String gender) {
+        this.gender = new Gender(gender);
+        return this;
+    }
 
     /**
      * Sets the {@code Photo} of the {@code Person} that we are building.
@@ -100,7 +112,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags, photo);
+        return new Person(name, phone, email, gender, address, tags, photo);
     }
 
 }
