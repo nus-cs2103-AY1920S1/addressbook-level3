@@ -12,9 +12,7 @@ import javafx.scene.layout.VBox;
 
 import seedu.address.model.CalendarDate;
 import seedu.address.model.ModelLists;
-import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.tasks.TaskDateComparator;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
 
