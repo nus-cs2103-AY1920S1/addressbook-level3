@@ -20,6 +20,8 @@ import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
 public class Timer {
+    public static final String MESSAGE_CONSTRAINTS = "Timer must be a number that is greater 1, and " +
+            "double values will be truncated.";
     private static final Logger logger = LogsCenter.getLogger(Timer.class);
 
     private final Integer startTime;
@@ -28,7 +30,6 @@ public class Timer {
     private final CommandExecutor commandExecutor;
     private ReadOnlyIntegerWrapper currentTime;
     private Timeline timeline;
-
 
 
     public Timer(Integer startTime, CommandExecutor commandExecutor) {

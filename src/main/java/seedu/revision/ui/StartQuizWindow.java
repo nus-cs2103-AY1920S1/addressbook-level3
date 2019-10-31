@@ -318,7 +318,7 @@ public class StartQuizWindow extends Window {
 
     private Timer getTimerBasedOnMode(Mode mode, int nextLevel) {
         switch (mode.value.toLowerCase()) {
-        case "normal":
+        case "normal": case "custom":
             return new Timer(mode.getTime(), this::executeCommand);
         case "arcade":
             switch(nextLevel) {
@@ -341,8 +341,10 @@ public class StartQuizWindow extends Window {
         switch (mode.value.toLowerCase()) {
         case "normal":
             ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(
-                    PREDICATE_SHOW_ALL_ANSWERABLE, difficultyComparator);
+                    mode.getCombinedPredicate(), difficultyComparator);
             return sortedList;
+        case "custom":
+            return this.mainLogic.getFilteredAnswerableList();
         default:
             logger.warning("invalid mode");
             return this.mainLogic.getFilteredSortedAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE, difficultyComparator);

@@ -49,7 +49,7 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
         boolean optionalDifficultyPrefixIsPresent = argMultimap.getValue(PREFIX_DIFFICULTY).isPresent();
         boolean optionalCategoryPrefixIsPresent = argMultimap.getValue(PREFIX_CATEGORY).isPresent();
         boolean optionalPrefixesArePresent = optionalTimerPrefixIsPresent || optionalCategoryPrefixIsPresent
-                    || optionalDifficultyPrefixIsPresent;
+                || optionalDifficultyPrefixIsPresent;
 
 
         Mode mode;
@@ -72,9 +72,9 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
                 return new StartQuizCommand(mode);
             }
         case "chaos":
-            break;
+            //TODO: implement chaos
+            return new StartQuizCommand(mode);
         case "custom":
-
             Predicate<Answerable> combinedPredicate = PREDICATE_SHOW_ALL_ANSWERABLE;
 
             if (optionalCategoryPrefixIsPresent) {
@@ -89,14 +89,16 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
                 combinedPredicate = combinedPredicate.and(difficultyPredicate);
             }
 
+            mode = mode.withCombinedPredicate(combinedPredicate);
+
             if (optionalTimerPrefixIsPresent) {
-                time =  ParserUtil.parseTimer(argMultimap.getValue(PREFIX_TIMER).get());
+                time = ParserUtil.parseTimer(argMultimap.getValue(PREFIX_TIMER).get());
+                mode = mode.withTime(time);
             }
-
-            mode = new CustomMode().with
-
+            mode = mode.build();
+            return new StartQuizCommand(mode);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
         }
-
-
     }
 }

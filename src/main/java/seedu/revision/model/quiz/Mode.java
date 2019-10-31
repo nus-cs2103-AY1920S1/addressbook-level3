@@ -1,6 +1,5 @@
 package seedu.revision.model.quiz;
 
-import java.util.Timer;
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
@@ -12,7 +11,7 @@ import seedu.revision.model.answerable.Answerable;
  * Represents the mode of a quiz in the Revision Tool.
  * Guarantees: immutable; is valid as declared in {@link #isValidMode(String)}
  */
-public class Mode {
+public abstract class Mode {
 
     public static final String MESSAGE_CONSTRAINTS = "Mode can only be normal / arcade / custom";
 
@@ -37,25 +36,36 @@ public class Mode {
         this.value = value;
     }
 
+
     /**
-     * Returns true if a given string is a valid question.
+     * Returns true if a given string is a valid mode.
      */
     public static boolean isValidMode(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
     public int getTime() {
-        return time;
+        return this.time;
     }
+
 
     public Predicate<Answerable> getCombinedPredicate() {
         return combinedPredicate;
     }
 
+    public abstract Mode withCombinedPredicate(Predicate<Answerable> combinedPredicate);
+
+    public abstract Mode withTime(int time);
+
+    public abstract Mode build();
+
+
     @Override
     public String toString() {
         return value;
     }
+
+
 
     @Override
     public boolean equals(Object other) {
