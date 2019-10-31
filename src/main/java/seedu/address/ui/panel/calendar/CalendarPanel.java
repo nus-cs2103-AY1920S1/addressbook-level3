@@ -12,7 +12,9 @@ import javafx.scene.layout.VBox;
 
 import seedu.address.model.CalendarDate;
 import seedu.address.model.ModelLists;
+import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskDateComparator;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
 
@@ -172,7 +174,6 @@ public class CalendarPanel extends UiPart<Region> {
                     eventTaskList.add(tempTasks.poll());
                 }
             } else if (dateCompare < 0) {
-                System.out.println(dateCompare);
                 eventTaskList.add(tempEvents.poll());
             } else {
                 eventTaskList.add(tempTasks.poll());
