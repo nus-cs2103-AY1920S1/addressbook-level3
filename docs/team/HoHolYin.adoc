@@ -8,8 +8,8 @@
 ---
 
 == About the Project
+This portfolio aims to highlight my contributions to our team project, 'LiBerry'.
 
-//Change to one line later
 With a common belief to improve literacy in the world, my team decided to create a library management system called
 'LiBerry' that is free and easy to use. 'LiBerry' is designed for small communities with a lack of expertise and
 resources to manage a library.
@@ -26,6 +26,7 @@ This is what the main page of our system looks like:
 
 .Graphical user interface for LiBerry
 image::Ui.png[]
+{nbsp}
 
 == Summary of contributions
 |===
@@ -45,8 +46,6 @@ image::LoanSlip.png[width=350, align=center]
 ** Implemented the ability to *add books*
 ** Implemented the ability to *delete books*
 ** Implemented the ability to *display information* about a book
-
-* *Code contributed*:
 
 * *Other contributions*:
 
@@ -80,46 +79,17 @@ image::LoanSlip.png[width=350, align=center]
 
 
 |===
-|_This section outlines my contributions to the team's User Guide. The following are excerpts from the 'LiBerry' User Guide. These excerpts show the additions I made for the 'Add Book' and 'Loan' feature. In the 'Loan' feature, my contributions include only the loan slip portion._
+|_This section outlines my contributions to the team's User Guide. It demonstrates my ability to write documentation for librarians so that they can learn how to add, delete and loan books._
 |===
-==== Add Book Feature
-****
-Adding a book: `add`
 
-Adds a new book to library records. +
-Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]`
+The ability to add and delete books to and from the system will help librarians track the status of all books with ease.
 
-[TIP]
-A book can have any number of genres (including 0)
 
-[TIP]
-You do not need to specify the serial number if you wish so. +
-LiBerry will then auto-generate a valid serial number for the new book.
+include::../UserGuide.adoc[tag=bookRelated]
+{nbsp}
 
-Examples:
 
-* `add t/Harry Botter and the Baby's Potty a/Raylei Jolking sn/B02010 g/children`
-* `add t/Inferno a/Tande g/classic g/epic`
-****
-==== Loan Book Feature
-****
-Loaning book(s): `loan`
-
-Loan book(s) by their serial number +
-Format: `loan sn/BOOK_SN...`
-
-Examples:
-
-* `loan sn/B00041` +
-Loans the book with serial number B00041
-* `loan sn/B00201 sn/B02929 sn/B00203` +
-Loans the books with serial numbers B00201, B02929 and B00203
-
-Upon loaning a book, a printable loan slip in pdf format will be generated.
-
-.Printable PDF version of a Loan Slip
-image::LoanSlip.png[width=250, align=center]
-****
+include::../UserGuide.adoc[tag=loanSlip]
 
 == Contributions to the Developer Guide
 
