@@ -5,11 +5,8 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

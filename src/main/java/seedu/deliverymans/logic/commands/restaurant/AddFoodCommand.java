@@ -3,7 +3,6 @@ package seedu.deliverymans.logic.commands.restaurant;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
 import javafx.collections.ObservableList;
@@ -55,8 +54,7 @@ public class AddFoodCommand extends Command {
         ObservableList<Tag> newTags = toAdd.getTags();
         if (newTags.size() > 1) {
             throw new CommandException(MESSAGE_WRONG_TAG);
-        }
-        else if (newTags.size() == 1){
+        } else if (newTags.size() == 1) {
             if (!newTags.get(0).tagName.equals("Recommended")) {
                 throw new CommandException(MESSAGE_WRONG_TAG);
             }
