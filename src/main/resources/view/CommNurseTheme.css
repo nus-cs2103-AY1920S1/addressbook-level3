@@ -13,16 +13,27 @@
     -fx-font-size: 11px;
 }
 
-.list-cell:filled:even {
+.list-cell:filled:even, .tab-cell:filled:even {
     -fx-background-color: #DEF2F1;
 }
 
-.list-cell:filled:odd {
+.list-cell:filled:odd, .tab-cell:filled:odd {
     -fx-background-color: #FEFEFE;
 }
 
 .list-cell:filled:selected * {
     -fx-text-fill: #000000;
+}
+
+.visit-card {
+    -fx-border-style: solid none solid none;
+    -fx-border-width: 1;
+    -fx-border-color: lightgrey;
+    -fx-padding: 0 0 5px 0;
+}
+
+.hint {
+    -fx-text-fill: grey;
 }
 
 .bold {

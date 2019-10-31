@@ -90,8 +90,8 @@ public class PatientCard extends UiPart<Region> {
         if (!patient.getVisits().isEmpty()) {
             noVisitsLabel.setVisible(false);
             for (Visit visit : patient.getVisits()) {
-                visits.getChildren().add(
-                        new Label(visitIndex + ". " + visit.toString()));
+                FinishedVisitCard finishedVisitCard = new FinishedVisitCard(visit, visitIndex);
+                visits.getChildren().add(finishedVisitCard.getRoot());
                 visitIndex++;
             }
         }
