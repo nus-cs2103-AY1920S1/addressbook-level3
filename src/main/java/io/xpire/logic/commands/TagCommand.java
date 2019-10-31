@@ -38,18 +38,18 @@ public class TagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
 
-            + ": Tags the xpireItem identified by the index number used in the displayed xpireItem list.\n"
+            + ": Tags the xpireItem identified by the index number used in the displayed item list.\n"
             + "Note that only 5 tags are allowed per item. \n"
             + "Format: <index>|<tag>[<other tags>]...\n"
             + "(index must be a positive integer; each tag must be prefixed with a '#')\n"
             + "Example: " + COMMAND_WORD + "|1|#Food #Fruit";
 
-    public static final String MESSAGE_TAG_ITEM_SUCCESS = "Tagged xpireItem: %1$s";
-    public static final String MESSAGE_TAG_SHOW_SUCCESS = "All xpireItem tags:";
+    public static final String MESSAGE_TAG_ITEM_SUCCESS = "Tagged item: %1$s";
+    public static final String MESSAGE_TAG_SHOW_SUCCESS = "All item tags:";
     public static final String MESSAGE_TAG_SHOW_FAILURE = "There are no tags.";
     private static final String MESSAGE_TOO_MANY_TAGS = "Only 5 tags are allowed per item.";
     private static final String MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING = "Warning! "
-            + "Some tag(s) have been truncated. Maximum tag length accepted is 20.\nTagged xpireItem: %1$s";
+            + "Some tag(s) have been truncated. Maximum tag length accepted is 20.\nTagged item: %1$s";
 
     private final Index index;
     private final TagItemDescriptor tagItemDescriptor;
