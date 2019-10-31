@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="700" minWidth="800" onCloseRequest="#handleExit" title="SecureIT" type="javafx.stage.Stage"
+<fx:root minHeight="700" minWidth="1000" onCloseRequest="#handleExit" title="SecureIT" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
@@ -50,20 +50,20 @@
         </StackPane>
 
         <HBox VBox.vgrow="ALWAYS">
-          <VBox fx:id="modeList" minWidth="120" prefWidth="120" styleClass="pane-with-border" HBox.hgrow="NEVER" VBox.vgrow="ALWAYS">
+          <VBox fx:id="modeList" minWidth="150" prefWidth="150" styleClass="pane-with-border" HBox.hgrow="NEVER" VBox.vgrow="ALWAYS">
             <padding>
               <Insets bottom="5" left="10" right="10" top="5" />
             </padding>
             <children>
               <Label style="-fx-text-fill: #75878E;" text="Mode: " HBox.hgrow="ALWAYS" />
-              <Button fx:id="b1" minWidth="100" styleClass="buttonSide" text="Password" HBox.hgrow="ALWAYS" />
-              <Button fx:id="b2" minWidth="100" styleClass="buttonSide" text="File" HBox.hgrow="ALWAYS" />
-              <Button fx:id="b3" minWidth="100" styleClass="buttonSide" text="Card" HBox.hgrow="ALWAYS" />
-              <Button fx:id="b4" minWidth="100" styleClass="buttonSide" text="Note" HBox.hgrow="ALWAYS" />
+              <Button fx:id="b1" minWidth="130" styleClass="buttonSide" text="Password" HBox.hgrow="ALWAYS" />
+              <Button fx:id="b2" minWidth="130" styleClass="buttonSide" text="File" HBox.hgrow="ALWAYS" />
+              <Button fx:id="b3" minWidth="130" styleClass="buttonSide" text="Card" HBox.hgrow="ALWAYS" />
+              <Button fx:id="b4" minWidth="130" styleClass="buttonSide" text="Note" HBox.hgrow="ALWAYS" />
             </children>
           </VBox>
 
-          <VBox fx:id="objectList" minWidth="200" prefWidth="200" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+          <VBox fx:id="objectList" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>

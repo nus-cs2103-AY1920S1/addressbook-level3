@@ -220,8 +220,6 @@ public class MainWindow extends UiPart<Stage> {
             readDisplayNote.setFeedbackToUser((Note) object, index);
         } else if (object instanceof AnalysisReport) {
             readList.setMinWidth(600);
-            readListPanelPlaceholder.setMinHeight(500);
-            readList.setMinHeight(500);
             readDisplayPasswordReport = new ReadDisplayPasswordReport();
             readListPanelPlaceholder.getChildren().add(readDisplayPasswordReport.getRoot());
             //readListPanelPlaceholder.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.80));
