@@ -25,6 +25,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
+import seedu.address.commons.exceptions.AlfredRuntimeException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
@@ -369,22 +370,22 @@ public class ModelManager implements Model {
      * @return Participant
      */
     public Participant deleteParticipant(Id id) throws AlfredException {
+        Participant participantToDelete = this.participantList.delete(id); // May throw MissingEntityException here
+        this.saveList(PrefixType.P);
+
         Team targetTeam;
         try {
             targetTeam = this.getTeamByParticipantId(id);
         } catch (MissingEntityException e) {
-            Participant participantToDelete = this.participantList.delete(id);
-            this.saveList(PrefixType.P);
             return participantToDelete;
         }
-        Participant participantToDelete = this.participantList.delete(id);
+
         boolean isSuccessful = targetTeam.deleteParticipant(participantToDelete);
         if (!isSuccessful) {
             logger.warning("Participant does not exist");
             throw new ModelValidationException("Participant does not exist");
         }
 
-        this.saveList(PrefixType.P);
         this.saveList(PrefixType.T);
         return participantToDelete;
     }
@@ -639,11 +640,21 @@ public class ModelManager implements Model {
     public Team deleteTeam(Id id) throws AlfredException {
         // First delete the Participant objects
         Team teamToDelete = this.teamList.delete(id);
+
+        boolean allParticipantsDeleted = true;
         for (Participant p : teamToDelete.getParticipants()) {
-            this.participantList.delete(p.getId());
+            try {
+                this.participantList.delete(p.getId());
+            } catch (MissingEntityException e) {
+                allParticipantsDeleted = false;
+            }
         }
         this.saveList(PrefixType.T);
         this.saveList(PrefixType.P);
+
+        if (!allParticipantsDeleted) {
+            throw new AlfredRuntimeException("Duplicate assigning of teams for certain participants.");
+        }
 
         return teamToDelete;
     }
@@ -709,23 +720,22 @@ public class ModelManager implements Model {
      * @throws AlfredException
      */
     public Mentor deleteMentor(Id id) throws AlfredException {
+        Mentor mentorToDelete = this.mentorList.delete(id); // May throw MissingEntityException here
+        this.saveList(PrefixType.M);
+
         Team targetTeam;
         try {
             targetTeam = this.getTeamByMentorId(id);
         } catch (MissingEntityException e) {
-            Mentor mentorToDelete = this.mentorList.delete(id);
-            this.saveList(PrefixType.M);
             return mentorToDelete;
         }
 
-        Mentor mentorToDelete = this.getMentor(id);
         boolean isSuccessful = targetTeam.deleteMentor(mentorToDelete);
         if (!isSuccessful) {
             logger.severe("Unable to delete the mentor from the team");
             throw new AlfredModelException("Update to delete the mentor from the team");
         }
 
-        this.saveList(PrefixType.M);
         this.saveList(PrefixType.T);
         return mentorToDelete;
     }
