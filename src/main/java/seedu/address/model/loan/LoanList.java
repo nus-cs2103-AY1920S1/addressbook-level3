@@ -45,6 +45,13 @@ public class LoanList implements Iterable<Loan> {
         return loanList.size();
     }
 
+    /**
+     * Returns true if the {@code LoanList} is empty.
+     */
+    public boolean isEmpty() {
+        return loanList.isEmpty();
+    }
+
     public boolean contains(Loan loan) {
         return loanList.contains(loan);
     }

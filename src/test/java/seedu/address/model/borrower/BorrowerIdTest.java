@@ -1,10 +1,14 @@
 package seedu.address.model.borrower;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalBorrowers.BOB;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.BorrowerBuilder;
 
 public class BorrowerIdTest {
 
@@ -36,5 +40,11 @@ public class BorrowerIdTest {
         assertTrue(BorrowerId.isValidBorrowerId("K0911")); // exactly 3 numbers
         assertTrue(BorrowerId.isValidBorrowerId("K0001")); //smallest Borrower ID
         assertTrue(BorrowerId.isValidBorrowerId("K9999")); // largest Borrower ID
+    }
+
+    @Test
+    public void hashcode_sameBorrowerSameHashcode() {
+        Borrower toCompare = new BorrowerBuilder(BOB).build();
+        assertEquals(BOB.hashCode(), toCompare.hashCode());
     }
 }

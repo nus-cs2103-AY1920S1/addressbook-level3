@@ -10,7 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.util.FineUtil;
 import seedu.address.model.book.Book;
 import seedu.address.model.borrower.Borrower;
@@ -39,6 +41,7 @@ public class BorrowerPanel extends UiPart<Region> {
         name.setText("");
         id.setText("");
         fines.setText("");
+        VBox.setVgrow(bookListView, Priority.ALWAYS);
     }
 
     /**

@@ -2,13 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Region?>
 
-<Label fx:id="resultDisplay" maxHeight="150.0" minHeight="150.0" minWidth="600.0" prefHeight="150.0" styleClass="result-display" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <minWidth>
-        <!-- Ensures that the label text is never truncated -->
-        <Region fx:constant="USE_COMPUTED_SIZE" />
-    </minWidth>
+<Label fx:id="resultDisplay" maxHeight="150.0" minHeight="150.0" minWidth="-Infinity" prefHeight="150.0" styleClass="result-display" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets left="10.0" />
    </padding>
