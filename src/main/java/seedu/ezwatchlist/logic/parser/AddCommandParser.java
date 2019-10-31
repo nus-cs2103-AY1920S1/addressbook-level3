@@ -9,6 +9,7 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -16,6 +17,7 @@ import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.AddCommand;
 
+import seedu.ezwatchlist.logic.commands.EditCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
@@ -47,19 +49,49 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TYPE, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED,
                         PREFIX_DESCRIPTION, PREFIX_RUNNING_TIME, PREFIX_ACTOR);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TYPE, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED,
-                PREFIX_DESCRIPTION, PREFIX_RUNNING_TIME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         String type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        Date dateOfRelease = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get());
-        IsWatched isWatched = ParserUtil.parseIsWatched(argMultimap.getValue(PREFIX_IS_WATCHED).get());
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        RunningTime runningTime = ParserUtil.parseRunningTime(argMultimap.getValue(PREFIX_RUNNING_TIME).get());
-        Set<Actor> actorList = ParserUtil.parseActors(argMultimap.getAllValues(PREFIX_ACTOR));
+
+        EditCommand.EditShowDescriptor editShowDescriptor = new EditCommand.EditShowDescriptor();
+        Date dateOfRelease;
+        IsWatched isWatched;
+        Description description;
+        RunningTime runningTime;
+        Set<Actor> actorList = new HashSet<>();
+
+        if (argMultimap.getValue(PREFIX_DATE_OF_RELEASE).isPresent()) {
+            dateOfRelease = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get());
+        } else {
+            dateOfRelease = new Date(null);
+        }
+
+        if (argMultimap.getValue(PREFIX_IS_WATCHED).isPresent()) {
+            isWatched = ParserUtil.parseIsWatched(argMultimap.getValue(PREFIX_IS_WATCHED).get());
+        } else {
+            isWatched = new IsWatched(false);
+        }
+
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        } else {
+            description = new Description(null);
+        }
+
+        if (argMultimap.getValue(PREFIX_RUNNING_TIME).isPresent()) {
+            runningTime = ParserUtil.parseRunningTime(argMultimap.getValue(PREFIX_RUNNING_TIME).get());
+        } else {
+            runningTime = new RunningTime();
+        }
+
+        if (argMultimap.getValue(PREFIX_ACTOR).isPresent()) {
+            actorList = ParserUtil.parseActors(argMultimap.getAllValues(PREFIX_ACTOR));
+        }
+
 
         if (type.equals("movie")) {
             Movie movie = new Movie(name, description, isWatched, dateOfRelease, runningTime, actorList);
@@ -69,7 +101,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                     0, 0, new ArrayList<>());
             return new AddCommand(tvShow);
         }
-        throw new ParseException("Type can only be movie or tv.");
+        throw new ParseException("Type can only be 'movie' or 'tv'.");
     }
 
     /**

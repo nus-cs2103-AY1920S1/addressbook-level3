@@ -92,7 +92,7 @@ public class ParserUtil {
      */
     public static IsWatched parseIsWatched(String isWatched) throws ParseException {
         requireNonNull(isWatched);
-        String trimmedIsWatched = isWatched.trim();
+        String trimmedIsWatched = isWatched.trim().toLowerCase();
         if (!IsWatched.isValidIsWatched(Boolean.parseBoolean(trimmedIsWatched))) {
             throw new ParseException(IsWatched.MESSAGE_CONSTRAINTS);
         }

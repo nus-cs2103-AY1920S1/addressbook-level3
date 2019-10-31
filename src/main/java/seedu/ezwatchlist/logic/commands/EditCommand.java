@@ -7,7 +7,6 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
 
@@ -48,9 +47,8 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_TYPE + "TYPE] "
             + "[" + PREFIX_DATE_OF_RELEASE + "DATE OF RELEASE] "
-            + "[" + PREFIX_IS_WATCHED + "WATCHED?] "
+            + "[" + PREFIX_IS_WATCHED + "WATCHED ('true' or 'false')] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_RUNNING_TIME + "RUNNING TIME] "
             + "[" + PREFIX_ACTOR + "ACTOR]...\n"

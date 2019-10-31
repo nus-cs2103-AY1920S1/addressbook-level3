@@ -13,7 +13,7 @@ public class GenreTest {
 
     @Test
     public void isValidGenreName() {
-        // null Actor name
+        // null Genre name
         assertThrows(NullPointerException.class, () -> Genre.isValidGenreName(null));
     }
 

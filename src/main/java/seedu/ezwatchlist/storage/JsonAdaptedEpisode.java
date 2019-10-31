@@ -46,9 +46,6 @@ class JsonAdaptedEpisode {
      * @throws IllegalValueException if there were any data constraints violated in the adapted episode.
      */
     public Episode toModelType() throws IllegalValueException {
-        if (!Episode.isValidEpisodeName(episodeName)) {
-            throw new IllegalValueException(Episode.MESSAGE_CONSTRAINTS_EPISODE_NAME);
-        }
 
         if (!Episode.isValidEpisodeNum(episodeNum)) {
             throw new IllegalValueException(Episode.MESSAGE_CONSTRAINTS_EPISODE_NUMBER);
