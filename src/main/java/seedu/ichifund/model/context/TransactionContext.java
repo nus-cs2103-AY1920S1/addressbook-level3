@@ -40,7 +40,7 @@ public class TransactionContext implements Context<Transaction> {
         this.transactionType = Optional.empty();
     }
 
-    private TransactionContext(Month month, Year year, Optional<Category> category,
+    public TransactionContext(Month month, Year year, Optional<Category> category,
                                Optional<TransactionType> transactionType) {
         this.month = month;
         this.year = year;
