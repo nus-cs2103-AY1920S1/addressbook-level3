@@ -9,6 +9,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedSetInstallmentCommand;
@@ -95,7 +96,8 @@ public class SetInstallmentCommand extends Command {
         }
 
         model.addInstallment(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.setViewStatus(ViewType.LIST_FINANCE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     /**

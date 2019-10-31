@@ -13,6 +13,7 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.finance.purchase.Purchase;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedRemovePaidCommand;
@@ -110,7 +111,8 @@ public class RemovePaidCommand extends Command {
         try {
             deletedPurchase = model.getPurchase(targetIndex.getOneBased());
             model.deletePurchase(targetIndex.getOneBased());
-            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS, deletedPurchase));
+            model.setViewStatus(ViewType.LIST_FINANCE);
+            return new CommandResult(String.format(MESSAGE_DELETE_PURCHASE_SUCCESS, deletedPurchase), true);
         } catch (PurchaseNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_PURCHASE_DISPLAYED_INDEX);
         }

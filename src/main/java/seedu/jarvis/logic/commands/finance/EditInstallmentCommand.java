@@ -18,6 +18,7 @@ import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.installment.InstallmentDescription;
 import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedEditInstallmentCommand;
@@ -160,8 +161,10 @@ public class EditInstallmentCommand extends Command {
             editedInstallment = createdEditedInstallment;
 
             model.setInstallment(originalInstallment, createdEditedInstallment);
+            model.setViewStatus(ViewType.LIST_FINANCE);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_INSTALLMENT_SUCCESS, editedInstallment));
+            return new CommandResult(String.format(MESSAGE_EDIT_INSTALLMENT_SUCCESS, editedInstallment),
+                    true);
 
         } catch (InstallmentNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);
