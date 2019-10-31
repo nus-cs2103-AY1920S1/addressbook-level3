@@ -3,6 +3,7 @@ package seedu.address.model.events.predicates;
 
 import java.util.function.Predicate;
 
+import seedu.address.commons.exceptions.ForceThreadInterruptException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.events.Event;
 
@@ -18,6 +19,9 @@ public class EventContainsKeywordPredicate implements Predicate<Event> {
 
     @Override
     public boolean test(Event event) {
+        if (Thread.currentThread().interrupted()) {
+            throw new ForceThreadInterruptException();
+        }
         return event.getStatus().isApproved()
                 && event.getPersonId().toString().contains(keyword);
     }

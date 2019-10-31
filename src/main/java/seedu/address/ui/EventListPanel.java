@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -36,10 +37,9 @@ public class EventListPanel extends UiPart<Region> {
             this.setFocusTraversable(true);
 
             if (empty || event == null) {
-                setGraphic(null);
-                setText(null);
+                Platform.runLater(() -> setGraphic(null));
             } else {
-                setGraphic(new EventCard(event, getIndex() + 1).getRoot());
+                Platform.runLater(() -> setGraphic(new EventCard(event, getIndex() + 1).getRoot()));
             }
         }
     }

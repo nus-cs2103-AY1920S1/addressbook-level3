@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.OmniPanelTab;
+import seedu.address.commons.exceptions.ForceThreadInterruptException;
+import seedu.address.logic.commands.SetFocusOnTabCommand;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.CommandResult;
@@ -42,6 +44,7 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private final CommandHistory commandHistory;
     private final QueueManager queueManager;
+    private Thread lastEagerEvaluationThread;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -49,10 +52,11 @@ public class LogicManager implements Logic {
         this.commandHistory = new CommandHistory();
         this.addressBookParser = new AddressBookParser(commandHistory);
         this.queueManager = new QueueManager();
+        this.lastEagerEvaluationThread = new Thread();
     }
 
     @Override
-    public CommandResult execute(String commandText)
+    public synchronized CommandResult execute(String commandText)
         throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
@@ -81,19 +85,39 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult eagerEvaluate(String commandText) {
-        Command command = addressBookParser.eagerEvaluateCommand(commandText, model);
+    public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
+        final Command command = addressBookParser.eagerEvaluateCommand(commandText);
         if (!(command instanceof NonActionableCommand)) {
             throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
+        } else if (command instanceof SetFocusOnTabCommand) {
+            try {
+                command.execute(model);
+            } catch (CommandException ex) {
+                logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
+            }
+            return;
         }
 
-        try {
-            return command.execute(model);
-        } catch (CommandException ex) {
-            logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
-        }
+        assert lastEagerEvaluationThread != null;
+        Thread previousThread = lastEagerEvaluationThread;
+        lastEagerEvaluationThread = new Thread(() -> {
+            previousThread.interrupt();
+            logger.info("Starting Eager evaluation execution");
+            displayResult.accept("searching...");
 
-        return new CommandResult("An error occured!");
+            try {
+                CommandResult result = command.execute(model);
+                if (!result.getFeedbackToUser().isEmpty()) {
+                    logger.info("Result: " + result.getFeedbackToUser());
+                    displayResult.accept(result.getFeedbackToUser());
+                }
+            } catch (CommandException ex) {
+                logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
+            } catch (ForceThreadInterruptException ex) {
+                logger.info("Interrupting Eager evaluation execution");
+            }
+        });
+        lastEagerEvaluationThread.start();
     }
 
     @Override
