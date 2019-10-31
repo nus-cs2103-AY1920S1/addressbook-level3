@@ -336,7 +336,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
         if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
-            throw new NullPointerException();
+            //throw new NullPointerException();
         } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
             DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
             if (paneToDisplay == null) {
