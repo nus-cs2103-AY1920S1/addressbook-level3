@@ -19,7 +19,6 @@ import mams.logic.commands.MassApprove;
 import mams.logic.parser.exceptions.ParseException;
 
 import mams.model.appeal.Appeal;
-
 /**
  * Parses input arguments and creates a new {@code ApproveCommand} object
  */
@@ -31,8 +30,8 @@ public class ApproveCommandParser implements Parser<Approve> {
      */
     public Approve parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args
-                , PREFIX_APPEAL, PREFIX_REASON, PREFIX_MASS_RESOLVE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
+                PREFIX_APPEAL, PREFIX_REASON, PREFIX_MASS_RESOLVE);
 
         Index index;
 

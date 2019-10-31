@@ -30,8 +30,7 @@ public class RejectCommandParser implements Parser<Reject> {
      */
     public Reject parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args
-                , PREFIX_APPEAL, PREFIX_REASON, PREFIX_MASS_RESOLVE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_APPEAL, PREFIX_REASON, PREFIX_MASS_RESOLVE);
 
         Index index;
 
