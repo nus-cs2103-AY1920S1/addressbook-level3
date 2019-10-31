@@ -36,5 +36,4 @@ public class DescriptionTest {
         assertTrue(Description.isValidDescription("Breakfast with Tiffany")); // with capital letters
         assertTrue(Description.isValidDescription("Breakfast with Tiffany because Sabrina disappeared"));
     }
-
 }
