@@ -62,14 +62,11 @@ public class GroceryListParser {
         case DeleteGroceryCommand.COMMAND_WORD:
             return new DeleteGroceryCommandParser().parse(arguments);
 
-        case ListDefaultCommand.COMMAND_WORD:
-            return new ListDefaultCommandParser().parse(arguments);
-
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommandParser().parse(arguments, iFridgeSettings.getNumberOfDays());
 
         case ReminderDefaultCommand.COMMAND_WORD:
-            return new ReminderDefaultCommandParser().parse(arguments
+            return new ReminderDefaultCommandParser().parse(arguments);
 
         case SortGroceryCommand.COMMAND_WORD:
             return new SortGroceryCommandParser().parse(arguments);

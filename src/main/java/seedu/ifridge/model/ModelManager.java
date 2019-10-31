@@ -362,6 +362,7 @@ public class ModelManager implements Model {
     @Override
     public boolean canRedoTemplateList() {
         return versionedTemplateList.getCurrentStatePointer() < versionedTemplateList.getListSize() - 1;
+    }
 
     public boolean containsTemplateItemWithName(Food foodItem) {
         return templateList.containsTemplateItemWithName(foodItem);
