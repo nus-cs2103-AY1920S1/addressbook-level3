@@ -194,12 +194,15 @@ Deletes an Entity, so that Alfred will no longer keep track of that Entity.
 
 * `delete team T-1` will delete the team with ID T-1 from Alfred.
 
-=== Finding a Specific Entity: `find {mentor/team/participant} n/NAME`
+=== Finding a Specific Entity: `find {mentor/team/participant} n/NAME ...`
 
-Searches for Entities by their name, instead of their ID, in case you find that the ID is difficult to keep track of. +
+Searches for Entities by selected fields, instead of their ID, in case you find that the ID is difficult to keep track of. +
 
 ****
-* Take note that the `find` command only searches and matches the names of each Entity, and does not search in other fields.
+* Take note that the `find` command only searches
+and matches the fields whose strings are a substring of the given value. It also does an intersection
+search in the event where one or more fields are provided, that is, the entities found would have the selected values
+for each of the fields you key in
 ****
 
 Examples:
@@ -209,6 +212,19 @@ Examples:
 * `find participant n/John Doe` will display a list of all participants in the Hackathon who are named "John Doe", or have "John Doe" in their name.
 
 * `find team n/FutureHackathonWinner` will display a list of all teams in the Hackathon that are named "FutureHackathonWinner", or have "FutureHackathonWinner" in their name.
+
+Each entity will have different fields available to find.
+
+For participant, `n/NAME e/EMAIL p/PHONE` are all options to search for.
+
+For team, `n/TEAMNAME pn/PROJECTNAME` are also all options to search for.
+
+For mentor, `n/NAME, e/EMAIL, p/PHONE o/ORGANIZATION` are all available
+
+Example for multiple fields:
+
+* `find participant n/Damith e/damith.com` finds all participants whose name contains the string "Damith" (this is case
+sensitive) and whose emails contain "damith.com"
 
 === Show Command History: `history`
 Shows you up to the last 50 commands that you executed.
