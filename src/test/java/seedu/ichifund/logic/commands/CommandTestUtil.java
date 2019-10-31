@@ -58,8 +58,8 @@ public class CommandTestUtil {
     public static final String VALID_MONTH_BUS = "7";
     public static final String VALID_YEAR_ALLOWANCE = "2019";
     public static final String VALID_YEAR_BUS = "2019";
-    public static final String VALID_TYPE_ALLOWANCE = "in";
-    public static final String VALID_TYPE_BUS = "exp";
+    public static final String VALID_TRANSACTION_TYPE_ALLOWANCE = "in";
+    public static final String VALID_TRANSACTION_TYPE_BUS = "exp";
 
     public static final String DESCRIPTION_DESC_ALLOWANCE = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_ALLOWANCE;
     public static final String DESCRIPTION_DESC_BUS = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BUS;
@@ -73,8 +73,10 @@ public class CommandTestUtil {
     public static final String MONTH_DESC_BUS = " " + PREFIX_MONTH + VALID_MONTH_BUS;
     public static final String YEAR_DESC_ALLOWANCE = " " + PREFIX_YEAR + VALID_YEAR_ALLOWANCE;
     public static final String YEAR_DESC_BUS = " " + PREFIX_YEAR + VALID_YEAR_BUS;
-    public static final String TYPE_DESC_ALLOWANCE = " " + PREFIX_TRANSACTION_TYPE + VALID_TYPE_ALLOWANCE;
-    public static final String TYPE_DESC_BUS = " " + PREFIX_TRANSACTION_TYPE + VALID_TYPE_BUS;
+    public static final String TRANSACTION_TYPE_DESC_ALLOWANCE = " " + PREFIX_TRANSACTION_TYPE
+            + VALID_TRANSACTION_TYPE_ALLOWANCE;
+    public static final String TRANSACTION_TYPE_DESC_BUS = " " + PREFIX_TRANSACTION_TYPE
+            + VALID_TRANSACTION_TYPE_BUS;
 
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "!?";
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "0.0";
@@ -82,7 +84,7 @@ public class CommandTestUtil {
     public static final String INVALID_DAY_DESC = " " + PREFIX_DAY + "32";
     public static final String INVALID_MONTH_DESC = " " + PREFIX_MONTH + "13";
     public static final String INVALID_YEAR_DESC = " " + PREFIX_YEAR + "999";
-    public static final String INVALID_TYPE_DESC = " " + PREFIX_TRANSACTION_TYPE + "hi";
+    public static final String INVALID_TRANSACTION_TYPE_DESC = " " + PREFIX_TRANSACTION_TYPE + "hi";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
