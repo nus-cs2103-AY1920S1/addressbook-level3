@@ -82,5 +82,4 @@
         </VBox>
 
     </VBox>
-    <CheckBox layoutX="195.0" layoutY="74.0" mnemonicParsing="false"/>
 </AnchorPane>
