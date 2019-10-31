@@ -301,7 +301,7 @@ public interface Model {
 
     void updateEditingRestaurantList(Predicate<Restaurant> predicate);
 
-    //=========== Deliveryman Methods =============================================================
+    // =========== Deliveryman Methods =============================================================
 
     /** Returns an unmodifiable view of the filtered deliverymen list */
     ObservableList<Deliveryman> getFilteredDeliverymenList();
@@ -352,6 +352,7 @@ public interface Model {
     ObservableList<Deliveryman> getDeliveringMenList();
 
     /**
+     * Returns the Name of an available deliveryman.
      * Method for order assignment by OrderManager.
      */
     Name getOneAvailableDeliveryman();
@@ -364,7 +365,7 @@ public interface Model {
 
     void setToShowDeliverymanRecord(DeliveryRecord record);
 
-    //=========== Order Methods =============================================================
+    // =========== Order Methods =============================================================
 
     /**
      * Returns true if an order with the same identity as {@code order} exists in the address book.
