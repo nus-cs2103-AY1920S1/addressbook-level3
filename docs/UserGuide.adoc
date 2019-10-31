@@ -35,24 +35,77 @@ programmers), you can get used to it while working on your coding skills!
 
 . Ensure you have Java 11 or above installed in your Computer.
 . Download the latest DukeAcademy.jar link:{repoURL}/releases[here].
-. Copy the file to the folder which you want to use as the home folder for DukeAcademy.
-. Copy the file to the folder you want to use as the home folder for your Duke Academy.
-. Download a problem set link:{problemSetURL}[here].
-. Copy the file into the home folder for DukeAcademy.
-. Rename it to “default_problem_set.txt”.
+. Double-click the file to start the app. The GUI should appear in a few seconds.
+. When loading the app for the first time, it will create a folder in your User home directory
+. This folder will contain all of your app's data. To fix any errors related to corrupt data, delete this folder and the app will be reinstalled.
+
 +
 image::quickstart1.png[width="790"]
 +
-. Double-click the file to start the app. The GUI should appear in a few seconds.
+
+. Type a command in the command box and press kbd:[Enter] to execute it. e.g. typing *`showall`* and pressing
+  kbd:[Enter] will display all the questions  in the app.
 +
-image::quickstart2.png[width="790"]
+image::commandbox.png[width="790"]
 +
 
-. Type the command in the command box and press kbd:[Enter] to execute it. e.g. typing *`help`* and pressing
-  kbd:[Enter] will open the help window.
-. View the question ID you want to attempt on the left pane. Type `attempt <Qn ID>` into the command box to start your
-  DukeAcademy experience.
+. Find a question that interests you and type `attempt <Qn Index>` into the command box to start your
+  DukeAcademy experience. Note: the index of a question is the number displayed next to its title.
+
++
+image::questionindex.png[width="790"]
++
 . Refer to <<Features>> to view our full list of commands.
+
+[[Overview]]
+== Overview
+
+The application is divided into 3 separate tabs, each one of them serving a specific purpose. You can toggle between the
+different tabs by entering `tab` into the command box.
+
+=== Home
+The *Home* tab contains a brief introduction of the application along with a brief overview of your user profile.
+
+. See your completion percentage and current skill tier!
+. Keep track of the questions that you are currently attempting.
+. View your bookmarked questions.
+
++
+image::homepage.png[width="790"]
++
+
+
+=== Questions
+The *Questions* tab contains a list of all the available questions and also a window to view their problem statements.
+
+
+This list of questions can be filtered using various commands such as `browse` and `search` to narrow down your search.
+View <<Features>> for more details.
+
+. To quickly see all questions, enter `showall` into the command box.
+. To view the problem statement for a question, enter `view <Qn Index>`.
+
++
+image::questionspage.png[width="790"]
++
+
+
+=== Workspace
+The workspace is where you will work on the various questions.
+
+On the left of the workspace, you will find a display to show the question that you are currently attempting. You will
+also see another window that displays the results of evaluating your program.
+
+On the right of the workspace, you will find a built in editor for you to write your programs in. If you do not wish to
+write your programs in our editor, simply paste your code into our editor before submission.
+
+. To attempt a question, enter `attempt <Qn Index>` into the command box.
+. To submit your question, enter `submit` into the command box.
+
++
+image::workspace.png[width="790"]
++
+
 
 [[Features]]
 == Features
