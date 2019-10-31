@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" style="-fx-border-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
+<HBox id="cardPane" fx:id="cardPane" style="-fx-border-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane prefWidth="150.0" HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="48.0" prefHeight="71.0" prefWidth="150.0" GridPane.columnIndex="0">
+        <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
@@ -28,7 +28,7 @@
                 </Label>
                 <Label fx:id="title" styleClass="cell_big_label" text="\$first" />
             </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="5">
+            <HBox alignment="CENTER_LEFT" minHeight="-Infinity" spacing="5">
             <Label fx:id="" styleClass="cell_big_label">
                 <minWidth>
                     <!-- Ensures that the label text is never truncated -->
@@ -37,12 +37,12 @@
             </Label>
             <Label fx:id="numOfAccess" text="\$numOfAccess" />
             <Label fx:id="dateAdded" text="\$dateAdded" />
-            <Label fx:id="dateModified" text="\$dateModified" />
+            <Label fx:id="dateModified" maxHeight="1.7976931348623157E308" text="\$dateModified" />
             </HBox>
             <FlowPane fx:id="tags" prefHeight="6.0" prefWidth="130.0" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
         </VBox>
-        <VBox prefHeight="50.0" prefWidth="167.0" style="-fx-background-color: #696969#696969;" GridPane.rowIndex="1">
+        <VBox style="-fx-background-color: #696969#696969;" GridPane.rowIndex="1">
             <children>
                 <Label fx:id="content" styleClass="cell_small_label" text="\$content" textFill="black" />
             </children>
