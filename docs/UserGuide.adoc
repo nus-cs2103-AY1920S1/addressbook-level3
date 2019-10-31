@@ -73,11 +73,13 @@ Format: `redo` +
 Example: `redo`
 
 ****
-`undo` and `redo` only supports commands that modify data in Weme. This means that commands that alter the UI (such as `find` and `list`), as well as commands that modify the staging / import list (such as `load`, `stage`) are not undoable. +
-* Meme Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`
+`undo` and `redo` only supports commands that modify data in Weme. This means that commands that alter the UI (such as `find` and `list`), as well as commands that modify the staging / import list (such as `load`, `stage`) are not undoable. The following are the commands that are undoable in each tab: +
+* Meme Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`, `dislike`
 * Template Tab: `add`, `edit`, `delete`, `archive`, `unarchive`, `use`
-* Create Tab: `add`, `abort`, `create`
+* Create Tab: `add`, `abort`, `create`, `edit`, `delete`
 * Import Tab: `import`
+
+`undo` and `redo` are also global actions. This means that if you made a change in the meme tab, and changed to the template tab, when `undo` is entered, it will undo the change done in the meme tab.
 ****
 
 ==== Tab : `tab`
@@ -103,10 +105,10 @@ Format: `exit`
 ==== Add a meme: `add`
 
 Add a new meme to the meme tab. Weme will copy the given image into the it’s data storage folder. +
-Format: `add p/PATH [d/DESCRIPTION] [n/TEMPLATE_NAME] [t/TAG]...` +
+Format: `add p/PATH [d/DESCRIPTION] [t/TAG]...` +
 Examples:
 
-* Add a meme that uses the “Disaster Girl” template from ~/Downloads/dgirl_oof.jpg `add p/~/Downloads/dgirl_oof.jpg n/Disaster Girl t/Funny`
+* Add a meme with a tag funny that uses the from ~/Downloads/dgirl_oof.jpg `add p/~/Downloads/dgirl_oof.jpg t/Funny`
 
 ==== Clear: `clear`
 
@@ -275,6 +277,11 @@ Format: `archive 1`
 
 Unarchives a template by index. +
 Format: `unarchive 1`
+
+==== Archives: `archives`
+
+Lists all templates that are archived in the template tab. +
+Format: `archives`
 
 ==== Listing all templates: `list`
 
