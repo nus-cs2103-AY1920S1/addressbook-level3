@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.model.DateTime;
 
 /**
@@ -24,6 +27,19 @@ public class EventSourceBuilder {
     EventSourceBuilder(String description, DateTime start) {
         this.description = Objects.requireNonNull(description);
         this.start = Objects.requireNonNull(start);
+    }
+
+    @JsonCreator
+    private EventSourceBuilder(@JsonProperty("description") String description,
+                               @JsonProperty("start") DateTime start,
+                               @JsonProperty("end") DateTime end,
+                               @JsonProperty("remind") DateTime remind,
+                               @JsonProperty("tags") Set<String> tags) {
+        this.description = description;
+        this.start = start;
+        this.end = end;
+        this.remind = remind;
+        this.tags = tags;
     }
 
     public EventSourceBuilder setEnd(DateTime end) {

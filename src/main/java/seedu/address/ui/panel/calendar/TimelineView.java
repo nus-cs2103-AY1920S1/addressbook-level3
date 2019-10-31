@@ -14,6 +14,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.card.CardHolder;
 import seedu.address.ui.card.EventCard;
@@ -29,9 +31,8 @@ import seedu.address.ui.card.EventCard;
 public abstract class TimelineView extends UiPart<Region> {
 
     private static final Integer SPACING = 62;
-    private static final Integer TIMING = 10;
 
-    private ArrayList<CardHolder> eventCardHolders;
+    private ArrayList<CardHolder> cardHolders;
     private Integer totalRows;
 
     @FXML
@@ -50,10 +51,10 @@ public abstract class TimelineView extends UiPart<Region> {
      * @see CardHolder ;
      */
     void addEventCardHolders() {
-        this.eventCardHolders = new ArrayList<>();
+        this.cardHolders = new ArrayList<>();
         for (int row = 0; row < totalRows; row++) {
             CardHolder eventCardHolder = new CardHolder();
-            eventCardHolders.add(eventCardHolder);
+            cardHolders.add(eventCardHolder);
             timelineGrid.add(eventCardHolder.getRoot(), 1, row);
         }
     }
@@ -66,7 +67,7 @@ public abstract class TimelineView extends UiPart<Region> {
      */
     void resizeTimelineView() {
         for (int row = 0; row < totalRows; row++) {
-            CardHolder eventCardHolder = eventCardHolders.get(row);
+            CardHolder eventCardHolder = cardHolders.get(row);
             RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(row);
             rowConstraints.setPrefHeight(eventCardHolder.getHeight() + SPACING);
         }
@@ -84,7 +85,7 @@ public abstract class TimelineView extends UiPart<Region> {
             @Override
             protected Void call() throws Exception {
                 try {
-                    Thread.sleep(TIMING);
+                    Thread.sleep(MainWindow.TIMING);
                 } catch (InterruptedException e) {
                     throw new Exception(e.getMessage());
                 }
@@ -132,13 +133,21 @@ public abstract class TimelineView extends UiPart<Region> {
     /**
      * Changes the timeline by resetting it with the new list of events.
      *
-     * @param eventList The given event list containing all the events.
+     * @param eventTaskList The given event list containing all the events and tasks.
      */
-    void eventChange(List<EventSource> eventList) {
+    void onChange(List<Object> eventTaskList) {
         resetTimeline();
-        for (EventSource event : eventList) {
-            if (isWithinTimeline(event)) {
-                addEventCard(event);
+        for (Object source : eventTaskList) {
+            if (source instanceof EventSource) {
+                EventSource event = (EventSource) source;
+                if (isWithinTimeline(event)) {
+                    addEventCard(event);
+                }
+            } else if (source instanceof TaskSource) {
+                TaskSource task = (TaskSource) source;
+                if (isWithinTimeline(task)) {
+                    addTaskCard(task);
+                }
             }
         }
     }
@@ -153,7 +162,7 @@ public abstract class TimelineView extends UiPart<Region> {
             rowConstraints.setPrefHeight(0);
 
             // Reset EventCards for each hour
-            eventCardHolders.get(row).removeEventCards();
+            cardHolders.get(row).removeCards();
         }
     }
 
@@ -165,6 +174,8 @@ public abstract class TimelineView extends UiPart<Region> {
      */
     abstract void addEventCard(EventSource event);
 
+    abstract void addTaskCard(TaskSource task);
+
     /**
      * Returns a boolean that checks if the given date of the event is within the particular timeline.
      *
@@ -173,9 +184,11 @@ public abstract class TimelineView extends UiPart<Region> {
      */
     abstract boolean isWithinTimeline(EventSource event);
 
+    abstract boolean isWithinTimeline(TaskSource task);
+
     // Getters
-    ArrayList<CardHolder> getEventCardHolder() {
-        return this.eventCardHolders;
+    ArrayList<CardHolder> getCardHolder() {
+        return this.cardHolders;
     }
 
     GridPane getTimelineGrid() {

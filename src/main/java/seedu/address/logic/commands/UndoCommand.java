@@ -2,9 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNDO_SUCCESS;
 
+import seedu.address.logic.UndoRedoManager;
 import seedu.address.logic.commands.exceptions.CommandException;
-
-import seedu.address.model.undo.UndoRedoManager;
 import seedu.address.ui.UserOutput;
 
 /**

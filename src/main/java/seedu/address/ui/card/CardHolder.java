@@ -12,8 +12,6 @@ public class CardHolder extends UiPart<Region> {
 
     private static final String FXML = "CardHolder.fxml";
 
-    private EventCard eventCard;
-
     @FXML
     private VBox timeBox;
 
@@ -25,11 +23,11 @@ public class CardHolder extends UiPart<Region> {
         super(FXML);
     }
 
-    public void addEvent(EventCard eventCard) {
-        this.timeBox.getChildren().add(eventCard.getRoot());
+    public void addCard(Card card) {
+        this.timeBox.getChildren().add(card.getRoot());
     }
 
-    public void removeEventCards() {
+    public void removeCards() {
         this.timeBox.getChildren().clear();
     }
 

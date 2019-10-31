@@ -5,6 +5,8 @@ import static seedu.address.commons.util.IcsUtil.generateUid;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.model.DateTime;
 
 /**
@@ -64,24 +66,29 @@ public class EventSource {
         }
     }
 
+    @JsonProperty("description")
     public String getDescription() {
         return this.description;
     }
 
+    @JsonProperty("start")
     public DateTime getStartDateTime() {
         return this.start;
     }
 
-    public DateTime getEnd() {
-        return end;
+    @JsonProperty("end")
+    public DateTime getEndDateTime() {
+        return this.end;
     }
 
+    @JsonProperty("remind")
+    public DateTime getRemindDateTime() {
+        return this.remind;
+    }
+
+    @JsonProperty("tags")
     public Set<String> getTags() {
-        return tags;
-    }
-
-    public DateTime getRemind() {
-        return remind;
+        return this.tags;
     }
 
     @Override
@@ -91,6 +98,7 @@ public class EventSource {
             return Objects.equals(this.description, e.description)
                 && Objects.equals(this.start, e.start)
                 && Objects.equals(this.end, e.end)
+                && Objects.equals(this.remind, e.remind)
                 && Objects.equals(this.tags, e.tags);
         }
         return false;

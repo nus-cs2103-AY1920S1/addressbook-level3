@@ -1,7 +1,9 @@
 package seedu.address.ui.panel.calendar;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -9,7 +11,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import seedu.address.model.CalendarDate;
+import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
 
 /**
@@ -22,9 +26,10 @@ public class CalendarPanel extends UiPart<Region> {
 
     private CalendarScreen calendarScreen;
     private TimelineView timelineView;
-    private Details details;
+    private UpcomingView upcomingView;
     private CalendarDate calendarDate;
-    private List<EventSource> eventList;
+
+    private List<Object> eventTaskList;
 
     @FXML
     private StackPane timelinePlaceholder;
@@ -33,7 +38,7 @@ public class CalendarPanel extends UiPart<Region> {
     private VBox calendarScreenPlaceholder;
 
     @FXML
-    private VBox detailsPlaceholder;
+    private StackPane upcomingViewPlaceholder;
 
     /**
      * Constructor for CalendarPanel. Contains the 3 main viewing points for the calendar panel.
@@ -41,20 +46,20 @@ public class CalendarPanel extends UiPart<Region> {
      *
      * @see TimelineView
      * @see CalendarScreen
-     * @see Details
+     * @see UpcomingView
      */
     public CalendarPanel() {
         super(FXML);
         this.calendarDate = CalendarDate.now();
-        this.eventList = new ArrayList<>();
+        this.eventTaskList = new ArrayList<>();
 
         this.calendarScreen = new CalendarScreen(this.calendarDate);
-        this.timelineView = new TimelineDayView(this.calendarDate, eventList);
-        this.details = new Details();
+        this.timelineView = new TimelineDayView(this.calendarDate, eventTaskList);
+        this.upcomingView = new UpcomingView(eventTaskList);
 
         timelinePlaceholder.getChildren().add(this.timelineView.getRoot()); // Left
         calendarScreenPlaceholder.getChildren().add(this.calendarScreen.getRoot()); // Top Right
-        detailsPlaceholder.getChildren().add(this.details.getRoot()); // Bottom Right
+        upcomingViewPlaceholder.getChildren().add(this.upcomingView.getRoot()); // Bottom Right
 
     }
 
@@ -67,14 +72,15 @@ public class CalendarPanel extends UiPart<Region> {
         calendarScreenPlaceholder.getChildren().clear();
         calendarScreen = new CalendarScreen(calendarDate);
         calendarScreenPlaceholder.getChildren().add(calendarScreen.getRoot());
-        calendarScreen.eventChange(eventList);
+        calendarScreen.onChange(eventTaskList);
     }
 
     /**
      * Re-sizes the TimelineView.
      */
-    public void resizeTimelineView() {
+    public void resizeCalendarPanel() {
         timelineView.resizeTimelineView();
+        upcomingView.resizeUpcomingView(eventTaskList);
     }
 
     /**
@@ -85,7 +91,7 @@ public class CalendarPanel extends UiPart<Region> {
     public void changeToDayView(CalendarDate calendarDate) {
         changeCalendarScreenDate(calendarDate);
         timelinePlaceholder.getChildren().clear();
-        timelineView = new TimelineDayView(calendarDate, eventList);
+        timelineView = new TimelineDayView(calendarDate, eventTaskList);
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
@@ -97,7 +103,7 @@ public class CalendarPanel extends UiPart<Region> {
     public void changeToWeekView(CalendarDate calendarDate) {
         changeCalendarScreenDate(calendarDate);
         timelinePlaceholder.getChildren().clear();
-        this.timelineView = new TimelineWeekView(calendarDate, eventList);
+        this.timelineView = new TimelineWeekView(calendarDate, eventTaskList);
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
@@ -109,17 +115,70 @@ public class CalendarPanel extends UiPart<Region> {
     public void changeToMonthView(CalendarDate calendarDate) {
         changeCalendarScreenDate(calendarDate);
         timelinePlaceholder.getChildren().clear();
-        this.timelineView = new TimelineMonthView(calendarDate, eventList);
+        this.timelineView = new TimelineMonthView(calendarDate, eventTaskList);
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
     /**
-     * Changes the sub-components of the CalendarPanel with the updated events.
-     * @param events The given list of events.
+     * Changes the UI according to the given ModelLists.
+     *
+     * @param lists The given ModelLists.
      */
-    public void onEventListChange(List<EventSource> events) {
-        this.timelineView.eventChange(events);
-        this.calendarScreen.eventChange(events);
-        this.eventList = events;
+    public void onModelListChange(ModelLists lists) {
+        eventTaskList = combineList(lists.getEvents(), lists.getTasks());
+        this.timelineView.onChange(eventTaskList);
+        this.calendarScreen.onChange(eventTaskList);
+        this.upcomingView.onChange(eventTaskList);
+    }
+
+    /**
+     * Returns a combined copy of list for event list and task list into an Object list to be used.
+     *
+     * @param events Represents the event list.
+     * @param tasks Represents the task list.
+     * @return A combined copy of list for event list and task list into an Object list to be used.
+     */
+    private List<Object> combineList(List<EventSource> events, List<TaskSource> tasks) {
+        List<Object> eventTaskList = new ArrayList<>();
+        Queue<EventSource> tempEvents = new LinkedList<>();
+        tempEvents.addAll(events);
+        Queue<TaskSource> tempTasks = new LinkedList<>();
+        tempTasks.addAll(tasks);
+
+        // Events and Tasks are already sorted, so we need to zip them.
+        while (!tempEvents.isEmpty() || !tempTasks.isEmpty()) {
+            if (tempEvents.isEmpty()) {
+                eventTaskList.addAll(tempTasks);
+                break;
+            }
+
+            if (tempTasks.isEmpty()) {
+                eventTaskList.addAll(tempEvents);
+                break;
+            }
+
+            EventSource event = tempEvents.peek();
+            TaskSource task = tempTasks.peek();
+            if (task.isDone() || task.getDueDate() == null) {
+                tempTasks.poll();
+                continue;
+            }
+
+            int dateCompare = event.getStartDateTime().compareTo(task.getDueDate());
+            if (dateCompare == 0) {
+                if (event.getDescription().compareTo(task.getDescription()) <= 0) {
+                    eventTaskList.add(tempEvents.poll());
+                } else {
+                    eventTaskList.add(tempTasks.poll());
+                }
+            } else if (dateCompare < 0) {
+                System.out.println(dateCompare);
+                eventTaskList.add(tempEvents.poll());
+            } else {
+                eventTaskList.add(tempTasks.poll());
+            }
+        }
+
+        return eventTaskList;
     }
 }
