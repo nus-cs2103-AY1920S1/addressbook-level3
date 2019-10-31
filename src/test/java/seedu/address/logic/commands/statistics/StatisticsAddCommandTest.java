@@ -1,10 +1,11 @@
 package seedu.address.logic.commands.statistics;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.model.Model;
@@ -70,8 +71,8 @@ public class StatisticsAddCommandTest {
 
     @Test
     public void execute_nullStatistics_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> new StatisticsAddCommand(new TypicalStatistics().getNullDataStatistics(), ""));
+        Assertions.assertThrows(NullPointerException.class, () ->
+            new StatisticsAddCommand(new TypicalStatistics().getNullDataStatistics(), ""));
     }
 
     @Test
@@ -82,11 +83,11 @@ public class StatisticsAddCommandTest {
         StatisticsAddCommand otherAddCommand = new StatisticsAddCommand(otherStats, PRINTABLE_NAME);
 
         // same object -> returns true
-        assertTrue(addCommand.equals(addCommand));
+        Assertions.assertTrue(addCommand.equals(addCommand));
 
         // same values -> returns true
         StatisticsAddCommand addCommandCopy = new StatisticsAddCommand(stats, PRINTABLE_NAME);
-        assertTrue(addCommand.equals(addCommandCopy));
+        Assertions.assertTrue(addCommand.equals(addCommandCopy));
 
         // different types -> returns false
         assertFalse(addCommand.equals(1));

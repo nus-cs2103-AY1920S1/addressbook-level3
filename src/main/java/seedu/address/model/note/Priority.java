@@ -11,9 +11,11 @@ public enum Priority {
     LOW,
     UNMARKED;
 
-    private static final String INVALID_PRIORITY = "Priority must be of type high, medium, low or unmarked.";
+    public static final String INVALID_PRIORITY = "Priority must be of type high, medium, low or unmarked.";
 
     public static Priority getPriority(String priority) throws ParseException {
+        assert priority != null;
+
         String upperCasePriority = priority.trim().toUpperCase();
         switch (upperCasePriority) {
         case "HIGH" :

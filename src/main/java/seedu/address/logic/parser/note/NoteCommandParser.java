@@ -44,9 +44,9 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         if (isEditCommand(argMultimap)) {
             return getNoteEditCommand(argMultimap);
         } else if (isListCommand(argMultimap)) {
-            return getNoteListCommand();
+            return getNoteListCommand(args);
         } else if (isSortCommand(argMultimap)) {
-            return getNoteSortCommand();
+            return getNoteSortCommand(args);
         } else if (isDeleteCommand(argMultimap)) {
             return getNoteDeleteCommand(argMultimap);
         } else if (isAddCommand(argMultimap)) {
@@ -65,8 +65,15 @@ public class NoteCommandParser implements Parser<NoteCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE), pe);
         }
         EditNoteDescriptor editNoteDescriptor = new EditNoteDescriptor();
-        editNoteDescriptor.setNote(argMultimap.getValue(CliSyntax.PREFIX_NOTE));
-        editNoteDescriptor.setDescription(argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION));
+        Optional<String> note = argMultimap.getValue(CliSyntax.PREFIX_NOTE);
+        Optional<String> desc = argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION);
+        if ((note.isPresent() && note.get().isEmpty())
+                || (desc.isPresent() && desc.get().isEmpty())) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE));
+        }
+        editNoteDescriptor.setNote(note);
+        editNoteDescriptor.setDescription(desc);
         Optional<Priority> priority = argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).isPresent()
                 ? Optional.of(Priority.getPriority(argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).get()))
                 : Optional.empty();
@@ -74,12 +81,20 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         return new NoteEditCommand(index, editNoteDescriptor);
     }
 
-    private static NoteListCommand getNoteListCommand() {
-        return new NoteListCommand();
+    private static NoteListCommand getNoteListCommand(String args) throws ParseException {
+        if (args.trim().endsWith("list")) {
+            return new NoteListCommand();
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteListCommand.MESSAGE_USAGE));
+        }
     }
 
-    private static NoteSortCommand getNoteSortCommand() {
-        return new NoteSortCommand();
+    private static NoteSortCommand getNoteSortCommand(String args) throws ParseException {
+        if (args.trim().endsWith("sort")) {
+            return new NoteSortCommand();
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteSortCommand.MESSAGE_USAGE));
+        }
     }
 
     private static NoteDeleteCommand getNoteDeleteCommand(ArgumentMultimap argMultimap) throws ParseException {

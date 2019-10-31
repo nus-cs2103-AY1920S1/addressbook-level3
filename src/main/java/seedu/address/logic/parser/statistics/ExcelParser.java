@@ -1,5 +1,12 @@
 package seedu.address.logic.parser.statistics;
 
+import static seedu.address.commons.core.Messages.EXCEL_FILE_ILLEGAL_FORMAT;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_ILLEGAL_INPUT;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_FOUND;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_PARSED;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_TYPE_ISSUE;
+import static seedu.address.commons.core.Messages.EXCEL_ILLEGAL_HEADER;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,8 +25,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import static seedu.address.commons.core.Messages.*;
 
 /**
  * A data parser that parses formatted excel(.xlsx) files containing students score data.

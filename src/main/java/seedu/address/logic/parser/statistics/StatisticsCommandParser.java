@@ -21,6 +21,9 @@ import seedu.address.model.statistics.Statistics;
  */
 public class StatisticsCommandParser implements Parser<StatisticsCommand> {
 
+    public static final String FILE_NAME_ERROR = "Printable file name cannot be empty "
+            + "or contain special characters such as '/' and '\\'.";
+
     private DataParser dataParser = new ExcelParser();
 
     /**
@@ -44,6 +47,10 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
 
         String filePath = argMultimap.getValue(CliSyntax.PREFIX_FILEPATH).orElse("");
         String printableName = argMultimap.getValue(CliSyntax.PREFIX_PRINT).orElse("");
+        if ((arePrefixesPresent(argMultimap, CliSyntax.PREFIX_PRINT) && printableName.isEmpty())
+                || (printableName.contains("/") || printableName.contains("\\"))) {
+            throw new ParseException(FILE_NAME_ERROR);
+        }
         HashMap<String, HashMap<String, Double>> data = dataParser.parseFile(filePath);
 
         return new StatisticsAddCommand(new Statistics(data), printableName);

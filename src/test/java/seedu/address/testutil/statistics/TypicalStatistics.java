@@ -1,16 +1,9 @@
 package seedu.address.testutil.statistics;
 
-import seedu.address.model.note.Note;
-import seedu.address.model.note.NotesRecord;
-import seedu.address.model.note.Priority;
+import java.util.HashMap;
+
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.StatisticsRecord;
-import seedu.address.testutil.note.NoteBuilder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * A utility class containing a typical {@code Statistics} objects to be used in tests.
@@ -24,11 +17,14 @@ public class TypicalStatistics {
 
     public TypicalStatistics() {
         emptyMap = new HashMap<>();
-        nullMap  = null;
+        nullMap = null;
         singleValueMap = populateSingleValueMap();
         typicalMap = populateTypicalMap();
     }
 
+    /**
+     * Creates a HashMap data of a single data entry for testing.
+     */
     public HashMap<String, HashMap<String, Double>> populateSingleValueMap() {
         HashMap<String, Double> subject = new HashMap<>();
         subject.put("Science", 72.0);
@@ -37,6 +33,9 @@ public class TypicalStatistics {
         return singleValueMap;
     }
 
+    /**
+     * Creates a HashMap data of multiple data entries for testing.
+     */
     public HashMap<String, HashMap<String, Double>> populateTypicalMap() {
         HashMap<String, Double> subject = new HashMap<>();
         subject.put("Science", 75.5);
@@ -80,6 +79,7 @@ public class TypicalStatistics {
     public Statistics getNullDataStatistics() {
         return new Statistics(nullMap);
     }
+
     public Statistics getSingleValueStatistics() {
         return new Statistics(singleValueMap);
     }

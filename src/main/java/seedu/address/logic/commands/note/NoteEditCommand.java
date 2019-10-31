@@ -23,7 +23,7 @@ public class NoteEditCommand extends NoteCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing note\n"
             + "Parameters:\n"
             + "INDEX: (must be a positive integer) "
-            + "note/{Title}"
+            + "note/{Title}\n"
             + "desc/{Description}\n"
             + "Example: note 1 note/tuesday and wednesday desc/grade papers\n";
 

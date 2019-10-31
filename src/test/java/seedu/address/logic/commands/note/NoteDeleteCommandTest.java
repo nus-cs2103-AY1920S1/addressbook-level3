@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
 import static seedu.address.testutil.note.TypicalNotes.getTypicalNotesRecord;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
