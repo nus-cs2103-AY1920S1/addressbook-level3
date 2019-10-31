@@ -60,10 +60,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return tabMenusFilePath;
     }
 
-    public void setTabMenusFilePath(Path tabMenusFilePath) {
-        this.tabMenusFilePath = tabMenusFilePath;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {

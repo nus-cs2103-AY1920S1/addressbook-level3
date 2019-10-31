@@ -19,7 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the engagement list data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -35,7 +35,7 @@ public class ModelManager implements Model {
         super();
         CollectionUtil.requireAllNonNull(engagementList, userPrefs);
 
-        logger.fine("Initializing with address book: " + engagementList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with engagement list: " + engagementList + " and user prefs " + userPrefs);
 
         this.historyManager = new HistoryManager(engagementList);
         this.userPrefs = new UserPrefs(userPrefs);

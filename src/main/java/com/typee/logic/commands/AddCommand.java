@@ -20,7 +20,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an engagement to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an engagement to the engagement list. "
             + "Parameters: "
             + PREFIX_ENGAGEMENT_TYPE + "ENGAGEMENT_TYPE "
             + PREFIX_START_TIME + "START TIME "
