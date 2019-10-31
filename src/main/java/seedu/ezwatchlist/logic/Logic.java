@@ -1,7 +1,12 @@
 package seedu.ezwatchlist.logic;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
@@ -10,6 +15,7 @@ import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
+import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.show.Show;
 
 /**
@@ -38,11 +44,20 @@ public interface Logic {
      */
     ReadOnlyWatchList getWatchList();
 
+    /** Returns an unmodifiable view of the filtered shows that have not been watched */
+    ObservableList<Show> getUnWatchedList();
+
     /** Returns an unmodifiable view of the filtered watched list of shows */
     ObservableList<Show> getWatchedList();
 
     /** Returns an unmodifiable view of the filtered list of shows */
     ObservableList<Show> getFilteredShowList();
+
+    /** Updates the filter of the filtered show list by the given {@code predicate}. */
+    void updateFilteredShowList(Predicate<Show> predicate);
+
+    /** Sets the filtered show list to be the given {@code shows}. */
+    void setFilteredShowsTo(ObservableList<Show> shows);
 
     /** Returns an unmodifiable view of the search results of shows */
     ObservableList<Show> getSearchResultList();

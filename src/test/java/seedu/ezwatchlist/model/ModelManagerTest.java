@@ -3,7 +3,7 @@ package seedu.ezwatchlist.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
+import static seedu.ezwatchlist.model.Model.PREDICATE_ALL_SHOWS;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
 import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
@@ -122,7 +122,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(watchList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
+        modelManager.updateFilteredShowList(PREDICATE_ALL_SHOWS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

@@ -2,8 +2,13 @@ package seedu.ezwatchlist.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
@@ -15,6 +20,7 @@ import seedu.ezwatchlist.logic.parser.WatchListParser;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
+import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.storage.Storage;
 
@@ -58,10 +64,14 @@ public class LogicManager implements Logic {
         return model;
     }
 
-
     @Override
     public ReadOnlyWatchList getWatchList() {
         return model.getWatchList();
+    }
+
+    @Override
+    public ObservableList<Show> getUnWatchedList() {
+        return model.getUnWatchedShowList();
     }
 
     @Override
@@ -72,6 +82,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Show> getFilteredShowList() {
         return model.getFilteredShowList();
+    }
+
+    @Override
+    public void updateFilteredShowList(Predicate<Show> predicate) {
+        model.updateFilteredShowList(predicate);
+    }
+
+    @Override
+    public void setFilteredShowsTo(ObservableList<Show> shows) {
+        model.setFilteredShowsTo(shows);
     }
 
     @Override

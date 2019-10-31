@@ -22,6 +22,8 @@ import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.exceptions.ShowNotFoundException;
 import seedu.ezwatchlist.statistics.Statistics;
 
 /**
@@ -147,7 +149,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of main window.
      */
     void fillInnerParts() {
-        showListPanel = new ShowListPanel(logic.getFilteredShowList());
+        showListPanel = new ShowListPanel(logic.getUnWatchedList());
         showListPanel.setMainWindow(this);
         watchedPanel = new WatchedPanel(logic.getWatchedList());
         watchedPanel.setMainWindow(this);
@@ -285,15 +287,30 @@ public class MainWindow extends UiPart<Stage> {
     public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException {
         try {
-            if (currentTab.equals(WATCHED_TAB)) { // to ensure that the command executed is based off watched list index
-                logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
+            if (commandText.toLowerCase().contains("search") && !currentTab.equals(SEARCH_TAB)) {
+                goToSearch();
             }
+            switch (currentTab) {
+            case (MAIN_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
+                break;
+            case (WATCHED_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
+                break;
+            case (SEARCH_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_ALL_SHOWS);
+                break;
+            case (STATISTICS_TAB):
+                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
+                break;
+            default:
+                break;
+            }
+
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            //somehow use this code to display list of search results???
-            //showListPanel = new ShowListPanel(logic.getSearchResultList());
-            //contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -304,7 +321,7 @@ public class MainWindow extends UiPart<Stage> {
 
             return commandResult;
             //catch ParseException here to implement spellcheck
-        } catch (CommandException | ParseException | OnlineConnectionException e) {
+        } catch (CommandException | ParseException | OnlineConnectionException |ShowNotFoundException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -318,7 +335,8 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
-        logic.getModel().updateFilteredShowList(Model.PREDICATE_SHOW_ALL_SHOWS);
+        logic.setFilteredShowsTo(logic.getWatchList().getShowList());
+        logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
         currentTab = MAIN_TAB;
         move(currentButton, watchlistButton);
         currentButton = watchlistButton;
@@ -331,7 +349,8 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatched() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(watchedPanel.getRoot());
-        logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
+        logic.setFilteredShowsTo(logic.getWatchList().getShowList());
+        logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
         currentTab = WATCHED_TAB;
         move(currentButton, watchedButton);
         currentButton = watchedButton;
@@ -344,6 +363,7 @@ public class MainWindow extends UiPart<Stage> {
     public void goToSearch() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+        logic.setFilteredShowsTo(logic.getSearchResultList());
         currentTab = SEARCH_TAB;
         move(currentButton, searchButton);
         currentButton = searchButton;
@@ -356,6 +376,7 @@ public class MainWindow extends UiPart<Stage> {
     public void goToStatistics() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+        logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
         currentTab = STATISTICS_TAB;
         move(currentButton, statisticsButton);
         currentButton = statisticsButton;

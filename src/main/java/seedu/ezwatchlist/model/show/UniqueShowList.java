@@ -29,6 +29,9 @@ import seedu.ezwatchlist.model.show.exceptions.ShowNotFoundException;
  */
 public class UniqueShowList implements Iterable<Show> {
 
+    public static final String MESSAGE_SHOW_NOT_FOUND =
+            "The indicated show is not part of your watchlist, please add it first.";
+
     private final ObservableList<Show> internalList = FXCollections.observableArrayList();
     private final ObservableList<Show> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -146,7 +149,7 @@ public class UniqueShowList implements Iterable<Show> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new ShowNotFoundException();
+            throw new ShowNotFoundException(MESSAGE_SHOW_NOT_FOUND);
         }
 
         if (!target.isSameShow(editedShow) && contains(editedShow)) {
@@ -163,7 +166,7 @@ public class UniqueShowList implements Iterable<Show> {
     public void remove(Show toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new ShowNotFoundException();
+            throw new ShowNotFoundException(MESSAGE_SHOW_NOT_FOUND);
         }
     }
 

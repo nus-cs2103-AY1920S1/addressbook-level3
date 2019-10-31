@@ -3,6 +3,8 @@ package seedu.ezwatchlist.model;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -18,7 +20,20 @@ import seedu.ezwatchlist.model.show.Show;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Show> PREDICATE_SHOW_ALL_SHOWS = unused -> true;
+    Predicate<Show> PREDICATE_ALL_SHOWS = unused -> true;
+
+    /** {@code Predicate} that evaluates to true when a show is not watched*/
+    Predicate<Show> PREDICATE_UNWATCHED_SHOWS = show -> !show.isWatched().value;
+
+    /** {@code Predicate} that evaluates to true when a show is watched */
+    Predicate<Show> PREDICATE_WATCHED_SHOWS = show -> show.isWatched().value;
+
+    /** {@code Predicate} that evaluates to true when a show is found in the indicated watchlist */
+    BiFunction<WatchList, WatchList, Predicate<Show>> PREDICATE_INTERNALLY_SEARCHED_SHOWS =
+            (watchList, watchList2) -> show -> watchList.hasShow(show) && watchList2.hasShow(show);
+
+    /** {@code Predicate} that always evaluates to false */
+    Predicate<Show> PREDICATE_NO_SHOWS = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -130,11 +145,24 @@ public interface Model {
      */
     void updateFilteredShowList(Predicate<Show> predicate);
 
+    /**
+     * Sets the shows in the filtered show list to be equal to the list of shows provided.
+     */
+    void setFilteredShowsTo(ObservableList<Show> shows);
+
+    /** Returns an unmodifiable view of the unwatched show list */
+    ObservableList<Show> getUnWatchedShowList();
+
     /** Returns an unmodifiable view of the watched show list */
     ObservableList<Show> getWatchedShowList();
 
     /**
-     * Updates the watched show list to filter by the given watched status.
+     * Updates the unwatched show list to filter shows that have not been watched.
+     */
+    void updateUnWatchedShowList();
+
+    /**
+     * Updates the watched show list to filter shows that have been watched.
      */
     void updateWatchedShowList();
 

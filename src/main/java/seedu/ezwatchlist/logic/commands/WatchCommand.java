@@ -2,7 +2,7 @@ package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NUM_OF_EPISODES;
-import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
+import static seedu.ezwatchlist.model.Model.PREDICATE_ALL_SHOWS;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -96,7 +96,7 @@ public class WatchCommand extends Command {
         }
 
         model.setShow(showToEdit, editedShow);
-        model.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
+        model.updateFilteredShowList(PREDICATE_ALL_SHOWS);
 
         boolean isWatched = editedShow.isWatched().value;
 
