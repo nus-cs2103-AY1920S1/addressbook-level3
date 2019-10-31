@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.SortByCond;
 import seedu.address.model.note.UniqueNoteList;
@@ -97,7 +98,7 @@ public class NoteBook implements ReadOnlyNoteBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a note with the same Title as {@code note} exists in the note book.
      */
     public boolean hasNote(Note note) {
         requireNonNull(note);
@@ -105,8 +106,8 @@ public class NoteBook implements ReadOnlyNoteBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a note to the note book.
+     * The note must not already exist in the note book.
      */
     public void addNote (Note n) {
         notes.add(n);
@@ -130,6 +131,13 @@ public class NoteBook implements ReadOnlyNoteBook {
      */
     public void removeNote(Note key) {
         notes.remove(key);
+    }
+
+    /**
+     * Gets the Index of the note in the note list.
+     */
+    public Index getNoteIndex(Note note) {
+        return notes.getNoteIndex(note);
     }
 
     //// util methods

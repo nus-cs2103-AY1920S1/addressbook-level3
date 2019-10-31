@@ -46,7 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private PasswordListPanel passwordListPanel;
     private HelpWindow helpWindow;
     private ReadDisplayPassword readDisplayPassword;
-    private ReadDisplayNote readDisplayNote;
+    private OpenDisplayNote openDisplayNote;
     private ReadDisplayCard readDisplayCard;
     private ResultDisplay resultDisplay;
     private ExpiryDisplay expiryDisplay;
@@ -213,12 +213,12 @@ public class MainWindow extends UiPart<Stage> {
             readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
             readDisplayPassword.setFeedbackToUser((Password) object, index);
         } else if (object instanceof Note) {
-            readDisplayNote = new ReadDisplayNote();
-            readDisplayNote.setLogic(logic);
+            openDisplayNote = new OpenDisplayNote();
+            openDisplayNote.setLogic(logic);
             //TODO bad coupling? how else to implement though?
-            readDisplayNote.setMainWindow(this);
-            readListPanelPlaceholder.getChildren().add(readDisplayNote.getRoot());
-            readDisplayNote.setFeedbackToUser((Note) object, index);
+            openDisplayNote.setMainWindow(this);
+            readListPanelPlaceholder.getChildren().add(openDisplayNote.getRoot());
+            openDisplayNote.setFeedbackToUser((Note) object, index);
         } else if (object instanceof AnalysisReport) {
             readList.setMinWidth(600);
             readDisplayPasswordReport = new ReadDisplayPasswordReport();

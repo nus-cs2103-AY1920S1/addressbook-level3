@@ -16,7 +16,7 @@ import seedu.address.logic.commands.FindNoteCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListNoteCommand;
-import seedu.address.logic.commands.ReadNoteCommand;
+import seedu.address.logic.commands.OpenNoteCommand;
 import seedu.address.logic.commands.RedoNoteCommand;
 import seedu.address.logic.commands.SortNoteCommand;
 import seedu.address.logic.commands.UndoNoteCommand;
@@ -61,7 +61,7 @@ public class NoteBookParser {
         case DeleteNoteCommand.COMMAND_WORD:
             return new DeleteNoteCommandParser().parse(arguments);
 
-        case ReadNoteCommand.COMMAND_WORD:
+        case OpenNoteCommand.COMMAND_WORD:
             return new ReadNoteCommandParser().parse(arguments);
 
         case ClearNoteCommand.COMMAND_WORD:

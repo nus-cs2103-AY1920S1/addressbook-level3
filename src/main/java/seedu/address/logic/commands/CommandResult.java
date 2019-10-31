@@ -78,7 +78,6 @@ public class CommandResult {
 
         /** The application should exit. */
         private boolean exit;
-
         private boolean isGoTo;
         private boolean read;
         private Mode modeToGoTo;

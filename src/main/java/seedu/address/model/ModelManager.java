@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileStatus;
@@ -446,5 +447,10 @@ public class ModelManager implements Model {
     @Override
     public void commitNote() {
         noteBook.commit();
+    }
+
+    @Override
+    public Index getNoteIndex(Note note) {
+        return noteBook.getNoteIndex(note);
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.note.exceptions.DuplicateNoteException;
 import seedu.address.model.note.exceptions.NoteNotFoundException;
 
@@ -100,6 +101,10 @@ public class UniqueNoteList implements Iterable<Note> {
 
     public void sortNotes(SortByCond sortByCond) {
         internalList.sort(sortByCond.getSortComparator());
+    }
+
+    public Index getNoteIndex(Note note) {
+        return Index.fromZeroBased(internalList.indexOf(note));
     }
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

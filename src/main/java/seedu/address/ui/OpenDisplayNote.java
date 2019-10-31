@@ -20,11 +20,11 @@ import seedu.address.model.note.Note;
 /**
  * Controller for a help page
  */
-public class ReadDisplayNote extends UiPart<Region> {
+public class OpenDisplayNote extends UiPart<Region> {
 
 
-    private static final Logger logger = LogsCenter.getLogger(ReadDisplayNote.class);
-    private static final String FXML = "ReadDisplayNote.fxml";
+    private static final Logger logger = LogsCenter.getLogger(OpenDisplayNote.class);
+    private static final String FXML = "OpenDisplayNote.fxml";
     private String content;
     private String title;
     private String description;
@@ -41,6 +41,7 @@ public class ReadDisplayNote extends UiPart<Region> {
 
     @FXML
     private Label labelDescription = new Label("Description");
+
     @FXML
     private TextField noteTitle;
 
@@ -56,7 +57,7 @@ public class ReadDisplayNote extends UiPart<Region> {
      * Creates a new readDisplayNote.
      *
      */
-    public ReadDisplayNote() {
+    public OpenDisplayNote() {
         super(FXML);
 
     }
