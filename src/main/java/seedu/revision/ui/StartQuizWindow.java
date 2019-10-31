@@ -29,6 +29,7 @@ import seedu.revision.model.quiz.Mode;
 import seedu.revision.ui.answerables.AnswerableListPanel;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
+import seedu.revision.ui.answers.SaqAnswersGridPane;
 import seedu.revision.ui.answers.TfAnswersGridPane;
 import seedu.revision.ui.bar.ProgressIndicatorBar;
 import seedu.revision.ui.bar.ScoreProgressAndTimerGridPane;
@@ -80,6 +81,8 @@ public class StartQuizWindow extends Window {
             answersGridPane = new McqAnswersGridPane(currentAnswerable);
         } else if (currentAnswerable instanceof TrueFalse) {
             answersGridPane = new TfAnswersGridPane(currentAnswerable);
+        } else {
+            answersGridPane = new SaqAnswersGridPane(currentAnswerable);
         }
         //TODO: Sihao to add here and line 177
 
