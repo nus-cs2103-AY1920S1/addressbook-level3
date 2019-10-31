@@ -13,6 +13,7 @@ src/main/resources/docs/
 /config.json
 /preferences.json
 /*.log.*
+/stats/stats.txt
 
 # Test sandbox files
 src/test/data/sandbox/
@@ -24,3 +25,4 @@ decks/My First Deck.json
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+stats/stats.txt

@@ -3,19 +3,22 @@ package dream.fcard.gui.controllers.windows;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.components.JavaEditorApplication;
-import dream.fcard.gui.components.JsEditorApplication;
-import dream.fcard.gui.controllers.displays.CreateDeckDisplay;
-import dream.fcard.gui.controllers.displays.DeckDisplay;
-import dream.fcard.gui.controllers.displays.NoDecksDisplay;
+import dream.fcard.gui.controllers.displays.createandeditdeck.CreateDeckDisplay;
+import dream.fcard.gui.controllers.displays.displayingdecks.DeckDisplay;
+import dream.fcard.gui.controllers.displays.displayingdecks.NoDecksDisplay;
+import dream.fcard.gui.controllers.jsjava.JavaEditorApplication;
+import dream.fcard.gui.controllers.jsjava.JsEditorApplication;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Dispatcher;
+import dream.fcard.logic.stats.Stats;
+import dream.fcard.logic.storage.StatsStorageManager;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -23,6 +26,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -31,7 +35,7 @@ import javafx.stage.Stage;
 public class MainWindow extends VBox {
 
     @FXML
-    private ScrollPane deckScrollPane;
+    private VBox deckScrollPane;
     @FXML
     private ListView<Deck> deckList;
     @FXML
@@ -46,6 +50,8 @@ public class MainWindow extends VBox {
     private MenuItem javaEditor;
     @FXML
     private MenuItem quit;
+    @FXML
+    private MenuItem statistics;
     @FXML
     private Label messageLabel;
     @FXML
@@ -78,11 +84,11 @@ public class MainWindow extends VBox {
      */
     @FXML
     public void initialize() {
-        deckScrollPane.vvalueProperty().bind(deckList.heightProperty());
         displayScrollPane.vvalueProperty().bind(displayContainer.heightProperty());
         onCreateNewDeck.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
         displayMessage.accept("Welcome to FlashCard Pro!");
+
         deckList.setOnMouseClicked(e -> {
             Deck d = deckList.getSelectionModel().getSelectedItem();
             displaySpecificDeck(d);
@@ -91,11 +97,11 @@ public class MainWindow extends VBox {
             // this extra flexibility - whether it's a flexibility or an annoyance depends on us.
         });
         quit.setOnAction(e -> {
-            //Save all files only exit
             quit();
         });
         javaEditor.setOnAction(e -> openEditor(true));
         jsEditor.setOnAction(e -> openEditor(false));
+        statistics.setOnAction(e -> openStatistics());
         render();
     }
 
@@ -134,6 +140,7 @@ public class MainWindow extends VBox {
     /**
      * Switches the display pane to an edit pane, used in initialising step/
      */
+    @FXML
     private void showCreateNewDeckForm() {
         displayContainer.getChildren().clear();
         this.tempCreateDeckDisplay = new CreateDeckDisplay();
@@ -235,7 +242,12 @@ public class MainWindow extends VBox {
      * Quits from the entire program. Saves the decks to a file first.
      */
     public void quit() {
+        // end the current session
+        Stats.endCurrentSession();
+
+        // save all files only on exit
         StorageManager.saveAll(State.getState().getDecks());
+        StatsStorageManager.saveLoginSessions();
         System.exit(0);
     }
 
@@ -249,5 +261,21 @@ public class MainWindow extends VBox {
 
     public void processInputCreate(String input) {
         tempCreateDeckDisplay.processInput(input);
+
+    }
+    /**
+     * Quits from the entire program. Saves the decks to a file first.
+     * Opens a new window to show the user's statistics.
+     */
+    @FXML
+    public void openStatistics() {
+        // when Logger is implemented, log "Opening Statistics window..."
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(new StatisticsWindow());
+        stage.setScene(scene);
+        stage.setTitle("My Statistics");
+        stage.show();
     }
 }

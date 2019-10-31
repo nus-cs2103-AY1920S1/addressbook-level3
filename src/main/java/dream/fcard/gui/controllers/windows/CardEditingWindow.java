@@ -4,27 +4,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.displays.McqOptionsSetter;
+import dream.fcard.gui.controllers.displays.createandeditdeck.jscard.JsTestCaseInputTextArea;
+import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptionsSetter;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
  * A window that looks like CardCreatingWindow but which opens in DeckDisplay for the user to quickly edit a card.
  */
-public class CardEditingWindow extends AnchorPane {
+// todo: suggestion - instead of opening within DeckDisplay, do the same as CardCreatingWindow, so
+// that the "Save Deck" and "Cancel" buttons appear too
+public class CardEditingWindow extends VBox {
     @FXML
     private TextField questionField;
     @FXML
@@ -38,7 +39,14 @@ public class CardEditingWindow extends AnchorPane {
 
     private TextArea frontBackTextArea;
     private McqOptionsSetter mcqOptionsSetter;
+    private JsTestCaseInputTextArea jsTestCaseInputTextArea;
+
     private String cardType = "";
+    private final String frontBack = "Front-back";
+    private final String mcq = "MCQ";
+    //private final String java = "Java";
+    private final String js = "JavaScript";
+
     private FlashCard card;
 
     @SuppressWarnings("unchecked")
@@ -54,12 +62,12 @@ public class CardEditingWindow extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.card = card;
-            cardTypeSelector.getItems().addAll("Front-back", "MCQ");
+            cardTypeSelector.getItems().addAll(frontBack, mcq, js);
             cardTypeSelector.setOnAction(e -> {
                 String currentlySelected = cardTypeSelector.getValue();
                 if (!cardType.equals(currentlySelected)) {
                     cardType = currentlySelected;
-                    changeInputBox(cardType.equals("MCQ"));
+                    changeInputBox(currentlySelected);
                 }
             });
             questionField.setText(card.getFront());
@@ -83,26 +91,29 @@ public class CardEditingWindow extends AnchorPane {
     /**
      * Changes the input box from a textbox to the MCQ setter and vice versa.
      *
-     * @param isMcq whether the user is trying to create an MCQ card
+     * @param cardType the type of card.
      */
-    void changeInputBox(boolean isMcq) {
+    void changeInputBox(String cardType) {
         answerContainer.getChildren().clear();
-        if (!isMcq) {
+        if (cardType.equals(frontBack)) {
             frontBackTextArea = new TextArea();
             answerContainer.getChildren().add(frontBackTextArea);
-        } else {
+        } else if (cardType.equals(mcq)) {
             mcqOptionsSetter = new McqOptionsSetter();
             answerContainer.getChildren().add(mcqOptionsSetter);
+        } else if (cardType.equals(js)) {
+            jsTestCaseInputTextArea = new JsTestCaseInputTextArea();
+            answerContainer.getChildren().add(jsTestCaseInputTextArea);
         }
     }
 
     /**
      * Take the card's existing answer(s) and add them to the cardEditingWindow.
      */
-    void populateExistingAnswers() {
+    private void populateExistingAnswers() {
         if (card instanceof MultipleChoiceCard) {
             ArrayList<String> choices = ((MultipleChoiceCard) card).generateCopyOfChoices();
-            cardTypeSelector.setValue("MCQ");
+            cardTypeSelector.setValue(mcq);
             mcqOptionsSetter.deleteFirstRow(); //take out the empty first row
             for (int i = 0; i < choices.size(); i++) {
                 if (((MultipleChoiceCard) card).getCorrectAnswerIndex() - 1 == i) {
@@ -112,13 +123,16 @@ public class CardEditingWindow extends AnchorPane {
                 mcqOptionsSetter.addNewRow(choices.get(i), false);
             }
         } else if (card instanceof FrontBackCard) {
-            cardTypeSelector.setValue("Front-back");
+            cardTypeSelector.setValue(frontBack);
             frontBackTextArea.setText(card.getBack());
+        } else if (card instanceof JavascriptCard) {
+            cardTypeSelector.setValue(js);
+            jsTestCaseInputTextArea.setTextArea(card.getBack());
         }
     }
 
     FlashCard getEditedCard() {
-        if (cardType.equals("MCQ")) {
+        if (cardType.equals(mcq)) {
             //validation - non-empty question, at least one non-empty option, and a designated right answer
             if (questionField.getText().isBlank()) {
                 displayMessage.accept("You need to enter a question!");
@@ -134,13 +148,9 @@ public class CardEditingWindow extends AnchorPane {
             String front = questionField.getText();
             String back = Integer.toString(mcqOptionsSetter.getIndexOfRightAnswer()); //already 1-indexed
             ArrayList<String> choices = mcqOptionsSetter.getChoices();
-            try {
-                return new MultipleChoiceCard(front, back, choices);
-            } catch (DuplicateInChoicesException | IndexNotFoundException e) {
-                displayMessage.accept("You have duplicate options!");
-                return null;
-            }
-        } else if (cardType.equals("Front-back")) {
+            return new MultipleChoiceCard(front, back, choices);
+
+        } else if (cardType.equals(frontBack)) {
             // validation - non-empty fields
             if (questionField.getText().isBlank()) {
                 displayMessage.accept("You need to enter a question!");
@@ -153,6 +163,20 @@ public class CardEditingWindow extends AnchorPane {
             String front = questionField.getText();
             String back = frontBackTextArea.getText(); // NullPointerException will not happen
             return new FrontBackCard(front, back);
+
+        } else if (cardType.equals(js)) {
+            // validation
+            if (questionField.getText().isBlank()) {
+                displayMessage.accept("You need to enter a question!");
+                return null;
+            } else if (!jsTestCaseInputTextArea.hasTestCase()) {
+                displayMessage.accept("You need to enter a test case!");
+                return null;
+            }
+
+            String front = questionField.getText();
+            String back = jsTestCaseInputTextArea.getAssertions();
+            return new JavascriptCard(front, back);
         }
         return null;
     }

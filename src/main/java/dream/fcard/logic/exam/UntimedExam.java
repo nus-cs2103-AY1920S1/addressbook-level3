@@ -13,9 +13,11 @@ public class UntimedExam implements Exam {
     private final ArrayList<FlashCard> testDeck;
     private Result result;
     private int index = 0;
+    private ArrayList<FlashCard> initialDeck;
 
     public UntimedExam(ArrayList<FlashCard> deck) {
-        this.testDeck = deck;
+        this.initialDeck = deck;
+        this.testDeck = createTestDeck();
         this.result = new Result(testDeck.size());
     }
 
@@ -25,10 +27,13 @@ public class UntimedExam implements Exam {
     }
 
     @Override
-    public void parseUserInputAndGrade(String answer) throws IndexNotFoundException {
-        FlashCard currentCard = testDeck.get(index);
-        boolean isCorrect = currentCard.evaluate(answer);
-        result.mark(isCorrect);
+    public boolean parseUserInputAndGrade(Boolean isCorrect) throws IndexNotFoundException {
+        if (isCorrect) {
+            result.mark(true);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -37,10 +42,37 @@ public class UntimedExam implements Exam {
     }
 
     @Override
+    public void downIndex() {
+        if (this.index != 0) {
+            this.index--;
+        }
+    }
+
+    @Override
     public String getResult() {
         return this.result.getScore();
     }
 
+    @Override
+    public ArrayList<FlashCard> getDeck() {
+        return this.testDeck;
+    }
 
+    @Override
+    public int getIndex() {
+        return index;
+    }
 
+    /**
+     * Duplicates the test deck so that stats class can use it (for Nat).
+     * @return ArrayList of Flashcards from the initial deck.
+     */
+    private ArrayList<FlashCard> createTestDeck() {
+        ArrayList<FlashCard> testDeckConsumer = new ArrayList<>();
+        for (FlashCard card : initialDeck) {
+            FlashCard duplicateCard = card.duplicate();
+            testDeckConsumer.add(duplicateCard);
+        }
+        return testDeckConsumer;
+    }
 }
