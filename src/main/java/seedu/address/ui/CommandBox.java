@@ -96,20 +96,6 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Restores focus later.
-     */
-    public void restoreFocusLater() {
-        if (commandTextField.getSelectedText() != "") {
-            return;
-        }
-        int currPos = commandTextField.getCaretPosition();
-        Platform.runLater(() -> {
-            commandTextField.requestFocus();
-            commandTextField.positionCaret(currPos);
-        });
-    }
-
-    /**
      * Represents a function that can execute commands.
      */
     @FunctionalInterface
