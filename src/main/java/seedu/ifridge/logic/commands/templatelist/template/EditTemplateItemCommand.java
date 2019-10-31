@@ -18,6 +18,7 @@ import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.food.Amount;
+import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
@@ -40,7 +41,7 @@ public class EditTemplateItemCommand extends Command {
             + "[" + PREFIX_AMOUNT + "AMOUNT]\n"
             + "Example: tlist template" + COMMAND_WORD + " 1 " + PREFIX_ITEM_INDEX + " 1 " + PREFIX_NAME + "Whole Milk";
 
-    public static final String MESSAGE_SUCCESS = "Food item %1$s edited to food item: %1$s";
+    public static final String MESSAGE_SUCCESS = "Food item %1$s edited.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
             + "with the same name";
@@ -88,7 +89,7 @@ public class EditTemplateItemCommand extends Command {
         if (!editTemplateItemDescriptor.isAnyFieldEdited()) {
             throw new CommandException(MESSAGE_NOT_EDITED);
         }
-        if (templateToEdit.contains(editedItem)) {
+        if (templateToEdit.contains(editedItem) && editTemplateItemDescriptor.isNameFieldEdited(itemToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_ITEM);
         }
 
@@ -151,6 +152,17 @@ public class EditTemplateItemCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, amount);
+        }
+
+        /**
+         * Returns true if the name field has been edited
+         */
+        public boolean isNameFieldEdited(TemplateItem itemToEdit) {
+            if (CollectionUtil.isAnyNonNull(name)) {
+                return !itemToEdit.isSameName(new Food(name, itemToEdit.getAmount()));
+            };
+
+            return false;
         }
 
         public void setName(Name name) {

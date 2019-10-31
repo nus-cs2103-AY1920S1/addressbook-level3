@@ -64,6 +64,6 @@ public class TemplateItem extends Food implements Comparable<TemplateItem> {
         String thisName = this.getName().toString();
         String otherName = this.getName().toString();
 
-        return thisName.compareTo(otherName);
+        return thisName.toLowerCase().compareTo(otherName.toLowerCase());
     }
 }
