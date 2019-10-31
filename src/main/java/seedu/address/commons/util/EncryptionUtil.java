@@ -123,7 +123,13 @@ public class EncryptionUtil {
         byte[] processedData = encryptBytes(fileData, password);
         Files.write(newPath, SIGNATURE.getBytes());
         Files.write(newPath, processedData, StandardOpenOption.APPEND);
-        Files.deleteIfExists(oldPath);
+        try {
+            Files.deleteIfExists(oldPath);
+        } catch (IOException e) {
+            // If deletion of original file fails, delete the encrypted file to prevent duplication.
+            Files.deleteIfExists(newPath);
+            throw e;
+        }
     }
 
     /**
@@ -147,7 +153,12 @@ public class EncryptionUtil {
         inStream.close();
         byte[] processedData = decryptBytes(fileData, password);
         Files.write(newPath, processedData);
-        Files.deleteIfExists(oldPath);
+        try {
+            Files.deleteIfExists(oldPath);
+        } catch (IOException e) {
+            Files.deleteIfExists(newPath);
+            throw e;
+        }
     }
 
     /**

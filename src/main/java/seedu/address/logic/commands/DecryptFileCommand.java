@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FILES;
 
 import java.io.IOException;
+import java.nio.file.FileSystemException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class DecryptFileCommand extends Command {
 
     public static final String MESSAGE_DELETE_FILE_SUCCESS = "File decrypted: %1$s";
     public static final String MESSAGE_DELETE_FILE_FAILURE = "File decryption failed.";
+    public static final String MESSAGE_FILE_IS_OPENED = "File encryption failed.\n"
+            + "This file is being used by another process. Close the file and try again.";
     public static final String MESSAGE_TARGET_FILE_EXISTS = "File decryption failed. "
             + "Target file already exists.\nRename %1$s and try again.";
     public static final String MESSAGE_DECRYPT_FILE_FAILURE = "File decryption failed. "
@@ -62,6 +65,8 @@ public class DecryptFileCommand extends Command {
                 throw new CommandException(MESSAGE_DECRYPT_FILE_FAILURE);
             }
             EncryptionUtil.decryptFile(fileToDecrypt.getEncryptedPath(), fileToDecrypt.getFullPath(), password);
+        } catch (FileSystemException e) {
+            throw new CommandException(MESSAGE_FILE_IS_OPENED);
         } catch (IOException e) {
             throw new CommandException(MESSAGE_DELETE_FILE_FAILURE);
         } catch (GeneralSecurityException e) {

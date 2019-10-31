@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
+import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.GeneralSecurityException;
@@ -31,6 +32,8 @@ public class EncryptFileCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "File encrypted: %1$s";
     public static final String MESSAGE_FAILURE = "File encryption failed.";
+    public static final String MESSAGE_FILE_IS_OPENED = "File encryption failed.\n"
+            + "This file is being used by another process. Close the file and try again.";
     public static final String MESSAGE_IS_DIRECTORY = "File encryption failed.\n"
             + "SecureIT currently does not support encrypting directories.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist.";
@@ -80,6 +83,8 @@ public class EncryptFileCommand extends Command {
             );
             EncryptionUtil.encryptFile(toAdd.getFullPath(), toAdd.getEncryptedPath(), password);
             toAdd.setEncryptedAt(new EncryptedAt(new Date()));
+        } catch (FileSystemException e) {
+            throw new CommandException(MESSAGE_FILE_IS_OPENED);
         } catch (IOException | GeneralSecurityException e) {
             throw new CommandException(MESSAGE_FAILURE);
         } catch (TargetFileExistException e) {
