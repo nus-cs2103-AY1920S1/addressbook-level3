@@ -391,7 +391,7 @@ Header 2 displays the month and year you are currently viewing.
 
 image::calendar4.PNG[]
 
-You may use the left and right buttons beside header 2 to navigate to the previous or next month. 
+You may use the left and right buttons beside header 2 to navigate to the previous or next month.
 
 With reference to the diagram above, days with training entries are marked with a green dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators. Today's date (e.g. 31 October 2019) is marked with a blue circle.
 
