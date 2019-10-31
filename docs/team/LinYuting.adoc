@@ -7,7 +7,7 @@
 
 === Overview
 
-In the spirit of spreading education, literacy and a sense of community to the world (and completing our software engineering project), my team has developed
+With the motivation to raise literacy rate in the world and encourage more setups of community libraries, my team has developed
 Liberry - a desktop software for managing community and private libraries. The target users are mainly librarians looking to set up
 or are already running private or community libraries, especially those in under-developed communities who cannot afford
 commercial versions of such software.
@@ -31,9 +31,9 @@ image::Ui.png[]
 
 My role was to:
 
-. configure the basic AddressBook software to accomodate Json-type storage for a catalog, a record of borrowers,
-and a record of loans.
-. design the *Find Command* to execute given a set of parameters - such as searching by title, genre, loan status etc.
+. configure the basic AddressBook software to create a `Borrower` class and its related classes.
+. implement borrower-related commands such as the *Register Command*, *Serve Command*, *Done Command*, +
+*EditBorrowerCommand* and *UnregisterCommand*.
 
 == Summary of Contributions
 
@@ -57,7 +57,6 @@ and a record of loans.
 [https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/BorrowerIdGenerator.java[BorrowerIdGenerator Class]] +
 
 
-
 * *Other contributions*:
 
 ** Project management
@@ -73,7 +72,6 @@ and a record of loans.
 
 
 ** Enhancements to existing features:
-***
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Improve user stories of the User Guide: https://github.com[#103]
