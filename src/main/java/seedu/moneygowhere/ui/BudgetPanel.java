@@ -2,9 +2,9 @@ package seedu.moneygowhere.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import seedu.moneygowhere.model.budget.Budget;
 
 /**
@@ -21,7 +21,7 @@ public class BudgetPanel extends UiPart<Region> {
     private Label remainingBudget;
 
     @FXML
-    private ProgressBar budgetProgressBar;
+    private Label budgetRemark;
 
     @FXML
     private Label budgetAmount;
@@ -43,8 +43,8 @@ public class BudgetPanel extends UiPart<Region> {
      */
     private void update() {
         remainingBudget.setText(getRemainingBudgetText());
-//        budgetProgressBar.setProgress(1 - sum / amount);
-        budgetAmount.setText(getBudgetRemark());
+        budgetRemark.setText(getBudgetRemark());
+        budgetAmount.setText(getBudgetAmount());
     }
 
     /**
@@ -61,14 +61,26 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     private String getRemainingBudgetText() {
-        return "$" + String.format("%.2f", amount - sum) + " left to spend";
+        if (amount - sum < 0) {
+            remainingBudget.setTextFill(Color.web("#FF0000"));
+            return "$" + String.format("%.2f", Math.abs(amount - sum)) + " exceeded";
+        } else {
+            remainingBudget.setTextFill(Color.web("#FFFFFF"));
+            return "$" + String.format("%.02f", amount - sum) + " left to spend";
+        }
     }
 
     private String getBudgetRemark() {
         if (sum / amount < 0.2) {
+            budgetRemark.setTextFill(Color.web("#00FF00"));
             return "You are spending within your budget. Great Job!";
         } else {
+            budgetRemark.setTextFill(Color.web("#FF0000"));
             return "Your money go where ahh?";
         }
+    }
+
+    private String getBudgetAmount() {
+        return "Your budget for this month is $" + String.format("%.02f", amount);
     }
 }

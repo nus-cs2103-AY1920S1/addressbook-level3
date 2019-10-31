@@ -63,7 +63,7 @@
           <Separator minHeight="0.0" minWidth="2.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="2"/>
           <VBox maxWidth="${vroot.width*0.5}" minWidth="${vroot.width*0.4}" prefWidth="${vroot.width*0.45}">
             <children>
-              <StackPane fx:id="budgetPanelPlaceholder" />
+              <StackPane fx:id="budgetPanelPlaceholder" prefWidth="${vroot.width * 0.45}"/>
               <Separator prefWidth="200.0"/>
               <TabPane fx:id="tabPanePlaceholder" tabClosingPolicy="UNAVAILABLE">
                 <tabs>

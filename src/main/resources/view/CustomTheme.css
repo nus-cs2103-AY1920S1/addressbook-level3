@@ -218,11 +218,16 @@
 }
 
 #remainingBudget {
-  -fx-font-family: "Arial";
+  -fx-font-family: "Segoe UI light";
   -fx-font-size: 24;
 }
 
-#budgetAmount {
-  -fx-font-family: "Arial";
+#budgetRemark {
+  -fx-font-family: "Segoe UI Semibold";
   -fx-font-size: 18;
+}
+
+#budgetAmount {
+  -fx-font-family: "Segoe UI light";
+  -fx-font-size: 14;
 }
