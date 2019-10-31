@@ -417,8 +417,6 @@ Deletes all meal plans within the meal plan book.
 
 ====  Viewing a meal plan: `[coming in v2.0]`
 
-=== Shopping Lists [coming in v2.0]
-
 === Health Records
 
 Going for a health checkup soon? You can use the commands in this section to manage your
