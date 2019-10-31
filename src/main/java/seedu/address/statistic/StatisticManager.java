@@ -245,9 +245,9 @@ public class StatisticManager implements Statistic {
         ObservableList<Order> orderList = orderBook.getList();
         return StatisticManager.streamOfPresentOrders(orderList.stream())
                 .filter(currentOrder -> statsPayload.getStartingDate().compareTo(
-                        currentOrder.getSchedule().get().getCalendar()) <= 0)
+                        DateUtil.extractMonthYear(currentOrder)) <= 0)
                 .filter(currentOrder -> statsPayload.getEndingDate().compareTo(
-                        currentOrder.getSchedule().get().getCalendar()) > 0);
+                        DateUtil.extractMonthYear(currentOrder)) >= 0);
     }
 }
 

@@ -302,6 +302,15 @@ form or string form. With this the feature has finished executing! Attached belo
 
 image::StatisticsCalculationUI.png[]
 
+Limitations:
+
+Below are some limitations that we have put in place for `v1.4` of SMLJ:
+
+*Date range starts from 1970 onwards
+** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
+
+
+
 === Autocomplete feature
 ==== Current Implementation
 

@@ -25,17 +25,34 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="customerName" styleClass="cell_big_label" />
+                <VBox>
+                    <Label text="Customer details" styleClass="cell_big_label" />
+                    <Label fx:id="customerName" styleClass="cell_big_label" />
+                    <Label fx:id="customerEmail" styleClass="cell_big_label" />
+                    <Label fx:id="customerContactNumber" styleClass="cell_small_label"  />
+                    <Label fx:id="phoneName" styleClass="cell_small_label" text="\$phoneName"/>
+                    <Label fx:id="phoneColour" styleClass="cell_small_label" text="\$phoneColour" />
+                    <Label fx:id="phoneCapacity" styleClass="cell_small_label" text="\$phoneCapacity" />
+                    <Label fx:id="phoneCost" styleClass="cell_small_label" text="\$phoneCost" />
+                    <padding>
+                        <Insets top="5" right="5" bottom="5" left="15" />
+                    </padding>
+                </VBox>
+                <VBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="Order details" styleClass="cell_big_label" />
+                    <Label fx:id="orderId" styleClass="cell_small_label" text="\$orderId" />
+                    <Label fx:id="orderPrice" styleClass="cell_small_label" text="\$orderPrice" />
+                    <Label fx:id="orderStatus" styleClass="cell_small_label" text="\$orderStatus" />
+                    <Label fx:id="phoneIdentityNumber" styleClass="cell_small_label" text="\$phoneId" />
+                    <Label fx:id="phoneSerialNumber" styleClass="cell_small_label" text="\$phoneIdentityNumber" />
+                    <FlowPane fx:id="tags" />
+                    <padding>
+                        <Insets top="5" right="5" bottom="5" left="15" />
+                    </padding>
+                </VBox>
+
             </HBox>
-            <FlowPane fx:id="tags" />
-            <Label fx:id="orderId" styleClass="cell_small_label" text="\$orderId" />
-            <Label fx:id="contactNumber" styleClass="cell_small_label" text="\$customerName" />
-            <Label fx:id="phoneId" styleClass="cell_small_label" text="\$phoneId" />
-            <Label fx:id="phoneName" styleClass="cell_small_label" text="\$phoneName" />
-            <Label fx:id="phoneColour" styleClass="cell_small_label" text="\$phoneColour" />
-            <Label fx:id="phoneCapacity" styleClass="cell_small_label" text="\$phoneCapacity" />
-            <Label fx:id="orderPrice" styleClass="cell_small_label" text="\$orderPrice" />
-            <Label fx:id="orderStatus" styleClass="cell_small_label" text="\$orderStatus" />
+
         </VBox>
     </GridPane>
 </HBox>

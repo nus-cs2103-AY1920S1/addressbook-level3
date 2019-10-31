@@ -692,6 +692,9 @@ Limitations:
 certain threshold the gap between the months will change, depending on how large of a range you are calculating.
 This behaviour is intentional and not a bug.
 
+*Date range starts from 1970 onwards
+** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
+
 * Load time:
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
 we estimate at least a few seconds before the window will be loaded.
