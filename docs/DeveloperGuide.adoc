@@ -192,7 +192,6 @@ To facilitate the manipulation of `Loan` objects, `LoansManager` implements the 
 * `LoansManager#getFilteredLoans()` -- Gets `filteredLoans`, representing the loans in `internalList` after filtering.
 * `LoansManager#addLoan(Loan toAdd)` -- Adds the `Loan toAdd` to `internalList`.
 * `LoansManager#editLoan(Index toEdit, Loan editedLoan)` -- Edits the loan at `Index toEdit` to match `Loan editedLoan`.
-* `LoansManager#updateLoanStatus(Index toUpdate, Status newStatus)` -- Updates the `Status` of the loan at `Index toUpdate` to `newStatus`.
 * `LoansManager#deleteLoan(Index toDelete)` -- Deletes the loan at `Index toDelete` from `internalList`.
 
 Each user-given command makes use of one or more of the above operations.
@@ -231,12 +230,13 @@ where `toEdit` is the index of the first loan in `internalList`,
 and `toEdit` is replaced with `editedLoan`.
 
 Step 5. The user executes the command `loan paid 1` to update the status of the first loan in the list to *paid*.
-`LoansManager#updateLoanStatus(Index toUpdate, Status newStatus)` is called
-(where `toUpdate` is the index of the first loan in `internalList` and `newStatus` has the value `Status.PAID`)
-and the loan at index `toUpdate` in `internalList` has its `status` updated to `newStatus`.
+While the command syntax is different, `LoansManager#editLoan(Index toEdit, Loan editedLoan)` is reused
+with an `editedLoan` identical to the target loan at `Index toEdit` - except for its `Status`, which is set to `Status.PAID`.
+`LoansManager#editLoan` is reused here since changing the status of a loan is functionally identical to editing its other properties.
+The command syntax differs only to make the app more user-friendly.
 
 [NOTE]
-The command `loan unpaid` works identically to `loan paid`, except that `newStatus` has the value `Status.UNPAID`.
+The command `loan unpaid` works identically to `loan paid`, except that the `Status` of `editedLoan` is set to `Status.UNPAID`.
 
 Step 6. The user executes the command `loan delete 1` to delete the first loan in the list.
 `LoansManager#deleteLoan(Index toDelete)` is called,
@@ -255,7 +255,7 @@ For example, `loan paid 1 3 4` can be used to mark the first, third and fourth l
 Alternatively or additionally, `loan paid p/John p/Mary` can also be used
 to mark all the loans of the persons John and Mary in `internalList`.
 The `LoansManager` handles this by executing the appropriate operation repeatedly.
-In the case of `loan paid 1 3 4`, `LoansManager#updateLoanStatus` is called once for each of the three loans.
+In the case of `loan paid 1 3 4`, `LoansManager#editLoan` is called once for each of the three loans.
 
 If any of the targeted loan indices cannot be found by the `LoansManager` in `internalList`, they are added to a `missingLoanIndices` list.
 The `missingLoanIndices` list is then displayed to the user after all other loans have been acted upon,
