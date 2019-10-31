@@ -14,6 +14,7 @@ import io.xpire.model.Model;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.item.XpireItem;
 
+
 /**
  * Changes the reminder threshold for an xpireItem identified with its displayed index.
  */
@@ -21,6 +22,7 @@ import io.xpire.model.item.XpireItem;
 public class SetReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "set reminder";
+    public static final String COMMAND_SHORTHAND = "sr";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the reminder threshold of the xpireItem "
             + "identified with its displayed index. "

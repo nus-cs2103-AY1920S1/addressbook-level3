@@ -16,6 +16,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
 import io.xpire.storage.Storage;
 import javafx.collections.ObservableList;
 
@@ -38,6 +39,7 @@ public class LogicManager implements Logic {
         this.parser = xpireParser;
     }
 
+    //@@author febee99
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -60,6 +62,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    //@@author liawsy
     @Override
     public ReadOnlyListView<? extends Item>[] getLists() {
         return this.model.getLists();
@@ -68,6 +71,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<? extends Item> getCurrentFilteredItemList() {
         return this.model.getCurrentFilteredItemList();
+    }
+
+    @Override
+    public ObservableList<XpireItem> getXpireItemList() {
+        return this.model.getFilteredXpireItemList();
+    }
+
+    @Override
+    public ObservableList<Item> getReplenishItemList() {
+        return this.model.getFilteredReplenishItemList();
     }
 
     @Override

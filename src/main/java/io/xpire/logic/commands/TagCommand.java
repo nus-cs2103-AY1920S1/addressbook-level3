@@ -18,7 +18,7 @@ import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 import io.xpire.model.tag.TagItemDescriptor;
 
-
+//@@author Kalsyc
 /**
  * Adds tag(s) to xpireItem identified using its displayed index from the expiry date tracker.
  */
@@ -30,6 +30,7 @@ public class TagCommand extends Command {
     enum TagMode { SHOW, TAG }
 
     public static final String COMMAND_WORD = "tag";
+    public static final String COMMAND_SHORTHAND = "t";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Tags the xpireItem identified by the index number used in the displayed xpireItem list.\n"

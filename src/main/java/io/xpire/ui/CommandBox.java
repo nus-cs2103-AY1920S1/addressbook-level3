@@ -37,6 +37,7 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         this.checkLength();
+        commandTextField.setOnMouseClicked(e -> commandTextField.requestFocus());
 
         /*
         String[] possibleWords = {"sort", "set reminder", "exit", "clear", "add", "delete", "search", "view", "help",

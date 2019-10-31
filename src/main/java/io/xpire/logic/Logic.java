@@ -9,6 +9,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
 import javafx.collections.ObservableList;
 
 /**
@@ -35,6 +36,12 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the current filtered list of items */
     ObservableList<? extends Item> getCurrentFilteredItemList();
+
+    /** Returns an unmodifiable view of the current list of tracked items */
+    ObservableList<XpireItem> getXpireItemList();
+
+    /** Returns an unmodifiable view of the current list of to-buy items */
+    ObservableList<Item> getReplenishItemList();
 
     /**
      * Returns the user prefs' xpire file path.

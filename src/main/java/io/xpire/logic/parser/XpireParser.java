@@ -56,39 +56,63 @@ public class XpireParser implements Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+            //fallthrough
+        case AddCommand.COMMAND_SHORTHAND:
             return new AddCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+            //fallthrough
+        case DeleteCommand.COMMAND_SHORTHAND:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            //fallthrough
+        case ClearCommand.COMMAND_SHORTHAND:
             return new ClearCommand("main");
 
         case SearchCommand.COMMAND_WORD:
+            //fallthrough
+        case SearchCommand.COMMAND_SHORTHAND:
             return new SearchCommandParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
+            //fallthrough
+        case ViewCommand.COMMAND_SHORTHAND:
             return new ViewCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
+            //fallthrough
+        case ExitCommand.COMMAND_SHORTHAND:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            //fallthrough
+        case HelpCommand.COMMAND_SHORTHAND:
             return new HelpCommand();
 
         case SortCommand.COMMAND_WORD:
+            //fallthrough
+        case SortCommand.COMMAND_SHORTHAND:
             return new SortCommandParser().parse(arguments);
 
         case CheckCommand.COMMAND_WORD:
+            //fallthrough
+        case CheckCommand.COMMAND_SHORTHAND:
             return new CheckCommandParser().parse(arguments);
 
         case SetReminderCommand.COMMAND_WORD:
+            //fallthrough
+        case SetReminderCommand.COMMAND_SHORTHAND:
             return new SetReminderCommandParser().parse(arguments);
 
         case TagCommand.COMMAND_WORD:
+            //fallthrough
+        case TagCommand.COMMAND_SHORTHAND:
             return new TagCommandParser().parse(arguments);
 
         case ShiftToReplenishCommand.COMMAND_WORD:
+            //fallthrough
+        case ShiftToReplenishCommand.COMMAND_SHORTHAND:
             return new ShiftToReplenishCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:
@@ -101,6 +125,7 @@ public class XpireParser implements Parser {
         }
     }
 
+    //@@author febee99
     /**
      * Parses invalid command words to check if there were any possible input mistakes.
      *

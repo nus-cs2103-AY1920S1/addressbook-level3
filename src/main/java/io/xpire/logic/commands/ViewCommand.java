@@ -4,12 +4,14 @@ import static java.util.Objects.requireNonNull;
 import io.xpire.model.Model;
 import io.xpire.model.item.ListToView;
 
+//@@author febee99
 /**
  * Display all items to the user.
  */
 public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
+    public static final String COMMAND_SHORTHAND = "v";
 
     public static final String MESSAGE_SUCCESS = "Displayed all items in %s list";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views all items in tracking or toReplenish list.\n"

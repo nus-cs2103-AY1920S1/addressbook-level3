@@ -71,7 +71,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'xpire.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

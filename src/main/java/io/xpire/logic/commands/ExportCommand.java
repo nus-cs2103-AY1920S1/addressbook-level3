@@ -25,7 +25,7 @@ public class ExportCommand extends Command {
         ObservableList<? extends Item> currentList = model.getCurrentFilteredItemList();
         StringBuilder formattedOutput = new StringBuilder(BORDER);
         for (int index = 1; index <= currentList.size(); index++) {
-            formattedOutput.append(String.format("%d. %s\n", index, currentList.get(index-1).toString()));
+            formattedOutput.append(String.format("%d. %s\n", index, currentList.get(index - 1).toString()));
             formattedOutput.append(BORDER);
         }
         byte[] pngData = StringUtil.getQrCode(formattedOutput.toString(), 500);
