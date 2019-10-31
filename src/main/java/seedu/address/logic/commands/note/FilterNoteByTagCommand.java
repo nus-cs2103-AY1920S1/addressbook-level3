@@ -25,6 +25,8 @@ public class FilterNoteByTagCommand extends Command {
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter notes by tag(s) : ";
 
+    public static final String NO_ITEM_FOUND = "There is no such Note with the specified tag(s).";
+
     private ArrayList<String> tagKeywords;
 
     private final NoteContainsTagPredicate tagPredicate;
@@ -67,9 +69,22 @@ public class FilterNoteByTagCommand extends Command {
             sb.append(s);
             sb.append("\n");
         }
+        StringBuilder resultToDisplay = new StringBuilder();
+        if (taggedNoteResult.size() == 0) {
+            resultToDisplay.append(NO_ITEM_FOUND);
+        } else {
+            resultToDisplay.append(FILTER_TAG_MESSAGE_SUCCESS)
+                    .append("\n")
+                    .append(showTagQueries())
+                    .append(sb.toString());
+        }
+        return new NoteCommandResult(resultToDisplay.toString());
+    }
 
-        return new NoteCommandResult(FILTER_TAG_MESSAGE_SUCCESS
-                + "\n" + showTagQueries()
-                + "\n" + sb.toString());
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterNoteByTagCommand // instanceof handles nulls
+                && tagPredicate.equals(((FilterNoteByTagCommand) other).tagPredicate));
     }
 }

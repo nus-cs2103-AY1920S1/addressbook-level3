@@ -25,7 +25,7 @@ StudyBuddy is also optimized for those who prefer to work with
 a Command Line Interface (CLI) while still having the benefits of a
 Graphical User Interface (GUI). Being highly familiar working with CLI,
 Computing Students can greatly benefit from the app to
-manage their studies efficiently and faster than traditional GUI apps.
+manage their studies efficiently which also aims to be faster than traditional GUI apps.
 
 == Quick Start
 
@@ -145,6 +145,10 @@ Lists all StudyBuddy items with matching tags in the application.
         Title: Pipelining Defition
         Content: Pipelining is a process where..
         Tags: [cs2100]
+    Note Fragment: 3.1.
+        Title: About
+        Content: highlighted
+        Tags: [cs2100]
 
 The user is also able to specify a multiple number of tags.
 For example,
@@ -153,11 +157,48 @@ For example,
 
 will list all items that match at least one of the specified tags.
 
+=== Exiting the application: `exit`
+
+Checks if there are any remaining flashcards to revise for the day
+or overdue flashcards to revise before exiting the application.
+
+    Example usage: exit
+
+If there are flashcards due for revision today but no overdue flashcards:
+
+    Expected output: Are you sure you want to exit? You still have the following flashcards overdue or left
+    to revise for today:
+    Here are the flashcards due today:
+    1. Math Question 1 - What is 2 x 2?
+    Type 'exit' again to exit the application!
+
+If there are no flashcards due for revision today but there are overdue flashcards:
+
+    Expected output: Are you sure you want to exit? You still have the following flashcards overdue or left
+    to revise for today:
+    Here are your overdue flashcards:
+    1. Math Question 1 - What is 2 x 2? (Was due on 2019-10-30)
+    Type 'exit' again to exit the application!
+
+If there are both flashcards due for revision today and overdue flashcards:
+
+    Expected output: Are you sure you want to exit? You still have the following flashcards overdue or left
+    to revise for today:
+    Here are the flashcards due today:
+    1. Math Question 1 - What is 2 x 2?
+    Here are your overdue flashcards:
+    1. Math Question 2 - What is 3 x 2? (Was due on 2019-10-30)
+    Type 'exit' again to exit the application!
+
+After any of the 3 scenarios above user can override the warning by entering the `exit` command again.
+
+if no remaining or overdue flashcards for revision found, application exits immediately.
+
 == Flashcard Feature
 
 === Creating a flashcard: `add`
 
-* Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
+Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
 
     Format: add q/QUESTION a/ANSWER t/TITLE [tag/TAG]...
 
@@ -182,8 +223,19 @@ Displays flashcard <FLASHCARD_INDEX> to user without answer.
         Question: What is 101 Binary in its Decimal form?
         Tags: [cs2100]
 
+=== Revealing a flashcard's answer: `show`
+
+Displays the answer of the flashcard currently loaded.
+
+    Format: show
+
+    Example usage: show
+
+    Expected output: Flashcard answer loaded
 
 === Editing a flashcard: `edit`
+
+{Coming in v2.0}
 
 Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
@@ -197,7 +249,12 @@ Lists all flashcards.
 
    Format: list
 
-    Expected output: a complete list of all flashcards currently in StudyBuddyPro
+    Expected output: Listed all flashcards:
+    Question: What is my name?
+    Answer: Sahil
+    Title: Test Name Question 1
+    Statistics: This flashcard was last viewed on: 2019-10-29. This flashcard should next be viewed on 2019-10-30 for optimum revision!
+    Tags: [pop]
 
 === Deleting a flashcard: `delete`
 
@@ -244,54 +301,120 @@ Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashca
             Title: Maths
             Tags: [difficult][important]
 
+=== Remind
+
+Reminds the user regarding the flashcards due for revision today and the flashcards
+overdue for revision. Automatically suggests a new date the flashcard should next be
+viewed at for optimal learning. These increments scale with time i.e. suggested viewing
+dates are closer at the start and spread further after more viewings. The suggested
+date for the next viewing of all flashcards can be viewed under the `list` command.
+
+{Give example}
+
+    Example usage: remind
+
+If no flashcards due for revision today and no overdue flashcards:
+
+    Expected output: Well done - No due or overdue flashcards!
+
+If there are flashcards due for revision today but no overdue flashcards:
+
+    Expected output: Here are the flashcards due today:
+    1. Math Question 1 - What is 2 x 2?
+
+If there are no flashcards due for revision today but there are overdue flashcards:
+
+    Expected output: Here are your overdue flashcards:
+    1. Math Question 1 - What is 2 x 2? (Was due on 2019-10-30)
+
+If there are both flashcards due for revision today and overdue flashcards:
+
+    Expected output: Here are the flashcards due today:
+    1. Math Question 1 - What is 2 x 2?
+    Here are your overdue flashcards:
+    1. Math Question 2 - What is 3 x 2? (Was due on 2019-10-30)
+
 == Notes Feature:
 
 === Creating a note: `add`
 
-* Adds a note from user input title <TITLE> and content <CONTENT>.
+* Adds a note from user input title `TITLE` and content `CONTENT`.
 
     Format: add t/TITLE c/CONTENT [tag/TAG]...
 
     Example usage: add t/Pipelining Definition c/Pipelining is a process where tag/CS2100
 
-    Expected output: New note added:
+    Expected output:
+    New note added:
         Title: Pipelining Definition
         Content: Pipelining is a process where
         Tags: [cs2100]
 
-=== Editing a note: `edit`
+* More advanced usage: Intra-Note tagging of note fragments is also supported. The intra-note tagging is added at the
+same time as the note is created. Intra-note tags are added with content `INTRA_CONTENT`, at least one tag
+`INTRA_TAG`, and any number of additional tags `ADDITIONAL_INTRA_TAG`:
 
-Edits the specified note's title or content or tag(s).
+    Format (within CONTENT): /* C/INTRA_CONTENT TAG/INTRA_TAG [TAG/ADDITIONAL_INTRA_TAG]... */
 
-   Format: edit id/NOTE_ID [t/TITLE] [c/NOTE_CONTENT] [tag/TAG]...
+NOTE: The format for Intra-Note content is 'C/', not 'c/', and the format for Intra-Note tags is 'TAG/', not 'tag/'.
 
-* At least one of the optional fields must be specified.
+* In the following example, two intra-note tags are added:
+
+    Example usage: add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+
+    Expected output:
+    New note added:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Tags: [about]
+
+* Multiple intra-note tags are allowed. These do not interfere with the other tags of the Note.
+
+NOTE: Intra-note tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3)
 
 === Deleting a note: `delete`
 
-Deletes the note by <NOTE_INDEX>.
+Deletes the note of index `NOTE_INDEX`.
 
     Format: delete (index)
 
-    Example usage: delete 6
+    Example usage: delete 3
 
-    Expected output: Deleted Note:
-        Title: Pipelining Definition
-        Content: Pipelining is a process where
-        Tags: [cs2100]
+    Expected output:
+    Deleted note:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Tags: [about]
 
 === Viewing a note: `view`
 
-Views the note by <NOTE_INDEX>.
+Views the note of index `NOTE_INDEX`. If the note contains any intra-note tags, those tags will be hidden.
+
+NOTE: To view the note with its intra-note tags, use the `viewraw` command instead (see Section 6.4).
 
     Format: view (index)
 
-    Example usage: view 6
+    Example usage: view 3
 
-    Expected output: Viewing note:
-        Title: Pipelining Definition
-        Content: Pipelining is a process where..
-        Tags: [cs2100]
+    Expected output:
+    Viewing note:
+        Title: About
+        Content: Notes can be highlighted if needed
+        Tags: [about]
+
+=== Viewing a raw note: `viewraw`
+
+Views the note of index `NOTE_INDEX`. The note is shown exactly as written, including all intra-note tags.
+
+    Format: viewraw (index)
+
+    Example usage: viewraw 3
+
+    Expected output:
+    Viewing raw note:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Tags: [about]
 
 === Listing notes: `list`
 
@@ -307,6 +430,7 @@ Views the note by <NOTE_INDEX>.
 * The user must specify at least one tag.
 * The user is able to specify multiple tags.
 * Notes that match at least one of the specified tags will be displayed.
+* Intra-Note tags containing at least one of the specified tags will also be displayed.
 
     Format: filter tag/TAG [tag/TAG]...
 

@@ -19,7 +19,6 @@ public class ActivityWindow extends UiPart<Region> {
 
     private static final String FXML = "ActivityWindow.fxml";
     private static final int FLASHCARD_TAB_INDEX = 1;
-
     private static final int NOTES_TAB_INDEX = 2;
     private static final int CHEATSHEET_TAB_INDEX = 3;
 

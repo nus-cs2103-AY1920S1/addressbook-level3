@@ -24,6 +24,8 @@ public class FilterCheatSheetByTagCommand extends Command {
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter cheatsheets by tag(s) : ";
 
+    public static final String NO_ITEM_FOUND = "There is no such CheatSheet with the specified tag(s).";
+
     private ArrayList<String> tagKeywords;
 
     private final CheatSheetContainsTagPredicate tagPredicate;
@@ -66,9 +68,22 @@ public class FilterCheatSheetByTagCommand extends Command {
             sb.append(s);
             sb.append("\n");
         }
+        StringBuilder resultToDisplay = new StringBuilder();
+        if (taggedCheatSheetResult.size() == 0) {
+            resultToDisplay.append(NO_ITEM_FOUND);
+        } else {
+            resultToDisplay.append(FILTER_TAG_MESSAGE_SUCCESS)
+                    .append("\n")
+                    .append(showTagQueries())
+                    .append(sb.toString());
+        }
+        return new CheatSheetCommandResult(resultToDisplay.toString());
+    }
 
-        return new CheatSheetCommandResult(FILTER_TAG_MESSAGE_SUCCESS
-                + "\n" + showTagQueries()
-                + "\n" + sb.toString());
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterCheatSheetByTagCommand // instanceof handles nulls
+                && tagPredicate.equals(((FilterCheatSheetByTagCommand) other).tagPredicate));
     }
 }

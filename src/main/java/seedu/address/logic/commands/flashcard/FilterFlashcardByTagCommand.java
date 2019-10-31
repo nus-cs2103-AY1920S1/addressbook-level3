@@ -25,6 +25,8 @@ public class FilterFlashcardByTagCommand extends Command {
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter flashcards by tag(s) : ";
 
+    public static final String NO_ITEM_FOUND = "There is no such FlashCard with the specified tag(s).";
+
     private ArrayList<String> tagKeywords;
 
     private final FlashcardContainsTagPredicate tagPredicate;
@@ -67,9 +69,21 @@ public class FilterFlashcardByTagCommand extends Command {
             sb.append(s);
             sb.append("\n");
         }
-
-        return new FlashcardCommandResult(FILTER_TAG_MESSAGE_SUCCESS
-                + "\n" + showTagQueries()
-                + "\n" + sb.toString());
+        StringBuilder resultToDisplay = new StringBuilder();
+        if (taggedFlashcardResult.size() == 0) {
+            resultToDisplay.append(NO_ITEM_FOUND);
+        } else {
+            resultToDisplay.append(FILTER_TAG_MESSAGE_SUCCESS)
+                    .append("\n")
+                    .append(showTagQueries())
+                    .append(sb.toString());
+        }
+        return new FlashcardCommandResult(resultToDisplay.toString());
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterFlashcardByTagCommand // instanceof handles nulls
+                && tagPredicate.equals(((FilterFlashcardByTagCommand) other).tagPredicate));
     }
 }

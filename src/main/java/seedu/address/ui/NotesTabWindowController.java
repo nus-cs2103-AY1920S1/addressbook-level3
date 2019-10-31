@@ -20,7 +20,7 @@ public class NotesTabWindowController {
      * @param note note to be displayed
      */
     public void loadNote(Note note) {
-        titleTextArea.setText(note.getTitle().toString());
+        titleTextArea.setText(note.getTitle().toString() + "\nTags:\n" + note.getTags().toString());
         contentTextArea.setText(note.getContent().toString());
     }
 }

@@ -33,6 +33,10 @@ public class FilterAllByTagCommandParser implements Parser<FilterAllByTagCommand
         }
 
         Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        if (tags.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterAllByTagCommand.MESSAGE_USAGE));
+        }
         ArrayList<String> tagKeywords = new ArrayList<>();
         for (Tag t : tags) {
             tagKeywords.add(t.toString());

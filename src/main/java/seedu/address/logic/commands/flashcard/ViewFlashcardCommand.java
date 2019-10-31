@@ -46,7 +46,8 @@ public class ViewFlashcardCommand extends Command {
 
         Flashcard flashcard = lastShownList.get(targetIndex.getZeroBased());
 
-        return new FlashcardCommandResult(String.format(VIEW_FLASHCARD_SUCCESS, flashcard), Optional.of(flashcard));
+        return new FlashcardCommandResult(String.format(VIEW_FLASHCARD_SUCCESS, flashcard.getTitle()),
+                Optional.of(flashcard));
     }
 
     @Override

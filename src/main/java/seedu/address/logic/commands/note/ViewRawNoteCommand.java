@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.VIEW;
+import static seedu.address.commons.core.Messages.VIEW_RAW;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,20 +19,20 @@ import seedu.address.model.note.Note;
  * Finds and lists all notes in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class ViewNoteCommand extends Command {
+public class ViewRawNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = VIEW;
+    public static final String COMMAND_WORD = VIEW_RAW;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays a flashcard.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String VIEW_NOTE_SUCCESS = "Viewing note: %1$s";
+    public static final String VIEW_NOTE_SUCCESS = "Viewing raw note: %1$s";
 
     private final Index targetIndex;
 
-    public ViewNoteCommand(Index targetIndex) {
+    public ViewRawNoteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -46,18 +46,17 @@ public class ViewNoteCommand extends Command {
         }
 
         Note note = lastShownList.get(targetIndex.getZeroBased());
-        Note cleanedNote = new Note(note.getTitle(), note.getContentCleanedFromTags(), note.getTags());
 
         return new NoteCommandResult(model.getFilteredNoteList().isEmpty()
                 ? Messages.MESSAGE_NO_MATCHING_NOTE_FOUND
-                : String.format(VIEW_NOTE_SUCCESS, cleanedNote), Optional.of(cleanedNote));
+                : String.format(VIEW_NOTE_SUCCESS, note), Optional.of(note));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ViewNoteCommand // instanceof handles nulls
-                && targetIndex.equals(((ViewNoteCommand) other).targetIndex)); // state check
+                || (other instanceof ViewRawNoteCommand // instanceof handles nulls
+                && targetIndex.equals(((ViewRawNoteCommand) other).targetIndex)); // state check
     }
 
 }
