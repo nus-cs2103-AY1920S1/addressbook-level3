@@ -28,7 +28,7 @@ public class JsonSerializableCustomerDatabase {
      * Constructs a {@code JsonSerializableCustomerDatabase} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableCustomerDatabase(@JsonProperty("persons") List<JsonAdaptedCustomer> customers) {
+    public JsonSerializableCustomerDatabase(@JsonProperty("customers") List<JsonAdaptedCustomer> customers) {
         this.customers.addAll(customers);
     }
 
