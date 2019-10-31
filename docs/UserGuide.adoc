@@ -22,6 +22,34 @@ A powerlifting competition/meet consists of 3 lifts, the Squat, Bench and Deadli
 
 This software is for organisers who organise powerlifting competitions. To facilitate the ease of data-entry, we have provided a command line interface that is augmented with a Graphical User Interface to help them better administer powerlifting competitions.
 
+== Powerlifting Background: Read this if you are new to powerlifting
+
+=== What is Powerlifting?
+Powerlifting athletes compete in 3 events: The Squat, The Deadlift and The Bench Press.
+For each event, all athletes have 3 tries: they declare a weight which they want to attempt for each try.
+Example: John declares the following 3 weights for the 1st, 2nd and 3rd attempt of the squat respectively: 100kg, 150kg, 200kg.
+The athletes will usually compete in the different events and perform all 3 attempts for an event in the following order:
+The Squat, The Bench Press and finally, The Deadlift.
+
+=== How are scores computed for Powerlifting?
+Suppose that John declares 100kg for the 1st attempt of the squat.
+If he succeeds in clearing the 1st attempt, 100kg will be considered for the overall score for the squat event.
+Consequently, if John declares 200kg for the 2nd attempt of the squat and succeeds in clearing that attempt, 200kg will be considered for the overall score for the squat event.
+For each event, an athlete obtains a score which is the maximum weight of the 3 attempts.
+Example: Suppose John fails the 3rd attempt, the weight he has declared for that attempt will not be considered for the overall score.
+So, the John's final score for the squat attempt is max(200kg, 100kg), which is 200kg.
+
+=== How is the overall score determined for Powerlifting?
+For each athlete, just sum the maximum weight obtained for each event.
+Suppose John has the following results: 
+The maximum weight for squat: 200kg
+The maximum weight for bench press: 150kg
+The maximum weight for deadlift: 300kg
+The total score for John: 200kg + 150kg + 300kg = 650kg
+
+=== How are winners determined for Powerlifting?
+Just find which has maximum overall score.
+
 == Quick Start
 
 Download the software from our git repo.
@@ -214,74 +242,20 @@ Example:
 
 * `session NUS 2022`
 
-=== Participation Handling
-This feature creates an associated participation between an existing person and competition.
-Every participation will have a list of 9 attempts, which they are lifting for that particular competition they are taking part in.
-A person can participate in more than one competition, each with a different set of attempts.
+== Context: During Competition (In-session)
 
-==== Add a new participation `addPart`
-Creates the associated participation between a person and a competition.
-To create participation, the athletes 9 attempts for the 3 lifts should also be submitted to prepare for the competition.
-
-S is abbreviated for squat, B for bench, and D for deadlift. The numbers 1,2,3 represents the attempt number for that lift.
-For example, S1 means squat attempt 1, and D3 means deadlift attempt 3.
-
-Format: `addPart n/ATHLETE_NAME c/COMP_NAME s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3`
-
-Examples:
-
-* `addPart n/Farhanna Fahrid c/Asian Powerlifting Championships 2019 s/115/120/125 b/40/47.5/55 d/155/165/170`
-
-* `addPart n/Marcus Tay c/Test of Strength 2019 s/90/200/205 b/135/140/145 d/210/220/230`
-
-==== List participations `listPart`
-Lists all participations present in the address book, or those associated to an existing competition.
-
-Format: `listPart COMPETITION_NAME (optional)`
-
-Examples:
-
-* `listPart` to list all existing participations in the address book.
-
-* `listPart NUS Powerlifting Open 2019` to list all participations associated to the competition.
-
-
-=== Session Handling
+=== Handling Competition During a Competition event
 This feature handles the entire flow of each session during Meet Day. It allows event
-organisers to submit an Athlete’s Squat, Bench, Deadlift attempts, as well as the
+organisers to submit a person(athlete)’s Squat, Bench, Deadlift attempts, as well as the
 success of their lifts. It will show the relevant information to prepare for the
 athletes lift (displaying name, weight, etc). The flow of events, and the commands to
 facilitate the competition session will be presented in order below:
 
-This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit an Athlete’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, etc).
+This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit a person’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, etc).
 The flow of events, and the commands to facilitate the competition session will be presented in order below:
 
-==== Prepare for a new session: `session`
-Loads the session of SBD lifts for the given name of the competition (provided it exists), separated by a space.
-This will load all the athletes who are participating in this competition, and start the session associated with this competition.
-
-Format: `session COMPETITION_NAME`
-
-Example:
-
-* `session Test of Strength 2019`
-
-==== Submit attempts: `attempts`
-Submits all 9 attempts for the 3 lifts, separating the lifts by a single space, and the attempts for each lift with a slash.
-
-S is abbreviated for squat, B for bench, and D for deadlift. The numbers 1,2,3 represents the attempt number for that lift.
-For example, S1 means squat attempt 1, and D3 means deadlift attempt 3.
-
-Format: `attempts n/NAME s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3`
-
-Examples:
-
-* `attempts n/farhannafahrid s/115/120/125 b/40/47.5/55 d/155/165/170`
-
-* `attempts n/marcustay s/90/200/205 b/135/140/145 d/210/220/230`
-
-==== Update lift or no lift: `lift`
-Updates whether the athlete succeeds in his/her attempt, or fails it.
+==== Updating success or failure of a lift: `lift`
+Updates whether the person (athlete) succeeds in his/her attempt, or fails it.
 The lift updated will be the one that was just called up.
 
 Format: `lift Y/N`
@@ -292,8 +266,28 @@ Examples:
 
 * `lift Y`
 
-==== Get the next lifter in line: `next`
-Retrieves the next lifter according to weight lifted for that attempt, the weights he/she is going for that particular lift and attempt.
-If there are no more attempts to be made by any lifter, this command will trigger the end of the competition.
+==== Getting the rank of a person (athlete) for a given competition: `rank`
+Retrieves the rank of a person relative other competitors in the competition.
 
-Format/Example: `next`
+Format: `rank n/NAME`
+
+Example:
+
+* `rank n/Ho`
+
+==== Getting the rank of a person (athlete) for a given competition, using a specific criterion: `rank`
+Retrieves the rank of a person relative other competitors in the competition using a condition.
+Available conditions are:
+
+1. Squat
+2. Deadlift
+3. Bench Press
+4. Overall (overall score)
+
+Format: `ranklist by/CRITERION`
+
+Example:
+
+* `ranklist by/overall`
+
+* `ranklist by/squat`
