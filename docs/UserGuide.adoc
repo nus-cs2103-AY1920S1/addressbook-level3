@@ -50,9 +50,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `*delete*|3` : deletes the 3rd item shown in the current list
 * `*exit*` : exits the app
 
-.  Xpire not only has a list to track you perishable items, it also has a *to-buy* list(replenish list). You can move your items from the
+.  Xpire not only has a list to track you perishable items, but also a *to-buy* list (replenish list). You can move your items from the
 tracking list to the replenish list once they are consumed or expired.
-* `*shift*|1` : moves the 1st item from the tracking list(main list) to the replenish list
+* `*shift*|1` : moves the 1st item from the tracking list (main list) to the replenish list
 
 .  Some commands are only applicable for items in the tracking list. Refer to <<Features>> for details of each command.
 
@@ -61,7 +61,7 @@ tracking list to the replenish list once they are consumed or expired.
 image::GUI.png[width="790"]
 
 There are two lists shown on the Graphic User Interface(GUI), `View` and `All Items`. On the left is the `View` list.
-This is a active list that shows you the current view of items. As you manipulate the items using
+This is an active list that shows you the current view of items. As you manipulate the items using
 `search`, or `check`, `View` list will change accordingly to show you only the items you want to see.
 
 image::ItemCard.png[width="710"]
@@ -75,7 +75,7 @@ the status of your item. +
 
 image::Expired.png[width="500]
 
-* An item that is *going to expire soon* will be yellow. You can set when to mark an item yellow based
+* An item that is *expiring soon* will be yellow. You can set when to mark an item yellow based
 on individual cases. See more information here: <<Reminder>>.
 
 image::ReminderCard.png[width="500]
