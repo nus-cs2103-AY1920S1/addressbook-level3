@@ -101,7 +101,7 @@ public class ModelTestUtil {
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
             .setName(new Name(VALID_NAME_DAY_1))
-            .setEventList(new EventList())
+            .setEventList(new EventList(LocalDate.parse(VALID_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
     public static final Day CLASHING_DAY_1 = DayBuilder.newInstance()
             .setDescription(new Description(VALID_DESCRIPTION_DAY_1))
@@ -110,7 +110,7 @@ public class ModelTestUtil {
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
             .setName(new Name(VALID_NAME_DAY_1))
-            .setEventList(new EventList())
+            .setEventList(new EventList(LocalDate.parse(VALID_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
     public static final Day CLASHING_DAY_2 = DayBuilder.newInstance()
@@ -120,7 +120,7 @@ public class ModelTestUtil {
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
             .setName(new Name(VALID_NAME_DAY_1))
-            .setEventList(new EventList())
+            .setEventList(new EventList(LocalDate.parse(CLASHING_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
     public static final Day CLASHING_DAY_3 = DayBuilder.newInstance()
@@ -130,7 +130,7 @@ public class ModelTestUtil {
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
             .setName(new Name(VALID_NAME_DAY_1))
-            .setEventList(new EventList())
+            .setEventList(new EventList(LocalDate.parse(CLASHING_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
     public static final Day CLASHING_DAY_4 = DayBuilder.newInstance()
@@ -140,7 +140,7 @@ public class ModelTestUtil {
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
             .setName(new Name(VALID_NAME_DAY_1))
-            .setEventList(new EventList())
+            .setEventList(new EventList(LocalDate.parse(CLASHING_STARTDATE_DAY_1_2, DATE_FORMATTER).atStartOfDay()))
             .build();
 
     public static final Day CLASHING_DAY_5 = DayBuilder.newInstance()
@@ -150,7 +150,7 @@ public class ModelTestUtil {
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
             .setName(new Name(VALID_NAME_DAY_1))
-            .setEventList(new EventList())
+            .setEventList(new EventList(LocalDate.parse(CLASHING_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
     public static final Day VALID_DAY_2 = DayBuilder.newInstance()
@@ -160,7 +160,7 @@ public class ModelTestUtil {
             .setLocation(new Location(VALID_DESTINATION_DAY_2))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_2))
             .setName(new Name(VALID_NAME_DAY_2))
-            .setEventList(new EventList())
+            .setEventList(new EventList(LocalDate.parse(VALID_STARTDATE_DAY_2_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
 

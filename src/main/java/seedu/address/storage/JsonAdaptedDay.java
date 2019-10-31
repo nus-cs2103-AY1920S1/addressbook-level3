@@ -13,7 +13,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.model.itinerary.event.EventList;
@@ -24,7 +23,6 @@ import seedu.address.model.itinerary.event.EventList;
 public class JsonAdaptedDay {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Day's %s field is missing!";
 
-    private final String name;
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
     private final Optional<String> description;
@@ -36,15 +34,13 @@ public class JsonAdaptedDay {
      * Constructs a {@code JsonAdaptedDay} with the given Day details.
      */
     @JsonCreator
-    public JsonAdaptedDay(@JsonProperty("name") String name,
-            @JsonProperty("startTime") LocalDateTime from,
-            @JsonProperty("endTime") LocalDateTime to,
-            @JsonProperty("destination") String destination,
-            @JsonProperty("description") Optional<String> description,
-            @JsonProperty("totalBudget") Optional<Double> totalBudget,
-            @JsonProperty("dayList") List<JsonAdaptedEvent> eventList
+    public JsonAdaptedDay(@JsonProperty("startTime") LocalDateTime from,
+                          @JsonProperty("endTime") LocalDateTime to,
+                          @JsonProperty("destination") String destination,
+                          @JsonProperty("description") Optional<String> description,
+                          @JsonProperty("totalBudget") Optional<Double> totalBudget,
+                          @JsonProperty("dayList") List<JsonAdaptedEvent> eventList
     ) {
-        this.name = name;
         this.startTime = from;
         this.endTime = to;
         this.description = description;
@@ -59,7 +55,6 @@ public class JsonAdaptedDay {
      * Converts a given {@code Day} into this class for Jackson use.
      */
     public JsonAdaptedDay(Day source) {
-        this.name = source.getName().fullName;
         this.startTime = source.getStartDate();
         this.endTime = source.getEndDate();
         this.destination = source.getDestination().value;
@@ -91,17 +86,6 @@ public class JsonAdaptedDay {
         for (JsonAdaptedEvent event : eventList) {
             events.add(event.toModelType());
         }
-
-        if (name == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        }
-
-        final Name modelName = new Name(name);
 
         if (startTime == null) {
             throw new IllegalValueException(
@@ -149,10 +133,10 @@ public class JsonAdaptedDay {
 
         modelTotalBudget = totalBudget.map(Budget::new);
 
-        EventList modelEventList = new EventList();
+        EventList modelEventList = new EventList(startTime);
         modelEventList.set(events);
 
-        return new Day(modelName, modelStartTime, modelEndTime, modelDescription,
+        return new Day(modelStartTime, modelEndTime, modelDescription,
                 modelDestination, modelTotalBudget, modelEventList);
     }
 }

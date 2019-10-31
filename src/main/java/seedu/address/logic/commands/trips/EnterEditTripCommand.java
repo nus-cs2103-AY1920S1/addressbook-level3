@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -36,11 +37,16 @@ public class EnterEditTripCommand extends Command {
         requireNonNull(model);
         List<Trip> lastShownList = model.getFilteredTripList();
 
-        if (indexToEdit.getZeroBased() >= lastShownList.size()) {
+        // Set when the trip list is first displayed to the user
+        SortedList currentSortedTripList = model.getPageStatus().getSortedOccurrencesList();
+
+        int rawZeroBasedIndex = currentSortedTripList.getSourceIndex(indexToEdit.getZeroBased());
+
+        if (rawZeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
-        Trip tripToEdit = lastShownList.get(indexToEdit.getZeroBased());
+        Trip tripToEdit = lastShownList.get(rawZeroBasedIndex);
         EditTripDescriptor editTripDescriptor = new EditTripDescriptor(tripToEdit);
 
         model.setPageStatus(model.getPageStatus()
