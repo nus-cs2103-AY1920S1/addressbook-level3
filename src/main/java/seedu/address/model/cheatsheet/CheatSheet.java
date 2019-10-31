@@ -140,16 +140,15 @@ public class CheatSheet extends StudyBuddyItem {
 
     @Override
     public String toString() {
-        this.resetContentIndex();
         final StringBuilder builder = new StringBuilder();
         builder.append(" Title: ")
                 .append(getTitle())
-                .append(" Tags: ");
+                .append("\n Tags: ");
         getTags().forEach(builder::append);
 
-        builder.append(" Contents: ");
-        resetContentIndexes();
-        builder.append(contents);
+//        builder.append(" Contents: ");
+//        resetContentIndexes();
+//        builder.append(contents);
 
         return builder.toString();
     }

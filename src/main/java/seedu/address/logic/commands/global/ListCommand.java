@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.global;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.LIST;
@@ -10,6 +10,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 import java.util.List;
 
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

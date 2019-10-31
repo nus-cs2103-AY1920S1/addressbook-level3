@@ -100,9 +100,9 @@ public class EditCheatSheetCommand extends Command {
             updatedContents = editCheatSheetDescriptor.getContents().orElse(cheatSheetToEdit.getContents());
         } else {
             updatedContents = updateContents(cheatSheetToEdit, editCheatSheetDescriptor.getIndexes());
-            if (updatedContents == null || updatedContents.isEmpty()) {
-                updatedContents = cheatSheetToEdit.getContents();
-            }
+//            if (updatedContents == null || updatedContents.isEmpty()) {
+//                updatedContents = cheatSheetToEdit.getContents();
+//            }
         }
 
         // updating tags comes after the updating of contents
@@ -116,7 +116,6 @@ public class EditCheatSheetCommand extends Command {
             // remove irrelevant contents
             updatedContents = removeIrrelevantContent(updatedTags, updatedContents);
         }
-
 
         return new CheatSheet(updatedTitle, updatedContents, updatedTags);
     }
@@ -152,6 +151,7 @@ public class EditCheatSheetCommand extends Command {
             }
         }
 
+        System.out.println(contentList);
         return contentList;
     }
 

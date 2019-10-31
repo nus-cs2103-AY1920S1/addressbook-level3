@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.logic.commands.NoteFragmentFeatureUtil;
+import seedu.address.logic.commands.note.NoteFragmentFeatureUtil;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 

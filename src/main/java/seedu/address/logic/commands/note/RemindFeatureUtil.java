@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.note;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

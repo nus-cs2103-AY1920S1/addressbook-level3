@@ -9,9 +9,9 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.LogicManager;
 
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.global.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.global.ListCommand;
 import seedu.address.logic.commands.cheatsheet.AddCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.DeleteCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
@@ -82,7 +82,7 @@ public class AddressBookParser {
 
         switch (commandWord) { //global commands?
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new ClearCommandParser().parse(arguments);
 
         case ListTagCommand.COMMAND_WORD:
             return new ListTagCommand();
