@@ -239,6 +239,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasCardDescription(Card card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteCard(Card target) {
             throw new AssertionError("This method should not be called.");
         }
