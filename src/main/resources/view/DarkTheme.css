@@ -562,20 +562,20 @@
 
 #timeslotMajorLine {
     -fx-border-color: derive(#393E46, 20%);
-    -fx-border-style: solid none none solid
+    -fx-border-style: solid none none solid;
 }
 
 #timeslotMinorLine {
     -fx-border-color: derive(#393E46, 20%);
-    -fx-border-style: dotted none none dotted
+    -fx-border-style: dotted none none dotted;
 }
 
 #scheduleContainer {
     -fx-border-color: derive(#222831, 20%);
+    -fx-background-color: derive(#222831, 20%);
 }
 
 #scheduleContainer #title {
-    -fx-background-color: derive(#222831, 20%);
     -fx-opacity: 1 !important;
 }
 
@@ -588,6 +588,10 @@
 #scheduleContents {
     -fx-background: #393E46;
     -fx-background-color: #393E46;
+}
+
+#scheduleContents #dayEvenStackPane {
+    -fx-background-color: derive(#222831, 0%);
 }
 
 #scheduleContents:hover {
