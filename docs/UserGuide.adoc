@@ -470,9 +470,9 @@ Example:`find Personal_diary`
 
 Sorts notes in ways specified by the user.
 
-Format: `sortBy sb/SORTBYCONDITION`
+Format: `sort sb/SORTBYCONDITION`
 
-Example: `sortBy sb/DateModified`
+Example: `sort sb/DateModified`
 
 ****
 * SORTBYCONDITION must be either "DateModified", "DateCreated" and "NumOfAccess".
@@ -537,31 +537,31 @@ Accessing Password directory: `goto password`
 
 Accessing Card directory: `goto card`
 
-- `add d/<description> c/<cardNumber> e/<expiry> v/<cvc>`: Adds a credit/debit card to the app.
-- `delete <description>`: Deletes a card as specified by the user.
+- `add d/DESCRIPTION c/CARDNUMBER e/EXPIRY v/CVC`: Adds a credit/debit card to the app.
+- `delete DESCRIPTION`: Deletes a card as specified by the user.
 
 *File*
 
 Accessing File directory: `goto file`
 
-- `encrypt <FILEPATH> [t/<TAG>]...`: Encrypts a local file as specified by its file path.
-- `decrypt <INDEX>`: Decrypts a local file as specified by the displayed index number.
-- `add <FILENAME> [t/<TAG>]...`: Adds an encrypted file as specified by its file path.
-- `remove <INDEX>`: Removes an encrypted file record as specified by the displayed index number.
-- `rename <INDEX> <TARGET_FILENAME>`: Renames an encrypted file as specified by its index number.
-- `move <INDEX> <TARGET_DIRECTORY>`: Moves an encrypted file as specified by its index number.
-- `find <KEYWORDS>...`: Finds matching encrypted files as specified by the search keywords.
+- `encrypt FILEPATH [t/TAG]...`: Encrypts a local file as specified by its file path.
+- `decrypt INDEX`: Decrypts a local file as specified by the displayed index number.
+- `add FILENAME [t/TAG]...`: Adds an encrypted file as specified by its file path.
+- `remove INDEX`: Removes an encrypted file record as specified by the displayed index number.
+- `rename INDEX TARGET_FILENAME`: Renames an encrypted file as specified by its index number.
+- `move INDEX TARGET_DIRECTORY`: Moves an encrypted file as specified by its index number.
+- `find KEYWORDS...`: Finds matching encrypted files as specified by the search keywords.
 - `list`: Lists all encrypted files managed by SecureIT.
 
 *Note*
 
 Accessing Note directory: `goto note`
 
-- `read <index>`: Reads a note in the app.
-- `delete <index>`: Deletes a note as specified by the user.
-- `edit <index> ti/<Title> d/<Description> t/<Tag> c/<Content>`: Edits a note specified by the user.
-- `find <index>` or `find <Title>`: Finds a note as specified by the user.
-- `sortBy <sortMethod>`: Sorts notes in ways specified by the user.
+- `read INDEX`: Reads a note in the app.
+- `delete INDEX`: Deletes a note as specified by the user.
+- `edit INDEX ti/TITLE d/DESCRIPTION t/TAG c/CONTENT`: Edits a note specified by the user.
+- `find INDEX` or `find TITLE`: Finds a note as specified by the user.
+- `sort SORTBYCONDITION`: Sorts notes in ways specified by the user.
 - `undo`: Undo last action on notes.
 - `redo`: Redo last undone action on notes.
 
