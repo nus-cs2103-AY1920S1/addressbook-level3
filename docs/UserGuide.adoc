@@ -55,23 +55,21 @@ These points are absolute, unless stated otherwise in the specific section(s).
 * All commands are written in ENGLISH with only alphanumeric characters.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.
-E.g. `add <t/TITLE>` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
+E.g. `add t/TITLE` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
 
 * Items indicated in square brackets are optional.
-E.g `t/TITLE [t/TAG]` can be used as `t/Midterm note t/exam` or as `t/Midterm`.
+E.g `t/TITLE [tag/TAG]` can be used as `t/Midterm note tag/exam` or as `t/Midterm`.
 
 * Items with `...`​ after them can be used multiple times including zero times.
-E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family`
+E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family`
 
-* All flashcards, notes, cheatsheets objects will be given a unique `id` on creation.
+* All flashcards, notes, and cheatsheet objects can have a maximum of 10 `TAGs` each.
 
-* All flashcards, notes, cheatsheets objects can have a maximum of 10 `TAG` each.
-
-* All `MODULE` parameters are a `TAG`.
+* All `MODULE` parameters in the flashcard feature are `TAGs`.
 
 * In EDITING (`edit`):
-** All optional fields provided, except `t/TAG`, will overwrite their relevant fields.
-** `t/TAG` optional field, will be added to the flashcard, if they do not already exist.
+** All optional fields provided, except `tag/TAG`, will overwrite their relevant fields.
+** `tag/TAG` optional field, will be added to the flashcard, if they do not already exist.
 
 * In DELETING (`delete`), Confirmation reply of `y` or `n` has to be given, else no objects is deleted.
 ** `y` indicates `YES` and notes will be deleted.
@@ -122,9 +120,11 @@ Views the help session of all the functionality.
 
 A pop-up dialog box will display a URL link to a help document.
 
-=== Listing all StudyBuddy items by their tag : `filterall [tag/CS2100]`
+=== Listing all StudyBuddy items by their tag : `filterall`
 
 Lists all StudyBuddy items with matching tags in the application.
+
+    Format: filterall tag/TAG [tag/TAG]...
 
     Example usage: filterall tag/CS2100
 
@@ -338,7 +338,7 @@ If there are both flashcards due for revision today and overdue flashcards:
 
 === Creating a note: `add`
 
-* Adds a note from user input title `TITLE` and content `CONTENT`.
+* Adds a note from user input with title `TITLE` and content `CONTENT`.
 
     Format: add t/TITLE c/CONTENT [tag/TAG]...
 

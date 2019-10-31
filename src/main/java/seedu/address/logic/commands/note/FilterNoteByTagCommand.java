@@ -63,8 +63,7 @@ public class FilterNoteByTagCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         ArrayList<String> taggedNoteResult = model.collectTaggedNotes(tagPredicate);
-        //model.updateFilteredNoteList(tagPredicate);
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         for (String s : taggedNoteResult) {
             sb.append(s);
             sb.append("\n");
@@ -76,6 +75,7 @@ public class FilterNoteByTagCommand extends Command {
             resultToDisplay.append(FILTER_TAG_MESSAGE_SUCCESS)
                     .append("\n")
                     .append(showTagQueries())
+                    .append("\n\n")
                     .append(sb.toString());
         }
         return new NoteCommandResult(resultToDisplay.toString());
