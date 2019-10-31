@@ -146,7 +146,7 @@ public class Item {
 
         return otherItem != null
                 && otherItem.getDescription().equalsIgnoreCase(getDescription())
-                && otherItem.getCategory().equals(getCategory());
+                && otherItem.getCategory().equalsIgnoreCase(getCategory());
     }
 
     /**

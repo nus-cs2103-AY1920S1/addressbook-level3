@@ -21,7 +21,6 @@ import seedu.address.inventory.logic.commands.SortResetCommand;
 
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
-import seedu.address.inventory.logic.parser.AddCommandParser;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
