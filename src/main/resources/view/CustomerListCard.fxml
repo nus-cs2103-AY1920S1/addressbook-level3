@@ -14,7 +14,8 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox alignment="CENTER_LEFT" minHeight="90
+" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
@@ -27,9 +28,21 @@
                 </Label>
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <FlowPane fx:id="tags" />
-            <Label fx:id="contactNumber" styleClass="cell_small_label" text="\$contactNumber" />
-            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label styleClass="cell_small_label_header" text="Contact Number:" />
+                <Label fx:id="contactNumber" styleClass="cell_small_label" text="\$contactNumber" />
+                <Label styleClass="cell_small_label_header" text="Email:" />
+                <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                <padding>
+                    <Insets top="5" right="5"  left="15" />
+                </padding>
+            </HBox>
+            <HBox spacing="5">
+                <FlowPane fx:id="tags" />
+                <padding>
+                    <Insets top="5" right="5" left="15" />
+                </padding>
+            </HBox>
         </VBox>
     </GridPane>
 </HBox>
