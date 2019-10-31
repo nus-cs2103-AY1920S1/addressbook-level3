@@ -30,7 +30,7 @@ public class DeleteNoteCommand extends Command {
 
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Deleted Note: %1$s";
 
-    public static boolean isSure = false;
+    private static boolean isSure = false;
 
     // negative marked index to prevent access
     private static int markedIndex = -1;
@@ -78,7 +78,8 @@ public class DeleteNoteCommand extends Command {
                     + "\n" + noteToDelete
                     + "\n" + MESSAGE_HIT_ENTER_TO_DELETE);
         }
-        return commandResult;    }
+        return commandResult;
+    }
 
     @Override
     public boolean equals(Object other) {
