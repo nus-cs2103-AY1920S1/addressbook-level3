@@ -1,6 +1,6 @@
 = Lim Kang Yee – Project Portfolio for treasurerPro (tP)
 :site-section: ProjectPortfolio
-:toc:
+//:toc:
 :toc-title:
 :sectnums:
 :imagesDir: images
@@ -24,7 +24,7 @@ Computer Science students and the other is a year 4 Computer Engineering student
 === About the project
 
 This project is part of the module Software Engineering Project, CS2103T where we were tasked to develop a basic
-command line interface <<CLI>>
+command line interface <<1. CLI>>
 desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
@@ -33,7 +33,10 @@ reimbursements to members, inventory and member’s contact details easily.
 ===  Key to the icons and formatting used in the document
 
 [NOTE]
-This symbol indicates important information or definition.
+This symbol indicates extra information or definition.
+
+[WARNING]
+This symbol indicates important information to take note of.
 
 `Model` :
 Text with grey highlight indicates a component, class or object in the architecture of
@@ -46,14 +49,16 @@ Text with blue font and grey highlight indicates a command that can be inputted 
 
 This desktop application consists of 6 tabs, a command box for users to input their commands and a response box
 for Leo, our lion mascot. Each tab serves a different purpose that helps treasurers and members better manage their club
-or Society's finances. The home tab keeps track of individual transactions. The members tab keep track of all contact
+or Society's finances.
+////
+The home tab keeps track of individual transactions. The members tab keep track of all contact
 details of members. The reimbursement tab keeps track of reimbursement records for members that have spent for the club.
 The inventory tab keeps track of items for sale. The cashier tab is a convenient way for the club or society to do
 cashiering duties which helps to directly input sales into the system. The overview tab allows treasurers to plan the
 club or society's finances.
-
-This is what our application looks like when it is first opened. (graphical user interface for treasurerPro):
-image:Ui.png[]
+////
+This is what our application looks like when it is first opened. (graphical user interface <<2.GUI>> for treasurerPro):
+image:Ui.png[width="600"]
 
 == Summary of contributions
 My role was to design and write the codes for the features of the `Home Tab`. The following sections illustrate these
@@ -94,7 +99,7 @@ priority.
 
 * Highlights:
 This command can be extended easily to allow for sorting of transactions in the reverse order.
-
+////
 ==== Find Command
 
 A [blue]`*find*` command was also implemented to help find specific transactions that match the keywords inputted by the user.
@@ -119,10 +124,10 @@ as well.
 
 * Justification: This ensures the application is a command-line interface application which requires no clicking
 at all.
-
+////
 === Code contributed
 
-The code contributed by me can be found in the following links:
+The code that I have contributed can be found in the following links:
 
 * https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/transaction[Functional Code]
 
@@ -133,12 +138,12 @@ The links lead to our team's GitHub repository
 
 
 === Other contributions
-The following section leads to the GitHub pull requests <<PR>> related to the contribution.
+The following section leads to the GitHub pull requests <<3. PR>> related to the contribution.
 
 * Integration of `Transaction Tab` with other newly implemented tabs
 
 ** Integrated `Transaction Tab` with `Reimbursement Tab`:
-https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[pull request #49] <<PR>>
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[pull request #49]
 
 [NOTE]
 Our workflow requires us to push to our own forked repository before making a pull request to our group repository
@@ -146,7 +151,7 @@ which allows our members to review the new code before it can be merged with the
 
 * Integration of existing `AddressBook` into our application
 
-** Integrated the original `AddressBook` into the `Members Tab` in graphical user interface <<GUI>>:
+** Integrated the original `AddressBook` into the `Members Tab` in graphical user interface <<2. GUI>>:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/42[pull request #42]
 
 ** Integrated the Edit and Delete command of `AddressBook` with the logic of `Transaction Tab`:
@@ -155,11 +160,10 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/85/commits/3aebcd9053985fcc0
 
 * Tools
 
-** Added Travis CI <<TravisCI>> for the repository.
+** Added Travis CI <<4. TravisCI>> for the repository.
 
 [NOTE]
-By version 1.2, our team ensures that we only merge pull requests that pass all the tests to ensure
-we can meet the milestones with higher code quality.
+By version 1.2, our team ensures that we only merge pull requests that pass all the tests to ensure better code quality.
 
 * Documentation
 
@@ -171,7 +175,226 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/19[pull request #19]
 
 
 == Contributions to the User Guide
+The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features.
+
 === Current enhancement
+(start of extract from User Guide)
+////
+[very big]##5.1 Home Tab##
+
+This section will contain details on all commands available in the Home tab.
+
+====
+*Summary of features in the Home Tab*
+
+* The Home Tab shows a list of all transactions made thus far.
+* Each column shows the date, description, category, amount spent and the person responsible for each transaction.
+* You may add, delete or edit transactions within this tab.
+* Leo, our mascot, helps give replies indicating successful addition, deletion and edit of the a transaction
+after a command has been input
+* Leo will also give replies to guide you when there is a wrong input.
+* You may also sort the list of transactions by descending date, by ascending alphabetical order or descending amount.
+* The amount input for a transaction should be positive if the transaction is considered revenue to the club (that is,
+it adds money to the club's funds).
+* The amount input should be negative if the transaction is an expenditure made by the club (that is, it deducts money
+from the club's funds).
+
+[WARNING]
+Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range
+of an integer. If it exceeds this number, please key in a smaller quantity or checkout items separately. +
+You are advised to key in a number smaller than 10000 due to size limitation.
+====
+////
+[big]##5.1.1 Add a Transaction##
+
+This command helps to add a transaction record into the table and to be saved into the system.
+
+* Command format:
+[blue]`add dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
+
+Examples:
+[blue]`add dt/24-Aug-2019, 07:00PM d/Printer ink c/Miscellaneous a/3.50 p/Janelle`
+
+[NOTE]
+The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
+
+* Steps:
+
+1. Type the command with all the parameters filled in as shown in the screenshot below:
+
+.Screenshot of user input into command box for add command in Home tab
+image::homeUG/HomeAddStep1cr.png[width="500"]
+
+[NOTE]
+The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
+
+[start = 2]
+2. Hit `Enter`.
+
+If the command is successfully added, Leo will respond with a success message and the transaction
+will be shown in the table. This is shown in the screenshot below:
+
+.Screenshot of a successful user input for Add Command in Home Tab
+image::homeUG/HomeAddStep2cr.png[width = "500"]
+
+[[NoSuchPerson]]
+If the person's name does not exactly match a current member in the Members Tab, Leo will respond with an error and the transaction
+record will not be added. This is shown in the screenshot below:
+
+.Screenshot of an unsuccessful user input for Add Command in the Home Tab due to an invalid name
+image::homeUG/HomeAddUnsuccessfulStep2cr.png[width = "500"]
+
+If the added transaction contains a negative amount (indicating an expenditure), a corresponding entry will
+automatically be shown in the Reimbursement Tab, tagged to the member who spent it.
+
+Since reimbursements are aggregated by member, if the member already has other outstanding reimbursements,
+it will simply be added to his existing row.
+////
+This is shown in the screenshot below:
+
+.Screenshot of the Reimbursement Tab after successfully adding a transaction
+image::homeUG/HomeAddShowInR.png[width = "500"]
+////
+[big]##5.1.2 Delete Transaction(s)##
+
+This command deletes either all transactions of a person or a single transaction of a specific ID from the table.
+
+* Command:
+`delete ID` or `delete p/PERSON`
+
+* Examples:
+** `delete 1`
+** `delete p/Alex Yeo`
+
+* Steps for Deleting by ID:
+1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
+
+.Screenshot of the user input into Command Box for Delete by ID command in Home tab
+image::homeUG/HomeDeleteStep1cr.png[width = "500"]
+
+[start = 2]
+2. Hit `Enter`.
+
+Leo will respond with a success message and the transaction will be removed from the table as shown below:
+
+.Screenshot of a successful user input for Delete by ID Command in Home Tab
+image::homeUG/HomeDeleteStep2cr.png[width = "500"]
+
+* Steps for Deleting by Person:
+1. Type the command with the person's name to delete all transactions related to that person, as shown in the screenshot below:
+
+.Screenshot of a user input into Command Box for Delete by ID command in Home Tab
+image::homeUG/HomeDeletePStep1cr.png[width = "500"]
+
+[start = 2]
+2. Hit `Enter`.
+
+Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
+
+.Screenshot of a successful user input for Delete by Person Command in Home Tab
+image::homeUG/HomeDeletePStep2cr.png[width = "500"]
+
+If the person does belong to any transactions, Leo will also respond with a message to inform you.
+
+[big]##5.1.3 Edit a Transaction in the Table##
+
+This command edits an existing transaction in the table, changing its details.
+
+* Command:
+`edit ID dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
+
+[NOTE]
+The fields above can vary in their order. It is not compulsory to include all of them.
+
+* Examples:
+** `edit 1 p/Bernice Yu dt/23-Aug-2019`
+** `edit 3 a/12`
+
+* Steps:
+1. Type the command with the ID of the transaction to be edited, along with the new parameters to be changed, as shown in the screenshot below:
+
+.Screenshot of user input into Command Box for Edit Command in Home Tab
+image::homeUG/HomeEditStep1cr.png[width = "500"]
+
+[start = 2]
+2. Hit `Enter`.
+
+Leo will respond with a success message and the updated transaction will be shown in the table as shown below:
+
+.Screenshot of a successful user input for Edit Command in Home Tab
+image::homeUG/HomeEditStep2cr.png[width = "500"]
+
+If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Figure 3>>.
+
+[big]##5.1.4 Sort Transactions in the Table##
+
+This command sorts the table of transactions into a specified order for viewing and carrying out of subsequent commands.
+
+* To sort:
+** By date (from oldest to most recent): `sort date`
+** By name (from alphabetical order of name): `sort person`
+** By amount (from largest to smallest in amount): `sort amount`
+** Undo sort: `sort reset`
+
+[NOTE]
+The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
+
+////
+=== Find Transactions that Match Keywords:
+This command helps to find transactions that match the entered keywords for viewing and for subsequent commands to be inputted based
+on the filtered table of transactions shown.
+
+* Command Format:
+[blue]`find KEYWORDS`
+
+[NOTE]
+The keyword can be one or more words. An entire keyword must match a word in any of the parameters of the transaction intended to be found and shown in the table.
+If the keyword is just a part of the word in the transaction, the transaction will not be shown in the table after the
+command is inputted.
+
+* Examples:
+** [blue]`find Alex Yeoh`
+** [blue]`find Alex`
+
+* Steps:
+Shown below is the table of all transactions:
+
+.Screenshot of all transactions in Home tab
+image::homeUG/HomeFindCurr.png[width="600"]
+
+1. Type the command with keyword(s) to find transactions as shown in the screenshot below:
+
+.Screenshot of user input into command box for find command in Home tab
+image::homeUG/HomeFindStep1.png[width="600"]
+
+[start = 2]
+2. Enter the command.
+Leo will respond with the number of matching transactions to the keywords and the table will only show the filtered
+transactions matching the keywords. This is shown in the screenshot below:
+
+
+.Screenshot of successful user input for find command in Home tab
+image::homeUG/HomeFindStep2.png[width="600"]
+
+[start = 3]
+3. Enter `back` to return to the table of all transactions or enter your next command to be executed. The edit command
+being inputted as the next command can be shown in the screenshot below:
+
+.Screenshot of user input for edit command according to filtered table's ID in Home tab
+image::homeUG/HomeFindStep3.png[width="600"]
+
+The table will continue to show the filtered table with the transaction edited according to the command shown in the screenshot above.
+[NOTE]
+For the add command, the table will automatically show the full list of all transactions. The rest of the commands will
+require the user to input `back` to return to the full list of all transactions.
+
+The screenshot below shows the table after entering `back` which shows all the transactions in the table again:
+
+.Screenshot of user input for back command after entering find command in Home tab
+image::homeUG/HomeFindStep3Back.png[width="600"]
+////
+(end of extract)
+
 === Proposed enhancement for v2.0
 
 ==  Contributions to the Developer Guide
@@ -179,129 +402,126 @@ The following section shows my additions to the treasurerPro Developer Guide for
 
 === Current enhancement
 (start of extract from Developer Guide)
-
+////
 [very big]##3.1 Home Tab##
 
 This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and
-cost of buying items to sell.
-
-Each transaction will require an input of its date, description, category, amount
+cost of buying items to sell. Each transaction will require an input of its date, description, category, amount
 and member that is accountable for it.
 
 Revenue from each cashier checkout will also be automatically inputted as
-a positive transaction in this tab with the person being the cashier. The inputted transactions that corresponds to
-a spending will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
-
-
-This is the overall Class Diagram of this tab:
-
-image::HomeTabClassDiagram.png[]
-[italic small red]*Figure 9. Class Diagram of Home Tab (transaction package)*
-
+a transaction with positive amount in this tab with the person being the cashier. The inputted transactions that corresponds to
+a spending with a negative amount will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
+////
 [big]##3.1.1 Add Command feature##
 
-The Add Command is facilitated by the `VersionedtreasurerPro`. This feature requires access to the `Model` of the
+This feature requires access to the `Model` of the
 person package which the `AddressBook` implementation is contained in. All fields in the transactions are compulsory
 to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
 has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
 
-The following sequence diagram shows how the add command works:
+The following sequence diagram shows how the `AddCommand` works and is the reference from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
 
-image::HomeTabAddCommandSequenceDiagram.png[]
-[italic small red]*Figure 10. Sequence Diagram of Add Command in Home Tab (transaction package)*
+[caption = "Figure 10. "]
+.Sequence Diagram of Add Command in Home Tab (transaction package)
+image::HomeAddCommandSD.png[width = "200"]
 
-The following activity diagram shows the steps needed to add a new transaction:
+In addition, the `resetPredicate()` method from `ModelManager` is called in the `AddCommand`. Thus, the UI table will immediately shows the full
+transaction list regardless of the list shown at the start of the activity diagram. If the prior command was a Find Command,
+then the list in the beginning of the activity diagram would be a filtered list but after the add command is executed,
+the full list of transactions would be shown.
 
-image::HomeTabActivityDiagramAddCommand.png[]
-[italic small red]*Figure 11. Activity Diagram of Add Command in Home Tab (transaction package)*
+After the command is executed, the `LogicManager` updates the in-app list of transactions via the `ModelManager` and updates
+the data file via the `StorageManager`. The following sequence diagram shows how the updating of the list of transactions in the app and
+in the data file:
+[[UpdateTL]]
 
-As shown, when a user does not input all the compulsory fields or input a name that does not match anyone in
-the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is
-done, a response message is shown as well by our mascot, Leo.
+[caption = "Figure 11. "]
+.Sequence Diagram of updating the transaction list in Home Tab (transaction package)
+image::HomeAddCommandMMSM.png[width = "300"]
 
-In addition, since the `resetPredicate()` method is called as shown, the UI table will immediately show the full
-transaction list regardless of the list at the start of the activity diagram showing the filtered list
-due to prior the inputted Find Command.
+[NOTE]
+This update of the list of transactions is done for every command that is executed successfully in the Home Tab.
 
-Since the reimbursement tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
-amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
+Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest list of transactions
+to generate an updated list of reimbursements for the user to view in the Reimbursement Tab. The following sequence diagram shows how
+the Reimbursement Tab is updated from the `MainWindow`:
 
-[[update-reimbursement-ppp]]The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
+[[update-reimbursement]]
 
-image::TransactionUpdatingReimbursement.png[]
-[italic small red]*Figure 12. Sequence Diagram of updating Reimbursement Tab (reimbursement package)*
+[caption = "Figure 12. "]
+.Sequence Diagram of updating the reimbursement list in Reimbursement Tab (transaction package)
+image::TUpdateRinMainWindow.png[width = "400"]
 
-This is done for every feature in the `LogicManager`.
+[NOTE]
+This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<UpdateTL, Sequence Diagram of updating the transaction list in Home Tab>>) when there is a command executed successfully in the Home Tab.
+
+To better illustrate the flow of events from the moment a user inputs a command till the completion of the command,
+the activity diagram for the Add Command is shown below:
+
+[caption = "Figure 13. "]
+.Activity Diagram of Add Command in Home Tab (transaction package)
+image::HomeTabActivityDiagramAddCommand.png[width="350"]
 
 [big]##3.1.2 Delete Feature##
 
-The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 2 types of deletion, by
+This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.
 
 The following sequence diagram shows how the delete by name command works:
 
-image::HomeTabDeleteByNameCommandSequenceDiagram.png[]
-[italic small red]*Figure 13. Sequence Diagram of Delete Command in Home Tab (transaction package)*
+[caption = "Figure 14. "]
+.Sequence Diagram of Delete Command in Home Tab (transaction package)
+image::HomeDeleteNameCommand.png[width = "300"]
 
-After this, the reimbursement tab is updated as shown in <<update-reimbursement-ppp, Figure 12>>.
+In addition, the `resetPredicate()` method in `ModelManager` is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
+filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
+a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
+To view the full transaction list, the user would be required to input the
+Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
+following section <<BackCommandSD, 3.1.3 BackCommand>>
+
+After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, Figure 11>> and <<update-reimbursement,Figure 12>>
+respectively.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
-
+////
 The following activity diagram shows the steps needed to delete a new transaction:
 
-image::HomeTabActivityDiagramDeleteCommand.png[]
-[italic small red]*Figure 14. Activity Diagram of Delete Command in Home Tab (transaction package)*
+[caption = "Figure 15. "]
+.Activity Diagram of Delete Command in Home Tab (transaction package)
+image::HomeTabActivityDiagramDeleteCommand.png[width="500"]
 
 The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
 be shown about the incorrect input. Also, as shown above, response on other incorrect inputs will also be shown.
 When a successful deletion is done, a response message is shown as well.
+////
+[big]##3.1.3 Back Command Feature##
 
-In addition, since the `resetPredicate()` method is not called as shown, the UI table will continue to show the
-filtered transaction list if the prior input is a Find Command and the list at the start of the activity diagram shows
-a filtered list by the Find Command's keywords. To view the full transaction list, the user would have to input the
-Back Command that calls `resetPredicate()`.
+[[BackCommandSD]]
+The `BackCommand` is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
+but initialised by the `TransactionTabParser` instead.
+The following detailed sequence diagram shows how the back command works:
 
-The following sequence diagram shows how the back command works:
-
-image::HomeTabBackCommandSequenceDiagram.png[]
-[italic small red]*Figure 15. Sequence Diagram of Back Command in Home Tab (transaction package)*
-
-[big]##3.1.3 Sort Feature##
-
-The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in
-alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
-
-The following sequence diagram shows how the sort command works:
-
-
-image::HomeTabSortCommandSequenceDiagram.png[]
-[italic small red]*Figure 16. Sequence Diagram of Sort Command in Home Tab (transaction package)*
-
-When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
-the incorrect user input. When it is successfully sorted, there will also be a response message shown.
-
-Similar to the Delete Command, since the `resetPredicate()` method is not called as shown, the UI table will
-continue to show the filtered transaction list if the prior input is a Find Command and the list at the start
-of the activity diagram shows a filtered list by the Find Command's keywords.
-To view the full transaction list, the user would have to input the
-Back Command that calls `resetPredicate()`.
+[caption = "Figure 16. "]
+.Sequence Diagram of Back Command in Home Tab (transaction package)
+image::HomeTabBackCommandSequenceDiagram.png[width = "450"]
 
 (end of extract)
 
 === Proposed enhancement for v2.0
 
-
 [bibliography]
 === Glossary
 
-[[CLI]] Command line interface (CLI): Command line interface applications allow users to use all the features in the app by typing and without a need to click on anything
+[[CLI]] 1. Command line interface (CLI): Command line interface applications allow users to use all the features in the app by typing and without a need to click on anything
 
-[[PR]] Pull request (PR): Making a pull request is a way of submitting contributions to an open development project. It allows the developers to approve code before
-it is added or merged with the current code in the project.
-
-[[GUI]] Graphical user interface (GUI): Refers to the visual means of interacting with the application, such
+[[PR]] 2. Graphical user interface (GUI): Refers to the visual means of interacting with the application, such
 as windows, buttons and menus.
 
-[[TravisCI]] Travis CI: Travis will automatically detect when a commit has been made and pushed to the GitHub repository that allows it access,
+[[GUI]] 3. Pull request (PR): Making a pull request is a way of submitting contributions to an open development project. It allows the developers to approve code before
+it is added or merged with the current code in the project.
+
+[[TravisCI]] 4. Travis CI: Travis will automatically detect when a commit has been made and pushed to the GitHub repository that allows it access,
 and each time this happens, it will try to build the project and run tests according to the standards set by the developers.

@@ -2,6 +2,7 @@ package seedu.address.person.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.person.commons.core.Messages.MESSAGE_NO_COMMAND;
 import static seedu.address.person.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -76,5 +77,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_unknownCommandOfWhitespaces_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_NO_COMMAND, () -> parser.parseCommand("   "));
     }
 }

@@ -68,9 +68,9 @@ public class AddCommandParser implements CommandParserWithPersonModel {
             throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
         } catch (NumberFormatException e) {
             throw new ParseException(TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT);
-        } catch (Exception e) {
+        } /*catch (e) {
             throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
-        }
+        }*/
     }
 
     /**

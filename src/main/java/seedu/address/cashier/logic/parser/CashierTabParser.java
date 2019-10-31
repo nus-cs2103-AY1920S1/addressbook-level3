@@ -40,7 +40,7 @@ public class CashierTabParser {
                                 seedu.address.person.model.Model personModel) throws Exception {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            throw new ParseException(CashierMessages.MESSAGE_NO_COMMAND);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -68,7 +68,7 @@ public class CashierTabParser {
 
         default:
             logger.info("There is no such command.");
-            throw new ParseException(CashierMessages.NO_SUCH_COMMAND);
+            throw new ParseException(CashierMessages.MESSAGE_NO_COMMAND);
 
         }
     }

@@ -45,4 +45,7 @@ public class InventoryMessages {
 
     public static final String MESSAGE_DELETED_ITEM = "Deleted item:\n%s";
 
+    public static final String MESSAGE_NO_COMMAND = "Please input a valid command. The commands include\n"
+            + "add, delete, edit, sort, find, go and exit.";
+
 }

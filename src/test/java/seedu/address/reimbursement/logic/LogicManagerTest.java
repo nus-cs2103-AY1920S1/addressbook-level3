@@ -14,6 +14,7 @@ import seedu.address.reimbursement.model.ModelManager;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.reimbursement.storage.StorageManager;
 import seedu.address.testutil.TypicalReimbursements;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 
 public class LogicManagerTest {
 
@@ -57,8 +58,8 @@ public class LogicManagerTest {
 
         transactionModel.addTransaction(typicalReimbursements.getBobTransaction13());
         try {
-            logic.updateReimbursementFromTransaction(transactionModel.getTransactionList());
-        } catch (IOException e) {
+            logic.updateReimbursementModelAndStorage(transactionModel.getTransactionList());
+        } catch (IOException | FileReadWriteException e) {
             fail();
         }
         ReimbursementList reimbursementList = new ReimbursementList(transactionModel.getTransactionList());
