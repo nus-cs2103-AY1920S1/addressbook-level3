@@ -208,6 +208,12 @@
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
+.cell_small_label_header {
+    -fx-font-family: "Segoe UI bold";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+
+}
 
 .stack-pane {
     -fx-background-color: derive(#484B95, 20%);
