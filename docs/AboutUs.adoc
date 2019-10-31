@@ -1,7 +1,7 @@
 = About Us
 :site-section: AboutUs
 :relfileprefix: team/
-:imagesDir: images/team
+:imagesDir: images
 :stylesDir: stylesheets
 
 Duke Academy was developed by the https://github.com/AY1920S1-CS2103T-F14-1[AY1920S1-CS2103T-F14-1] team. +
@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Alex Koh
 image::alxkohh.png[width="150", align="left"]
-{empty}[http://github.com/alxkohh[github]]
+{empty}[http://github.com/alxkohh[github]][<<alexkoh#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI + Integration + SceneBuilder Expert
@@ -20,7 +20,7 @@ Responsibilities: UI + Integration + SceneBuilder Expert
 
 === Lim Haw Jia
 image::limhawjia.png[width="150", align="left"]
-{empty}[http://github.com/limhawjia[github]]
+{empty}[http://github.com/limhawjia[github]][<<limhawjia#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Software Architecture + DevOps + Travis Expert
@@ -29,7 +29,7 @@ Responsibilities: Software Architecture + DevOps + Travis Expert
 
 === Ning Sheng Ying
 image::ning-sy210.png[width="150", align="left"]
-{empty}[http://github.com/ning-sy210[github]]
+{empty}[http://github.com/ning-sy210[github]][<<ningshengying#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI + Testing + Intellij Expert
@@ -38,7 +38,7 @@ Responsibilities: UI + Testing + Intellij Expert
 
 === Zhang Jian
 image::zhangj1an.png[width="150", align="left"]
-{empty}[http://github.com/zhangj1an[github]]
+{empty}[http://github.com/zhangj1an[github]][<<zhangjian#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage + Documentation + Git Expert
