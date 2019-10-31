@@ -6,7 +6,7 @@ import java.util.List;
  * Represents a list of AliasPairs.
  */
 public class AliasList {
-    private static AliasList aliasList = new AliasList();
+    private AliasList aliasList;
 
     private List<AliasPair> aliasPairList;
 
@@ -23,14 +23,6 @@ public class AliasList {
      */
     public void setAliasPairList(List<AliasPair> aliasPairList) {
         this.aliasPairList = aliasPairList;
-    }
-
-    /**
-     * Returns the instance of the current AliasList.
-     * @return the current instance of the AliasList.
-     */
-    public static AliasList getInstance() {
-        return aliasList;
     }
 
     /**
@@ -101,5 +93,19 @@ public class AliasList {
         }
 
         aliasPairList.add(new AliasPair(comamndWord, keyword));
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (this instanceof AliasList) {
+            AliasList other = (AliasList) object;
+            return this.getList().equals(other.getList());
+        } else {
+            return false;
+        }
     }
 }

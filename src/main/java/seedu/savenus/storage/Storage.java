@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.savenus.commons.exceptions.DataConversionException;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
@@ -13,6 +14,7 @@ import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.storage.alias.AliasStorage;
 import seedu.savenus.storage.menu.MenuStorage;
 import seedu.savenus.storage.purchase.PurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.RecsStorage;
@@ -25,7 +27,7 @@ import seedu.savenus.storage.wallet.WalletStorage;
  * API of the Storage component
  */
 public interface Storage extends MenuStorage, UserPrefsStorage,
-        RecsStorage, PurchaseHistoryStorage, CustomSortStorage, SavingsStorage, WalletStorage {
+        RecsStorage, PurchaseHistoryStorage, CustomSortStorage, SavingsStorage, WalletStorage, AliasStorage {
 
     // ============================= User Preferences Methods ================================================
     @Override
@@ -109,6 +111,22 @@ public interface Storage extends MenuStorage, UserPrefsStorage,
 
     @Override
     void saveFields(CustomSorter sorter, Path filePath) throws IOException;
+
+    // ============================= Alias List Methods =====================================================
+
+    Path getAliasFilePath();
+
+    @Override
+    Optional<AliasList> readList() throws DataConversionException, IOException;
+
+    @Override
+    Optional<AliasList> readList(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void saveList(AliasList list) throws IOException;
+
+    @Override
+    void saveList(AliasList list, Path filePath) throws IOException;
 
     // ============================= Savings Account Methods ================================================
     @Override

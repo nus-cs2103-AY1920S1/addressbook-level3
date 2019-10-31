@@ -84,7 +84,6 @@ public class PurchaseHistoryListTest {
 
     @Test
     public void get_iterator_test() {
-        System.out.println(testPurchaseHistoryList.iterator());
         assertNotEquals(testPurchaseHistoryList.iterator(), FXCollections.observableArrayList().iterator());
     }
 

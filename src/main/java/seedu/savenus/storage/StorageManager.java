@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.commons.exceptions.DataConversionException;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
@@ -15,6 +16,7 @@ import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.storage.alias.AliasStorage;
 import seedu.savenus.storage.menu.MenuStorage;
 import seedu.savenus.storage.purchase.PurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.RecsStorage;
@@ -36,10 +38,12 @@ public class StorageManager implements Storage {
     private PurchaseHistoryStorage purchaseHistoryStorage;
     private WalletStorage walletStorage;
     private CustomSortStorage customSortStorage;
+    private AliasStorage aliasStorage;
 
     public StorageManager(MenuStorage menuStorage, UserPrefsStorage userPrefsStorage, RecsStorage userRecsStorage,
                           PurchaseHistoryStorage purchaseHistoryStorage, WalletStorage walletStorage,
-                          CustomSortStorage customSortStorage, SavingsStorage savingsAccountStorage) {
+                          CustomSortStorage customSortStorage, SavingsStorage savingsAccountStorage,
+                          AliasStorage aliasStorage) {
         super();
         this.menuStorage = menuStorage;
         this.savingsAccountStorage = savingsAccountStorage;
@@ -48,6 +52,7 @@ public class StorageManager implements Storage {
         this.purchaseHistoryStorage = purchaseHistoryStorage;
         this.walletStorage = walletStorage;
         this.customSortStorage = customSortStorage;
+        this.aliasStorage = aliasStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -209,6 +214,35 @@ public class StorageManager implements Storage {
     public void saveFields(CustomSorter sorter, Path filePath) throws IOException {
         logger.fine("Attempting to write sort fields to data file: " + filePath);
         customSortStorage.saveFields(sorter, filePath);
+    }
+
+    // =============== AliasList methods ========================
+
+    @Override
+    public Path getAliasFilePath() {
+        return aliasStorage.getAliasFilePath();
+    }
+
+    @Override
+    public Optional<AliasList> readList() throws DataConversionException, IOException {
+        return readList(aliasStorage.getAliasFilePath());
+    }
+
+    @Override
+    public Optional<AliasList> readList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read alias pairs from file: " + filePath);
+        return aliasStorage.readList(filePath);
+    }
+
+    @Override
+    public void saveList(AliasList aliasList) throws IOException {
+        saveList(aliasList, aliasStorage.getAliasFilePath());
+    }
+
+    @Override
+    public void saveList(AliasList aliasList, Path filePath) throws IOException {
+        logger.fine("Attempting to write alias pairs to data file: " + filePath);
+        aliasStorage.saveList(aliasList, filePath);
     }
 
     // =============== Savings methods ========================

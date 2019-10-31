@@ -60,7 +60,8 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyMenu menu, ReadOnlyUserPrefs userPrefs, UserRecommendations userRecs,
                         ReadOnlyPurchaseHistory purchaseHistory, Wallet wallet,
-                        CustomSorter customSorter, ReadOnlySavingsAccount savingsAccount) {
+                        CustomSorter customSorter, ReadOnlySavingsAccount savingsAccount,
+                        AliasList aliasList) {
         super();
         requireAllNonNull(menu, userPrefs);
 
@@ -74,13 +75,14 @@ public class ModelManager implements Model {
         this.savingsAccount = new SavingsAccount(savingsAccount);
         this.customSorter = customSorter;
         this.autoSortFlag = false;
-        this.aliasList = AliasList.getInstance();
+        this.aliasList = aliasList;
         RecommendationSystem.getInstance().setUserRecommendations(userRecs);
     }
 
     public ModelManager() {
         this(new Menu(), new UserPrefs(), new UserRecommendations(),
-                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
+                new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount(),
+                new AliasList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -407,7 +409,8 @@ public class ModelManager implements Model {
                 && purchaseHistory.equals(other.purchaseHistory)
                 && wallet.equals(other.wallet)
                 && customSorter.equals(other.customSorter)
-                && savingsAccount.equals(other.savingsAccount);
+                && savingsAccount.equals(other.savingsAccount)
+                && aliasList.equals(other.aliasList);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class AliasCommand extends Command {
         requireNonNull(model);
         AliasList aliasList = model.getAliasList();
         if (aliasList.isCommandWord(keyword)) {
-            throw new CommandException(COMMAND_WORD_USAGE);
+            throw new CommandException(String.format(COMMAND_WORD_USAGE, keyword));
         } else if (aliasList.hasAliasWord(commandWord, keyword)) {
             throw new CommandException(String.format(WORD_ALREADY_EXISTS_USAGE, keyword,
                     aliasList.getCommandWord(keyword),
@@ -55,8 +55,10 @@ public class AliasCommand extends Command {
         } else if (!aliasList.doesCommandWordExist(commandWord)) {
             throw new CommandException(String.format(INVALID_COMMAND_WORD_USAGE, commandWord));
         }
+
         aliasList.changeAliasWord(commandWord, keyword);
         model.setAliasList(aliasList);
+        System.out.println(model.getAliasList());
 
         if (keyword.isEmpty()) {
             return new CommandResult(String.format(ERASE_ALIAS_COMMAND_SUCCESS, commandWord));

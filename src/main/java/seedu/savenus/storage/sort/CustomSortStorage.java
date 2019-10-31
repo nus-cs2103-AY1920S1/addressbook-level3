@@ -9,7 +9,7 @@ import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.sort.CustomSorter;
 
 /**
- * Creates a storage to store fields for the CustomSort/
+ * Creates a storage to store fields for the CustomSort.
  */
 public interface CustomSortStorage {
     /**

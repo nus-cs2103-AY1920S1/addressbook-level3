@@ -22,6 +22,7 @@ import seedu.savenus.logic.commands.HelpCommand;
 import seedu.savenus.logic.commands.HistoryCommand;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.LikeCommand;
+import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.RemoveDislikeCommand;
@@ -62,6 +63,7 @@ public class CommandWordAdder {
         aliasPairList.add(new AliasPair(HistoryCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(InfoCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(LikeCommand.COMMAND_WORD, emptyAliasWord));
+        aliasPairList.add(new AliasPair(ListCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(MakeSortCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(RecommendCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(RemoveDislikeCommand.COMMAND_WORD, emptyAliasWord));
