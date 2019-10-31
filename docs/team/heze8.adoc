@@ -9,14 +9,14 @@
 The following Project Portfolio documents my contributions to the software project, `Ezwatchlist`.
 Which was a project my team of software engineering students and I decided to pursue for our Software Engineering project.
 
-Our team were initially tasked with enhancing a basic command line interface (CLI) desktop application that functioned as an Adressbook.
+Our team were initially tasked with enhancing a basic desktop application. that functioned as an Adressbook.  command line interface (CLI)
 What this means is that the application focused on typing as the main mode of use, and had an existing rudimentary base of code already functioning.
 
 Ultimately, we made the decision to modify it into a management application for Movies and Tv Shows named `Ezwatchlist`.
 
 === 1.1 Overview
 
- The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 This enhanced application enables users to:
 
 . Keep track of the movies and television shows that they planed to watch.
