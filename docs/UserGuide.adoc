@@ -116,14 +116,21 @@ Example:
 
 ==== 4. Add a timetable: `addTimeTable`
 
+Adds a timetable for the specified person, to record down their schedule.
 
-Adds a timetable for the specified person, to record down their schedule. +
-Format : `addTimetable INDEX [n/NUSMODS_SHARE_URL] [f/FILEPATH_TO_TIMETABLE]`
+[TIP]
+Timetable added is later used to generate avaiable meeting timeslots using the command `generate`
+
+Format:
+
+`addTimetable INDEX [n/NUSMODS_SHARE_URL] [f/FILEPATH_TO_TIMETABLE]`
 
 Example:
 
-* `addTimetable 3 f//home/john/Desktop/aliceTimetable.txt addTimetable 2
-n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27 __`
+* `addTimetable 3 f//home/john/Desktop/aliceTimetable.txt` +
+Add Alice's timetable to Alice, who has index 3 in the list of persons.
+* `addTimetable 2 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27` +
+Add timetable to the person with index 2 on the list of persons.
 
 
 ==== 5. Add a task: `addTask` [Checkout]
@@ -270,15 +277,17 @@ associated with this functionality.
 
 ==== 1. Generate meeting timing: `generate` [Checkout]
 
-Generates a meeting time for which everyone is available.
+Generates possible meeting timeslots for which everyone is available.
 
-* Prerequisite: Timetables have been assigned to the members with the command addTimetable
+* Prerequisite: Timetables have been assigned to the members with the command `addTimetable`
 
-Format: `generate d/DURATION r/TIMERANGE`
+Format: `generate d/DURATION [r/TIMERANGE]`
 
 Example:
 
-* `generate d/2 r/MONDAY 0900 MON`
+* `generate d/2 r/MONDAY 0900 MONDAY 1800` +
+Generates all possible meeting timeslots that lasts at least 2 hours, within the time frame of Monday 9am to Monday 6pm.
+
 
 ==== 2. Send reminder: `sendReminder`
 
