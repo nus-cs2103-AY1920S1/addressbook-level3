@@ -67,9 +67,6 @@ public class EventCard extends UiPart<Region> {
         cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
-
-
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

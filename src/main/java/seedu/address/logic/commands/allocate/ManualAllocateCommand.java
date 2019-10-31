@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -33,7 +34,7 @@ public class ManualAllocateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manually allocates an employee to an event."
             + "\n"
             + "Parameters: EVENT_INDEX "
-            + "PERSON_INDEX (must be valid positive integers)\n"
+            + PREFIX_EMPLOYEE_NUMBER + "PERSON_INDEX (must be valid positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "2 ";
 
@@ -80,9 +81,15 @@ public class ManualAllocateCommand extends Command {
         List<Event> lastShownEventList = model.getFilteredEventList();
         Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
 
-        Employee personToAdd = lastShownList.stream()
+        Optional<Employee> optionalPersonToAdd = lastShownList.stream()
                 .filter(x -> x.getEmployeeId().id.equals(employeeId))
-                .findAny().get();
+                .findAny();
+
+        if (optionalPersonToAdd.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_EVENT_INVALID_EMPLOYEE_ID);
+        }
+
+        Employee personToAdd = optionalPersonToAdd.get();
 
         if (eventToAllocate.getCurrentManpowerCount() == eventToAllocate.getManpowerNeeded().value) {
             throw new CommandException(Messages.MESSAGE_EVENT_FULL_MANPOWER);

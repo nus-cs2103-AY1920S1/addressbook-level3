@@ -301,21 +301,25 @@ Examples:
 * `allocatem 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
 
-==== De-allocation of all Employees from Event: `free`
+==== De-allocation of Employees from Event: `free`
 
-Frees *ALL* employees allocated to the event.
+Frees employees allocated to the event.
 
-Format: `free EVENT_INDEX`
+Format: `free EVENT_INDEX [id/EMPLOYEE_ID]`
 
 ****
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * `EVENT_INDEX` *must be a positive integer* 1, 2, 3, ...
+* if `EMPLOYEE_ID` is not specified, all employees allocated to the event will be removed.
+* `EMPLOYEE_ID` must match the exact 3-digit ID shown in the displayed employee list.
 ****
 
 Examples:
 
 * `free 1` +
-Frees all employees allocated the 1st event on the event list.
+Frees all employees allocated to the 1st event on the event list.
+* `free 1 id/001` +
+Frees an employee with id: "001" allocated to the 1st event on the event list.
 //end::calvin[]
 
 //tag::DeXun2[]
@@ -634,7 +638,12 @@ e.g. `clear_ev_dt 2`
 | `allocate 1 n/2 t/female`
 | *Allocate one specified Employee to an Event*| `allocate EVENT_INDEX [n/EMPLOYEE_INDEX]`
 | `allocatem 1 n/2`
-| *Deallocate ALL Employees from an Event*| `free EVENT_INDEX` | `free 2`
+| *De-allocate one/all Employees from an Event* | `free EVENT_INDEX [id/EMPLOYEE_ID]`
+
+| `free 2`
+
+`free 2 id/001`
+
 | *Set DateTime to an Event*| `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME`
 | `set_ev_dt 2 on/18/10/2019 time/1000-2000`
 | *Delete DateTime from an Event*| `delete_ev_dt EVENT_INDEX on/EVENT_DATE`

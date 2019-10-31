@@ -284,14 +284,10 @@ public class MainWindow extends UiPart<Stage> {
                 selectionModel.select(0);
             }
 
-            /*if (commandResult.isFetch()) {
-                listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(),
-                        logic.getFilteredEventList(), logic.getFilteredEventList().get(0));
-                listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
-            } else {
-                listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
-                listPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
-            }*/
+            if (fetchEventWindow != null) {
+                fetchEventWindow.updateCards();
+            }
+
 
             return commandResult;
 
