@@ -1,5 +1,6 @@
 package seedu.address.model.achievements;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORDS;
 import static seedu.address.model.achievements.AchievementState.ACHIEVED;
 import static seedu.address.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
 import static seedu.address.model.achievements.AchievementState.YET_TO_ACHIEVE;
@@ -56,6 +57,7 @@ public class AchievementStateProcessor {
             List<Achievement> achievementList = model.getAchievementsMap().get(recordType);
             processAchievements(achievementList, recordType);
         }
+        model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
         return newStatesSet;
     }
 
@@ -213,9 +215,7 @@ public class AchievementStateProcessor {
             assert achievement.getRecordType() == recordType : "Record type in achievements list differ from each "
                     + "other.";
 
-            if (!achievementIsAttained) {
-                achievementIsAttained = achievement.isAchieved();
-            } else {
+            if (achievementIsAttained) {
                 setAchievementState(achievement, ACHIEVED);
                 continue;
             }
@@ -242,6 +242,7 @@ public class AchievementStateProcessor {
                     demote(achievement);
                 }
             }
+            achievementIsAttained = achievement.isAchieved();
         }
     }
 

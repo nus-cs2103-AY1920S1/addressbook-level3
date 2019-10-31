@@ -12,7 +12,7 @@ public class BloodSugarBronze extends Achievement implements BloodSugar {
 
     private static final String TITLE = "Sugar Control Apprentice";
 
-    private static final int DURATION_VALUE = 7;
+    private static final int DURATION_VALUE = 3;
     private static final String DESCRIPTION = "Attain between " + MINIMUM + " and " + MAXIMUM + CONSTRAINT_UNITS + " "
             + "(inclusive) of daily average " + RECORD_TYPE.toString().toLowerCase() + " levels for at least "
             + DURATION_VALUE + " consecutive "
