@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
@@ -16,7 +16,7 @@ public class ResultDisplay extends UiPart<Region> {
     private static final String FXML = "ResultDisplay.fxml";
 
     @FXML
-    private AnchorPane resultDisplayPlaceholder;
+    private ScrollPane resultDisplayPlaceholder;
 
     @FXML
     private Label resultDisplay;
@@ -28,6 +28,7 @@ public class ResultDisplay extends UiPart<Region> {
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         resultDisplay.setTextFill(Color.web("#FFFFFF"));
+        resultDisplay.setWrapText(true);
         resultDisplay.setText(feedbackToUser);
     }
 

@@ -5,11 +5,11 @@ https://travis-ci.org/AY1920S1-CS2103T-F13-1/main/[image:https://travis-ci.org/A
 https://coveralls.io/github/AY1920S1-CS2103T-F13-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F13-1/main/badge.svg?branch=master&service=github[Coverage Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.png[]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/Ui.png[]
 endif::[]
 
 * *LiBerry* is a desktop library management application.

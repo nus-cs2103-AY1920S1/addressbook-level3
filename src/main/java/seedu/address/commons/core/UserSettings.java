@@ -85,7 +85,7 @@ public class UserSettings implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Loan period : " + loanPeriod + "\n");
         sb.append("Renew period : " + renewPeriod + "\n");
-        sb.append("Fine percentage increment : " + fineIncrement + "\n");
+        sb.append("Fine increment : " + fineIncrement + "\n");
         sb.append("Maximum renew count : " + maxRenews);
         return sb.toString();
     }

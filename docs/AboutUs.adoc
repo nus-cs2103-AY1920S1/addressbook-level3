@@ -12,6 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Wang Shiyao
 image::shiyao821.png[width="150", align="left"]
 {empty}[https://github.com/shiyao821[github]]
+[<<WangShiyao#, portfolio>>]
 
 Role: Team Lead
 
@@ -22,6 +23,7 @@ Responsibilities: Storage
 === See Zi Yang
 image::seeziyang.png[width="150", align="left"]
 {empty}[http://github.com/seeziyang[github]]
+[<<seeziyang#, portfolio>>]
 
 Role: Integration, Scheduling and tracking
 
@@ -32,6 +34,7 @@ Responsibilities: Logic
 === Lin Yuting
 image::linyutinglyt.png[width="150", align="left"]
 {empty}[http://github.com/linyutinglyt[github]]
+[<<LinYuting#, portfolio>>]
 
 Role: Testing
 
@@ -42,6 +45,7 @@ Responsibilities: Commons
 === Yeo Tong
 image::cronyxx.png[width="150", align="left"]
 {empty}[http://github.com/Cronyxx[github]]
+[<<YeoTong#, portfolio>>]
 
 Role: Documentation
 
@@ -52,6 +56,7 @@ Responsibilities: UI
 === Ho Hol Yin
 image::hoholyin.png[width="150", align="left"]
 {empty}[http://github.com/hoholyin[github]]
+[<<HoHolYin#, portfolio>>]
 
 Role: Code quality, Deliverables and deadlines
 

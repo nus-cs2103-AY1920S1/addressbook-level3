@@ -9,7 +9,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
 
 /**
@@ -41,8 +40,8 @@ public interface Logic {
     /** Returns the borrower being served in Serve Mode, or null if in Normal Mode */
     Borrower getServingBorrower();
 
-    /** Returns the book with the corresponding serial number */
-    Book getBook(SerialNumber sn);
+    /** Returns the list of books borrowed by the borrower being served */
+    ObservableList<Book> getServingBorrowerBookList();
 
     /**
      * Returns the user prefs' catalog file path.

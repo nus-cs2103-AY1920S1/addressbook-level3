@@ -32,7 +32,11 @@ This developer guide is targeted towards *potential developers* of the project a
 * The *implementation* and *behaviour* of the main features of the system.
 
 === Legend
-// How to use developer guide
+
+[TIP]
+Denotes useful tips.
+
+NOTE: Denotes additional information.
 
 == Setting up
 
@@ -241,7 +245,7 @@ These classes include (to list a few):
 
 * User Settings
 * Exceptions
-* Utility classes like `DateUtil` and `JsonUtil`
+* Utility classes like `DateUtil`, `FineUtil` and `JsonUtil`
 
 We will now move on to the next section, which aims to explain the implementation of some of our main features.
 
@@ -490,7 +494,9 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Book loaning feature
+// tag::bookLoaningFeatures[]
+
+=== Book Loaning Features
 
 ==== Functionalities
 The functionalities and commands associated with the book loaning feature are:
@@ -650,6 +656,8 @@ up of the application. Thus, it can make the application feel laggy and unrespon
 ** Pros: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
 ** Cons: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
 `startDate` in order to obtain their insertion order.
+
+// end::bookLoaningFeatures[]
 
 // tag::bookFinding[]
 === Book Finding
@@ -871,7 +879,7 @@ image::UseCases.png[width="330"]
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
 
 [discrete]
-==== Use case: Delete book
+==== Use case: Delete a book
 
 *MSS*
 
@@ -900,7 +908,7 @@ Use case resumes at step 2.
 
 
 [discrete]
-==== Use case: Add book
+==== Use case: Add a book
 
 *MSS*
 
@@ -924,7 +932,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-==== Use case: Loan book
+==== Use case: Loan a book
 
 *MSS*
 
@@ -1027,11 +1035,11 @@ _{ more test cases ... }_
 
 ==== Deleting a book
 
-. Deleting a book while all books are listed
+. Deleting a book while there are books are listed
 
-.. Prerequisites: List all books using the `list` command. Multiple books in the list.
+.. Prerequisites: Books are displayed in the list on the UI.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
