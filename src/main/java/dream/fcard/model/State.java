@@ -30,7 +30,7 @@ public class State {
     /**
      * Constructor to create a State object with no Deck objects.
      */
-    private State() {
+    public State() {
         decks = StorageManager.loadDecks();
         consumerHashMap = new HashMap<>();
     }
