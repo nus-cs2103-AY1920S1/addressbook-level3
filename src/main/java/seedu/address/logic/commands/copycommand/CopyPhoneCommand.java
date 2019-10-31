@@ -30,7 +30,7 @@ public class CopyPhoneCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_COPY_PHONE_SUCCESS = "Copied Phone: %1$s";
+    public static final String MESSAGE_COPY_PHONE_SUCCESS = "Copied phone into clipboard: %1$s";
 
     private final Index targetIndex;
 

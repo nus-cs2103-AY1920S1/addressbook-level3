@@ -214,7 +214,7 @@ A customer can have any number of tags, including 0.
 image::ug-command/ug-add-c.png[width="900"]
 
 ==== Delete a customer : `delete-c`
-Deletes a customer in SML. +
+Deletes a customer in SML. Note that deleting a customer will also delete the orders and schedules associated with the customer. +
 
 [underline]#Format#: `delete-c INDEX`
 
@@ -355,7 +355,7 @@ A customer can have any number of tags, including 0.
 image::ug-command/ug-add-p.png[width="800"]
 
 ==== Delete a phone : `delete-p`
-Deletes a phone in SML. +
+Deletes a phone in SML. Note that deleting a phone will also delete the orders and schedules associated with the phone.+
 
 [underline]#Format#: `delete-p INDEX`
 
@@ -499,7 +499,7 @@ Edits the data fields of an order. +
 
 
 ****
-- Edits the phone at the specified `INDEX`. The index refers to the index number shown in the displayed customer list.
+- Edits the order at the specified `INDEX`. The index refers to the index number shown in the displayed customer list.
 The index *must be a positive integer* 1, 2, 3, ...
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
