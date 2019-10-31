@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.IncidentManagerBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
 
@@ -128,5 +131,23 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setIncidentManagerFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(incidentManager, differentUserPrefs)));
+    }
+
+    //@@author madanalogy
+    @Test
+    void getLoggedInPerson_session_equals() {
+        // Same person in session equals
+        modelManager.setSession(new PersonBuilder().build());
+        assertEquals(new PersonBuilder().build(), modelManager.getLoggedInPerson());
+
+        // Different person in session not equals
+        assertNotEquals(new PersonBuilder().withUsername("something").build(), modelManager.getLoggedInPerson());
+
+        // Person in session not equals null
+        assertNotEquals(null, modelManager.getLoggedInPerson());
+
+        // Null in session equals null
+        modelManager.setSession(null);
+        assertNull(modelManager.getLoggedInPerson());
     }
 }

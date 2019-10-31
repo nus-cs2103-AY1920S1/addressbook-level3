@@ -20,7 +20,7 @@ public class Password {
      * The first character of the username must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
+    public static final String VALIDATION_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "0-9]{6,}";
 
     public final String value;
 
