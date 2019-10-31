@@ -66,7 +66,7 @@ public class GroceryItem extends Food {
         int remDays = (int) ((itemExpiry.getTime() - current.getTime()) / (24 * 60 * 60 * 1000));
 
         // Items expiring on the day itself are considered expired
-        if (remDays > 0) {
+        if (remDays >= 0) {
             return false;
         }
         return true;

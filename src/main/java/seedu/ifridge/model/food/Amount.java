@@ -325,13 +325,35 @@ public class Amount {
 
     /**
      * Increases the value of amount by the specified amount
-     * @param amt the Amount to be increased by
+     * @param other the Amount to be increased by
      * @return Returns Amount with its value increased
      */
-    public Amount increaseBy(Amount amt) {
-        float resultantAmount = Amount.getValue(this) + Amount.getValue(amt);
-        String unit = Amount.getUnit(this);
-        return new Amount(resultantAmount + unit);
+    public Amount increaseBy(Amount other) {
+        if (!hasSameAmountUnitType(this, other)) {
+            throw new InvalidUnitException(MESSAGE_UNIT_TYPE_DOES_NOT_MATCH);
+        }
+
+        String thisUnit = Amount.getUnit(this);
+        float resultantAmount;
+
+        if (!hasSameAmountUnit(this, other)) {
+            Amount convertedOther = this.convertAmount(other);
+            resultantAmount = Amount.getValue(this) + Amount.getValue(convertedOther);
+        } else {
+            resultantAmount = Amount.getValue(this) + Amount.getValue(other);
+        }
+        if (resultantAmount < 0) {
+            throw new InvalidAmountException(MESSAGE_INVALID_RESULTANT_AMOUNT);
+        }
+
+        // convert to int if it's a whole number
+        if (resultantAmount == Math.round(resultantAmount)) {
+            int wholeResultantAmount = Math.round(resultantAmount);
+            return new Amount(wholeResultantAmount + thisUnit);
+        } else {
+            resultantAmount = Float.parseFloat(String.format("%.2f", resultantAmount));
+            return new Amount(resultantAmount + thisUnit);
+        }
     }
 
     @Override
