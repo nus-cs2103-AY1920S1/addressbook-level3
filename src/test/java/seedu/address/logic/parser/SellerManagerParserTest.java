@@ -42,9 +42,9 @@ import seedu.address.testutil.EditPhoneDescriptorBuilder;
 import seedu.address.testutil.PhoneBuilder;
 import seedu.address.testutil.PhoneUtil;
 
-public class AddressBookParserTest {
+public class SellerManagerParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final SellerManagerParser parser = new SellerManagerParser();
 
     @Test
     public void parseCommand_addCustomer() throws Exception {

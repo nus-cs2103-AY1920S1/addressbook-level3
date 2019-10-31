@@ -221,7 +221,8 @@ public class ModelManager implements Model {
 
         // cascade
         List<Order> orders = orderBook.getList();
-        for (Order order : orders) {
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order order = orders.get(i);
             if (order.getCustomer().equals(target)) {
                 deleteOrder(order);
                 break;
@@ -242,7 +243,8 @@ public class ModelManager implements Model {
 
         // cascade
         List<Order> orders = orderBook.getList();
-        for (Order order : orders) {
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order order = orders.get(i);
             if (order.getCustomer().equals(target)) {
                 Order editedOrder = new Order(order.getId(), editedCustomer, order.getPhone(),
                         order.getPrice(), order.getStatus(), order.getSchedule(), order.getTags());
@@ -292,8 +294,11 @@ public class ModelManager implements Model {
         phoneBook.remove(target);
 
         // cascade
+
         List<Order> orders = orderBook.getList();
-        for (Order order : orders) {
+
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order order = orders.get(i);
             if (order.getPhone().equals(target)) {
                 deleteOrder(order);
                 break;
@@ -313,9 +318,10 @@ public class ModelManager implements Model {
         phoneBook.set(target, editedPhone);
 
         // cascade
-
         List<Order> orders = orderBook.getList();
-        for (Order order : orders) {
+
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order order = orders.get(i);
             if (order.getPhone().equals(target)) {
                 Order editedOrder = new Order(order.getId(), order.getCustomer(), editedPhone,
                         order.getPrice(), order.getStatus(), order.getSchedule(), order.getTags());
