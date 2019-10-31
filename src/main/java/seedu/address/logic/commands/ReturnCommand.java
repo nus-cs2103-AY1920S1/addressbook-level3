@@ -12,6 +12,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.FineUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -90,6 +91,9 @@ public class ReturnCommand extends Command {
 
         // update Loan in LoanRecords with returnDate and remainingFineAmount
         model.updateLoan(loanToBeReturned, returnedLoan);
+
+        // unmount this book in LoanSlipUtil if it is mounted
+        LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToBeReturned);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
                 FineUtil.centsToDollarString(fineAmount)));
