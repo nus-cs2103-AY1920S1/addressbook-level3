@@ -92,7 +92,7 @@ public class AutoCompletePanel extends UiPart<Region> {
         LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
 
         updateMatchedWords(segments, firstSegmentParts);
-        resetList();
+        refreshList();
         autoCompleteListUpdater.updateSuggestedWordsInList(matchedAutoCompleteWords.size(),
                 segments, firstSegmentParts);
     }
@@ -100,7 +100,7 @@ public class AutoCompletePanel extends UiPart<Region> {
     /**
      * Re-set and filter list to be suggested
      */
-    public void resetList() {
+    public void refreshList() {
         if (matchedAutoCompleteWords.size() == 0) {
             // Set to object list
             autoCompleteListUpdater.setList(autoCompleteWordStorage.getOListAllObjectWord());
