@@ -9,6 +9,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * List of all the lessons sorted by the days of the week.
+ */
 public class UniqueLessonWeekList implements Iterable<UniqueLessonList> {
     private final ObservableList<UniqueLessonList> internalList = FXCollections.observableArrayList();
     private final ObservableList<UniqueLessonList> internalUnmodifiableList =
