@@ -62,6 +62,10 @@ Format: `tab [menu_name]`
 ** TypingGame
 ** Calendar
 ** Report
+
+[NOTE]
+`tab game` is used instead of `tab typinggame` to simplify typing.
+
 * `Engagement` window will be the default window upon start up of the application.
 
 .Engagement (default) window displayed on start-up of the application.
