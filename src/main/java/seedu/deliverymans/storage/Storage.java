@@ -69,5 +69,5 @@ public interface Storage extends AddressBookStorage, CustomerDatabaseStorage, De
     Optional<ReadOnlyOrderBook> readOrderBook() throws DataConversionException, IOException;
 
     @Override
-    void saveOrderBook(ReadOnlyOrderBook orderBook) throws IOException;
+    void saveOrderDatabase(ReadOnlyOrderBook orderBook) throws IOException;
 }
