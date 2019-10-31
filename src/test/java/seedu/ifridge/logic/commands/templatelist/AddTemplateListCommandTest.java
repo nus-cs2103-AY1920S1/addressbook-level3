@@ -276,7 +276,7 @@ public class AddTemplateListCommandTest {
 
         @Override
         public void commitTemplateList(UniqueTemplateItems prevTemplate, UniqueTemplateItems newTemplate, int index) {
-            throw new AssertionError("This method should not be called.");
+            //throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -303,6 +303,7 @@ public class AddTemplateListCommandTest {
         public UniqueTemplateItems getPrevTemplate() {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public UniqueTemplateItems getNewTemplate() {
             throw new AssertionError("This method should not be called.");
