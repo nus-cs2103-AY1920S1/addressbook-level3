@@ -69,7 +69,7 @@ public class EditLessonCommand extends Command {
         List<UniqueLessonList> lastShownList = model.getFilteredLessonWeekList();
         UniqueLessonList dayList = lastShownList.get(day.getZeroBased());
 
-        if (index.getZeroBased() >= dayList.asUnmodifiableObservableList().size() 
+        if (index.getZeroBased() >= dayList.asUnmodifiableObservableList().size()
             || day.getZeroBased() < 0 || day.getZeroBased() > 7) {
             throw new CommandException(Messages.MESSAGE_INVALID_LESSON_DISPLAYED_INDEX);
         }
