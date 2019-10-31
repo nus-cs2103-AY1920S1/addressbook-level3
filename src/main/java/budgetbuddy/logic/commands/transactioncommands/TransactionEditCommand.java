@@ -129,25 +129,27 @@ public class TransactionEditCommand extends Command {
 
     /**
      * Creates and returns a new {@code Transaction} with the details of {@code targetTransaction},
-     * edited with {@code transactionEditDescriptor}.
+     * edited with {@code transactionEditDescriptor}. Also validates that changes were made to the
+     * transaction.
      */
     private Transaction updateTransaction(Transaction targetTransaction,
                                           TransactionEditDescriptor transactionEditDescriptor,
                                           Account targetAccount,
                                           Account updatedAccount) throws CommandException {
-        Date updatedDate = transactionEditDescriptor.getDate() != null
+
+        Date updatedDate = transactionEditDescriptor.getDate().isPresent()
                 ? transactionEditDescriptor.getDate().get()
                 : targetTransaction.getDate();
 
-        Amount updatedAmount = transactionEditDescriptor.getAmount() != null
+        Amount updatedAmount = transactionEditDescriptor.getAmount().isPresent()
                 ? transactionEditDescriptor.getAmount().get()
                 : targetTransaction.getAmount();
 
-        Direction updatedDirection = transactionEditDescriptor.getDirection() != null
+        Direction updatedDirection = transactionEditDescriptor.getDirection().isPresent()
                 ? transactionEditDescriptor.getDirection().get()
                 : targetTransaction.getDirection();
 
-        Description updatedDescription = transactionEditDescriptor.getDescription() != null
+        Description updatedDescription = transactionEditDescriptor.getDescription().isPresent()
                 ? transactionEditDescriptor.getDescription().get()
                 : targetTransaction.getDescription();
 

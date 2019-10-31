@@ -39,7 +39,6 @@ public class TransactionEditCommandParser implements CommandParser {
                 ArgumentTokenizer.tokenize(args, PREFIX_DIRECTION, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_ACCOUNT,
                         PREFIX_CATEGORY, PREFIX_DATE);
 
-        String directionString = argMultiMap.getPreamble().toUpperCase();
         if (argMultiMap.getValueCount(PREFIX_DIRECTION) > 1
                 || argMultiMap.getValueCount(PREFIX_AMOUNT) > 1
                 || argMultiMap.getValueCount(PREFIX_DESCRIPTION) > 1
