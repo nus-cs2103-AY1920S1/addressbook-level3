@@ -8,7 +8,9 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.food.ShoppingItem;
+import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 
 /**
  * Adds a person to the address book.
@@ -27,6 +29,8 @@ public class AddShoppingCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New shopping item added: %1$s";
     public static final String MESSAGE_DUPLICATE_SHOPPING_ITEM = "This shopping item already exists in shopping list";
+    public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
+            + "with the same name.";
 
     private final ShoppingItem toAdd;
 
@@ -44,6 +48,13 @@ public class AddShoppingCommand extends Command {
 
         if (model.hasShoppingItem(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOPPING_ITEM);
+        }
+
+        UnitDictionary unitDictionary = model.getUnitDictionary();
+        try {
+            unitDictionary.checkUnitDictionary(toAdd, model);
+        } catch (InvalidUnitException e) {
+            throw new CommandException(MESSAGE_INCORRECT_UNIT);
         }
 
         model.addShoppingItem(toAdd);

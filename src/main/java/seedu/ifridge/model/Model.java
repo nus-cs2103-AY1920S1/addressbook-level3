@@ -278,6 +278,13 @@ public interface Model {
     ReadOnlyShoppingList getShoppingList();
 
     /**
+     * Checks if there is a shopping item with the name of given food item.
+     * @param foodItem to check if existing in ShoppingList
+     * @return
+     */
+    boolean containsShoppingItemWithName(Food foodItem);
+
+    /**
      * Returns true if a Shopping with the same identity as {@code shoppingItem} exists in the shopping list.
      */
     boolean hasShoppingItem(ShoppingItem shoppingItem);
