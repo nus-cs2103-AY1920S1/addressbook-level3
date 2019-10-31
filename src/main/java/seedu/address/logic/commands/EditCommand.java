@@ -55,6 +55,8 @@ public class EditCommand extends Command {
         + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS_POLICIES_UNASSIGNED = "Edited Person: %1$s\nThe following "
+        + "policies were unassigned:\n %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
@@ -95,8 +97,15 @@ public class EditCommand extends Command {
         Set<Policy> updatedPolicies = personToEdit.getPolicies();
         Set<Tag> updatedTags = personToEdit.getTags();
 
-        return new Person(updatedName, updatedNric, updatedPhone, updatedEmail, updatedAddress, updatedDateOfBirth,
-            updatedGender, updatedPolicies, updatedTags);
+        if (updatedDateOfBirth.equals(personToEdit.getDateOfBirth())) {
+            return new Person(updatedName, updatedNric, updatedPhone, updatedEmail, updatedAddress, updatedDateOfBirth,
+                    updatedGender, updatedPolicies, updatedTags);
+        } else {
+            Person newPerson = new Person(updatedName, updatedNric, updatedPhone, updatedEmail, updatedAddress,
+                    updatedDateOfBirth, updatedGender, updatedPolicies, updatedTags);
+            return new Person(updatedName, updatedNric, updatedPhone, updatedEmail, updatedAddress,
+                    updatedDateOfBirth, updatedGender, newPerson.getEligiblePolicies(), updatedTags);
+        }
     }
 
     @Override
@@ -119,7 +128,22 @@ public class EditCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         // to maintain the model's state for undo/redo
         model.saveAddressBookState();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+
+        if (personToEdit.getPolicies().equals(editedPerson.getPolicies())) {
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        } else {
+            String unassignedPolicies = "";
+
+            for (Policy policy : personToEdit.getPolicies()) {
+                if (!editedPerson.getPolicies().contains(policy)) {
+                    unassignedPolicies += policy.getName() + "\n";
+                }
+            }
+            return new CommandResult(String.format(
+                    MESSAGE_EDIT_PERSON_SUCCESS_POLICIES_UNASSIGNED,
+                    editedPerson,
+                    unassignedPolicies));
+        }
     }
 
     /**
