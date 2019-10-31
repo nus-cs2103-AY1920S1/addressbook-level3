@@ -152,7 +152,7 @@ public class CreateDeckDisplay extends AnchorPane {
         if (hasChoice) {
             success = parseMcq(input);
         } else if (hasTestCases) {
-            success = parseJS(input);
+            success = parseJs(input);
         } else {
             success = parseFrontBack(input);
         }
@@ -261,7 +261,13 @@ public class CreateDeckDisplay extends AnchorPane {
         }
     }
 
-    private boolean parseJS(String input) {
+    /**
+     * Used to parse JS-type cards.
+     *
+     * @param input the CLI input.
+     * @return a boolean that represents if the input matches JS-type input.
+     */
+    private boolean parseJs(String input) {
         String userInput = input.replaceFirst("create deck/", "");
 
         if (hasFront && hasTestCases) {
@@ -269,7 +275,7 @@ public class CreateDeckDisplay extends AnchorPane {
             front = userInputFields[0].strip();
 
             StringBuilder temp = new StringBuilder();
-            for(int i = 1; i < userInputFields.length; i++) {
+            for (int i = 1; i < userInputFields.length; i++) {
                 temp.append(userInputFields[i].strip());
             }
 
