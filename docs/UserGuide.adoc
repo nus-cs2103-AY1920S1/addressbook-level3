@@ -187,22 +187,33 @@ Clears all existing actors of the 2nd show in the list.
 ==== Search for a show by name: `search`
 
 Finds shows whose names contain any of the given keywords from the watchlist, watched list and online. +
-Format: `search n/KEYWORD [MORE_KEYWORDS]`
+Format:
+
+* by name: `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]`
+* by genre: `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]`
+* by actor (from watchlist): `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Shows matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case insensitive. e.g "avengers" will match "Avengers"
+* The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris"
+* Not only full words will be matched. e.g. "Joke" will also match with "Joker"
+* When searching based on actor, only shows from the watchlist will be searched.
+* When searching based on genre online, only movies will be searched.
 ****
 
 Examples:
 
-* `search n/Angry` +
-Returns `The Angry Birds Movie 2`
-* `search n/John Angry` +
-Returns any actor having names `John` or `Angry`
+* By name:
+** `search n/Joker i/yes` +
+Returns shows with the name "Joker" within the watchlist
+** `search n/Avengers g/Science Fiction t/movie n/Spiderman` +
+Returns movies with the name "Avenger" or "Spiderman" and movies with "Science Fiction" as genre
+* By genre:
+** `search g/Action t/movie` +
+Returns movies with the genre "Action"
+* By actor:
+** `search a/Tom w/no` +
+Returns shows within the watchlist with actor named "Tom"
 
 // tag::delete[]
 ==== Deleting a show : `delete`
@@ -290,9 +301,13 @@ e.g. `add 1`
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...` +
 e.g. `edit 2 n/John Wick a/Johnny Depp`
-* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
-e.g. `search John`
-* *Search (ONLINE)* `search n/SHOW_NAME` +
-e.g. `search n/Harry potter`
+* *Search*
+** *by name* : `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
+e.g. `search n/Joker i/yes` searches for shows with the name 'Joker' within the watchlist
+** *by genre* `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
+e.g. `search g/Action t/movie` searches for movies with the genre 'Action'
+** *by actor from watchlist* `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]` +
+e.g. `search a/Tom` searches from shows within the watchlist with actor named 'Tom'
+
 * *Exit* : `exit`
 * *Help* : `help`

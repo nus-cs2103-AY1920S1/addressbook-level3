@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.logic.parser;
 
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_INTERNAL;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
@@ -21,8 +22,10 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
     private static final String KEY_ACTOR = "actor";
+    private static final String KEY_GENRE = "genre";
     private static final String KEY_IS_WATCHED = "is_watched";
     private static final String KEY_IS_INTERNAL = "is_internal";
+
 
     private HashMap<String, List<String>> searchShowsHashMap = new HashMap<>();
 
@@ -34,17 +37,20 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     public SearchCommand parse(String args) {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_TYPE, PREFIX_IS_WATCHED, PREFIX_ACTOR, PREFIX_IS_INTERNAL);
+                        args, PREFIX_NAME, PREFIX_TYPE, PREFIX_ACTOR, PREFIX_GENRE, PREFIX_IS_WATCHED,
+                        PREFIX_IS_INTERNAL);
 
         List<String> nameList = argMultimap.getAllValues(PREFIX_NAME);
         Optional<String> typeOptional = argMultimap.getValue(PREFIX_TYPE);
         List<String> actorList = argMultimap.getAllValues(PREFIX_ACTOR);
+        List<String> genreList = argMultimap.getAllValues(PREFIX_GENRE);
         Optional<String> isWatchedOptional = argMultimap.getValue(PREFIX_IS_WATCHED);
         Optional<String> isInternalOptional = argMultimap.getValue(PREFIX_IS_INTERNAL);
 
         parseNameToBeSearched(nameList);
         parseTypeToBeSearched(typeOptional);
         parseActorToBeSearched(actorList);
+        parseGenreToBeSearched(genreList);
         parseIsWatchedToBeSearched(isWatchedOptional);
         parseIsInternalToBeSearched(isInternalOptional);
 
@@ -81,6 +87,14 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      */
     private void parseActorToBeSearched(List<String> actorList) {
         searchShowsHashMap.put(KEY_ACTOR, actorList);
+    }
+
+    /**
+     * Parses the genres to be searched.
+     * @param genreList List of genres to be searched.
+     */
+    private void parseGenreToBeSearched(List<String> genreList) {
+        searchShowsHashMap.put(KEY_GENRE, genreList);
     }
 
     /**
