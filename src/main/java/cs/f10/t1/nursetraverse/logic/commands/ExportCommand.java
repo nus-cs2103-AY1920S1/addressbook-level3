@@ -35,7 +35,7 @@ public class ExportCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "patient_data "
             + PREFIX_INDEXES + "2 " + PREFIX_INDEXES + "4 " + PREFIX_INDEXES + "6";
 
-    public static final String MESSAGE_SUCCESS = "Export success! File written to: ";
+    public static final String MESSAGE_SUCCESS = "Export success! File written to: %s";
     public static final String MESSAGE_FAILURE = "Export failed.";
     public static final String MESSAGE_EMPTY = "Nothing to export!";
     public static final String MESSAGE_FILE_EXISTS =
@@ -82,12 +82,12 @@ public class ExportCommand extends Command {
         try {
             pathString = CsvUtil.writePatientsToCsv(lastShownList, exportFileName);
         } catch (ExportingException e) {
-            throw new CommandException(MESSAGE_FILE_EXISTS);
+            throw new CommandException(MESSAGE_FILE_EXISTS, e);
         } catch (IOException e) {
-            throw new CommandException(MESSAGE_FAILURE);
+            throw new CommandException(MESSAGE_FAILURE, e);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS + pathString);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, pathString));
     }
 
     /**
