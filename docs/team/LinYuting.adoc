@@ -1,0 +1,101 @@
+= Lin Yuting - Project Portfolio Page
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== LiBerry
+
+=== Overview
+
+In the spirit of spreading education, literacy and a sense of community to the world (and completing our software engineering project), my team has developed
+Liberry - a desktop software for managing community and private libraries. The target users are mainly librarians looking to set up
+or are already running private or community libraries, especially those in under-developed communities who cannot afford
+commercial versions of such software.
+
+LiBerry can execute the basic functions of library management:
+
+* Addition and deletion of books in the catalog
+* Registering Borrowers and editing their particulars
+* Loan, return, renew and pay fine functions
+* Searching through books in the catalog by filters
+
+As part of the requirements of the project, we were given the source code for a common AddressBook
+application and were tasked to morph it to something else that is useful.
+We were also limited to designing software that takes in the majority of user input through a Command Line Interface
+(CLI), though displays information through a Graphical User Interface (GUI).
+
+This is what the GUI looks like:
+
+.Graphical User Interface (GUI) for *LiBerry*
+image::Ui.png[]
+
+My role was to:
+
+. configure the basic AddressBook software to accomodate Json-type storage for a catalog, a record of borrowers,
+and a record of loans.
+. design the *Find Command* to execute given a set of parameters - such as searching by title, genre, loan status etc.
+
+== Summary of Contributions
+
+* *Major enhancement*: added *the ability to unregister a borrower*
+** What it does: allows the user to unregister previously registered borrowers.
+** Justification: This feature improves the product significantly because a borrower can be no longer using the library and the app should unregister him or her from the library system.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to many data in the storage.
+
+* *Minor enhancement*: added a Borrower ID generator that auto generates a borrower's ID.
+
+* *Code contributed*: +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/parser/RegisterCommandParser.java[RegisterCommandParser Class]] +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/commands/RegisterCommand.java[RegisterCommand Class]] +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/parser/ServeCommandParser.java[ServeCommandParser Class]] +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/commands/ServeCommand.java[ServeCommand Class]] +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/Borrower.java[Borrower Class]] +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/Name.java[Name Class]] +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/BorrowerId.java[BorrowerId Class]] +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/Phone.java[Phone Class]] +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/Email.java[Email Class]] +
+[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/borrower/BorrowerIdGenerator.java[BorrowerIdGenerator Class]] +
+
+
+
+* *Other contributions*:
+
+** Project management
+*** Managed the release of `v1.2` on GitHub. In `v1.2`, we have the following features:
+**** Set default user settings
+**** Exit the application
+**** Register a borrower into the library System
+**** Setting the application to serving mode
+**** Exiting the serving mode
+**** Loaning a book
+**** Returning a book
+**** Deleting a book
+
+
+** Enhancements to existing features:
+***
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Improve user stories of the User Guide: https://github.com[#103]
+*** Updating Developer Guide: https://github.com[#165], https://github.com[#183]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=UGyuting]
+include::../UserGuide.adoc[tag=UGyuting2]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=registerBorrower]
+
