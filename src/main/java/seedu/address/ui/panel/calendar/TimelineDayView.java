@@ -93,9 +93,6 @@ public class TimelineDayView extends TimelineView {
     @Override
     boolean isWithinTimeline(TaskSource task) {
         DateTime taskDueDate = task.getDueDate();
-        if (taskDueDate == null) {
-            return false;
-        }
         return calendarDate.sameDate(taskDueDate.getDay(), taskDueDate.getMonth(), taskDueDate.getYear());
     }
 
