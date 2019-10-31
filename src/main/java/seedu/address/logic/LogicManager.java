@@ -58,11 +58,13 @@ public class LogicManager implements Logic, UiLogicHelper {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        // @@author sreesubbash
         CommandResult commandResult;
         parserManager.updateState(model.getHasBank(), model.gameIsOver());
         Command command = parserManager.parseCommand(commandText);
         commandResult = command.execute(model);
         parserManager.updateState(model.getHasBank(), model.gameIsOver());
+        // @@author
 
         // todo need to save wordbankstatistics after deletion.
         // todo possible solution -> just save on every command like how the word bank is saved.
