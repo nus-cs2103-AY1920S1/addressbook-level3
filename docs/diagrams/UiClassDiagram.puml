@@ -15,6 +15,11 @@ Class PersonListPanel
 Class PersonCard
 Class StatusBarFooter
 Class CommandBox
+Class StartWindow
+Class GameWindow
+Class PlayerInformation
+Class GameBody
+Class MovingWords
 }
 
 package Model <<Rectangle>> {
@@ -31,12 +36,17 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
+MainWindow --> StartWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> PersonListPanel
 MainWindow *-down-> StatusBarFooter
 
 PersonListPanel -down-> PersonCard
+StartWindow -down-> GameWindow
+GameWindow -down-> GameBody
+GameWindow -down-> MovingWords
+GameWindow -down-> PlayerInformation
 
 MainWindow -left-|> UiPart
 
@@ -45,7 +55,12 @@ CommandBox --|> UiPart
 PersonListPanel --|> UiPart
 PersonCard --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+HelpWindow -down---|> UiPart
+StartWindow -down-|> UiPart
+GameWindow -down-|> UiPart
+MovingWords -down---|> UiPart
+GameBody -down---|> UiPart
+PlayerInformation -down---|> UiPart
 
 PersonCard ..> Model
 UiManager -right-> Logic

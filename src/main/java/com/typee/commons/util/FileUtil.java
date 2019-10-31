@@ -1,17 +1,25 @@
 package com.typee.commons.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
+import java.util.logging.Logger;
+
+import com.typee.commons.core.LogsCenter;
 
 /**
  * Writes and reads files
  */
 public class FileUtil {
 
+    public static final String DOCUMENT_PROPERTIES_FILE_NAME = "document_template.properties";
+
     private static final String CHARSET = "UTF-8";
+    private static final Logger logger = LogsCenter.getLogger(FileUtil.class);
 
     public static boolean isFileExists(Path file) {
         return Files.exists(file) && Files.isRegularFile(file);
@@ -80,4 +88,16 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+    /**
+     * Loads properties from resource/.
+     */
+    public static Properties loadProperties() throws IOException {
+        String resourceName = "document_template.properties"; // could also be a constant
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        Properties props = new Properties();
+        try (InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
+            props.load(resourceStream);
+        }
+        return props;
+    }
 }

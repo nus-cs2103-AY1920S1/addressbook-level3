@@ -6,7 +6,10 @@ package com.typee.model.engagement;
 public enum Priority {
     LOW,
     MEDIUM,
-    HIGH;
+    HIGH,
+    NONE;
+
+    private static final String MESSAGE_CONSTRAINTS = "Priority can only be low, medium or high!";
 
     /**
      * Returns the corresponding {@code Priority} value from the input {@code String}.
@@ -22,6 +25,8 @@ public enum Priority {
             return Priority.MEDIUM;
         } else if (priority.equalsIgnoreCase(Priority.HIGH.name())) {
             return Priority.HIGH;
+        } else if (priority.equalsIgnoreCase(Priority.NONE.name())) {
+            return Priority.NONE;
         } else {
             throw new IllegalArgumentException();
         }
@@ -36,7 +41,8 @@ public enum Priority {
     public static boolean isValid(String string) {
         return string.equalsIgnoreCase("low")
                 || string.equalsIgnoreCase("medium")
-                || string.equalsIgnoreCase("high");
+                || string.equalsIgnoreCase("high")
+                || string.equalsIgnoreCase("none");
     }
 
     /**
@@ -44,6 +50,6 @@ public enum Priority {
      * @return constraint message.
      */
     public static String getMessageConstraints() {
-        return "Priority can only be low, medium or high!";
+        return MESSAGE_CONSTRAINTS;
     }
 }

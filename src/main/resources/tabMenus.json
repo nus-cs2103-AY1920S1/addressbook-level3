@@ -1,0 +1,14 @@
+[
+  { "name" : "Engagement",
+    "url" : "EngagementListPanel.fxml"
+  },
+  { "name" : "TypingGame",
+    "url" : "StartWindow.fxml"
+  },
+  { "name" : "Calendar",
+    "url" : "CalendarWindow.fxml"
+  },
+  { "name" : "Report",
+    "url" : "ReportWindow.fxml"
+  }
+]

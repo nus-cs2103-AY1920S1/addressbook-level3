@@ -15,28 +15,28 @@ import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Name;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing engagement in the list.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the engagement identified "
+            + "by the index number used in the displayed engagement list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_ENGAGEMENT_SUCCESS = "Edited engagement: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ENGAGEMENT = "This engagement already exists in the list.";
 
     private final Index index;
     private final EditEngagementDescriptor editEngagementDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the engagement in the filtered engagement list to edit
+     * @param editPersonDescriptor details to edit the engagement with
      */
     public EditCommand(Index index, EditEngagementDescriptor editPersonDescriptor) {
         requireNonNull(index);
@@ -52,25 +52,25 @@ public class EditCommand extends Command {
         List<Engagement> lastShownList = model.getFilteredEngagementList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENGAGEMENT_DISPLAYED_INDEX);
         }
 
         Engagement engagementToEdit = lastShownList.get(index.getZeroBased());
         Engagement editedEngagement = createEditedEngagement(engagementToEdit, editEngagementDescriptor);
 
         if (!engagementToEdit.isConflictingWith(editedEngagement) && model.hasEngagement(editedEngagement)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_ENGAGEMENT);
         }
 
         model.setEngagement(engagementToEdit, editedEngagement);
         model.updateFilteredEngagementList(Model.PREDICATE_SHOW_ALL_ENGAGEMENTS);
         model.saveEngagementList();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedEngagement));
+        return new CommandResult(String.format(MESSAGE_EDIT_ENGAGEMENT_SUCCESS, editedEngagement));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Engagement} with the details of {@code engagementToEdit}
+     * edited with {@code editEngagementDescriptor}.
      */
     private static Engagement createEditedEngagement(Engagement engagementToEdit,
                                                      EditEngagementDescriptor editEngagementDescriptor) {
@@ -100,7 +100,7 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
+     * Stores the details to edit the engagement with. Each non-empty field value will replace the
      * corresponding field value of the person.
      */
     public static class EditEngagementDescriptor {

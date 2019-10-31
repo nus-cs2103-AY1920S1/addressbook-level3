@@ -1,16 +1,13 @@
 package com.typee.model.engagement;
 
-import java.time.LocalDateTime;
-
 /**
  * Represents an {@code Appointment}.
  */
 public class Appointment extends Engagement {
-    protected Appointment(LocalDateTime start, LocalDateTime end,
+    protected Appointment(TimeSlot timeSlot,
                       AttendeeList attendees, Location location, String description, Priority priority) {
-        super(start, end, attendees, location, description, priority);
-        this.startTime = start;
-        this.endTime = end;
+        super(timeSlot, attendees, location, description, priority);
+        this.timeSlot = timeSlot;
         this.attendees = attendees;
         this.location = location;
         this.description = description;
@@ -18,8 +15,13 @@ public class Appointment extends Engagement {
     }
 
     @Override
+    public EngagementType getType() {
+        return EngagementType.APPOINTMENT;
+    }
+
+    @Override
     public String toString() {
         return String.format("Appointment of %s priority from %s to %s at %s.", priority.toString(),
-                startTime.toString(), endTime.toString(), location.toString());
+                timeSlot.getStartTime().toString(), timeSlot.getEndTime().toString(), location.toString());
     }
 }

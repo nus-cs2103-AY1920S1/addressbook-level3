@@ -1,9 +1,29 @@
 package com.typee.logic.commands;
 
+import static com.typee.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.typee.commons.core.index.Index;
+import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.model.EngagementList;
+import com.typee.model.Model;
+import com.typee.model.engagement.Engagement;
+import com.typee.model.person.DescriptionContainsKeywordsPredicate;
+
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    public static final String VALID_DESCRIPTION_LUNCH_APPOINTMENT = "Lunch";
+    public static final String VALID_DESCRIPTION_GOOGLE_INTERVIEW = "Googs";
+    public static final String VALID_DESCRIPTION_TEAM_MEETING = "Team Project Meeting";
+
     /*
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -33,15 +53,13 @@ public class CommandTestUtil {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
     }
+    */
 
-
-     */
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    /*
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
                                             Model expectedModel) {
         try {
@@ -53,54 +71,47 @@ public class CommandTestUtil {
         }
     }
 
-
-     */
     /**
      * Convenience wrapper to
      * that takes a string {@code expectedMessage}.
      */
-    /*
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
-
-     */
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
-     /*
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getHistoryManager());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredEngagementList());
+        EngagementList expectedEngagementList = new EngagementList(actualModel.getEngagementList());
+        List<Engagement> expectedFilteredList = new ArrayList<>(actualModel.getFilteredEngagementList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getHistoryManager());
+        assertEquals(expectedEngagementList, actualModel.getEngagementList());
         assertEquals(expectedFilteredList, actualModel.getFilteredEngagementList());
     }
 
-    */
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the engagement at the given {@code targetIndex} in the
+     * {@code model}'s engagement list.
      */
-    /*
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showEngagementAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredEngagementList().size());
 
-        Person person = model.getFilteredEngagementList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredEngagementList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Engagement engagement = model.getFilteredEngagementList().get(targetIndex.getZeroBased());
+        final String[] splitDescription = engagement.getDescription().split("\\s+");
+        model.updateFilteredEngagementList(new DescriptionContainsKeywordsPredicate((
+                Arrays.asList(splitDescription[0]))
+        ));
 
         assertEquals(1, model.getFilteredEngagementList().size());
     }
-     */
 
 }

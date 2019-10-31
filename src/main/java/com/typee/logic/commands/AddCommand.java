@@ -14,13 +14,13 @@ import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
 
 /**
- * Adds an engagement to the address book.
+ * Adds an engagement to the engagement list.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an engagement to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an engagement to the engagement list. "
             + "Parameters: "
             + PREFIX_ENGAGEMENT_TYPE + "ENGAGEMENT_TYPE "
             + PREFIX_START_TIME + "START TIME "
@@ -40,7 +40,7 @@ public class AddCommand extends Command {
             + PREFIX_PRIORITY + "High";
 
     public static final String MESSAGE_SUCCESS = "New engagement added: %1$s";
-    public static final String MESSAGE_CONFLICTING_ENGAGEMENT = "This engagement clashes with an already existing one";
+    public static final String MESSAGE_DUPLICATE_ENGAGEMENT = "This engagement clashes with an already existing one";
 
     private final Engagement toAdd;
 
@@ -57,7 +57,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasEngagement(toAdd)) {
-            throw new CommandException(MESSAGE_CONFLICTING_ENGAGEMENT);
+            throw new CommandException(MESSAGE_DUPLICATE_ENGAGEMENT);
         }
 
         model.addEngagement(toAdd);

@@ -12,6 +12,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.calendar.CalendarWindow;
 import com.typee.ui.game.StartWindow;
+import com.typee.ui.report.ReportWindow;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -142,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getEngagementListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -238,7 +239,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fetches tab information from the tab menu list to the tab retrived after {@code TabCommand}
      */
-    private Tab fetchTabInformation(String tabName) {
+    private Tab fetchTabInformation(String tabName) throws IOException {
         Tab tabToReturn = new Tab();
         for (Tab tabInList : tabList) {
             if (tabInList.getName().equals(tabName)) {
@@ -258,7 +259,7 @@ public class MainWindow extends UiPart<Stage> {
             tabToReturn.setController(new StartWindow());
             break;
         case "Report":
-            tabToReturn.setController(new ReportWindow());
+            tabToReturn.setController(new ReportWindow(logic.getSortedEngagementList()));
             break;
         case "Engagement":
             tabToReturn.setController(new EngagementListPanel(logic.getFilteredEngagementList()));

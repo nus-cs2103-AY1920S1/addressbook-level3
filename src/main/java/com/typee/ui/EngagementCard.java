@@ -19,7 +19,7 @@ public class EngagementCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on EngagementList level 4</a>
      */
 
     public final Engagement engagement;
@@ -48,8 +48,8 @@ public class EngagementCard extends UiPart<Region> {
         this.engagement = engagement;
         id.setText(displayedIndex + ". ");
         type.setText(engagement.getClass().getSimpleName());
-        startTime.setText(engagement.getStartTime().toString());
-        endTime.setText(engagement.getEndTime().toString());
+        startTime.setText(engagement.getTimeSlot().getStartTime().toString());
+        endTime.setText(engagement.getTimeSlot().getEndTime().toString());
         locationOfEngagement.setText(engagement.getLocation().toString());
         priority.setText(engagement.getPriority().name());
         attendees.setText(engagement.getAttendees().toString());

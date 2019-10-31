@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Typee - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -60,9 +60,31 @@ Adds an appointment with the description `Meeting on Monday` to the appointment 
 
 === Listing all appointments : `list`
 
-Shows a list of all appointments in the address book. +
+Lists all appointments. +
 Format: `list`
 
+=== Sorting all appointments : `sort`
+
+Sorts the list of all appointments in the appointment list by the order specified by user. +
+
+[TIP]
+Orders supported: `description_ascending`, `description_descending`, `start_ascending`, `start_descending`, `end_ascending`, `end_descending`, `priority_ascending`, `priority_descending`.
+
+Format: `sort ORDER`
+
+Examples:
+
+* `sort start_ascending` +
+Sorts the list displayed in ascending order of start time.
+
+[.clearfix]
+--
+.Engagement list before sorting
+image::before-sort.png[width="450", float="left"]
+[.left]
+.Engagement list after sorting by start time in ascending order
+image::after-sort.png[width="450"]
+--
 
 === Editing an appointment : `edit`
 
@@ -91,6 +113,9 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Appointments matching at least one keyword will be returned (i.e. `OR` search). e.g. `team time` will return `team meeting`, `meeting time`
 ****
 
+[TIP]
+The complete list can be displayed again using `list`.
+
 Examples:
 
 * `find presentation` +
@@ -100,7 +125,7 @@ Returns any appointment containing the keywords `meeting`, `presentation`, or `c
 
 === Deleting an appointment : `delete`
 
-Deletes the specified appointment from the address book. +
+Deletes the specified appointment from the engagement list. +
 Format: `delete INDEX`
 
 ****
@@ -124,34 +149,61 @@ Clears all appointments from the appointment manager. +
 Format: `clear`
 
 === Undoing the previous command : `undo`
-Undos the previous command, provided that it exists. +
+Undoes the previous command, provided that it exists. +
 Format: `undo`
 
 Examples:
 
 * `add d/Meeting on Monday` +
 `undo` +
-Undos the add command, i.e. the appointment with the description `Meeting on Monday` will no longer be in the appointment manager.
+Undoes the add command, i.e. the engagement with the description `Meeting on Monday` will no longer be in the appointment manager.
 
-=== Redoing the previous command " `redo`
-Redos the previous `undo` command. There must be a valid undo command to redo, otherwise this command does nothing. +
+* `delete 1` +
+`undo` +
+Undoes the delete command, i.e. restores the first engagement in the original displayed list.
+
+[.float-group]
+[.clearfix]
+--
+.Engagement list before the command `delete 1`
+image::after-sort.png[width="450", float="left"]
+[.left]
+.Engagement list after deletion
+image::deletion-before-undo.png[width="450"]
+--
+
+.Engagement list after the command `undo`
+image::undo-result.png[width="450"]
+
+=== Redoing the previous command : `redo`
+Redoes the previous `undo` command. There must be a valid undo command to redo, otherwise this command does nothing. +
 Format: `redo`
 
 Examples:
 
-* `add d/Meeting on Monday` +
+* `delete 1` +
 `undo` +
-`redo`
-Redos the previous undo command, i.e. the appointment with the description `Meeting on Monday` will reappear in the appointment manager.
+`redo` +
+Redoes the previous undo command, i.e. the appointment deleted before `undo` will be removed again from the appointment manager.
 
-=== Changing to calendar view : `calendar`
+[.clearfix]
+--
+.Engagement list after the command `undo`
+image::undo-result.png[width="450", float="left"]
+[.left]
+.Engagement list after the command `redo`
+image::redo-result.png[width="450"]
+--
+
+=== Changing to calendar view : `tab calendar`
 Changes the current view to the calendar view, which displays appointments inside a calendar.
 
-=== Typing efficiency game : `game`
-Opens a simple typing game which helps you to improve your typing speed.
-
-=== Spell checker : `spellcheck`
-Scans through all appointment descriptions for spelling errors. A probabilistic approach is used to determine if minor spelling errors are present.
+=== Typing game : `tab typinggame`
+Opens a simple typing game which helps you to improve your typing speed. There are moving words that users can type in
+order to score points. Once users correctly type the specified word, the word disappears and the increase in points is
+reflected in the player information panel in the game window. When the user fails to type the word before the moving
+word reaches the bottom of screen, the decrease in health points is reflected in the player information panel in the game
+window. After the health points reaches zero, `GAME OVER` is displayed.
 
 === Generating a PDF file of appointments : `pdf`
 Generates a PDF file based on the data saved in the hard disk.
@@ -181,7 +233,7 @@ Relevant data will be loaded from the external file when the application starts.
 
 * *Add* `add d/DESCRIPTION` +
 e.g. `add d/Team lunch outing on Friday`
-* *Calendar* : `calendar`
+* *Calendar* : `tab calendar`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
@@ -189,11 +241,11 @@ e.g. `delete 3`
 e.g. `edit 2 d/Team lunch outing on Thursday`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find team outing`
-* *Game* : `game`
+* *Game* : `tab typinggame`
 * *List* : `list`
 * *Help* : `help`
 * *PDF* : `pdf`
-* *Spellcheck* : `spellcheck`
 * *Redo* : `redo`
+* *Sort* : `sort ORDER`
 * *Undo* : `undo`
 

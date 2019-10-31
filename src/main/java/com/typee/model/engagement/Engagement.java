@@ -1,5 +1,7 @@
 package com.typee.model.engagement;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -12,8 +14,7 @@ public abstract class Engagement {
 
     public static final String MESSAGE_INVALID_TIME = "The end time has to occur after the start time.";
 
-    protected LocalDateTime startTime;
-    protected LocalDateTime endTime;
+    protected TimeSlot timeSlot;
     protected AttendeeList attendees;
     protected Location location;
     protected String description;
@@ -22,17 +23,15 @@ public abstract class Engagement {
     /**
      * Constructs an engagement.
      *
-     * @param start start time of the engagement.
-     * @param end end time of the engagement.
+     * @param timeSlot time slot of the engagement.
      * @param attendees list of people attending.
      * @param location location of the engagement.
      * @param description description of the engagement.
      * @param priority priority level of the engagement.
      */
-    protected Engagement(LocalDateTime start, LocalDateTime end,
+    protected Engagement(TimeSlot timeSlot,
                          AttendeeList attendees, Location location, String description, Priority priority) {
-        this.startTime = start;
-        this.endTime = end;
+        this.timeSlot = timeSlot;
         this.attendees = attendees;
         this.location = location;
         this.description = description;
@@ -42,8 +41,7 @@ public abstract class Engagement {
     /**
      * Returns a {@code Meeting}, {@code Interview}, or {@code Appointment} with the given fields.
      * @param type type of engagement.
-     * @param start start time.
-     * @param end end time.
+     * @param timeSlot time slot.
      * @param attendees list of people attending.
      * @param location location of engagement.
      * @param description description of the engagement.
@@ -54,21 +52,20 @@ public abstract class Engagement {
      * after or during {@code LocalDateTime endTime}.
      */
     public static Engagement of(EngagementType type,
-                                LocalDateTime start, LocalDateTime end,
+                                TimeSlot timeSlot,
                                 AttendeeList attendees, Location location, String description,
                                 Priority priority) throws InvalidTimeException {
-        if (isStartAfterEnd(start, end)) {
+        if (timeSlot.isStartAfterEnd()) {
             throw new InvalidTimeException(MESSAGE_INVALID_TIME);
         }
 
-        return makeEngagement(type, start, end, attendees, location, description, priority);
+        return makeEngagement(type, timeSlot, attendees, location, description, priority);
     }
 
     /**
      * Returns a {@code Meeting}, {@code Interview}, or {@code Appointment} with the given fields.
      * @param type type of engagement.
-     * @param start start time.
-     * @param end end time.
+     * @param timeSlot {@code TimeSlot} of the engagement.
      * @param attendees list of people attending.
      * @param location location of engagement.
      * @param description description of the engagement.
@@ -76,15 +73,15 @@ public abstract class Engagement {
      *
      * @return an {@code Engagement} with the corresponding fields.
      */
-    private static Engagement makeEngagement(EngagementType type, LocalDateTime start, LocalDateTime end,
+    private static Engagement makeEngagement(EngagementType type, TimeSlot timeSlot,
                                              AttendeeList attendees, Location location,
                                              String description, Priority priority) {
         if (type.name().equalsIgnoreCase("meeting")) {
-            return new Meeting(start, end, attendees, location, description, priority);
+            return new Meeting(timeSlot, attendees, location, description, priority);
         } else if (type.name().equalsIgnoreCase("interview")) {
-            return new Interview(start, end, attendees, location, description, priority);
+            return new Interview(timeSlot, attendees, location, description, priority);
         } else {
-            return new Appointment(start, end, attendees, location, description, priority);
+            return new Appointment(timeSlot, attendees, location, description, priority);
         }
     }
 
@@ -96,27 +93,21 @@ public abstract class Engagement {
         return startTime.isAfter(endTime) || startTime.isEqual(endTime);
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public TimeSlot getTimeSlot() {
+        return timeSlot;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setTimeSlot(TimeSlot timeSlot) {
+        requireNonNull(timeSlot);
+        this.timeSlot = timeSlot;
     }
 
     public AttendeeList getAttendees() {
-        return attendees;
+        return attendees.copy();
     }
 
     public void setAttendees(AttendeeList attendees) {
+        requireNonNull(attendees);
         this.attendees = attendees;
     }
 
@@ -125,6 +116,7 @@ public abstract class Engagement {
     }
 
     public void setLocation(Location location) {
+        requireNonNull(location);
         this.location = location;
     }
 
@@ -133,6 +125,7 @@ public abstract class Engagement {
     }
 
     public void setDescription(String description) {
+        requireNonNull(description);
         this.description = description;
     }
 
@@ -141,8 +134,11 @@ public abstract class Engagement {
     }
 
     public void setPriority(Priority priority) {
+        requireNonNull(priority);
         this.priority = priority;
     }
+
+    public abstract EngagementType getType();
 
     /**
      * Checks if this {@code Engagement} clashes with another one.
@@ -162,7 +158,7 @@ public abstract class Engagement {
         } else if (o instanceof Engagement) {
             // type-cast Object and check for field equality.
             Engagement otherEngagement = (Engagement) o;
-            return isEqualEngagement(otherEngagement);
+            return isSameEngagement(otherEngagement);
         } else {
             return false;
         }
@@ -174,17 +170,21 @@ public abstract class Engagement {
      * @param otherEngagement {@code Engagement} to check equality with.
      * @return true if the engagements are equal.
      */
-    private boolean isEqualEngagement(Engagement otherEngagement) {
-        return otherEngagement.location.equals(location)
+    public boolean isSameEngagement(Engagement otherEngagement) {
+        if (otherEngagement == this) {
+            return true;
+        }
+        return otherEngagement != null
+                && otherEngagement.location.equals(location)
                 && otherEngagement.attendees.equals(attendees)
                 && otherEngagement.description.equals(description)
-                && otherEngagement.startTime.equals(startTime)
-                && otherEngagement.endTime.equals(endTime)
-                && otherEngagement.priority.equals(priority);
+                && otherEngagement.timeSlot.equals(timeSlot)
+                && otherEngagement.priority.equals(priority)
+                && otherEngagement.getType().equals(this.getType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startTime, endTime, location, description, attendees, priority);
+        return Objects.hash(timeSlot, location, description, attendees, priority);
     }
 }
