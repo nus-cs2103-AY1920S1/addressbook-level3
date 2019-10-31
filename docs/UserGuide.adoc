@@ -308,20 +308,16 @@ Lists all patients only.
 Edits the information of the person with the specified NRIC to the attributes specified.
 It is up to the user to specify which attributes should be updated. +
 
-Format: `edit ic/**NRIC**`
+Format: `edit **NRIC**`
 
-Optional parameters: any parameter from the <<List of Attributes>>
-
-After editing, ORGANice will display a form to show what information will be stored about
-the person after confirming the changes. The user is free to edit the fields before
-changes are confirmed.
+Currently in this version, you can only edit the `Phone` and `Name` attributes.
 
 Examples:
 
-* `edit ic/S8732457G p/91234567` +
+* `edit S8732457G p/91234567` +
 Edits the phone number of the specified patient to be `91234567`.
-* `edit ic/S8732457G n/Betsy Crower b/A` +
-Edits the name and blood type of the specified donor to be `Betsy Crower` and `A` respectively.
+* `edit S8732457G n/Betsy Crower p/91234567` +
+Edits the name and phone number of the specified donor to be `Betsy Crower` and `91234567` respectively.
 
 // tag::find[]
 === Finding persons by attributes: `find`
@@ -364,21 +360,6 @@ __Use case demonstrating prefix order insensitivity__ +
 * `find b/A B O n/Alice Benson` +
 Displays the same result as the preceding example.
 
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from ORGANice.
-Match history of a deleted patient or donor with other patients/donors will be removed. +
-Format: `delete ic/**NRIC**`
-
-Example:
-
-`delete ic/S98654322D` +
-
-Deletes a person with the NRIC S98654322D in ORGANice.
-
-
-// end::delete[]
 === Detecting matches: `match`
 
 This command runs a kidney matching test on patients and donors in ORGANice and displays the match results.
@@ -623,8 +604,7 @@ p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**`
 
 * *Add (System Prompt Mode)*: `add t/**TYPE**`
 
-* *Delete* : `delete ic/**NRIC**` +
-* *Edit* : `edit ic/**NRIC**`
+* *Edit* : `edit **NRIC**`
 ** Optional parameters: any parameter from <<List of Attributes>>
 * *Find* : `find`
 ** Optional parameters: any parameter from <<List of Attributes>>
