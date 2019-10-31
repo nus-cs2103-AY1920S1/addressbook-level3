@@ -200,7 +200,7 @@
 
 #spendingListView {
   -fx-selection-bar: #23B35B;
-  -fx-background-color: #AADFAA;
+  -fx-background-color: white;
 }
 
 .list-cell:empty {
