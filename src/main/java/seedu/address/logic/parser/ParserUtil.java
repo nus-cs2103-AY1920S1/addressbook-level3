@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING_COMPARE_END;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING_COMPARE_NOW;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -10,6 +12,7 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.appointments.AddAppCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
 import seedu.address.model.events.parameters.DateTime;
@@ -177,14 +180,31 @@ public class ParserUtil {
      * @return the valid Appointment object.
      * @throws ParseException If an error occurs during command parsering.
      */
-    public static Timing parseTiming(String start) throws ParseException {
+    public static Timing parseTiming(String start, String end) throws ParseException {
         requireNonNull(start);
         DateTime startTiming = DateTime.tryParseSimpleDateFormat(start);
         if (startTiming == null) {
             throw new ParseException("The start " + DateTime.MESSAGE_CONSTRAINTS);
         }
+        if (end != null) {
+            DateTime endTiming = DateTime.tryParseSimpleDateFormat(end);
+            if (endTiming == null) {
+                throw new ParseException("The end " + DateTime.MESSAGE_CONSTRAINTS);
+            }
+            if (!Timing.isValidTimingFromCurrentTime(startTiming, endTiming)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_TIMING_COMPARE_NOW,
+                        AddAppCommand.MESSAGE_USAGE));
+            }
+
+            if (!Timing.isValidTiming(startTiming, endTiming)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_TIMING_COMPARE_END,
+                        AddAppCommand.MESSAGE_USAGE));
+            }
+            return new Timing(startTiming, endTiming);
+        }
         return new Timing(startTiming);
     }
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
