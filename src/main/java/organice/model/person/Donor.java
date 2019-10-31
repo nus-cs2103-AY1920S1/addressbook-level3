@@ -40,7 +40,6 @@ public class Donor extends Person {
         this.status = status;
         successRateMap = new HashMap<>();
 
-
     }
 
     public Age getAge() {
@@ -106,11 +105,6 @@ public class Donor extends Person {
     public void setStatus(String newStatus) {
         Status updatedStatus = new Status(newStatus);
         this.status = updatedStatus;
-    }
-
-    public void setEmptyList() {
-        TaskList updatedProcessingList = new TaskList("");
-        this.processingTodoList = updatedProcessingList;
     }
 
     public void setProcessingList(String newProcessingList) {

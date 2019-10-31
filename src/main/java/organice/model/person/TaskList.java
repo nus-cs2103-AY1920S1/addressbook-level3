@@ -12,6 +12,7 @@ public class TaskList {
     public final String value;
 
     protected ArrayList<Task> listOfTask;
+    protected Patient patient;
 
     public TaskList(String tasklist) {
         this.listOfTask = new ArrayList<Task>();
@@ -32,6 +33,14 @@ public class TaskList {
 
     public void remove(int index) {
         listOfTask.remove(index);
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient newPatient) {
+        this.patient = newPatient;
     }
 
     /**
