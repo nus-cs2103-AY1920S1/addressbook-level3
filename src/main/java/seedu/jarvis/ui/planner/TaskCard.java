@@ -47,7 +47,7 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         taskDes.setText(task.getTaskDes());
         taskType.setText(task.getTaskType().toString());
-        status.setText(task.getStatus().toString());
+        status.setText(task.getStatus().getIcon());
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
