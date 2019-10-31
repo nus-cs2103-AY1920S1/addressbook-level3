@@ -11,6 +11,7 @@ import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
+import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.ActivityWithTime;
@@ -75,7 +76,7 @@ public class UnscheduleCommand extends UndoableCommand {
 
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, activityIndexToUnschedule.getOneBased(),
-                dayIndex.getOneBased()));
+                dayIndex.getOneBased()), new UiFocus[]{UiFocus.AGENDA});
     }
 
     @Override
