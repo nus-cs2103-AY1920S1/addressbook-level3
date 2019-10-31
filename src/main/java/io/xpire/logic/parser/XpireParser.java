@@ -14,6 +14,7 @@ import io.xpire.logic.commands.ClearCommand;
 import io.xpire.logic.commands.Command;
 import io.xpire.logic.commands.DeleteCommand;
 import io.xpire.logic.commands.ExitCommand;
+import io.xpire.logic.commands.ExportCommand;
 import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.SearchCommand;
 import io.xpire.logic.commands.SetReminderCommand;
@@ -89,6 +90,11 @@ public class XpireParser implements Parser {
 
         case ShiftToReplenishCommand.COMMAND_WORD:
             return new ShiftToReplenishCommandParser().parse(arguments);
+
+        case ExportCommand.COMMAND_WORD:
+            //fallthrough
+        case ExportCommand.COMMAND_SHORTHAND:
+            return new ExportCommand();
 
         default:
             return parseUnknownCommandWord(commandWord);
