@@ -38,7 +38,7 @@ public class Timestamp implements Comparable<Timestamp> {
             "Timestamps must be in the format dd-MM[-yyyy]";
 
     public static final Timestamp EARLIEST_TIMESTAMP = new Timestamp(
-            LocalDateTime.of(0, 1, 1, 0, 0));
+            LocalDate.of(2000, 1, 1).atStartOfDay());
 
     private static final DateTimeFormatter FORMATTER_WITH_YEAR =
             DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
