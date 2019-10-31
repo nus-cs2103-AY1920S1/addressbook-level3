@@ -173,6 +173,13 @@ public class EditCommand extends Command {
         private Phone phone;
         private Nric nric;
         private Type type;
+        private Age age;
+        private Priority priority;
+        private BloodType bloodType;
+        private DoctorInCharge doctorInCharge;
+        private OrganExpiryDate organExpiryDate;
+        private Organ organ;
+        private TissueType tissueType;
 
         public EditPersonDescriptor() {}
 
@@ -185,6 +192,7 @@ public class EditCommand extends Command {
             setNric(toCopy.nric);
             setName(toCopy.name);
             setPhone(toCopy.phone);
+            setAge(toCopy.age);
         }
 
         /**
@@ -224,6 +232,22 @@ public class EditCommand extends Command {
 
         public void setType(Type type) {
             this.type = type;
+        }
+
+        public void setAge(Age age) {
+            this.age = age;
+        }
+
+        public Optional<Age> getAge() {
+            return Optional.ofNullable(age);
+        }
+
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
+
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
         }
 
         @Override
