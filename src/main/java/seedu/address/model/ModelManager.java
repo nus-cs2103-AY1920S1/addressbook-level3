@@ -536,7 +536,7 @@ public class ModelManager implements Model {
 
     private void createExpensesfromAutoExpenses() {
         for (AutoExpense autoExpense : filteredAutoExpenses) {
-            filteredExpenses.addAll(autoExpense.generateNewExpenses());
+            autoExpense.generateNewExpenses().stream().forEach(this::addExpense);
         }
     }
 
