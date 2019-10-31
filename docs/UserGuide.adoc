@@ -932,3 +932,4 @@ e.g. `find James Jake`
 
 Leo and the corresponding 'Lion' mascot design is copyright of the AY1920S1-CS2103T-T13-3 group. +
 Reproduction and distribution without prior permission is prohibited.
+
