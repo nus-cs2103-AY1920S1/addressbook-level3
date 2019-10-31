@@ -296,6 +296,11 @@ public class AddPersonCommandTest {
         public ParticipationAttempt getFollowingLifter() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void endSession() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

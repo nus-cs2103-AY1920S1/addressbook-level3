@@ -10,6 +10,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_COMPETITION_DISPLAYED_INDEX = "The competition index provided is "
             + "invalid";
+    public static final String MESSAGE_INVALID_PARTICIPATION_DISPLAYED_INDEX = "The competition index provided is "
+            + "invalid";
     public static final String MESSAGE_INVALID_START_END_DATES = "The start date is after end date.";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_NO_ONGOING_COMPETITION_SESSION = "There is no ongoing competition session."

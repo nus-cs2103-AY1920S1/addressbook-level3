@@ -355,6 +355,11 @@ public class ModelManager implements Model {
         return session.getFollowingLifter();
     }
 
+    @Override
+    public void endSession() {
+        session.end();
+    }
+
     //==========================================================================================
 
     @Override

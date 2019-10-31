@@ -13,7 +13,6 @@ import seedu.system.model.participation.Participation;
 import seedu.system.model.person.Name;
 import seedu.system.model.session.exceptions.AttemptsSubmittedException;
 import seedu.system.model.session.exceptions.CompetitionEndedException;
-import seedu.system.model.session.exceptions.CompetitionNotFinishedException;
 import seedu.system.model.session.exceptions.IncompleteAttemptSubmissionException;
 import seedu.system.model.session.exceptions.NoOngoingSessionException;
 import seedu.system.model.session.exceptions.OngoingSessionException;
@@ -197,15 +196,10 @@ public class Session {
      * Ends the session, and resets all the data stored by the ended session.
      *
      * @throws NoOngoingSessionException if there is no ongoing session
-     * @throws CompetitionNotFinishedException if there are still lifters who have not made their attempt
      */
-    public void end() throws NoOngoingSessionException, CompetitionNotFinishedException {
+    public void end() throws NoOngoingSessionException {
         if (!isOngoing()) {
             throw new NoOngoingSessionException();
-        }
-
-        if (!attemptList.isEmpty()) {
-            throw new CompetitionNotFinishedException();
         }
 
         competition = null;
@@ -253,6 +247,10 @@ public class Session {
      * @return the next participation attempt in the competition
      */
     public ParticipationAttempt getFollowingLifter() {
-        return attemptList.get(1);
+        try {
+            return attemptList.get(1);
+        } catch (IndexOutOfBoundsException ioe) {
+            return null;
+        }
     }
 }

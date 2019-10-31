@@ -268,4 +268,9 @@ public interface Model {
      * @return the associated ParticipationAttempt object
      */
     ParticipationAttempt getFollowingLifter();
+
+    /**
+     * Ends the session.
+     */
+    void endSession();
 }

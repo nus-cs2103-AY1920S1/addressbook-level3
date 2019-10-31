@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.insession.AttemptLiftedCommand;
+import seedu.system.logic.commands.insession.EndSessionCommand;
 import seedu.system.logic.commands.insession.NextLifterCommand;
 import seedu.system.logic.commands.insession.RankCommand;
 import seedu.system.logic.commands.insession.RanklistCommand;
@@ -16,6 +17,8 @@ import seedu.system.logic.commands.outofsession.AddParticipationCommand;
 import seedu.system.logic.commands.outofsession.AddPersonCommand;
 import seedu.system.logic.commands.outofsession.ClearCommand;
 import seedu.system.logic.commands.outofsession.DeleteCompetitionCommand;
+import seedu.system.logic.commands.outofsession.DeleteParticipationCommand;
+import seedu.system.logic.commands.outofsession.DeleteParticipationCommandParser;
 import seedu.system.logic.commands.outofsession.DeletePersonCommand;
 import seedu.system.logic.commands.outofsession.EditCompetitionCommand;
 import seedu.system.logic.commands.outofsession.EditPersonCommand;
@@ -94,6 +97,9 @@ public class SystemParser {
         case DeleteCompetitionCommand.COMMAND_WORD:
             return new DeleteCompetitionCommandParser().parse(arguments);
 
+        case DeleteParticipationCommand.COMMAND_WORD:
+            return new DeleteParticipationCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -129,6 +135,9 @@ public class SystemParser {
 
         case OverallRankCommand.COMMAND_WORD:
             return new OverallRankCommand();
+
+        case EndSessionCommand.COMMAND_WORD:
+            return new EndSessionCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

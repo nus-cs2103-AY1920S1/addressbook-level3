@@ -41,7 +41,7 @@ So, the John's final score for the squat attempt is max(200kg, 100kg), which is 
 
 === How is the overall score determined for Powerlifting?
 For each athlete, just sum the maximum weight obtained for each event.
-Suppose John has the following results: 
+Suppose John has the following results:
 The maximum weight for squat: 200kg
 The maximum weight for bench press: 150kg
 The maximum weight for deadlift: 300kg
@@ -91,7 +91,7 @@ Example:
 `deleteCompetition 1`
 
 ==== Editing information of a competition person: `editCompetition`
-Edits the details of the competition identified by the index number, used in the Competition list (shown in the GUI). 
+Edits the details of the competition identified by the index number, used in the Competition list (shown in the GUI).
 Existing values will be overwritten by the input values.
 In addition to INDEX, you must supply a value for at least one of the following fields:
 
@@ -138,7 +138,7 @@ Examples:
 * `deletePerson 1`
 
 ==== Editing information of an existing person: `editPerson`
-Edits the details of the person identified by the index number, used in the Person list (shown in the GUI). 
+Edits the details of the person identified by the index number, used in the Person list (shown in the GUI).
 Existing values will be overwritten by the input values.
 In addition to INDEX, you must supply a value for at least one of the following fields:
 
@@ -172,7 +172,7 @@ Examples:
 
 * Find Alex Yeoh only:
   `findPerson alex`
-  
+
 * Find Alex Yeoh only:
   `findPerson yeoh`
 
@@ -188,7 +188,7 @@ Commands related to managing persons participating in competitions will be intro
 ==== Adding a new participation: `addParticipation`
 Adds an existing person as shown in the Person list (shown in the GUI) into an existing competition as shown in the Competition list (shown in the GUI). User also needs to supply 3 weight attempts for each of the following events:
 
-1. Squat 
+1. Squat
 2. Bench
 3. Deadlift
 
@@ -213,6 +213,16 @@ To display all persons for NUS 2022 competition only:
 
 * `listParticipation NUS 2022`
 
+==== Deleting an existing participation: `deleteParticipation`
+Deletes the participation identified by the index number, used in Participation list (shown in the GUI).
+
+Format: `deleteParticipation INDEX`
+
+Examples:
+
+* `deleteParticipation 2`
+
+
 === Auxiliary commands
 
 ==== Cleaning entire data from the GUI: `clear`
@@ -233,14 +243,14 @@ Sorts and displays ranking of athletes according to the amount of times they are
 
 Format: `overallRank`
 
-==== Starting a competition event along with its competing athletes (person): `session`
-Only display athletes who are participating for a specified competition. 
+==== Starting a competition event along with its competing athletes (person): `startSession`
+Only display athletes who are participating for a specified competition.
 
-Format: `session COMPETITION NAME`
+Format: `startSession COMPETITION NAME`
 
 Example:
 
-* `session NUS 2022`
+* `startSession NUS 2022`
 
 == Context: During Competition (In-session)
 
@@ -291,3 +301,10 @@ Example:
 * `ranklist by/overall`
 
 * `ranklist by/squat`
+
+==== Ending and exiting the session `endSession`
+Ends the session, and shifts the user back to the out-of-session state.
+This command is also automatically triggered when a competition has ended,
+which means there are no more attempts for any lifters.
+
+Format: `endSession`

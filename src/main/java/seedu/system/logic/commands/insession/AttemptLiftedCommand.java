@@ -26,6 +26,9 @@ public class AttemptLiftedCommand extends Command {
 
     private final boolean isSuccess;
 
+    private ParticipationAttempt next = null;
+    private ParticipationAttempt following = null;
+
     public AttemptLiftedCommand(boolean isSuccess) {
         this.isSuccess = isSuccess;
     }
@@ -44,24 +47,22 @@ public class AttemptLiftedCommand extends Command {
             throw new OutOfSessionCommandException();
         }
 
-        ParticipationAttempt nextPartAttempt;
-        ParticipationAttempt followingPartAttempt;
         Participation participation;
 
         try {
-            followingPartAttempt = model.getFollowingLifter();
-            nextPartAttempt = model.makeAttempt();
-            participation = nextPartAttempt.getParticipation();
+            following = model.getFollowingLifter();
+            next = model.makeAttempt();
+            participation = next.getParticipation();
             Participation updatedPart = participation;
-            updatedPart.updateAttempt(nextPartAttempt.getAttemptIndex(), isSuccess);
+            updatedPart.updateAttempt(next.getAttemptIndex(), isSuccess);
             model.setParticipation(participation, updatedPart);
         } catch (NoOngoingSessionException | AttemptHasBeenAttemptedException
                 | IncompleteAttemptSubmissionException e) {
             return new CommandResult(e.getMessage());
         }
 
-        return new CommandResult(String.format("%S%s%n%s%s", nextPartAttempt.toString(), getSuccessOrFailure(),
-                MESSAGE_NEXT_LIFTER, followingPartAttempt.toString()), COMMAND_TYPE);
+        return new CommandResult(String.format("%S%s%n%s", next.toString(), getSuccessOrFailure(),
+                followingAttemptToString()), COMMAND_TYPE);
     }
 
     private String getSuccessOrFailure() {
@@ -69,6 +70,17 @@ public class AttemptLiftedCommand extends Command {
             return "  is a success.";
         } else {
             return "  is a failure.";
+        }
+    }
+
+    /**
+     * Returns the information for the following attempt and the lifter.
+     */
+    private String followingAttemptToString() {
+        if (following == null) {
+            return "This is the last attempt for the competition.";
+        } else {
+            return MESSAGE_NEXT_LIFTER + following.toString();
         }
     }
 }

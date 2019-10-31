@@ -31,12 +31,12 @@ public class AddParticipationCommand extends Command {
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
     public static final String MESSAGE_ATHLETE_NOT_FOUND = "The athlete with the given name does not exist: ";
     public static final String MESSAGE_COMPETITION_NOT_FOUND = "The competition with the given name does not exist : ";
-    public static final String MESSAGE_DUPLICATE_PARTICIPATION = "This participation already exists";
+    public static final String MESSAGE_DUPLICATE_PARTICIPATION = "This participation already exists.";
     public static final String MESSAGE_SUCCESS =
             " is added to the participation list for "; // athlete name MESSAGE_SUCCESS competition
     public static final String MESSAGE_USAGE = COMMAND_WORD + " "
             + PREFIX_NAME + "Athlete_Name "
-            + PREFIX_COMP + "Competition Name "
+            + PREFIX_COMP + "Competition_Name "
             + PREFIX_SQUAT + "S1/S2/S3 "
             + PREFIX_BENCH + "B1/B2/B3 "
             + PREFIX_DEADLIFT + "D1/D2/D3 ";
