@@ -77,7 +77,7 @@ public class ArchivedOrderCard extends UiPart<Region> {
         orderId.setText(order.getId().toString());
         orderPrice.setText(order.getPrice().value);
 
-        if (order.getStatus().equals(Status.SCHEDULED)) {
+        if (order.getStatus().equals(Status.COMPLETED)) {
             orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
                     order.getSchedule().get().getCalendarString(), order.getSchedule().get().getVenue()));
         } else {
