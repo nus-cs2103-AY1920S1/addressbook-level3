@@ -32,7 +32,7 @@ public class GroupScheduleExporter implements Exporter {
     public void export() throws IOException {
         HBox exportContainer = new HBox();
         exportContainer.getChildren().addAll(groupInformation.getRoot(), scheduleView.getRoot());
-        exportContainer.setStyle("-fx-background-color: #222831;");
+        exportContainer.setId("exportContainer");
         Scene scene = new Scene(exportContainer);
         scene.getStylesheets().add("/view/DarkTheme.css");
         VisualExporter.exportTo(scene.getRoot(), fileFormat, filepath);
