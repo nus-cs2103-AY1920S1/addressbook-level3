@@ -306,6 +306,13 @@ There are only two states, ON or OFF.
 *Example*: `autosort ON`
 ****
 
+==== Views the fields for the custom comparator: `viewsort`
+Views the current Custom Sorter.
+
+====
+*Format*: `viewsort`
+====
+
 ==== Sorts food items based on natural order: `default`
 Sorts the food items based on their default ordering, where it is based on ascending price, name and then category.
 
@@ -709,4 +716,7 @@ Unfortunately you are unable to change the app’s language
 | <<Top up money into wallet: `topup`, `topup`>>
 | Allows users to top up the money into their wallet.
 | ```topup 10```
+| <<Views the fields for the custom comparator: `viewsort`, `viewsort`>>
+| Views the current Custom Sorter.
+| ```viewsort```
 |===
