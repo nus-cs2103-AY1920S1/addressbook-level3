@@ -18,12 +18,12 @@ import seedu.address.logic.parser.FinSecParser;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w12-1.github.io/main/UserGuide.html";
-    public static TreeSet<String> defaultCommandList = new TreeSet<>(FinSecParser.getCommandList().values());
+    private static TreeSet<String> defaultCommandList = new TreeSet<>(FinSecParser.getCommandList().values());
     public static final String HELP_MESSAGE = "The 'help' command format is as follows: "
             + "help cmd/COMMAND type/TYPE"
             + "\n\n"
             + "Command List: \n"
-            + defaultCommandList.toString().replace(", ", "]\n[")
+            + getDefaultCommandList().toString().replace(", ", "]\n[")
             + "\n\n"
             //+ "Shortcut List:\n"
             //+ FinSecParser.getShortcutList().toString()
@@ -107,6 +107,10 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    public static TreeSet<String> getDefaultCommandList() {
+        return defaultCommandList;
     }
 
     /**
