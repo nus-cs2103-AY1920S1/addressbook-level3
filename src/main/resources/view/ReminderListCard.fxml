@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.Hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" percentWidth="5.0" prefWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="66.0" prefWidth="160.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="2" percentWidth="1" prefWidth="2" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="28.0" prefWidth="70.0" />
             <ColumnConstraints />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="120" GridPane.columnIndex="0">
-            <HBox alignment="CENTER_LEFT">
-                <VBox alignment="CENTER_LEFT" prefWidth="10" prefHeight="120">
-                    <Label fx:id="id" alignment="TOP_LEFT" contentDisplay="TOP" styleClass="cell_big_label">
-                        <minWidth>
-                            <!-- Ensures that the label text is never truncated -->
-                            <Region fx:constant="USE_PREF_SIZE" />
-                        </minWidth>
-                    </Label>
-                </VBox>
-                <VBox alignment="CENTER_LEFT"  prefHeight="120" prefWidth="300">
-                    <Label fx:id="message" alignment="CENTER_LEFT" styleClass="cell_big_label" wrapText="true" text="\$message">
-                    </Label>
-                </VBox>
-                <VBox alignment="CENTER_LEFT" prefHeight="110" prefWidth="100">
-                    <Label fx:id="deadline" alignment="CENTER_RIGHT" styleClass="cell_small_label" wrapText="true" text="\$deadline">
-                    </Label>
-                </VBox>
-            </HBox>
-        </VBox>
+        <children>
+            <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+                <Label fx:id="id" alignment="TOP_LEFT" contentDisplay="TOP" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="120" GridPane.columnIndex="1">
+                <Label fx:id="message" alignment="CENTER" styleClass="cell_big_label" text="\$message" wrapText="true">
+                </Label>
+            </VBox>
+            <Separator halignment="LEFT" minHeight="0.0" minWidth="1.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="1" GridPane.columnIndex="2"/>
+
+            <VBox alignment="CENTER" prefHeight="110" GridPane.columnIndex="3">
+                <Label fx:id="deadline" alignment="CENTER" styleClass="cell_small_label" text="\$deadline" wrapText="true">
+                </Label>
+            </VBox>
+        </children>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 </HBox>

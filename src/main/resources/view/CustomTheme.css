@@ -100,8 +100,12 @@
 }
 
 #message {
-  -fx-font-size: 18;
-  -fx-font-weight: 38;
+  -fx-font-weight: bold;
+  -fx-text-alignment: center;
+}
+
+#deadline {
+  -fx-text-alignment: center;
 }
 
 .onHover{
