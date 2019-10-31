@@ -145,8 +145,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) ->
-        {
+        tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPanePlaceHolder.setTabMinWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
             tabPanePlaceHolder.setTabMaxWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
         });
