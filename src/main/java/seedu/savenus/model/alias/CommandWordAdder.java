@@ -30,7 +30,6 @@ import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.logic.commands.TopUpCommand;
 import seedu.savenus.logic.commands.ViewSortCommand;
-import seedu.savenus.model.info.MakeSortInfo;
 
 /**
  * Represents an adder which adds all command words in $aveNUS to the list of AliasPairs.
@@ -69,7 +68,7 @@ public class CommandWordAdder {
         aliasPairList.add(new AliasPair(RemoveLikeCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(SortCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(SaveCommand.COMMAND_WORD, emptyAliasWord));
-        aliasPairList.add(new AliasPair(TopUpCommand.COMMAND_WORD,  emptyAliasWord));
+        aliasPairList.add(new AliasPair(TopUpCommand.COMMAND_WORD, emptyAliasWord));
         aliasPairList.add(new AliasPair(ViewSortCommand.COMMAND_WORD, emptyAliasWord));
 
         return aliasPairList;
