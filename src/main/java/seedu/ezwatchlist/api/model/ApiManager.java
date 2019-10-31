@@ -168,16 +168,25 @@ public class ApiManager implements ApiInterface {
         }
     }
 
-    public List<TvShow> getTvShowByGenre(Set<Genre> genreSet) throws OnlineConnectionException {
+    /*public List<TvShow> getTvShowByGenre(Set<Genre> genreSet) throws OnlineConnectionException {
         ArrayList<TvShow> tvShows = new ArrayList<>();
         try{
-
+            List<info.movito.themoviedbapi.model.Genre> genreList = apiCall.getGenre().getGenreList(null);
+            for (Genre genreSearched : genreSet) {
+                for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
+                    if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
+                        int genreID = genreApi.getId();
+                         apiCall.getPeople().get
+                        ApiUtil.extractTvShows(tvShows, tvPage, apiCall);
+                    }
+                }
+            }
             return tvShows;
         } catch (MovieDbException e) {
             notConnected();
             return tvShows;
         }
-    }
+    }*/
 
     /**
      * Returns a list of movies from the API search method.
@@ -191,7 +200,6 @@ public class ApiManager implements ApiInterface {
             List<info.movito.themoviedbapi.model.Genre> genreList = apiCall.getGenre().getGenreList(null);
             for (Genre genreSearched : genreSet) {
                 for (info.movito.themoviedbapi.model.Genre genreApi : genreList) {
-
                     if (genreApi.getName().toLowerCase().contains(genreSearched.getGenreName().toLowerCase())) {
                         int genreID = genreApi.getId();
                         MovieResultsPage moviePage = apiCall.getGenre().getGenreMovies(genreID, null, 1, true);
@@ -199,7 +207,6 @@ public class ApiManager implements ApiInterface {
                     }
                 }
             }
-
             return movies;
         } catch (MovieDbException e) {
             notConnected();

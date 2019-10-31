@@ -69,7 +69,7 @@ public interface ApiInterface {
      * @param genreSet the set of genres that the user wants to search.
      * @throws OnlineConnectionException when not connected to the internet.
      */
-    List<TvShow> getTvShowByGenre(Set<Genre> genreSet) throws OnlineConnectionException;
+    //List<TvShow> getTvShowByGenre(Set<Genre> genreSet) throws OnlineConnectionException;
 
     /**
      * Returns a list of movies from the API search method.
