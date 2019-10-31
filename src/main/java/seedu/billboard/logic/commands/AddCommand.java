@@ -21,7 +21,7 @@ import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 
 /**
- * Adds an expense to the address book.
+ * Adds an expense to the billboard.
  */
 public class AddCommand extends Command {
 

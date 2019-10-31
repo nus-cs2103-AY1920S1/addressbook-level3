@@ -128,7 +128,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setBillboardFilePath(Path addressBookFilePath) {
+        public void setBillboardFilePath(Path billboardFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

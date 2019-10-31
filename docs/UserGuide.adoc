@@ -16,7 +16,11 @@ By: `CS2103T-F12-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-_Billboard_ is for those who prefer to use desktop applications to manage and keep track of their expenses. _Billboard_ is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI). If you can type fast, _Billboard_ can help you manage your expenses faster than traditional GUI apps!
+_Billboard_ is for those who prefer to use desktop applications to manage and keep track of their expenses.
+_Billboard_ is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI).
+If you can type fast, _Billboard_ can help you manage your expenses faster than traditional
+GUI apps!
 
 == Quick Start
 
@@ -325,6 +329,7 @@ Example: +
 Shows a pie chart breakdown by tag of all currently displayed expenses. +
 {nbsp} +
 
+
 . _Display heatmap of expenses: display-stats heatmap_ +
 You can view a heatmap of expenses per day for the currently displayed expenses, limited to the past year. The larger
 the bubble for the particular day, the higher the expense. +
@@ -362,6 +367,9 @@ Usage:
 +
 {nbsp} +
 
+// end::undoredo[]
+
+// tag::history[]
 === Viewing History: `history`
 
 . _View the past command history: history_ +
@@ -373,6 +381,9 @@ Usage:
 +
 {nbsp} +
 
+// end::history[]
+
+// tag::updownkey[]
 === Up and down key: `&uarr;/&darr;`
 
 . _Get the previous entered command: &uarr;_ +
@@ -381,6 +392,8 @@ Up arrow key(&uarr;) will get the previous command entered in the command histor
 . _Get the sequential entered command: &darr;_ +
 Down arrow key(&darr;) will get the sequential command entered in the command history on the text field. +
 {nbsp} +
+
+// end::updownkey[]
 
 === Viewing help: `help`
 
