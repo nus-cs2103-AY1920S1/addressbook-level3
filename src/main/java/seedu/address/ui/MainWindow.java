@@ -149,6 +149,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * returns the current tab number
+     */
+    public int getCurrentTabIndex() {
+        return selectionModel.getSelectedIndex();
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
