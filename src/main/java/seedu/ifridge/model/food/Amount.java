@@ -230,8 +230,10 @@ public class Amount {
         if (resultantAmount == Math.round(resultantAmount)) {
             int wholeResultantAmount = Math.round(resultantAmount);
             return new Amount(wholeResultantAmount + thisUnit);
+        } else {
+            resultantAmount = Float.parseFloat(String.format("%.2f", resultantAmount));
+            return new Amount(resultantAmount + thisUnit);
         }
-        return new Amount(resultantAmount + thisUnit);
     }
 
     /**
