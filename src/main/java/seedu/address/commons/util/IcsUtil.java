@@ -1,11 +1,12 @@
 package seedu.address.commons.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.TimeZone;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import seedu.address.ics.IcsException;
+import seedu.address.logic.parser.DateTimeParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 
 /**
@@ -13,15 +14,9 @@ import seedu.address.model.DateTime;
  */
 public class IcsUtil {
 
-    /**
-     * Gets a new SimpleDateFormat with the pattern matching the default ICS file specification format.
-     * @return a configured SimpleDateFormat format.
-     */
-    public static SimpleDateFormat getIcsSimpleDateFormat() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-        return sdf;
-    }
+    private static final DateTimeParser DATE_TIME_PARSER =
+        new DateTimeParser(DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
+            .withZone(ZoneId.of("GMT")));
 
     /**
      * Generates a unique UID that complies with section RFC5545 of the iCalendar specification.
@@ -41,8 +36,7 @@ public class IcsUtil {
      */
     public static DateTime parseTimeStamp(String icsTimeStamp) throws IcsException {
         try {
-            SimpleDateFormat sdf = getIcsSimpleDateFormat();
-            return new DateTime(sdf.parse(icsTimeStamp).toInstant());
+            return DATE_TIME_PARSER.parse(icsTimeStamp);
         } catch (ParseException e) {
             throw new IcsException("The timestamp provided is invalid!");
         }

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import seedu.address.model.CalendarDate;
 import seedu.address.ui.UiPart;
@@ -20,6 +21,9 @@ public class CalendarGridDay extends UiPart<Region> {
 
     private CalendarDate calendarDate;
     private Integer totalEvents;
+
+    @FXML
+    private StackPane calendarGridDayBase;
 
     @FXML
     private Circle calendarDayCircle;
@@ -40,7 +44,17 @@ public class CalendarGridDay extends UiPart<Region> {
      */
     public void addAnEvent() {
         this.totalEvents++;
-        colorChange();
+        if (!CalendarDate.now().equals(calendarDate)) {
+            colorChange();
+        }
+    }
+
+    public void setCurrentDate() {
+        Circle circle = new Circle();
+        circle.setRadius(14);
+        circle.setStyle("-fx-fill: " + "-currentDateColor");
+        calendarGridDayBase.getChildren().add(0, circle);
+
     }
 
     /**

@@ -6,48 +6,56 @@ skinparam classBackgroundColor UI_COLOR
 
 '==== Packages ====
 package Ui <<Rectangle>> {
-    'Class "{abstract}\nUiPart" as UiPart
-    Class "{abstract}\nCard" as Card
     Class MainWindow
-    Class CardHolder
     Class EventCard
-    package Calendar <<Rectangle>> {
+    Class TaskCard
+    package List <<Rectangle>> {
         Class ListPanel
-        Class EventListView
+        Class EventListPanel
+        Class TaskListPanel
     }
 }
 
+package Logic <<Rectangle>> {
+    Class UiManager
+}
+
 package Model <<Rectangle>> {
-    Class EventListListener
+    Class EventSource
+    Class TaskSource
+    Interface EventListListener <<Interface>>
+    Interface TaskListListener <<Interface>>
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> MainWindow
+HiddenOutside .left> UiManager
+
+'==== UiManager ====
+UiManager *--> MainWindow
+UiManager .up.|> EventListListener
+UiManager .up.|> TaskListListener
 
 '==== MainWindow ====
-'MainWindow --|> UiPart
-MainWindow --> ListPanel
-MainWindow -left..|> EventListListener
+MainWindow -down-> ListPanel
 
 '==== ListPanel ====
-'ListPanel -down--|> UiPart
-ListPanel *-down--> EventListView
+ListPanel *-down-> EventListPanel
+ListPanel *-down-> TaskListPanel
 
-'==== EventListView ====
-'EventListView -down--|> UiPart
-EventListView *-down--> CardHolder
+'==== EventListPanel ====
+EventListPanel *-up--> EventCard
 
-'==== CardHolder ====
-'CardHolder -down|> UiPart
-CardHolder *-down-> Card
-
-'==== Card ====
-'Card -down|> UiPart
-Card -left..> Model
+'==== TaskListPanel ====
+TaskListPanel *--> TaskCard
 
 '==== EventCard ====
-EventCard --|> Card
+EventCard *-up-> EventSource
 
+'==== TaskCard ====
+TaskCard *-up-> TaskSource
 
+EventSource .[hidden]right.|> TaskSource
+EventListPanel .[hidden]down|> TaskListPanel
+TaskCard .[hidden]up|> TaskSource
 
 @enduml
