@@ -398,8 +398,7 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `HackathonManager` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete an Entity Type(Participant, Mentor, Team)
+=== Use case: Delete an Entity Type (Participant, Mentor, Team)
 
 *MSS*
 
@@ -424,7 +423,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-=== Use case: Find an Entity of a specific Entity Type(Participant, Mentor, Team)
+=== Use case: Find an Entity of a specific Entity Type (Participant, Mentor, Team)
 
 *MSS*
 
@@ -452,14 +451,15 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: Update an Entity of a specific Entity Type(Participant, Mentor, Team)
+=== Use case: Update an Entity of a specific Entity Type (Participant, Mentor, Team)
 
 *MSS*
 
 1. User requests a list of an entity commandType
 2.  HackathonManager shows a list of that entity commandType
 3.  User requests to update a specific entity in the list by name or index
-4.  HackathonManager updates the person
+4.  HackathonManager updates the entity
++
 Use case ends.
 
 *Extensions*
@@ -470,25 +470,122 @@ Use case ends.
 [none]
 ** 1a1. HackathonManager shows an error message.
 ** 1a2. User enters new name.
++
 Steps 1a1-1a2 are repeated until the index or name is found in the list of Entities.
 +
 Use case resumes from step 4.
 +
 [none]
-+
 * 1b. The index is not found it the list of Entities.
 +
 [none]
-** 1a1. HackathonManager shows an error message.
-** 1a2. User enters new index.
-Steps 1a1-1a2 are repeated until the index is found in the list of Entities.
+** 1b1. HackathonManager shows an error message.
+** 1b2. User enters new index.
++
+Steps 1b1 - 1b2 are repeated until the index is found in the list of Entities.
 +
 Use case resumes from step 4.
 
-=== Use case: Find the top scoring K Teams
+=== Use case: Import external data through a CSV file
+
 *MSS*
+
+1. User writes a CSV file with Entity data.
+2. User requests to import the CSV file located at user specified path into the HackathonManager.
+3. HackathonManager finds and retrieves the CSV file.
+4. HackathonManager adds each Entity in the CSV field.
+5. HackathonManager displays original updated list of Entities.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User does not specify the path to the CSV file.
++
+[none]
+** 2a1. HackathonManager asks the user to specify the file path.
+** 2a2. User specifies the file path.
++
+Use case resumes from step 3.
+
+[none]
+* 2b. User also requests that the HackathonManager create an error file.
++
+Use case resumes from step 3.
+
+[none]
+* 3a. HackathonManager cannot find the file or the path contains illegal characters (note that illegal path characters may vary from OS to OS).
++
+[none]
+** 3a1. HackathonManager informs user of failure of execution.
++
+Use case ends.
+
+[none]
+* 4a. User specified CSV file contains invalid formatting
++
+[none]
+** 4a1. HackathonManager imports the valid lines only.
+** 4a2. HackathonManager informs the user which lines were invalid and why.
++
+Use case resumes from step 5 if user did not request for an error file.
+** 4a3. HackathonManager creates a CSV file with the invalid lines at user specified path.
++
+Use case resumes from step 5.
+
+=== Use case: Export data to an external CSV file.
+
+*MSS*
+
+1. User requests that the HackathonManager export all of its data to an external CSV file at specified path.
+2. HackathonManager exports its data to the file at specified path.
+3. HackathonManager indicates success.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user specifies which Entity Type data the HackathonManager should export.
++
+[none]
+** 1a1. HackathonManager exports all of the data of the specified Entity Type to the file at specified path.
++
+Use case resumes from step 3.
+
+[none]
+* 1b. The user does not specify the path of the external file.
++
+[none]
+** 1b1. The HackathonManager exports its data to the default file path.
++
+Use case resumes from step 3.
+
+[none]
+* 2a. The user specified path contains nonexistent directories and/or file.
++
+[none]
+** 2a1. HackathonManager creates user specified directories and/or file.
+** 2a2. HackathonManager exports its data to the file at specified path.
++
+Use case resumes from step 3.
+
+[none]
+* 2b. The user specified path contains illegal characters (Note that illegal path characters may vary from OS to OS).
++
+[none]
+** 2b1. HackathonManager notifies user of the failure of execution.
++
+Use case ends.
+
+=== Use case: Find the top scoring K Teams
+
+*MSS*
+
 1. User requests the top scoring K Teams, with K being the user input.
 2. HackathonManager displays the top K teams with their respective scores.
++
 Use case ends.
 
 *Extensions*
@@ -503,21 +600,18 @@ Steps 1a1-1a2 are repeated until K is within the total number of Teams.
 +
 Use case resumes from step 2.
 
-
-
-
 === Use case: Find the ranking of all Teams
 
 *MSS*
 
-1. User requests a for the top scorers of a specific category
+1. User requests for the top scorers of a specific category
 2.  HackathonManager shows the leaderboard of the category, with respective score of each team.
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The catergory is not found.
+* 1a. The category is not found.
 +
 [none]
 ** 1a1. HackathonManager shows an error message.

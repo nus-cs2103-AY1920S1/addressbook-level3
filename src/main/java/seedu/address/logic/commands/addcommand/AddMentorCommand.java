@@ -33,32 +33,15 @@ public class AddMentorCommand extends AddCommand {
             + CliSyntax.PREFIX_ORGANISATION + "Wayne Enterprise, Inc";
 
     private Mentor mentor;
-    // private Name mentorName;
-    // private Name teamName;
 
     public AddMentorCommand(Mentor mentor) {
         requireNonNull(mentor);
         this.mentor = mentor;
     }
 
-    /*
-     * public AddMentorCommand(Name mentorName, Name teamName) {
-     *     CollectionUtil.requireAllNonNull(mentorName, teamName);
-     *     this.mentorName = mentorName;
-     *     this.teamName = teamName;
-     * }
-     */
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        // if (this.teamName != null) {
-        //     find mentor (or throw Exception) and retrieve ID
-        //     find team (or throw Exception)
-        //     add Mentor to team
-        //     return CommandResult
-        // }
 
         try {
             model.addMentor(this.mentor);
@@ -66,7 +49,6 @@ public class AddMentorCommand extends AddCommand {
             model.updateHistory(this);
             model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
-            // Should I return new CommandResult(MESSAGE_DUPLICATE_MENTOR) instead?
             throw new CommandException(MESSAGE_DUPLICATE_MENTOR);
         }
 

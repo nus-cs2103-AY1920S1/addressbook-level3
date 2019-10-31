@@ -566,8 +566,15 @@ You may export Alfred data to an external CSV file. If the desired CSV file path
 
 Example:
 
-* `export` will export all entities' data in Alfred to `/AlfredData/Alfred_Data.csv`.
+* `export` will export all entities' data in Alfred to the default file path: `/AlfredData/Alfred_Data.csv`.
 * `export mentor fp/data/Alfred.csv` will export all mentor data in Alfred to `/data/Alfred.csv`. If the any folders do not happen to exist, Alfred will create them for you.
+
+=== Help command
+
+The help command will list all the commands you need to use this
+application properly!
+
+Simply run `help`.
 
 === Seating: `locate {PARTICIPANT/TEAM}` (Coming in v2.0)
 Find where a particular participant or team is seated.
