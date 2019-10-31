@@ -26,8 +26,9 @@ public class RedoCommand extends Command {
         if (!model.canRedoCommand()) {
             throw new CommandException(MESSAGE_CANNOT_REDO_COMMAND);
         }
-        model.redoCommand();
-        return new CommandResult(MESSAGE_SUCCESS);
+        CommandResult commandResult = model.redoCommand();
+        return new CommandResult(MESSAGE_SUCCESS, commandResult.isShowHelp(), commandResult.isExit(),
+                commandResult.isServe(), commandResult.isDone());
     }
 
     @Override

@@ -3,6 +3,8 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -39,34 +41,34 @@ public class CommandHistory {
      * Undoes the latest command.
      *
      * @param model which the command is executed on.
+     * @return {@code CommandResult} from the executed command.
      */
-    public void undo(Model model) {
+    public CommandResult undo(Model model) throws CommandException {
         if (!canUndo()) {
             throw new NoUndoableCommandException();
         }
-        try {
-            commandHistoryList.get(currentCommandPointer).getUndoCommand().execute(model);
-        } catch (CommandException e) {
-            assert false;
-        }
+
+        CommandResult commandResult = commandHistoryList.get(currentCommandPointer).getUndoCommand().execute(model);
+
         currentCommandPointer--;
+        return commandResult;
     }
 
     /**
      * Redoes the previously undone Command.
      *
      * @param model which the command is executed on.
+     * @return {@code CommandResult} from the executed command.
      */
-    public void redo(Model model) {
+    public CommandResult redo(Model model) throws CommandException {
         if (!canRedo()) {
             throw new NoRedoableCommandException();
         }
         currentCommandPointer++;
-        try {
-            commandHistoryList.get(currentCommandPointer).getRedoCommand().execute(model);
-        } catch (CommandException e) {
-            assert false;
-        }
+
+        CommandResult commandResult =  commandHistoryList.get(currentCommandPointer).getRedoCommand().execute(model);
+
+        return commandResult;
     }
 
     /**

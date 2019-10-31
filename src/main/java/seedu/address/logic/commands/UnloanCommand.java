@@ -51,7 +51,7 @@ public class UnloanCommand extends Command {
         assert(bookToBeUnloaned.isCurrentlyLoanedOut());
 
         // replace the previous Book object with a new Book object that does not have the loan
-        model.setBook(unloanedBook, bookToBeUnloaned);
+        model.setBook(bookToBeUnloaned, unloanedBook);
         model.removeLoan(loanToBeRemoved); // remove Loan object from LoanRecords in model
         model.servingBorrowerRemoveLoan(loanToBeRemoved); // remove Loan object from Borrower's currentLoanList
 

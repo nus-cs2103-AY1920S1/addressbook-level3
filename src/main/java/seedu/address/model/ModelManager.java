@@ -16,7 +16,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReversibleCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
@@ -603,13 +605,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoCommand() {
-        commandHistory.undo(this);
+    public CommandResult undoCommand() throws CommandException {
+        return commandHistory.undo(this);
     }
 
     @Override
-    public void redoCommand() {
-        commandHistory.redo(this);
+    public CommandResult redoCommand() throws CommandException {
+        return commandHistory.redo(this);
     }
 
 }

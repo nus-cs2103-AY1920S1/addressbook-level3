@@ -27,8 +27,9 @@ public class UndoCommand extends Command {
         if (!model.canUndoCommand()) {
             throw new CommandException(MESSAGE_CANNOT_UNDO_COMMAND);
         }
-        model.undoCommand();
-        return new CommandResult(MESSAGE_SUCCESS);
+        CommandResult commandResult = model.undoCommand();
+        return new CommandResult(MESSAGE_SUCCESS, commandResult.isShowHelp(), commandResult.isExit(),
+                commandResult.isServe(), commandResult.isDone());
     }
 
     @Override

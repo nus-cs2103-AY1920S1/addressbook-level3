@@ -7,7 +7,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReversibleCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
@@ -215,10 +217,10 @@ public interface Model {
     /**
      * Undoes the most recent committed {@code ReversibleCommand}.
      */
-    void undoCommand();
+    CommandResult undoCommand() throws CommandException;
 
     /**
      * Redoes the most recent undone {@code ReversibleCommand}.
      */
-    void redoCommand();
+    CommandResult redoCommand() throws CommandException;
 }
