@@ -1,9 +1,9 @@
 package sugarmummy.recmfood.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
+import static seedu.sugarmummy.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.sugarmummy.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static sugarmummy.recmfood.testutil.TypicalFoods.CALORIE_DESC_CHICKEN;
 import static sugarmummy.recmfood.testutil.TypicalFoods.FAT_DESC_CHICKEN;
 import static sugarmummy.recmfood.testutil.TypicalFoods.GI_DESC_CHICKEN;

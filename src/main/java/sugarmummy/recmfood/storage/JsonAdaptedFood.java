@@ -1,11 +1,11 @@
 package sugarmummy.recmfood.storage;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.sugarmummy.commons.exceptions.IllegalValueException;
 import sugarmummy.recmfood.model.Calorie;
 import sugarmummy.recmfood.model.Fat;
 import sugarmummy.recmfood.model.Food;

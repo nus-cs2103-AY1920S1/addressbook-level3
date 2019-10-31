@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 
 /**
  * Contains tests for the crucial {@link FoodType#getFrom(String)} method.

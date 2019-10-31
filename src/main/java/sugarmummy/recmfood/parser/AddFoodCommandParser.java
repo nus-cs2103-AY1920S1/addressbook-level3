@@ -1,20 +1,20 @@
 package sugarmummy.recmfood.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GI;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SUGAR;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FAT;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_GI;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SUGAR;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.sugarmummy.logic.parser.ArgumentMultimap;
+import seedu.sugarmummy.logic.parser.ArgumentTokenizer;
+import seedu.sugarmummy.logic.parser.Parser;
+import seedu.sugarmummy.logic.parser.Prefix;
+import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.commands.AddFoodCommand;
 import sugarmummy.recmfood.exception.FoodNotSuitableException;
 import sugarmummy.recmfood.model.Calorie;

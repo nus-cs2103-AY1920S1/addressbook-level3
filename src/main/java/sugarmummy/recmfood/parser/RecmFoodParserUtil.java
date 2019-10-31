@@ -2,7 +2,7 @@ package sugarmummy.recmfood.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.model.Calorie;
 import sugarmummy.recmfood.model.Fat;
 import sugarmummy.recmfood.model.FoodName;

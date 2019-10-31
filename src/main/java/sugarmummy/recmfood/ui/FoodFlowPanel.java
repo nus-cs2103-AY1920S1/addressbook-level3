@@ -9,8 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.ui.UiPart;
+import seedu.sugarmummy.commons.core.LogsCenter;
+import seedu.sugarmummy.ui.UiPart;
 import sugarmummy.recmfood.model.Food;
 
 /**

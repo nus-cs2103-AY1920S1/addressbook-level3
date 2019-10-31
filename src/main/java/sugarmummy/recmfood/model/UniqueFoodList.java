@@ -1,14 +1,14 @@
 package sugarmummy.recmfood.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.sugarmummy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.ReadOnlyData;
+import seedu.sugarmummy.model.ReadOnlyData;
 import sugarmummy.recmfood.exception.DuplicateFoodException;
 import sugarmummy.recmfood.exception.FoodNotFoundException;
 
