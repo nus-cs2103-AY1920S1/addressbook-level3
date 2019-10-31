@@ -82,19 +82,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     //========== Problem ================================================================
 
-    @Override
-    public Problem findProblemById(Id problemId) throws IllegalValueException {
-        requireNonNull(problemId);
-        Iterator<Problem> iterator = problems.iterator();
-        while (iterator.hasNext()) {
-            Problem problem = iterator.next();
-            if (problem.getId().equals(problemId)) {
-                return problem;
-            }
-        }
-        throw new IllegalValueException("No problem found");
-    }
-
     /**
      * Replaces the contents of the Problem list with {@code problems}.
      * {@code problems} must not contain duplicate problems.
@@ -148,20 +135,33 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         return problems.asUnmodifiableObservableList();
     }
 
-    //========== Tag ====================================================================
-
     @Override
-    public Tag findTagById(Id tagId) throws IllegalValueException {
-        requireNonNull(tagId);
-        Iterator<Tag> iterator = tags.iterator();
+    public Problem findProblemById(Id problemId) throws IllegalValueException {
+        requireNonNull(problemId);
+        Iterator<Problem> iterator = problems.iterator();
         while (iterator.hasNext()) {
-            Tag tag = iterator.next();
-            if (tag.getId().equals(tagId)) {
-                return tag;
+            Problem problem = iterator.next();
+            if (problem.getId().equals(problemId)) {
+                return problem;
             }
         }
-        throw new IllegalValueException("No tag found");
+        throw new IllegalValueException("No problem found");
     }
+
+    @Override
+    public boolean checkIsProblemUsed(Problem problem) {
+        return plans.containsProblem(problem);
+    }
+
+    /**
+     * Removes the given problem from all plans
+     * @param problem the problem to be removed
+     */
+    public void removeProblemFromAllPlans(Problem problem) {
+        plans.removeProblem(problem);
+    }
+
+    //========== Tag ====================================================================
 
     /**
      * Replaces the contents of the Tag list with {@code tags}.
@@ -210,20 +210,20 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         return tags.asUnmodifiableObservableList();
     }
 
-    //========== Plan ===================================================================
-
     @Override
-    public Plan findPlanById(Id planId) throws IllegalValueException {
-        requireNonNull(planId);
-        Iterator<Plan> iterator = plans.iterator();
+    public Tag findTagById(Id tagId) throws IllegalValueException {
+        requireNonNull(tagId);
+        Iterator<Tag> iterator = tags.iterator();
         while (iterator.hasNext()) {
-            Plan plan = iterator.next();
-            if (plan.getId().equals(planId)) {
-                return plan;
+            Tag tag = iterator.next();
+            if (tag.getId().equals(tagId)) {
+                return tag;
             }
         }
-        throw new IllegalValueException("No plan found");
+        throw new IllegalValueException("No tag found");
     }
+
+    //========== Plan ===================================================================
 
     /**
      * Replaces the contents of the Plan list with {@code plans}.
@@ -260,6 +260,9 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         plans.setPlan(target, editedPlan);
     }
 
+    /**
+     Removes a Plan from the algobase.
+     */
     public void removePlan(Plan key) {
         plans.remove(key);
     }
@@ -269,9 +272,25 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         return plans.asUnmodifiableObservableList();
     }
 
+    @Override
+    public Plan findPlanById(Id planId) throws IllegalValueException {
+        requireNonNull(planId);
+        Iterator<Plan> iterator = plans.iterator();
+        while (iterator.hasNext()) {
+            Plan plan = iterator.next();
+            if (plan.getId().equals(planId)) {
+                return plan;
+            }
+        }
+        throw new IllegalValueException("No plan found");
+    }
+
     //========== Task ===================================================================
 
-    @Override
+    /**
+     * Sets the given plan as the current plan in main display
+     * @param plan the plan to be set as current plan
+     */
     public void setCurrentPlan(Plan plan) {
         plans.setCurrentPlan(plan);
     }
@@ -297,11 +316,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     //========== Find Rules =============================================================
-
-    @Override
-    public ObservableList<ProblemSearchRule> getFindRules() {
-        return findRules.asUnmodifiableObservableList();
-    }
 
     /**
      * Returns true of {@code rule} has the same identity as one {@code ProblemSearchRule} in AlgoBase.
@@ -352,12 +366,16 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         findRules.remove(toRemove);
     }
 
+    @Override
+    public ObservableList<ProblemSearchRule> getFindRules() {
+        return findRules.asUnmodifiableObservableList();
+    }
+
     //========== Util ===================================================================
 
     @Override
     public String toString() {
-        return tags.asUnmodifiableObservableList().size() + " tags";
-        // TODO: refine later
+        return problems.asUnmodifiableObservableList().size() + " problems";
     }
 
     @Override

@@ -10,8 +10,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.algobase.model.Id;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.task.Task;
 
 /**
@@ -75,10 +77,27 @@ public class Plan {
 
     /**
      * Check whether a given date lies inside its own date range.
-     * @return result.
+     * @return true/false based on whether the given date is within plan date range.
      */
     public boolean checkWithinDateRange(LocalDate date) {
-        return date.compareTo(this.getStartDate()) > 0 && date.compareTo(this.getEndDate()) < 0;
+        return date.compareTo(this.getStartDate()) >= 0 && date.compareTo(this.getEndDate()) <= 0;
+    }
+
+    /**
+     * Check whether its tasks contain the given problem.
+     * @return true/false based on whether the given problem is contained in one of its tasks.
+     */
+    public boolean containsProblem(Problem problem) {
+        return tasks.stream().anyMatch(task -> task.getProblem().equals(problem));
+    }
+
+    /**
+     * Deletes the given problem from all tasks.
+     */
+    public Plan removeProblem(Problem problem) {
+        Set<Task> taskSet = tasks.stream().filter(task -> !task.getProblem().equals(problem))
+            .collect(Collectors.toSet());
+        return updateTasks(this, taskSet);
     }
 
     /**

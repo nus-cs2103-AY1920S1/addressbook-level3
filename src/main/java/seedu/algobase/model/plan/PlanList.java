@@ -3,6 +3,7 @@ package seedu.algobase.model.plan;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.algobase.model.plan.exceptions.PlanNotFoundException;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.task.Task;
 
 /**
@@ -33,6 +35,23 @@ public class PlanList implements Iterable<Plan> {
     private final StringProperty currentPlan = new SimpleStringProperty();
     private final IntegerProperty solvedCount = new SimpleIntegerProperty();
     private final IntegerProperty unsolvedCount = new SimpleIntegerProperty();
+
+    /**
+     * Check whether any plan in the list contains the given problem.
+     * @return true/false based on whether the given problem is contained in one of the plans.
+     */
+    public boolean containsProblem(Problem problem) {
+        return internalList.stream().anyMatch(plan -> plan.containsProblem(problem));
+    }
+
+    /**
+     * Removes the given problem from all tasks.
+     */
+    public void removeProblem(Problem problem) {
+        List<Plan> updatedList = new ArrayList<>();
+        internalList.stream().forEach(plan -> updatedList.add(plan.removeProblem(problem)));
+        setPlans(updatedList);
+    }
 
     /**
      * Adds a Plan to the list.
@@ -79,8 +98,7 @@ public class PlanList implements Iterable<Plan> {
      */
     public void setPlans(PlanList replacement) {
         requireNonNull(replacement);
-        List<Plan> plans = replacement.internalList;
-        setPlans(plans);
+        setPlans(replacement.internalList);
     }
 
     /**
