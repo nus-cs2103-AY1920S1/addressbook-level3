@@ -70,6 +70,7 @@ public class HomePage extends UiPart<Region> {
 
     /**
      * Constructor for Home Page controller class.
+     *
      * @param questions observable list of questions
      */
     public HomePage(ObservableList<Question> questions) {

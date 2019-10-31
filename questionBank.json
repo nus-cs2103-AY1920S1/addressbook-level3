@@ -16,7 +16,8 @@
     "userProgram" : {
       "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
-    }
+    },
+    "description" : "hello"
   }, {
     "title" : "Valid Sudoku",
     "status" : "ATTEMPTED",
@@ -34,7 +35,8 @@
     "userProgram" : {
       "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
-    }
+    },
+    "description" : "hello"
   }, {
     "title" : "Palindrome Number",
     "status" : "PASSED",
@@ -52,7 +54,8 @@
     "userProgram" : {
       "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
-    }
+    },
+    "description" : "hello"
   }, {
     "title" : "Swap nodes in pairs",
     "status" : "NEW",
@@ -70,7 +73,8 @@
     "userProgram" : {
       "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
-    }
+    },
+    "description" : "hello"
   }, {
     "title" : "Merge k Sorted Lists",
     "status" : "NEW",
@@ -88,6 +92,7 @@
     "userProgram" : {
       "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
-    }
+    },
+    "description" : "hello"
   }]
 }

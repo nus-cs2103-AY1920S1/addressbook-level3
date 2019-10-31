@@ -38,16 +38,34 @@ public class AttemptCommand implements Command {
     @Override
     public CommandResult execute() throws CommandException {
         try {
-            // Update status of question
-            Question questionToAttempt = this.questionsLogic.getQuestion(index).withNewStatus(Status.ATTEMPTED);
-            this.questionsLogic.setQuestion(index, questionToAttempt);
-            logger.info("Attempting question at index " + index + " : " + questionToAttempt);
+            Question userSelection = this.questionsLogic.getQuestion(index);
+            Status userSelectionStatus = userSelection.getStatus();
 
-            // Set current attempting question
-            this.programSubmissionLogic.setCurrentQuestion(questionToAttempt);
+            if (userSelectionStatus == Status.PASSED) {
+                logger.info("Reattempting question at index " + index + " : " + userSelection);
 
-            String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
-            return new CommandResult(feedback, false, false, false, false);
+                // Set current attempting question
+                this.programSubmissionLogic.setCurrentQuestion(userSelection);
+
+                // Notify user that he has already passed this question
+                String feedback = "Reattempting question " + (index + 1) + " : " + userSelection.getTitle() + " - "
+                        + "You have already passed this question successfully.";
+                return new CommandResult(feedback, false, false, false, false, false,
+                        true, false);
+            } else {
+                // Update status of question to ATTEMPTED
+                Question questionToAttempt = this.questionsLogic.getQuestion(index).withNewStatus(Status.ATTEMPTED);
+                this.questionsLogic.setQuestion(index, questionToAttempt);
+                logger.info("Attempting question at index " + index + " : " + questionToAttempt);
+
+                // Set current attempting question
+                this.programSubmissionLogic.setCurrentQuestion(questionToAttempt);
+
+                String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
+                return new CommandResult(feedback, false, false, false, false, false,
+                        true, false);
+            }
+
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("Index " + (index + 1) + " entered out of range for current list of questions.");
         }

@@ -88,8 +88,7 @@ class JsonQuestionBankStorageTest {
                                   String filePath) {
         try {
             new JsonQuestionBankStorage(Paths.get(filePath))
-                    .saveQuestionBank(questionBank,
-                        addToTestDataPathIfNotNull(filePath));
+                    .saveQuestionBank(questionBank);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

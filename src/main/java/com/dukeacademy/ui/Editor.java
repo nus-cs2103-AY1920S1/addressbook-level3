@@ -10,7 +10,6 @@ import com.dukeacademy.observable.Observable;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,11 +23,11 @@ import javafx.stage.Stage;
 public class Editor extends UiPart<Region> {
     private static final String FXML = "Editor.fxml";
 
-    @FXML
-    private Button btnSave;
-
-    @FXML
-    private Button btnSubmit;
+    //    @FXML
+    //    private Button btnSave;
+    //
+    //    @FXML
+    //    private Button btnSubmit;
 
     @FXML
     private TextArea textOutput;
