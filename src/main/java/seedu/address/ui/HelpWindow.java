@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.io.IOException;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -18,9 +19,17 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w12-1.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "The 'help' command format is as follows: "
-            + "help cmd/COMMAND type/TYPE\n\nCommand List: \n"
-            + FinSecParser.getCommandList().keySet().toString().replace(", ", "]\n[")
+            + "help cmd/COMMAND type/TYPE"
             + "\n\n"
+            + "Command List: \n"
+            + getDefaultCommandList().toString().replace(", ", "]\n[")
+            + "\n\n"
+            //+ "Shortcut List:\n"
+            //+ FinSecParser.getShortcutList().toString()
+            //    .replace(", ", "]\n[")
+            //    .replace(" Word", "Shortcut")
+            //    .replace("Task", "    Command")
+            //+ "\n\n"
             + "Type List:\n"
             + "[brief] (gives a brief description)\n"
             + "[guide] (opens up our user guide on your browser) \n"
@@ -30,6 +39,7 @@ public class HelpWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
+    private static TreeSet<String> defaultCommandList = new TreeSet<>(FinSecParser.getCommandList().values());
 
     @FXML
     private Button gotoButton;
@@ -97,6 +107,10 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    public static TreeSet<String> getDefaultCommandList() {
+        return defaultCommandList;
     }
 
     /**

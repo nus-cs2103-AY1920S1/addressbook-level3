@@ -38,7 +38,7 @@ public class IncomePlotter {
         incomeSeries.add(1, startingIncome);
         double currentIncome = startingIncome;
         List<Income> approvedIncomesInCurrentMonthList = findIncomesInCurrentMonth();
-        for (int day = 2; day <= 31; day++) {
+        for (int day = 2; day <= 30; day++) {
             for (Income income : approvedIncomesInCurrentMonthList) {
                 if (income.getDate().date.getDayOfMonth() == day) {
                     currentIncome += Double.parseDouble(income.getAmount().value);
