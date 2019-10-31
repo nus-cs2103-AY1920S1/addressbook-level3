@@ -1,22 +1,34 @@
 package seedu.address.model.timetable;
 
+import com.google.common.collect.Sets;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.*;
-import com.google.common.collect.Sets;
 
-public class GenerateSlot {
+public class TimeSlotGenerator {
+    private Collection<TimeTable> timeTables;
+    private int numberOfHours;
+    private TimeRange userSpecifiedTimeRange;
+
     /**
-     * Generate timeslot
+     * Timeslot generator
      * @param timeTables List of timetables of all members.
      * @param numberOfHours Must be <= 23 hour
      * @param userSpecifiedTimeRange TimeRange to generate timeslot within.
+     */
+    public TimeSlotGenerator(Collection<TimeTable> timeTables, int numberOfHours, TimeRange userSpecifiedTimeRange) {
+        this.timeTables = timeTables;
+        this.numberOfHours = numberOfHours;
+        this.userSpecifiedTimeRange = userSpecifiedTimeRange;
+    }
+
+    /**
      * @return List of TimeRange where meeting is possible.
      * @throws IllegalValueException When unable to generate timeslot.
      */
-    public static List<TimeRange> generate(Collection<TimeTable> timeTables, int numberOfHours, TimeRange userSpecifiedTimeRange) throws IllegalValueException {
+    public List<TimeRange> generate() throws IllegalValueException {
         List<TimeRange> uniqueTimeRanges = filterUniqueTimeRanges(timeTables);
         List<TimeRange> merged = mergeOverlappingTimeRanges(uniqueTimeRanges);
         List<TimeRange> inverted = getFreeTimeRanges(merged);
@@ -25,13 +37,13 @@ public class GenerateSlot {
         return getSuitableTimeRanges(truncated, numberOfHours);
     }
 
-    public static TimeSlotsAvailable generateWithMostPeople(List<TimeTable> timeTables, int numberOfHours, TimeRange userSpecifiedTimeRange) throws IllegalValueException {
+    public TimeSlotsAvailable generateWithMostPeople() throws IllegalValueException {
         Set<TimeTable> set = new HashSet<>(timeTables);
         Set<Set<TimeTable>> powerSet = Sets.powerSet(set);
         List<Set<TimeTable>> powerList = new ArrayList<>(powerSet);
         powerList.sort((x, y) -> y.size() - x.size()); // Descending order of size
         for (Set<TimeTable> possibleTimeTables : powerList) {
-            List<TimeRange> timeRanges = generate(possibleTimeTables, numberOfHours, userSpecifiedTimeRange);
+            List<TimeRange> timeRanges = new TimeSlotGenerator(possibleTimeTables, numberOfHours, userSpecifiedTimeRange).generate();
             if (!timeRanges.isEmpty()) {
                 return new TimeSlotsAvailable(possibleTimeTables, timeRanges);
             }

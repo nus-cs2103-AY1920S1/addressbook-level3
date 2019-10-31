@@ -5,7 +5,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.timetable.GenerateSlot;
+import seedu.address.model.timetable.TimeSlotGenerator;
 import seedu.address.model.timetable.TimeRange;
 import seedu.address.model.timetable.TimeTable;
 
@@ -49,7 +49,7 @@ public class GenerateSlotCommand extends Command {
         }
         List<TimeTable> timeTables = model.getMembers().stream().map(Person::getTimeTable).collect(Collectors.toList());
         try {
-            return new CommandResult(GenerateSlot.generate(timeTables, durationInHours, timeRange).toString(), COMMAND_WORD);
+            return new CommandResult(new TimeSlotGenerator(timeTables, durationInHours, timeRange).generate().toString(), COMMAND_WORD);
         } catch (IllegalValueException e) {
             throw new CommandException(MESSAGE_UNKNOWN_ERROR);
         }

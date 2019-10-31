@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GenerateSlotTest {
+public class TimeSlotGeneratorTest {
     @Test
     public void generate_validTimeRanges_generatesCorrectTimeslotForSingleTimetable() throws IllegalValueException {
         LocalTime start = LocalTime.parse("11:00");
@@ -20,8 +20,8 @@ public class GenerateSlotTest {
                 + "MONDAY 1700 MONDAY 1900\nTUESDAY 0900 TUESDAY 1200\nWEDNESDAY 1000 WEDNESDAY 1500");
         List<TimeTable> timeTables = new ArrayList<>();
         timeTables.add(timeTable);
-        List<TimeRange> generated = GenerateSlot.generate(timeTables, 2,
-                new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.FRIDAY, end));
+        List<TimeRange> generated = new TimeSlotGenerator(timeTables, 2,
+                new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.FRIDAY, end)).generate();
         List<TimeRange> expected = new ArrayList<>();
         expected.add(new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.MONDAY, LocalTime.parse("13:00")));
         expected.add(new TimeRange(DayOfWeek.MONDAY, LocalTime.parse("19:00"), DayOfWeek.TUESDAY, LocalTime.parse("09:00")));
@@ -41,8 +41,8 @@ public class GenerateSlotTest {
         timeTables.add(t1);
         timeTables.add(t2);
         timeTables.add(t3);
-        List<TimeRange> generated = GenerateSlot.generate(timeTables, 2,
-                new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.FRIDAY, end));
+        List<TimeRange> generated = new TimeSlotGenerator(timeTables, 2,
+                new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.FRIDAY, end)).generate();
         List<TimeRange> expected = new ArrayList<>();
         expected.add(new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.MONDAY, LocalTime.parse("13:00")));
         expected.add(new TimeRange(DayOfWeek.MONDAY, LocalTime.parse("19:00"), DayOfWeek.TUESDAY, LocalTime.parse("09:00")));
@@ -62,8 +62,8 @@ public class GenerateSlotTest {
         timeTables.add(t1);
         timeTables.add(t2);
         timeTables.add(t3);
-        List<TimeRange> generated = GenerateSlot.generate(timeTables, 1,
-                new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.FRIDAY, end));
+        List<TimeRange> generated = new TimeSlotGenerator(timeTables, 1,
+                new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.FRIDAY, end)).generate();
         List<TimeRange> expected = new ArrayList<>();
         expected.add(new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.MONDAY, LocalTime.parse("14:12")));
         expected.add(new TimeRange(DayOfWeek.MONDAY, LocalTime.parse("16:34"), DayOfWeek.MONDAY, LocalTime.parse("17:54")));
@@ -84,8 +84,8 @@ public class GenerateSlotTest {
         timeTables.add(t1);
         timeTables.add(t2);
         timeTables.add(t3);
-        List<TimeRange> generated = GenerateSlot.generate(timeTables, 1,
-                new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.FRIDAY, end));
+        List<TimeRange> generated = new TimeSlotGenerator(timeTables, 1,
+                new TimeRange(DayOfWeek.MONDAY, start, DayOfWeek.FRIDAY, end)).generate();
         List<TimeRange> expected = new ArrayList<>();
         assertEquals(generated, expected);
     }
