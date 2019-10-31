@@ -645,55 +645,95 @@ function call, linked by the JavaFX's UI drag detection and drag dropped methods
 // Why one WBL is referenced both in model and in storage.
 // Talk about the commands being executed in logic, because requires a reference to model and storage.
 // Talk about logic is dealing with storage instead of model dealing with storage.
-
 |===
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 1**: +
-Which component should the `WordBank` and `WordBankList` reside?
-| **Logic to have access to WBL**: +
+Data structure for WordBankList.
+| **Although WordBankList and WordBank have very similar structures, I made classes for each of them they
+each contain a unique list**: +
 
 _Pros:_ +
-To do
+User's modification to their word banks and cards requires very different methods. These two data structure
+requires different access to the storage as well. +
+With two different classes, implementation of the Commands that work on these data becomes more distinct.
+This ensures methods within `WordBankList` are written for `WordBankCommands` and methods within `WordBank` are
+written for `CardCommands`, thereby increasing cohesion of individual components and decreasing coupling between the
+two classes.
 
 _Cons:_ +
-To do
+Implementation requires much more effort.
 
-|**Storage creates WordBankList and a reference is passed to Model upon initialising.** +
+|**Create a generic data structure class, and let both WordBankList and WordBank extend it.** +
 
 _Pros:_ +
-To do
+Code that are reusable in WordBank can now be reused for WordBankList.
 
 _Cons:_ +
-To do
+This couples WordBank with WordBankList. Does not follow the Open-Closed principle.
 
-3+|**Why did we choose Alternative 2:** +
-To do
+3+|**Why did we choose Alternative 1:** +
+Following the spirit of software engineering principles, it is better to have the basic data structure implemented well.
+Commands that depend on it becomes much easier to implement. (This can be seen in the drag and drop feature.)
+
 |===
-
-There were a few considerations for splitting the `CardCommands` and `HomeCommands`.
 
 |===
 ||**Alternative 1**|**Alternative 2**
-|**Aspect 1**: +
-Where should the commands execute and change model, and when should it write to storage?
-| **To do**: +
+|**Aspect 2**: +
+Storage system for Word Banks.
+| **One single large json file with word bank names as keys and it's word bank data as values**: +
 
 _Pros:_ +
-To do
+Always save a snapshot of the data to the same file, regardless of what commands are executed.
 
 _Cons:_ +
-To do
+Unable to share word banks with friends, because one file contains all the word banks.
 
-|**To do** +
+|**In the default data folder, each word bank is stored as a json file.** +
 
 _Pros:_ +
-To do
+Enables sharing of word bank files to friends.
 
 _Cons:_ +
-To do
+Require more consideration to deal with different type of commands which affects the storage dynamically.
+Harder to read from multiple files.
 
 3+|**Why did we choose Alternative 2:** +
-To do
+This choice was based largely from the user's perspective. +
+As our app is designed to streamline learning, I figured that easy sharing of word banks file with friends is an important
+aspect in our app, and cannot be compromised.
+|===
+
+
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 3**: +
+Command implementation. +
+(Same goes for Command Result implementation)
+| **All types of commands extends a single abstract class `Command`**: +
+
+
+_Pros:_ +
+A rather simple implementation which does not break any software engineering principles.
+
+_Cons:_ +
+Can be further improved, as in Alternative 2.
+
+|**Distinguishing `WordBankCommand` and `CardCommand` specifically - +
+Commands that work on Cards extends the abstract
+`CardCommand` class and commands that work on `WordBank` extends the abstract `WordBankCommand` class.** +
+
+_Pros:_ +
+As I have created distinct data structure for `WordBankList` and `WordBank`, distinguished commands now
+work solely on their respective data structure. It follows the Single Responsibility Principle
+and the Separation of Concerns Principle more closely, and decreases the coupling between the two component.
+
+_Cons:_ +
+Requires tedious implementation to follow the principles.
+
+3+|**Why did we choose Alternative 2:** +
+Alternative 2 allows for easy extension of the app's functionality. Implementation of the drag and
+drop feature is just a function call away, as all data structure and functions are well written.
 
 |===
 
