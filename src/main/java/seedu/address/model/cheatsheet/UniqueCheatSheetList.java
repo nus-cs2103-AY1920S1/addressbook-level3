@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.cheatsheet.exceptions.DuplicateCheatSheetException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -37,7 +38,7 @@ public class UniqueCheatSheetList implements Iterable<CheatSheet> {
     public void add(CheatSheet toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateCheatSheetException();
         }
         internalList.add(toAdd);
     }

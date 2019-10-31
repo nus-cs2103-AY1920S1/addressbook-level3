@@ -1,5 +1,10 @@
 package seedu.address.model.cheatsheet;
 
+import seedu.address.model.tag.Tag;
+
+import java.util.Objects;
+import java.util.Set;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -15,23 +20,28 @@ public class Content {
 
     public final String content;
     public final int index;
+    public final Set<Tag> tags;
 
     /**
      * Constructs a {@code Content}.
      *
      * @param content A valid content name.
      */
-    public Content(String content) {
+    public Content(String content, Set<Tag> tags) {
         requireNonNull(content);
+        requireNonNull(tags);
         checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
         this.content = content;
+        this.tags = tags;
         this.index = counter++;
     }
 
-    public Content(String question, String answer) {
+    public Content(String question, String answer, Set<Tag> tags) {
         requireNonNull(question, answer);
+        requireNonNull(tags);
         checkArgument(isValidContent(question), MESSAGE_CONSTRAINTS);
         checkArgument(isValidContent(answer), MESSAGE_CONSTRAINTS);
+        this.tags = tags;
         this.content = "Question: " + question
                 + "; Answer: " + answer;
 
@@ -47,9 +57,25 @@ public class Content {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Content // instanceof handles nulls
-                && content.equals(((Content) other).content)); // state check
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Content)) {
+            return false;
+        }
+
+        Content otherContent = (Content) other;
+        return otherContent.getContent().equals(getContent())
+                && otherContent.getTags().equals(getTags());
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
     }
 
     public static void resetCounter() {
@@ -62,7 +88,7 @@ public class Content {
 
     @Override
     public int hashCode() {
-        return content.hashCode();
+        return Objects.hash(content, tags);
     }
 
     /**

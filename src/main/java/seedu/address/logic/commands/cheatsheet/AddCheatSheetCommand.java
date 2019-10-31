@@ -91,7 +91,7 @@ public class AddCheatSheetCommand extends Command {
         ObservableList<Note> noteList = model.getFilteredNoteList();
 
         for (Note note: noteList) {
-            contentList.add(new Content(note.getContent().toString()));
+            contentList.add(new Content(note.getContent().toString(), note.getTags()));
         }
 
         // get all flashcards
@@ -100,7 +100,8 @@ public class AddCheatSheetCommand extends Command {
         ObservableList<Flashcard> flashcardList = model.getFilteredFlashcardList();
 
         for (Flashcard flashcard: flashcardList) {
-            contentList.add(new Content(flashcard.getQuestion().toString(), flashcard.getAnswer().toString()));
+            contentList.add(new Content(flashcard.getQuestion().toString(),
+                    flashcard.getAnswer().toString(), flashcard.getTags()));
         }
 
         Content.resetCounter();

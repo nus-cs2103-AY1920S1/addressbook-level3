@@ -25,7 +25,7 @@ public class JsonAdaptedCheatSheet {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "CheatSheet's %s field is missing!";
 
     private final String title;
-    private final List<JsonAdaptedContent> contents = new ArrayList<>();
+    private final List<JsonAdaptedCheatSheetContent> contents = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -33,7 +33,7 @@ public class JsonAdaptedCheatSheet {
      */
     @JsonCreator
     public JsonAdaptedCheatSheet(@JsonProperty("title") String title,
-                                @JsonProperty("contents") List<JsonAdaptedContent> contents,
+                                @JsonProperty("contents") List<JsonAdaptedCheatSheetContent> contents,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.title = title;
         if (contents != null) {
@@ -49,11 +49,11 @@ public class JsonAdaptedCheatSheet {
      */
     public JsonAdaptedCheatSheet(CheatSheet source) {
         title = source.getTitle().value;
-        contents.addAll(source.getContents().stream()
-                .map(JsonAdaptedContent::new)
-                .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
+        contents.addAll(source.getContents().stream()
+                .map(JsonAdaptedCheatSheetContent::new)
                 .collect(Collectors.toList()));
     }
 
@@ -69,7 +69,7 @@ public class JsonAdaptedCheatSheet {
         }
 
         final Set<Content> cheatSheetContents = new HashSet<>();
-        for (JsonAdaptedContent content : contents) {
+        for (JsonAdaptedCheatSheetContent content : contents) {
             cheatSheetContents.add(content.toModelType());
         }
 

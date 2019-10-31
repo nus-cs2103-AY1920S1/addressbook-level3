@@ -63,6 +63,8 @@ public class CheatSheet extends StudyBuddyItem {
         return null;
     }
 
+
+
     public ArrayList<Content> getSortedContents() {
         ArrayList<Content> contentList = new ArrayList<>(contents);
 

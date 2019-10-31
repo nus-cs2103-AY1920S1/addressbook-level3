@@ -93,7 +93,7 @@ public class EditCheatSheetCommand extends Command {
         assert cheatSheetToEdit != null;
 
         Title updatedTitle = editCheatSheetDescriptor.getTitle().orElse(cheatSheetToEdit.getTitle());
-        Set<Tag> updatedTags = editCheatSheetDescriptor.getTags().orElse(cheatSheetToEdit.getTags());
+
         Set<Content> updatedContents;
 
         if (isAdd) {
@@ -105,8 +105,31 @@ public class EditCheatSheetCommand extends Command {
             }
         }
 
+        // updating tags comes after the updating of contents
+        Set<Tag> updatedTags;
+
+        if (editCheatSheetDescriptor.getTags().isEmpty()) {
+            updatedTags = cheatSheetToEdit.getTags();
+        } else {
+            updatedTags = editCheatSheetDescriptor.getTags().get();
+
+            // remove irrelevant contents
+            updatedContents = removeIrrelevantContent(updatedTags, updatedContents);
+        }
+
 
         return new CheatSheet(updatedTitle, updatedContents, updatedTags);
+    }
+
+    private static Set<Content> removeIrrelevantContent(Set<Tag> tags, Set<Content> contents) {
+        for (Content content: contents) {
+            Set<Tag> tagList = content.getTags();
+            if (Collections.disjoint(tags, tagList)) {
+                contents.remove(content);
+            }
+        }
+
+        return contents;
     }
 
     /**
