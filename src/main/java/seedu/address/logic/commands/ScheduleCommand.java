@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
+
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -25,7 +27,7 @@ import seedu.address.model.day.Day;
  * Schedules an activity to a day.
  * @@author oscarsu97
  */
-public class ScheduleCommand extends Command {
+public class ScheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "schedule";
 
@@ -61,6 +63,26 @@ public class ScheduleCommand extends Command {
         this.dayIndex = dayIndex;
     }
 
+    public Index getActivityIndex() {
+        return activityIndex;
+    }
+
+    public Index getDayIndex() {
+        return dayIndex;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
