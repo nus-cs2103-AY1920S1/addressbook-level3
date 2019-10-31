@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -46,6 +47,9 @@ public class DisinviteCommand extends Command {
 
     public static final String MESSAGE_UNSUCCESSFUL_DISINVITE_HAS_EXPENSE = "Cannot disinvite \"%s\" from activity: "
             + "involved in expense(s).";
+
+    public static final String MESSAGE_PERSON_NOT_FOUND_IN_ACTIVITY = "\"%s\" is not in Activity, "
+            + "cannot be disinvited.";
 
     private final List<String> peopleToDisinvite;
 
@@ -87,21 +91,36 @@ public class DisinviteCommand extends Command {
                 continue;
             }
 
-            keywords = Arrays.asList(name.split(" "));
-            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+            Person personToDisinvite;
+            Integer idOfPersonToDisinvite;
 
-            findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
+            Optional<Person> person = model.findPersonByName(name.trim());
 
-            assert findResult != null : "List of people should not be null.";
+            if (person.isPresent()) {
+                personToDisinvite = person.get();
+            } else {
+                keywords = Arrays.asList(name.split(" "));
+                NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
 
-            if (findResult.size() != 1) { //not in activity or duplicate
-                String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
+                findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
+
+                assert findResult != null : "List of people should not be null.";
+
+                if (findResult.size() != 1) { //not in activity or duplicate
+                    String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
+                    warningMessage.append(warning).append("\n");
+                    continue;
+                }
+                personToDisinvite = findResult.get(0);
+            }
+
+            idOfPersonToDisinvite = personToDisinvite.getPrimaryKey(); // id of person in the activity
+
+            if (!activityToDisinviteFrom.hasPerson(idOfPersonToDisinvite)) {
+                String warning = String.format(MESSAGE_PERSON_NOT_FOUND_IN_ACTIVITY, name);
                 warningMessage.append(warning).append("\n");
                 continue;
             }
-
-            Person personToDisinvite = findResult.get(0);
-            Integer idOfPersonToDisinvite = personToDisinvite.getPrimaryKey(); // id of person in the activity
 
             if (idsToRemove.contains(idOfPersonToDisinvite)) { // repeated entry
                 continue;
@@ -134,7 +153,7 @@ public class DisinviteCommand extends Command {
             result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
         }
 
-        // TODO: check disinvite function again with the updated expense
+
 
         return new CommandResult(result);
 

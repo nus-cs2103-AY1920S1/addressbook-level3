@@ -15,7 +15,9 @@ import seedu.address.model.Context;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.ActivityBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class InviteCommandTest {
 
@@ -149,6 +151,28 @@ public class InviteCommandTest {
 
         assertEquals(0, activity.getParticipantIds().size());
 
+
+    }
+
+    @Test
+    public void execute_viewActivityPersonSubstringOfAnother_inviteExactMatchSuccessful() throws CommandException {
+        Model model = new ModelManager();
+        Person yeoh = new PersonBuilder().withName("YEOH").build();
+        Person alexYeoh = new PersonBuilder().withName("Alex Yeoh").build();
+        model.addPerson(yeoh);
+        model.addPerson(alexYeoh);
+        Activity activity = new ActivityBuilder().build();
+        model.addActivity(activity);
+        model.setContext(new Context(activity));
+        List<String> peopleToInvite = new ArrayList<>();
+        List<Integer> idsToInvite = new ArrayList<>();
+        peopleToInvite.add("yeoh");
+        idsToInvite.add(yeoh.getPrimaryKey());
+        InviteCommand inviteCommand = new InviteCommand(peopleToInvite);
+        inviteCommand.execute(model);
+
+        assertEquals(1, activity.getParticipantIds().size());
+        assertEquals(idsToInvite, activity.getParticipantIds());
 
     }
 

@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([participant in contact  list])
+    :Invite participant to current activity;
+    :Save Activity to
+    activityList;
+    :Save activityList to ActivityBook;
+else ([else])
+endif
+stop
+@enduml
