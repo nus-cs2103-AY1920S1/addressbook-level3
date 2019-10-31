@@ -420,6 +420,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void sortShoppingItems() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void urgentShoppingItem(ShoppingItem toMarkAsUrgent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setShoppingList(ReadOnlyShoppingList newData) {
             throw new AssertionError("This method should not be called.");
         }

@@ -30,7 +30,7 @@ public class ShoppingList implements ReadOnlyShoppingList {
     public ShoppingList() {}
 
     /**
-     * Creates an GroceryList using the Persons in the {@code toBeCopied}
+     * Creates an ShoppingList using the ShoppingItems in the {@code toBeCopied}
      */
     public ShoppingList(ReadOnlyShoppingList toBeCopied) {
         this();
@@ -40,15 +40,15 @@ public class ShoppingList implements ReadOnlyShoppingList {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the shopping list with {@code foods}.
+     * {@code foods} must not contain duplicate ShoppingItems.
      */
     public void setShoppingItems(List<ShoppingItem> foods) {
         this.shoppingItems.setShoppingItems(foods);
     }
 
     /**
-     * Resets the existing data of this {@code GroceryList} with {@code newData}.
+     * Resets the existing data of this {@code ShoppingList} with {@code newData}.
      */
     public void resetData(ReadOnlyShoppingList newData) {
         requireNonNull(newData);
@@ -56,10 +56,10 @@ public class ShoppingList implements ReadOnlyShoppingList {
         setShoppingItems(newData.getShoppingList());
     }
 
-    //// person-level operations
+    //// shopping item-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a ShoppingItem with the same identity as {@code shoppingItem} exists in the shopping list.
      */
     public boolean hasShoppingItem(ShoppingItem shoppingItem) {
         requireNonNull(shoppingItem);
@@ -75,17 +75,26 @@ public class ShoppingList implements ReadOnlyShoppingList {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a shopping item to the shopping list.
+     * The shopping item must not already exist in the shopping list.
      */
     public void addShoppingItem(ShoppingItem p) {
         shoppingItems.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Marks the given shopping item in shopping list as urgent.
+     * @param toMarkAsUrgent
+     */
+    public void urgentShoppingItem(ShoppingItem toMarkAsUrgent) {
+        shoppingItems.markAsUrgent(toMarkAsUrgent);
+    }
+
+    /**
+     * Replaces the given shopping item {@code target} in the list with {@code editedShoppingItem}.
+     * {@code target} must exist in the shopping list.
+     * The shopping item identity of {@code editedShoppingItem} must not be the same as another
+     * existing shopping item in the shopping list.
      */
     public void setShoppingItem(ShoppingItem target, ShoppingItem editedShoppingItem) {
         requireNonNull(editedShoppingItem);
@@ -94,8 +103,8 @@ public class ShoppingList implements ReadOnlyShoppingList {
     }
 
     /**
-     * Removes {@code key} from this {@code GroceryList}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code ShoppingList}.
+     * {@code key} must exist in the shopping list.
      */
     public void removeShoppingItem(ShoppingItem key) {
         shoppingItems.remove(key);

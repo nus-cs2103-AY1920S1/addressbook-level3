@@ -1,7 +1,9 @@
 package seedu.ifridge.logic.parser.grocerylist;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.ifridge.commons.core.Messages.MESSAGE_AMOUNT_CANNOT_BE_EDITED;
 import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_TAG;
@@ -34,7 +36,7 @@ public class EditGroceryCommandParser implements Parser<EditGroceryCommand> {
     public EditGroceryCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EXPIRY_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EXPIRY_DATE, PREFIX_AMOUNT, PREFIX_TAG);
 
         Index index;
 
@@ -43,6 +45,11 @@ public class EditGroceryCommandParser implements Parser<EditGroceryCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditGroceryCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_AMOUNT_CANNOT_BE_EDITED,
+                    EditGroceryCommand.MESSAGE_USAGE));
         }
 
         EditGroceryItemDescriptor editGroceryItemDescriptor = new EditGroceryItemDescriptor();
