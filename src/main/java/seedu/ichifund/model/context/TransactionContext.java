@@ -1,5 +1,7 @@
 package seedu.ichifund.model.context;
 
+import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -42,6 +44,7 @@ public class TransactionContext implements Context<Transaction> {
 
     public TransactionContext(Month month, Year year, Optional<Category> category,
                                Optional<TransactionType> transactionType) {
+        requireAllNonNull(month, year, category, transactionType);
         this.month = month;
         this.year = year;
         this.category = category;
