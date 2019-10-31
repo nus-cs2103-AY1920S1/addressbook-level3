@@ -18,11 +18,11 @@ import budgetbuddy.model.attributes.Direction;
  */
 public class Transaction {
 
-    private Date date;
-    private Amount amount;
     private Direction direction;
+    private Amount amount;
     private Description description;
     private Set<Category> categories = new HashSet<>();
+    private Date date;
 
     /**
      * Every field must be present and not null.
@@ -30,23 +30,33 @@ public class Transaction {
     public Transaction(Date date, Amount amount, Direction direction, Description description,
                        Category... categories) {
         requireAllNonNull(date, amount, direction);
-        this.date = date;
-        this.amount = amount;
         this.direction = direction;
+        this.amount = amount;
         this.description = description;
         this.categories.addAll(Arrays.asList(categories));
+        this.date = date;
+
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public Amount getAmount() {
-        return amount;
+    /**
+     * Constructor that allows categories to be entered as a @code{Set<Category>}
+     */
+    public Transaction(Date date, Amount amount, Direction direction, Description description,
+                       Set<Category> categories) {
+        requireAllNonNull(date, amount, direction);
+        this.direction = direction;
+        this.amount = amount;
+        this.description = description;
+        this.categories = categories;
+        this.date = date;
     }
 
     public Direction getDirection() {
         return direction;
+    }
+
+    public Amount getAmount() {
+        return amount;
     }
 
     public Description getDescription() {
@@ -55,6 +65,10 @@ public class Transaction {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     /**

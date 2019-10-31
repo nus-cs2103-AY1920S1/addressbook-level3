@@ -53,6 +53,7 @@ public class AccountEditCommand extends Command {
         requireAllNonNull(model, model.getAccountsManager());
 
         AccountsManager accountsManager = model.getAccountsManager();
+        accountsManager.resetFilteredAccountList();
 
         Account editedAccount;
         try {

@@ -12,6 +12,7 @@ import budgetbuddy.logic.parser.CommandLineParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.account.Account;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
@@ -58,6 +59,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public ObservableList<Account> getAccountList() {
+        return model.getAccountsManager().getFilteredAccountList();
     }
 
     @Override

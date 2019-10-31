@@ -1,20 +1,20 @@
-package budgetbuddy.ui;
+package budgetbuddy.ui.panel;
 
 import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.account.Account;
+import budgetbuddy.ui.card.AccountCard;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of accounts.
  */
-public class AccountListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+public class AccountListPanel extends DisplayPanel {
+    private static final String FXML = "AccountPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AccountListPanel.class);
 
     @FXML
@@ -27,7 +27,7 @@ public class AccountListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Account} using a {@code AccountCard}.
      */
     class AccountListViewCell extends ListCell<Account> {
         @Override
@@ -38,6 +38,8 @@ public class AccountListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
+                setMouseTransparent(true);
+                setFocusTraversable(false);
                 setGraphic(new AccountCard(account, getIndex() + 1).getRoot());
             }
         }

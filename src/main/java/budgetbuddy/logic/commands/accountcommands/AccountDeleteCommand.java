@@ -42,6 +42,7 @@ public class AccountDeleteCommand extends Command {
         requireAllNonNull(model, model.getAccountsManager());
 
         AccountsManager accountsManager = model.getAccountsManager();
+        accountsManager.resetFilteredAccountList();
 
         List<Account> lastShownList = model.getAccountsManager().getAccounts();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
