@@ -134,9 +134,9 @@ public class MainWindow extends UiPart<Stage> {
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
-                event.consume();
                 model.setViewStatus(ViewType.getNextViewType(model.getViewStatus().getViewType()));
                 handleSwitch();
+                commandUpdater.executeUpdateCallback();
             }
         });
     }

@@ -63,5 +63,4 @@ public class CourseUtilTest {
             assertFalse(CourseUtil.courseExists(course));
         }
     }
-
 }

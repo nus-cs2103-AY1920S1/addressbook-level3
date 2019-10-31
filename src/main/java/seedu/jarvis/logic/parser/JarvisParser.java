@@ -28,6 +28,7 @@ import seedu.jarvis.logic.commands.course.CheckCommand;
 import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
 import seedu.jarvis.logic.commands.course.ListCourseCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
+import seedu.jarvis.logic.commands.course.ShowCourseHelpCommand;
 import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.FindPurchaseCommand;
 import seedu.jarvis.logic.commands.finance.ListFinancesCommand;
@@ -141,6 +142,9 @@ public class JarvisParser {
 
         case ListCourseCommand.COMMAND_WORD:
             return new ListCourseCommand();
+
+        case ShowCourseHelpCommand.COMMAND_WORD:
+            return new ShowCourseHelpCommand();
 
         case AddCcaCommand.COMMAND_WORD:
             return new AddCcaCommandParser().parse(arguments);
