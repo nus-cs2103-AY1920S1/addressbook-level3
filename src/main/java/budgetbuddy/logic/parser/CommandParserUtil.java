@@ -286,10 +286,20 @@ public class CommandParserUtil {
     }
 
     /**
-     * TODO IMPLEMENT, right now just returns a new Category
+     * Parses a {@code String category} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param category the string to parse
+     * @return the parsed category
+     * @throws ParseException if the given {@code category} is invalid.
      */
-    public static Category parseCategory(String s) {
-        return new Category(s);
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if (!Category.isValidCategory(trimmedCategory)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
+        }
+        return new Category(trimmedCategory);
     }
 
     /**
