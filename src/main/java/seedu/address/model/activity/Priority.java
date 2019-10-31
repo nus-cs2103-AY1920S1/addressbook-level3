@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents the priority of an Activity in the application.
  * Guarantees: immutable;
+ * @@author oscarsu97
  */
 public class Priority {
 

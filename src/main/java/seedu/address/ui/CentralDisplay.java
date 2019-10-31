@@ -26,6 +26,8 @@ import seedu.address.logic.commands.AddAccommodationCommand;
 import seedu.address.logic.commands.AddActivityCommand;
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddDayCommand;
+import seedu.address.logic.commands.AutoScheduleCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteAccommodationCommand;
 import seedu.address.logic.commands.DeleteActivityCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
@@ -33,8 +35,14 @@ import seedu.address.logic.commands.DeleteDayCommand;
 import seedu.address.logic.commands.EditAccommodationCommand;
 import seedu.address.logic.commands.EditActivityCommand;
 import seedu.address.logic.commands.EditContactCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.OptimiseBudgetCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ScheduleCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnscheduleCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.accommodation.Accommodation;
@@ -170,13 +178,13 @@ public class CentralDisplay extends UiPart<Region> {
         infoList.getItems().clear();
         for (ResultInformation i : resultInformation) {
             i.getAccommodation().ifPresent(accommodation ->
-                    addAccommodationInfo(accommodation, i.getIndex(), i.getDescription())
+                    addAccommodationInfo(accommodation, i.getIndex(), i.getDescription().orElse(""))
             );
             i.getActivity().ifPresent(activity ->
-                    addActivityInfo(activity, i.getIndex(), i.getDescription())
+                    addActivityInfo(activity, i.getIndex(), i.getDescription().orElse(""))
             );
             i.getContact().ifPresent(contact ->
-                    addContactInfo(contact, i.getIndex(), i.getDescription())
+                    addContactInfo(contact, i.getIndex(), i.getDescription().orElse(""))
             );
         }
     }
@@ -242,8 +250,16 @@ public class CentralDisplay extends UiPart<Region> {
                 new HelpCard(EditAccommodationCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(EditActivityCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(EditContactCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(ViewCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(ListCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(ScheduleCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot()
+                new HelpCard(AutoScheduleCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(OptimiseBudgetCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(UndoCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(RedoCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(ClearCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(ExitCommand.MESSAGE_USAGE).getRoot()
         );
     }
 

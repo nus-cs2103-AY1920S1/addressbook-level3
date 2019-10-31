@@ -23,6 +23,7 @@ import seedu.address.model.day.Day;
 
 /**
  * Schedules an activity to a day.
+ * @@author oscarsu97
  */
 public class ScheduleCommand extends Command {
 
@@ -33,7 +34,7 @@ public class ScheduleCommand extends Command {
             + "by the index number used in the displayed activity list "
             + "to a day.\n",
             COMMAND_WORD + " "
-            + "INDEX (must be a positive integer) "
+            + "ACTIVITY_INDEX (must be a positive integer) "
             + PREFIX_START_TIME + "START_TIME "
             + PREFIX_END_TIME + "END_TIME "
             + PREFIX_DAY + "DAY_INDEX ",

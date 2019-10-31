@@ -8,6 +8,7 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Represents the duration of an Activity in the application.
  * Guarantees: immutable;
+ * @@author oscarsu97
  */
 public class Duration {
     public static final String MESSAGE_CONSTRAINTS =

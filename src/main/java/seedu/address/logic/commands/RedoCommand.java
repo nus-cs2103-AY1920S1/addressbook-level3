@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.logic.events.Event;
 import seedu.address.model.Model;
 
@@ -16,6 +17,13 @@ public class RedoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Latest undo command successfully reverted!";
     public static final String MESSAGE_FAILURE = "No commands to redo.";
+
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD,
+            "Redo the last undo command.",
+            COMMAND_WORD,
+            COMMAND_WORD
+    );
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

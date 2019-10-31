@@ -6,6 +6,7 @@ import seedu.address.model.activity.NameWithTime;
 
 /**
  * Class to contain a Tag class and the timing to be scheduled.
+ * @@author oscarsu97
  */
 public class TagWithTime {
     public static final String MESSAGE_CONSTRAINTS =

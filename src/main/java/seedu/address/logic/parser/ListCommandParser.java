@@ -6,10 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListAccommodationCommand;
 import seedu.address.logic.commands.ListActivityCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListContactCommand;
-import seedu.address.logic.commands.ListDayCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -38,8 +38,8 @@ public class ListCommandParser implements Parser<ListCommand> {
             return new ListActivityCommand();
         case ListContactCommand.SECOND_COMMAND_WORD:
             return new ListContactCommand();
-        case ListDayCommand.SECOND_COMMAND_WORD:
-            return new ListDayCommand();
+        case ListAccommodationCommand.SECOND_COMMAND_WORD:
+            return new ListAccommodationCommand();
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }

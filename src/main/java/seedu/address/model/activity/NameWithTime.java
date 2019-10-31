@@ -6,6 +6,7 @@ import seedu.address.model.field.Name;
 
 /**
  * Class to contain an activity Name and the timing to be scheduled.
+ * @@author oscarsu97
  */
 public class NameWithTime {
     public static final String MESSAGE_CONSTRAINTS =
