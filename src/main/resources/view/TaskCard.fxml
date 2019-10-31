@@ -16,6 +16,11 @@
                             <StackPane.margin>
                                 <Insets left="15.0" />
                             </StackPane.margin></Label>
+                  <Label fx:id="taskIndex" alignment="TOP_RIGHT" text="taskIndex" wrapText="true" StackPane.alignment="TOP_RIGHT">
+                     <StackPane.margin>
+                        <Insets right="5.0" />
+                     </StackPane.margin>
+                  </Label>
                     </children>
                     <VBox.margin>
                         <Insets />
