@@ -56,7 +56,6 @@ public class DeleteSemesterCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DELETE_SPECIAL_SEMESTER_SUCCESS,
                     semesterName.toString()));
         }
-
     }
 
     @Override

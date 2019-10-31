@@ -3,7 +3,6 @@ package seedu.address.model.studyplan;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -104,12 +103,20 @@ public class StudyPlan implements Cloneable {
         }
     }
 
-    public void setTitle(Title title) {
-        this.title = title;
+    public static int getTotalNumberOfStudyPlans() {
+        return totalNumberOfStudyPlans;
+    }
+
+    public static void setTotalNumberOfStudyPlans(int totalNumberOfStudyPlans) {
+        StudyPlan.totalNumberOfStudyPlans = totalNumberOfStudyPlans;
     }
 
     public Title getTitle() {
         return title;
+    }
+
+    public void setTitle(Title title) {
+        this.title = title;
     }
 
     public UniqueSemesterList getSemesters() {
@@ -120,9 +127,24 @@ public class StudyPlan implements Cloneable {
         return index;
     }
 
+    // for testing
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
     // "Mega-list" of modules
     public HashMap<String, Module> getModules() {
         return modules;
+    }
+
+    // for testing
+    public void setModules(HashMap<String, Module> modules) {
+        this.modules = modules;
+    }
+
+    // for testing
+    public void setModuleTags(UniqueTagList moduleTags) {
+        this.moduleTags = moduleTags;
     }
 
     // "Mega-list" of tags
@@ -144,44 +166,25 @@ public class StudyPlan implements Cloneable {
         return studyPlanTags;
     }
 
+    // for testing
+    public void setStudyPlanTags(UniqueTagList studyPlanTags) {
+        this.studyPlanTags = studyPlanTags;
+    }
+
     public SemesterName getCurrentSemester() {
         return currentSemester;
     }
 
-    public void setActivated(boolean activated) {
-        isActivated = activated;
-    }
-
-    // for testing
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    // for testing
-    public void setModules(HashMap<String, Module> modules) {
-        this.modules = modules;
-    }
-
-    // for testing
-    public void setModuleTags(UniqueTagList moduleTags) {
-        this.moduleTags = moduleTags;
-    }
-
-    // for testing
-    public void setStudyPlanTags(UniqueTagList studyPlanTags) {
-        this.studyPlanTags = studyPlanTags;
+    public void setCurrentSemester(SemesterName currentSemester) {
+        this.currentSemester = currentSemester;
     }
 
     public boolean isActivated() {
         return isActivated;
     }
 
-    public static int getTotalNumberOfStudyPlans() {
-        return totalNumberOfStudyPlans;
-    }
-
-    public static void setTotalNumberOfStudyPlans(int totalNumberOfStudyPlans) {
-        StudyPlan.totalNumberOfStudyPlans = totalNumberOfStudyPlans;
+    public void setActivated(boolean activated) {
+        isActivated = activated;
     }
 
     public int getTotalMcCount() {
@@ -219,10 +222,6 @@ public class StudyPlan implements Cloneable {
         semesters.add(new Semester(SemesterName.Y3S2));
         semesters.add(new Semester(SemesterName.Y4S1));
         semesters.add(new Semester(SemesterName.Y4S2));
-    }
-
-    public void setCurrentSemester(SemesterName currentSemester) {
-        this.currentSemester = currentSemester;
     }
 
     /**
@@ -438,9 +437,7 @@ public class StudyPlan implements Cloneable {
      */
     public void blockSemester(SemesterName semesterName, String reasonForBlock) throws SemesterNotFoundException {
         Semester semesterToBlock = null;
-        Iterator<Semester> iterator = semesters.iterator();
-        while (iterator.hasNext()) {
-            Semester semester = iterator.next();
+        for (Semester semester : semesters) {
             if (semester.getSemesterName().equals(semesterName)) {
                 semesterToBlock = semester;
             }
@@ -453,6 +450,24 @@ public class StudyPlan implements Cloneable {
         }
         semesterToBlock.setBlocked(true);
         semesterToBlock.setReasonForBlocked(reasonForBlock);
+        semesterToBlock.clearAllModules();
+    }
+
+    /**
+     * Unblocks a semester with the given {@code SemesterName} so that the user cannot add modules to that semester.
+     */
+    public void unblockSemester(SemesterName semesterName) throws SemesterNotFoundException {
+        Semester semesterToUnblock = null;
+        for (Semester semester : semesters) {
+            if (semester.getSemesterName().equals(semesterName)) {
+                semesterToUnblock = semester;
+            }
+        }
+        if (semesterToUnblock == null) {
+            throw new SemesterNotFoundException();
+        }
+        semesterToUnblock.setBlocked(false);
+        semesterToUnblock.setReasonForBlocked(null);
     }
 
     /**

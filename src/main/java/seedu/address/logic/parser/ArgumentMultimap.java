@@ -53,4 +53,13 @@ public class ArgumentMultimap {
         }
         return new ArrayList<>(argMultimap.get(pattern));
     }
+
+    /**
+     * Returns number of arguments that correspond to patter in the multimap.
+     * @param pattern specified.
+     * @return number of arguments.
+     */
+    public int getNumberOfArgsForPattern(Pattern pattern) {
+        return argMultimap.get(pattern).size();
+    }
 }

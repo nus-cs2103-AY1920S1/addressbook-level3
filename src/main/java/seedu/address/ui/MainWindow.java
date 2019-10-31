@@ -96,7 +96,7 @@ public class MainWindow extends UiPart<Stage> {
             mcCount.setText("");
         } else {
             ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
-            semesterListPanel = new SemesterListPanel(semesters);
+            semesterListPanel = new SemesterListPanel(semesters, sp.getCurrentSemester());
             semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
             title.setText(sp.getTitle().toString());
             mcCount.setText(sp.getMcCountString());
@@ -163,7 +163,7 @@ public class MainWindow extends UiPart<Stage> {
                     title.setText(NO_ACTIVE_STUDY_PLAN);
                 } else {
                     ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
-                    semesterListPanel = new SemesterListPanel(semesters);
+                    semesterListPanel = new SemesterListPanel(semesters, sp.getCurrentSemester());
                     semesterListPanelPlaceholder.getChildren().remove(0);
                     semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
                     studyPlanTagPanel = new StudyPlanTagPanel(sp.getStudyPlanTags().asUnmodifiableObservableList());

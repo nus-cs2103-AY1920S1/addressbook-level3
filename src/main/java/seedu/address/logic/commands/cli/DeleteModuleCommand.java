@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.cli;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.cli.AddModuleCommand.MESSAGE_SEMESTER_DOES_NOT_EXIST;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -36,6 +37,10 @@ public class DeleteModuleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getSemester(this.sem) == null) {
+            throw new CommandException(MESSAGE_SEMESTER_DOES_NOT_EXIST);
+        }
 
         if (!model.semesterHasModule(this.moduleCode, this.sem)) {
             throw new CommandException(MODULE_DOES_NOT_EXIST);

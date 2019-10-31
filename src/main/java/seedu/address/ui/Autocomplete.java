@@ -14,8 +14,8 @@ import javafx.scene.control.TextField;
 import seedu.address.logic.commands.cli.AddModuleCommand;
 import seedu.address.logic.commands.cli.BlockCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.DeleteModuleCommand;
-import seedu.address.logic.commands.cli.NameUeFromSemesterCommand;
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
+import seedu.address.logic.commands.cli.UnblockCurrentSemesterCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
@@ -149,7 +149,7 @@ public class Autocomplete extends TextField {
         commandKeywords.add(AddModuleCommand.COMMAND_WORD);
         commandKeywords.add(BlockCurrentSemesterCommand.COMMAND_WORD);
         commandKeywords.add(DeleteModuleCommand.COMMAND_WORD);
-        commandKeywords.add(NameUeFromSemesterCommand.COMMAND_WORD);
+        commandKeywords.add(UnblockCurrentSemesterCommand.COMMAND_WORD);
         commandKeywords.add(SetCurrentSemesterCommand.COMMAND_WORD);
         commandKeywords.add(FindModuleCommand.COMMAND_WORD);
         commandKeywords.add(CommitStudyPlanCommand.COMMAND_WORD);

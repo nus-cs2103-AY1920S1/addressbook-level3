@@ -9,7 +9,7 @@ src/main/resources/docs/
 /*.iml
 
 # Storage/log files
-/data/moduleplanner.json
+/moduleplanner.json
 /config.json
 /preferences.json
 /*.log.*

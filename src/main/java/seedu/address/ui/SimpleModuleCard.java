@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -10,13 +8,14 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.module.Module;
+import seedu.address.model.tag.Tag;
 
 /**
- * An UI component that displays information of a {@code Module}.
+ * An UI component that displays information of a {@code Module} without prereqs.
  */
-public class ModuleCard extends UiPart<Region> {
+public class SimpleModuleCard extends UiPart<Region> {
 
-    private static final String FXML = "ModuleListCard.fxml";
+    private static final String FXML = "SimpleModuleListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -35,20 +34,15 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label mcCount;
     @FXML
-    private Label prereqs;
-    @FXML
     private FlowPane tags;
 
-    public ModuleCard(Module module) {
+    public SimpleModuleCard(Module module) {
         super(FXML);
-        requireNonNull(module);
         this.module = module;
         name.setText(module.getModuleCode().value + " " + module.getName().fullName);
         mcCount.setText(Integer.toString(module.getMcCount()));
-        prereqs.setText("NEEDS: " + module.getPrereqString());
-        prereqs.setVisible(!module.getPrereqsSatisfied());
         module.getTags().asUnmodifiableObservableList().stream()
-                .sorted(Comparator.comparing(tag -> tag.getTagName()))
+                .sorted(Comparator.comparing(Tag::getTagName))
                 .forEach(tag -> {
                     Label tagLabel = new Label(tag.getTagName());
                     if (tag.isDefault()) {

@@ -73,14 +73,6 @@ public class Semester implements Cloneable {
         this.reasonForBlocked = reasonForBlocked;
     }
 
-    public boolean isExpanded() {
-        return isExpanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-        isExpanded = expanded;
-    }
-
     public int getMcCount() {
         return modules.getMcCount();
     }
@@ -117,7 +109,6 @@ public class Semester implements Cloneable {
         return result.toString();
     }
 
-    // Added this method to display a simplified list of semesters for commands like viewplan/viewcommit.
 
     /**
      * Converts this semester to a String suitable for display in a simplified study plan.
@@ -140,7 +131,7 @@ public class Semester implements Cloneable {
             /*
                     this.modules.equals(other.getModules())
                     && this.isBlocked == other.isBlocked
-                    && (this.reasonForBlocked == null ? true : this.reasonForBlocked.equals(other.reasonForBlocked))
+                    && (this.reasonForBlocked == null || this.reasonForBlocked.equals(other.reasonForBlocked))
                     && this.isExpanded == other.isExpanded
                     && this.semesterName == other.getSemesterName();
 

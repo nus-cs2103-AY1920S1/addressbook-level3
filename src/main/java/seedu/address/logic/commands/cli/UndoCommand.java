@@ -22,6 +22,10 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (!model.canUndoModulePlanner()) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
+
         model.undoModulePlanner();
         model.updateFilteredStudyPlanList(Model.PREDICATE_SHOW_ALL_STUDY_PLANS);
         return new CommandResult(MESSAGE_SUCCESS, true, false);

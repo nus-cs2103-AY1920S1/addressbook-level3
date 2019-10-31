@@ -23,6 +23,9 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.canRedoModulePlanner()) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
         model.redoModulePlanner();
         model.updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
         return new CommandResult(MESSAGE_SUCCESS, true, false);

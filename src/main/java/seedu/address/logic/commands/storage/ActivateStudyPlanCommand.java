@@ -43,7 +43,6 @@ public class ActivateStudyPlanCommand extends Command {
         }
 
         String studyPlanName = model.getActiveStudyPlan().getTitle().toString();
-
         model.addToHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, studyPlanIndex, studyPlanName),
                 true, false);

@@ -22,7 +22,7 @@ public class ViewModuleTagsCommandParser implements Parser<ViewModuleTagsCommand
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Pattern... patterns) {
+    private static boolean arePatternsPresent(ArgumentMultimap argumentMultimap, Pattern... patterns) {
         return Stream.of(patterns).allMatch(pattern -> argumentMultimap.getValue(pattern).isPresent());
     }
 
@@ -36,8 +36,8 @@ public class ViewModuleTagsCommandParser implements Parser<ViewModuleTagsCommand
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, MODULE_PATTERN);
 
-        if (!arePrefixesPresent(argMultimap, MODULE_PATTERN)
-        ) {
+        if (!arePatternsPresent(argMultimap, MODULE_PATTERN)
+                || argMultimap.getNumberOfArgsForPattern(MODULE_PATTERN) != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ViewModuleTagsCommand.MESSAGE_USAGE));
         }

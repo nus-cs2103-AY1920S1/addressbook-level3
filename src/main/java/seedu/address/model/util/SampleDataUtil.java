@@ -11,8 +11,6 @@ import seedu.address.model.module.ModuleCode;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
-import seedu.address.model.tag.PriorityTag;
-import seedu.address.model.tag.PriorityTagType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UserTag;
 
@@ -72,14 +70,4 @@ public class SampleDataUtil {
                 .map(UserTag::new)
                 .collect(Collectors.toList());
     }
-
-    /**
-     * Returns a list containing the list of priority tag names given.
-     */
-    public static List<Tag> getPriorityTagList(String... strings) {
-        return Arrays.stream(strings)
-                .map(type -> new PriorityTag(PriorityTagType.valueOf(type)))
-                .collect(Collectors.toList());
-    }
-
 }

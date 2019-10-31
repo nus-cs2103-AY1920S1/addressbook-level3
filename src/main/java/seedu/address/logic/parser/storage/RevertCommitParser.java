@@ -19,8 +19,8 @@ public class RevertCommitParser implements Parser<RevertCommitCommand> {
      */
     public RevertCommitCommand parse(String args) throws ParseException {
         String[] commitToken = args.trim().split("\\.");
-        if (commitToken.length != 2 || !commitToken[0].matches("-?\\d+")
-                || !commitToken[1].matches("-?\\d+")) {
+        if (commitToken.length != 2 || !commitToken[0].matches("^\\s*-?[0-9]{1,10}\\s*$")
+                || !commitToken[1].matches("^\\s*-?[0-9]{1,10}\\s*$")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RevertCommitCommand.MESSAGE_USAGE));
         }

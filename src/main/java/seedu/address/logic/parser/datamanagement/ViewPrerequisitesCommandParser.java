@@ -22,7 +22,7 @@
 //     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
 //     * {@code ArgumentMultimap}.
 //     */
-//    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+//    private static boolean arePatternsPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
 //        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
 //    }
 //
@@ -36,7 +36,7 @@
 //        ArgumentMultimap argMultimap =
 //                ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE);
 //
-//        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
+//        if (!arePatternsPresent(argMultimap, PREFIX_MODULE_CODE)
 //                || !argMultimap.getPreamble().isEmpty()) {
 //            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
 //                    ViewPrerequisitesCommand.MESSAGE_USAGE));

@@ -11,35 +11,32 @@ import seedu.address.model.semester.SemesterName;
 /**
  * Blocks the current semester with a specified reason
  */
-public class BlockCurrentSemesterCommand extends Command {
-    public static final String COMMAND_WORD = "block";
-    public static final String HELP_MESSAGE = COMMAND_WORD
-            + ": Block off the given semester, for reasons such as exchange, LOA, etc.";
+public class UnblockCurrentSemesterCommand extends Command {
+    public static final String COMMAND_WORD = "unblock";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Unblocks the given semester.";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Block off the given semester, for reasons such as exchange, LOA, etc.\n. "
+            + ": Unblocks the given semester. \n. "
             + "Parameters: "
             + "SEMESTER ";
 
-    public static final String MESSAGE_SUCCESS = "Semester %1$s blocked";
+    public static final String MESSAGE_SUCCESS = "Semester %1$s unblocked";
 
     private final SemesterName sem;
-    private final String reason;
 
-    public BlockCurrentSemesterCommand(SemesterName sem, String reason) {
+    public UnblockCurrentSemesterCommand(SemesterName sem) {
         requireNonNull(sem);
         this.sem = sem;
-        this.reason = reason;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getSemester(sem).isBlocked()) {
-            throw new CommandException("Semester is already blocked");
+        if (!model.getSemester(sem).isBlocked()) {
+            throw new CommandException("Semester is not blocked");
         }
 
-        model.blockSemester(sem, reason);
+        model.unblockSemester(sem);
         model.addToHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, sem), true, false);
     }
@@ -47,8 +44,7 @@ public class BlockCurrentSemesterCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof BlockCurrentSemesterCommand // instanceof handles nulls
-                && sem.equals(((BlockCurrentSemesterCommand) other).sem)
-                && reason.equals(((BlockCurrentSemesterCommand) other).reason));
+                || (other instanceof UnblockCurrentSemesterCommand // instanceof handles nulls
+                && sem.equals(((UnblockCurrentSemesterCommand) other).sem));
     }
 }

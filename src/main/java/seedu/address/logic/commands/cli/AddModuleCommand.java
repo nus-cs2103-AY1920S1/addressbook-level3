@@ -23,6 +23,7 @@ public class AddModuleCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Module %1$s added to %2$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the semester";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
+    public static final String MESSAGE_SEMESTER_DOES_NOT_EXIST = "This semester does not exist.";
 
     private final SemesterName sem;
     private final String moduleCode;
@@ -37,6 +38,10 @@ public class AddModuleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getSemester(this.sem) == null) {
+            throw new CommandException(MESSAGE_SEMESTER_DOES_NOT_EXIST);
+        }
 
         if (model.semesterHasModule(this.moduleCode, this.sem)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);

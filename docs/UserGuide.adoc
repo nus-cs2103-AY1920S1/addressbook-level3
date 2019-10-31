@@ -202,38 +202,23 @@ Example:
 
 === Command Line Interface
 
-==== Assigning a module to a given semester: `addmodule`
+==== Assigning a module to a given semester: `addmod`
 Assigns the specified module to a given semester of the current study plan. +
-Format:  `add SEMESTER MODULE ...` +
+Format:  `addmod SEMESTER MODULE ...` +
 Examples:
 
-* `add y1s1 CS1101s`
-* `add y2s2 CS3244 CS3245 CS3233`
-* `add y1s1 ue`
-* `add y1s2 ue:GER1000`
+* `addmod y1s1 CS1101s`
+* `addmod y2s2 CS3244 CS3245 CS3233`
+* `addmod y1s1 ue`
+* `addmod y1s2 ue:GER1000`
 
-==== Removing a module from a given semester. `remove`
+==== Removing a module from a given semester. `removemod`
 Removes the specified module to a given semester of the current study plan. +
-Format: `remove SEMESTER MODULE ...` +
+Format: `removemod SEMESTER MODULE ...` +
 Examples:
 
-* `remove y1s1 CS1101S`
-* `remove y2s2 CS3244`
-
-==== Naming a UE from a semester. `nameue`
-Names a UE from the given semester with the given module name. This feature is purely for aesthetic purposes and has no functional implications.
-
-Format: `nameue SEMESTER NAME` +
-Examples:
-
-* `nameue y1s1 GER1000`
-
-==== Moving a module from one semester to another. `move`
-Moves a given module from a source semester to a destination semester, as specified. +
-Format: `move MODULE SEMESTER_SRC SEMESTER_DEST` +
-Examples:
-
-* `move CS3243 y2s1 y2s2`
+* `removemod y1s1 CS1101S`
+* `removemod y2s2 CS3244`
 
 ==== Setting the current semester. `setcurrent`
 Sets the given semester as the current one. Semesters before the specified semester will be locked and therefore modules cannot be added or removed from them. +
@@ -254,17 +239,32 @@ Format: `undo`
 Redo the previous undone command. The state of the application will revert back to that before the undo. This command cannot redo itself. +
 Format:  `redo`
 
-==== Declaring a focus area: `declarefocusarea`
+==== Naming a UE from a semester. `[coming in v2.0]`
+Names a UE from the given semester with the given module name. This feature is purely for aesthetic purposes and has no functional implications.
+
+Format: `nameue SEMESTER NAME` +
+Examples:
+
+* `nameue y1s1 GER1000`
+
+==== Moving a module from one semester to another. `[coming in v2.0]`
+Moves a given module from a source semester to a destination semester, as specified. +
+Format: `move MODULE SEMESTER_SRC SEMESTER_DEST` +
+Examples:
+
+* `move CS3243 y2s1 y2s2`
+
+==== Declaring a focus area: `[coming in v2.0]`
 Declares the given focus area as one of the focus areas of the study plan. This means that the requirements of the focus area has to be met to be eligible for graduation. +
 Format: `declarefocusarea FOCUS_AREA`
 
-==== Chaining commands
+==== Chaining commands `[coming in v2.0]`
 Chain commands together for greater efficiency. The commands, if different, are separated by a ‘&&’. ‘&&’ is not needed if the command is the same. +
 Format: `COMMAND_1 && COMMAND_2 && …` +
 Examples:
 
-* `addmodule y1s1 CS1101S CS1231 MA1521`
-* `movemodule CS2105 y2s1 y2s2 && addmodule CS2106 y2s2`
+* `addmod y1s1 CS1101S CS1231 MA1521`
+* `movemodule CS2105 y2s1 y2s2 && addmod CS2106 y2s2`
 
 === Data classification and management
 ==== Viewing default tags : `viewdefaulttags`
@@ -434,10 +434,3 @@ Example:
 Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules as tags.
 
 The study plan will have a tick or cross beside it, which shows if the entire plan is feasible.
-
-// tag::dataencryption[]
-
-
-== FAQ
-
-== Command Summary

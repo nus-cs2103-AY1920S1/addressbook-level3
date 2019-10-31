@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.cli.AddModuleCommand;
 import seedu.address.logic.commands.cli.BlockCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.DeleteModuleCommand;
-import seedu.address.logic.commands.cli.NameUeFromSemesterCommand;
 import seedu.address.logic.commands.cli.RedoCommand;
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.UndoCommand;
@@ -70,8 +69,6 @@ public class HelpCommandTest {
         assertEquals(new HelpCommand(BlockCurrentSemesterCommand.COMMAND_WORD).execute(model), expectedCommandResult);
         expectedCommandResult = new CommandResult(DeleteModuleCommand.MESSAGE_USAGE, false, false);
         assertEquals(new HelpCommand(DeleteModuleCommand.COMMAND_WORD).execute(model), expectedCommandResult);
-        expectedCommandResult = new CommandResult(NameUeFromSemesterCommand.MESSAGE_USAGE, false, false);
-        assertEquals(new HelpCommand(NameUeFromSemesterCommand.COMMAND_WORD).execute(model), expectedCommandResult);
         expectedCommandResult = new CommandResult(RedoCommand.MESSAGE_USAGE, false, false);
         assertEquals(new HelpCommand(RedoCommand.COMMAND_WORD).execute(model), expectedCommandResult);
         expectedCommandResult = new CommandResult(SetCurrentSemesterCommand.MESSAGE_USAGE, false, false);

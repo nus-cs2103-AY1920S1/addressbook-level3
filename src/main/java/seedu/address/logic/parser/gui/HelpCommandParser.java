@@ -5,9 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.cli.AddModuleCommand;
 import seedu.address.logic.commands.cli.BlockCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.DeleteModuleCommand;
-import seedu.address.logic.commands.cli.NameUeFromSemesterCommand;
 import seedu.address.logic.commands.cli.RedoCommand;
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
+import seedu.address.logic.commands.cli.UnblockCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.UndoCommand;
 import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindModuleCommand;
@@ -61,7 +61,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         case AddModuleCommand.COMMAND_WORD:
         case BlockCurrentSemesterCommand.COMMAND_WORD:
         case DeleteModuleCommand.COMMAND_WORD:
-        case NameUeFromSemesterCommand.COMMAND_WORD:
+        case UnblockCurrentSemesterCommand.COMMAND_WORD:
         case SetCurrentSemesterCommand.COMMAND_WORD:
         case FindModuleCommand.COMMAND_WORD:
         case DescriptionCommand.COMMAND_WORD:

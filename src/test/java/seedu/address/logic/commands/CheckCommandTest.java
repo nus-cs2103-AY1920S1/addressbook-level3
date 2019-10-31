@@ -29,8 +29,72 @@ import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
 
 public class CheckCommandTest {
+    // ======================== TESTS ================================
+    @Test
+    public void execute_check_nullActiveStudyPlan() {
+        Model model = new CheckCommandTest.ModelStubNull();
+        CommandResult expectedCommandResult = new CommandResult("You do not have a study plan!", false, false);
+        assertCommandSuccess(new CheckCommand(), model, expectedCommandResult, model);
+    }
+
+    /*
+     * We define three model stubs: ModelStubNull, ModelStubOne, and ModelStubTwo.
+     * All are meant to be called only on the method `getActiveStudyPlan`.
+     */
+
+    @Test
+    public void execute_check_failCheckActiveStudyPlan() {
+        Model model = new CheckCommandTest.ModelStubOne();
+        String expected = "Graduation requirements have not been fulfilled.\n"
+                + "MCs: 10/108\n"
+                + "Number of core modules taken: 5/15\n"
+                + "Number of focus area primaries taken:\n"
+                + "[AI:P]: 0\n"
+                + "[Algo:P]: 1\n"
+                + "[CGG:P]: 0\n"
+                + "[ComSec:P]: 0\n"
+                + "[DB:P]: 0\n"
+                + "[MIR:P]: 2\n"
+                + "[NDS:P]: 0\n"
+                + "[PL:P]: 1\n"
+                + "[Para:P]: 2\n"
+                + "[SE:P]: 0\n";
+        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
+        assertCommandSuccess(new CheckCommand(), model, expectedCommandResult, model);
+    }
+
+    @Test
+    public void execute_check_passCheckActiveStudyPlan() {
+        Model model = new CheckCommandTest.ModelStubTwo();
+        String expected = "All graduation requirements have been fulfilled!\n"
+                + "MCs: 200/108\n"
+                + "Number of core modules taken: 15/15\n"
+                + "Number of focus area primaries taken:\n"
+                + "[AI:P]: 0\n"
+                + "[Algo:P]: 2\n"
+                + "[CGG:P]: 0\n"
+                + "[ComSec:P]: 1\n"
+                + "[DB:P]: 3\n"
+                + "[MIR:P]: 2\n"
+                + "[NDS:P]: 0\n"
+                + "[PL:P]: 1\n"
+                + "[Para:P]: 2\n"
+                + "[SE:P]: 0\n";
+        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
+        assertCommandSuccess(new CheckCommand(), model, expectedCommandResult, model);
+    }
+
+    @Test
+    public void equals() {
+        CheckCommand x = new CheckCommand();
+        CheckCommand y = new CheckCommand();
+        assertEquals(x, y);
+        assertEquals(x, x);
+    }
+
     private class StudyPlanStub extends StudyPlan {
         private int stubSwitch;
+
         public StudyPlanStub(int stubSwitch) {
             super(new ModulesInfo(), null);
             this.stubSwitch = stubSwitch;
@@ -95,19 +159,14 @@ public class CheckCommandTest {
         }
     }
 
-    /*
-     * We define three model stubs: ModelStubNull, ModelStubOne, and ModelStubTwo.
-     * All are meant to be called only on the method `getActiveStudyPlan`.
-     */
-
     private class ModelStubNull implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -132,12 +191,12 @@ public class CheckCommandTest {
         }
 
         @Override
-        public void setModulePlanner(ReadOnlyModulePlanner modulePlanner) {
+        public ReadOnlyModulePlanner getModulePlanner() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyModulePlanner getModulePlanner() {
+        public void setModulePlanner(ReadOnlyModulePlanner modulePlanner) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -257,19 +316,16 @@ public class CheckCommandTest {
         }
 
         @Override
+        public void unblockSemester(SemesterName sem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
         public void removeModule(String moduleCode, SemesterName semesterName) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public boolean semesterHasUe(SemesterName semesterName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void renameUeInSemester(SemesterName semesterName, String moduleCode) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void setSemester(SemesterName semester) {
@@ -404,12 +460,12 @@ public class CheckCommandTest {
 
     private class ModelStubOne implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -434,12 +490,12 @@ public class CheckCommandTest {
         }
 
         @Override
-        public void setModulePlanner(ReadOnlyModulePlanner modulePlanner) {
+        public ReadOnlyModulePlanner getModulePlanner() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyModulePlanner getModulePlanner() {
+        public void setModulePlanner(ReadOnlyModulePlanner modulePlanner) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -460,6 +516,11 @@ public class CheckCommandTest {
 
         @Override
         public StudyPlan activateStudyPlan(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unblockSemester(SemesterName sem) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -563,15 +624,6 @@ public class CheckCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public boolean semesterHasUe(SemesterName semesterName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void renameUeInSemester(SemesterName semesterName, String moduleCode) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void setSemester(SemesterName semester) {
@@ -706,12 +758,12 @@ public class CheckCommandTest {
 
     private class ModelStubTwo implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -726,6 +778,11 @@ public class CheckCommandTest {
         }
 
         @Override
+        public void unblockSemester(SemesterName sem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getModulePlannerFilePath() {
             throw new AssertionError("This method should not be called.");
         }
@@ -736,12 +793,12 @@ public class CheckCommandTest {
         }
 
         @Override
-        public void setModulePlanner(ReadOnlyModulePlanner modulePlanner) {
+        public ReadOnlyModulePlanner getModulePlanner() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyModulePlanner getModulePlanner() {
+        public void setModulePlanner(ReadOnlyModulePlanner modulePlanner) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -865,15 +922,6 @@ public class CheckCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public boolean semesterHasUe(SemesterName semesterName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void renameUeInSemester(SemesterName semesterName, String moduleCode) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void setSemester(SemesterName semester) {
@@ -1004,63 +1052,5 @@ public class CheckCommandTest {
         public void addToHistory() {
             throw new AssertionError("This method should not be called.");
         }
-    }
-
-    // ======================== TESTS ================================
-    @Test
-    public void execute_check_nullActiveStudyPlan() {
-        Model model = new CheckCommandTest.ModelStubNull();
-        CommandResult expectedCommandResult = new CommandResult("You do not have a study plan!", false, false);
-        assertCommandSuccess(new CheckCommand(), model, expectedCommandResult, model);
-    }
-
-    @Test
-    public void execute_check_failCheckActiveStudyPlan() {
-        Model model = new CheckCommandTest.ModelStubOne();
-        String expected = "Graduation requirements have not been fulfilled.\n"
-                + "MCs: 10/108\n"
-                + "Number of core modules taken: 5/15\n"
-                + "Number of focus area primaries taken:\n"
-                + "[AI:P]: 0\n"
-                + "[Algo:P]: 1\n"
-                + "[CGG:P]: 0\n"
-                + "[ComSec:P]: 0\n"
-                + "[DB:P]: 0\n"
-                + "[MIR:P]: 2\n"
-                + "[NDS:P]: 0\n"
-                + "[PL:P]: 1\n"
-                + "[Para:P]: 2\n"
-                + "[SE:P]: 0\n";
-        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
-        assertCommandSuccess(new CheckCommand(), model, expectedCommandResult, model);
-    }
-
-    @Test
-    public void execute_check_passCheckActiveStudyPlan() {
-        Model model = new CheckCommandTest.ModelStubTwo();
-        String expected = "All graduation requirements have been fulfilled!\n"
-                + "MCs: 200/108\n"
-                + "Number of core modules taken: 15/15\n"
-                + "Number of focus area primaries taken:\n"
-                + "[AI:P]: 0\n"
-                + "[Algo:P]: 2\n"
-                + "[CGG:P]: 0\n"
-                + "[ComSec:P]: 1\n"
-                + "[DB:P]: 3\n"
-                + "[MIR:P]: 2\n"
-                + "[NDS:P]: 0\n"
-                + "[PL:P]: 1\n"
-                + "[Para:P]: 2\n"
-                + "[SE:P]: 0\n";
-        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
-        assertCommandSuccess(new CheckCommand(), model, expectedCommandResult, model);
-    }
-
-    @Test
-    public void equals() {
-        CheckCommand x = new CheckCommand();
-        CheckCommand y = new CheckCommand();
-        assertEquals(x, y);
-        assertEquals(x, x);
     }
 }

@@ -20,7 +20,7 @@ public class DeleteStudyPlanParser implements Parser<DeleteStudyPlanCommand> {
      */
     public DeleteStudyPlanCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (!trimmedArgs.matches("-?\\d+")) {
+        if (!trimmedArgs.matches("^\\s*-?[0-9]{1,10}\\s*$")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteStudyPlanCommand.MESSAGE_USAGE));
         }

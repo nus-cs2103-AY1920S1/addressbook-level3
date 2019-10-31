@@ -471,6 +471,18 @@
     -fx-background-radius: 10 10 10 10;
 }
 
+#currentSemesterCardPane {
+    -fx-background-color: #A4A4A4;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+#blockedSemesterCardPane {
+    -fx-background-color: #575757;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
 #tagListView {
     -fx-background-color: white;
 }
@@ -483,6 +495,16 @@
 
 #moduleCardPane {
     -fx-background-color: #ffffff;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+#moduleListView {
+    -fx-background-color: white;
+}
+
+#simpleModuleCardPane {
+    -fx-background-color: #f0f0f0;
     -fx-border-radius: 10 10 10 10;
     -fx-background-radius: 10 10 10 10;
 }
@@ -506,5 +528,19 @@
     -fx-background-radius: 2;
     -fx-font-size: 12;
     -fx-font-family: "Segoe UI Semibold";
+}
+
+#blockedFont {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #EEEEEE;
+    -fx-opacity: 0.9;
+}
+
+#blockedReason {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #EEEEEE;
+    -fx-opacity: 0.9;
 }
 

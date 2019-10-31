@@ -8,24 +8,18 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <HBox fx:id="semesterCardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <GridPane HBox.hgrow="ALWAYS">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
-            </columnConstraints>
-            <children>
-                <VBox fx:id="tagListCard" alignment="CENTER_LEFT" GridPane.columnIndex="0">
-                    <padding>
-                        <Insets bottom="5" left="5" right="5" top="5"/>
-                    </padding>
-                    <children>
-                        <StackPane fx:id="tags" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS"/>
-                    </children>
-                </VBox>
-            </children>
-            <rowConstraints>
-                <RowConstraints/>
-            </rowConstraints>
-        </GridPane>
-    </children>
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+        <VBox fx:id="tagListCard" alignment="CENTER_LEFT" GridPane.columnIndex="0">
+            <padding>
+                <Insets bottom="5" left="5" right="5" top="5"/>
+            </padding>
+            <StackPane fx:id="tags" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </GridPane>
 </HBox>
