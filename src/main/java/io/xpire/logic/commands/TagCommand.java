@@ -18,7 +18,7 @@ import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 import io.xpire.model.tag.TagItemDescriptor;
 
-
+//@@author Kalsyc
 /**
  * Adds tag(s) to xpireItem identified using its displayed index from the expiry date tracker.
  */

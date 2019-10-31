@@ -34,6 +34,7 @@ public class SearchCommand extends Command {
         model.updateFilteredItemList(this.predicate);
         StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW,
                 model.getCurrentFilteredItemList().size()));
+        //@@author febee99
         if (model.getCurrentFilteredItemList().size() == 0) {
             predicate.getKeywords().forEach(s -> {
                 if (s.startsWith("#")) {
@@ -43,6 +44,7 @@ public class SearchCommand extends Command {
                 }
             });
         }
+        //@@author
         return new CommandResult(sb.toString());
     }
 

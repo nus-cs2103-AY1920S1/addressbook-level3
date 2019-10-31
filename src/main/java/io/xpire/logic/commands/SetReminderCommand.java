@@ -14,6 +14,7 @@ import io.xpire.model.Model;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.item.XpireItem;
 
+
 /**
  * Changes the reminder threshold for an xpireItem identified with its displayed index.
  */

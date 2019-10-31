@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import io.xpire.model.Model;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
 
+//@@author febee99
 /**
  * Sorts the items in the displayed list.
  */

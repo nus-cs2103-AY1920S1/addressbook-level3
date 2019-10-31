@@ -21,6 +21,7 @@ public class ClearCommand extends Command {
         this.list = list;
     }
 
+    //@@author febee99
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

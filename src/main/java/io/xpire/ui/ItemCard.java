@@ -70,7 +70,7 @@ public class ItemCard extends UiPart<Region> {
         this.box.setOnMouseClicked(e -> this.box.requestFocus());
         this.setColor();
     }
-
+    //@@author febee99
     public ItemCard(Item replenishItem, int displayedIndex) {
         super(FXML);
         this.replenishItem = replenishItem;
@@ -93,6 +93,7 @@ public class ItemCard extends UiPart<Region> {
                 DATE_FORMAT);
     }
 
+    //@@author xiaoyu-nus
     private void setColor() {
         long remainingDays = Long.parseLong(xpireItem.getExpiryDate().getStatus());
         int reminderThreshold = xpireItem.getReminderThreshold().getValue();
