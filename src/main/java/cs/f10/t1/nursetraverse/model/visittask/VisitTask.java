@@ -40,6 +40,17 @@ public class VisitTask {
         return isDone;
     }
 
+    /**
+     * Get isDone formatted as a string.
+     */
+    public String getIsDoneAsString() {
+        if (isDone) {
+            return "✔";
+        } else {
+            return "✘";
+        }
+    }
+
     public Detail getDetail() {
         return detail;
     }
@@ -79,9 +90,9 @@ public class VisitTask {
                 .append(" Details: ")
                 .append(getDetail());
         if (isDone()) {
-            builder.append(" (done)");
+            builder.append("Status: (done)");
         } else {
-            builder.append(" (unfinished)");
+            builder.append("Status: (unfinished)");
         }
         return builder.toString();
     }

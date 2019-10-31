@@ -12,6 +12,7 @@ import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.logic.parser.PatientBookParser;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
+import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ReadOnlyPatientBook;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
@@ -105,5 +106,10 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Visit> getObservableOngoingVisitList() {
         return model.getObservableOngoingVisitList();
+    }
+
+    @Override
+    public ObservableList<HistoryRecord> getObservableHistoryList() {
+        return model.getHistory();
     }
 }

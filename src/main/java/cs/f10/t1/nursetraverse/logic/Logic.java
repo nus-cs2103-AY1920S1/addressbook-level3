@@ -6,6 +6,7 @@ import cs.f10.t1.nursetraverse.commons.core.GuiSettings;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
+import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ReadOnlyPatientBook;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
@@ -61,4 +62,9 @@ public interface Logic {
      * The current constraint is to only have 1 ongoing visit at any time.
      */
     ObservableList<Visit> getObservableOngoingVisitList();
+
+    /**
+     * Returns an unmodifiable view of the list of the history.
+     */
+    ObservableList<HistoryRecord> getObservableHistoryList();
 }

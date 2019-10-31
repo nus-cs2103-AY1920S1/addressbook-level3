@@ -10,7 +10,6 @@ import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.commons.util.VisitUtil;
-import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
@@ -25,7 +24,7 @@ import cs.f10.t1.nursetraverse.model.visittask.VisitTask;
 /**
  * Updates the details of the ongoing visit.
  */
-public class UpdateOngoingVisitCommand extends Command implements MutatorCommand {
+public class UpdateOngoingVisitCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "visit-now-update";
 
@@ -40,9 +39,9 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
             + "[" + PREFIX_VISIT_REMARKS + "REMARKS] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_VISIT_TASK_UNFINISH + "1 "
+            + PREFIX_VISIT_TASK_FINISH + "2 "
             + PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "1 "
             + PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "2 140/90mmHg "
-            + PREFIX_VISIT_TASK_FINISH + "2 "
             + PREFIX_VISIT_REMARKS + "Patient may be allergic to bacitracin";
 
     public static final String MESSAGE_UPDATE_ONGOING_VISIT_SUCCESS = "Updated Visit: %1$s";
@@ -85,7 +84,7 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
      * Creates and returns a {@code Visit} with the details of {@code visitToUpdate}
      * edited with {@code updateVisitDescriptor}.
      */
-    private static Visit createUpdated(Visit visitToUpdate,
+    private Visit createUpdated(Visit visitToUpdate,
                                        UpdateOngoingVisitDescriptor descriptor) throws CommandException {
         CollectionUtil.requireAllNonNull(visitToUpdate, descriptor);
         assert visitToUpdate != null;

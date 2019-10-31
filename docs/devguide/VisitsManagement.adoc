@@ -1,13 +1,16 @@
+:imagesDir: ../images
+:relfileprefix: ../
+
 Visit Management has 3 sections to it: the model that models the visits, the logic that allows users to manipulate these models and the UI.
 
 ==== Model
 
-How Visits, VisitTodos and VisitTasks are stored can be seen in <<Design-Model>> above. To support the feature of ongoing visits and the constraint that there can only be 1 ongoing visit at a time, a `Pair<Integer, Integer>` named `pairOfOngoingPatAndVisitIndexes` is stored in `AddressBook`. This serves multiple purposes:
+How Visits, VisitTodos and VisitTasks are stored can be seen in <<Design-Model>> above. To support the feature of ongoing visits and the constraint that there can only be 1 ongoing visit at a time, a `Pair<Integer, Integer>` named `pairOfOngoingPatAndVisitIndexes` is stored in `PatientBook`. This serves multiple purposes:
 
 * To identify the `Patient` that is currently being visited and the `Visit` that is ongoing
 * To ensure that the state is saved even if the application shuts down during an ongoing visit
 * To ensure there is no duplication of data by storing only the indexes for reference
-* Although there is a reference to the `Patient` in the `Visit` class, it is not stored in the JSON file. Thus, the `Patient` needs to be stored together with the `Visit` as a pair in `AddressBook`.
+* Although there is a reference to the `Patient` in the `Visit` class, it is not stored in the JSON file. Thus, the `Patient` needs to be stored together with the `Visit` as a pair in `PatientBook`.
 
 `Model` implements the following operations:
 
@@ -35,9 +38,9 @@ How Visits, VisitTodos and VisitTasks are stored can be seen in <<Design-Model>>
 
 ==== UI
 
-A `Patient` 's `Visit` s, `VisitTodo`  are displayed together with his details on `pat-list` and `pat-find` in a `TitledPane`.
+A `Patient` 's `Visit` s, `VisitTodo` are displayed together with his details on `pat-list` and `pat-find` in a `TitledPane`.
 
-An ongoing `Visit` is displayed in another tab named "Current Visit".
+An ongoing `Visit` is displayed in another tab named "Current Visit" using  `OngoingVisitListPanel` containing `OngoingVisitCard` which contains `VisitTaskTableView`. Likewise, in `pat-list` and `pat-find` use `FinishedVisitCard` s each containing a `VisitTaskTableView` to display the `Visit` s and `VisitTask` s.
 
 ==== UI Design Considerations
 
@@ -60,3 +63,13 @@ Aspect: How to display the ongoing `Visit`
 * **Alternative 2:** Open a new window to show the ongoing `Visit`.
 ** Pros: Can be viewed side by side with the main application.
 ** Cons: Increases clutter on user screen, increases complexity in handling scenario where user closes the window.
+
+=== Use case
+
+Visit Management is used when the user wants to visit a patient and record their visit.
+
+image::VisitActivityDiagram.png[width="500"]
+
+The most complex part of this use case is in when the user decides to update the ongoing visit. The sequence of events is detailed in this link:images/VisitActivityDiagram.png{outfilesuffix}[sequence diagram]. Alternatively you can right click the image below and select "view image".
+
+image::UpdateOngoingVisitSequenceDiagram.png[width="300"]
