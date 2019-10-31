@@ -3,7 +3,6 @@ package seedu.address.logic.commands.flashcard;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.TIMETRIAL;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Optional;
