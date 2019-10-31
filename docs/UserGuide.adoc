@@ -119,19 +119,182 @@ There is no need to save manually.
 
 === Transactions
 
+Do you ever feel overwhelmed by the ever-growing number of transactions you have to keep track of?
+With our transactions feature, you can organise your transactions in a fuss-free manner!
+
+In the transactions tab, you can maintain a list of your transactions, adding, editing, deleting and filtering items
+as you like. The image below gives an overview of the GUI of the feature:
+
+[[transactionsScreenshot]]
+.Transaction tab
+image::TransactionsScreenshot.png[]
+
+Before we introduce the commands you can use, let us briefly run through the labelled components of our GUI.
+
+===== Transaction list / cell
+The transaction list comprises several transaction cells. Each transaction cell represents a single transaction.
+We give a further breakdown of the information each transaction cell displays in the following image:
+
+[[transactionCell]]
+.Information in a transaction cell
+image::TransactionCell.png[]
+
+[NOTE]
+We differentiate income items from expenditure items using the color of the text for the "Amount" field. A green
+amount indicates that the transaction is an income item; a red amount indicates that the transaction is an
+expenditure item. For example, the first transaction cell in <<transactionsScreenshot>> represents an income item,
+whereas the second cell represents an expenditure item.
+
+
+===== Filter title
+The filter title indicates which transactions are being shown. In <<transactionsScreenshot>>, the list
+shows only transactions that occur on October 2019, under the category "Food".
+
+Minimally, the filter title contains the month and year of the filter applied. It can also display
+the category shown, as well as whether only expenditure/income items are shown.
+
+The filter title changes along with the filter that is applied to the list. You can change the filter using
+the `filtertx` command in <<filtertx>>
+
+[NOTE]
+On startup, the filter is generated based on the latest transaction you have recorded,
+up to the current date. The filter follows the month and year of this transaction, and does not
+filter for category or type.
+If there are no transactions recorded, the current date in the system is used to
+generate the the filter.
+This makes it easier for you to access the transactions in the current month!
+
+// tag::filtertx[]
+[[filtertx]]
+==== Filtering transactions: `filtertx`
+Format: `filtertx [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TYPE]`
+
+Let's say you are currently viewing transactions from September 2018. The GUI of Ichifund may look like this:
+
+image::filtertx1.png[]
+
+Suppose you want to view transactions from a different month, say, September 2018.
+You can simply enter the command `filtertx m/9 y/2018`, which results in the following view:
+
+image::filtertx2.png[]
+
+
+Now, if you want to only see expenditure items, simply enter the command `filtertx ty/exp`.
+
+image::filtertx3.png[]
+
+You may find that this view of the list is still too cluttered for you. In that case,
+you can further limit the transactions in the list to contain only items from the category "FOOD" using
+the command `filtertx c/food`
+
+image::filtertx4.png[]
+
+If you want to see expenditure items of the same time, but in a different month, say, August 2019, enter
+the command `filtertx m/8`. Note that you do not need to enter the year, category, or transaction type again.
+The GUI will update accordingly, as follows:
+
+image::filtertx5.png[]
+
+[NOTE]
+To see only expenditure items, enter `filtertx ty/exp`; to see only income items, enter `filtertx ty/in`. This
+also applies when you are adding transactions in <<addtx>>
+
+===== Removing category and transaction type filter
+Now, if you want to remove both the category filter and the transaction type, you can enter the command
+`filtertx c/!all ty/!all`.
+
+image::filtertx6.png[]
+
+[NOTE]
+You can only remove the category and transaction type filter using the `!all` argument. We do not support
+the removal of the month and year filter.
+
+[TIP]
+Like the other commands in IchiFund, you can enter the arguments in any order, as long as
+the command word `filtertx` is keyed in at the start.
+
+// end::filtertx[]
+
+[[addtx]]
 ==== Creating transaction: `addtx`
-Creates a transaction. +
 Format: `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
-Examples:
+Imagine you are browsing your transactions under the category of "Transportation" in November.
+Your GUI may look like this:
 
-* `addtx de/Salary a/2101.00 c/Work ty/in` +
-Creates an income transaction of $2101.00 titled "Salary" occurring today under the category "Work".
+image::addtx1.png[]
 
-* `addtx de/Lunch a/12.31 c/Food d/10 m/09 y/2019 ty/exp` +
-Creates an expenditure transaction of $12.32 titled "Food" occurring on the 10th September 2019 under the category "Food".
+Let's say you remember that spent $12.31 on lunch on 31 October 2019.
+If you want to record this transaction under the category "FOOD", you can enter the full
+command `addtx de/Lunch a/12.31 c/food d/31 m/10 y/2019 ty/exp`
 
-==== Editing transaction: `edittx`
+The application now looks like this:
+
+image::addtx2.png[]
+
+Here, IchiFund automatically changes the filter for you, so that you can review the addition
+you made. This makes it convenient if you want to edit your transactions, as detailed in <<edittx>>
+
+Also, note that the transaction appears at the top of the list. This is because we automatically sort
+your transactions by date, followed by category, so that you can systematically look through your
+transactions.
+
+[NOTE]
+When specifying whether a transaction is an expenditure item or an income item, use the arguments
+`ty/exp` or `ty/in` respectively, similar to how would do so in <<filtertx>>
+
+===== Optional arguments
+
+You may find the command used earlier too cumbersome to type. If so, you can leave out some of the optional
+arguments. To illustrate this, let's return to the earlier scenario:
+
+image::addtx1.png[]
+
+Let's say it is 1 November 2019 today. You have just spent another $10.00 hiring a cab to go to the hospital,
+and want to record this transaction under the category of "Transportation". You can simply enter
+the command `addtx a/10 de/Cab to hospital`, and obtain the following result:
+
+image::addtx3.png[]
+
+Here, as the month, year, and category arguments are left empty, IchiFund fills it in according to the
+filter title. The day argument is taken to be the current day of the month, according to the system date.
+IchiFund also assumes that most transactions are expenditure items, and uses that as a default value.
+
+The following table summarizes the default values that optional arguments take if left unspecified.
+
+|==============================
+| Argument | Default values
+
+| Day | According to system time and date.
+| Month | According to the filter
+| Year | According to the filter
+| Category | According to the filter, if applicable, or "Uncategorised" otherwise.
+| Type | According to the filter, if applicable, or "exp" otherwise.
+|==============================
+
+[TIP]
+The default value of the day argument is the current day of month in the system time. Hence, to utilise this
+feature to its fullest, you are recommended to add transactions on the day it occurs.
+
+===== Constraints
+The feature for adding transactions is built to work best under these constraints:
+
+|==============================
+| Argument | Constraints
+
+| Description | Up to 50 alphanumeric characters, case-sensitive
+| Amount | Positive number, with up to 2 decimal places; maximum value of $100000 for each transaction
+| Category | Up to 50 alphanumeric characters, case-insensitive
+| Day | Numerical value from 1-31
+| Month | Numerical value from 1-12
+| Year | Numerical value from 2000-9999
+| Type | Either "in" or "exp"
+|==============================
+
+Additionally, the transaction feature works best when the system time functions normally, with no change in time zone.
+
+<<edittx>>
+==== Editing transaction: `edittx` [Coming in v2.0]
 Edits a transaction. +
 Format: `edittx INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
@@ -140,7 +303,7 @@ Examples:
 * `edittx 1 de/Dinner a/32.30` +
 Edits the description of the 1st transaction in the current list to "Dinner", and its amount to $32.30.
 
-==== Deleting transaction: `deletetx`
+==== Deleting transaction: `deletetx` [Coming in v2.0]
 Deletes a transaction. +
 Format: `deletetx INDEX`
 
@@ -148,19 +311,6 @@ Examples:
 
 * `deletetx 5` +
 Deletes the 5th transaction in the current list.
-
-==== Finding transaction: `findtx`
-Filters transactions in current list by keywords, category, month, year and/or type. +
-Format: `findtx [s/KEYWORD]... [c/CATEGORY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
-
-Examples:
-
-* `findtx m/5 y/2019 c/Education` +
-Finds all transactions in the current list from May 2019 from the category "Education".
-
-==== List all transactions: `txlist`
-Lists all transactions. +
-Format `listtx`
 
 === Repeaters
 
