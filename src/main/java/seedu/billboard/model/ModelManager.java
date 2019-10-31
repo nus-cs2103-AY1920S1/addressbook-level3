@@ -16,9 +16,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.commons.core.date.DateInterval;
+import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.recurrence.Recurrence;
+import seedu.billboard.model.recurrence.RecurrenceList;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.tag.Tag;
@@ -286,6 +289,44 @@ public class ModelManager implements Model {
     public void setStatisticsFormatOptions(StatisticsFormatOptions options) {
         statsOptions.setValue(options);
     }
+
+    //=========== Recurrence Methods ==================================================
+
+    @Override
+    public void setRecurrences(List<Recurrence> recurrences) {
+        billboard.setRecurrences(recurrences);
+    }
+
+    @Override
+    public void setRecurrences(RecurrenceList recurrences) {
+        billboard.setRecurrences(recurrences);
+    }
+
+    @Override
+    public RecurrenceList getRecurrences() {
+        return billboard.getRecurrences();
+    }
+
+    @Override
+    public boolean hasRecurrence(Recurrence recurrence) {
+        return billboard.hasRecurrence(recurrence);
+    }
+
+    @Override
+    public void removeRecurrence(Recurrence recurrence) {
+        billboard.removeRecurrence(recurrence);
+    }
+
+    @Override
+    public Recurrence removeRecurrence(int index) {
+        return billboard.removeRecurrence(index);
+    }
+
+    @Override
+    public void addRecurrence(Recurrence recurrence) {
+        billboard.addRecurrence(recurrence);
+    }
+
 
     //=========== Clone Methods =============================================================
 
