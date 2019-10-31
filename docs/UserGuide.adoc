@@ -148,37 +148,77 @@ Deletes the transaction with the specified ID.
 
 Format: `txn delete <id>`
 
+// tag::accounts[]
 === Managing accounts: `account`
 
 ==== Add an account: `account add`
 
-Creates a new account with the given name and an optional description
+You can create a new account. Each account has a unique ID and name. The user can choose to customise a description to describe the use of the account.
 
 Format: `account add [n/<name>] [d/<description>]`
 
+Examples:
+
+* `account add n/Japan trip`
+You have created an account with name as 'Japan trip'.
+* `account add n/Japan trip d/expense spent in Japan`
+You have created an account with name as 'Japan trip' and description of 'expense spent in Japan'.
+
 ==== List accounts: `account list`
 
-Lists all accounts.
+If you want to see the full list of accounts you currently own, you can enter command and a list of all accounts will be displayed.
+
+Format: `account list`
 
 ==== Edit an account: `account edit`
 
-Edits the specified account, setting the specified fields.
+You can edit the account you think that needs modified. You can choose to edit either the name or the description of the account, or both.
 
 Format: `account edit <id> [n/<name>] [d/<description>]`
 
+****
+* Edits the account with the specified index. The index refers to the index number shown in the displayed account list. The index must be a positive integer 1, 2, 3...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+*`account edit 1 n/food`
+The name of your first account will be changed to 'food'.
+*`account edit 1 d/money spent on food`
+The name of your first account will be changed to 'money spent on food'.
+*`account edit 1 n/food d/money spent on food`
+The name of your first account will be changed to 'food', at the same time the description of the same account will be changed to 'money spent on food'.
+
 ==== Delete account: `account delete`
 
-Deletes the accounts with the specified IDs, as in `account list`.
+You can delete the account with the specified ID, as in `account list`.
 Note: you cannot delete an account if there are transactions associated with the account.
 
 Format: `account delete <id>`
 
+****
+* Deletes the account with the specified index. The index refers to the index number shown in the displayed account list. The index must be a positive integer 1, 2, 3...
+****
+
+Examples:
+
+* `account delete 2`
+You have deleted the second account in your account list.
+
 ==== Find account: `account find`
 
-Finds the accounts with the specified keywords, as in `account list`.
+If you want to see a specific type of accounts you have, or find a specific account, you can find the account(s) with a specified keyword.
+A list of account(s) contain the keyword in their names will be displayed.
 
 Format: `account find <keyword>`
 
+Examples:
+
+*`account find trip`
+You can see a list of accounts with 'trip' contained in their names.
+// end::accounts[]
 === Managing categories: `category`
 
 ==== Add a category
