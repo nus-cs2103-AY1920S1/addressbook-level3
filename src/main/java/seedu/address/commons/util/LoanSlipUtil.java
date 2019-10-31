@@ -6,6 +6,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -13,7 +14,9 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Table;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.LoanSlipException;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.book.Book;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.loan.Loan;
@@ -41,6 +44,7 @@ public class LoanSlipUtil {
     private static boolean isMounted = false;
     private static boolean isGenerated = false;
 
+    private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     /**
      * Mounts a Loan slip in preparation for creating a pdf version of it.
@@ -116,7 +120,9 @@ public class LoanSlipUtil {
             float [] pointColumnWidths = {FIRST_ROW_WIDTH, SECOND_ROW_WIDTH, THIRD_ROW_WIDTH};
             Table table = new Table(pointColumnWidths);
             LoanSlipDocument doc = new LoanSlipDocument(document, table);
+            logger.info("genrating liberry loan slip...");
             generateLiberryLoanSlip(doc);
+            logger.info("generated liberry loan slip...");
         } catch (IOException e) {
             throw new LoanSlipException(e.getMessage());
         }
@@ -161,7 +167,7 @@ public class LoanSlipUtil {
      */
     private static void generateLiberryLoanSlip(LoanSlipDocument doc) {
         assert isMounted : "No loan slip mounted";
-        writeLogoToDoc(doc);
+        //writeLogoToDoc(doc);
         writeHeaderToDoc(doc);
         populateTableInDoc(doc);
         addTableToDocument(doc);
@@ -174,10 +180,12 @@ public class LoanSlipUtil {
      *
      * @param doc {@code LoanSlipDocument} to be written to.
      */
+    /*
     private static void writeLogoToDoc(LoanSlipDocument doc) {
         doc.writeLogo();
         doc.writeLine();
     }
+    */
 
     /**
      * Helper method to write the header section of the document.
