@@ -1,16 +1,16 @@
 package seedu.revision.model.answerable;
 
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.CoreDocument;
-import edu.stanford.nlp.pipeline.CoreSentence;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.ie.NumberNormalizer;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.pipeline.CoreDocument;
+import edu.stanford.nlp.pipeline.CoreSentence;
+import edu.stanford.nlp.ie.NumberNormalizer;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 /**
  * Used to check saq answers
@@ -22,10 +22,7 @@ public class AnswerChecker {
     /**
      * Used to search for keywords using parts of speech tagging
      */
-    static List<String> POSKeywords = List.of("CC", "CD", "NN", "NNS", "JJ");
-
-//    public AnswerChecker() {
-//    }
+    private static List<String> posTags = List.of("CC", "CD", "NN", "NNS", "JJ");
 
     /**
      * Analyses the string of answer to determine keywords.
@@ -44,7 +41,7 @@ public class AnswerChecker {
         while (iter.hasNext()) {
             CoreLabel coreLabel = iter.next();
             String pos = coreLabel.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-            if (!POSKeywords.parallelStream().anyMatch(pos::contains)) {
+            if (!posTags.parallelStream().anyMatch(pos::contains)) {
                 iter.remove();
             }
         }

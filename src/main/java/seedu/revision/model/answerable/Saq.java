@@ -43,7 +43,8 @@ public class Saq extends Answerable {
 
     @Override
     public boolean isCorrect(Answer selectedAnswer) {
-        boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(), getCorrectAnswerList().get(0).toString());
+        boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(),
+                getCorrectAnswerList().get(0).toString());
         if (answerIsCorrect) {
             logger.info("answer is CORRECT");
         } else {

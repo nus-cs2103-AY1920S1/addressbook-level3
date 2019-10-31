@@ -1,9 +1,12 @@
 package seedu.revision.model.answerable;
 
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-
 import java.util.Properties;
 
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+
+/**
+ * Creates a pipeline to process user input
+ */
 public class Pipeline {
 
     private static Properties properties;
@@ -18,7 +21,7 @@ public class Pipeline {
     }
 
     public static StanfordCoreNLP getPipeline() {
-        if(pipeline == null) {
+        if (pipeline == null) {
             pipeline = new StanfordCoreNLP(properties);
         }
         return pipeline;
