@@ -70,14 +70,25 @@ class LoanSlipUtilTest {
     }
 
     @Test
-    public void mountLoanSlip_loanSlipMountedDifferentBorrower_mountMultipleSlipsFailure() {
+    public void mountLoanSlip_loanSlipMountedDifferentBorrower_failure() {
         LoanSlipUtil.unmountLoans();
         assertFalse(LoanSlipUtil.isMounted());
         //Mount first loan
         assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));
         //Mount second loan
-        //Check that second loan is mounted, adding to first loan
+        //Check that second loan cannot be mounted since it is a different borrower
         assertThrows(AssertionError.class, () -> LoanSlipUtil.mountLoan(loan2, BOOK_2, BOB));
+    }
+
+    @Test
+    public void mountLoanSlip_loanSlipMountedSameBorrower_sucess() {
+        LoanSlipUtil.unmountLoans();
+        assertFalse(LoanSlipUtil.isMounted());
+        //Mount first loan
+        assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan, book, borrower));
+        //Mount second loan
+        //Check that second loan cannot be mounted since it is a different borrower
+        assertDoesNotThrow(() -> LoanSlipUtil.mountLoan(loan3, BOOK_2, borrower));
     }
 
     @Test
