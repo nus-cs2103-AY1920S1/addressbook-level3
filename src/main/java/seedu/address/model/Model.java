@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
-import seedu.address.model.reminder.Appointment;
+import seedu.address.model.appointment.Appointment;
 
 /**
  * The API of the Model component.

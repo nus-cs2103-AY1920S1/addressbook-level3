@@ -1,4 +1,4 @@
-package seedu.address.model.reminder;
+package seedu.address.model.appointment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -9,8 +9,8 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.reminder.exceptions.AppointmentNotFoundException;
-import seedu.address.model.reminder.exceptions.DuplicateAppointmentException;
+import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
+import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
 /**
  * AppointmentList facilitates the storing of Reminders and Follow-ups for UI

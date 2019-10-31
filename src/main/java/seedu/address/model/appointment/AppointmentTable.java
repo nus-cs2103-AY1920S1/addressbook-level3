@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.appointment;
 
 import static java.util.Objects.requireNonNull;
 
@@ -14,7 +14,6 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.reminder.Appointment;
 
 /**
  * AppointmentTable facilitates the storing of Reminders and Follow-Ups in JSON
