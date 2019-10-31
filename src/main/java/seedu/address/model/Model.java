@@ -16,7 +16,6 @@ import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
@@ -31,7 +30,6 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<User> PREDICATE_SHOW_ALL_USERS = unused -> true;
     //TODO: check what this means
     Predicate<Record> PREDICATE_SHOW_ALL_RECORDS = unused -> true;
