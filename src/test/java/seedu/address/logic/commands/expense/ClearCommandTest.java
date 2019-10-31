@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;

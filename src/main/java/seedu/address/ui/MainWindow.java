@@ -52,7 +52,7 @@ import seedu.address.logic.commands.event.EditEventCommand;
 import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.expense.AddExpenseCommand;
-import seedu.address.logic.commands.expense.ClearCommand;
+import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
@@ -229,7 +229,7 @@ public class MainWindow extends UiPart<Stage> {
                 new BudgetListPanel(logic.getFilteredBudgetList()));
         singlePanelView.setPanel(EventListPanel.PANEL_NAME,
                 new EventListPanel(logic.getFilteredEventList(), true));
-        singlePanelView.setPanel(PanelName.STATISTICS_PANEL, new PlaceholderPanel());
+        singlePanelView.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
 
         // startup panel = expense list panel
         try {
@@ -430,7 +430,6 @@ public class MainWindow extends UiPart<Stage> {
 
         if (panelName.equals(StatsPanel.PANEL_NAME)) {
             populateStatisticsPanel();
-
         }
         singlePanelView.viewPanel(panelName);
     }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.Alias;
+import seedu.address.model.alias.Alias;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

@@ -9,7 +9,7 @@ import javafx.scene.layout.StackPane;
  */
 public class PlaceholderPanel extends Panel {
 
-    private static final String PLACEHOLDER_PANEL_MESSAGE = "This panel is empty!";
+    private static final String PLACEHOLDER_PANEL_MESSAGE = "There is nothing to display here yet!";
     @FXML
     private StackPane panelPlaceholder;
 
@@ -20,7 +20,7 @@ public class PlaceholderPanel extends Panel {
     @Override
     public void view() {
         if (panelPlaceholder.getChildren().size() < 1) {
-            panelPlaceholder.getChildren().add(new Label("This is not the Panel you are looking for."));
+            panelPlaceholder.getChildren().add(new Label(PLACEHOLDER_PANEL_MESSAGE));
         }
         getRoot().setVisible(true);
         getRoot().setDisable(false);

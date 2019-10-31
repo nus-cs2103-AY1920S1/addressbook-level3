@@ -2,7 +2,7 @@ package seedu.address.commons.exceptions;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Alias;
+import seedu.address.model.alias.Alias;
 
 /**
  * Represents an error which occurs when trying to add an Alias which has an CommandWord which

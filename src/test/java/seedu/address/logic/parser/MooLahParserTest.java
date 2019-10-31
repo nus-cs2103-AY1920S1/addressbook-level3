@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.alias.AddAliasCommand;
-import seedu.address.logic.commands.expense.ClearCommand;
+import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand.EditExpenseDescriptor;

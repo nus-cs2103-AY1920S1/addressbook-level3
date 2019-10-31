@@ -2,10 +2,10 @@ package seedu.address.logic.commands.alias;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GenericCommandWord;
-import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.alias.AliasPanel;
@@ -13,7 +13,7 @@ import seedu.address.ui.alias.AliasPanel;
 /**
  * Create an alias for common user input.
  */
-public class ListAliasCommand extends UndoableCommand {
+public class ListAliasCommand extends Command {
 
     public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.ALIAS + "es";
     public static final String COMMAND_DESCRIPTION = "List aliases";
@@ -25,11 +25,6 @@ public class ListAliasCommand extends UndoableCommand {
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
         // no validation needed
-    }
-
-    @Override
-    public String getDescription() {
-        return COMMAND_DESCRIPTION;
     }
 
     @Override

@@ -2,9 +2,9 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 
-import seedu.address.commons.core.Alias;
-import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.AliasMappings;
 
 /**
  * Unmodifiable view of user prefs.

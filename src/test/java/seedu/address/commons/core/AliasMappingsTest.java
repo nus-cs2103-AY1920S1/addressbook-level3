@@ -22,6 +22,8 @@ import static seedu.address.testutil.AliasTestUtil.ALIAS_NAME_LIST;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.RecursiveAliasException;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.AliasMappings;
 
 
 class AliasMappingsTest {

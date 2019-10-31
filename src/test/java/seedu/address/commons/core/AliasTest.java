@@ -8,6 +8,8 @@ import static seedu.address.testutil.AliasTestUtil.ALIAS_A_TO_B;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.alias.Alias;
+
 
 class AliasTest {
 

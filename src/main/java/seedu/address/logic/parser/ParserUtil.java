@@ -6,7 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.Optional;
 import java.util.regex.Matcher;
 
-import seedu.address.commons.core.Alias;
+import seedu.address.model.alias.Alias;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.general.HelpCommand;

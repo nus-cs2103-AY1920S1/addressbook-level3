@@ -2,8 +2,12 @@ package seedu.address.ui.textfield;
 
 import static seedu.address.ui.textfield.SyntaxHighlightingSupportedInput.PLACEHOLDER_REGEX;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -208,6 +212,13 @@ public class AutofillSuggestionMenu extends ContextMenu {
                 item.setGraphic(graphic);
                 m.getItems().add(item);
             }
+            if (missing[0].size() > 0) {
+                String all = missing[0].stream().map(Object::toString).collect(Collectors.joining(" "));
+                MenuItem allPre = new MenuItem();
+                allPre.setId(all);
+                allPre.setGraphic(requiredPrefixGraphic(missing[0]));
+                m.getItems().add(allPre);
+            }
             if (missing[0].size() > 0 && missing[1].size() > 0) {
                 m.getItems().add(new SeparatorMenuItem());
             }
@@ -273,6 +284,18 @@ public class AutofillSuggestionMenu extends ContextMenu {
         Text prefix = new Text(" " + p.getPrefix() + "<" + p.getDescriptionOfArgument() + ">");
         prefix.setFill(REQUIRED_TEXT_COLOUR);
         graphic.getChildren().addAll(req, prefix);
+        return graphic;
+    }
+
+    private TextFlow requiredPrefixGraphic(List<Prefix> p) {
+        TextFlow graphic = new TextFlow();
+        graphic.setPadding(Insets.EMPTY);
+        Label req = new Label("ALL MISSING");
+        req.setTextFill(REQUIRED_TEXT_COLOUR);
+        req.setPadding(Insets.EMPTY);
+        req.setBackground(new Background(
+                new BackgroundFill(REQUIRED_LABEL_BACKGROUND_COLOUR, CornerRadii.EMPTY, Insets.EMPTY)));
+        graphic.getChildren().addAll(req);
         return graphic;
     }
 

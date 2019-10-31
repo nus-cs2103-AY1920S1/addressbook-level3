@@ -1,7 +1,8 @@
-package seedu.address.logic.commands.expense;
+package seedu.address.logic.commands.general;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.model.alias.AliasMappings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
@@ -15,7 +16,7 @@ public class ClearCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String COMMAND_DESCRIPTION = "Clear MooLah";
-    public static final String MESSAGE_SUCCESS = "All expenses in MooLah have been cleared!";
+    public static final String MESSAGE_SUCCESS = "MooLah has been reset!";
 
     @Override
     public String getDescription() {
@@ -31,6 +32,7 @@ public class ClearCommand extends UndoableCommand {
     protected CommandResult execute(Model model) {
         requireNonNull(model);
         model.setMooLah(new MooLah());
+        model.setAliasMappings(new AliasMappings());
         return new CommandResult(MESSAGE_SUCCESS, ExpenseListPanel.PANEL_NAME);
     }
 }

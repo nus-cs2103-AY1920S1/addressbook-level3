@@ -41,11 +41,11 @@
 .prefix1 {
     -fx-font-weight: bold;
 
-    -fx-fill: #004d71;
+    -fx-fill: #005f8e;
 }
 
 .arg1 {
-    -fx-fill: #004d71;
+    -fx-fill: #005f8e;
 }
 
 .prefix2 {
@@ -71,9 +71,9 @@
 .prefix4 {
     -fx-font-weight: bold;
 
-    -fx-fill: #690700;
+    -fx-fill: #c978cc;
 }
 
 .arg4 {
-    -fx-fill: #690700;
+    -fx-fill: #c978cc;
 }
