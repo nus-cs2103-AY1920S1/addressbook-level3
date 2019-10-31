@@ -4,61 +4,60 @@
 :stylesDir: ../stylesheets
 
 == 1. Introduction
-=== 1.1 Purpose
-This portfolio serves as a showcase of my roles and contributions to the team project `**THRIFT**`. This project was part of
-the requirements of a year two software engineering module that I have taken as an undergraduate in NUS.
+This portfolio serves to showcase my roles and contributions to the team project THRIFT. This project was part of
+the requirements of a year two software engineering module, CS2103T, that I had taken as an undergraduate in NUS.
 
-=== 1.2 Project: `**THRIFT**`
-`**THRIFT**` is a finance tracker desktop application targeting money-conscious NUS students who wish to keep
+In this project, I was the team lead and was primarily in charge of leading the team towards our end-product.
+My team members were: `Lee Bo Qiang` (User Experience Developer), `Melvin Ang` (Software Architect), `Lye Jian Wen` (Quality Assurance Manager) and `Kenson Oen` (Process Analyst). We all had important and major roles to play in order to ensure that THRIFT is successful.
+
+=== 1.1 Project: THRIFT
+THRIFT is a finance tracker desktop application targeting money-conscious NUS students who wish to keep
 their spending in check. It allows its users to set a budget for each month and track incoming and outgoing transactions. This would remind the user
-not to overspend as they will constantly see their remaining balance for that month. The following image is what `**THRIFT**` looks like:
+not to overspend as they will constantly see their remaining balance for that month. The following image is how THRIFT looks like:
 
-.Main window of `**THRIFT**` which shows the user's balance as well as transactions
-image::../images/Ui.png[,550]
+.Main window of THRIFT which displays the user's balance as well as their transactions
+image::../images/UGUI.png[,700]
 
-=== 1.3 Background
-`**THRIFT**` is morphed from the original https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook-Level3] application which allows users to add contacts,
-creating a personalised list. My team and I have since transformed the application to better suit our purpose.
+=== 1.2 Background of THRIFT
+THRIFT is morphed from the original https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook-Level3] application which allows users to add contacts to create a personalised list.
+My team and I have since transformed the application to better suit our purpose.
 
-In this project, I was the team lead and was primarily in charge of spearing the direction of the `**THRIFT**`.
-This meant that managing project milestones, deadlines and delegating work to different team members were part of my
-responsibilities.
-
-My team members took on the roles of "User Experience Developer", "Process Analyst", "Quality Assurance Manager" and "Software Architect".
-We all had important and major roles to play in order to ensure that `**THRIFT**` is successful.
-
-=== 1.4 Legend
-There are various text styles used in this portfolio and its usages are explained below.
+=== 1.3 Understanding this document
+There are various text styles used in this portfolio and its usages are explained below:
 
 NOTE: This symbol denotes information that you may want to take note of when using the application.
 
-TIP: This symbol denotes a tip which you may find useful when using the application.
-
-As our User Guide and Developer Guide are formatted differently, you should refer to their respective formatting guide below:
+The following text styles are only applicable to the section on the Developer Guide:
 
 [horizontal]
-User Guide: :: <<../UserGuide#features, Formatting>> of the User Guide
-Developer Guide: :: <<../DeveloperGuide#about-the-document, Formatting>> of the Developer Guide
+`currentMonth`:: Text with grey highlight (called a mark-up) indicates that it is a method/variable name.
+
+`**Expense**`:: Bold text with mark-up indicates a class/package name.
 
 == 2. Summary of Contributions
-This section provides a summary on the contributions I made to `**THRIFT**`.
+This section provides a summary on the various contributions that I have made to THRIFT.
 
 === 2.1 Enhancements made
-**Add transactions into the transaction list**
+**Major enhancements:**
 
-The **add_expense**/**add_income** command allows the user to track their incoming and outgoing transactions.
+* Added the **ability to add transactions** into the transaction list.
+** What it does: The **add_expense** and **add_income** commands allow the user to track their incoming and outgoing transactions.
+** Justification: It is a core feature to be able to add transactions into THRIFT.
+** Highlights: I had to modify the original AddressBook-Level3 codebase to add a transaction instead of a person. Additionally, the user is able to optionally annotate each transaction with a `**Remark**` and `**Tag**`.
 
-* Highlights: This command allows the user to optionally annotate each transaction with a `**Remark**` and `**Tag**`.
+* Added the **ability to set the budget for a specified month**.
+** What it does: The **budget** command allows the user to set their budget for a particular month.
+** Justification: With a budget set, the user can see if they are within their spending limit for the month.
+** Highlights: I had enhanced THRIFT to show the updated balance whenever the user changes their budget.
 
-**Set budget for a specified month**
+**Minor enhancements:**
 
-The **budget** command allows the user to set their budget for a particular month. This allows them to see if
-they are within their spending limit for the month.
-
-** Highlights: The user can change the budget at any time and their remaining balance would update accordingly.
+* Modified the THRIFT interface to **display transactions instead of people**.
+** Justification: THRIFT deals with transactions and not people objects, there is no longer the need to maintain people objects.
+** Highlights: I coloured incomes as green and expenses as red to improve the user experience by making the displayed information intuitive.
 
 === 2.2 Code contributed
-* [https://github.com/AY1920S1-CS2103T-W12-2/main/commits/master?author=limerencee[Commits]] [https://github.com/AY1920S1-CS2103T-W12-2/main/pulls?utf8=%E2%9C%93&q=is%3Amerged+is%3Apr+author%3Alimerencee+[Pull requests]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=limerencee&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense Code Contribution Dashboard]]
+Please follow these links to see a sample of my code: [https://github.com/AY1920S1-CS2103T-W12-2/main/commits/master?author=limerencee[Commits]] [https://github.com/AY1920S1-CS2103T-W12-2/main/pulls?utf8=%E2%9C%93&q=is%3Amerged+is%3Apr+author%3Alimerencee+[Pull requests]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=limerencee&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense Code Contribution Dashboard]]
 
 === 2.3 Other contributions
 * Project management:
@@ -71,13 +70,16 @@ This makes the **delete** command syntax consistent with the **update** command.
 ** Updated the original **find** command to search for the specified keyword(s) in a transaction's `**Remark**` as well as `**Description**`. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/163[#163])
 
 * Documentation:
-** Updated the original developer guide to suit the context of `**THRIFT**`. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/169[#169])
+** Updated the architecture diagrams in the original developer guide to suit the context of `**THRIFT**`. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/169[#169])
+** Updated the user guide to acknowledge the original codebase.
 
 * Community:
-** Reviewed pull requests with (non-trivial comments): https://github.com/AY1920S1-CS2103T-W12-2/main/pull/69[#69], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/168[#168], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/174[#174], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/175[#175]
+** Reviewed pull requests of new features (with non-trivial comments): https://github.com/AY1920S1-CS2103T-W12-2/main/pull/69[#69], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/168[#168], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/174[#174], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/175[#175]
 
 == 3. Contributions to the User Guide
-The following sections illustrate my ability in writing documentation targeting end-users which guides them in using the various features of the application.
+The following section illustrates my ability in writing documentation to guide end-users on using the various features of THRIFT.
+
+_{Start of extract}_
 
 === Setting monthly budget: `budget`
 
@@ -91,7 +93,9 @@ NOTE: It is not compulsory to set a budget for each month and you can use THRIFT
 ****
 * Sets your budget for the month specified in `MONTH` as `VALUE`.
 * `VALUE` is any positive integer below one billion.
-* `MONTH` is in `MM/YYYY` and `MM` is between `01-12`.
+* `MONTH` is in `MM/YYYY`:
+** `MM` is between `01-12`.
+** `YYYY` is between `0001-9999`.
 ****
 
 ==== Example usage:
@@ -108,38 +112,16 @@ image::../images/add-budget/Step2.png[,550]
 
 . You should see in the result box that your budget for _October 2019_ has been set to $_2000_.
 +
+NOTE: If you are changing your budget for the current displayed month, you should see the changes on the GUI immediately.
++
 image::../images/add-budget/Step3.png[,550]
 
-NOTE: If you are changing your budget for the current displayed month, you should see the changes on the GUI immediately.
-
-=== Deleting a transaction: `delete`
-If you find that a transaction is no longer relevant to you, you may delete it from THRIFT.
-
-==== Command syntax:
-`delete i/INDEX`
-
-****
-* Deletes the transaction with the specified `INDEX` as shown on the transaction list GUI.
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
-****
-
-==== Example usage:
-Assume that you wish to delete a bursary income transaction from your transaction list because the bursary was mistakenly awarded to you.
-
-. This transaction is currently the first transaction in your transaction list.
-+
-image::../images/delete/Step1.png[,550]
-
-. You type: **delete i/1** and press kbd:[Enter].
-+
-image::../images/delete/Step2.png[,550]
-
-. You should see that the bursary transaction has been deleted from THRIFT and your balance has been updated accordingly.
-+
-image::../images/delete/Step3.png[,550]
+_{End of extract}_
 
 == 4. Contributions to the Developer Guide
-The following sections illustrate my ability in writing documentation to provide developers insights on the design of the application. It also showcases the technical depth of my contributions to the project.
+The following section illustrates my ability in writing documentation to provide developers insights on the design of the application. It also showcases the technical depth of my contributions to THRIFT.
+
+_{Start of extract}_
 
 === Adding transactions
 We allow users to add `**Expense**`/`**Income**` transactions into `**THRIFT**` which enables record-keeping. This section will show how we handle such
@@ -237,3 +219,5 @@ are applied when restoring `**THRIFT**` data from the data file.
 ** Cons: Parsing the user input to allow only a single negative symbol and no other symbols causes an overhead.
 
 Alternative 1 was chosen because we want to keep the transaction list clean - only positive integers are stored.
+
+_{End of extract}_

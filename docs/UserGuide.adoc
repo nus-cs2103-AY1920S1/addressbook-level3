@@ -71,7 +71,9 @@ NOTE: It is not compulsory to set a budget for each month and you can use THRIFT
 ****
 * Sets your budget for the month specified in `MONTH` as `VALUE`.
 * `VALUE` is any positive integer below one billion.
-* `MONTH` is in `MM/YYYY` and `MM` is between `01-12`.
+* `MONTH` is in `MM/YYYY`:
+** `MM` is between `01-12`.
+** `YYYY` is between `0001-9999`.
 ****
 
 ==== Example usage:
@@ -88,9 +90,9 @@ image::add-budget/Step2.png[,550]
 
 . You should see in the result box that your budget for _October 2019_ has been set to $_2000_.
 +
-image::add-budget/Step3.png[,550]
-
 NOTE: If you are changing your budget for the current displayed month, you should see the changes on the GUI immediately.
++
+image::add-budget/Step3.png[,550]
 
 [[ExpenseTag]]
 === Adding an expense: `add_expense`

@@ -15,7 +15,7 @@ public class ListCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
 
     private static final String MESSAGE_INVALID_DATE_FORMAT = "Month should be in the following format: MM/yyyy."
-            + ", where MM is an integer between 01-12";
+            + ", where MM is an integer between 01-12 and yyyy is between 0001-9999";
 
     private ListCommandParser parser = new ListCommandParser();
 
