@@ -114,6 +114,7 @@ public class ImportCommand extends Command implements TrackableState {
             throw new CommandException(message);
         }
         model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

@@ -62,6 +62,7 @@ public class FindMentorCommand extends FindCommand {
         List<Mentor> results = model.findMentor(this.findPredicate);
         listResults(results, PrefixType.P);
         model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.M);
     }
 }

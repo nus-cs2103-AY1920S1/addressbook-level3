@@ -279,10 +279,18 @@ public class ModelManagerStub extends ModelManager {
     }
 
     /**
-     * Placeholder method to simulating reseting of FilteredList
+     * Placeholder method simulating reseting of FilteredList
      */
     @Override
     public void resetFilteredLists() {
+
+    }
+
+    /**
+     * Placeholder method simulating the recording of a command execution in CommandHistoryManager.
+     */
+    @Override
+    public void recordCommandExecution(String commandInputString) {
 
     }
 }

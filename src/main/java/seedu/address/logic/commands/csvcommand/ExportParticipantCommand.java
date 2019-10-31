@@ -29,6 +29,8 @@ public class ExportParticipantCommand extends ExportCommand {
             File csvFile = this.csvFilePath.toFile();
             FileUtil.createIfMissing(this.csvFilePath);
             CsvUtil.writeToCsv(csvFile, model.getParticipantList());
+            model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
         } catch (IOException ioe) {
             throw new CommandException(MESSAGE_IO_EXCEPTION);
         }

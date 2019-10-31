@@ -24,7 +24,7 @@ public class ListParticipantCommand extends ListCommand {
         this.displayEntities(model, PrefixType.P);
         model.resetFilteredLists();
         model.updateHistory(this);
-
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.P);
     }
 }

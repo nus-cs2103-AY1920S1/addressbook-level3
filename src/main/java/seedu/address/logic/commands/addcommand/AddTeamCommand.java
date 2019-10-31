@@ -50,6 +50,7 @@ public class AddTeamCommand extends AddCommand {
             model.addTeam(this.team);
             model.resetFilteredLists();
             model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             logger.severe("The same team already exist in model");
             throw new CommandException(MESSAGE_DUPLICATE_TEAM);

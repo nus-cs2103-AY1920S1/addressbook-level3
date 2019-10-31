@@ -74,4 +74,15 @@ public interface Logic {
      * Returns a List of Strings describing the commands that can be redone.
      */
     List<String> getRedoCommandHistory();
+
+    /**
+     * Gets string of previous command executed.
+     */
+    String getPrevCommandString();
+
+    /**
+     * Gets string of next command executed.
+     * @return
+     */
+    String getNextCommandString();
 }

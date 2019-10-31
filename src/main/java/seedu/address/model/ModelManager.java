@@ -58,6 +58,7 @@ public class ModelManager implements Model {
     // Also will have to change the relevant attributes to final.
     private AlfredStorage storage = null;
     private ModelHistory history = null;
+    private CommandHistory commandHistory = null;
     private AddressBook addressBook = null;
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons = null;
@@ -87,6 +88,7 @@ public class ModelManager implements Model {
         // TODO: Remove: Currently it is here to make tests pass.
         this.addressBook = new AddressBook();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.commandHistory = new CommandHistoryManager();
     }
 
     /**
@@ -161,8 +163,8 @@ public class ModelManager implements Model {
 
         try {
             this.history = new ModelHistoryManager(this.participantList, ParticipantList.getLastUsedId(),
-                    this.mentorList, MentorList.getLastUsedId(),
-                    this.teamList, TeamList.getLastUsedId());
+                                                   this.mentorList, MentorList.getLastUsedId(),
+                                                   this.teamList, TeamList.getLastUsedId());
         } catch (AlfredModelHistoryException e) {
             logger.severe("Unable to initialise ModelHistoryManager.");
         }
@@ -864,4 +866,17 @@ public class ModelManager implements Model {
     public ArrayList<CommandRecord> getCommandHistory() {
         return this.history.getCommandHistory();
     }
+
+    public void recordCommandExecution(String commandInputString) {
+        this.commandHistory.saveCommandExecutionString(commandInputString);
+    }
+
+    public String getPrevCommandString() {
+        return this.commandHistory.getPrevCommandString();
+    }
+
+    public String getNextCommandString() {
+        return this.commandHistory.getNextCommandString();
+    }
+
 }

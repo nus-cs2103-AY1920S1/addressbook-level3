@@ -24,6 +24,8 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         try {
             model.redo();
+            model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
             return new CommandResult(MESSAGE_SUCCESS, CommandType.H);
         } catch (AlfredModelHistoryException e) {
             throw new CommandException(e.getMessage());

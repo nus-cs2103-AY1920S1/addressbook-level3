@@ -197,4 +197,19 @@ public interface Model {
      * @throws AlfredModelHistoryException
      */
     ArrayList<CommandRecord> getCommandHistory();
+
+    /**
+     * Records the execution of the command. This is for the Command Navigation feature.
+     */
+    void recordCommandExecution(String commandInputString);
+
+    /**
+     * Gets the string of the previous command executed.
+     */
+    String getPrevCommandString();
+
+    /**
+     * Gets the string of the next command executed.
+     */
+    String getNextCommandString();
 }

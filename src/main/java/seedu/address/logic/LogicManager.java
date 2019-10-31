@@ -91,13 +91,23 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    //TODO: Marked for deprecation
     @Override
     public List<String> getUndoCommandHistory() {
         return model.getUndoCommandHistory();
     }
 
+    //TODO: Marked for deprecation
     @Override
     public List<String> getRedoCommandHistory() {
         return model.getRedoCommandHistory();
+    }
+
+    public String getPrevCommandString() {
+        return model.getPrevCommandString();
+    }
+
+    public String getNextCommandString() {
+        return model.getNextCommandString();
     }
 }

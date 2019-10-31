@@ -65,6 +65,7 @@ public class EditTeamCommand extends EditCommand {
         try {
             model.updateTeam(this.id, editedTeam);
             model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
             return new CommandResult(String.format(MESSAGE_EDIT_TEAM_SUCCESS, editedTeam.toString()), CommandType.T);
         } catch (AlfredException e) {
             throw new CommandException(e.getMessage());

@@ -63,55 +63,71 @@ public class AlfredParser {
         final String arguments = matcher.group("arguments");
 
         logger.info("Finding command type of " + commandWord);
+        Command c;
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            return new AddCommandAllocator().allocate(arguments);
+            c = new AddCommandAllocator().allocate(arguments);
+            break;
 
         case FindCommand.COMMAND_WORD:
-            return new FindCommandAllocator().allocate(arguments);
+            c = new FindCommandAllocator().allocate(arguments);
+            break;
 
         case DeleteCommand.COMMAND_WORD:
             logger.info("Deleting an existing Participant...");
-            return new DeleteCommandAllocator().allocate(arguments);
+            c = new DeleteCommandAllocator().allocate(arguments);
+            break;
 
         case ScoreCommand.COMMAND_WORD:
             return new ScoreCommandAllocator().allocate(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommandParser().parse(arguments);
+            c = new ListCommandParser().parse(arguments);
+            break;
 
         case ViewCommand.COMMAND_WORD:
-            return new ViewCommandAllocator().allocate(arguments);
+            c = new ViewCommandAllocator().allocate(arguments);
+            break;
 
         case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            c = new ExitCommand();
+            break;
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            c = new HelpCommand();
+            break;
 
         case ImportCommand.COMMAND_WORD:
-            return new ImportCommandParser().parse(arguments);
+            c = new ImportCommandParser().parse(arguments);
+            break;
 
         case ExportCommand.COMMAND_WORD:
-            return new ExportCommandParser().parse(arguments);
+            c = new ExportCommandParser().parse(arguments);
+            break;
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            c = new UndoCommand();
+            break;
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            c = new RedoCommand();
+            break;
 
         case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+            c = new HistoryCommand();
+            break;
 
         case EditCommand.COMMAND_WORD:
             logger.info("Editing an existing Entity...");
-            return new EditCommandAllocator().allocate(arguments);
+            c = new EditCommandAllocator().allocate(arguments);
+            break;
 
         default:
             logger.info("Unknown command type: " + commandWord);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+        c.setCommandInputString(userInput);
+        return c;
     }
 
 }

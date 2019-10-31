@@ -52,6 +52,7 @@ public class FindTeamCommand extends FindCommand {
         List<Team> results = model.findTeam(this.findPredicate);
         listResults(results, PrefixType.P);
         model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.T);
     }
 }

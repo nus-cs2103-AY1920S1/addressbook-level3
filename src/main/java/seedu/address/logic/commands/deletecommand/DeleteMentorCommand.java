@@ -48,6 +48,7 @@ public class DeleteMentorCommand extends DeleteCommand {
         try {
             mentorToBeDeleted = model.deleteMentor(this.id);
             model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX);
         }

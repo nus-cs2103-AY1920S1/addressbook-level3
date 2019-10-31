@@ -35,6 +35,7 @@ public class DeleteTeamCommand extends DeleteCommand {
         try {
             teamToBeDeleted = model.deleteTeam(this.id);
             model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         }

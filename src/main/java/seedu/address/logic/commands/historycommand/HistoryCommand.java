@@ -22,6 +22,8 @@ public class HistoryCommand extends Command {
      * @throws CommandException
      */
     public CommandResult execute(Model model) throws CommandException {
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.H);
     }
 }

@@ -24,7 +24,7 @@ public class ListMentorCommand extends ListCommand {
         this.displayEntities(model, PrefixType.M);
         model.resetFilteredLists();
         model.updateHistory(this);
-
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.M);
     }
 }

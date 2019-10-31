@@ -64,6 +64,7 @@ public class AddMentorCommand extends AddCommand {
             model.addMentor(this.mentor);
             model.resetFilteredLists();
             model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             // Should I return new CommandResult(MESSAGE_DUPLICATE_MENTOR) instead?
             throw new CommandException(MESSAGE_DUPLICATE_MENTOR);

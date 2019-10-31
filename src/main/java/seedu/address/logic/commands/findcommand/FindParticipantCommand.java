@@ -59,6 +59,7 @@ public class FindParticipantCommand extends FindCommand {
         List<Participant> results = model.findParticipant(this.findPredicate);
         listResults(results, PrefixType.P);
         model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.P);
     }
 }
