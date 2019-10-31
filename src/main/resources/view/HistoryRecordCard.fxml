@@ -16,7 +16,7 @@
             <padding>
                 <Insets top="5" right="5" bottom="5" left="5" />
             </padding>
-            <HBox spacing="5" alignment="CENTER">
+            <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="commandText" text="\$first" styleClass="cell_smallest_label"/>
             </HBox>
         </VBox>

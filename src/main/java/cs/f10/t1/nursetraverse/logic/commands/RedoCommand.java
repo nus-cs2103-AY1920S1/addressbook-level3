@@ -22,7 +22,8 @@ public class RedoCommand extends MutatorCommand {
     public CommandResult execute(Model model) throws CommandException {
         try {
             HistoryRecord redoneRecord = model.redo();
-            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, redoneRecord.toString()));
+            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS,
+                    redoneRecord.getCommand().getCommandText().orElse(redoneRecord.toString())));
         } catch (IllegalStateException e) {
             throw new CommandException(MESSAGE_NO_MORE_HISTORY);
         }

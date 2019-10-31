@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.ui;
 
+import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,7 +22,7 @@ public class HistoryPanel extends UiPart<Region> {
         super(FXML);
         historyView.setItems(historyRecordList);
         historyView.setCellFactory(listView -> new HistoryRecordViewCell());
-        historyView.setPlaceholder(new Label("No records in the history."));
+        historyView.setPlaceholder(new Label("No commands in the history."));
     }
 
     /**
@@ -37,7 +38,8 @@ public class HistoryPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new HistoryRecordCard(record).getRoot());
+                Index index = Index.fromZeroBased(historyView.getItems().indexOf(record));
+                setGraphic(new HistoryRecordCard(record, index).getRoot());
             }
         }
     }
