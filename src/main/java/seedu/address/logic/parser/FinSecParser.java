@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.HelpCommand.MESSAGE_USAGE;
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,22 +52,33 @@ public class FinSecParser {
      */
     private static TreeMap<String, String> commandList;
 
+    private static ArrayList<String> shortcuts;
+
 
     public FinSecParser(ObservableList<CommandItem> commands) {
         FinSecParser.commandList = new TreeMap<>();
+        FinSecParser.shortcuts = new ArrayList<>();
         initialiseDefaultCommands();
         for (CommandItem commandItem : commands) {
             FinSecParser.commandList.put(commandItem.getCommandWord().word, commandItem.getCommandTask().task);
+            if (!(commandItem.getCommandWord().word == commandItem.getCommandTask().task)) {
+                shortcuts.add(commandItem.getCommandWord().word);
+            }
         }
     }
 
     public FinSecParser() {
         FinSecParser.commandList = new TreeMap<>();
+        FinSecParser.shortcuts = new ArrayList<>();
         initialiseDefaultCommands();
     }
 
     public static TreeMap<String, String> getCommandList() {
         return FinSecParser.commandList;
+    }
+
+    public static ArrayList<String> getShortcutList() {
+        return FinSecParser.shortcuts;
     }
 
     /**
