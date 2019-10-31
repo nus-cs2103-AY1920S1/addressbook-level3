@@ -11,9 +11,15 @@ public class Time {
 
     public static final String VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
     public final String time;
+    public final String oldTime;
 
     public Time(String time) {
+        oldTime = time;
         this.time = formatTime(time);
+    }
+
+    public String getOriginalTime() {
+        return oldTime;
     }
 
     /**

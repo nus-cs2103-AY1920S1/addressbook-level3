@@ -39,6 +39,8 @@ import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
 
+import static seedu.address.address.logic.AddressBookLogicManager.FILE_OPS_ERROR_MESSAGE;
+
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
  * and space where other JavaFX elements can be placed.
@@ -66,6 +68,8 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     private CodeWindow codeWindow;
 
+    private ItineraryStorage itineraryStorage;
+
     @FXML
     private Scene itineraryScene;
 
@@ -90,16 +94,16 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         this.primaryStage = primaryStage;
         this.itineraryParser = new ItineraryParser();
         this.model = new Model();
+        this.itineraryStorage = new JsonItineraryStorage(Paths.get("data" , "itinerary.json"));
 
         Itinerary itinerary = new Itinerary();
-        ItineraryStorage itineraryStorage = new JsonItineraryStorage(Paths.get("data" , "itinerary.json"));
 
         try {
             Optional<ReadOnlyItinerary> itineraryOptional = itineraryStorage.readItinerary();
             if (itineraryOptional.isPresent()) {
                 itinerary.updateItinerary(itineraryOptional.get());
             } else {
-                System.out.println("There is no file to read from!");
+                System.out.println("Starting without a json file!");
             }
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty Itinerary");
@@ -108,6 +112,8 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
             System.out.println("Problem while reading from the file. Will be starting with an empty Itinerary");
             // todo: what to do about data? JUST OVERWRITE
         }
+
+        model.setItinerary(itinerary);
 
         fillInnerParts();
     }
@@ -201,6 +207,12 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
             CommandResult commandResult = command.execute(model);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            try {
+                itineraryStorage.saveItinerary(model.getItinerary());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
 
             if (commandResult.isExit()) {
                 handleExit();
