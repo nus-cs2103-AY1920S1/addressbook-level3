@@ -60,6 +60,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME e/EXPIRY_DATE`, `e/EXPIRY_DATE n/ITEM_NAME` is also acceptable.
 ====
 
+====
+*About the Amount Parameter*
+
+* The iFridge app allows for some flexibility with the units inputted with the amount. The following units are accepted this application:
+ml, L, oz, lbs, kg, g, units.
+* Several commands involve computation of amounts. Units are classified under three unit types:
+- *Volume:* ml, L
+- *Quantity:* units
+- *Weight:* g, kg, oz, lbs
+* When adding or editing items, the system will only allow items with similar names (checking is non-case-sensitive) to have similar unit types. However,
+the adding of items with conflicting unit types will not be allowed.
+====
+
 === Viewing help : `help`
 
 Format: `help`
