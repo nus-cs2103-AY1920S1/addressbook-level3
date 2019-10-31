@@ -10,7 +10,7 @@
    <children>
       <VBox fx:id="eventDetails" style="-fx-background-color: transparent;" StackPane.alignment="CENTER_LEFT">
          <children>
-            <StackPane alignment="TOP_LEFT">
+            <StackPane fx:id="eventIndexBase" alignment="TOP_LEFT">
                <children>
                   <Label fx:id="eventName" text="eventName" wrapText="true" StackPane.alignment="CENTER_LEFT">
                      <StackPane.margin>

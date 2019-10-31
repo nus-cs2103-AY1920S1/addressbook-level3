@@ -10,7 +10,7 @@
     <children>
         <VBox fx:id="taskDetails" style="-fx-background-color: transparent;">
             <children>
-                <StackPane alignment="TOP_LEFT">
+                <StackPane fx:id="taskIndexBase" alignment="TOP_LEFT">
                     <children>
                         <Label fx:id="taskName" text="taskName" wrapText="true">
                             <StackPane.margin>
