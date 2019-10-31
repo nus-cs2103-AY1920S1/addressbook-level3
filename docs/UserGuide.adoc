@@ -122,6 +122,8 @@ There is no need to save manually.
 Do you ever feel overwhelmed by the ever-growing number of transactions you have to keep track of?
 With our transactions feature, you can organise your transactions in a fuss-free manner!
 
+==== Overview
+
 In the transactions tab, you can maintain a list of your transactions, adding, editing, deleting and filtering items
 as you like. The image below gives an overview of the GUI of the feature:
 
@@ -169,7 +171,11 @@ This makes it easier for you to access the transactions in the current month!
 ==== Filtering transactions: `filtertx`
 Format: `filtertx [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TYPE]`
 
-Let's say you are currently viewing transactions from September 2018. The GUI of Ichifund may look like this:
+To better understand how your money goes down the drain, it is critical to organise and filter your
+transactions. `filtertx` does the job for you.
+
+Let's say you are currently viewing transactions from
+September 2018. The GUI of Ichifund may look like this:
 
 image::filtertx1.png[]
 
@@ -219,10 +225,13 @@ the command word `filtertx` is keyed in at the start.
 ==== Creating transaction: `addtx`
 Format: `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
-Imagine you are browsing your transactions under the category of "Transportation" in November.
-Your GUI may look like this:
+As painful as it is to remind yourself each time you part with your money, it is essential to meticulously
+record your transactions. `addtx` eases this process.
 
-image::addtx1.png[]
+Imagine you are browsing your transactions under the category of "Transportation"
+in November. Your GUI may look like this:
+
+image::addtx1.png[width=960]
 
 Let's say you remember that spent $12.31 on lunch on 31 October 2019.
 If you want to record this transaction under the category "FOOD", you can enter the full
@@ -293,25 +302,60 @@ The feature for adding transactions is built to work best under these constraint
 
 Additionally, the transaction feature works best when the system time functions normally, with no change in time zone.
 
-<<edittx>>
-==== Editing transaction: `edittx` [Coming in v2.0]
-Edits a transaction. +
+[[edittx]]
+==== Editing transaction: `edittx`
 Format: `edittx INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
-Examples:
+Occasionally, you may make a mistake entering your transactions. Perhaps you entered the wrong amount, or made
+a heinous spelling error in your description. Fret not! You can correct these mistakes using `edittx`, and it would
+be as if it never happened.
 
-* `edittx 1 de/Dinner a/32.30` +
-Edits the description of the 1st transaction in the current list to "Dinner", and its amount to $32.30.
+Suppose you wanted to record your cab fare to the hospital, and you mistakenly record the amount you spent as
+$10.00 instead of $20.00:
 
-==== Deleting transaction: `deletetx` [Coming in v2.0]
-Deletes a transaction. +
+image::addtx3.png[]
+
+You can rectify this error simply by entering the command `edittx 2 a/20.00`:
+
+image::edittx.png[]
+
+Here, the number "2" specified near the start of the command corresponds to the index of the transaction
+you want to edit, as shown in the current transaction list.
+Apart from that, you need to specify only the information you want to edit.
+
+In addition, to make it easier for you to review your edits,
+the filter of the transaction list changes accordingly such that the edited transaction is shown.
+
+[NOTE]
+Unfortunately, transactions created from repeaters cannot be edited or deleted directly.
+For a more detailed guide on how to modify these transactions, refer to <<repeaters>>
+
+[[deletetx]]
+==== Deleting transaction: `deletetx`
 Format: `deletetx INDEX`
 
-Examples:
+By a stroke of luck, you may sometimes get a reimbursement for your expenditure! While you celebrate the
+influx of precious money, do take a moment to update IchiFund using `deletetx`.
 
-* `deletetx 5` +
-Deletes the 5th transaction in the current list.
+Let's say you have just recorded and edited your cab ride to the hospital:
 
+image::addtx3.png[]
+
+Suppose you now find out that the expenditure is somehow covered by your insurance plan.
+Simply enter the command `delete 2`:
+
+image::deletetx.png[]
+
+Voila! The transaction is now deleted.
+
+Again, you only have to specify the index of the transaction you want to delete, as shown in the current
+transaction list.
+
+[NOTE]
+Unfortunately, transactions created from repeaters cannot be edited or deleted directly.
+For a more detailed guide on how to modify these transactions, refer to <<repeaters>>
+
+[[repeaters]]
 === Repeaters
 
 ==== Creating repeater: `addrep`
