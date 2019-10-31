@@ -100,6 +100,9 @@ public class AutoScheduleCommand extends UndoableCommand {
             List<Activity> lastShownActivities = model.getFilteredActivityList();
             List<Activity> filteredActivitiesByLocation = lastShownActivities;
             List<LocalTime> timeSchedule = fillTimeSchedule(draftSchedule);
+            for (LocalTime localTime : timeSchedule){
+                System.out.println("time:" + localTime);
+            }
             List<ActivityWithTime> activitiesForTheDay = new ArrayList<>();
             // Gets the list of activities that has the location specified by user
             if (address != null) {
@@ -163,10 +166,14 @@ public class AutoScheduleCommand extends UndoableCommand {
                     int nextTimingIndex = -1;
                     LocalTime currentTiming = timeSchedule.get(i);
                     for (int k = i + 1; k < timeSchedule.size(); k++) {
+                        System.out.println("timeSchedule: " + timeSchedule.get(k));
                         if (timeSchedule.get(k) != null) {
+                            System.out.println("k: " + k);
                             nextTimingIndex = k;
+                            break;
                         }
                     }
+                    System.out.println("index: " + nextTimingIndex);
                     // No timing is given by user for the entire autoschedule command
                     if (nextTimingIndex == -1) {
                         isScheduled = true;
@@ -179,6 +186,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                         LocalTime startTimeOfNextActivity = timeSchedule.get(nextTimingIndex);
                         LocalTime currentActivityEndTime = currentTiming.plusMinutes(duration);
                         if (startTimeOfNextActivity.compareTo(currentActivityEndTime) >= 0) {
+                            System.out.println(currentTiming);
                             isScheduled = true;
                             activitiesForTheDay.add(activityToSchedule(timeSchedule.get(i),
                                     duration, activityWithCount.getActivity()));
@@ -186,6 +194,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                             // if the timing is not the next in line
                             //Eg. 1000 null 1300 -> becomes 1000 1000+30min  1300
                             if (nextTimingIndex != i + 1) {
+                                System.out.println("here");
                                 timeSchedule.set(i + 1, currentActivityEndTime);
                             }
                             break;
