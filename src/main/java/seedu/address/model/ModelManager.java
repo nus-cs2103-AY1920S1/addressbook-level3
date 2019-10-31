@@ -95,6 +95,8 @@ public class ModelManager implements Model {
         this.scheduleBook = new DataBook<>(scheduleBook);
         this.archivedOrderBook = new DataBook<>(archivedOrderBook);
 
+        resolveOrderBooksConflict();
+
         this.userPrefs = new UserPrefs(userPrefs);
         this.calendarDate = new CalendarDate(Calendar.getInstance());
 
@@ -575,6 +577,35 @@ public class ModelManager implements Model {
     public void updateFilteredArchivedOrderList(Predicate<Order> predicate) {
         requireNonNull(predicate);
         filteredArchivedOrders.setPredicate(predicate);
+    }
+
+    @Override
+    public void resolveOrderBooksConflict() {
+        List<Order> orders = orderBook.getList();
+
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order o = orders.get(i);
+            if (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED)) {
+                orderBook.remove(o);
+
+                if (!archivedOrderBook.has(o)) {
+                    archivedOrderBook.add(o);
+                }
+            }
+        }
+
+        List<Order> archivedOrders = archivedOrderBook.getList();
+
+        for (int i = archivedOrders.size() - 1; i >= 0; i--) {
+            Order o = archivedOrders.get(i);
+            if (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED)) {
+                archivedOrderBook.remove(o);
+
+                if (!orderBook.has(o)) {
+                    orderBook.add(o);
+                }
+            }
+        }
     }
 
 

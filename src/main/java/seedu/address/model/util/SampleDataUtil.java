@@ -192,7 +192,7 @@ public class SampleDataUtil {
                                 Capacity.SIZE_256GB, new Colour("Black"), new Cost("$581"),
                                 getTagSet("New")),
                         new Price("$1200"),
-                        Status.SCHEDULED,
+                        Status.COMPLETED,
                         Optional.of(sampleSchedule2()), getTagSet("New")),
             new Order(UUID.randomUUID(),
                         new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
@@ -202,7 +202,7 @@ public class SampleDataUtil {
                                 Capacity.SIZE_256GB, new Colour("Black"), new Cost("$95"),
                                 getTagSet("New")),
                         new Price("$1200"),
-                        Status.SCHEDULED,
+                        Status.COMPLETED,
                         Optional.of(sampleSchedule3()), getTagSet("New"))
 
         };

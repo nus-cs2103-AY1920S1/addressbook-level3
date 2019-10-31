@@ -7,7 +7,6 @@ import static seedu.address.model.util.SampleDataUtil.getSampleScheduleBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -29,10 +28,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.Status;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
-//import seedu.address.model.util.SampleDataUtil;
 import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.AddressBookStorage;
@@ -214,25 +211,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Order DataBook");
             initialArchivedOrderData = new DataBook<>();
-        }
-
-
-        List<Order> orders = initialOrderData.getList();
-        for (int i = orders.size() - 1; i >= 0; i--) {
-            Order o = orders.get(i);
-            if (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED)) {
-                initialOrderData.getList().remove(o);
-                initialArchivedOrderData.getList().add(o);
-            }
-        }
-
-        List<Order> archivedOrders = initialArchivedOrderData.getList();
-        for (int i = archivedOrders.size() - 1; i >= 0; i--) {
-            Order o = archivedOrders.get(i);
-            if (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED)) {
-                initialArchivedOrderData.getList().remove(o);
-                initialOrderData.getList().add(o);
-            }
         }
 
 
