@@ -500,11 +500,10 @@ public class ModelManager implements Model {
             if (newStates.contains(ACHIEVED)) {
                 achievementsHaveBeenAttained = true;
             }
-            if (newStates.contains(PREVIOUSLY_ACHIEVED)) {
+            if (newStates.contains(PREVIOUSLY_ACHIEVED)
+                    || newStates.contains(YET_TO_ACHIEVE)) {
                 achievementsHaveBeenLost = true;
             }
-            assert !newStates.contains(YET_TO_ACHIEVE) : "New state of achievement should never be yet to achieve as "
-                    + "user would have achieved the modified achievement before.";
         }
     }
 

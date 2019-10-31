@@ -4,7 +4,6 @@ import static seedu.address.model.achievements.AchievementLevel.SILVER;
 
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
-import seedu.address.model.achievements.bmi.BmiBronze;
 
 /**
  * Bloodsugar Achievement of silver level.

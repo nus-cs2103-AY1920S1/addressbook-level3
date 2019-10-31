@@ -59,7 +59,7 @@ public class MainDisplayPane {
                         newPaneIsToBeCreated);
             }
         case ACHVM:
-            Map<RecordType, List<Achievement>>  achievementsMap = logic.getAchievementsMap();
+            Map<RecordType, List<Achievement>> achievementsMap = logic.getAchievementsMap();
             AchievementsPane previousAchievementsPane = (AchievementsPane) map.get(DisplayPaneType.ACHVM);
             Map<RecordType, List<Achievement>> previousMap = previousAchievementsPane != null
                     ? previousAchievementsPane.getAchievementsMap()

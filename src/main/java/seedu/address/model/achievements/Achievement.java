@@ -114,7 +114,7 @@ public abstract class Achievement {
     public String getDisplayMessage() {
         return "Title: " + title + "\n\n"
                 + "Level: " + achievementLevel.toString() + "\n\n"
-                + "Current State:\n" + achievementState.toString().replace("_", " ")  + "\n\n"
+                + "Current State:\n" + achievementState.toString().replace("_", " ") + "\n\n"
                 + "Requirement: " + description;
     }
 

@@ -19,7 +19,7 @@ public class Achievements extends UiPart<Region> {
     private static final String FXML = "Achievements.fxml";
 
     @FXML
-    VBox achievementsListVBox;
+    private VBox achievementsListVBox;
 
     public Achievements(Map<RecordType, List<Achievement>> achievementsMap) {
         super(FXML);
