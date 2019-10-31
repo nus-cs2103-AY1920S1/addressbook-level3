@@ -287,25 +287,46 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Checks if the input string parses into a valid tab type.
+     */
+    private static boolean isValidTabType(String tabType) {
+        try {
+            TabType.valueOf(tabType.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException ire) {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the input string parses into a valid tab type index.
+     */
+    private static boolean isValidTabTypeIndex(String tabType) {
+        try {
+            Index tabTypeIndex = ParserUtil.parseIndex(tabType);
+            TabType _tabType = TabType.values()[tabTypeIndex.getZeroBased()];
+            return true;
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException | ParseException e) {
+            return false;
+        }
+    }
+
     /** Parses a {@code String tabType} into an {@code TabType}.
      *
      * @throws ParseException if the given {@code string tabType} is invalid.
      */
     public static TabType parseTabType(String tabType, String errorMessage) throws ParseException {
-        // Check if valid string
-        try {
+        if (isValidTabType(tabType)) {
             return TabType.valueOf(tabType.toUpperCase());
-        } catch (IllegalArgumentException ire) {
-            // Try if the index is valid
         }
 
-        // Check if valid index
-        try {
+        if (isValidTabTypeIndex(tabType)) {
             Index tabTypeIndex = Index.fromOneBased(Integer.parseInt(tabType));
             return TabType.values()[tabTypeIndex.getZeroBased()];
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(errorMessage);
         }
+
+        throw new ParseException(errorMessage);
     }
 
     /** Parses a {@code String tabIndex} into an {@code Index}.
@@ -320,26 +341,46 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Checks if the input string parses into a valid model type.
+     */
+    private static boolean isValidModelType(String modelType) {
+        try {
+            ModelType.valueOf(modelType.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException ire) {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the input string parses into a valid model type index.
+     */
+    private static boolean isValidModelTypeIndex(String modelType) {
+        try {
+            Index modelTypeIndex = ParserUtil.parseIndex(modelType);
+            ModelType _modelType = ModelType.values()[modelTypeIndex.getZeroBased()];
+            return true;
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException | ParseException e) {
+            return false;
+        }
+    }
+
     /** Parses a {@code String modelTypeString} into an {@code ModelType}.
      *
      * @throws ParseException if the given {@code string modelTypString} is invalid.
      */
-    public static ModelType parseModelType(String modelTypeString, String errorMessage) throws ParseException {
-        // Check if valid string
-        try {
-            return ModelType.valueOf(modelTypeString.toUpperCase());
-        } catch (IllegalArgumentException ire) {
-            // Try if the index is valid
+    public static ModelType parseModelType(String modelType, String errorMessage) throws ParseException {
+        if (isValidModelType(modelType)) {
+            return ModelType.valueOf(modelType.toUpperCase());
         }
 
-        // Check if valid index
-        try {
-            Index modelTypeIndex = Index.fromOneBased(Integer.parseInt(modelTypeString));
+        if (isValidTabTypeIndex(modelType)) {
+            Index modelTypeIndex = Index.fromOneBased(Integer.parseInt(modelType));
             return ModelType.values()[modelTypeIndex.getZeroBased()];
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(errorMessage);
-
         }
+
+        throw new ParseException(errorMessage);
     }
 
     /** Parses a {@code String modelIndex} into an {@code ModelIndex}.
