@@ -19,19 +19,18 @@ public class AddBudgetCommand extends Command {
     public static final String COMMAND_WORD = "budget";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a budget to the budget list.\n"
-                                                       + "Parameters: "
-                                                       + PREFIX_NAME + "NAME "
-                                                       + PREFIX_AMOUNT + "AMOUNT "
-                                                       + "[" + PREFIX_CURRENCY + "CURRENCY] "
-                                                       + PREFIX_DATE + "START-DATE "
-                                                       + PREFIX_END_DATE + "END-DATE...\n"
-                                                       + "Example: " + COMMAND_WORD + " "
-                                                       + PREFIX_NAME + "Japan Travel "
-                                                       + PREFIX_AMOUNT + "$2000.00 "
-                                                       + PREFIX_CURRENCY + "USD "
-                                                       + PREFIX_DATE + "12/12/2019 "
-                                                       + PREFIX_END_DATE + "18/12/2019\n";
-
+                                                            + "Parameters: "
+                                                            + PREFIX_NAME + "NAME "
+                                                            + PREFIX_AMOUNT + "AMOUNT "
+                                                            + "[" + PREFIX_CURRENCY + "CURRENCY] "
+                                                            + PREFIX_DATE + "START-DATE "
+                                                            + PREFIX_END_DATE + "END-DATE...\n"
+                                                            + "Example: " + COMMAND_WORD + " "
+                                                            + PREFIX_NAME + "Japan Travel "
+                                                            + PREFIX_AMOUNT + "$2000.00 "
+                                                            + PREFIX_CURRENCY + "USD "
+                                                            + PREFIX_DATE + "12/12/2019 "
+                                                            + PREFIX_END_DATE + "18/12/2019\n";
 
     public static final String MESSAGE_SUCCESS = "New budget added: %1$s";
     public static final String MESSAGE_DUPLICATE_BUDGET = "This budget already exists in the budget list";
@@ -66,6 +65,6 @@ public class AddBudgetCommand extends Command {
 
         model.addBudget(toAdd);
         model.setViewState("budgetlist");
-        return new CommandResult(null, model.getFilteredBudgetList(), String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(null, model.getFilteredBudgetList(), null, String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

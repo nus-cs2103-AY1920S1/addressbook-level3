@@ -121,7 +121,7 @@ public class MainWindow extends UiPart<Stage> {
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
         leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
 
-        expenseListPanel = new ExpenseListPanel(logic.getExpenses());
+        expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
         rightListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -201,14 +201,23 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getExpenseList() != null && commandResult.getBudgetList() == null) {
                 expenseListPanel = new ExpenseListPanel(commandResult.getExpenseList());
-                leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+                rightListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+                if (commandResult.getBudget() != null) {
+                    statsDisplay.setDisplayDataBudget(commandResult.getExpenseList(), commandResult.getBudget());
+                } else {
+                    statsDisplay.setDisplayData(commandResult.getExpenseList());
+                }
             } else if (commandResult.getExpenseList() == null && commandResult.getBudgetList() != null) {
                 budgetListPanel = new BudgetListPanel(commandResult.getBudgetList());
-                leftListPanelPlaceHolder.getChildren().add(budgetListPanel.getRoot());
+                rightListPanelPlaceHolder.getChildren().add(budgetListPanel.getRoot());
             } else {
-                expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
-                leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+                statsDisplay.setDisplayData(logic.getFilteredExpenseList());
             }
+
+            //TODO: remove this hack
+            expenseListPanel = new ExpenseListPanel(logic.updateExpenses());
+            leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
+            //            statsDisplayPlaceHolder.getChildren().add(statsDisplay.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

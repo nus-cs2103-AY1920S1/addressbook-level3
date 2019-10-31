@@ -47,7 +47,7 @@ public class ViewBudgetCommand extends Command {
 
         model.setLastViewedBudget(budgetToView);
         model.setViewState("expenselist inside budget");
-        return new CommandResult(model.getExpenseListFromBudget(budgetToView), null,
+        return new CommandResult(model.getExpenseListFromBudget(budgetToView), null, budgetToView,
             String.format(MESSAGE_VIEW_BUDGET_SUCCESS, budgetToView));
     }
 

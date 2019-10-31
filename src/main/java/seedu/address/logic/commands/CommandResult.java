@@ -36,11 +36,17 @@ public class CommandResult {
     private final ObservableList<Budget> budgetList;
 
     /**
+     * Used only access target budget.
+     */
+    private final Budget budget;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.budgetList = null;
         this.expenseList = null;
+        this.budget = null;
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -49,11 +55,12 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(ObservableList<Expense> expenseList, ObservableList<Budget> budgetList,
+    public CommandResult(ObservableList<Expense> expenseList, ObservableList<Budget> budgetList, Budget budget,
                          String feedbackToUser, boolean showHelp,
                          boolean exit) {
         this.budgetList = budgetList;
         this.expenseList = expenseList;
+        this.budget = budget;
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -71,9 +78,9 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified {@code expenseList}, {@code viewState}
      * and other fields set to their default value.
      */
-    public CommandResult(ObservableList<Expense> expenseList, ObservableList<Budget> budgetList,
+    public CommandResult(ObservableList<Expense> expenseList, ObservableList<Budget> budgetList, Budget budget,
                          String feedbackToUser) {
-        this(expenseList, budgetList, feedbackToUser, false, false);
+        this(expenseList, budgetList, budget, feedbackToUser, false, false);
     }
 
     public ObservableList<Expense> getExpenseList() {
@@ -86,6 +93,10 @@ public class CommandResult {
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public Budget getBudget() {
+        return budget;
     }
 
     public boolean isShowHelp() {

@@ -48,12 +48,12 @@
                 </StackPane>
 
                 <HBox>
-                    <VBox fx:id="expenseList1" styleClass="pane-with-border" minWidth="400" prefWidth="420"
+                    <VBox fx:id="expenseList" styleClass="pane-with-border" minWidth="400" prefWidth="420"
                           VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10"/>
                         </padding>
-                        <StackPane fx:id="rightListPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
+                        <StackPane fx:id="leftListPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
                     <VBox fx:id="expenseList2" styleClass="pane-with-border" minWidth="400" prefWidth="420"
@@ -61,7 +61,7 @@
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10"/>
                         </padding>
-                        <StackPane fx:id="leftListPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
+                        <StackPane fx:id="rightListPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
                     <VBox fx:id="stats" styleClass="pane-with-border" minWidth="400" prefWidth="480"

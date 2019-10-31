@@ -58,7 +58,7 @@ public class DeleteCommand extends Command {
 
             Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteBudget(budgetToDelete);
-            return new CommandResult(null, model.getFilteredBudgetList(),
+            return new CommandResult(null, model.getFilteredBudgetList(), null,
                 String.format(MESSAGE_DELETE_BUDGET_SUCCESS, budgetToDelete));
         } else if (viewState.equals("expenselist inside budget")) {
             Budget viewingBudget = model.getLastViewedBudget();
@@ -70,7 +70,7 @@ public class DeleteCommand extends Command {
 
             Expense expenseToDelete = expenseListInsideBudget.get(targetIndex.getZeroBased());
             viewingBudget.deleteExpenseInBudget(expenseToDelete);
-            return new CommandResult(model.getExpenseListFromBudget(viewingBudget), null,
+            return new CommandResult(model.getExpenseListFromBudget(viewingBudget), null, null,
                 String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete));
         } else {
             throw new CommandException(MESSAGE_DELETE_ERROR);

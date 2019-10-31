@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.ReadOnlyBudgetList;
@@ -22,13 +21,13 @@ public interface Model {
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
-    public void setViewState(String viewState);
-
     public String getViewState();
 
-    public void setLastViewedBudget(Budget budget);
+    public void setViewState(String viewState);
 
     public Budget getLastViewedBudget();
+
+    public void setLastViewedBudget(Budget budget);
 
     /**
      * Returns the user prefs.
@@ -87,7 +86,9 @@ public interface Model {
      */
     void addExpense(Expense expense);
 
-    public FilteredList<Expense> getExpenses();
+    ObservableList<Expense> getExpenses();
+
+    void updateFilteredExpenses(Predicate<Expense> predicate);
 
     /**
      * Replaces the given expense {@code target} with {@code editedExpense}.
@@ -173,4 +174,6 @@ public interface Model {
     boolean expenseFallsIntoABudget(Expense expense);
 
     ObservableList<Expense> getExpenseListFromBudget(Budget budgetToView);
+
+    ObservableList<Expense> initExpenses();
 }
