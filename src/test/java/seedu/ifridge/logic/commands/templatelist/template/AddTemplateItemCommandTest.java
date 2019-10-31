@@ -1,7 +1,6 @@
 package seedu.ifridge.logic.commands.templatelist.template;
 
 import static java.util.Objects.requireNonNull;
-//import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ifridge.testutil.Assert.assertThrows;
@@ -9,7 +8,6 @@ import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-//import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Predicate;
@@ -19,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.commons.core.IFridgeSettings;
-//import seedu.address.logic.commands.CommandResult;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ReadOnlyGroceryList;
 import seedu.ifridge.model.ReadOnlyShoppingList;
@@ -27,7 +24,9 @@ import seedu.ifridge.model.ReadOnlyTemplateList;
 import seedu.ifridge.model.ReadOnlyUserPrefs;
 import seedu.ifridge.model.ReadOnlyWasteList;
 import seedu.ifridge.model.TemplateList;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.WasteList;
+import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
@@ -120,6 +119,11 @@ public class AddTemplateItemCommandTest {
 
         @Override
         public void setGroceryListFilePath(Path groceryListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UnitDictionary getUnitDictionary() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -250,6 +254,11 @@ public class AddTemplateItemCommandTest {
 
         @Override
         public ObservableList<TemplateItem> updateFilteredTemplateToBeShown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean containsTemplateItemWithName(Food foodItem) {
             throw new AssertionError("This method should not be called.");
         }
 

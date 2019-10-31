@@ -198,7 +198,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void displayWasteListPanel() {
-        wasteListPanel = new WasteListPanel(logic.getFilteredWasteList());
+        wasteListPanel = new WasteListPanel(logic.getFilteredWasteList(), logic.getIFridgeSettings().getNumberOfDays());
         wasteListPanelPlaceholder.getChildren().add(wasteListPanel.getRoot());
         tabPane.getSelectionModel().select(wasteListPage);
         logger.info("Showing waste list panel.");

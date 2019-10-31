@@ -6,11 +6,15 @@ import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ModelManager;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.UserPrefs;
+
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -23,9 +27,11 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
-                getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
+                getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
+                new UnitDictionary(new HashMap<String, String>()));
         expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), getTypicalTemplateList(),
-                model.getWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
+                model.getWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
+                new UnitDictionary(new HashMap<String, String>()));
     }
 
     /*@Test

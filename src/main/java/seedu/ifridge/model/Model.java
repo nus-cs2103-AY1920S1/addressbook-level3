@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.commons.core.IFridgeSettings;
+import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
@@ -56,6 +57,10 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setIFridgeSettings(IFridgeSettings iFridgeSettings);
+
+    //=========== UnitDictionary =============================================================================
+
+    UnitDictionary getUnitDictionary();
 
     //=========== GroceryList ==================================================================================
     /**
@@ -173,6 +178,8 @@ public interface Model {
     void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate);
 
     void setShownTemplate(UniqueTemplateItems templateToBeShown);
+
+    boolean containsTemplateItemWithName(Food foodItem);
 
     ObservableList<TemplateItem> updateFilteredTemplateToBeShown();
 

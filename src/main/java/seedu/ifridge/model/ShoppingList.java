@@ -125,4 +125,5 @@ public class ShoppingList implements ReadOnlyShoppingList {
     public int hashCode() {
         return shoppingItems.hashCode();
     }
+
 }

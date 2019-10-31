@@ -112,23 +112,23 @@ Clearing of waste list is done automatically at the start of every month.
 
 ==== Adding a food item: `glist add`
 
-Adds a grocery item to the grocery list
+Adds a grocery item to the grocery list. +
 Format: `glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`
 
 ****
-* `e/EXPIRY_DATE` must follow the format `dd.MM.yyyy` or `dd/MM/yyyy` or `dd-MM-yyyy`.
-* `a/AMOUNT` must have a magnitude i.e. measurable quantity. Amount unit is not mandatory. Magnitude and unit can be separated by a space.
+* `e/EXPIRY_DATE` must follow the format `dd/MM/yyyy`.
+* `a/AMOUNT` must have a magnitude i.e. measurable quantity. Magnitude and unit can be separated by a space.
 * There may be more than one tag field.
 * The input fields can be in any order.
 ****
 
 Examples:
 
-* `glist add n/Fuji apples e/30.10.2019 t/healthy a/10units` +
+* `glist add n/Fuji apples e/30/10/2019 t/healthy a/10units` +
 Add Fuji apples of quantity 10 units, tagged as "healthy" and expiring on 30 October 2019.
-* `glist add n/salad a/3 e/25.09.2019` +
+* `glist add n/salad a/3 e/25/09/2019` +
 Add salad of quantity 3, untagged and expiring on 25 September 2019.
-* `glist add n/tea a/200 ml e/18.10.2019 t/fresh t/drink` +
+* `glist add n/tea a/200 ml e/18/10/2019 t/fresh t/drink` +
 Add tea of quantity 200 ml, tagged as "fresh" and "drink" and expiring on 18 October 2019.
 
 ==== Listing all grocery items: `glist list`
@@ -181,15 +181,17 @@ Edits the name and tag of the 1st item to be `Fuji apple` and `healthy` respecti
 * `glist edit 2 n/Olive oil t/` +
 Edits the name of the 2nd item to `Olive oil` and clears all existing tags.
 
-==== Sort the grocery list: `glist sort` (Coming in v2.0)
+==== Sort the grocery list: `glist sort`
 
 Sorts the grocery list based on the type of sorting. +
-Format: `glist sort by/TYPE`
+Format: `glist sort by/TYPE` +
+
+Sorting is done on the original grocery list. Hence, for example, when `sort` is done after `find`, both the resultant `find` list and the original list will be sorted.
 
 The type of sorting supported is as follows:
 ****
-* Alphabetical: Sort the grocery list in alphabetical order
-* Expiry date: Sort the grocery list based on the expiry date
+* Alphabetical: Sort the grocery list in ascending alphabetical order
+* Expiry date: Sort the grocery list in ascending expiry date. i.e. from oldest to newest.
 ****
 
 Examples:
@@ -197,30 +199,25 @@ Examples:
 * `glist sort by/alphabetical`
 * `glist sort by/expiry`
 
-==== Filter: `glist filter` (Coming in v2.0)
+==== Finding items by keywords: `glist find`
 
-Returns a list of food items that matches the specified tag. +
-Format: `glist filter t/TAG`
-
-==== Locating items by name: `glist find` (Coming in v2.0)
-
-Finds items whose names contain any of the given keywords. +
+Finds items whose name or tag contain any of the given keywords. +
 Format: `glist find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `apple` will match `Apple`
 * The order of the keywords does not matter. e.g. `apple milk` will match `milk apple`
-* Only the item name is searched.
+* Only the item name and tag are searched.
 * Only full words will be matched e.g. `appl` will not match `apple`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `apple milk` will return `Apple juice`, `Mango milk`
+* Grocery items matching at least one keyword will be returned (i.e. it uses an `OR` search). e.g. `apple dinner` will return `Apple juice`, `Pizza` tagged with `dinner`, and `Apple pie` tagged with `dinner`.
 ****
 
 Examples:
 
 * `glist find apple` +
-Returns `Fuji apple` and `Apple loaf cake`
+Returns `Fuji apple` and `Apple loaf cake` and other items tagged as `apple`
 * `glist find milo doughnut roasted` +
-Returns any grocery item which contains any of the names `milo`, `doughnut`, or `roasted`
+Returns any grocery item which contains any of the word `milo`, `doughnut`, or `roasted` as either name or tag or both
 
 === Waste List Management
 

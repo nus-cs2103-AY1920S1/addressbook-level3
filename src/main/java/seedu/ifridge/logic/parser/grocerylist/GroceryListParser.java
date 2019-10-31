@@ -13,10 +13,13 @@ import seedu.ifridge.logic.commands.defaults.ReminderDefaultCommand;
 import seedu.ifridge.logic.commands.grocerylist.AddGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.DeleteGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.EditGroceryCommand;
+import seedu.ifridge.logic.commands.grocerylist.FindGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.ListGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.RedoGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.ReminderCommand;
+import seedu.ifridge.logic.commands.grocerylist.SortGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.UndoGroceryCommand;
+import seedu.ifridge.logic.commands.grocerylist.UseGroceryCommand;
 import seedu.ifridge.logic.parser.defaults.ReminderDefaultCommandParser;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 
@@ -59,20 +62,29 @@ public class GroceryListParser {
         case DeleteGroceryCommand.COMMAND_WORD:
             return new DeleteGroceryCommandParser().parse(arguments);
 
+        case ListDefaultCommand.COMMAND_WORD:
+            return new ListDefaultCommandParser().parse(arguments);
+
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommandParser().parse(arguments, iFridgeSettings.getNumberOfDays());
 
-        case "use":
-            return new UseGroceryCommandParser().parse(arguments);
-
         case ReminderDefaultCommand.COMMAND_WORD:
-            return new ReminderDefaultCommandParser().parse(arguments);
+            return new ReminderDefaultCommandParser().parse(arguments
+
+        case SortGroceryCommand.COMMAND_WORD:
+            return new SortGroceryCommandParser().parse(arguments);
+
+        case UseGroceryCommand.COMMAND_WORD:
+            return new UseGroceryCommandParser().parse(arguments);
 
         case UndoGroceryCommand.COMMAND_WORD:
             return new UndoGroceryCommand();
 
         case RedoGroceryCommand.COMMAND_WORD:
             return new RedoGroceryCommand();
+
+        case FindGroceryCommand.COMMAND_WORD:
+            return new FindGroceryCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

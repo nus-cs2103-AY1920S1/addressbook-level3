@@ -10,24 +10,41 @@ import seedu.ifridge.model.ReadOnlyGroceryList;
 import seedu.ifridge.model.ReadOnlyShoppingList;
 import seedu.ifridge.model.ReadOnlyTemplateList;
 import seedu.ifridge.model.ReadOnlyUserPrefs;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.UserPrefs;
 import seedu.ifridge.model.WasteList;
 import seedu.ifridge.model.waste.WasteMonth;
 import seedu.ifridge.storage.shoppinglist.BoughtListStorage;
 import seedu.ifridge.storage.shoppinglist.ShoppingListStorage;
+import seedu.ifridge.storage.unitdictionary.UnitDictionaryStorage;
 import seedu.ifridge.storage.wastelist.WasteListStorage;
 
 /**
  * API of the Storage component
  */
 public interface Storage extends GroceryListStorage, UserPrefsStorage, TemplateListStorage, WasteListStorage,
-        ShoppingListStorage, BoughtListStorage {
+        ShoppingListStorage, BoughtListStorage, UnitDictionaryStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
+
+    @Override
+    Path getUnitDictionaryFilePath();
+
+    @Override
+    Optional<UnitDictionary> readUnitDictionary() throws DataConversionException, IOException;
+
+    @Override
+    Optional<UnitDictionary> readUnitDictionary(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void saveUnitDictionary(UnitDictionary unitDictionary) throws IOException;
+
+    @Override
+    public void saveUnitDictionary(UnitDictionary unitDictionary, Path filePath) throws IOException;
 
     @Override
     Path getGroceryListFilePath();
@@ -73,4 +90,6 @@ public interface Storage extends GroceryListStorage, UserPrefsStorage, TemplateL
 
     @Override
     void saveBoughtList(ReadOnlyGroceryList boughtList) throws IOException;
+
+
 }

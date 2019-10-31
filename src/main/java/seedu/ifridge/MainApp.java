@@ -2,11 +2,13 @@ package seedu.ifridge;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.ifridge.commons.core.Config;
 import seedu.ifridge.commons.core.LogsCenter;
@@ -25,8 +27,14 @@ import seedu.ifridge.model.ReadOnlyTemplateList;
 import seedu.ifridge.model.ReadOnlyUserPrefs;
 import seedu.ifridge.model.ShoppingList;
 import seedu.ifridge.model.TemplateList;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.UserPrefs;
 import seedu.ifridge.model.WasteList;
+import seedu.ifridge.model.food.Amount;
+import seedu.ifridge.model.food.Food;
+import seedu.ifridge.model.food.Name;
+import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.food.exceptions.InvalidDictionaryException;
 import seedu.ifridge.model.util.SampleDataUtil;
 import seedu.ifridge.model.waste.WasteMonth;
 import seedu.ifridge.storage.GroceryListStorage;
@@ -41,6 +49,8 @@ import seedu.ifridge.storage.shoppinglist.BoughtListStorage;
 import seedu.ifridge.storage.shoppinglist.JsonBoughtItemStorage;
 import seedu.ifridge.storage.shoppinglist.JsonShoppingItemStorage;
 import seedu.ifridge.storage.shoppinglist.ShoppingListStorage;
+import seedu.ifridge.storage.unitdictionary.JsonUnitDictionaryStorage;
+import seedu.ifridge.storage.unitdictionary.UnitDictionaryStorage;
 import seedu.ifridge.storage.wastelist.JsonWasteListStorage;
 import seedu.ifridge.storage.wastelist.WasteListStorage;
 import seedu.ifridge.ui.Ui;
@@ -76,8 +86,10 @@ public class MainApp extends Application {
         WasteListStorage wasteListStorage = new JsonWasteListStorage(userPrefs.getWasteArchiveFilePath());
         ShoppingListStorage shoppingListStorage = new JsonShoppingItemStorage(userPrefs.getShoppingListFilePath());
         BoughtListStorage boughtListStorage = new JsonBoughtItemStorage(userPrefs.getBoughtListFilePath());
+        UnitDictionaryStorage unitDictionaryStorage = new JsonUnitDictionaryStorage(
+                userPrefs.getUnitDictionaryFilePath());
         storage = new StorageManager(groceryListStorage, userPrefsStorage, templateListStorage, wasteListStorage,
-                shoppingListStorage, boughtListStorage);
+                shoppingListStorage, boughtListStorage, unitDictionaryStorage);
 
         initLogging(config);
 
@@ -96,25 +108,21 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
 
         Optional<ReadOnlyGroceryList> groceryListOptional;
-        Optional<ReadOnlyTemplateList> templateListOptional;
         Optional<ReadOnlyShoppingList> shoppingListOptional;
         Optional<ReadOnlyGroceryList> boughtListOptional;
         ReadOnlyGroceryList initialGroceryListData;
-        ReadOnlyTemplateList initialTemplateListData;
         TreeMap<WasteMonth, WasteList> initialWasteArchiveData;
         ReadOnlyShoppingList initialShoppingListData;
         ReadOnlyGroceryList initialBoughtListData;
+        ReadOnlyTemplateList initialTemplateListData;
+        UnitDictionary initialUnitDictionaryData;
 
         try {
             groceryListOptional = storage.readGroceryList();
-            templateListOptional = storage.readTemplateList();
             shoppingListOptional = storage.readShoppingList();
             boughtListOptional = storage.readBoughtList();
             if (!groceryListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample GroceryList");
-            }
-            if (!templateListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample TemplateList");
             }
             if (!shoppingListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ShoppingList");
@@ -123,28 +131,146 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample Bought List.");
             }
             initialGroceryListData = groceryListOptional.orElseGet(SampleDataUtil::getSampleGroceryList);
-            initialTemplateListData = templateListOptional.orElseGet(SampleDataUtil::getSampleTemplateList);
             initialShoppingListData = shoppingListOptional.orElseGet(SampleDataUtil::getSampleShoppingList);
             initialBoughtListData = boughtListOptional.orElseGet(SampleDataUtil::getSampleBoughtList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty GroceryList");
             initialGroceryListData = new GroceryList();
-            initialTemplateListData = new TemplateList();
             initialShoppingListData = new ShoppingList();
             initialBoughtListData = new GroceryList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty GroceryList");
             initialGroceryListData = new GroceryList();
-            initialTemplateListData = new TemplateList();
             initialShoppingListData = new ShoppingList();
             initialBoughtListData = new GroceryList();
         }
 
         initialWasteArchiveData = initModelManagerWaste(storage);
-
+        initialTemplateListData = initModelManagerTemplateList(storage);
+        initialUnitDictionaryData = initModelManagerUnitDictionary(storage, initialGroceryListData,
+                initialTemplateListData, initialShoppingListData);
 
         return new ModelManager(initialGroceryListData, userPrefs, initialTemplateListData, initialWasteArchiveData,
-                initialShoppingListData, initialBoughtListData);
+                initialShoppingListData, initialBoughtListData, initialUnitDictionaryData);
+    }
+
+    /**
+     * Returns the initial unit dictionary.
+     */
+    private UnitDictionary initModelManagerUnitDictionary(Storage storage, ReadOnlyGroceryList groceryList,
+                                                          ReadOnlyTemplateList templateList,
+                                                          ReadOnlyShoppingList shoppingList) {
+        Optional<UnitDictionary> unitDictionaryOptional;
+        UnitDictionary newUnitDictionary = generateNewUnitDictionary(groceryList, templateList, shoppingList);
+        UnitDictionary initialUnitDictionaryData;
+        try {
+            unitDictionaryOptional = storage.readUnitDictionary();
+            if (!unitDictionaryOptional.isPresent()) {
+                logger.info("Data file not found. Will generate new UnitDictionary");
+                initialUnitDictionaryData = newUnitDictionary;
+            }
+            initialUnitDictionaryData = unitDictionaryOptional.orElse(newUnitDictionary);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will generate new UnitDictionary");
+            initialUnitDictionaryData = newUnitDictionary;
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will generate new UnitDictionary");
+            initialUnitDictionaryData = newUnitDictionary;
+        }
+
+        return initialUnitDictionaryData;
+    }
+
+    /**
+     * Checks through the initial grocerylist, templatelist, shoppinglist to generate a new unit dictionary
+     * if the unit dictionary is empty. If the units of the items in the grocerylist, templatelist, shoppinglist is
+     * incorrect, it will throw an error.
+     * @param groceryList the list of grocery items to be added into model
+     * @param templateList the list of template items and templates to be added into model
+     * @param shoppingList the list of shopping items to be added into model
+     * @return
+     */
+    private UnitDictionary generateNewUnitDictionary(ReadOnlyGroceryList groceryList,
+                                                               ReadOnlyTemplateList templateList,
+                                                               ReadOnlyShoppingList shoppingList) {
+
+        HashMap<String, String> mapToBeCreated = new HashMap<>();
+        mapToBeCreated = updateMapWithTemplateItems(mapToBeCreated, templateList);
+        mapToBeCreated = updateMapWithGroceryItems(mapToBeCreated, groceryList);
+        mapToBeCreated = updateMapWithShoppingItems(mapToBeCreated, shoppingList);
+
+        return new UnitDictionary(mapToBeCreated);
+    }
+
+    /**
+     * Updates the dictionary map with the names and unitTypes in the template list
+     * @param mapToBeCreated map to be edited
+     * @param templateList list of templates
+     * @return edited map to be entered into the UnitDictionary
+     */
+    private HashMap<String, String> updateMapWithTemplateItems(HashMap<String, String> mapToBeCreated,
+                                                               ReadOnlyTemplateList templateList) {
+
+        ObservableList<UniqueTemplateItems> templates = templateList.getTemplateList();
+
+        for (int i = 0; i < templates.size(); i++) {
+            UniqueTemplateItems listN = templates.get(i);
+            for (int j = 0; j < listN.getSize(); j++) {
+                Food foodItem = listN.get(j);
+                Name name = foodItem.getName();
+                Amount amount = foodItem.getAmount();
+
+                String nameInUpperCase = name.toString().toUpperCase();
+                String unitType = amount.getUnitType(amount);
+                String setType = mapToBeCreated.get(nameInUpperCase);
+
+                if (setType != null && !setType.equals(unitType)) {
+                    throw new InvalidDictionaryException();
+                } else if (setType == null) {
+                    mapToBeCreated.put(nameInUpperCase, unitType);
+                } else {
+                    continue;
+                }
+            }
+
+        }
+        return mapToBeCreated;
+    }
+
+    private HashMap<String, String> updateMapWithGroceryItems(HashMap<String, String> mapToBeCreated,
+                                                                     ReadOnlyGroceryList groceryList) {
+        //Method to be written
+        return mapToBeCreated;
+    }
+
+    private HashMap<String, String> updateMapWithShoppingItems(HashMap<String, String> mapToBeCreated,
+                                                                      ReadOnlyShoppingList shoppingList) {
+        //Method to be written
+        return mapToBeCreated;
+    }
+
+
+    /**
+     * Returns the initial template list.
+     */
+    private ReadOnlyTemplateList initModelManagerTemplateList(Storage storage) {
+        Optional<ReadOnlyTemplateList> templateListOptional;
+        ReadOnlyTemplateList initialTemplateListData;
+        try {
+            templateListOptional = storage.readTemplateList();
+            if (!templateListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample TemplateList");
+            }
+            initialTemplateListData = templateListOptional.orElseGet(SampleDataUtil::getSampleTemplateList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty GroceryList");
+            initialTemplateListData = new TemplateList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty GroceryList");
+            initialTemplateListData = new TemplateList();
+        }
+
+        return initialTemplateListData;
     }
 
     /**
