@@ -3,6 +3,7 @@ package com.typee.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -20,6 +21,9 @@ import com.typee.model.util.EngagementComparator;
  */
 public class ParserUtil {
 
+    public static final String MESSAGE_INVALID_DATE_STRING = "Please stick to the DD/MM/YYYY format.";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "%s is not a valid date "
+            + "in the DD/MM/YYYY/HHMM format.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_TIME_STRING = "Please stick to the DD/MM/YYYY/HHMM format.";
     public static final String MESSAGE_INVALID_TIME_FORMAT = "%s is not a valid date-time "
@@ -138,7 +142,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses the {@code String} input by the user.
+     * Parses the {@code String time} input by the user.
      * Returns a {@code LocalDateTime} object representing the time.
      *
      * @param time time.
@@ -173,6 +177,40 @@ public class ParserUtil {
         int hours = Integer.parseInt(time.substring(11, 13));
         int minutes = Integer.parseInt(time.substring(13, 15));
         return LocalDateTime.of(year, month, day, hours, minutes);
+    }
+
+    /**
+     * Parses the {@code String date} input by the user.
+     * Returns a {@code LocalDate} object representing the date.
+     * @param date The {@code String date} input by the user.
+     * @return A {@code LocalDate} object.
+     * @throws ParseException
+     */
+    public static LocalDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        try {
+            LocalDate localDate = convertStringToDate(date);
+            return localDate;
+        } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE_STRING);
+        } catch (DateTimeException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE_FORMAT, date));
+        }
+    }
+
+    /**
+     * Converts a {@code String} to its corresponding {@code LocalDate} object.
+     * @param date date.
+     * @return the corresponding {@code LocalDate} object.
+     */
+    private static LocalDate convertStringToDate(String date) {
+        if (date.length() != 10) {
+            throw new StringIndexOutOfBoundsException();
+        }
+        int year = Integer.parseInt(date.substring(6, 10));
+        Month month = Month.of(Integer.parseInt(date.substring(3, 5)));
+        int day = Integer.parseInt(date.substring(0, 2));
+        return LocalDate.of(year, month, day);
     }
 
 }

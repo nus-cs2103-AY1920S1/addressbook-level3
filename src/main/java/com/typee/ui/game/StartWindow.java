@@ -22,7 +22,7 @@ public class StartWindow extends UiPart<Region> {
 
     @FXML
     private void handleStart() {
-        GameWindow gameWindow = new GameWindow();
+        GameWindow gameWindow = GameWindow.getInstance();
         gameWindow.show();
     }
 }
