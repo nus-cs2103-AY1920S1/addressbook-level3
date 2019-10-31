@@ -196,14 +196,14 @@ Example:
 Autocompletes command/module code if there is only one option left. +
 Shows a dropdown for selection if there is more than one option left. This is done through the tab key.
 
-==== Expanding a semester: `expand`
+==== Expanding a semester: `expand` `[coming in v2.0]`
 Expands a semester so that more details can be seen. +
 Format: `expand SEMESTER` +
 Example:
 
 * `expand y1s1`
 
-==== Collapsing a semester: `collapse`
+==== Collapsing a semester: `collapse` `[coming in v2.0]`
 Collapses a semester so that most details are hidden. +
 Format: `collapse SEMESTER` +
 Example:
