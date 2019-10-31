@@ -52,7 +52,7 @@ Refer to <<Features>> for details of each command.
 
 Format: `help`
 
-=== Switch to different windows: `tab [menu]`
+=== Switch to different windows: `tab`
 
 Switches to a different menu in the application window. +
 Format: `tab [menu_name]`
@@ -221,12 +221,16 @@ reflected in the player information panel in the game window. When the user fail
 word reaches the bottom of screen, the decrease in health points is reflected in the player information panel in the game
 window. After the health points reaches zero, `GAME OVER` is displayed.
 
-=== Generating a PDF file of engagement : `pdf i/[index] to/[receiver] from/[sender]`
+=== Generating a PDF file of engagement : `pdf`
 Pdf Command allows user to create a document of selected engagement in a given format of document template.
 Document template can be customised based on the customers's requirements, however, default document format will be in an eamil format,
 where the user can set who the user is going to send this document to inform an engagement. +
+
+Format: `pdf i/[index] to/[receiver] from/[sender]` +
+
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
 User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 to/Harry from/John` to generate the document.
+
 
 image::pdf_1.png[width="800"]
 
