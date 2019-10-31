@@ -51,7 +51,7 @@ public class IFridgeParser {
             return new WasteListParser().parseCommand(listCommand);
 
         case ShoppingListParser.LIST_TYPE_WORD:
-            return new ShoppingListParser().parseShoppingCommand(listCommand);
+            return new ShoppingListParser().parseCommand(listCommand);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
