@@ -5,6 +5,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_INDEX;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_TYPE;
 
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.gui.TabType;
@@ -39,7 +40,7 @@ public class SwitchTabCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
             switch (tabType) {
             case DISPLAY:

@@ -10,7 +10,8 @@ import java.time.LocalDate;
  */
 public class TimeRange {
 
-    public static final String MESSAGE_CONSTRAINTS = "Both start date and end date should be present.";
+    public static final String MESSAGE_CONSTRAINTS = "Both start date and end date should be present";
+    public static final String ORDER_CONSTRAINTS = "Starting time should not be after end time.";
 
     public final LocalDate startDate;
     public final LocalDate endDate;
@@ -31,7 +32,7 @@ public class TimeRange {
      * Returns true if a given time range is valid.
      */
     public static boolean isValidRange(LocalDate startDate, LocalDate endDate) {
-        return startDate != null && endDate != null;
+        return startDate != null && endDate != null && !startDate.isAfter(endDate);
     }
 
     @Override

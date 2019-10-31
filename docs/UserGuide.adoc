@@ -173,7 +173,6 @@ When providing the search restrictions, you should ensure that keywords are non-
 [NOTE]
 Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
 
-
 Examples:
 
 * `find n/Sequence` +
@@ -267,6 +266,7 @@ Format: `add n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 
 * Plans cannot have duplicate names.
 * `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
+* `START_DATE` should be before or equal to `END_DATE`.
 
 Examples:
 
@@ -298,6 +298,7 @@ Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DAT
 * Edits the plan at the specified `INDEX`. The index refers to the index number shown in the displayed plan list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* `START_DATE` should be before or equal to `END_DATE`.
 
 Examples:
 
@@ -311,14 +312,49 @@ Edits the starting date of the 2nd plan to be `2019-08-13`.
 Displays a list of all existing plans. +
 Format: `listplan`
 
+=== Searching Plans
+
+==== Locating plans: `findplan`
+
+Finds plans fulfilling all provided constraints. +
+Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
+
+* Name
+** is case-insensitive.
+** is considered a match as long as one word matches.
+** is matched word by word.
+* Description
+** is case-insensitive
+** is matched word by word
+** is considered as a match only when the problem's description includes all words in the constraint.
+* Start and end range
+** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
+** both `RANGE_START` and `RANGE_END` should be specified.
+** `RANGE_START` should be before or equal to `RANGE_END`.
+
+=== Task Management
+
 ==== Adding a new task to a plan: `addtask`
 
 Adds a task to a specified plan. +
 Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/TARGET_DATE]`
 
+* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+
 Examples:
 
 * `addtask plan/1 prob/1 due/2019-12-12`
+
+==== Copying a task from one plan to another: `copytask`
+
+Copies a specified task from one plan to another. +
+Format: `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
+
+* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+
+Examples:
+
+* `copytask task/1 from/1 to/2`
 
 ==== Deleting a task from a plan: `deletetask`
 
@@ -343,6 +379,8 @@ Examples:
 Edits the due date of a specified task from a specified plan. +
 Format: `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE`
 
+* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+
 Examples:
 
 * `edittask plan/1 task/1 due/2019-12-12`
@@ -361,28 +399,20 @@ Examples:
 Moves a specified task from a specified plan to another. +
 Format: `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
 
+* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+
 Examples:
 
 * `movetask task/1 from/1 to/2`
 
-=== Searching Plans
+==== Setting the plan to be used in main display: `setplan`
 
-==== Locating plans: `findplan`
+Sets a specified plan as the current display plan. +
+Format: `setplan PLAN_INDEX`
 
-Finds plans fulfilling all provided constraints. +
-Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
+Examples:
 
-* Name
-** is case-insensitive.
-** is considered a match as long as one word matches.
-** is matched word by word.
-* Description
-** is case-insensitive
-** is matched word by word
-** is considered as a match only when the problem's description includes all words in the constraint.
-* Start and end range
-** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
-** both `RANGE_START` and `RANGE_END` should be specified.
+* `setplan 10`
 
 === Tabs
 
@@ -398,7 +428,7 @@ Examples:
 * `switchtab t/display i/1`
 * `switchtab t/details i/2`
 
-==== Open Tabs: `opentab`
+==== Opening Tabs: `opentab`
 Opens a new tab in the GUI +
 Format: `opentab m/MODEL_TYPE i/MODEL_INDEX`
 
@@ -410,7 +440,7 @@ Examples:
 * `opentab m/problem i/1`
 * `opentab m/plan i/2`
 
-==== Close Tabs: `closetab`
+==== Closing Tabs: `closetab`
 Closes a tab in the GUI +
 Format: `closetab t/TAB_TYPE i/TAB_INDEX`
 
@@ -422,7 +452,7 @@ Examples:
 * `closetab t/display i/1`
 * `closetab t/details i/2`
 
-=== Importing and Exporting data
+=== Data Management
 
 ==== Importing data: `import`
 
@@ -460,20 +490,6 @@ Shows all possible commands.
 * `help add`
 Shows command usage for `add` command.
 
-==== Rewinding command: `rewind`
-
-Rewind back to a previous successfully executed command. +
-Format: `rewind INDEX`
-
-kbd:[Ctrl + ↑] is shortcut for `rewind 1`
-
-[NOTE]
-Since kbd:[Ctrl + ↑] is equivalent to executing `rewind 1`, you should not expect to rewind multiple commands back if you press the shortcut multiple times - it will always show you the last successfully executed command, if any. if you want to rewind several commands back, please use `rewind INDEX` instead.
-
-* `find n/Sequences` +
-`rewind 1` +
-Execute `find` command first, then `rewind` back to the `find` command (now the content in the command box should be `find n/Sequences`)
-
 ==== Clearing all entries : `clear`
 
 Clears all entries from AlgoBase. +
@@ -483,6 +499,10 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
+
+==== Navigating the command history
+
+You can press kbd:[↑] to navigate back or kbd:[↓] to navigate forward in the command history.
 
 ==== Saving the data
 
@@ -536,8 +556,11 @@ e.g. `find n/CS2040 start/2019-03-01 end/2019-03-31`
 * *List Training Plans* : `listplan`
 * *Delete Training Plan* : `deleteplan INDEX` +
 e.g. `deleteplan 2`
+
 * *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
 e.g. `addtask plan/1 prob/2`
+* *Copy Tasks among Plans* : `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
+e.g. `copytask task/1 from/1 to/2`
 * *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `deletetask plan/1 task/2`
 * *Edit Due Date of Task* : `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE` +
@@ -548,14 +571,13 @@ e.g. `donetask plan/1 task/2`
 e.g. `undonetask plan/1 task/2`
 * *Move Tasks among Plans* : `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
 e.g. `movetask task/1 from/1 to/2`
+* *Set Current Plan* : `setplan PLAN_TASK` +
+e.g. `setplan 10`
 
 * *Exporting data* : `export format/FORMAT path/DIRECTORY_PATH` +
 e.g. `export format/json path/.`
 * *Importing data* : `import format/FORMAT path/FILE_PATH` +
 e.g. `import format/json path/./steven_halim_secret.json`
-
-* *Rewind Command History* : `rewind INDEX` +
-e.g. `rewind 1`
 
 * *Help* : `help`
 * *Clear* : `clear`

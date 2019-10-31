@@ -6,42 +6,57 @@ import static seedu.algobase.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.commands.AddFindRuleCommand;
 import seedu.algobase.logic.commands.AddPlanCommand;
 import seedu.algobase.logic.commands.AddTagCommand;
-import seedu.algobase.logic.commands.AddTaskCommand;
 import seedu.algobase.logic.commands.ApplyCommand;
 import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.CloseTabCommand;
 import seedu.algobase.logic.commands.Command;
-import seedu.algobase.logic.commands.DeleteCommand;
 import seedu.algobase.logic.commands.DeleteFindRuleCommand;
 import seedu.algobase.logic.commands.DeletePlanCommand;
 import seedu.algobase.logic.commands.DeleteTagCommand;
-import seedu.algobase.logic.commands.DeleteTaskCommand;
-import seedu.algobase.logic.commands.DoneTaskCommand;
-import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditPlanCommand;
 import seedu.algobase.logic.commands.EditTagCommand;
-import seedu.algobase.logic.commands.EditTaskCommand;
 import seedu.algobase.logic.commands.ExitCommand;
-import seedu.algobase.logic.commands.ExportCommand;
-import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.commands.HelpCommand;
-import seedu.algobase.logic.commands.ImportCommand;
-import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.commands.ListTagCommand;
-import seedu.algobase.logic.commands.MoveTaskCommand;
 import seedu.algobase.logic.commands.OpenTabCommand;
-import seedu.algobase.logic.commands.RewindCommand;
-import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.commands.SwitchTabCommand;
-import seedu.algobase.logic.commands.UndoneTaskCommand;
+import seedu.algobase.logic.commands.problem.AddCommand;
+import seedu.algobase.logic.commands.problem.DeleteCommand;
+import seedu.algobase.logic.commands.problem.EditCommand;
+import seedu.algobase.logic.commands.problem.FindCommand;
+import seedu.algobase.logic.commands.problem.ListCommand;
+import seedu.algobase.logic.commands.problem.SortCommand;
+import seedu.algobase.logic.commands.storage.ExportCommand;
+import seedu.algobase.logic.commands.storage.ImportCommand;
+import seedu.algobase.logic.commands.task.AddTaskCommand;
+import seedu.algobase.logic.commands.task.CopyTaskCommand;
+import seedu.algobase.logic.commands.task.DeleteTaskCommand;
+import seedu.algobase.logic.commands.task.DoneTaskCommand;
+import seedu.algobase.logic.commands.task.EditTaskCommand;
+import seedu.algobase.logic.commands.task.MoveTaskCommand;
+import seedu.algobase.logic.commands.task.SetPlanCommand;
+import seedu.algobase.logic.commands.task.UndoneTaskCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-
+import seedu.algobase.logic.parser.problem.AddCommandParser;
+import seedu.algobase.logic.parser.problem.DeleteCommandParser;
+import seedu.algobase.logic.parser.problem.EditCommandParser;
+import seedu.algobase.logic.parser.problem.FindCommandParser;
+import seedu.algobase.logic.parser.problem.SortCommandParser;
+import seedu.algobase.logic.parser.storage.ExportCommandParser;
+import seedu.algobase.logic.parser.storage.ImportCommandParser;
+import seedu.algobase.logic.parser.task.AddTaskCommandParser;
+import seedu.algobase.logic.parser.task.CopyTaskCommandParser;
+import seedu.algobase.logic.parser.task.DeleteTaskCommandParser;
+import seedu.algobase.logic.parser.task.DoneTaskCommandParser;
+import seedu.algobase.logic.parser.task.EditTaskCommandParser;
+import seedu.algobase.logic.parser.task.MoveTaskCommandParser;
+import seedu.algobase.logic.parser.task.SetPlanCommandParser;
+import seedu.algobase.logic.parser.task.UndoneTaskCommandParser;
 /**
  * Parses user input.
  */
@@ -108,6 +123,9 @@ public class AlgoBaseParser {
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
 
+        case CopyTaskCommand.COMMAND_WORD:
+            return new CopyTaskCommandParser().parse(arguments);
+
         case DeleteTaskCommand.COMMAND_WORD:
             return new DeleteTaskCommandParser().parse(arguments);
 
@@ -119,6 +137,9 @@ public class AlgoBaseParser {
 
         case MoveTaskCommand.COMMAND_WORD:
             return new MoveTaskCommandParser().parse(arguments);
+
+        case SetPlanCommand.COMMAND_WORD:
+            return new SetPlanCommandParser().parse(arguments);
 
         case UndoneTaskCommand.COMMAND_WORD:
             return new UndoneTaskCommandParser().parse(arguments);
@@ -145,10 +166,6 @@ public class AlgoBaseParser {
 
         case DeleteFindRuleCommand.COMMAND_WORD:
             return new DeleteFindRuleParser().parse(arguments);
-
-        // Rewind
-        case RewindCommand.COMMAND_WORD:
-            return new RewindCommandParser().parse(arguments);
 
         // Storage
         case ExportCommand.COMMAND_WORD:

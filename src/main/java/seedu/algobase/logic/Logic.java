@@ -43,6 +43,12 @@ public interface Logic {
     GuiState getGuiState();
 
     /**
+     * Returns an unmodifiable view of the list of commands entered by the user.
+     * The list is ordered from the least recent command to the most recent command.
+     */
+    ObservableList<String> getHistory();
+
+    /**
      * Returns an unmodifiable view of the processed list of problems.
      */
     ObservableList<Problem> getProcessedProblemList();

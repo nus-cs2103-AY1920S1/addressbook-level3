@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.Messages;
+import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.problem.FindCommand;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
@@ -41,12 +43,14 @@ class FindCommandTest {
     private static final List<String> VALID_DESCRIPTION_KEYWORDS =
         Arrays.asList(VALID_DESCRIPTION_QUICK_SORT.split(" "));
     private static final String VALID_SOURCE_KEYWORD = QUICK_SORT.getSource().value;
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     private static final List<String> VALID_TAG_STRING_LIST =
         Arrays.stream(QUICK_SORT.getTags().toArray(new Tag[] {}))
             .map(tag -> tag.tagName)
             .collect(Collectors.toList());
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     private List<Keyword> stringListToKeywordList(List<String> strings) {
         return strings.stream()
@@ -69,7 +73,7 @@ class FindCommandTest {
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder().withNamePredicate(predicate).build();
         FindCommand command = new FindCommand(descriptor);
         expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
     }
 
@@ -81,7 +85,7 @@ class FindCommandTest {
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder().withAuthorPredicate(predicate).build();
         FindCommand command = new FindCommand(descriptor);
         expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
     }
 
@@ -96,7 +100,7 @@ class FindCommandTest {
             .withDescriptionPredicate(predicate).build();
         FindCommand command = new FindCommand(descriptor);
         expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
     }
 
@@ -108,7 +112,7 @@ class FindCommandTest {
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder().withSourcePredicate(predicate).build();
         FindCommand command = new FindCommand(descriptor);
         expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
     }
 
@@ -123,7 +127,7 @@ class FindCommandTest {
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder().withTagPredicate(predicate).build();
         FindCommand command = new FindCommand(descriptor);
         expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
     }
 
@@ -136,7 +140,7 @@ class FindCommandTest {
             .withDifficultyPredicate(predicate).build();
         FindCommand command = new FindCommand(descriptor);
         expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
     }
 

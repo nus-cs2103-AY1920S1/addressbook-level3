@@ -39,11 +39,8 @@ public class PlanList implements Iterable<Plan> {
      */
     public void add(Plan toAdd) {
         requireNonNull(toAdd);
-        currentPlan.set(toAdd.getPlanName().fullName);
-        solvedCount.set(toAdd.getSolvedTaskCount());
-        unsolvedCount.set(toAdd.getUnsolvedTaskCount());
         internalList.add(toAdd);
-        internalTaskList.setAll(toAdd.getTasks());
+        setCurrentPlan(toAdd);
     }
 
     /**
@@ -58,11 +55,8 @@ public class PlanList implements Iterable<Plan> {
             throw new PlanNotFoundException();
         }
 
-        currentPlan.set(updatedPlan.getPlanName().fullName);
-        solvedCount.set(updatedPlan.getSolvedTaskCount());
-        unsolvedCount.set(updatedPlan.getUnsolvedTaskCount());
         internalList.set(index, updatedPlan);
-        internalTaskList.setAll(updatedPlan.getTasks());
+        setCurrentPlan(updatedPlan);
     }
 
     /**
@@ -81,23 +75,6 @@ public class PlanList implements Iterable<Plan> {
     }
 
     /**
-     * Replaces the contents of this list with {@code plans}.
-     */
-    public void setPlans(List<Plan> plans) {
-        requireAllNonNull(plans);
-        internalList.setAll(plans);
-
-        if (plans.size() > 0) {
-            // Default to first plan in list
-            Plan plan = plans.get(0);
-            currentPlan.set(plan.getPlanName().fullName);
-            solvedCount.set(plan.getSolvedTaskCount());
-            unsolvedCount.set(plan.getUnsolvedTaskCount());
-            internalTaskList.setAll(plan.getTasks());
-        }
-    }
-
-    /**
      * Replaces the contents of this list with {@code replacement}.
      */
     public void setPlans(PlanList replacement) {
@@ -107,10 +84,33 @@ public class PlanList implements Iterable<Plan> {
     }
 
     /**
+     * Replaces the contents of this list with {@code plans}.
+     */
+    public void setPlans(List<Plan> plans) {
+        requireAllNonNull(plans);
+        internalList.setAll(plans);
+
+        if (plans.size() > 0) {
+            // Default to first plan in list
+            setCurrentPlan(plans.get(0));
+        }
+    }
+
+    /**
      * Returns the current {@code Plan}.
      */
     public StringProperty getCurrentPlan() {
         return currentPlan;
+    }
+
+    /**
+     * Sets the current {@code Plan}.
+     */
+    public void setCurrentPlan(Plan plan) {
+        currentPlan.set(plan.getPlanName().fullName);
+        solvedCount.set(plan.getSolvedTaskCount());
+        unsolvedCount.set(plan.getUnsolvedTaskCount());
+        internalTaskList.setAll(plan.getTaskList());
     }
 
     /**

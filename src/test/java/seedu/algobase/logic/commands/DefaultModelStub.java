@@ -12,7 +12,6 @@ import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.ReadOnlyUserPrefs;
-import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
@@ -53,7 +52,7 @@ public class DefaultModelStub implements Model {
     }
 
     @Override
-    public void setAlgoBaseFilePath(Path addressBookFilePath) {
+    public void setAlgoBaseFilePath(Path algobaseFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -195,6 +194,11 @@ public class DefaultModelStub implements Model {
     //=========== Task ==================================================================
 
     @Override
+    public void setCurrentPlan(Plan plan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Task> getCurrentTaskList() {
         throw new AssertionError("This method should not be called.");
     }
@@ -238,18 +242,6 @@ public class DefaultModelStub implements Model {
 
     @Override
     public ObservableList<ProblemSearchRule> getFilteredFindRuleList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    //=========== Rewind ================================================================
-
-    @Override
-    public ObservableList<CommandHistory> getCommandHistoryList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void addCommandHistory(CommandHistory history) {
         throw new AssertionError("This method should not be called.");
     }
 

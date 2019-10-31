@@ -21,8 +21,8 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.commons.util.StringUtil;
 import seedu.algobase.logic.commands.OpenTabCommand;
-import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.commands.SwitchTabCommand;
+import seedu.algobase.logic.commands.problem.SortCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.TabType;
@@ -230,15 +230,15 @@ public class ParserUtil {
      */
     public static SortCommand.SortingMethod parseSortingMethod(String method) throws ParseException {
         switch (method) {
-        case "name":
+        case SortCommand.SortingMethod.KEYWORD_NAME:
             return SortCommand.SortingMethod.byName;
-        case "author":
+        case SortCommand.SortingMethod.KEYWORD_AUTHOR:
             return SortCommand.SortingMethod.byAuthor;
-        case "difficulty":
+        case SortCommand.SortingMethod.KEYWORD_DIFFICULTY:
             return SortCommand.SortingMethod.byDifficulty;
-        case "source":
+        case SortCommand.SortingMethod.KEYWORD_SOURCE:
             return SortCommand.SortingMethod.bySource;
-        case "weblink":
+        case SortCommand.SortingMethod.KEYWORD_WEBLINK:
             return SortCommand.SortingMethod.byWebLink;
         default:
             throw new ParseException(SortCommand.SortingMethod.MESSAGE_CONSTRAINTS);
@@ -252,9 +252,9 @@ public class ParserUtil {
      */
     public static SortCommand.SortingOrder parseSortingOrder(String order) throws ParseException {
         switch (order) {
-        case "ascend":
+        case SortCommand.SortingOrder.KEYWORD_ASCEND:
             return SortCommand.SortingOrder.ascend;
-        case "descend":
+        case SortCommand.SortingOrder.KEYWORD_DESCEND:
             return SortCommand.SortingOrder.descend;
         default:
             throw new ParseException(SortCommand.SortingOrder.MESSAGE_CONSTRAINTS);

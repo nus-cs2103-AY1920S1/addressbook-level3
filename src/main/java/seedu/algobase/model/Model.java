@@ -9,7 +9,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
-import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
@@ -208,6 +207,11 @@ public interface Model {
     //=========== Task ==================================================================
 
     /**
+     * Sets the current {@code Plan}.
+     */
+    void setCurrentPlan(Plan plan);
+
+    /**
      * Returns an unmodifiable view of the filtered Plan list
      */
     ObservableList<Task> getCurrentTaskList();
@@ -262,18 +266,5 @@ public interface Model {
      * Returns an unmodifiable view of the filtered list of AlgoBase's find rules.
      */
     ObservableList<ProblemSearchRule> getFilteredFindRuleList();
-
-    //=========== Rewind ================================================================
-
-    /**
-     * Returns an unmodifiable view of the filtered CommandHistory list.
-     */
-    ObservableList<CommandHistory> getCommandHistoryList();
-
-    /**
-     * Adds the given {@code CommandHistory}.
-     * @param history the added history
-     */
-    void addCommandHistory(CommandHistory history);
 
 }

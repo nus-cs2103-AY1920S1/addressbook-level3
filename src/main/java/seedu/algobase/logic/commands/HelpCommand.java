@@ -6,6 +6,7 @@ import static seedu.algobase.commons.util.AppUtil.getClassStringField;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.model.Model;
 
 /**
@@ -43,7 +44,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         if (isListAllCommands) {
             List<String> commandWords = new ArrayList<>();
             for (Class command : Command.COMMAND_LIST) {
@@ -51,7 +52,7 @@ public class HelpCommand extends Command {
             }
             String commandPrompt = "Available commands are: " + commandWords.toString() + "\n"
                 + "More information can be found in the popup window.";
-            return new CommandResult(commandPrompt, true, false, false);
+            return new CommandResult(commandPrompt, true, false);
         } else {
             String commandUsage = getClassStringField(commandClass, "MESSAGE_USAGE");
             return new CommandResult(commandUsage);

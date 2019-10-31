@@ -16,7 +16,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
-import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
@@ -37,7 +36,6 @@ public class ModelManager implements Model {
     private final FilteredList<Tag> filteredTags;
     private final FilteredList<Plan> filteredPlans;
     private final FilteredList<Task> filteredTasks;
-    private final FilteredList<CommandHistory> filteredCommandHistories;
     private final FilteredList<ProblemSearchRule> filteredFindRules;
 
     /**
@@ -53,11 +51,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProblems = new FilteredList<>(this.algoBase.getProblemList());
         filteredTags = new FilteredList<>(this.algoBase.getTagList());
-        sortedProblems = new SortedList<>(filteredProblems);
+        sortedProblems = (new SortedList<>(filteredProblems));
         filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
         filteredTasks = new FilteredList<>(this.algoBase.getCurrentTaskList());
         filteredFindRules = new FilteredList<>(this.algoBase.getFindRules());
-        filteredCommandHistories = new FilteredList<>(this.algoBase.getCommandHistoryList());
     }
 
     public ModelManager() {
@@ -142,9 +139,6 @@ public class ModelManager implements Model {
         algoBase.setProblem(target, editedProblem);
     }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Problem}.
-     */
     @Override
     public ObservableList<Problem> getFilteredProblemList() {
         return sortedProblems;
@@ -229,10 +223,6 @@ public class ModelManager implements Model {
         }
     }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Tag} backed by the internal list of
-     * {@code versionedAlgoBase}
-     */
     @Override
     public ObservableList<Tag> getFilteredTagList() {
         return filteredTags;
@@ -286,10 +276,11 @@ public class ModelManager implements Model {
 
     //========== Task ===================================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
-     * {@code versionedAlgoBase}
-     */
+    @Override
+    public void setCurrentPlan(Plan plan) {
+        this.algoBase.setCurrentPlan(plan);
+    }
+
     @Override
     public ObservableList<Task> getCurrentTaskList() {
         return filteredTasks;
@@ -341,19 +332,6 @@ public class ModelManager implements Model {
         return filteredFindRules;
     }
 
-
-    //========== Rewind =================================================================
-
-    @Override
-    public ObservableList<CommandHistory> getCommandHistoryList() {
-        return filteredCommandHistories;
-    }
-
-    @Override
-    public void addCommandHistory(CommandHistory history) {
-        requireNonNull(history);
-        algoBase.addCommandHistory(history);
-    }
 
     //========== Util ===================================================================
 

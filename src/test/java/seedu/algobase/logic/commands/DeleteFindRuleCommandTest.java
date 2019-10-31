@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
@@ -23,7 +24,9 @@ import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
  */
 class DeleteFindRuleCommandTest {
 
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndex_success() {
@@ -35,7 +38,7 @@ class DeleteFindRuleCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAlgoBase(), new UserPrefs());
         expectedModel.deleteFindRule(ruleToDelete);
 
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -43,7 +46,7 @@ class DeleteFindRuleCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFindRuleList().size() + 1);
         DeleteFindRuleCommand command = new DeleteFindRuleCommand(outOfBoundIndex);
 
-        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_FIND_RULE_DISPLAYED_INDEX);
+        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_INVALID_FIND_RULE_DISPLAYED_INDEX);
     }
 
 
