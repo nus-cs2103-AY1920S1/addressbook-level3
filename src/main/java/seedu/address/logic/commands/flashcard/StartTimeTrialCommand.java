@@ -25,9 +25,9 @@ public class StartTimeTrialCommand extends Command {
 
     public static final String COMMAND_WORD = TIMETRIAL;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts a time trial of all all the flashcards"
-            + " with all the specified tag."
-            + "Parameters: " + PREFIX_TAG + "[TAG] "
-            + "Example: " + COMMAND_WORD + " " + PREFIX_TAG + "CS2100";
+            + " with all the specified tag.\n"
+            + "Parameters: [TAG]\n"
+            + "Example: " + COMMAND_WORD + " CS2100";
 
     public static final String MESSAGE_SUCCESS = "Time trial started";
 
@@ -45,7 +45,7 @@ public class StartTimeTrialCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, TagNotFoundException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         ArrayList<Flashcard> deck = model.getTaggedFlashcards(tagPredicate);
