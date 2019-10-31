@@ -114,7 +114,7 @@
             </padding>
           </VBox>
         </SplitPane>
-        <StackPane fx:id="resultDisplayPlaceholder" minHeight="${vroot.height*0.1}" maxHeight="${vroot.height*0.1}" prefHeight="${vroot.height*0.1}"
+        <StackPane fx:id="resultDisplayPlaceholder" minHeight="${vroot.height*0.15}" maxHeight="${vroot.height*0.2}" prefHeight="${vroot.height*0.175}"
           styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
             <Insets bottom="5" left="10" right="10" top="5"/>

@@ -11,6 +11,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 /**
  * Tab containing the spending graph.
@@ -42,9 +43,11 @@ public class GraphPanel extends UiPart<Region> {
 
         for (XYChart.Series<String, Number> s : spendingChart.getData()) {
             for (XYChart.Data<String, Number> d : s.getData()) {
-                Tooltip.install(d.getNode(), new Tooltip(
+                Tooltip tp = new Tooltip(
                         "Date: \t" + d.getXValue() + "\n"
-                                + "Spending: \t$" + d.getYValue() + ".00"));
+                                + "Spending: \t$" + d.getYValue() + ".00");
+                tp.setShowDelay(Duration.seconds(0.0005));
+                Tooltip.install(d.getNode(), tp);
 
                 //Adding class on hover
                 d.getNode().setOnMouseEntered(event -> d.getNode().getStyleClass().add("onHover"));
