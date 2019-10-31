@@ -148,12 +148,12 @@ public class SearchCommand extends Command {
         if (requestedSearchFromInternal()) {
             addShowFromWatchListIfHasActor(actorSet, model);
         } else if (requestedSearchFromOnline()) {
-            addShowFromOnlineIfHasActor(actorSet); //unable to online for now
+            //addShowFromOnlineIfHasActor(actorSet); //unable to online for now
         } else if (requestedIsInternal()) {
             throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
         } else { // there's no restriction on where to search from
             addShowFromWatchListIfHasActor(actorSet, model);
-            addShowFromOnlineIfHasActor(actorSet); //unable to online for now
+            //addShowFromOnlineIfHasActor(actorSet); //unable to online for now
         }
     }
 
@@ -173,12 +173,12 @@ public class SearchCommand extends Command {
         if (requestedSearchFromInternal()) {
             addShowFromWatchListIfIsGenre(genreSet, model);
         } else if (requestedSearchFromOnline()) {
-            // addShowFromOnlineIfIsGenre(genreSet); //unable to online for now
+            addShowFromOnlineIfIsGenre(genreSet); //unable to online for now
         } else if (requestedIsInternal()) {
             throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
         } else { // there's no restriction on where to search from
             addShowFromWatchListIfIsGenre(genreSet, model);
-            // addShowFromOnlineIfIsGenre(genreSet); //unable to online for now
+            addShowFromOnlineIfIsGenre(genreSet); //unable to online for now
         }
     }
 
@@ -282,7 +282,6 @@ public class SearchCommand extends Command {
         }
     }
 
-    // TO EDIT
     /**
      * Add show from online if has actors, taking into account if user makes any other requests.
      * @param actorSet The set of actors to be searched.
@@ -302,6 +301,20 @@ public class SearchCommand extends Command {
                 //addOnlineTvSearchedByNameToResult(showName);
             }
         }
+    }
+
+    /**
+     * Returns a list of Tv Shows from the API search method.
+     *
+     * @param genreSet the set of genres that the user wants to search.
+     * @throws OnlineConnectionException when not connected to the internet.
+     */
+    private void addShowFromOnlineIfIsGenre(Set<Genre> genreSet) throws OnlineConnectionException {
+        List<Movie> movies = onlineSearch.getMovieByGenre(genreSet);
+        for (Movie movie : movies) {
+            searchResult.add(movie);
+        }
+        List<TvShow> tvShows = onlineSearch.getTvShowByGenre(genreSet);
     }
 
     /**
