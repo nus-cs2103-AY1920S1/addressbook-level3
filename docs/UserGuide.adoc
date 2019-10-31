@@ -411,7 +411,7 @@ Example: `lista`
 
 ==== Changing status of a deliveryman: `status`
 
-This command allows you to switch the status of a deliveryman between 'AVAILABLE' and 'UNAVAILABLE'. Using this command
+This command allows you to switch the status of a deliveryman between *AVAILABLE* and *UNAVAILABLE*. Using this command
 will prompt the status lists as well (that can be done through `lista` command explained in _Section 3.4.4_).
 
 NOTE: You are not allowed to change the status of a deliveryman who has the status *DELIVERING*. Completion of the
