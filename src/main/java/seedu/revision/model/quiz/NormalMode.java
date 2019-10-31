@@ -19,5 +19,20 @@ public class NormalMode extends Mode {
         this.time = NORMAL_MODE_TIME;
         this.combinedPredicate = NORMAL_MODE_PREDICATE;
     }
+
+    @Override
+    public Mode withCombinedPredicate(Predicate<Answerable> combinedPredicate) {
+        return new NormalMode();
+    }
+
+    @Override
+    public Mode withTime(int time) {
+        return new NormalMode();
+    }
+
+    @Override
+    public Mode build() {
+        return new NormalMode();
+    }
 }
 

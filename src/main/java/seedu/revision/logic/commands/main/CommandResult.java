@@ -7,6 +7,7 @@ import java.util.Objects;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.quiz.Mode;
+import seedu.revision.model.quiz.NormalMode;
 
 /**
  * Represents the result of a command execution.
@@ -51,7 +52,7 @@ public class CommandResult {
         this.showRestore = false;
         this.showHistory = false;
         this.showStats = false;
-        this.mode = new Mode("normal");
+        this.mode = new NormalMode();
         this.model = new ModelManager();
     }
 
