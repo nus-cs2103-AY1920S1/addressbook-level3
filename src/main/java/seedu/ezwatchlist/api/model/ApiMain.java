@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.movito.themoviedbapi.TmdbApi;
-import info.movito.themoviedbapi.TmdbTV;
 import info.movito.themoviedbapi.TvResultsPage;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import info.movito.themoviedbapi.tools.MovieDbException;
+import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
-import seedu.ezwatchlist.api.util.ApiMainUtil;
+import seedu.ezwatchlist.api.util.ApiUtil;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.TvShow;
 
@@ -25,6 +25,7 @@ public class ApiMain implements ApiInterface {
 
     /**
      * Constructor for ApiMain object used to interact with the API.
+     *
      * @throws OnlineConnectionException when not connected to the internet.
      */
     public ApiMain() throws OnlineConnectionException {
@@ -58,7 +59,7 @@ public class ApiMain implements ApiInterface {
      *
      * @throws OnlineConnectionException when the method is called with an error message.
      */
-    private void notConnected() throws OnlineConnectionException {
+    public static void notConnected() throws OnlineConnectionException {
         throw new OnlineConnectionException(CONNECTION_ERROR_MESSAGE);
     }
 
@@ -69,15 +70,15 @@ public class ApiMain implements ApiInterface {
      * @throws OnlineConnectionException when not connected to the internet.
      */
     public List<Movie> getUpcomingMovies() throws OnlineConnectionException {
+        ArrayList<Movie> movies = new ArrayList<>();
         try {
             MovieResultsPage upcoming = apiCall.getMovies().getUpcoming(null, null, null);
-            ArrayList<Movie> movies = new ArrayList<>();
-            ApiMainUtil.extractMovies(movies, upcoming, apiCall);
+            ApiUtil.extractMovies(movies, upcoming, apiCall);
 
             return movies;
         } catch (MovieDbException e) {
             notConnected();
-            return new ArrayList<Movie>();
+            return movies;
         }
     }
 
@@ -94,12 +95,53 @@ public class ApiMain implements ApiInterface {
             MovieResultsPage page = apiCall.getSearch().searchMovie(name,
                     null, null, true, 1);
 
-            ApiMainUtil.extractMovies(movies, page, apiCall);
+
+            ApiUtil.extractMovies(movies, page, apiCall);
 
             return movies;
         } catch (MovieDbException e) {
             notConnected();
             return movies;
+        }
+    }
+
+    /**
+     * Retrieves a list of recommended Movies based on the list of Movies the user has.
+     * @param userMovies list of Movies that belongs to the user.
+     * @param noOfRecommendations Number of recommendations returned. The method will attempt to reach that number,
+     *                             it will act as an upper limit to the amount of Movies returned.
+     * @return list of Movies that are recommended to the user.
+     * @throws OnlineConnectionException when not connected to the internet.
+     * @throws NoRecommendationsException when no recommendations can be generated.
+     */
+    public List<Movie> getMovieRecommendations(List<Movie> userMovies, int noOfRecommendations)
+            throws OnlineConnectionException, NoRecommendationsException {
+        try {
+            RecommendationEngine recommendation = new RecommendationEngine(userMovies, null, apiCall);
+            return recommendation.getMovieRecommendations(noOfRecommendations);
+        } catch (MovieDbException e) {
+            notConnected();
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves a list of recommended Tv Shows based on the list of Tv Shows the user has.
+     * @param userTvShows list of Tv Shows that belongs to the user.
+     * @param noOfRecommendations Number of recommendations returned. The method will attempt to reach that number,
+     *                             it will act as an upper limit to the amount of Tv Shows returned.
+     * @return list of Tv Shows that are recommended to the user.
+     * @throws OnlineConnectionException when not connected to the internet.
+     * @throws NoRecommendationsException when no recommendations can be generated.
+     */
+    public List<TvShow> getTvShowRecommendations(List<TvShow> userTvShows, int noOfRecommendations)
+            throws OnlineConnectionException, NoRecommendationsException {
+        try {
+            RecommendationEngine recommendation = new RecommendationEngine(null, userTvShows, apiCall);
+            return recommendation.getTvShowRecommendations(noOfRecommendations);
+        } catch (MovieDbException e) {
+            notConnected();
+            return null;
         }
     }
 
@@ -115,9 +157,8 @@ public class ApiMain implements ApiInterface {
 
         try {
             TvResultsPage page = apiCall.getSearch().searchTv(name, null, 1);
-            TmdbTV apiCallTvSeries = apiCall.getTvSeries();
 
-            ApiMainUtil.extractTvShow(tvShows, page, apiCallTvSeries, apiCall);
+            ApiUtil.extractTvShows(tvShows, page, apiCall);
             return tvShows;
         } catch (MovieDbException e) {
             notConnected();
