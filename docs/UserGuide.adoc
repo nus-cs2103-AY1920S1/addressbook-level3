@@ -284,50 +284,6 @@ Examples:
 * `group groupID/G01` +
 Shows all the students that belong to group with groupID `G01`
 
-
-=== Timetable​ - `​/timetable`
-
-Manage timetable and schedule class timings
-
-. *Schedule class time* ​- `/timetable schedule [class id] [date & time in DD/MM/YYYY HH:mm format] [description]​(optional)` +
-e.g. `/timetable schedule unity “18/11/2019 11:00” “Math class”` +
-*Return*: ​schedule id.
-. *View schedule for all classes​* - `/timetable view all` +
-e.g. `/timetable view all` +
-*Return*: ​schedule id, class id, class name, date time, description
-. *View schedule for specific class​* - `/timetable view [class id]` +
-e.g. `/timetable view unity` +
-*Return*: ​schedule id, class id, class name, date time, description
-. *Delete scheduled class time* ​- `/timetable delete [schedule id]` +
-e.g. `/timetable delete 1`
-
-=== Attendance ​-​ `/attendance`
-
-View and mark student’s attendance.
-
-. *View attendance* ​- `/attendance show` +
-e.g. `/attendance show`
-. *Mark attendance* ​- `/attendance check [class id] [student no.]` +
-e.g. `/attendance check unity 1`
-
-////
-=== Notes ​- ​`/notes`
-
-Notes can be specified under general or class. Specifying a class note will allow you to view
-notes specific to a class.
-
-. *View all notes* ​- `/note view all` +
-e.g. `/note view all`
-. *View general note* ​- `/note view general` +
-e.g. `/note view general`
-. *View class note* ​- `/note view class [class id]` +
-e.g. `/note view class unity`
-. *Create general note​* - `/note create general “[description]”` +
-e.g. `/note create general “Remember to attend cca briefing”`
-. *Create class note* ​- `/note create class “[class id]” “[description]”` +
-e.g. `/note create class unity “Remember to meet john after class”`
-////
-
 === Questions ​-​ `question`
 
 ==== Creating a question
@@ -411,9 +367,9 @@ Lists the question list.
 [[Feature-Question-Find]]
 ==== Searching for a question
 
-Search and display questions with similar terms.
+Search and display questions using keywords and similar terms.
 [NOTE]
-The ordering of questions is based on *similarity* and in ascending order such that the question that is most similar
+The ordering of questions is based on *similarity* and the ordering is such that the question that is most similar
 to your search term will be at the top.
 
 Format: `question find/...`
@@ -429,13 +385,27 @@ Searches through the question list to find questions close to the search term _'
 
 ==== Starting a Slideshow
 
-Start a slideshow based on the questions selected. +
+Start a slideshow based on the questions selected. The sequence of the questions displayed will follow the ordering of input. +
 Format: `question slideshow [QUESTIONS INDEX]`
 
 The options supported by this feature includes:
 
 . `[QUESTIONS INDEX]` - Index of questions *separated by a whitespace*.
-Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
+Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+
+The following keys are used to control the slideshow:
+
+. `Right arrow(→)` - Go to next question.
+. `Left arrow(←)` - Go to previous question.
+. `Esc` - Quit the slideshow.
+. `Space` - Show or hide the answer to the question.
+
+The following keys are used for polling for [.underline]#mcq# type questions:
+
+. `1` - Plus one to option A.
+. `2` - Plus one to option B.
+. `3` - Plus one to option C.
+. `4` - Plus one to option D.
 
 Example:
 
@@ -849,6 +819,7 @@ Note that all fields all mandatory unless stated otherwise.​
 == Command Summary
 
 * *Help* : `help`
+* *Exit* : `exit`
 * *Adding a student*: `student name/...`
 * *Removing a student*: `student delete index/...`
 * *Editing a student*: `student [index] name/...`
@@ -861,6 +832,12 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Removing student from a group*: `group delete groupID/... groupIndexNumber/...`
 * *Showing students from a group*: `group groupID/...`
 * *Exporting a group*: `group export groupID/...`
+* *Creating a question*: `question question/…​ answer/…​ type/…​ (MCQ OPTIONS IF APPLICABLE)`
+* *Editing a question*: `question [INDEX] question/…​ answer/…​ type/…​ (MCQ OPTIONS IF APPLICABLE)`
+* *Deleting a question*: `question delete [INDEX]`
+* *Listing your saved questions*: `question list`
+* *Searching for a question*: `question find/…​`
+* *Starting a slideshow*: `question slideshow [QUESTIONS INDEX]`
 * *Creating a Quiz Manually* : `quiz manual quizID/... questionNumber/...`
 * *Creating a Quiz Automatically* : `quiz auto quizID/... numQuestions/... type/...` [Where type is: mcq, open or all]
 * *Adding a Question to Quiz* : `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
