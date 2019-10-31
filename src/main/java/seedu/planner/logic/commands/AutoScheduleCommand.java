@@ -100,7 +100,7 @@ public class AutoScheduleCommand extends UndoableCommand {
             List<Activity> lastShownActivities = model.getFilteredActivityList();
             List<Activity> filteredActivitiesByLocation = lastShownActivities;
             List<LocalTime> timeSchedule = fillTimeSchedule(draftSchedule);
-            for (LocalTime localTime : timeSchedule){
+            for (LocalTime localTime : timeSchedule) {
                 System.out.println("time:" + localTime);
             }
             List<ActivityWithTime> activitiesForTheDay = new ArrayList<>();
