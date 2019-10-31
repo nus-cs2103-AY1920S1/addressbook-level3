@@ -13,6 +13,10 @@ Our team were initially tasked with enhancing a basic command line interface (CL
 What this means is that the application focused on typing as the main mode of use, and had an existing rudimentary base of code already functioning.
 
 Ultimately, we made the decision to modify it into a management application for Movies and Tv Shows named `Ezwatchlist`.
+
+=== 1.1 Overview
+
+ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 This enhanced application enables users to:
 
 . Keep track of the movies and television shows that they planed to watch.
@@ -21,56 +25,66 @@ This enhanced application enables users to:
 . Get information about their watching habits.
 . Get recommendations for movies and television shows.
 
-This is what our project looks like:
 
-Figure 1. The graphical user interface for OASIS.
-My role was to design and write the codes for the undo and redo features. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+Figure 1. The graphical interface for Ezwatchlist.
+
+My role was to design and write the codes for the undo and redo features.
+The following sections illustrate these enhancements in more detail, as well as the relevant documentation
+I have added to the user and developer guides in relation to these enhancements.
+****
 Note the following symbols and formatting used in this document:
 This symbol indicates important information.
 undo
 A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
 VersionedAddressBook
 Blue text with grey highlight indicates a component, class or object in the architecture
+****
 
-== Overview
+== 2. Summary of contributions
+This sections showcase my technical ability, This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.
 
-Ezwatchlist is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
-
-== Summary of contributions
-
-* *Major enhancement*: added *the ability to undo/redo previous commands*
+* *Major enhancement*: added *the ability to get online information for movies and tv series*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added ability to get recommendations based on the user's personal movies and tv shows.
+** Justification: This feature improves the product because a user can gain the added benefit of getting more suggestions for Movies and Tv Shows, which
+makes the application more robust. Moreover, it might increase the usage of the application improving it's value proposition.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Project lead, making sure the team coordinated and overall vision of the application was reached.
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Updated the Model to be null-friendly, and added Poster and Genre class (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Helped to integrate the API code with the rest of the application.
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** PRs reviewed : https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library (TMDB) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (Java wrapper) to the team repo
 
 _{you can add/remove categories in the list above}_
 
-== Contributions to the User Guide
-
-
+== 3. Contributions to the User Guide
+We had to update the original Ezwatchlist User Guide with instructions for the enhancements that
+we had added. SHowcasing my ability to write to target user. The following is an excerpt from our OASIS User Guide, showing additions that I have
+made for the undo and redo features.
+This section also contains an excerpt for the data file encryption feature that I have planned for the
+next version (v2.0) of OASIS. What I can do>
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
@@ -82,7 +96,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation
+and the technical depth of my software engineering skills to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]
