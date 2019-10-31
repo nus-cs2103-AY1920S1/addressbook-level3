@@ -4,7 +4,6 @@ import static seedu.address.model.budget.Budget.DEFAULT_BUDGET_DESCRIPTION;
 
 import seedu.address.model.MooLah;
 import seedu.address.model.ReadOnlyMooLah;
-
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.category.Category;

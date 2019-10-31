@@ -2,11 +2,11 @@ package seedu.address.logic.commands.general;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.alias.AliasMappings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.MooLah;
+import seedu.address.model.alias.AliasMappings;
 import seedu.address.ui.expense.ExpenseListPanel;
 
 /**

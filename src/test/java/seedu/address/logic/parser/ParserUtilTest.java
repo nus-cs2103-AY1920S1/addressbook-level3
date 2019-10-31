@@ -7,8 +7,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.alias.Alias;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.alias.Alias;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;

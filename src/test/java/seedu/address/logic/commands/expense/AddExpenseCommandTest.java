@@ -16,8 +16,6 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.alias.Alias;
-import seedu.address.model.alias.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,6 +24,8 @@ import seedu.address.model.MooLah;
 import seedu.address.model.ReadOnlyModelHistory;
 import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;

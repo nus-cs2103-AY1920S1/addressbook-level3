@@ -2,12 +2,9 @@ package seedu.address.ui.textfield;
 
 import static seedu.address.ui.textfield.SyntaxHighlightingSupportedInput.PLACEHOLDER_REGEX;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -287,6 +284,11 @@ public class AutofillSuggestionMenu extends ContextMenu {
         return graphic;
     }
 
+    /**
+     * Creates TextFlow used for AutoFillMenu graphics for list of required prefixs.
+     * @param p The prefix to generate a graphic for.
+     * @return The graphic {@code TextFlow}
+     */
     private TextFlow requiredPrefixGraphic(List<Prefix> p) {
         TextFlow graphic = new TextFlow();
         graphic.setPadding(Insets.EMPTY);

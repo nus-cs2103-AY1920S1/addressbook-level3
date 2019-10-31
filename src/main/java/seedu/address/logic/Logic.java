@@ -4,12 +4,12 @@ import java.nio.file.Path;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.alias.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyMooLah;
+import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;

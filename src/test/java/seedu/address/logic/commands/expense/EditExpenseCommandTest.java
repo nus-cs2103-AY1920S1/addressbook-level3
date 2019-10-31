@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
-
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.alias.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -17,6 +16,7 @@ import seedu.address.logic.parser.MooLahParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyMooLah;
+import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
