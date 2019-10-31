@@ -59,9 +59,24 @@ class JsonAdaptedIncident {
         districtNum = source.getDistrict().getDistrictNum();
         dateTime = source.getDateTime().toString();
         incidentId = source.getIncidentId().getId();
-        callerNumber = source.getCallerNumber().toString();
-        description = source.getDesc().toString();
         status = source.getStatus().name(); // do not use toString() because it has been overridden
+
+        // uninitialised for new incidents
+        CallerNumber sourceC = source.getCallerNumber();
+        Description sourceD = source.getDesc();
+
+        if (sourceC == null) {
+            callerNumber = "";
+        } else {
+            callerNumber = sourceC.toString();
+        }
+
+        if (sourceD == null) {
+            description = "";
+        } else {
+            description = sourceD.toString();
+        }
+
         vehicle = new JsonAdaptedVehicle(
                 source.getVehicle().getVehicleType().toString(),
                 source.getVehicle().getVehicleNumber().toString(),
