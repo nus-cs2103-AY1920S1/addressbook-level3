@@ -201,7 +201,6 @@ Format: `fire ti/TASK_ID mi/MEMBER_ID` +
 Example: `fire ti/1 mi/GS` will result in the following:
 
 image::Fire.png[width="790"]
-
 This indicates that the task 'Review Budget' with task id 1 has been removed from its assignment to team member 'John Doe' with member id 'JD'. +
 
 
