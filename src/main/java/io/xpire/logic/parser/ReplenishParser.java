@@ -12,6 +12,7 @@ import io.xpire.logic.commands.ClearCommand;
 import io.xpire.logic.commands.Command;
 import io.xpire.logic.commands.ExitCommand;
 import io.xpire.logic.commands.HelpCommand;
+import io.xpire.logic.commands.RedoCommand;
 import io.xpire.logic.commands.SearchCommand;
 import io.xpire.logic.commands.ShiftToMainCommand;
 import io.xpire.logic.commands.UndoCommand;
@@ -66,6 +67,9 @@ public class ReplenishParser implements Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case ShiftToMainCommand.COMMAND_WORD:
             return new ShiftToMainCommandParser().parse(arguments);

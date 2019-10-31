@@ -24,7 +24,7 @@ public class RedoCommand extends Command {
         State currentState = new State(model);
         State succeedingState = stackManager.redo(currentState);
 
-        //model.update(succeedingState);
+        model.update(succeedingState);
         return new CommandResult(MESSAGE_REDO_SUCCESS);
     }
 
