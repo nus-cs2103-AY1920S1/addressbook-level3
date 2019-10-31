@@ -215,9 +215,7 @@ public class AchievementStateProcessor {
             assert achievement.getRecordType() == recordType : "Record type in achievements list differ from each "
                     + "other.";
 
-            if (!achievementIsAttained) {
-                achievementIsAttained = achievement.isAchieved();
-            } else {
+            if (achievementIsAttained) {
                 setAchievementState(achievement, ACHIEVED);
                 continue;
             }
@@ -244,6 +242,7 @@ public class AchievementStateProcessor {
                     demote(achievement);
                 }
             }
+            achievementIsAttained = achievement.isAchieved();
         }
     }
 

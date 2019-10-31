@@ -12,7 +12,7 @@ public class BmiBronze extends Achievement implements Bmi {
 
     private static final String TITLE = "Mass Index Novice";
 
-    private static final int DURATION_VALUE = 7;
+    private static final int DURATION_VALUE = 3;
     private static final String DESCRIPTION = "Attain between " + MINIMUM + " and " + MAXIMUM + CONSTRAINT_UNITS + " "
             + "(inclusive) of daily average " + RECORD_TYPE + " for at least "
             + DURATION_VALUE + " consecutive "
