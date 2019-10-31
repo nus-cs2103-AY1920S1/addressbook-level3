@@ -19,6 +19,9 @@ public class DateUtil {
         return order.getSchedule().get().getCalendar().get(Calendar.YEAR);
     }
 
+    /**
+     * takes in an order and remove the time from it, leaving just month and year
+     */
     public static Calendar extractMonthYear(Order order) {
         int month = extractMonth(order);
         int year = extractYear(order);

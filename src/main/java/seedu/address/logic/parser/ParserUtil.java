@@ -361,7 +361,7 @@ public class ParserUtil {
                 }
                 //offset for month
             }
-            if (input[0] < 1970 ) {
+            if (input[0] < 1970) {
                 throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS_LESS_THAN_DEFAULT);
             }
 
