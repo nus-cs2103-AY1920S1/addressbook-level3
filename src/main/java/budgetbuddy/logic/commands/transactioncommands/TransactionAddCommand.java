@@ -8,6 +8,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static java.util.Objects.requireNonNull;
 
@@ -29,7 +30,7 @@ public class TransactionAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction.\n"
             + "Parameters: "
-            + "out|in "
+            + PREFIX_DIRECTION + "out|in "
             + PREFIX_AMOUNT + "<amount> "
             + PREFIX_DESCRIPTION + "<description> "
             + "[" + PREFIX_ACCOUNT + "<account>] "
@@ -37,7 +38,7 @@ public class TransactionAddCommand extends Command {
             + "[" + PREFIX_DATE + "<date>] "
             + "[" + PREFIX_RECURRENCE + "<d|w|m|y>]\n"
             + "Example: " + COMMAND_WORD + " "
-            + "out "
+            + PREFIX_DIRECTION + "out "
             + PREFIX_AMOUNT + "10 "
             + PREFIX_DESCRIPTION + "apple  "
             + PREFIX_ACCOUNT + "food  "

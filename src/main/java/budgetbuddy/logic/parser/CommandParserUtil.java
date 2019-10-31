@@ -12,6 +12,7 @@ import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
+import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RuleAction;
@@ -289,5 +290,23 @@ public class CommandParserUtil {
      */
     public static Category parseCategory(String s) {
         return new Category(s);
+    }
+
+    /**
+     * Parses a {@code String direction} into a {@link Direction}.
+     * Leading and trailing whitespace is trimmed.
+     *
+     * @param direction the string to parse
+     * @return the parsed direction
+     * @throws ParseException if the given string is not a valid script name
+     */
+    public static Direction parseDirection(String direction) throws ParseException {
+        if (direction.equalsIgnoreCase(Direction.OUT.toString())) {
+            return Direction.OUT;
+        } else if (direction.equalsIgnoreCase(Direction.IN.toString())) {
+            return Direction.IN;
+        } else {
+            throw new ParseException(Direction.MESSAGE_CONSTRAINTS);
+        }
     }
 }

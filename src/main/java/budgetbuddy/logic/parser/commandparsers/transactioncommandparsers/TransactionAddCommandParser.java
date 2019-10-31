@@ -6,6 +6,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
 
 import java.util.Date;
 import java.util.Optional;
@@ -41,32 +42,30 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
      */
     @Override
     public TransactionAddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_ACCOUNT,
+        ArgumentMultimap argMultiMap =
+                ArgumentTokenizer.tokenize(args, PREFIX_DIRECTION, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_ACCOUNT,
                         PREFIX_CATEGORY, PREFIX_DATE);
 
-        String directionString = argMultimap.getPreamble().toUpperCase();
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT)
-                || !(directionString.equals(Direction.IN.toString())
-                || directionString.equals(Direction.OUT.toString()))) {
+        if (!arePrefixesPresent(argMultiMap, PREFIX_DIRECTION, PREFIX_AMOUNT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     TransactionAddCommand.MESSAGE_USAGE));
         }
-        Direction direction = Direction.valueOf(directionString.toUpperCase());
 
-        Amount amount = CommandParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        Direction direction = CommandParserUtil.parseDirection(argMultiMap.getValue(PREFIX_DIRECTION).get());
 
-        Optional<String> optionalDescription = argMultimap.getValue(PREFIX_DESCRIPTION);
+        Amount amount = CommandParserUtil.parseAmount(argMultiMap.getValue(PREFIX_AMOUNT).get());
+
+        Optional<String> optionalDescription = argMultiMap.getValue(PREFIX_DESCRIPTION);
         Description description = optionalDescription.isPresent()
                 ? CommandParserUtil.parseDescription(optionalDescription.get())
                 : null;
 
-        Optional<String> optionalAccount = argMultimap.getValue(PREFIX_ACCOUNT);
+        Optional<String> optionalAccount = argMultiMap.getValue(PREFIX_ACCOUNT);
         Account account = optionalAccount.isPresent()
                 ? CommandParserUtil.parseAccount(optionalAccount.get())
                 : null;
 
-        Optional<String> optionalCategory = argMultimap.getValue(PREFIX_CATEGORY);
+        Optional<String> optionalCategory = argMultiMap.getValue(PREFIX_CATEGORY);
         Category category = optionalCategory.isPresent()
                 ? CommandParserUtil.parseCategory(optionalCategory.get())
                 : null;
@@ -74,7 +73,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
         /**
          * Return current date when optionalDate is not present
          */
-        Optional<String> optionalDate = argMultimap.getValue(PREFIX_DATE);
+        Optional<String> optionalDate = argMultiMap.getValue(PREFIX_DATE);
         Date date = optionalDate.isPresent()
                 ? CommandParserUtil.parseDate(optionalDate.get())
                 : new Date();
