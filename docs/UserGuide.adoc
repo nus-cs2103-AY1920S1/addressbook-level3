@@ -46,8 +46,8 @@ respectively.
 
 **Command Format**
 
-* Command words for universal commands are prepended with "-"
-** Example Usage: `-help`.
+* Command words for universal commands are prepended with "-" *(not for now)*
+** Example Usage: `help`.
 * Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`,
 `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be supplied.
 ** Example Usage: `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
@@ -431,6 +431,8 @@ utilisation level will also be computed and displayed for your reference.
 Format: `stats`
 
 Example: `stats`
+
+{nbsp} +
 
 ==== Entering a specific deliveryman: `enter`
 
