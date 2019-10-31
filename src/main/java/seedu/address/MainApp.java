@@ -32,8 +32,6 @@ import seedu.address.model.util.SampleCalendarDataUtil;
 import seedu.address.model.util.SampleFoodDataUtil;
 import seedu.address.model.util.SampleRecordDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCalendarStorage;
 import seedu.address.storage.JsonRecordListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -77,13 +75,12 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         UserListStorage userListStorage = new JsonUserListStorage(userPrefs.getUserListFilePath());
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(userPrefs.getFoodListFilePath());
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(userPrefs.getRecordListFilePath());
         JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(userPrefs.getEventListFilePath(),
                 userPrefs.getReminderListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage,
+        storage = new StorageManager(userPrefsStorage, userListStorage, jsonFoodListStorage,
                 jsonRecordListStorage, jsonCalendarStorage);
 
         initLogging(config);
@@ -141,7 +138,7 @@ public class MainApp extends Application {
         case LABEL_CALENDAR_DATA_TYPE:
             return storage.readCalendar();
         default:
-            return storage.readAddressBook();
+            return null;
         }
     }
 

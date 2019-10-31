@@ -63,7 +63,6 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
             storage.saveUserList(model.getUserList());
             storage.saveFoodList(model.getUniqueFoodListObject());
             storage.saveRecordList(model.getUniqueRecordListObject());

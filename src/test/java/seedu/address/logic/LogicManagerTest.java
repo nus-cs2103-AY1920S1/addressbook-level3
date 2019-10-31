@@ -52,7 +52,7 @@ public class LogicManagerTest {
         );
         JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(temporaryFolder.resolve("eventlist.json"),
                 temporaryFolder.resolve("reminderlist.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage,
+        StorageManager storage = new StorageManager(userPrefsStorage, userListStorage,
                 jsonFoodListStorage, jsonRecordListStorage, jsonCalendarStorage);
         logic = new LogicManager(model, storage);
     }

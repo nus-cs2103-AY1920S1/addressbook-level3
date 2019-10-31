@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -18,22 +17,13 @@ import sugarmummy.recmfood.model.UniqueFoodList;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserListStorage, UserPrefsStorage, CalendarStorage {
+public interface Storage extends UserListStorage, UserPrefsStorage, CalendarStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
-
-    @Override
-    Path getAddressBookFilePath();
-
-    @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
-
-    @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     Path getFoodListFilePath();
 
