@@ -122,11 +122,28 @@ at your command, the system will prompt you to answer those questions.
 You can add a question and its answer together with the necessary fields to the app. +
 Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 
+****
+* You can define any type of difficulty level that is customized to your understanding of the question.
+****
+
+Example:
+
+* `addq q/How to represent 85 in binary? a/1010101 s/CS2100 d/medium`
+
+image::questionCommandsDemo/addqcommand.png[width = "600"]
+
+The new question will be added to your question bank.
+
+image::questionCommandsDemo/addqresult.png[width = "600"]
+
 ==== Listing all questions: `listq`
 
-You can view the list of all questions. +
+This command allows you to view the list of all questions. +
 Format: `listq`
 
+image::questionCommandsDemo/listqcommand.png[width = "600"]
+
+image::questionCommandsDemo/listqresult.png[width = "600"]
 
 ==== Editing a question: `editq`
 
@@ -140,14 +157,41 @@ Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
 
+Examples:
+
+* `editq 7 a/16 d/easy`
+
+image::questionCommandsDemo/editqcommand.png[width = "600"]
+
+Edits the answer and difficulty of the 2nd question to be `16` and `easy` respectively.
+
+image::questionCommandsDemo/editqresult.png[width = "600"]
+
 ==== Locating questions by keyword: `findq`
 
-You can view the list of questions containing the keyword(s). +
+This command will give you a list of questions containing the keyword(s) you specified. +
 Format: `findq KEYWORD [MORE KEYWORDS]`
+
+****
+* The search is case insensitive.
+* The order of the keywords does not matter.
+* Only full words will be matched.
+****
+
+Examples:
+
+* `findq UDP`
+
+image::questionCommandsDemo/findqcommand.png[width = "600"]
+
+Finds the question whose body contains the keyword `UDP`.
+
+image::questionCommandsDemo/findqresult.png[width = "600"]
+
 
 ==== Deleting a question: `deleteq`
 
-You can delete the specific question at the specified INDEX with its relevant fields from the list. +
+You can delete a question at its specified INDEX together with its relevant fields from the list. +
 Format: `deleteq INDEX`
 
 ****
@@ -156,21 +200,72 @@ Format: `deleteq INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+Example:
+
+* `listq` +
+`deleteq 3`
+
+image::questionCommandsDemo/deleteqcommand.png[width = "600"]
+
+Deletes the 2nd question from the question list.
+
+image::questionCommandsDemo/deleteqresult.png[width = "600"]
+
+* `findq character` +
+`deleteq 1`
+
+Deletes the 1st question in the results of `findq` command.
+
 ==== Filter by difficulty: `difficulty`
 
-You can view the list of all questions with a specific difficulty. +
+You can view the list of all questions filtered by the specific difficulty. +
 Format: `difficulty DIFFICULTY`
+
+****
+* The search is case insensitive.
+* Only full difficulty will be matched.
+****
+
+Example:
+
+* `difficulty hard`
+
+image::questionCommandsDemo/difficultycommand.png[width = "600"]
+
+Returns a list of `hard` questions.
+
+image::questionCommandsDemo/difficultyresult.png[width = "600"]
 
 ==== Filter by subject: `subject`
 
 You can view the list of all questions from a specific subject. +
 Format: `subject SUBJECT`
 
+****
+* The search is case insensitive.
+* Only full subject will be matched.
+****
+
+Example:
+
+* `subject CS2103T`
+
+image::questionCommandsDemo/subjectcommand.png[width = "600"]
+
+Returns a list of questions of `CS2103T`.
+
+image::questionCommandsDemo/subjectresult.png[width = "600"]
+
 ==== Clear all questions: `clearq`
 
 You can delete all questions from the app. +
 Format: `clearq`
+
+image::questionCommandsDemo/clearcommand.png[width = "600"]
+
+image::questionCommandsDemo/clearresult.png[width = "600"]
 // end::question[]
+
 // tag::quiz[]
 === Quiz mode
 
