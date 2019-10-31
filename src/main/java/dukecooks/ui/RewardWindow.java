@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class RewardWindow extends UiPart<Stage> {
 
-    public static final String REWARD_MESSAGE = "You have completed new tasks. Good job! ";
+    public static final String REWARD_MESSAGE = "You have completed 5 new tasks. Good job! ";
 
     private static final Logger logger = LogsCenter.getLogger(RewardWindow.class);
     private static final String FXML = "RewardWindow.fxml";
@@ -37,6 +37,9 @@ public class RewardWindow extends UiPart<Stage> {
         this(new Stage());
     }
 
+    /**
+     * Logs that reward page is opened.
+     */
     public void show() {
         logger.fine("Showing reward page.");
         getRoot().show();
