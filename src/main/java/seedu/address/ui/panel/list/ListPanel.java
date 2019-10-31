@@ -1,5 +1,6 @@
 package seedu.address.ui.panel.list;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -43,11 +44,11 @@ public class ListPanel extends UiPart<Region> {
         taskListPlaceholder.getChildren().add(taskListPanel.getRoot());
     }
 
-    public void onEventListChange(List<EventSource> events) {
-        eventListPanel.onEventListChange(events);
+    public void onEventListChange(List<EventSource> events, HashMap<Integer, Integer> eventHash) {
+        eventListPanel.onEventListChange(events, eventHash);
     }
 
-    public void onTaskListChange(List<TaskSource> tasks) {
-        taskListPanel.onTaskListChange(tasks);
+    public void onTaskListChange(List<TaskSource> tasks, HashMap<Integer, Integer> taskHash) {
+        taskListPanel.onTaskListChange(tasks, taskHash);
     }
 }

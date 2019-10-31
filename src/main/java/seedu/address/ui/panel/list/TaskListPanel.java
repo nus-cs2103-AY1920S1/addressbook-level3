@@ -1,5 +1,6 @@
 package seedu.address.ui.panel.list;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -29,11 +30,11 @@ public class TaskListPanel extends UiPart<Region> {
      *
      * @param tasks The given List of Tasks.
      */
-    public void onTaskListChange(List<TaskSource> tasks) {
+    public void onTaskListChange(List<TaskSource> tasks, HashMap<Integer, Integer> taskHash) {
         this.taskList.getChildren().clear();
-        int index = 1;
+        int index = 0;
         for (TaskSource task : tasks) {
-            TaskCard taskCard = new TaskCard(task, index);
+            TaskCard taskCard = new TaskCard(task, taskHash.get(index));
             taskList.getChildren().add(taskCard.getRoot());
             index++;
         }

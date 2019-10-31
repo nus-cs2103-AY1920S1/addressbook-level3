@@ -2,7 +2,7 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -28,10 +28,7 @@ import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.CalendarDate;
-import seedu.address.model.ModelLists;
-import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.tasks.TaskDateComparator;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.panel.calendar.CalendarPanel;
 import seedu.address.ui.panel.list.ListPanel;
@@ -326,38 +323,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns a copy of the event list sorted by start date.
-     *
-     * @param events The given event list.
-     * @return A copy of the event list sorted by date.
-     */
-    private List<EventSource> sortDateEventList(List<EventSource> events) {
-        List<EventSource> sortedDateEventList = new ArrayList<EventSource>(events);
-        sortedDateEventList.sort(new EventDateComparator());
-        return sortedDateEventList;
-    }
-
-    /**
-     * Returns a copy of the task list sorted by due date.
-     *
-     * @param tasks The given task list.
-     * @return A copy of the task list sorted by due date.
-     */
-    private List<TaskSource> sortDateTaskList(List<TaskSource> tasks) {
-        List<TaskSource> sortedDateTaskList = new ArrayList<>(tasks);
-        sortedDateTaskList.sort(new TaskDateComparator());
-        return sortedDateTaskList;
-
-    }
-
-    /**
      * Changes the UI based on the new and changed event list.
      *
      * @param events The given event list.
      */
-    public void onEventListChange(List<EventSource> events) {
-        List<EventSource> sortedDateEventList = sortDateEventList(events);
-        this.listPanel.onEventListChange(sortedDateEventList);
+    public void onEventListChange(List<EventSource> events, HashMap<Integer, Integer> eventHash) {
+        this.listPanel.onEventListChange(events, eventHash);
     }
 
     /**
@@ -365,18 +336,18 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @param tasks The given task list.
      */
-    public void onTaskListChange(List<TaskSource> tasks) {
-        List<TaskSource> sortedDateTaskList = sortDateTaskList(tasks);
-        this.listPanel.onTaskListChange(sortedDateTaskList);
+    public void onTaskListChange(List<TaskSource> tasks, HashMap<Integer, Integer> taskHash) {
+        this.listPanel.onTaskListChange(tasks, taskHash);
     }
 
     /**
      * Changes the UI based on the new and changed model lists.
      *
-     * @param lists The given model list.
+     * @param events The given event list.
+     * @param tasks The given task list.
      */
-    public void onModelListChange(ModelLists lists) {
-        this.calendarPanel.onModelListChange(sortDateEventList(lists.getEvents()), sortDateTaskList(lists.getTasks()));
+    public void onModelListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.calendarPanel.onModelListChange(events, tasks);
     }
 
     /**

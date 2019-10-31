@@ -40,6 +40,9 @@ public class TaskCard extends Card {
     @FXML
     private HBox taskTags;
 
+    @FXML
+    private Label taskIndex;
+
     /**
      * Constructor for the TaskCard, which displays the information of a particular task.
      * This is used for ListPanel.
@@ -48,7 +51,8 @@ public class TaskCard extends Card {
      */
     public TaskCard(TaskSource task, Integer index) {
         super(FXML);
-        taskName.setText(index + ". " + task.getDescription());
+        taskName.setText(task.getDescription());
+        taskIndex.setText("[" + index + "]");
         addOptions(task);
     }
 
@@ -61,6 +65,7 @@ public class TaskCard extends Card {
     public TaskCard(TaskSource task) {
         super(FXML);
         taskName.setText(task.getDescription());
+        taskDetails.getChildren().remove(taskIndex);
         addOptions(task);
     }
 

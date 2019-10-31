@@ -1,5 +1,6 @@
 package seedu.address.ui.panel.list;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -29,11 +30,11 @@ public class EventListPanel extends UiPart<Region> {
      *
      * @param events The given List of Events.
      */
-    public void onEventListChange(List<EventSource> events) {
+    public void onEventListChange(List<EventSource> events, HashMap<Integer, Integer> eventHash) {
         this.eventList.getChildren().clear();
-        int index = 1;
+        int index = 0;
         for (EventSource event : events) {
-            EventCard eventCard = new EventCard(event, index);
+            EventCard eventCard = new EventCard(event, eventHash.get(index));
             eventList.getChildren().add(eventCard.getRoot());
             index++;
         }
