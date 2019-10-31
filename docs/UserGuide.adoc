@@ -301,7 +301,7 @@ Besides, the values are suggested to be per serving.
 Format: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 
 Example:
-`addfood fn/Cucumber ft/f ca/15 gi/15 fa/0 su/1.7`
+`addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`
 
 === Other Common Features
 
@@ -359,7 +359,7 @@ E.g. `add r/bloodsugar v/10 t/now`
 m/MEDICAL_CONDITION [a/ADDRESS] [dp/PROFILE_PICTURE_PATH] [o/OTHERS]`
 E.g. `addbio n/Bob p/98765432 e/91234567 m/Type II Diabetes`
 . *Add Food*: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
-E.g. `addfood fn/Cucumber ca/15 gi/15 fa/0 su/1.7`
+E.g. `addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`
 . *Average*: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
 E.g. `average a/weekly r/bloodsugar n/3`
 . *Bio*: `bio`

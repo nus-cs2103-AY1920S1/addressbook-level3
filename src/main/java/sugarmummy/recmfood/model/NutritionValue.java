@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public abstract class NutritionValue {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Nutrition value should only contain number and should be non-negative.";
-    public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d*";
+            "Nutrition value should only contain one number and should be non-negative.";
+    public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d*$";
 
     public final String value;
 

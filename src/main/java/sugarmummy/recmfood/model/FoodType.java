@@ -14,7 +14,7 @@ public enum FoodType {
     SNACK("Snack", "s"),
     MEAL("Meal", "m");
 
-    public static final String MESSAGE_CONSTRAINTS = "Food types should only be one of the following"
+    public static final String MESSAGE_CONSTRAINTS = "Food types should only be one of the following:\n"
             + getAllTypesInfo();
 
     private String typeName;
@@ -32,7 +32,7 @@ public enum FoodType {
     private static String getAllTypesInfo() {
         StringBuilder stringBuilder = new StringBuilder();
         for (FoodType type : FoodType.values()) {
-            stringBuilder.append(getTypeInfo(type));
+            stringBuilder.append(getTypeInfo(type) + " ");
         }
         return stringBuilder.toString();
     }

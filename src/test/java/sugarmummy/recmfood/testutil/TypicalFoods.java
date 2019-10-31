@@ -1,16 +1,42 @@
 package sugarmummy.recmfood.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GI;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUGAR;
+import static sugarmummy.recmfood.testutil.FoodBuilder.DEFAULT_CALORIE;
+import static sugarmummy.recmfood.testutil.FoodBuilder.DEFAULT_FAT;
+import static sugarmummy.recmfood.testutil.FoodBuilder.DEFAULT_GI;
+import static sugarmummy.recmfood.testutil.FoodBuilder.DEFAULT_SUGAR;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.testutil.FoodBuilder;
 import sugarmummy.recmfood.model.Food;
 
 /**
  * This is a utility class containing a list of {@code Food} objects to be used in tests.
  */
 public class TypicalFoods {
+
+    public static final String WHITESPACE = " ";
+    public static final String NAME_DESC_CHICKEN = PREFIX_FOOD_NAME + "Chicken" + WHITESPACE;
+    public static final String TYPE_DESC_CHICKEN = PREFIX_FOOD_TYPE + "p" + WHITESPACE;
+    public static final String CALORIE_DESC_CHICKEN = PREFIX_CALORIE + DEFAULT_CALORIE + WHITESPACE;
+    public static final String GI_DESC_CHICKEN = PREFIX_GI + DEFAULT_GI + WHITESPACE;
+    public static final String SUGAR_DESC_CHICKEN = PREFIX_SUGAR+ DEFAULT_SUGAR + WHITESPACE;
+    public static final String FAT_DESC_CHICKEN = PREFIX_FAT + DEFAULT_FAT + WHITESPACE;
+
+    public static final String NAME_DESC_CORN = PREFIX_FOOD_NAME + "Corn" + WHITESPACE;
+    public static final String TYPE_DESC_CORN = PREFIX_FOOD_TYPE + "sv" + WHITESPACE;
+    public static final String CALORIE_DESC_CORN = PREFIX_CALORIE + DEFAULT_CALORIE + WHITESPACE;
+    public static final String GI_DESC_CORN = PREFIX_GI + DEFAULT_GI + WHITESPACE;
+    public static final String SUGAR_DESC_CORN = PREFIX_SUGAR+ DEFAULT_SUGAR + WHITESPACE;
+    public static final String FAT_DESC_CORN = PREFIX_FAT + DEFAULT_FAT + WHITESPACE;
+
 
     public static final Food BROCCOLI = new FoodBuilder().withFoodName("Broccoli").withFoodType("nsv").build();
     public static final Food POTATO = new FoodBuilder().withFoodName("Potato").withFoodType("sv").build();
@@ -30,6 +56,7 @@ public class TypicalFoods {
     public static final Food CHICKEN3 = new FoodBuilder().withFoodName("Chicken3").withFoodType("p").build();
     public static final Food POTATO_CHIPS3 = new FoodBuilder().withFoodName("Potato chips3").withFoodType("s").build();
     public static final Food CHICKEN_RICE3 = new FoodBuilder().withFoodName("Chicken Rice3").withFoodType("m").build();
+
     public static final List<Food> FOODS = new ArrayList<>(Arrays.asList(BROCCOLI, POTATO, BANANA, CHICKEN,
             POTATO_CHIPS, CHICKEN_RICE, BROCCOLI2, POTATO2, BANANA2, CHICKEN2, POTATO_CHIPS2, CHICKEN_RICE2, BROCCOLI3,
             POTATO3, BANANA3, CHICKEN3, POTATO_CHIPS3, CHICKEN_RICE3));
