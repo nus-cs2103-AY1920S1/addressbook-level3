@@ -6,7 +6,10 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import organice.commons.core.GuiSettings;
+
 import organice.logic.commands.exceptions.CommandException;
+
+import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Person;
@@ -87,6 +90,11 @@ public interface Model {
     boolean hasPatient(Nric patient);
 
     /**
+     * Returns true if a donor in charge with the same NRIC as {@code donor} exists in the address book.
+     */
+    boolean hasDonor(Nric donor);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -120,6 +128,12 @@ public interface Model {
      * @throws PersonNotFoundException if the {@code Patient} with the {@code Nric} cannot be found.
      */
     Patient getPatient(Nric patientNric) throws PersonNotFoundException;
+
+    /**
+     * Retrieves the {@code Donor} with the specified {@code Nric}
+     * @throws PersonNotFoundException if the {@code Donor} with the {@code Nric} cannot be found.
+     */
+    Donor getDonor(Nric donorNric) throws PersonNotFoundException;
 
     /**
      * Matches all Patients to all Donors in ORGANice.

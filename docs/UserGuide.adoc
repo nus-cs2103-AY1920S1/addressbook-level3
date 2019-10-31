@@ -397,12 +397,11 @@ what you can do:
 
 . Type `match ic/S1234568R` in the Command Box and press kbd:[Enter].
 
-. The list of donors and their success rate are displayed as shown in the screenshot below. The success rate is a number
-which indicates the degree of compatibility between the patient and donor. +
+. The list of donors and their success rate are displayed as shown in the screenshot below. +
 +
 image::MatchingDonorsDisplayed.png[width=790]
 +
-
+For more information on success rate, you may refer to <<FAQ>>.
 
 ==== Matching all patients
 This section will explain how to run kidney matching tests on all patients stored in ORGANice and run you
@@ -416,29 +415,59 @@ To match all the patients in ORGANice, do the following:
 image::Patient Matches Displayed.png[width=790]
 +
 
+Following this, you can sort the matches based on different categories to deduce which patient to prioritize.
++
+Refer to refer to <<Sorting matches: `sort`>> for more information.
 
 === Sorting matches: `sort`
-Users can specify how they want the patient-donor pairs to be sorted. +
-Sorting is done by passing in optional parameters to the `match` command. +
+After matching patients and donors, you can sort the list of matches to determine which patient to prioritize for organ transplant.
 
-Matches can be sorted according to three categories:
+**The sort command can only be used after a match command** to sort the resulting list of patient-donor pairs generated.
+There are three categories by which you can sort the matches, namely:
 
-1. Success rate of match
-2. Priority of patient
-3. Date of expiry of donors' organs
+* Sorting based on donor's organ expiry date
++
+* Sorting based on priority
++
+* Sorting based on success rate of match
++
 
-To return a sorted list of patient-donor pairs, include the `sort/` flag in the command. +
-Format:
-`match ic/**NRIC** sort/[rate/priority/expiry]`
 
-Typing this command causes the application to display a list of matches sorted
-according to the specified criteria. More than one sorting criteria can be included.
+These categories are further elaborated below. Note that **only one category can be used in one sort command**.
 
-Examples:
+==== Sorting based on donor's organ expiry date
+This category sorts a list of matched donors belonging to a particular patient based on the donated organ's expiry date (from the earliest to the latest expiry date).
 
-* `match ic/S7778983D sort/rate`
-* `match ic/S7778983D sort/rate, priority, expiry`
+This allows you to determine which organs are expiring soon so that you can prioritize them for organ transplant.
 
+Format: `sort expiry`
+
+Example: +
+After running a match command on a specific patient with `match ic/**NRIC**`, you will get the list of donors that are compatible with said patient.
+You can then run `sort expiry` to obtain the list of donors with the earliest organ expiration date at the top of the list.
+
+==== Sorting based on priority
+This category sorts a list of matched patients based on their priority (from highest to lowest). You may refer to <<Glossary>> for more information on priority.
+
+This allows you to determine which patient to prioritize for organ transplant.
+
+Format: `sort priority`
+
+Example: +
+After running `match ic/all`, you will obtain a list of patients. +
+You can then run `sort priority` to obtain a list with high priority patients at the top of the list.
+
+==== Sorting based on success rate of match
+This category sorts the list of matched donors belonging to a particular patient based on the success rate of the match (from highest to lowest).
+(Refer to <<Glossary>> for more information on success rate.)
+
+This allows you to determine which patient-donor pair has the highest compatibility and are safe to proceed for organ transplant.
+
+Format: `sort rate`
+
+Example: +
+After running a match command on a specific patient with `match ic/**NRIC**`, you will get the list of donors that are compatible with said patient.
+You can then run `sort rate` to obtain the list of donors with the highest success rate at the top of the list.  +
 
 === Processing potential matches: `processing`
 //TODO: change to shorter term that captures the meaning
@@ -578,6 +607,9 @@ that contains the data of your previous ORGANice folder.
 2. Do a tissue typing test to determine the HLA antigens of the patient and the donor.
 3. Do a cross match, which is a trial transfusion.
 
+*Q*: What is the success rate and how is it computed? +
+*A*: The success rate measures the tissue compatibility between a donor and a patient. It is computed via this formula: (number of common tissue types between donor and patient) / 6 * 100%
+
 == Command Summary
 
 This section summarises the commands to use this application. The following list
@@ -625,3 +657,7 @@ for harmful interactions between patient and donor's blood
 * match: refers to a donor-patient pair whose organs pass all three matching tests
 
 * duplicate: refers to two persons of the same type which have the same NRIC
+
+* success rate: refers to a number which indicates the degree of compatibility between the patient and donor. This percentage is calculated from the number of tissue matches between the patient and donor.
+
+* priority: used to indicate the level of importance or urgency of getting organ transplant for the patient. The different levels are include high, medium and low, and it is specified by the doctor after an assessment.
