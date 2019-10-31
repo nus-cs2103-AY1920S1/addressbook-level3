@@ -21,6 +21,7 @@ import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.Location;
+import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Rating;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -89,8 +90,9 @@ public class EditDetailsCommand extends Command {
         Rating originalRating = restaurantToEdit.getRating();
         Set<Tag> updatedTags = editRestaurantDescriptor.getTags().orElse(restaurantToEdit.getTags());
         ObservableList<Food> originalMenu = restaurantToEdit.getMenu();
+        ObservableList<Order> originalOrders = restaurantToEdit.getOrders();
 
-        return new Restaurant(updatedName, updatedLocation, originalRating, updatedTags, originalMenu);
+        return new Restaurant(updatedName, updatedLocation, originalRating, updatedTags, originalMenu, originalOrders);
     }
 
     /**

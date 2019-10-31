@@ -17,8 +17,10 @@ import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.location.LocationMap;
+import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Rating;
 import seedu.deliverymans.model.restaurant.Restaurant;
+import seedu.deliverymans.storage.order.JsonAdaptedOrder;
 
 /**
  * Jackson-friendly version of {@link Restaurant}.
@@ -31,7 +33,7 @@ public class JsonAdaptedRestaurant {
     private final JsonAdaptedRating rating;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedFood> menu = new ArrayList<>();
-    //private final List<JsonAdaptedOrder> order = new ArrayList<>();
+    private final List<JsonAdaptedOrder> orders = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -40,7 +42,8 @@ public class JsonAdaptedRestaurant {
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("location") String location,
                              @JsonProperty("rating") JsonAdaptedRating rating,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                             @JsonProperty("menu") List<JsonAdaptedFood> menu) {
+                             @JsonProperty("menu") List<JsonAdaptedFood> menu,
+                             @JsonProperty("orders") List<JsonAdaptedOrder> orders) {
         this.name = name;
         this.location = location;
         this.rating = rating;
@@ -49,6 +52,9 @@ public class JsonAdaptedRestaurant {
         }
         if (menu != null) {
             this.menu.addAll(menu);
+        }
+        if (orders != null) {
+            this.orders.addAll(orders);
         }
     }
 
@@ -65,6 +71,9 @@ public class JsonAdaptedRestaurant {
         menu.addAll(source.getMenu().stream()
                 .map(JsonAdaptedFood::new)
                 .collect(Collectors.toList()));
+        orders.addAll(source.getOrders().stream()
+                .map(JsonAdaptedOrder::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -75,6 +84,7 @@ public class JsonAdaptedRestaurant {
     public Restaurant toModelType() throws IllegalValueException {
         final List<Tag> restaurantTags = new ArrayList<>();
         final List<Food> restaurantMenu = new ArrayList<>();
+        final List<Order> restaurantOrders = new ArrayList<>();
 
         for (JsonAdaptedTag tag : tagged) {
             restaurantTags.add(tag.toModelType());
@@ -82,6 +92,10 @@ public class JsonAdaptedRestaurant {
 
         for (JsonAdaptedFood food : menu) {
             restaurantMenu.add(food.toModelType());
+        }
+
+        for (JsonAdaptedOrder order : orders) {
+            restaurantOrders.add(order.toModelType());
         }
 
         if (name == null) {
@@ -106,9 +120,12 @@ public class JsonAdaptedRestaurant {
         }
 
         final Rating modelRating = rating.toModelType();
+        
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
         final ObservableList<Food> modelMenu = FXCollections.observableArrayList();
         modelMenu.addAll(restaurantMenu);
-        return new Restaurant(modelName, modelLocation, modelRating, modelTags, modelMenu);
+        final ObservableList<Order> modelOrders = FXCollections.observableArrayList();
+        modelOrders.addAll(restaurantOrders);
+        return new Restaurant(modelName, modelLocation, modelRating, modelTags, modelMenu, modelOrders);
     }
 }
