@@ -169,6 +169,11 @@ public abstract class Show {
         return false;
     }
 
+    /**
+     * tba
+     * @param showToBeSearched tba
+     * @return tba
+     */
     public boolean hasGenre(Show showToBeSearched) {
         Set<Genre> genreSearchedSet = showToBeSearched.getGenres();
         for (Genre genreSearched : genreSearchedSet) {
