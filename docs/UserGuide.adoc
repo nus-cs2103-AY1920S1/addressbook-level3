@@ -285,8 +285,8 @@ image::HistoryCommandExampleOutput.png[width="790"]
 The topmost panel is the "redo" delimiter. +
 The second panel from the top is the "current" delimiter. +
 The bottommost panel shows you the "undo" delimiter. +
-This means that you can invoke the `undo` command twice, as both AddParticipantCommands can be undone. + 
-Notice that the `list participants` command is not shown in the "History" section as it does not change data. + 
+This means that you can invoke the `undo` command twice, as both AddParticipantCommands can be undone.
+Notice that the `list participants` command is not shown in the "History" section as it does not change data.
 
 === Undo Previous Commands: `undo`
 Undoes the previous command you executed.
@@ -320,7 +320,7 @@ Navigate to previous commands by using the up kbd:[&uparrow;] and down kbd:[&dow
 * Press up kbd:[&uparrow;] to navigate to the previous command.
 * Press down kbd:[&downarrow;] to navigate to the next command.
 * Unlike most of the other features in Alfred, this is not a command you type into Alfred's command input box. This is a keyboard shortcut that is mainly for your convenience as it allows you to quickly re-use previously executed commands.
-* Note that Alfred's command input box must be in focus (the cursor is active in the command input box) for the keyboard shortcuts for this feature to work. 
+* Note that Alfred's command input box must be in focus (the cursor is active in the command input box) for the keyboard shortcuts for this feature to work
 ****
 
 === Judging and Leaderboard Features
