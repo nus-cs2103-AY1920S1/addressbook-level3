@@ -64,7 +64,9 @@ Edits the details of the competition identified by the index number, as shown in
 Existing values will be overwritten by the input values.
 In addition to INDEX,  at least one other field must be provided to the command.
 
-Format: `editCompetition INDEX (must be a positive integer) [n/COMPETITION NAME] [startDate/START DATE OF COMPETITION] [endDate/END DATE OF COMPETITION]`
+Format: 
+
+`editCompetition INDEX (must be a positive integer) [n/COMPETITION NAME] [startDate/START DATE OF COMPETITION] [endDate/END DATE OF COMPETITION]`
 
 Example(s):
 If you choose to supply all fields:
