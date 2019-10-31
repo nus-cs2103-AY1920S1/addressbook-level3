@@ -38,7 +38,7 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Appointment> getFilteredReminderList();
+    ObservableList<Appointment> getFilteredAppointmentList();
 
     /**
      * Returns the user prefs' address book file path.

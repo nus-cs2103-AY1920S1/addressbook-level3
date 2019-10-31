@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,6 +23,7 @@ public class AppointmentTable {
 
     private HashMap<String, Integer> reminders;
     private HashMap<String, Integer> followup;
+    //private ArrayList<Appointment> apptList = new ArrayList<>();
 
     /**
      * Initializes new AppointmentTable object
@@ -31,6 +31,7 @@ public class AppointmentTable {
     public AppointmentTable() {
         reminders = new HashMap<>();
         followup = new HashMap<>();
+        //ObservableList<Appointment> obsApptList = FXCollections.observableArrayList(apptList);
     }
 
     public static AppointmentTable getDefaultAppointments() {
@@ -43,19 +44,18 @@ public class AppointmentTable {
      * @return ObservableList of Appointment objects
      */
     public ObservableList<Appointment> getAppointmentList() {
-        ArrayList<Appointment> appointmentArrayList = new ArrayList<>();;
+        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
         Iterator it = reminders.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            appointmentArrayList.add(new Appointment("[R] " + pair.getKey(), (int) pair.getValue()));
+            appointmentList.add(new Appointment("[R] " + pair.getKey(), (int) pair.getValue()));
         }
         it = followup.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            appointmentArrayList.add(new Appointment("[F] " + pair.getKey(), (int) pair.getValue()));
+            appointmentList.add(new Appointment("[F] " + pair.getKey(), (int) pair.getValue()));
         }
-
-        return FXCollections.observableArrayList(appointmentArrayList);
+        return appointmentList;
     }
 
     /**
@@ -68,12 +68,14 @@ public class AppointmentTable {
         if (type == 0) {
             if (antiDuplicate(reminders, description, days)) {
                 reminders.put(description, days);
+                //apptList.add(new Appointment("[R] " + description, days));
             } else {
                 throw new CommandException("Appointment already exists");
             }
         } else {
             if (antiDuplicate(followup, description, days)) {
                 followup.put(description, days);
+                //apptList.add(new Appointment("[F] " + description, days));
             } else {
                 throw new CommandException("Appointment already exists");
             }
