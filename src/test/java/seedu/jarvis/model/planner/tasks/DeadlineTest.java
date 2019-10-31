@@ -87,7 +87,7 @@ class DeadlineTest {
         d.addTag(new Tag("school"));
         d.addTag(new Tag("cs"));
 
-        String expected = "Deadline: homework by 2019-10-10\nPriority: LOW\nFrequency: MONTHLY"
+        String expected = "Deadline: homework by 2019-10-10\nPriority: Low\nFrequency: Monthly"
                             + "\nTags: [[cs], [school]]";
 
         assertEquals(expected, d.toString());

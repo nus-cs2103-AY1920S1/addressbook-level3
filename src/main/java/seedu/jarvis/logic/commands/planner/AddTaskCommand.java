@@ -38,7 +38,7 @@ public class AddTaskCommand extends Command {
             + PREFIX_TASK_TYPE + "todo "
             + PREFIX_TASK_DES + "borrow book "
             + PREFIX_DATE + "3/10/2019 "
-            + PREFIX_PRIORITY + "MED "
+            + PREFIX_PRIORITY + "med "
             + PREFIX_FREQ + "weekly "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";

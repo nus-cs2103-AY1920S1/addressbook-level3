@@ -9,5 +9,16 @@ public enum TaskType {
      */
     TODO,
     EVENT,
-    DEADLINE
+    DEADLINE;
+
+    @Override
+    public String toString() {
+        if (this == TODO) {
+            return "Todo";
+        } else if (this == EVENT) {
+            return "Event";
+        } else {
+            return "Deadline";
+        }
+    }
 }
