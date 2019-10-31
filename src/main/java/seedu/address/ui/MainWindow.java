@@ -213,9 +213,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case LEDGER:
             showLedgerTab();
+            break;
         default:
             break;
-
         }
     }
 
@@ -242,8 +242,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSwitchTab() != null) {
-                handleSwitchTab(commandResult.isSwitchTab());
+            if (commandResult.isSwitchTab()) {
+                handleSwitchTab(commandResult.getTab());
             }
 
             return commandResult;

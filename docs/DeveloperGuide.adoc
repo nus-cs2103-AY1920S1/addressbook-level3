@@ -421,7 +421,14 @@ Developers have to create a new predicate class to filter a new category.
 
 // tag::view[]
 === View Feature: `view`
-// TODO
+
+This feature allows the user to switch between the different tabs of the application.
+
+==== Current Implementation
+
+The `view` command is facilitated by the `MainWindow`, `MainTabPanel`, `ViewCommandParser` and `ViewCommand`.
+
+The following activity diagram shows the flow of the `view` command.
 
 .Activity Diagram for `View`
 image::ViewActivityDiagram.png[]
