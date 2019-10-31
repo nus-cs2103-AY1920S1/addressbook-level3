@@ -17,6 +17,8 @@ import seedu.address.model.record.RecordType;
 public class AchievementsList extends UiPart<Region> {
 
     private static final String FXML = "AchievementsList.fxml";
+    private static final String IMAGES_RESOURCE_LOCATION = "/images/achievements/";
+    private static final String IMAGES_EXTENSION = ".png";
 
     @FXML
     private Label recordTypeLabel;
@@ -30,8 +32,8 @@ public class AchievementsList extends UiPart<Region> {
         recordTypeLabel.setText(recordType.toString());
 
         for (Achievement achievement : achievementsList) {
-            Image img = new Image(MainApp.class.getResourceAsStream("/images/achievements/"
-                            + achievement.getImageName() + ".png"));
+            Image img = new Image(MainApp.class.getResourceAsStream(IMAGES_RESOURCE_LOCATION
+                            + achievement.getImageName() + IMAGES_EXTENSION));
             AchievementsIndividualTile achievementsIndividualTile = new AchievementsIndividualTile(img,
                     achievement.getDisplayMessage());
 
