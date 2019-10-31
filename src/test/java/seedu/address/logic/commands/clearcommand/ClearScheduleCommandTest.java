@@ -16,7 +16,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
-import seedu.address.model.schedule.Schedule;
 
 public class ClearScheduleCommandTest {
 

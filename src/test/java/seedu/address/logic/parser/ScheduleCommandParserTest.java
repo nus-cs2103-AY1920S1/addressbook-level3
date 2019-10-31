@@ -16,7 +16,7 @@ import seedu.address.logic.commands.ScheduleCommand;
 
 public class ScheduleCommandParserTest {
 
-    ScheduleCommandParser parser = new ScheduleCommandParser();
+    private static final ScheduleCommandParser parser = new ScheduleCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
