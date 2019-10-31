@@ -13,7 +13,6 @@ import seedu.address.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.address.model.budget.exceptions.DuplicateBudgetException;
 import seedu.address.model.budget.exceptions.NotPastPeriodException;
 import seedu.address.model.expense.Description;
-import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 
 /**
@@ -61,7 +60,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         }
         toAdd.normalize(Timestamp.getCurrentTimestamp());
         internalList.add(toAdd);
-            setPrimary(toAdd);
+        setPrimary(toAdd);
         //addition
         empty = internalList.isEmpty();
         //addition
@@ -181,12 +180,18 @@ public class UniqueBudgetList implements Iterable<Budget> {
         empty = internalList.isEmpty();
     }
 
+    /**
+     * Deletes the budget with the specified name.
+     */
     public void deleteBudgetWithName(Description description) {
         requireNonNull(description);
         Budget toRemove = getBudgetWithName(description);
         remove(toRemove);
     }
 
+    /**
+     * Clears all budgets in the list.
+     */
     public void clearBudgets() {
         Budget defaultBudget = getDefaultBudget();
         for (Budget b : internalList) {
@@ -199,6 +204,9 @@ public class UniqueBudgetList implements Iterable<Budget> {
         internalList.add(defaultBudget);
     }
 
+    /**
+     * Switches primary budget to target budget.
+     */
     public void switchBudgetTo(Description targetDescription) {
         Budget targetBudget = getBudgetWithName(targetDescription);
         setPrimary(targetBudget);

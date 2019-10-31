@@ -9,6 +9,9 @@ import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.budget.BudgetListPanel;
 
+/**
+ * Clears all budgets in MooLah.
+ */
 public class ClearBudgetsCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.CLEAR + CommandGroup.BUDGET + "s";

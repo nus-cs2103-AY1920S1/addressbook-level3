@@ -11,6 +11,9 @@ import seedu.address.logic.commands.budget.DeleteBudgetByNameCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Description;
 
+/**
+ * Parses input arguments and creates a new DeleteBudgetByNameCommand object
+ */
 public class DeleteBudgetByNameCommandParser {
     public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(PREFIX_DESCRIPTION));
     public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());

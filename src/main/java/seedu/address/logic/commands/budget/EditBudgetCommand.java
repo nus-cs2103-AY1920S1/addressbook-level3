@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
 import static seedu.address.model.budget.Budget.DEFAULT_BUDGET;
 
-
 import java.util.List;
 import java.util.Optional;
 

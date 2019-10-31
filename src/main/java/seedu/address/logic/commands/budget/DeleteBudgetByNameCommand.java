@@ -11,6 +11,9 @@ import seedu.address.model.Model;
 import seedu.address.model.expense.Description;
 import seedu.address.ui.budget.BudgetPanel;
 
+/**
+ * Deletes a budget identified by name.
+ */
 public class DeleteBudgetByNameCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete" + CommandGroup.BUDGET;

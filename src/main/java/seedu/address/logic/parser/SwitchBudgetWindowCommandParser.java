@@ -34,7 +34,8 @@ public class SwitchBudgetWindowCommandParser {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TIMESTAMP)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchBudgetWindowCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SwitchBudgetWindowCommand.MESSAGE_USAGE));
         }
 
         Timestamp pastDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get()).toStartOfDay();
