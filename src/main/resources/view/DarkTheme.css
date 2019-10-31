@@ -294,6 +294,12 @@
     -fx-font-size: 10pt;
 }
 
+#eventIndex {
+    -fx-font-family: "Roboto Medium";
+    -fx-text-fill: -primaryColor;
+    -fx-font-size: 10pt;
+}
+
 /** For Task Card **/
 #taskCardBase {
     -fx-background-color: -taskCardColor;
@@ -309,6 +315,12 @@
 
 #taskDueDate {
     -fx-font-family: "Roboto Regular";
+    -fx-text-fill: -primaryColor;
+    -fx-font-size: 10pt;
+}
+
+#taskIndex {
+    -fx-font-family: "Roboto Medium";
     -fx-text-fill: -primaryColor;
     -fx-font-size: 10pt;
 }
