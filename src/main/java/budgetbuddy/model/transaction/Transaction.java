@@ -44,7 +44,7 @@ public class Transaction {
     public Amount getAmount() {
         return amount;
     }
-
+    
     public Direction getDirection() {
         return direction;
     }
