@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.autotag.AutotagController;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
@@ -122,6 +123,11 @@ public class MarkTest {
 
         @Override
         public AutotagController getAutotagController() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Paragraph> getAnnotatedDocument() {
             throw new AssertionError("This method should not be called.");
         }
     }
