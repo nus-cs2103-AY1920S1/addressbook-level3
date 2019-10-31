@@ -48,7 +48,7 @@ The maximum weight for deadlift: 300kg
 The total score for John: 200kg + 150kg + 300kg = 650kg
 
 === How are winners determined for Powerlifting?
-Just find which has maximum overall score.
+Just find which athlete has the highest overall score.
 
 == Quick Start
 
