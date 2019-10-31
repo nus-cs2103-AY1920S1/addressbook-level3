@@ -126,14 +126,13 @@ public class InviteCommand extends Command {
 
         if (successMessage.toString().equals("")) {
             result = String.format(MESSAGE_RESULT_NONE_SUCCESS, warningMessage);
+            return new CommandResult(result);
         } else {
             result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
+            Context newContext = new Context(activityToInviteTo);
+            model.setContext(newContext);
+            return new CommandResult(result, newContext);
         }
-
-        Context newContext = new Context(activityToInviteTo);
-        model.setContext(newContext);
-
-        return new CommandResult(result, newContext);
     }
 
     @Override

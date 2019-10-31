@@ -131,16 +131,13 @@ public class DisinviteCommand extends Command {
 
         if (successMessage.toString().equals("")) {
             result = String.format(MESSAGE_RESULT_NONE_SUCCESS, warningMessage);
+            return new CommandResult(result);
         } else {
             result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
+            Context newContext = new Context(activityToDisinviteFrom);
+            model.setContext(newContext);
+            return new CommandResult(result, newContext);
         }
-
-        // TODO: check disinvite function again with the updated expense
-        Context newContext = new Context(activityToDisinviteFrom);
-        model.setContext(newContext);
-
-        return new CommandResult(result, newContext);
-
     }
 
     @Override
