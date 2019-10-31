@@ -10,7 +10,6 @@ import cs.f10.t1.nursetraverse.autocomplete.ObjectWord;
 import cs.f10.t1.nursetraverse.autocomplete.UserinputParserUtil;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -38,8 +37,8 @@ public class AutoCompletePanel extends UiPart<Region> {
         super(FXML);
 
         autoCompleteWordStorage = new AutoCompleteWordStorage(patList, apptList);
-        autoCompleteListHandler = new AutoCompleteListHandler();
-        ObservableList initialList = autoCompleteWordStorage.getOListAllObjectWord();
+        autoCompleteListHandler = new AutoCompleteListHandler(matchedAutoCompleteWords, autoCompleteWordStorage);
+        ObservableList<AutoCompleteWord> initialList = autoCompleteWordStorage.getOListAllObjectWord();
         autoCompleteListHandler.addDashToObjectWordList(initialList);
         autoCompleteWordListView.setItems(initialList);
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
@@ -96,50 +95,17 @@ public class AutoCompletePanel extends UiPart<Region> {
         // Check and update matched words
         updateMatchedWords(segments, firstSegmentParts);
         // Choose initial list
-        ObservableList<AutoCompleteWord> chosenList = chooseList();
+        ObservableList<AutoCompleteWord> chosenList = autoCompleteListHandler.chooseInitialList();
         // Filter list based on previous matched words
-        ObservableList<AutoCompleteWord> filteredList = autoCompleteListHandler
-                .filterList(matchedAutoCompleteWords, chosenList);
+        ObservableList<AutoCompleteWord> filteredList = autoCompleteListHandler.filterList(chosenList);
         // Update list based on userinput
         ObservableList<AutoCompleteWord> updatedList = autoCompleteListHandler
-                .updateList(filteredList, matchedAutoCompleteWords.size(), segments, firstSegmentParts);
+                .updateList(filteredList, segments, firstSegmentParts);
 
         // Add '-' to each object word displayed for user understanding
         autoCompleteListHandler.addDashToObjectWordList(updatedList);
         autoCompleteWordListView.setItems(updatedList);
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
-    }
-
-    /**
-     * Choose initial list to be suggested
-     */
-    public ObservableList<AutoCompleteWord> chooseList() {
-        ObservableList<AutoCompleteWord> currentList;
-        if (matchedAutoCompleteWords.size() == 0) {
-            // Set to object list
-            currentList = autoCompleteWordStorage.getOListAllObjectWord();
-        } else if (matchedAutoCompleteWords.size() == 1) {
-            // Set to command list
-            currentList = autoCompleteWordStorage.getOListAllCommandWord();
-        } else if (matchedAutoCompleteWords.size() == 2) {
-            // Set to prefix/index/empty list
-            if (((CommandWord) matchedAutoCompleteWords.get(1)).hasIndex()) {
-                currentList = autoCompleteWordStorage
-                        .generateOListAllIndexWord((ObjectWord) matchedAutoCompleteWords.get(0));
-            } else if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
-                currentList = autoCompleteWordStorage.getOListAllPrefixWord();
-            } else {
-                currentList = FXCollections.observableArrayList();
-            }
-        } else {
-            // Set to prefix/empty list
-            if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
-                currentList = autoCompleteWordStorage.getOListAllPrefixWord();
-            } else {
-                currentList = FXCollections.observableArrayList();
-            }
-        }
-        return currentList;
     }
 
     /**
@@ -220,7 +186,7 @@ public class AutoCompletePanel extends UiPart<Region> {
             }
         } else if (((CommandWord) matchedAutoCompleteWords.get(1)).hasPrefix()) {
             for (AutoCompleteWord autoCompleteWord : autoCompleteListHandler
-                    .filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord())) {
+                    .filterList(autoCompleteWordStorage.getOListAllPrefixWord())) {
                 if (secondSegment.equals(autoCompleteWord.getSuggestedWord())) {
                     matchedAutoCompleteWords.add(autoCompleteWord);
                     isCorrect = true;
@@ -240,7 +206,7 @@ public class AutoCompletePanel extends UiPart<Region> {
         for (int i = 3; i <= segments.length; i++) {
             if (matchedAutoCompleteWords.size() == i) {
                 for (AutoCompleteWord autoCompleteWord : autoCompleteListHandler
-                        .filterList(matchedAutoCompleteWords, autoCompleteWordStorage.getOListAllPrefixWord())) {
+                        .filterList(autoCompleteWordStorage.getOListAllPrefixWord())) {
                     if (segments[i - 1].equals(autoCompleteWord.getSuggestedWord())) {
                         matchedAutoCompleteWords.add(autoCompleteWord);
                     }
