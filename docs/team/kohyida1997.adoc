@@ -1,0 +1,110 @@
+= Koh Yi Da image:kohyida1997.png[icon, 70, 70] - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images/
+:stylesDir: ../stylesheets/
+
+== _Project: Dukemon_ image:address_book_32.png[icon, 39, 36]
+
+
+---
+
+== *Overview of Dukemon*
+
+.HomePage of Dukemon when first starting up.
+image::Ui.png[width="790"]
+*_Dukemon_* is a desktop app intended as a fun study tool. It is a CLI-centric
+(_Command Line Interface_) app that expands upon the idea of Flashcards to aid
+learning in a fun and exciting way. The main program flow of *_Dukemon_* is as
+ follows:
+
+1. User creates a _WordBank_.
+2. User creates _Cards_ that have a _Word_ and _Meaning_ each.
+3. User populates his _WordBank_ with such _Cards_.
+4. User starts the _Game_ and tries to match _Meanings_ with _Words_.
+5. User completes the _Game_ and reviews his performance _Statistics_.
+
+== Summary of contributions image:work-icon.png[width=50]
+
+=== Major Enhancements image:game_timer_icon.png[width="25"]
+
+.UI Display of Dukemon in Game Mode, showing the different features I implemented.
+image::UserGuideGameSessionDiagram1.png[width="720"]
+
+* *Added a Timer and automatic Hint feature*
+
+** [underline]#_Brief Description_#:
+*** A _live_ text and graphical countdown _Timer_ (region in yellow box above) that shows the User how much time is left.
+*** Based on the time left, _Hints_ (presented in a Hangman style)
+are also automatically generated and shown to the user (region in blue box above).
+
+** [underline]#_Justification_#:
+*** This enhancement greatly improves the product as it achieves the intended goal of creating a game-like setting.
+The User is also thus able to access his own performance and capability in a fun and engaging way.
+*** The Hints also aids in learning, especially for weaker students or when trying out unfamiliar words.
+
+** [underline]#_Highlights_#:
+*** Implementing this enhancement was challenging as it required seamless integration between
+the GUI (Graphical User Interface) and internal logical components in *real time*.
+*** Advanced programming design concepts such as _Observer Patterns_, _Callbacks_ and _Functional Programming_ were required to preserve the
+quality and structural integrity of the existing code base.
+*** Understanding of the _JavaFX_ framework was also required to ensure proper synchronization, especially for testing and verification.
+
+** [underline]#_Credits (Framework/Libraries used)_#:
+*** https://openjfx.io/[JavaFX 11] (GUI)
+*** https://github.com/TestFX/TestFX[TestFX] (Testing)
+*** https://github.com/junit-team/junit5[JUnit5] (Testing)
+
+
+=== Minor Enhancement image:game_mode_icon.png[width=50]
+
+* *Minor enhancement*: Implemented the _Game_ logic and design,
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** [underline]#Project management#:
+*** Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
+** [underline]#Enhancements to existing features#:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** [underline]#Documentation#:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** [underline]#Community#:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T11-2/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-T11-2/main/pull/71[#71], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** [underline]#Tools#:
+*** Integrated a 3rd-party testing library (https://github.com/TestFX/TestFX[TestFX]) to the project (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/79[#79])
+*** Integrated https://github.com/TestFX/TestFX[TestFX] with team repo's automatic Travis CI builds. (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/113[#113])
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

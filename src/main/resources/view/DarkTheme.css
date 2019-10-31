@@ -395,7 +395,7 @@
 
 .hint-label {
     -fx-font-family: "monospace";
-    -fx-font-size: 20pt;
+    -fx-font-size: 32pt;
     -fx-text-fill: pink;
 }
 
