@@ -95,6 +95,18 @@ include::../DeveloperGuide.adoc[tag=lecimage]
 
 '''
 
+Both the use of a JavaFX built-in object for images and the system-dependent implementation of
+graphics-related objects required me to make certain critical decisions on the implementation of image support.
+
+'''
+
+include::../DeveloperGuide.adoc[tag=lecimagedesignconsiderations]
+
+'''
+
+The remaining documentation, shown below, is my contribution to the developer guide concerning aspects
+not directly related to source code – use cases, non-functional requirements and a glossary.
+
 include::../DeveloperGuide.adoc[tag=usecase]
 
 include::../DeveloperGuide.adoc[tag=nfrglossary]
