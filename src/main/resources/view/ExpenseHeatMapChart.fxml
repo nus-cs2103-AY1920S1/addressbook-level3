@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.chart.BubbleChart?>
-
 <?import javafx.scene.chart.NumberAxis?>
+<?import seedu.billboard.ui.charts.ProportionalBubbleChart?>
+
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
-    <BubbleChart fx:id="heatMapChart"
-                 AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.leftAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0"
-                 AnchorPane.topAnchor="0.0"
-                 minHeight="370.0" prefHeight="370.0" maxHeight="370.0"
-                 minWidth="540.0" prefWidth="540.0" maxWidth="540.0"
-                 title="Heatmap">
+    <ProportionalBubbleChart fx:id="heatMapChart"
+                             AnchorPane.bottomAnchor="0.0"
+                             AnchorPane.leftAnchor="0.0"
+                             AnchorPane.rightAnchor="0.0"
+                             AnchorPane.topAnchor="0.0"
+                             minHeight="370.0" prefHeight="370.0" maxHeight="370.0"
+                             minWidth="540.0" prefWidth="540.0" maxWidth="540.0"
+                             title="Heatmap">
 
         <xAxis>
             <NumberAxis fx:id="xAxis"
@@ -28,6 +28,6 @@
             </NumberAxis>
         </yAxis>
 
-    </BubbleChart>
+    </ProportionalBubbleChart>
 
 </AnchorPane>
