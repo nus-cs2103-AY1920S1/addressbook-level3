@@ -15,7 +15,8 @@ import seedu.ifridge.model.food.NameContainsCloseExpiryDatePredicate;
 public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "rem";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Display list with all food expiring within r days.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Display list with all food expiring within r days. "
+            + "(r must be more than 0)\n"
             + "Parameters: "
             + PREFIX_REMINDER + "REMINDER \n"
             + "Example: glist " + COMMAND_WORD + " "
@@ -32,7 +33,7 @@ public class ReminderCommand extends Command {
         requireNonNull(model);
         model.updateFilteredGroceryItemList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredGroceryItemList().size()));
+                String.format(Messages.MESSAGE_GROCERY_LIST_LISTED_OVERVIEW, model.getFilteredGroceryItemList().size()));
     }
 
     @Override

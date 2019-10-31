@@ -34,8 +34,8 @@ public class NameContainsCloseExpiryDatePredicate implements Predicate<GroceryIt
     public boolean isExpiring(Date date) {
         Calendar cal = Calendar.getInstance();
         Date current = cal.getTime();
-        int diffDays = (int) ((date.getTime() - current.getTime()) / (24 * 60 * 60 * 1000));
-        return diffDays <= numberOfDays || date.before(current);
+        int diffDays = (int) Math.ceil((date.getTime() - current.getTime()) / (24.0 * 60.0 * 60.0 * 1000.0));
+        return diffDays <= numberOfDays;
     }
 
     @Override
