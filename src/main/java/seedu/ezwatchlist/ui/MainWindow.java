@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
@@ -226,7 +227,13 @@ public class MainWindow extends UiPart<Stage> {
                 new KeyCodeCombination(KeyCode.DIGIT4),
                 new Runnable() {
                     @Override public void run() {
-                        goToStatistics();
+                        try {
+                            goToStatistics();
+                        } catch (NoRecommendationsException e) {
+                            e.printStackTrace();
+                        } catch (OnlineConnectionException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
         );
@@ -352,8 +359,8 @@ public class MainWindow extends UiPart<Stage> {
      * Populates the contentPanel with statistics content
      */
     @FXML
-    public void goToStatistics() {
-        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre());
+    public void goToStatistics() throws NoRecommendationsException, OnlineConnectionException {
+        statisticsPanel = new StatisticsPanel(statistics.getForgotten(), statistics.getFavouriteGenre(), statistics.getMovieRecommendations(), statistics.getTvShowRecommendations());
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
         currentTab = STATISTICS_TAB;

@@ -1,32 +1,33 @@
 package seedu.ezwatchlist.statistics;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
-import seedu.ezwatchlist.api.model.RecommendationEngine;
+import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
+import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
+import seedu.ezwatchlist.api.model.ApiInterface;
+import seedu.ezwatchlist.api.model.ApiManager;
+import seedu.ezwatchlist.api.util.ApiUtil;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.show.Movie;
-import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.model.show.UniqueShowList;
+import seedu.ezwatchlist.model.show.*;
 
 /**
  * Represents a Statistics object that contains relevant information.
  */
 public class Statistics {
     private final Model model;
-    private RecommendationEngine recommendationEngine;
+    private ApiInterface apiManager;
 
-    public Statistics (Model model) {
+    public Statistics (Model model) throws OnlineConnectionException {
         this.model = model;
-
-        //recommendationEngine = new RecommendationEngine();
+        try {
+            apiManager = new ApiManager();
+        } catch (OnlineConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -70,5 +71,36 @@ public class Statistics {
             favouriteGenres.put(keyList.get(i), genreRecords.get(keyList.get(i)));
         }
         return favouriteGenres;
+    }
+
+    public ObservableList<Movie> getMovieRecommendations() {
+        List<Movie> movieList = ApiUtil.splitToMovieFromShow(model.getWatchList().getShowList());
+        if (movieList.isEmpty()) {
+            System.out.println("movie split is empty");
+        }
+        List<Movie> recommendations = null;
+        try {
+            recommendations = apiManager.getMovieRecommendations(movieList, 3);
+        } catch (OnlineConnectionException e) {
+            e.printStackTrace();
+            return FXCollections.observableArrayList();
+        } catch (NoRecommendationsException e) {
+            e.printStackTrace();
+            return FXCollections.observableArrayList();
+        }
+        return  FXCollections.observableArrayList(recommendations);
+    }
+
+    public ObservableList<TvShow> getTvShowRecommendations(){
+        List<TvShow> tvList = ApiUtil.splitToTvShowsFromShow(model.getWatchList().getShowList());
+        List<TvShow> recommendations = null;
+        try {
+            recommendations = apiManager.getTvShowRecommendations(tvList, 3);
+        } catch (OnlineConnectionException e) {
+            return FXCollections.observableArrayList();
+        } catch (NoRecommendationsException e) {
+            return FXCollections.observableArrayList();
+        }
+        return  FXCollections.observableArrayList(recommendations);
     }
 }
