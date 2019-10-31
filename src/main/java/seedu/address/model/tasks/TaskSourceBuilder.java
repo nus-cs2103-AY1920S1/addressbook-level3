@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.model.DateTime;
 
 
@@ -14,18 +17,37 @@ import seedu.address.model.DateTime;
 public class TaskSourceBuilder {
 
     // Required
-    private String description;
-    private DateTime dueDate;
-    private boolean isCompleted;
+    private final String description;
 
-    //Optional
-    //private Duration expectedDuration;
+    // Optional
+    private DateTime due;
+    // private Duration expectedDuration;
     private Set<String> tags;
+    private boolean isDone;
 
-    public TaskSourceBuilder(String description, DateTime dueDate) {
+    TaskSourceBuilder(String description) {
         this.description = Objects.requireNonNull(description);
-        this.dueDate = Objects.requireNonNull(dueDate);
-        this.isCompleted = false;
+    }
+
+    @JsonCreator
+    private TaskSourceBuilder(@JsonProperty("description") String description,
+                               @JsonProperty("due") DateTime due,
+                               @JsonProperty("tags") Set<String> tags,
+                               @JsonProperty("done") boolean isDone) {
+        this.description = description;
+        this.due = due;
+        this.tags = tags;
+        this.isDone = isDone;
+    }
+
+    public TaskSourceBuilder setDueDate(DateTime due) {
+        this.due = due;
+        return this;
+    }
+
+    public TaskSourceBuilder setDone(boolean done) {
+        isDone = done;
+        return this;
     }
 
     public TaskSourceBuilder setTags(Collection<String> tags) {
@@ -42,11 +64,11 @@ public class TaskSourceBuilder {
     }
 
     DateTime getDueDate() {
-        return dueDate;
+        return due;
     }
 
-    boolean getCompletionStatus() {
-        return isCompleted;
+    boolean isDone() {
+        return isDone;
     }
 
     Set<String> getTags() {

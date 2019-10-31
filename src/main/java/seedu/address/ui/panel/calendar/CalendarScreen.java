@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import seedu.address.model.CalendarDate;
 import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
 
 /**
@@ -44,7 +45,9 @@ public class CalendarScreen extends UiPart<Region> {
         this.calendarDate = calendarDate.firstDayOfTheMonth();
         this.dayIndexList = new ArrayList<>();
         this.monthYearTitle.setText(calendarDate.getEnglishMonth() + " " + calendarDate.getYear());
+
         resetCalendar();
+        setCurrentDate();
     }
 
     /**
@@ -72,27 +75,44 @@ public class CalendarScreen extends UiPart<Region> {
 
     /**
      * Changes the color scheme for each day of the calendar screen.
-     * @param events The list of events.
+     * @param eventTaskList The list of events and list.
      */
-    public void eventChange(List<EventSource> events) {
-        changeColor(events);
+    public void onChange(List<Object> eventTaskList) {
+        changeColor(eventTaskList);
     }
 
     /**
      * Changes the color of the current month to indicate the color of the event by adding
      * events to the given CalendarGridDay.
      *
-     * @param events The given list of events.
+     * @param eventTaskList The given list of events and tasks.
      * @see CalendarGridDay
      */
-    private void changeColor(List<EventSource> events) {
+    private void changeColor(List<Object> eventTaskList) {
         // We do not want to change the color of next and previous month.
-        for (EventSource event : events) {
-            DateTime eventDateTime = event.getStartDateTime();
-            if (calendarDate.sameMonthYear(eventDateTime.getMonth(), eventDateTime.getYear())) {
-                Integer day = eventDateTime.getDay();
-                dayIndexList.get(day - 1).addAnEvent();
+        for (Object source :eventTaskList) {
+            if (source instanceof EventSource) {
+                EventSource event = (EventSource) source;
+                DateTime eventDateTime = event.getStartDateTime();
+                if (calendarDate.sameMonthYear(eventDateTime.getMonth(), eventDateTime.getYear())) {
+                    Integer day = eventDateTime.getDay();
+                    dayIndexList.get(day - 1).addAnEvent();
+                }
+            } else if (source instanceof TaskSource) {
+                TaskSource task = (TaskSource) source;
+                DateTime taskDateTime = task.getDueDate();
+                if (calendarDate.sameMonthYear(taskDateTime.getMonth(), taskDateTime.getYear())) {
+                    Integer day = taskDateTime.getDay();
+                    dayIndexList.get(day - 1).addAnEvent();
+                }
             }
+        }
+    }
+
+    private void setCurrentDate() {
+        CalendarDate currentDate = CalendarDate.now();
+        if (currentDate.sameMonthYear(calendarDate.getMonth(), calendarDate.getYear())) {
+            dayIndexList.get(currentDate.getDay() - 1).setCurrentDate();
         }
     }
 }

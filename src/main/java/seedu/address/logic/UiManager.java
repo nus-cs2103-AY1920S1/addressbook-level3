@@ -14,8 +14,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.listeners.CommandInputListener;
 import seedu.address.model.CalendarDate;
+import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.ModelListListener;
 import seedu.address.model.listeners.TaskListListener;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.ColorTheme;
@@ -28,7 +30,7 @@ import seedu.address.ui.listeners.UserOutputListener;
  * The manager of the UI component.
  * Responsible for creating and destroying the graphical ui.
  */
-public class UiManager implements Ui, UserOutputListener, EventListListener, TaskListListener {
+public class UiManager implements Ui, UserOutputListener, EventListListener, TaskListListener, ModelListListener {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -51,20 +53,7 @@ public class UiManager implements Ui, UserOutputListener, EventListListener, Tas
 
         try {
             mainWindow = new MainWindow(primaryStage, commandInput -> {
-                // TODO: Temporary command
-                if (commandInput.equals("calendar")) {
-                    this.mainWindow.viewCalendar();
-                } else if (commandInput.equals("list")) {
-                    this.mainWindow.viewList();
-                } else if (commandInput.equals("log")) {
-                    this.mainWindow.viewLog();
-                } else if (commandInput.equals("calendar 11/2019")) {
-                    // No need for day
-                    // this.mainWindow.changeCalendarScreenDate(11, 2019);
-                } else {
-                    // Notify listeners of new command input.
-                    this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
-                }
+                this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
             });
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
@@ -126,6 +115,27 @@ public class UiManager implements Ui, UserOutputListener, EventListListener, Tas
         mainWindow.viewMonth(calendarDate);
     }
 
+    public void viewList() {
+        mainWindow.viewList();
+    }
+
+    public void viewLog() {
+        mainWindow.viewLog();
+    }
+
+    /**
+     * Changes the view of the UI to the CalendarPanel to the given date.
+     *
+     * @param calendarDate The given date.
+     */
+    public void viewCalendar(CalendarDate calendarDate) {
+        if (calendarDate == null) {
+            mainWindow.viewCalendar();
+        } else {
+            mainWindow.changeCalendarScreenDate(calendarDate);
+        }
+    }
+
     @Override
     public void onEventListChange(List<EventSource> events) {
         this.mainWindow.onEventListChange(events);
@@ -134,6 +144,11 @@ public class UiManager implements Ui, UserOutputListener, EventListListener, Tas
     @Override
     public void onTaskListChange(List<TaskSource> tasks) {
         this.mainWindow.onTaskListChange(tasks);
+    }
+
+    @Override
+    public void onModelListChange(ModelLists lists) {
+        this.mainWindow.onModelListChange(lists);
     }
 
     @Override

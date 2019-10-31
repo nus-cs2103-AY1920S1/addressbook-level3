@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="taskCardBase" alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="taskDetails" style="-fx-background-color: transparent;">
+            <children>
+                <StackPane alignment="TOP_LEFT">
+                    <children>
+                        <Label fx:id="taskName" text="taskName" wrapText="true">
+                            <StackPane.margin>
+                                <Insets left="15.0" />
+                            </StackPane.margin></Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </StackPane>
+                <StackPane fx:id="taskDueDateBase" alignment="TOP_LEFT">
+                    <children>
+                        <Label fx:id="taskDueDate" text="taskDate" wrapText="true">
+                            <StackPane.margin>
+                                <Insets left="15.0" />
+                            </StackPane.margin></Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </StackPane>
+            <StackPane fx:id="taskTagsBase" alignment="TOP_LEFT">
+               <children>
+                  <HBox fx:id="taskTags" spacing="5.0" StackPane.alignment="CENTER_LEFT">
+                     <StackPane.margin>
+                        <Insets left="12.0" />
+                     </StackPane.margin>
+                  </HBox>
+               </children>
+            </StackPane>
+            </children>
+         <StackPane.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </StackPane.margin>
+        </VBox>
+    </children>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+</StackPane>
