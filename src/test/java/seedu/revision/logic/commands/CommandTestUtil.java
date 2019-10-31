@@ -133,7 +133,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredAnswerableList().size());
 
         Answerable answerable = model.getFilteredAnswerableList().get(targetIndex.getZeroBased());
-        final String[] splitName = answerable.getQuestion().fullQuestion.split("\\s+");
+        final String[] splitName = answerable.getQuestion().value.split("\\s+");
         model.updateFilteredAnswerableList(new QuestionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredAnswerableList().size());

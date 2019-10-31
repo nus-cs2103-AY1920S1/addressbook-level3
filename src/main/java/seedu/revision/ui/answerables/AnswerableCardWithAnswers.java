@@ -62,7 +62,7 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
             questionType.setText("Question type: SAQ");
         }
         id.setText(displayedIndex + ". ");
-        question.setText(answerable.getQuestion().fullQuestion);
+        question.setText(answerable.getQuestion().value);
         difficulty.setText("Difficulty: " + answerable.getDifficulty().value);
         //        answerable.getCorrectAnswerSet().stream()
         //                .sorted(Comparator.comparing(correctAnswer -> correctAnswer.answer))

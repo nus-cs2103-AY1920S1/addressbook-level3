@@ -182,7 +182,7 @@ public class StartQuizWindow extends Window {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            questionDisplay.setFeedbackToUser(e.getMessage());
+            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
             throw e;
         }
     }

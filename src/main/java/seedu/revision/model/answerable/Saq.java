@@ -25,20 +25,6 @@ public class Saq extends Answerable {
     }
 
     /**
-     * Checks whether the input Saq is valid.
-     * @param saq the saq to validate.
-     * @return boolean to indicate whether Saq is valid or not.
-     */
-    public static boolean isValidSaq(Saq saq) {
-        requireNonNull(saq);
-        if (saq.getCorrectAnswerList().contains(Answer.emptyAnswer())
-                || saq.getWrongAnswerList().contains(Answer.emptyAnswer())) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Returns an entire text string of the answerable (question with all possible answers,
      * difficulty level and categories)
      * @return answerable string

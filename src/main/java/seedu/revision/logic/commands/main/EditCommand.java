@@ -104,11 +104,6 @@ public class EditCommand extends Command {
                 throw new CommandException(Mcq.MESSAGE_CONSTRAINTS);
             }
         }
-        if (answerableToEdit instanceof Saq) {
-            if (!Saq.isValidSaq((Saq) editedAnswerable)) {
-                throw new CommandException(Saq.MESSAGE_CONSTRAINTS);
-            }
-        }
         if (answerableToEdit instanceof TrueFalse) {
             if (!TrueFalse.isValidTrueFalse((TrueFalse) editedAnswerable)) {
                 throw new CommandException(TrueFalse.MESSAGE_CONSTRAINTS);

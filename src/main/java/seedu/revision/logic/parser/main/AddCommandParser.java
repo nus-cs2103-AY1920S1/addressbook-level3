@@ -144,11 +144,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                 throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
             }
         }
-        if (answerableToAdd instanceof Saq) {
-            if (!Saq.isValidSaq((Saq) answerableToAdd)) {
-                throw new ParseException(Saq.MESSAGE_CONSTRAINTS);
-            }
-        }
         if (answerableToAdd instanceof TrueFalse) {
             if (!TrueFalse.isValidTrueFalse((TrueFalse) answerableToAdd)) {
                 throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);

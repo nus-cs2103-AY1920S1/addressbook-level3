@@ -48,7 +48,7 @@ public class AnswerableCard extends UiPart<Region> {
         super(FXML);
         this.answerable = answerable;
         id.setText(displayedIndex + ". ");
-        question.setText(answerable.getQuestion().fullQuestion);
+        question.setText(answerable.getQuestion().value);
         difficulty.setText("Difficulty: " + answerable.getDifficulty().value);
         answerable.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
