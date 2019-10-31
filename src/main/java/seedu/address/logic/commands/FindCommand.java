@@ -17,8 +17,8 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all books by filtering the ones matching \n"
             + "the specified keywords (case-insensitive) and \n"
             + "displays them as a list with index numbers.\n"
-            + "Parameters: { [t/TITLE] [a/AUTHOR] [g/GENRE]… \n"
-            + "[sn/BOOK_SN] [-overdue]/[-loaned]/[-available] }\n"
+            + "Parameters: { [t/TITLE] [a/AUTHOR] [g/GENRE]… "
+            + "[sn/BOOK_SN] [-overdue] [-loaned] [-available] } "
             + "[NUMBER]\n"
             + "Example: " + COMMAND_WORD + " g/mystery g/children -available";
 
