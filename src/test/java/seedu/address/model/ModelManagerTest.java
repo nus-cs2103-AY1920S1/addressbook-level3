@@ -139,10 +139,6 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(accommodation, differentActivity, contact,
                 itinerary, userPrefs)));
 
-        // different contact -> returns false
-        assertFalse(modelManager.equals(new ModelManager(accommodation, activity, differentContact,
-                itinerary, userPrefs)));
-
         // different itinerary -> returns false
         assertFalse(modelManager.equals(new ModelManager(accommodation, activity, contact,
                 differentItinerary, userPrefs)));

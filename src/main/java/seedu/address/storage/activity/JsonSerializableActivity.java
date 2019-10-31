@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ActivityManager;
 import seedu.address.model.ReadOnlyActivity;
-import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.activity.Activity;
 
 /**
  * An Immutable Activity that is serializable to JSON format.

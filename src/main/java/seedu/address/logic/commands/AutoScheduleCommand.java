@@ -17,11 +17,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.NameWithTime;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
 import seedu.address.model.field.Address;
-import seedu.address.model.itineraryitem.activity.Activity;
-import seedu.address.model.itineraryitem.activity.NameWithTime;
 import seedu.address.model.tag.TagWithTime;
 
 /**

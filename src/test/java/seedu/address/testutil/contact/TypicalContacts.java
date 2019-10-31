@@ -41,6 +41,24 @@ public class TypicalContacts {
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
     public static final Contact GEORGE = new ContactBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
+    public static final Contact SAM = new ContactBuilder().withName("Sam Smith").withPhone("92007122")
+            .withEmail("sam1997@gmail.com").withAddress("Nantan, Kyoto 601-0776, Japan").withTags("tourguide").build();
+    public static final Contact MATSAFUSHI = new ContactBuilder().withName("Matsafushi").withPhone("82337121")
+            .withEmail("matsafushi@gmail.com")
+            .withAddress("150-2345 Tokyo-to, Shibuya-ku, Hommachi 2 choume, 4-7, Sunny Mansion 203")
+            .withTags("tourguide").build();
+    public static final Contact YUI = new ContactBuilder().withName("Yui").withPhone("93619823")
+            .withEmail("Yui@hotmail.com").withAddress("Akishima, Tokyo 196-0022").build();
+    public static final Contact HIMARI = new ContactBuilder().withName("Himari").withPhone("94523656")
+            .withEmail("Himari@hotmail.com").withAddress("5 Chome Josai, Nishi Ward, Nagoya, Aichi 451-0031")
+            .withTags("tourguide").build();
+    public static final Contact KOSUKE = new ContactBuilder().withName("kosuke").withPhone("95255523")
+            .withEmail("kosuke@hotmail.com").withAddress("5 Chome Josai, Nishi Ward, Nagoya, Aichi 451-0031").build();
+    public static final Contact KAKASHI = new ContactBuilder().withName("Kakashi").withPhone("95131415")
+            .withEmail("kakashi@yahoo.com").withAddress("Aioi Inuyama, Aichi 484-0081")
+            .withTags("tourguide", "experienced").build();
+    public static final Contact MAYLIN = new ContactBuilder().withName("Maylin").withPhone("95123444")
+            .withEmail("Maylin@yahoo.com").withAddress("Kita Ward, Kyoto, 603-8477").withTags("Japanfriend").build();
 
     // Manually added
     public static final Contact HOON = new ContactBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -71,6 +89,7 @@ public class TypicalContacts {
     }
 
     public static List<Contact> getTypicalContacts() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, SAM, MATSAFUSHI, YUI,
+                HIMARI, KOSUKE, KAKASHI, MAYLIN));
     }
 }

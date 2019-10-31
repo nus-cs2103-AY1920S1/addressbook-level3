@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
+import seedu.address.model.accommodation.Accommodation;
 
 /**
  * Unmodifiable view of an Accommodation List

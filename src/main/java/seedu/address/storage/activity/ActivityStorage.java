@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyActivity;
-import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.activity.Activity;
 
 /**
  * Represents a storage for {@link Activity}.

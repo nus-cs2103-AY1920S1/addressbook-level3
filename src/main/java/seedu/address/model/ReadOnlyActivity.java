@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.activity.Activity;
 
 /**
  * Unmodifiable view of an Activity List

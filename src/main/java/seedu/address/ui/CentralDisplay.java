@@ -38,11 +38,11 @@ import seedu.address.logic.commands.UnscheduleActivityCommand;
 import seedu.address.logic.commands.UnscheduleTimeCommand;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
-import seedu.address.model.itineraryitem.activity.Activity;
 import seedu.address.model.tag.Tag;
 
 /**

@@ -1,9 +1,6 @@
-package seedu.address.model.itineraryitem;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+package seedu.address.model.accommodation;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -14,27 +11,24 @@ import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents an Itinerary Item in the trip planner.
+ * Represents an Accommodation in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public abstract class ItineraryItem {
-    //Identity fields
-    private final Name name;
+public class Accommodation {
 
-    //Data fields
+    private final Name name;
     private final Address address;
     private final Contact contact;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> tags;
 
     /**
      * Every field must be present and not null.
      */
-    public ItineraryItem(Name name, Address address, Contact contact, Set<Tag> tags) {
-        requireAllNonNull(name, address, tags);
+    public Accommodation(Name name, Address address, Contact contact, Set<Tag> tags) {
         this.name = name;
         this.address = address;
         this.contact = contact;
-        this.tags.addAll(tags);
+        this.tags = tags;
     }
 
     public Name getName() {
@@ -58,6 +52,26 @@ public abstract class ItineraryItem {
     }
 
     /**
+     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSameAccommodation(Accommodation otherAccommodation) {
+        if (otherAccommodation == this) {
+            return true;
+        }
+
+        return otherAccommodation != null
+                && otherAccommodation.getName().equals(getName())
+                && (otherAccommodation.getAddress().equals(getAddress()));
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, address, contact, tags);
+    }
+
+    /**
      * Returns true if both activities have the same identity and data fields.
      * This defines a stronger notion of equality between two activities.
      */
@@ -67,21 +81,15 @@ public abstract class ItineraryItem {
             return true;
         }
 
-        if (!(other instanceof ItineraryItem)) {
+        if (!(other instanceof Accommodation)) {
             return false;
         }
 
-        ItineraryItem otherItem = (ItineraryItem) other;
-        return otherItem.getName().equals(getName())
-                && otherItem.getAddress().equals(getAddress())
-                && otherItem.getTags().equals(getTags())
-                && otherItem.getContact().equals(getContact());
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, address, tags);
+        Accommodation otherAccommodation = (Accommodation) other;
+        return otherAccommodation.getName().equals(getName())
+                && otherAccommodation.getAddress().equals(getAddress())
+                && otherAccommodation.getTags().equals(getTags())
+                && otherAccommodation.getContact().equals(getContact());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package seedu.address.model.itineraryitem.accommodation;
+package seedu.address.model.accommodation;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -10,8 +10,8 @@ import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.itineraryitem.accommodation.exceptions.AccommodationNotFoundException;
-import seedu.address.model.itineraryitem.accommodation.exceptions.DuplicateAccommodationException;
+import seedu.address.model.accommodation.exceptions.AccommodationNotFoundException;
+import seedu.address.model.accommodation.exceptions.DuplicateAccommodationException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

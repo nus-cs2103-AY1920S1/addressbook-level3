@@ -9,10 +9,10 @@ import java.util.Optional;
 import java.util.TreeSet;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Duration;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
-import seedu.address.model.itineraryitem.activity.Activity;
-import seedu.address.model.itineraryitem.activity.Duration;
 import seedu.address.model.tag.Tag;
 
 /**

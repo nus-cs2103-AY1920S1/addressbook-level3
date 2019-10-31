@@ -1,19 +1,25 @@
-package seedu.address.model.itineraryitem.activity;
+package seedu.address.model.activity;
 
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
-import seedu.address.model.itineraryitem.ItineraryItem;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents an Activity in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Activity extends ItineraryItem implements Comparable<Activity> {
+public class Activity implements Comparable<Activity> {
 
+    private final Name name;
+    private final Address address;
+    private final Contact contact;
+    private Set<Tag> tags;
     private final Duration duration;
     private final Priority priority;
 
@@ -21,9 +27,32 @@ public class Activity extends ItineraryItem implements Comparable<Activity> {
      * Every field must be present and not null.
      */
     public Activity(Name name, Address address, Contact contact, Set<Tag> tags, Duration duration, Priority priority) {
-        super(name, address, contact, tags);
+        this.name = name;
+        this.address = address;
+        this.contact = contact;
+        this.tags = tags;
         this.duration = duration;
         this.priority = priority;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Optional<Contact> getContact() {
+        return Optional.ofNullable(contact);
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
     public Duration getDuration() {
@@ -45,6 +74,11 @@ public class Activity extends ItineraryItem implements Comparable<Activity> {
         return otherActivity != null
                 && otherActivity.getName().equals(getName())
                 && (otherActivity.getAddress().equals(getAddress()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, address, contact, tags, duration, priority);
     }
 
     /**
@@ -90,5 +124,25 @@ public class Activity extends ItineraryItem implements Comparable<Activity> {
         } else {
             return 1;
         }
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Location: ")
+                .append(getAddress())
+                .append(" Contact: ")
+                .append(getContact().isPresent()
+                        ? getContact().get()
+                        : "")
+                .append(" Duration: ")
+                .append(getDuration())
+                .append(" Priority: ")
+                .append(getPriority())
+                //note that Contact.toString also has tags
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
     }
 }

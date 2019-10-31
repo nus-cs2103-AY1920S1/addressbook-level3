@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AccommodationManager;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
+import seedu.address.model.accommodation.Accommodation;
 import seedu.address.testutil.contact.TypicalContacts;
 
 /**

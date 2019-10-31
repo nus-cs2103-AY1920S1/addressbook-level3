@@ -3,14 +3,14 @@ package seedu.address.testutil.activity;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Duration;
+import seedu.address.model.activity.Priority;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
-import seedu.address.model.itineraryitem.activity.Activity;
-import seedu.address.model.itineraryitem.activity.Duration;
-import seedu.address.model.itineraryitem.activity.Priority;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.contact.ContactBuilder;

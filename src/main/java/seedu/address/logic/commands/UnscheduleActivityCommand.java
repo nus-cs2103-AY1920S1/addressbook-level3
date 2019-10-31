@@ -16,9 +16,9 @@ import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
-import seedu.address.model.itineraryitem.activity.Activity;
 
 /**
  * Unschedules an activity from the day by time.

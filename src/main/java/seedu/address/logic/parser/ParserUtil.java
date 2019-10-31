@@ -16,14 +16,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.activity.Duration;
+import seedu.address.model.activity.NameWithTime;
+import seedu.address.model.activity.Priority;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
-import seedu.address.model.itineraryitem.activity.Duration;
-import seedu.address.model.itineraryitem.activity.NameWithTime;
-import seedu.address.model.itineraryitem.activity.Priority;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagWithTime;
 

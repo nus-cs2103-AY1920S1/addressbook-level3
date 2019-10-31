@@ -3,10 +3,10 @@ package seedu.address.testutil.accommodation;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.contact.ContactBuilder;
