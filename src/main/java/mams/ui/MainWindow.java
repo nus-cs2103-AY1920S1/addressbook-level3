@@ -225,8 +225,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        } finally {
-            historyWindow.updateHistoryDisplay(logic.getCommandHistory());
         }
     }
 }

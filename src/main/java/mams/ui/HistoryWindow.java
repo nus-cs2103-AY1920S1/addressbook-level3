@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -51,16 +53,6 @@ public class HistoryWindow extends UiPart<Stage> {
      */
     public HistoryWindow(boolean hideOutputHistory, ObservableList<InputOutput> commandHistory) {
         this(new Stage(), hideOutputHistory, commandHistory);
-    }
-
-    /**
-     * Updates the history text box with the new {@code commandHistory}.
-     * @param commandHistory List of InputOutput obj
-     */
-    public void updateHistoryDisplay(List<InputOutput> commandHistory) {
-        String historyAsText = formatCommandHistoryToString(commandHistory);
-        //resultDisplay.setText(historyAsText);
-        //resultDisplay.appendText(""); // auto-scroll to bottom
     }
 
     /**
@@ -148,6 +140,14 @@ public class HistoryWindow extends UiPart<Stage> {
         historyListPanel.scrollToBottom();
     }
 
+    public void copyToClipboard() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent copiedText = new ClipboardContent();
+        InputOutput selected = historyListPanel.getCurrentlySelectedInputOutput();
+        copiedText.putString(selected.getInput());
+        clipboard.setContent(copiedText);
+    }
+
     /**
      * Handles {@code KeyEvent} for the history window.
      */
@@ -158,6 +158,9 @@ public class HistoryWindow extends UiPart<Stage> {
             keyEvent.consume();
             hide();
             break;
+        case Q:
+            keyEvent.consume();
+            copyToClipboard();
         default:
             break;
         }

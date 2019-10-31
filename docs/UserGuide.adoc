@@ -155,6 +155,9 @@ Sample Output: Opens a window displaying command history
 
 image::HistoryWindowDemo.png[width="790"]
 
+TIP: (Still experimental) By pressing kbd:[q], the currently selected command
+in the history window can be copied to the clipboard.
+
 ==== Sync Command History to disk
 
 Command history is automatically saved to disk whenever it is updated with new inputs.

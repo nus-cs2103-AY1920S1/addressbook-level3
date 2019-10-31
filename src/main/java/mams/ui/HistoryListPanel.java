@@ -50,6 +50,10 @@ public class HistoryListPanel extends UiPart<Region> {
         itemListView.getSelectionModel().select(lastIndex);
     }
 
+    public InputOutput getCurrentlySelectedInputOutput() {
+        return itemListView.getSelectionModel().getSelectedItem();
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of an {@code InputOutput} using an {@code InputOutputCard}.
      */
