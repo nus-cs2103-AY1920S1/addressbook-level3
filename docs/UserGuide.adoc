@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it.
 .  Some example commands you can try:
 
-* `**add_task** "Buy Groceries"`: adds a task to Horo.
-* `delete_task 1` : deletes the first task in Horo.
-* `exit` : exits Horo.
+* `*add_task* "Buy Groceries"`: adds a task to Horo.
+* `*delete_task* 1` : deletes the first task in Horo.
+* `*exit*` : exits Horo.
 
 .  Refer to <<Features>> for details of each command.
 
