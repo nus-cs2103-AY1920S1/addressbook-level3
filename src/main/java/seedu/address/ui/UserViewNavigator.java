@@ -1,5 +1,10 @@
 package seedu.address.ui;
 
+
+import javafx.collections.FXCollections;
+
+import seedu.address.commons.Keywords;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +12,11 @@ import seedu.address.logic.Logic;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
+
 import seedu.address.ui.views.IndivMemberCard;
 import seedu.address.ui.views.InventoryListPanel;
 import seedu.address.ui.views.MemberListPanel;
+import seedu.address.ui.views.CommandListPanel;
 import seedu.address.ui.views.MemberStatisticsView;
 import seedu.address.ui.views.ProjectDashboardView;
 import seedu.address.ui.views.SettingsView;
@@ -34,6 +41,7 @@ public class UserViewNavigator {
     private MemberStatisticsView memberStatsView;
     private TaskStatisticsView taskStatsView;
     private SettingsView settingsView;
+    private CommandListPanel commandListPanel;
 
     /**
      * Stores the main controller for later use in navigation tasks.
@@ -186,6 +194,14 @@ public class UserViewNavigator {
     public void loadSettingsView(Logic logic) {
         settingsView = new SettingsView(logic.getCurrentTheme(), logic.getClockFormat());
         userViewController.setUserView(settingsView);
+    }
+    /**
+     * Relays to the controller to swap current user view with help view.
+     * @param logic to access settings data
+     */
+    public void loadHelpView(Logic logic) {
+        commandListPanel = new CommandListPanel(FXCollections.observableList(Keywords.commandList));
+        userViewController.setUserView(commandListPanel);
     }
 
 }

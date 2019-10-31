@@ -115,4 +115,14 @@ public class UserViewMain {
         return userViewController.getCurrentView();
     }
 
+    /**
+     * Shows the user the commands.
+     *
+     * @return the help view
+     */
+    public Pane loadHelpView() {
+        userViewNavigator.loadHelpView(logic);
+        return userViewController.getCurrentView();
+    }
+
 }

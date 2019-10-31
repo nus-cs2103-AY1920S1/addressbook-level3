@@ -55,21 +55,22 @@ public class Keywords {
             case AddTaskCommand.COMMAND_WORD:
                 return "add-task tn/ s/ t/";
 
-            // case DeleteTaskCommand.COMMAND_WORD: default
+            case DeleteTaskCommand.COMMAND_WORD:
+                return "delete-task ti/";
 
             case FindCommand.COMMAND_WORD:
-                return "find-task {KEYWORDS}";
+                return "find-task ti/";
 
             // case ListCommand.COMMAND_WORD: default
 
             case EditCommand.COMMAND_WORD:
-                return "edit-task {INDEX} tn/ t/ s/";
+                return "edit-task ti/ tn/ t/ s/";
 
             case DoingTaskCommand.COMMAND_WORD:
-                return "doing-task {INDEX}";
+                return "doing-task ti/";
 
             case SetDeadlineCommand.COMMAND_WORD:
-                return "set-deadline {INDEX}";
+                return "set-deadline ti/";
 
             case DoneTaskCommand.COMMAND_WORD:
                 return "set-deadline ti/ /at";
@@ -95,6 +96,11 @@ public class Keywords {
             case  FireCommand.COMMAND_WORD:
                 return "fire ti/ mi/";
 
+            // case  RemoveTaskFromMemberCommand.COMMAND_WORD:
+            //     return "fire-task ti/ mi/";
+
+            // case  RemoveMemberFromTaskCommand.COMMAND_WORD:
+            //     return "fire-member ti/ mi/";
 
             // INVENTORY
             // case ListInventoryCommand.COMMAND_WORD: default
@@ -128,7 +134,7 @@ public class Keywords {
             // case HomeCommand.COMMAND_WORD:
 
             default:
-                return commandWord;
+                return commandWord + " ";
         }
     }
 }

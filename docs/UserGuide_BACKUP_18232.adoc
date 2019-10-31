@@ -57,16 +57,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ** Example: In `add-member mn/MEMBER_NAME`, MEMBER_NAME is the input specified by the user, such as: add-member mn/Gabriel Seow
 
-* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below: 
-<<<<<<< HEAD
-=======
+* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below:
 
-[%header,cols=2*] 
+[%header,cols=2*]
 .List of Prefixes
 |===
 |Prefix
 |Description
->>>>>>> 265994df046ed705801648d410625225932bc303
 
 |mn/
 |Member name
@@ -136,11 +133,7 @@ image::Help.png[width=790]
 To add a member to the list of team members in +Work, use the command 'add-member' following the format below. +
 Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
 
-<<<<<<< HEAD
-Example: `add-member mn/Gabriel Seow mi/GS mt/Programmer`
-
-=======
-Example: `add-member mn/Gabriel Seow mi/GS mt/Programmer` will result in the following: 
+Example: `add-member mn/Gabriel Seow mi/GS mt/Programmer` will result in the following:
 +
 image::AddMember.png[width="790"]
 +
@@ -150,67 +143,49 @@ image::AddMember.png[width="790"]
 * Adding a member tag is optional in the adding of a new member.
 * It is possible to add a member with multiple tags following this format: +
 add-member mn/Gabriel Seow mi/GS mt/Programmer mt/Ui Designer
->>>>>>> 265994df046ed705801648d410625225932bc303
 
 
 ==== List existing members: `list-members` +
 To get a list of all members added to +Work, used the command 'list-members' following the format below. +
 Format: `list-members`
 
-<<<<<<< HEAD
-Example: 'list-members'
-
-=======
 Example: 'list-members' will result in the following:
 +
 image::ListMembers.png[width="790"]
 +
->>>>>>> 265994df046ed705801648d410625225932bc303
 
 ==== Remove a member: `remove-member` +
 To remove a member from the project, and subsequently remove him from associated tasks, use the 'remove-member' command in the format below. +
 Format: `remove-member [mi/MEMBER_ID]`
 
-<<<<<<< HEAD
-Example: 'remove-member mi/GS' 
-=======
 Example: 'remove-member mi/GS' will result in the following:
 +
 image::RemoveMember.png[width="790"]
 +
-This indicates that the member 'Gabriel Seow' with member ID 'GS' has been removed from the project and from associated tasks. 
->>>>>>> 265994df046ed705801648d410625225932bc303
+This indicates that the member 'Gabriel Seow' with member ID 'GS' has been removed from the project and from associated tasks.
 
 
 ==== Assign a task to a member: `assign` +
 To assign a task to a specific team member, use the 'assign' command in the format below. +
 Format: `assign ti/TASK_ID mi/MEMBER_ID`
 
-<<<<<<< HEAD
-Example: 'assign ti/1 mi/GS' 
-=======
-Example: 'assign ti/1 mi/GS' will result in the following: 
+Example: 'assign ti/1 mi/GS' will result in the following:
 +
 image::AssignTask.png[width="790"]
 +
 
 This indicates that the task TASK NAME with task id 1 has been assigned to team member 'GABRIEL SEOW' with member id 'GS'. +
->>>>>>> 265994df046ed705801648d410625225932bc303
 
 ==== Remove a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
 Format: `fire ti/TASK_ID mi/MEMBER_ID`
 
-<<<<<<< HEAD
-Example: 'fire ti/1 mi/GS' 
-=======
-Example: 'fire ti/1 mi/GS' will result in the following: 
+Example: 'fire ti/1 mi/GS' will result in the following:
 +
 image::FireTask.png[width="790"]
 +
 
 This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
->>>>>>> 265994df046ed705801648d410625225932bc303
 
 '''
 
@@ -398,7 +373,7 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 To get statistics relating to the members in +Work, use the statistics command following the format below. +
 Format: `member-stats` +
 
-Calling the 'member-stats' command will result in the following: 
+Calling the 'member-stats' command will result in the following:
 +
 image::MemberStats.png[width="790"]
 +
@@ -407,7 +382,7 @@ image::MemberStats.png[width="790"]
 To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
 Format: `task-stats` +
 
-Calling the 'task-stats' command will result in the following: 
+Calling the 'task-stats' command will result in the following:
 +
 image::TaskStats.png[width="790"]
 +

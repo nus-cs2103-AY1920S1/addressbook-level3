@@ -27,7 +27,6 @@ version = '1'                   //NEWSTUFF
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    jcenter()
 }
 
 checkstyle {
@@ -66,8 +65,6 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
-    // https://github.com/controlsfx/controlsfx
-    implementation 'org.controlsfx:controlsfx:9.0.1-SNAPSHOT'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
