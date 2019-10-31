@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 import com.dukeacademy.model.question.Question;
-
 import com.dukeacademy.observable.Observable;
+
 import javafx.collections.ObservableList;
 
 /**

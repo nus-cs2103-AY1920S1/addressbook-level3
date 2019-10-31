@@ -34,9 +34,9 @@ import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.logic.question.QuestionsLogicManager;
-import com.dukeacademy.model.State.ApplicationState;
 import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.prefs.UserPrefs;
+import com.dukeacademy.model.state.ApplicationState;
 import com.dukeacademy.storage.prefs.JsonUserPrefsStorage;
 import com.dukeacademy.storage.prefs.UserPrefsStorage;
 import com.dukeacademy.storage.question.JsonQuestionBankStorage;
@@ -88,7 +88,7 @@ public class MainApp extends Application {
             return;
         }
 
-        applicationState = new ApplicationState();
+        applicationState = this.initApplicationState();
         questionsLogic = this.initQuestionsLogic(userPrefs);
         programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
 

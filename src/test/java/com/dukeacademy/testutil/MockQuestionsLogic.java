@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
-
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.observable.StandardObservable;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

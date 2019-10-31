@@ -1,14 +1,17 @@
 package com.dukeacademy.logic.commands.tab;
 
-import com.dukeacademy.logic.commands.Command;
-import com.dukeacademy.logic.commands.CommandResult;
-import com.dukeacademy.logic.commands.exceptions.CommandException;
-import com.dukeacademy.model.State.Activity;
-import com.dukeacademy.model.State.ApplicationState;
-
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
+import com.dukeacademy.logic.commands.Command;
+import com.dukeacademy.logic.commands.CommandResult;
+import com.dukeacademy.logic.commands.exceptions.CommandException;
+import com.dukeacademy.model.state.Activity;
+import com.dukeacademy.model.state.ApplicationState;
+
+/**
+ * Command used to switch tabs within the application
+ */
 public class TabCommand implements Command {
     private static final String feedback = "Toggling tab to : ";
     private final ApplicationState applicationState;
@@ -19,7 +22,7 @@ public class TabCommand implements Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        Activity currentActivity =applicationState.getCurrentActivity();
+        Activity currentActivity = applicationState.getCurrentActivity();
 
         if (currentActivity == null) {
             this.applicationState.setCurrentActivity(Activity.HOME);

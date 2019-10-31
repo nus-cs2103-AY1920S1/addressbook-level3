@@ -3,8 +3,11 @@ package com.dukeacademy.logic.commands.tab;
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandFactory;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
-import com.dukeacademy.model.State.ApplicationState;
+import com.dukeacademy.model.state.ApplicationState;
 
+/**
+ * Factory class to generate Tab commands.
+ */
 public class TabCommandFactory implements CommandFactory {
     private final ApplicationState applicationState;
 

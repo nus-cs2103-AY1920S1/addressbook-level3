@@ -10,10 +10,9 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
-
-import com.dukeacademy.model.State.Activity;
-import com.dukeacademy.model.State.ApplicationState;
+import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.observable.Observable;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -41,9 +40,6 @@ class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
-    private HomePage homePage;
-    private QuestionsPage questionsPage;
-    private Workspace workspace;
 
     private HelpWindow helpWindow;
 
@@ -154,14 +150,14 @@ class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
+        HomePage homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
         homePagePlaceholder.getChildren().add(homePage.getRoot());
 
-        questionsPage = new QuestionsPage(questionsLogic.getFilteredQuestionsList(),
+        QuestionsPage questionsPage = new QuestionsPage(questionsLogic.getFilteredQuestionsList(),
                 questionsLogic.getSelectedQuestion());
         questionsPagePlaceholder.getChildren().add(questionsPage.getRoot());
 
-        workspace = new Workspace(programSubmissionLogic.getCurrentQuestionObservable(),
+        Workspace workspace = new Workspace(programSubmissionLogic.getCurrentQuestionObservable(),
                 programSubmissionLogic.getTestResultObservable());
         workspacePlaceholder.getChildren().add(workspace.getRoot());
         programSubmissionLogic.setUserProgramSubmissionChannel(workspace.getUserProgramChannel());
@@ -228,6 +224,10 @@ class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Helper method to select the correct tab based on the user's current activity.
+     * @param activity the user's current activity
+     */
     private void selectTabFromActivity(Activity activity) {
         if (activity == Activity.HOME) {
             this.tabPane.getSelectionModel().select(0);
