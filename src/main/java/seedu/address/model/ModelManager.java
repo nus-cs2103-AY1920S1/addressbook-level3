@@ -6,14 +6,19 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
+import seedu.address.commons.Comparators;
 import seedu.address.commons.Predicates;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -23,6 +28,7 @@ import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
+import seedu.address.commons.util.LeaderboardUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
@@ -53,6 +59,9 @@ public class ModelManager implements Model {
     protected FilteredList<Participant> filteredParticipantList;
     protected FilteredList<Team> filteredTeamList;
     protected FilteredList<Mentor> filteredMentorList;
+
+    protected SortedList<Team> sortedTeam;
+    protected SortedList<Team> topKTeams;
 
     // TODO: Remove the null values which are a placeholder due to the multiple constructors.
     // Also will have to change the relevant attributes to final.
@@ -175,6 +184,8 @@ public class ModelManager implements Model {
                 new FilteredList<>(this.mentorList.getSpecificTypedList());
         this.filteredTeamList =
                 new FilteredList<>(this.teamList.getSpecificTypedList());
+        this.sortedTeam =
+                new SortedList<>(this.teamList.getSpecificTypedList());
 
         // Optional TODO: reimplement this logic here.
         // Optional<ReadOnlyAddressBook> addressBookOptional;
@@ -279,6 +290,14 @@ public class ModelManager implements Model {
 
     public FilteredList<Team> getFilteredTeamList() {
         return this.filteredTeamList;
+    }
+
+    public SortedList<Team> getSortedTeamList() {
+        return this.sortedTeam;
+    }
+
+    public SortedList<Team> getTopKTeams() {
+        return this.topKTeams;
     }
 
     /**
@@ -698,11 +717,81 @@ public class ModelManager implements Model {
             }
         }
         Optional<Mentor> mentor = team.getMentor();
-        if (!mentor.isEmpty()) {
+        if (mentor.isPresent()) {
             if (!this.mentorList.contains(mentor.get().getId())) {
                 throw new ModelValidationException("Mentor in team does not exist in mentorList");
             }
         }
+    }
+
+    //=========== Leader-Board methods ==================================================================
+
+    /**
+     * Clears up any formatting and sorting from the sorted list and resets it to its
+     * original form.
+     */
+    private void initialiseSortedList() {
+        this.sortedTeam = new SortedList<>(this.teamList.getSpecificTypedList());
+    }
+
+    /**
+     * Arranges the sorted team list {@code sortedTeam} to sort the current teams stored
+     * in Alfred in descending order of their score. Implements additional Comparators {@code comparators}
+     * for tie-breaking if specified by the user.
+     */
+    public final void setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators) {
+        initialiseSortedList();
+        for (Comparator<Team> comparator : comparators) {
+            this.sortedTeam.setComparator(comparator);
+        }
+        this.sortedTeam.setComparator(Comparators.rankByScore());
+    }
+
+    /**
+     * Arranges the sorted team list {@code sortedTeam} to sort the current teams stored in Alfred
+     * in descending order of their score, implementing additional Comparators {@code comparators}
+     * for tie-breaking if specified by the user. Randomly selects the winner if two teams are still
+     * tied after the additional comparators.
+     *
+     */
+    public void setLeaderboardWithRandom(ArrayList<Comparator<Team>> comparators) {
+        setSimpleLeaderboard(comparators);
+        ObservableList<Team> teams = FXCollections.observableArrayList(sortedTeam);
+        teams = LeaderboardUtil.randomWinnersGenerator(teams, teams.size(), comparators);
+        this.sortedTeam = new SortedList<>(teams);
+    }
+
+    /**
+     * Sorts the sortedTeam list by the value of the team's score and additional Comparators {@code comparators}
+     * if specified by the user, and filters the top {@code k} teams, inclusive of ties,
+     * into {@code topKTeams} list.
+     *
+     */
+    public final void setTopK(int k, ArrayList<Comparator<Team>> comparators) {
+        initialiseSortedList();
+        for (Comparator<Team> comparator : comparators) {
+            this.sortedTeam.setComparator(comparator);
+        }
+        this.sortedTeam.setComparator(Comparators.rankByScore());
+
+        // Create a copy of the sorted teams from which teams can be removed without
+        // damaging the original sorted teams list.
+        ObservableList<Team> teams = FXCollections.observableArrayList(sortedTeam);
+        teams = LeaderboardUtil.topKWithTie(teams, k, comparators);
+        this.topKTeams = new SortedList<>(teams);
+    }
+
+    /**
+     * Sorts the sortedTeam list by the value of the team's score and additional Comparators {@code comparators}
+     * if specified by the user, and filters the top {@code k} teams into {@code topKTeams} list, resolving ties
+     * on a random basis.
+     *
+     */
+    public final void setTopKRandom(int k, ArrayList<Comparator<Team>> comparators) {
+        setSimpleLeaderboard(comparators);
+        ObservableList<Team> teams = FXCollections.observableArrayList(sortedTeam);
+        teams = LeaderboardUtil.randomWinnersGenerator(teams, k, comparators);
+        this.topKTeams = new SortedList<>(teams);
     }
 
     //=========== Find methods ==================================================================

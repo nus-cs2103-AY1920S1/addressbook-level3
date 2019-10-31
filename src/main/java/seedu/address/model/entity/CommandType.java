@@ -8,7 +8,9 @@ public enum CommandType {
     P, // Participant
     M, // Mentor
     T, // Team
-    H; // History
+    H, // History
+    L, // Leaderboard
+    K; // Top K teams
 
     // Constants
     public static final String MESSAGE_CONSTRAINTS =

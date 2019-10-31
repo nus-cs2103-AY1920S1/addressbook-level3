@@ -12,7 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_ORGANISATION = new Prefix("o/");
-    public static final Prefix PREFIX_SCORE = new Prefix("sc/");
+    public static final Prefix PREFIX_TIE_BREAK = new Prefix("tb/");
     public static final Prefix PREFIX_SUBJECT_NAME = new Prefix("s/");
     public static final Prefix PREFIX_PROJECT_NAME = new Prefix("pn/");
     public static final Prefix PREFIX_LOCATION = new Prefix("l/");

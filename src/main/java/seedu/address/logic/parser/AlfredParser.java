@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.SimpleTopTeamsCommand;
 import seedu.address.logic.commands.addcommand.AddCommand;
 import seedu.address.logic.commands.csvcommand.ExportCommand;
 import seedu.address.logic.commands.csvcommand.ImportCommand;
@@ -20,6 +21,7 @@ import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.historycommand.HistoryCommand;
 import seedu.address.logic.commands.historycommand.RedoCommand;
 import seedu.address.logic.commands.historycommand.UndoCommand;
+import seedu.address.logic.commands.leaderboardcommand.ShowSimpleLeaderboardCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
 import seedu.address.logic.commands.scorecommand.ScoreCommand;
 import seedu.address.logic.commands.viewcommand.ViewCommand;
@@ -66,24 +68,30 @@ public class AlfredParser {
         Command c;
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            c = new AddCommandAllocator().allocate(arguments);
-            break;
+            logger.info("Allocating add command to appropriate parser.");
+            return new AddCommandAllocator().allocate(arguments);
 
         case FindCommand.COMMAND_WORD:
             c = new FindCommandAllocator().allocate(arguments);
             break;
 
         case DeleteCommand.COMMAND_WORD:
-            logger.info("Deleting an existing Participant...");
-            c = new DeleteCommandAllocator().allocate(arguments);
-            break;
+            logger.info("Allocating delete command to appropriate parser.");
+            return new DeleteCommandAllocator().allocate(arguments);
 
         case ScoreCommand.COMMAND_WORD:
             return new ScoreCommandAllocator().allocate(arguments);
 
         case ListCommand.COMMAND_WORD:
-            c = new ListCommandParser().parse(arguments);
-            break;
+            logger.info("Showing list of a particular entity...");
+            return new ListCommandParser().parse(arguments);
+
+        case ShowSimpleLeaderboardCommand.COMMAND_WORD:
+            logger.info("Executing leaderboard command...");
+            return new ShowLeaderBoardCommandParser().parse(arguments);
+
+        case SimpleTopTeamsCommand.COMMAND_WORD:
+            return new GetTopTeamsCommandParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
             c = new ViewCommandAllocator().allocate(arguments);

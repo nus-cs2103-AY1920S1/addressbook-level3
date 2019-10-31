@@ -35,7 +35,7 @@ public class CommandRecordCard extends UiPart<Region> {
     /**
      * Constructs a new instance of Command Record Card.
      *
-     * @param CommandRecord CommandRecord to make the Card out of
+     * @param commandRecord CommandRecord to make the Card out of
      */
     public CommandRecordCard(CommandRecord commandRecord) {
         super(FXML);

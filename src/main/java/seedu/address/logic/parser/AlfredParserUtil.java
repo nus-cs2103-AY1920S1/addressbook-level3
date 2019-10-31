@@ -3,12 +3,18 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import seedu.address.commons.Comparators;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.LeaderboardUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.Email;
@@ -19,6 +25,7 @@ import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
+import seedu.address.model.entity.Team;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -199,6 +206,71 @@ public class AlfredParserUtil {
             }
         }
         throw new ParseException(SubjectName.MESSAGE_CONSTRAINTS);
+    }
+
+    /**
+     * Returns a new comparator based on the tie-break {@code method} specified by the users.
+     *
+     * @return new comparator for Team objects.
+     * @throws ParseException if the tie-break method specified is invalid.
+     */
+    public static Comparator<Team> getAppropriateComparator(String method) throws ParseException {
+        method = method.trim();
+        switch(method) {
+        case Comparators.HIGHER_ID:
+            return Comparators.rankByIdDescending();
+        case Comparators.LOWER_ID:
+            return Comparators.rankByIdAscending();
+        case Comparators.MORE_PARTICIPANTS:
+            return Comparators.rankByParticipantsDescending();
+        case Comparators.LESS_PARTICIPANTS:
+            return Comparators.rankByParticipantsAscending();
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LeaderboardUtil.INVALID_TIE_BREAK + method));
+        }
+    }
+
+    /**
+     * Checks if the user specified the tiebreaking method "random" correctly.
+     *
+     * @param methods the string array containing every user inputted tie-breaking method.
+     * @return {@code true} if "random" is mentioned as one of the methods and is the last in the list.
+     * @throws ParseException if the method specification format is incorrect.
+     */
+    public static boolean isRandomPresent(String[] methods) throws ParseException {
+        if (!Arrays.asList(methods).contains(LeaderboardUtil.RANDOM_KEYWORD)) {
+            return false;
+        } else if (randomAtCorrectPlace(methods)) {
+            return true;
+        } else {
+            throw new ParseException(LeaderboardUtil.RANDOM_USAGE_WARNING);
+        }
+    }
+
+    private static boolean randomAtCorrectPlace(String[] methods) {
+        int size = methods.length;
+        return methods[size - 1].equals(LeaderboardUtil.RANDOM_KEYWORD);
+    }
+
+    /**
+     * Returns an ArrayList of comparators populated with the appropriate comparator depending on the
+     * strings present in the array {@code tieBreakMethods}.
+     *
+     * @return an ArrayList of comparators.
+     * @throws ParseException if a specified does not exist or is in a wrong format.
+     */
+    public static ArrayList<Comparator<Team>> processedComparators(String[] tieBreakMethods) throws ParseException {
+        ArrayList<Comparator<Team>> allComparators = new ArrayList<>();
+        for (String method : tieBreakMethods) {
+            if (method.trim().equals(LeaderboardUtil.RANDOM_KEYWORD)) {
+                continue;
+            }
+            allComparators.add(AlfredParserUtil.getAppropriateComparator(method));
+        }
+        // Reverse the order of comparators for them to applied in the order users specified.
+        Collections.reverse(allComparators);
+        return allComparators;
     }
 
     /**

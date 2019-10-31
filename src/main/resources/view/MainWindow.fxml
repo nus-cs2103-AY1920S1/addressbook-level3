@@ -66,9 +66,9 @@
                                             <FontAwesomeIconView fill="#3083cc" glyphName="USER_SECRET" size="17"/>
                                         </graphic>
                                     </JFXButton>
-                                    <JFXButton alignment="BASELINE_LEFT" graphicTextGap="40.0"
-                                               layoutX="3.0" layoutY="230.0" prefHeight="60.0"
-                                               prefWidth="160.0" text="Leaderboard">
+                                    <JFXButton fx:id="leaderboardButton" id="leaderboardButton" alignment="BASELINE_LEFT" graphicTextGap="40.0"
+                                               layoutX="3.0" layoutY="240.0" prefHeight="60.0"
+                                               prefWidth="160.0" text="Leaderboard" onAction="#displayLeaderboard">
                                         <graphic>
                                             <FontAwesomeIconView fill="#3083cc" glyphName="TROPHY" size="17"/>
                                         </graphic>

@@ -64,6 +64,9 @@ public class MainWindow extends UiPart<Stage> {
     private JFXButton participantsButton;
 
     @FXML
+    private JFXButton leaderboardButton;
+
+    @FXML
     private JFXButton teamsButton;
 
     @FXML
@@ -230,6 +233,30 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Displays the leaderboard on the Graphical User Interface.
+     */
+    @FXML
+    private void displayLeaderboard() {
+        entityListPanel = new EntityListPanel(logic.getSortedTeamList());
+
+        listPanelPlaceholder.getChildren().set(0, entityListPanel.getRoot());
+        listPanelPlaceholder.setStyle("-fx-background-color: #5d6d7e");
+        logger.info("Color of entity list placeholder is: " + listPanelPlaceholder.getStyle());
+    }
+
+    /**
+     * Displays the top K teams on the Graphical User Interface.
+     */
+    @FXML
+    private void displayTopK() {
+        entityListPanel = new EntityListPanel(logic.getTopKTeams());
+
+        listPanelPlaceholder.getChildren().set(0, entityListPanel.getRoot());
+        listPanelPlaceholder.setStyle("-fx-background-color: #5d6d7e");
+        logger.info("Color of entity list placeholder is: " + listPanelPlaceholder.getStyle());
+    }
+
+    /**
      * Displays the list of Teams in Model and Storage on Graphical User Interface.
      */
     @FXML
@@ -285,7 +312,6 @@ public class MainWindow extends UiPart<Stage> {
         if (mentorsButton.isArmed()) {
             mentorsButton.disarm();
         }
-
     }
 
     private void fireButton(Button button) throws AlfredModelHistoryException {
@@ -332,6 +358,12 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case H:
                 this.fireButton(historyButton);
+                break;
+            case L:
+                this.fireButton(leaderboardButton);
+                break;
+            case K:
+                displayTopK();
                 break;
 
             default:

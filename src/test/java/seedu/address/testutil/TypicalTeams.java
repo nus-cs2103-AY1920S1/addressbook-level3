@@ -35,7 +35,7 @@ public class TypicalTeams {
                                           initializeListA(),
                                           Optional.of(TypicalMentors.A),
                                           SubjectName.ENVIRONMENTAL,
-                                          new Score(1),
+                                          new Score(10),
                                           new Name("Project Alpha"),
                                           new Location(1));
 
@@ -62,7 +62,7 @@ public class TypicalTeams {
             TypicalParticipants.getTypicalParticipants(),
             Optional.of(TypicalMentors.B),
                                           SubjectName.EDUCATION,
-                                          new Score(2),
+                                          new Score(20),
                                           new Name("Project Beta"),
                                          new Location(2));
 
@@ -71,7 +71,7 @@ public class TypicalTeams {
                                           TypicalParticipants.getTypicalParticipants(),
                                           Optional.of(TypicalMentors.C),
                                           SubjectName.HEALTH,
-                                          new Score(3),
+                                          new Score(30),
                                           new Name("Project Gamma"),
                                           new Location(3));
 
@@ -81,7 +81,7 @@ public class TypicalTeams {
                                           TypicalParticipants.getTypicalParticipants(),
                                           Optional.empty(),
                                           SubjectName.HEALTH,
-                                          new Score(5),
+                                          new Score(50),
                                           new Name("Project Delta"),
                                           new Location(4));
 
@@ -91,7 +91,7 @@ public class TypicalTeams {
                                           new LinkedList<Participant>(),
                                           Optional.of(TypicalMentors.C),
                                           SubjectName.HEALTH,
-                                          new Score(5),
+                                          new Score(60),
                                           new Name("Project Epsilon"),
                                           new Location(5));
 
