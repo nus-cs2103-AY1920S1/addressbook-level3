@@ -193,21 +193,30 @@ Simply enter `generate` into the command box to get one.
 --
 image::tip.png[width = "20", float = "left"]
 --
-*Tip*
+*Try it out!*
 
-* You can also opt to add in custom preferences using the following format:
-* `generate lower/<true/false> upper/<true/false> num/<true/false> special/<true/false>`
+* You can add custom preferences and configure the following:
+** Length of password
+
+** Inclusion of upper / lower alphabets
+
+** Inclusion of numbers
+
+** Inclusion of special characters
+
 * All passwords are automatically copied onto your clipboard.
 ====
 
-Format: `generate`
+Format: `generate [length/LENGTH] [lower/TRUE] [upper/TRUE] [num/TRUE] [special/TRUE]`
 
 Example: `generate`
 
-Example `generate lower/true upper/true num/true special/false`
+Example `generate length/10`
+
+Example: `generate lower/true upper/true num/true special/false`
 
 
-==== Password analysis: `analyse`
+==== Analysing passwords : `analyse`
 
 Curious how secure your passwords really are? Type `analyse` into the command box to find out.
 
@@ -215,13 +224,18 @@ Curious how secure your passwords really are? Type `analyse` into the command bo
 --
 image::tip.png[width = "20", float = "left"]
 --
-*Tip*
+*Try it out!*
 
-* You can analyse a specific password in greater detail using the following format:
-* `analyse strong/<index>`
+* You can opt to view:
+
+** A general, summary security report for all passwords, or
+
+** A detailed security report for a specific password.
+
+* To view the detailed analysis of a particular password, simply add in the `strong` prefix.
 ====
 
-Format: `analyse` / `analyse strong/<index>`
+Format: `analyse [strong/INDEX]`
 
 Example: `analyse`
 
@@ -498,9 +512,9 @@ Accessing Password directory: `goto password`
 - `copy password INDEX`: Copies the password value, website or username for the specific index
 - `delete INDEX`: Deletes a password as specified by the user.
 - `find DESCRIPTION`: Finds a password description as specified by the user.
-- `generate lower/<true/false> upper/<true/false> num/<true/false> special/<true/false>`: Generates a new random password based on user preference input and copies generated password into user clipboard.
+- `generate [length/LENGTH] [lower/TRUE] [upper/TRUE] [num/TRUE] [special/TRUE]`: Generates a new random password based on user preference input and copies generated password into user clipboard.
 - `analyse`: Analyses all passwords currently stored and produces a security summary report.
-- `analyse strong/<index>`: Analyses in detail a specified password based on the user specified index.
+- `analyse [strong/INDEX]`: Analyses in detail a specified password based on the user specified index.
 
 *Card*
 
