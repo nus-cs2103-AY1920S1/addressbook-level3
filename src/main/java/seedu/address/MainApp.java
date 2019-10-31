@@ -217,25 +217,6 @@ public class MainApp extends Application {
         }
 
 
-        List<Order> orders = initialOrderData.getList();
-        for (int i = orders.size() - 1; i >= 0; i--) {
-            Order o = orders.get(i);
-            if (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED)) {
-                initialOrderData.getList().remove(o);
-                initialArchivedOrderData.getList().add(o);
-            }
-        }
-
-        List<Order> archivedOrders = initialArchivedOrderData.getList();
-        for (int i = archivedOrders.size() - 1; i >= 0; i--) {
-            Order o = archivedOrders.get(i);
-            if (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED)) {
-                initialArchivedOrderData.getList().remove(o);
-                initialOrderData.getList().add(o);
-            }
-        }
-
-
         return new ModelManager(initialCustomerData, initialPhoneData, initialOrderData, initialScheduleData,
                 initialArchivedOrderData, userPrefs);
     }

@@ -725,10 +725,10 @@ public class ModelManagerTest {
 
         DataBook<Customer> customerBook = new CustomerBookBuilder().withCustomer(DANIEL).withCustomer(FIONA).build();
         DataBook<Phone> phoneBook = new PhoneBookBuilder().withPhone(IPHONEONE).withPhone(IPHONEXR).build();
-        DataBook<Order> orderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
+        DataBook<Order> orderBook = new OrderBookBuilder().withOrder(ORDERONE).build();
         DataBook<Schedule> scheduleBook = new ScheduleBookBuilder().withSchedule(CBD_SCHEDULE)
                 .withSchedule(MONDAY_SCHEDULE).build();
-        DataBook<Order> archivedOrderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
+        DataBook<Order> archivedOrderBook = new OrderBookBuilder().withOrder(ORDERTHREE).build();
 
         DataBook<Customer> differentCustomerBook = new DataBook<>();
         DataBook<Phone> differentPhoneBook = new DataBook<>();
