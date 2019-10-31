@@ -29,6 +29,10 @@ public class SetCommandParser implements Parser<SetCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
         }
+        /* handles amount above 1billion */
+        if(argMultimap.getValue(PREFIX_AMOUNT).get().length()>7){
+            throw new ParseException(String.format(SetCommand.MESSAGE_AMOUNT_OVERFLOW));
+        }
 
         Amount budget = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
