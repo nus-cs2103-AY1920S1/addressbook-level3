@@ -362,7 +362,7 @@ The add claim `addnotes` mechanism is facilitated by `AddNotesCommand` and `AddN
 following input from the user: `Module_Code`, `Content`, which will construct `Notes` objects.
 
 .Add Note Command Sequence Diagram
-##diagram to be added
+image::AddNotesSequenceDiagram.png[]
 
 The `AddNotesCommand` implements `Parser` with the following operation:
 

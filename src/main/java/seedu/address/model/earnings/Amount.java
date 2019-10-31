@@ -63,7 +63,6 @@ public class Amount {
         double variableAmt = Double.parseDouble(amt.amount);
         System.out.println(variableAmt);
         double totalAmt = localAmt + variableAmt;
-        System.out.println(totalAmt);
-        return new Amount(Double.toString(totalAmt));
+        return new Amount(String.format("%.2f", totalAmt));
     }
 }

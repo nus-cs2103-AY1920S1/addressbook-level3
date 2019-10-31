@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEarningsCommand;
+import seedu.address.logic.commands.AssignClassCommand;
 import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -22,9 +23,12 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEarningsCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListClassCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
+import seedu.address.logic.commands.MarkAttendanceCommand;
+import seedu.address.logic.commands.MarkParticipationCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.TotalEarningsCommand;
@@ -39,6 +43,8 @@ import seedu.address.logic.commands.calendar.ListTasksCommand;
 import seedu.address.logic.commands.note.AddNotesCommand;
 import seedu.address.logic.commands.note.DeleteNotesCommand;
 import seedu.address.logic.commands.note.EditNotesCommand;
+import seedu.address.logic.commands.note.FindNotesCommand;
+import seedu.address.logic.commands.note.ListNotesCommand;
 import seedu.address.logic.commands.reminder.AddReminderCommand;
 import seedu.address.logic.commands.reminder.DeleteReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -102,11 +108,17 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(AddNotesCommand.COMMAND_WORD, AddNotesCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(DeleteNotesCommand.COMMAND_WORD, DeleteNotesCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(EditNotesCommand.COMMAND_WORD, EditNotesCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(FindNotesCommand.COMMAND_WORD, FindNotesCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ListNotesCommand.COMMAND_WORD, ListNotesCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(LoginCommand.COMMAND_WORD, LoginCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(TotalEarningsCommand.COMMAND_WORD, TotalEarningsCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ListClassCommand.COMMAND_WORD, ListClassCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(AssignClassCommand.COMMAND_WORD, AssignClassCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(MarkAttendanceCommand.COMMAND_WORD, MarkAttendanceCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(MarkParticipationCommand.COMMAND_WORD, MarkParticipationCommand.COMMAND_WORD);
     }
 
     /**
@@ -230,8 +242,26 @@ public class AddressBookParser {
             case EditNotesCommand.COMMAND_WORD:
                 return new EditNotesCommandParser().parse(arguments);
 
+            case FindNotesCommand.COMMAND_WORD:
+                return new FindNotesCommandParser().parse(arguments);
+
+            case ListNotesCommand.COMMAND_WORD:
+                return new ListNotesCommand();
+
             case TotalEarningsCommand.COMMAND_WORD:
                 return new TotalEarningsCommand();
+
+            case ListClassCommand.COMMAND_WORD:
+                return new ListClassCommandParser().parse(arguments);
+
+            case AssignClassCommand.COMMAND_WORD:
+                return new AssignClassCommandParser().parse(arguments);
+
+            case MarkAttendanceCommand.COMMAND_WORD:
+                return new MarkAttendanceCommandParser().parse(arguments);
+
+            case MarkParticipationCommand.COMMAND_WORD:
+                return new MarkParticipationCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
