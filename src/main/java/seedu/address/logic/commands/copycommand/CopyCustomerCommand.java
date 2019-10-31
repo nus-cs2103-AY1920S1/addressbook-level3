@@ -30,7 +30,7 @@ public class CopyCustomerCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_COPY_CUSTOMER_SUCCESS = "Copied Customer: %1$s";
+    public static final String MESSAGE_COPY_CUSTOMER_SUCCESS = "Copied customer into clipboard: %1$s";
 
     private final Index targetIndex;
 

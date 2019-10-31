@@ -1,7 +1,13 @@
 package seedu.address;
 
+import static seedu.address.model.util.SampleDataUtil.getSampleCustomerBook;
+import static seedu.address.model.util.SampleDataUtil.getSampleOrderBook;
+import static seedu.address.model.util.SampleDataUtil.getSamplePhoneBook;
+import static seedu.address.model.util.SampleDataUtil.getSampleScheduleBook;
+
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -45,6 +51,7 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+
 
 /**
  * Runs the application.
@@ -113,7 +120,7 @@ public class MainApp extends Application {
             if (customerBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Customer DataBook");
             }
-            initialCustomerData = customerBookOptional.orElse(new DataBook<>());
+            initialCustomerData = customerBookOptional.orElse(getSampleCustomerBook());
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format."
@@ -133,7 +140,7 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a new Phone DataBook");
             }
 
-            initialPhoneData = phoneBookOptional.orElse(new DataBook<>());
+            initialPhoneData = phoneBookOptional.orElse(getSamplePhoneBook());
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Phone DataBook");
@@ -150,7 +157,7 @@ public class MainApp extends Application {
             if (scheduleBookOptional.isEmpty() || storage.readCustomerBook().isEmpty()
                 || storage.readPhoneBook().isEmpty() || storage.readOrderBook().isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Schedule DataBook");
-                initialScheduleData = new DataBook<>();
+                initialScheduleData = new DataBook<>(getSampleScheduleBook());
             } else {
                 initialScheduleData = scheduleBookOptional.orElse(new DataBook<>());
             }
@@ -171,9 +178,10 @@ public class MainApp extends Application {
             if (orderBookOptional.isEmpty() || storage.readCustomerBook().isEmpty()
                 || storage.readPhoneBook().isEmpty() || storage.readScheduleBook().isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Order DataBook");
-                initialOrderData = new DataBook<>();
+                initialOrderData = orderBookOptional.orElse(getSampleOrderBook());
+
             } else {
-                initialOrderData = orderBookOptional.orElse(new DataBook<>());
+                initialOrderData = new DataBook<>();
 
             }
 
@@ -209,14 +217,18 @@ public class MainApp extends Application {
         }
 
 
-        for (Order o: initialOrderData.getList()) {
+        List<Order> orders = initialOrderData.getList();
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order o = orders.get(i);
             if (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED)) {
                 initialOrderData.getList().remove(o);
                 initialArchivedOrderData.getList().add(o);
             }
         }
 
-        for (Order o: initialArchivedOrderData.getList()) {
+        List<Order> archivedOrders = initialArchivedOrderData.getList();
+        for (int i = archivedOrders.size() - 1; i >= 0; i--) {
+            Order o = archivedOrders.get(i);
             if (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED)) {
                 initialArchivedOrderData.getList().remove(o);
                 initialOrderData.getList().add(o);
