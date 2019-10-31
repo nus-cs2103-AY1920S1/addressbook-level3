@@ -26,7 +26,6 @@ public class ExportCommandTest {
     @TempDir
     public Path temporaryFolder;
 
-    private Model model;
     private Logic logic;
 
     @BeforeEach
@@ -35,7 +34,7 @@ public class ExportCommandTest {
                 new JsonSpendingBookStorage(temporaryFolder.resolve("moneygowhere.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
         model.setSpendingBookFilePath(temporaryFolder.resolve("moneygowhere.json"));
         logic = new LogicManager(model, storage);
 
