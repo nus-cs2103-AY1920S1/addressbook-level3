@@ -32,7 +32,7 @@ public class FindTeamCommandParser implements Parser<FindTeamCommand> {
 
         boolean allPrefixesEmpty = name.isEmpty() && projectName.isEmpty();
 
-        if (allPrefixesEmpty || !argumentMultimap.getPreamble().isEmpty()) {
+        if (allPrefixesEmpty) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindTeamCommand.MESSAGE_USAGE));
         }

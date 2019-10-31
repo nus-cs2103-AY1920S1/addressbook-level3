@@ -25,6 +25,8 @@ public class FindTeamCommand extends FindCommand {
             + "Example: " + COMMAND_WORD + " n/Team01";
     public static final String MESSAGE_SUCCESS = "Successfully ran the find command.";
 
+    private String name;
+    private String projectName;
     private Predicate<Team> findPredicate;
 
     public FindTeamCommand(
@@ -43,6 +45,8 @@ public class FindTeamCommand extends FindCommand {
         }
 
         this.findPredicate = Predicates.predicateReducer(filteredParticipants);
+        this.name = name.orElse("");
+        this.projectName = projectName.orElse("");
     }
 
     @Override
@@ -54,5 +58,19 @@ public class FindTeamCommand extends FindCommand {
         model.updateHistory(this);
         model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.T);
+    }
+
+    @Override
+    public boolean equals(Object otherFindCommand) {
+        if (otherFindCommand == this) {
+            return true;
+        }
+
+        if (!(otherFindCommand instanceof FindTeamCommand)) {
+            return false;
+        }
+
+        return name.equals(((FindTeamCommand) otherFindCommand).name)
+                && projectName.equals(((FindTeamCommand) otherFindCommand).projectName);
     }
 }

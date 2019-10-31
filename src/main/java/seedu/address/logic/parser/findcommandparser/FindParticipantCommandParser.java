@@ -35,7 +35,7 @@ public class FindParticipantCommandParser implements Parser<FindParticipantComma
         // If no prefixes given, we will throw an error later
         boolean allPrefixesEmpty = name.isEmpty() && email.isEmpty() && phone.isEmpty();
 
-        if (allPrefixesEmpty || !argumentMultimap.getPreamble().isEmpty()) {
+        if (allPrefixesEmpty) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindParticipantCommand.MESSAGE_USAGE));
         }

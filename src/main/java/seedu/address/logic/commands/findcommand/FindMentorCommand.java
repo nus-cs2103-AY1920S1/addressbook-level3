@@ -26,6 +26,10 @@ public class FindMentorCommand extends FindCommand {
             + "Example: " + COMMAND_WORD + " n/John Doe";
     public static final String MESSAGE_SUCCESS = "Successfully ran the find command.";
 
+    private String name;
+    private String email;
+    private String phone;
+    private String organization;
     private Predicate<Mentor> findPredicate;
 
     public FindMentorCommand(
@@ -53,6 +57,10 @@ public class FindMentorCommand extends FindCommand {
         }
 
         this.findPredicate = Predicates.predicateReducer(filterPredicates);
+        this.name = name.orElse("");
+        this.email = email.orElse("");
+        this.phone = phone.orElse("");
+        this.organization = organization.orElse("");
     }
 
     @Override
@@ -64,5 +72,21 @@ public class FindMentorCommand extends FindCommand {
         model.updateHistory(this);
         model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.M);
+    }
+
+    @Override
+    public boolean equals(Object otherFindCommand) {
+        if (otherFindCommand == this) {
+            return true;
+        }
+
+        if (!(otherFindCommand instanceof FindMentorCommand)) {
+            return false;
+        }
+
+        return name.equals(((FindMentorCommand) otherFindCommand).name)
+                && email.equals(((FindMentorCommand) otherFindCommand).email)
+                && phone.equals(((FindMentorCommand) otherFindCommand).phone)
+                && organization.equals(((FindMentorCommand) otherFindCommand).organization);
     }
 }

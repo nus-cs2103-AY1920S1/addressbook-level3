@@ -38,7 +38,7 @@ public class FindMentorCommandParser implements Parser<FindMentorCommand> {
         boolean allPrefixesEmpty = name.isEmpty() && email.isEmpty()
                 && phone.isEmpty() && organization.isEmpty();
 
-        if (allPrefixesEmpty || !argumentMultimap.getPreamble().isEmpty()) {
+        if (allPrefixesEmpty) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindMentorCommand.MESSAGE_USAGE));
         }
