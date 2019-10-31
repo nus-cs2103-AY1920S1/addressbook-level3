@@ -217,11 +217,7 @@ public class Tutorial {
      * The person identity of {@code editedStudent} must not be the same as another existing student in the application.
      */
     public void setStudent(Student target, Student editedStudent) {
-        for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).isSameStudent(target)) {
-                students.set(i, editedStudent);
-            }
-        }
+        addStudent(editedStudent);
         for (Week week : getTimeTable().getWeeks()) {
             setAttendance(week, editedStudent, getAttendance().isPresent(week, target));
         }
