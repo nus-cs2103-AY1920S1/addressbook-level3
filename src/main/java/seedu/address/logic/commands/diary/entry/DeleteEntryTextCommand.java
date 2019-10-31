@@ -24,7 +24,7 @@ public class DeleteEntryTextCommand extends Command {
 
     private static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n";
 
-    private static final String MESSAGE_DELETE_SUCCESS = "Deleted line %d! %1$d";
+    private static final String MESSAGE_DELETE_SUCCESS = "Deleted line %d!";
 
     private static final String MESSAGE_LINE_DOES_NOT_EXIST = "The line specified at %d does not exist!";
 
