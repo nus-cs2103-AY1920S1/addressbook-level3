@@ -243,13 +243,13 @@ public class Notebook implements ReadOnlyNotebook {
     }
 
 
-//    /**
-//     * Replaces the contents of the lesson list with {@code lessons}.
-//     * {@code lessons} must not contain duplicate lessons.
-//     */
-//    public void setLessons(List<Lesson> lessons) {
-//        this.lessons.setLessons(lessons);
-//      }
+    /**
+     * Replaces the contents of the lesson list with {@code lessons}.
+     * {@code lessons} must not contain duplicate lessons.
+     */
+    //public void setLessons(List<Lesson> lessons) {
+    //this.lessons.setLessons(lessons);
+    //}
 
 
     //=========== Filtered Student List Accessors =============================================================
