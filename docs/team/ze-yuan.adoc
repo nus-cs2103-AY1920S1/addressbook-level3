@@ -160,8 +160,6 @@ include::../UserGuide.adoc[tag=purchasing]
 
 == Contributions to the Developer Guide
 
-This section shows the additions that I have made to the Budget-Tracking and Purchase-Tracking feature feature of the Developer Guide.
+This section shows the additions that I have made to the Budget-Tracking feature of the Developer Guide.
 
 include::../DeveloperGuide.adoc[tag=budgeting]
-
-include::../DeveloperGuide.adoc[tag=purchasing]
