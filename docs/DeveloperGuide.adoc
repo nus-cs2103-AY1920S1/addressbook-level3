@@ -492,12 +492,12 @@ In Figure 2, the user first launches the app. After the user input a search comm
 *** Cons: User has to input either a name or actor to be searched.
 *** Cons: Logic is repetitive when searching based on actor or name.
 
-[[Implementation]]
 === [Feature] Add feature
 ==== Implementation
 The `AddCommand` extends `Command` and uses `AddCommandParser` to process the command entered by the user.
 
 There are two different ways of using add feature and both have different outcome.
+
 1. Adding show in the WatchList.
 2. Adding show found from online search.
 
@@ -528,7 +528,31 @@ In Figure 3, the user first launches the app. After the user input a add command
 *** Cons: May have performance issues in terms of memory usage.
 
 
+Given below is an example usage of scenario 2 and how the add mechanism behaves at each step.
 
+Step 1. The user uses the search(Online) command and executes `add INDEX` command to add a show from search result page of INDEX in the WatchList.
+
+Step 2. Entering the command calls AddCommandParser#parse().
+
+Step 3. A new `AddCommand` is created, with the show to be added in AddCommand.
+
+Step 4. The `AddCommand#execute()` method is called, referencing the current model and add the show given by user to the `searchList` of INDEX found in model.
+
+
+The following activity diagram summarises the workflow of Add:
+
+image::AddActivityDiagram2.png[]
+
+_Figure 4: Activity Diagram of `AddCommand`_
+
+In Figure 4, User input search(online) command. User then input `add INDEX` command. Show of INDEX found in search result page is added to WatchList.
+
+==== Design Considerations
+
+===== Aspect: How `AddCommand` executes
+** Current choice: Retrieve the show object found in `searchList` of INDEX from ModelManager and add it to `filteredShowList`.
+*** Pros: Easy to implement and make use of.
+*** Cons: May have performance issues in terms of memory usage.
 
 
 == Documentation

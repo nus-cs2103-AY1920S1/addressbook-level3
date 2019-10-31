@@ -22,6 +22,6 @@ endif::[]
 
 == Acknowledgements
 * AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://www.themoviedb.org/documentation/api[TMDB api], https://github.com/holgerbrandl/themoviedbapi[Java Wrapper of TMDB]
 
 == Licence : link:LICENSE[MIT]
