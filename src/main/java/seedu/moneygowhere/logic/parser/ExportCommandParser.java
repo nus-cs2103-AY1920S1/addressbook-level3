@@ -5,31 +5,29 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_PATH;
 
 import java.util.stream.Stream;
 
-import seedu.moneygowhere.logic.commands.ImportCommand;
+import seedu.moneygowhere.logic.commands.ExportCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
-import seedu.moneygowhere.model.path.FilePath;
+import seedu.moneygowhere.model.path.FolderPath;
 
 /**
- * Parses input arguments and creates a new ImportCommand object
+ * Parses input arguments and creates a new ExportCommand object
  */
-public class ImportCommandParser implements Parser<ImportCommand> {
+public class ExportCommandParser implements Parser<ExportCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ImportCommand and returns an ImportCommand
-     * object for execution.
+     * Parses the given {@code String} of arguments in the context of the ExportCommand and
+     * returns an ExportCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ImportCommand parse(String args) throws ParseException {
+    public ExportCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PATH);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PATH) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
 
-        FilePath filePath = ParserUtil.parsePath(argMultimap.getValue(PREFIX_PATH).get());
-
-        return new ImportCommand(filePath);
-
+        FolderPath folderPath = ParserUtil.parseFolderPath(argMultimap.getValue(PREFIX_PATH).get());
+        return new ExportCommand(folderPath);
     }
 
     /**

@@ -1,0 +1,8 @@
+name,date,remark,cost,tagged
+"Chicken rice",01/01/2019,Tasty.,4.00,food
+Taxi,02/01/2019,"I was late for school.",25.50,regret;transport
+"Math textbook",03/01/2019,"I hate this.",32.00,education;regret
+Movie,04/01/2019,"Excited!",10.00,entertainment
+"Gold Watch",05/01/2019,"It's about time.",250.00,entertainment;aesthetics
+"Concert ticket",06/01/2019,"I love music festivals.",180.00,entertainment
+Apple,31/10/2019,"Keeps the doctor away",1.50,owesMoney;friends

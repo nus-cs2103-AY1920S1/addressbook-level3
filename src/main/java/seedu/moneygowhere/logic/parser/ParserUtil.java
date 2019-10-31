@@ -2,6 +2,7 @@ package seedu.moneygowhere.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,6 +17,7 @@ import seedu.moneygowhere.commons.util.StringUtil;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.path.FilePath;
+import seedu.moneygowhere.model.path.FolderPath;
 import seedu.moneygowhere.model.reminder.ReminderMessage;
 import seedu.moneygowhere.model.spending.Cost;
 import seedu.moneygowhere.model.spending.Date;
@@ -198,7 +200,7 @@ public class ParserUtil {
 
     /** Parses a {@code String path} into a {@code FilePath}.
      * Leading and trailing whitespaces will be trimmed.
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code path} is invalid.
      */
     public static FilePath parsePath(String path) throws ParseException {
         requireNonNull(path);
@@ -207,5 +209,19 @@ public class ParserUtil {
             throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
         }
         return new FilePath(path);
+    }
+
+    /** Parses a {@code String path} into a {@code FolderPath}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code path} is invalid.
+     */
+    public static FolderPath parseFolderPath(String path) throws ParseException {
+        requireNonNull(path);
+        String trimmedName = path.trim();
+
+        if (!(FileUtil.isValidPath(trimmedName)) || !new File(path).exists()) {
+            throw new ParseException(FolderPath.MESSAGE_CONSTRAINTS);
+        }
+        return new FolderPath(path);
     }
 }

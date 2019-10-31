@@ -38,7 +38,7 @@ public class ImportCommandTest {
     public void execute_allDataIsImported_showUpdatedMessage() throws DataConversionException, CommandException {
         FilePath path = new FilePath(read("validSpending.csv").toString());
         CommandResult commandResult = new ImportCommand(path).execute(model);
-        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, 2), commandResult.getFeedbackToUser());
+        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, 3), commandResult.getFeedbackToUser());
     }
 
     @Test
