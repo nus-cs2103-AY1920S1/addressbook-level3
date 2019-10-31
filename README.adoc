@@ -25,18 +25,6 @@ endif::[]
 
 == Preview
 
-Your personal dashboard:
-
-ifdef::env-github[]
-image::docs/images/userguide/home.png[width="600", text-center]
-endif::[]
-
-ifndef::env-github[]
-image::images/userguide/home.png[width="600", text-center]
-endif::[]
-
-'''
-
 View questions from our library of questions:
 
 ifdef::env-github[]
