@@ -19,6 +19,18 @@ public class DateUtil {
         return order.getSchedule().get().getCalendar().get(Calendar.YEAR);
     }
 
+    /**
+     * takes in an order and remove the time from it, leaving just month and year
+     */
+    public static Calendar extractMonthYear(Order order) {
+        int month = extractMonth(order);
+        int year = extractYear(order);
+        int day = order.getSchedule().get().getCalendar().get(Calendar.DAY_OF_MONTH);
+        Calendar temp = new Calendar.Builder().setDate(year, month, day).build();
+        System.out.println(temp.getTime());
+        return temp;
+    }
+
     public static List<Calendar> getListOfYearMonth(StatsPayload statsPayload) {
 
         List<Calendar> listOfYearMonth = new ArrayList<>();

@@ -7,6 +7,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Status;
 import seedu.address.ui.UiPart;
 
 /**
@@ -31,11 +32,17 @@ public class ArchivedOrderCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label contactNumber;
+    private Label customerContactNumber;
     @FXML
     private Label customerName;
     @FXML
-    private Label phoneId;
+    private Label customerEmail;
+    @FXML
+    private Label phoneIdentityNumber;
+    @FXML
+    private Label phoneSerialNumber;
+    @FXML
+    private Label phoneCost;
     @FXML
     private Label phoneName;
     @FXML
@@ -51,26 +58,33 @@ public class ArchivedOrderCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ArchivedOrderCard(Order archivedOrder, int displayedIndex) {
+    public ArchivedOrderCard(Order order, int displayedIndex) {
         super(FXML);
-        this.archivedOrder = archivedOrder;
+        this.archivedOrder = order;
         id.setText(displayedIndex + ". ");
 
-        customerName.setText(archivedOrder.getCustomer().getCustomerName().fullName);
-        contactNumber.setText(archivedOrder.getCustomer().getContactNumber().value);
+        customerName.setText(order.getCustomer().getCustomerName().fullName);
+        customerContactNumber.setText(order.getCustomer().getContactNumber().value);
+        customerEmail.setText(order.getCustomer().getEmail().value);
 
-        System.out.println(customerName);
+        phoneIdentityNumber.setText(order.getPhone().getIdentityNumber().value);
+        phoneSerialNumber.setText(order.getPhone().getSerialNumber().value);
+        phoneName.setText(order.getPhone().getPhoneName().fullName);
+        phoneColour.setText(order.getPhone().getColour().value);
+        phoneCapacity.setText(order.getPhone().getCapacity().value);
+        phoneCost.setText(order.getPhone().getCost().value);
 
-        phoneId.setText(archivedOrder.getPhone().getIdentityNumber().value);
-        phoneName.setText(archivedOrder.getPhone().getPhoneName().fullName);
-        phoneColour.setText(archivedOrder.getPhone().getColour().value);
-        phoneCapacity.setText(archivedOrder.getPhone().getCapacity().value);
+        orderId.setText(order.getId().toString());
+        orderPrice.setText(order.getPrice().value);
 
-        orderId.setText(archivedOrder.getId().toString());
-        orderPrice.setText(archivedOrder.getPrice().value);
-        orderStatus.setText(archivedOrder.getStatus().toString());
+        if (order.getStatus().equals(Status.SCHEDULED)) {
+            orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
+                    order.getSchedule().get().getCalendarString(), order.getSchedule().get().getVenue()));
+        } else {
+            orderStatus.setText(order.getStatus().toString());
+        }
 
-        archivedOrder.getTags().stream()
+        order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
