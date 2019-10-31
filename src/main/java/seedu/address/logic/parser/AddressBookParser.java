@@ -23,6 +23,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEarningsCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListClassCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
@@ -110,7 +111,9 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(LoginCommand.COMMAND_WORD, LoginCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(TotalEarningsCommand.COMMAND_WORD, TotalEarningsCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(ListClassCommand.COMMAND_WORD, ListClassCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(AssignClassCommand.COMMAND_WORD, AssignClassCommand.COMMAND_WORD);
+
     }
 
     /**
@@ -239,6 +242,9 @@ public class AddressBookParser {
 
             case TotalEarningsCommand.COMMAND_WORD:
                 return new TotalEarningsCommand();
+
+            case ListClassCommand.COMMAND_WORD:
+                return new ListClassCommandParser().parse(arguments);
 
             case AssignClassCommand.COMMAND_WORD:
                 return new AssignClassCommandParser().parse(arguments);
