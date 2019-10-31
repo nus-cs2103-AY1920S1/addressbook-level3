@@ -124,22 +124,43 @@ Returns any items with names containing `milk` or `tea`, or with the tag `#Drink
 ==== Shifting an item from one list to another: `shift`
 Transfers items from main list to replenish list, or from replenish list to main list.
 
-===== Shifting an item from the tracking list to the replenish list
+===== Shifting an item from the main list to the replenish list
+
+[TIP]
+Use this to transfer any items tagged `#Expired` to your replenish list.
+
+
 Format: `shift|<index>`
-Example: 'shift|2`
+
+Example:
+
+* `shift|2` +
 Transfers the 2nd item in the main list to the replenish list.
 
 ===== Shifting an item from the replenish list to the main list
-// end::shift[]
+Format: `shift|<index>|<expiry date>[|quantity]`
 
-Format: `shift|<index>|<expiry date>[|quantity]
 Examples:
 
 * `shift|3|29/3/2020` (without quantity) +
 Transfers the 3rd item from the replenish list to the tracking list with expiry date `29/3/2020` and quantity `1`
 
-*`shift|2|11/2/2020|4` +
+* `shift|2|11/2/2020|4` +
 Transfers the 2nd item from the replenish list to the tracking list with expiry date `11/2/2020` and quantity `4`
+
+
+****
+* Item quantity **must be a positive integer** 1,2,3...
+* When not specified, the item quantity is assumed to be 1.
+****
+
+
+[TIP]
+For items with single quantity, you can save time by keying in only the item name and expiry date.
+
+
+// end::shift[]
+
 
 // tag::clear[]
 ==== Clearing all entries : `clear`
