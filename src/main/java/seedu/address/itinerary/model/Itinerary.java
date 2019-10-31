@@ -13,7 +13,7 @@ import seedu.address.itinerary.model.exceptions.ItineraryException;
 /**
  * Wraps all data at the itinerary level
  */
-public class Itinerary {
+public class Itinerary implements ReadOnlyItinerary {
     /**
      * ArrayList which stores all the events in the itinerary.
      */
@@ -26,6 +26,11 @@ public class Itinerary {
         this.eventList = new EventList();
         this.savedList = new ArrayList<>();
         this.actionList = new ArrayList<>();
+    }
+
+    public Itinerary(List<Event> events) {
+        this();
+        eventList.setEvents(events);
     }
 
     public ObservableList<Event> getEventList() {
@@ -79,11 +84,28 @@ public class Itinerary {
         eventList.clear();
         List<Event> eventList = readOnlyItinerary.getEventList();
         for (Event event : eventList) {
-            eventList.add(event);
+            this.eventList.addEvent(event);
         }
     }
 
     public void clear() {
         eventList.clear();
+    }
+
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
+    public void resetData(ReadOnlyItinerary newData) {
+        requireNonNull(newData);
+
+        setEvents(newData.getEventList());
+    }
+
+    /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setEvents(List<Event> events) {
+        this.eventList.setEvents(events);
     }
 }

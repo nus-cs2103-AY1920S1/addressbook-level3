@@ -8,6 +8,10 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
 
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
+
 /**
  * An event list for tracking events on itinerary.
  */
@@ -71,6 +75,15 @@ public class EventList {
         }
 
         events.set(index, editedEvent);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code events}.
+     */
+    public void setEvents(List<Event> events) {
+        CollectionUtil.requireAllNonNull(events);
+
+        this.events.setAll(events);
     }
 
     public void clear() {
