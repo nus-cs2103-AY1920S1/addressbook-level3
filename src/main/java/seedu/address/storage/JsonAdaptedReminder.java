@@ -29,7 +29,7 @@ public class JsonAdaptedReminder {
                                @JsonProperty("conditions") List<JsonAdaptedCondition> conditions,
                                @JsonProperty("tkrtyp") String trackerType,
                                @JsonProperty("currSum") double currSum,
-                               @JsonProperty("quota") double quota,
+                               @JsonProperty("tkrQuota") double quota,
                                @JsonProperty("status") String status) {
         this.message = message;
         this.conditions.addAll(conditions);

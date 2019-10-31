@@ -106,7 +106,11 @@ public class EditReminderCommand extends Command {
         } else {
             updatedCondition = reminderToEdit.getConditions();
         }
-        return new Reminder(updatedMessage, updatedCondition);
+        Reminder editedReminder = new Reminder(updatedMessage, updatedCondition);
+        for (Condition condition : editedReminder.getConditions()) {
+            condition.getSupport().removePropertyChangeListener(reminderToEdit);
+        }
+        return editedReminder;
     }
 
     @Override

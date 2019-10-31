@@ -279,7 +279,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds the specified Conditin to the guiltTrip() app.
+     * Adds the specified Condition to the guiltTrip() app.
      * @param condition
      */
     public void addCondition(Condition condition) {

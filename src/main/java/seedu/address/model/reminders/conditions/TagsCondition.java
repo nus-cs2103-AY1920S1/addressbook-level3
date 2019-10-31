@@ -26,4 +26,14 @@ public class TagsCondition extends Condition {
     public List<Tag> getTagList() {
         return tags;
     }
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (!(other instanceof TagsCondition)) {
+            return false;
+        } else {
+            return this.tags.equals(((TagsCondition) other).tags);
+        }
+    }
 }
