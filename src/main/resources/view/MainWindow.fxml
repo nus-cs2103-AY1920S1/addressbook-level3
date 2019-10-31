@@ -53,9 +53,9 @@
             </padding>
           </StackPane>
 
-          <BorderPane maxWidth="330.0" minWidth="330.0" prefWidth="330.0" HBox.hgrow="NEVER" styleClass="pane-with-border">
+          <BorderPane maxWidth="300.0" minWidth="300.0" prefWidth="300.0" HBox.hgrow="NEVER" styleClass="pane-with-border">
             <padding>
-              <Insets bottom="5" right="10" top="5" />
+              <Insets bottom="5" left="10" right="10" top="5" />
             </padding>
             <bottom>
               <HBox>
@@ -63,7 +63,7 @@
                   <ToggleGroup fx:id="group" />
                 </fx:define>
                 <ToggleButton fx:id="dashboardButton" mnemonicParsing="false" onAction="#handleSwitchToDashboard"
-                        prefHeight="40" prefWidth="130" text="Dashboard" toggleGroup="$group" selected="true"/>
+                        prefHeight="40" prefWidth="100" text="Dashboard" toggleGroup="$group" selected="true"/>
                 <ToggleButton fx:id="onlineButton" mnemonicParsing="false" onAction="#handleSwitchToOnline"
                               prefHeight="40" prefWidth="100" text="Online" toggleGroup="$group"/>
                 <ToggleButton fx:id="offlineButton" mnemonicParsing="false" onAction="#handleSwitchToOffline"
