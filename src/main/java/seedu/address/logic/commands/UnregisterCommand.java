@@ -47,7 +47,7 @@ public class UnregisterCommand extends Command {
         }
         Borrower toUnregister = model.getBorrowerFromId(id);
         model.unregisterBorrower(toUnregister);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister.toFullString()));
     }
 
     @Override
