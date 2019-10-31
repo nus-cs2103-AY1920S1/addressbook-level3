@@ -25,6 +25,7 @@ public class FetchEventCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_SUCCESS = "Fetched Event: %1$s";
+    public static final String MESSAGE_WRONG_TAB = "Fetched Event from the Schedule Tab is disabled at the moment";
 
     private final Index index;
 
@@ -40,11 +41,11 @@ public class FetchEventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Event> lastShownList;
-        String commandType;
         if (MainWindow.getCurrentTabIndex() == 0) {
             lastShownList = model.getFilteredEventList();
         } else {
-            lastShownList = model.getFilteredScheduledEventList();
+            throw new CommandException(MESSAGE_WRONG_TAB);
+            //lastShownList = model.getFilteredScheduledEventList();
         }
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
