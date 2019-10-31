@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
+import seedu.moneygowhere.model.budget.Budget;
 
 /**
  * The UI component that is responsible for Showing the current monthly budget and total spending.
@@ -18,26 +18,22 @@ public class BudgetPanel extends UiPart<Region> {
     private StackPane panePlaceHolder;
 
     @FXML
-    private Label budgetAmount;
+    private Label remainingBudget;
 
     @FXML
     private ProgressBar budgetProgressBar;
 
     @FXML
-    private Label remainingBudget;
+    private Label budgetAmount;
 
     private double amount;
     private double sum;
 
-    public BudgetPanel(double amount, double sum) {
+    public BudgetPanel(Budget budget) {
         super(FXML);
 
-        this.amount = amount;
-        this.sum = sum;
-
-        budgetAmount.setFont(new Font("Arial", 36));
-
-        remainingBudget.setFont(new Font("Arial", 24));
+        this.amount = budget.getValue();
+        this.sum = budget.getSum();
 
         update();
     }
@@ -46,30 +42,33 @@ public class BudgetPanel extends UiPart<Region> {
      * sets the values of Labels and progress bar.
      */
     private void update() {
-        budgetAmount.setText(getBudgetText());
-        budgetProgressBar.setProgress(1 - sum / amount);
         remainingBudget.setText(getRemainingBudgetText());
+//        budgetProgressBar.setProgress(1 - sum / amount);
+        budgetAmount.setText(getBudgetRemark());
     }
 
     /**
      * Updates the values of amount and sum.
-     * Only updates if value changes.
-     * @param amount the new amount value
-     * @param sum the new sum value
+     * Based on the new {@code Budget}
+     * @param budget the budget to get data to update.
      */
-    public void update(double amount, double sum) {
-        if (this.amount != amount || this.sum != sum) {
-            this.amount = amount;
-            this.sum = sum;
+    public void update(Budget budget) {
+        if (this.amount != budget.getValue() || this.sum != budget.getSum()) {
+            this.amount = budget.getValue();
+            this.sum = budget.getSum();
             update();
         }
     }
 
-    private String getBudgetText() {
-        return "Balance: $" + String.format("%.2f", amount);
+    private String getRemainingBudgetText() {
+        return "$" + String.format("%.2f", amount - sum) + " left to spend";
     }
 
-    private String getRemainingBudgetText() {
-        return "Remaining: $" + String.format("%.2f", amount - sum);
+    private String getBudgetRemark() {
+        if (sum / amount < 0.2) {
+            return "You are spending within your budget. Great Job!";
+        } else {
+            return "Your money go where ahh?";
+        }
     }
 }

@@ -142,8 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand, this::getPrevCommand, this::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        BudgetPanel bp = new BudgetPanel(logic.getSpendingBook().getBudget().getValue(),
-                logic.getSpendingBook().getBudget().getSum());
+        BudgetPanel bp = new BudgetPanel(logic.getSpendingBook().getBudget());
         budgetPanel = bp;
         budgetPanelPlaceholder.getChildren().add(bp.getRoot());
 
@@ -213,8 +212,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            budgetPanel.update(logic.getSpendingBook().getBudget().getValue(),
-                    logic.getSpendingBook().getBudget().getSum());
+            budgetPanel.update(logic.getSpendingBook().getBudget());
 
             if (commandResult.isExit()) {
                 handleExit();
