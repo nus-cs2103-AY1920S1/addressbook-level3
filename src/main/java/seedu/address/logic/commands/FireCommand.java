@@ -81,7 +81,7 @@ public class FireCommand extends Command {
         } catch (MappingNotFoundException e) {
             throw new CommandException(MESSAGE_INVALID_TASK_ID);
         }
-        
+
         return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS));
     }
 
