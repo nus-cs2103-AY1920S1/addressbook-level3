@@ -22,6 +22,11 @@ public class Amount {
 
     public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
     public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
+
+    public static final String UNIT_TYPE_WEIGHT = "Weight";
+    public static final String UNIT_TYPE_VOLUME = "Volume";
+    public static final String UNIT_TYPE_QUANTITY = "Quantity";
+
     public static final String UNIT_POUND = "lbs";
     public static final String UNIT_KILOGRAM = "kg";
     public static final String UNIT_GRAM = "g";
@@ -31,12 +36,19 @@ public class Amount {
     public static final String UNIT_QUANTITY = "units";
     public static final String UNIT = "(lbs?|g|kg|oz?|L|ml|units)+";
     public static final String VALIDATION_REGEX = VALUE_BEFORE_DECIMAL + "\\.?" + VALUE_AFTER_DECIMAL + "\\s*" + UNIT;
-    public static final float KG_FROM_GRAM = 0.001f;
-    public static final float KG_FROM_POUND = 0.453592f;
-    public static final float KG_FROM_OUNCE = 0.0283495f;
-    public static final float LITRE_FROM_MILLILITRE = 0.001f;
+
+    public static final float GRAM_TO_KG = 0.001f;
+    public static final float POUND_TO_KG = 0.453592f;
+    public static final float OUNCE_TO_KG = 0.0283495f;
+    public static final float MILLILITRE_TO_LITRE = 0.001f;
+
+    public static final float KG_TO_GRAM = 1.0f / 0.001f;
+    public static final float KG_TO_POUND = 1.0f / 0.453592f;
+    public static final float KG_TO_OUNCE = 1.0f / 0.0283495f;
+    public static final float LITRE_TO_MILLILITRE = 1.0f / 0.001f;
 
     public static final String MESSAGE_UNIT_DOES_NOT_MATCH = "Unit does not match with the existing items";
+    public static final String MESSAGE_UNIT_TYPE_DOES_NOT_MATCH = "Unit type does not match with the other items";
     public static final String MESSAGE_INVALID_RESULTANT_AMOUNT = "Amount used should not exceed "
         + "amount left in the item.";
 
@@ -102,17 +114,17 @@ public class Amount {
     public static String getUnitType(Amount amt) {
         String unit = getUnit(amt);
 
-        switch(unit) {
+        switch (unit) {
         case UNIT_POUND:
         case UNIT_GRAM:
         case UNIT_KILOGRAM:
         case UNIT_OUNCE:
-            return "Weight";
+            return UNIT_TYPE_WEIGHT;
         case UNIT_LITRE:
         case UNIT_MILLILITRE:
-            return "Volume";
+            return UNIT_TYPE_VOLUME;
         case UNIT_QUANTITY:
-            return "Quantity";
+            return UNIT_TYPE_QUANTITY;
         default:
             return "Wrong amount input";
         }
@@ -132,14 +144,26 @@ public class Amount {
         case UNIT_KILOGRAM:
             return value;
         case UNIT_GRAM:
-            return value * KG_FROM_GRAM;
+            return value * GRAM_TO_KG;
         case UNIT_POUND:
-            return value * KG_FROM_POUND;
+            return value * POUND_TO_KG;
         case UNIT_OUNCE:
-            return value * KG_FROM_OUNCE;
+            return value * OUNCE_TO_KG;
         default:
             return 0;
         }
+    }
+
+    public static float getAmountInG(Amount amt) {
+        return getAmountInKg(amt) * KG_TO_GRAM;
+    }
+
+    public static float getAmountInPound(Amount amt) {
+        return getAmountInKg(amt) * KG_TO_POUND;
+    }
+
+    public static float getAmountInOunce(Amount amt) {
+        return getAmountInKg(amt) * KG_TO_OUNCE;
     }
 
     /**
@@ -156,10 +180,14 @@ public class Amount {
         case UNIT_LITRE:
             return value;
         case UNIT_MILLILITRE:
-            return value * LITRE_FROM_MILLILITRE;
+            return value * MILLILITRE_TO_LITRE;
         default:
             return 0;
         }
+    }
+
+    public static float getAmountInMillilitre(Amount amt) {
+        return getAmountInLitre(amt) * LITRE_TO_MILLILITRE;
     }
 
     /**
@@ -177,14 +205,23 @@ public class Amount {
 
     /**
      * Reduces the value of amount by the specified amount
-     * @param amt the Amount class to be reduced by
+     * @param other the Amount class to be reduced by
      * @return Returns Amount with its value deducted
      */
-    public Amount reduceBy(Amount amt) throws InvalidUnitException, InvalidAmountException {
-        checkForSameAmountUnit(this, amt);
-        String unit = Amount.getUnit(this);
+    public Amount reduceBy(Amount other) throws InvalidUnitException, InvalidAmountException {
+        if (!hasSameAmountUnitType(this, other)) {
+            throw new InvalidUnitException(MESSAGE_UNIT_TYPE_DOES_NOT_MATCH);
+        }
 
-        float resultantAmount = Amount.getValue(this) - Amount.getValue(amt);
+        String thisUnit = Amount.getUnit(this);
+        float resultantAmount;
+
+        if (!hasSameAmountUnit(this, other)) {
+            Amount convertedOther = this.convertAmount(other);
+            resultantAmount = Amount.getValue(this) - Amount.getValue(convertedOther);
+        } else {
+            resultantAmount = Amount.getValue(this) - Amount.getValue(other);
+        }
         if (resultantAmount < 0) {
             throw new InvalidAmountException(MESSAGE_INVALID_RESULTANT_AMOUNT);
         }
@@ -192,9 +229,11 @@ public class Amount {
         // convert to int if it's a whole number
         if (resultantAmount == Math.round(resultantAmount)) {
             int wholeResultantAmount = Math.round(resultantAmount);
-            return new Amount(wholeResultantAmount + unit);
+            return new Amount(wholeResultantAmount + thisUnit);
+        } else {
+            resultantAmount = Float.parseFloat(String.format("%.2f", resultantAmount));
+            return new Amount(resultantAmount + thisUnit);
         }
-        return new Amount(resultantAmount + unit);
     }
 
     /**
@@ -203,10 +242,85 @@ public class Amount {
      * @param other The second amount to be checked.
      * @throws InvalidUnitException If the units are not consistent.
      */
-    public static void checkForSameAmountUnit(Amount amt, Amount other) throws InvalidUnitException {
-        if (!getUnit(amt).equalsIgnoreCase(getUnit(other))) {
-            throw new InvalidUnitException(MESSAGE_UNIT_DOES_NOT_MATCH);
+    public static boolean hasSameAmountUnit(Amount amt, Amount other) {
+        return getUnit(amt).equalsIgnoreCase(getUnit(other));
+    }
+
+    /**
+     * Checks if the provided amounts have the same unit type.
+     * @param amt The first amount to be checked.
+     * @param other The second amount to be checked.
+     * @throws InvalidUnitException If the unit type are not consistent.
+     */
+    public static boolean hasSameAmountUnitType(Amount amt, Amount other) {
+        return getUnitType(amt).equalsIgnoreCase(getUnitType(other));
+    }
+
+    /**
+     * Convert amount argument based on the unit type of the caller Amount.
+     * @param other The amount to be converted.
+     * @return The amount with unit converted.
+     */
+    public Amount convertAmount(Amount other) {
+        String unitType = getUnitType(this);
+        switch (unitType) {
+        case UNIT_TYPE_WEIGHT:
+            return this.convertAmountByWeight(other);
+        case UNIT_TYPE_VOLUME:
+            return this.convertAmountByVolume(other);
+        default:
+            return null;
         }
+    }
+
+    /**
+     * Convert amount argument based on the weight unit of the caller Amount.
+     * @param other The amount to be converted.
+     * @return The amount with unit converted.
+     */
+    public Amount convertAmountByWeight(Amount other) {
+        String thisUnit = getUnit(this);
+        float otherValue;
+
+        switch (thisUnit) {
+        case UNIT_KILOGRAM:
+            otherValue = getAmountInKg(other);
+            break;
+        case UNIT_GRAM:
+            otherValue = getAmountInG(other);
+            break;
+        case UNIT_POUND:
+            otherValue = getAmountInPound(other);
+            break;
+        case UNIT_OUNCE:
+            otherValue = getAmountInOunce(other);
+            break;
+        default:
+            return null;
+        }
+        return new Amount(otherValue + thisUnit);
+    }
+
+    /**
+     * Convert the amount argument based on the volume unit of the caller Amount.
+     * @param other The amount to be converted.
+     * @return The amount with unit converted.
+     */
+    public Amount convertAmountByVolume(Amount other) {
+        String thisUnit = getUnit(this);
+        float otherValue;
+
+        switch (thisUnit) {
+        case UNIT_LITRE:
+            otherValue = getAmountInLitre(other);
+            break;
+        case UNIT_MILLILITRE:
+            otherValue = getAmountInMillilitre(other);
+            break;
+        default:
+            return null;
+        }
+        return new Amount(otherValue + thisUnit);
     }
 
     /**
