@@ -461,7 +461,7 @@ Example :
 ==== Add WishList : `addWishlist`
 Adds a new item to your current wishlist
 
-Format: `addWish n/<descrition> cat/<category> amt/<price> d/<date>`
+Format: `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
 
 Examples:
 
@@ -480,7 +480,7 @@ Examples:
 ==== Edit Wish in WishList : `editWish` 
 edit the description, date, or tags of your wishes.
 
-Format: `editWishlist <index> [n/<descrition>] [cat/<category>] [amt/<price>] [d/<date>] [tag/<tag>]`
+Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
 
 Examples:
 * `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
