@@ -169,55 +169,52 @@ image::ListAllStep3.png[width="600"]
 
 === Search for flashcards: `search`
 
-The section will show 3 ways
-==== Search for flashcards that either the question or the answer matches the keyword(s): "find [keyword(s)]
+The section will show you 3 methods to search for flashcards. Keywords are case-insensitive.
 
-This command allows you to find a list of flashcards with the question or answer matching the keyword(s).
+==== Either the question or the answer matches the keyword(s): "find [keyword(s)]
+
+This command allows you to search for flashcards with the question or answer matching the keyword(s).
 Multiple keywords are separated by a single space.
 
-To find:
+To search:
 
-. Type `find` followed by the keywords and press *Enter* to execute it.
+. Type `search pointer` and press *Enter*.
 +
-image::FindStep1.png[width="600"]
+image::SearchStep1.png[width="600"]
 
-. The result box will show message: _"4  flash cards listed!"_ and the flashcard list will show the matched flashcards
+. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matching flashcards
 +
-image::FindStep2.png[width="600"]
+image::SearchStep2.png[width="600"]
 
-==== Search for flashcard with question matching the keyword(s) only: `findq [keyword(s)]`
+==== Question matching the keyword(s) only: `searchqn [keyword(s)]`
 
-This command allows you to find a list of flashcards with the question matching the keyword(s).
+This command allows you to search for flashcards with the question matching the keyword(s).
 Multiple keywords are separated by a single space.
 
-to find question:
+to search question:
 
-. Type `findq` follow by the keywords and press *Enter* to execute it.
+. Type `searchqn C` and press *Enter*.
 +
-image::FindqStep1.png[width="600"]
+image::SearchqStep1.png[width="600"]
 
-. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matched flashcards
+. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matching flashcards
 +
-image::FindqStep2.png[width="600"]
+image::SearchqStep2.png[width="600"]
 
-==== Search for flashcard with answer matching the keyword(s) only: `finda [keyword(s)]`
+==== Answer matching the keyword(s) only: `searchans [keyword(s)]`
 
-This command allows you to find a list of flashcards with the answer matching the keyword(s).
+This command allows you to search for flashcards with the answer matching the keyword(s).
 Multiple keywords are separated by a single space.
 
-to find answer:
+to search for answer:
 
-. Type `finda` follow by the keywords and press *Enter* to execute it.
+. Type `searchans name` and press *Enter*.
 +
-image::FindaStep1.png[width="600"]
+image::SearchaStep1.png[width="600"]
 
-. The result box will show message: _"1  flash cards listed!"_ and the flashcard list will show the matched flashcards
+. The result box will show message: _"1  flash cards listed!"_ and the flashcard list will show the matching flashcards
 +
-image::FindaStep2.png[width="600"].
-
-==== Search for category/categories : `findcat [keyword(s)]`
-
-
+image::SearchaStep2.png[width="600"].
 
 
 //end::flashcard[]
@@ -229,6 +226,10 @@ Starts the flashcard test (assuming you are in the category ‘folder’)
 
 Starts the flashcard test from any specific category
 `start [category]`
+
+=== Stop flashcard test: `end`
+
+`end`
 
 === Set a reminder for a specific category of flashcards. [coming in v1.3]
 
@@ -245,19 +246,19 @@ You can refer to the example below:
 
 Key the above mentioned into the command box
 
-image::deadline-entry.png[][width="600"]
+image::deadline-entry.png[width="600"]
 
 After which, the result box will show the success message. The new deadline will now be shown at the right side-bar.
 
-image::deadline-entered.png[][width="600"]
+image::deadline-entered.png[width="600"]
 
 === Remove deadline from list: `remove [index]`
 
 Removes a specific deadline into the deadline list. The list on the right-side pane will no longer have the deadline.
 
 `remove 2`
-]=
-]****
+
+****
 * Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -298,24 +299,17 @@ Opened help window.
 +
 image::HelpWindow.png[width="600"]
 
-=== Search flashcards: `search [keywords]`
-
-`search process`
-
-=== Stop test: `end`
-
-`end`
-
+//tag: flashcard2[]
 === Exit: `exit`
 
 This command allows you to exit the application.
 
 To exit:
 
-. Type `exit` and press *Enter* to execute it.
+. Type `exit` and press *Enter*.
 
 . The application window will close by itself.
-
+//end::flashcard2[]
 
 === View overall statistics: `stats`
 
@@ -324,7 +318,7 @@ This command allow to you to view the number of good, hard and easy flashcards c
 
 To view statistics:
 
-. Type `stats` and press **Enter** to execute it.
+. Type `stats` and press **Enter**.
 +
 image::StatsCommand.png[width="600"]
 
@@ -337,15 +331,31 @@ Displays the number of GOOD, HARD & EASY FlashCards
 image::BarChart.png[width="600"]
 
 
+//tag:theme[]
+=== Change color themes: `theme [THEMENAME]`
 
-=== Cycle through color themes: `theme` [coming in v2.0]
+This command allows you to change the theme of the app.
 
-`theme`
+Follow are the current available themes
 
-=== Exiting the program : `exit`
+* dark
+* light
+* pink
+* blue
+* hacker
+* nus
 
-Exits the program. +
-`exit`
+To change theme:
+
+. Type "theme hacker" and press *Enter*
++
+image::ThemeStep1.png[width="600"]
+
+. The result box will show the message: _"Theme changed to hackerTheme"_ and the theme will be changed.
++
+image::ThemeStep2.png[width="600"]
+
+//end::theme[]
 
 === Saving the data
 
@@ -398,23 +408,20 @@ e.g.  `deadline t>Math Test d>01/10/2019`
 e.g.  `delete 10`
 * Export all flashcards under a specific category, to a specific filepath - `export c>CATEGORY p>FILE_PATH` +
 e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
-* Search of flashcards - `find`
-** find [keyword(s)]
-** findq [keyword(s)]
-** finda [keyword(s)]
-** findcat [keyword(s)]
 * Get full list of commands - `help` +
 e.g.  `help`
-* List all flashcards - list
 * List all flashcards under a specific category - `list [category]` +
 e.g.  `list Math`
+* List all flashcards - 'listall'
 * Set user preference for reminders - `remind [category] DD/MM HHmm` +
 e.g.  `remind Math 04/10 1230`
 * Remove Deadline from list - `remove [INDEX]` +
 e.g.  `remove 2`
+* Search of flashcards - `search`
+** search [keyword(s)]  e.g `search c`
+** searchqn [keyword(s)]  e.g `searchqn pointer`
+** searchans [keyword(s)]  e.g `searchans name`
 * Start a certain topic of flashcards - `start [keyword]` +
 e.g.  `start Mathematics`
 * View overall statistics - `stats`
-* Search specific flashcards - `search [keywords]` +
-e.g.  `search UML diagrams`
 * Stop flashcard test - `end`
