@@ -3,7 +3,7 @@ package com.dukeacademy.ui;
 import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
 /**
@@ -14,7 +14,7 @@ class ResultDisplay extends UiPart<Region> {
     private static final String FXML = "ResultDisplay.fxml";
 
     @FXML
-    private TextArea resultDisplay;
+    private TextField resultDisplay;
 
     /**
      * Instantiates a new Result display.

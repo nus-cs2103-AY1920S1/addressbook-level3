@@ -10,7 +10,7 @@ import com.dukeacademy.observable.Observable;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.geometry.Insets;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,11 +24,11 @@ import javafx.stage.Stage;
 public class Editor extends UiPart<Region> {
     private static final String FXML = "Editor.fxml";
 
-    @FXML
-    private Button btnSave;
-
-    @FXML
-    private Button btnSubmit;
+    //    @FXML
+    //    private Button btnSave;
+    //
+    //    @FXML
+    //    private Button btnSubmit;
 
     @FXML
     private TextArea textOutput;
@@ -40,6 +40,9 @@ public class Editor extends UiPart<Region> {
      */
     public Editor(Observable<Question> questionObservable) {
         super(FXML);
+
+        initialize();
+        textOutput.setPadding(new Insets(15, 20, 15, 20));
 
         questionObservable.addListener(question -> {
             if (question != null) {

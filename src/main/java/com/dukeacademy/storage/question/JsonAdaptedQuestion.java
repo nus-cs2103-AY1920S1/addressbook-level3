@@ -34,14 +34,14 @@ public class JsonAdaptedQuestion {
     /**
      * Constructs a {@code JsonAdaptedQuestion} with the given question details.
      *
-     * @param title       the title
-     * @param status      the status
-     * @param difficulty  the difficulty
-     * @param topics      the topics
-     * @param testCases   the test cases
-     * @param userProgram the user program
-     * @param description the description
+     * @param title        the title
+     * @param status       the status
+     * @param difficulty   the difficulty
      * @param isBookmarked the bookMark indicator
+     * @param topics       the topics
+     * @param testCases    the test cases
+     * @param userProgram  the user program
+     * @param description  the description
      */
     @JsonCreator
     public JsonAdaptedQuestion(@JsonProperty("title") String title, @JsonProperty("status") String status,

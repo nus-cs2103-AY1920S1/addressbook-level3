@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            style="-fx-background-color: #7d2277;">
+
+    <padding>
+        <Insets left="45.0" right="45.0"/>
+    </padding>
+
+    <GridPane AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              style="-fx-background-color: white">
+
+        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS"
+              style="-fx-border-color: #7d2277">
+            <StackPane fx:id="questionListPanelPlaceholder" VBox.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"/>
+        </VBox>
+
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"
+              style="-fx-border-color: #7d2277">
+            <Label text="Now viewing:" textFill="#63075d">
+                <font>
+                    <Font name="Century Gothic" size="20.0"/>
+                </font>
+                <padding>
+                    <Insets bottom="10.0"/>
+                </padding>
+            </Label>
+
+            <StackPane fx:id="problemStatementDisplayPlaceholder" VBox.vgrow="ALWAYS"/>
+
+            <padding>
+                <Insets top="35.0" right="35.0" left="35.0" bottom="35.0"/>
+            </padding>
+        </VBox>
+
+        <rowConstraints>
+            <RowConstraints vgrow="ALWAYS" percentHeight="100"/>
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
+        </columnConstraints>
+
+    </GridPane>
+
+</AnchorPane>

@@ -15,5 +15,20 @@ public enum Difficulty {
     /**
      * Hard difficulty.
      */
-    HARD
+    HARD;
+
+    /**
+     * Contains boolean.
+     *
+     * @param s the s
+     * @return the boolean
+     */
+    public static boolean contains(String s) {
+        for (Difficulty difficulty:values()) {
+            if (difficulty.name().equals(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
