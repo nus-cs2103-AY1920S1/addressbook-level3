@@ -530,6 +530,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addDayAtIndex(Index index, Day day) {
+        itinerary.addDayAtIndex(index, day);
+        updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
+    }
+
+    @Override
     public void setDays(List<Day> itinerary) {
         this.itinerary.setDays(itinerary);
     }

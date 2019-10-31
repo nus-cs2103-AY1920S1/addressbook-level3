@@ -5,6 +5,7 @@ import seedu.address.logic.commands.DeleteAccommodationCommand;
 import seedu.address.logic.commands.DeleteActivityCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
+import seedu.address.logic.commands.DeleteDayCommand;
 import seedu.address.logic.events.Event;
 import seedu.address.logic.events.exceptions.EventException;
 import seedu.address.model.Model;
@@ -37,18 +38,15 @@ public class DeleteEventFactory {
             DeleteContactCommand tempCommand3 = (DeleteContactCommand) command;
             return generateDeleteContactEvent(tempCommand3.getTargetIndex(), model);
 
+        case (DeleteDayCommand.SECOND_COMMAND_WORD):
+            DeleteDayCommand tempCommand4 = (DeleteDayCommand) command;
+            return generateDeleteDayEvent(tempCommand4.getTargetIndex(), model);
+
         default:
             throw new EventException(
                     String.format(MESSAGE_NOT_UNDOABLE, command.getCommandWord(), command.getSecondCommandWord())
             );
         }
-
-        /*
-        case(DeleteDayCommand.SECOND_COMMAND_WORD):
-            DeleteDayCommand tempCommand4 = (DeleteDayCommand)command;
-            generateDeleteDayEvent(tempCommand4.getToDelete());
-        }
-        */
     }
 
     public static DeleteAccommodationEvent generateDeleteAccommodationEvent(Index index, Model model) {
@@ -63,9 +61,7 @@ public class DeleteEventFactory {
         return new DeleteContactEvent(index, model);
     }
 
-    /*
-    public static DeleteDayEvent generateDeleteDayEvent(int daysDeleteed) {
-        return new DeleteDayEvent(daysDeleteed);
+    public static DeleteDayEvent generateDeleteDayEvent(Index index, Model model) {
+        return new DeleteDayEvent(index, model);
     }
-    */
 }
