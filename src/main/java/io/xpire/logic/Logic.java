@@ -11,6 +11,7 @@ import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * API of the Logic component
@@ -35,7 +36,7 @@ public interface Logic {
     ReadOnlyListView<? extends Item>[] getLists();
 
     /** Returns an unmodifiable view of the current filtered list of items */
-    ObservableList<? extends Item> getCurrentFilteredItemList();
+    FilteredList<? extends Item> getCurrentFilteredItemList();
 
     /** Returns an unmodifiable view of the current list of tracked items */
     ObservableList<XpireItem> getXpireItemList();

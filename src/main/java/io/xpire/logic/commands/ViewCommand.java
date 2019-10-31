@@ -2,7 +2,9 @@ package io.xpire.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import io.xpire.model.Model;
+import io.xpire.model.StackManager;
 import io.xpire.model.item.ListToView;
+import io.xpire.model.state.State;
 
 //@@author febee99
 /**
@@ -30,8 +32,9 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StackManager stackManager) {
         requireNonNull(model);
+        stackManager.saveState(new State(model));
         String output = String.format(MESSAGE_SUCCESS, "the");
         if (list != null) {
             output = String.format(MESSAGE_SUCCESS, list);
@@ -43,5 +46,10 @@ public class ViewCommand extends Command {
 
     public ListToView getList() {
         return this.list;
+    }
+
+    @Override
+    public String toString() {
+        return "View Command";
     }
 }

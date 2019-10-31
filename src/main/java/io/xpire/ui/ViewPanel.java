@@ -10,6 +10,7 @@ import io.xpire.commons.core.LogsCenter;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -42,7 +43,8 @@ public class ViewPanel extends UiPart<VBox> {
         Collection<ItemCard> cardList;
         //@@author febee99
         if (!itemList.isEmpty() && itemList.get(0) instanceof XpireItem) {
-            ObservableList<XpireItem> xpireItemList = (ObservableList<XpireItem>) itemList;
+            //ObservableList<XpireItem> xpireItemList = (ObservableList<XpireItem>) itemList;
+            FilteredList<XpireItem> xpireItemList = (FilteredList<XpireItem>) itemList;
             cardList = IntStream.range(0, xpireItemList.size())
                                 .mapToObj(i -> new ItemCard(xpireItemList.get(i), i + 1))
                                 .collect(Collectors.toList());
