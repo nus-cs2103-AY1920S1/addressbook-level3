@@ -56,36 +56,10 @@ public class ExpenseHeatMapChart extends ExpenseChart {
         series = new XYChart.Series<>();
         series.setName("All expenses");
 
-        setUpAxesFormatting();
+        xAxis.setTickLabelFormatter(new MonthConverter(currentYearRange.getStartDate(), TextStyle.SHORT));
+        yAxis.setTickLabelFormatter(new DayOfWeekConverter(TextStyle.SHORT));
+
         initChart();
-    }
-
-    private void setUpAxesFormatting() {
-        xAxis.setTickLabelFormatter(new StringConverter<>() {
-            @Override
-            public String toString(Number number) {
-                return Month.of((int) Math.ceil(((number.doubleValue() / 4.5)
-                        + currentYearRange.getStartDate().getMonthValue()) % 12))
-                        .getDisplayName(TextStyle.SHORT, Locale.getDefault());
-            }
-
-            @Override
-            public Number fromString(String string) {
-                return Month.valueOf(string).getValue();
-            }
-        });
-
-        yAxis.setTickLabelFormatter(new StringConverter<>() {
-            @Override
-            public String toString(Number number) {
-                return DayOfWeek.of(number.intValue()).getDisplayName(TextStyle.SHORT, Locale.getDefault());
-            }
-
-            @Override
-            public Number fromString(String string) {
-                return DayOfWeek.valueOf(string).getValue();
-            }
-        });
     }
 
     /**
