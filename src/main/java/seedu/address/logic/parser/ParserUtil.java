@@ -8,9 +8,9 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.ViewException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.SortFilter;
 import seedu.address.model.View;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
@@ -34,9 +34,13 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_VIEW = "View is not recognised.";
 
+    public static final String MESSAGE_INVALID_FILTER = "Filter is not recognised";
+
     public static final String MESSAGE_INVALID_SHORTCUT = "Shortcut is not recognised.";
 
     private static int viewIndex;
+
+    private static int filterIndex;
     /**
      * Checks if the parsed argument is a valid view
      * @param view
@@ -59,12 +63,30 @@ public class ParserUtil {
     }
 
     /**
+     * Checks if the parsed argument is a valid filter
+     * @param filter
+     * @return
+     */
+    public static boolean checkFilter(String filter) {
+
+        if (filter.equals("name")) {
+            filterIndex = 1;
+            return true;
+        } else if (filter.equals("date")) {
+            filterIndex = 2;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Parsers a View.
      * @param view View command
      * @return Trimmed view command
      * @throws ParseException If the command cannot be parsed.
      */
-    public static View parseView(String view) throws ParseException, ViewException {
+    public static View parseView(String view) throws ParseException {
         String trimmedView = view.trim();
         if (checkView(trimmedView)) {
             return new View(view, viewIndex);
@@ -72,6 +94,19 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_VIEW);
         }
     }
+
+    /**
+     * Parses a Filter
+     */
+    public static SortFilter parseFilter(String input) throws ParseException {
+        String trimmedFilter = input.trim();
+        if (checkFilter(trimmedFilter)) {
+            return new SortFilter(input, filterIndex);
+        } else {
+            throw new ParseException(MESSAGE_INVALID_FILTER);
+        }
+    }
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.

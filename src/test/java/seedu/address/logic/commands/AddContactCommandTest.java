@@ -257,12 +257,12 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public void sortFilteredContactList() {
+        public void sortFilteredContactListByName() {
 
         }
 
         @Override
-        public void sortReverseFilteredContactList() {
+        public void sortReverseFilteredContactListByName() {
 
         }
 
@@ -277,12 +277,22 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public void sortFilteredClaimList() {
+        public void sortFilteredClaimListByName() {
 
         }
 
         @Override
-        public void sortReverseFilteredClaimList() {
+        public void sortFilteredClaimListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimListByName() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimListByDate() {
 
         }
 
@@ -297,12 +307,22 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public void sortFilteredIncomeList() {
+        public void sortFilteredIncomeListByName() {
 
         }
 
         @Override
-        public void sortReverseFilteredIncomeList() {
+        public void sortFilteredIncomeListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeListByName() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeListByDate() {
 
         }
 

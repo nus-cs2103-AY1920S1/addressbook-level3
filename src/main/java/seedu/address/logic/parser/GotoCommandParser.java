@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.commons.exceptions.ViewException;
 import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.View;
@@ -21,7 +20,7 @@ public class GotoCommandParser implements Parser<GotoCommand> {
         try {
             View view = ParserUtil.parseView(args);
             return new GotoCommand(view);
-        } catch (ParseException | ViewException pe) {
+        } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.MESSAGE_USAGE), pe);
         }
