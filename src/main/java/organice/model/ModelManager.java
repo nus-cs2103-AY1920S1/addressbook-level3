@@ -113,7 +113,11 @@ public class ModelManager implements Model {
         return addressBook.hasPerson(person);
     }
 
-    @Override
+    /**
+     * To check if the model have a person with the given Nric.
+     * @param personNric
+     * @return a boolean true or false if the person exist.
+     */
     public boolean hasPerson(Nric personNric) {
         requireNonNull(personNric);
         return addressBook.hasPerson(personNric);
@@ -368,7 +372,7 @@ public class ModelManager implements Model {
     public void sortBySuccessRate() throws CommandException {
         try {
             sortedMatchedDonors = new SortedList<>((ObservableList<? extends MatchedDonor>) (ObservableList<?>)
-                listOfMatches);
+                    listOfMatches);
             sortedMatchedDonors.setComparator(new SuccessRateComparator());
         } catch (ClassCastException | IllegalArgumentException ex) {
             throw new CommandException("Sorting by success rate "
@@ -383,7 +387,7 @@ public class ModelManager implements Model {
     public void sortByOrganExpiryDate() throws CommandException {
         try {
             sortedMatchedDonors = new SortedList<>((ObservableList<? extends MatchedDonor>) (ObservableList<?>)
-                listOfMatches);
+                    listOfMatches);
             sortedMatchedDonors.setComparator(new ExpiryDateComparator());
         } catch (ClassCastException | IllegalArgumentException ex) {
             throw new CommandException("Sorting by organ expiry date "
