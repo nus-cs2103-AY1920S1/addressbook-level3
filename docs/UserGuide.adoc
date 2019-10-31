@@ -102,6 +102,8 @@ Format: `glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`
 * `a/AMOUNT` must have a magnitude i.e. measurable quantity. Magnitude and unit can be separated by a space.
 * There may be more than one tag field.
 * The input fields can be in any order.
+* Item with *either same name or expiry date* as the existing ones can be added.
+* Items with *same name and expiry date* as the existing ones cannot be added.
 ****
 
 Examples:
@@ -131,8 +133,13 @@ Format: `glist use INDEX a/AMOUNT`
 
 ****
 * The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
-* Metric units with different metric prefixes is allowed. e.g. gram, milliliter.
+* Only the units in the following unit categories are supported:
+** `Weight`: `kg`, `g`, `oz`, `lbs`
+** `Volume`: `L`, `ml`
+** `Quantity`: `units`
 * Whitespace between magnitude and unit is allowed.
+* Cross conversion between units of the same categories is supported.
+** If the unit of input amount is different from the unit of item, the resultant amount would follow the unit of the original item. e.g. If an item of `1kg` is used by `300g`, it would become `0.7kg` and not `700g`.
 ****
 
 Examples:
