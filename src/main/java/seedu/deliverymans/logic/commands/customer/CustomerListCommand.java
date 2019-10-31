@@ -10,7 +10,7 @@ import seedu.deliverymans.model.Model;
 /**
  * (to be added)
  */
-public class ListCommand extends Command {
+public class CustomerListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all customers";
