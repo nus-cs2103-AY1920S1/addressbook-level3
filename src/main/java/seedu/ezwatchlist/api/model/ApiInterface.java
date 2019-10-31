@@ -1,9 +1,11 @@
 package seedu.ezwatchlist.api.model;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
+import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.TvShow;
 
@@ -60,6 +62,22 @@ public interface ApiInterface {
      */
     List<TvShow> getTvShowRecommendations(List<TvShow> userTvShows, int noOfRecommendations)
             throws OnlineConnectionException, NoRecommendationsException;
+
+    /**
+     * Returns a list of Tv Shows from the API search method.
+     *
+     * @param genreSet the set of genres that the user wants to search.
+     * @throws OnlineConnectionException when not connected to the internet.
+     */
+    //List<TvShow> getTvShowByGenre(Set<Genre> genreSet) throws OnlineConnectionException;
+
+    /**
+     * Returns a list of movies from the API search method.
+     *
+     * @param genreSet the set of genres that the user wants to search.
+     * @throws OnlineConnectionException when not connected to the internet.
+     */
+    List<Movie> getMovieByGenre(Set<Genre> genreSet) throws OnlineConnectionException;
 
     /**
      * Checks if the api is connected to the internet.

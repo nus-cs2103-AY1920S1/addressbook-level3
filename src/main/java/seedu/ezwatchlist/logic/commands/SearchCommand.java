@@ -15,10 +15,7 @@ import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.Movie;
-import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.model.show.TvShow;
+import seedu.ezwatchlist.model.show.*;
 
 /**
  * Finds and lists all shows in watchlist whose name contains any of the argument keywords.
@@ -45,6 +42,7 @@ public class SearchCommand extends Command {
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
     private static final String KEY_ACTOR = "actor";
+    private static final String KEY_GENRE = "genre";
     private static final String KEY_IS_WATCHED = "is_watched";
     private static final String KEY_IS_INTERNAL = "is_internal";
 
@@ -52,6 +50,7 @@ public class SearchCommand extends Command {
     private List<String> nameList;
     private List<String> typeList;
     private List<String> actorList;
+    private List<String> genreList;
     private List<String> isWatchedList;
     private List<String> isInternalList;
 
@@ -61,6 +60,7 @@ public class SearchCommand extends Command {
         nameList = searchShowsHashMap.get(KEY_NAME);
         typeList = searchShowsHashMap.get(KEY_TYPE);
         actorList = searchShowsHashMap.get(KEY_ACTOR); // unable to search online
+        genreList = searchShowsHashMap.get(KEY_GENRE); // unable to search at all
         isWatchedList = searchShowsHashMap.get(KEY_IS_WATCHED);
         isInternalList = searchShowsHashMap.get(KEY_IS_INTERNAL);
         try {
@@ -74,21 +74,31 @@ public class SearchCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
-            if (!nameList.isEmpty() && !actorList.isEmpty()) {
+            /*if (!nameList.isEmpty() && !actorList.isEmpty()) {
                 searchByName(model);
                 searchByActor(model);
                 // add shows with the show name and also shows with the actors involved
                 // ensure no duplicates, currently might have duplicate
                 // for now, do not allow users to search for both name and actor at the same time
-            } else if (!nameList.isEmpty()) {
+            } */
+            if (!nameList.isEmpty()) {
                 searchByName(model);
-            } else if (!actorList.isEmpty()) {
+            }
+            if (!actorList.isEmpty()) {
                 searchByActor(model);
-            } else { // if has no name and actor to be searched
+            }
+            if (!genreList.isEmpty()) {
+                searchByGenre(model);
+            }
+            if (searchResult.isEmpty()) {
+                throw new CommandException(MESSAGE_USAGE);
+            }
+            /*else { // if has no name and actor to be searched
                 //searchByType();
                 //searchByIsWatched();
                 //searchByIsInternal();
-            }
+            }*/
+
             model.updateSearchResultList(searchResult);
             return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW,
                     model.getSearchResultList().size()));
@@ -138,17 +148,42 @@ public class SearchCommand extends Command {
         if (requestedSearchFromInternal()) {
             addShowFromWatchListIfHasActor(actorSet, model);
         } else if (requestedSearchFromOnline()) {
-            addShowFromOnlineIfHasActor(actorSet); //unable to online for now
+            //addShowFromOnlineIfHasActor(actorSet); // unable to search online for now
         } else if (requestedIsInternal()) {
             throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
         } else { // there's no restriction on where to search from
             addShowFromWatchListIfHasActor(actorSet, model);
-            addShowFromOnlineIfHasActor(actorSet); //unable to online for now
+            //addShowFromOnlineIfHasActor(actorSet); // unable to search online for now
         }
     }
 
     /**
-     * Adds show from list if it has the same name as the given show.
+     * Search for shows by genre.
+     * @param model Model used.
+     * @throws CommandException If command exception occurred.
+     * @throws OnlineConnectionException If online exception occurred.
+     */
+    private void searchByGenre(Model model) throws CommandException, OnlineConnectionException {
+        Set<Genre> genreSet = new HashSet<Genre>();
+        for (String genreName : genreList) {
+            Genre genre = new Genre(genreName);
+            genreSet.add(genre);
+        }
+
+        if (requestedSearchFromInternal()) {
+            addShowFromWatchListIfIsGenre(genreSet, model);
+        } else if (requestedSearchFromOnline()) {
+            addShowFromOnlineIfIsGenre(genreSet); //unable to search for online tv
+        } else if (requestedIsInternal()) {
+            throw new CommandException(MESSAGE_INVALID_IS_INTERNAL_COMMAND);
+        } else { // there's no restriction on where to search from
+            addShowFromWatchListIfIsGenre(genreSet, model);
+            addShowFromOnlineIfIsGenre(genreSet); //unable to search for online tv
+        }
+    }
+
+    /**
+     * Adds show from list if it has the same name as in {@code showName}.
      * @param showName name of the given show.
      * @param model current model of the program.
      */
@@ -160,13 +195,25 @@ public class SearchCommand extends Command {
     }
 
     /**
-     * Adds show from list if it has any actor in actorSet.
+     * Adds show from list if it has any actor in {@code actorSet}.
      * @param actorSet Set of actors to be searched for.
      * @param model Model used.
      */
     private void addShowFromWatchListIfHasActor(Set<Actor> actorSet, Model model) {
         if (!actorSet.isEmpty()) {
             List<Show> filteredShowList = model.getShowIfHasActor(actorSet);
+            addShowToSearchResult(filteredShowList);
+        }
+    }
+
+    /**
+     * Adds show from list if it has any genre in {@code genreSet}.
+     * @param genreSet Set of actors to be searched for.
+     * @param model Model used.
+     */
+    private void addShowFromWatchListIfIsGenre(Set<Genre> genreSet, Model model) {
+        if (!genreSet.isEmpty()) {
+            List<Show> filteredShowList = model.getShowIfIsGenre(genreSet);
             addShowToSearchResult(filteredShowList);
         }
     }
@@ -235,7 +282,6 @@ public class SearchCommand extends Command {
         }
     }
 
-    // TO EDIT
     /**
      * Add show from online if has actors, taking into account if user makes any other requests.
      * @param actorSet The set of actors to be searched.
@@ -254,6 +300,22 @@ public class SearchCommand extends Command {
                 //addOnlineMovieSearchedByNameToResult(showName);
                 //addOnlineTvSearchedByNameToResult(showName);
             }
+        }
+    }
+
+    /**
+     * Returns a list of Tv Shows from the API search method.
+     *
+     * @param genreSet the set of genres that the user wants to search.
+     * @throws OnlineConnectionException when not connected to the internet.
+     */
+    private void addShowFromOnlineIfIsGenre(Set<Genre> genreSet) throws OnlineConnectionException {
+        if (!genreSet.isEmpty()) {
+            List<Movie> movies = onlineSearch.getMovieByGenre(genreSet);
+            for (Movie movie : movies) {
+                searchResult.add(movie);
+            }
+            //List<TvShow> tvShows = onlineSearch.getTvShowByGenre(genreSet); // unable to search for tv show
         }
     }
 
