@@ -144,7 +144,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 ****
 
 [TIP]
-The complete list can be displayed again using `list`.
+The unfiltered list can be displayed again using `list`.
 
 Examples:
 
