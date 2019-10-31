@@ -40,19 +40,15 @@ public class AppointmentTable {
      */
     public ObservableList<Appointment> getAppointmentList() {
         ArrayList<Appointment> appointmentArrayList = new ArrayList<>();;
-        for (int i = 0; i < reminders.size(); i++) {
-            Iterator it = reminders.entrySet().iterator();
-            while (it.hasNext()) {
-                HashMap.Entry pair = (HashMap.Entry) it.next();
-                appointmentArrayList.add(new Appointment("[R] " + pair.getKey(), (int) pair.getValue()));
-            }
+        Iterator it = reminders.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            appointmentArrayList.add(new Appointment("[R] " + pair.getKey(), (int) pair.getValue()));
         }
-        for (int i = 0; i < followup.size(); i++) {
-            Iterator it = followup.entrySet().iterator();
-            while (it.hasNext()) {
-                HashMap.Entry pair = (HashMap.Entry) it.next();
-                appointmentArrayList.add(new Appointment("[F] " + pair.getKey(), (int) pair.getValue()));
-            }
+        it = followup.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            appointmentArrayList.add(new Appointment("[F] " + pair.getKey(), (int) pair.getValue()));
         }
 
         return FXCollections.observableArrayList(appointmentArrayList);
@@ -82,13 +78,11 @@ public class AppointmentTable {
     }
 
     private boolean antiDuplicate(HashMap<String, Integer> check, String description, int days) {
-        for (int i = 0; i < check.size(); i++) {
-            Iterator it = check.entrySet().iterator();
-            while (it.hasNext()) {
-                HashMap.Entry pair = (HashMap.Entry) it.next();
-                if (pair.getKey().equals(description) && (int) pair.getValue() == days) {
-                    return false;
-                }
+        Iterator it = check.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            if (pair.getKey().equals(description) && (int) pair.getValue() == days) {
+                return false;
             }
         }
         return true;
@@ -134,24 +128,20 @@ public class AppointmentTable {
         if (reminders.size() < 1) {
             sb.append("No reminders found.\n");
         } else {
-            for (int i = 0; i < reminders.size(); i++) {
-                Iterator it = reminders.entrySet().iterator();
-                while (it.hasNext()) {
-                    HashMap.Entry pair = (HashMap.Entry) it.next();
-                    sb.append(pair.getKey() + ": for " + pair.getValue() + " days\n");
-                }
+            Iterator it = reminders.entrySet().iterator();
+            while (it.hasNext()) {
+                HashMap.Entry pair = (HashMap.Entry) it.next();
+                sb.append(pair.getKey() + ": for " + pair.getValue() + " days\n");
             }
         }
         sb.append("\nFollow-ups:\n");
         if (followup.size() < 1) {
             sb.append("No follow-ups found.\n");
         } else {
-            for (int i = 0; i < followup.size(); i++) {
-                Iterator it = followup.entrySet().iterator();
-                while (it.hasNext()) {
-                    HashMap.Entry pair = (HashMap.Entry) it.next();
-                    sb.append(pair.getKey() + ": in " + pair.getValue() + " days\n");
-                }
+            Iterator it = followup.entrySet().iterator();
+            while (it.hasNext()) {
+                HashMap.Entry pair = (HashMap.Entry) it.next();
+                sb.append(pair.getKey() + ": in " + pair.getValue() + " days\n");
             }
         }
         return sb.toString();
