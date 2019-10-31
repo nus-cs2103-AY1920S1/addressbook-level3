@@ -2,11 +2,9 @@ package seedu.billboard.ui.charts;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -19,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.util.Pair;
-import javafx.util.StringConverter;
 
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
@@ -48,6 +45,7 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     private final HeatMapGenerator heatMapGenerator;
     private final XYChart.Series<Integer, Integer> series;
     private final DateRange currentYearRange = getCurrentYearRange();
+    private final int BUBBLE_SCALE_FACTOR = 8;
 
     public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses, HeatMapGenerator heatMapGenerator) {
         super(FXML, expenses);
@@ -87,14 +85,6 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     }
 
     /**
-     * Helper method to get the current date range representing the past year adjusted to start on a monday.
-     */
-    private DateRange getCurrentYearRange() {
-        LocalDate currentDate = LocalDate.now();
-        return DateRange.fromClosed(currentDate.minusYears(1).with(DateInterval.WEEK.getAdjuster()), currentDate);
-    }
-
-    /**
      * Helper method to convert the heatmap values into a list of {@code XYChart.Data} for the chart to use.
      */
     private List<XYChart.Data<Integer, Integer>> mapToData(
@@ -117,8 +107,18 @@ public class ExpenseHeatMapChart extends ExpenseChart {
         return new XYChart.Data<>(week, entry.getKey().getValue(), getAmountValueAdjusted(entry));
     }
 
+    /**
+     * Helper method to get the current date range representing the past year adjusted to start on a monday.
+     */
+    private DateRange getCurrentYearRange() {
+        LocalDate currentDate = LocalDate.now();
+        return DateRange.fromClosed(currentDate.minusYears(1).with(DateInterval.WEEK.getAdjuster()), currentDate);
+    }
 
+    /**
+     * Gets the value of the given amounted adjusted by an appropriate scale factor to fit on the chart.
+     */
     private double getAmountValueAdjusted(Map.Entry<DayOfWeek, Amount> entry) {
-        return Math.log10(entry.getValue().amount.doubleValue()) / 2;
+        return Math.log10(entry.getValue().amount.doubleValue()) / BUBBLE_SCALE_FACTOR;
     }
 }

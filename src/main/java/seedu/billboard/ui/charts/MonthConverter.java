@@ -28,11 +28,11 @@ public class MonthConverter extends StringConverter<Number> {
         this.textStyle = textStyle;
     }
 
-    private int offsetNumberToMonthName(int monthValue) {
-        return (monthValue + dateOffset.getMonthValue()) % 12 + 1;
+    private int offsetNumberToMonthName(int monthPosition) {
+        return (monthPosition + dateOffset.getMonthValue()) % 12 + 1;
     }
 
-    private double offsetMonthNameToNumber(double monthNameValue) {
+    private int offsetMonthNameToNumber(int monthNameValue) {
         return (monthNameValue - dateOffset.getMonthValue() + 12) % 12 - 1;
     }
 
