@@ -227,12 +227,12 @@ This command will then add an income to the incomes list.
 [reftext="Figure 3.8.1"]
 [caption="Figure 3.8.1: "]
 .Type in the add_income command in an empty incomes list.
-image::UG-Add_income1.PNG[width="800"]
+image::UG-Add_income1.png[width="800"]
 [[UG-AddIncomeResult]]
 [reftext="Figure 3.8.2"]
 [caption="Figure 3.8.2: "]
 .The result after entering the command
-image::UG-Add_income2.PNG[width="800"]
+image::UG-Add_income2.png[width="800"]
 
 
 
@@ -260,12 +260,12 @@ This command will edit the description and amount fields in the second income in
 [reftext="Figure 3.9.1"]
 [caption="Figure 3.9.1: "]
 .Type in the edit_income command.
-image::UG-Edit_income1.PNG[width="800"]
+image::UG-Edit_income1.png[width="800"]
 [[UG-AddIncomeResult]]
 [reftext="Figure 3.9.2"]
 [caption="Figure 3.9.2: "]
 .The result after entering the command. The first income is now edited to the newly specified fields.
-image::UG-Edit_income2.PNG[width="800"]
+image::UG-Edit_income2.png[width="800"]
 
 === Deleting an Income : `delete_income`
 
@@ -291,12 +291,12 @@ delete_income 2 (removes second income in the income list)
 [reftext="Figure 3.10.1"]
 [caption="Figure 3.10.1: "]
 .Type in the delete_income command.
-image::UG-Delete_income1.PNG[width="800"]
+image::UG-Delete_income1.png[width="800"]
 [[UG-DeleteIncomeResult]]
 [reftext="Figure 3.10.2"]
 [caption="Figure 3.10.2: "]
 .The result after entering the command. The second income is now deleted off the incomes list.
-image::UG-Delete_income2.PNG[width="800"]
+image::UG-Delete_income2.png[width="800"]
 
 
 === Creating a shortcut
