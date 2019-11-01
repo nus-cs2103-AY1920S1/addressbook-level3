@@ -49,6 +49,7 @@ public class EditReminderCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
     public static final String CONDITION_NOT_REMOVABLE = "Reminder must have at least one condition \n";
+    public static final String NO_QUOTA_WITHOUT_TRACKER = "Cannot set quota without an amount/ number tracker.\n";
 
     private final Index index;
     private final EditReminderDescriptor editReminderDescriptor;
@@ -98,7 +99,7 @@ public class EditReminderCommand extends Command {
                                                  List<Condition> allConditions) throws CommandException {
         assert reminderToEdit != null;
         Description updatedMessage = editReminderDescriptor.getDesc().orElse(reminderToEdit.getMessage());
-        double updatedAmount = editReminderDescriptor.getQuota().orElse(reminderToEdit.getTrackerQuota());
+        Double updatedAmount = editReminderDescriptor.getQuota().orElse(reminderToEdit.getTrackerQuota());
         List<Condition> updatedCondition;
         if (editReminderDescriptor.getConditionIndices().isPresent()) {
             if (editReminderDescriptor.getConditionIndices().get().size() == 0) {
@@ -110,9 +111,24 @@ public class EditReminderCommand extends Command {
         } else {
             updatedCondition = reminderToEdit.getConditions();
         }
+        if (reminderToEdit.getTrackerType().equals(Reminder.TrackerType.none)) {
+            if ((editReminderDescriptor.getTrackerType().isEmpty()
+                    && reminderToEdit.getTrackerType().equals(Reminder.TrackerType.none))
+                    || editReminderDescriptor.getTrackerType().get().equals(Reminder.TrackerType.none)) {
+                if (editReminderDescriptor.getQuota().isPresent()) {
+                    throw new CommandException(NO_QUOTA_WITHOUT_TRACKER + editReminderDescriptor.getQuota().get());
+                }
+            }
+        }
         Reminder editedReminder = new Reminder(updatedMessage, updatedCondition);
         for (Condition condition : editedReminder.getConditions()) {
             condition.getSupport().removePropertyChangeListener(reminderToEdit);
+        }
+        Reminder.TrackerType updatedTracker = editReminderDescriptor
+                .getTrackerType().orElse(reminderToEdit.getTrackerType());
+        if (!(updatedTracker.equals(Reminder.TrackerType.none))) {
+            Double updatedQuota = editReminderDescriptor.getQuota().orElse(reminderToEdit.getTrackerQuota());
+            editedReminder.setTracker(updatedTracker, reminderToEdit.getCurrSum(), updatedQuota);
         }
         return editedReminder;
     }
@@ -142,7 +158,8 @@ public class EditReminderCommand extends Command {
     public static class EditReminderDescriptor {
         private Description desc;
         private List<Index> conditionIndices;
-        private double quota;
+        private Reminder.TrackerType trackerType;
+        private Double quota;
 
         public EditReminderDescriptor() {}
 
@@ -154,13 +171,14 @@ public class EditReminderCommand extends Command {
             setDesc(toCopy.desc);
             setQuota(toCopy.quota);
             setConditionIndices(toCopy.conditionIndices);
+            setTrackerType(toCopy.trackerType);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(desc, quota, conditionIndices);
+            return CollectionUtil.isAnyNonNull(desc, quota, conditionIndices, trackerType);
         }
 
         public void setDesc(Description desc) {
@@ -172,7 +190,7 @@ public class EditReminderCommand extends Command {
         }
 
 
-        public void setQuota(double amt) {
+        public void setQuota(Double amt) {
             this.quota = amt;
         }
 
@@ -203,6 +221,14 @@ public class EditReminderCommand extends Command {
         public Optional<List<Index>> getConditionIndices() {
             return (conditionIndices != null)
                     ? Optional.of(Collections.unmodifiableList(conditionIndices)) : Optional.empty();
+        }
+
+        public Optional<Reminder.TrackerType> getTrackerType() {
+            return Optional.ofNullable(trackerType);
+        }
+
+        public void setTrackerType(Reminder.TrackerType trackerType) {
+            this.trackerType = trackerType;
         }
 
         @Override

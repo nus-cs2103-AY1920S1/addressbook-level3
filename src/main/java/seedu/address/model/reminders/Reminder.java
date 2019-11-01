@@ -45,7 +45,7 @@ public class Reminder implements PropertyChangeListener {
          * @return
          */
         public static TrackerType parse(String trackerType) {
-            switch (trackerType) {
+            switch (trackerType.toLowerCase()) {
             case "num":
                 return TrackerType.num;
             case "amount":
@@ -162,8 +162,8 @@ public class Reminder implements PropertyChangeListener {
         } else {
         }
     }
-    public void setTracker(String trackerType, double currSum, double quota) {
-        this.trackerType = TrackerType.parse(trackerType);
+    public void setTracker(TrackerType trackerType, double currSum, double quota) {
+        this.trackerType = trackerType;
         if (!trackerType.equals(TrackerType.none)) {
             this.currSum = currSum;
             this.trackerQuota = quota;

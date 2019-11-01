@@ -69,7 +69,7 @@ public class JsonAdaptedReminder {
         final Description modelMessage = new Description(message);
         Reminder modelReminder = new Reminder(modelMessage, conditionList);
         if (!trackerType.toLowerCase().equals("none")) {
-            modelReminder.setTracker(trackerType, currSum, quota);
+            modelReminder.setTracker(Reminder.TrackerType.parse(trackerType), currSum, quota);
         }
         modelReminder.setStatus(this.status);
         return modelReminder;

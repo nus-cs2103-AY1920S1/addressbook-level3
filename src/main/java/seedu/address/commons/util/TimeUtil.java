@@ -29,7 +29,7 @@ public class TimeUtil {
      */
     public void startTimer() {
         getCurrDate.run();
-        ses.schedule(getCurrDate, 5, TimeUnit.SECONDS);
+        ses.schedule(getCurrDate, 1, TimeUnit.HOURS);
     }
 
     /**

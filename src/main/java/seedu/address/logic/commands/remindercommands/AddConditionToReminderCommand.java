@@ -19,7 +19,7 @@ public class AddConditionToReminderCommand extends Command {
     public static final String COMMAND_WORD = "addToReminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a condition to reminder. "
-            + "Parameters: CONDITIONINDEX, REMINDERINDEX (must be positive integerS)\n"
+            + "Parameters: REMINDERINDEX, CONDITIONINDEX, (must be positive integerS)\n"
             + "Example: " + COMMAND_WORD + " 1, 2";
 
     public static final String MESSAGE_SUCCESS = "New Condition added: %1$s";
