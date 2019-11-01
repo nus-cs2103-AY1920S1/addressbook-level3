@@ -302,21 +302,23 @@ Listed in the table below are the design considerations for the `find` command.
 
 |How find is executed
 |Save all predicates to a list +
-Pros: +
+*Pros:* +
 Easy to implement +
 Obeys Open-Closed Principle (OCP) +
 
-Cons: +
+*Cons:* +
 All fields require a predicate
-|Search the underlying list directly without using a predicate +
-Pros: +
-Able to manipulate object easily +
+|Access the underlying list and check all related objects. +
+*Pros:* +
+Able to manipulate objects directly +
   +
-Cons: +
-Poor abstraction
+*Cons:* +
+Poor abstraction +
+Change in comparison requires prior knowledge of the structure of the entire code  +
+Difficult to implement
 |===
 
-Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles.
+Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles. Although Alternative 2 enables checking of the related objects directly, it has poor abstraction and changes in the function require prior knowledge of the structure of the entire code. It is also difficult to implement
 // end::find[]
 
 // tag::sort[]
@@ -379,22 +381,26 @@ The following steps explain the activity diagram:
 
 |How sort is executed
 |Set a new comparator +
-Pros: Easy to implement +
-Cons: None
+*Pros:* Easy to implement +
+*Cons:* `Comparator` is coupled to many field classes
 |Sort the underlying list without a comparator +
-Pros: Able to manipulate objects directly +
-Cons: Poor abstraction
+*Pros:* Able to manipulate objects directly +
+*Cons:* Violates fundamental Object Oriented Principles
 
 |Method design for sort
 |Create filtered list from sorted list +
-Pros: Easy to implement +
-Cons: Minor structure changes
+*Pros:* Easy to implement +
+*Cons:* Minor structure changes
 |Create sorted list from filtered list +
-Pros: Able to test large sorting side effects +
-Cons: Large code structure changes
+*Pros:* Able to test large sorting side effects +
+*Cons:* Large code structure changes
 |===
 
-Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. Manipulating the internal elements of the list directly is dangerous and can cause unintended side effects.
+Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. The only downside of this approach is that changing any field classes might require a change in the Comparator.
+
+In contrast, for Alternative 2, manipulating the internal elements of the list directly is dangerous and can cause unintended side effects.
+
+There was also a huge difference for the method design for sort, and Alternative 1 was the easier approach to avoid side effects in Alternative 2.
 // end::sort[]
 
 // tag::reminder[]
@@ -560,11 +566,11 @@ image::StatsDataSequenceDiagram.png[width = "600"]
 
 |How to handle statistics data and parameters
 |Data and each parameter is handled as separate objects +
-Pros: Easy to implement +
-Cons: Need to call multiple methods to get parameters
+*Pros:* Easy to implement +
+*Cons:* Need to call multiple methods to get parameters
 |Create Statistics object which contains data and all the parameters +
-Pros: More scalable. Less method calls to get parameters +
-Cons: None
+*Pros:* More scalable. Less method calls to get parameters +
+*Cons:* None
 
 |===
 // end::statistics[]
@@ -664,7 +670,7 @@ If the user input is valid, the command is then executed to access the Budget in
 
 [width="90%", cols="1,2,2", options="header",]
 |===
-|Aspect |Alternative 1 |Alternative 2
+|Aspect |Alternative 1 (current choice) |Alternative 2
 
 |Method to calculate total spending
 |Keep track of the sum and modifies the sum when `add` and `delete` commands are added +
@@ -742,21 +748,42 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire spending book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the Spending being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 (current choice)|Alternative 2
 
-===== Aspect: Data structure to support the undo/redo commands
+|How undo & redo executes
+|Saves the entire spending book. +
+*Pros:* +
+Easy to implement. +
+ +
+*Cons:* +
+May have performance issues in terms of memory usage.
 
-* **Alternative 1 (current choice):** Use a list to store the history of spending book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedSpendingBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+|Individual command knows how to undo/redo by itself. +
+*Pros:* +
+Will use less memory (e.g. for `delete`, just save the Spending being deleted). +
+ +
+*Cons:* +
+Must ensure that the implementation of each individual command are correct.
+
+|Data structure to support the undo/redo commands
+|Use a list to store the history of spending book states. +
+*Pros:* +
+Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project. +
+ +
+*Cons:* +
+Logic is duplicated twice. For example, when a new command is executed, it requires remembering to update both `HistoryManager` and `VersionedSpendingBook`.
+
+|Use `HistoryManager` for undo/redo +
+*Pros:* +
+Do not need to maintain a separate list, and just reuse what is already in the codebase. +
+ +
+*Cons:* +
+Requires dealing with commands that have already been undone: Requires remembering to skip these commands. +
+Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
+|===
 // end::undoredo[]
 
 // tag::dataencryption[]
@@ -1219,7 +1246,6 @@ Step 1b1 is repeated until the amount and currency entered is correct. +
 Use case resumes from step 1a.
 [none]
 
-
 '''
 [discrete]
 === UC19 Set the existing currency
@@ -1227,7 +1253,7 @@ Use case resumes from step 1a.
 *MSS*
 
 1.  User requests to set the existing currency
-2.  MoneyGoWhere shows all exchange rates available for supported currencies.
+2.  MoneyGoWhere displays the specified currency for all spending in the list.
 +
 Use case ends.
 

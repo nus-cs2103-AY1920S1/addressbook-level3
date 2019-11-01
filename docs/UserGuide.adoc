@@ -55,7 +55,7 @@ These steps will guide you in installing MoneyGoWhere on your computer.
 
 +
 .User Interface of MoneyGoWhere
-image::Ui.png[width="790"]
+image::Ui.png[width="800"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* will display the help information.
@@ -79,13 +79,14 @@ e.g. typing *`help`* will display the help information.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/apple t/fruit` or as `n/apple`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `add n/NAME [t/TAG]...` can be used as `t/vegetable`, `t/fruit` etc.
 * Parameters can be in any order e.g. if the command specifies `add n/NAME c/COST`, `add c/COST n/NAME` is also acceptable.
+* If a command accepts a single parameter and multiple parameters are provided, by default, the last parameter is chosen. e.g. if there is only one `n/NAME` accepted and the input is `n/One n/Two`, `n/Two` will be selected.
 ====
 
 === Viewing help : `help`
 
 Shows a list of available commands and their usages. +
 
-Format: `help`
+*Format:* `help`
 
 [TIP]
 Optionally, you can press kbd:[F1] or click `help` which can be found on the menu bar at the top left hand corner of the application.
@@ -128,7 +129,7 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 ** the monday after/ the monday before
 ** 2 fridays before/ 4 tuesdays after
 
-[NOTE]
+[TIP]
 You do not need to specify which date format you would like to use as MoneyGoWhere will be able to differentiate it from the input received.
 
 [NOTE]
@@ -140,15 +141,12 @@ Should you accidentally provide an invalid date such as 31/02/2019, it will be r
 
 Adds a spending to the list when the user incurs a new spending. Key information such as its name, cost, date, tags (if any) and remarks (if any) are stored. +
 
-Format: `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
+*Format:* `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
 [NOTE]
-A spending can have any number of tags (including 0). Each tag is also limited to 64 characters.
+A spending can have any number of `t/TAG` keywords (including 0). Each `TAG` is limited to 64 characters. If a spending date is in the future, it can only be up to 5 years from now.
 
-[NOTE]
-If a spending date is in the future, it can only be up to 5 years from now.
-
-Examples:
+*Examples:*
 
 * `add n/apple c/2.50 d/yesterday t/fruits r/Expensive apple` +
 * `add n/chicken breast c/1.80 t/meat` +
@@ -156,11 +154,15 @@ Examples:
 * `add n/milo c/1.50 r/I love milo` +
 * `add n/gold class movie ticket d/15/1/2019 c/13.00 r/important t/entertainment` +
 
+*Expected Output:*
+
+A new spending is added based on the specified input.
+
 === Editing a spending : `edit`
 
 Edits a spending at a specified index in the list. +
 
-Format: `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
+*Format:* `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
 ****
 * Edits the spending at the specified `INDEX`. The index refers to the index number shown in the displayed spending list. The index *must be a positive integer* 1, 2, 3, ...
@@ -172,7 +174,7 @@ Format: `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 * If a spending date is in the future, it can only be up to 5 years from now.
 ****
 
-Examples:
+*Examples:*
 
 * `edit 1 c/100` +
 Updates the cost of the first spending to `100`.
@@ -183,11 +185,15 @@ Updates both the cost of the fifth spending to `500` and its name to `flight tic
 * `edit 10 t/vegetable` +
 Overwrites existing tags of the tenth spending to `vegetable`.
 
+*Expected Output:*
+
+The specified spending is edited.
+
 === Deleting a spending : `delete`
 
 Deletes a spending at a specified index in the list. +
 
-Format: `delete INDEX`
+*Format:* `delete INDEX`
 
 ****
 * Deletes the spending at the specified `INDEX`.
@@ -195,42 +201,54 @@ Format: `delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Example:
+*Example:*
 
 * `delete 2` +
 Deletes the second spending in the list based on the current list shown.
 
+*Expected Output:*
+
+The specified spending is deleted.
+
 === Listing all spending : `list`
 
 Displays a list of all spending and their information such as name, date, cost, tag and remark. +
-
-Format: `list`
-
-[NOTE]
-List is sorted by descending order of date, followed by descending order of cost and lastly, by ascending order of name.
+*Format:* `list`
 
 [NOTE]
+By default, list of all spending is sorted by descending order of date, followed by descending order of cost and lastly, by ascending order of name. +
+
+[TIP]
 This command is implicitly invoked upon application start up, and can be used to reset the view after find or sort.
+
+*Expected Output:*
+
+All spending entries are listed.
 
 // tag::sort[]
 === Sorting spending entries : `sort`
 Sorts all spending based on a given order. +
 
-Format: `sort [PREFIX/SORT_ORDER]...`
+*Format:* `sort [PREFIX/SORT_ORDER]...`
 
 ****
 * Valid prefixes are: Cost (`c`), Date (`d`), Name (`n`), Remarks (`r`).
 * Valid sort orders are: `ASC`, `DESC`.
-* At least one of the optional fields must be provided.
+* At least one of the optional fields *must be provided*.
 * If the given sort order is `c/ASC n/DESC`, Cost will be sorted in ascending order, followed by name in descending order.
 ****
 
-Examples:
+*Examples:*
 
 * `sort d/ASC c/DESC` +
 Sorts current spending displayed by Date in ascending order. If they are the same, sort by Cost in descending order.
 * `sort n/DESC` +
 Sorts current spending displayed by Name in descending order.
+
+*Expected Output:*
+
+Spending entries are sorted based on the given order.
+
 // end::sort[]
 
 // tag::find[]
@@ -238,9 +256,7 @@ Sorts current spending displayed by Name in descending order.
 
 Searches for spending based on given keywords, cost range, date range, remarks or tags. You may refine the search results by entering more keywords. +
 
-
-Format: `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
-
+*Format:* `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
 
 ****
 * At least one search field must be present.
@@ -262,12 +278,9 @@ Format: `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE
 ****
 
 [NOTE]
-DATE_START must be earlier or the same as DATE_END.
+DATE_START must be earlier or the same as DATE_END, and COST_MIN must be smaller or the same as COST_MAX.
 
-[NOTE]
-COST_MIN must be smaller or the same as COST_MAX.
-
-Examples:
+*Examples:*
 
 * `find n/apple c/1.50-2.00 d/01/09/2019 d/30/09/2019` +
 Returns a list of spending with `apple` keyword within the cost range `1.50` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
@@ -281,45 +294,62 @@ Returns a list of spending with matching the keywords `breakfast` or `meal` in r
 Returns a list of spending with `food` or `leisure` tags.
 * `find d/yesterday d/today t/food t/leisure` +
 Returns a list of spending within `yesterday` and `today` that have `food` or `leisure` tags.
+
+*Expected Output:*
+
+Spending entries which match the search criteria are listed.
+
 // end::find[]
 
 === Setting monthly budget : `budget`
 Sets a budget for the current month in Singapore dollars. +
-Format: `budget MONTHLY_BUDGET` +
+*Format:* `budget MONTHLY_BUDGET` +
 
 [NOTE]
 Existing budget of current month is overwritten if budget has already been set.
 
-Example:
+*Example:*
 
 * `budget 500000` +
 Sets a budget of `$500,000` for this month
 
+*Expected Output:*
+
+The budget for the current month is changed.
+
 === Showing current budget : `showbudget`
 Returns the current monthly budget. +
-Format: `showbudget`
+*Format:* `showbudget`
+
+*Expected Output:*
+
+The budget for the current month is shown.
 
 // tag::currency[]
 === Setting the currency : `currency`
 Sets the currency used to display spending entries. +
-Format: `currency [CURRENCYCODE]`
+*Format:* `currency [CURRENCYCODE]`
 
 ****
 * If CURRENCYCODE is not specified, the current currency used is displayed.
 * CURRENCYCODE can be `SGD`, `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
 ****
 
-Example:
+*Example:*
 
 * `currency USD` +
 Sets the currency displayed for spending entries to `USD`.
+
+*Expected Output:*
+
+The currency displayed is changed and spending entries are updated.
 
 // end::currency[]
 
 // tag::exchangerates[]
 === Viewing exchange rates : `exchangerate`
-Displays current exchange rates. +
-Format: `exchangerate [AMOUNT] [CURRENCYCODE]`
+Displays current stored exchange rates. +
+*Format:* `exchangerate [AMOUNT] [CURRENCYCODE]`
 
 ****
 * If AMOUNT and CURRENCYCODE are specified, the indicated values are converted to SGD.
@@ -327,12 +357,17 @@ Format: `exchangerate [AMOUNT] [CURRENCYCODE]`
 * Entering `SGD` as CURRENCYCODE will display an error since the entered value is already in SGD.
 ****
 
-Example:
+*Example:*
 
 * `exchangerate` +
 Shows all exchange rates.
 * `exchangerate 5 USD` +
 Converts 5 USD to SGD based on current exchange rates.
+
+*Expected Output:*
+
+All available exchange rates are shown, or a conversion of an input currency is provided if it was specified.
+
 // end::exchangerates[]
 
 // tag::statistics[]
@@ -341,7 +376,7 @@ Organises the spending based on tags.
 A pie chart is generated, with each sector representing the total amount of money spent on a tag.
 This enables users to be more informed of their spending habits as they are now aware of where they have spent most of their money on.
 
-Format: `stats d/DATE_START d/DATE_END`
+*Format:* `stats d/DATE_START d/DATE_END`
 
 ****
 * Generates statistics for all spending that fall between and including the DATE_START and DATE_END specified by the user.
@@ -363,7 +398,7 @@ Date range can be input in the following ways: +
 The statistics panel will update every time the spending list displayed changes.
 For example, when a new spending with a tag is added, the statistics panel will update the pie chart to show the statistics for all spending, including the new spending.
 
-Examples:
+*Examples:*
 
 * `stats`: Generates statistics for all spending.
 
@@ -375,6 +410,10 @@ image::allstats.png[width="700"]
 .Output of `stats d/20/10/2019 d/25/10/2019`
 image::daterangestats.png[width=700"]
 
+*Expected Output:*
+
+Statistics is shown.
+
 // end::statistics[]
 
 // tag::graph[]
@@ -382,7 +421,7 @@ image::daterangestats.png[width=700"]
 Organises the spending based on date. A line graph is generated, with each point representing the total amount of money spent on a particular date.
 This enables users to analyze trends in their spending amount over a particular period of time.
 
-Format: `graph d/DATE_START d/DATE_END`
+*Format:* `graph d/DATE_START d/DATE_END`
 
 ****
 * Generates a graph for all spending that fall between and including the DATE_START and DATE_END specified by the user.
@@ -406,7 +445,7 @@ Hovering the mouse over a point displays the date and total amount of money spen
 The graph panel will update every time the spending list displayed changes.
 For example, when a new spending is added, the graph panel will update and generate a graph for all spending, including the new spending.
 
-Examples:
+*Examples:*
 
 * `graph`: Generates a graph for all spending.
 
@@ -418,21 +457,28 @@ image::allgraph.png[width="700"]
 .Output of `graph d/20/10/2019 d/25/10/2019`
 image::daterangegraph.png[width="700"]
 
+*Expected Output:*
+
+A graph is shown.
 
 // end::graph[]
 
 === Adding a reminder: `reminder add`
 Adds a reminder to the reminder list
-Format: `reminder add d/DATE m/MESSAGE`
+*Format:* `reminder add d/DATE m/MESSAGE`
 
-Examples:
+*Examples:*
 
 * `reminder add d/30/08/2020 m/Pay school fees` +
 * `reminder add d/3 days from now m/Pay phone bill` +
 
+*Expected Output:*
+
+A new reminder is added.
+
 === Deleting a reminder: `reminder delete`
 Deletes a reminder at the specified `INDEX`.
-Format: `reminder delete INDEX`
+*Format:* `reminder delete INDEX`
 
 ****
 * Deletes the reminder at the specified `INDEX`.
@@ -440,18 +486,22 @@ Format: `reminder delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Example:
+*Example:*
 
 * `reminder delete 2` +
 Deletes the second reminder in the list based on the current results shown.
 
+*Expected Output:*
+
+The specified reminder is deleted.
+
 // tag::import[]
 === Importing data : `import`
-Imports data from a CSV file specified by file path. +
+Imports data from a CSV file specified by file path. Existing spending entries are not replaced. +
 
-Format: `import p/FILE_PATH` +
+*Format:* `import p/FILE_PATH` +
 
-Examples: +
+*Examples:* +
 
 * `import p/data.csv`
 * `import p/C:\Users\User\Documents\importfile.csv`
@@ -473,41 +523,51 @@ image::ExampleValidCsv.png[]
 ====
 Multiple tags should be separated by a semi-colon.
 
-Example:
+*Example:*
 
 `juicy;nice`
 
 Alternatively, tags could be wrapped in double quotes and separated by commas.
 
-Example:
+*Example:*
 
 `"juicy,nice"`
 ====
+
+*Expected Output:*
+
+Data from the CSV file is imported, keeping existing spending entries.
+
 // end::import[]
 
 // tag::export[]
 === Exporting data : `export`
 Exports data to a `moneygowhere.csv` file specified by a folder path. +
 
-Format: export `p/FOLDER_PATH` +
+*Format:* export `p/FOLDER_PATH` +
 
-Examples: +
+*Examples:* +
 
 * `export p/Documents`
 * `export p/Finance`
+
+*Expected Output:*
+
+Data from the spending list is exported to a specified folder with a file name `moneygowhere.csv`.
+
 // end::export[]
 
 === Undoing previous command : `undo` `[Coming in v2.0]`
 Restores the list of spending to the state before the previous undoable command was executed. +
 
-Format: `undo` +
+*Format:* `undo` +
 
 [NOTE]
 ====
 Undoable commands: commands that modifies any of the spending (`add`, `delete` and `edit`).
 ====
 
-Examples: +
+*Examples:* +
 
 * `delete 1` +
 `list` +
@@ -523,9 +583,9 @@ Examples: +
 === Redoing the previously undone command : `redo` `[Coming in v2.0]`
 Reverses the most recent undo command. +
 
-Format: `redo` +
+*Format:* `redo` +
 
-Examples:
+*Examples:*
 
 * `delete 1` +
 `undo` (reverses the delete 1 command) +
@@ -541,13 +601,13 @@ Examples:
 
 === Clear all data : `clear`
 Clears all entries from the application. +
-Format: `clear`
+*Format:* `clear`
 
 
 === Exiting the program : `exit`
 
 Exits the program. +
-Format: `exit`
+*Format:* `exit`
 
 == Glossary
 
