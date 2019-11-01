@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.util.jar.JarFile;
 
 import seedu.address.model.Model;
 import seedu.address.model.help.ApiLinks;
