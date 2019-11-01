@@ -109,7 +109,10 @@ public class SampleDataUtil {
 
         // Create Donors
         ArrayList<Donor> donorList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
         for (; iterator < numPersons; iterator++, nricBody += Math.random() * (nricIncrementMax + 1)) {
+            // Random date within +5days
+            calendar.add(Calendar.DATE, (int) Math.random() * 4 + 1);
             Donor newDonor = new Donor(
                     new Type("donor"),
                     new Nric(NRIC_LETTERS[iterator % NRIC_LETTERS.length]
