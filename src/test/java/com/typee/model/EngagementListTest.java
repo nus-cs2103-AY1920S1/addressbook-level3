@@ -132,6 +132,11 @@ public class EngagementListTest {
         public ObservableList<Engagement> getEngagementList() {
             return engagements;
         }
+
+        @Override
+        public boolean isConflictingEngagement(Engagement engagement) {
+            return false;
+        }
     }
 
 }
