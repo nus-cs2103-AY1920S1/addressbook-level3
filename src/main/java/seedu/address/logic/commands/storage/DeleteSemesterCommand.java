@@ -19,7 +19,7 @@ import seedu.address.model.studyplan.StudyPlan;
 public class DeleteSemesterCommand extends Command {
 
     public static final String COMMAND_WORD = "removesem";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Removing a semester";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes all modules inside the specified semester in the current active study plan.\n"
             + "Parameters: SEMESTER_NAME\n"

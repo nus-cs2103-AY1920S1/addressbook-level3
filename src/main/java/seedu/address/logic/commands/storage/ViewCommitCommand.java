@@ -24,6 +24,7 @@ import seedu.address.ui.ResultViewType;
 public class ViewCommitCommand extends Command {
 
     public static final String COMMAND_WORD = "viewcommit";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Viewing a study plan commit";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Views the study plan commit identified by the index number used in the displayed commit list.\n"
             + "Parameters: PLAN_ID.COMMIT_NUMBER (both must be non-negative integers)\n";

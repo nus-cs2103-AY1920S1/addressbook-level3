@@ -8,7 +8,8 @@ import seedu.address.model.Model;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Exiting CSmodbuddy";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exits CSmodbuddy";
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Module Planner as requested ...";
 
     @Override

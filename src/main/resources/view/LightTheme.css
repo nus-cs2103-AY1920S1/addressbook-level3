@@ -471,10 +471,18 @@
     -fx-background-radius: 10 10 10 10;
 }
 
+#semesterCardPane.currentSemester {
+    -fx-background-color: #c4c4c4
+}
+
 #currentSemesterCardPane {
     -fx-background-color: #A4A4A4;
     -fx-border-radius: 10 10 10 10;
     -fx-background-radius: 10 10 10 10;
+}
+
+.prereqsNotMet .label {
+    -fx-text-fill: #450700;
 }
 
 #blockedSemesterCardPane {
@@ -497,6 +505,28 @@
     -fx-background-color: #ffffff;
     -fx-border-radius: 10 10 10 10;
     -fx-background-radius: 10 10 10 10;
+}
+
+#modulePill {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15 15 15 15;
+    -fx-background-radius: 15 15 15 15;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+}
+
+#modulePill.prereqsNotMet {
+    -fx-background-color: #ffbfba;
+}
+
+.prereqsNotMet .label {
+    -fx-text-fill: #450700;
+}
+
+#modulesCollapsedPlaceholder {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
 }
 
 #moduleListView {

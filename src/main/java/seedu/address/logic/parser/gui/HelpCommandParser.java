@@ -2,6 +2,7 @@ package seedu.address.logic.parser.gui;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.cli.AddModuleCommand;
 import seedu.address.logic.commands.cli.BlockCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.DeleteModuleCommand;
@@ -23,8 +24,13 @@ import seedu.address.logic.commands.datamanagement.ViewAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewDefaultTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
+import seedu.address.logic.commands.gui.CollapseAllCommand;
+import seedu.address.logic.commands.gui.CollapseCommand;
+import seedu.address.logic.commands.gui.ExpandAllCommand;
+import seedu.address.logic.commands.gui.ExpandCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
+import seedu.address.logic.commands.storage.AddSemesterCommand;
 import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DefaultStudyPlanCommand;
@@ -36,6 +42,7 @@ import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
+import seedu.address.logic.commands.storage.ViewStudyPlanCommand;
 import seedu.address.logic.commands.verification.CheckCommand;
 import seedu.address.logic.commands.verification.ClearInvalidModsCommand;
 import seedu.address.logic.commands.verification.DescriptionCommand;
@@ -97,8 +104,16 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         case TagStudyPlanCommand.COMMAND_WORD:
         case RemoveTagFromStudyPlanCommand.COMMAND_WORD:
         case SortStudyPlansByPriorityTagCommand.COMMAND_WORD:
+        case AddSemesterCommand.COMMAND_WORD:
+        case ViewStudyPlanCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD:
         case ClearInvalidModsCommand.COMMAND_WORD:
+        case ExpandCommand.COMMAND_WORD:
+        case CollapseCommand.COMMAND_WORD:
+        case ExpandAllCommand.COMMAND_WORD:
+        case CollapseAllCommand.COMMAND_WORD:
             return new HelpCommand(commandName);
+
         default:
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));

@@ -17,7 +17,7 @@ import seedu.address.model.util.DefaultStudyPlanUtil;
 public class DefaultStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "default";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Creating a new recommended sample study plan";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new recommended sample study plan.";
     public static final String MESSAGE_SUCCESS = "New sample study plan added! [unique ID: %1$d]";
     public static final String MESSAGE_DUPLICATE_STUDY_PLAN = "This study plan already exists in the module planner";

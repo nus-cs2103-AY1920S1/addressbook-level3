@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.module.Module;
 
 /**
- * An UI component that displays information of a {@code Module}.
+ * An UI component that displays information of an expanded {@code Module}.
  */
 public class ModuleCard extends UiPart<Region> {
 

@@ -51,9 +51,9 @@ public class SemesterListPanel extends UiPart<Region> {
             } else if (semester.isBlocked()) {
                 setGraphic(new BlockedSemesterCard(semester).getRoot());
             } else if (semester.getSemesterName() == this.currentSem) {
-                setGraphic(new CurrentSemesterCard(semester).getRoot());
+                setGraphic(new SemesterCard(semester, true).getRoot());
             } else {
-                setGraphic(new SemesterCard(semester).getRoot());
+                setGraphic(new SemesterCard(semester, false).getRoot());
             }
         }
     }

@@ -19,7 +19,8 @@ import seedu.address.model.semester.Semester;
  */
 public class SemesterCard extends UiPart<Region> {
     private static final String FXML = "SemesterListCard.fxml";
-
+    private static final String CURRENT_SEM_CLASS = "currentSemester";
+    private static final String CURRENT_SEM_TEXT = "(Current Semester)";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -39,23 +40,50 @@ public class SemesterCard extends UiPart<Region> {
     @FXML
     private Label totalMcCount;
     @FXML
+    private Label currentSemester;
+    @FXML
     private FlowPane tags;
     @FXML
     private VBox moduleListPanelPlaceholder;
+    @FXML
+    private VBox moduleList;
+    @FXML
+    private FlowPane modulesCollapsedPlaceholder;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public SemesterCard(Semester semester) {
+    public SemesterCard(Semester semester, boolean isCurrentSemester) {
         super(FXML);
         requireNonNull(semester);
         this.semester = semester;
         name.setText(semester.getSemesterName().name());
         totalMcCount.setText("(" + semester.getMcCount() + ")");
+        currentSemester.setVisible(false);
 
-        semester.getModules().asUnmodifiableObservableList().stream()
-                .sorted(Comparator.comparing(module -> module.getModuleCode().toString()))
-                .forEach(module -> {
-                    ModuleCard moduleCard = new ModuleCard(module);
-                    moduleListPanelPlaceholder.getChildren().add(moduleCard.getRoot());
-                });
+        if (isCurrentSemester) {
+            semesterCardPane.getStyleClass().add(CURRENT_SEM_CLASS);
+            currentSemester.setVisible(true);
+            currentSemester.setText(CURRENT_SEM_TEXT);
+        }
+
+        if (semester.isExpanded()) {
+            modulesCollapsedPlaceholder.setVisible(false);
+            modulesCollapsedPlaceholder.setManaged(false);
+            semester.getModules().asUnmodifiableObservableList().stream()
+                    .sorted(Comparator.comparing(module -> module.getModuleCode().toString()))
+                    .forEach(module -> {
+                        ModuleCard moduleCard = new ModuleCard(module);
+                        moduleListPanelPlaceholder.getChildren().add(moduleCard.getRoot());
+                    });
+        } else {
+            moduleList.setVisible(false);
+            moduleList.setManaged(false);
+            semester.getModules().asUnmodifiableObservableList().stream()
+                    .sorted(Comparator.comparing(module -> module.getModuleCode().toString()))
+                    .forEach(module -> {
+                        ModulePill modulePill = new ModulePill(module);
+                        modulesCollapsedPlaceholder.getChildren().add(modulePill.getRoot());
+                    });
+        }
     }
 }

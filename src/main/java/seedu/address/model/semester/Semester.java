@@ -17,7 +17,7 @@ public class Semester implements Cloneable {
     private UniqueModuleList modules = new UniqueModuleList();
     private boolean isBlocked;
     private String reasonForBlocked;
-    private boolean isExpanded = false;
+    private boolean isExpanded = true;
 
     /**
      * SemesterName field must be present and not null.

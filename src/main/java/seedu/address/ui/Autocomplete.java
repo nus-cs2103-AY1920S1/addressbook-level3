@@ -29,16 +29,25 @@ import seedu.address.logic.commands.datamanagement.ViewAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewDefaultTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
+import seedu.address.logic.commands.gui.CollapseAllCommand;
+import seedu.address.logic.commands.gui.CollapseCommand;
+import seedu.address.logic.commands.gui.ExpandAllCommand;
+import seedu.address.logic.commands.gui.ExpandCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
+import seedu.address.logic.commands.storage.AddSemesterCommand;
 import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
+import seedu.address.logic.commands.storage.DefaultStudyPlanCommand;
 import seedu.address.logic.commands.storage.DeleteCommitCommand;
+import seedu.address.logic.commands.storage.DeleteSemesterCommand;
 import seedu.address.logic.commands.storage.DeleteStudyPlanCommand;
 import seedu.address.logic.commands.storage.EditTitleCommand;
 import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
+import seedu.address.logic.commands.storage.ViewCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
+import seedu.address.logic.commands.storage.ViewStudyPlanCommand;
 import seedu.address.logic.commands.verification.CheckCommand;
 import seedu.address.logic.commands.verification.ClearInvalidModsCommand;
 import seedu.address.logic.commands.verification.DescriptionCommand;
@@ -182,6 +191,15 @@ public class Autocomplete extends TextField {
         commandKeywords.add(DescriptionCommand.COMMAND_WORD);
         commandKeywords.add(CheckCommand.COMMAND_WORD);
         commandKeywords.add(ClearInvalidModsCommand.COMMAND_WORD);
+        commandKeywords.add(DeleteSemesterCommand.COMMAND_WORD);
+        commandKeywords.add(AddSemesterCommand.COMMAND_WORD);
+        commandKeywords.add(ViewCommitCommand.COMMAND_WORD);
+        commandKeywords.add(ViewStudyPlanCommand.COMMAND_WORD);
+        commandKeywords.add(DefaultStudyPlanCommand.COMMAND_WORD);
+        commandKeywords.add(CollapseCommand.COMMAND_WORD);
+        commandKeywords.add(ExpandCommand.COMMAND_WORD);
+        commandKeywords.add(CollapseAllCommand.COMMAND_WORD);
+        commandKeywords.add(ExpandAllCommand.COMMAND_WORD);
     }
 
     /**

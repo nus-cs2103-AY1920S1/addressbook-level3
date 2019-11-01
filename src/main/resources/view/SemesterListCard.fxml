@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
 <HBox id="semesterCardPane" fx:id="semesterCardPane" xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
@@ -14,11 +15,12 @@
         </columnConstraints>
         <VBox alignment="CENTER_LEFT" minHeight="15" GridPane.columnIndex="0">
             <padding>
-                <Insets top="5" right="5" bottom="5" left="5"/>
+                <Insets top="4" right="5" bottom="5" left="5"/>
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="name" text="\$first" styleClass="cell_small_label"/>
                 <Label fx:id="totalMcCount" styleClass="cell_big_label" text="\$totalMcCount"/>
+                <Label fx:id="currentSemester" styleClass="cell_big_label" text="\$currentSemester"/>
             </HBox>
             <VBox fx:id="moduleList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
                 <padding>
@@ -26,6 +28,7 @@
                 </padding>
                 <VBox fx:id="moduleListPanelPlaceholder" spacing="5" VBox.vgrow="ALWAYS"/>
             </VBox>
+            <FlowPane fx:id="modulesCollapsedPlaceholder"/>
         </VBox>
     </GridPane>
 </HBox>
