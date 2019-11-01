@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;
@@ -18,16 +17,8 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private BankAccountStorage bankAccountStorage;
     private UserStateStorage userStateStorage;
     private UserPrefsStorage userPrefsStorage;
-
-
-    // public StorageManager(BankAccountStorage bankAccountStorage, UserPrefsStorage userPrefsStorage) {
-    //     super();
-    //     this.bankAccountStorage = bankAccountStorage;
-    //     this.userPrefsStorage = userPrefsStorage;
-    // }
 
     public StorageManager(UserStateStorage userStateStorage, UserPrefsStorage userPrefsStorage) {
         super();
@@ -71,10 +62,12 @@ public class StorageManager implements Storage {
         return userStateStorage.readUserState(filePath);
     }
 
+    @Override
     public void saveUserState(ReadOnlyUserState userState) throws IOException {
         saveUserState(userState, userStateStorage.getUserStateFilePath());
     }
 
+    @Override
     public void saveUserState(ReadOnlyUserState userState, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         userStateStorage.saveUserState(userState, filePath);

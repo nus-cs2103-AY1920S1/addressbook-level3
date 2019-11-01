@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.BankAccount;
-import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserState;
 import seedu.address.model.category.Category;

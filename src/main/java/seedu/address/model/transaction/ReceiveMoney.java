@@ -30,6 +30,12 @@ public class ReceiveMoney extends Payment {
     }
 
     @Override
+    public boolean isSameLedgerOperation(LedgerOperation ledgerOperation) {
+        // TODO FIX
+        return false;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

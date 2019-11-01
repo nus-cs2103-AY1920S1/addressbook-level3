@@ -1,27 +1,28 @@
 package seedu.address.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Iterator;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 
-import java.util.Iterator;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 /**
- * A list of transactions that enforces uniqueness between its elements and does not allow nulls.
- * A transaction is considered unique by comparing using {@code Transaction#isSameTransaction(Transaction)}.
- * As such, adding and updating of transactions uses Transaction#isSameTransaction(Transaction) for equality so as
- * to ensure that the transaction being added or updated is unique in terms of identity in the UniqueTransactionList.
- * However, the removal of a Transaction uses Transaction#equals(Object) so
- * as to ensure that the transaction with exactly the same fields will be removed.
+ * A list of ledger operations that enforces uniqueness between its elements and does not allow nulls.
+ * A ledger operation is considered unique by comparing using
+ * {@code LedgerOperation#isSameLedgerOperation(LedgerOperation)}.
+ * As such, adding and updating of ledger operations uses LedgerOperation#isSameLedgerOperation(LedgerOperation)
+ * for equality so as to ensure that the ledger operation being added or updated is unique in terms of identity in the
+ * UniqueLedgerOperationList. However, the removal of a LedgerOperation uses LedgerOperation#equals(Object) so
+ * as to ensure that the ledger operation with exactly the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see Transaction#isSameTransaction(BankAccountOperation)
+ * @see LedgerOperation#isSameLedgerOperation(LedgerOperation)
  */
 public class UniqueLedgerOperationList implements Iterable<LedgerOperation> {
 
@@ -30,7 +31,7 @@ public class UniqueLedgerOperationList implements Iterable<LedgerOperation> {
         FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent transaction as the given argument.
+     * Returns true if the list contains an equivalent ledger operations as the given argument.
      */
     public boolean contains(LedgerOperation toCheck) {
         requireNonNull(toCheck);
@@ -38,10 +39,8 @@ public class UniqueLedgerOperationList implements Iterable<LedgerOperation> {
     }
 
     /**
-     * Adds a transaction to the list.
-     * The transaction must not already exist in the list.
-     *
-     * @param toAdd
+     * Adds a ledger operation to the list.
+     * The ledger operation must not already exist in the list.
      */
     public void add(LedgerOperation toAdd) {
         requireNonNull(toAdd);
@@ -52,29 +51,29 @@ public class UniqueLedgerOperationList implements Iterable<LedgerOperation> {
     }
 
     /**
-     * Replaces the transaction {@code target} in the list with {@code editedTransaction}.
-     * {@code target} must exist in the list.
-     * The transaction identity of {@code editedTransaction} must not be the same as
-     * another existing transaction in the list.
+     * Replaces the ledger operation {@code ledgerOperationTarget} in the list with {@code ledgerOperationEdit}.
+     * {@code ledgerOperationTarget} must exist in the list.
+     * The ledger operation identity of {@code ledgerOperationEdit} must not be the same as
+     * another existing ledger operation in the list.
      */
-    public void setTransaction(LedgerOperation transactionTarget, LedgerOperation transactionEdit) {
-        requireAllNonNull(transactionTarget, transactionEdit);
+    public void setTransaction(LedgerOperation ledgerOperationTarget, LedgerOperation ledgerOperationEdit) {
+        requireAllNonNull(ledgerOperationTarget, ledgerOperationEdit);
 
-        int index = internalList.indexOf(transactionTarget);
+        int index = internalList.indexOf(ledgerOperationTarget);
         if (index == -1) {
             throw new TransactionNotFoundException();
         }
 
-        if (!transactionTarget.equals(transactionEdit) && contains(transactionEdit)) {
+        if (!ledgerOperationTarget.equals(ledgerOperationEdit) && contains(ledgerOperationEdit)) {
             throw new DuplicateTransactionException();
         }
 
-        internalList.set(index, transactionEdit);
+        internalList.set(index, ledgerOperationEdit);
     }
 
     /**
-     * Removes the equivalent transaction from the list.
-     * The transaction must exist in the list.
+     * Removes the equivalent ledger operation from the list.
+     * The ledger operation must exist in the list.
      */
     public void remove(LedgerOperation toRemove) {
         requireNonNull(toRemove);
@@ -84,26 +83,24 @@ public class UniqueLedgerOperationList implements Iterable<LedgerOperation> {
     }
 
     /**
-     * Replaces the contents of this list with {@code transactions}.
-     * {@code transaction} must not contain duplicate transactions.
+     * Replaces the contents of this list with {@code ledgerOperations}.
+     * {@code internalList} must not contain duplicate ledgerOperations.
      */
-    public void setTransactions(List<LedgerOperation> transactions) {
-        requireAllNonNull(transactions);
-        if (!transactionsAreUnique(transactions)) {
+    public void setLedgerOperations(List<LedgerOperation> ledgerOperations) {
+        requireAllNonNull(ledgerOperations);
+        if (!ledgerOperationsAreUnique(ledgerOperations)) {
             throw new DuplicateTransactionException();
         }
 
-        internalList.setAll(transactions);
+        internalList.setAll(ledgerOperations);
     }
 
-    public void setTransactions(UniqueLedgerOperationList transactions) {
-        setTransactions(transactions.internalList);
+    public void setLedgerOperations(UniqueLedgerOperationList ledgerOperations) {
+        setLedgerOperations(ledgerOperations.internalList);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
-     *
-     * @return
      */
     public ObservableList<LedgerOperation> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
@@ -127,14 +124,12 @@ public class UniqueLedgerOperationList implements Iterable<LedgerOperation> {
     }
 
     /**
-     * Returns true if {@code transactions} contains only unique transactions.
-     *
-     * @param transactions
+     * Returns true if {@code ledgerOperations} contains only unique ledgerOperations.
      */
-    private boolean transactionsAreUnique(List<LedgerOperation> transactions) {
-        for (int i = 0; i < transactions.size() - 1; i++) {
-            for (int j = i + 1; j < transactions.size(); j++) {
-                if (transactions.get(i).equals(transactions.get(j))) {
+    private boolean ledgerOperationsAreUnique(List<LedgerOperation> ledgerOperations) {
+        for (int i = 0; i < ledgerOperations.size() - 1; i++) {
+            for (int j = i + 1; j < ledgerOperations.size(); j++) {
+                if (ledgerOperations.get(i).equals(ledgerOperations.get(j))) {
                     return false;
                 }
             }

@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;

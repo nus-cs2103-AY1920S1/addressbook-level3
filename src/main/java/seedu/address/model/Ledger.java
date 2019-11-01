@@ -1,17 +1,15 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
-import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.LedgerOperation;
-import seedu.address.model.transaction.Split;
 import seedu.address.model.transaction.UniqueLedgerOperationList;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Separate field in BankAccount to store transactions related to split
@@ -37,7 +35,7 @@ public class Ledger implements ReadOnlyLedger {
 
     private void setLedgerHistory(ReadOnlyLedger ledger) {
         requireNonNull(ledger.getLedgerHistory());
-        this.ledgerHistory.setTransactions(ledger.getLedgerHistory());
+        this.ledgerHistory.setLedgerOperations(ledger.getLedgerHistory());
     }
 
     private void setPersonList(ReadOnlyLedger ledger) {

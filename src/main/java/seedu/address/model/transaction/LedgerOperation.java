@@ -10,7 +10,7 @@ public interface LedgerOperation {
     Amount handleBalance(Amount balance, UniquePersonList peopleInLedger);
 
     // TODO
-    boolean isSameTransaction(BankAccountOperation transaction);
+    boolean isSameLedgerOperation(LedgerOperation ledgerOperation);
 
     Date getDate();
 

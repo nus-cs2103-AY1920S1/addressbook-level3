@@ -17,24 +17,24 @@ public class SplitCommand extends Command {
     public static final String COMMAND_WORD = "split";
     public static final String MESSAGE_SUCCESS = "Split successful";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Splits an expenditure between people and add that transaction to the bank account.\n"
-            + "Parameters: "
-            + PREFIX_AMOUNT + "AMOUNT "
-            + "[" + PREFIX_NAME + "NAME]...\n"
-            + "[" + PREFIX_SHARE + "SHARE]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_AMOUNT + "600"
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_NAME + "John Soe"
-            + PREFIX_NAME + "John Moe "
-            + PREFIX_SHARE + "1"
-            + PREFIX_SHARE + "2"
-            + PREFIX_SHARE + "3"
-            + "If number of shares is one more than number of names listed, "
-            + "first share is taken to be user's share of the expenditure";
-    public static final String SHARES_FORMAT = "If number of shares is equal to number of names given," +
-            "user is assumed to be excluded from the expenditure.\n" +
-            "Else, first share is taken to be the user's share.";
+        + ": Splits an expenditure between people and add that transaction to the bank account.\n"
+        + "Parameters: "
+        + PREFIX_AMOUNT + "AMOUNT "
+        + "[" + PREFIX_NAME + "NAME]...\n"
+        + "[" + PREFIX_SHARE + "SHARE]...\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_AMOUNT + "600"
+        + PREFIX_NAME + "John Doe "
+        + PREFIX_NAME + "John Soe"
+        + PREFIX_NAME + "John Moe "
+        + PREFIX_SHARE + "1"
+        + PREFIX_SHARE + "2"
+        + PREFIX_SHARE + "3"
+        + "If number of shares is one more than number of names listed, "
+        + "first share is taken to be user's share of the expenditure";
+    public static final String SHARES_FORMAT = "If number of shares is equal to number of names given,"
+        + "user is assumed to be excluded from the expenditure.\n"
+        + "Else, first share is taken to be the user's share.";
 
     private final Split transaction;
 

@@ -59,6 +59,11 @@ class JsonSerializableUserState {
                 .collect(Collectors.toList()));
     }
 
+    /**
+     * Converts this user state into the model's {@code UserState} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated.
+     */
     public UserState toModelType() throws IllegalValueException {
         UserState userState = new UserState();
         for (JsonAdaptedBankOperations jsonAdaptedBankOperations : transactions) {

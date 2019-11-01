@@ -25,7 +25,6 @@ class JsonSerializableBankAccount {
 
     private final List<JsonAdaptedBankOperations> transactions = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
-//    private final List<JsonAdaptedLedgerOperations> ledgerOperations = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBankAccount} with the given transactions.

@@ -28,7 +28,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
             return new ViewCommand(Tab.TRANSACTION);
         } else if (trimmedArgs.equals("budget")) {
             return new ViewCommand(Tab.BUDGET);
-        } else if (trimmedArgs.equals("ledger")){
+        } else if (trimmedArgs.equals("ledger")) {
             return new ViewCommand(Tab.LEDGER);
         } else {
             throw new ParseException(

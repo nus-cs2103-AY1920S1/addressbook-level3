@@ -1,14 +1,17 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
+
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * User state of the user.
+ */
 public class UserState implements ReadOnlyUserState {
     private BankAccount bankAccount;
     private Ledger ledger;
@@ -28,12 +31,15 @@ public class UserState implements ReadOnlyUserState {
         resetData(initialState.getBankAccount(), initialState.getLedger());
     }
 
-    public void resetData(ReadOnlyBankAccount bankAccount, ReadOnlyLedger ledger) {
+    private void resetData(ReadOnlyBankAccount bankAccount, ReadOnlyLedger ledger) {
         requireAllNonNull(bankAccount, ledger);
         this.bankAccount.resetData(bankAccount);
         this.ledger.resetData(ledger);
     }
 
+    /**
+     * Resets the existing data of this {@code UserState} with {@code userState}.
+     */
     public void resetData(ReadOnlyUserState userState) {
         requireNonNull(userState);
         resetData(userState.getBankAccount(), userState.getLedger());

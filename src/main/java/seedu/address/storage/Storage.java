@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;

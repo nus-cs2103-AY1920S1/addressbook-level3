@@ -1,20 +1,12 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Ledger;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.ReceiveMoney;
-import seedu.address.model.transaction.Split;
 import seedu.address.model.util.Date;
 
 /**
@@ -39,6 +31,11 @@ public class JsonAdaptedLedgerOperations {
         amount = source.getAmount().toString();
     }
 
+    /**
+     * Converts this Jackson-friendly adapted ledger object into the model's {@code Ledger} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted ledger.
+     */
     public LedgerOperation toModelType() throws IllegalValueException {
 
         if (date == null) {
@@ -60,6 +57,7 @@ public class JsonAdaptedLedgerOperations {
 
         final Amount modelAmount = new Amount(Double.parseDouble(amount));
 
+        // TODO
         return new ReceiveMoney(modelDate, modelAmount);
     }
 }

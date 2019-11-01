@@ -1,15 +1,10 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.LedgerOperation;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code BankAccount} that keeps track of its own history.
+ * {@code UserState} that keeps track of its own history.
  */
 public class VersionedUserState extends UserState {
 
@@ -25,7 +20,7 @@ public class VersionedUserState extends UserState {
     }
 
     /**
-     * Saves a copy of the current {@code BankAccount} state at the end of the state list.
+     * Saves a copy of the current {@code UserState} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {
@@ -39,7 +34,7 @@ public class VersionedUserState extends UserState {
     }
 
     /**
-     * Restores the bank account to its previous state.
+     * Restores the user state to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -50,7 +45,7 @@ public class VersionedUserState extends UserState {
     }
 
     /**
-     * Restores the bank account to its previously undone state.
+     * Restores the user state to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
@@ -61,14 +56,14 @@ public class VersionedUserState extends UserState {
     }
 
     /**
-     * Returns true if {@code undo()} has bank account states to undo.
+     * Returns true if {@code undo()} has user state states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has bank account states to redo.
+     * Returns true if {@code redo()} has user state states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < userStateList.size() - 1;

@@ -23,6 +23,12 @@ public class LendMoney extends Payment {
         return balance.subtractAmount(amount);
     }
 
+    @Override
+    public boolean isSameLedgerOperation(LedgerOperation ledgerOperation) {
+        // TODO FIX
+        return false;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -31,8 +37,8 @@ public class LendMoney extends Payment {
         } else if (obj instanceof LendMoney) {
             LendMoney payment = (LendMoney) obj;
             return this.amount.equals(payment.amount)
-                    && this.date.equals(payment.date)
-                    && this.person.equals(payment.person);
+                && this.date.equals(payment.date)
+                && this.person.equals(payment.person);
         } else {
             return false;
         }
