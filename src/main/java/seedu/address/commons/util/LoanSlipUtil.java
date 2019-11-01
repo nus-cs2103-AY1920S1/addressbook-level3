@@ -167,7 +167,7 @@ public class LoanSlipUtil {
      */
     private static void generateLiberryLoanSlip(LoanSlipDocument doc) {
         assert isMounted : "No loan slip mounted";
-        //writeLogoToDoc(doc);
+        writeLogoToDoc(doc);
         writeHeaderToDoc(doc);
         populateTableInDoc(doc);
         addTableToDocument(doc);
@@ -180,12 +180,10 @@ public class LoanSlipUtil {
      *
      * @param doc {@code LoanSlipDocument} to be written to.
      */
-    /*
     private static void writeLogoToDoc(LoanSlipDocument doc) {
         doc.writeLogo();
         doc.writeLine();
     }
-    */
 
     /**
      * Helper method to write the header section of the document.
