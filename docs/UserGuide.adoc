@@ -76,7 +76,7 @@ IMPORTANT: All timings are based on the system's clock.
 
 ==== Searches patient by arguments: `patient` ====
 
-Filters patients whose reference ids, names or phone numbers contains the given keyword. +
+Filters patients whose reference ids, names or phone number contains the given keyword. +
 If no search keyword is provided, all registered patients will be displayed. +
 
 Format: `patient [<SEARCH_KEYWORD>]`
@@ -91,8 +91,10 @@ Format:  `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHON
 ==== Updates patients’ profiles: `edit` ====
 
 Updates the particulars of a patients +
+
 NOTE: Must be in the patient listing screen for this command to be accepted. +
-IMPORTANT: Editing tags will overwrite all existing tags+
+
+IMPORTANT: Editing tags will overwrite all existing tags. +
 
 Format: `edit <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
@@ -100,12 +102,12 @@ Format: `edit <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PH
 
 === Staff Personal Management ===
 
-==== Views doctors: `doctors` ====
+====  Searches staff doctor by arguments: `doctor` ====
 
-Finds staff doctors whose reference ids, names or phone numbers contains the given keyword. +
+Filters staff doctor whose reference ids, names or phone number contains the given keyword. +
 If no search keyword is provided, all registered doctors will be displayed. +
 
-Format: `doctors [<SEARCH_KEYWORD>]`
+Format: `doctor [<SEARCH_KEYWORD>]`
 
 ==== Registers a new doctor: `newdoctor` ====
 
@@ -118,6 +120,10 @@ Format: `newdoctor -id <STAFF_REFERENCE_ID> -name <NAME> [-phone <PHONE_NUM>]
 ==== Updates a doctor's profile: `updatedoctor` ====
 
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
+
+NOTE: Must be in the staff listing screen for this command to be accepted. +
+
+IMPORTANT: Editing tags will overwrite all existing tags. +
 
 Format: `updatedoctor <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
 [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
