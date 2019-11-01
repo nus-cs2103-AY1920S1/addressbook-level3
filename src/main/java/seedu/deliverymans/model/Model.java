@@ -150,17 +150,6 @@ public interface Model {
     /** Redoes an action */
     String redo();
 
-    //=========== Universal methods =============================================================
-
-    /**
-     * Sets current context of the system.
-     *
-     * @param context current context
-     */
-    void setContext(Context context);
-
-    Context getContext();
-
     //=========== Customer methods =============================================================
 
     /**

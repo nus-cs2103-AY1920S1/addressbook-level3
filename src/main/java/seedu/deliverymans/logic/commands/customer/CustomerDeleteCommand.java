@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -33,7 +34,7 @@ public class CustomerDeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
         List<Customer> lastShownList = model.getFilteredCustomerList();
 

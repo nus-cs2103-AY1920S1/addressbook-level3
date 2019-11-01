@@ -13,6 +13,7 @@ import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.util.CollectionUtil;
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -59,7 +60,7 @@ public class EditDetailsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
 
         Restaurant restaurantToEdit = model.getEditingRestaurantList().get(0);
