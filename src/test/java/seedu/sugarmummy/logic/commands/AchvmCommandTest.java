@@ -20,6 +20,13 @@ class AchvmCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
 
+    private final String encouragementMessage = userHasNoAchievements()
+            ? SHOWING_ENCOURAGEMENT_WITHOUT_ACHIEVEMENTS
+            : SHOWING_ENCOURAGEMENT_WITH_ACHIEVEMENTS;
+
+    /**
+     * Returns whether or not a user has achievements.
+     */
     private boolean userHasNoAchievements() {
         Map<RecordType, List<Achievement>> achievementsMap = model.getAchievementsMap();
         for (RecordType recordType : achievementsMap.keySet()) {
@@ -33,14 +40,10 @@ class AchvmCommandTest {
         return true;
     }
 
-    private final String ENCOURAGEMENT_MESSAGE = userHasNoAchievements()
-            ? SHOWING_ENCOURAGEMENT_WITHOUT_ACHIEVEMENTS
-            : SHOWING_ENCOURAGEMENT_WITH_ACHIEVEMENTS;
-
     @Test
     public void execute_achvm_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_ACHVM_MESSAGE + " "
-                + ENCOURAGEMENT_MESSAGE, false, false,
+                + encouragementMessage, false, false,
                 true, false);
         assertCommandSuccess(new AchvmCommand(), model, expectedCommandResult, expectedModel);
     }
