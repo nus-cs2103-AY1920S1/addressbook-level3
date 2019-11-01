@@ -194,7 +194,14 @@ A sample output of the Schedule UI is shown below:
 
 image::Ui/Schedule.png[width="500", align="left"]
 
-==== Viewing details of interviewees
+For v1.3, the format of the table is as follows.
+For the columns in the table, the first cell on the left will display the date of the schedule. It will be followed by the
+different departments of the interviewer. The rows display the time slots of availability of the interviewer. "0" represents
+that interviewer is unavailable and "1" represents that the interviewer is available.
+
+image::Ui/InterviewerSchedule.png[width="500", align="left"]
+
+==== Viewing details of interviewees [Coming soon in v1.4]
 You can to view the list of interviewees and the following information:
 1. Name
 2. NUS Email

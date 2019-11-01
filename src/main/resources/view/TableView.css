@@ -1,0 +1,44 @@
+//Style of entire tableView
+.table-view {
+    /*-fx-background-color: transparent;*/
+ }
+
+ //Style of entire tableView when is getting focused
+.table-view:focused {
+    /*-fx-background-color: transparent;*/
+}
+
+
+//Style of each column header in the tableView
+.table-view .column-header {
+     -fx-background-color: transparent;
+}
+
+//Style of each column header's background in the tableView
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#131313 0.0%, #424141 100.0%);
+}
+
+ //Style of each column header's label in the tableView
+.table-view .column-header-background .label {
+    -fx-background-color: transparent;
+    -fx-font-weight:bold;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}
+
+//Style of each column in the tableView
+.table-view .table-column {
+    -fx-alignment:left;
+}
+
+ //Style of each table cell
+.table-view .table-cell {
+    -fx-font-weight:bold;
+    -fx-font-size:15px;
+}
+
+//Style of each entire row in the table view when is hovered
+.table-row-cell:hover {
+    -fx-background-color:rgb(255, 179, 37);
+}

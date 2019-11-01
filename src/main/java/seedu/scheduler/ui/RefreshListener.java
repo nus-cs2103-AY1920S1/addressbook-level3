@@ -9,5 +9,4 @@ public interface RefreshListener {
      * Refresh the Ui when data is imported from .csv file.
      */
     void scheduleDataUpdated();
-
 }

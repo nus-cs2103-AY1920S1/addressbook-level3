@@ -42,7 +42,4 @@ public class IntervieweeViewPanel extends UiPart<Region> {
             }
         }
     }
-
-
-
 }
