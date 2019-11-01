@@ -8,12 +8,15 @@ import seedu.deliverymans.logic.commands.customer.CustomerEditCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerHistoryCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerListCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerSortCommand;
-
+import seedu.deliverymans.logic.commands.deliveryman.AddCommand;
 import seedu.deliverymans.logic.commands.deliveryman.AssignCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeleteCommand;
+import seedu.deliverymans.logic.commands.deliveryman.EditCommand;
+import seedu.deliverymans.logic.commands.deliveryman.EnterRecordCommand;
+import seedu.deliverymans.logic.commands.deliveryman.GetStatisticsCommand;
 import seedu.deliverymans.logic.commands.deliveryman.ListAvailCommand;
 import seedu.deliverymans.logic.commands.deliveryman.ListStatusCommand;
 import seedu.deliverymans.logic.commands.deliveryman.StatusSwitchCommand;
-
 import seedu.deliverymans.logic.commands.restaurant.AddFoodCommand;
 import seedu.deliverymans.logic.commands.restaurant.AddRatingCommand;
 import seedu.deliverymans.logic.commands.restaurant.AddRestaurantCommand;
@@ -42,10 +45,10 @@ public class TrieManager {
     private final Trie restaurantTrie;
 
     public TrieManager() {
-        universalTrie = new Trie("");
-        customerTrie = new Trie("");
-        deliverymanTrie = new Trie("");
-        restaurantTrie = new Trie("");
+        universalTrie = new Trie();
+        customerTrie = new Trie();
+        deliverymanTrie = new Trie();
+        restaurantTrie = new Trie();
         addUniversalCommands();
         addCustomerCommands();
         addDeliverymanCommands();
@@ -68,7 +71,12 @@ public class TrieManager {
      * TO fill
      */
     private void addDeliverymanCommands() {
+        deliverymanTrie.insert(AddCommand.COMMAND_WORD);
         deliverymanTrie.insert(AssignCommand.COMMAND_WORD);
+        deliverymanTrie.insert(DeleteCommand.COMMAND_WORD);
+        deliverymanTrie.insert(EditCommand.COMMAND_WORD);
+        deliverymanTrie.insert(EnterRecordCommand.COMMAND_WORD);
+        deliverymanTrie.insert(GetStatisticsCommand.COMMAND_WORD);
         deliverymanTrie.insert(ListAvailCommand.COMMAND_WORD);
         deliverymanTrie.insert(ListStatusCommand.COMMAND_WORD);
         deliverymanTrie.insert(StatusSwitchCommand.COMMAND_WORD);

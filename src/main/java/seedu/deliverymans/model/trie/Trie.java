@@ -1,6 +1,7 @@
 package seedu.deliverymans.model.trie;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -9,27 +10,39 @@ import java.util.Map;
  */
 public class Trie {
     private final HashMap<Character, Trie> children;
-    private String content;
+    private final LinkedList<String> content = new LinkedList<>();
 
-    Trie(String content) {
-        this.content = content;
+    Trie() {
         children = new HashMap<>();
+    }
+
+    void insert(String key) {
+        insert(key, key);
     }
 
     /**
      * Inserts a {@code String} into the Trie.
      */
-    void insert(String key) {
-        Trie curr = this;
-        for (char c : key.toLowerCase().toCharArray()) {
-            if (!curr.children.containsKey(c)) {
-                Trie temp = new Trie(curr.content + c);
-                curr.children.put(c, temp);
-                curr = temp;
-            } else {
-                curr = curr.children.get(c);
+    private void insert(String key, String command) {
+        if (key.length() == 1) {
+            char c = key.charAt(0);
+            if (!children.containsKey(c)) {
+                children.put(c, new Trie());
             }
+            children.get(c).addContent(command);
+        } else if (key.length() > 1) {
+            char first = key.charAt(0);
+            if (!children.containsKey(first)) {
+                children.put(first, new Trie());
+            }
+            String keySubstring = key.substring(1);
+            children.get(first).insert(keySubstring, command);
+            insert(keySubstring, command);
         }
+    }
+
+    private void addContent(String content) {
+        this.content.addLast(content);
     }
 
     /**
@@ -49,8 +62,8 @@ public class Trie {
     /**
      * Tofill.
      */
-    public LinkedList<String> autoComplete(String prefix) {
-        Trie result = search(prefix);
+    public LinkedList<String> autoComplete(String prefixSuffix) {
+        Trie result = search(prefixSuffix);
         if (result == null) {
             return new LinkedList<>();
         }
@@ -62,14 +75,17 @@ public class Trie {
      */
     private LinkedList<String> allPrefixes() {
         LinkedList<String> contentList = new LinkedList<>();
+        HashSet<String> uniqueList = new HashSet<>();
         if (children.isEmpty()) {
-            contentList.add(this.content);
+            uniqueList.addAll(this.content);
         }
         for (Map.Entry<Character, Trie> entry : children.entrySet()) {
             Trie child = entry.getValue();
             LinkedList<String> childPrefixes = child.allPrefixes();
-            contentList.addAll(childPrefixes);
+            uniqueList.addAll(childPrefixes);
         }
+        contentList.addAll(uniqueList);
+        contentList.sort(String::compareToIgnoreCase);
         return contentList;
     }
 }
