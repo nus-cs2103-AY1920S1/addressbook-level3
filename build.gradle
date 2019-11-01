@@ -75,7 +75,7 @@ dependencies {
 
     testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
     testCompile "org.testfx:testfx-core:4.0.16-alpha"
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+    testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 
     testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
@@ -110,6 +110,22 @@ coveralls {
 tasks.coveralls {
     dependsOn coverage
     onlyIf { System.env.'CI' }
+}
+
+task headless {
+    doLast {
+        println 'Setting headless mode properties.'
+        test {
+            systemProperties = [
+                    'java.awt.headless': 'true',
+                    'testfx.robot': 'glass',
+                    'testfx.headless': 'true',
+                    'prism.order': 'sw',
+                    'prism.text': 't2k',
+                    'headless.geometry': '1600x1200-32'
+            ]
+        }
+    }
 }
 
 test {

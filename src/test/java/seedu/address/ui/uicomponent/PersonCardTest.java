@@ -1,25 +1,45 @@
 package seedu.address.ui.uicomponent;
 
-//import static org.testfx.api.FxAssert.verifyThat;
-//import static org.testfx.util.NodeQueryUtils.hasText;
+import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.util.NodeQueryUtils.hasText;
 
-//import org.junit.jupiter.api.Test;
-import org.testfx.framework.junit5.ApplicationTest;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
+import org.testfx.framework.junit5.ApplicationExtension;
+
+import org.testfx.framework.junit5.Start;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.testfx.framework.junit5.Stop;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.PersonCard;
 
-public class PersonCardTest extends ApplicationTest {
+import java.util.concurrent.TimeoutException;
+
+@ExtendWith(ApplicationExtension.class)
+public class PersonCardTest {
     private static final String NAME_ID = "#name";
     private static final String INITIALS_ID = "#personId .label";
     private Person alice = TypicalPersons.ALICE;
 
-    @Override
+    @AfterEach
+    public void pause(FxRobot robot) {
+        robot.sleep(500);
+    }
+
+    @Stop
+    void tearDown() throws TimeoutException {
+        FxToolkit.cleanupStages();
+    }
+
+    @Start
     public void start(Stage stage) {
         Parent sceneRoot = new PersonCard(new PersonDisplay(alice)).getRoot();
         Scene scene = new Scene(sceneRoot);
@@ -28,7 +48,6 @@ public class PersonCardTest extends ApplicationTest {
         stage.show();
     }
 
-    /* Ignore test cases for now because travis has not been set up for TestFX.
     @Test
     public void nameIsDisplayedCorrectly() {
         verifyThat(NAME_ID, hasText(alice.getName().fullName));
@@ -38,5 +57,4 @@ public class PersonCardTest extends ApplicationTest {
     public void initialsDisplayedCorrectly() {
         verifyThat(INITIALS_ID, hasText(PersonCard.getPersonInitials(alice.getName().fullName)));
     }
-     */
 }
