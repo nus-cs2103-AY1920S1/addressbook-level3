@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -647,7 +646,6 @@ public class ModelManager implements Model {
 
         }
 
-
         ArrayList<Integer> toDeleteIndexList = new ArrayList<>();
         archivedOrders = archivedOrderBook.getList();
 
@@ -662,11 +660,12 @@ public class ModelManager implements Model {
 
                 for (int j = archivedOrders.size() - 1; j >= 0; j--) {
                     Order otherOrder = archivedOrders.get(j);
-                    if (i != j && otherOrder.getStatus().equals(Status.COMPLETED) && o.getPhone().isSameAs(otherOrder.getPhone())) {
+                    if (i != j
+                            && otherOrder.getStatus().equals(Status.COMPLETED)
+                            && o.getPhone().isSameAs(otherOrder.getPhone())) {
                         hasDuplicatePhone = true;
                         break;
                     }
-
                 }
 
                 if (hasDuplicatePhone) {
