@@ -41,7 +41,7 @@
                 </StackPane>
 
                 <HBox VBox.vgrow="never" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                      minHeight="100" prefHeight="100" maxHeight="Infinity" alignment="TOP_LEFT">
+                      minHeight="100" maxHeight="100" alignment="TOP_LEFT">
                     <padding>
                         <Insets top="5" right="10" bottom="5" left="10" />
                     </padding>
