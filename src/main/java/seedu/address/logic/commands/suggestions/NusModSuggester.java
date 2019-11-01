@@ -7,10 +7,16 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.parser.ArgumentList;
 import seedu.address.logic.parser.CliSyntax;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.Semester;
 import seedu.address.model.module.SemesterNo;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
 /**
  * Abstract Suggester class that simplifies the handling and supplying of suggestions from NUSMods module data.
@@ -38,13 +44,21 @@ abstract class NusModSuggester extends Suggester {
      * @return Returns a {@link Module} if there is one that matches the {@code moduleCode}.
      */
     protected static Optional<Module> findModuleByCode(final Model model, final String moduleCode) {
-        return model
-                .getModuleList()
-                .asUnmodifiableObservableList()
-                .stream()
-                .filter(module -> {
-                    return module.getModuleCode().toString().equals(moduleCode);
-                }).findFirst();
+        final ModuleCode moduleCodeObj;
+        try {
+            moduleCodeObj = ParserUtil.parseModuleCode(moduleCode);
+        } catch (ParseException e) {
+            return Optional.empty();
+        }
+
+        final AcadYear acadYear = model.getAcadYear();
+        final ModuleId moduleId = new ModuleId(acadYear, moduleCodeObj);
+
+        try {
+            return Optional.of(model.getModuleList().findModule(moduleId));
+        } catch (ModuleNotFoundException mnfe) {
+            return Optional.empty();
+        }
     }
 
     /**
