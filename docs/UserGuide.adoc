@@ -287,10 +287,8 @@ Examples:
 * `viewStatistics p/2019-09`
 * `viewStatistics p/2000-09,2019-09`
 
-
 ==== Sorting : `sort`
-
-Sorts the aforementioned list currently displayed according to SortType which can be `amount`, `time`, `description`,
+Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
 `tags` and `category`,
 and SortSequence which can be in `ascending`, `descending` order.
 
@@ -603,14 +601,12 @@ Examples:
 
 * `findWish mala`
 
-==== Purchase WishList : `purchase`
-* To be implemented
+==== Purchase WishList : `purchase` [coming in v2.0]
 Purchases the item at the stated index from your current wishlist
 
 Format: `purchase <index>`
 
-Examples: `purchase 1`
-
+Example: `purchase 1`
 
 === Undo/Redo
 ==== Undo previous command : `undo`
