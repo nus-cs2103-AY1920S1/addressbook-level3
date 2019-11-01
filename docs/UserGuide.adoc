@@ -315,8 +315,6 @@ If you have chosen *Choice 2*, you can use the newly created shortcut as a subst
 
 ==== Example of *Choice 1* :
 
-
-
 ****
 User : add_conagtact
 
@@ -331,14 +329,14 @@ No shortcut is created. Continue using FinSec as per normal!
 
 <<UG-NoShortcutexample>>, <<UG-NoShortcutResult>> shows what you can expect to see after typing in the example: `add_conagtact`.
 [[UG-NoShortcutexample]]
-[reftext="Figure 3.11.1"]
-[caption="Figure 3.11.1: "]
+[reftext="Figure 3.11.1.1"]
+[caption="Figure 3.11.1.1: "]
 .When a user enters an accidental typo
 image::UG-NoShortcut1.png[width="800"]
 
 [[UG-NoShortcutResult]]
-[reftext="Figure 3.11.2"]
-[caption="Figure 3.11.2: "]
+[reftext="Figure 3.11.1.2"]
+[caption="Figure 3.11.1.2: "]
 .The result after entering the typo. FinSec will ask you if you want to create a shortcut.
 image::UG-NoShortcut2.png[width="800"]
 
@@ -369,33 +367,33 @@ A new shortcut is created for you! From now on, `ai` can be used as a substitute
 
 <<UG-createShortcutexample1>>, <<UG-createShortcutExample2>> and <<UG-createShortcutResult>> shows what you can expect to see when you want to create a shortcut `ai` as shown in the example.
 [[UG-createShortcutexample1]]
-[reftext="Figure 3.11.4"]
-[caption="Figure 3.11.4: "]
+[reftext="Figure 3.11.2.1"]
+[caption="Figure 3.11.2.1: "]
 .When a user enters a shortcut he/she wishes to create.
 image::UG-createShortcut1.png[width="800"]
 
 [[UG-createShortcutExample2]]
-[reftext="Figure 3.11.5"]
-[caption="Figure 3.11.5: "]
+[reftext="Figure 3.11.2.2"]
+[caption="Figure 3.11.2.2: "]
 .User will enter the existing command that he wishes to map the shortcut to.
 image::UG-createShortcut2.png[width="800"]
 
 [[UG-createShortcutResult]]
-[reftext="Figure 3.11.6"]
-[caption="Figure 3.11.6: "]
+[reftext="Figure 3.11.2.3"]
+[caption="Figure 3.11.2.3: "]
 .After creating the shortcut.
 image::UG-createShortcut3.png[width="800"]
 
 <<UG-shortcutExample>>, <<UG-shortcutResult>> shows what you can expect after creating a shortcut of your own!
 [[UG-shortcutExample]]
-[reftext="Figure 3.11.7"]
-[caption="Figure 3.11.7: "]
+[reftext="Figure 3.11.2.4"]
+[caption="Figure 3.11.2.4: "]
 .User can now use the command 'ai' for adding an income!
 image::UG-createShortcut4.png[width="800"]
 
 [[UG-shortcutResult]]
-[reftext="Figure 3.11.8"]
-[caption="Figure 3.11.8: "]
+[reftext="Figure 3.11.2.5"]
+[caption="Figure 3.11.2.5: "]
 .The newly created shortcut 'ai' creating an income.
 image::UG-createShortcut5.png[width="800"]
 
