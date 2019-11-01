@@ -183,6 +183,7 @@ public class ModelManager implements Model {
         }
         if (activityDayMap.containsKey(oldAct)) {
             List<Day> listOfDays = activityDayMap.remove(oldAct);
+            List<Day> newListOfDays = new ArrayList<>();
             itinerary.getItinerary().forEach(day -> {
                 if (listOfDays.contains(day)) {
                     List<ActivityWithTime> listOfActivityWithTime = day.getListOfActivityWithTime();
@@ -197,10 +198,12 @@ public class ModelManager implements Model {
                         listOfActivityWithTime.set(i, new ActivityWithTime(newAct,
                                 oldActivityWithTime.getStartTime(), oldActivityWithTime.getEndTime()));
                     }
-                    setDay(day, new Day(listOfActivityWithTime));
+                    Day newDay = new Day(listOfActivityWithTime);
+                    setDay(day, newDay);
+                    newListOfDays.add(newDay);
                 }
             });
-            activityDayMap.put(newAct, listOfDays);
+            activityDayMap.put(newAct, newListOfDays);
         }
     }
 
