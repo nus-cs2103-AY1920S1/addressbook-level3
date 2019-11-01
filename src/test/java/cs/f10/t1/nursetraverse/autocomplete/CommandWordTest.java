@@ -29,4 +29,9 @@ class CommandWordTest {
     public void hasPrefix() {
         assertTrue(testCommandWord.hasPrefix());
     }
+
+    @Test
+    public void getConnectorChar() {
+        assertEquals(" ", testCommandWord.getConnectorChar());
+    }
 }

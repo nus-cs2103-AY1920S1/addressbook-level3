@@ -20,4 +20,9 @@ class PrefixWordTest {
         assertEquals("test1", testPrefixWord.getAssociatedWordList().get(0));
         assertEquals("test2", testPrefixWord.getAssociatedWordList().get(1));
     }
+
+    @Test
+    public void getConnectorChar() {
+        assertEquals(" ", testPrefixWord.getConnectorChar());
+    }
 }
