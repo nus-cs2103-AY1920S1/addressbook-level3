@@ -67,8 +67,8 @@ public class Student {
         return medicalCondition;
     }
 
-    public String getDisplayPicture() {
-        return displayPicture.getImage();
+    public String getDisplayPictureFilePath() {
+        return displayPicture.getFilePath();
     }
 
     public String getDefaultDisplayPicture() {
@@ -101,7 +101,7 @@ public class Student {
 
         return otherStudent != null
                 && otherStudent.getName().equals(getName())
-                && otherStudent.getDisplayPicture().equals(getDisplayPicture())
+                && otherStudent.getDisplayPictureFilePath().equals(getDisplayPictureFilePath())
                 && (otherStudent.getPhone().equals(getPhone()) || otherStudent.getEmail().equals(getEmail()));
     }
 
@@ -127,7 +127,7 @@ public class Student {
                 && otherStudent.getAddress().equals(getAddress())
                 && otherStudent.getMedicalCondition().equals(getMedicalCondition())
                 && otherStudent.getTags().equals(getTags())
-                && otherStudent.getDisplayPicture().equals(getDisplayPicture());
+                && otherStudent.getDisplayPictureFilePath().equals(getDisplayPictureFilePath());
     }
 
     @Override

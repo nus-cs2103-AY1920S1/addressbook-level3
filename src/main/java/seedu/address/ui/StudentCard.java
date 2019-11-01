@@ -63,7 +63,7 @@ public class StudentCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         try {
-            Image img = new Image(student.getDisplayPicture());
+            Image img = new Image(student.getDisplayPictureFilePath());
             displayPicture.setImage(img);
         } catch (Exception e) {
             displayPicture.setImage(new Image(student.getDefaultDisplayPicture()));
@@ -75,7 +75,7 @@ public class StudentCard extends UiPart<Region> {
      * method for reloading image when picture uploaded
      */
     public void reloadImage() {
-        Image img = new Image(student.getDisplayPicture());
+        Image img = new Image(student.getDisplayPictureFilePath());
         displayPicture.setImage(img);
     }
 

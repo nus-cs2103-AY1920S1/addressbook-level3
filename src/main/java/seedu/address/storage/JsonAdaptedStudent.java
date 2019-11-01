@@ -33,6 +33,7 @@ class JsonAdaptedStudent {
     private final String address;
     private final String medicalCondition;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String displayPicture;
 
     /**
      * Constructs a {@code JsonAdaptedStudent} with the given student details.
@@ -41,6 +42,7 @@ class JsonAdaptedStudent {
     public JsonAdaptedStudent(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                               @JsonProperty("email") String email, @JsonProperty("parentPhone") String parentPhone,
                               @JsonProperty("address") String address,
+                              @JsonProperty("displayPicture") String displayPicture,
                               @JsonProperty("medicalCondition") String medicalCondition,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
@@ -48,6 +50,7 @@ class JsonAdaptedStudent {
         this.email = email;
         this.parentPhone = parentPhone;
         this.address = address;
+        this.displayPicture = displayPicture;
         if (medicalCondition != null) {
             this.medicalCondition = medicalCondition;
         } else {
@@ -71,6 +74,7 @@ class JsonAdaptedStudent {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        displayPicture = source.getDisplayPictureFilePath();
     }
 
     /**

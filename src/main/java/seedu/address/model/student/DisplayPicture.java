@@ -2,6 +2,7 @@ package seedu.address.model.student;
 
 import java.io.FileNotFoundException;
 
+//@@ author SebastianLie
 /**
  * Class to handle location of image on student card
  */
@@ -19,7 +20,7 @@ public class DisplayPicture {
      * @return Image
      * @throws FileNotFoundException
      */
-    public String getImage() {
+    public String getFilePath() {
         return imgFileName;
     }
     public String getDefault() {
