@@ -21,7 +21,7 @@ import javafx.scene.text.TextFlow;
  * @@author soilingrogue-reused
  * Reused from https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
  */
-class AutocompletionTextField extends TextField {
+public class AutocompletionTextField extends TextField {
     //Local variables
     //entries to autocomplete
     private final SortedSet<String> entries;
@@ -29,7 +29,7 @@ class AutocompletionTextField extends TextField {
     private ContextMenu entriesPopup;
 
 
-    AutocompletionTextField() {
+    public AutocompletionTextField() {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
