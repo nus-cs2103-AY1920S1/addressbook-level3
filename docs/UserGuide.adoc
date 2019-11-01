@@ -366,6 +366,42 @@ Examples:
 
 * `mark_participation 1,2,3`
 
+==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
+
+Displays list of all students who have not met the set threshold in terms of attendance.
+
+[NOTE]
+Calculation will be done from start of semester to the current date.
+
+Format: `absentees THRESHOLD_PERCENTAGE`
+
+Examples:
+
+* `absentees 50` (Gives a list of students whose attendance fall below 50%)
+
+==== Check on status of student: 'check_status' [Coming in v2.0]
+
+Checks on status of students currently displayed in the list by sending them an e-mail enquiring on their status.
+
+[NOTE]
+To be used in conjunction with `absentees`. A preset generic email will be sent by TutorAid to the student's school email account.
+
+Format: `check_status`
+
+==== Upload a picture of the student: 'upload_pic' [Coming in v2.0]
+
+Launches a separate window where the user can either choose an image file on his computer or take a picture with his webcam.
+The picture will be assigned to the indicated student and be displayed in TutorAid.
+
+[NOTE]
+Replaces current picture, if any.
+
+Format: `upload_pic INDEX`
+
+Examples:
+
+* `upload_pic 1`
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
