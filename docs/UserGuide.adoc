@@ -88,6 +88,10 @@ Registers a new patient. Only patient's reference id and name is compulsory fiel
 Format:  `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
+IMPORTANT: As a design decision, undoing the registration of a patient is allowed.
+However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
+Hence, the user *should not have administrative privilege to unregister any patient.*
+
 ==== Updates patients’ profiles: `edit` ====
 
 Updates the particulars of a patients +
@@ -114,6 +118,10 @@ If the staff reference identifier is not specified, a unique identifier will be 
 
 Format: `newdoctor -id <STAFF_REFERENCE_ID> -name <NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <TAGS>]...`
+
+IMPORTANT: As a design decision, undoing the registration of a staff doctor is allowed.
+However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
+Hence, the user *should not have administrative privilege to unregister any staff doctor.*
 
 ==== Updates a doctor's profile: `updatedoctor` ====
 
