@@ -40,8 +40,9 @@ public class AddCommandTest {
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        ArrayList<Person> testList = new ArrayList<>();
+        testList.add(validPerson);
+        CommandResult commandResult = new AddCommand(testList).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -50,7 +51,9 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
+        ArrayList<Person> testList = new ArrayList<>();
+        testList.add(validPerson);
+        AddCommand addCommand = new AddCommand(testList);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
@@ -60,14 +63,17 @@ public class AddCommandTest {
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
-
+        ArrayList<Person> testListAlice = new ArrayList<>();
+        testListAlice.add(alice);
+        ArrayList<Person> testListBob = new ArrayList<>();
+        testListAlice.add(bob);
+        AddCommand addAliceCommand = new AddCommand(testListAlice);
+        AddCommand addBobCommand = new AddCommand(testListBob);
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddCommand addAliceCommandCopy = new AddCommand(testListAlice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

@@ -30,7 +30,6 @@ import seedu.address.testutil.TaskBuilder;
 
 public class AddressBookTest {
 
-    private static final String VALID_PICTURE_BOB = "bob.jpg";
     private final AddressBook addressBook = new AddressBook();
 
     @Test
@@ -58,7 +57,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withPicture(VALID_PICTURE_BOB)
+        Person editedAlice = new PersonBuilder(ALICE).withClassId("Tutorial 7")
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons, ALICE);
@@ -111,7 +110,7 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withPicture(VALID_PICTURE_BOB)
+        Person editedAlice = new PersonBuilder(ALICE).withClassId("Tutorial 7")
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
