@@ -43,6 +43,65 @@ image::Ui.png[width="790"]
 .  Your output will be displayed on the panel on the right. For more features on each command, refer to the Command List.
 .  Refer to <<Command List>> for details of each command.
 
+== Learning TagLine
+
+Are you new to TagLine? Or are you prone to making typos? In either case, TagLine has some nifty features to help you out.
+
+=== Autocomplete
+
+When you enter a command, TagLine will display autocomplete suggestions as you type.
+
+To illustrate, let's suppose you are trying to create a new contact. However, you only remember that the first keyword is `contact`! With the autocomplete feature, it is easy to find the correct command. Try following the following steps:
+
+. Type `contact` into the command box, followed by a space. A list of suggestions will pop up under the command bar.
++
+image::ug_autocomplete1.png[width="790"]
+
+. Use the arrow keys to navigate to the correct command (optional if using mouse).
++
+image::ug_autocomplete2.png[width="790"]
+
+. Press the Enter key or click on the command in the menu. Your command box will now display `contact create`.
++
+image::ug_autocomplete3.png[width="790"]
+
+====
+*Important Note*
+
+After typing a command, if the autocomplete menu is still showing, please wait a moment for it to disappear, or click elsewhere on the screen. If you press Enter too quickly, this will cause your command to be overwritten.
+====
+
+=== Prompts
+
+For some commands, TagLine can prompt you when there is missing important information. Instead of having to type the whole command again, you will only need to fill in the couple of fields you missed.
+
+Let's take the same example of creating a new contact.
+
+. Suppose you accidentally pressed Enter too early, and sent the command `contact create` as is.
++
+image::ug_prompt1.png[width="790"]
+
+. Maybe you have intended to call this new contact `Bob`. Then type `Bob` into the command box and press Enter (or Send). Then TagLine would appear like this:
++
+image::ug_prompt2.png[width="790"]
+
+. As can be seen above, TagLine has successfully created a new contact named `Bob`.
+
+==== Aborting an incomplete command
+
+But what if we don't want to proceed with the command? You can abort the command by pressing the Escape key.
+
+.. After step 1 of the above example, let's say you no longer want to create a new command. Press the Escape key.
++
+image::ug_prompt3.png[width="790"]
+
+.. The incomplete command will not be executed. Now you can continue to enter other commands into the command box.
+
+====
+*Note*
+
+When given prompts, to minimize inconvenience to you, the autocomplete menu is temporarily disabled. Once prompting is complete, autocomplete will be re-enabled.
+====
 
 == Command List
 
@@ -456,8 +515,6 @@ Example:
 |Lists all notes tagged with the group '_cs2103 team_'.
 |===
 
-NOTE: Filtering by multiple tags will be supported in v2.0
-
 ==== Clear all notes: `clear`
 Clears all notes.
 
@@ -503,3 +560,4 @@ Example:
 |`tag list cs`
 |Lists all hashtags matching the filter “cs”, which may include “cs2100” or “cs2103” but not “trip”.
 |===
+
