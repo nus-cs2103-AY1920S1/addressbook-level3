@@ -1,15 +1,14 @@
 package dream.fcard.logic.stats;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import dream.fcard.logic.storage.Schema;
+import dream.fcard.util.DateTimeUtil;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import java.io.Serializable;
-import java.time.Duration;
-import java.time.LocalDateTime;
-
-import dream.fcard.util.DateTimeUtil;
 
 
 /**
@@ -17,7 +16,6 @@ import dream.fcard.util.DateTimeUtil;
  * or running a test on a deck.
  */
 public class Session implements JsonInterface {
-    // should implement JsonInterface, todo: @AHaliq can store LocalDateTime?
 
     /** The start time of the session, in the user's local time zone. */
     private LocalDateTime sessionStart;
@@ -167,7 +165,7 @@ public class Session implements JsonInterface {
             obj.put(Schema.SESSION_END,
                     DateTimeUtil.getJsonFromDateTime(sessionEnd).getObject());
             obj.put(Schema.SESSION_SCORE, score);
-        } catch(JsonWrongValueException e) {
+        } catch (JsonWrongValueException e) {
             System.out.println("DATETIME JSON MUST BE AN OBJECT\n" + e.getMessage());
         }
         return new JsonValue(obj);

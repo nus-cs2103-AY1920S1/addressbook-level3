@@ -297,7 +297,7 @@ public class JsonParser {
     private static Pair<Integer, Boolean> parseJsonBoolean(char[] input, int i)
             throws JsonFormatException {
         boolean value;
-        if(i >= input.length) {
+        if (i >= input.length) {
             throw new JsonFormatException(input, i, "Encountered no more characters to be a boolean", 2);
         }
         if (input[i] != 't' && input[i] != 'f') {

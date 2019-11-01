@@ -1,7 +1,6 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**

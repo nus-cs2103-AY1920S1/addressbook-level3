@@ -11,11 +11,11 @@ import dream.fcard.gui.controllers.jsjava.JsEditorApplication;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.logic.stats.Stats;
-import dream.fcard.logic.storage.StatsStorageManager;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -248,7 +248,6 @@ public class MainWindow extends VBox {
         // save all files only on exit
         StorageManager.saveAll(State.getState().getDecks());
         StorageManager.saveStats();
-        //StatsStorageManager.saveLoginSessions();
         System.exit(0);
     }
 

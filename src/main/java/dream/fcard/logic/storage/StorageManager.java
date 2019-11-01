@@ -1,9 +1,5 @@
 package dream.fcard.logic.storage;
 
-import dream.fcard.logic.stats.Session;
-import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.Stats;
-import dream.fcard.util.DateTimeUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,13 +8,14 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
+import dream.fcard.logic.stats.Stats;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
@@ -26,6 +23,7 @@ import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
+import dream.fcard.util.DateTimeUtil;
 import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
@@ -223,25 +221,29 @@ public class StorageManager {
      */
     public static void saveAll(ArrayList<Deck> decks) {
         resolveRoot();
-        /*String path = FileReadWrite.resolve(root, decksSubDir);
-        File dir = new File(path);
-        for (File f : dir.listFiles()) {
-            f.delete();
-        }*/
         for (Deck d : decks) {
             writeDeck(d);
         }
     }
 
+    /**
+     * Resolve path to stats file.
+     */
     public static void resolveStatsPath() {
         statsFileFullPath = FileReadWrite.resolve(root, statsSubDir + "/" + statsFileName);
     }
 
+    /**
+     * Save stats data.
+     */
     public static void saveStats() {
         resolveRoot();
         FileReadWrite.write(statsFileFullPath, Stats.getLoginSessions().toJson().toString());
     }
 
+    /**
+     * Initialize and load stats data if any.
+     */
     public static void loadStats() {
         resolveRoot();
         Stats.getUserStats();
@@ -258,12 +260,12 @@ public class StorageManager {
             }
             Stats.setSessionList(new SessionList(arr));
             // load login session
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("STATS FILE DOES NOT EXIST");
-        } catch(JsonFormatException e) {
-            System.out.println("STATS JSON IS ILL FORMED");
+        } catch (JsonFormatException e) {
+            System.out.println("STATS JSON IS ILL FORMED\n" + e.getMessage());
         } catch (JsonWrongValueException e) {
-            System.out.println("UNEXPECTED JSON FORMAT FOR STATS" + e.getMessage());
+            System.out.println("UNEXPECTED JSON FORMAT FOR STATS\n" + e.getMessage());
         }
     }
 }

@@ -1,12 +1,12 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
+import java.util.ArrayList;
+
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * A list of Session objects.
@@ -86,10 +86,10 @@ public class SessionList implements JsonInterface {
     @Override
     public JsonValue toJson() {
         JsonArray arr = new JsonArray();
-        for(Session s : sessionArrayList) {
+        for (Session s : sessionArrayList) {
             try {
                 arr.add(s.toJson().getObject());
-            } catch(JsonWrongValueException e) {
+            } catch (JsonWrongValueException e) {
                 System.out.println("SESSION JSON EXPECTED TO BE OBJECT\n" + e.getMessage());
             }
         }
