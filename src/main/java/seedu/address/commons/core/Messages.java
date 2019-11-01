@@ -11,6 +11,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_REPORT_INDEX = "The report index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_EMPTY = "You did not enter anything!";
-    public static final String MESSAGE_INVALID_DAYS = "Invalid number of days specified! Please keep input between 0 and 2,147,483,647.";
+    public static final String MESSAGE_INVALID_DAYS = "Invalid number of days specified! "
+            + "Please keep input between 0 and 2,147,483,647.";
 
 }
