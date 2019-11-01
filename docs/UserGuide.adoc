@@ -109,7 +109,7 @@ Feature by
 ////
 === Task Scheduler
 
-==== List all tasks: `list-tasks`
+==== List all tasks: `list-tasks` [v1.4]
 Lists all the tasks in the planner.
 
 Format: `list-tasks`
