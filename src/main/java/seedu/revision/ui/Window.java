@@ -24,8 +24,6 @@ import seedu.revision.ui.answerables.AnswerableListPanel;
  */
 public abstract class Window extends UiPart<Stage> {
 
-    protected static final String FXML = "MainWindow.fxml";
-
     protected Stage primaryStage;
     protected MainLogic mainLogic;
 
@@ -52,7 +50,7 @@ public abstract class Window extends UiPart<Stage> {
     @FXML
     protected StackPane scoreProgressAndTimerPlaceholder;
 
-    public Window(Stage primaryStage, MainLogic mainLogic) {
+    public Window(String FXML, Stage primaryStage, MainLogic mainLogic) {
         super(FXML, primaryStage);
         this.primaryStage = primaryStage;
         this.mainLogic = mainLogic;

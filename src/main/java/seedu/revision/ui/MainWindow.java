@@ -31,10 +31,12 @@ import seedu.revision.ui.answerables.AnswerableListPanel;
  */
 public class MainWindow extends Window {
 
+    protected static final String FXML = "MainWindow.fxml";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     public MainWindow(Stage primaryStage, MainLogic mainLogic) {
-        super(primaryStage, mainLogic);
+        super(FXML, primaryStage, mainLogic);
     }
 
     /**

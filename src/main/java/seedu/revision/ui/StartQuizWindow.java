@@ -40,6 +40,8 @@ import seedu.revision.ui.bar.Timer;
  */
 public class StartQuizWindow extends Window {
 
+    protected static final String FXML = "StartQuizWindow.fxml";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private MainWindow mainWindow;
@@ -63,7 +65,7 @@ public class StartQuizWindow extends Window {
             this, "currentProgressIndex", 0);
 
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
-        super(primaryStage, mainLogic);
+        super(FXML, primaryStage, mainLogic);
         this.mode = mode;
     }
 
