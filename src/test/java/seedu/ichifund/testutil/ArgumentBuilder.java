@@ -15,7 +15,7 @@ public class ArgumentBuilder {
     private String argument;
     
     public ArgumentBuilder() {
-        argument = "";
+        argument = " ";
     }
 
     /**
