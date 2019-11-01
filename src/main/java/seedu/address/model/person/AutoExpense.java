@@ -22,6 +22,13 @@ public class AutoExpense extends Entry {
         this.freq = freq;
     }
 
+    public AutoExpense(Category category, Description desc, Amount amount, Set<Tag> tags, Frequency freq, Date date,
+            Date lastTime) {
+        super(category, desc, date, amount, tags);
+        this.lastTime = lastTime;
+        this.freq = freq;
+    }
+
     public String getType() {
         return this.ENTRY_TYPE;
     }
@@ -30,7 +37,7 @@ public class AutoExpense extends Entry {
         return lastTime.plus(freq);
     }
 
-    private Date getLastTime() {
+    public Date getLastTime() {
         return lastTime;
     }
 

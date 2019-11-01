@@ -90,14 +90,13 @@ public class ConditionsManager implements Iterable<Condition> {
         if (index == -1) {
             throw new EntryNotFoundException();
         }
-        generalConditionsList.remove(editedCondition);
         PropertyChangeListener[] listeners = target.getSupport().getPropertyChangeListeners();
         for (PropertyChangeListener listener : listeners) {
             Reminder reminder = (Reminder) listener;
             reminder.removeCondition(target);
             reminder.addCondition(editedCondition);
         }
-        generalConditionsList.set(index, editedCondition);
+        generalConditionsList.remove(target);
     }
 
     /**

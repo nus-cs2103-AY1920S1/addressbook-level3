@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  */
 public class AddTagsConditionCommand extends Command {
 
-    public static final String COMMAND_WORD = "addTagsCondition";
+    public static final String COMMAND_WORD = "addHasTagsCondition";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a TagsCondition to the conditions list. \n"

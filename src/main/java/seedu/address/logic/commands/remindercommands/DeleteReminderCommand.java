@@ -19,7 +19,7 @@ import seedu.address.model.reminders.Reminder;
  */
 public class DeleteReminderCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteExpenseReminder";
+    public static final String COMMAND_WORD = "deleteReminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the expense reminder identified by the index number used in the displayed reminder list.\n"

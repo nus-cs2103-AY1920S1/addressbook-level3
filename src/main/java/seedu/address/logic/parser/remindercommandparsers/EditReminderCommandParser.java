@@ -7,8 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRACKER_TYPE;
 
-import java.util.List;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.remindercommands.EditReminderCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -16,6 +14,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.reminders.Reminder;
 
 /**
  * Parses input arguments and creates a new EditExpenseCommand object
@@ -50,10 +49,16 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             editReminderDescriptor.setQuota(
-                    (long) ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()).value);
+                    (Double) ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()).value);
         }
         if (argMultimap.getValue(PREFIX_INDEX).isPresent()) {
-            List<Index> conditionIndices = ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX));
+            editReminderDescriptor.setConditionIndices(
+                    ParserUtil.parseIndexes(argMultimap.getAllValues(PREFIX_INDEX)));
+        }
+
+        if (argMultimap.getValue(PREFIX_TRACKER_TYPE).isPresent()) {
+            editReminderDescriptor.setTrackerType(
+                    Reminder.TrackerType.parse(argMultimap.getValue(PREFIX_TRACKER_TYPE).get()));
         }
 
         if (!editReminderDescriptor.isAnyFieldEdited()) {

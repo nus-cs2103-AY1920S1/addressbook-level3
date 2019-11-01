@@ -65,8 +65,8 @@ public class ClassCondition extends Condition {
     };
     public ClassCondition(String entryType) {
         super("Class Condition");
-        super.setPred(classPredicate);
         parseType(entryType);
+        super.setPred(classPredicate);
     }
     /**
      * Reads String input to determine specific class to target.
