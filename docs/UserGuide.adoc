@@ -496,16 +496,16 @@ If colour provided is invalid, a warning message will be displayed.
 
 Examples:
 
-* `*annotate* 1 p/2 n/summary of paragraph h/orange` +
+* `*annotate* 1 p/p2 n/summary of paragraph h/orange` +
 This highlights paragraph 2 orange and attaches note with content “summary of paragraph” to the paragraph
 in the offline copy of bookmark 1.
 //TODO: add screenshots
 
-* `*annotate* 1 p/2 h/pink` +
+* `*annotate* 1 p/p2 h/pink` +
 This overwrites any existing highlight and highlights paragraph 2 with pink
 in the offline copy of bookmark 1. Any notes attached remain attached.
 
-* `*annotate* 1 p/2 n/change or add note content` +
+* `*annotate* 1 p/p2 n/change or add note content` +
 This changes the note attached to paragraph 2 to a note with content “change or add note content”
 in the offline copy of bookmark 1 if paragraph 2 had pre-existing note, and highlight
 colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
@@ -549,16 +549,16 @@ the highlight will be removed. `KEEP_HIGHLIGHT` is `false` by default.
 
 Examples:
 
-* `*annotate-delete* 1 p/2` +
+* `*annotate-delete* 1 p/p2` +
 This removes both the note and highlight from paragraph 2 in the offline copy of bookmark 1.
 
-* `*annotate-delete* 1 p/2 n/true` +
+* `*annotate-delete* 1 p/p2 n/true` +
 This removes the highlight of paragraph 2 and moves the note to _General notes section_ in the offline copy of bookmark 1.
 
-* `*annotate-delete* 1 p/2 h/true` +
+* `*annotate-delete* 1 p/p2 h/true` +
 This removes the note of paragraph 2 in the offline copy of bookmark 1, leaving the highlight untouched.
 
-* `*annotate-delete* 2 p/S1` +
+* `*annotate-delete* 2 p/s1` +
 This deletes the general note from phantom paragraph `S1` in the offline copy of bookmark 2.
 
 * `*annotate-delete* 1` +
@@ -595,24 +595,24 @@ If colour provided is invalid, a warning message will be displayed.
 
 Examples:
 
-* `*annotate-edit* 1 p/2 to/3` +
+* `*annotate-edit* 1 p/p2 to/p3` +
 This moves both the highlight and notes from paragraph 2 to paragraph 3 in the offline copy of bookmark 1.
 The highlight of paragraph 2 is removed.
 
-* `*annotate-edit* 1 p/2 to/3 h/orange` +
+* `*annotate-edit* 1 p/p2 to/p3 h/orange` +
 This moves the note from paragraph 2 to paragraph 3 in the offline copy of bookmark 1. The highlight of paragraph 2
 is removed and paragraph 3 is highlighted with orange.
 
-* `*annotate-edit* 1 p/1 n/new notes` +
+* `*annotate-edit* 1 p/p1 n/new notes` +
 This replaces the content of the note for paragraph 1 with "new notes" in the offline copy of bookmark 1.
 
-* `*annotate-edit* 1 p/1 h/yellow` +
+* `*annotate-edit* 1 p/p1 h/yellow` +
 This changes the highlight colour to yellow for paragraph 1 in the offline copy of bookmark 1.
 
-* `*annotate-edit* 1 S2 p/1` +
+* `*annotate-edit* 1 p/s2 to/p1` +
 This moves the general note of phantom paragraph `S2` to paragraph 1 in the offline copy of bookmark 1.
 
-* `*annotate-edit* 1 p/2 to/3 n/changing and moving notes` +
+* `*annotate-edit* 1 p/p2 to/p3 n/changing and moving notes` +
 This annotates paragraph 3 with the highlight of paragraph 2 and
 a note with content "changing and moving notes". The annotation on paragraph 2 is removed.
 
