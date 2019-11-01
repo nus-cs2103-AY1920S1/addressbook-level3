@@ -23,7 +23,7 @@ public class Picture {
      */
     public Picture(String picture) {
         requireNonNull(picture);
-        if (!(picture.equals("null"))) {
+        if (!("null".equals(picture))) {
             checkArgument(isValidPicture(picture), MESSAGE_CONSTRAINTS);
         }
         value = picture;

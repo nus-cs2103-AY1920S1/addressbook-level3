@@ -30,7 +30,6 @@ import seedu.address.testutil.TaskBuilder;
 
 public class AddressBookTest {
 
-    private static final String VALID_PICTURE_BOB = "bob.jpg";
     private final AddressBook addressBook = new AddressBook();
 
     @Test
