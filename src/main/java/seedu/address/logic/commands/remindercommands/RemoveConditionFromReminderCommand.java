@@ -12,40 +12,44 @@ import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 
 /**
- * Add condition to reminder.
+ * Removes condition from reminder.
  */
-public class AddConditionToReminderCommand extends Command {
+public class RemoveConditionFromReminderCommand extends Command {
 
-    public static final String COMMAND_WORD = "addToReminder";
+    public static final String COMMAND_WORD = "removeFromReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a condition to reminder. "
-            + "Parameters: REMINDERINDEX, CONDITIONINDEX, (must be positive integerS)\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a condition to reminder. "
+            + "Parameters: CONDITIONINDEX, REMINDERINDEX (must be positive integerS)\n"
             + "Example: " + COMMAND_WORD + " 1, 2";
 
-    public static final String MESSAGE_SUCCESS = "New Condition added: %1$s";
-    public static final String REMINDER_UNMODIFIABLE_MESSAGE = "Conditions cannot be added to this reminder \n"
-            + "This reminder is entry specific";
-    public static final String CONDITION_PRESENT_MESSAGE = "Reminder already has that condition \n";
+    public static final String MESSAGE_SUCCESS = "Condition Removed: %1$s";
+    public static final String REMINDER_UNMODIFIABLE_MESSAGE = "Conditions cannot be removed from this reminder \n";
+    public static final String CONDITION_ABSENT_MESSAGE = "Reminder does not have that condition \n";
+    public static final String CONDITION_NOT_REMOVABLE = "Reminder must have at least one condition \n";
 
     private Index reminderIndex;
     private Index conditionIndex;
 
-    public AddConditionToReminderCommand(Index reminderIndex, Index conditionIndex) {
+    public RemoveConditionFromReminderCommand(Index reminderIndex, Index conditionIndex) {
         this.reminderIndex = reminderIndex;
         this.conditionIndex = conditionIndex;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+
         List<Reminder> reminders = model.getFilteredReminders();
         List<Condition> conditions = model.getFilteredConditions();
         Reminder reminder = reminders.get(reminderIndex.getZeroBased());
-        if (reminder.getEntrySpecificity()) {
+        if (reminder.getEntrySpecificity() || reminder.getConditions().size() == 1) {
             throw new CommandException(REMINDER_UNMODIFIABLE_MESSAGE);
         }
         Condition condition = conditions.get(conditionIndex.getZeroBased());
-        if (!reminder.addCondition(condition)) {
-            throw new CommandException(CONDITION_PRESENT_MESSAGE);
+        if (reminder.getConditions().size() == 1) {
+            throw new CommandException(CONDITION_NOT_REMOVABLE);
+        }
+        if (!reminder.removeCondition(condition)) {
+            throw new CommandException(CONDITION_ABSENT_MESSAGE);
         }
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
@@ -55,10 +59,10 @@ public class AddConditionToReminderCommand extends Command {
     public boolean equals(Object other) {
         if (this == other) {
             return true;
-        } else if (!(other instanceof AddConditionToReminderCommand)) {
+        } else if (!(other instanceof RemoveConditionFromReminderCommand)) {
             return false;
         } else {
-            AddConditionToReminderCommand otherCommand = (AddConditionToReminderCommand) other;
+            RemoveConditionFromReminderCommand otherCommand = (RemoveConditionFromReminderCommand) other;
             return this.conditionIndex.equals(otherCommand.conditionIndex)
                     && this.reminderIndex.equals(otherCommand.reminderIndex);
         }

@@ -39,7 +39,7 @@ public class AddAutoExpenseCommandParser implements Parser<AddAutoExpenseCommand
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_FREQ, PREFIX_AMOUNT,
                 PREFIX_DATE, PREFIX_TAG, PREFIX_CATEGORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_FREQ, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_CATEGORY)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAutoExpenseCommand.MESSAGE_USAGE));

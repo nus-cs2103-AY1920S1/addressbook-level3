@@ -13,6 +13,7 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.TimeUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
@@ -46,6 +47,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected TimeUtil timeTracker;
 
     @Override
     public void init() throws Exception {
@@ -62,7 +64,9 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        timeTracker = new TimeUtil();
+
+        model = initModelManager(storage, userPrefs, timeTracker);
         StatisticsManager stats = new StatisticsManager(model);
         model.setStats(stats);
         logic = new LogicManager(model, stats, storage);
@@ -74,7 +78,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, TimeUtil timeTracker) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
@@ -91,7 +95,7 @@ public class MainApp extends Application {
             initialData = new AddressBook(true);
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, timeTracker);
     }
 
     private void initLogging(Config config) {

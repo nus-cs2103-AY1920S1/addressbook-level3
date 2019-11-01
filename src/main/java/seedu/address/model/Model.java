@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.TimeUtil;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
@@ -266,4 +267,8 @@ public interface Model {
      */
     void commitAddressBook();
 
+    /**
+     * get TimeUtil object
+     */
+    TimeUtil getTimeTracker();
 }

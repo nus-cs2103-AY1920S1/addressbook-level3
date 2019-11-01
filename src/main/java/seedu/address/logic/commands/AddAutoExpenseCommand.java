@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FREQ;
@@ -19,19 +20,23 @@ public class AddAutoExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "addAutoExp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a auto expense to the finance tracker. "
-            + "Parameters: "
-            + PREFIX_DESC + "DESCRIPTION "
-            + PREFIX_AMOUNT + "AMOUNT " + "["
-            + PREFIX_DATE + "DATE "
-            + PREFIX_TAG + "TAG]...\n" + "Example: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a auto expense to the finance tracker.\n"
+            + "Example: "
             + COMMAND_WORD + " "
             + PREFIX_DESC + "Mala "
             + PREFIX_AMOUNT + "5.50 "
             + PREFIX_FREQ + "daily "
-            + PREFIX_DATE + "2019-09-09 "
-            + PREFIX_TAG + "food "
-            + PREFIX_TAG + "indulgence";
+            + PREFIX_CATEGORY + "Food "
+            + PREFIX_TAG + "indulgence\n"
+            + "Required parameters:"
+            + PREFIX_DESC + "DESCRIPTION "
+            + PREFIX_AMOUNT + "AMOUNT "
+            + PREFIX_CATEGORY + "CATEGORY\n"
+            + "Optional parameters:"
+            + "["
+            + PREFIX_FREQ + "weekly "
+            + PREFIX_DATE + "DATE_TODAY "
+            + PREFIX_TAG + "TAG...]\n";
 
     public static final String MESSAGE_SUCCESS = "New auto expense added: %1$s";
 

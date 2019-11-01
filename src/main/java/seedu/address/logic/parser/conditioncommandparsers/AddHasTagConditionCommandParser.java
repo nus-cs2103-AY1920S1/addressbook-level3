@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddTagsConditionCommand object
  */
-public class AddTagsConditionCommandParser implements Parser<AddTagsConditionCommand> {
+public class AddHasTagConditionCommandParser implements Parser<AddTagsConditionCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddClassConditionCommand
      * and returns an AddClassConditionCommand object for execution.
