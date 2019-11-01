@@ -30,8 +30,8 @@ public class UserState implements ReadOnlyUserState {
 
     public void resetData(ReadOnlyBankAccount bankAccount, ReadOnlyLedger ledger) {
         requireAllNonNull(bankAccount, ledger);
-        this.bankAccount = new BankAccount(bankAccount);
-        this.ledger = new Ledger(ledger);
+        this.bankAccount.resetData(bankAccount);
+        this.ledger.resetData(ledger);
     }
 
     public void resetData(ReadOnlyUserState userState) {

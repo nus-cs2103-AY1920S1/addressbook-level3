@@ -33,7 +33,7 @@ public class TransactionListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(BankAccountOperation transaction, boolean empty) {
             super.updateItem(transaction, empty);
-            System.out.println("TLP: " + transaction);
+
             if (empty || transaction == null) {
                 setGraphic(null);
                 setText(null);
