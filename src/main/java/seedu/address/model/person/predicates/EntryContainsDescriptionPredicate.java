@@ -9,10 +9,10 @@ import seedu.address.model.person.Entry;
 /**
  * Tests that a {@code Entry's}'s {@code Description} matches any of the keywords given.
  */
-public class DescriptionContainsKeywordsPredicate implements Predicate<Entry> {
+public class EntryContainsDescriptionPredicate implements Predicate<Entry> {
     private final List<String> keywords;
 
-    public DescriptionContainsKeywordsPredicate(List<String> keywords) {
+    public EntryContainsDescriptionPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -25,8 +25,8 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Entry> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DescriptionContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((DescriptionContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof EntryContainsDescriptionPredicate // instanceof handles nulls
+                && keywords.equals(((EntryContainsDescriptionPredicate) other).keywords)); // state check
     }
 
 }

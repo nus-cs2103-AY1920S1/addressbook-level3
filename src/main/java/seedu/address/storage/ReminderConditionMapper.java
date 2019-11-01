@@ -18,7 +18,7 @@ public class ReminderConditionMapper {
     private final List<Condition> conditions = new ArrayList<>();
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public ReminderConditionMapper( List<JsonAdaptedReminder> jsonReminders,
+    public ReminderConditionMapper(List<JsonAdaptedReminder> jsonReminders,
                                     List<JsonAdaptedCondition> jsonConditions)
         throws IllegalValueException {
         for (JsonAdaptedReminder jsonAdaptedReminder : jsonReminders) {

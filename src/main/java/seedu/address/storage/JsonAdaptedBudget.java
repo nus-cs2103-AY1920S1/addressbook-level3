@@ -27,9 +27,9 @@ class JsonAdaptedBudget {
     private final String category;
     private final String desc;
     private final String date;
-    private final double amt;
+    private final String amt;
     private final String period;
-    private final double spent;
+    private final String spent;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -37,9 +37,9 @@ class JsonAdaptedBudget {
      */
     @JsonCreator
     public JsonAdaptedBudget(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
-                             @JsonProperty("amt") double amt, @JsonProperty("time") String time,
+                             @JsonProperty("amt") String amt, @JsonProperty("time") String time,
                              @JsonProperty("period") String period,
-                             @JsonProperty("spent") double spent,
+                             @JsonProperty("spent") String spent,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.category = category;
         this.desc = desc;
@@ -59,13 +59,13 @@ class JsonAdaptedBudget {
     public JsonAdaptedBudget(Budget source) {
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
-        amt = source.getAmount().value;
+        amt = source.getAmount().toString();
         date = source.getDate().toString();
         period = source.getPeriod().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        spent = source.getSpent().value;
+        spent = source.getSpent().toString();
     }
 
     /**

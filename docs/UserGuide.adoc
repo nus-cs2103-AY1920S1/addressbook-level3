@@ -285,6 +285,8 @@ Examples:
 
 * `viewStatistics`
 * `viewStatistics p/2019-09`
+* `viewStatistics p/2000-09,2019-09`
+
 
 ==== Sorting : `sort`
 
@@ -610,9 +612,9 @@ Format: `purchase <index>`
 Examples: `purchase 1`
 
 
-=== Undo/ Redo
+=== Undo/Redo
 ==== Undo previous command : `undo`
-Restores the finance tracker to the state before the previous undoable command was executed
+Restores the finance tracker to the state before the previous undoable command was executed.
 
 Format: `undo`
 
@@ -627,7 +629,7 @@ Examples:
 `undo` (reverses the `delete 1` command)
 
 ==== Redo previously undone command : `redo`
-Reverses the most recent undone command
+Reverses the most recent undone command.
 
 Format: `redo`
 

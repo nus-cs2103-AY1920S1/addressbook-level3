@@ -99,8 +99,7 @@ public class ParserUtil {
      */
     public static Amount parseAmount(String stringAmt) {
         requireNonNull(stringAmt);
-        double amt = Double.parseDouble(stringAmt);
-        return new Amount(amt);
+        return new Amount(stringAmt);
     }
 
     /**
@@ -131,9 +130,11 @@ public class ParserUtil {
      * @param period the time as a String.
      * @return the specified time as Date.
      */
-    public static Date parsePeriod(String period) {
-        Date dateToParse = new Date(period, true);
-        return dateToParse;
+    public static List<Date> parseStartAndEndPeriod(String period) {
+        String[] dateArr = period.split(",");
+        List<Date> startAndEnd = Arrays
+                .stream(dateArr).map(dateString -> new Date(dateString.trim(), true)).collect(Collectors.toList());
+        return startAndEnd;
     }
 
     /**
@@ -227,7 +228,6 @@ public class ParserUtil {
     }
 
     /**
-<<<<<<< HEAD
      * Parses {@code String tags} into a {@code List<Tag>}.
      */
     public static List<Tag> parseTags(String tags) throws ParseException {

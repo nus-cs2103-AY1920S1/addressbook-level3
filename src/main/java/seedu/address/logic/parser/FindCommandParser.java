@@ -17,11 +17,11 @@ import java.util.function.Predicate;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.predicates.AmountContainsValuePredicate;
-import seedu.address.model.person.predicates.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.EntryContainsAmountPredicate;
+import seedu.address.model.person.predicates.EntryContainsCategoryPredicate;
 import seedu.address.model.person.predicates.EntryContainsDatePredicate;
+import seedu.address.model.person.predicates.EntryContainsDescriptionPredicate;
 import seedu.address.model.person.predicates.EntryContainsTagsPredicate;
-import seedu.address.model.person.predicates.entries.CategoryContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -47,17 +47,17 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
 
             String[] nameKeywords = trimmedArgs.split("\\s+");
-            predicateList.add(new DescriptionContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            predicateList.add(new EntryContainsDescriptionPredicate(Arrays.asList(nameKeywords)));
         }
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             double trimmedDouble = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get().trim()).value;
-            predicateList.add(new AmountContainsValuePredicate(trimmedDouble));
+            predicateList.add(new EntryContainsAmountPredicate(trimmedDouble));
         }
 
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
-            predicateList.add(new CategoryContainsKeywordsPredicate(name));
+            predicateList.add(new EntryContainsCategoryPredicate(name));
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {

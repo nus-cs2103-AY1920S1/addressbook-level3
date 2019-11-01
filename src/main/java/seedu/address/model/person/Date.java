@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,9 +16,11 @@ import seedu.address.model.util.Frequency;
  */
 public class Date {
 
-    public static final String MESSAGE_CONSTRAINTS = "Names should only contain alphanumeric characters and spaces,"
-            + " and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS_FOR_ENTRIES = "Date is not in a valid format. Below are some of the "
+            + "possible formats. [yyyy MM dd] , [yyyy/MM/dd], [dd/MM/yyyy]";
 
+    public static final String MESSAGE_CONSTRAINTS_FOR_STATS = "Date is not in a valid format. Below are some of the "
+            + "possible formats. [yyyy-MM] , [yyyy MM]";
     /*
      * The first character of the address must not be a whitespace, otherwise " " (a
      * blank string) becomes a valid input.
@@ -47,11 +50,14 @@ public class Date {
             .appendOptional(DateTimeFormatter.ofPattern("M/yyyy")).appendOptional(DateTimeFormatter.ofPattern("M-yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("M/yy")).appendOptional(DateTimeFormatter.ofPattern("yy/MM"))
             .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy MM"))
             .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM")).toFormatter();
 
     private LocalDate date;
     private String fullTime;
 
+
+    //TODO: Hacky way of ensuring date is correct
     /**
      * Converts String to LocalDate
      *
@@ -59,17 +65,23 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        // checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
-        LocalDate ldt = LocalDate.parse(date, INPUTFORMATTER);
-        this.date = ldt;
-        parseDate();
+        try {
+            LocalDate ldt = LocalDate.parse(date, INPUTFORMATTER);
+            this.date = ldt;
+            parseDate();
+        } catch (Exception pe) {
+            checkArgument(false, MESSAGE_CONSTRAINTS_FOR_ENTRIES);
+        }
     }
 
     public Date(String date, boolean isMonth) {
         requireNonNull(date);
-        //checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
-        LocalDate ldt = LocalDate.parse(date, INPUTMONTHFORMATTER);
-        this.date = ldt;
+        try {
+            LocalDate ldt = LocalDate.parse(date, INPUTMONTHFORMATTER);
+            this.date = ldt;
+        } catch (Exception pe) {
+            checkArgument(false, MESSAGE_CONSTRAINTS_FOR_STATS);
+        }
     }
 
     public Date(LocalDate date) {
