@@ -331,6 +331,11 @@ public class DescriptionCommandTest {
         public void addToHistory() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public int clearInvalidMods() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     @Test

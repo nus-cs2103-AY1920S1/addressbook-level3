@@ -13,8 +13,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.util.Pair;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.testutil.StudyPlanBuilder;
+import seedu.address.testutil.TypicalStudyPlans;
 
 /**
  * A test class for {@code StudyPlan}.
@@ -62,6 +64,18 @@ public class StudyPlanTest {
         expected.add("IS1103X");
         expected.add("MA1521");
         assertEquals(validMods, expected);
+    }
+
+    @Test
+    public void getInvalidModuleCodes_returnsInvalidModuleCodes() {
+        List<Pair<SemesterName, String>> result = TypicalStudyPlans.getTypicalStudyPlan().getInvalidModuleCodes();
+        ArrayList<Pair<SemesterName, String>> expected = new ArrayList<>();
+        expected.add(new Pair<>(SemesterName.Y1S1, "ST2334"));
+        expected.add(new Pair<>(SemesterName.Y1S1, "CS3244"));
+        expected.add(new Pair<>(SemesterName.Y1S2, "CS2102"));
+        expected.add(new Pair<>(SemesterName.Y1S2, "CS5339"));
+        expected.add(new Pair<>(SemesterName.Y1S2, "CS5219"));
+        assertEquals(result, expected);
     }
 
     @Test

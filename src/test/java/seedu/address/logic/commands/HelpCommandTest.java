@@ -41,6 +41,7 @@ import seedu.address.logic.commands.storage.RevertCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
 import seedu.address.logic.commands.verification.CheckCommand;
+import seedu.address.logic.commands.verification.ClearInvalidModsCommand;
 import seedu.address.logic.commands.verification.DescriptionCommand;
 import seedu.address.logic.commands.verification.ValidModsCommand;
 import seedu.address.model.Model;
@@ -136,6 +137,8 @@ public class HelpCommandTest {
         assertEquals(new HelpCommand(DescriptionCommand.COMMAND_WORD).execute(model), expectedCommandResult);
         expectedCommandResult = new CommandResult(ValidModsCommand.MESSAGE_USAGE, false, false);
         assertEquals(new HelpCommand(ValidModsCommand.COMMAND_WORD).execute(model), expectedCommandResult);
+        expectedCommandResult = new CommandResult(ClearInvalidModsCommand.MESSAGE_USAGE, false, false);
+        assertEquals(new HelpCommand(ClearInvalidModsCommand.COMMAND_WORD).execute(model), expectedCommandResult);
     }
 
     @Test

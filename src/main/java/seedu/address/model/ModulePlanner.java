@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Name;
 import seedu.address.model.module.UniqueModuleList;
@@ -336,6 +337,14 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             return new ArrayList<>(); // TODO: might want to change it to an assertion, this should not be called maybe?
         }
         return this.activeStudyPlan.getValidMods(semName);
+    }
+
+    public List<Pair<SemesterName, String>> getInvalidModuleCodes() {
+        if (this.activeStudyPlan != null) {
+            return this.activeStudyPlan.getInvalidModuleCodes();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     /**

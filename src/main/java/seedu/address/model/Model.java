@@ -188,6 +188,12 @@ public interface Model {
     List<String> getValidMods(SemesterName semName);
 
     /**
+     * Clears all invalid modules, whose prerequisites have not been satisfied.
+     * @return Number of invalid modules that are cleared
+     */
+    int clearInvalidMods();
+
+    /**
      * Returns true if a Semester contains a module with same identity as {@code module}.
      */
     boolean semesterHasModule(String moduleCode, SemesterName semesterName);

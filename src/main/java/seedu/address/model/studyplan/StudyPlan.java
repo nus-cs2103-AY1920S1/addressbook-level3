@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javafx.util.Pair;
 import seedu.address.model.Color;
 import seedu.address.model.ModuleInfo;
 import seedu.address.model.ModulesInfo;
@@ -568,6 +569,22 @@ public class StudyPlan implements Cloneable {
         }
 
         Collections.sort(result);
+        return result;
+    }
+
+    /**
+     * Returns a list of all invalid module codes, whose prerequisites have not been satisfied in previous semesters.
+     */
+    public List<Pair<SemesterName, String>> getInvalidModuleCodes() {
+        ArrayList<Pair<SemesterName, String>> result = new ArrayList<>();
+        for (Semester sem : semesters) {
+            for (Module mod : sem.getModules()) {
+                if (!mod.getPrereqsSatisfied()) {
+                    String moduleCode = mod.getModuleCode().toString();
+                    result.add(new Pair<>(sem.getSemesterName(), moduleCode));
+                }
+            }
+        }
         return result;
     }
 

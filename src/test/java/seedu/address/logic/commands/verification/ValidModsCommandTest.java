@@ -334,6 +334,11 @@ public class ValidModsCommandTest {
         public void addToHistory() {
 
         }
+
+        @Override
+        public int clearInvalidMods() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     @Test

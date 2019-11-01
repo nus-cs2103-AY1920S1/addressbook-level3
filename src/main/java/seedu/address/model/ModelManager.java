@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.module.Module;
@@ -214,6 +215,21 @@ public class ModelManager implements Model {
     @Override
     public List<String> getValidMods(SemesterName semName) {
         return this.modulePlanner.getValidMods(semName);
+    }
+
+    @Override
+    public int clearInvalidMods() {
+        if (getActiveStudyPlan() == null) {
+            return 0;
+        }
+        List<Pair<SemesterName, String>> invalidModuleCodes = this.modulePlanner.getInvalidModuleCodes();
+        for (Pair<SemesterName, String> p : invalidModuleCodes) {
+            SemesterName semName = p.getKey();
+            String moduleCode = p.getValue();
+            this.getSemester(semName).removeModule(moduleCode);
+        }
+        updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
+        return invalidModuleCodes.size();
     }
 
     //=========== Filtered StudyPlan List Accessors =============================================================
