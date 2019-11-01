@@ -100,27 +100,9 @@ public class EditAnnotationCommand extends AnnotationCommand {
         }
 
 
-        Annotation newAnnotation = originalP.getAnnotation();
-        if (newHighlight != null) {
-            newAnnotation.setHighlight(newHighlight);
-        }
-        if (newNote != null) {
-            newAnnotation.setNote(newNote);
-        }
+        Annotation newAnnotation = getNewAnnotation(originalP);
 
-        if (newP != null) {
-            newP.addAnnotation(newAnnotation);
-            if (originalP.isTrueParagraph()) {
-                originalP.removeAnnotation();
-            } else {
-                try {
-                    doc.removePhantom(getPid());
-                } catch (IllegalValueException e) {
-                    assert false : "should not get here since it is already checked";
-                    throw new CommandException(e.getMessage());
-                }
-            }
-        }
+        moveAnnotation(originalP, newP, newAnnotation, doc);
 
         model.updateDocument(doc);
 
@@ -138,5 +120,32 @@ public class EditAnnotationCommand extends AnnotationCommand {
 
         model.saveMark(String.format(MESSAGE_SUCCESS, getPid(), returnMsg));
         return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, getPid(), returnMsg));
+    }
+
+    private Annotation getNewAnnotation(Paragraph originalP) {
+        Annotation newAnnotation = originalP.getAnnotation();
+        if (newHighlight != null) {
+            newAnnotation.setHighlight(newHighlight);
+        }
+        if (newNote != null) {
+            newAnnotation.setNote(newNote);
+        }
+        return newAnnotation;
+    }
+
+    private void moveAnnotation(Paragraph oldP, Paragraph newP, Annotation newAnnotation, OfflineDocument doc) throws CommandException {
+        if (newP != null) {
+            newP.addAnnotation(newAnnotation);
+            if (oldP.isTrueParagraph()) {
+                oldP.removeAnnotation();
+            } else {
+                try {
+                    doc.removePhantom(getPid());
+                } catch (IllegalValueException e) {
+                    assert false : "should not get here since it is already checked";
+                    throw new CommandException(e.getMessage());
+                }
+            }
+        }
     }
 }
