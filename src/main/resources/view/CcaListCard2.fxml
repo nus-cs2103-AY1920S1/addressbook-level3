@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ListView?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <VBox alignment="CENTER_LEFT" minHeight="150" GridPane.columnIndex="0">
+            <padding>
+                <Insets bottom="5" left="15" right="5" top="5" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label fx:id="id" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <VBox alignment="CENTER" spacing="15">
+                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                    <Label fx:id="ccaType" styleClass="cell_slogan_label" text="\$ccaType" />
+                    <HBox>
+                        <StackPane fx:id="progressLevel" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER" />
+                        <Label fx:id="progressName" styleClass="cell_small_label" />
+                        <ListView fx:id="equipmentListView" prefWidth="125" prefHeight="100" VBox.vgrow="NEVER" />
+                    </HBox>
+                </VBox>
+            </HBox>
+        </VBox>
+    </GridPane>
+</HBox>

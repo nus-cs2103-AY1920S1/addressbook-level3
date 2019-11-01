@@ -13,7 +13,7 @@
 <?import javafx.scene.control.ListView?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+    <VBox alignment="CENTER_LEFT" minHeight="150" GridPane.columnIndex="0">
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
@@ -24,12 +24,15 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <VBox minWidth="-200">
+        <VBox alignment="CENTER" spacing="15">
           <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
           <Label fx:id="ccaType" styleClass="cell_slogan_label" text="\$ccaType" />
+          <HBox>
+            <StackPane fx:id="progressLevel" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER" />
+            <Label fx:id="progressName" styleClass="cell_small_label" />
+            <ListView fx:id="equipmentListView" prefWidth="125" prefHeight="100" VBox.vgrow="NEVER" />
+          </HBox>
         </VBox>
-        <StackPane fx:id="progressLevel" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER" />
-        <Label fx:id="progressName" styleClass="cell_small_label" />
       </HBox>
     </VBox>
     <columnConstraints>
@@ -39,5 +42,4 @@
          <RowConstraints />
       </rowConstraints>
   </GridPane>
-  <ListView fx:id="equipmentListView" prefWidth="125" prefHeight="100" VBox.vgrow="NEVER" />
 </HBox>
