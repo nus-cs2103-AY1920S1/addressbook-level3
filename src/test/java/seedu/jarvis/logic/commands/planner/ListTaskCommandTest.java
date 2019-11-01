@@ -1,21 +1,20 @@
 package seedu.jarvis.logic.commands.planner;
 
-import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.Model;
-import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
-import seedu.jarvis.model.planner.tasks.Todo;
-import seedu.jarvis.model.userprefs.UserPrefs;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.jarvis.logic.commands.CommandTestUtil.showTaskAtIndex;
-import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_TASK;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
+import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.planner.tasks.Todo;
+import seedu.jarvis.model.userprefs.UserPrefs;
 
 
 class ListTaskCommandTest {
