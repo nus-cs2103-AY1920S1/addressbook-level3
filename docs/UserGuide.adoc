@@ -208,6 +208,9 @@ Edits the name and actor name of the 1st show in the list to be `Titanic` and `J
 Clears all existing actors of the 2nd show in the list.
 
 ==== Search for a show by name: `search`
+====
+Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
+====
 
 Finds shows whose names contain any of the given keywords from the watchlist, watched list and online. +
 Format:
