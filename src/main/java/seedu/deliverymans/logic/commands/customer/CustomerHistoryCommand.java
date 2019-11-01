@@ -44,7 +44,9 @@ public class CustomerHistoryCommand extends Command {
 
         Customer customerToList = lastShownList.get(targetIndex.getZeroBased());
         model.setCustomerOrders(customerToList);
-        return new CommandResult(String.format(MESSAGE_LIST_ORDERS_SUCCESS, customerToList), Context.CUSTOMERLIST);
+        return new CommandResult(String.format(MESSAGE_LIST_ORDERS_SUCCESS, customerToList),
+                CustomerHistoryCommand.class);
+        //return new CommandResult(String.format(MESSAGE_LIST_ORDERS_SUCCESS, customerToList), Context.CUSTOMERLIST);
     }
 
     @Override

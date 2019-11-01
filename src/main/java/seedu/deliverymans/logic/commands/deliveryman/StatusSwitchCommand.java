@@ -55,7 +55,7 @@ public class StatusSwitchCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_CHANGE_STATUS_SUCCESS, deliverymanToEdit),
-                Context.DELIVERYMENSTATUS);
+                StatusSwitchCommand.class);
     }
 
     @Override

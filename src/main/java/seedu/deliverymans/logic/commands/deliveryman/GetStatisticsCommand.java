@@ -23,7 +23,7 @@ public class GetStatisticsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        return new CommandResult(MESSAGE_LIST_SUCCESS, Context.DELIVERYMENSTATISTICS);
+        return new CommandResult(MESSAGE_LIST_SUCCESS, GetStatisticsCommand.class);
     }
 
     @Override

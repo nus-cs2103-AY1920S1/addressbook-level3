@@ -48,7 +48,7 @@ public class EnterRecordCommand extends Command {
         model.setToShowDeliverymanRecord(targetRecord);
 
         return new CommandResult(String.format(MESSAGE_ENTER_RECORD_SUCCESS, deliverymanToView),
-                Context.DELIVERYMANRECORD);
+                EnterRecordCommand.class);
     }
 
     @Override
