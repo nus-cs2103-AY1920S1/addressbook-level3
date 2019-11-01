@@ -31,7 +31,7 @@ I am here to be *your intelligent companion that keeps track of your tasks and r
 
 Although I am *optimized for those who prefer to work with a Command Line Interface* (CLI), I also have a Graphical User Interface (GUI). If you can type fast, I can get your tasks done faster than traditional GUI apps.
 
-Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Enjoy!
 
 == Quick Start
 
@@ -103,12 +103,19 @@ For *more experienced* users: +
 [NOTE]
 Not all tags work for every command. Please check the specific command for more details.
 
+Here are the icons that will be used in the app:
+
+image:Completed.PNG[Done, title="Done"] shows that you've completed this task. +
+image:Uncompleted.PNG[Not done, title="Not done"] shows that you have yet to complete this task. +
+image:EventIcon.PNG[Event, title="Event"] shows that this is an Event with the date shown in its eyes. +
+
+[WARNING]
+All time dependent elements such as deadline, reminder and calendar time are dependent on the *system time*
+
+If you face any issues, please check the <<Additional Notes>>. If it is not mentioned there, then feel free to bring it up to us!
+
 ====
-
-
-=== Viewing help : `help`
-
-Format: `help`
+Now we are ready to jump into the features itself!
 
 === Adding a task: `task`
 
@@ -303,6 +310,26 @@ Examples:
 * Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
 ****
 
+=== Expanding an item in the view: `open` & `close`
+Want to see all the details of an item at one glance? Lazy to go to event list or reminder list to find them? We got you!
+
+You can now open up an item to see all its details, regardless of what list you are on.
+But remember to close it before opening another item!
+
+Format: `open INDEX`
+
+Example sequence:
+
+* `show T` - to switch to the task view
+* `open 2` - opens the second item on the list
+* `close` - closes the item
+* `open 3` - opens the third item on the list (Note: If you forgot to close previously, no worries as ELISA will prompt you to!)
+* `close` - closes the item
+
+[WARNING]
+Although, the ESC key can close too, we do not advise doing so as ELISA may be confused later on :(
+
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -318,3 +345,14 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+
+== Additional Notes
+=== Input
+* Currently, an empty input can be entered, but ELISA will show an invalid command.
+
+=== Calendar
+
+* Currently, it only shows *2 events* on each date due to limited space on the calendar. If there are more events on that date, to find them all, you can go to the event list and sort through it.
+* Currently, it only shows the *current* month. We are still working to bring the next month to you.
+* Please keep a full screen. If you resize, we are unable to guarantee the view of the calendar.
+
