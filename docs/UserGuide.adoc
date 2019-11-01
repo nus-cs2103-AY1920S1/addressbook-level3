@@ -199,6 +199,9 @@ Format: `ackappt -id <REFERENCE_ID>`
 
 ==== Cancels an appointment: `cancelappt` ====
 Cancels the specified appointment. +
+
+NOTE: To avoid accidental cancellation of another patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
+
 Format: `cancelappt <ENTRY_ID>`
 
 ==== Changes the appointment date: `changeappt` ====
@@ -206,7 +209,7 @@ Format: `cancelappt <ENTRY_ID>`
 Changes the timing for an existing appointment. +
 If no optional fields `[-end <END_TIMING>]` is present, default endTiming is 30 mins after startTiming. Otherwise new endTiming will be `[-end <END_TIMING>]`. +
 
-NOTE: To avoid accidental rescheduling of other patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
+NOTE: To avoid accidental rescheduling of another patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
 
 NOTE: The operation is rejected if there are insufficient staff doctors on duty at the time of the new appointment. +
 
@@ -248,14 +251,16 @@ Format: `shift [<REFERENCE_ID>]`
 ==== Adds a duty shift for a doctor: `addshift` ====
 
 Adds a new duty shift for a doctor. +
-If both `-rec <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
-appointment schedule in `<INTERVALS>`. Otherwise, only one event will be added. +
+If both -rec <INTERVALS> and -num <NUMBER_OF_TIMES> fields are present, duty shifts of these <NUMBER_OF_TIMES> will be added to the doctor duty roster in <INTERVALS>.
+Otherwise, only one shift will be added. +
 
 Format: `addshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-rec REPEATEDLY -num REPEATED_TIMES]`
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
 Cancels the specified duty shift for a doctor based on the given entry index. +
+
+NOTE: To avoid accidental cancellation of another doctor's shift, the user must first narrow down the search to a single doctor using the `shift [<REFERENCE_ID>]` command. +
 
 NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. The appointments affected by the deletion of the duty shift must be resolved first. +
 
@@ -265,7 +270,7 @@ Format: `cancelshift <ENTRY_ID>`
 
 Changes the timing of an existing duty shift based on the given entry index.  +
 
-NOTE: To avoid accidental rescheduling of another doctor's shift, the user must first narrow down the search down to a single doctor using the `appointments [<REFERENCE_ID>]` command. +
+NOTE: To avoid accidental cancellation of another doctor's shift, the user must first narrow down the search to a single doctor using the `shift [<REFERENCE_ID>]` command. +
 
 NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. +
 
