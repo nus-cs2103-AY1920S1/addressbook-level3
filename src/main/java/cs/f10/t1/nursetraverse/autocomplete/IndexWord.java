@@ -8,4 +8,9 @@ public class IndexWord extends AutoCompleteWord {
     public IndexWord(String suggestionWord) {
         super(suggestionWord);
     }
+
+    @Override
+    public String getConnectorChar() {
+        return " ";
+    }
 }

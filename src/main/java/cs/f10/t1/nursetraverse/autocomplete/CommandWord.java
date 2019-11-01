@@ -30,4 +30,9 @@ public class CommandWord extends AutoCompleteWord implements AssociableWord {
     public boolean hasPrefix() {
         return hasPrefix;
     }
+
+    @Override
+    public String getConnectorChar() {
+        return " ";
+    }
 }

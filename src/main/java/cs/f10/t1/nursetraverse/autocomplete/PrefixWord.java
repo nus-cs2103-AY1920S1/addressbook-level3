@@ -22,4 +22,9 @@ public class PrefixWord extends AutoCompleteWord implements AssociableWord {
         associatedWordList.add(associatedCommandWord);
         return associatedWordList;
     }
+
+    @Override
+    public String getConnectorChar() {
+        return " ";
+    }
 }

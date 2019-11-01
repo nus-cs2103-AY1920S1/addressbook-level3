@@ -3,7 +3,7 @@ package cs.f10.t1.nursetraverse.autocomplete;
 /**
  * Represents an autocomplete word in application
  */
-public class AutoCompleteWord {
+public abstract class AutoCompleteWord {
     private String suggestedWord;
 
     public AutoCompleteWord(String suggestedWord) {
@@ -14,7 +14,5 @@ public class AutoCompleteWord {
         return suggestedWord;
     }
 
-    public String getConnectorChar() {
-        return " ";
-    }
+    public abstract String getConnectorChar();
 }
