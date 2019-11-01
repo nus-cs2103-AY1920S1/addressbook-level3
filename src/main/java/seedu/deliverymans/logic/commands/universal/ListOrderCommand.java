@@ -17,6 +17,6 @@ public class ListOrderCommand extends Command {
     @Override
     public CommandResult execute(Model model, Logic logic) {
         logic.setContext(Context.GLOBAL);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Context.ORDER.toLowerCaseString()), Context.ORDER);
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 }

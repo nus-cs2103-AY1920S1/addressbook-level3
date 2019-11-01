@@ -6,7 +6,6 @@ import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 
 /**
@@ -24,7 +23,7 @@ public class GetStatisticsCommand extends Command {
     public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
 
-        return new CommandResult(MESSAGE_LIST_SUCCESS, Context.DELIVERYMENSTATISTICS);
+        return new CommandResult(MESSAGE_LIST_SUCCESS, GetStatisticsCommand.class);
     }
 
     @Override

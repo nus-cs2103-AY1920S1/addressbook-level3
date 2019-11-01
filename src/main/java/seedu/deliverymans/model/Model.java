@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.core.GuiSettings;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;

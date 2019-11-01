@@ -66,6 +66,7 @@ public class AddOrderCommand extends Command {
             if (customer.isSameCustomer(customerToAdd)) {
                 customerFound = true;
                 customer.addOrder(toAdd);
+                break;
             }
         }
         if (!customerFound) {

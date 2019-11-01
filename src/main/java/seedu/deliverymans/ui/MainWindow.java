@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.logic.Logic;
+import seedu.deliverymans.logic.LogicManager;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
@@ -30,7 +31,6 @@ import seedu.deliverymans.model.restaurant.Restaurant;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static Context currentContext = Context.GLOBAL;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -186,9 +186,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Changes context of the system depending on {@code context}
+     * Changes context of the system depending on {@code context}.
      */
-    private void changeDisplay(Context context) {
+    private void changeContext(Context context) {
 
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
@@ -203,31 +203,9 @@ public class MainWindow extends UiPart<Stage> {
             customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
             listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
             break;
-        case CUSTOMERLIST:
-            Customer customer = logic.getCustomerOrders();
-            orderListPanel = new OrderListPanel(customer.getOrders());
-            statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
-            break;
         case DELIVERYMEN:
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-            break;
-        case DELIVERYMENSTATUS:
-            deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
-            listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-            statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
-            break;
-        case DELIVERYMENSTATISTICS:
-            deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
-                    logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
-            statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
-            break;
-        case DELIVERYMANRECORD:
-            DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
-            deliverymanRecordCard = new DeliverymanRecordCard(record);
-            statisticsDisplay = new StatisticsDisplay();
-            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-            statisticsDisplay.setFeedbackToUser(record.toString());
             break;
         case RESTAURANT:
             restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
@@ -257,6 +235,43 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Changes the Ui to display depending the {@code Class} commandName.
+     * */
+    private void changeUi(Class commandName) {
+        if (statisticsPlaceholder.getChildren().size() > 0) {
+            statisticsPlaceholder.getChildren().remove(0);
+        }
+        System.out.println(commandName.getSimpleName());
+        switch(commandName.getSimpleName()) {
+        case "CustomerHistoryCommand":
+            System.out.println("HERHER\n");
+            Customer customer = logic.getCustomerOrders();
+            orderListPanel = new OrderListPanel(customer.getOrders());
+            statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
+            break;
+        case "StatusSwitchCommand":
+            deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
+            listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
+            statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
+            break;
+        case "GetStatisticsCommand":
+            deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
+                    logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
+            statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
+            break;
+        case "EnterRecordCommand":
+            DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
+            deliverymanRecordCard = new DeliverymanRecordCard(record);
+            statisticsDisplay = new StatisticsDisplay();
+            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+            statisticsDisplay.setFeedbackToUser(record.toString());
+            break;
+        default:
+
+        }
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.deliverymans.logic.Logic#execute(String)
@@ -266,21 +281,23 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            Context nextContext = commandResult.getContext();
-            boolean isNewContext = (nextContext != null && nextContext != currentContext);
+            Class commandName = commandResult.getCommandName();
 
-            if (isNewContext) {
-                changeDisplay(nextContext);
+            Context nextContext = LogicManager.getContext();
+            boolean isNewContext = (nextContext != null);
+
+            if (commandName != null) {
+                changeUi(commandName);
+            } else if (isNewContext) {
+                changeContext(nextContext);
+            } else {
+                if (commandResult.isShowHelp()) {
+                    handleHelp();
+                }
             }
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -290,7 +307,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public static Context getContext() {
-        return currentContext;
+        return LogicManager.getContext();
     }
-
 }

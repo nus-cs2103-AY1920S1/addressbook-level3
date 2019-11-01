@@ -6,7 +6,6 @@ import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 
 /**
@@ -27,7 +26,7 @@ public class ListStatusCommand extends Command {
 
         //model.;
 
-        return new CommandResult(MESSAGE_SUCCESS, Context.DELIVERYMENSTATUS);
+        return new CommandResult(MESSAGE_SUCCESS, ListStatusCommand.class);
     }
 
     @Override

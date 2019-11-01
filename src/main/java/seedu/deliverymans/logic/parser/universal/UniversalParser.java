@@ -1,6 +1,5 @@
 package seedu.deliverymans.logic.parser.universal;
 
-import static seedu.deliverymans.commons.core.Messages.MESSAGE_ALREADY_IN_CONTEXT;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_SWITCH_CONTEXT;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;

@@ -10,7 +10,6 @@ import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
@@ -49,7 +48,7 @@ public class EnterRecordCommand extends Command {
         model.setToShowDeliverymanRecord(targetRecord);
 
         return new CommandResult(String.format(MESSAGE_ENTER_RECORD_SUCCESS, deliverymanToView),
-                Context.DELIVERYMANRECORD);
+                EnterRecordCommand.class);
     }
 
     @Override
