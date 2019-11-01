@@ -63,18 +63,18 @@ Format: `help`
 
 === Starting the quiz: `start`.
 
-User can start by choosing the mode of the quiz. (normal / arcade / custom)
+User can start by choosing the mode of the quiz. (normal / arcade / custom). See Section 4 (Quiz Mode) for in-quiz commands.
 
 Format: `start mode/MODE`
 
 [TIP]
 If no category or difficulty is stated (i.e. `start`), program will start the quiz based on all the questions in the
-question bank.
+question bank. `cat/`, `diff/` and `timer` optional parameters are only allowed in Custom Mode.
 
 Examples:
 
 * `start mode/normal`
-* `start mode/custom`
+* `start mode/custom cat/uml /diff/1 timer/20`
 
 === Exiting the quiz / application: `exit`
 
@@ -85,7 +85,7 @@ If user is in configuration mode, `exit` will close the application.
 
 Format: `exit`
 
-=== Check your progress: `status`
+=== Check your progress: `status` [Coming in v1.4]
 
 Displays the number of questions answered correctly by category and difficulty.
 
@@ -124,7 +124,8 @@ Examples:
 
 * `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
 x/Greenfield x/Brownfield y/None of the others of the above x/Padifield`
-* `add type/tf q/OODMs are Class Diagrams cat/uml diff/2 y/true `
+* `add type/tf q/OODMs are Clas>1 secs Diagrams cat/uml diff/2 y/true`
+* `add type/saq q/What does UML stands for? cat/cs2103 diff/1 y/unified modeling language`
 
 === Editing a question : `edit`
 
@@ -222,6 +223,27 @@ There is no need to save manually.
 
 _{explain how the user can import / export test banks}_
 // end::import/export[]
+
+== Quiz Mode
+
+=== Normal Mode
+Levels are separated by difficulty. User has the choice to move on to the next level or exit the quiz.
+
+=== Arcade Mode
+Levels are separated by difficulty. If user enters a wrong answer before finishing the quiz. Quiz will end and display the results.
+
+=== Custom Mode
+Category, Difficulty and Timer (must be above 1 second) can be customised by the user.
+
+=== Answering Questions
+==== MCQ
+Answers can only be A, B, C, or D (Case insensitive)
+
+==== True and False
+Answers can only be True (T) / False (F) (Case insensitive)
+
+=== SAQ
+Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
 
 == FAQ
 
