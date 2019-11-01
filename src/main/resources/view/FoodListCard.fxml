@@ -10,7 +10,7 @@
       prefWidth="150" maxHeight="200" maxWidth="150" xmlns="http://javafx.com/javafx/8">
     <StackPane>
         <Rectangle fx:id="header" height="70" width="150"/>
-        <Label fx:id="foodName" styleClass="card_big_label"/>
+        <Label fx:id="foodName" textAlignment="CENTER" styleClass="card_big_label"/>
         <padding>
             <Insets bottom="10"/>
         </padding>
