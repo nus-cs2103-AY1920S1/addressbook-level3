@@ -331,9 +331,15 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+
         return fundBook.equals(other.fundBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredTransactions.equals(other.filteredTransactions)
+                && filteredRepeaters.equals(other.filteredRepeaters)
+                && filteredBudgets.equals(other.filteredBudgets)
+                && datas.equals(other.datas)
+                && transactionContext.getValue().equals(other.transactionContext.getValue());
     }
 
 }
