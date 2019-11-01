@@ -19,8 +19,6 @@ import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.ModelManager;
 import seedu.deliverymans.model.ReadOnlyUserPrefs;
 import seedu.deliverymans.model.UserPrefs;
-import seedu.deliverymans.model.addressbook.AddressBook;
-import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
 import seedu.deliverymans.model.database.OrderDatabase;
@@ -30,8 +28,6 @@ import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.util.SampleDataUtil;
-import seedu.deliverymans.storage.AddressBookStorage;
-import seedu.deliverymans.storage.JsonAddressBookStorage;
 import seedu.deliverymans.storage.JsonUserPrefsStorage;
 import seedu.deliverymans.storage.Storage;
 import seedu.deliverymans.storage.StorageManager;
@@ -73,8 +69,6 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
 
-        AddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         CustomerDatabaseStorage customerDatabaseStorage =
                 new JsonCustomerDatabaseStorage(userPrefs.getCustomerDatabaseFilePath());
         DeliverymenDatabaseStorage deliverymenDatabaseStorage =
@@ -83,7 +77,7 @@ public class MainApp extends Application {
                 new JsonRestaurantDatabaseStorage(userPrefs.getRestaurantDatabaseFilePath());
         OrderDatabaseStorage orderDatabaseStorage = new JsonOrderDatabaseStorage(userPrefs.getOrderBookFilePath());
 
-        storage = new StorageManager(addressBookStorage, customerDatabaseStorage, deliverymenDatabaseStorage,
+        storage = new StorageManager(customerDatabaseStorage, deliverymenDatabaseStorage,
                 restaurantDatabaseStorage, orderDatabaseStorage, userPrefsStorage);
 
         initLogging(config);
@@ -101,31 +95,15 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyCustomerDatabase> customerDatabaseOptional;
         Optional<ReadOnlyDeliverymenDatabase> deliverymenDatabaseOptional;
         Optional<ReadOnlyRestaurantDatabase> restaurantDatabaseOptional;
         Optional<ReadOnlyOrderBook> orderBookOptional;
 
-        ReadOnlyAddressBook initialAddressData;
         ReadOnlyCustomerDatabase initialCustomerData;
         ReadOnlyDeliverymenDatabase initialDeliverymenData;
         ReadOnlyRestaurantDatabase initialRestaurantData;
         ReadOnlyOrderBook initialOrderData;
-
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialAddressData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialAddressData = new AddressBook();
-        }
 
         try {
             customerDatabaseOptional = storage.readCustomerDatabase();
@@ -190,7 +168,7 @@ public class MainApp extends Application {
             initialOrderData = new OrderDatabase();
         }
 
-        return new ModelManager(initialAddressData, initialCustomerData, initialDeliverymenData, initialRestaurantData,
+        return new ModelManager(initialCustomerData, initialDeliverymenData, initialRestaurantData,
                 initialOrderData, userPrefs);
     }
 

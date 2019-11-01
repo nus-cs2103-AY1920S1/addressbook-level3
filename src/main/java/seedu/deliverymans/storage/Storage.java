@@ -21,7 +21,7 @@ import seedu.deliverymans.storage.restaurant.RestaurantDatabaseStorage;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, CustomerDatabaseStorage, DeliverymenDatabaseStorage,
+public interface Storage extends CustomerDatabaseStorage, DeliverymenDatabaseStorage,
         RestaurantDatabaseStorage, OrderDatabaseStorage, UserPrefsStorage {
 
     @Override
@@ -31,9 +31,6 @@ public interface Storage extends AddressBookStorage, CustomerDatabaseStorage, De
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
-
-    @Override
     Path getCustomerDatabaseFilePath();
 
     @Override
@@ -41,12 +38,6 @@ public interface Storage extends AddressBookStorage, CustomerDatabaseStorage, De
 
     @Override
     Path getRestaurantDatabaseFilePath();
-
-    @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
-
-    @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     @Override
     Optional<ReadOnlyDeliverymenDatabase> readDeliverymenDatabase() throws DataConversionException, IOException;
