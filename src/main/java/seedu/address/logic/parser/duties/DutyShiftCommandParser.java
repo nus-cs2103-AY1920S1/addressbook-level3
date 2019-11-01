@@ -1,7 +1,7 @@
 //@@author SakuraBlossom
-package seedu.address.logic.parser.appointments;
+package seedu.address.logic.parser.duties;
 
-import seedu.address.logic.commands.appointments.AppointmentsCommand;
+import seedu.address.logic.commands.duties.DutyShiftCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -11,10 +11,10 @@ import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
+public class DutyShiftCommandParser implements Parser<DutyShiftCommand> {
     private Model model;
 
-    public AppointmentsCommandParser(Model model) {
+    public DutyShiftCommandParser(Model model) {
         this.model = model;
     }
 
@@ -24,11 +24,11 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AppointmentsCommand parse(String args) throws ParseException {
+    public DutyShiftCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            return new AppointmentsCommand(new EventApprovedPredicate());
+            return new DutyShiftCommand(new EventApprovedPredicate());
         }
-        return new AppointmentsCommand(new EventContainsKeywordPredicate(args.trim().toUpperCase()));
+        return new DutyShiftCommand(new EventContainsKeywordPredicate(args.trim().toUpperCase()));
     }
 }

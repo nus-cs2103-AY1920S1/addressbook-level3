@@ -3,5 +3,5 @@
 <?import javafx.scene.control.TextField?>
 
 
-<TextField fx:id="commandTextField" onKeyTyped="#handleTextChanged" promptText="Enter command here..."
-           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"/>
+<TextField fx:id="commandTextField" promptText="Enter command here..." xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"/>

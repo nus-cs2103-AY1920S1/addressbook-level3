@@ -31,7 +31,7 @@ public class QueueCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        name.setText(person.getName().toString());
         refId.setText(person.getReferenceId().toString());
         phone.setText(person.getPhone().toString());
     }

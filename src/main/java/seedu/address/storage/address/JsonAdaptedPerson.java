@@ -12,12 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.ReferenceId;
-import seedu.address.model.common.Tag;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.Tag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -56,7 +56,7 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         id = source.getReferenceId().toString();
-        name = source.getName().fullName;
+        name = source.getName().toString();
         phone = source.getPhone().toString();
         email = source.getEmail().toString();
         address = source.getAddress().toString();

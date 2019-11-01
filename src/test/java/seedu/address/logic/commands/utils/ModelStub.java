@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.utils;
 
+import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -7,13 +8,11 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.OmniPanelTab;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Event;
-import seedu.address.model.exceptions.EntryNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
@@ -219,7 +218,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void scheduleAppointment(Event appointment) throws CommandException {
+    public void scheduleAppointment(Event appointment) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void scheduleAppointments(List<Event> appointments) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -279,12 +283,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteDutyShift(Event event) {
+    public void deleteDutyShifts(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void scheduleDutyShift(Event dutyShift) throws CommandException {
+    public void deleteDutyShifts(List<Event> dutyShifts) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void scheduleDutyShift(Event dutyShift) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void scheduleDutyShift(List<Event> dutyShifts) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -333,7 +347,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Person resolveStaff(ReferenceId id) throws EntryNotFoundException {
+    public Person resolveStaff(ReferenceId id) {
         throw new AssertionError("This method should not be called.");
     }
 
