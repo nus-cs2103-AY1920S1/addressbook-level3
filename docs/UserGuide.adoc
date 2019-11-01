@@ -607,15 +607,26 @@ Planning your next workout? You can refer to the commands in this section to hel
 exercise regime in DukeCooks.
 
 ==== Adding an exercise: `add exercise`
-Adds an exercise to exercise list. App will then prompt for the muscle type, level of intensity (out of 5), instructions as well as images of the steps (in directory form) (optional) in order.
-
-Once done you can add the recommended number of sets (optional), recommended number of repetitions (optional), recommended timing in minutes(optional), exerciseWeight (optional) in the format: `s/SETS r/REPETITIONS w/WEIGHT t/TIMING` +
-Format: `add exercise <exerciseName>`
+Adds an exercise to exercise list. You will be required to specify the primary muscle of the exercise, its intensity
+as well as its name. Optional fields like secondary muscles and exercise details such as reps, sets can also be added.
+The following shows the fields and which are optional: +
+* Name +
+* Primary Muscle +
+* Intensity +
+* Secondary Muscles (optional) +
+* Number of sets (optional) +
+* Number of repetitions (optional) +
+* Timing (optional)  +
+* Distance (optional) +
+* Exercise Weight (optional) +
+The format is as follow: +
+Format: `add exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
+s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
 
 Examples:
 
-* `add exercise Inclined Bench Press` +
-Output: _Exercise “Inclined Bench Press” has been created. Please enter the muscle groups it trains, separating each muscle by a “/”._
+* `add exercise n/Bench Press p/Chest i/medium sm/Triceps s/5 r/5 w/80 kg` +
+Output: _New Exercise added: Bench Press_
 
 
 ==== List Exercise: `list exercise`
