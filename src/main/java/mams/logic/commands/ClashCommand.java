@@ -41,9 +41,11 @@ public class ClashCommand extends Command {
 
     public static final String MESSAGE_CLASH_DETECTED = "Timetable clash detected: \n";
     public static final String MESSAGE_CLASH_NOT_DETECTED = "There is no timetable clash.";
-    public static final String MESSAGE_INVALID_MODULE = "Module not found ";
-    public static final String MESSAGE_INVALID_STUDENT = "Student not found ";
-    public static final String MESSAGE_INVALID_INDEX = "Index out of bound ";
+    public static final String MESSAGE_NEED_TWO_MODULES = "Please enter two modules to check clashes.";
+    public static final String MESSAGE_ONLY_ONE_ITEM_ALLOWED = "Please check only one item at a time.";
+    public static final String MESSAGE_INVALID_MODULE = "Module not found. ";
+    public static final String MESSAGE_INVALID_STUDENT = "Student not found. ";
+    public static final String MESSAGE_INVALID_INDEX = "Please enter a valid index. ";
     public static final String MESSAGE_INVALID_APPEAL_TYPE = "This is not a add/drop module appeal. "
             + "No need to check clashes.";
     private ArrayList<ClashCase> clashCases;

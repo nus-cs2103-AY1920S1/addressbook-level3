@@ -210,7 +210,7 @@ Sample output:
 
 image::ClashCommandInvalidAppealType.png[width="790"]
 
-* `clash a/3`
+* `clash a/6`
 
 Sample output:
 
@@ -230,7 +230,7 @@ Examples:
 
 Sample output:
 
-image::NoClashDetectedResponse.png[width="790"]
+image::StudentClashDetected.png[width="790"]
 
 ==== Show clashes between 2 modules
 This command checks to see if the lecture slots of 2 modules clashes, and displays the result to the user.
@@ -431,7 +431,7 @@ There is no need to save manually.
 - eg. `history` to open the history window
 
 * **find**: `find [a/KEYWORD...] [m/KEYWORD...] [s/KEYWORD...]`
-- e.g. `view a/cs1010 m/data algorithm`
+- e.g. `find a/cs1010 m/data algorithm`
 
 * **clash**:
 ** `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [M/INDEX]`

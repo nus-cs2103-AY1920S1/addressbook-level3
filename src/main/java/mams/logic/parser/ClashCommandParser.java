@@ -29,8 +29,13 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                     ClashCommand.MESSAGE_USAGE));
         }
 
+        boolean hasValidInput = false;
+
+        verifyNumberOfParameters(argMultimap);
+
         if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
             parameters.setAppealIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEAL).get()));
+            hasValidInput = true;
         }
 
         if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) == 2) {
@@ -41,13 +46,20 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                 parameters.setModuleIndices(ParserUtil.parseIndex(modules.get(0)),
                         ParserUtil.parseIndex(modules.get(1)));
             }
+            hasValidInput = true;
         }
 
         if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
             parameters.setStudentIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get()));
+            hasValidInput = true;
         }
 
-        return new ClashCommand(parameters);
+        if (hasValidInput) {
+            return new ClashCommand(parameters);
+        } else {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ClashCommand.MESSAGE_USAGE));
+        }
     }
 
     /**
@@ -76,5 +88,14 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                         && argMultimap.getValue(PREFIX_STUDENT).isEmpty()
                         && argMultimap.getValue(PREFIX_APPEAL).isPresent());
     }
-}
 
+    private void verifyNumberOfParameters(ArgumentMultimap argMultimap) throws ParseException{
+        if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) != 2) {
+            throw new ParseException(ClashCommand.MESSAGE_NEED_TWO_MODULES);
+        }
+        if ((argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) != 1)
+                || (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) != 1)) {
+            throw new ParseException(ClashCommand.MESSAGE_ONLY_ONE_ITEM_ALLOWED);
+        }
+    }
+}
