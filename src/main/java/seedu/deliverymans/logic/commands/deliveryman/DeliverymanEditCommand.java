@@ -28,7 +28,7 @@ import seedu.deliverymans.model.deliveryman.Deliveryman;
 /**
  * Edits the details of an existing deliveryman in the deliverymen database.
  */
-public class EditCommand extends Command {
+public class DeliverymanEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -42,8 +42,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 ";
 
-    public static final String MESSAGE_EDIT_DELIVERYMAN_SUCCESS = "Edited Deliveryman: %1$s\n"
-            + "Deliveryman status is set to default: UNAVAILABLE.";
+    public static final String MESSAGE_EDIT_DELIVERYMAN_SUCCESS = "Edited Deliveryman: %1$s\n";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DELIVERYMEN = "This deliveryman already exists in the address book.";
 
@@ -54,7 +53,7 @@ public class EditCommand extends Command {
      * @param index of the deliveryman in the filtered deliverymen list to edit
      * @param editDeliverymanDescriptor details to edit the deliveryman with
      */
-    public EditCommand(Index index, EditDeliverymanDescriptor editDeliverymanDescriptor) {
+    public DeliverymanEditCommand(Index index, EditDeliverymanDescriptor editDeliverymanDescriptor) {
         requireNonNull(index);
         requireNonNull(editDeliverymanDescriptor);
 
@@ -81,7 +80,7 @@ public class EditCommand extends Command {
         model.setDeliveryman(deliverymanToEdit, editedDeliveryman);
         model.updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
         return new CommandResult(String.format(MESSAGE_EDIT_DELIVERYMAN_SUCCESS, editedDeliveryman,
-                EditCommand.class));
+                DeliverymanEditCommand.class));
     }
 
     /**
@@ -107,12 +106,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof DeliverymanEditCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        DeliverymanEditCommand e = (DeliverymanEditCommand) other;
         return index.equals(e.index)
                 && editDeliverymanDescriptor.equals(e.editDeliverymanDescriptor);
     }

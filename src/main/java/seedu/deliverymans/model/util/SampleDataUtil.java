@@ -131,11 +131,13 @@ public class SampleDataUtil {
 
     public static Deliveryman[] getSampleDeliverymen() {
         return new Deliveryman[]{
-            new Deliveryman(new Name("Damith"), new Phone("99999999"), getTagSet("inactive"),
-                    new StatusTag("AVAILABLE")),
-            new Deliveryman(new Name("Donald Trump"), new Phone("91234567"), getTagSet("buff", "powerful"),
+            new Deliveryman(new Name("Damith"), new Phone("83412321"),
+                    getTagSet("inactive", "giveCharlieAplus"), new StatusTag("AVAILABLE")),
+            new Deliveryman(new Name("Donald Trump"), new Phone("91234567"),
+                    getTagSet("buff", "powerful", "bestDeliveryman2019", "notFat", "cuteHairstyle"),
                     new StatusTag("DELIVERING")),
-            new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"), getTagSet("active")),
+            new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"),
+                    getTagSet("active", "AisEnough")),
             new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive"),
                     new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Yuen Jun Rong "), new Phone("12345678"), getTagSet("veryactive"))

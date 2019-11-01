@@ -1,4 +1,4 @@
-package seedu.deliverymans.model.deliveryman;
+package seedu.deliverymans.model.deliveryman.deliverymanstatus;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.AVAILABLE_STATUS;
@@ -6,8 +6,10 @@ import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatu
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 
 /**
  * A list that primarily focuses on the status of the deliverymen.
@@ -131,8 +133,13 @@ public class StatusManager {
 
     /**
      * Returns an available deliveryman to the DeliverymenDatabase.
+     * @return an available Deliveryman
+     * @throws NoMoreAvailableDeliverymanException if availableMen is empty
      */
-    public Deliveryman getAvailableDeliveryman() {
+    public Deliveryman getAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
+        if (availableMen.size() == 0) {
+            throw new NoMoreAvailableDeliverymanException();
+        }
         Deliveryman removed = availableMen.remove(0);
         updateStatusOf(removed, "DELIVERING");
         return removed;

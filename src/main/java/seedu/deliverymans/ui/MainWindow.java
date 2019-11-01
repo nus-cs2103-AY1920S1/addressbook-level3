@@ -193,7 +193,6 @@ public class MainWindow extends UiPart<Stage> {
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
 
-
         if (statisticsPlaceholder.getChildren().size() > 0) {
             statisticsPlaceholder.getChildren().remove(0);
         }
@@ -244,25 +243,24 @@ public class MainWindow extends UiPart<Stage> {
         System.out.println(commandName.getSimpleName());
         switch(commandName.getSimpleName()) {
         case "CustomerHistoryCommand":
-            System.out.println("HERHER\n");
             Customer customer = logic.getCustomerOrders();
             orderListPanel = new OrderListPanel(customer.getOrders());
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
             break;
-        case "StatusSwitchCommand":
+        case "DeliverymanStatusSwitchCommand":
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
             break;
-        case "GetStatisticsCommand":
+        case "DeliverymanGetStatisticsCommand":
             deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
                     logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
             statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
             break;
-        case "ListAvailCommand":
+        case "DeliverymanListStatusCommand":
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
             break;
-        case "EnterRecordCommand":
+        case "DeliverymanEnterRecordCommand":
             DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
             deliverymanRecordCard = new DeliverymanRecordCard(record);
             statisticsDisplay = new StatisticsDisplay();

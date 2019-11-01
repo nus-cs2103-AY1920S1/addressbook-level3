@@ -20,15 +20,15 @@ By: `Team AY1920S1-CS2103-T12-2`   Since: `Sept 2019`  Licence: `NUS`
 
 === Software overview
 
-*DeliveryMANs* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANs* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
+*DeliveryMANS* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANs* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
 
 === Purpose
 
-This document has been created to explain the software architecture and implementations of *DeliveryMANs*. The intended audience for this document are software testers and future developers.
+This document has been created to explain the software architecture and implementations of *DeliveryMANS*. The intended audience for this document are software testers and future developers.
 
 == Setting up
 
-To setup *DeliveryMANs* on your system, please refer to the user guide <<UserGuide#Quick-start, here>>.
+To setup *DeliveryMANS* on your system, please refer to the user guide <<UserGuide#Quick-start, here>>.
 
 == Design
 

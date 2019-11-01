@@ -86,6 +86,7 @@ public class LogicManager implements Logic {
     public Path getCustomerDatabaseFilePath() {
         return model.getCustomerDatabaseFilePath();
     }
+
     //=========== Deliveryman =============================================================
     @Override
     public ReadOnlyDeliverymenDatabase getDeliverymenDatabase() {
