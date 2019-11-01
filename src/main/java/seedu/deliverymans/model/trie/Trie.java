@@ -10,7 +10,9 @@ import java.util.Map;
  */
 public class Trie {
     private final HashMap<Character, Trie> children;
-    private final LinkedList<String> content = new LinkedList<>();
+    private final LinkedList<String> commandList = new LinkedList<>();
+
+    private boolean containsCommandWord;
 
     Trie() {
         children = new HashMap<>();
@@ -29,7 +31,9 @@ public class Trie {
             if (!children.containsKey(c)) {
                 children.put(c, new Trie());
             }
-            children.get(c).addContent(command);
+            Trie leaf = children.get(c);
+            leaf.addContent(command);
+            leaf.containsCommandWord = true;
         } else if (key.length() > 1) {
             char first = key.charAt(0);
             if (!children.containsKey(first)) {
@@ -42,7 +46,7 @@ public class Trie {
     }
 
     private void addContent(String content) {
-        this.content.addLast(content);
+        this.commandList.addLast(content);
     }
 
     /**
@@ -76,8 +80,8 @@ public class Trie {
     private LinkedList<String> allPrefixes() {
         LinkedList<String> contentList = new LinkedList<>();
         HashSet<String> uniqueList = new HashSet<>();
-        if (children.isEmpty()) {
-            uniqueList.addAll(this.content);
+        if (containsCommandWord) {
+            uniqueList.addAll(this.commandList);
         }
         for (Map.Entry<Character, Trie> entry : children.entrySet()) {
             Trie child = entry.getValue();
