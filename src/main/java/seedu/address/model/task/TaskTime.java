@@ -38,10 +38,11 @@ public class TaskTime implements Comparable<TaskTime> {
     public static boolean isValidTaskTime(String taskTime) {
         Date dateStart;
         Date dateEnd;
-        String[] twoTime = taskTime.split(", ");
-        String startingTime = twoTime[0];
-        String endingTime = twoTime[1];
+
         try {
+            String[] twoTime = taskTime.split(", ");
+            String startingTime = twoTime[0];
+            String endingTime = twoTime[1];
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             dateStart = simpleDateFormat.parse(startingTime);
             dateEnd = simpleDateFormat.parse(endingTime);
@@ -50,8 +51,8 @@ public class TaskTime implements Comparable<TaskTime> {
                     || !endingTime.equals(simpleDateFormat.format(dateEnd))) {
                 dateStart = null;
             }
-        } catch (ParseException ex) {
-            return false;
+        } catch(IndexOutOfBoundsException | ParseException ex) {
+            throw new IllegalArgumentException();
         }
         return dateStart != null;
     }
