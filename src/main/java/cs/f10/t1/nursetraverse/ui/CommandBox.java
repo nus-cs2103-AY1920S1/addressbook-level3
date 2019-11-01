@@ -101,6 +101,10 @@ public class CommandBox extends UiPart<Region> {
                     logger.info("Nothing is selected thus right key does not work");
                 }
                 break;
+            case ENTER:
+                //handleCommandEntered() will be executed first
+                autoCompletePanel.updateListView(commandTextField.getText());
+                break;
             default:
                 autoCompletePanel.updateListView(commandTextField.getText() + event.getText());
             }

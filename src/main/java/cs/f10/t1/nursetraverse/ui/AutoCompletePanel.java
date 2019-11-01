@@ -88,7 +88,6 @@ public class AutoCompletePanel extends UiPart<Region> {
     public void updateListView(String currentPhraseInCommandBox) {
         String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
         LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
-
         // Check and update matched words
         matchedWordUpdater.updateMatchedWords(segments, firstSegmentParts);
         // Choose initial list
