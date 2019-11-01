@@ -25,7 +25,7 @@ class UserinputParserUtilTest {
     }
 
     @Test
-    void parseFirstSegment() {
+    public void parseFirstSegment() {
         String testFirstSegment = "pat-delete";
         LinkedList<String> segments = UserinputParserUtil.parseFirstSegment(testFirstSegment);
         assertEquals("pat", segments.get(0));
@@ -33,7 +33,7 @@ class UserinputParserUtilTest {
     }
 
     @Test
-    void parseFirstSegment_emptyString_listSizeOne() {
+    public void parseFirstSegment_emptyString_listSizeOne() {
         String testFirstSegment = "";
         LinkedList<String> segments = UserinputParserUtil.parseFirstSegment(testFirstSegment);
         assertEquals(1, segments.size());
