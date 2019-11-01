@@ -23,6 +23,8 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.testutil.address.EditPersonDescriptorBuilder;
 import seedu.jarvis.testutil.finance.EditInstallmentDescriptorBuilder;
 
@@ -211,6 +213,16 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    public static void showTaskAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTaskList().size());
+
+        Task task = model.getFilteredTaskList().get(targetIndex.getZeroBased());
+        final String[] splitDes = task.getTaskDes().split("\\s+");
+        model.updateFilteredTaskList(new TaskDesContainsKeywordsPredicate(Arrays.asList(splitDes[0])));
+
+        assertEquals(1, model.getFilteredTaskList().size());
     }
 
 }

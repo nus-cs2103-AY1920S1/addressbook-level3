@@ -14,7 +14,6 @@ import static java.util.Objects.requireNonNull;
 /**
  * Lists all the tasks in the planner to the user
  */
-//TODO test
 public class ListTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "list-tasks";
