@@ -40,7 +40,8 @@ public class InCommandParser implements Parser<InCommand> {
         }
 
         /* handles 0 value */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)) {
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)
+                && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
             throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_ZERO));
 
         }
