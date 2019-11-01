@@ -15,6 +15,10 @@
         <RowConstraints percentHeight="10" vgrow="SOMETIMES"/>
         <RowConstraints percentHeight="90" vgrow="SOMETIMES"/>
     </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS"/>
+        <ColumnConstraints hgrow="ALWAYS"/>
+    </columnConstraints>
     <padding>
         <Insets left="10" right="10" top="10" bottom="10"/>
     </padding>
