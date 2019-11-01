@@ -217,7 +217,7 @@ class JsonAdaptedUser {
             userMedicalCondition.add(medicalCondition.toModelType());
         }
         if (userMedicalCondition.isEmpty()) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(MedicalCondition.MESSAGE_CONSTRAINTS);
         }
         final List<MedicalCondition> modelMedicalConditions = new ArrayList<>(userMedicalCondition);
 

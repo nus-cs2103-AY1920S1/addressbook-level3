@@ -124,7 +124,7 @@ public class ParserUtil {
         if (!profileDesc.isEmpty()) {
             String trimmedProfileDesc = profileDesc.get().trim();
             if (!ProfileDesc.isValidProfileDesc(trimmedProfileDesc)) {
-                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+                throw new ParseException(ProfileDesc.MESSAGE_CONSTRAINTS);
             }
             return new ProfileDesc(trimmedProfileDesc);
         } else {
@@ -170,7 +170,7 @@ public class ParserUtil {
         if (!nric.isEmpty()) {
             String trimmedNric = nric.get().trim();
             if (!Nric.isValidNric(trimmedNric)) {
-                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+                throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
             }
             return new Nric(trimmedNric);
         } else {
@@ -286,7 +286,7 @@ public class ParserUtil {
         if (!address.isEmpty()) {
             String trimmedAddress = address.get().trim();
             if (!Address.isValidAddress(trimmedAddress)) {
-                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+                throw new ParseException(Address.MESSAGE_CONSTRAINTS);
             }
             return new Address(trimmedAddress);
         } else {
