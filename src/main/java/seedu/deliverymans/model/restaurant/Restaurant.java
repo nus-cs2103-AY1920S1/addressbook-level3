@@ -79,7 +79,7 @@ public class Restaurant {
         return tags;
     }
 
-    public ObservableList<Order>  getOrders() {
+    public ObservableList<Order> getOrders() {
         return orders;
     }
 
