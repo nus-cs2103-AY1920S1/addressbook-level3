@@ -43,7 +43,6 @@ public class MainWindow extends UiPart<Stage> {
     private DateWindow dateWindow;
     private ScheduleBox scheduleBox;
     private Finance finance;
-//    private SingleSelectionModel<Tab> selectionModel;
 
     @FXML
     private StackPane financePlaceholder;
