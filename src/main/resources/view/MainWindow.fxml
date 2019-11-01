@@ -51,7 +51,7 @@
                         <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>
                     <items>
-                        <VBox minHeight="270" minWidth="340" prefHeight="270" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                        <VBox minHeight="270" minWidth="340" prefHeight="270" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                             <padding>
                                 <Insets bottom="10" left="10" right="10" top="10" />
                             </padding>

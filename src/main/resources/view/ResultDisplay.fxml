@@ -16,7 +16,7 @@
                 <VBox VBox.vgrow="ALWAYS">
                     <children>
                         <Label fx:id="resultDisplay" minHeight="70" maxHeight="Infinity" alignment="TOP_LEFT"
-                               styleClass="result-display" textAlignment="LEFT" wrapText="false"/>
+                               styleClass="result-display" textAlignment="LEFT" wrapText="true"/>
                     </children>
                     <padding>
                         <Insets left="10.0"/>
