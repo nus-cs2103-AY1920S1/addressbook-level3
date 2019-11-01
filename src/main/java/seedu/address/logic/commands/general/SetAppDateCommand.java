@@ -14,9 +14,10 @@ public class SetAppDateCommand extends Command {
 
     public static final String COMMAND_WORD = "set_date";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the Date used in the App.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Changes the Date used in the App. Default is initialized as System Date\n"
             + "Warning: A typical user shouldn't need to do this. \n"
-            + "Example: " + COMMAND_WORD + "28/10/2019";
+            + "Example: " + COMMAND_WORD + " 28/10/2019";
 
     public static final String MESSAGE_SUCCESS = "Set App Date as %s";
     private final LocalDate toSet;
