@@ -235,12 +235,13 @@ Examples:
 * `bank CS2040`
 * `bank Biology`
 
-=== Open Mode & Commands image:card_commands_icon.png[width="29.5"]
-
 ==== Help : `help`
 Shows help
 
 Format: `help`
+
+=== Open Mode & Commands image:card_commands_icon.png[width="29.5"]
+
 
 ==== Adding a flash card : `add`
 Adds a new word-description pair to the word bank.
