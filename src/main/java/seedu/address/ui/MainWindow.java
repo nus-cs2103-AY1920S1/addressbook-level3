@@ -1,9 +1,12 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.settings.Theme;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -40,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     @FXML
+    private Scene scene;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -54,6 +61,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    private static CommandBox commandBox;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -65,6 +74,8 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        setDefaultTheme(logic.getCurrentTheme());
 
         userViewMain = new UserViewMain(logic);
 
@@ -122,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getProjectDashboardFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -136,6 +147,16 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    /**
+     * Sets the default theme of +Work based on {@code defaultTheme}.
+     */
+    private void setDefaultTheme(Theme defaultTheme) {
+        requireNonNull(defaultTheme);
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(defaultTheme.getThemeUrl());
+        scene.getStylesheets().add(defaultTheme.getExtensionUrl());
     }
 
     /**
@@ -186,6 +207,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isThemeChanged()) {
+                setDefaultTheme(logic.getCurrentTheme());
+            }
+
             userViewUpdate.parseUserCommand(commandText);
 
             return commandResult;
@@ -194,5 +219,8 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+    public static void updateCommandBox(String text) {
+        commandBox.setCommandText(text);
     }
 }

@@ -32,6 +32,7 @@ public class DoneTaskInvTag {
                 commands.add(command);
                 return new CommandResult("Would you like to add this as a Inventory?");
             case "halt":
+                commands.clear();
                 return new CommandResult("Inventory not added");
             case "continue":
                 commands.add(command);
@@ -63,9 +64,16 @@ public class DoneTaskInvTag {
 
     public static AddInventoryCommand createCommandOne(Command command, Model model, ArrayList<Command>commands) throws ParseException {
         try {
-            Index index = new Index(((DoneTaskCommand) commands.get(0)).getIndex());
-            Task taskToAdd = model.getFilteredTasksList().get(index.getZeroBased());
-            Name name = taskToAdd.getName();
+            Index index;
+            Name name;
+            Command firstCommand = commands.get(0);
+            if(firstCommand instanceof DoneTaskCommand) {
+                index = new Index(((DoneTaskCommand)(commands.get(0))).getIndex());
+                Task taskToAdd = model.getFilteredTasksList().get(index.getZeroBased());
+                name = taskToAdd.getName();
+            } else {
+                throw new ParseException("Invalid Command");
+            }
 
             if (command instanceof AddICommand) {
                 Price price = ((AddICommand) command).getPrice();

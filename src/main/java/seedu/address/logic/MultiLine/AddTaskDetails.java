@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddDCommand;
-import seedu.address.logic.commands.AddMemberToTaskCommand;
+import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SetDeadlineCommand;
@@ -27,6 +27,7 @@ public class AddTaskDetails {
                 commands.add(command);
                 return new CommandResult(TaskName + "\n" + "Would you like to add deadline or member?");
             case "halt":
+                commands.clear();
                 return new CommandResult("Deadline/ Member not added");
             case "continue":
                 commands.add(command);
@@ -61,7 +62,7 @@ public class AddTaskDetails {
         LocalDateTime deadline = ((AddDCommand)command).getDeadline();
         MemberId memId = ((AddDCommand)command).getMemId();
 
-        AddMemberToTaskCommand command1 = new AddMemberToTaskCommand(new Index(length-1), memId);
+        AssignCommand command1 = new AssignCommand(new Index(length-1), memId);
         CommandResult commandResult1 = command1.execute(model);
 
         SetDeadlineCommand command2 = new SetDeadlineCommand(new Index(length-1) , deadline);

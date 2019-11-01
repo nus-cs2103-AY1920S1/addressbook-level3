@@ -80,6 +80,7 @@ public class MultiLineManager {
                 case "final2":
                     throw new ParseException("Command invalid in this situation");
                 default:
+                    currentType = 0;
                     return new CommandResult("No MultiLine");
             }
         }

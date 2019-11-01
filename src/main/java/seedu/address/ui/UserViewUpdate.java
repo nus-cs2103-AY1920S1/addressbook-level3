@@ -54,8 +54,24 @@ public class UserViewUpdate {
             break;
 
         case "add-member":
+            paneToRender.getChildren().add(userViewMain.loadSpecificMember());
+            break;
+
+        case "set-image":
+            paneToRender.getChildren().add(userViewMain.loadSetImage());
+            break;
 
         case "find-member":
+            paneToRender.getChildren().add(userViewMain.loadFoundMembers());
+            break;
+
+        case "assign":
+            paneToRender.getChildren().add(userViewMain.loadAssign());
+            break;
+
+        case "fire":
+
+        case "edit-member":
 
         case "remove-member":
 
@@ -73,21 +89,20 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadInventories());
             break;
 
-        case "assign-member":
 
-        case "fire-member":
 
-        case "get-member-stats":
+        case "member-stats":
            paneToRender.getChildren().add(userViewMain.loadMemberStats());
            break;
 
-        case "assign-task":
 
-        case "fire-task":
-
-        case "get-task-stats":
+        case "task-stats":
             paneToRender.getChildren().add(userViewMain.loadTaskStats());
             break;
+
+        case "settings":
+
+        case "theme":
 
         case "clock":
             paneToRender.getChildren().add(userViewMain.loadSettingsView());
@@ -107,6 +122,8 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadDashboard());
             break;
 
+        case "help":
+            paneToRender.getChildren().add(userViewMain.loadHelpView());
         default:
             // show nothing (only exit has no case)
         }

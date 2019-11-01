@@ -38,6 +38,7 @@ import com.itextpdf.text.pdf.PdfWriter;
  */
 public class GeneratePDFCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(GeneratePDFCommand.class);
+
     public static final String COMMAND_WORD = "pdf";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a inventory to the project Dashboard. "
@@ -73,7 +74,6 @@ public class GeneratePDFCommand extends Command {
             Rectangle layout = new Rectangle(PageSize.A4);
             layout.setBackgroundColor(new BaseColor(51, 255, 189));
             Document document = new Document(layout);
-            //Document document = new Document();
             document.setMargins(0, 0, 0, 0);
             PdfWriter.getInstance(document, new FileOutputStream("Result1.pdf" ));
 
@@ -82,7 +82,7 @@ public class GeneratePDFCommand extends Command {
             //Editing Doc
             document.open();
             designDoc(model,document);
-            logger.info("document edited");
+            logger.info("Document edited");
             document.close();
 
 
@@ -108,7 +108,7 @@ public class GeneratePDFCommand extends Command {
         document.add(header);
 
         ObservableList<ObservableList<InvMemMapping>>mapListMem = ((ModelManager)model).getInvMemPDFList();
-        ObservableList<ObservableList<InvTasMapping>>mapListTas = ((ModelManager)model).getInvTasPDFList();
+        ObservableList<ObservableList<InvTasMapping>> mapListTas = ((ModelManager)model).getInvTasPDFList();
 
         ArrayList<Integer> lonelyMemList = ((ModelManager)model).getInvMemLonelyList();
         ArrayList<Integer> lonelyTasList = ((ModelManager)model).getInvTasLonelyList();
@@ -148,7 +148,7 @@ public class GeneratePDFCommand extends Command {
 
         Font font30pt = new Font(FontFamily.HELVETICA, 30);
         font30pt.setColor(BaseColor.WHITE);
-        Paragraph p1 = new Paragraph("Inventories", font30pt);
+        Paragraph p1 = new Paragraph("Inventories (by " + type + ")", font30pt);
 
         PdfPCell cell = new PdfPCell(p1);
         cell.setFixedHeight(50);
@@ -242,32 +242,6 @@ public class GeneratePDFCommand extends Command {
         table.addCell(cellTotal);
 
         table.setSpacingAfter(10);
-        /*PdfPCell cell = new PdfPCell(new Phrase("Cell with colspan 3"));
-        cell.setColspan(3);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Cell with rowspan 2"));
-        cell.setRowspan(2);
-        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-        table.addCell(cell);
-        table.addCell("Cell 1.1");
-        cell = new PdfPCell();
-        cell.addElement(new Phrase("Cell 1.2"));
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Cell 2.1"));
-        cell.setPadding(5);
-        cell.setUseAscender(true);
-        cell.setUseDescender(true);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(cell);
-        cell = new PdfPCell();
-        cell.setPadding(5);
-        cell.setUseAscender(true);
-        cell.setUseDescender(true);
-        Paragraph p = new Paragraph("Cell 2.2");
-        p.setAlignment(Element.ALIGN_CENTER);
-        cell.addElement(p);
-        table.addCell(cell);*/
         return table;
     }
 
@@ -350,32 +324,6 @@ public class GeneratePDFCommand extends Command {
         table.addCell(cellTotal);
 
         table.setSpacingAfter(10);
-        /*PdfPCell cell = new PdfPCell(new Phrase("Cell with colspan 3"));
-        cell.setColspan(3);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Cell with rowspan 2"));
-        cell.setRowspan(2);
-        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-        table.addCell(cell);
-        table.addCell("Cell 1.1");
-        cell = new PdfPCell();
-        cell.addElement(new Phrase("Cell 1.2"));
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Cell 2.1"));
-        cell.setPadding(5);
-        cell.setUseAscender(true);
-        cell.setUseDescender(true);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(cell);
-        cell = new PdfPCell();
-        cell.setPadding(5);
-        cell.setUseAscender(true);
-        cell.setUseDescender(true);
-        Paragraph p = new Paragraph("Cell 2.2");
-        p.setAlignment(Element.ALIGN_CENTER);
-        cell.addElement(p);
-        table.addCell(cell);*/
         return table;
     }
 
@@ -456,32 +404,6 @@ public class GeneratePDFCommand extends Command {
         table.addCell(cellTotal);
 
         table.setSpacingAfter(10);
-        /*PdfPCell cell = new PdfPCell(new Phrase("Cell with colspan 3"));
-        cell.setColspan(3);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Cell with rowspan 2"));
-        cell.setRowspan(2);
-        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-        table.addCell(cell);
-        table.addCell("Cell 1.1");
-        cell = new PdfPCell();
-        cell.addElement(new Phrase("Cell 1.2"));
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Cell 2.1"));
-        cell.setPadding(5);
-        cell.setUseAscender(true);
-        cell.setUseDescender(true);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(cell);
-        cell = new PdfPCell();
-        cell.setPadding(5);
-        cell.setUseAscender(true);
-        cell.setUseDescender(true);
-        Paragraph p = new Paragraph("Cell 2.2");
-        p.setAlignment(Element.ALIGN_CENTER);
-        cell.addElement(p);
-        table.addCell(cell);*/
         return table;
     }
 

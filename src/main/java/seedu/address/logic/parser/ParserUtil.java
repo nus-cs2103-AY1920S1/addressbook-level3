@@ -14,6 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.calendar.FilePath;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Price;
 import seedu.address.model.member.MemberId;
@@ -52,7 +53,7 @@ public class ParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidMemberName(trimmedName)) {
+        if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
@@ -165,6 +166,18 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static String parseMemberImage(String url) throws ParseException {
+        requireNonNull(url);
+        String trimmedUrl = url.trim();
+
+        return trimmedUrl;
+    }
+
+    /**
      * Parses {@code dateTime} into an {@code LocalDateTime} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      * @throws DateTimeParseException if the input string is not in the valid format.
@@ -175,6 +188,21 @@ public class ParserUtil {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d HH:mm");
         return LocalDateTime.parse(trimmedDate, formatter);
+    }
+
+    /**
+     * Parses {@code filePath} into an {@code filePath} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws DateTimeParseException if the input string is not in the valid format.
+     */
+    public static FilePath parseFilePath(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        String trimmedFilePath = filePath.trim();
+
+        if (!FilePath.isValidFilePath(filePath)) {
+            throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
+        }
+        return new FilePath(trimmedFilePath);
     }
 
     /**
@@ -214,5 +242,4 @@ public class ParserUtil {
 
         return clockFormat;
     }
-
 }

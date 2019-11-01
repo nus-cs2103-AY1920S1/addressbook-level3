@@ -12,6 +12,7 @@ import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
@@ -61,7 +62,8 @@ public class SampleTaskDataUtil {
         };
     }
 
-    public static InvMemMapping[] getSampleInvMemMappings() {
+
+    public static InvMemMapping[] getSampleInvMemMapping() {
         return new InvMemMapping[] {
                 new InvMemMapping(2,0),
                 new InvMemMapping(2,1),
@@ -72,14 +74,26 @@ public class SampleTaskDataUtil {
         };
     }
 
-    public static InvTasMapping[] getSampleInvTasMappings() {
-        return new InvTasMapping[] {
-                new InvTasMapping(5,0),
-                new InvTasMapping(2,1),
-                new InvTasMapping(5,2),
-                new InvTasMapping(5,3),
-                new InvTasMapping(2,4),
-                new InvTasMapping(4,5),
+    public static InvTasMapping[] getSampleInvTasMapping() {
+        return new InvTasMapping[]{
+                new InvTasMapping(5, 0),
+                new InvTasMapping(2, 1),
+                new InvTasMapping(5, 2),
+                new InvTasMapping(5, 3),
+                new InvTasMapping(2, 4),
+                new InvTasMapping(4, 5),
+        };
+    }
+
+
+    public static TasMemMapping[] getSampleTasMemMapping() {
+        return new TasMemMapping[] {
+                new TasMemMapping(1, 1),
+                new TasMemMapping(1, 2),
+                new TasMemMapping(2, 1),
+                new TasMemMapping(3, 4),
+                new TasMemMapping(4, 3),
+                new TasMemMapping(6, 6),
         };
     }
 
@@ -94,12 +108,19 @@ public class SampleTaskDataUtil {
         for (Inventory sampleInventory : getSampleInventory()) {
             samplePd.addInventory(sampleInventory);
         }
-        for (InvMemMapping map : getSampleInvMemMappings()) {
-            samplePd.addMapping(map);
+
+        for (InvMemMapping sampleInvMem : getSampleInvMemMapping()) {
+            samplePd.addMapping(sampleInvMem);
         }
-        for (InvTasMapping map : getSampleInvTasMappings()) {
-            samplePd.addMapping(map);
+
+        for (InvTasMapping sampleInvTas : getSampleInvTasMapping()) {
+            samplePd.addMapping(sampleInvTas);
         }
+
+        for (TasMemMapping sampleTasMem : getSampleTasMemMapping()) {
+            samplePd.addMapping(sampleTasMem);
+        }
+
         return samplePd;
     }
 
