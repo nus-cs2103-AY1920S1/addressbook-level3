@@ -395,13 +395,13 @@ Refer to <<Conditions>> To see Condition related commands.
 Adds new Reminder. Creating Reminder requires Conditions to be created first.
 The Condition Index refers to the index of the condition to add in the condition list.
 
-Format: `addReminder d/<Message> i/<Condition Index> [tkr/<Tracker Type>] [amt/<Quota>]
+Format: `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [amt/<Quota>]
 
 Example:
 
-* `addReminder d/Watch your spending i/1`
-* `addReminder d/Watch your spending i/1 tkr/amount amt/100`
-* `addReminder d/Watch your spending i/1 tkr/num amt/10`
+* `addReminder n/Watch your spending i/1`
+* `addReminder n/Watch your spending i/1 tkr/amount amt/100`
+* `addReminder n/Watch your spending i/1 tkr/num amt/10`
 
 ==== List all active Reminders (reminders currently set to display) : `listActiveReminders`
 Lists all the reminders that are currently being displayed.
@@ -424,12 +424,12 @@ Example:
 ==== Edit Reminder : `editReminder`
 Edits the description/ activation conditions/ attribute being tracked/ quota of the reminder.
 
-Format: `editReminder <Reminder Index> [i/<Condition Index>] [tkr/<Tracker Type>] [amt/<Quota>] `
+Format: `editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [amt/<Quota>] `
 
 
 Example:
 
-* `editReminder 1 d/Don't be broke. `
+* `editReminder 1 n/Don't be broke. `
 * `editReminder 2 i/1 i/2 i/3`
 * `editReminder 3 tkr/amount amt/100`
 
