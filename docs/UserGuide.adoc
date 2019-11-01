@@ -604,6 +604,7 @@ TimeBook will also help you to decide where to meet for your project meetings by
 .. Add your group members to your group with `addtogroup` command
 . Find the free common time when you want to meet with `show` command
 . With the free time slot `id` get the details for the closest common location with `popup` command
+. Press `esc` button to close the popup
 
 *Constraints*
 
@@ -618,7 +619,7 @@ The full list of the supported locations is below.
 
 ==== Closest Common Location Popup `popup`
 
-command: `popup g/ [groupname] i/[id]`
+command: `popup g/ GROUP_NAME i/ID`
 
 image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
 
@@ -631,12 +632,12 @@ When the command is executed a popup will appear that shows the all the informat
 
 _Parameters_
 
-. `[groupname]`
+. `GROUP_NAME`
 - Description: This is the name of the Group you want to find the free time for.
 The `groupname` can be found on the
 `groups` tab in the user interface.(Use `switch-tab` if your tab is on persons)
 - Type: `String`
-. `[id]`
+. `ID`
 - Description: This is the `id` of the free time slot of a group.
 You can get this `id` from the user interface when you use `show g/[groupname]` command.
 You can only enter the `id` that is shown on the screen.
@@ -666,6 +667,13 @@ Format:
 Examples:
 
 * `popup g/CS2103T i/2`
+
+==== Close popup `esc`
+
+After you are done with viewing the information on the popup press `esc` button on your keyboard to close the popup and
+and return to the main screen.
+
+Format: `esc` button on keyboard.
 
 ==== Clearing all entries: `clear`
 
@@ -725,15 +733,18 @@ e.g. `show g/CS2030 T2`
 e.g. `export-vr g/TimeBook o/timetable.jpg`
 * *Closest Location* : `closestlocation l/LOCATIONA LOCATIONB ...` +
 e.g. `closestlocation l/LT16 LT15 AS5`
-* *Show Free Time Slot* : `show-freetime g/GROUP_NAME id/SLOT_NUMBER` +
-e.g. `show-freetime g/CS2103T id/2`
+* *Show Free Time Slot* : `popup g/GROUP_NAME i/SLOT_NUMBER` +
+e.g. `popup g/CS2103T i/2`
 * *Help* : `help`
 * *Clear* : `clear`
 * *Exit* : `exit`
 
 == Supported Locations
 
-!=== |Valid Location|Valid Location|Valid Location|Valid Location|Valid Location|Valid Location| |AS4-0116|AS3-0214|AS3-0213|AS3-0303|AS3-0212|AS3-0302|AS1-0303|AS1-0302|AS5-0309|LT9
+!===
+10+|Valid Locations|
+
+|AS4-0116|AS3-0214|AS3-0213|AS3-0303|AS3-0212|AS3-0302|AS1-0303|AS1-0302|AS5-0309|LT9
 
 AS1-0304|AS6-0214|AS5-0205|AS2-0413|AS3-0215|LT12|AS7-0119|AS4-0118|LT11|AS1-0209|
 
