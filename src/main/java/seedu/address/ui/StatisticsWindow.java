@@ -71,8 +71,8 @@ public class StatisticsWindow extends UiPart<Stage> {
         );
         this.startingDateLabel.setWrapText(true);
         this.endingDateLabel.setText(
-                "Final value of " + statsLabel + "\n" +
-                         " ending on " + lastData.getXValue()
+                "Final value of " + statsLabel + "\n"
+                        + " ending on " + lastData.getXValue()
         );
         this.endingDateLabel.setWrapText(true);
     }
