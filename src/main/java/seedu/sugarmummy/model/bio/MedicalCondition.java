@@ -11,9 +11,10 @@ public class MedicalCondition implements ListableField {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Medical conditions can take any values, and it should not be blank.";
+    public static final String MESSAGE_DUPLICATE_INPUTS = "Duplicate inputs have been found. Please check to ensure "
+            + "that there are no duplicates in medical conditions entered.";
 
     public static final String VALIDATION_REGEX = "\"^$|[^\\\\s].*";
-
     public final String medicalCondition;
 
     /**
