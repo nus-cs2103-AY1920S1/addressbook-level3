@@ -1,7 +1,5 @@
 package seedu.address.model.student;
 
-import java.io.FileNotFoundException;
-
 //@@ author SebastianLie
 /**
  * Class to handle location of image on student card
@@ -16,9 +14,18 @@ public class DisplayPicture {
     }
 
     /**
+     * Overloaded method to load
+     * DisplayPicture
+     * @param fileName
+     */
+    public DisplayPicture(String fileName) {
+
+        imgFileName = fileName;
+    }
+
+    /**
      * tries to load img and send it to another component
-     * @return Image
-     * @throws FileNotFoundException
+     * @return String of imgFilePath
      */
     public String getFilePath() {
         return imgFileName;
@@ -28,6 +35,9 @@ public class DisplayPicture {
     }
     public void setNewImg(String newImg) {
         imgFileName = newImg;
+    }
+    public void setToDefault() {
+        imgFileName = defaultPicture;
     }
 
     /**

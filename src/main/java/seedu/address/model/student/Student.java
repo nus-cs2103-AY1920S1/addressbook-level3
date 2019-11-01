@@ -31,7 +31,31 @@ public class Student {
      * Every field must be present and not null.
      */
     public Student(Name name, Phone phone, Email email, ParentPhone parentPhone, Address address,
-                   MedicalCondition medicalCondition, Set<Tag> tags) {
+                   DisplayPicture displayPicture, MedicalCondition medicalCondition, Set<Tag> tags) {
+        requireAllNonNull(name, parentPhone, phone, email, address, medicalCondition, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.parentPhone = parentPhone;
+        this.address = address;
+        this.medicalCondition = medicalCondition;
+        this.tags.addAll(tags);
+        this.displayPicture = displayPicture;
+    }
+
+    /**
+     * overloaded method for backwards
+     * compatibility for older code without displaypic
+     * @param name
+     * @param phone
+     * @param email
+     * @param parentPhone
+     * @param address
+     * @param medicalCondition
+     * @param tags
+     */
+    public Student(Name name, Phone phone, Email email, ParentPhone parentPhone, Address address,
+                    MedicalCondition medicalCondition, Set<Tag> tags) {
         requireAllNonNull(name, parentPhone, phone, email, address, medicalCondition, tags);
         this.name = name;
         this.phone = phone;

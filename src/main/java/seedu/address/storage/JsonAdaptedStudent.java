@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.student.Address;
+import seedu.address.model.student.DisplayPicture;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
 import seedu.address.model.student.Name;
@@ -129,11 +130,13 @@ class JsonAdaptedStudent {
         }
         final Address modelAddress = new Address(address);
 
+        final DisplayPicture modelDisplayPicture = new DisplayPicture(displayPicture);
+
         final MedicalCondition modelMedicalCondition = new MedicalCondition(medicalCondition);
 
         final Set<Tag> modelTags = new HashSet<>(studentTags);
-        return new Student(modelName, modelPhone, modelEmail, modelParentPhone, modelAddress, modelMedicalCondition,
-                modelTags);
+        return new Student(modelName, modelPhone, modelEmail, modelParentPhone, modelAddress,
+                modelDisplayPicture, modelMedicalCondition, modelTags);
     }
 
 }

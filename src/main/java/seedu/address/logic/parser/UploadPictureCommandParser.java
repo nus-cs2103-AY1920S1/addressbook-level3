@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UploadPictureCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author SebastianLie
 /**
  * parses input arguments and return UploadPictureCommand
  */
