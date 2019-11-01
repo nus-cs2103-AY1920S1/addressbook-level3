@@ -100,8 +100,7 @@ public class StatsWindow extends UiPart<Stage> {
         ArrayList<Integer> perform = model.getPerformance();
         if (perform.size() == 0) {
             seriesC.getData().add(new XYChart.Data(0, 0));
-        }
-        else {
+        } else {
             for (int i = 0; i < perform.size(); i++) {
                 seriesC.getData().add(new XYChart.Data(i + 1, perform.get(i).intValue()));
             }
