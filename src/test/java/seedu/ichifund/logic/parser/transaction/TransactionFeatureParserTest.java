@@ -2,40 +2,74 @@ package seedu.ichifund.logic.parser.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ichifund.testutil.Assert.assertThrows;
+import static seedu.ichifund.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.ichifund.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.ichifund.logic.commands.AddCommand;
 import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
+import seedu.ichifund.logic.commands.transaction.DeleteTransactionCommand;
+import seedu.ichifund.logic.commands.transaction.EditTransactionCommand;
+import seedu.ichifund.logic.commands.transaction.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.ichifund.logic.commands.transaction.FilterTransactionCommand;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
-import seedu.ichifund.model.person.Person;
-import seedu.ichifund.testutil.PersonBuilder;
-import seedu.ichifund.testutil.PersonUtil;
+import seedu.ichifund.model.transaction.Transaction;
+import seedu.ichifund.testutil.ArgumentBuilder;
+import seedu.ichifund.testutil.EditTransactionDescriptorBuilder;
+import seedu.ichifund.testutil.TransactionBuilder;
+import seedu.ichifund.testutil.TransactionUtil;
 
 public class TransactionFeatureParserTest {
 
     private final TransactionFeatureParser parser = new TransactionFeatureParser();
 
     @Test
-    public void parseCommand_addTransaction() throws Exception {
-        // AddTransactionCommand command = (AddTransactionCommand) parser.parseCommand(AddTransactionCommand.COMMAND_WORD,
-                // PREFIX_DESCRIPTION);
-        // assertEquals(new AddTransactionCommand(person), command);
+    public void parseCommand_filterTransaction() throws Exception {
+        Transaction transaction = new TransactionBuilder().build();
+        String commandArguments = new ArgumentBuilder()
+                .withMonth(transaction.getMonth().toString())
+                .build();
+        FilterTransactionCommand command = new FilterTransactionCommand(Optional.of(transaction.getMonth()),
+                Optional.empty(), Optional.empty(), Optional.empty());
+        assertEquals(command, (FilterTransactionCommand) parser
+                .parseCommand(FilterTransactionCommand.COMMAND_WORD, commandArguments));
     }
 
     @Test
-    public void parseCommand_filterTransaction() throws Exception {
-        Person person = new PersonBuilder().build();
-        // AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        // assertEquals(new AddCommand(person), command);
+    public void parseCommand_addTransaction() throws Exception {
+        Transaction transaction = new TransactionBuilder().build();
+        String commandArguments = new ArgumentBuilder()
+                .withDescription(transaction.getDescription().toString())
+                .withAmount(transaction.getAmount().toString())
+                .build();
+        AddTransactionCommand command = new AddTransactionCommand(transaction.getDescription(),
+                transaction.getAmount(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(),
+                Optional.empty());
+        assertEquals(command, (AddTransactionCommand) parser
+                .parseCommand(AddTransactionCommand.COMMAND_WORD, commandArguments));
+    }
+
+    @Test
+    public void parseCommand_editTransaction() throws Exception {
+        Transaction transaction = new TransactionBuilder().build();
+        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction).build();
+        EditTransactionCommand command = (EditTransactionCommand) parser
+                .parseCommand(EditTransactionCommand.COMMAND_WORD,
+                        INDEX_FIRST_PERSON.getOneBased() + " "
+                        + TransactionUtil.getEditTransactionDescriptorDetails(descriptor));
+        assertEquals(new EditTransactionCommand(INDEX_FIRST_PERSON, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_deleteTransaction() throws Exception {
+        DeleteTransactionCommand command = (DeleteTransactionCommand) parser.parseCommand(
+                DeleteTransactionCommand.COMMAND_WORD, "" + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteTransactionCommand(INDEX_FIRST), command);
     }
 
     @Test
