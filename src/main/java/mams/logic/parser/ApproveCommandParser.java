@@ -23,6 +23,7 @@ import mams.model.appeal.Appeal;
  * Parses input arguments and creates a new {@code ApproveCommand} object
  */
 public class ApproveCommandParser implements Parser<Approve> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the {@code ApproveCommand}
      * and returns a {@code ApproveCommand} object for execution.
@@ -34,6 +35,7 @@ public class ApproveCommandParser implements Parser<Approve> {
                 PREFIX_APPEAL, PREFIX_REASON, PREFIX_MASS_RESOLVE);
 
         Index index;
+        String ID;
 
         if (argMultimap.areAllPrefixesAbsent(PREFIX_APPEAL, PREFIX_MASS_RESOLVE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

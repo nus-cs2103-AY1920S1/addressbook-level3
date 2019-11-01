@@ -4,13 +4,13 @@
     "credits" : "20",
     "prevMods" : "CS1010, CS1020",
     "matricId" : "A0180000",
-    "tagged" : [ "CS1231", "CS2030", "CS2040", "C000000" ]
+    "tagged" : [ "CS1231", "CS2030", "C000000", "CS2040" ]
   }, {
     "name" : "Madonna Morgado  ",
     "credits" : "23",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180001",
-    "tagged" : [ "CS1231", "CS2106", "CS2105", "CS2101", "C000001" ]
+    "tagged" : [ "C000001", "CS1231", "CS2106", "CS2105", "CS2101" ]
   }, {
     "name" : "Ronna Rousey  ",
     "credits" : "24",
@@ -22,13 +22,13 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2105",
     "matricId" : "A0180003",
-    "tagged" : [ "CS1231", "CS2220", "CS2030", "C000003" ]
+    "tagged" : [ "CS1231", "CS2220", "C000003", "CS2030" ]
   }, {
     "name" : "Tamala Touchette  ",
     "credits" : "22",
     "prevMods" : "CS1010, CS1231, CS2030",
     "matricId" : "A0180004",
-    "tagged" : [ "CS2220", "CS2030", "C000004" ]
+    "tagged" : [ "C000004", "CS2220", "CS2030" ]
   }, {
     "name" : "Kourtney Kaminsky  ",
     "credits" : "21",
@@ -40,7 +40,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180006",
-    "tagged" : [ "CS1020", "CS2101", "C000006" ]
+    "tagged" : [ "CS1020", "C000006", "CS2101" ]
   }, {
     "name" : "Staci Snowden  ",
     "credits" : "23",
@@ -70,7 +70,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180011",
-    "tagged" : [ "CS1231", "CS2040" ]
+    "tagged" : [ "CS1231", "CS2030", "CS2040" ]
   }, {
     "name" : "Lucy Lomas  ",
     "credits" : "23",
@@ -326,7 +326,7 @@
     "timeSlot" : "1,2,45,46,47"
   }, {
     "quota" : "50",
-    "tagged" : [ "A0180031", "A0180010", "A0180021", "A0180032", "A0180000", "A0180033", "A0180023", "A0180013", "A0180003", "A0180036", "A0180047", "A0180004", "A0180049", "A0180028", "A0180009" ],
+    "tagged" : [ "A0180031", "A0180010", "A0180021", "A0180032", "A0180000", "A0180033", "A0180011", "A0180023", "A0180013", "A0180003", "A0180036", "A0180047", "A0180004", "A0180049", "A0180028", "A0180009" ],
     "moduleCode" : "CS2030",
     "moduleName" : "Programming Methodology II",
     "moduleDescription" : "This module is a follow up to CS1010. It explores two modern programming paradigms, object-oriented programming and functional programming. Through a series of integrated assignments, students will learn to develop medium-scale software programs in the order of thousands of lines of code and tens of classes using objectoriented design principles and advanced programming constructs available in the two paradigms. Topics include objects and classes, composition, association, inheritance, interface, polymorphism, abstract classes, dynamic binding, lambda expression, effect-free programming, first class functions, closures, continuations, monad, etc.",
@@ -483,6 +483,76 @@
     "previousModule" : "",
     "newModule" : "",
     "moduleToAdd" : "CS2040",
+    "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000007",
+    "appealType" : "Add module",
+    "studentId" : "A0180007",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I wish to take this module to clear my prerequisite",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "CS1020",
+    "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000008",
+    "appealType" : "Drop module",
+    "studentId" : "A0180008",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I cannot cope",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "",
+    "moduleToDrop" : "CS2220",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000009",
+    "appealType" : "Drop module",
+    "studentId" : "A0180009",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I wish to take this module to clear my prerequisite",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "",
+    "moduleToDrop" : "CS2030",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000010",
+    "appealType" : "Increase workload",
+    "studentId" : "A0180043",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 30,
+    "appealDescription" : "I want to overload this sem",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "",
+    "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000011",
+    "appealType" : "Add module",
+    "studentId" : "A0180011",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I wish to take this module to clear my prerequisite",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "CS2030",
     "moduleToDrop" : "",
     "resolved" : false,
     "result" : "",
