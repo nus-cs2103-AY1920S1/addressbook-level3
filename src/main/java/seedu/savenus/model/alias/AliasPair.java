@@ -58,7 +58,7 @@ public class AliasPair {
             return true;
         }
 
-        if (this instanceof AliasPair) {
+        if (object instanceof AliasPair) {
             AliasPair other = (AliasPair) object;
             return this.getCommandWord().equals(other.getCommandWord())
                     && this.getAliasWord().equals(other.getAliasWord());
